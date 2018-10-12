@@ -1,0 +1,14 @@
+"VertexLitGeneric"
+{
+	"$envmap" "models/half-life/scientist/scientist_glasses_lens_chrome"
+	"$envmapsphere" 1
+	"$multipass" 1
+	"$additive" 1
+	
+	"VertexLitGeneric_HDR_DX9"
+	{
+		"$envmaptint" "[.3 .3 .3]"
+		"$envmapcontrast" 1
+		"$envmapsaturation" .5
+	}
+}

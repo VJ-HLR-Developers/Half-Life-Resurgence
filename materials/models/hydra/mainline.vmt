@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	// Original shader: addtexture
+	"$basetexture" "models/hydra/mainline"
+	"$additive" 1
+	"$model" 1
+}

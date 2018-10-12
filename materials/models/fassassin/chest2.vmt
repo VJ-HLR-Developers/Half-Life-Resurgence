@@ -1,0 +1,24 @@
+//"ModelDiffuseBump"
+"VertexLitGeneric"
+//"Wireframe"
+{
+	"$bumpmap" "models/fassassin/chest_normal"
+	//"$normalmapalphaenvmapmask" 1
+	//"$envmap" "shadertest/cubemap"
+	"$model" 1
+	"$basetexture" "models/fassassin/chest2"
+	//"$envmaptint" "[0.8 0.8 0.8]"
+	
+	
+	// -- From here down is new stuff which will only be applied if $phong is set to 1 --
+	"$phong" "1"
+	"$phongexponent" "5"
+	"$phongboost"	"9"
+	"$phongfresnelranges"	"[0.04 0.4 1]"
+
+	// Rim lighting parameters
+	"$rimlight" "1"												// To enable rim lighting (requires phong)
+	"$rimlightexponent" "5"										// Exponent for phong component of rim lighting	
+	"$rimlightboost" ".80"		
+	
+}

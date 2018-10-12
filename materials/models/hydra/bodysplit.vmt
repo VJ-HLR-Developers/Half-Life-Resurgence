@@ -1,0 +1,21 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/hydra/bodysplit"
+	"$additive" "1"
+	"$bumpmap" 	"models/hydra/bodysplit_n"
+	"$model" 1
+	"$selfillum" "1"
+	//"$selfIllumFresnel" "1"
+	//"$selfIllumFresnelMinMaxExp" "[0.2 2.2 3]" // 0.0 1.0 1.0 is the default
+	//"$selfillumtint"	"[1.15 1.15 0.55]"
+	"$phong"     "1"
+	"$phongexponent"   "20"
+	"$phongboost"   "6"
+	"$phongfresnelranges"   "[.1 1 1]"
+	"$rimlight" "1"
+	"$rimlightexponent" "5"
+	"$rimlightboost" "5"
+	"$envmap" "env_cubemap"
+	"$envmaptint" "[.6 .6 .6]"
+	"$lightwarptexture" "Models/antlion/antlion_worker_warp"
+}

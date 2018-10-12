@@ -1,0 +1,8 @@
+"Refract"
+{
+	"$normalmap" "models/hydra/bodysplit_n"			// Defines the refraction pattern; may be animated
+	"$dudvmap" "models/hydra/bodysplit_n"			// As above when running below DX9
+	"$refracttint" "[.8 .8 1]"		// Colors the refraction
+	"$refractamount" 0.4		// Refraction strength; use low values
+        "$model" 1
+}

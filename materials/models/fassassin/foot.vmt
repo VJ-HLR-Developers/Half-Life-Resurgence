@@ -1,0 +1,20 @@
+//"ModelDiffuseBump"
+"VertexLitGeneric"
+{
+	"$basetexture" "models/fassassin/foot"
+	"$bumpmap" "models/fassassin/foot_normal"
+	//"$envmap" "models/fassassin/cubemap"
+	//"$envmaptint" "[0.1 0.1 0.1]"
+	"$model" 1
+	
+	// -- From here down is new stuff which will only be applied if $phong is set to 1 --
+	"$phong" "1"
+	"$phongexponent" "5"
+	"$phongboost"	"9"
+	"$phongfresnelranges"	"[0.04 0.4 1]"
+
+	// Rim lighting parameters
+	"$rimlight" "1"												// To enable rim lighting (requires phong)
+	"$rimlightexponent" "5"										// Exponent for phong component of rim lighting	
+	"$rimlightboost" ".80"		
+}

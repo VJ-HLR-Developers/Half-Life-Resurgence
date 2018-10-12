@@ -1,0 +1,6 @@
+//"ModelDiffuseBump"
+"VertexLitGeneric"
+{
+	"$basetexture" "models/fassassin/pouch"
+	"$model" 1
+}

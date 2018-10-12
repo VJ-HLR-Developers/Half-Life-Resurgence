@@ -1,0 +1,13 @@
+"VertexLitGeneric"
+{
+	"$envmap" "models/half-life/big_mom/babychrome"
+	"$envmapsphere" 1
+	"$multipass" 1
+	
+	"VertexLitGeneric_HDR_DX9"
+	{
+		"$envmaptint" "[.3 .3 .3]"
+		"$envmapcontrast" 1
+		"$envmapsaturation" .5
+	}
+}

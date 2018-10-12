@@ -1,0 +1,9 @@
+"VertexLitGeneric"
+{
+	"$envmap" "models\weapons/half-life/v_Hgun/hive_chrome"
+	"$envmapsphere"			1
+	$envmaptint 0.1 0.1 0.1
+	// requred to see specular on dx6+7 at all
+	"$multipass" 1
+}
+

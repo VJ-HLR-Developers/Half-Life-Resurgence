@@ -1,0 +1,7 @@
+//"ModelDiffuseBump"
+"VertexLitGeneric"
+{
+	"$bumpmap" "models/fassassin/arm_normal"
+	//"$envmap" "shadertest/cubemap"
+	"$model" 1
+}
