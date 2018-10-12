@@ -111,6 +111,9 @@ function ENT:CustomOnThink()
 		self.Weapon_StartingAmmoAmount = 50
 	end
 end
+
+-- Mawskeeto was here.
+
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2018 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
