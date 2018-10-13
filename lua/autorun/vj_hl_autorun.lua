@@ -17,6 +17,17 @@ if VJExists == true then
 
 	local vCat = "Half-Life: Resurgence"
 
+	-- Half-Life 1
+		-- HECU
+			-- Opposing Force
+			VJ.AddNPC("Human Grunt (Opposing Force)","npc_vj_hlof_humangrunt",vCat)
+
+		-- Xen Creatures
+		VJ.AddNPC("Alien Grunt","npc_vj_hl_aliengrunt",vCat)
+		VJ.AddNPC("Baby Headcrab","npc_vj_hl_babyheadcrab",vCat)
+		VJ.AddNPC("Gonarch","npc_vj_hl_gonarch",vCat)
+		VJ.AddNPC("Zombie","npc_vj_hl_zombie",vCat)
+		
 	-- Half-Life 2
 		-- Combine
 		VJ.AddNPC_HUMAN("Overwatch Soldier","npc_vj_hl2c_soldier",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
@@ -31,16 +42,6 @@ if VJExists == true then
 		
 		-- Random Creatures
 		VJ.AddNPC("Hydra","npc_vj_hlrand_hydra",vCat)
-		
-	-- Half-Life 1
-		-- HECU
-		VJ.AddNPC("Human Grunt","npc_vj_hl_humangrunt",vCat)
-
-		-- Xen Creatures
-		//VJ.AddNPC("Alien Grunt","npc_vj_hl_aliengrunt",vCat)
-		//VJ.AddNPC("Baby Headcrab","npc_vj_hl_babyheadcrab",vCat)
-		//VJ.AddNPC("Gonarch","npc_vj_hl_gonarch",vCat)
-		VJ.AddNPC("Zombie","npc_vj_hl_zombie",vCat)
 	
 	-- Decals
 	game.AddDecal("VJ_HL_RED",{"vj_hl/decals/hl_blood01","vj_hl/decals/hl_blood02","vj_hl/decals/hl_blood03","vj_hl/decals/hl_blood04","vj_hl/decals/hl_blood05","vj_hl/decals/hl_blood06","vj_hl/decals/hl_blood07","vj_hl/decals/hl_blood08"})
