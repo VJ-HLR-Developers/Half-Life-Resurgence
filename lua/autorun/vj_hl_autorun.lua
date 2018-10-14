@@ -26,7 +26,11 @@ if VJExists == true then
 		VJ.AddNPC("Alien Grunt","npc_vj_hl_aliengrunt",vCat)
 		VJ.AddNPC("Baby Headcrab","npc_vj_hl_babyheadcrab",vCat)
 		VJ.AddNPC("Gonarch","npc_vj_hl_gonarch",vCat)
-		VJ.AddNPC("Zombie","npc_vj_hl_zombie",vCat)
+			-- Headcrab
+			VJ.AddNPC("Zombie","npc_vj_hl_zombie",vCat)
+				-- Opposing Force
+				VJ.AddNPC("Zombie Security Guard","npc_vj_hlof_zombiesecurity",vCat)
+				VJ.AddNPC("Zombie Soldier","npc_vj_hlof_zombiesoldier",vCat)
 		
 	-- Half-Life 2
 		-- Combine
