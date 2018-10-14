@@ -33,11 +33,10 @@ ENT.AnimTbl_ShootWhileMovingRun = {ACT_SPRINT} -- Animations it will play when s
 ENT.AnimTbl_ShootWhileMovingWalk = {ACT_SPRINT} -- Animations it will play when shooting while walking | NOTE: Weapon may translate the animation that they see fit!
 ENT.CallForBackUpOnDamageAnimation = {ACT_SIGNAL3} -- Animation used if the SNPC does the CallForBackUpOnDamage function
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
-ENT.AnimTbl_CallForHelp = {ACT_SIGNAL1,ACT_SIGNAL2} -- Call For Help Animations
+ENT.AnimTbl_CallForHelp = {ACT_SIGNAL1} -- Call For Help Animations
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIE_GUTSHOT,ACT_DIE_HEADSHOT,ACT_DIESIMPLE} -- Death Animations
 ENT.DeathAnimationTime = 0.8 -- Time until the SNPC spawns its corpse and gets removed
-//ENT.WaitBeforeDeathTime = 0 -- Time until the SNPC spawns its corpse and gets removed
 ENT.AnimTbl_TakingCover = {ACT_CROUCHIDLE} -- The animation it plays when hiding in a covered position, leave empty to let the base decide
 ENT.AnimTbl_AlertFriendsOnDeath = {"vjseq_idle2"} -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
 	-- ====== Flinching Code ====== --
