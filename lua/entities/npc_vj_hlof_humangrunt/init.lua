@@ -11,7 +11,7 @@ ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
-ENT.CustomBlood_Decal = {"VJ_HL_RED"} -- Decals to spawn when it's damaged
+ENT.CustomBlood_Decal = {"VJ_Blood_HL1_Red"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1} -- Melee Attack Animations
@@ -110,6 +110,38 @@ function ENT:CustomOnThink()
 		self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_AR2_LOW}
 		self.Weapon_StartingAmmoAmount = 50
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
+	if self.HasGibDeathParticles == true then
+		local bloodeffect = EffectData()
+		bloodeffect:SetOrigin(self:GetPos() +self:OBBCenter())
+		bloodeffect:SetColor(VJ_Color2Byte(Color(130,19,10)))
+		bloodeffect:SetScale(120)
+		util.Effect("VJ_Blood1",bloodeffect)
+		
+		local bloodspray = EffectData()
+		bloodspray:SetOrigin(self:GetPos())
+		bloodspray:SetScale(8)
+		bloodspray:SetFlags(3)
+		bloodspray:SetColor(0)
+		util.Effect("bloodspray",bloodspray)
+		util.Effect("bloodspray",bloodspray)
+	end
+	
+	self:CreateGibEntity("obj_vj_gib","models/mawskeeto/halflife/flesh1.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
+	self:CreateGibEntity("obj_vj_gib","models/mawskeeto/halflife/flesh2.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
+	self:CreateGibEntity("obj_vj_gib","models/mawskeeto/halflife/flesh3.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
+	self:CreateGibEntity("obj_vj_gib","models/mawskeeto/halflife/flesh4.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
+	self:CreateGibEntity("obj_vj_gib","models/mawskeeto/halflife/hgib_b_bone1.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,50))})
+	self:CreateGibEntity("obj_vj_gib","models/mawskeeto/halflife/hgib_b_gib1.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
+	self:CreateGibEntity("obj_vj_gib","models/mawskeeto/halflife/hgib_guts1.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
+	self:CreateGibEntity("obj_vj_gib","models/mawskeeto/halflife/hgib_hmeat.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,45))})
+	self:CreateGibEntity("obj_vj_gib","models/mawskeeto/halflife/hgib_lung.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,45))})
+	self:CreateGibEntity("obj_vj_gib","models/mawskeeto/halflife/hgib_skull.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,60))})
+	self:CreateGibEntity("obj_vj_gib","models/mawskeeto/halflife/hgib_legbone.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,15))})
+	self:CreateGibEntity("obj_vj_gib","models/mawskeeto/halflife/gib_hgrunt.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,15))})
+	return true -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
