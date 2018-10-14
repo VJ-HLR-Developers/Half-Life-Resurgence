@@ -20,7 +20,7 @@ if VJExists == true then
 	-- Half-Life 1
 		-- HECU
 			-- Opposing Force
-			VJ.AddNPC("Human Grunt (Opposing Force)","npc_vj_hlof_humangrunt",vCat)
+			VJ.AddNPC("Human Grunt (OppF)","npc_vj_hlof_humangrunt",vCat)
 
 		-- Xen Creatures
 		VJ.AddNPC("Alien Grunt","npc_vj_hl_aliengrunt",vCat)
