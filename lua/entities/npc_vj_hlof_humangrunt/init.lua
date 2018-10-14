@@ -10,9 +10,9 @@ ENT.StartHealth = 90
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
 ENT.CustomBlood_Decal = {"VJ_Blood_HL1_Red"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
+ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1} -- Melee Attack Animations
 ENT.MeleeAttackDamage = 10
@@ -96,6 +96,14 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
+	-- Veravorvadz kalel
+	if self:Health() <= (self:GetMaxHealth() / 2.2) then
+		self.AnimTbl_Walk = {ACT_WALK_HURT}
+		self.AnimTbl_Run = {ACT_RUN_HURT}
+		self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK_HURT}
+		self.AnimTbl_ShootWhileMovingRun = {ACT_RUN_HURT}
+	end
+	
 	local bgroup = self:GetBodygroup(3)
 	if bgroup == 0 then -- MP5
 		self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
