@@ -17,8 +17,9 @@ if VJExists == true then
 
 	local vCat = "Half-Life: Resurgence"
 
-	-- Half-Life 1
+	-- Half-Life 1 -------------------------------------------------------
 		-- HECU
+		VJ.AddNPC("Human Grunt","npc_vj_hl_humangrunt",vCat)
 			-- Opposing Force
 			VJ.AddNPC("Human Grunt (OppF)","npc_vj_hlof_humangrunt",vCat)
 
@@ -32,7 +33,7 @@ if VJExists == true then
 				VJ.AddNPC("Zombie Security Guard","npc_vj_hlof_zombiesecurity",vCat)
 				VJ.AddNPC("Zombie Soldier","npc_vj_hlof_zombiesoldier",vCat)
 		
-	-- Half-Life 2
+	-- Half-Life 2 -------------------------------------------------------
 		-- Combine
 		VJ.AddNPC_HUMAN("Overwatch Soldier","npc_vj_hl2c_soldier",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
 		VJ.AddNPC_HUMAN("Overwatch Shotgun Soldier","npc_vj_hl2c_shotgunner",{"weapon_vj_spas12"},vCat)

@@ -38,16 +38,26 @@ ENT.HitGroupFlinching_Values = {
 } -- if "IsSchedule" is set to true, "Animation" needs to be a schedule
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_FootStep = {"vj_hl1/pl_step1.wav","vj_hl1/pl_step2.wav","vj_hl1/pl_step3.wav","vj_hl1/pl_step4.wav"}
-ENT.SoundTbl_Idle = {"vj_hl1/zombie/zo_idle1.wav","vj_hl1/zombie/zo_idle2.wav","vj_hl1/zombie/zo_idle3.wav","vj_hl1/zombie/zo_idle4.wav"}
-ENT.SoundTbl_Alert = {"vj_hl1/zombie/zo_alert10.wav","vj_hl1/zombie/zo_alert20.wav","vj_hl1/zombie/zo_alert30.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"vj_hl1/zombie/zo_attack1.wav","vj_hl1/zombie/zo_attack2.wav"}
-ENT.SoundTbl_MeleeAttackExtra = {"vj_hl1/zombie/claw_strike1.wav","vj_hl1/zombie/claw_strike2.wav","vj_hl1/zombie/claw_strike3.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hl1/zombie/claw_miss1.wav","vj_hl1/zombie/claw_miss2.wav"}
-ENT.SoundTbl_Pain = {"vj_hl1/zombie/zo_pain1.wav","vj_hl1/zombie/zo_pain2.wav"}
-ENT.SoundTbl_Death = {"vj_hl1/zombie/zo_pain1.wav","vj_hl1/zombie/zo_pain2.wav"}
+ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/zombie/zo_idle1.wav","vj_hlr/hl1_npc/zombie/zo_idle2.wav","vj_hlr/hl1_npc/zombie/zo_idle3.wav","vj_hlr/hl1_npc/zombie/zo_idle4.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/zombie/zo_alert10.wav","vj_hlr/hl1_npc/zombie/zo_alert20.wav","vj_hlr/hl1_npc/zombie/zo_alert30.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/zombie/zo_attack1.wav","vj_hlr/hl1_npc/zombie/zo_attack2.wav"}
+ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav","vj_hlr/hl1_npc/zombie/claw_strike2.wav","vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/zombie/zo_pain1.wav","vj_hlr/hl1_npc/zombie/zo_pain2.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/zombie/zo_pain1.wav","vj_hlr/hl1_npc/zombie/zo_pain2.wav"}
 
 ENT.GeneralSoundPitch1 = 100
+
+-- Custom
+ENT.Zombie_Type = 0
+	-- 1 = Scientist
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnInitialize()
+	if self:GetModel() == "models/cpthazama/halflife/zombie.mdl" then
+		self.Zombie_Type = 1
+	end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	//print(key)
@@ -102,6 +112,9 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	self:CreateGibEntity("obj_vj_gib","models/mawskeeto/halflife/agib8.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,45))})
 	self:CreateGibEntity("obj_vj_gib","models/mawskeeto/halflife/agib9.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,25))})
 	self:CreateGibEntity("obj_vj_gib","models/mawskeeto/halflife/agib10.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,15))})
+	if self.Zombie_Type == 1 then
+		self:CreateGibEntity("obj_vj_gib","models/mawskeeto/halflife/zombiegib.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,15))})
+	end
 	return true -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

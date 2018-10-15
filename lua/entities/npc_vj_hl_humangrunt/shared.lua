@@ -1,4 +1,4 @@
-ENT.Base 			= "npc_vj_hl_humangrunt"
+ENT.Base 			= "npc_vj_human_base"
 ENT.Type 			= "ai"
 ENT.PrintName 		= "Human Grunt"
 ENT.Author 			= "DrVrej"
@@ -9,7 +9,7 @@ ENT.Category		= "Half Life"
 
 if (CLIENT) then
 	local Name = "Human Grunt"
-	local LangName = "npc_vj_hlof_humangrunt"
+	local LangName = "npc_vj_hl_humangrunt"
 	language.Add(LangName, Name)
 	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
 	language.Add("#"..LangName, Name)
