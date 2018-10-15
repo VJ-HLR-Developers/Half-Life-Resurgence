@@ -34,10 +34,10 @@ if VJExists == true then
 		
 	-- Half-Life 2
 		-- Combine
-		VJ.AddNPC_HUMAN("Overwatch Soldier","npc_vj_hl2c_soldier",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
+		VJ.AddNPC_HUMAN("Overwatch Soldier","npc_vj_hl2c_soldier",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
 		VJ.AddNPC_HUMAN("Overwatch Shotgun Soldier","npc_vj_hl2c_shotgunner",{"weapon_vj_spas12"},vCat)
 		VJ.AddNPC_HUMAN("Overwatch Elite","npc_vj_hl2c_elite",{"weapon_vj_ar2"},vCat)
-		VJ.AddNPC_HUMAN("Overwatch Prison Guard","npc_vj_hl2c_prospekt",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
+		VJ.AddNPC_HUMAN("Overwatch Prison Guard","npc_vj_hl2c_prospekt",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
 		VJ.AddNPC_HUMAN("Overwatch Prison Shotgun Guard","npc_vj_hl2c_pshotgunner",{"weapon_vj_spas12"},vCat)
 		//VJ.AddNPC("Combine Assassin","npc_vj_hl2c_assassin",vCat)
 
