@@ -113,6 +113,7 @@ function SWEP:CustomOnNPC_ServerThink()
 			end
 		elseif self.Owner.HECU_Type == 2 then
 			if bgroup == 0 then -- Desert Eagle
+				self.Primary.Damage = 15
 				self.HoldType = "pistol"
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_mp5")
@@ -121,6 +122,7 @@ function SWEP:CustomOnNPC_ServerThink()
 				self.NPC_CustomSpread = 1
 				self.Primary.ClipSize = 7
 			elseif bgroup == 1 then -- Glock 17
+				self.Primary.Damage = 5
 				self.HoldType = "pistol"
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_mp5")
