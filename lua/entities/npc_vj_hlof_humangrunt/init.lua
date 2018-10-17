@@ -10,7 +10,7 @@ ENT.Model = {"models/vj_hlr/opfor/hgrunt.mdl","models/vj_hlr/opfor/hgrunt_medic.
 // models/vj_hlr/opfor/hgrunt_medic.mdl
 
 	-- ====== Sounds ====== --
-ENT.SoundTbl_Idle = { "vj_hlr/hl1_npc/fgrunt/guard.wav", "vj_hlr/hl1_npc/fgrunt/mission.wav", "vj_hlr/hl1_npc/fgrunt/babysitting.wav", "vj_hlr/hl1_npc/fgrunt/coverup.wav", "vj_hlr/hl1_npc/fgrunt/now.wav", "vj_hlr/hl1_npc/fgrunt/seensquad.wav", "vj_hlr/hl1_npc/fgrunt/short.wav", "vj_hlr/hl1_npc/fgrunt/outof.wav", "vj_hlr/hl1_npc/fgrunt/lost.wav", "vj_hlr/hl1_npc/fgrunt/fubar.wav", "vj_hlr/hl1_npc/fgrunt/dogs.wav", "vj_hlr/hl1_npc/fgrunt/disney.wav", "vj_hlr/hl1_npc/fgrunt/checkrecon.wav" }
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/fgrunt/guard.wav","vj_hlr/hl1_npc/fgrunt/mission.wav","vj_hlr/hl1_npc/fgrunt/babysitting.wav","vj_hlr/hl1_npc/fgrunt/coverup.wav","vj_hlr/hl1_npc/fgrunt/now.wav","vj_hlr/hl1_npc/fgrunt/seensquad.wav","vj_hlr/hl1_npc/fgrunt/short.wav","vj_hlr/hl1_npc/fgrunt/outof.wav", "vj_hlr/hl1_npc/fgrunt/lost.wav", "vj_hlr/hl1_npc/fgrunt/fubar.wav","vj_hlr/hl1_npc/fgrunt/dogs.wav","vj_hlr/hl1_npc/fgrunt/disney.wav","vj_hlr/hl1_npc/fgrunt/checkrecon.wav" }
 ENT.SoundTbl_CombatIdle = {}
 ENT.SoundTbl_OnReceiveOrder = {}
 ENT.SoundTbl_MedicBeforeHeal = {}
