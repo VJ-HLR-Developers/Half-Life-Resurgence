@@ -42,7 +42,7 @@ function SWEP:CustomOnInitialize()
 	self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_mp5")
 	timer.Simple(0.1,function() -- Minag grunt-en model-e tske, yete ooresh model-e, serpe as zenke
 		if IsValid(self) then
-			if IsValid(self.Owner) && self.Owner:GetModel() != "models/mawskeeto/halflife/hgrunt.mdl" && self.Owner:GetModel() != "models/cpthazama/opfor/hgrunt.mdl" && self.Owner:GetModel() != "models/mawskeeto/opfor/hgrunt_medic.mdl" then
+			if IsValid(self.Owner) && self.Owner:GetModel() != "models/vj_hlr/opfor/hgrunt.mdl" && self.Owner:GetModel() != "models/vj_hlr/hl1/hgrunt.mdl" && self.Owner:GetModel() != "models/vj_hlr/opfor/hgrunt_medic.mdl" then
 				if IsValid(self.Owner:GetCreator()) then
 					self.Owner:GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for the Half Life 1 Human Grunts only!")
 				end
