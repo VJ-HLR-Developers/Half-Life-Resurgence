@@ -5,9 +5,9 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/cpthazama/opfor/hgrunt.mdl","models/mawskeeto/opfor/hgrunt_medic.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-// models/cpthazama/opfor/hgrunt.mdl
-// models/mawskeeto/opfor/hgrunt_medic.mdl
+ENT.Model = {"models/vj_hlr/opfor/hgrunt.mdl","models/vj_hlr/opfor/hgrunt_medic.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+// models/vj_hlr/opfor/hgrunt.mdl
+// models/vj_hlr/opfor/hgrunt_medic.mdl
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
 	if self.HECU_Type == 1 then
