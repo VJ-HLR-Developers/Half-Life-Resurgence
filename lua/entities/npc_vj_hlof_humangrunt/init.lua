@@ -8,6 +8,22 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/opfor/hgrunt.mdl","models/vj_hlr/opfor/hgrunt_medic.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 // models/vj_hlr/opfor/hgrunt.mdl
 // models/vj_hlr/opfor/hgrunt_medic.mdl
+
+	-- ====== Sounds ====== --
+ENT.SoundTbl_Idle = { "vj_hlr/hl1_npc/fgrunt/guard.wav", "vj_hlr/hl1_npc/fgrunt/mission.wav", "vj_hlr/hl1_npc/fgrunt/babysitting.wav", "vj_hlr/hl1_npc/fgrunt/coverup.wav", "vj_hlr/hl1_npc/fgrunt/now.wav", "vj_hlr/hl1_npc/fgrunt/seensquad.wav", "vj_hlr/hl1_npc/fgrunt/short.wav", "vj_hlr/hl1_npc/fgrunt/outof.wav", "vj_hlr/hl1_npc/fgrunt/lost.wav", "vj_hlr/hl1_npc/fgrunt/fubar.wav", "vj_hlr/hl1_npc/fgrunt/dogs.wav", "vj_hlr/hl1_npc/fgrunt/disney.wav", "vj_hlr/hl1_npc/fgrunt/checkrecon.wav" }
+ENT.SoundTbl_CombatIdle = {}
+ENT.SoundTbl_OnReceiveOrder = {}
+ENT.SoundTbl_MedicBeforeHeal = {}
+ENT.SoundTbl_MedicAfterHeal = {}
+ENT.SoundTbl_MedicReceiveHeal = {}
+ENT.SoundTbl_OnPlayerSight = {}
+ENT.SoundTbl_Alert = {}
+ENT.SoundTbl_CallForHelp = {}
+ENT.SoundTbl_GrenadeAttack = {}
+ENT.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/fgrunt/incoming.wav", "vj_hlr/hl1_npc/fgrunt/grenade.wav"}
+ENT.SoundTbl_OnKilledEnemy = {}
+ENT.SoundTbl_Pain = {}
+ENT.SoundTbl_Death = {}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
 	if self.HECU_Type == 1 then

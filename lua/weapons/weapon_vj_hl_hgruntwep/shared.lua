@@ -116,8 +116,8 @@ function SWEP:CustomOnNPC_ServerThink()
 				self.HoldType = "pistol"
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_mp5")
-				self.Primary.Sound = {"vj_hlr/hl1_weapon/357_shot1.wav"}
-				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/reload1.wav"}
+				self.Primary.Sound = {"vj_hlr/hl1_weapon/desert_eagle_fire.wav"}
+				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/desert_eagle_reload.wav"}
 				self.NPC_CustomSpread = 1
 				self.Primary.ClipSize = 7
 			elseif bgroup == 1 then -- Glock 17
