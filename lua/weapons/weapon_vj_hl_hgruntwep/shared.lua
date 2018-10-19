@@ -62,8 +62,8 @@ function SWEP:CustomOnNPC_ServerThink()
 				self.HoldType = "smg"
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_mp5")
-				self.Primary.Sound = {"vj_hlr/hl1_weapon/hks1.wav","vj_hlr/hl1_weapon/hks2.wav","vj_hlr/hl1_weapon/hks3.wav"}
-				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/mp_reload.wav"}
+				self.Primary.Sound = {"vj_hlr/hl1_weapon/mp5/hks1.wav","vj_hlr/hl1_weapon/mp5/hks2.wav","vj_hlr/hl1_weapon/mp5/hks3.wav"}
+				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/mp5/mp_reload.wav"}
 				self.NPC_ExtraFireSound = {}
 				self.NPC_CustomSpread = 1
 				self.Primary.ClipSize = 50
@@ -72,9 +72,9 @@ function SWEP:CustomOnNPC_ServerThink()
 				self.HoldType = "shotgun"
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_shotgun")
-				self.Primary.Sound = {"vj_hlr/hl1_weapon/sbarrel1.wav"}
-				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/shotgun_reload.wav"}
-				self.NPC_ExtraFireSound = {"vj_hlr/hl1_weapon/scock1.wav"}
+				self.Primary.Sound = {"vj_hlr/hl1_weapon/shotgun/sbarrel1.wav"}
+				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/shotgun/shotgun_reload.wav"}
+				self.NPC_ExtraFireSound = {"vj_hlr/hl1_weapon/shotgun/scock1.wav"}
 				self.NPC_CustomSpread = 2.5
 				self.Primary.ClipSize = 8
 				self.Primary.NumberOfShots = 5
@@ -84,8 +84,8 @@ function SWEP:CustomOnNPC_ServerThink()
 				self.HoldType = "smg"
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_mp5")
-				self.Primary.Sound = {"vj_hlr/hl1_weapon/hks1.wav","vj_hlr/hl1_weapon/hks2.wav","vj_hlr/hl1_weapon/hks3.wav"}
-				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/mp_reload.wav"}
+				self.Primary.Sound = {"vj_hlr/hl1_weapon/mp5/hks1.wav","vj_hlr/hl1_weapon/mp5/hks2.wav","vj_hlr/hl1_weapon/mp5/hks3.wav"}
+				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/mp5/mp_reload.wav"}
 				self.NPC_ExtraFireSound = {}
 				self.NPC_CustomSpread = 1
 				self.Primary.ClipSize = 50
@@ -94,9 +94,9 @@ function SWEP:CustomOnNPC_ServerThink()
 				self.HoldType = "shotgun"
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_shotgun")
-				self.Primary.Sound = {"vj_hlr/hl1_weapon/sbarrel1.wav"}
-				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/shotgun_reload.wav"}
-				self.NPC_ExtraFireSound = {"vj_hlr/hl1_weapon/scock1.wav"}
+				self.Primary.Sound = {"vj_hlr/hl1_weapon/shotgun/sbarrel1.wav"}
+				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/shotgun/shotgun_reload.wav"}
+				self.NPC_ExtraFireSound = {"vj_hlr/hl1_weapon/shotgun/scock1.wav"}
 				self.NPC_CustomSpread = 2.5
 				self.Primary.ClipSize = 8
 				self.Primary.NumberOfShots = 5
@@ -104,8 +104,8 @@ function SWEP:CustomOnNPC_ServerThink()
 				self.HoldType = "ar2"
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_saw")
-				self.Primary.Sound = {"vj_hlr/hl1_weapon/saw_fire1.wav","vj_hlr/hl1_weapon/saw_fire2.wav","vj_hlr/hl1_weapon/saw_fire3.wav"}
-				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/saw_reload2.wav"}
+				self.Primary.Sound = {"vj_hlr/hl1_weapon/saw/saw_fire1.wav","vj_hlr/hl1_weapon/saw/saw_fire2.wav","vj_hlr/hl1_weapon/saw/saw_fire3.wav"}
+				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/saw/saw_reload2.wav"}
 				self.NPC_ExtraFireSound = {}
 				self.NPC_CustomSpread = 1
 				self.Primary.ClipSize = 50
@@ -117,8 +117,8 @@ function SWEP:CustomOnNPC_ServerThink()
 				self.HoldType = "pistol"
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_mp5")
-				self.Primary.Sound = {"vj_hlr/hl1_weapon/desert_eagle_fire.wav"}
-				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/desert_eagle_reload.wav"}
+				self.Primary.Sound = {"vj_hlr/hl1_weapon/deagle/desert_eagle_fire.wav"}
+				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/deagle/desert_eagle_reload.wav"}
 				self.NPC_CustomSpread = 1
 				self.Primary.ClipSize = 7
 			elseif bgroup == 1 then -- Glock 17
@@ -126,7 +126,7 @@ function SWEP:CustomOnNPC_ServerThink()
 				self.HoldType = "pistol"
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_mp5")
-				self.Primary.Sound = {"vj_hlr/hl1_weapon/pl_gun3.wav"}
+				self.Primary.Sound = {"vj_hlr/hl1_weapon/glock/glock_regular.wav"}
 				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/reload1.wav"}
 				self.NPC_CustomSpread = 2.5
 				self.Primary.ClipSize = 17
