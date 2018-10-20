@@ -11,8 +11,9 @@ ENT.RadiusDamageRadius = 100 -- How far the damage go? The farther away it's fro
 ENT.RadiusDamage = 20 -- How much damage should it deal? Remember this is a radius damage, therefore it will do less damage the farther away the entity is from its enemy
 ENT.RadiusDamageUseRealisticRadius = true -- Should the damage decrease the farther away the enemy is from the position that the projectile hit?
 ENT.RadiusDamageType = DMG_ACID -- Damage type
-ENT.DecalTbl_DeathDecals = {"BeerSplash"}
+ENT.DecalTbl_DeathDecals = {"VJ_Blood_HL1_Red"}
 ENT.SoundTbl_Idle = {"vj_acid/acid_idle1.wav"}
+ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/bullchicken/bc_spithit3.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
@@ -22,13 +23,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetNoDraw(true)
-	ParticleEffectAttach("antlion_spit_trail", PATTACH_ABSORIGIN_FOLLOW, self, 0)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+	ParticleEffectAttach("vj_hlr_gonome_idle", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects(data,phys)
+	ParticleEffect("vj_hlr_gonome",self:GetPos(),Angle(0,0,0),nil)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2018 by DrVrej, All rights reserved. ***

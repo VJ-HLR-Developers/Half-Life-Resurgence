@@ -5,10 +5,7 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/opfor/hgrunt.mdl","models/vj_hlr/opfor/hgrunt.mdl","models/vj_hlr/opfor/hgrunt.mdl","models/vj_hlr/opfor/hgrunt_medic.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-// models/vj_hlr/opfor/hgrunt.mdl
-// models/vj_hlr/opfor/hgrunt_medic.mdl
-
+ENT.Model = {"models/vj_hlr/opfor/hgrunt.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
 ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards the player if it's damaged by a player?
 
@@ -135,7 +132,7 @@ ENT.SoundTbl_CallForHelp = {
 }
 ENT.SoundTbl_Suppressing = {
 	"vj_hlr/hl1_npc/hgrunt_oppf/covering.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/fwound.wav",
+	"vj_hlr/hl1_npc/hgrunt_oppf/getsome.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/nothing.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/rapidfire.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/wantsome.wav"
@@ -207,18 +204,7 @@ function ENT:HECU_CustomOnInitialize()
 		elseif self:GetBodygroup(3) == 2 then
 			self:SetBodygroup(2,1) -- Medz reshesh
 		end
-	elseif self.HECU_Type == 2 then
-		-- Medic bodygroup starts from 2
-		self:SetBodygroup(2,math.random(0,1))
-		
-		self:SetBodygroup(3,math.random(0,1))
-		
-		self.IsMedicSNPC = true
 	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
-	self:SetBodygroup(self.HECU_WepBG,3)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2018 by DrVrej, All rights reserved. ***

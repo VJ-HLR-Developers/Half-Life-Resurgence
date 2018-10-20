@@ -42,7 +42,7 @@ function SWEP:CustomOnInitialize()
 	self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_mp5")
 	timer.Simple(0.1,function() -- Minag grunt-en model-e tske, yete ooresh model-e, serpe as zenke
 		if IsValid(self) then
-			if IsValid(self.Owner) && self.Owner:GetModel() != "models/vj_hlr/opfor/hgrunt.mdl" && self.Owner:GetModel() != "models/vj_hlr/hl1/hgrunt.mdl" && self.Owner:GetModel() != "models/vj_hlr/opfor/hgrunt_medic.mdl" then
+			if IsValid(self.Owner) && self.Owner:GetModel() != "models/vj_hlr/opfor/hgrunt.mdl" && self.Owner:GetModel() != "models/vj_hlr/hl1/hgrunt.mdl" && self.Owner:GetModel() != "models/vj_hlr/opfor/hgrunt_medic.mdl" && self.Owner:GetModel() != "models/vj_hlr/opfor/hgrunt_engineer.mdl" then
 				if IsValid(self.Owner:GetCreator()) then
 					self.Owner:GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for the Half Life 1 Human Grunts only!")
 				end
@@ -130,6 +130,17 @@ function SWEP:CustomOnNPC_ServerThink()
 				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/reload1.wav"}
 				self.NPC_CustomSpread = 2.5
 				self.Primary.ClipSize = 17
+			end
+		elseif self.Owner.HECU_Type == 3 then
+			if bgroup == 0 then -- Desert Eagle
+				self.Primary.Damage = 15
+				self.HoldType = "pistol"
+				self:SetDefaultValues(self.HoldType,true)
+				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_mp5")
+				self.Primary.Sound = {"vj_hlr/hl1_weapon/deagle/desert_eagle_fire.wav"}
+				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/deagle/desert_eagle_reload.wav"}
+				self.NPC_CustomSpread = 1
+				self.Primary.ClipSize = 7
 			end
 		end
 	end

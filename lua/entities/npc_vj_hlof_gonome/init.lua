@@ -13,32 +13,19 @@ ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should 
 ENT.CustomBlood_Decal = {"VJ_Blood_HL1_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"} -- NPCs with the same class with be allied to each other
-
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDistance = 50 -- How close does it have to be until it attacks?
 ENT.MeleeAttackDamageDistance = 80 -- How far does the damage go?
-
-
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr_gonomegut" -- The entity that is spawned when range attacking
-	-- ====== Animation Variables ====== --
 ENT.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1} -- Range Attack Animations
-	-- ====== Distance Variables ====== --
 ENT.RangeDistance = 2000 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 200 -- How close does it have to be until it uses melee?
-	-- ====== Timer Variables ====== --
-	-- To use event-based attacks, set this to false:
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
-	-- ====== Projectile Spawn Position Variables ====== --
+ENT.NextRangeAttackTime = 0 -- How much time until it can use a range attack?
 ENT.RangeUseAttachmentForPos = true -- Should the projectile spawn on a attachment?
 ENT.RangeUseAttachmentForPosID = "0" -- The attachment used on the range attack if RangeUseAttachmentForPos is set to true
-ENT.RangeAttackPos_Up = 20 -- Up/Down spawning position for range attack
-ENT.RangeAttackPos_Forward = 0 -- Forward/ Backward spawning position for range attack
-ENT.RangeAttackPos_Right = 0 -- Right/Left spawning position for range attack
-
-
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
@@ -52,14 +39,11 @@ ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/gonome/gonome_idle1.wav","vj_hlr/hl1_npc/gonome/gonome_idle2.wav","vj_hlr/hl1_npc/gonome/gonome_idle3.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/zombie/zo_alert10.wav","vj_hlr/hl1_npc/zombie/zo_alert20.wav","vj_hlr/hl1_npc/zombie/zo_alert30.wav"}
 ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav","vj_hlr/hl1_npc/zombie/claw_strike2.wav","vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
+ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/gonome/gonome_melee1.wav","vj_hlr/hl1_npc/gonome/gonome_melee2.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/gonome/gonome_pain1.wav","vj_hlr/hl1_npc/gonome/gonome_pain2.wav","vj_hlr/hl1_npc/gonome/gonome_pain3.wav","vj_hlr/hl1_npc/gonome/gonome_pain4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/gonome/gonome_death2.wav","vj_hlr/hl1_npc/gonome/gonome_death3.wav","vj_hlr/hl1_npc/gonome/gonome_death4.wav"}
 
 ENT.GeneralSoundPitch1 = 100
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
-
-end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	print(key)
@@ -75,13 +59,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(TheProjectile)
-	/*local endpos = self:GetEnemy():GetPos()
-	local vel = (endpos - self:GetAttachment(self:LookupAttachment("0")).Pos)*2
-	print(vel)
-	vel = vel:GetNormalized()
-	print(vel)
-	return vel * (self:GetPos():Distance(endpos) * 6)*/
-	local endpos = self:GetEnemy():GetPos()
+	local endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter()
 	local startpos = self:GetAttachment(self:LookupAttachment(self.RangeUseAttachmentForPosID)).Pos
 	return (endpos-(startpos)):GetNormal()*(5000)
 end

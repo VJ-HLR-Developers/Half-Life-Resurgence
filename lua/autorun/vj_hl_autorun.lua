@@ -27,8 +27,9 @@ if VJExists == true then
 
 		-- Xen Creatures
 		VJ.AddNPC("Alien Grunt","npc_vj_hl_aliengrunt",vCat)
-		VJ.AddNPC("Baby Headcrab","npc_vj_hl_babyheadcrab",vCat)
 		VJ.AddNPC("Gonarch","npc_vj_hl_gonarch",vCat)
+		VJ.AddNPC("Headcrab","npc_vj_hl_headcrab",vCat)
+		VJ.AddNPC("Baby Headcrab","npc_vj_hl_babyheadcrab",vCat)
 			-- Headcrab
 			VJ.AddNPC("Zombie","npc_vj_hl_zombie",vCat)
 				-- Opposing Force
@@ -59,9 +60,17 @@ if VJExists == true then
 	game.AddDecal("VJ_Blood_HL1_Yellow",{"vj_hl/decals/hl_yblood01","vj_hl/decals/hl_yblood02","vj_hl/decals/hl_yblood03","vj_hl/decals/hl_yblood04","vj_hl/decals/hl_yblood05","vj_hl/decals/hl_yblood06"})
 	
 	-- Particles
-	game.AddParticles("particles/vj_hl_shocktrooper.pcf")
-	game.AddParticles("particles/vj_hl_sporegrenade.pcf")
-	game.AddParticles("particles/vj_hlr_gonome.pcf")
+	VJ.AddParticle("particles/vj_hl_shocktrooper.pcf",{
+		"vj_hlr_spore",
+		"vj_hlr_spore_idle",
+	})
+	VJ.AddParticle("particles/vj_hl_sporegrenade.pcf",{
+		"vj_hlr_shockroach",
+	})
+	VJ.AddParticle("particles/vj_hl_gonome.pcf",{
+		"vj_hlr_gonome",
+		"vj_hlr_gonome_idle",
+	})
 	
 	-- ConVars --
 	VJ.AddConVar("vj_hl2c_soldier_h",60)
