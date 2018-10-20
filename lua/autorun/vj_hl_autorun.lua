@@ -22,6 +22,8 @@ if VJExists == true then
 		VJ.AddNPC("Human Grunt","npc_vj_hl_humangrunt",vCat)
 			-- Opposing Force
 			VJ.AddNPC("Human Grunt (OppF)","npc_vj_hlof_humangrunt",vCat)
+			VJ.AddNPC("Human Grunt Medic (OppF)","npc_vj_hlof_humangrunt_med",vCat)
+			VJ.AddNPC("Human Grunt Engineer (OppF)","npc_vj_hlof_humangrunt_eng",vCat)
 
 		-- Xen Creatures
 		VJ.AddNPC("Alien Grunt","npc_vj_hl_aliengrunt",vCat)

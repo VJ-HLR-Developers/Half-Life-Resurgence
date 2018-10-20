@@ -218,11 +218,7 @@ function ENT:HECU_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
-	if self.HECU_Type == 1 then
-		self:SetBodygroup(self.HECU_WepBG,3)
-	elseif self.HECU_Type == 2 then
-		self:SetBodygroup(self.HECU_WepBG,3)
-	end
+	self:SetBodygroup(self.HECU_WepBG,3)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2018 by DrVrej, All rights reserved. ***
