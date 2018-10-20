@@ -56,6 +56,11 @@ if VJExists == true then
 	game.AddDecal("VJ_Blood_HL1_Red",{"vj_hl/decals/hl_blood01","vj_hl/decals/hl_blood02","vj_hl/decals/hl_blood03","vj_hl/decals/hl_blood04","vj_hl/decals/hl_blood05","vj_hl/decals/hl_blood06","vj_hl/decals/hl_blood07","vj_hl/decals/hl_blood08"})
 	game.AddDecal("VJ_Blood_HL1_Yellow",{"vj_hl/decals/hl_yblood01","vj_hl/decals/hl_yblood02","vj_hl/decals/hl_yblood03","vj_hl/decals/hl_yblood04","vj_hl/decals/hl_yblood05","vj_hl/decals/hl_yblood06"})
 	
+	-- Particles
+	game.AddParticles("particles/vj_hl_shocktrooper.pcf")
+	game.AddParticles("particles/vj_hl_sporegrenade.pcf")
+	game.AddParticles("particles/vj_hlr_gonome.pcf")
+	
 	-- ConVars --
 	VJ.AddConVar("vj_hl2c_soldier_h",60)
 	VJ.AddConVar("vj_hl2c_soldierprison_h",75)
@@ -64,11 +69,6 @@ if VJExists == true then
 	
 	VJ.AddConVar("vj_hl2r_rebel_h",60)
 	VJ.AddConVar("vj_hl2r_rebel_d",10)
-
-	-- Particles
-	game.AddParticles("particles/vj_hl_shocktrooper.pcf")
-	game.AddParticles("particles/vj_hl_sporegrenade.pcf")
-	game.AddParticles("particles/vj_hlr_gonome.pcf")
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)
