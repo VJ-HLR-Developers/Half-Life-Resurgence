@@ -1,0 +1,1120 @@
+// HUMAN GRUNTS
+HG_GREN0 vj_hlr/hl1_npc/hgrunt/clik(p120) grenade! clik {Len 1.17}
+HG_GREN1 vj_hlr/hl1_npc/hgrunt/(t30) clik take!(e75) cover!(s5) clik {Len 0.95}
+HG_GREN2 vj_hlr/hl1_npc/hgrunt/clik clik oh! shit! clik {Len 1.59}
+HG_GREN3 vj_hlr/hl1_npc/hgrunt/(p110 t40) clik(p120) get!(e78) down!(t30) clik {Len 0.78}
+HG_GREN4 vj_hlr/hl1_npc/hgrunt/clik(p110) (t40) of!(e75) god! clik(p110) {Len 0.82}
+HG_GREN5 vj_hlr/hl1_npc/hgrunt/clik no! clik {Len 0.91}
+HG_GREN6 vj_hlr/hl1_npc/hgrunt/clik move! clik(p120) {Len 1.04}
+
+// Player Alert
+HG_ALERT0 vj_hlr/hl1_npc/hgrunt/(t30) squad!, we!(e80) got!(e80) freeman!(t20 p105), clik(p110) {Len 2.14}
+HG_ALERT1 vj_hlr/hl1_npc/hgrunt/clik(p110) target! clik {Len 1.13}
+HG_ALERT2 vj_hlr/hl1_npc/hgrunt/clik movement! clik {Len 1.18}
+HG_ALERT3 vj_hlr/hl1_npc/hgrunt/(t40) shit!(t20), (t50) we! got! hostiles!(p120 t0) clik {Len 2.07}
+HG_ALERT4 vj_hlr/hl1_npc/hgrunt/(t20) clik(p110) squad!, get!(e80) freeman!, clik(p110) clik {Len 2.37}
+HG_ALERT5 vj_hlr/hl1_npc/hgrunt/(t20) clik squad!, neutralize!(e90) freeman! clik {Len 2.67}
+HG_ALERT6 vj_hlr/hl1_npc/hgrunt/(t30) clik clik move!(e75) in! clik(p120) {Len 1.06}
+
+// Monster Alert
+HG_MONST0 vj_hlr/hl1_npc/hgrunt/clik(p110) (t50) bogies!(t0), my! sector!(t0) clik {Len 2.28}
+HG_MONST1 vj_hlr/hl1_npc/hgrunt/clik(p110) (t40) clik(p120) we!(e75) got! bogies! clik {Len 1.30}
+HG_MONST2 vj_hlr/hl1_npc/hgrunt/clik clik (t30) alien!(e85) alert! clik {Len 1.46}
+HG_MONST3 vj_hlr/hl1_npc/hgrunt/clik clik (t30) alien!(e85) movement!(t0) clik(p120) {Len 1.72}
+
+// Take cover
+HG_COVER0 vj_hlr/hl1_npc/hgrunt/clik (t30) take! cover!(t0) clik {Len 1.38}
+HG_COVER1 vj_hlr/hl1_npc/hgrunt/clik (t45) (e75) I!(e80) need!(e80) suppressing!(t20) fire!(t10) clik {Len 1.79}
+HG_COVER2 vj_hlr/hl1_npc/hgrunt/clik (t45) we! need! backup!(t10) clik {Len 1.58}
+HG_COVER3 vj_hlr/hl1_npc/hgrunt/clik(p120) (t40) two!(e75) hot!(e80) here! clik {Len 1.14}
+HG_COVER4 vj_hlr/hl1_npc/hgrunt/clik(p110) (t30) fall!(e80) out! clik clik {Len 1.17}
+HG_COVER5 vj_hlr/hl1_npc/hgrunt/clik(p120) (t20) clear! this! area! clik {Len 1.69}
+HG_COVER6 vj_hlr/hl1_npc/hgrunt/clik (t40) god! damn! clik {Len 1.05}
+HG_COVER7 vj_hlr/hl1_npc/hgrunt/clik (t40) cover!(e75) fire! clik {Len 0.95}
+
+// Throw grenade
+HG_THROW0 vj_hlr/hl1_npc/hgrunt/clik(p120) (t40) fire!(e90) in!(e90) the!(e60) hole!(e100) clik {Len 1.37}
+HG_THROW1 vj_hlr/hl1_npc/hgrunt/clik (t30) take!(e75) this!(e100 t0) clik {Len 1.03}
+HG_THROW2 vj_hlr/hl1_npc/hgrunt/clik (t35) fire in the(e50) hole clik(p120) {Len 1.66}
+HG_THROW3 vj_hlr/hl1_npc/hgrunt/clik(p110) (t35 e80) squad, stay down clik {Len 1.51}
+ 
+// Taunt
+HG_TAUNT0 vj_hlr/hl1_npc/hgrunt/clik (t30 e75) uhh, we got heavy fire here clik {Len 2.05}
+HG_TAUNT1 vj_hlr/hl1_npc/hgrunt/clik(p120) (t40) roger, hold position clik {Len 1.82}
+HG_TAUNT2 vj_hlr/hl1_npc/hgrunt/clik (t40) we!(e80) will!(e75) kick!(e80) your!(e75) ass! clik {Len 1.55}
+HG_TAUNT3 vj_hlr/hl1_npc/hgrunt/clik (t40) mister, you(e75) are going down clik {Len 2.28}
+HG_TAUNT4 vj_hlr/hl1_npc/hgrunt/clik(p120) (t40) you got nothing clik {Len 1.45}
+HG_TAUNT5 vj_hlr/hl1_npc/hgrunt/clik(p110) (t40) request! backup! clik(p120) clik {Len 1.32}
+
+// Charge
+HG_CHARGE0 vj_hlr/hl1_npc/hgrunt/clik (t40) go! recon! clik(p120) {Len 1.21}
+HG_CHARGE1 vj_hlr/hl1_npc/hgrunt/clik(p110) (t40) move!(e75) in! clik {Len 0.84}
+HG_CHARGE2 vj_hlr/hl1_npc/hgrunt/clik go! clik(p120) {Len 0.91}
+HG_CHARGE3 vj_hlr/hl1_npc/hgrunt/clik lets! go! clik(p120) {Len 1.37}
+
+// Idle
+HG_IDLE0 vj_hlr/hl1_npc/hgrunt/gr_idle1 {Len 2.97}
+HG_IDLE1 vj_hlr/hl1_npc/hgrunt/gr_idle2 {Len 2.50}
+HG_IDLE2 vj_hlr/hl1_npc/hgrunt/gr_idle3 {Len 2.50}
+
+HG_QUEST0 vj_hlr/hl1_npc/hgrunt/clik (t25) stay(e80) alert people clik(p120) {Len 1.83}
+HG_QUEST1 vj_hlr/hl1_npc/hgrunt/clik (t30) radio(e75) check, over clik(p120) {Len 1.65}
+HG_QUEST2 vj_hlr/hl1_npc/hgrunt/clik (t20) maintain lookout clik(p120) {Len 1.56}
+HG_QUEST3 vj_hlr/hl1_npc/hgrunt/clik(p110) (t30) squad, quiet(e75) down clik(p120) {Len 1.92}
+HG_QUEST4 vj_hlr/hl1_npc/hgrunt/clik(p120) (t30) hold position, clik {Len 1.58}
+HG_QUEST5 vj_hlr/hl1_npc/hgrunt/clik(p120) (t30) sweep(e80) that sector, clik(p120) clik(p120) {Len 1.85}
+HG_QUEST6 vj_hlr/hl1_npc/hgrunt/clik(p120) (t30) uhh, go tango sweep formation clik(p120) clik(p120) {Len 3.12}
+HG_QUEST7 vj_hlr/hl1_npc/hgrunt/clik(p120) (t30) echo(e75) mission is go clik(p120) clik(p120) {Len 2.05}
+HG_QUEST8 vj_hlr/hl1_npc/hgrunt/clik(p110) (t30) fire(e75) team, weapons(e75) check ok clik(p120) clik {Len 2.72}
+HG_QUEST9 vj_hlr/hl1_npc/hgrunt/clik(p110) (t30) fire(e75) team, objective foxtrot niner clik(p120) {Len 3.20}
+HG_QUEST10 vj_hlr/hl1_npc/hgrunt/clik (t30) ok(e75) mission, zero(e75) niner clik {Len 2.33}
+HG_QUEST11 vj_hlr/hl1_npc/hgrunt/clik (t30) squad, stay(e80) alert(e80) four freeman, over clik {Len 3.53}
+
+HG_ANSWER0 vj_hlr/hl1_npc/hgrunt/clik(p110) (t20) uhh roger(e75) that, clik(p120) clik {Len 1.87}
+HG_ANSWER1 vj_hlr/hl1_npc/hgrunt/clik(p120) (t10) yessir clik {Len 1.06}
+HG_ANSWER2 vj_hlr/hl1_npc/hgrunt/clik(p120) (t30) affirmative, sir clik {Len 1.57}
+HG_ANSWER3 vj_hlr/hl1_npc/hgrunt/clik (t30) negative clik(p120) clik {Len 0.94}
+HG_ANSWER4 vj_hlr/hl1_npc/hgrunt/clik(p105) (t30) roger clik {Len 0.84}
+HG_ANSWER5 vj_hlr/hl1_npc/hgrunt/clik(p105) (t30) ok control clik {Len 1.46}
+HG_ANSWER6 vj_hlr/hl1_npc/hgrunt/clik(p105) (t30) that(e75) is, uhh, affirmative clik {Len 2.31}
+
+HG_CLEAR0 vj_hlr/hl1_npc/hgrunt/clik(p130) (t30) all(e75) clear sir, clik {Len 1.65}
+HG_CLEAR1 vj_hlr/hl1_npc/hgrunt/clik (t30) bravo(e75) post, clear clik(p120) {Len 1.70}
+HG_CLEAR2 vj_hlr/hl1_npc/hgrunt/clik(p110) (t30) delta(e75) team, clear clik(p120) {Len 1.62}
+HG_CLEAR3 vj_hlr/hl1_npc/hgrunt/clik(p110) (t40) no sign hostiles sir, over clik(p120) {Len 2.62}
+HG_CLEAR4 vj_hlr/hl1_npc/hgrunt/clik (t30) no(e80) sign objective sir, over clik(p120) {Len 2.77}
+HG_CLEAR5 vj_hlr/hl1_npc/hgrunt/clik (t30) no(e75) movement this level clik(p120) {Len 1.91}
+HG_CLEAR6 vj_hlr/hl1_npc/hgrunt/clik(p120) (t28) sir, sector secure, over clik(p120) clik(p120) {Len 2.76}
+HG_CLEAR7 vj_hlr/hl1_npc/hgrunt/clik(p120) (t30) command(e75) post, team in position, over clik {Len 3.13}
+HG_CLEAR8 vj_hlr/hl1_npc/hgrunt/clik (t30) recon, in(e75) position, all quiet clik(p120) {Len 2.88}
+HG_CLEAR9 vj_hlr/hl1_npc/hgrunt/clik(p110) (t30) lookout(e90) post, all quiet, over clik(p110) {Len 2.70}
+HG_CLEAR10 vj_hlr/hl1_npc/hgrunt/clik (t40) sir, I(e80) here(e75) something clik {Len 1.72}
+HG_CLEAR11 vj_hlr/hl1_npc/hgrunt/clik(p120) (t30) sir, uhh, zero movement, over clik {Len 3.20}
+HG_CLEAR12 vj_hlr/hl1_npc/hgrunt/clik (t30) area secure sir, over clik(p120) {Len 2.30}
+
+HG_CHECK0 vj_hlr/hl1_npc/hgrunt/clik (t30) ok, check(e75) in clik {Len 1.63}
+HG_CHECK1 vj_hlr/hl1_npc/hgrunt/clik(p110) (t30) squad, are(e80) hostiles clear clik(p120) {Len 2.72}
+HG_CHECK2 vj_hlr/hl1_npc/hgrunt/clik (t30) check(e80) in people clik {Len 1.40}
+HG_CHECK3 vj_hlr/hl1_npc/hgrunt/clik (t30) lookout, check(e75) in clik(p110) {Len 1.53}
+HG_CHECK4 vj_hlr/hl1_npc/hgrunt/clik (t30) recon(e90) team, check(e80) in clik {Len 2.09}
+HG_CHECK5 vj_hlr/hl1_npc/hgrunt/clik(p130) (t30) movement check, over clik {Len 1.80}
+HG_CHECK6 vj_hlr/hl1_npc/hgrunt/clik (t30) check your zone, over, clik {Len 2.43}
+HG_CHECK7 vj_hlr/hl1_npc/hgrunt/clik (t30) everything(e85) ok(e75) there, clik(p130) {Len 1.66}
+
+//narrative
+
+HG_SNOOP1A vj_hlr/hl1_npc/hgrunt/c2a2_hg_chat1a {Len 2.65}
+HG_SNOOP2A vj_hlr/hl1_npc/hgrunt/c2a2_hg_chat2a {Len 1.95}
+HG_SNOOP3A vj_hlr/hl1_npc/hgrunt/c2a2_hg_chat3a {Len 5.04}
+HG_SNOOP4A vj_hlr/hl1_npc/hgrunt/c2a2_hg_chat4a {Len 4.69}
+HG_SNOOP5A vj_hlr/hl1_npc/hgrunt/c2a2_hg_chat5a {Len 4.59}
+
+HG_DRAG1A vj_hlr/hl1_npc/hgrunt/c2a3_hg_1drag {Len 2.17}
+HG_DRAG2A vj_hlr/hl1_npc/hgrunt/c2a3_hg_2drag {Len 1.84}
+HG_DRAG3A vj_hlr/hl1_npc/hgrunt/c2a3_hg_3drag {Len 3.48}
+HG_DRAG4A vj_hlr/hl1_npc/hgrunt/c2a3_hg_4drag {Len 2.64}
+HG_DRAG5A vj_hlr/hl1_npc/hgrunt/c2a3_hg_5drag {Len 2.19}
+HG_DRAG6A vj_hlr/hl1_npc/hgrunt/c2a3_hg_laugh {Len 2.94}
+
+HG_SUCKS vj_hlr/hl1_npc/hgrunt/hg_sucks {Len 6.35}
+HG_CIVVIES vj_hlr/hl1_npc/hgrunt/hg_civvies {Len 6.73}
+
+// BARNEY
+
+BA_OK0 vj_hlr/hl1_npc/barney/teamup2 {Len 0.88}
+BA_OK1 vj_hlr/hl1_npc/barney/dobettertogether {Len 2.30}
+BA_OK2 vj_hlr/hl1_npc/barney/imwithyou {Len 1.36}
+BA_OK3 vj_hlr/hl1_npc/barney/teamup1 {Len 2.29}
+BA_OK4 vj_hlr/hl1_npc/barney/gladtolendhand {Len 2.94}
+BA_OK5 vj_hlr/hl1_npc/barney/letsgo {Len 0.92}
+BA_OK6 vj_hlr/hl1_npc/barney/letsmoveit {Len 1.99}
+
+BA_WAIT0 vj_hlr/hl1_npc/barney/helpothers {Len 2.40}
+BA_WAIT1 vj_hlr/hl1_npc/barney/iwaithere {Len 1.06}
+BA_WAIT2 vj_hlr/hl1_npc/barney/slowingyoudown {Len 1.40}
+BA_WAIT3 vj_hlr/hl1_npc/barney/illwait {Len 1.11}
+BA_WAIT4 vj_hlr/hl1_npc/barney/seeya {Len 0.61}
+BA_WAIT5 vj_hlr/hl1_npc/barney/standguard {Len 1.67}
+
+BA_HELLO0 vj_hlr/hl1_npc/barney/hellonicesuit {Len 0.40}
+BA_HELLO1 vj_hlr/hl1_npc/barney/howdy {Len 0.86}
+BA_HELLO2 vj_hlr/hl1_npc/barney/howyoudoing {Len 0.71}
+BA_HELLO3 vj_hlr/hl1_npc/barney/haybuddy {Len 0.53}
+BA_HELLO4 vj_hlr/hl1_npc/barney/hayfella {Len 0.27}
+BA_HELLO5 vj_hlr/hl1_npc/barney/heybuddy {Len 0.53}
+BA_HELLO6 vj_hlr/hl1_npc/barney/heyfella {Len 0.27}
+
+BA_QUESTION0 vj_hlr/hl1_npc/barney/beertopside {Len 2.42}
+BA_QUESTION1 vj_hlr/hl1_npc/barney/wayout {Len 1.60}
+BA_QUESTION2 vj_hlr/hl1_npc/barney/getanyworse {Len 2.09}
+BA_QUESTION3 vj_hlr/hl1_npc/barney/gladof38 {Len 2.56}
+BA_QUESTION4 vj_hlr/hl1_npc/barney/workingonstuff {Len 2.71}
+BA_QUESTION5 vj_hlr/hl1_npc/barney/wayout {Len 1.60}
+BA_QUESTION6 vj_hlr/hl1_npc/barney/whatsgoingon {Len 2.01}
+BA_QUESTION7 vj_hlr/hl1_npc/barney/aintscared {Len 1.16}
+BA_QUESTION8 vj_hlr/hl1_npc/barney/nodrill {Len 2.11}
+BA_QUESTION9 vj_hlr/hl1_npc/barney/gettingcloser {Len 1.25}
+BA_QUESTION10 vj_hlr/hl1_npc/barney/youhearthat {Len 1.86}
+BA_QUESTION11 vj_hlr/hl1_npc/barney/crewdied {Len 2.37}
+BA_QUESTION12 vj_hlr/hl1_npc/barney/somethingmoves {Len 2.28}
+BA_QUESTION13 vj_hlr/hl1_npc/barney/thinking {Len 1.30}
+BA_QUESTION14 vj_hlr/hl1_npc/barney/missingleg {Len 3.13}
+
+BA_ANSWER0 vj_hlr/hl1_npc/barney/noway {Len 0.96}
+BA_ANSWER1 vj_hlr/hl1_npc/barney/ireckon {Len 0.60}
+BA_ANSWER2 vj_hlr/hl1_npc/barney/soundsright {Len 0.79}
+BA_ANSWER3 vj_hlr/hl1_npc/barney/yessir {Len 0.43}
+BA_ANSWER4 vj_hlr/hl1_npc/barney/youbet {Len 0.53}
+BA_ANSWER5 vj_hlr/hl1_npc/barney/yougotit {Len 0.60}
+BA_ANSWER6 vj_hlr/hl1_npc/barney/yup {Len 0.41}
+BA_ANSWER7 vj_hlr/hl1_npc/barney/dontaskme {Len 0.96}
+BA_ANSWER8 vj_hlr/hl1_npc/barney/dontbet {Len 0.87}
+BA_ANSWER9 vj_hlr/hl1_npc/barney/dontbuyit {Len 1.21}
+BA_ANSWER10 vj_hlr/hl1_npc/barney/dontfigure {Len 1.31}
+BA_ANSWER11 vj_hlr/hl1_npc/barney/dontguess {Len 0.93}
+BA_ANSWER12 vj_hlr/hl1_npc/barney/hardtosay {Len 0.92}
+BA_ANSWER13 vj_hlr/hl1_npc/barney/justdontknow {Len 0.99}
+BA_ANSWER14 vj_hlr/hl1_npc/barney/nope {Len 0.35}
+BA_ANSWER15 vj_hlr/hl1_npc/barney/nosir {Len 0.55}
+BA_ANSWER16 vj_hlr/hl1_npc/barney/cantfigure {Len 1.16}
+BA_ANSWER17 vj_hlr/hl1_npc/barney/maybe {Len 0.47}
+BA_ANSWER18 vj_hlr/hl1_npc/barney/notelling {Len 1.03}
+BA_ANSWER19 vj_hlr/hl1_npc/barney/bequiet {Len 1.96}
+BA_ANSWER20 vj_hlr/hl1_npc/barney/youtalkmuch {Len 1.38}
+BA_ANSWER21 vj_hlr/hl1_npc/barney/alreadyasked {Len 1.18}
+
+// player is staring at scientist
+BA_STARE0 vj_hlr/hl1_npc/barney/yup {Len 0.41}
+BA_STARE1 vj_hlr/hl1_npc/barney/yessir {Len 0.43}
+BA_STARE2 vj_hlr/hl1_npc/barney/howyoudoing {Len 0.71}
+BA_STARE3 vj_hlr/hl1_npc/barney/heyfella {Len 0.27}
+
+BA_IDLE0 vj_hlr/hl1_npc/barney/whatisthat {Len 1.61}
+BA_IDLE1 vj_hlr/hl1_npc/barney/coldone {Len 2.54}
+BA_IDLE2 vj_hlr/hl1_npc/barney/guyresponsible {Len 3.40}
+BA_IDLE3 vj_hlr/hl1_npc/barney/bigmess {Len 2.67}
+BA_IDLE4 vj_hlr/hl1_npc/barney/luckwillturn {Len 2.03}
+BA_IDLE5 vj_hlr/hl1_npc/barney/bigplace {Len 2.20}
+BA_IDLE6 vj_hlr/hl1_npc/barney/targetpractice {Len 3.26}
+BA_IDLE7 vj_hlr/hl1_npc/barney/badfeeling {Len 2.70}
+BA_IDLE8 vj_hlr/hl1_npc/barney/ambush {Len 2.42}
+BA_IDLE9 vj_hlr/hl1_npc/barney/survive {Len 2.36}
+BA_IDLE10 vj_hlr/hl1_npc/barney/stophere {Len 3.13}
+
+BA_ATTACK0 vj_hlr/hl1_npc/barney/openfire(e50) {Len 1.49}
+BA_ATTACK1 vj_hlr/hl1_npc/barney/openfire(s50) {Len 1.49}
+BA_ATTACK2 vj_hlr/hl1_npc/barney/standback {Len 0.87}
+BA_ATTACK3 vj_hlr/hl1_npc/barney/whatisthat {Len 1.61}
+BA_ATTACK4 vj_hlr/hl1_npc/barney/diebloodsucker {Len 1.72}
+BA_ATTACK5 vj_hlr/hl1_npc/barney/aimforhead {Len 1.69}
+
+BA_HEAR0 vj_hlr/hl1_npc/barney/hearsomething {Len 0.90}
+BA_HEAR1 vj_hlr/hl1_npc/barney/icanhear {Len 1.07}
+BA_HEAR2 vj_hlr/hl1_npc/barney/soundsbad {Len 1.62}
+
+BA_SMELL0 vj_hlr/hl1_npc/barney/somethingdied {Len 2.78}
+BA_SMELL1 vj_hlr/hl1_npc/barney/somethingstinky {Len 2.17}
+BA_SMELL2 vj_hlr/hl1_npc/barney/stench {Len 1.62}
+
+BA_CUREA vj_hlr/hl1_npc/barney/checkwounds {Len 1.61}
+BA_CUREB vj_hlr/hl1_npc/barney/youneedmedic {Len 2.09}
+BA_CUREC vj_hlr/hl1_npc/barney/realbadwound {Len 3.18}
+
+BA_SCARED0 vj_hlr/hl1_npc/barney/donthurtem {Len 1.19}
+BA_SCARED1 vj_hlr/hl1_npc/barney/leavealone {Len 2.50}
+
+BA_WOUND0 vj_hlr/hl1_npc/barney/imhit {Len 2.05}
+BA_WOUND1 vj_hlr/hl1_npc/barney/hitbad {Len 2.23}
+BA_MORTAL0 vj_hlr/hl1_npc/barney/imdead {Len 3.90}
+
+//If you shoot Barney:
+BA_SHOT0 vj_hlr/hl1_npc/barney/ba_whoathere {Len 1.37}
+BA_SHOT1 vj_hlr/hl1_npc/barney/ba_dotoyou {Len 1.60}
+BA_SHOT2 vj_hlr/hl1_npc/barney/ba_watchit {Len 1.37}
+BA_SHOT3 vj_hlr/hl1_npc/barney/ba_whatyou {Len 1.20}
+BA_SHOT4 vj_hlr/hl1_npc/barney/ba_friends {Len 2.80}
+BA_SHOT5 vj_hlr/hl1_npc/barney/ba_pissme {Len 1.77}
+
+//When Barney’s really pissed at you:
+BA_MAD0 vj_hlr/hl1_npc/barney/ba_stepoff {Len 1.37}
+BA_MAD1 vj_hlr/hl1_npc/barney/ba_iwish {Len 1.49}
+BA_MAD2 vj_hlr/hl1_npc/barney/ba_uwish {Len 2.72}
+BA_MAD3 vj_hlr/hl1_npc/barney/ba_somuch {Len 2.62}
+BA_MAD4 vj_hlr/hl1_npc/barney/ba_endline {Len 1.54}
+BA_MAD5 vj_hlr/hl1_npc/barney/ba_dontmake {Len 1.77}
+BA_MAD6 vj_hlr/hl1_npc/barney/ba_tomb {Len 1.66}
+
+//When Barney’s killed something
+BA_KILL0 vj_hlr/hl1_npc/barney/ba_gotone {Len 0.82}
+BA_KILL1 vj_hlr/hl1_npc/barney/ba_another {Len 1.54}
+BA_KILL2 vj_hlr/hl1_npc/barney/ba_buttugly {Len 2.09}
+BA_KILL3 vj_hlr/hl1_npc/barney/ba_seethat {Len 1.88}
+BA_KILL4 vj_hlr/hl1_npc/barney/ba_close {Len 1.67}
+BA_KILL5 vj_hlr/hl1_npc/barney/ba_firepl {Len 2.21}
+BA_KILL6 vj_hlr/hl1_npc/barney/ba_bring {Len 0.99}
+
+//If you use Barney before the disaster
+BA_POK0 vj_hlr/hl1_npc/barney/ba_post {Len 2.28}
+BA_POK1 vj_hlr/hl1_npc/barney/ba_duty {Len 2.25}
+BA_POK2 vj_hlr/hl1_npc/barney/ba_raincheck {Len 1.02}
+BA_POK3 vj_hlr/hl1_npc/barney/ba_later {Len 2.01}
+
+// if barney can't follow you
+BA_STOP0 vj_hlr/hl1_npc/barney/stop1 {Len 1.41}
+BA_STOP1 vj_hlr/hl1_npc/barney/stop2 {Len 3.21}
+BA_STOP2 vj_hlr/hl1_npc/barney/stop3 {Len 0.00}
+
+//scripted_sentences
+
+//c1a0 scripts
+BA_LATE vj_hlr/hl1_npc/barney/c1a0_ba_late {Len 2.33}
+BA_HEADDOWN vj_hlr/hl1_npc/barney/c1a0_ba_headdown {Len 3.37}
+BA_DESK vj_hlr/hl1_npc/barney/c1a0_ba_desk {Len 16.87}
+BA_BUTTON vj_hlr/hl1_npc/barney/c1a0_ba_button {Len 2.80}
+BA_HEVNO vj_hlr/hl1_npc/barney/c1a0_ba_hevno {Len 4.24}
+BA_HEVYES vj_hlr/hl1_npc/barney/c1a0_ba_hevyes {Len 2.60}
+
+//c1a1 scripts
+BA_GLAD vj_hlr/hl1_npc/barney/c1a1_ba_glad {Len 6.38}
+
+//c1a2 scripts
+BA_BULLSQUID vj_hlr/hl1_npc/barney/c1a2_ba_bullsquid {Len 4.99}
+BA_ZOMBIE2 vj_hlr/hl1_npc/barney/c1a2_ba_2zomb {Len 1.99}
+BA_ZOMBIE4 vj_hlr/hl1_npc/barney/c1a2_ba_4zomb {Len 1.95}
+BA_CLIMB vj_hlr/hl1_npc/barney/c1a2_ba_climb {Len 3.12}
+BA_SLEW vj_hlr/hl1_npc/barney/c1a2_ba_slew {Len 3.88}
+BA_SURFACE vj_hlr/hl1_npc/barney/c1a2_ba_surface {Len 4.22}
+BA_TOPSIDE vj_hlr/hl1_npc/barney/c1a2_ba_top {Len 4.32}
+
+//c1a4 scripts
+BA_WHISPER vj_hlr/hl1_npc/barney/c1a4_ba_wisp {Len 3.02}
+BA_TENTACLE vj_hlr/hl1_npc/barney/c1a4_ba_octo1 {Len 5.23}
+
+//c2a1 scripts
+BA_HUB1A vj_hlr/hl1_npc/barney/c2a1_ba_hub1a {Len 13.45}
+BA_HUB2A vj_hlr/hl1_npc/barney/c2a1_ba_hub2a {Len 4.02}
+BA_AGAIN vj_hlr/hl1_npc/barney/c2a1_ba_again {Len 8.13}
+
+//c2a2 scripts
+
+BA_LAUNCH vj_hlr/hl1_npc/barney/c2a2_ba_launch {Len 29.03}
+
+//c2a3 scripts
+
+BA_ASSN vj_hlr/hl1_npc/barney/c2a3_ba_assn {Len 5.22}
+
+//c2a4 scripts
+BA_LONGNITE vj_hlr/hl1_npc/barney/c2a4_ba_longnite {Len 8.71}
+BA_STERIL vj_hlr/hl1_npc/barney/c2a4_ba_steril {Len 1.22}
+BA_TEACH vj_hlr/hl1_npc/barney/c2a4_ba_teach {Len 10.60}
+
+BA_ARG1A vj_hlr/hl1_npc/barney/c2a4_ba_arg1a {Len 2.90}
+BA_ARG2A vj_hlr/hl1_npc/barney/c2a4_ba_arg3a {Len 2.23}
+BA_ARG3A vj_hlr/hl1_npc/barney/c2a4_ba_arg5a {Len 1.92}
+
+BA_TAU1A vj_hlr/hl1_npc/barney/c2a4_ba_1tau {Len 1.95}
+BA_TAU3A vj_hlr/hl1_npc/barney/c2a4_ba_3tau {Len 1.83}
+BA_TAU5A vj_hlr/hl1_npc/barney/c2a4_ba_5tau {Len 1.73}
+
+BA_ALIVE vj_hlr/hl1_npc/barney/c2a4_ba_alive {Len 15.49}
+
+//c2a5 scripts
+BA_LETMEOUT vj_hlr/hl1_npc/barney/c2a5_ba_letout {Len 5.03}
+BA_RPG vj_hlr/hl1_npc/barney/c2a5_ba_rpg {Len 8.94}
+BA_HELPME vj_hlr/hl1_npc/barney/c2a5_ba_helpme {Len 9.06}
+BA_SNIPED vj_hlr/hl1_npc/barney/c2a5_ba_sniped {Len 3.47}
+
+//c3a2 scripts
+BA_SURVEY2A vj_hlr/hl1_npc/barney/c3a2_ba_2surv {Len 2.88}
+BA_SURVEY4A vj_hlr/hl1_npc/barney/c3a2_ba_4surv {Len 1.65}
+BA_SURVEY6A vj_hlr/hl1_npc/barney/c3a2_ba_6surv {Len 4.07}
+BA_SURVEY8A vj_hlr/hl1_npc/barney/c3a2_ba_8surv {Len 3.70}
+BA_PORTSTAY vj_hlr/hl1_npc/barney/c3a2_ba_stay {Len 4.88}
+
+// OTIS
+
+//When player asks Otis to follow:
+OT_OK0 vj_hlr/hl1_npc/otis/reputation
+OT_OK1 vj_hlr/hl1_npc/otis/live
+OT_OK2 vj_hlr/hl1_npc/otis/together
+OT_OK3 vj_hlr/hl1_npc/otis/letsgo
+OT_OK4 vj_hlr/hl1_npc/otis/diealone
+OT_OK5 vj_hlr/hl1_npc/otis/joinyou
+OT_OK6 vj_hlr/hl1_npc/otis/teamup
+
+OT_WAIT0 vj_hlr/hl1_npc/otis/help
+OT_WAIT1 vj_hlr/hl1_npc/otis/go_on
+OT_WAIT2 vj_hlr/hl1_npc/otis/slowingyoudown
+OT_WAIT3 vj_hlr/hl1_npc/otis/illwait
+OT_WAIT4 vj_hlr/hl1_npc/otis/seeya
+OT_WAIT5 vj_hlr/hl1_npc/otis/standguard
+OT_WAIT6 vj_hlr/hl1_npc/otis/notalone
+
+OT_HELLO0 vj_hlr/hl1_npc/otis/hello
+OT_HELLO1 vj_hlr/hl1_npc/otis/soldier
+OT_HELLO2 vj_hlr/hl1_npc/otis/hiya
+OT_HELLO3 vj_hlr/hl1_npc/otis/hey
+
+OT_QUESTION0 vj_hlr/hl1_npc/otis/beer
+OT_QUESTION1 vj_hlr/hl1_npc/otis/rightdirection
+OT_QUESTION2 vj_hlr/hl1_npc/otis/getanyworse
+OT_QUESTION3 vj_hlr/hl1_npc/otis/gladof
+OT_QUESTION4 vj_hlr/hl1_npc/otis/aliencombat
+OT_QUESTION5 vj_hlr/hl1_npc/otis/somethingmoves
+OT_QUESTION6 vj_hlr/hl1_npc/otis/noise
+
+OT_ANSWER0 vj_hlr/hl1_npc/otis/yes
+OT_ANSWER1 vj_hlr/hl1_npc/otis/yessir
+OT_ANSWER2 vj_hlr/hl1_npc/otis/youbet
+OT_ANSWER3 vj_hlr/hl1_npc/otis/alright
+OT_ANSWER4 vj_hlr/hl1_npc/otis/yup
+OT_ANSWER5 vj_hlr/hl1_npc/otis/yeah
+OT_ANSWER6 vj_hlr/hl1_npc/otis/noway
+OT_ANSWER7 vj_hlr/hl1_npc/otis/doubt
+OT_ANSWER8 vj_hlr/hl1_npc/otis/breath
+OT_ANSWER9 vj_hlr/hl1_npc/otis/no
+OT_ANSWER10 vj_hlr/hl1_npc/otis/dontguess
+OT_ANSWER12 vj_hlr/hl1_npc/otis/nope
+OT_ANSWER13 vj_hlr/hl1_npc/otis/nosir
+OT_ANSWER14 vj_hlr/hl1_npc/otis/dontask
+OT_ANSWER15 vj_hlr/hl1_npc/otis/suppose
+OT_ANSWER16 vj_hlr/hl1_npc/otis/hell
+OT_ANSWER17 vj_hlr/hl1_npc/otis/cantfigure
+OT_ANSWER18 vj_hlr/hl1_npc/otis/maybe
+OT_ANSWER19 vj_hlr/hl1_npc/otis/talkmuch
+OT_ANSWER20 vj_hlr/hl1_npc/otis/dejavu
+
+OT_KILL0 vj_hlr/hl1_npc/otis/gotone
+OT_KILL1 vj_hlr/hl1_npc/otis/another
+OT_KILL2 vj_hlr/hl1_npc/otis/buttugly
+OT_KILL3 vj_hlr/hl1_npc/otis/seethat
+OT_KILL4 vj_hlr/hl1_npc/otis/close
+OT_KILL5 vj_hlr/hl1_npc/otis/firepl
+OT_KILL6 vj_hlr/hl1_npc/otis/bring
+
+OT_MAD0 vj_hlr/hl1_npc/otis/bully
+OT_MAD1 vj_hlr/hl1_npc/otis/somuch
+OT_MAD2 vj_hlr/hl1_npc/otis/dontmake
+OT_MAD3 vj_hlr/hl1_npc/otis/tomb
+
+OT_SHOT0 vj_hlr/hl1_npc/otis/friends
+OT_SHOT1 vj_hlr/hl1_npc/otis/chump
+OT_SHOT2 vj_hlr/hl1_npc/otis/watchit
+OT_SHOT3 vj_hlr/hl1_npc/otis/damn
+OT_SHOT4 vj_hlr/hl1_npc/otis/quitit
+OT_SHOT5 vj_hlr/hl1_npc/otis/onry
+
+OT_IDLE0 vj_hlr/hl1_npc/otis/mom
+OT_IDLE1 vj_hlr/hl1_npc/otis/aliens
+OT_IDLE2 vj_hlr/hl1_npc/otis/wuss
+OT_IDLE3 vj_hlr/hl1_npc/otis/bridge
+OT_IDLE4 vj_hlr/hl1_npc/otis/closet
+OT_IDLE5 vj_hlr/hl1_npc/otis/cousin
+OT_IDLE6 vj_hlr/hl1_npc/otis/mall
+
+OT_ATTACK0 vj_hlr/hl1_npc/otis/behind
+OT_ATTACK1 vj_hlr/hl1_npc/otis/leftovers
+OT_ATTACK2 vj_hlr/hl1_npc/otis/yourback
+OT_ATTACK3 vj_hlr/hl1_npc/otis/die
+
+OT_HEAR0 vj_hlr/hl1_npc/otis/hearsomething
+OT_HEAR1 vj_hlr/hl1_npc/otis/soundsbad
+
+OT_SMELL0 vj_hlr/hl1_npc/otis/ass
+OT_SMELL1 vj_hlr/hl1_npc/otis/chili
+OT_SMELL2 vj_hlr/hl1_npc/otis/janitor
+
+OT_CUREA vj_hlr/hl1_npc/otis/scar
+OT_CUREB vj_hlr/hl1_npc/otis/insurance
+OT_CUREC vj_hlr/hl1_npc/otis/medic
+
+OT_SCARED0 vj_hlr/hl1_npc/otis/donthurtem
+OT_SCARED1 vj_hlr/hl1_npc/otis/leavealone
+
+OT_WOUND0 vj_hlr/hl1_npc/otis/imhit
+OT_WOUND1 vj_hlr/hl1_npc/otis/virgin
+
+OT_MORTAL0 vj_hlr/hl1_npc/otis/imdead
+OT_MORTAL1 vj_hlr/hl1_npc/otis/hitbad
+
+OT_MISC0 vj_hlr/hl1_npc/otis/stupidmachines
+OT_MISC1 vj_hlr/hl1_npc/otis/quarter
+
+//scripts
+OT_NOTOPEN vj_hlr/hl1_npc/otis/of1a1_ot01
+OT_FOUNDVEST vj_hlr/hl1_npc/otis/of1a1_ot02
+OT_GOODLUCK vj_hlr/hl1_npc/otis/of1a1_ot03
+OT_FINDMORE vj_hlr/hl1_npc/otis/of1a1_ot04
+OT_SCREAMING vj_hlr/hl1_npc/otis/of1a5_ot01
+OT_TRUSTYA vj_hlr/hl1_npc/otis/of2a6_ot01
+OT_TRANSPORTER vj_hlr/hl1_npc/otis/of3a2_ot01
+OT_TELLSECRET vj_hlr/hl1_npc/otis/of6a3_ot01
+
+// DOCTOR KELLER
+DK_HELLO0 vj_hlr/hl1_npc/keller/dk_hello0
+DK_HELLO1 vj_hlr/hl1_npc/keller/dk_hello1
+DK_HELLO2 vj_hlr/hl1_npc/keller/dk_hello2
+
+DK_IDLE0 vj_hlr/hl1_npc/keller/dk_idle0
+DK_IDLE1 vj_hlr/hl1_npc/keller/dk_idle1
+DK_IDLE2 vj_hlr/hl1_npc/keller/dk_idle2
+DK_IDLE3 vj_hlr/hl1_npc/keller/dk_idle3
+DK_IDLE4 vj_hlr/hl1_npc/keller/dk_idle4
+
+DK_STARE0 vj_hlr/hl1_npc/keller/dk_stare0
+DK_STARE1 vj_hlr/hl1_npc/keller/dk_stare1
+DK_STARE2 vj_hlr/hl1_npc/keller/dk_stare2
+
+DK_OK0 vj_hlr/hl1_npc/keller/dk_ok0
+DK_OK1 vj_hlr/hl1_npc/keller/dk_ok1
+DK_OK2 vj_hlr/hl1_npc/keller/dk_ok2
+
+DK_WAIT0 vj_hlr/hl1_npc/keller/dk_wait0
+DK_WAIT1 vj_hlr/hl1_npc/keller/dk_wait1
+DK_WAIT2 vj_hlr/hl1_npc/keller/dk_wait2
+DK_WAIT3 vj_hlr/hl1_npc/keller/dk_wait0
+
+DK_STOP0 vj_hlr/hl1_npc/keller/dk_stop0
+DK_STOP1 vj_hlr/hl1_npc/keller/dk_stop1
+DK_STOP2 vj_hlr/hl1_npc/keller/dk_stop2
+
+// player attacks friend
+DK_SCARED0 vj_hlr/hl1_npc/keller/dk_scared0
+DK_SCARED1 vj_hlr/hl1_npc/keller/dk_scared1
+DK_SCARED2 vj_hlr/hl1_npc/keller/dk_scared2
+
+// player attacks Keller
+DK_PLFEAR0 vj_hlr/hl1_npc/keller/dk_plfear0
+DK_PLFEAR1 vj_hlr/hl1_npc/keller/dk_plfear1
+DK_PLFEAR2 vj_hlr/hl1_npc/keller/dk_plfear2
+DK_PLFEAR3 vj_hlr/hl1_npc/keller/dk_plfear3
+
+DK_FEAR0 vj_hlr/hl1_npc/keller/dk_fear0
+DK_FEAR1 vj_hlr/hl1_npc/keller/dk_fear1
+DK_FEAR2 vj_hlr/hl1_npc/keller/dk_fear2
+DK_FEAR3 vj_hlr/hl1_npc/keller/dk_fear3
+DK_FEAR4 vj_hlr/hl1_npc/keller/dk_fear4
+DK_FEAR5 vj_hlr/hl1_npc/keller/dk_fear5
+DK_FEAR6 vj_hlr/hl1_npc/keller/dk_fear6
+
+DK_FUEHRER vj_hlr/hl1_npc/keller/dk_furher
+
+//DECAY - HT01ACCIDENT
+DK_HT01_01 vj_hlr/hl1_npc/keller/dk_01_late
+DK_HT01_02 vj_hlr/hl1_npc/keller/dk_01_kleiner
+DK_HT01_03 vj_hlr/hl1_npc/keller/dk_01_started
+DK_HT01_04 vj_hlr/hl1_npc/keller/dk_01_rosenberg
+DK_HT01_05 vj_hlr/hl1_npc/keller/dk_01_concern
+DK_HT01_06 vj_hlr/hl1_npc/keller/dk_01_decision
+DK_HT01_07 vj_hlr/hl1_npc/keller/dk_01_storage
+DK_HT01_08 vj_hlr/hl1_npc/keller/dk_01_tolman
+DK_HT01_09 vj_hlr/hl1_npc/keller/dk_01_goodgrief
+DK_HT01_10 vj_hlr/hl1_npc/keller/dk_01_spectrom
+DK_HT01_11 vj_hlr/hl1_npc/keller/dk_01_needspect
+DK_HT01_12 vj_hlr/hl1_npc/keller/dk_01_finished
+DK_HT01_13 vj_hlr/hl1_npc/keller/dk_01_gonewrong
+DK_HT01_14 vj_hlr/hl1_npc/keller/dk_01_yesgood
+DK_HT01_15 vj_hlr/hl1_npc/keller/dk_01_cascade
+DK_HT01_16 vj_hlr/hl1_npc/keller/dk_01_failed
+DK_HT01_17 vj_hlr/hl1_npc/keller/dk_01_collapsed
+DK_HT01_18 vj_hlr/hl1_npc/keller/dk_01_gottodeal
+DK_HT01_19 vj_hlr/hl1_npc/keller/dk_01_survived
+DK_HT01_20 vj_hlr/hl1_npc/keller/dk_01_plan
+DK_HT01_21 vj_hlr/hl1_npc/keller/dk_01_shortcut
+
+//DECAY - HT03UPLINK
+DK_HT03_01 vj_hlr/hl1_npc/keller/dk_03_notime
+
+//DECAY - HT04DAMPEN
+DK_HT04_01 vj_hlr/hl1_npc/keller/dk_04_resetdamp
+DK_HT04_02 vj_hlr/hl1_npc/keller/dk_04_secfirst
+DK_HT04_03 vj_hlr/hl1_npc/keller/dk_04_bewary
+DK_HT04_04 vj_hlr/hl1_npc/keller/dk_04_monsters
+DK_HT04_05 vj_hlr/hl1_npc/keller/dk_04_letssee
+DK_HT04_06 vj_hlr/hl1_npc/keller/dk_04_transmit
+DK_HT04_07 vj_hlr/hl1_npc/keller/dk_04_testing
+DK_HT04_08 vj_hlr/hl1_npc/keller/dk_04_excellent
+DK_HT04_09 vj_hlr/hl1_npc/keller/dk_04_otherdamp
+DK_HT04_10 vj_hlr/hl1_npc/keller/dk_04_primlock
+DK_HT04_11 vj_hlr/hl1_npc/keller/dk_04_goonway
+DK_HT04_12 vj_hlr/hl1_npc/keller/dk_04_onwaythen
+DK_HT04_13 vj_hlr/hl1_npc/keller/dk_04_bulkhead
+DK_HT04_14 vj_hlr/hl1_npc/keller/dk_04_weakspot
+DK_HT04_15 vj_hlr/hl1_npc/keller/dk_04_interfere
+DK_HT04_16 vj_hlr/hl1_npc/keller/dk_04_disenergy
+DK_HT04_17 vj_hlr/hl1_npc/keller/dk_04_resetnow
+DK_HT04_18 vj_hlr/hl1_npc/keller/dk_04_primreset
+DK_HT04_19 vj_hlr/hl1_npc/keller/dk_04_toomuch
+DK_HT04_20 vj_hlr/hl1_npc/keller/dk_04_ididit
+DK_HT04_21 vj_hlr/hl1_npc/keller/dk_04_bringtram
+
+//DECAY - HT05DORMS
+DK_HT05_01 vj_hlr/hl1_npc/keller/dk_05_mustseal
+DK_HT05_02 vj_hlr/hl1_npc/keller/dk_05_gotodorms
+DK_HT05_03 vj_hlr/hl1_npc/keller/dk_05_nofoolish
+DK_HT05_04 vj_hlr/hl1_npc/keller/dk_05_otherside
+DK_HT05_05 vj_hlr/hl1_npc/keller/dk_05_gladalive
+DK_HT05_06 vj_hlr/hl1_npc/keller/dk_05_needguard
+DK_HT05_07 vj_hlr/hl1_npc/keller/dk_05_needcodes
+DK_HT05_08 vj_hlr/hl1_npc/keller/dk_05_haveguard
+DK_HT05_09 vj_hlr/hl1_npc/keller/dk_05_havecode
+DK_HT05_10 vj_hlr/hl1_npc/keller/dk_05_onceorbit
+
+//DECAY - HT07SIGNAL
+DK_HT07_01 vj_hlr/hl1_npc/keller/dk_07_basement
+DK_HT07_02 vj_hlr/hl1_npc/keller/dk_07_lockout
+DK_HT07_03 vj_hlr/hl1_npc/keller/dk_07_online
+
+//DECAY - HT10FOCUS
+DK_HT10_01 vj_hlr/hl1_npc/keller/dk_10_gammalabs
+DK_HT10_02 vj_hlr/hl1_npc/keller/dk_10_beacon
+DK_HT10_03 vj_hlr/hl1_npc/keller/dk_10_jammed
+DK_HT10_04 vj_hlr/hl1_npc/keller/dk_10_goingon
+DK_HT10_05 vj_hlr/hl1_npc/keller/dk_10_working
+
+//DECAY - HT11LASER
+DK_HT11_01 vj_hlr/hl1_npc/keller/dk_11_upstairs
+DK_HT11_02 vj_hlr/hl1_npc/keller/dk_11_unlock
+DK_HT11_03 vj_hlr/hl1_npc/keller/dk_11_activate
+DK_HT11_04 vj_hlr/hl1_npc/keller/dk_11_elevator
+DK_HT11_05 vj_hlr/hl1_npc/keller/dk_11_matrixact
+DK_HT11_06 vj_hlr/hl1_npc/keller/dk_11_greatdone
+DK_HT11_07 vj_hlr/hl1_npc/keller/dk_11_bothin
+DK_HT11_08 vj_hlr/hl1_npc/keller/dk_11_goodwork
+
+//DECAY - HT12FUBAR
+DK_HT12_01 vj_hlr/hl1_npc/keller/dk_12_donewell
+DK_HT12_02 vj_hlr/hl1_npc/keller/dk_12_followme
+DK_HT12_03 vj_hlr/hl1_npc/keller/dk_12_netting
+DK_HT12_04 vj_hlr/hl1_npc/keller/dk_12_mindopen
+DK_HT12_05 vj_hlr/hl1_npc/keller/dk_12_whenstart
+DK_HT12_06 vj_hlr/hl1_npc/keller/dk_12_mountgun
+DK_HT12_09 vj_hlr/hl1_npc/keller/dk_12_surge
+DK_HT12_10 vj_hlr/hl1_npc/keller/dk_12_attbeacon
+DK_HT12_11 vj_hlr/hl1_npc/keller/dk_12_destroy
+DK_HT12_14 vj_hlr/hl1_npc/keller/dk_12_thisisbad
+DK_HT12_15 vj_hlr/hl1_npc/keller/dk_12_wedidit
+DK_HT12_17 vj_hlr/hl1_npc/keller/dk_12_failed
+DK_HT12_18 vj_hlr/hl1_npc/keller/dk_12_success
+
+DK_HT12_20 vj_hlr/hl1_npc/keller/dk_12_beacon1
+DK_HT12_21 vj_hlr/hl1_npc/keller/dk_12_bunker
+DK_HT12_22 vj_hlr/hl1_npc/keller/dk_12_deploy1
+DK_HT12_23 vj_hlr/hl1_npc/keller/dk_12_first100
+DK_HT12_24 vj_hlr/hl1_npc/keller/dk_12_firstgo
+DK_HT12_25 vj_hlr/hl1_npc/keller/dk_12_second50
+DK_HT12_26 vj_hlr/hl1_npc/keller/dk_12_second80
+DK_HT12_27 vj_hlr/hl1_npc/keller/dk_12_second90
+DK_HT12_28 vj_hlr/hl1_npc/keller/dk_12_second100
+DK_HT12_29 vj_hlr/hl1_npc/keller/dk_12_final20
+DK_HT12_30 vj_hlr/hl1_npc/keller/dk_12_final75
+DK_HT12_31 vj_hlr/hl1_npc/keller/dk_12_final100
+DK_HT12_32 vj_hlr/hl1_npc/keller/dk_12_bunkeropen
+DK_HT12_33 vj_hlr/hl1_npc/keller/dk_12_bunkerfail
+DK_HT12_34 vj_hlr/hl1_npc/keller/dk_12_allactive
+DK_HT12_35 vj_hlr/hl1_npc/keller/dk_12_blastbunker
+DK_HT12_36 vj_hlr/hl1_npc/keller/dk_12_critical1
+DK_HT12_37 vj_hlr/hl1_npc/keller/dk_12_critical2
+DK_HT12_38 vj_hlr/hl1_npc/keller/dk_12_dontcare
+DK_HT12_39 vj_hlr/hl1_npc/keller/dk_12_iiii
+DK_HT12_40 vj_hlr/hl1_npc/keller/dk_12_radio
+
+// Dr. Rosenburg
+
+RO_OK0 vj_hlr/hl1_npc/rosenberg/ro_ok0
+RO_OK1 vj_hlr/hl1_npc/rosenberg/ro_ok1
+RO_OK2 vj_hlr/hl1_npc/rosenberg/ro_ok2
+RO_OK3 vj_hlr/hl1_npc/rosenberg/ro_ok3
+RO_OK4 vj_hlr/hl1_npc/rosenberg/ro_ok4
+RO_OK5 vj_hlr/hl1_npc/rosenberg/ro_ok5
+RO_OK6 vj_hlr/hl1_npc/rosenberg/ro_ok6
+RO_OK7 vj_hlr/hl1_npc/rosenberg/ro_ok7
+
+RO_WAIT0 vj_hlr/hl1_npc/rosenberg/ro_wait0
+RO_WAIT1 vj_hlr/hl1_npc/rosenberg/ro_wait1
+RO_WAIT2 vj_hlr/hl1_npc/rosenberg/ro_wait2
+RO_WAIT3 vj_hlr/hl1_npc/rosenberg/ro_wait3
+RO_WAIT4 vj_hlr/hl1_npc/rosenberg/ro_wait4
+
+RO_STOP0 vj_hlr/hl1_npc/rosenberg/ro_stop0
+RO_STOP1 vj_hlr/hl1_npc/rosenberg/ro_stop1
+RO_STOP2 vj_hlr/hl1_npc/rosenberg/ro_stop2
+RO_STOP3 vj_hlr/hl1_npc/rosenberg/ro_stop3
+RO_STOP4 vj_hlr/hl1_npc/rosenberg/ro_stop4
+
+RO_WOUND0 vj_hlr/hl1_npc/rosenberg/ro_wound0
+RO_WOUND1 vj_hlr/hl1_npc/rosenberg/ro_wound1
+
+RO_MORTAL0 vj_hlr/hl1_npc/rosenberg/ro_mortal0
+RO_MORTAL1 vj_hlr/hl1_npc/rosenberg/ro_mortal1
+
+RO_CUREA vj_hlr/hl1_npc/rosenberg/ro_cure0
+RO_CUREB vj_hlr/hl1_npc/rosenberg/ro_cure1
+RO_CUREC vj_hlr/hl1_npc/rosenberg/ro_cure2
+
+RO_HEAL0 vj_hlr/hl1_npc/rosenberg/ro_heal0
+RO_HEAL1 vj_hlr/hl1_npc/rosenberg/ro_heal1
+RO_HEAL2 vj_hlr/hl1_npc/rosenberg/ro_heal2
+RO_HEAL3 vj_hlr/hl1_npc/rosenberg/ro_heal3
+RO_HEAL4 vj_hlr/hl1_npc/rosenberg/ro_heal4
+
+RO_PLFEAR0 vj_hlr/hl1_npc/rosenberg/ro_plfear0
+RO_PLFEAR1 vj_hlr/hl1_npc/rosenberg/ro_plfear1
+RO_PLFEAR2 vj_hlr/hl1_npc/rosenberg/ro_plfear2
+RO_PLFEAR3 vj_hlr/hl1_npc/rosenberg/ro_plfear3
+RO_PLFEAR4 vj_hlr/hl1_npc/rosenberg/ro_plfear4
+
+RO_FEAR0 vj_hlr/hl1_npc/rosenberg/ro_fear0
+RO_FEAR1 vj_hlr/hl1_npc/rosenberg/ro_fear1
+RO_FEAR2 vj_hlr/hl1_npc/rosenberg/ro_fear2
+RO_FEAR3 vj_hlr/hl1_npc/rosenberg/ro_fear3
+RO_FEAR4 vj_hlr/hl1_npc/rosenberg/ro_fear4
+RO_FEAR5 vj_hlr/hl1_npc/rosenberg/ro_fear5
+
+RO_SCREAM0 vj_hlr/hl1_npc/rosenberg/ro_fear0
+RO_SCREAM1 vj_hlr/hl1_npc/rosenberg/ro_fear1
+RO_SCREAM2 vj_hlr/hl1_npc/rosenberg/ro_fear2
+RO_SCREAM3 vj_hlr/hl1_npc/rosenberg/ro_fear3
+RO_SCREAM4 vj_hlr/hl1_npc/rosenberg/ro_fear4
+RO_SCREAM5 vj_hlr/hl1_npc/rosenberg/ro_fear5
+
+RO_SCARED0 vj_hlr/hl1_npc/rosenberg/ro_scared0
+RO_SCARED1 vj_hlr/hl1_npc/rosenberg/ro_scared1
+RO_SCARED2 vj_hlr/hl1_npc/rosenberg/ro_scared2
+
+//DECAY - HT01ACCIDENT
+RO_HT01_01 vj_hlr/hl1_npc/rosenberg/ro_01_keller
+RO_HT01_02 vj_hlr/hl1_npc/rosenberg/ro_01_spectrom
+RO_HT01_03 vj_hlr/hl1_npc/rosenberg/ro_01_admin
+RO_HT01_04 vj_hlr/hl1_npc/rosenberg/ro_01_realize
+RO_HT01_05 vj_hlr/hl1_npc/rosenberg/ro_01_grudge
+RO_HT01_06 vj_hlr/hl1_npc/rosenberg/ro_01_sigh
+RO_HT01_07 vj_hlr/hl1_npc/rosenberg/ro_01_assure
+RO_HT01_08 vj_hlr/hl1_npc/rosenberg/ro_01_chargers
+RO_HT01_09 vj_hlr/hl1_npc/rosenberg/ro_01_alive
+RO_HT01_10 vj_hlr/hl1_npc/rosenberg/ro_01_dampen
+RO_HT01_11 vj_hlr/hl1_npc/rosenberg/ro_01_fields
+RO_HT01_12 vj_hlr/hl1_npc/rosenberg/ro_01_yesright
+RO_HT01_13 vj_hlr/hl1_npc/rosenberg/ro_01_callhelp
+RO_HT01_14 vj_hlr/hl1_npc/rosenberg/ro_01_danger
+RO_HT01_15 vj_hlr/hl1_npc/rosenberg/ro_01_touch
+RO_HT01_16 vj_hlr/hl1_npc/rosenberg/ro_01_survived
+RO_HT01_17 vj_hlr/hl1_npc/rosenberg/ro_01_leaving
+RO_HT01_18 vj_hlr/hl1_npc/rosenberg/ro_01_letsgo
+
+//DECAY - HT02HAZARD
+RO_HT02_01 vj_hlr/hl1_npc/rosenberg/ro_02_despite
+RO_HT02_02 vj_hlr/hl1_npc/rosenberg/ro_02_elevator
+RO_HT02_03 vj_hlr/hl1_npc/rosenberg/ro_02_waithere
+RO_HT02_04 vj_hlr/hl1_npc/rosenberg/ro_02_moving
+RO_HT02_05 vj_hlr/hl1_npc/rosenberg/ro_02_careful
+RO_HT02_06 vj_hlr/hl1_npc/rosenberg/ro_02_thanks
+RO_HT02_07 vj_hlr/hl1_npc/rosenberg/ro_02_follow
+RO_HT02_08 vj_hlr/hl1_npc/rosenberg/ro_02_opendoor
+RO_HT02_09 vj_hlr/hl1_npc/rosenberg/ro_02_madeit
+
+//DECAY - HT03UPLINK
+RO_HT03_01 vj_hlr/hl1_npc/rosenberg/ro_03_surface
+RO_HT03_02 vj_hlr/hl1_npc/rosenberg/ro_03_inside
+RO_HT03_03 vj_hlr/hl1_npc/rosenberg/ro_03_makeway
+RO_HT03_04 vj_hlr/hl1_npc/rosenberg/ro_03_madeit
+RO_HT03_05 vj_hlr/hl1_npc/rosenberg/ro_03_notalign
+RO_HT03_06 vj_hlr/hl1_npc/rosenberg/ro_03_aligned
+RO_HT03_07 vj_hlr/hl1_npc/rosenberg/ro_03_notalign2
+RO_HT03_08 vj_hlr/hl1_npc/rosenberg/ro_03_rotated
+RO_HT03_09 vj_hlr/hl1_npc/rosenberg/ro_03_perfect
+RO_HT03_10 vj_hlr/hl1_npc/rosenberg/ro_03_toofar
+RO_HT03_11 vj_hlr/hl1_npc/rosenberg/ro_03_excellent
+RO_HT03_12 vj_hlr/hl1_npc/rosenberg/ro_03_keller
+RO_HT03_13 vj_hlr/hl1_npc/rosenberg/ro_03_senddown
+RO_HT03_14 vj_hlr/hl1_npc/rosenberg/ro_03_waithere
+
+// SCIENTIST
+
+SC_OK0 vj_hlr/hl1_npc/scientist/excellentteam {Len 3.59}
+SC_OK1 vj_hlr/hl1_npc/scientist/fellowscientist {Len 1.97}
+SC_OK2 vj_hlr/hl1_npc/scientist/fine {Len 1.86}
+SC_OK3 vj_hlr/hl1_npc/scientist/hopeyouknow {Len 2.10}
+SC_OK4 vj_hlr/hl1_npc/scientist/leadtheway {Len 1.16}
+SC_OK5 vj_hlr/hl1_npc/scientist/letsgo {Len 0.66}
+SC_OK6 vj_hlr/hl1_npc/scientist/yesletsgo {Len 1.14}
+SC_OK7 vj_hlr/hl1_npc/scientist/yes3 {Len 0.55}
+SC_OK8 vj_hlr/hl1_npc/scientist/alright {Len 0.87}
+
+SC_WAIT0 vj_hlr/hl1_npc/scientist/beenaburden {Len 2.06}
+SC_WAIT1 vj_hlr/hl1_npc/scientist/slowingyou {Len 1.75}
+SC_WAIT2 vj_hlr/hl1_npc/scientist/reconsider {Len 1.82}
+SC_WAIT3 vj_hlr/hl1_npc/scientist/whyleavehere {Len 1.50}
+SC_WAIT4 vj_hlr/hl1_npc/scientist/illwaithere {Len 0.91}
+SC_WAIT5 vj_hlr/hl1_npc/scientist/istay {Len 0.72}
+SC_WAIT6 vj_hlr/hl1_npc/scientist/illwait {Len 0.56}
+
+// fail to follow player any more
+SC_STOP0 vj_hlr/hl1_npc/scientist/stop1 {Len 1.39}
+SC_STOP1 vj_hlr/hl1_npc/scientist/stop2 {Len 1.68}
+SC_STOP2 vj_hlr/hl1_npc/scientist/stop3 {Len 2.04}
+SC_STOP3 vj_hlr/hl1_npc/scientist/stop4 {Len 2.30}
+
+
+// player is staring at scientist
+SC_STARE0 vj_hlr/hl1_npc/scientist/yees {Len 1.40}
+SC_STARE1 vj_hlr/hl1_npc/scientist/areyouthink {Len 1.64}
+SC_STARE2 vj_hlr/hl1_npc/scientist/noidea {Len 3.50}
+
+SC_HELLO0 vj_hlr/hl1_npc/scientist/hellothere {Len 0.78}
+SC_HELLO1 vj_hlr/hl1_npc/scientist/freemanalive {Len 3.54}
+SC_HELLO2 vj_hlr/hl1_npc/scientist/afellowsci {Len 1.33}
+SC_HELLO3 vj_hlr/hl1_npc/scientist/greetings2 {Len 2.01}
+SC_HELLO4 vj_hlr/hl1_npc/scientist/hello {Len 2.42}
+SC_HELLO5 vj_hlr/hl1_npc/scientist/goodtoseeyou {Len 3.11}
+SC_HELLO6 vj_hlr/hl1_npc/scientist/newhevsuit {Len 4.40}
+SC_HELLO7 vj_hlr/hl1_npc/scientist/hellofromlab {Len 4.30}
+SC_HELLO8 vj_hlr/hl1_npc/scientist/inmesstoo {Len 3.63}
+
+SC_ANSWER0 vj_hlr/hl1_npc/scientist/notsure {Len 1.14}
+SC_ANSWER1 vj_hlr/hl1_npc/scientist/notcertain {Len 1.28}
+SC_ANSWER2 vj_hlr/hl1_npc/scientist/perhaps {Len 0.92}
+SC_ANSWER3 vj_hlr/hl1_npc/scientist/whocansay {Len 1.26}
+SC_ANSWER4 vj_hlr/hl1_npc/scientist/inconclusive {Len 1.73}
+SC_ANSWER5 vj_hlr/hl1_npc/scientist/theoretically {Len 0.95}
+SC_ANSWER6 vj_hlr/hl1_npc/scientist/whyaskme {Len 1.37}
+SC_ANSWER7 vj_hlr/hl1_npc/scientist/lowervoice {Len 2.00}
+SC_ANSWER8 vj_hlr/hl1_npc/scientist/ofcourse {Len 1.14}
+SC_ANSWER9 vj_hlr/hl1_npc/scientist/absolutely {Len 0.99}
+SC_ANSWER10 vj_hlr/hl1_npc/scientist/yes {Len 0.40}
+SC_ANSWER11 vj_hlr/hl1_npc/scientist/ibelieveso {Len 0.83}
+SC_ANSWER12 vj_hlr/hl1_npc/scientist/right {Len 0.44}
+SC_ANSWER13 vj_hlr/hl1_npc/scientist/imsure {Len 0.67}
+SC_ANSWER14 vj_hlr/hl1_npc/scientist/positively {Len 0.67}
+SC_ANSWER15 vj_hlr/hl1_npc/scientist/nodoubt {Len 1.13}
+SC_ANSWER16 vj_hlr/hl1_npc/scientist/yees {Len 1.40}
+SC_ANSWER17 vj_hlr/hl1_npc/scientist/ofcoursenot {Len 0.88}
+SC_ANSWER18 vj_hlr/hl1_npc/scientist/absolutelynot {Len 1.20}
+SC_ANSWER19 vj_hlr/hl1_npc/scientist/noo {Len 0.91}
+SC_ANSWER20 vj_hlr/hl1_npc/scientist/idontthinkso {Len 1.62}
+SC_ANSWER21 vj_hlr/hl1_npc/scientist/completelywrong {Len 1.92}
+SC_ANSWER22 vj_hlr/hl1_npc/scientist/cantbeserious {Len 1.20}
+SC_ANSWER23 vj_hlr/hl1_npc/scientist/dontknow {Len 1.11}
+SC_ANSWER24 vj_hlr/hl1_npc/scientist/ridiculous {Len 1.00}
+SC_ANSWER25 vj_hlr/hl1_npc/scientist/shutup {Len 0.88}
+SC_ANSWER26 vj_hlr/hl1_npc/scientist/noguess {Len 1.61}
+SC_ANSWER27 vj_hlr/hl1_npc/scientist/stopasking {Len 1.67}
+SC_ANSWER28 vj_hlr/hl1_npc/scientist/justasked {Len 1.82}
+SC_ANSWER29 vj_hlr/hl1_npc/scientist/repeat {Len 2.95}
+
+SC_QUESTION0 vj_hlr/hl1_npc/scientist/everseen {Len 3.04}
+SC_QUESTION1 vj_hlr/hl1_npc/scientist/needsleep {Len 3.95}
+SC_QUESTION2 vj_hlr/hl1_npc/scientist/areyouthink {Len 1.64}
+SC_QUESTION3 vj_hlr/hl1_npc/scientist/evergetout {Len 1.82}
+SC_QUESTION4 vj_hlr/hl1_npc/scientist/rightwayout {Len 1.67}
+SC_QUESTION5 vj_hlr/hl1_npc/scientist/cantbeworse {Len 1.75}
+SC_QUESTION6 vj_hlr/hl1_npc/scientist/rescueus {Len 2.62}
+SC_QUESTION7 vj_hlr/hl1_npc/scientist/fascinating {Len 2.47}
+SC_QUESTION8 vj_hlr/hl1_npc/scientist/stimulating {Len 3.30}
+SC_QUESTION9 vj_hlr/hl1_npc/scientist/luckwillchange {Len 3.43}
+SC_QUESTION10 vj_hlr/hl1_npc/scientist/hearsomething {Len 2.56}
+SC_QUESTION11 vj_hlr/hl1_npc/scientist/doyousmell {Len 2.09}
+SC_QUESTION12 vj_hlr/hl1_npc/scientist/uselessphd {Len 2.71}
+SC_QUESTION13 vj_hlr/hl1_npc/scientist/waithere {Len 2.87}
+SC_QUESTION14 vj_hlr/hl1_npc/scientist/survival {Len 3.41}
+SC_QUESTION15 vj_hlr/hl1_npc/scientist/headcrab {Len 4.61}
+SC_QUESTION16 vj_hlr/hl1_npc/scientist/goodpaper {Len 3.36}
+SC_QUESTION17 vj_hlr/hl1_npc/scientist/catchone {Len 1.92}
+SC_QUESTION18 vj_hlr/hl1_npc/scientist/dinner {Len 5.43}
+SC_QUESTION19 vj_hlr/hl1_npc/scientist/alientrick {Len 3.33}
+SC_QUESTION20 vj_hlr/hl1_npc/scientist/alienappeal {Len 2.65}
+SC_QUESTION21 vj_hlr/hl1_npc/scientist/rumorclean {Len 4.93}
+SC_QUESTION22 vj_hlr/hl1_npc/scientist/nothostile {Len 5.15}
+SC_QUESTION23 vj_hlr/hl1_npc/scientist/announcer {Len 2.20}
+SC_QUESTION24 vj_hlr/hl1_npc/scientist/smellburn {Len 1.57}
+SC_QUESTION25 vj_hlr/hl1_npc/scientist/noidea {Len 3.50}
+SC_QUESTION26 vj_hlr/hl1_npc/scientist/whatnext {Len 2.96}
+
+SC_IDLE0 vj_hlr/hl1_npc/scientist/ipredictedthis {Len 2.74}
+SC_IDLE1 vj_hlr/hl1_npc/scientist/containfail {Len 3.17}
+SC_IDLE2 vj_hlr/hl1_npc/scientist/chaostheory {Len 2.41}
+SC_IDLE3 vj_hlr/hl1_npc/scientist/howinteresting {Len 2.87}
+SC_IDLE4 vj_hlr/hl1_npc/scientist/neverseen {Len 4.72}
+SC_IDLE5 vj_hlr/hl1_npc/scientist/peculiarmarks {Len 3.84}
+SC_IDLE6 vj_hlr/hl1_npc/scientist/whoresponsible {Len 2.77}
+SC_IDLE7 vj_hlr/hl1_npc/scientist/nogrant {Len 2.14}
+SC_IDLE8 vj_hlr/hl1_npc/scientist/bloodsample {Len 3.51}
+SC_IDLE9 vj_hlr/hl1_npc/scientist/administrator {Len 4.43}
+SC_IDLE10 vj_hlr/hl1_npc/scientist/improbable {Len 3.47}
+SC_IDLE11 vj_hlr/hl1_npc/scientist/organicmatter {Len 4.58}
+SC_IDLE12 vj_hlr/hl1_npc/scientist/lambdalab {Len 4.15}
+SC_IDLE13 vj_hlr/hl1_npc/scientist/ihearsomething {Len 0.76}
+
+SC_NOGO vj_hlr/hl1_npc/scientist/dontgothere {Len 1.34}
+
+SC_MONST0 vj_hlr/hl1_npc/scientist/seeheadcrab {Len 2.49}
+SC_MONST1 vj_hlr/hl1_npc/scientist/importantspecies {Len 2.94}
+
+SC_HEAR0 vj_hlr/hl1_npc/scientist/ihearsomething {Len 0.76}
+SC_HEAR1 vj_hlr/hl1_npc/scientist/didyouhear {Len 0.66}
+SC_HEAR2 vj_hlr/hl1_npc/scientist/whatissound {Len 1.69}
+
+SC_SMELL0 vj_hlr/hl1_npc/scientist/somethingfoul {Len 4.11}
+SC_SMELL1 vj_hlr/hl1_npc/scientist/odorfromyou {Len 2.51}
+SC_SMELL2 vj_hlr/hl1_npc/scientist/peculiarodor {Len 2.48}
+SC_SMELL3 vj_hlr/hl1_npc/scientist/stench {Len 2.09}
+
+SC_WOUND0 vj_hlr/hl1_npc/scientist/iwounded {Len 3.25}
+SC_WOUND1 vj_hlr/hl1_npc/scientist/iwounded2 {Len 3.14}
+
+SC_MORTAL0 vj_hlr/hl1_npc/scientist/iwoundedbad {Len 2.09}
+SC_MORTAL1 vj_hlr/hl1_npc/scientist/iwounded2 {Len 3.14}
+
+SC_CUREA vj_hlr/hl1_npc/scientist/youlookbad {Len 1.40}
+SC_CUREB vj_hlr/hl1_npc/scientist/youwounded {Len 1.67}
+SC_CUREC vj_hlr/hl1_npc/scientist/youneedmedic {Len 2.67}
+
+SC_HEAL0 vj_hlr/hl1_npc/scientist/heal1 {Len 2.47}
+SC_HEAL1 vj_hlr/hl1_npc/scientist/heal2 {Len 1.30}
+SC_HEAL2 vj_hlr/hl1_npc/scientist/youneedmedic, letstrythis {Len 3.76}
+SC_HEAL3 vj_hlr/hl1_npc/scientist/youlookbad, holdstill {Len 3.69}
+SC_HEAL4 vj_hlr/hl1_npc/scientist/youwounded, letstrythis {Len 2.76}
+SC_HEAL5 vj_hlr/hl1_npc/scientist/heal3 {Len 1.79}
+SC_HEAL6 vj_hlr/hl1_npc/scientist/heal4 {Len 1.58}
+SC_HEAL7 vj_hlr/hl1_npc/scientist/heal5 {Len 1.90}
+
+SC_PLFEAR0 vj_hlr/hl1_npc/scientist/whatyoudoing {Len 1.96}
+SC_PLFEAR1 vj_hlr/hl1_npc/scientist/canttakemore {Len 1.86}
+SC_PLFEAR2 vj_hlr/hl1_npc/scientist/madness {Len 2.60}
+SC_PLFEAR3 vj_hlr/hl1_npc/scientist/noplease {Len 1.20}
+SC_PLFEAR4 vj_hlr/hl1_npc/scientist/getoutofhere {Len 3.06}
+SC_PLFEAR5 vj_hlr/hl1_npc/scientist/sorryimleaving {Len 1.38}
+
+SC_FEAR0 vj_hlr/hl1_npc/scientist/nooo {Len 0.53}
+SC_FEAR1 vj_hlr/hl1_npc/scientist/startle2 {Len 0.38}
+SC_FEAR2 vj_hlr/hl1_npc/scientist/startle1 nooo {Len 0.88}
+SC_FEAR3 vj_hlr/hl1_npc/scientist/dontwantdie {Len 1.75}
+SC_FEAR4 vj_hlr/hl1_npc/scientist/getoutalive {Len 2.42}
+SC_FEAR5 vj_hlr/hl1_npc/scientist/startle3 {Len 0.83}
+SC_FEAR6 vj_hlr/hl1_npc/scientist/startle4 {Len 0.45}
+SC_FEAR7 vj_hlr/hl1_npc/scientist/startle5 {Len 1.44}
+SC_FEAR8 vj_hlr/hl1_npc/scientist/startle6 {Len 1.01}
+SC_FEAR9 vj_hlr/hl1_npc/scientist/startle7 {Len 0.68}
+SC_FEAR10 vj_hlr/hl1_npc/scientist/startle8 {Len 1.13}
+SC_FEAR11 vj_hlr/hl1_npc/scientist/startle9 {Len 1.16}
+SC_FEAR12 vj_hlr/hl1_npc/scientist/startle1 {Len 0.36}
+
+SC_SCREAM0 vj_hlr/hl1_npc/scientist/sci_fear1 {Len 0.62}
+SC_SCREAM1 vj_hlr/hl1_npc/scientist/sci_fear2 {Len 0.68}
+SC_SCREAM2 vj_hlr/hl1_npc/scientist/sci_fear3 {Len 0.40}
+SC_SCREAM3 vj_hlr/hl1_npc/scientist/sci_fear4 {Len 0.58}
+SC_SCREAM4 vj_hlr/hl1_npc/scientist/sci_fear5 {Len 0.85}
+SC_SCREAM5 vj_hlr/hl1_npc/scientist/sci_fear6 {Len 0.50}
+SC_SCREAM6 vj_hlr/hl1_npc/scientist/sci_fear7 {Len 0.76}
+SC_SCREAM7 vj_hlr/hl1_npc/scientist/sci_fear8 {Len 0.52}
+SC_SCREAM8 vj_hlr/hl1_npc/scientist/sci_fear9 {Len 1.11}
+SC_SCREAM9 vj_hlr/hl1_npc/scientist/sci_fear10 {Len 0.51}
+SC_SCREAM10 vj_hlr/hl1_npc/scientist/sci_fear11 {Len 1.27}
+SC_SCREAM11 vj_hlr/hl1_npc/scientist/sci_fear12 {Len 0.70}
+SC_SCREAM12 vj_hlr/hl1_npc/scientist/sci_fear13 {Len 0.41}
+SC_SCREAM13 vj_hlr/hl1_npc/scientist/sci_fear14 {Len 0.59}
+SC_SCREAM14 vj_hlr/hl1_npc/scientist/sci_fear15 {Len 0.43}
+
+SC_SCARED0 vj_hlr/hl1_npc/scientist/whatyoudoing {Len 1.96}
+SC_SCARED1 vj_hlr/hl1_npc/scientist/stopattacking {Len 1.60}
+SC_SCARED2 vj_hlr/hl1_npc/scientist/youinsane {Len 2.61}
+
+// predisaster scientist
+
+SC_PHELLO0 vj_hlr/hl1_npc/scientist/hellofreeman {Len 3.47}
+SC_PHELLO1 vj_hlr/hl1_npc/scientist/greetings2 {Len 2.01}
+SC_PHELLO2 vj_hlr/hl1_npc/scientist/goodtoseeyou {Len 3.11}
+SC_PHELLO3 vj_hlr/hl1_npc/scientist/greetings {Len 2.25}
+SC_PHELLO4 vj_hlr/hl1_npc/scientist/hello {Len 2.42}
+SC_PHELLO5 vj_hlr/hl1_npc/scientist/hellothere {Len 0.78}
+SC_PHELLO6 vj_hlr/hl1_npc/scientist/freeman {Len 0.48}
+
+SC_PQUEST0 vj_hlr/hl1_npc/scientist/beverage {Len 3.06}
+SC_PQUEST1 vj_hlr/hl1_npc/scientist/statusreport {Len 3.59}
+SC_PQUEST2 vj_hlr/hl1_npc/scientist/tunnelcalc {Len 3.84}
+SC_PQUEST3 vj_hlr/hl1_npc/scientist/shakeunification {Len 3.62}
+SC_PQUEST4 vj_hlr/hl1_npc/scientist/correcttheory {Len 3.68}
+SC_PQUEST5 vj_hlr/hl1_npc/scientist/analysis {Len 3.12}
+SC_PQUEST6 vj_hlr/hl1_npc/scientist/purereadings {Len 3.15}
+SC_PQUEST7 vj_hlr/hl1_npc/scientist/newsample {Len 2.31}
+SC_PQUEST8 vj_hlr/hl1_npc/scientist/perfectday {Len 3.29}
+SC_PQUEST9 vj_hlr/hl1_npc/scientist/cascade {Len 4.36}
+SC_PQUEST10 vj_hlr/hl1_npc/scientist/delayagain {Len 3.24}
+SC_PQUEST11 vj_hlr/hl1_npc/scientist/softethics {Len 3.03}
+SC_PQUEST12 vj_hlr/hl1_npc/scientist/tunedtoday {Len 3.93}
+SC_PQUEST13 vj_hlr/hl1_npc/scientist/donuteater {Len 1.89}
+SC_PQUEST14 vj_hlr/hl1_npc/scientist/seencup {Len 1.85}
+SC_PQUEST15 vj_hlr/hl1_npc/scientist/hungryyet {Len 1.52}
+SC_PQUEST16 vj_hlr/hl1_npc/scientist/recalculate {Len 4.14}
+SC_PQUEST17 vj_hlr/hl1_npc/scientist/checkatten {Len 2.50}
+
+SC_PIDLE0 vj_hlr/hl1_npc/scientist/hideglasses {Len 2.29}
+SC_PIDLE1 vj_hlr/hl1_npc/scientist/weartie {Len 3.47}
+SC_PIDLE2 vj_hlr/hl1_npc/scientist/runtest {Len 3.43}
+SC_PIDLE3 vj_hlr/hl1_npc/scientist/limitsok {Len 2.17}
+SC_PIDLE4 vj_hlr/hl1_npc/scientist/asexpected {Len 1.45}
+SC_PIDLE5 vj_hlr/hl1_npc/scientist/thatsodd {Len 1.24}
+SC_PIDLE6 vj_hlr/hl1_npc/scientist/allnominal {Len 2.15}
+SC_PIDLE7 vj_hlr/hl1_npc/scientist/shutdownchart {Len 3.31}
+SC_PIDLE8 vj_hlr/hl1_npc/scientist/reportflux {Len 2.59}
+SC_PIDLE9 vj_hlr/hl1_npc/scientist/simulation {Len 3.14}
+SC_PIDLE10 vj_hlr/hl1_npc/scientist/hopenominal {Len 3.09}
+
+//If you use Scientists before the disaster
+
+SC_POK0 vj_hlr/hl1_npc/scientist/sci_alone {Len 3.08}
+SC_POK1 vj_hlr/hl1_npc/scientist/sci_bother {Len 1.39}
+SC_POK2 vj_hlr/hl1_npc/scientist/sci_busy {Len 2.57}
+SC_POK3 vj_hlr/hl1_npc/scientist/sci_aftertest {Len 2.86}
+SC_POK4 vj_hlr/hl1_npc/scientist/sci_somewhere {Len 2.82}
+
+//narrative audio
+
+SC_1MUMBLE vj_hlr/hl1_npc/scientist/c1a0_sci_mumble {Len 6.42}
+
+SC_DISA vj_hlr/hl1_npc/scientist/c1a0_sci_disa {Len 6.78}
+SC_DIS1A vj_hlr/hl1_npc/scientist/c1a0_sci_dis1a {Len 18.06}
+SC_DIS1B vj_hlr/hl1_npc/scientist/c1a0_sci_dis1b {Len 4.53}
+SC_DIS1C vj_hlr/hl1_npc/scientist/c1a0_sci_dis1c {Len 2.78}
+SC_DIS1D vj_hlr/hl1_npc/scientist/c1a0_sci_dis1d {Len 2.81}
+
+SC_DIS2A vj_hlr/hl1_npc/scientist/c1a0_sci_dis2a {Len 5.75}
+SC_DIS3A vj_hlr/hl1_npc/scientist/c1a0_sci_dis3a {Len 2.71}
+SC_DIS4A vj_hlr/hl1_npc/scientist/c1a0_sci_dis4a {Len 5.36}
+SC_DIS5A vj_hlr/hl1_npc/scientist/c1a0_sci_dis5a {Len 4.16}
+SC_DIS6A vj_hlr/hl1_npc/scientist/c1a0_sci_dis6a {Len 10.46}
+SC_DIS7A vj_hlr/hl1_npc/scientist/c1a0_sci_dis7a {Len 7.11}
+SC_DIS8A vj_hlr/hl1_npc/scientist/c1a0_sci_dis8a {Len 0.37}
+SC_DIS9A vj_hlr/hl1_npc/scientist/c1a0_sci_dis9a {Len 4.43}
+SC_DIS10A vj_hlr/hl1_npc/scientist/c1a0_sci_dis10a {Len 8.03}
+SC_DIS11A vj_hlr/hl1_npc/scientist/c1a0_sci_dis11a {Len 10.85}
+SC_DIS12A vj_hlr/hl1_npc/scientist/c1a0_sci_dis12a {Len 4.33}
+SC_DIS13A vj_hlr/hl1_npc/scientist/c1a0_sci_dis13a {Len 1.57}
+SC_DIS14A vj_hlr/hl1_npc/scientist/c1a0_sci_dis14a {Len 3.89}
+SC_DIS15A vj_hlr/hl1_npc/scientist/c1a0_sci_dis15a {Len 8.32}
+SC_DIS16A vj_hlr/hl1_npc/scientist/c1a0_sci_dis16a {Len 3.16}
+SC_DIS17A vj_hlr/hl1_npc/scientist/c1a0_sci_dis17a {Len 2.81}
+
+SC_GETAWAY vj_hlr/hl1_npc/scientist/c1a0_sci_getaway {Len 3.61}
+SC_GMORN vj_hlr/hl1_npc/scientist/c1a0_sci_gm {Len 1.74}
+SC_BIGDAY vj_hlr/hl1_npc/scientist/c1a0_sci_bigday {Len 1.36}
+SC_SAMPLE vj_hlr/hl1_npc/scientist/c1a0_sci_samp {Len 2.54}
+SC_NOTTHAT vj_hlr/hl1_npc/scientist/c1a0_sci_desk {Len 0.00}
+
+SC_LOCK1A vj_hlr/hl1_npc/scientist/c1a0_sci_lock1a {Len 5.79}
+SC_LOCK2A vj_hlr/hl1_npc/scientist/c1a0_sci_lock2a {Len 7.07}
+SC_LOCK3A vj_hlr/hl1_npc/scientist/c1a0_sci_lock3a {Len 2.45}
+SC_LOCK4A vj_hlr/hl1_npc/scientist/c1a0_sci_lock4a {Len 4.51}
+SC_LOCK5A vj_hlr/hl1_npc/scientist/c1a0_sci_lock5a {Len 10.49}
+SC_LOCK6A vj_hlr/hl1_npc/scientist/c1a0_sci_lock6a {Len 8.13}
+SC_LOCK7A vj_hlr/hl1_npc/scientist/c1a0_sci_lock7a {Len 5.14}
+SC_LOCK8A vj_hlr/hl1_npc/scientist/c1a0_sci_lock8a {Len 2.76}
+SC_LOCK9A vj_hlr/hl1_npc/scientist/c1a0_sci_lock9a {Len 0.00}
+
+SC_CRIT1A vj_hlr/hl1_npc/scientist/c1a0_sci_crit1a {Len 2.40}
+SC_CRIT2A vj_hlr/hl1_npc/scientist/c1a0_sci_crit2a {Len 2.57}
+SC_CRIT3A vj_hlr/hl1_npc/scientist/c1a0_sci_crit3a {Len 2.54}
+
+SC_CTRL1A vj_hlr/hl1_npc/scientist/c1a0_sci_ctrl1a {Len 4.50}
+SC_CTRL2A vj_hlr/hl1_npc/scientist/c1a0_sci_ctrl2a {Len 6.48}
+SC_CTRL3A vj_hlr/hl1_npc/scientist/c1a0_sci_ctrl3a {Len 7.31}
+SC_CTRL4A vj_hlr/hl1_npc/scientist/c1a0_sci_ctrl4a {Len 3.75}
+
+SC_CONSOLE1A vj_hlr/hl1_npc/scientist/c1a1_sci_1scan {Len 1.83}
+SC_CONSOLE2A vj_hlr/hl1_npc/scientist/c1a1_sci_2scan {Len 2.29}
+SC_CONSOLE3A vj_hlr/hl1_npc/scientist/c1a1_sci_3scan {Len 5.25}
+SC_CONSOLE4A vj_hlr/hl1_npc/scientist/c1a1_sci_4scan {Len 17.46}
+SC_CONSOLE5A vj_hlr/hl1_npc/scientist/c1a1_sci_5scan {Len 1.10}
+SC_CONSOLERPT vj_hlr/hl1_npc/scientist/c1a1_sci_scanrpt {Len 0.00}
+
+//c1a2scripts
+
+SC_ZOMBIE1A vj_hlr/hl1_npc/scientist/c1a2_sci_1zomb {Len 2.31}
+SC_ZOMBIE3A vj_hlr/hl1_npc/scientist/c1a2_sci_3zomb {Len 1.07}
+SC_ZOMBIE5A vj_hlr/hl1_npc/scientist/c1a2_sci_5zomb {Len 0.84}
+SC_ZOMBIE6A vj_hlr/hl1_npc/scientist/c1a2_sci_6zomb {Len 3.01}
+
+SC_DANGLING vj_hlr/hl1_npc/scientist/c1a2_sci_dangling {Len 3.83}
+SC_DARKROOM vj_hlr/hl1_npc/scientist/c1a2_sci_darkroom {Len 5.84}
+SC_ELEVATOR vj_hlr/hl1_npc/scientist/c1a2_sci_elevator {Len 9.94}
+SC_LOUNGE vj_hlr/hl1_npc/scientist/c1a2_sci_lounge {Len 10.04}
+SC_TRANSMISSION vj_hlr/hl1_npc/scientist/c1a2_sci_transm {Len 8.63}
+
+//c1a3 scripts
+SC_1MAN vj_hlr/hl1_npc/scientist/c1a3_sci_1man {Len 3.40}
+SC_ATLAST vj_hlr/hl1_npc/scientist/c1a3_sci_atlast {Len 1.13}
+SC_RESCUED vj_hlr/hl1_npc/scientist/c1a3_sci_rescued {Len 2.65}
+SC_SILO1A vj_hlr/hl1_npc/scientist/c1a3_sci_silo1a {Len 5.06}
+SC_SILO2A vj_hlr/hl1_npc/scientist/c1a3_sci_silo2a {Len 2.20}
+SC_TEAM vj_hlr/hl1_npc/scientist/c1a3_sci_team {Len 1.86}
+SC_THANKGOD vj_hlr/hl1_npc/scientist/c1a3_sci_thankgod {Len 1.48}
+
+//c1a4 scripts
+SC_TRAINEND vj_hlr/hl1_npc/scientist/c1a4_sci_trainend {Len 9.80}
+SC_ROCKET vj_hlr/hl1_npc/scientist/c1a4_sci_rocket {Len 5.76}
+SC_BLIND vj_hlr/hl1_npc/scientist/c1a4_sci_blind {Len 4.17}
+SC_POWEROFF vj_hlr/hl1_npc/scientist/c1a4_sci_pwroff {Len 5.53}
+SC_POWERON vj_hlr/hl1_npc/scientist/c1a4_sci_pwr {Len 5.56}
+SC_GENER vj_hlr/hl1_npc/scientist/c1a4_sci_gener {Len 7.96}
+SC_TRUST vj_hlr/hl1_npc/scientist/c1a4_sci_trust {Len 36.33}
+SC_TENT vj_hlr/hl1_npc/scientist/c1a4_sci_tent {Len 3.81}
+
+//c2a3 scripts
+SC_ICKY vj_hlr/hl1_npc/scientist/c2a3_sci_icky {Len 17.30}
+SC_TRACK vj_hlr/hl1_npc/scientist/c2a3_sci_track {Len 29.01}
+
+//c2a4 scripts
+SC_ARG1A vj_hlr/hl1_npc/scientist/c2a4_sci_arg2a {Len 2.24}
+SC_ARG2A vj_hlr/hl1_npc/scientist/c2a4_sci_arg4a {Len 3.67}
+
+SC_TAU2A vj_hlr/hl1_npc/scientist/c2a4_sci_2tau {Len 2.52}
+SC_TAU4A vj_hlr/hl1_npc/scientist/c2a4_sci_4tau {Len 3.45}
+
+SC_1PSURG vj_hlr/hl1_npc/scientist/c2a4_sci_scanner {Len 5.71}
+SC_2PSURG vj_hlr/hl1_npc/scientist/c2a4_sci_sugicaloff {Len 5.62}
+SC_3PSURG vj_hlr/hl1_npc/scientist/c2a4_sci_surgury {Len 6.80}
+SC_ALLDIE vj_hlr/hl1_npc/scientist/c2a4_sci_alldie {Len 3.41}
+SC_LETOUT vj_hlr/hl1_npc/scientist/c2a4_sci_letout {Len 23.23}
+
+//c2a5 scripts
+SC_BOOBIE vj_hlr/hl1_npc/scientist/c2a5_sci_boobie {Len 17.68}
+SC_LEBUZ vj_hlr/hl1_npc/scientist/c2a5_sci_lebuz {Len 13.81}
+
+//c3a2 scripts
+
+SC_STRAWS vj_hlr/hl1_npc/scientist/c3a2_sci_straws {Len 37.99}
+SC_GLUON2A vj_hlr/hl1_npc/scientist/c3a2_sci_2glu {Len 10.49}
+SC_FLOOD vj_hlr/hl1_npc/scientist/c3a2_sci_flood {Len 8.78}
+SC_LINGER vj_hlr/hl1_npc/scientist/c3a2_sci_linger {Len 8.21}
+SC_SURVEY1A vj_hlr/hl1_npc/scientist/c3a2_sci_1surv {Len 2.33}
+SC_SURVEY3A vj_hlr/hl1_npc/scientist/c3a2_sci_3surv {Len 26.31}
+SC_SURVEY5A vj_hlr/hl1_npc/scientist/c3a2_sci_5surv {Len 6.53}
+SC_SURVEY7A vj_hlr/hl1_npc/scientist/c3a2_sci_7surv {Len 9.34}
+SC_LJUMP vj_hlr/hl1_npc/scientist/c3a2_sci_ljump {Len 14.76}
+SC_UPHERE vj_hlr/hl1_npc/scientist/c3a2_sci_uphere {Len 4.82}
+SC_PORTAL vj_hlr/hl1_npc/scientist/c3a2_sci_portal {Len 13.13}
+SC_PORTOPEN vj_hlr/hl1_npc/scientist/c3a2_sci_portopen {Len 2.14}
+SC_POSITION vj_hlr/hl1_npc/scientist/c3a2_sci_position {Len 2.72}
+SC_FOREVER vj_hlr/hl1_npc/scientist/c3a2_sci_forever {Len 2.39}
+SC_NOTYET vj_hlr/hl1_npc/scientist/c3a2_sci_notyet {Len 1.11}
+SC_FOOL vj_hlr/hl1_npc/scientist/c3a2_sci_fool {Len 1.34}
+
+//miscellaneous useful scripts
+SC_LETYOUIN vj_hlr/hl1_npc/scientist/letyouin {Len 1.45}
+SC_OVERHERE vj_hlr/hl1_npc/scientist/overhere {Len 1.79}
+
+// SHOCK TROOPER
+ST_GREN0 vj_hlr/hl1_npc/shocktrooper/kss kyur kiml
+ST_ALERT0 vj_hlr/hl1_npc/shocktrooper/dit dit
+ST_ALERT1 vj_hlr/hl1_npc/shocktrooper/dit kss kss
+ST_ALERT2 vj_hlr/hl1_npc/shocktrooper/kss dit dit kss
+ST_MONST0 vj_hlr/hl1_npc/shocktrooper/pur thirv pur kss kss
+ST_COVER0 vj_hlr/hl1_npc/shocktrooper/ka ga blis blis ka
+ST_THROW0 vj_hlr/hl1_npc/shocktrooper/kss wirt ras
+ST_TAUNT0 vj_hlr/hl1_npc/shocktrooper/kiml kiml
+ST_CHARGE0 vj_hlr/hl1_npc/shocktrooper/mub puh mub dit dit
+ST_IDLE0 vj_hlr/hl1_npc/shocktrooper/ku kur ku
+ST_QUEST0 vj_hlr/hl1_npc/shocktrooper/puh pur hyu ka
+ST_ANSWER0 vj_hlr/hl1_npc/shocktrooper/dup dup
+ST_CLEAR0 vj_hlr/hl1_npc/shocktrooper/dup blis dup
+ST_CHECK0 vj_hlr/hl1_npc/shocktrooper/kss kss

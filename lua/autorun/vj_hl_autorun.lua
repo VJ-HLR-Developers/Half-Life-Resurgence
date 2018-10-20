@@ -22,6 +22,7 @@ if VJExists == true then
 		VJ.AddNPC("Human Grunt","npc_vj_hl_humangrunt",vCat)
 			-- Opposing Force
 			VJ.AddNPC("Human Grunt (OppF)","npc_vj_hlof_humangrunt",vCat)
+			VJ.AddNPC("Shock Trooper","npc_vj_hlof_shocktrooper",vCat)
 
 		-- Xen Creatures
 		VJ.AddNPC("Alien Grunt","npc_vj_hl_aliengrunt",vCat)
@@ -60,6 +61,10 @@ if VJExists == true then
 	
 	VJ.AddConVar("vj_hl2r_rebel_h",60)
 	VJ.AddConVar("vj_hl2r_rebel_d",10)
+	
+	-- Particles
+	game.AddParticles("particles/vj_hl_shocktrooper.pcf")
+	game.AddParticles("particles/vj_hl_sporegrenade.pcf")
 
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)

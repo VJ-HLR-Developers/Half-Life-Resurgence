@@ -1,0 +1,11 @@
+"Vertexlitgeneric"
+{
+	"$baseTexture" "models/halfliferesurgence/shocktrooper/shock_rifle"
+	$emissiveBlendEnabled 1
+    $emissiveBlendTexture    "dev/null"
+    $emissiveBlendBaseTexture    "models/halfliferesurgence/shocktrooper/shock_rifle_g"
+    $emissiveBlendFlowTexture    "dev/null"
+    $emissiveBlendTint "[0 4 4]"
+    $emissiveBlendStrength 1
+    $emissiveBlendScrollVector "[0 0]"
+}

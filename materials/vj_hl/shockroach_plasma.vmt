@@ -1,0 +1,29 @@
+//"UnlitTwoTexture_DX6"
+"VertexLitGeneric"
+{
+ 	"$model" 1
+    "$nocull" "1"
+	"$basetexture" "vj_hl/shockroach_plasma"
+	"$texture2" "vj_hl/shockroach_plasma"
+
+	"$translucent" "1"
+	"$alpha" "0"
+	"$additive" "1"
+
+	// -- Not supported by VertexLitGeneric ?
+	"Proxies"
+	{
+		"TextureScroll"
+		{
+			"texturescrollvar" "$basetexturetransform"
+			"texturescrollrate" 1.5
+			"texturescrollangle" 90
+		}
+		"TextureScroll"
+		{
+			"texturescrollvar" "$texture2transform"
+			"texturescrollrate" 3
+			"texturescrollangle" 150
+		}
+	}
+}

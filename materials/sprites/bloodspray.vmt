@@ -1,0 +1,14 @@
+"LightMappedGeneric"
+{
+	"$baseTexture" "sprites/bloodspray"
+	"$surfaceprop" "Default"
+	"Proxies" 
+	{ 
+		"AnimatedTexture" 
+		{ 
+		"animatedTextureVar" "$basetexture" 
+		"animatedTextureFrameNumVar" "$frame" 
+		"animatedTextureFrameRate" "1" 
+		}
+	} 
+}
