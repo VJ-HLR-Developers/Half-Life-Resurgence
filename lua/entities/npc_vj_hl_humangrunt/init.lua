@@ -212,7 +212,11 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
-	VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
+	if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD then
+		VJ_EmitSound(self,{"vj_hlr/fx/headshot1.wav","vj_hlr/fx/headshot2.wav","vj_hlr/fx/headshot3.wav"},75,math.random(100,100))
+	else
+		VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
+	end
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -220,8 +224,7 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 	-- Regular Human Grunt head gib
 	if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then
 		self:SetBodygroup(1,4)
-		self:SetUpGibesOnDeath(dmginfo,hitgroup)
-		self.HasBeenGibbedOnDeath = true
+		self.GibOnDeathDamagesTable = {"All"}
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
