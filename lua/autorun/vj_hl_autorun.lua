@@ -74,6 +74,21 @@ if VJExists == true then
 	VJ.AddParticle("particles/vj_hl_torch.pcf",{
 		"vj_hlr_torch",
 	})
+	VJ.AddParticle("particles/vj_hl_muzzle.pcf",{
+        "vj_hl_muz1", -- Tau
+        "vj_hl_muz2", -- HD pistol
+        "vj_hl_muz3", -- HD MP5
+        "vj_hl_muz4", -- HD Hornet
+        "vj_hl_muz5", -- LD Hornet 1
+        "vj_hl_muz6", -- LD Hornet 2
+        "vj_hl_muz7", -- HD Hornet 2?
+        "vj_hl_muz8", -- HD Brush turret
+        "vj_hl_muzzle1", -- LD Pistol (Also used by LD brush turret, I'll make another one that's bigger)
+        "vj_hl_muzzle2", -- LD MP5
+        "vj_hl_muzzle3", -- LD Shotgun
+        "vj_hl_muzzle4", -- HD Pistol 2?
+		"vj_hl_muzzlebigturret",
+	})
 	
 	-- ConVars --
 	VJ.AddConVar("vj_hl2c_soldier_h",60)

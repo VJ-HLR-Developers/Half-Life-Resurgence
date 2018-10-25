@@ -28,6 +28,7 @@ SWEP.WorldModel_CustomPositionAngle = Vector(0,0)
 SWEP.WorldModel_CustomPositionOrigin = Vector(0,5,4)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 SWEP.WorldModel_NoShadow = true -- Should the world model have a shadow?
+//SWEP.PrimaryEffects_MuzzleParticles = {"vj_hl_muz3"}
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 5 -- Damage
 SWEP.Primary.ClipSize			= 50 -- Max amount of bullets per clip
