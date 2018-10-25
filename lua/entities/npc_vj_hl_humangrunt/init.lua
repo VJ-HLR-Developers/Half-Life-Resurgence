@@ -108,6 +108,25 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 			wep:NPCShoot_Primary(ShootPos,ShootDir)
 		end
 	end
+	
+	-- OppF Engineer
+	if key == "deagle_putout" then
+		self:SetBodygroup(1,2)
+	end
+	if key == "torch_pull" then
+		self:SetBodygroup(1,1)
+	end
+	if key == "torchlight_on" then
+		ParticleEffectAttach("vj_hlr_torch", PATTACH_POINT_FOLLOW, self, 1)
+		VJ_EmitSound(self,"vj_hlr/hl1_npc/hgrunt_oppf/torch_light.wav",80)
+	end
+	if key == "torch_putout" then
+	self:StopParticles()
+		self:SetBodygroup(1,2)
+	end
+	if key == "deagle_pull" then
+		self:SetBodygroup(1,0)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
