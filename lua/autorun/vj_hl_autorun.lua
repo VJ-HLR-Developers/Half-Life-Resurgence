@@ -71,6 +71,9 @@ if VJExists == true then
 		"vj_hlr_gonome",
 		"vj_hlr_gonome_idle",
 	})
+	VJ.AddParticle("particles/vj_hl_torch.pcf",{
+		"vj_hlr_torch",
+	})
 	
 	-- ConVars --
 	VJ.AddConVar("vj_hl2c_soldier_h",60)
