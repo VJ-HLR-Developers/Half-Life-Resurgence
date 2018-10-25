@@ -1,0 +1,18 @@
+"Spritecard"
+{
+	"srgb?$overbrightfactor" "5"
+	"$basetexture" "vj_hl\flamethrowerfire102"
+	$translucent 1
+//	"$overbrightfactor" "31"
+	"$addself" "0.5"
+	$DEPTHBLEND "1"    
+	$DEPTHBLENDSCALE "100"
+	$startfadesize ".3"
+	$endfadesize ".5"
+	$maxsize ".4"
+	<dx90
+	{   
+		// help fill rate on low end
+		$maxsize ".15"
+	}
+}
