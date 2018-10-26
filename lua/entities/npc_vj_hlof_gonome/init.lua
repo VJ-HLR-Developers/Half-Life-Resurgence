@@ -46,7 +46,7 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/gonome/gonome_death2.wav","vj_hlr/hl1_npc/
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	print(key)
+	//print(key)
 	if key == "event_emit step" then
 		self:FootStepSoundCode()
 	end

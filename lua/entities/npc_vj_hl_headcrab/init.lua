@@ -49,6 +49,37 @@ function ENT:CustomOnAlert()
 		self:VJ_ACT_PLAYACTIVITY("angry",true,false,true)
 	end
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
+	if self.HasGibDeathParticles == true then
+		local bloodeffect = EffectData()
+		bloodeffect:SetOrigin(self:GetPos() +self:OBBCenter())
+		bloodeffect:SetColor(VJ_Color2Byte(Color(255,221,35)))
+		bloodeffect:SetScale(120)
+		util.Effect("VJ_Blood1",bloodeffect)
+		
+		local bloodspray = EffectData()
+		bloodspray:SetOrigin(self:GetPos() +self:OBBCenter())
+		bloodspray:SetScale(8)
+		bloodspray:SetFlags(3)
+		bloodspray:SetColor(1)
+		util.Effect("bloodspray",bloodspray)
+		util.Effect("bloodspray",bloodspray)
+		
+		local effectdata = EffectData()
+		effectdata:SetOrigin(self:GetPos() +self:OBBCenter())
+		effectdata:SetScale(1)
+		util.Effect("StriderBlood",effectdata)
+		util.Effect("StriderBlood",effectdata)
+	end
+	
+	self:CreateGibEntity("obj_vj_gib",{"models/vj_hlr/gibs/agib1.mdl","models/vj_hlr/gibs/agib3.mdl"},{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,5))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib5.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,5))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib7.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,5))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib9.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,5))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib10.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,5))})
+	return true -- Return to true if it gibbed!
+end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2018 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
