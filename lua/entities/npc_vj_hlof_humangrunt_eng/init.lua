@@ -28,7 +28,7 @@ function ENT:CustomOnThink_AIEnabled()
 		end)
 		timer.Simple(4.5,function()
 			if IsValid(self) && IsValid(self:GetEnemy()) && !IsValid(self.HECU_MyTurret) then
-				self.HECU_MyTurret = ents.Create("npc_vj_bmssold_turret")
+				self.HECU_MyTurret = ents.Create("npc_vj_hl_sentry")
 				self.HECU_MyTurret:SetPos(self:GetPos() + self:GetForward()*50)
 				self.HECU_MyTurret:SetAngles(self:GetAngles())
 				self.HECU_MyTurret:Spawn()

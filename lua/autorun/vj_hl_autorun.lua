@@ -20,6 +20,7 @@ if VJExists == true then
 	-- Half-Life 1 -------------------------------------------------------
 		-- HECU
 		VJ.AddNPC("Human Grunt","npc_vj_hl_humangrunt",vCat)
+		VJ.AddNPC("HECU Sentry Gun","npc_vj_hl_sentry",vCat)
 			-- Opposing Force
 			VJ.AddNPC("Human Grunt (OppF)","npc_vj_hlof_humangrunt",vCat)
 			VJ.AddNPC("Human Grunt Medic (OppF)","npc_vj_hlof_humangrunt_med",vCat)
@@ -89,6 +90,32 @@ if VJExists == true then
         "vj_hl_muzzle4", -- HD Pistol 2?
 		"vj_hl_muzzlebigturret",
 	})
+	
+	-- Precache Models --
+	util.PrecacheModel("models/vj_hlr/gibs/agib1.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/agib2.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/agib3.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/agib4.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/agib5.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/agib6.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/agib7.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/agib8.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/agib9.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/agib10.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/flesh1.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/flesh2.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/flesh3.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/flesh4.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/hgib_b_bone.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/hgib_b_gib.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/hgib_guts.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/hgib_hmeat.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/hgib_lung.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/hgib_skull.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/hgib_legbone.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/gib_hgrunt.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/zombiegib.mdl")
+	util.PrecacheModel("models/vj_hlr/gibs/islavegib.mdl")
 	
 	-- ConVars --
 	VJ.AddConVar("vj_hl2c_soldier_h",60)

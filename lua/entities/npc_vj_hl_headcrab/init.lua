@@ -80,6 +80,11 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib10.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,5))})
 	return true -- Return to true if it gibbed!
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
+	VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
+	return false
+end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2018 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
