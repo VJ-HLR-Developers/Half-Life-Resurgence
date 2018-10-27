@@ -45,6 +45,7 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/headcrab/hc_die1.wav","vj_hlr/hl1_npc/head
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
+	if self.VJ_IsBeingControlled == true then return end
 	if math.random(1,2) == 1 then
 		self:VJ_ACT_PLAYACTIVITY("angry",true,false,true)
 	end

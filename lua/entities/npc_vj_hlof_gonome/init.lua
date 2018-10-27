@@ -69,6 +69,7 @@ function ENT:MultipleMeleeAttacks()
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
 		self.MeleeAttackDamage = 20
 		self.HasMeleeAttackKnockBack = false
+		self.MeleeAttack_NoProps = false
 		self.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/gonome/gonome_melee1.wav"}
 		self.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
 	else
@@ -77,6 +78,7 @@ function ENT:MultipleMeleeAttacks()
 		self.HasMeleeAttackKnockBack = true
 		self.MeleeAttackKnockBack_Forward1 = -100
 		self.MeleeAttackKnockBack_Forward2 = -200
+		self.MeleeAttack_NoProps = true
 		self.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/gonome/gonome_melee2.wav"}
 		self.SoundTbl_MeleeAttackMiss = {}
 	end

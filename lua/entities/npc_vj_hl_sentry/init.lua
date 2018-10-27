@@ -17,10 +17,9 @@ ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
-ENT.AnimTbl_RangeAttack = {"fire"} -- Range Attack Animations
 ENT.RangeDistance = 1300 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
-ENT.RangeAttackAngleRadius = 100 -- What is the attack angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
+ENT.RangeAttackAngleRadius = 180 -- What is the attack angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
 ENT.TimeUntilRangeAttackProjectileRelease = 0.1 -- How much time until the projectile code is ran?
 ENT.RangeAttackReps = 3 -- How many times does it run the projectile code?
 ENT.NextRangeAttackTime = 0 -- How much time until it can use a range attack?
@@ -101,15 +100,19 @@ function ENT:CustomOnThink_AIEnabled()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttackCheck_RangeAttack()
-	local pospara = self:GetPoseParameter("aim_yaw") -- Thanks Bizz!
+	return true
+	/*
+	local pospara = self:GetPoseParameter("aim_yaw")
 	local viewcode = ((self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()) - (self:GetPos() + self:OBBCenter())):Angle()
 	local viewniger = math.abs(viewcode.y - (self:GetAngles().y + pospara))
 	if viewniger >= 330 then viewniger = viewniger - 360 end
 	if math.abs(viewniger) <= 10 then return true end
 	return false
+	*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
+	self.HECUTurret_NextAlarmT = CurTime() + 3
 	self.NextResetEnemyT = CurTime() + 0.7
 	self:VJ_ACT_PLAYACTIVITY({"deploy"},true,false)
 	VJ_EmitSound(self,{"vj_hlr/hl1_npc/turret/tu_deploy.wav"},75,100)
@@ -148,11 +151,11 @@ function ENT:CustomRangeAttackCode()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
-	ParticleEffectAttach("smoke_exhaust_01a",PATTACH_POINT_FOLLOW,GetCorpse,4)
-	ParticleEffect("explosion_turret_break_fire", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("smoke")).Pos, Angle(0,0,0), GetCorpse)
-	ParticleEffect("explosion_turret_break_flash", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("smoke")).Pos, Angle(0,0,0), GetCorpse)
-	ParticleEffect("explosion_turret_break_pre_smoke Version #2", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("smoke")).Pos, Angle(0,0,0), GetCorpse)
-	ParticleEffect("explosion_turret_break_sparks", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("smoke")).Pos, Angle(0,0,0), GetCorpse)
+	ParticleEffectAttach("smoke_exhaust_01a",PATTACH_POINT_FOLLOW,GetCorpse,2)
+	ParticleEffect("explosion_turret_break_fire", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("1")).Pos, Angle(0,0,0), GetCorpse)
+	ParticleEffect("explosion_turret_break_flash", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("1")).Pos, Angle(0,0,0), GetCorpse)
+	ParticleEffect("explosion_turret_break_pre_smoke Version #2", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("1")).Pos, Angle(0,0,0), GetCorpse)
+	ParticleEffect("explosion_turret_break_sparks", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("1")).Pos, Angle(0,0,0), GetCorpse)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
