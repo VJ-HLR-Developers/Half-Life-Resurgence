@@ -7,33 +7,20 @@ SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Purpose					= "This weapon is made for Players and NPCs"
 SWEP.Instructions				= "Controls are like a regular weapon."
 SWEP.Category					= "VJ Base"
-	-- Client Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-if (CLIENT) then
-SWEP.Slot						= 2 -- Which weapon slot you want your SWEP to be in? (1 2 3 4 5 6) 
-SWEP.SlotPos					= 4 -- Which part of that slot do you want the SWEP to be in? (1 2 3 4 5 6)
-SWEP.UseHands					= true
-end
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire 		= false -- Next time it can use primary fire
 SWEP.NPC_ExtraFireSoundTime		= 0.2 -- How much time until it plays the sound (After Firing)?
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true -- Is tihs weapon meant to be for NPCs only?
-SWEP.WorldModel					= "models/props_junk/watermelon01_chunk02c.mdl"
+SWEP.WorldModel					= "models/vj_hlr/weapons/w_9mmar.mdl"
 SWEP.HoldType 					= "smg"
 SWEP.Spawnable					= false
 SWEP.AdminSpawnable				= false
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
-SWEP.WorldModel_CustomPositionAngle = Vector(0,0)
-SWEP.WorldModel_CustomPositionOrigin = Vector(0,5,4)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
-SWEP.WorldModel_NoShadow = true -- Should the world model have a shadow?
 //SWEP.PrimaryEffects_MuzzleParticles = {"vj_hl_muz3"}
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 5 -- Damage
 SWEP.Primary.ClipSize			= 50 -- Max amount of bullets per clip
-SWEP.Primary.Delay				= 0.09 -- Time until it can shoot again
-SWEP.Primary.Automatic			= true -- Is it automatic?
 SWEP.Primary.Ammo				= "SMG1" -- Ammo type
 
 -- Custom
@@ -51,7 +38,12 @@ function SWEP:CustomOnInitialize()
 			end
 		end
 	end)
-	self:SetMaterial("models/effects/vol_light001.mdl") -- Vor chereve
+	self.WorldModel_Invisible = true -- Vor chereve
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:CustomOnDrawWorldModel() -- This is client only!
+	self.WorldModel = self:GetNWInt("VJ_HGrunt_WeaponModel")
+	return true -- return false to not draw the world model
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnNPC_ServerThink()
@@ -60,6 +52,8 @@ function SWEP:CustomOnNPC_ServerThink()
 		self.HGrunt_LastBodyGroup = bgroup
 		if self.Owner.HECU_Type == 0 then
 			if bgroup == 0 then -- MP5
+				self:SetNWString("VJ_HGrunt_WeaponModel","models/vj_hlr/weapons/w_9mmar.mdl")
+				self.WorldModel = self:GetNWInt("VJ_HGrunt_WeaponModel")
 				self.HoldType = "smg"
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_mp5")
@@ -70,6 +64,8 @@ function SWEP:CustomOnNPC_ServerThink()
 				self.Primary.ClipSize = 50
 				self.Primary.NumberOfShots = 1
 			elseif bgroup == 1 then -- Shotgun
+				self:SetNWString("VJ_HGrunt_WeaponModel","models/vj_hlr/weapons/w_shotgun.mdl")
+				self.WorldModel = self:GetNWInt("VJ_HGrunt_WeaponModel")
 				self.HoldType = "shotgun"
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_shotgun")
@@ -82,6 +78,8 @@ function SWEP:CustomOnNPC_ServerThink()
 			end
 		elseif self.Owner.HECU_Type == 1 then
 			if bgroup == 0 then -- MP5
+				self:SetNWString("VJ_HGrunt_WeaponModel","models/vj_hlr/weapons/w_9mmar_opfor.mdl")
+				self.WorldModel = self:GetNWInt("VJ_HGrunt_WeaponModel")
 				self.HoldType = "smg"
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_mp5")
@@ -92,6 +90,8 @@ function SWEP:CustomOnNPC_ServerThink()
 				self.Primary.ClipSize = 50
 				self.Primary.NumberOfShots = 1
 			elseif bgroup == 1 then -- Shotgun
+				self:SetNWString("VJ_HGrunt_WeaponModel","models/vj_hlr/weapons/w_shotgun.mdl")
+				self.WorldModel = self:GetNWInt("VJ_HGrunt_WeaponModel")
 				self.HoldType = "shotgun"
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_shotgun")
@@ -102,6 +102,8 @@ function SWEP:CustomOnNPC_ServerThink()
 				self.Primary.ClipSize = 8
 				self.Primary.NumberOfShots = 5
 			elseif bgroup == 2 then -- SAW
+				self:SetNWString("VJ_HGrunt_WeaponModel","models/vj_hlr/weapons/w_saw.mdl")
+				self.WorldModel = self:GetNWInt("VJ_HGrunt_WeaponModel")
 				self.HoldType = "ar2"
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_saw")
@@ -114,6 +116,8 @@ function SWEP:CustomOnNPC_ServerThink()
 			end
 		elseif self.Owner.HECU_Type == 2 then
 			if bgroup == 0 then -- Desert Eagle
+				self:SetNWString("VJ_HGrunt_WeaponModel","models/vj_hlr/weapons/w_desert_eagle.mdl")
+				self.WorldModel = self:GetNWInt("VJ_HGrunt_WeaponModel")
 				self.Primary.Damage = 15
 				self.HoldType = "pistol"
 				self:SetDefaultValues(self.HoldType,true)
@@ -123,6 +127,8 @@ function SWEP:CustomOnNPC_ServerThink()
 				self.NPC_CustomSpread = 1
 				self.Primary.ClipSize = 7
 			elseif bgroup == 1 then -- Glock 17
+				self:SetNWString("VJ_HGrunt_WeaponModel","models/vj_hlr/weapons/w_9mmhandgun.mdl")
+				self.WorldModel = self:GetNWInt("VJ_HGrunt_WeaponModel")
 				self.Primary.Damage = 5
 				self.HoldType = "pistol"
 				self:SetDefaultValues(self.HoldType,true)
@@ -134,6 +140,8 @@ function SWEP:CustomOnNPC_ServerThink()
 			end
 		elseif self.Owner.HECU_Type == 3 then
 			if bgroup == 0 then -- Desert Eagle
+				self:SetNWString("VJ_HGrunt_WeaponModel","models/vj_hlr/weapons/w_desert_eagle.mdl")
+				self.WorldModel = self:GetNWInt("VJ_HGrunt_WeaponModel")
 				self.Primary.Damage = 15
 				self.HoldType = "pistol"
 				self:SetDefaultValues(self.HoldType,true)

@@ -254,6 +254,14 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 		self:SetBodygroup(self.HECU_WepBG,3)
 	end
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDropWeapon_AfterWeaponSpawned(dmginfo,hitgroup,GetWeapon)
+	GetWeapon:SetNWString("VJ_HGrunt_WeaponModel",self:GetActiveWeapon():GetNWInt("VJ_HGrunt_WeaponModel"))
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDropWeapon(dmginfo,hitgroup)
+	self:GetActiveWeapon():SetModel("models/vj_hlr/weapons/w_9mmhandgun.mdl")
+end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2018 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
