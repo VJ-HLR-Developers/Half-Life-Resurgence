@@ -38,6 +38,7 @@ ENT.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIE_GUTSHOT,ACT_DIE_HEAD
 ENT.DeathAnimationTime = 0.8 -- Time until the SNPC spawns its corpse and gets removed
 ENT.AnimTbl_TakingCover = {ACT_CROUCHIDLE} -- The animation it plays when hiding in a covered position, leave empty to let the base decide
 ENT.AnimTbl_AlertFriendsOnDeath = {"vjseq_idle2"} -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
+ENT.DropWeaponOnDeathAttachment = "rhand" -- Which attachment should it use for the weapon's position
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} -- If it uses normal based animation, use this
@@ -136,6 +137,11 @@ function ENT:CustomOnThink()
 		self.AnimTbl_Run = {ACT_RUN_HURT}
 		self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK_HURT}
 		self.AnimTbl_ShootWhileMovingRun = {ACT_RUN_HURT}
+	else
+		self.AnimTbl_Walk = {ACT_WALK}
+		self.AnimTbl_Run = {ACT_RUN}
+		self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK}
+		self.AnimTbl_ShootWhileMovingRun = {ACT_RUN}
 	end
 	
 	local bgroup = self:GetBodygroup(self.HECU_WepBG)
