@@ -14,7 +14,7 @@ ENT.SoundTbl_OnCollide = {"ambient/energy/spark4.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetNoDraw(true)
-	ParticleEffectAttach("vj_hlr_shockroach", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	ParticleEffectAttach("vj_hl_shockroach", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 	self.StartLight1 = ents.Create("light_dynamic")
 	self.StartLight1:SetKeyValue("brightness", "1")
 	self.StartLight1:SetKeyValue("distance", "200")

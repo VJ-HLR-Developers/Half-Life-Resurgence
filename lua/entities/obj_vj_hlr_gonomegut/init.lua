@@ -22,11 +22,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetNoDraw(true)
-	ParticleEffectAttach("vj_hlr_gonome_idle", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	ParticleEffectAttach("vj_hl_gonome_idle", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects(data,phys)
-	ParticleEffect("vj_hlr_gonome",self:GetPos(),Angle(0,0,0),nil)
+	ParticleEffect("vj_hl_gonome",self:GetPos(),Angle(0,0,0),nil)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2018 by DrVrej, All rights reserved. ***

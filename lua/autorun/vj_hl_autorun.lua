@@ -28,10 +28,10 @@ if VJExists == true then
 
 		-- Xen Creatures
 		VJ.AddNPC("Alien Grunt","npc_vj_hl_aliengrunt",vCat)
-		VJ.AddNPC("Gonarch","npc_vj_hl_gonarch",vCat)
-		VJ.AddNPC("Headcrab","npc_vj_hl_headcrab",vCat)
-		VJ.AddNPC("Baby Headcrab","npc_vj_hl_babyheadcrab",vCat)
 			-- Headcrab
+			VJ.AddNPC("Gonarch","npc_vj_hl_gonarch",vCat)
+			VJ.AddNPC("Headcrab","npc_vj_hl_headcrab",vCat)
+			VJ.AddNPC("Baby Headcrab","npc_vj_hl_babyheadcrab",vCat)
 			VJ.AddNPC("Zombie","npc_vj_hl_zombie",vCat)
 				-- Opposing Force
 				VJ.AddNPC("Zombie Security Guard","npc_vj_hlof_zombiesecurity",vCat)
@@ -62,18 +62,28 @@ if VJExists == true then
 	
 	-- Particles
 	VJ.AddParticle("particles/vj_hl_shocktrooper.pcf",{
-		"vj_hlr_spore",
-		"vj_hlr_spore_idle",
+		"vj_hl_spore",
+		"vj_hl_spore_idle",
 	})
 	VJ.AddParticle("particles/vj_hl_sporegrenade.pcf",{
-		"vj_hlr_shockroach",
+		"vj_hl_shockroach",
 	})
 	VJ.AddParticle("particles/vj_hl_gonome.pcf",{
-		"vj_hlr_gonome",
-		"vj_hlr_gonome_idle",
+		"vj_hl_gonome",
+		"vj_hl_gonome_idle",
+	})
+	VJ.AddParticle("particles/vj_hl_spit.pcf",{
+		"vj_hl_spit",
+		"vj_hl_spit_drone",
+		"vj_hl_spit_drone_impact",
+		"vj_hl_spit_drone_spawn",
+		"vj_hl_spit_gonarch",
+		"vj_hl_spit_gonarch_impact",
+		"vj_hl_spit_impact",
+		"vj_hl_spit_spore_spawn",
 	})
 	VJ.AddParticle("particles/vj_hl_torch.pcf",{
-		"vj_hlr_torch",
+		"vj_hl_torch",
 	})
 	VJ.AddParticle("particles/vj_hl_muzzle.pcf",{
         "vj_hl_muz1", -- Tau

@@ -118,7 +118,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		self:SetBodygroup(1,1)
 	end
 	if key == "torchlight_on" then
-		ParticleEffectAttach("vj_hlr_torch", PATTACH_POINT_FOLLOW, self, 5)
+		ParticleEffectAttach("vj_hl_torch", PATTACH_POINT_FOLLOW, self, 5)
 		VJ_EmitSound(self,"vj_hlr/hl1_npc/hgrunt_oppf/torch_light.wav",80)
 	end
 	if key == "torch_putout" then
