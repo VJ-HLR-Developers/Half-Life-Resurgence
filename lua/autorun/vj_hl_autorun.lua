@@ -1,6 +1,6 @@
 /*--------------------------------------------------
 	=============== Autorun File ===============
-	*** Copyright (c) 2012-2018 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
@@ -48,6 +48,7 @@ if VJExists == true then
 		VJ.AddNPC_HUMAN("Overwatch Elite","npc_vj_hl2c_elite",{"weapon_vj_ar2"},vCat)
 		VJ.AddNPC_HUMAN("Overwatch Prison Guard","npc_vj_hl2c_prospekt",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
 		VJ.AddNPC_HUMAN("Overwatch Prison Shotgun Guard","npc_vj_hl2c_pshotgunner",{"weapon_vj_spas12"},vCat)
+		VJ.AddNPC_HUMAN("Civil Protection","npc_vj_hl2c_metrocop",{"weapon_vj_9mmpistol"},vCat)
 		//VJ.AddNPC("Combine Assassin","npc_vj_hl2c_assassin",vCat)
 
 		-- Resistance
