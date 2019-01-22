@@ -1,0 +1,9 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/zombie_Assassin/hcb_torso2"
+	"$bumpmap" "models/zombie_Assassin/hcb_torso_normal"
+	//"$envmap" "env_cubemap"
+	//"$normalmapalphaenvmapmask" 1
+	//"$envmapsaturation" .75
+	//"$envmapcontrast" 1
+}

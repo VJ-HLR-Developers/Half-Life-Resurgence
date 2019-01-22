@@ -1,0 +1,14 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" 	"Models/antlion_guard/antlionGuard"
+	"$bumpmap" "Models/antlion_guard/antlionGuard_normal"
+	"$surfaceprop" "alienflesh"
+	"$model" 1
+	"$phong" 1
+	"$phongboost" "5"
+	"$halflambert" "1"
+	"$phongexponent" "20"
+	//"$phongexponenttexture" "models/antlion_guard/antlionGuard_phong"
+	//"$phongalbedotint" "1"										
+	"$phongfresnelranges"	"[.1 .6 1.0]"
+}

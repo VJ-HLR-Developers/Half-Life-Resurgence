@@ -1,0 +1,11 @@
+// envmaptint_fix
+"VertexLitGeneric"
+{
+	// Original shader: VertexLitMaskedEnvMappedTexture
+	"$basetexture" "models/Antlion_Guard/legsside"
+	"$normalmapalphaenvmapmask" 1
+	"$bumpmap" "models/Antlion_Guard/legsside_normal"
+	"$envmap" "env_cubemap"
+	"$envmaptint" "[ .25 .25 .25 ]"
+	"$multipass" 1
+}
