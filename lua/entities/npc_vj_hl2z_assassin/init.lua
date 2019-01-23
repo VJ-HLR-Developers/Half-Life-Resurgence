@@ -58,7 +58,7 @@ function ENT:CustomOnThink_AIEnabled()
 	local controlled = self.VJ_IsBeingControlled
 	if IsValid(self:GetEnemy()) && !controlled then
 		local dist = self:VJ_GetNearestPointToEntityDistance(self:GetEnemy())
-		if self:GetEnemy():IsPlayer() && !(self:GetEnemy():GetForward():Dot((self:GetPos() -self:GetEnemy():GetPos()):GetNormalized()) > math.cos(math.rad(60))) && dist > 600 then
+		if !(self:GetEnemy():GetForward():Dot((self:GetPos() -self:GetEnemy():GetPos()):GetNormalized()) > math.cos(math.rad(60))) && dist > 600 then
 			// Stalk the player
 			self.AnimTbl_Run = {ACT_WALK}
 		else
