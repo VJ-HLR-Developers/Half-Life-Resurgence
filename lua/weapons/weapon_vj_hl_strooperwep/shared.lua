@@ -6,7 +6,7 @@ SWEP.Author 					= "Cpt. Hazama"
 SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Purpose					= "This weapon is made for Players and NPCs"
 SWEP.Instructions				= "Controls are like a regular weapon."
-SWEP.Category					= "VJ Base"
+-- SWEP.Category					= "VJ Base"
 	-- Client Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 if (CLIENT) then
 SWEP.Slot						= 2 -- Which weapon slot you want your SWEP to be in? (1 2 3 4 5 6) 
@@ -45,7 +45,15 @@ function SWEP:CustomOnInitialize()
 	self:SetMaterial("models/effects/vol_light001.mdl")
 	self:SetNoDraw(true)
 	self.NextIdleSoundT = CurTime() +math.Rand(5,12)
-	self.Owner:SetBodygroup(1,0)
+	if IsValid(self.Owner) then
+		if self.Owner:GetClass() != "npc_vj_hlof_shocktrooper" then
+			self:Remove()
+			return
+		end
+		self.Owner:SetBodygroup(1,0)
+	else
+		self:Remove()
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttack_BeforeShoot()
