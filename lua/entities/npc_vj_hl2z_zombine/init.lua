@@ -37,8 +37,8 @@ function ENT:CustomOnInitialize()
 	self.GrenadePulled = false
 	self.BlowTime = 0
 	self.IsPlayingSpecialAttack = false
-	self.CustomWalkActivites = {self:VJ_LookupAnimationString("walk_All_Grenade")}
-	self.CustomRunActivites = {self:VJ_LookupAnimationString("Run_All_grenade")}
+	self.CustomWalkActivites = {VJ_SequenceToActivity(self,"walk_all_grenade")}
+	self.CustomRunActivites = {VJ_SequenceToActivity(self,"walk_all_grenade")}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CreateGrenade()

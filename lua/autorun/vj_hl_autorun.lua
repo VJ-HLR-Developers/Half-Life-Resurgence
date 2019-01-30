@@ -179,7 +179,7 @@ if VJExists == true then
 	end
 
 	function NPC:VJ_LookupAnimationString(seq)
-		return self:GetSequenceInfo(self:GetSequenceID(seq)).activity
+		return self:GetSequenceInfo(self:VJ_GetSequenceID(seq)).activity
 	end
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
