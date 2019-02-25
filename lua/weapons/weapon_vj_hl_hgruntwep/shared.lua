@@ -11,7 +11,7 @@ SWEP.Category					= "VJ Base"
 SWEP.NPC_NextPrimaryFire 		= false -- Next time it can use primary fire
 SWEP.NPC_ExtraFireSoundTime		= 0.2 -- How much time until it plays the sound (After Firing)?
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true -- Is tihs weapon meant to be for NPCs only?
+SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
 SWEP.WorldModel					= "models/vj_hlr/weapons/w_9mmar.mdl"
 SWEP.HoldType 					= "smg"
 SWEP.Spawnable					= false
