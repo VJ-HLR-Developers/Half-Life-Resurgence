@@ -139,6 +139,7 @@ ENT.SoundTbl_Suppressing = {
 }
 ENT.SoundTbl_GrenadeAttack = {
 	"vj_hlr/hl1_npc/hgrunt_oppf/fire.wav",
+	"vj_hlr/hl1_npc/hgrunt_oppf/grenade.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/take.wav"
 }
 ENT.SoundTbl_OnGrenadeSight = {
