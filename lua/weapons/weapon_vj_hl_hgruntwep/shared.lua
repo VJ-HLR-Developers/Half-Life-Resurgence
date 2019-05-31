@@ -11,7 +11,7 @@ SWEP.Category					= "VJ Base"
 SWEP.NPC_NextPrimaryFire 		= false -- Next time it can use primary fire
 SWEP.NPC_ExtraFireSoundTime		= 0.2 -- How much time until it plays the sound (After Firing)?
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true -- Is tihs weapon meant to be for NPCs only?
+SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
 SWEP.WorldModel					= "models/vj_hlr/weapons/w_9mmar.mdl"
 SWEP.HoldType 					= "smg"
 SWEP.Spawnable					= false
@@ -58,6 +58,7 @@ function SWEP:CustomOnNPC_ServerThink()
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_mp5")
 				self.Primary.Sound = {"vj_hlr/hl1_weapon/mp5/hks1.wav","vj_hlr/hl1_weapon/mp5/hks2.wav","vj_hlr/hl1_weapon/mp5/hks3.wav"}
+				self.Primary.DistantSound = { "vj_hlr/hl1_weapon/mp5/hks_distant.wav" }
 				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/mp5/mp_reload.wav"}
 				self.NPC_ExtraFireSound = {}
 				self.NPC_CustomSpread = 1
@@ -70,6 +71,7 @@ function SWEP:CustomOnNPC_ServerThink()
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_shotgun")
 				self.Primary.Sound = {"vj_hlr/hl1_weapon/shotgun/sbarrel1.wav"}
+				self.Primary.DistantSound = { "vj_hlr/hl1_weapon/shotgun/sbarrel1_distant.wav" }
 				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/shotgun/shotgun_reload.wav"}
 				self.NPC_ExtraFireSound = {"vj_hlr/hl1_weapon/shotgun/scock1.wav"}
 				self.NPC_CustomSpread = 2.5
@@ -84,6 +86,7 @@ function SWEP:CustomOnNPC_ServerThink()
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_mp5")
 				self.Primary.Sound = {"vj_hlr/hl1_weapon/mp5/hks1.wav","vj_hlr/hl1_weapon/mp5/hks2.wav","vj_hlr/hl1_weapon/mp5/hks3.wav"}
+				self.Primary.DistantSound = { "vj_hlr/hl1_weapon/mp5/hks_distant.wav" }
 				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/mp5/mp_reload.wav"}
 				self.NPC_ExtraFireSound = {}
 				self.NPC_CustomSpread = 1
@@ -96,6 +99,7 @@ function SWEP:CustomOnNPC_ServerThink()
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_shotgun")
 				self.Primary.Sound = {"vj_hlr/hl1_weapon/shotgun/sbarrel1.wav"}
+				self.Primary.DistantSound = { "vj_hlr/hl1_weapon/shotgun/sbarrel1_distant.wav" }
 				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/shotgun/shotgun_reload.wav"}
 				self.NPC_ExtraFireSound = {"vj_hlr/hl1_weapon/shotgun/scock1.wav"}
 				self.NPC_CustomSpread = 2.5
@@ -108,6 +112,7 @@ function SWEP:CustomOnNPC_ServerThink()
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_saw")
 				self.Primary.Sound = {"vj_hlr/hl1_weapon/saw/saw_fire1.wav","vj_hlr/hl1_weapon/saw/saw_fire2.wav","vj_hlr/hl1_weapon/saw/saw_fire3.wav"}
+				self.Primary.DistantSound = { "vj_hlr/hl1_weapon/saw/saw_distant.wav" }
 				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/saw/saw_reload2.wav"}
 				self.NPC_ExtraFireSound = {}
 				self.NPC_CustomSpread = 1
@@ -124,6 +129,7 @@ function SWEP:CustomOnNPC_ServerThink()
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_mp5")
 				self.Primary.Sound = {"vj_hlr/hl1_weapon/deagle/desert_eagle_fire.wav"}
 				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/deagle/desert_eagle_reload.wav"}
+				self.Primary.DistantSound = { "vj_hlr/hl1_weapon/deagle/desert_eagle_fire_distant.wav" }
 				self.NPC_CustomSpread = 1
 				self.Primary.ClipSize = 7
 			elseif bgroup == 1 then -- Glock 17
@@ -134,6 +140,7 @@ function SWEP:CustomOnNPC_ServerThink()
 				self:SetDefaultValues(self.HoldType,true)
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_mp5")
 				self.Primary.Sound = {"vj_hlr/hl1_weapon/glock/glock_regular.wav"}
+				self.Primary.DistantSound = { "vj_hlr/hl1_weapon/glock/glock_distant.wav" }
 				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/reload1.wav"}
 				self.NPC_CustomSpread = 2.5
 				self.Primary.ClipSize = 17

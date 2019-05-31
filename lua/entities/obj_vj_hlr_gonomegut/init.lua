@@ -15,7 +15,7 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/bullchicken/bc_spithit3.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
-	phys:EnableGravity(false)
+	phys:EnableGravity(true)
 	phys:EnableDrag(false)
 	phys:SetBuoyancyRatio(0)
 end
