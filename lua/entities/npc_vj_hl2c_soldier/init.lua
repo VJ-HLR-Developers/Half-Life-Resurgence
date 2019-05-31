@@ -70,11 +70,13 @@ function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
 	util.SpriteTrail(GrenadeEntity,1,Color(200,0,0),true,15,15,0.35,1/(6+6)*0.5,"VJ_Base/sprites/vj_trial1.vmt")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_OnBleed(dmginfo,hitgroup)
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	if (dmginfo:IsBulletDamage()) then
+		dmginfo:ScaleDamage(0.60)
+		if self.HasSounds == true && self.HasImpactSounds == true then VJ_EmitSound(self,"vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav",70) end
 		local attacker = dmginfo:GetAttacker()
 		if math.random(1,3) == 1 then
-			if math.random(1,2) == 1 then dmginfo:ScaleDamage(0.50) else dmginfo:ScaleDamage(0.25) end
+			dmginfo:ScaleDamage(0.50)
 			self.DamageSpark1 = ents.Create("env_spark")
 			self.DamageSpark1:SetKeyValue("Magnitude","1")
 			self.DamageSpark1:SetKeyValue("Spark Trail Length","1")
@@ -87,7 +89,6 @@ function ENT:CustomOnTakeDamage_OnBleed(dmginfo,hitgroup)
 			self.DamageSpark1:Fire("StartSpark", "", 0)
 			self.DamageSpark1:Fire("StopSpark", "", 0.001)
 			self:DeleteOnRemove(self.DamageSpark1)
-			if self.HasSounds == true && self.HasImpactSounds == true then VJ_EmitSound(self,"vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav",70) end
 		end
 	end
 end
