@@ -65,20 +65,21 @@ if VJExists == true then
 		-- VJ.AddNPC_HUMAN("Alyx Vance","npc_vj_hl2r_alyx",{"weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_9mmpistol""weapon_vj_smg1","weapon_vj_ar2","weapon_vj_spas12"},vCat)
 		VJ.AddNPC_HUMAN("Barney Calhoun","npc_vj_hl2r_barney",{"weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
 		VJ.AddNPC_HUMAN("Rebel","npc_vj_hl2r_rebel",{"weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_k3","weapon_vj_k3","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_ak47","weapon_vj_m16a1","weapon_vj_mp40","weapon_vj_spas12","weapon_vj_rpg","weapon_vj_blaster"},vCat)
+
+		-- Xen Creatures
+			-- Headcrab
+			VJ.AddNPC("Zombie","npc_vj_hl2z_zombie",vCat)
+			VJ.AddNPC("Zombie Assassin","npc_vj_hl2z_assassin",vCat)
+			VJ.AddNPC("Fast Zombie","npc_vj_hl2z_fastzombie",vCat)
+			VJ.AddNPC("Poison Zombie","npc_vj_hl2z_poisonzombie",vCat)
+			VJ.AddNPC("Zombine","npc_vj_hl2z_zombine",vCat)
+			VJ.AddNPC("Headcrab","npc_vj_hl2z_headcrab",vCat)
+			VJ.AddNPC("Fast Headcrab","npc_vj_hl2z_fastheadcrab",vCat)
+			VJ.AddNPC("Poison Headcrab","npc_vj_hl2z_poisonheadcrab",vCat)
 		
 		-- Random Creatures
 		VJ.AddNPC("Hydra","npc_vj_hlrand_hydra",vCat)
-
-		-- Zombies
-		VJ.AddNPC("Zombie","npc_vj_hl2z_zombie",vCat)
-		VJ.AddNPC("Zombie Assassin","npc_vj_hl2z_assassin",vCat)
-		VJ.AddNPC("Fast Zombie","npc_vj_hl2z_fastzombie",vCat)
-		VJ.AddNPC("Poison Zombie","npc_vj_hl2z_poisonzombie",vCat)
-		VJ.AddNPC("Zombine","npc_vj_hl2z_zombine",vCat)
-		VJ.AddNPC("Headcrab","npc_vj_hl2z_headcrab",vCat)
-		VJ.AddNPC("Fast Headcrab","npc_vj_hl2z_fastheadcrab",vCat)
-		VJ.AddNPC("Poison Headcrab","npc_vj_hl2z_poisonheadcrab",vCat)
-	
+		
 	-- Decals
 	game.AddDecal("VJ_Blood_HL1_Red",{"vj_hl/decals/hl_blood01","vj_hl/decals/hl_blood02","vj_hl/decals/hl_blood03","vj_hl/decals/hl_blood04","vj_hl/decals/hl_blood05","vj_hl/decals/hl_blood06","vj_hl/decals/hl_blood07","vj_hl/decals/hl_blood08"})
 	game.AddDecal("VJ_Blood_HL1_Yellow",{"vj_hl/decals/hl_yblood01","vj_hl/decals/hl_yblood02","vj_hl/decals/hl_yblood03","vj_hl/decals/hl_yblood04","vj_hl/decals/hl_yblood05","vj_hl/decals/hl_yblood06"})
@@ -87,11 +88,16 @@ if VJExists == true then
 	VJ.AddParticle("particles/advisor.pcf",{})
 	VJ.AddParticle("particles/choreo_dog_v_strider.pcf",{})
 	VJ.AddParticle("particles/vj_hl_shocktrooper.pcf",{
-		"vj_hl_spore",
-		"vj_hl_spore_idle",
+		"vj_hl_shockroach",
+		"vj_hl_shockroach_aura",
+		"vj_hl_shockroach_bright",
+		"vj_hl_shockroach_trail",
 	})
 	VJ.AddParticle("particles/vj_hl_sporegrenade.pcf",{
-		"vj_hl_shockroach",
+		"vj_hl_spore",
+		"vj_hl_spore_idle",
+		"vj_hl_spore_splash1",
+		"vj_hl_spore_splash2",
 	})
 	VJ.AddParticle("particles/vj_hl_gonome.pcf",{
 		"vj_hl_gonome",
