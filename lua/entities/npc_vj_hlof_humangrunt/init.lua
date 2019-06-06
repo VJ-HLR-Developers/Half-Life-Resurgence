@@ -17,13 +17,6 @@ vj_hlr/hl1_npc/hgrunt_oppf/hitbad.wav
 vj_hlr/hl1_npc/hgrunt_oppf/makeit.wav
 vj_hlr/hl1_npc/hgrunt_oppf/sdamage.wav
 
-When they hear something:
-vj_hlr/hl1_npc/hgrunt_oppf/hear.wav
-vj_hlr/hl1_npc/hgrunt_oppf/hearsome.wav
-vj_hlr/hl1_npc/hgrunt_oppf/quiet.wav
-vj_hlr/hl1_npc/hgrunt_oppf/staydown.wav
-vj_hlr/hl1_npc/hgrunt_oppf/intro_fg17.wav
-
 -- Engineer:
 vj_hlr/hl1_npc/hgrunt_oppf/locksmith.wav
 vj_hlr/hl1_npc/hgrunt_oppf/stand.wav
@@ -120,6 +113,13 @@ ENT.SoundTbl_OnPlayerSight = {
 	"vj_hlr/hl1_npc/hgrunt_oppf/check.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/of5a1_fg01.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/of5a3_fg01.wav"
+}
+ENT.SoundTbl_Investigate = {
+	"vj_hlr/hl1_npc/hgrunt_oppf/hear.wav",
+	"vj_hlr/hl1_npc/hgrunt_oppf/hearsome.wav",
+	"vj_hlr/hl1_npc/hgrunt_oppf/quiet.wav",
+	"vj_hlr/hl1_npc/hgrunt_oppf/staydown.wav",
+	"vj_hlr/hl1_npc/hgrunt_oppf/intro_fg17.wav"
 }
 ENT.SoundTbl_Alert = {
 	"vj_hlr/hl1_npc/hgrunt_oppf/bogies.wav",

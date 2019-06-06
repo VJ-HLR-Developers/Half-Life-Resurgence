@@ -28,6 +28,7 @@ if VJExists == true then
 
 		-- Xen Creatures
 		VJ.AddNPC("Alien Grunt","npc_vj_hl_aliengrunt",vCat)
+		VJ.AddNPC("Bullsquid","npc_vj_hl_bullsquid",vCat)
 			-- Headcrab
 			VJ.AddNPC("Gonarch","npc_vj_hl_gonarch",vCat)
 			VJ.AddNPC("Headcrab","npc_vj_hl_headcrab",vCat)
