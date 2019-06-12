@@ -44,6 +44,7 @@ ENT.SoundTbl_MeleeAttackMiss = {}
 ENT.SoundTbl_GrenadeAttack = {}
 ENT.SoundTbl_OnGrenadeSight = {"npc/metropolice/vo/watchit.wav","npc/metropolice/vo/thatsagrenade.wav","npc/metropolice/vo/takecover.wav","npc/metropolice/vo/shit.wav","npc/metropolice/vo/moveit.wav","npc/metropolice/vo/movebackrightnow.wav","npc/metropolice/vo/lookoutrogueviscerator.wav","npc/metropolice/vo/lookout.wav","npc/metropolice/vo/help.wav","npc/metropolice/vo/grenade.wav","npc/metropolice/vo/getdown.wav","npc/metropolice/vo/getoutofhere.wav"}
 ENT.SoundTbl_OnKilledEnemy = {"npc/metropolice/vo/assaultpointsecureadvance.wav","npc/metropolice/vo/ten97suspectisgoa.wav","npc/metropolice/vo/tag10-91d.wav","npc/metropolice/vo/protectioncomplete.wav","npc/metropolice/vo/isdown.wav","npc/metropolice/vo/gotsuspect1here.wav","npc/metropolice/vo/gotoneaccomplicehere.wav","npc/metropolice/vo/get11-44inboundcleaningup.wav","npc/metropolice/vo/dbcountis.wav","npc/metropolice/vo/chuckle.wav","npc/metropolice/vo/control100percent.wav"}
+ENT.SoundTbl_AllyDeath = {"npc/metropolice/vo/officerdowncode3tomy10-20.wav","npc/metropolice/vo/officerdowniam10-99.wav"}
 ENT.SoundTbl_Pain = {"npc/metropolice/vo/officerunderfiretakingcover.wav","npc/metropolice/vo/necrotics.wav","npc/metropolice/vo/help.wav","npc/metropolice/vo/freenecrotics.wav","npc/metropolice/knockout2.wav","npc/metropolice/pain1.wav","npc/metropolice/pain2.wav","npc/metropolice/pain3.wav","npc/metropolice/pain4.wav"}
 ENT.SoundTbl_DamageByPlayer = {"npc/metropolice/vo/watchit.wav"}
 ENT.SoundTbl_Death = {"npc/metropolice/die1.wav","npc/metropolice/die2.wav","npc/metropolice/die3.wav","npc/metropolice/die4.wav"}
@@ -164,10 +165,6 @@ ENT.SoundTbl_Death = {"npc/metropolice/die1.wav","npc/metropolice/die2.wav","npc
 "npc/metropolice/vo/visceratordeployed.wav"
 "npc/metropolice/vo/visceratorisoc.wav"
 "npc/metropolice/vo/visceratorisoffgrid.wav"
-
--- Man Down
-"npc/metropolice/vo/officerdowncode3tomy10-20.wav"
-"npc/metropolice/vo/officerdowniam10-99.wav"
 
 "npc/metropolice/vo/off1.wav" - 4
 "npc/metropolice/vo/on1.wav" - 2

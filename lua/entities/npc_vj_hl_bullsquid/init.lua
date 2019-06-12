@@ -7,21 +7,155 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hl1/bullsquid.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 120
-ENT.HullType = HULL_HUMAN
-ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
+ENT.HullType = HULL_WIDE_SHORT
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
+ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
+ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
+ENT.CustomBlood_Decal = {"VJ_Blood_HL1_Yellow"} -- Decals to spawn when it's damaged
+ENT.HasBloodPool = false -- Does it have a blood pool?
+ENT.Immune_AcidPoisonRadiation = true -- Makes the SNPC not get damage from Acid, posion, radiation
 
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
+ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
+ENT.MeleeAttackDistance = 35 -- How close does it have to be until it attacks?
+ENT.MeleeAttackDamageDistance = 125 -- How far does the damage go?
+ENT.HasMeleeAttackKnockBack = false -- If true, it will cause a knockback to its enemy
+ENT.MeleeAttackKnockBack_Forward1 = 50 -- How far it will push you forward | First in math.random
+ENT.MeleeAttackKnockBack_Forward2 = 60 -- How far it will push you forward | Second in math.random
+ENT.MeleeAttackKnockBack_Up1 = 250 -- How far it will push you up | First in math.random
+ENT.MeleeAttackKnockBack_Up2 = 260 -- How far it will push you up | Second in math.random
 
-ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
-ENT.HasDeathRagdoll = false -- If set to false, it will not spawn the regular ragdoll of the SNPC
+ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
+ENT.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1} -- Range Attack Animations
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlr_toxicspit" -- The entity that is spawned when range attacking
+ENT.TimeUntilRangeAttackProjectileRelease = false
+ENT.NextRangeAttackTime = 2 -- How much time until it can use a range attack?
+ENT.RangeDistance = 2000 -- This is how far away it can shoot
+ENT.RangeToMeleeDistance = 150 -- How close does it have to be until it uses melee?
+ENT.RangeUseAttachmentForPos = false -- Should the projectile spawn on a attachment?
+ENT.RangeAttackPos_Up = 20 -- Up/Down spawning position for range attack
+ENT.RangeAttackPos_Forward = 0 -- Forward/ Backward spawning position for range attack
+ENT.RangeAttackPos_Right = 0 -- Right/Left spawning position for range attack
+
+ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it's between number x and y?
+ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
+ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
+ENT.NoChaseAfterCertainRange_Type = "OnlyRange" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
+ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.AnimTbl_Death = {"die1"} -- Death Animations
+ENT.DeathAnimationChance = 3 -- Put 1 if you want it to play the animation all the time
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
+ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/bullchicken/bc_idle1.wav","vj_hlr/hl1_npc/bullchicken/bc_idle2.wav","vj_hlr/hl1_npc/bullchicken/bc_idle2.wav","vj_hlr/hl1_npc/bullchicken/bc_idle3.wav","vj_hlr/hl1_npc/bullchicken/bc_idle4.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/bullchicken/bc_attackgrowl.wav","vj_hlr/hl1_npc/bullchicken/bc_attackgrowl2.wav","vj_hlr/hl1_npc/bullchicken/bc_attackgrowl3.wav"}
+ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/bullchicken/bc_bite1.wav","vj_hlr/hl1_npc/bullchicken/bc_bite2.wav","vj_hlr/hl1_npc/bullchicken/bc_bite3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/bullchicken/bc_attack2.wav","vj_hlr/hl1_npc/bullchicken/bc_attack3.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/bullchicken/bc_pain1.wav","vj_hlr/hl1_npc/bullchicken/bc_pain2.wav","vj_hlr/hl1_npc/bullchicken/bc_pain3.wav","vj_hlr/hl1_npc/bullchicken/bc_pain4.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/bullchicken/bc_die1.wav","vj_hlr/hl1_npc/bullchicken/bc_die2.wav","vj_hlr/hl1_npc/bullchicken/bc_die3.wav"}
 
+-- Custom
+ENT.Bullsquid_BlinkingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(20, 20, 250), Vector(-20, -20, 0))
+	self:SetCollisionBounds(Vector(40, 40 , 40), Vector(-40, -40, 0))
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAcceptInput(key,activator,caller,data)
+	//print(key)
+	if key == "event_emit step" then
+		self:FootStepSoundCode()
+	end
+	if key == "melee_bite" or key == "melee_whip" then
+		self:MeleeAttackCode()
+	end
+	if key == "rangeattack" then
+		self:RangeAttackCode()
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink()
+	if CurTime() > self.Bullsquid_BlinkingT then
+		self:SetSkin(1)
+		timer.Simple(0.3,function() if IsValid(self) then self:SetSkin(0) end end)
+		self.Bullsquid_BlinkingT = CurTime() + math.Rand(2,3.5)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAlert(argent)
+	if math.random(1,3) == 1 then
+		if argent:GetClass() == "npc_vj_hl_headcrab" then
+			self:VJ_ACT_PLAYACTIVITY("seecrab",true,false,true)
+		else
+			self:VJ_ACT_PLAYACTIVITY(ACT_HOP,true,false,true)
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackCode_GetShootPos(TheProjectile)
+	return self:CalculateProjectile("Curve", self:GetPos(), self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1500)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MultipleMeleeAttacks()
+	local randattack = math.random(1,2)
+	if randattack == 1 then
+		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
+		self.MeleeAttackDamage = 35
+		self.HasMeleeAttackKnockBack = true
+	elseif randattack == 2 then
+		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
+		self.MeleeAttackDamage = 20
+		self.HasMeleeAttackKnockBack = false
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
+	GetCorpse:SetSkin(1)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
+	if self.HasGibDeathParticles == true then
+		local bloodeffect = EffectData()
+		bloodeffect:SetOrigin(self:GetPos() +self:OBBCenter())
+		bloodeffect:SetColor(VJ_Color2Byte(Color(255,221,35)))
+		bloodeffect:SetScale(120)
+		util.Effect("VJ_Blood1",bloodeffect)
+		
+		local bloodspray = EffectData()
+		bloodspray:SetOrigin(self:GetPos() +self:OBBCenter())
+		bloodspray:SetScale(8)
+		bloodspray:SetFlags(3)
+		bloodspray:SetColor(1)
+		util.Effect("bloodspray",bloodspray)
+		util.Effect("bloodspray",bloodspray)
+		
+		local effectdata = EffectData()
+		effectdata:SetOrigin(self:GetPos() +self:OBBCenter())
+		effectdata:SetScale(1)
+		util.Effect("StriderBlood",effectdata)
+		util.Effect("StriderBlood",effectdata)
+	end
+	
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib1.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,40))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib2.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,20))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib3.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,30))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib4.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,35))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib5.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,50))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib6.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,55))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib7.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,40))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib8.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,45))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib9.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,25))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib10.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,15))})
+	if self.Zombie_Type == 1 then
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/zombiegib.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,15))})
+	end
+	return true -- Return to true if it gibbed!
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
+	VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
+	return false
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***

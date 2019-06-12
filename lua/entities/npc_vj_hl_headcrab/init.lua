@@ -28,11 +28,9 @@ ENT.StopLeapAttackAfterFirstHit = true -- Should it stop the leap attack from ru
 ENT.LeapAttackVelocityForward = 50 -- How much forward force should it apply?
 ENT.LeapAttackVelocityUp = 250 -- How much upward force should it apply?
 ENT.LeapAttackVelocityRight = 0 -- How much right force should it apply?
-
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIESIMPLE} -- Death Animations
 //ENT.DeathAnimationTime = 0.6 -- Time until the SNPC spawns its corpse and gets removed
-
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/headcrab/hc_idle1.wav","vj_hlr/hl1_npc/headcrab/hc_idle2.wav","vj_hlr/hl1_npc/headcrab/hc_idle3.wav","vj_hlr/hl1_npc/headcrab/hc_idle4.wav","vj_hlr/hl1_npc/headcrab/hc_idle5.wav"}

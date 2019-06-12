@@ -36,11 +36,10 @@ ENT.SoundTbl_WeaponReload = {"npc/combine_soldier/vo/cover.wav","npc/combine_sol
 ENT.SoundTbl_GrenadeAttack = {"npc/combine_soldier/vo/slam.wav"}
 ENT.SoundTbl_OnGrenadeSight = {"npc/combine_soldier/vo/ripcordripcord.wav","npc/combine_soldier/vo/boomer.wav","npc/combine_soldier/vo/bouncerbouncer.wav"}
 ENT.SoundTbl_OnKilledEnemy = {"npc/combine_soldier/vo/overwatchconfirmhvtcontained.wav","npc/combine_soldier/vo/overwatchtargetcontained.wav","npc/combine_soldier/vo/overwatchtarget1sterilized.wav","npc/combine_soldier/vo/contained.wav","npc/combine_soldier/vo/targetineffective.wav","npc/combine_soldier/vo/onedown.wav","npc/combine_soldier/vo/onecontained.wav","npc/combine_soldier/vo/payback.wav"}
+ENT.SoundTbl_AllyDeath = {"npc/combine_soldier/vo/overwatchteamisdown.wav"}
 ENT.SoundTbl_Pain = {"npc/combine_soldier/pain1.wav","npc/combine_soldier/pain2.wav","npc/combine_soldier/pain3.wav","npc/combine_soldier/vo/heavyresistance.wav","npc/combine_soldier/vo/bodypackholding.wav","npc/combine_soldier/vo/requestmedical.wav","npc/combine_soldier/vo/requeststimdose.wav"}
 ENT.SoundTbl_Death = {"npc/combine_soldier/die1.wav","npc/combine_soldier/die2.wav","npc/combine_soldier/die3.wav"}
 
--- Ally die: "npc/combine_soldier/vo/overwatchteamisdown.wav"
----- It's VJ Base SNPC
 /*
 "npc/combine_soldier/vo/affirmativewegothimnow.wav"
 "npc/combine_soldier/vo/flaredown.wav"
