@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "models/police/supercop_sheet"
+	"$selfillum" 1
+}

@@ -1,6 +1,6 @@
 "VertexLitGeneric"
 {
-	"$envmap" "models/islave/chrome_1"
+	"$envmap" "models/chrome/islave/chrome_1"
 	"$envmapsphere" 1
 	"$multipass" 1
 	

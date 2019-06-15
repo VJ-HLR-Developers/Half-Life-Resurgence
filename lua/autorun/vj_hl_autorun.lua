@@ -55,7 +55,7 @@ if VJExists == true then
 		VJ.AddNPC_HUMAN("Overwatch Elite","npc_vj_hl2c_elite",{"weapon_vj_ar2"},vCat)
 		VJ.AddNPC_HUMAN("Overwatch Prison Guard","npc_vj_hl2c_prospekt",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
 		VJ.AddNPC_HUMAN("Overwatch Prison Shotgun Guard","npc_vj_hl2c_pshotgunner",{"weapon_vj_spas12"},vCat)
-		VJ.AddNPC_HUMAN("Civil Protection","npc_vj_hl2c_metrocop",{"weapon_vj_9mmpistol"},vCat)
+		VJ.AddNPC_HUMAN("Civil Protection","npc_vj_hl2c_metrocop",{"weapon_vj_9mmpistol","weapon_vj_smg1"},vCat)
 		-- VJ.AddNPC("Combine Assassin","npc_vj_hl2c_assassin",vCat)
 		-- VJ.AddNPC("Overwatch Stalker","npc_vj_hl2c_stalker",vCat)
 		-- VJ.AddNPC("Overwatch Hunter","npc_vj_hl2c_hunter",vCat)
