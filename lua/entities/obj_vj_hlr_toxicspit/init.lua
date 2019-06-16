@@ -13,7 +13,7 @@ ENT.RadiusDamageUseRealisticRadius = true -- Should the damage decrease the fart
 ENT.RadiusDamageType = DMG_ACID -- Damage type
 ENT.DecalTbl_DeathDecals = {"VJ_Blood_HL1_Yellow"}
 ENT.SoundTbl_Idle = {"vj_acid/acid_idle1.wav"}
-ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/bullchicken/bc_spithit1.wav","vj_hlr/hl1_npc/bullchicken/bc_spithit2.wav","vj_hlr/hl1_npc/bullchicken/bc_spithit3.wav"}
+ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/bullchicken/bc_spithit1.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
