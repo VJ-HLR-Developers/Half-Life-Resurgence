@@ -55,9 +55,6 @@ ENT.SoundTbl_Idle = {
 	"vo/ravenholm/monk_rant21.wav",
 	"vo/ravenholm/monk_rant22.wav",
 }
-ENT.SoundTbl_FollowPlayer = {
-	--"vo/ravenholm/shotgun_advice.wav",
-}
 ENT.SoundTbl_OnPlayerSight = {
 	"vo/ravenholm/grave_follow.wav",
 	"vo/ravenholm/grave_stayclose.wav",
@@ -113,9 +110,6 @@ ENT.SoundTbl_AllyDeath = {
 	"vo/ravenholm/monk_mourn05.wav",
 	"vo/ravenholm/monk_mourn06.wav",
 	"vo/ravenholm/monk_mourn07.wav",
-}
-ENT.SoundTbl_WeaponReload = {
---	"vo/ravenholm/monk_coverme01.wav",
 }
 ENT.SoundTbl_OnGrenadeSight = {
 	"vo/ravenholm/monk_danger01.wav",
