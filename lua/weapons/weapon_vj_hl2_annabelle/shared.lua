@@ -16,7 +16,7 @@ SWEP.UseHands					= true
 end
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire 		= 0.9 -- Next time it can use primary fire
-SWEP.NPC_CustomSpread	 		= 0.5 -- This is added on top of the custom spread that's set inside the SNPC! | Starting from 1: Closer to 0 = better accuracy, Farther than 1 = worse accuracy
+SWEP.NPC_CustomSpread	 		= 0.1 -- This is added on top of the custom spread that's set inside the SNPC! | Starting from 1: Closer to 0 = better accuracy, Farther than 1 = worse accuracy
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.ViewModel					= "models/weapons/c_shotgun.mdl"
 SWEP.WorldModel					= "models/weapons/w_annabelle.mdl"
@@ -25,7 +25,7 @@ SWEP.Spawnable					= false
 SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
 SWEP.AdminSpawnable				= false
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 40 -- Damage
+SWEP.Primary.Damage				= 60 -- Damage
 SWEP.Primary.PlayerDamage		= "Double" -- Only applies for players | "Same" = Same as self.Primary.Damage, "Double" = Double the self.Primary.Damage OR put a number to be different from self.Primary.Damage
 SWEP.Primary.Force				= 2 -- Force applied on the object the bullet hits
 SWEP.Primary.ClipSize			= 2 -- Max amount of bullets per clip
@@ -51,3 +51,27 @@ SWEP.HasIdleAnimation			= true -- Does it have a idle animation?
 SWEP.AnimTbl_Idle				= {ACT_VM_IDLE}
 SWEP.NextIdle_Deploy			= 0.5 -- How much time until it plays the idle animation after the weapon gets deployed
 SWEP.NextIdle_PrimaryAttack		= 0.5 -- How much time until it plays the idle animation after attacking(Primary)
+
+SWEP.FirstTimeShotShotgun = false
+---------------------------------------------------------------------------------------------------------------------------------------------
+/*function SWEP:CustomOnNPC_ServerThink()
+	print("debeck")
+	if self.Owner:GetActivity() != ACT_RANGE_ATTACK1 then
+	print("Fuck")
+	self.FirstTimeShotShotgun = false
+	end
+end*/
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:CustomOnPrimaryAttack_AfterShoot()
+	//if self.Owner:IsNPC() && (self.Owner.IsVJBaseSNPC) && self.FirstTimeShotShotgun == true /*&& self.Owner:GetActivity() != ACT_RANGE_ATTACK1*/ then
+	//self.FirstTimeShotShotgun = true
+	//self.Owner:VJ_ACT_PLAYACTIVITY(ACT_RANGE_ATTACK_SHOTGUN,false,0,true)
+	//end
+	//self.FirstTimeShotShotgun = true
+	timer.Simple(0.2,function()
+		if IsValid(self) && IsValid(self.Owner) && self.Owner:IsPlayer() then
+			self.Weapon:EmitSound(Sound("weapons/shotgun/shotgun_cock.wav"),80,100)
+			self.Weapon:SendWeaponAnim(ACT_SHOTGUN_PUMP)
+		end
+	end)
+end
