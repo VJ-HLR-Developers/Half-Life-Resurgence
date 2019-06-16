@@ -172,7 +172,7 @@ if VJExists == true then
 	VJ.AddConVar("vj_hl2c_soldier_d",10)
 	
 	VJ.AddConVar("vj_hl2c_metrocop_h",50)
-	VJ.AddConVar("vj_hl2c_elitecop_h",85)
+	VJ.AddConVar("vj_hl2c_elitecop_h",60)
 	VJ.AddConVar("vj_hl2c_metrocop_d",10)
 	
 	VJ.AddConVar("vj_hl2r_rebel_h",50)
