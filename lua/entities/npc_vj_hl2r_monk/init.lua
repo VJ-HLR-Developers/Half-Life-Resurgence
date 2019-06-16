@@ -138,6 +138,7 @@ ENT.SoundTbl_OnKilledEnemy = {
 	"vo/ravenholm/monk_kill08.wav",
 	"vo/ravenholm/monk_kill09.wav",
 	"vo/ravenholm/monk_kill10.wav",
+	"vo/ravenholm/monk_kill11.wav",
 }
 ENT.SoundTbl_Pain = {
 	"vo/ravenholm/monk_pain01.wav",
