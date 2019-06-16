@@ -56,6 +56,7 @@ if VJExists == true then
 		VJ.AddNPC_HUMAN("Overwatch Prison Guard","npc_vj_hl2c_prospekt",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
 		VJ.AddNPC_HUMAN("Overwatch Prison Shotgun Guard","npc_vj_hl2c_pshotgunner",{"weapon_vj_spas12"},vCat)
 		VJ.AddNPC_HUMAN("Civil Protection","npc_vj_hl2c_metrocop",{"weapon_vj_9mmpistol","weapon_vj_smg1"},vCat)
+		VJ.AddNPC_HUMAN("Civil Protection Elite","npc_vj_hl2c_elitecop",{"weapon_vj_smg1"},vCat)
 		-- VJ.AddNPC("Combine Assassin","npc_vj_hl2c_assassin",vCat)
 		-- VJ.AddNPC("Overwatch Stalker","npc_vj_hl2c_stalker",vCat)
 		-- VJ.AddNPC("Overwatch Hunter","npc_vj_hl2c_hunter",vCat)
@@ -65,6 +66,7 @@ if VJExists == true then
 		-- Resistance
 		-- VJ.AddNPC_HUMAN("Alyx Vance","npc_vj_hl2r_alyx",{"weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_9mmpistol""weapon_vj_smg1","weapon_vj_ar2","weapon_vj_spas12"},vCat)
 		VJ.AddNPC_HUMAN("Barney Calhoun","npc_vj_hl2r_barney",{"weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
+		VJ.AddNPC_HUMAN("Father Grigori","npc_vj_hl2r_monk",{"weapon_vj_hl2_annabelle"},vCat)
 		VJ.AddNPC_HUMAN("Rebel","npc_vj_hl2r_rebel",{"weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_k3","weapon_vj_k3","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_ak47","weapon_vj_m16a1","weapon_vj_mp40","weapon_vj_spas12","weapon_vj_rpg","weapon_vj_blaster"},vCat)
 
 		-- Xen Creatures
@@ -80,6 +82,10 @@ if VJExists == true then
 		
 		-- Random Creatures
 		VJ.AddNPC("Hydra","npc_vj_hlrand_hydra",vCat)
+		
+		-- Weapons
+		VJ.AddNPCWeapon("VJ_Annabelle","weapon_vj_hl2_annabelle",false,vCat)
+		VJ.AddNPCWeapon("VJ_Alyx_Gun","weapon_vj_hl2_alyxgun",false,vCat)
 		
 	-- Decals
 	game.AddDecal("VJ_Blood_HL1_Red",{"vj_hl/decals/hl_blood01","vj_hl/decals/hl_blood02","vj_hl/decals/hl_blood03","vj_hl/decals/hl_blood04","vj_hl/decals/hl_blood05","vj_hl/decals/hl_blood06","vj_hl/decals/hl_blood07","vj_hl/decals/hl_blood08"})
@@ -166,6 +172,7 @@ if VJExists == true then
 	VJ.AddConVar("vj_hl2c_soldier_d",10)
 	
 	VJ.AddConVar("vj_hl2c_metrocop_h",50)
+	VJ.AddConVar("vj_hl2c_elitecop_h",85)
 	VJ.AddConVar("vj_hl2c_metrocop_d",10)
 	
 	VJ.AddConVar("vj_hl2r_rebel_h",50)
