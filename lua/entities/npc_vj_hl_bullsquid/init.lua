@@ -14,7 +14,6 @@ ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should 
 ENT.CustomBlood_Decal = {"VJ_Blood_HL1_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.Immune_AcidPoisonRadiation = true -- Makes the SNPC not get damage from Acid, posion, radiation
-
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDistance = 35 -- How close does it have to be until it attacks?
@@ -24,7 +23,6 @@ ENT.MeleeAttackKnockBack_Forward1 = 50 -- How far it will push you forward | Fir
 ENT.MeleeAttackKnockBack_Forward2 = 60 -- How far it will push you forward | Second in math.random
 ENT.MeleeAttackKnockBack_Up1 = 250 -- How far it will push you up | First in math.random
 ENT.MeleeAttackKnockBack_Up2 = 260 -- How far it will push you up | Second in math.random
-
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1} -- Range Attack Animations
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr_toxicspit" -- The entity that is spawned when range attacking
@@ -36,14 +34,14 @@ ENT.RangeUseAttachmentForPos = false -- Should the projectile spawn on a attachm
 ENT.RangeAttackPos_Up = 20 -- Up/Down spawning position for range attack
 ENT.RangeAttackPos_Forward = 0 -- Forward/ Backward spawning position for range attack
 ENT.RangeAttackPos_Right = 0 -- Right/Left spawning position for range attack
-
 ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it's between number x and y?
 ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_Type = "OnlyRange" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {"die1"} -- Death Animations
+ENT.AnimTbl_Death = {"die1","die"} -- Death Animations
 ENT.DeathAnimationChance = 3 -- Put 1 if you want it to play the animation all the time
+ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
@@ -64,7 +62,7 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	//print(key)
+	print(key)
 	if key == "event_emit step" then
 		self:FootStepSoundCode()
 	end
@@ -77,7 +75,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if CurTime() > self.Bullsquid_BlinkingT then
+	if self.Dead == false && CurTime() > self.Bullsquid_BlinkingT then
 		self:SetSkin(1)
 		timer.Simple(0.3,function() if IsValid(self) then self:SetSkin(0) end end)
 		self.Bullsquid_BlinkingT = CurTime() + math.Rand(2,3.5)
