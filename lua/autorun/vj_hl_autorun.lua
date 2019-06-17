@@ -42,6 +42,9 @@ if VJExists == true then
 		-- Race X
 		VJ.AddNPC("Shock Trooper","npc_vj_hlof_shocktrooper",vCat)
 		
+		-- Animals
+		VJ.AddNPC("Cockroach","npc_vj_hl_cockroach",vCat)
+		
 	-- Half-Life 2 -------------------------------------------------------
 		-- Antlions
 		-- VJ.AddNPC("Antlion","npc_vj_hl2a_antlion",vCat)
