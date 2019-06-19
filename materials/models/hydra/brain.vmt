@@ -1,7 +1,13 @@
-"UnlitGeneric"
+"VertexLitGeneric"
 {
-	// Original shader: addtexture
 	"$basetexture" "models/hydra/brain"
 	"$additive" 1
-	"$model" 1
+	$emissiveBlendEnabled 1
+    $emissiveBlendTexture    "dev/null"
+    $emissiveBlendBaseTexture    "models/hydra/brain"
+    $emissiveBlendFlowTexture    "dev/null"
+    $emissiveBlendTint "[0 0.7 0.15]"
+    $emissiveBlendStrength 1
+    $emissiveBlendScrollVector "[0 0]"
+	"$nodecal" 1
 }
