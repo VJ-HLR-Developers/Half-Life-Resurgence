@@ -1,6 +1,6 @@
 "VertexLitGeneric"
 {
-	"$envmap" "models/agrunt/chrome3"
+	"$envmap" "models/chrome/agrunt/chrome3"
 	"$envmapsphere" 1
 	"$multipass" 1
 	

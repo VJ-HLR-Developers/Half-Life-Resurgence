@@ -56,6 +56,10 @@ ENT.SoundTbl_Alert = {
 	"vo/npc/barney/ba_heretheycome02.wav",
 	"vo/npc/barney/ba_openfiregord.wav",
 	"vo/npc/barney/ba_uhohheretheycome.wav",
+	"vj_hlr/hl2_npc/barney/ba_fuckyou.wav"
+}
+ENT.SoundTbl_BecomeEnemyToPlayer = {
+	"vj_hlr/hl2_npc/barney/ba_fuckyou.wav"
 }
 ENT.SoundTbl_CallForHelp = {
 	"vo/npc/barney/ba_gordonhelp.wav",

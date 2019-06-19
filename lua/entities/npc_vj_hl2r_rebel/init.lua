@@ -31,28 +31,308 @@ ENT.AnimTbl_Flinch = {ACT_FLINCH_PHYSICS} -- If it uses normal based animation, 
 	-- ====== File Path Variables ====== --
 	-- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"npc/footsteps/hardboot_generic1.wav","npc/footsteps/hardboot_generic2.wav","npc/footsteps/hardboot_generic3.wav","npc/footsteps/hardboot_generic4.wav","npc/footsteps/hardboot_generic5.wav","npc/footsteps/hardboot_generic6.wav","npc/footsteps/hardboot_generic8.wav"}
-ENT.SoundTbl_Idle = {"vo/npc/male01/question01.wav","vo/npc/male01/question02.wav","vo/npc/male01/question03.wav","vo/npc/male01/question04.wav","vo/npc/male01/question05.wav","vo/npc/male01/question06.wav","vo/npc/male01/question07.wav","vo/npc/male01/question08.wav","vo/npc/male01/question09.wav","vo/npc/male01/question10.wav","vo/npc/male01/question11.wav","vo/npc/male01/question12.wav","vo/npc/male01/question13.wav","vo/npc/male01/question14.wav","vo/npc/male01/question15.wav","vo/npc/male01/question16.wav","vo/npc/male01/question17.wav","vo/npc/male01/question18.wav","vo/npc/male01/question19.wav","vo/npc/male01/question20.wav","vo/npc/male01/question21.wav","vo/npc/male01/question22.wav","vo/npc/male01/question23.wav","vo/npc/male01/question24.wav","vo/npc/male01/question25.wav","vo/npc/male01/question26.wav","vo/npc/male01/question27.wav","vo/npc/male01/question28.wav","vo/npc/male01/question29.wav","vo/npc/male01/question30.wav","vo/npc/male01/question31.wav"}
-ENT.SoundTbl_CombatIdle = {"vo/episode_1/npc/male01/cit_kill07.wav","vo/npc/male02/reb2_antlions05.wav","vo/npc/male01/letsgo01.wav","vo/npc/male01/letsgo02.wav","vo/outland_12/reb1_lastwave01.wav","vo/outland_12/reb1_lastwave10.wav","vo/outland_12/reb1_lastwaveannounced05.wav","vo/outland_12/reb1_prepare_battle_01.wav"}
-ENT.SoundTbl_OnReceiveOrder = {"vo/npc/male01/squad_approach02.wav","vo/npc/male01/squad_approach03.wav","vo/npc/male01/squad_approach04.wav"}
-ENT.SoundTbl_FollowPlayer = {"vo/npc/male01/yougotit02.wav","vo/npc/male01/squad_follow03.wav","vo/npc/male01/squad_affirm01.wav","vo/npc/male01/squad_affirm02.wav","vo/npc/male01/squad_affirm09.wav","vo/npc/male01/leadon01.wav","vo/npc/male01/leadon02.wav","vo/npc/male01/leadtheway01.wav","vo/npc/male01/leadtheway02.wav"}
-ENT.SoundTbl_UnFollowPlayer = {"vo/npc/male01/littlecorner01.wav","vo/npc/male01/holddownspot01.wav","vo/npc/male01/holddownspot02.wav","vo/npc/male01/illstayhere01.wav","vo/npc/male01/imstickinghere01.wav"}
-ENT.SoundTbl_MoveOutOfPlayersWay = {"vo/npc/male01/excuseme01.wav","vo/npc/male01/excuseme02.wav","vo/npc/male01/sorry01.wav","vo/npc/male01/sorry02.wav","vo/npc/male01/sorry03.wav","vo/npc/male01/sorrydoc01.wav","vo/npc/male01/sorrydoc02.wav","vo/npc/male01/sorrydoc04.wav","vo/npc/male01/sorryfm01.wav","vo/npc/male01/sorryfm02.wav"}
-ENT.SoundTbl_MedicBeforeHeal = {"vo/outland_08/chopper/reb_chop_nothankyou.wav","vo/npc/male01/health01.wav","vo/npc/male01/health02.wav","vo/npc/male01/health03.wav","vo/npc/male01/health04.wav","vo/npc/male01/health05.wav"}
-ENT.SoundTbl_Investigate = {"vo/npc/male01/startle01.wav","vo/npc/male01/startle02.wav"}
+ENT.SoundTbl_Idle = {
+	"vo/npc/male01/question01.wav",
+	"vo/npc/male01/question02.wav",
+	"vo/npc/male01/question03.wav",
+	"vo/npc/male01/question04.wav",
+	"vo/npc/male01/question05.wav",
+	"vo/npc/male01/question06.wav",
+	"vo/npc/male01/question07.wav",
+	"vo/npc/male01/question08.wav",
+	"vo/npc/male01/question09.wav",
+	"vo/npc/male01/question10.wav",
+	"vo/npc/male01/question11.wav",
+	"vo/npc/male01/question12.wav",
+	"vo/npc/male01/question13.wav",
+	"vo/npc/male01/question14.wav",
+	"vo/npc/male01/question15.wav",
+	"vo/npc/male01/question16.wav",
+	"vo/npc/male01/question17.wav",
+	"vo/npc/male01/question18.wav",
+	"vo/npc/male01/question19.wav",
+	"vo/npc/male01/question20.wav",
+	"vo/npc/male01/question21.wav",
+	"vo/npc/male01/question22.wav",
+	"vo/npc/male01/question23.wav",
+	"vo/npc/male01/question25.wav",
+	"vo/npc/male01/question26.wav",
+	"vo/npc/male01/question27.wav",
+	"vo/npc/male01/question28.wav",
+	"vo/npc/male01/question29.wav",
+	"vo/npc/male01/question30.wav",
+	"vo/npc/male01/question31.wav",
+	"vo/npc/male01/vquestion02.wav",
+	"vo/npc/male01/vquestion04.wav",
+	"vo/npc/male01/vanswer14.wav",
+	"vo/npc/male01/doingsomething.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_idles06.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_remarks01.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_remarks02.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_remarks03.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_remarks05.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_remarks06.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_remarks10.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_remarks11.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_remarks13.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_remarks17.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_remarks18.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_remarks19.wav"
+}
+ENT.SoundTbl_CombatIdle = {
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill07.wav",
+	"vj_hlr/hl2_npc/citizen/male02/reb2_antlions05.wav",
+	"vo/npc/male01/letsgo01.wav",
+	"vo/npc/male01/letsgo02.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_squad_flee02.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_behindyousfx01.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_behindyousfx02.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_lastwave10.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_lastwaveannounced05.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_prepare_battle_01.wav"
+}
+ENT.SoundTbl_OnReceiveOrder = {
+	"vo/npc/male01/squad_approach02.wav",
+	"vo/npc/male01/squad_approach03.wav",
+	"vo/npc/male01/squad_approach04.wav"
+}
+ENT.SoundTbl_FollowPlayer = {
+	"vo/npc/male01/yougotit02.wav",
+	"vo/npc/male01/squad_follow03.wav",
+	"vo/npc/male01/squad_affirm06.wav",
+	"vo/npc/male01/squad_affirm05.wav",
+	"vo/npc/male01/squad_affirm04.wav",
+	"vo/npc/male01/squad_affirm09.wav",
+	"vo/npc/male01/leadtheway01.wav",
+	"vo/npc/male01/leadtheway02.wav",
+	"vo/npc/male01/yeah02.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_evac_ok04.wav"
+}
+ENT.SoundTbl_UnFollowPlayer = {
+	"vo/npc/male01/littlecorner01.wav",
+	"vo/npc/male01/holddownspot01.wav",
+	"vo/npc/male01/holddownspot02.wav",
+	"vo/npc/male01/illstayhere01.wav",
+	"vo/npc/male01/imstickinghere01.wav"
+}
+ENT.SoundTbl_MoveOutOfPlayersWay = {
+	"vo/npc/male01/excuseme01.wav",
+	"vo/npc/male01/excuseme02.wav",
+	"vo/npc/male01/sorry01.wav",
+	"vo/npc/male01/sorry02.wav",
+	"vo/npc/male01/sorry03.wav",
+	"vo/npc/male01/whoops01.wav",
+	"vo/npc/male01/pardonme01.wav",
+	"vo/npc/male01/pardonme02.wav",
+	"vo/npc/male01/outofyourway02.wav"
+}
+ENT.SoundTbl_MedicBeforeHeal = {
+	"vj_hlr/hl2_npc/citizen/ep2/reb_chop_nothankyou.wav",
+	"vo/npc/male01/health01.wav",
+	"vo/npc/male01/health02.wav",
+	"vo/npc/male01/health03.wav",
+	"vo/npc/male01/health04.wav",
+	"vo/npc/male01/health05.wav"
+}
+ENT.SoundTbl_Investigate = {
+	"vo/npc/male01/startle01.wav",
+	"vo/npc/male01/startle02.wav"
+}
 ENT.SoundTbl_MedicReceiveHeal = {}
-ENT.SoundTbl_OnPlayerSight = {"vo/npc/male01/hi01.wav","vo/npc/male01/hi02.wav","vo/npc/male01/heydoc01.wav","vo/npc/male01/heydoc02.wav","vo/npc/male01/hellodrfm01.wav","vo/npc/male01/hellodrfm02.wav","vo/npc/male01/freeman.wav","vo/npc/male01/docfreeman01.wav","vo/npc/male01/docfreeman02.wav","vo/npc/male01/abouttime01.wav","vo/npc/male01/abouttime02.wav","vo/npc/male01/ahgordon01.wav","vo/npc/male01/ahgordon02.wav"}
-ENT.SoundTbl_Alert = {"vo/episode_1/npc/male01/cit_theyfoundus.wav","vo/episode_1/npc/male01/cit_evac_enemies01.wav","vo/outland_12/reb1_lastwave09.wav","vo/npc/male01/incoming02.wav","vo/npc/male01/upthere01.wav","vo/npc/male01/upthere02.wav","vo/npc/male01/heretheycome01.wav","vo/npc/male01/overthere01.wav","vo/npc/male01/overthere02.wav"}
-ENT.SoundTbl_CallForHelp = {}
-ENT.SoundTbl_BecomeEnemyToPlayer = {"vo/npc/male01/notthemanithought01.wav","vo/npc/male01/heretohelp01.wav","vo/npc/male01/heretohelp02.wav","vo/npc/male01/wetrustedyou01.wav","vo/npc/male01/wetrustedyou02.wav"}
-ENT.SoundTbl_Suppressing = {"vo/episode_1/npc/male01/cit_kill09.wav","vo/episode_1/npc/male01/cit_kill10.wav","vo/episode_1/npc/male01/cit_kill14.wav","vo/episode_1/npc/male01/cit_kill17.wav","vo/npc/male02/reb2_buddykilled13.wav","vo/outland_08/chopper/rebc_chop_hit02.wav","vo/outland_12/reb1_sawmillexplo05.wav","vo/outland_12/reb1_prepare_battle_03.wav","vo/outland_12/reb1_striderdown05.wav","vo/outland_12/reb1_striderdown12.wav"}
-ENT.SoundTbl_WeaponReload = {"vo/npc/male01/gottareload01.wav","vo/npc/male01/coverwhilereload01.wav","vo/npc/male01/coverwhilereload02.wav"}
+ENT.SoundTbl_OnPlayerSight = {
+	"vo/npc/male01/hi01.wav",
+	"vo/npc/male01/hi02.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_greet_alyx02.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_greet_alyx04.wav"
+}
+ENT.SoundTbl_Alert = {
+	"vj_hlr/hl2_npc/citizen/male01/cit_theyfoundus.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_evac_enemies01.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_alert_antlions08.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_alert_head05.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_alert_head06.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_alert_rollers02.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_lastwave09.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_lastwaveannounced02.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_prepare_battle_08.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_alert_zombie04.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_alert_zombie06.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_alert_zombie07.wav",
+	"vo/npc/male01/incoming02.wav",
+	"vo/npc/male01/upthere01.wav",
+	"vo/npc/male01/upthere02.wav",
+	"vo/npc/male01/heretheycome01.wav",
+	"vo/npc/male01/overthere01.wav",
+	"vo/npc/male01/overthere02.wav"
+}
+ENT.SoundTbl_CallForHelp = {
+	"vo/npc/male01/help01.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_alert_antlions06.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_alert_rollers04.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_evac_casualty08.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_evac_casualty11.wav",
+}
+ENT.SoundTbl_BecomeEnemyToPlayer = {
+	"vo/npc/male01/notthemanithought01.wav",
+	"vo/npc/male01/notthemanithought02.wav",
+	"vo/npc/male01/heretohelp01.wav",
+	"vo/npc/male01/heretohelp02.wav",
+	"vo/npc/male01/wetrustedyou01.wav",
+	"vo/npc/male01/wetrustedyou02.wav"
+}
+ENT.SoundTbl_Suppressing = {
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill09.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill10.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill14.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill17.wav",
+	"vj_hlr/hl2_npc/citizen/male02/reb2_buddykilled13.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/chopper/rebc_chop_hit02.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_sawmillexplo05.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_prepare_battle_03.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_striderdown05.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_striderdown12.wav"
+}
+ENT.SoundTbl_WeaponReload = {
+	"vo/npc/male01/gottareload01.wav",
+	"vo/npc/male01/coverwhilereload01.wav",
+	"vo/npc/male01/coverwhilereload02.wav",
+	"vj_hlr/hl2_npc/citizen/male02/reb2_reload03.wav",
+	"vj_hlr/hl2_npc/citizen/male02/reb2_reload05.wav",
+	"vj_hlr/hl2_npc/citizen/male02/reb2_reload07.wav"
+}
 ENT.SoundTbl_GrenadeAttack = {}
-ENT.SoundTbl_OnGrenadeSight = {"vo/npc/male01/watchout.wav","vo/npc/male01/strider_run.wav","vo/npc/male01/takecover02.wav","vo/npc/male01/runforyourlife01.wav","vo/npc/male01/runforyourlife02.wav","vo/npc/male01/runforyourlife03.wav","vo/npc/male01/headsup01.wav","vo/npc/male01/headsup02.wav","vo/npc/male01/getdown02.wav","vo/npc/male01/gethellout.wav"}
-ENT.SoundTbl_OnKilledEnemy = {"vo/episode_1/npc/male01/cit_kill01.wav","vo/episode_1/npc/male01/cit_kill02.wav","vo/episode_1/npc/male01/cit_kill03.wav","vo/episode_1/npc/male01/cit_kill04.wav","vo/episode_1/npc/male01/cit_kill05.wav","vo/episode_1/npc/male01/cit_kill06.wav","vo/episode_1/npc/male01/cit_kill15.wav","vo/outland_12/reb1_striderdown06.wav","vo/outland_12/reb1_striderdown07.wav","vo/outland_12/reb1_striderdown08.wav","vo/npc/male01/gotone01.wav","vo/npc/male01/gotone02.wav","vo/npc/male01/likethat.wav","vo/npc/male01/nice.wav"}
-ENT.SoundTbl_AllyDeath = {}
-ENT.SoundTbl_Pain = {"vo/episode_1/npc/male01/cit_pain01.wav","vo/episode_1/npc/male01/cit_pain02.wav","vo/episode_1/npc/male01/cit_pain03.wav","vo/episode_1/npc/male01/cit_pain04.wav","vo/episode_1/npc/male01/cit_pain05.wav","vo/episode_1/npc/male01/cit_pain06.wav","vo/episode_1/npc/male01/cit_pain07.wav","vo/episode_1/npc/male01/cit_pain08.wav","vo/episode_1/npc/male01/cit_pain09.wav","vo/episode_1/npc/male01/cit_pain10.wav","vo/episode_1/npc/male01/cit_pain11.wav","vo/episode_1/npc/male01/cit_pain12.wav","vo/episode_1/npc/male01/cit_pain13.wav","vo/npc/male01/ow01.wav","vo/npc/male01/ow02.wav","vo/npc/male01/hitingut01.wav","vo/npc/male01/hitingut02.wav","vo/npc/male01/imhurt01.wav","vo/npc/male01/imhurt02.wav"}
-ENT.SoundTbl_DamageByPlayer = {"vo/npc/male01/onyourside.wav","vo/npc/male01/stopitfm.wav","vo/npc/male01/watchwhat.wav"}
-ENT.SoundTbl_Death = {"vo/npc/male01/pain01.wav","vo/npc/male01/pain02.wav","vo/npc/male01/pain03.wav","vo/npc/male01/pain04.wav","vo/npc/male01/pain05.wav","vo/npc/male01/pain06.wav","vo/npc/male01/pain07.wav","vo/npc/male01/pain08.wav","vo/npc/male01/pain09.wav"}
+
+ENT.SoundTbl_OnGrenadeSight = {
+	"vo/npc/male01/watchout.wav",
+	"vo/npc/male01/uhoh.wav",
+	"vo/npc/male01/strider_run.wav",
+	"vo/npc/male01/takecover02.wav",
+	"vo/npc/male01/runforyourlife01.wav",
+	"vo/npc/male01/runforyourlife02.wav",
+	"vo/npc/male01/runforyourlife03.wav",
+	"vo/npc/male01/headsup01.wav",
+	"vo/npc/male01/headsup02.wav",
+	"vo/npc/male01/getdown02.wav",
+	"vo/npc/male01/gethellout.wav"
+}
+
+ENT.SoundTbl_OnKilledEnemy = {
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill01.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill02.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill03.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill04.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill05.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill06.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill07.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill08.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill09.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill10.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill11.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill12.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill13.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill14.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill15.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill16.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill17.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill18.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill19.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_kill20.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_striderdown05.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_striderdown06.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_striderdown07.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_striderdown08.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_striderdown11.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_striderdown12.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/rebc_chop_hit02.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_evac_thanks03.wav",
+	"vj_hlr/hl2_npc/citizen/male02/reb2_killshots01.wav",
+	"vj_hlr/hl2_npc/citizen/male02/reb2_killshots22.wav",
+	"vo/npc/male01/gotone01.wav",
+	"vo/npc/male01/gotone02.wav",
+	"vo/npc/male01/likethat.wav",
+	"vo/npc/male01/nice.wav",
+	"vo/npc/male01/fantastic01.wav",
+	"vo/npc/male01/fantastic02.wav",
+	"vo/npc/male01/finally.wav",
+	"vo/npc/male01/oneforme.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb_chop_useadrink02.wav"
+}
+ENT.SoundTbl_AllyDeath = {
+	"vo/npc/male01/goodgod.wav",
+	"vo/npc/male01/gordead_ans02.wav",
+	"vo/npc/male01/gordead_ans03.wav",
+	"vo/npc/male01/gordead_ans04.wav",
+	"vo/npc/male01/gordead_ans05.wav",
+	"vo/npc/male01/gordead_ans06.wav",
+	"vo/npc/male01/gordead_ans07.wav",
+	"vo/npc/male01/gordead_ans19.wav",
+	"vo/npc/male01/gordead_ques02.wav",
+	"vo/npc/male01/gordead_ques06.wav",
+	"vo/npc/male01/gordead_ques10.wav",
+	"vo/npc/male01/no01.wav",
+	"vo/npc/male01/no02.wav",
+	"vo/npc/male01/ohno.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_lastwave01.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_buildingexplo03.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_buildingexplo06.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_lastwaveannounced03.wav",
+	"vj_hlr/hl2_npc/citizen/ep2/reb1_sawmillexplo03.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_buddykilled01.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_buddykilled02.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_buddykilled03.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_buddykilled04.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_buddykilled05.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_buddykilled06.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_buddykilled07.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_buddykilled08.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_buddykilled09.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_buddykilled10.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_buddykilled11.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_buddykilled12.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_buddykilled13.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_evac_casualty02.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_evac_casualty03.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_evac_casualty08.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_evac_casualty11.wav",
+	"vj_hlr/hl2_npc/citizen/male02/reb2_buddykilled13_.wav"
+}
+ENT.SoundTbl_Pain = {
+	"vj_hlr/hl2_npc/citizen/male01/cit_pain01.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_pain02.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_pain03.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_pain04.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_pain05.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_pain06.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_pain07.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_pain08.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_pain09.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_pain10.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_pain11.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_pain12.wav",
+	"vj_hlr/hl2_npc/citizen/male01/cit_pain13.wav",
+	"vo/npc/male01/ow01.wav",
+	"vo/npc/male01/ow02.wav",
+	"vo/npc/male01/hitingut01.wav",
+	"vo/npc/male01/hitingut02.wav",
+	"vo/npc/male01/imhurt01.wav",
+	"vo/npc/male01/imhurt02.wav"
+}
+ENT.SoundTbl_DamageByPlayer = {
+	"vo/npc/male01/onyourside.wav",
+	"vo/npc/male01/stopitfm.wav",
+	"vo/npc/male01/watchwhat.wav"
+}
+ENT.SoundTbl_Death = {
+	"vo/npc/male01/pain01.wav",
+	"vo/npc/male01/pain02.wav",
+	"vo/npc/male01/pain03.wav",
+	"vo/npc/male01/pain04.wav",
+	"vo/npc/male01/pain05.wav",
+	"vo/npc/male01/pain06.wav",
+	"vo/npc/male01/pain07.wav",
+	"vo/npc/male01/pain08.wav",
+	"vo/npc/male01/pain09.wav"
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
 	if math.random(1,5) == 1 then

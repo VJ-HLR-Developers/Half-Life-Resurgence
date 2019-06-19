@@ -1,4 +1,4 @@
-ENT.Base 			= "npc_vj_creature_base"
+ENT.Base 			= "npc_vj_hl_headcrab"
 ENT.Type 			= "ai"
 ENT.PrintName 		= "Baby Headcrab"
 ENT.Author 			= "DrVrej"
