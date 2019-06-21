@@ -1,6 +1,0 @@
-"Vertexlitgeneric"
-{
-	"$baseTexture" "models\cpthazama\halflifepack\sven_agrunt\w_hiveeyes"
-	"$selfillum" "1"
-	"$selfillummask" "models\cpthazama\halflifepack\sven_agrunt\w_hiveeyes"
-}
