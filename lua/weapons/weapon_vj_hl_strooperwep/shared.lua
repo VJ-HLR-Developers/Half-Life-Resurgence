@@ -46,7 +46,7 @@ function SWEP:CustomOnInitialize()
 	self:SetNoDraw(true)
 	self.NextIdleSoundT = CurTime() +math.Rand(5,12)
 	if IsValid(self.Owner) then
-		if self.Owner:GetClass() != "npc_vj_hlof_shocktrooper" then
+		if self.Owner:GetClass() != "npc_vj_hlrof_shocktrooper" then
 			self:Remove()
 			return
 		end

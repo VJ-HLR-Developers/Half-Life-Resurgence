@@ -19,72 +19,68 @@ if VJExists == true then
 
 	-- Half-Life 1 -------------------------------------------------------
 		-- HECU
-		VJ.AddNPC("Human Grunt","npc_vj_hl_humangrunt",vCat)
-		VJ.AddNPC("HECU Sentry Gun","npc_vj_hl_sentry",vCat)
+		VJ.AddNPC("Human Grunt","npc_vj_hlr1_hgrunt",vCat)
+		VJ.AddNPC("HECU Sentry Gun","npc_vj_hlr1_sentry",vCat)
 			-- Opposing Force
-			VJ.AddNPC("Human Grunt (OppF)","npc_vj_hlof_humangrunt",vCat)
-			VJ.AddNPC("Human Grunt Medic (OppF)","npc_vj_hlof_humangrunt_med",vCat)
-			VJ.AddNPC("Human Grunt Engineer (OppF)","npc_vj_hlof_humangrunt_eng",vCat)
+			VJ.AddNPC("Human Grunt (OppF)","npc_vj_hlrof_hgrunt",vCat)
+			VJ.AddNPC("Human Grunt Medic (OppF)","npc_vj_hlrof_hgrunt_med",vCat)
+			VJ.AddNPC("Human Grunt Engineer (OppF)","npc_vj_hlrof_hgrunt_eng",vCat)
 
 		-- Xen Creatures
-		VJ.AddNPC("Alien Grunt","npc_vj_hl_aliengrunt",vCat)
-		VJ.AddNPC("Bullsquid","npc_vj_hl_bullsquid",vCat)
+		VJ.AddNPC("Alien Grunt","npc_vj_hlr1_aliengrunt",vCat)
+		VJ.AddNPC("Bullsquid","npc_vj_hlr1_bullsquid",vCat)
 			-- Headcrab
-			VJ.AddNPC("Gonarch","npc_vj_hl_gonarch",vCat)
-			VJ.AddNPC("Headcrab","npc_vj_hl_headcrab",vCat)
-			VJ.AddNPC("Baby Headcrab","npc_vj_hl_babyheadcrab",vCat)
-			VJ.AddNPC("Zombie","npc_vj_hl_zombie",vCat)
+			VJ.AddNPC("Gonarch","npc_vj_hlr1_gonarch",vCat)
+			VJ.AddNPC("Headcrab","npc_vj_hlr1_headcrab",vCat)
+			VJ.AddNPC("Baby Headcrab","npc_vj_hlr1_headcrab_baby",vCat)
+			VJ.AddNPC("Zombie","npc_vj_hlr1_zombie",vCat)
 				-- Opposing Force
-				VJ.AddNPC("Zombie Security Guard","npc_vj_hlof_zombiesecurity",vCat)
-				VJ.AddNPC("Zombie Soldier","npc_vj_hlof_zombiesoldier",vCat)
-				VJ.AddNPC("Gonome","npc_vj_hlof_gonome",vCat)
+				VJ.AddNPC("Zombie Security Guard","npc_vj_hlrof_zombie_sec",vCat)
+				VJ.AddNPC("Zombie Soldier","npc_vj_hlrof_zombie_soldier",vCat)
+				VJ.AddNPC("Gonome","npc_vj_hlrof_gonome",vCat)
 		
 		-- Race X
-		VJ.AddNPC("Shock Trooper","npc_vj_hlof_shocktrooper",vCat)
+		VJ.AddNPC("Shock Trooper","npc_vj_hlrof_shocktrooper",vCat)
 		
 		-- Animals
-		VJ.AddNPC("Cockroach","npc_vj_hl_cockroach",vCat)
+		VJ.AddNPC("Cockroach","npc_vj_hlr1_cockroach",vCat)
 		
 	-- Half-Life 2 -------------------------------------------------------
 		-- Antlions
-		-- VJ.AddNPC("Antlion","npc_vj_hl2a_antlion",vCat)
-		-- VJ.AddNPC("Antlion Worker","npc_vj_hl2a_worker",vCat)
-		VJ.AddNPC("Antlion Guard","npc_vj_hl2a_guard",vCat)
-		VJ.AddNPC("Antlion Guardian","npc_vj_hl2a_guardian",vCat)
+		-- VJ.AddNPC("Antlion","npc_vj_hlr2_antlion",vCat)
+		-- VJ.AddNPC("Antlion Worker","npc_vj_hlr2_antlion_worker",vCat)
+		VJ.AddNPC("Antlion Guard","npc_vj_hlr2_antlion_guard",vCat)
+		VJ.AddNPC("Antlion Guardian","npc_vj_hlr2_antlion_guardian",vCat)
 
 		-- Combine
-		VJ.AddNPC_HUMAN("Overwatch Soldier","npc_vj_hl2c_soldier",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
-		VJ.AddNPC_HUMAN("Overwatch Shotgun Soldier","npc_vj_hl2c_shotgunner",{"weapon_vj_spas12"},vCat)
-		VJ.AddNPC_HUMAN("Overwatch Elite","npc_vj_hl2c_elite",{"weapon_vj_ar2"},vCat)
-		VJ.AddNPC_HUMAN("Overwatch Prison Guard","npc_vj_hl2c_prospekt",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
-		VJ.AddNPC_HUMAN("Overwatch Prison Shotgun Guard","npc_vj_hl2c_pshotgunner",{"weapon_vj_spas12"},vCat)
-		VJ.AddNPC_HUMAN("Civil Protection","npc_vj_hl2c_metrocop",{"weapon_vj_9mmpistol","weapon_vj_smg1"},vCat)
-		VJ.AddNPC_HUMAN("Civil Protection Elite","npc_vj_hl2c_elitecop",{"weapon_vj_smg1"},vCat)
-		-- VJ.AddNPC("Combine Assassin","npc_vj_hl2c_assassin",vCat)
-		-- VJ.AddNPC("Overwatch Stalker","npc_vj_hl2c_stalker",vCat)
-		-- VJ.AddNPC("Overwatch Hunter","npc_vj_hl2c_hunter",vCat)
-		-- VJ.AddNPC("Overwatch Strider","npc_vj_hl2c_strider",vCat)
-		-- VJ.AddNPC("Overwatch Advisor","npc_vj_hl2c_advisor",vCat)
+		VJ.AddNPC_HUMAN("Overwatch Soldier","npc_vj_hlr2_com_soldier",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
+		VJ.AddNPC_HUMAN("Overwatch Shotgun Soldier","npc_vj_hlr2_com_shotgunner",{"weapon_vj_spas12"},vCat)
+		VJ.AddNPC_HUMAN("Overwatch Elite","npc_vj_hlr2_com_elite",{"weapon_vj_ar2"},vCat)
+		VJ.AddNPC_HUMAN("Overwatch Prison Guard","npc_vj_hlr2_com_prospekt",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
+		VJ.AddNPC_HUMAN("Overwatch Prison Shotgun Guard","npc_vj_hlr2_com_prospekt_sg",{"weapon_vj_spas12"},vCat)
+		VJ.AddNPC_HUMAN("Civil Protection","npc_vj_hlr2_com_civilp",{"weapon_vj_9mmpistol","weapon_vj_smg1"},vCat)
+		VJ.AddNPC_HUMAN("Civil Protection Elite","npc_vj_hlr2_com_civilp_elite",{"weapon_vj_smg1"},vCat)
+		-- VJ.AddNPC("Combine Assassin","npc_vj_hlr2_com_assassin",vCat)
 
 		-- Resistance
 		-- VJ.AddNPC_HUMAN("Alyx Vance","npc_vj_hl2r_alyx",{"weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_9mmpistol""weapon_vj_smg1","weapon_vj_ar2","weapon_vj_spas12"},vCat)
-		VJ.AddNPC_HUMAN("Barney Calhoun","npc_vj_hl2r_barney",{"weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
-		VJ.AddNPC_HUMAN("Father Grigori","npc_vj_hl2r_monk",{"weapon_vj_hl2_annabelle"},vCat)
-		VJ.AddNPC_HUMAN("Rebel","npc_vj_hl2r_rebel",{"weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_k3","weapon_vj_k3","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_ak47","weapon_vj_m16a1","weapon_vj_mp40","weapon_vj_spas12","weapon_vj_rpg","weapon_vj_blaster"},vCat)
+		VJ.AddNPC_HUMAN("Barney Calhoun","npc_vj_hlr2_barney",{"weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
+		VJ.AddNPC_HUMAN("Father Grigori","npc_vj_hlr2_father_grigori",{"weapon_vj_hl2_annabelle"},vCat)
+		VJ.AddNPC_HUMAN("Rebel","npc_vj_hlr2_rebel",{"weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_k3","weapon_vj_k3","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_ak47","weapon_vj_m16a1","weapon_vj_mp40","weapon_vj_spas12","weapon_vj_rpg","weapon_vj_blaster"},vCat)
 
 		-- Xen Creatures
 			-- Headcrab
-			VJ.AddNPC("Zombie","npc_vj_hl2z_zombie",vCat)
-			VJ.AddNPC("Zombie Assassin","npc_vj_hl2z_assassin",vCat)
-			VJ.AddNPC("Fast Zombie","npc_vj_hl2z_fastzombie",vCat)
-			VJ.AddNPC("Poison Zombie","npc_vj_hl2z_poisonzombie",vCat)
-			VJ.AddNPC("Zombine","npc_vj_hl2z_zombine",vCat)
-			VJ.AddNPC("Headcrab","npc_vj_hl2z_headcrab",vCat)
-			VJ.AddNPC("Fast Headcrab","npc_vj_hl2z_fastheadcrab",vCat)
-			VJ.AddNPC("Poison Headcrab","npc_vj_hl2z_poisonheadcrab",vCat)
+			VJ.AddNPC("Zombie","npc_vj_hlr2_zombie",vCat)
+			VJ.AddNPC("Zombie Assassin","npc_vj_hlr2_zombie_assassin",vCat)
+			VJ.AddNPC("Fast Zombie","npc_vj_hlr2_zombie_fast",vCat)
+			VJ.AddNPC("Poison Zombie","npc_vj_hlr2_zombie_poison",vCat)
+			VJ.AddNPC("Zombine","npc_vj_hlr2_zombine",vCat)
+			VJ.AddNPC("Headcrab","npc_vj_hlr2_headcrab",vCat)
+			VJ.AddNPC("Fast Headcrab","npc_vj_hlr2_headcrab_fast",vCat)
+			VJ.AddNPC("Poison Headcrab","npc_vj_hlr2_headcrab_poison",vCat)
 		
 		-- Random Creatures
-		VJ.AddNPC("Hydra","npc_vj_hlrand_hydra",vCat)
+		VJ.AddNPC("Hydra","npc_vj_hlr2b_hydra",vCat)
 		
 		-- Weapons
 		VJ.AddNPCWeapon("VJ_Annabelle","weapon_vj_hl2_annabelle",false,vCat)
