@@ -1,4 +1,4 @@
 "Vertexlitgeneric"
 {
-	"$baseTexture" "models/hl_resurgence\opfor\opfor_gruntfatigues"
+	"$baseTexture" "models/hl_resurgence/opfor/opfor_grunt/fatigues"
 }

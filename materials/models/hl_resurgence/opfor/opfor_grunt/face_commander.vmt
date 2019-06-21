@@ -1,4 +1,4 @@
 "Vertexlitgeneric"
 {
-	"$baseTexture" "models/hl_resurgence\opfor\opfor_gruntface_commander"
+	"$baseTexture" "models/hl_resurgence/opfor/opfor_grunt/face_commander"
 }

@@ -1,4 +1,4 @@
 "Vertexlitgeneric"
 {
-	"$baseTexture" "models/hl_resurgence\opfor\opfor_gruntsaw_gunner_torso"
+	"$baseTexture" "models/hl_resurgence/opfor/opfor_grunt/saw_gunner_torso"
 }
