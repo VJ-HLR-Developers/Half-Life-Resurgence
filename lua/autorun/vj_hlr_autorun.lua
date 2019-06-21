@@ -8,7 +8,7 @@
 local PublicAddonName = "Half-Life: Resurgence"
 local AddonName = "Half-Life: Resurgence"
 local AddonType = "SNPC"
-local AutorunFile = "autorun/vj_hl_autorun.lua"
+local AutorunFile = "autorun/vj_hlr_autorun.lua"
 -------------------------------------------------------
 
 local VJExists = file.Exists("lua/autorun/vj_base_autorun.lua","GAME")
