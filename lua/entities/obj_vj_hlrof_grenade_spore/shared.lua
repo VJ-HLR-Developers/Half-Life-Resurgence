@@ -11,7 +11,7 @@ ENT.AdminOnly = false
 
 if (CLIENT) then
 	local Name = "Spore Grenade"
-	local LangName = "obj_vj_hlof_spore"
+	local LangName = "obj_vj_hlrof_grenade_spore"
 	language.Add(LangName, Name)
 	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
 	language.Add("#"..LangName, Name)
