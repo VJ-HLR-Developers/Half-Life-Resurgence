@@ -141,7 +141,7 @@ function SWEP:CustomOnNPC_ServerThink()
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_mp5")
 				self.Primary.Sound = {"vj_hlr/hl1_weapon/glock/glock_regular.wav"}
 				self.Primary.DistantSound = { "vj_hlr/hl1_weapon/glock/glock_distant.wav" }
-				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/reload1.wav"}
+				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/glock/glock_reload.wav"}
 				self.NPC_CustomSpread = 2.5
 				self.Primary.ClipSize = 17
 			end
