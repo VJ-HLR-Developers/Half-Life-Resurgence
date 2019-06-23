@@ -57,7 +57,8 @@ ENT.HECU_Type = 0
 	-- 1 = OppF Grunt
 	-- 2 = OppF Medic
 	-- 3 = OppF Engineer
-ENT.HECU_WepBG = 2
+ENT.HECU_WepBG = 2 -- The bodygroup that the weapons are in (Ourish e amen modelneroun)
+ENT.HECU_LastBodyGroup = 99
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
 	self:SetSkin(math.random(0,1))
@@ -81,8 +82,8 @@ end
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))
 	
-	if self:GetModel() == "models/vj_hlr/hl1/hgrunt.mdl" then
-		self.HECU_Type = 0 // Already the default
+	if self:GetModel() == "models/vj_hlr/hl1/hgrunt.mdl" then // Already the default
+		self.HECU_Type = 0
 		self.HECU_WepBG = 2
 	elseif self:GetModel() == "models/vj_hlr/opfor/hgrunt.mdl" then
 		self.HECU_Type = 1
@@ -97,7 +98,7 @@ function ENT:CustomOnInitialize()
 	
 	self:HECU_CustomOnInitialize()
 	
-	self:Give("weapon_vj_hl_hgruntwep")
+	//self:Give("weapon_vj_hl_hgruntwep")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -150,45 +151,56 @@ function ENT:CustomOnThink()
 	end
 	
 	local bgroup = self:GetBodygroup(self.HECU_WepBG)
-	if self.HECU_Type == 0 then
-		if bgroup == 0 then -- MP5
-			self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
-			self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
-			self.Weapon_StartingAmmoAmount = 50
-		elseif bgroup == 1 then -- Shotgun
-			self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SHOTGUN}
-			self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SHOTGUN_LOW}
-			self.Weapon_StartingAmmoAmount = 8
-		end
-	elseif self.HECU_Type == 1 then
-		if bgroup == 0 then -- MP5
-			self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
-			self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
-			self.Weapon_StartingAmmoAmount = 50
-		elseif bgroup == 1 then -- Shotgun
-			self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SHOTGUN}
-			self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SHOTGUN_LOW}
-			self.Weapon_StartingAmmoAmount = 8
-		elseif bgroup == 2 then -- SAW
-			self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_AR2}
-			self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_AR2_LOW}
-			self.Weapon_StartingAmmoAmount = 50
-		end
-	elseif self.HECU_Type == 2 then
-		if bgroup == 0 then -- Desert Eagle
-			self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
-			self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_PISTOL_LOW}
-			self.Weapon_StartingAmmoAmount = 7
-		elseif bgroup == 1 then -- Glock 17
-			self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
-			self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_PISTOL_LOW}
-			self.Weapon_StartingAmmoAmount = 17
-		end
-	elseif self.HECU_Type == 3 then
-		if bgroup == 0 then -- Desert Eagle
-			self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
-			self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_PISTOL_LOW}
-			self.Weapon_StartingAmmoAmount = 7
+	if self.HGrunt_LastBodyGroup != bgroup then
+		self.HGrunt_LastBodyGroup = bgroup
+		if self.HECU_Type == 0 then
+			if bgroup == 0 then -- MP5
+				self:DoChangeWeapon("weapon_vj_hlr1_mp5")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
+				self.Weapon_StartingAmmoAmount = 50
+			elseif bgroup == 1 then -- Shotgun
+				self:DoChangeWeapon("weapon_vj_hlr1_spas12")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SHOTGUN}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SHOTGUN_LOW}
+				self.Weapon_StartingAmmoAmount = 8
+			end
+		elseif self.HECU_Type == 1 then
+			if bgroup == 0 then -- MP5
+				self:DoChangeWeapon("weapon_vj_hlr1_mp5")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
+				self.Weapon_StartingAmmoAmount = 50
+			elseif bgroup == 1 then -- Shotgun
+				self:DoChangeWeapon("weapon_vj_hlr1_spas12")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SHOTGUN}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SHOTGUN_LOW}
+				self.Weapon_StartingAmmoAmount = 8
+			elseif bgroup == 2 then -- SAW
+				self:DoChangeWeapon("weapon_vj_hlrof_m249")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_AR2}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_AR2_LOW}
+				self.Weapon_StartingAmmoAmount = 50
+			end
+		elseif self.HECU_Type == 2 then
+			if bgroup == 0 then -- Desert Eagle
+				self:DoChangeWeapon("weapon_vj_hlrof_desert_eagle")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_PISTOL_LOW}
+				self.Weapon_StartingAmmoAmount = 7
+			elseif bgroup == 1 then -- Glock 17
+				self:DoChangeWeapon("weapon_vj_hlr1_glock17")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_PISTOL_LOW}
+				self.Weapon_StartingAmmoAmount = 17
+			end
+		elseif self.HECU_Type == 3 then
+			if bgroup == 0 then -- Desert Eagle
+				self:DoChangeWeapon("weapon_vj_hlrof_desert_eagle")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_PISTOL_LOW}
+				self.Weapon_StartingAmmoAmount = 7
+			end
 		end
 	end
 end
@@ -273,11 +285,8 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDropWeapon_AfterWeaponSpawned(dmginfo,hitgroup,GetWeapon)
-	GetWeapon:SetNWString("VJ_HGrunt_WeaponModel",self:GetActiveWeapon():GetNWInt("VJ_HGrunt_WeaponModel"))
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDropWeapon(dmginfo,hitgroup)
-	self:GetActiveWeapon():SetModel("models/vj_hlr/weapons/w_9mmhandgun.mdl")
+	GetWeapon.WorldModel_Invisible = false
+	GetWeapon:SetNWBool("VJ_WorldModel_Invisible",false)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***

@@ -155,6 +155,7 @@ function SWEP:CustomOnNPC_ServerThink()
 				self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_mp5")
 				self.Primary.Sound = {"vj_hlr/hl1_weapon/deagle/desert_eagle_fire.wav"}
 				self.NPC_ReloadSound = {"vj_hlr/hl1_weapon/deagle/desert_eagle_reload.wav"}
+				self.Primary.DistantSound = { "vj_hlr/hl1_weapon/deagle/desert_eagle_fire_distant.wav" }
 				self.NPC_CustomSpread = 1
 				self.Primary.ClipSize = 7
 			end

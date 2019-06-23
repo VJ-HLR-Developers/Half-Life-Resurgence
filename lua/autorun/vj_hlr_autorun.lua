@@ -45,6 +45,9 @@ if VJExists == true then
 		-- Animals
 		VJ.AddNPC("Cockroach","npc_vj_hlr1_cockroach",vCat)
 		
+		-- Weapons
+		//VJ.AddNPCWeapon("VJ_HLR1_Glock17","weapon_vj_hlr1_glock17",false,vCat)
+		
 	-- Half-Life 2 -------------------------------------------------------
 		-- Antlions
 		-- VJ.AddNPC("Antlion","npc_vj_hlr2_antlion",vCat)
