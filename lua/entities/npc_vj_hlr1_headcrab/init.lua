@@ -8,6 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/hl1/headcrab.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 10
 ENT.HullType = HULL_TINY
+ENT.EntitiesToNoCollide = {"npc_vj_hlr1_gonarch"} -- Entities to not collide with when HasEntitiesToNoCollide is set to true
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Decal = {"VJ_Blood_HL1_Yellow"} -- Decals to spawn when it's damaged

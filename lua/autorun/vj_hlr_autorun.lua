@@ -116,12 +116,12 @@ if VJExists == true then
 	})
 	VJ.AddParticle("particles/vj_hl_spit.pcf",{
 		"vj_hl_spit_bullsquid",
+		"vj_hl_spit_bullsquid_impact",
 		"vj_hl_spit_drone",
 		"vj_hl_spit_drone_impact",
 		"vj_hl_spit_drone_spawn",
 		"vj_hl_spit_gonarch",
 		"vj_hl_spit_gonarch_impact",
-		"vj_hl_spit_bullsquid_impact",
 		"vj_hl_spit_spore_spawn",
 	})
 	VJ.AddParticle("particles/vj_hl_torch.pcf",{
