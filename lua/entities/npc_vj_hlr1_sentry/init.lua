@@ -9,11 +9,13 @@ ENT.Model = {"models/vj_hlr/hl1/sentry.mdl"} -- The game will pick a random mode
 ENT.StartHealth = GetConVarNumber("vj_bms_turret_h")
 ENT.HullType = HULL_HUMAN
 ENT.SightDistance = 1300 -- How far it can see
+ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
 ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
 ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
+
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
@@ -24,6 +26,9 @@ ENT.TimeUntilRangeAttackProjectileRelease = 0.1 -- How much time until the proje
 ENT.RangeAttackReps = 3 -- How many times does it run the projectile code?
 ENT.NextRangeAttackTime = 0 -- How much time until it can use a range attack?
 ENT.NextAnyAttackTime_Range = 0.1 -- How much time until it can use any attack again? | Counted in Seconds
+
+ENT.PoseParameterLooking_InvertPitch = true -- Inverts the pitch poseparameters (X)
+ENT.PoseParameterLooking_InvertYaw = true -- Inverts the yaw poseparameters (Y)
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Breath = {}
@@ -48,7 +53,7 @@ end
 function ENT:CustomOnThink()
 	local parameter = self:GetPoseParameter("aim_yaw")
 	if parameter != self.HECUTurret_CurrentParameter then
-		self.hecuturret_turningsd = CreateSound(self, "vj_bms_groundturret/motor_loop.wav") 
+		self.hecuturret_turningsd = CreateSound(self, "vj_hlr/hl1_npc/turret/motor_loop.wav") 
 		self.hecuturret_turningsd:SetSoundLevel(70)
 		self.hecuturret_turningsd:PlayEx(1,100)
 	else
@@ -101,14 +106,13 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttackCheck_RangeAttack()
 	return true
-	/*
-	local pospara = self:GetPoseParameter("aim_yaw")
+	
+	/*local pospara = self:GetPoseParameter("aim_yaw")
 	local viewcode = ((self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()) - (self:GetPos() + self:OBBCenter())):Angle()
 	local viewniger = math.abs(viewcode.y - (self:GetAngles().y + pospara))
 	if viewniger >= 330 then viewniger = viewniger - 360 end
 	if math.abs(viewniger) <= 10 then return true end
-	return false
-	*/
+	return false*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
