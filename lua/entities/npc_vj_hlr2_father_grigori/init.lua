@@ -161,6 +161,8 @@ ENT.SoundTbl_Death = {
 	"vo/ravenholm/monk_pain12.wav",
 }
 
+ENT.GeneralSoundPitch1 = 100
+
 --[[
 unused sounds:
 "vo/ravenholm/attic_apologize.wav"

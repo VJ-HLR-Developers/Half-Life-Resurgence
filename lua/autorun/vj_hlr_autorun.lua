@@ -42,6 +42,7 @@ if VJExists == true then
 		
 		-- Race X
 		VJ.AddNPC("Shock Trooper","npc_vj_hlrof_shocktrooper",vCat)
+		VJ.AddNPC("Shock Roach","npc_vj_hlrof_shockroach",vCat)
 		
 		-- Animals
 		VJ.AddNPC("Cockroach","npc_vj_hlr1_cockroach",vCat)
