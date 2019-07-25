@@ -1118,3 +1118,45 @@ ST_QUEST0 vj_hlr/hl1_npc/shocktrooper/puh pur hyu ka
 ST_ANSWER0 vj_hlr/hl1_npc/shocktrooper/dup dup
 ST_CLEAR0 vj_hlr/hl1_npc/shocktrooper/dup blis dup
 ST_CHECK0 vj_hlr/hl1_npc/shocktrooper/kss kss
+
+// ROBO GRUNT
+
+RB_GREN0 vox/danger bizwarn i e d detected, evacuate
+RB_GREN1 vox/dadeda emergency evacuate
+
+RB_ALERT0 vox/target acquired
+RB_ALERT1 vox/alert, unauthorized personnel
+
+RB_MONST0 vox/alert, hostile threat
+RB_MONST1 vox/target acquired
+RB_MONST2 vox/alien hostile sight ed
+
+RB_COVER0 vox/dadeda
+RB_COVER1 vox/bizwarn
+RB_THROW0 vox/buzzwarn deploy ing grenade
+RB_THROW0 vox/buzzwarn fire in the hole
+
+RB_TAUNT0 vox/we have you surrounded
+RB_TAUNT1 vox/defense system activated
+
+RB_CHARGE0 vox/eliminate ing threat
+RB_CHARGE1 vox/engage ing target
+RB_CHARGE1 vox/move(t50) ing, in
+
+RB_QUEST0 vox/team report status
+RB_QUEST1 vox/report status 
+RB_ANSWER0 vox/status green
+RB_ANSWER1 vox/status is green, commander
+
+RB_CHECK0 vox/status check
+RB_CHECK1 vox/check in
+RB_CHECK2 vox/please report status
+
+RB_CLEAR0 vox/area is clear
+RB_CLEAR1 vox/no threat detected
+RB_CLEAR2 vox/search ing sector
+
+RB_IDLE0 vox/all systems nominal
+RB_IDLE1 vox/communication relay is green
+RB_IDLE2 vox/systems check is green
+RB_IDLE3 vox/search ing sector
