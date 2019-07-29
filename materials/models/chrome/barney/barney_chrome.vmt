@@ -1,6 +1,6 @@
 "VertexLitGeneric"
 {
-	"$envmap" "models/barney/barney_chrome"
+	"$envmap" "models/chrome/barney/barney_chrome"
 	"$envmapsphere" 1
 	"$multipass" 1
 	
