@@ -25,7 +25,10 @@ if VJExists == true then
 			VJ.AddNPC("Human Grunt (OppF)","npc_vj_hlrof_hgrunt",vCat)
 			VJ.AddNPC("Human Grunt Medic (OppF)","npc_vj_hlrof_hgrunt_med",vCat)
 			VJ.AddNPC("Human Grunt Engineer (OppF)","npc_vj_hlrof_hgrunt_eng",vCat)
-
+		
+		-- Resistance
+		VJ.AddNPC("Scientist","npc_vj_hlr1_scientist",vCat)
+		
 		-- Xen Creatures
 		VJ.AddNPC("Alien Grunt","npc_vj_hlr1_aliengrunt",vCat)
 		VJ.AddNPC("Bullsquid","npc_vj_hlr1_bullsquid",vCat)
