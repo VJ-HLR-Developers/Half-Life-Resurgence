@@ -21,7 +21,7 @@ SWEP.NPC_CustomSpread	 		= 1.5 -- This is added on top of the custom spread that
 SWEP.ViewModel					= "models/weapons/c_pistol.mdl"
 SWEP.WorldModel					= "models/mawskeeto/w_9mmhandgun.mdl"
 SWEP.HoldType 					= "pistol"
-SWEP.Spawnable					= true
+SWEP.Spawnable					= false
 SWEP.AdminSpawnable				= false
 SWEP.MadeForNPCsOnly 			= true
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
