@@ -8,7 +8,7 @@ SWEP.Purpose					= "This weapon is made for Players and NPCs"
 SWEP.Instructions				= "Controls are like a regular weapon."
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= false -- Next time it can use primary fire
+SWEP.NPC_NextPrimaryFire 		= 0.8 -- Next time it can use primary fire
 SWEP.NPC_CustomSpread	 		= 2 -- This is added on top of the custom spread that's set inside the SNPC! | Starting from 1: Closer to 0 = better accuracy, Farther than 1 = worse accuracy
 SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/glock/glock_reload.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -32,15 +32,20 @@ SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? 
 SWEP.WorldModel_CustomPositionAngle = Vector(0,180,-90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(0,-5.5,-1)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
+
+SWEP.HLR_ValidModels = {"models/vj_hlr/opfor/hgrunt.mdl","models/vj_hlr/hl1/hgrunt.mdl","models/vj_hlr/opfor/hgrunt_medic.mdl","models/vj_hlr/opfor/hgrunt_engineer.mdl"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
 	timer.Simple(0.1,function() -- Minag grunt-en model-e tske, yete ooresh model-e, serpe as zenke
-		if IsValid(self) then
-			if IsValid(self.Owner) && self.Owner:GetModel() != "models/vj_hlr/opfor/hgrunt.mdl" && self.Owner:GetModel() != "models/vj_hlr/hl1/hgrunt.mdl" && self.Owner:GetModel() != "models/vj_hlr/opfor/hgrunt_medic.mdl" && self.Owner:GetModel() != "models/vj_hlr/opfor/hgrunt_engineer.mdl" then
+		if IsValid(self) && IsValid(self.Owner) then
+			local hasmdl = VJ_HasValue(self.HLR_ValidModels,self.Owner:GetModel())
+			if !hasmdl then
 				if IsValid(self.Owner:GetCreator()) then
 					self.Owner:GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for the Half Life 1 Human Grunts only!")
 				end
 				self:Remove()
+			else
+				self.NPC_NextPrimaryFire = false
 			end
 		end
 	end)

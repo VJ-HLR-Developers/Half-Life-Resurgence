@@ -26,10 +26,10 @@ SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/deagle/desert_eagle_fire.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/deagle/desert_eagle_fire_distant.wav"}
 SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"
 
-//SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
+SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
-SWEP.WorldModel_CustomPositionAngle = Vector(0,180,90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(0,0,0)
+SWEP.WorldModel_CustomPositionAngle = Vector(80,0,0)
+SWEP.WorldModel_CustomPositionOrigin = Vector(0.5,-0.5,-35)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
@@ -47,8 +47,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnDrawWorldModel() -- This is client only!
 	if IsValid(self.Owner) then
-		//self.WorldModel_Invisible = true
-		//return false
+		self.WorldModel_Invisible = true
+		return false
 	else
 		self.WorldModel_Invisible = false
 		return true -- return false to not draw the world model

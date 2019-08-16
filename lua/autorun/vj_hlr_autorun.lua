@@ -51,7 +51,8 @@ if VJExists == true then
 		VJ.AddNPC("Cockroach","npc_vj_hlr1_cockroach",vCat)
 		
 		-- Weapons
-		//VJ.AddNPCWeapon("VJ_HLR1_Glock17","weapon_vj_hlr1_glock17",false,vCat)
+		VJ.AddNPCWeapon("VJ_HLR1_Glock17","weapon_vj_hlr1_glock17",false,vCat)
+		VJ.AddNPCWeapon("VJ_HLR1_MP5","weapon_vj_hlr1_mp5",false,vCat)
 		
 	-- Half-Life 2 -------------------------------------------------------
 		-- Antlions
