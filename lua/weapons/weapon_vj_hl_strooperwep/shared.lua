@@ -58,7 +58,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 if (CLIENT) then return end
-	local proj = ents.Create("npc_vj_hlrof_plasma")
+	local proj = ents.Create("obj_vj_hlrof_plasma")
 	proj:SetPos(self:CustomBulletSpawnPosition())
 	proj:SetOwner(self.Owner)
 	proj:Activate()
