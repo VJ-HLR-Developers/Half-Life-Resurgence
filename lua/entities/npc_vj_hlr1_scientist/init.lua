@@ -264,6 +264,10 @@ function ENT:OnPlayCreateSound(SoundData,SoundFile)
 	self.SCI_NextMouthMove = CurTime() + SoundDuration(SoundFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+	self:SetBodygroup(2,0)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibDeathParticles == true then
