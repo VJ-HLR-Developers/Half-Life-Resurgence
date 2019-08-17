@@ -176,7 +176,8 @@ vj_hlr/hl1_npc/scientist/scream7.wav (duplicate of scream6)
 ENT.GeneralSoundPitch1 = 100
 
 -- Custom
-ENT.SCI_Type = 0
+ENT.SCI_NextMouthMove = 0
+ENT.SCI_NextMouthDistance = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	local randbg = math.random(0,3)
@@ -246,7 +247,6 @@ function ENT:CustomOnThink()
 	end
 	
 	if CurTime() < self.SCI_NextMouthMove then
-		print("ggg")
 		if self.SCI_NextMouthDistance == 0 then
 			self.SCI_NextMouthDistance = math.random(10,70)
 		else
@@ -257,8 +257,6 @@ function ENT:CustomOnThink()
 		self:SetPoseParameter("m",0)
 	end
 end
-ENT.SCI_NextMouthMove = 0
-ENT.SCI_NextMouthDistance = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnPlayCreateSound(SoundData,SoundFile)
 	self.SCI_NextMouthMove = CurTime() + SoundDuration(SoundFile)
