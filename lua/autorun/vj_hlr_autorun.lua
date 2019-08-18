@@ -25,8 +25,9 @@ if VJExists == true then
 			VJ.AddNPC("Human Grunt (OppF)","npc_vj_hlrof_hgrunt",vCat)
 			VJ.AddNPC("Human Grunt Medic (OppF)","npc_vj_hlrof_hgrunt_med",vCat)
 			VJ.AddNPC("Human Grunt Engineer (OppF)","npc_vj_hlrof_hgrunt_eng",vCat)
+			VJ.AddNPC("Male Assassin","npc_vj_hlrof_assassin_male",vCat)
 		
-		-- Resistance
+		-- Black Mesa Personnel
 		VJ.AddNPC("Scientist","npc_vj_hlr1_scientist",vCat)
 		
 		-- Xen Creatures
@@ -49,6 +50,8 @@ if VJExists == true then
 		
 		-- Animals
 		VJ.AddNPC("Cockroach","npc_vj_hlr1_cockroach",vCat)
+		-- Misc
+		VJ.AddNPC("Ivan the Space Biker","npc_vj_hlr1a_ivan",vCat)
 		
 		-- Weapons
 		//VJ.AddNPCWeapon("VJ_HLR1_Glock17","weapon_vj_hlr1_glock17",false,vCat)

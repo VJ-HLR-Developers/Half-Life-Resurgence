@@ -180,7 +180,7 @@ ENT.SCI_NextMouthMove = 0
 ENT.SCI_NextMouthDistance = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	local randbg = math.random(0,3)
+	local randbg = math.random(0,4)
 	self:SetBodygroup(1,randbg)
 	if randbg == 2 then
 		self:SetSkin(1)

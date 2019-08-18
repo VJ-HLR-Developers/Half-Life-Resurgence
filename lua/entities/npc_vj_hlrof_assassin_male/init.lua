@@ -54,6 +54,7 @@ ENT.SoundTbl_OnGrenadeSight = {
 ENT.SoundTbl_OnKilledEnemy = {
 
 }
+/*
 ENT.SoundTbl_Pain = {
 	"vj_hlr/hl1_npc/hgrunt_oppf/gr_pain1.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/gr_pain2.wav",
@@ -73,6 +74,7 @@ ENT.SoundTbl_Death = {
 	"vj_hlr/hl1_npc/hgrunt_oppf/death5.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/death6.wav",
 }
+*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
 	self:SetBodygroup(1,math.random(0,2))

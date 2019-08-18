@@ -66,6 +66,7 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/gonarch/gon_die1.wav"}
 ENT.AllyDeathSoundChance = 1
 
 ENT.FootStepSoundLevel = 80
+ENT.GeneralSoundPitch1 = 100
 ENT.AllyDeathSoundLevel = 90
 
 -- Custom
@@ -145,6 +146,7 @@ function ENT:RangeAttackCode_GetShootPos(TheProjectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
+	self.HasDeathSounds = false
 	if self.HasGibDeathParticles == true then
 		local bloodeffect = EffectData()
 		bloodeffect:SetOrigin(self:GetPos() +self:OBBCenter())

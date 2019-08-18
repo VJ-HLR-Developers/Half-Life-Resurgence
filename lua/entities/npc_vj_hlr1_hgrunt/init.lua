@@ -212,6 +212,7 @@ function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
+	self.HasDeathSounds = false
 	if self.HECU_GasTankHit == true then
 		util.BlastDamage(self,self,self:GetPos(),100,80)
 		util.ScreenShake(self:GetPos(),100,200,1,500)
