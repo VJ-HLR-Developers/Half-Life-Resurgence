@@ -8,7 +8,7 @@ SWEP.Purpose					= "This weapon is made for Players and NPCs"
 SWEP.Instructions				= "Controls are like a regular weapon."
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= 0.5 -- Next time it can use primary fire
+SWEP.NPC_NextPrimaryFire 		= 2.5 -- Next time it can use primary fire
 SWEP.NPC_CustomSpread	 		= 2 -- This is added on top of the custom spread that's set inside the SNPC! | Starting from 1: Closer to 0 = better accuracy, Farther than 1 = worse accuracy
 SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/glock/glock_reload.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -29,8 +29,8 @@ SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"
 
 SWEP.WorldModel_Invisible = false -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
-SWEP.WorldModel_CustomPositionAngle = Vector(0,180,-90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(0,-5.5,-1)
+SWEP.WorldModel_CustomPositionAngle = Vector(0,0,0)
+SWEP.WorldModel_CustomPositionOrigin = Vector(-1,3.3,-0.7)
 SWEP.WorldModel_CustomPositionBone = "unnamed037" -- The bone it will use as the main point
 
 SWEP.HLR_ValidModels = {"models/vj_hlr/hla/doctor.mdl"}
@@ -51,7 +51,6 @@ function SWEP:CustomOnInitialize()
 	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-
 function SWEP:CustomOnDrawWorldModel() -- This is client only!
 	if IsValid(self.Owner) then
 		self.WorldModel_Invisible = false
