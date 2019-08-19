@@ -57,6 +57,7 @@ ENT.HECU_Type = 0
 	-- 1 = OppF Grunt
 	-- 2 = OppF Medic
 	-- 3 = OppF Engineer
+	-- 4 = Black Ops Assassin
 ENT.HECU_WepBG = 2 -- The bodygroup that the weapons are in (Ourish e amen modelneroun)
 ENT.HECU_LastBodyGroup = 99
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -94,6 +95,9 @@ function ENT:CustomOnInitialize()
 	elseif self:GetModel() == "models/vj_hlr/opfor/hgrunt_engineer.mdl" then
 		self.HECU_Type = 3
 		self.HECU_WepBG = 1
+	elseif self:GetModel() == "models/vj_hlr/opfor/massn.mdl" then
+		self.HECU_Type = 4
+		self.HECU_WepBG = 2
 	end
 	
 	self:HECU_CustomOnInitialize()
@@ -201,6 +205,18 @@ function ENT:CustomOnThink()
 				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_PISTOL_LOW}
 				self.Weapon_StartingAmmoAmount = 7
 			end
+		elseif self.HECU_Type == 4 then
+			if bgroup == 0 then -- MP5
+				self:DoChangeWeapon("weapon_vj_hlr1_mp5")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
+				self.Weapon_StartingAmmoAmount = 50
+			elseif bgroup == 1 then -- M-40A1
+				self:DoChangeWeapon("weapon_vj_hlr1_m40a1")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_AR2}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_AR2_LOW}
+				self.Weapon_StartingAmmoAmount = 5
+			end
 		end
 	end
 end
@@ -254,7 +270,9 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_lung.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,45))})
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_skull.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,60))})
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_legbone.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,15))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/gib_hgrunt.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,15))})
+		if self.HECU_Type != 4 then
+			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/gib_hgrunt.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,15))})
+		end
 		return true
 	end
 	return false
@@ -278,7 +296,7 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
-	if self.HECU_Type == 0 or self.HECU_Type == 3 then
+	if self.HECU_Type == 0 or self.HECU_Type == 3 or self.HECU_Type == 4 then
 		self:SetBodygroup(self.HECU_WepBG,2)
 	elseif self.HECU_Type == 1 or self.HECU_Type == 2 then
 		self:SetBodygroup(self.HECU_WepBG,3)

@@ -25,10 +25,14 @@ if VJExists == true then
 			VJ.AddNPC("Human Grunt (OppF)","npc_vj_hlrof_hgrunt",vCat)
 			VJ.AddNPC("Human Grunt Medic (OppF)","npc_vj_hlrof_hgrunt_med",vCat)
 			VJ.AddNPC("Human Grunt Engineer (OppF)","npc_vj_hlrof_hgrunt_eng",vCat)
-			VJ.AddNPC("Male Assassin","npc_vj_hlrof_assassin_male",vCat)
+		
+		-- Black Ops
+		VJ.AddNPC("Male Assassin","npc_vj_hlrof_assassin_male",vCat)
 		
 		-- Black Mesa Personnel
 		VJ.AddNPC("Scientist","npc_vj_hlr1_scientist",vCat)
+			-- Blue Shift
+			VJ.AddNPC("Dr. Rosenberg","npc_vj_hlrbs_sci_rosenberg",vCat)
 		
 		-- Xen Creatures
 		VJ.AddNPC("Alien Grunt","npc_vj_hlr1_aliengrunt",vCat)
