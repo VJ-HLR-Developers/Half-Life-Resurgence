@@ -34,12 +34,21 @@ function ENT:HECU_CustomOnInitialize()
 	self:SetBodygroup(1,math.random(0,1))
 end
 
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
+	ParticleEffectAttach("smoke_exhaust_01a",PATTACH_POINT_FOLLOW,GetCorpse,2)
+	ParticleEffect("explosion_turret_break_fire", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("rhand")).Pos, Angle(0,0,0), GetCorpse)
+	ParticleEffect("explosion_turret_break_flash", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("rhand")).Pos, Angle(0,0,0), GetCorpse)
+	ParticleEffect("explosion_turret_break_pre_smoke Version #2", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("rhand")).Pos, Angle(0,0,0), GetCorpse)
+	ParticleEffect("explosion_turret_break_sparks", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("rhand")).Pos, Angle(0,0,0), GetCorpse)
+end
+
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibDeathParticles == true then
 		local vPoint = self:GetPos()
 		local effectdata = EffectData()
 		effectdata:SetOrigin( vPoint )
+		ParticleEffect("explosion_turret_break_fire", vPoint +self:GetUp() *70, Angle(0,0,0))
 		util.Effect( "HelicopterMegaBomb", effectdata )
 	end
 	/*
