@@ -29,11 +29,11 @@ ENT.SoundTbl_Idle = {
 	"vj_hlr/hl1_npc/hgrunt_oppf/allclear.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/area.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/babysitting.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/bfeeling.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/charge.wav",
+	--"vj_hlr/hl1_npc/hgrunt_oppf/bfeeling.wav",
+	--"vj_hlr/hl1_npc/hgrunt_oppf/charge.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/checkrecon.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/coverup.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/current.wav",
+	--"vj_hlr/hl1_npc/hgrunt_oppf/coverup.wav",
+	--"vj_hlr/hl1_npc/hgrunt_oppf/current.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/disney.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/dogs.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/frosty.wav",
@@ -45,7 +45,7 @@ ENT.SoundTbl_Idle = {
 	"vj_hlr/hl1_npc/hgrunt_oppf/now.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/outof.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/secure.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/seensquad.wav",
+	--"vj_hlr/hl1_npc/hgrunt_oppf/seensquad.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/short.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/stayalert.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/zone.wav",
@@ -53,7 +53,7 @@ ENT.SoundTbl_Idle = {
 }
 ENT.SoundTbl_CombatIdle = {
 	"vj_hlr/hl1_npc/hgrunt_oppf/ass.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/chicken.wav",
+	--"vj_hlr/hl1_npc/hgrunt_oppf/chicken.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/clear.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/corners.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/flank.wav",
@@ -66,6 +66,22 @@ ENT.SoundTbl_CombatIdle = {
 	"vj_hlr/hl1_npc/hgrunt_oppf/recon.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/sweep.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/tag.wav"
+}
+ENT.SoundTbl_IdleDialogue = {
+	"vj_hlr/hl1_npc/hgrunt_oppf/seensquad.wav",
+	"vj_hlr/hl1_npc/hgrunt_oppf/current.wav",
+	"vj_hlr/hl1_npc/hgrunt_oppf/coverup.wav",
+	"vj_hlr/hl1_npc/hgrunt_oppf/chicken.wav",
+	"vj_hlr/hl1_npc/hgrunt_oppf/charge.wav",
+	"vj_hlr/hl1_npc/hgrunt_oppf/bfeeling.wav"
+	
+}
+ENT.SoundTbl_IdleDialogueAnswer = {
+	"vj_hlr/hl1_npc/hgrunt_oppf/yes.wav",
+	"vj_hlr/hl1_npc/hgrunt_oppf/roger.wav",
+	"vj_hlr/hl1_npc/hgrunt_oppf/sir.wav",
+	"vj_hlr/hl1_npc/hgrunt_oppf/no.wav",
+	"vj_hlr/hl1_npc/hgrunt_oppf/quiet.wav"
 }
 ENT.SoundTbl_OnReceiveOrder = {
 	"vj_hlr/hl1_npc/hgrunt_oppf/moving.wav",

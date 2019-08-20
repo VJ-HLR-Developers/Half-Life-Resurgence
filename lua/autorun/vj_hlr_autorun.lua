@@ -20,6 +20,7 @@ if VJExists == true then
 	-- Half-Life 1 -------------------------------------------------------
 		-- HECU
 		VJ.AddNPC("Human Grunt","npc_vj_hlr1_hgrunt",vCat)
+		VJ.AddNPC("Robot Grunt","npc_vj_hlr1_rgrunt",vCat)
 		VJ.AddNPC("HECU Sentry Gun","npc_vj_hlr1_sentry",vCat)
 			-- Opposing Force
 			VJ.AddNPC("Human Grunt (OppF)","npc_vj_hlrof_hgrunt",vCat)

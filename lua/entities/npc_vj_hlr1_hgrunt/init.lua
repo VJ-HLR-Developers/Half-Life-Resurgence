@@ -49,7 +49,7 @@ ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} -- If it uses normal based animation, us
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/hgrunt/gr_die1.wav","vj_hlr/hl1_npc/hgrunt/gr_die2.wav","vj_hlr/hl1_npc/hgrunt/gr_die3.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/hgrunt/gr_pain1.wav","vj_hlr/hl1_npc/hgrunt/gr_pain2.wav","vj_hlr/hl1_npc/hgrunt/gr_pain3.wav","vj_hlr/hl1_npc/hgrunt/gr_pain4.wav","vj_hlr/hl1_npc/hgrunt/gr_pain5.wav",}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/hgrunt/gr_pain1.wav","vj_hlr/hl1_npc/hgrunt/gr_pain2.wav","vj_hlr/hl1_npc/hgrunt/gr_pain3.wav","vj_hlr/hl1_npc/hgrunt/gr_pain4.wav","vj_hlr/hl1_npc/hgrunt/gr_pain5.wav"}
 
 -- Custom
 ENT.HECU_Type = 0
@@ -58,6 +58,7 @@ ENT.HECU_Type = 0
 	-- 2 = OppF Medic
 	-- 3 = OppF Engineer
 	-- 4 = Black Ops Assassin
+	-- 5 = Robot Grunt
 ENT.HECU_WepBG = 2 -- The bodygroup that the weapons are in (Ourish e amen modelneroun)
 ENT.HECU_LastBodyGroup = 99
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -98,6 +99,9 @@ function ENT:CustomOnInitialize()
 	elseif self:GetModel() == "models/vj_hlr/opfor/massn.mdl" then
 		self.HECU_Type = 4
 		self.HECU_WepBG = 2
+	elseif self:GetModel() == "models/vj_hlr/hl1/rgrunt.mdl" then
+		self.HECU_Type = 5
+		self.HECU_WepBG = 1
 	end
 	
 	self:HECU_CustomOnInitialize()
@@ -217,6 +221,18 @@ function ENT:CustomOnThink()
 				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_AR2_LOW}
 				self.Weapon_StartingAmmoAmount = 5
 			end
+		elseif self.HECU_Type == 5 then
+			if bgroup == 0 then -- MP5
+				self:DoChangeWeapon("weapon_vj_hlr1_mp5")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
+				self.Weapon_StartingAmmoAmount = 50
+			elseif bgroup == 1 then -- Shotgun
+				self:DoChangeWeapon("weapon_vj_hlr1_spas12")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SHOTGUN}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SHOTGUN_LOW}
+				self.Weapon_StartingAmmoAmount = 5
+			end
 		end
 	end
 end
@@ -298,8 +314,8 @@ end
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 	if self.HECU_Type == 0 or self.HECU_Type == 3 or self.HECU_Type == 4 then
 		self:SetBodygroup(self.HECU_WepBG,2)
-	elseif self.HECU_Type == 1 or self.HECU_Type == 2 then
-		self:SetBodygroup(self.HECU_WepBG,3)
+	elseif self.HECU_Type == 1 or self.HECU_Type == 2 or self.HECU_Type == 5 then
+		self:SetBodygroup(self.HECU_WepBG,2)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
