@@ -27,6 +27,8 @@ ENT.MoveRandomlyWhenShooting = false
 ENT.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
 ENT.AnimTbl_ShootWhileMovingRun = {ACT_RUN} -- Animations it will play when shooting while running | NOTE: Weapon may translate the animation that they see fit!
 ENT.AnimTbl_ShootWhileMovingWalk = {ACT_WALK} -- Animations it will play when shooting while walking | NOTE: Weapon may translate the animation that they see fit!
+ENT.HasLostWeaponSightAnimation = true -- Set to true if you would like the SNPC to play a different animation when it has lost sight of the enemy and can't fire at it
+ENT.AnimTbl_LostWeaponSight = {ACT_COMBAT_IDLE} -- The animations that it will play if the variable above is set to true
 	-- ====== Flinching Code ====== --
 --ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 --ENT.AnimTbl_Flinch = {ACT_FLINCH_PHYSICS} -- If it uses normal based animation, use this

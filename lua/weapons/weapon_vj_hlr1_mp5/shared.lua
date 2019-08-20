@@ -25,7 +25,7 @@ SWEP.Primary.Ammo				= "SMG1" -- Ammo type
 SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/mp5/hks1.wav","vj_hlr/hl1_weapon/mp5/hks2.wav","vj_hlr/hl1_weapon/mp5/hks3.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/mp5/hks_distant.wav"}
 
-//SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
+SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
 SWEP.WorldModel_CustomPositionAngle = Vector(90,180,90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(10,-2,-2)
@@ -39,6 +39,10 @@ function SWEP:CustomOnInitialize()
 					self.Owner:GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for the Half Life 1 Human Grunts only!")
 				end
 				self:Remove()
+			end
+			if IsValid(self.Owner) && self.Owner:GetModel() == "models/vj_hlr/opfor/massn.mdl" then
+				self.WorldModel_CustomPositionAngle = Vector(100,180,90)
+				self.WorldModel_CustomPositionOrigin = Vector(5.6,-4,-2)
 			end
 		end
 	end)

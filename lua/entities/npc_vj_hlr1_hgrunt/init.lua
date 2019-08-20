@@ -17,13 +17,11 @@ ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1} -- Melee Attack Animations
 ENT.MeleeAttackDamage = 10
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-
 ENT.HasGrenadeAttack = true -- Should the SNPC have a grenade attack?
 ENT.GrenadeAttackModel = "models/vj_hlr/weapons/w_grenade.mdl" -- The model for the grenade entity
 ENT.AnimTbl_GrenadeAttack = {ACT_SPECIAL_ATTACK2} -- Grenade Attack Animations
 ENT.GrenadeAttackAttachment = "lhand" -- The attachment that the grenade will spawn at
 ENT.TimeUntilGrenadeIsReleased = 1.3 -- Time until the grenade is released
-
 ENT.AnimTbl_Medic_GiveHealth = {ACT_SPECIAL_ATTACK2} -- Animations is plays when giving health to an ally
 ENT.Medic_SpawnPropOnHeal = false -- Should it spawn a prop, such as small health vial at a attachment when healing an ally?
 ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
@@ -42,6 +40,7 @@ ENT.DeathAnimationTime = 0.8 -- Time until the SNPC spawns its corpse and gets r
 ENT.AnimTbl_TakingCover = {ACT_CROUCHIDLE} -- The animation it plays when hiding in a covered position, leave empty to let the base decide
 ENT.AnimTbl_AlertFriendsOnDeath = {"vjseq_idle2"} -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
 ENT.DropWeaponOnDeathAttachment = "rhand" -- Which attachment should it use for the weapon's position
+ENT.HasLostWeaponSightAnimation = true -- Set to true if you would like the SNPC to play a different animation when it has lost sight of the enemy and can't fire at it
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} -- If it uses normal based animation, use this
@@ -144,7 +143,12 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:HECU_CustomOnThink()
+	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
+	self:HECU_CustomOnThink()
 	-- Veravorvadz kalel
 	if self:Health() <= (self:GetMaxHealth() / 2.2) then
 		self.AnimTbl_Walk = {ACT_WALK_HURT}
@@ -312,10 +316,10 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
-	if self.HECU_Type == 0 or self.HECU_Type == 3 or self.HECU_Type == 4 then
+	if self.HECU_Type == 0 or self.HECU_Type == 3 or self.HECU_Type == 4 or self.HECU_Type == 5 then
 		self:SetBodygroup(self.HECU_WepBG,2)
-	elseif self.HECU_Type == 1 or self.HECU_Type == 2 or self.HECU_Type == 5 then
-		self:SetBodygroup(self.HECU_WepBG,2)
+	elseif self.HECU_Type == 1 or self.HECU_Type == 2 then
+		self:SetBodygroup(self.HECU_WepBG,3)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

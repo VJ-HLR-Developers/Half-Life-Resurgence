@@ -18,7 +18,6 @@ ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1} -- Melee Attack Animations
 ENT.AnimTbl_WeaponReloadBehindCover = {ACT_RELOAD}
 ENT.MeleeAttackDamage = 10
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.AnimTbl_CustomWaitForEnemyToComeOut = {ACT_IDLE_ANGRY}
 ENT.WaitForEnemyToComeOut = false
 ENT.HasGrenadeAttack = false -- Should the SNPC have a grenade attack?
 ENT.AnimTbl_GrenadeAttack = {ACT_SPECIAL_ATTACK2} -- Grenade Attack Animations
