@@ -33,11 +33,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	if self.Dead == true then return end
-	if not IsValid(self) then return end
 	if self.Lifespan == true then
-		timer.Simple(15,function() 
-			self.Lifespan_Ended = true
-			self:TakeDamage(999999999999,self,self)
+		timer.Simple(15,function() if IsValid(self) then self.Lifespan_Ended = true self:TakeDamage(999999999999,self,self) end
 		end)
 	end
 end

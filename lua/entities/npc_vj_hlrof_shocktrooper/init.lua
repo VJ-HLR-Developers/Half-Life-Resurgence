@@ -51,6 +51,7 @@ ENT.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/shocktrooper/st_runfromgrenade.wa
 ENT.SoundTbl_OnKilledEnemy = {"vj_hlr/hl1_npc/shocktrooper/st_combat1.wav"}
 -- Custom --
 ENT.Shockroach = NULL
+ENT.Shocktrooper_BlinkingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))
@@ -83,6 +84,13 @@ function ENT:CustomOnThink()
 	end
 	self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK1}
 	self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK2}
+	if self.Dead == false && CurTime() > self.Shocktrooper_BlinkingT then
+		timer.Simple(0.2,function() if IsValid(self) then self:SetSkin(1) end end)
+		timer.Simple(0.3,function() if IsValid(self) then self:SetSkin(2) end end)
+		timer.Simple(0.4,function() if IsValid(self) then self:SetSkin(3) end end)
+		timer.Simple(0.5,function() if IsValid(self) then self:SetSkin(0) end end)
+		self.Shocktrooper_BlinkingT = CurTime() + math.Rand(3,4.5)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
@@ -129,6 +137,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 	self:SetBodygroup(1,1)
+	self:SetSkin(2)
 	self.Shockroach = ents.Create("npc_vj_hlrof_shockroach")
 	self.Shockroach:SetPos(self:GetPos() + self:GetUp()*50)
 	self.Shockroach:SetAngles(self:GetAngles())
