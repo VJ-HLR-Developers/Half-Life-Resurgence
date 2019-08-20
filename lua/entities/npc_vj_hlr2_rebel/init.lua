@@ -71,7 +71,6 @@ ENT.SoundTbl_IdleDialogueAnswer = {
 	"vo/npc/male01/answer03.wav",
 	"vo/npc/male01/answer04.wav",
 	"vo/npc/male01/answer05.wav",
-	"vo/npc/male01/answer06.wav",
 	"vo/npc/male01/answer07.wav",
 	"vo/npc/male01/answer08.wav",
 	"vo/npc/male01/answer09.wav",
