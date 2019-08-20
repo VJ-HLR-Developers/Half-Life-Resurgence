@@ -5,23 +5,19 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/spitball_medium.mdl"} -- The models it should spawn with | Picks a random one from the table
+ENT.Model = {"models/vj_hlr/weapons/spore.mdl"} -- The models it should spawn with | Picks a random one from the table
 ENT.MoveCollideType = nil -- Move type | Some examples: MOVECOLLIDE_FLY_BOUNCE, MOVECOLLIDE_FLY_SLIDE
 ENT.CollisionGroupType = nil -- Collision type, recommended to keep it as it is
 ENT.SolidType = SOLID_VPHYSICS -- Solid type, recommended to keep it as it is
 ENT.RemoveOnHit = false -- Should it remove itself when it touches something? | It will run the hit sound, place a decal, etc.
 ENT.DoesRadiusDamage = true -- Should it do a blast damage when it hits something?
-ENT.RadiusDamageRadius = 250 -- How far the damage go? The farther away it's from its enemy, the less damage it will do | Counted in world units
+ENT.RadiusDamageRadius = 150 -- How far the damage go? The farther away it's from its enemy, the less damage it will do | Counted in world units
 ENT.RadiusDamage = 80 -- How much damage should it deal? Remember this is a radius damage, therefore it will do less damage the farther away the entity is from its enemy
 ENT.RadiusDamageUseRealisticRadius = true -- Should the damage decrease the farther away the enemy is from the position that the projectile hit?
-ENT.RadiusDamageType = DMG_BLAST -- Damage type
+ENT.RadiusDamageType = DMG_RADIATION -- Damage type
 ENT.RadiusDamageForce = 90 -- Put the force amount it should apply | false = Don't apply any force
-ENT.DecalTbl_DeathDecals = {"Scorch"}
-ENT.SoundTbl_OnCollide = {"weapons/hegrenade/he_bounce-1.wav"}
+ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/sporelauncher/spore_hit1.wav","vj_hlr/hl1_weapon/sporelauncher/spore_hit2.wav","vj_hlr/hl1_weapon/sporelauncher/spore_hit3.wav"}
 
--- Custom
-ENT.FussTime = 3
-ENT.TimeSinceSpawn = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
@@ -30,14 +26,10 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	//if self:GetOwner():IsValid() && (self:GetOwner().GrenadeAttackFussTime) then
-	//timer.Simple(self:GetOwner().GrenadeAttackFussTime,function() if IsValid(self) then self:DeathEffects() end end) else
-	timer.Simple(self.FussTime,function() if IsValid(self) then self:DeathEffects() end end)
-	//end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
-	self.TimeSinceSpawn = self.TimeSinceSpawn + 0.2
+	self:PhysicsInitSphere(4, "gmod_bouncy")
+	self:SetModel("models/vj_hlr/weapons/spore.mdl")
+	ParticleEffectAttach("vj_hl_spore_idle", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	timer.Simple(3,function() if IsValid(self) then self:DeathEffects() end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage(dmginfo)
@@ -45,12 +37,11 @@ function ENT:CustomOnTakeDamage(dmginfo)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPhysicsCollide(data,phys)
-	getvelocity = phys:GetVelocity()
-	velocityspeed = getvelocity:Length()
-	//print(velocityspeed)
-	if velocityspeed > 500 then -- Or else it will go flying!
-		phys:SetVelocity(getvelocity * 0.9)
-	end
+	local getvelocity = phys:GetVelocity()
+	local velocityspeed = getvelocity:Length()
+	//if velocityspeed > 500 then -- Or else it will go flying!
+		//phys:SetVelocity(getvelocity + self:GetUp()*1000)
+	//end
 	
 	if velocityspeed > 100 then -- If the grenade is going faster than 100, then play the touch sound
 		self:OnCollideSoundCode()
@@ -58,33 +49,9 @@ function ENT:CustomOnPhysicsCollide(data,phys)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects()
-	local effectdata = EffectData()
-	effectdata:SetOrigin(self:GetPos())
-	//effectdata:SetScale( 500 )
-	util.Effect( "HelicopterMegaBomb", effectdata )
-	util.Effect( "ThumperDust", effectdata )
-	util.Effect( "Explosion", effectdata )
-	util.Effect( "VJ_Small_Explosion1", effectdata )
-
-	self.ExplosionLight1 = ents.Create("light_dynamic")
-	self.ExplosionLight1:SetKeyValue("brightness", "4")
-	self.ExplosionLight1:SetKeyValue("distance", "300")
-	self.ExplosionLight1:SetLocalPos(self:GetPos())
-	self.ExplosionLight1:SetLocalAngles( self:GetAngles() )
-	self.ExplosionLight1:Fire("Color", "255 150 0")
-	self.ExplosionLight1:SetParent(self)
-	self.ExplosionLight1:Spawn()
-	self.ExplosionLight1:Activate()
-	self.ExplosionLight1:Fire("TurnOn", "", 0)
-	self:DeleteOnRemove(self.ExplosionLight1)
-	util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
-
-	self:SetLocalPos(Vector(self:GetPos().x,self:GetPos().y,self:GetPos().z +4)) -- Because the entity is too close to the ground
-	local tr = util.TraceLine({
-	start = self:GetPos(),
-	endpos = self:GetPos() - Vector(0, 0, 100),
-	filter = self })
-	util.Decal(VJ_PICKRANDOMTABLE(self.DecalTbl_DeathDecals),tr.HitPos+tr.HitNormal,tr.HitPos-tr.HitNormal)
+	ParticleEffect("vj_hl_spore", self:GetPos(), Angle(0,0,0), nil)
+	//ParticleEffect("vj_hl_spore_splash1", self:GetPos(), Angle(0,0,0), nil)
+	//ParticleEffect("vj_hl_spore_splash2", self:GetPos(), Angle(0,0,0), nil)
 	
 	self:DoDamageCode()
 	self:SetDeathVariablesTrue(nil,nil,false)
