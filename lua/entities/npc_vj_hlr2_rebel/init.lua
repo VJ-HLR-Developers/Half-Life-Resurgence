@@ -61,7 +61,9 @@ ENT.SoundTbl_IdleDialogue = {
 	"vo/npc/male01/question28.wav",
 	"vo/npc/male01/question29.wav",
 	"vo/npc/male01/question30.wav",
-	"vo/npc/male01/question31.wav"
+	"vo/npc/male01/question31.wav",
+	"vo/npc/male01/vquestion04.wav",
+	"vo/npc/male01/doingsomething.wav"
 }
 ENT.SoundTbl_IdleDialogueAnswer = {
 	"vo/npc/male01/answer01.wav",
@@ -106,9 +108,7 @@ ENT.SoundTbl_IdleDialogueAnswer = {
 }
 ENT.SoundTbl_Idle = {
 	"vo/npc/male01/vquestion02.wav",
-	"vo/npc/male01/vquestion04.wav",
 	"vo/npc/male01/vanswer14.wav",
-	"vo/npc/male01/doingsomething.wav",
 	"vj_hlr/hl2_npc/citizen/ep2/reb1_idles06.wav",
 	"vj_hlr/hl2_npc/citizen/male01/cit_remarks01.wav",
 	"vj_hlr/hl2_npc/citizen/male01/cit_remarks02.wav",
