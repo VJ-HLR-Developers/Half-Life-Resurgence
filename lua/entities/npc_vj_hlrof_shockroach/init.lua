@@ -35,7 +35,7 @@ function ENT:CustomOnThink_AIEnabled()
 	if self.Dead == true then return end
 	if not IsValid(self) then return end
 	if self.Lifespan == true then
-		timer.Simple(1,function() 
+		timer.Simple(15,function() 
 			self.Lifespan_Ended = true
 			self:TakeDamage(999999999999,self,self)
 		end)
@@ -45,9 +45,6 @@ end
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	if self.Lifespan_Ended == true then
 		self.AnimTbl_Death = {ACT_DIESIMPLE}
-		if IsValid(self) then
-			self:SetBodygroup(0,1)
-		end
 	end
 end
 
