@@ -6,12 +6,13 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/opfor/shockroach.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.VJ_NPC_Class = {"CLASS_RACE_X"} -- NPCs with the same class with be allied to each other
 ENT.StartHealth = 10
 ENT.HullType = HULL_TINY
 ENT.MeleeAttackDamage = 10
 ENT.StartHealth = 10
+ENT.DisableFootStepOnWalk = true
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_RACE_X"} -- NPCs with the same class with be allied to each other
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/shockroach/shock_idle1.wav","vj_hlr/hl1_npc/shockroach/shock_idle2.wav","vj_hlr/hl1_npc/shockroach/shock_idle3.wav","vj_hlr/hl1_npc/shockroach/shock_idle1.wav","vj_hlr/hl1_npc/shockroach/shock_idle2.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/shockroach/shock_angry.wav","vj_hlr/hl1_npc/shockroach/shock_angry.wav"}
 ENT.SoundTbl_LeapAttackJump = {"vj_hlr/hl1_npc/shockroach/shock_jump1.wav","vj_hlr/hl1_npc/shockroach/shock_jump2.wav","vj_hlr/hl1_npc/shockroach/shock_jump1.wav"}
