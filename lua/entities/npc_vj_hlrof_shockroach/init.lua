@@ -20,11 +20,34 @@ ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/shockroach/shock_flinch.wav","vj_hlr/hl1_np
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/shockroach/shock_die.wav","vj_hlr/hl1_npc/shockroach/shock_die.wav"}
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/shockroach/shock_walk.wav"}
 ENT.GeneralSoundPitch1 = 100
----------------------------------------------------------------------------------------------------------------------------------------------
 
+-- Custom --
+ENT.Lifespan = false
+ENT.Lifespan_Ended = false
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "step" then
 		self:FootStepSoundCode()
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink_AIEnabled()
+	if self.Dead == true then return end
+	if not IsValid(self) then return end
+	if self.Lifespan == true then
+		timer.Simple(1,function() 
+			self.Lifespan_Ended = true
+			self:TakeDamage(999999999999,self,self)
+		end)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+	if self.Lifespan_Ended == true then
+		self.AnimTbl_Death = {ACT_DIESIMPLE}
+		if IsValid(self) then
+			self:SetBodygroup(0,1)
+		end
 	end
 end
 

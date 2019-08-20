@@ -42,6 +42,16 @@ ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} -- If it uses normal based animation, us
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/player/boots1.wav","vj_hlr/hl1_npc/player/boots2.wav","vj_hlr/hl1_npc/player/boots3.wav","vj_hlr/hl1_npc/player/boots4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/shocktrooper/st_idle.wav"}
+ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/shocktrooper/st_question1.wav","vj_hlr/hl1_npc/shocktrooper/st_question2.wav"}
+ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/shocktrooper/st_answer1.wav","vj_hlr/hl1_npc/shocktrooper/st_answer2.wav"}
+ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/shocktrooper/st_combat1.wav","vj_hlr/hl1_npc/shocktrooper/st_combat2.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/shocktrooper/st_alert1.wav","vj_hlr/hl1_npc/shocktrooper/st_alert2.wav","vj_hlr/hl1_npc/shocktrooper/st_alert3.wav","vj_hlr/hl1_npc/shocktrooper/st_alert4.wav"}
+ENT.SoundTbl_GrenadeAttack = {"vj_hlr/hl1_npc/shocktrooper/st_grenadethrow.wav"}
+ENT.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/shocktrooper/st_runfromgrenade.wav"}
+ENT.SoundTbl_OnKilledEnemy = {"vj_hlr/hl1_npc/shocktrooper/st_combat1.wav"}
+-- Custom --
+ENT.Shockroach = NULL
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))
@@ -120,6 +130,13 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 	self:SetBodygroup(1,1)
+	self.Shockroach = ents.Create("npc_vj_hlrof_shockroach")
+	self.Shockroach:SetPos(self:GetPos() + self:GetUp()*50)
+	self.Shockroach:SetAngles(self:GetAngles())
+	self.Shockroach:Spawn()
+	self.Shockroach:Activate()
+	self.Shockroach.VJ_NPC_Class = table.Merge(self.Shockroach.VJ_NPC_Class,self.VJ_NPC_Class)
+	self.Shockroach.Lifespan = true
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***

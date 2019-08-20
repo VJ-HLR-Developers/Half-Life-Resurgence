@@ -6,7 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hl1/rgrunt.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.StartHealth = 150
+ENT.StartHealth = 200
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.HasBloodParticle = false
@@ -37,10 +37,10 @@ end
 
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
 	ParticleEffectAttach("smoke_exhaust_01a",PATTACH_POINT_FOLLOW,GetCorpse,2)
-	ParticleEffect("explosion_turret_break_fire", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("rhand")).Pos, Angle(0,0,0), GetCorpse)
-	ParticleEffect("explosion_turret_break_flash", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("rhand")).Pos, Angle(0,0,0), GetCorpse)
-	ParticleEffect("explosion_turret_break_pre_smoke Version #2", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("rhand")).Pos, Angle(0,0,0), GetCorpse)
-	ParticleEffect("explosion_turret_break_sparks", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("rhand")).Pos, Angle(0,0,0), GetCorpse)
+	ParticleEffect("explosion_turret_break_fire", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("head")).Pos, Angle(0,0,0), GetCorpse)
+	ParticleEffect("explosion_turret_break_flash", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("head")).Pos, Angle(0,0,0), GetCorpse)
+	ParticleEffect("explosion_turret_break_pre_smoke Version #2", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("head")).Pos, Angle(0,0,0), GetCorpse)
+	ParticleEffect("explosion_turret_break_sparks", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("head")).Pos, Angle(0,0,0), GetCorpse)
 end
 
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
@@ -69,8 +69,8 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 end
 
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
-	VJ_EmitSound(self,"vj_hlr/hl1_npc/rgrunt/rb_gib.wav",90,math.random(100,100))
-	VJ_EmitSound(self,"vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav",150,math.random(100,100))
+	VJ_EmitSound(self,"vj_hlr/hl1_weapon/explosion/debris3.wav",150,math.random(100,100))
+	VJ_EmitSound(self,"vj_hlr/hl1_npc/rgrunt/rb_gib.wav",80,math.random(100,100))
 	return false
 end
 /*-----------------------------------------------
