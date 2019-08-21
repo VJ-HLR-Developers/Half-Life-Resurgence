@@ -50,6 +50,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects()
 	ParticleEffect("vj_hl_spore", self:GetPos(), Angle(0,0,0), nil)
+	self:EmitSound("vj_hlr/hl1_weapon/sporelauncher/splauncher_impact.wav", 100, 100)
 	//ParticleEffect("vj_hl_spore_splash1", self:GetPos(), Angle(0,0,0), nil)
 	//ParticleEffect("vj_hl_spore_splash2", self:GetPos(), Angle(0,0,0), nil)
 	
