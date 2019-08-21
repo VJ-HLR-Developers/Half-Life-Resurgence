@@ -44,6 +44,7 @@ if VJExists == true then
 			VJ.AddNPC("Headcrab","npc_vj_hlr1_headcrab",vCat)
 			VJ.AddNPC("Baby Headcrab","npc_vj_hlr1_headcrab_baby",vCat)
 			VJ.AddNPC("Zombie","npc_vj_hlr1_zombie",vCat)
+			VJ.AddNPC("Zombie","npc_vj_hlr1a_zombie",vCat)
 				-- Opposing Force
 				VJ.AddNPC("Zombie Security Guard","npc_vj_hlrof_zombie_sec",vCat)
 				VJ.AddNPC("Zombie Soldier","npc_vj_hlrof_zombie_soldier",vCat)
