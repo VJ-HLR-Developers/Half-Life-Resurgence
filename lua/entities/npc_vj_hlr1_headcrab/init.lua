@@ -47,6 +47,16 @@ function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(10, 10, 18), Vector(-10, -10, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink()
+	if self:WaterLevel() > 1 then
+		self:SetHealth(self:Health() - 1)
+		if self:Health() <= 0 then
+			self.Bleeds = false
+			self:TakeDamage(1,self,self)
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
 	if self.VJ_IsBeingControlled == true then return end
 	if math.random(1,2) == 1 then
