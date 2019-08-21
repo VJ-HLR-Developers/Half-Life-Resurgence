@@ -27,6 +27,7 @@ ENT.RangeAttackReps = 3 -- How many times does it run the projectile code?
 ENT.NextRangeAttackTime = 0 -- How much time until it can use a range attack?
 ENT.NextAnyAttackTime_Range = 0.1 -- How much time until it can use any attack again? | Counted in Seconds
 
+ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
 ENT.PoseParameterLooking_InvertPitch = true -- Inverts the pitch poseparameters (X)
 ENT.PoseParameterLooking_InvertYaw = true -- Inverts the yaw poseparameters (Y)
 	-- ====== Sound File Paths ====== --

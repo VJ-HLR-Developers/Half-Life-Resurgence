@@ -12,6 +12,7 @@ ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.BloodColor = ""
 ENT.HasBloodParticle = false
 ENT.HasBloodDecal = false
+ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/rgrunt/pl_metal1.wav","vj_hlr/hl1_npc/rgrunt/pl_metal2.wav","vj_hlr/hl1_npc/rgrunt/pl_metal3.wav","vj_hlr/hl1_npc/rgrunt/pl_metal4.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/rgrunt/rb_idle1.wav","vj_hlr/hl1_npc/rgrunt/rb_idle2.wav","vj_hlr/hl1_npc/rgrunt/rb_idle3.wav"}
@@ -37,10 +38,6 @@ ENT.GeneralSoundPitch2 = 140
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
 	self:SetBodygroup(1,math.random(0,1))
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
-	self:SetSkin(1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
