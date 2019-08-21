@@ -17,7 +17,7 @@ if VJExists == true then
 
 	local vCat = "Half-Life: Resurgence"
 
-	-- Half-Life 1 -------------------------------------------------------
+	-- Gold Source Engine -------------------------------------------------------
 		-- HECU
 		VJ.AddNPC("Human Grunt","npc_vj_hlr1_hgrunt",vCat)
 		VJ.AddNPC("Robot Grunt","npc_vj_hlr1_rgrunt",vCat)
@@ -33,7 +33,11 @@ if VJExists == true then
 		-- Black Mesa Personnel
 		VJ.AddNPC("Scientist","npc_vj_hlr1_scientist",vCat)
 			-- Blue Shift
-			VJ.AddNPC("Dr. Rosenberg","npc_vj_hlrbs_sci_rosenberg",vCat)
+			VJ.AddNPC("Dr. Rosenberg","npc_vj_hlrbs_rosenberg",vCat)
+			-- Decay
+			VJ.AddNPC("Dr. Richard Keller","npc_vj_hlrdc_keller",vCat)
+			-- Opposing Force
+			VJ.AddNPC("Cleansuit Scientist","npc_vj_hlrof_cleansuitsci",vCat)
 		
 		-- Xen Creatures
 		VJ.AddNPC("Alien Grunt","npc_vj_hlr1_aliengrunt",vCat)
@@ -44,7 +48,8 @@ if VJExists == true then
 			VJ.AddNPC("Headcrab","npc_vj_hlr1_headcrab",vCat)
 			VJ.AddNPC("Baby Headcrab","npc_vj_hlr1_headcrab_baby",vCat)
 			VJ.AddNPC("Zombie","npc_vj_hlr1_zombie",vCat)
-			VJ.AddNPC("Zombie","npc_vj_hlr1a_zombie",vCat)
+				-- Alpha
+				VJ.AddNPC("Zombie","npc_vj_hlr1a_zombie",vCat)
 				-- Opposing Force
 				VJ.AddNPC("Zombie Security Guard","npc_vj_hlrof_zombie_sec",vCat)
 				VJ.AddNPC("Zombie Soldier","npc_vj_hlrof_zombie_soldier",vCat)
@@ -63,7 +68,7 @@ if VJExists == true then
 		//VJ.AddNPCWeapon("VJ_HLR1_Glock17","weapon_vj_hlr1_glock17",false,vCat)
 		//VJ.AddNPCWeapon("VJ_HLR1_MP5","weapon_vj_hlr1_mp5",false,vCat)
 		
-	-- Half-Life 2 -------------------------------------------------------
+	-- Source Engine -------------------------------------------------------
 		-- Antlions
 		-- VJ.AddNPC("Antlion","npc_vj_hlr2_antlion",vCat)
 		-- VJ.AddNPC("Antlion Worker","npc_vj_hlr2_antlion_worker",vCat)
@@ -97,7 +102,7 @@ if VJExists == true then
 			VJ.AddNPC("Fast Headcrab","npc_vj_hlr2_headcrab_fast",vCat)
 			VJ.AddNPC("Poison Headcrab","npc_vj_hlr2_headcrab_poison",vCat)
 		
-		-- Random Creatures
+		-- Wild Life
 		VJ.AddNPC("Hydra","npc_vj_hlr2b_hydra",vCat)
 		
 		-- Weapons
