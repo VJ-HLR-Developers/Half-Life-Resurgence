@@ -40,6 +40,25 @@ function ENT:HECU_CustomOnInitialize()
 	self:SetBodygroup(1,math.random(0,1))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:HECU_CustomOnThink()
+	if self.HECU_NextMouthMove > CurTime() then
+		local changeTo = self:GetSkin() +1
+		if changeTo > 3 then
+			changeTo = 1
+		end
+		-- Entity(1):ChatPrint("g")
+		self:SetSkin(changeTo)
+	else
+		self:SetSkin(0)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnPlayCreateSound(SoundData,SoundFile)
+	if !self.SoundTbl_Breath[SoundFile] && !self.SoundTbl_Pain[SoundFile] then
+		self.HECU_NextMouthMove = CurTime() + SoundDuration(SoundFile)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
 	ParticleEffectAttach("smoke_exhaust_01a",PATTACH_POINT_FOLLOW,GetCorpse,5)
 	ParticleEffect("explosion_turret_break_fire", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("head")).Pos, Angle(0,0,0), GetCorpse)

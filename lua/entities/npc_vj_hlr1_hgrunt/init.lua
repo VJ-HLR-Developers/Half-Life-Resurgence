@@ -116,10 +116,17 @@ function ENT:CustomOnInitialize()
 		self.HECU_Type = 5
 		self.HECU_WepBG = 1
 	end
+	self.HECU_NextMouthMove = CurTime()
 	
 	self:HECU_CustomOnInitialize()
 	
 	//self:Give("weapon_vj_hl_hgruntwep")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnPlayCreateSound(SoundData,SoundFile)
+	if !self.SoundTbl_Breath[SoundFile] then
+		self.HECU_NextMouthMove = CurTime() + SoundDuration(SoundFile)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -339,7 +346,7 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 		self:SetBodygroup(self.HECU_WepBG,3)
 	elseif self.HECU_Type == 5 then
 		self:SetBodygroup(self.HECU_WepBG,2)
-		self:SetSkin(1)
+		self:SetSkin(4)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
