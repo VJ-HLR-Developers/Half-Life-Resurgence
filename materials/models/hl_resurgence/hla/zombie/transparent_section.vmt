@@ -1,4 +1,0 @@
-"VertexLitGeneric"
-{
-	"$basetexture" "models/hl_resurgence/hla/zombie/transparent_section"
-"$halflambert" "1" "$nocull" "1" }
