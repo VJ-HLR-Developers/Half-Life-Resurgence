@@ -190,7 +190,7 @@ function ENT:CustomOnMedic_BeforeHeal()
 	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMedic_OnHeal()
+function ENT:CustomOnMedic_OnReset()
 	timer.Simple(1.5,function() if IsValid(self) then self:SetBodygroup(2,0) end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

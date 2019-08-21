@@ -23,8 +23,9 @@ ENT.AnimTbl_GrenadeAttack = {ACT_SPECIAL_ATTACK2} -- Grenade Attack Animations
 ENT.GrenadeAttackAttachment = "lhand" -- The attachment that the grenade will spawn at
 ENT.TimeUntilGrenadeIsReleased = 1.3 -- Time until the grenade is released
 ENT.ThrowGrenadeChance = 1
-ENT.AnimTbl_Medic_GiveHealth = {ACT_SPECIAL_ATTACK2} -- Animations is plays when giving health to an ally
+ENT.Medic_DisableAnimation = true -- if true, it will disable the animation code
 ENT.Medic_SpawnPropOnHeal = false -- Should it spawn a prop, such as small health vial at a attachment when healing an ally?
+ENT.Medic_TimeUntilHeal = 4 -- Time until the ally receives health | Set to false to let the base decide the time
 ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
 ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
 ENT.MoveRandomlyWhenShooting = false -- Should it move randomly when shooting?
@@ -48,17 +49,6 @@ ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} -- If it uses normal based animation, us
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/hgrunt/gr_idle1.wav","vj_hlr/hl1_npc/hgrunt/gr_idle2.wav","vj_hlr/hl1_npc/hgrunt/gr_idle3.wav"}
-ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/hgrunt/gr_question1.wav","vj_hlr/hl1_npc/hgrunt/gr_question2.wav","vj_hlr/hl1_npc/hgrunt/gr_question3.wav","vj_hlr/hl1_npc/hgrunt/gr_question4.wav","vj_hlr/hl1_npc/hgrunt/gr_question5.wav","vj_hlr/hl1_npc/hgrunt/gr_question6.wav","vj_hlr/hl1_npc/hgrunt/gr_question7.wav","vj_hlr/hl1_npc/hgrunt/gr_question8.wav","vj_hlr/hl1_npc/hgrunt/gr_question9.wav","vj_hlr/hl1_npc/hgrunt/gr_question10.wav","vj_hlr/hl1_npc/hgrunt/gr_question11.wav","vj_hlr/hl1_npc/hgrunt/gr_question12.wav","vj_hlr/hl1_npc/hgrunt/gr_check1.wav","vj_hlr/hl1_npc/hgrunt/gr_check2.wav","vj_hlr/hl1_npc/hgrunt/gr_check3.wav","vj_hlr/hl1_npc/hgrunt/gr_check4.wav","vj_hlr/hl1_npc/hgrunt/gr_check5.wav","vj_hlr/hl1_npc/hgrunt/gr_check6.wav","vj_hlr/hl1_npc/hgrunt/gr_check7.wav","vj_hlr/hl1_npc/hgrunt/gr_check8.wav",}
-ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/hgrunt/gr_clear1.wav","vj_hlr/hl1_npc/hgrunt/gr_clear2.wav","vj_hlr/hl1_npc/hgrunt/gr_clear3.wav","vj_hlr/hl1_npc/hgrunt/gr_clear4.wav","vj_hlr/hl1_npc/hgrunt/gr_clear5.wav","vj_hlr/hl1_npc/hgrunt/gr_clear6.wav","vj_hlr/hl1_npc/hgrunt/gr_clear7.wav","vj_hlr/hl1_npc/hgrunt/gr_clear8.wav","vj_hlr/hl1_npc/hgrunt/gr_clear9.wav","vj_hlr/hl1_npc/hgrunt/gr_clear10.wav","vj_hlr/hl1_npc/hgrunt/gr_clear11.wav","vj_hlr/hl1_npc/hgrunt/gr_clear12.wav","vj_hlr/hl1_npc/hgrunt/gr_answer1.wav","vj_hlr/hl1_npc/hgrunt/gr_answer2.wav","vj_hlr/hl1_npc/hgrunt/gr_answer3.wav","vj_hlr/hl1_npc/hgrunt/gr_answer4.wav","vj_hlr/hl1_npc/hgrunt/gr_answer5.wav","vj_hlr/hl1_npc/hgrunt/gr_answer6.wav","vj_hlr/hl1_npc/hgrunt/gr_answer7.wav"}
-ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/hgrunt/gr_taunt2.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt3.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt4.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt5.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt6.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt1.wav","vj_hlr/hl1_npc/hgrunt/gr_combat1.wav","vj_hlr/hl1_npc/hgrunt/gr_combat2.wav","vj_hlr/hl1_npc/hgrunt/gr_combat3.wav","vj_hlr/hl1_npc/hgrunt/gr_combat4.wav"}
-ENT.SoundTbl_Investigate = {"vj_hlr/hl1_npc/hgrunt/gr_investigate.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/hgrunt/gr_alert1.wav","vj_hlr/hl1_npc/hgrunt/gr_alert2.wav","vj_hlr/hl1_npc/hgrunt/gr_alert3.wav","vj_hlr/hl1_npc/hgrunt/gr_alert4.wav","vj_hlr/hl1_npc/hgrunt/gr_alert5.wav","vj_hlr/hl1_npc/hgrunt/gr_alert6.wav","vj_hlr/hl1_npc/hgrunt/gr_alert7.wav","vj_hlr/hl1_npc/hgrunt/gr_alert8.wav","vj_hlr/hl1_npc/hgrunt/gr_alert9.wav","vj_hlr/hl1_npc/hgrunt/gr_alert10.wav"}
-ENT.SoundTbl_CallForHelp = {"vj_hlr/hl1_npc/hgrunt/gr_cover2.wav","vj_hlr/hl1_npc/hgrunt/gr_cover3.wav","vj_hlr/hl1_npc/hgrunt/gr_cover4.wav","vj_hlr/hl1_npc/hgrunt/gr_cover7.wav"}
-ENT.SoundTbl_WeaponReload = {"vj_hlr/hl1_npc/hgrunt/gr_cover1.wav","vj_hlr/hl1_npc/hgrunt/gr_cover2.wav","vj_hlr/hl1_npc/hgrunt/gr_cover3.wav","vj_hlr/hl1_npc/hgrunt/gr_cover4.wav","vj_hlr/hl1_npc/hgrunt/gr_cover5.wav","vj_hlr/hl1_npc/hgrunt/gr_cover6.wav","vj_hlr/hl1_npc/hgrunt/gr_cover7.wav","vj_hlr/hl1_npc/hgrunt/gr_cover8.wav","vj_hlr/hl1_npc/hgrunt/gr_cover9.wav"}
-ENT.SoundTbl_GrenadeAttack = {"vj_hlr/hl1_npc/hgrunt/gr_throw1.wav","vj_hlr/hl1_npc/hgrunt/gr_throw2.wav","vj_hlr/hl1_npc/hgrunt/gr_throw3.wav","vj_hlr/hl1_npc/hgrunt/gr_throw4.wav"}
-ENT.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/hgrunt/gr_cover7.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert1.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert2.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert3.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert4.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert5.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert6.wav","vj_hlr/hl1_npc/hgrunt/gr_cover1.wav"}
-ENT.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/hgrunt/gr_allydeath.wav","vj_hlr/hl1_npc/hgrunt/gr_cover2.wav","vj_hlr/hl1_npc/hgrunt/gr_cover3.wav","vj_hlr/hl1_npc/hgrunt/gr_cover4.wav","vj_hlr/hl1_npc/hgrunt/gr_cover7.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/hgrunt/gr_die1.wav","vj_hlr/hl1_npc/hgrunt/gr_die2.wav","vj_hlr/hl1_npc/hgrunt/gr_die3.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/hgrunt/gr_pain1.wav","vj_hlr/hl1_npc/hgrunt/gr_pain2.wav","vj_hlr/hl1_npc/hgrunt/gr_pain3.wav","vj_hlr/hl1_npc/hgrunt/gr_pain4.wav","vj_hlr/hl1_npc/hgrunt/gr_pain5.wav"}
 
@@ -74,6 +64,18 @@ ENT.HECU_WepBG = 2 -- The bodygroup that the weapons are in (Ourish e amen model
 ENT.HECU_LastBodyGroup = 99
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
+	self.SoundTbl_Idle = {"vj_hlr/hl1_npc/hgrunt/gr_idle1.wav","vj_hlr/hl1_npc/hgrunt/gr_idle2.wav","vj_hlr/hl1_npc/hgrunt/gr_idle3.wav"}
+	self.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/hgrunt/gr_question1.wav","vj_hlr/hl1_npc/hgrunt/gr_question2.wav","vj_hlr/hl1_npc/hgrunt/gr_question3.wav","vj_hlr/hl1_npc/hgrunt/gr_question4.wav","vj_hlr/hl1_npc/hgrunt/gr_question5.wav","vj_hlr/hl1_npc/hgrunt/gr_question6.wav","vj_hlr/hl1_npc/hgrunt/gr_question7.wav","vj_hlr/hl1_npc/hgrunt/gr_question8.wav","vj_hlr/hl1_npc/hgrunt/gr_question9.wav","vj_hlr/hl1_npc/hgrunt/gr_question10.wav","vj_hlr/hl1_npc/hgrunt/gr_question11.wav","vj_hlr/hl1_npc/hgrunt/gr_question12.wav","vj_hlr/hl1_npc/hgrunt/gr_check1.wav","vj_hlr/hl1_npc/hgrunt/gr_check2.wav","vj_hlr/hl1_npc/hgrunt/gr_check3.wav","vj_hlr/hl1_npc/hgrunt/gr_check4.wav","vj_hlr/hl1_npc/hgrunt/gr_check5.wav","vj_hlr/hl1_npc/hgrunt/gr_check6.wav","vj_hlr/hl1_npc/hgrunt/gr_check7.wav","vj_hlr/hl1_npc/hgrunt/gr_check8.wav",}
+	self.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/hgrunt/gr_clear1.wav","vj_hlr/hl1_npc/hgrunt/gr_clear2.wav","vj_hlr/hl1_npc/hgrunt/gr_clear3.wav","vj_hlr/hl1_npc/hgrunt/gr_clear4.wav","vj_hlr/hl1_npc/hgrunt/gr_clear5.wav","vj_hlr/hl1_npc/hgrunt/gr_clear6.wav","vj_hlr/hl1_npc/hgrunt/gr_clear7.wav","vj_hlr/hl1_npc/hgrunt/gr_clear8.wav","vj_hlr/hl1_npc/hgrunt/gr_clear9.wav","vj_hlr/hl1_npc/hgrunt/gr_clear10.wav","vj_hlr/hl1_npc/hgrunt/gr_clear11.wav","vj_hlr/hl1_npc/hgrunt/gr_clear12.wav","vj_hlr/hl1_npc/hgrunt/gr_answer1.wav","vj_hlr/hl1_npc/hgrunt/gr_answer2.wav","vj_hlr/hl1_npc/hgrunt/gr_answer3.wav","vj_hlr/hl1_npc/hgrunt/gr_answer4.wav","vj_hlr/hl1_npc/hgrunt/gr_answer5.wav","vj_hlr/hl1_npc/hgrunt/gr_answer6.wav","vj_hlr/hl1_npc/hgrunt/gr_answer7.wav"}
+	self.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/hgrunt/gr_taunt2.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt3.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt4.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt5.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt6.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt1.wav","vj_hlr/hl1_npc/hgrunt/gr_combat1.wav","vj_hlr/hl1_npc/hgrunt/gr_combat2.wav","vj_hlr/hl1_npc/hgrunt/gr_combat3.wav","vj_hlr/hl1_npc/hgrunt/gr_combat4.wav"}
+	self.SoundTbl_Investigate = {"vj_hlr/hl1_npc/hgrunt/gr_investigate.wav"}
+	self.SoundTbl_Alert = {"vj_hlr/hl1_npc/hgrunt/gr_alert1.wav","vj_hlr/hl1_npc/hgrunt/gr_alert2.wav","vj_hlr/hl1_npc/hgrunt/gr_alert3.wav","vj_hlr/hl1_npc/hgrunt/gr_alert4.wav","vj_hlr/hl1_npc/hgrunt/gr_alert5.wav","vj_hlr/hl1_npc/hgrunt/gr_alert6.wav","vj_hlr/hl1_npc/hgrunt/gr_alert7.wav","vj_hlr/hl1_npc/hgrunt/gr_alert8.wav","vj_hlr/hl1_npc/hgrunt/gr_alert9.wav","vj_hlr/hl1_npc/hgrunt/gr_alert10.wav"}
+	self.SoundTbl_CallForHelp = {"vj_hlr/hl1_npc/hgrunt/gr_cover2.wav","vj_hlr/hl1_npc/hgrunt/gr_cover3.wav","vj_hlr/hl1_npc/hgrunt/gr_cover4.wav","vj_hlr/hl1_npc/hgrunt/gr_cover7.wav"}
+	self.SoundTbl_WeaponReload = {"vj_hlr/hl1_npc/hgrunt/gr_cover1.wav","vj_hlr/hl1_npc/hgrunt/gr_cover2.wav","vj_hlr/hl1_npc/hgrunt/gr_cover3.wav","vj_hlr/hl1_npc/hgrunt/gr_cover4.wav","vj_hlr/hl1_npc/hgrunt/gr_cover5.wav","vj_hlr/hl1_npc/hgrunt/gr_cover6.wav","vj_hlr/hl1_npc/hgrunt/gr_cover7.wav","vj_hlr/hl1_npc/hgrunt/gr_cover8.wav","vj_hlr/hl1_npc/hgrunt/gr_cover9.wav"}
+	self.SoundTbl_GrenadeAttack = {"vj_hlr/hl1_npc/hgrunt/gr_throw1.wav","vj_hlr/hl1_npc/hgrunt/gr_throw2.wav","vj_hlr/hl1_npc/hgrunt/gr_throw3.wav","vj_hlr/hl1_npc/hgrunt/gr_throw4.wav"}
+	self.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/hgrunt/gr_cover7.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert1.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert2.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert3.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert4.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert5.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert6.wav","vj_hlr/hl1_npc/hgrunt/gr_cover1.wav"}
+	self.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/hgrunt/gr_allydeath.wav","vj_hlr/hl1_npc/hgrunt/gr_cover2.wav","vj_hlr/hl1_npc/hgrunt/gr_cover3.wav","vj_hlr/hl1_npc/hgrunt/gr_cover4.wav","vj_hlr/hl1_npc/hgrunt/gr_cover7.wav"}
+
 	self:SetSkin(math.random(0,1))
 	
 	local randhead = math.random(0,3)
@@ -331,10 +333,13 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
-	if self.HECU_Type == 0 or self.HECU_Type == 3 or self.HECU_Type == 4 or self.HECU_Type == 5 then
+	if self.HECU_Type == 0 or self.HECU_Type == 3 or self.HECU_Type == 4 then
 		self:SetBodygroup(self.HECU_WepBG,2)
 	elseif self.HECU_Type == 1 or self.HECU_Type == 2 then
 		self:SetBodygroup(self.HECU_WepBG,3)
+	elseif self.HECU_Type == 5 then
+		self:SetBodygroup(self.HECU_WepBG,2)
+		self:SetSkin(1)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
