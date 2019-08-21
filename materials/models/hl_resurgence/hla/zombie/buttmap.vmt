@@ -1,0 +1,4 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/hl_resurgence/hla/zombie/Buttmap"
+"$halflambert" "1" "$nocull" "1" }

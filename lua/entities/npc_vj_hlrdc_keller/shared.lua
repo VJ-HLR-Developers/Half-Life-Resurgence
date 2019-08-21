@@ -1,0 +1,8 @@
+ENT.Base 			= "npc_vj_hlr1_scientist"
+ENT.Type 			= "ai"
+ENT.PrintName 		= "Dr. Richard Keller"
+ENT.Author 			= "DrVrej"
+ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
+ENT.Purpose 		= "Spawn it and fight with it!"
+ENT.Instructions 	= "Click on the spawnicon to spawn it."
+ENT.Category		= "Half-Life: Resurgence"

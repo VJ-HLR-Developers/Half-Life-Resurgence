@@ -153,10 +153,14 @@ function ENT:CustomOnInitialize()
 	self.SoundTbl_DamageByPlayer = {"vj_hlr/hl1_npc/scientist/youinsane.wav","vj_hlr/hl1_npc/scientist/whatyoudoing.wav","vj_hlr/hl1_npc/scientist/please.wav","vj_hlr/hl1_npc/scientist/c3a2_sci_fool.wav","vj_hlr/hl1_npc/scientist/c1a3_sci_team.wav","vj_hlr/hl1_npc/scientist/c1a0_sci_stayback.wav","vj_hlr/hl1_npc/scientist/c1a2_sci_3zomb.wav","vj_hlr/hl1_npc/scientist/c1a2_sci_5zomb.wav"}
 	self.SoundTbl_Death = {"vj_hlr/hl1_npc/scientist/scream5.wav","vj_hlr/hl1_npc/scientist/scream21.wav","vj_hlr/hl1_npc/scientist/sci_die1.wav","vj_hlr/hl1_npc/scientist/sci_die2.wav","vj_hlr/hl1_npc/scientist/sci_die3.wav","vj_hlr/hl1_npc/scientist/sci_die4.wav","vj_hlr/hl1_npc/scientist/sci_dragoff.wav"}
 
-	local randbg = math.random(0,4)
-	self:SetBodygroup(1,randbg)
-	if randbg == 2 then
-		self:SetSkin(1)
+	if self:GetModel() == "models/vj_hlr/hl1/scientist.mdl" then
+		self:SetBodygroup(1,4)
+	else
+		local randbg = math.random(0,4)
+		self:SetBodygroup(1,randbg)
+		if randbg == 2 then
+			self:SetSkin(1)
+		end
 	end
 	//self:VJ_GetAllPoseParameters(true)
 end

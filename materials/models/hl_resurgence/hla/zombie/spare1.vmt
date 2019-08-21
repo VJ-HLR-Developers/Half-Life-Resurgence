@@ -1,0 +1,4 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/hl_resurgence/hla/zombie/Spare1"
+"$halflambert" "1" "$nocull" "1" }
