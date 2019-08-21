@@ -5,7 +5,7 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/scientist.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = {"models/vj_hlr/decay/wheelchair_sci.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 100
 ENT.IsMedicSNPC = false -- Is this SNPC a medic? Does it heal other friendly friendly SNPCs, and players(If friendly)
 /*
@@ -15,7 +15,7 @@ ENT.IsMedicSNPC = false -- Is this SNPC a medic? Does it heal other friendly fri
 
 */
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:SCI_CustomOnInitialize()
 	self.SoundTbl_Idle = {}
 	self.SoundTbl_CombatIdle = {}
 	self.SoundTbl_FollowPlayer = {}
@@ -27,6 +27,8 @@ function ENT:CustomOnInitialize()
 	self.SoundTbl_Pain = {}
 	self.SoundTbl_DamageByPlayer = {}
 	self.SoundTbl_Death = {}
+	
+	self.AnimTbl_Death = {ACT_DIESIMPLE}
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***

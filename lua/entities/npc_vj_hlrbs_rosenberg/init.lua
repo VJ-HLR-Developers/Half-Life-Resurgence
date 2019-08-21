@@ -70,7 +70,7 @@ vj_hlr/hl1_npc/rosenberg/ro_tele_nocell.wav
 -- vj_hlr/hl1_npc/rosenberg/ro_yard_rose1.wav ---> vj_hlr/hl1_npc/rosenberg/ro_yard_scanner.wav
 */
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:SCI_CustomOnInitialize()
 	self.SoundTbl_Idle = {"vj_hlr/hl1_npc/scientist/yawn.wav","vj_hlr/hl1_npc/scientist/sneeze.wav","vj_hlr/hl1_npc/scientist/sniffle.wav","vj_hlr/hl1_npc/scientist/cough.wav","vj_hlr/hl1_npc/scientist/c1a0_sci_stall.wav"}
 	self.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/rosenberg/ro_plfear1.wav","vj_hlr/hl1_npc/rosenberg/ro_plfear2.wav","vj_hlr/hl1_npc/rosenberg/ro_plfear3.wav","vj_hlr/hl1_npc/rosenberg/ro_plfear4.wav","vj_hlr/hl1_npc/rosenberg/ro_fear0.wav","vj_hlr/hl1_npc/rosenberg/ro_fear1.wav","vj_hlr/hl1_npc/rosenberg/ro_fear2.wav","vj_hlr/hl1_npc/rosenberg/ro_fear3.wav","vj_hlr/hl1_npc/rosenberg/ro_fear4.wav","vj_hlr/hl1_npc/rosenberg/ro_fear5.wav"}
 	self.SoundTbl_FollowPlayer = {"vj_hlr/hl1_npc/rosenberg/ro_yard_notime1.wav","vj_hlr/hl1_npc/rosenberg/ro_ok0.wav","vj_hlr/hl1_npc/rosenberg/ro_ok1.wav","vj_hlr/hl1_npc/rosenberg/ro_ok2.wav","vj_hlr/hl1_npc/rosenberg/ro_ok3.wav","vj_hlr/hl1_npc/rosenberg/ro_ok4.wav","vj_hlr/hl1_npc/rosenberg/ro_ok5.wav","vj_hlr/hl1_npc/rosenberg/ro_ok6.wav","vj_hlr/hl1_npc/rosenberg/ro_ok7.wav","vj_hlr/hl1_npc/rosenberg/ro_ok8.wav","vj_hlr/hl1_npc/rosenberg/ro_ok9.wav","vj_hlr/hl1_npc/rosenberg/ro_heal0.wav","vj_hlr/hl1_npc/rosenberg/ro_heal1.wav","vj_hlr/hl1_npc/rosenberg/ro_heal2.wav","vj_hlr/hl1_npc/rosenberg/ro_heal3.wav","vj_hlr/hl1_npc/rosenberg/ro_heal4.wav","vj_hlr/hl1_npc/rosenberg/ro_01_letsgo.wav","vj_hlr/hl1_npc/rosenberg/ro_02_follow.wav"}

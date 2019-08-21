@@ -133,8 +133,23 @@ ENT.GeneralSoundPitch1 = 100
 -- Custom
 ENT.SCI_NextMouthMove = 0
 ENT.SCI_NextMouthDistance = 0
+ENT.SCI_Type = 0
+	-- 0 = Regular Scientist and Dr. Rosenberg
+	-- 1 = Cleansuit Scientist
+	-- 2 = Dr. Keller
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+	if self:GetModel() == "models/vj_hlr/hl1/scientist.mdl" then
+		self.SCI_Type = 0
+	elseif self:GetModel() == "models/vj_hlr/opfor/cleansuit_scientist.mdl" then
+		self.SCI_Type = 1
+	elseif self:GetModel() == "models/vj_hlr/decay/wheelchair_sci.mdl" then
+		self.SCI_Type = 2
+	end
+	self:SCI_CustomOnInitialize()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SCI_CustomOnInitialize()
 	self.SoundTbl_Idle = {"vj_hlr/hl1_npc/scientist/administrator.wav","vj_hlr/hl1_npc/scientist/c1a0_sci_stall.wav","vj_hlr/hl1_npc/scientist/c1a1_sci_3scan.wav","vj_hlr/hl1_npc/scientist/c1a1_sci_2scan.wav","vj_hlr/hl1_npc/scientist/c1a1_sci_1scan.wav","vj_hlr/hl1_npc/scientist/c1a4_sci_trainend.wav","vj_hlr/hl1_npc/scientist/containfail.wav","vj_hlr/hl1_npc/scientist/cough.wav","vj_hlr/hl1_npc/scientist/fusionshunt.wav","vj_hlr/hl1_npc/scientist/hopenominal.wav","vj_hlr/hl1_npc/scientist/hideglasses.wav","vj_hlr/hl1_npc/scientist/howinteresting.wav","vj_hlr/hl1_npc/scientist/ipredictedthis.wav","vj_hlr/hl1_npc/scientist/needsleep.wav","vj_hlr/hl1_npc/scientist/neverseen.wav","vj_hlr/hl1_npc/scientist/nogrant.wav","vj_hlr/hl1_npc/scientist/organicmatter.wav","vj_hlr/hl1_npc/scientist/peculiarmarks.wav","vj_hlr/hl1_npc/scientist/peculiarodor.wav","vj_hlr/hl1_npc/scientist/reportflux.wav","vj_hlr/hl1_npc/scientist/runtest.wav","vj_hlr/hl1_npc/scientist/shutdownchart.wav","vj_hlr/hl1_npc/scientist/somethingfoul.wav","vj_hlr/hl1_npc/scientist/sneeze.wav","vj_hlr/hl1_npc/scientist/sniffle.wav","vj_hlr/hl1_npc/scientist/stench.wav","vj_hlr/hl1_npc/scientist/thatsodd.wav","vj_hlr/hl1_npc/scientist/thatsmell.wav","vj_hlr/hl1_npc/scientist/allnominal.wav","vj_hlr/hl1_npc/scientist/importantspecies.wav","vj_hlr/hl1_npc/scientist/yawn.wav","vj_hlr/hl1_npc/scientist/whoresponsible.wav","vj_hlr/hl1_npc/scientist/uselessphd.wav"}
 	self.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/scientist/alienappeal.wav","vj_hlr/hl1_npc/scientist/alientrick.wav","vj_hlr/hl1_npc/scientist/analysis.wav","vj_hlr/hl1_npc/scientist/announcer.wav","vj_hlr/hl1_npc/scientist/bloodsample.wav","vj_hlr/hl1_npc/scientist/beverage.wav","vj_hlr/hl1_npc/scientist/areyouthink.wav","vj_hlr/hl1_npc/scientist/catchone.wav","vj_hlr/hl1_npc/scientist/cascade.wav","vj_hlr/hl1_npc/scientist/everseen.wav","vj_hlr/hl1_npc/scientist/doyousmell.wav","vj_hlr/hl1_npc/scientist/donuteater.wav","vj_hlr/hl1_npc/scientist/dinner.wav","vj_hlr/hl1_npc/scientist/fascinating.wav","vj_hlr/hl1_npc/scientist/headcrab.wav","vj_hlr/hl1_npc/scientist/goodpaper.wav","vj_hlr/hl1_npc/scientist/improbable.wav","vj_hlr/hl1_npc/scientist/hungryyet.wav","vj_hlr/hl1_npc/scientist/koso.wav","vj_hlr/hl1_npc/scientist/lambdalab.wav","vj_hlr/hl1_npc/scientist/newsample.wav","vj_hlr/hl1_npc/scientist/nothostile.wav","vj_hlr/hl1_npc/scientist/perfectday.wav","vj_hlr/hl1_npc/scientist/recalculate.wav","vj_hlr/hl1_npc/scientist/purereadings.wav","vj_hlr/hl1_npc/scientist/rumourclean.wav","vj_hlr/hl1_npc/scientist/shakeunification.wav","vj_hlr/hl1_npc/scientist/seencup.wav","vj_hlr/hl1_npc/scientist/smellburn.wav","vj_hlr/hl1_npc/scientist/softethics.wav","vj_hlr/hl1_npc/scientist/stimulating.wav","vj_hlr/hl1_npc/scientist/simulation.wav","vj_hlr/hl1_npc/scientist/statusreport.wav","vj_hlr/hl1_npc/scientist/tunedtoday.wav","vj_hlr/hl1_npc/scientist/sunsets.wav","vj_hlr/hl1_npc/scientist/survival.wav","vj_hlr/hl1_npc/scientist/tunnelcalc.wav","vj_hlr/hl1_npc/scientist/delayagain.wav","vj_hlr/hl1_npc/scientist/safetyinnumbers.wav","vj_hlr/hl1_npc/scientist/chaostheory.wav","vj_hlr/hl1_npc/scientist/checkatten.wav","vj_hlr/hl1_npc/scientist/chimp.wav"}
 	self.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/scientist/yees.wav","vj_hlr/hl1_npc/scientist/yes3.wav","vj_hlr/hl1_npc/scientist/absolutely.wav","vj_hlr/hl1_npc/scientist/absolutelynot.wav","vj_hlr/hl1_npc/scientist/cantbeserious.wav","vj_hlr/hl1_npc/scientist/completelywrong.wav","vj_hlr/hl1_npc/scientist/correcttheory.wav","vj_hlr/hl1_npc/scientist/whocansay.wav","vj_hlr/hl1_npc/scientist/whyaskme.wav","vj_hlr/hl1_npc/scientist/stopasking.wav","vj_hlr/hl1_npc/scientist/theoretically.wav","vj_hlr/hl1_npc/scientist/shutup.wav","vj_hlr/hl1_npc/scientist/shutup2.wav","vj_hlr/hl1_npc/scientist/sci_bother.wav","vj_hlr/hl1_npc/scientist/perhaps.wav","vj_hlr/hl1_npc/scientist/positively.wav","vj_hlr/hl1_npc/scientist/repeat.wav","vj_hlr/hl1_npc/scientist/ridiculous.wav","vj_hlr/hl1_npc/scientist/right.wav","vj_hlr/hl1_npc/scientist/ofcourse.wav","vj_hlr/hl1_npc/scientist/ofcoursenot.wav","vj_hlr/hl1_npc/scientist/nodoubt.wav","vj_hlr/hl1_npc/scientist/noguess.wav","vj_hlr/hl1_npc/scientist/noidea.wav","vj_hlr/hl1_npc/scientist/noo.wav","vj_hlr/hl1_npc/scientist/notcertain.wav","vj_hlr/hl1_npc/scientist/notsure.wav","vj_hlr/hl1_npc/scientist/dontconcur.wav","vj_hlr/hl1_npc/scientist/dontknow.wav","vj_hlr/hl1_npc/scientist/ibelieveso.wav","vj_hlr/hl1_npc/scientist/idiotic.wav","vj_hlr/hl1_npc/scientist/idontthinkso.wav","vj_hlr/hl1_npc/scientist/imsure.wav","vj_hlr/hl1_npc/scientist/inconclusive.wav","vj_hlr/hl1_npc/scientist/justasked.wav"}
@@ -152,15 +167,11 @@ function ENT:CustomOnInitialize()
 	self.SoundTbl_Pain = {"vj_hlr/hl1_npc/scientist/sci_pain1.wav","vj_hlr/hl1_npc/scientist/sci_pain2.wav","vj_hlr/hl1_npc/scientist/sci_pain3.wav","vj_hlr/hl1_npc/scientist/sci_pain4.wav","vj_hlr/hl1_npc/scientist/sci_pain5.wav","vj_hlr/hl1_npc/scientist/sci_pain6.wav","vj_hlr/hl1_npc/scientist/sci_pain7.wav","vj_hlr/hl1_npc/scientist/sci_pain8.wav","vj_hlr/hl1_npc/scientist/sci_pain9.wav","vj_hlr/hl1_npc/scientist/sci_pain10.wav","vj_hlr/hl1_npc/scientist/sci_fear9.wav","vj_hlr/hl1_npc/scientist/sci_fear10.wav","vj_hlr/hl1_npc/scientist/c1a2_sci_dangling.wav","vj_hlr/hl1_npc/scientist/iwounded.wav","vj_hlr/hl1_npc/scientist/iwounded2.wav","vj_hlr/hl1_npc/scientist/iwoundedbad.wav"}
 	self.SoundTbl_DamageByPlayer = {"vj_hlr/hl1_npc/scientist/youinsane.wav","vj_hlr/hl1_npc/scientist/whatyoudoing.wav","vj_hlr/hl1_npc/scientist/please.wav","vj_hlr/hl1_npc/scientist/c3a2_sci_fool.wav","vj_hlr/hl1_npc/scientist/c1a3_sci_team.wav","vj_hlr/hl1_npc/scientist/c1a0_sci_stayback.wav","vj_hlr/hl1_npc/scientist/c1a2_sci_3zomb.wav","vj_hlr/hl1_npc/scientist/c1a2_sci_5zomb.wav"}
 	self.SoundTbl_Death = {"vj_hlr/hl1_npc/scientist/scream5.wav","vj_hlr/hl1_npc/scientist/scream21.wav","vj_hlr/hl1_npc/scientist/sci_die1.wav","vj_hlr/hl1_npc/scientist/sci_die2.wav","vj_hlr/hl1_npc/scientist/sci_die3.wav","vj_hlr/hl1_npc/scientist/sci_die4.wav","vj_hlr/hl1_npc/scientist/sci_dragoff.wav"}
-
-	if self:GetModel() == "models/vj_hlr/hl1/scientist.mdl" then
-		self:SetBodygroup(1,4)
-	else
-		local randbg = math.random(0,4)
-		self:SetBodygroup(1,randbg)
-		if randbg == 2 then
-			self:SetSkin(1)
-		end
+	
+	local randbg = math.random(0,4)
+	self:SetBodygroup(1,randbg)
+	if randbg == 2 && self.SCI_Type == 0 then
+		self:SetSkin(1)
 	end
 	//self:VJ_GetAllPoseParameters(true)
 end
@@ -199,14 +210,16 @@ function ENT:CustomOnMedic_OnReset()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(argent)
-	if math.random(1,2) == 1 then
-		if argent:GetClass() == "npc_vj_hlr1_headcrab" or argent:GetClass() == "npc_vj_hlr1_headcrab_baby" or argent:GetClass() == "npc_headcrab" or argent:GetClass() == "npc_headcrab_black" or argent:GetClass() == "npc_headcrab_fast" then
-			self:AlertSoundCode({"vj_hlr/hl1_npc/scientist/seeheadcrab.wav"})
-			self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert1,self.NextSoundTime_Alert2)
+	if self.SCI_Type != 2 then
+		if math.random(1,2) == 1 then
+			if argent:GetClass() == "npc_vj_hlr1_headcrab" or argent:GetClass() == "npc_vj_hlr1_headcrab_baby" or argent:GetClass() == "npc_headcrab" or argent:GetClass() == "npc_headcrab_black" or argent:GetClass() == "npc_headcrab_fast" then
+				self:AlertSoundCode({"vj_hlr/hl1_npc/scientist/seeheadcrab.wav"})
+				self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert1,self.NextSoundTime_Alert2)
+			end
 		end
-	end
-	if argent:GetPos():Distance(self:GetPos()) >= 300 && math.random(1,2) == 1 then
-		self:VJ_ACT_PLAYACTIVITY({"vjseq_eye_wipe","vjseq_fear1","vjseq_fear2"},true,false,true)
+		if argent:GetPos():Distance(self:GetPos()) >= 300 && math.random(1,2) == 1 then
+			self:VJ_ACT_PLAYACTIVITY({"vjseq_eye_wipe","vjseq_fear1","vjseq_fear2"},true,false,true)
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -214,10 +227,12 @@ function ENT:CustomOnThink()
 	if IsValid(self:GetEnemy()) then
 		self.AnimTbl_ScaredBehaviorStand = {ACT_CROUCHIDLE}
 		self.AnimTbl_IdleStand = {ACT_CROUCHIDLE}
-		self.AnimTbl_Walk = {ACT_WALK_SCARED}
+		if self.SCI_Type != 2 then
+			self.AnimTbl_Walk = {ACT_WALK_SCARED}
+		end
 		self.AnimTbl_Run = {ACT_RUN_SCARED}
 	else
-		if math.random(1,25) == 1 then
+		if math.random(1,25) == 1 && self.SCI_Type == 1 then
 			self.AnimTbl_IdleStand = {ACT_VM_IDLE_1}
 		else
 			self.AnimTbl_IdleStand = {ACT_IDLE}
@@ -243,7 +258,11 @@ function ENT:OnPlayCreateSound(SoundData,SoundFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-	self:SetBodygroup(2,0)
+	if self.SCI_Type == 2 then
+		self:SetBodygroup(0,1)
+	else
+		self:SetBodygroup(2,0)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
@@ -262,6 +281,13 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 		bloodspray:SetColor(0)
 		util.Effect("bloodspray",bloodspray)
 		util.Effect("bloodspray",bloodspray)
+		
+		if self.SCI_Type == 2 then
+			local effectdata = EffectData()
+			effectdata:SetOrigin(self:GetPos())
+			util.Effect("HelicopterMegaBomb", effectdata)
+			ParticleEffect("explosion_turret_break_fire", self:GetPos() +self:GetUp() *30, Angle(0,0,0))
+		end
 	end
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh1.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh2.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
@@ -274,18 +300,35 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_lung.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,45))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_skull.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,60))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_legbone.mdl",{BloodDecal="VJ_Blood_HL1_Red",Pos=self:LocalToWorld(Vector(0,0,15))})
+	if self.SCI_Type == 2 then
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/wheelchair_seat.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),Ang=self:LocalToWorldAngles(Angle(0,-10,0)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/wheelchair_back.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(-15,0,35)),Ang=self:LocalToWorldAngles(Angle(0,-10,0)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/wheelchair_headrest.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(-15,0,55)),Ang=self:LocalToWorldAngles(Angle(0,-10,0)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/wheelchair_arm.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,-15,32)),Ang=self:LocalToWorldAngles(Angle(0,-10,0)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/wheelchair_arm.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,15,32)),Ang=self:LocalToWorldAngles(Angle(0,-10,0)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/wheelchair_backwheel.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(-15,-15,5)),Ang=self:LocalToWorldAngles(Angle(0,0,0)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/wheelchair_backwheel.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(-15,15,5)),Ang=self:LocalToWorldAngles(Angle(0,0,0)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/wheelchair_frontwheel.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(15,-15,5)),Ang=self:LocalToWorldAngles(Angle(0,90,0)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/wheelchair_frontwheel.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(15,15,5)),Ang=self:LocalToWorldAngles(Angle(0,90,0)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_screw.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_screw.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+	end
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
 	VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
+	if self.SCI_Type == 2 then
+		VJ_EmitSound(self,"vj_hlr/hl1_weapon/explosion/debris3.wav",150,math.random(100,100))
+		VJ_EmitSound(self,"vj_hlr/hl1_npc/rgrunt/rb_gib.wav",80,math.random(100,100))
+	end
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	if hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
-	elseif hitgroup == HITGROUP_STOMACH then
+	elseif hitgroup == HITGROUP_STOMACH && self.SCI_Type != 2 then
 		self.AnimTbl_Death = {ACT_DIE_GUTSHOT}
 	end
 end
