@@ -137,6 +137,7 @@ ENT.SCI_Type = 0
 	-- 0 = Regular Scientist and Dr. Rosenberg
 	-- 1 = Cleansuit Scientist
 	-- 2 = Dr. Keller
+	-- 3 = Alpha Scientist
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	if self:GetModel() == "models/vj_hlr/hl1/scientist.mdl" then
@@ -145,6 +146,8 @@ function ENT:CustomOnInitialize()
 		self.SCI_Type = 1
 	elseif self:GetModel() == "models/vj_hlr/decay/wheelchair_sci.mdl" then
 		self.SCI_Type = 2
+	elseif self:GetModel() == "models/vj_hlr/hla/scientist.mdl" then
+		self.SCI_Type = 3
 	end
 	self:SCI_CustomOnInitialize()
 end
@@ -210,7 +213,7 @@ function ENT:CustomOnMedic_OnReset()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(argent)
-	if self.SCI_Type != 2 then
+	if self.SCI_Type != 2 && self.SCI_Type != 3 then
 		if math.random(1,2) == 1 then
 			if argent:GetClass() == "npc_vj_hlr1_headcrab" or argent:GetClass() == "npc_vj_hlr1_headcrab_baby" or argent:GetClass() == "npc_headcrab" or argent:GetClass() == "npc_headcrab_black" or argent:GetClass() == "npc_headcrab_fast" then
 				self:AlertSoundCode({"vj_hlr/hl1_npc/scientist/seeheadcrab.wav"})
@@ -224,7 +227,7 @@ function ENT:CustomOnAlert(argent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if IsValid(self:GetEnemy()) then
+	if IsValid(self:GetEnemy()) && self.SCI_Type != 3 then
 		self.AnimTbl_ScaredBehaviorStand = {ACT_CROUCHIDLE}
 		self.AnimTbl_IdleStand = {ACT_CROUCHIDLE}
 		if self.SCI_Type != 2 then
@@ -317,10 +320,10 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
-	VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
+	VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",100,math.random(100,100))
 	if self.SCI_Type == 2 then
 		VJ_EmitSound(self,"vj_hlr/hl1_weapon/explosion/debris3.wav",150,math.random(100,100))
-		VJ_EmitSound(self,"vj_hlr/hl1_npc/rgrunt/rb_gib.wav",80,math.random(100,100))
+		VJ_EmitSound(self,"vj_hlr/hl1_npc/rgrunt/rb_gib.wav",65,math.random(100,100))
 	end
 	return false
 end

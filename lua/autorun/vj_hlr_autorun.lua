@@ -26,6 +26,8 @@ if VJExists == true then
 			VJ.AddNPC("Human Grunt (OppF)","npc_vj_hlrof_hgrunt",vCat)
 			VJ.AddNPC("Human Grunt Medic (OppF)","npc_vj_hlrof_hgrunt_med",vCat)
 			VJ.AddNPC("Human Grunt Engineer (OppF)","npc_vj_hlrof_hgrunt_eng",vCat)
+			-- Decay
+			VJ.AddNPC("HECU Sentry Gun","npc_vj_hlrdc_sentry",vCat)
 		
 		-- Black Ops
 		VJ.AddNPC("Male Assassin","npc_vj_hlrof_assassin_male",vCat)
@@ -38,6 +40,8 @@ if VJExists == true then
 			VJ.AddNPC("Dr. Richard Keller","npc_vj_hlrdc_keller",vCat)
 			-- Opposing Force
 			VJ.AddNPC("Cleansuit Scientist","npc_vj_hlrof_cleansuitsci",vCat)
+			-- Alpha
+			VJ.AddNPC("Scientist","npc_vj_hlr1a_scientist",vCat)
 		
 		-- Xen Creatures
 		VJ.AddNPC("Alien Grunt","npc_vj_hlr1_aliengrunt",vCat)
