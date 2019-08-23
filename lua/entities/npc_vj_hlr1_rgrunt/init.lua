@@ -51,6 +51,14 @@ function ENT:HECU_CustomOnThink()
 	else
 		self:SetSkin(0)
 	end
+	
+	if self:WaterLevel() == 3 then
+		self:SetHealth(self:Health() - 1)
+		if self:Health() <= 0 then
+			self.Bleeds = false
+			self:TakeDamage(1,self,self)
+		end
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnPlayCreateSound(SoundData,SoundFile)

@@ -180,8 +180,8 @@ function ENT:SCI_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	//print(key)
-	if key == "step" then
+	print(key)
+	if key == "step" or key == "wheelchair" then
 		self:FootStepSoundCode()
 	end
 	if key == "tie" then
@@ -261,11 +261,7 @@ function ENT:OnPlayCreateSound(SoundData,SoundFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-	if self.SCI_Type == 2 then
-		self:SetBodygroup(0,1)
-	else
-		self:SetBodygroup(2,0)
-	end
+	self:SetBodygroup(2,0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)

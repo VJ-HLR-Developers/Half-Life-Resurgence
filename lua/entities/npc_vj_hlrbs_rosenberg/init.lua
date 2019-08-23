@@ -56,7 +56,6 @@ vj_hlr/hl1_npc/rosenberg/ro_03_surface.wav
 vj_hlr/hl1_npc/rosenberg/ro_03_toofar.wav
 vj_hlr/hl1_npc/rosenberg/ro_03_waithere.wav
 
-vj_hlr/hl1_npc/rosenberg/ro_calhoun.wav
 vj_hlr/hl1_npc/rosenberg/ro_inside_car.wav
 vj_hlr/hl1_npc/rosenberg/ro_outro1.wav
 vj_hlr/hl1_npc/rosenberg/ro_outro2.wav
@@ -76,7 +75,7 @@ function ENT:SCI_CustomOnInitialize()
 	self.SoundTbl_FollowPlayer = {"vj_hlr/hl1_npc/rosenberg/ro_yard_notime1.wav","vj_hlr/hl1_npc/rosenberg/ro_ok0.wav","vj_hlr/hl1_npc/rosenberg/ro_ok1.wav","vj_hlr/hl1_npc/rosenberg/ro_ok2.wav","vj_hlr/hl1_npc/rosenberg/ro_ok3.wav","vj_hlr/hl1_npc/rosenberg/ro_ok4.wav","vj_hlr/hl1_npc/rosenberg/ro_ok5.wav","vj_hlr/hl1_npc/rosenberg/ro_ok6.wav","vj_hlr/hl1_npc/rosenberg/ro_ok7.wav","vj_hlr/hl1_npc/rosenberg/ro_ok8.wav","vj_hlr/hl1_npc/rosenberg/ro_ok9.wav","vj_hlr/hl1_npc/rosenberg/ro_heal0.wav","vj_hlr/hl1_npc/rosenberg/ro_heal1.wav","vj_hlr/hl1_npc/rosenberg/ro_heal2.wav","vj_hlr/hl1_npc/rosenberg/ro_heal3.wav","vj_hlr/hl1_npc/rosenberg/ro_heal4.wav","vj_hlr/hl1_npc/rosenberg/ro_01_letsgo.wav","vj_hlr/hl1_npc/rosenberg/ro_02_follow.wav"}
 	self.SoundTbl_UnFollowPlayer = {"vj_hlr/hl1_npc/rosenberg/ro_wait0.wav","vj_hlr/hl1_npc/rosenberg/ro_wait1.wav","vj_hlr/hl1_npc/rosenberg/ro_wait2.wav","vj_hlr/hl1_npc/rosenberg/ro_wait3.wav","vj_hlr/hl1_npc/rosenberg/ro_wait4.wav","vj_hlr/hl1_npc/rosenberg/ro_wait5.wav","vj_hlr/hl1_npc/rosenberg/ro_wait6.wav","vj_hlr/hl1_npc/rosenberg/ro_wait7.wav"}
 	self.SoundTbl_MedicBeforeHeal = {"vj_hlr/hl1_npc/rosenberg/ro_letstrythis.wav","vj_hlr/hl1_npc/rosenberg/ro_cure0.wav","vj_hlr/hl1_npc/rosenberg/ro_cure1.wav","vj_hlr/hl1_npc/rosenberg/ro_cure2.wav"}
-	self.SoundTbl_OnPlayerSight = {"vj_hlr/hl1_npc/rosenberg/ro_calhoun2.wav"}
+	self.SoundTbl_OnPlayerSight = {"vj_hlr/hl1_npc/rosenberg/ro_calhoun.wav","vj_hlr/hl1_npc/rosenberg/ro_calhoun2.wav"}
 	self.SoundTbl_Alert = {"vj_hlr/hl1_npc/rosenberg/ro_plfear1.wav","vj_hlr/hl1_npc/rosenberg/ro_plfear2.wav","vj_hlr/hl1_npc/rosenberg/ro_plfear3.wav","vj_hlr/hl1_npc/rosenberg/ro_plfear4.wav"}
 	self.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/rosenberg/ro_tele_final24.wav"}
 	self.SoundTbl_Pain = {"vj_hlr/hl1_npc/rosenberg/ro_wound0.wav","vj_hlr/hl1_npc/rosenberg/ro_wound1.wav","vj_hlr/hl1_npc/rosenberg/ro_mortal0.wav","vj_hlr/hl1_npc/rosenberg/ro_mortal1.wav","vj_hlr/hl1_npc/rosenberg/ro_pain0.wav","vj_hlr/hl1_npc/rosenberg/ro_pain1.wav","vj_hlr/hl1_npc/rosenberg/ro_pain2.wav","vj_hlr/hl1_npc/rosenberg/ro_pain3.wav","vj_hlr/hl1_npc/rosenberg/ro_pain4.wav","vj_hlr/hl1_npc/rosenberg/ro_pain5.wav","vj_hlr/hl1_npc/rosenberg/ro_pain6.wav","vj_hlr/hl1_npc/rosenberg/ro_pain7.wav","vj_hlr/hl1_npc/rosenberg/ro_pain8.wav"}
