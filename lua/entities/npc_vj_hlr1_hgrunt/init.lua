@@ -112,10 +112,7 @@ function ENT:CustomOnInitialize()
 	elseif self:GetModel() == "models/vj_hlr/opfor/massn.mdl" then
 		self.HECU_Type = 4
 		self.HECU_WepBG = 2
-	elseif self:GetModel() == "models/vj_hlr/hl1/rgrunt.mdl" then
-		self.HECU_Type = 5
-		self.HECU_WepBG = 1
-	elseif self:GetModel() == "models/vj_hlr/hl1/rgrunt_black.mdl" then
+	elseif self:GetModel() == "models/vj_hlr/hl1/rgrunt.mdl" or self:GetModel() == "models/vj_hlr/hl1/rgrunt_black.mdl" then
 		self.HECU_Type = 5
 		self.HECU_WepBG = 1
 	end

@@ -15,9 +15,8 @@ local VJExists = file.Exists("lua/autorun/vj_base_autorun.lua","GAME")
 if VJExists == true then
 	include('autorun/vj_controls.lua')
 
-	local vCat = "Half-Life: Resurgence"
-
 	-- Gold Source Engine -------------------------------------------------------
+	local vCat = "Half-Life Resurgence: HL1"
 		-- HECU
 		VJ.AddNPC("Human Grunt","npc_vj_hlr1_hgrunt",vCat)
 		VJ.AddNPC("Robot Grunt","npc_vj_hlr1_rgrunt",vCat)
@@ -48,6 +47,7 @@ if VJExists == true then
 		VJ.AddNPC("Alien Grunt","npc_vj_hlr1_aliengrunt",vCat)
 		VJ.AddNPC("Bullsquid","npc_vj_hlr1_bullsquid",vCat)
 		VJ.AddNPC("Gargantua","npc_vj_hlr1_garg",vCat)
+		VJ.AddNPC("Houndeye","npc_vj_hlr1_houndeye",vCat)
 			-- Headcrab
 			VJ.AddNPC("Gonarch","npc_vj_hlr1_gonarch",vCat)
 			VJ.AddNPC("Headcrab","npc_vj_hlr1_headcrab",vCat)
@@ -75,6 +75,7 @@ if VJExists == true then
 		//VJ.AddNPCWeapon("VJ_HLR1_MP5","weapon_vj_hlr1_mp5",false,vCat)
 		
 	-- Source Engine -------------------------------------------------------
+	local vCat = "Half-Life Resurgence: HL2"
 		-- Antlions
 		-- VJ.AddNPC("Antlion","npc_vj_hlr2_antlion",vCat)
 		-- VJ.AddNPC("Antlion Worker","npc_vj_hlr2_antlion_worker",vCat)

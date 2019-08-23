@@ -13,7 +13,7 @@ ENT.BloodColor = ""
 ENT.HasBloodParticle = false
 ENT.HasBloodDecal = false
 ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.BreathSoundLevel = 50
 ENT.GeneralSoundPitch1 = 130
 ENT.GeneralSoundPitch2 = 140
