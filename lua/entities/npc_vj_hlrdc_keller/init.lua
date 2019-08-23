@@ -30,7 +30,7 @@ vj_hlr/hl1_npc/keller/wheelchair_walk.wav
 */
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SCI_CustomOnInitialize()
-	self.SoundTbl_FootStep = {"vj_hlr/hl1_npc/keller/wheelchair_jog.wav","vj_hlr/hl1_npc/keller/wheelchair_run.wav","vj_hlr/hl1_npc/keller/wheelchair_walk.wav"}
+	self.SoundTbl_FootStep = {"vj_hlr/hl1_npc/keller/wheelchair_walk.wav"}
 	self.SoundTbl_Idle = {"vj_hlr/hl1_npc/keller/dk_idle0.wav","vj_hlr/hl1_npc/keller/dk_idle1.wav","vj_hlr/hl1_npc/keller/dk_idle3.wav","vj_hlr/hl1_npc/keller/dk_idle4.wav","vj_hlr/hl1_npc/keller/dk_04_letssee.wav"}
 	self.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/keller/dk_01_kleiner.wav","vj_hlr/hl1_npc/keller/dk_hevchair.wav","vj_hlr/hl1_npc/keller/dk_idle2.wav","vj_hlr/hl1_npc/keller/dk_rugurinate.wav"}
 	self.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/keller/dk_iknowyouare.wav","vj_hlr/hl1_npc/keller/dk_stare0.wav"}
