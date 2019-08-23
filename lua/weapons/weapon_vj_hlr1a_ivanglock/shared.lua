@@ -18,7 +18,11 @@ SWEP.HoldType 					= "pistol"
 SWEP.Spawnable					= false
 SWEP.AdminSpawnable				= false
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-//SWEP.PrimaryEffects_MuzzleParticles = {"vj_hl_muz3"}
+SWEP.WorldModel_Invisible = false -- Should the world model be invisible?
+SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
+SWEP.WorldModel_CustomPositionAngle = Vector(0,0,0)
+SWEP.WorldModel_CustomPositionOrigin = Vector(-1,3.3,-0.7)
+SWEP.WorldModel_CustomPositionBone = "unnamed037" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 5 -- Damage
 SWEP.Primary.ClipSize			= 50 -- Max amount of bullets per clip
@@ -27,21 +31,15 @@ SWEP.Primary.Sound				= {"vj_hlr/hla_npc/doctor/pl_gun1.wav","vj_hlr/hla_npc/doc
 SWEP.Primary.DistantSound		= {"vj_hlr/hla_npc/doctor/pl_gun_distant.wav"}
 SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"
 
-SWEP.WorldModel_Invisible = false -- Should the world model be invisible?
-SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
-SWEP.WorldModel_CustomPositionAngle = Vector(0,0,0)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-1,3.3,-0.7)
-SWEP.WorldModel_CustomPositionBone = "unnamed037" -- The bone it will use as the main point
-
+-- Custom
 SWEP.HLR_ValidModels = {"models/vj_hlr/hla/doctor.mdl"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
-	timer.Simple(0.1,function() -- Minag Ivan-en model-e tske, yete ooresh model-e, serpe as zenke
+	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
 		if IsValid(self) && IsValid(self.Owner) then
-			local hasmdl = VJ_HasValue(self.HLR_ValidModels,self.Owner:GetModel())
-			if !hasmdl then
+			if !VJ_HasValue(self.HLR_ValidModels,self.Owner:GetModel()) then
 				if IsValid(self.Owner:GetCreator()) then
-					self.Owner:GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for Ivan the Space Biker only!")
+					self.Owner:GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
 				end
 				self:Remove()
 			else
