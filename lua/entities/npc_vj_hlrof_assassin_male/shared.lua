@@ -1,6 +1,6 @@
 ENT.Base 			= "npc_vj_hlr1_hgrunt"
 ENT.Type 			= "ai"
-ENT.PrintName 		= "Male Assassin"
+ENT.PrintName 		= "Black Ops Male Assassin"
 ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Purpose 		= "Spawn it and fight with it!"

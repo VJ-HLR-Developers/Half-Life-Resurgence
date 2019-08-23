@@ -30,7 +30,8 @@ if VJExists == true then
 			VJ.AddNPC("HECU Sentry Gun","npc_vj_hlrdc_sentry",vCat)
 		
 		-- Black Ops
-		VJ.AddNPC("Male Assassin","npc_vj_hlrof_assassin_male",vCat)
+		VJ.AddNPC("Black Ops Male Assassin","npc_vj_hlrof_assassin_male",vCat)
+		VJ.AddNPC("Black Ops Robot Assassin","npc_vj_hlrof_assassin_rgrunt",vCat)
 		
 		-- Black Mesa Personnel
 		VJ.AddNPC("Scientist","npc_vj_hlr1_scientist",vCat)

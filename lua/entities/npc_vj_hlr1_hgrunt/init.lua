@@ -115,6 +115,9 @@ function ENT:CustomOnInitialize()
 	elseif self:GetModel() == "models/vj_hlr/hl1/rgrunt.mdl" then
 		self.HECU_Type = 5
 		self.HECU_WepBG = 1
+	elseif self:GetModel() == "models/vj_hlr/hl1/rgrunt_black.mdl" then
+		self.HECU_Type = 5
+		self.HECU_WepBG = 1
 	end
 	self.HECU_NextMouthMove = CurTime()
 	

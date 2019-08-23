@@ -14,30 +14,28 @@ ENT.HasBloodParticle = false
 ENT.HasBloodDecal = false
 ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/rgrunt/pl_metal1.wav","vj_hlr/hl1_npc/rgrunt/pl_metal2.wav","vj_hlr/hl1_npc/rgrunt/pl_metal3.wav","vj_hlr/hl1_npc/rgrunt/pl_metal4.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/rgrunt/rb_idle1.wav","vj_hlr/hl1_npc/rgrunt/rb_idle2.wav","vj_hlr/hl1_npc/rgrunt/rb_idle3.wav"}
-ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/rgrunt/rb_engine.wav"}
-ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/rgrunt/rb_question1.wav","vj_hlr/hl1_npc/rgrunt/rb_question2.wav","vj_hlr/hl1_npc/rgrunt/rb_question3.wav","vj_hlr/hl1_npc/rgrunt/rb_question4.wav","vj_hlr/hl1_npc/rgrunt/rb_question5.wav"}
-ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/rgrunt/rb_answer1.wav","vj_hlr/hl1_npc/rgrunt/rb_answer2.wav","vj_hlr/hl1_npc/rgrunt/rb_answer3.wav","vj_hlr/hl1_npc/rgrunt/rb_answer4.wav","vj_hlr/hl1_npc/rgrunt/rb_answer5.wav"}
-ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/rgrunt/rb_combat1.wav","vj_hlr/hl1_npc/rgrunt/rb_combat2.wav","vj_hlr/hl1_npc/rgrunt/rb_combat3.wav","vj_hlr/hl1_npc/rgrunt/rb_combat4.wav","vj_hlr/hl1_npc/rgrunt/rb_taunt1.wav","vj_hlr/hl1_npc/rgrunt/rb_taunt2.wav","vj_hlr/hl1_npc/rgrunt/rb_taunt3.wav"}
-ENT.SoundTbl_Investigate = {"vj_hlr/hl1_npc/rgrunt/rb_investigate.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/rgrunt/rb_alert1.wav","vj_hlr/hl1_npc/rgrunt/rb_alert2.wav","vj_hlr/hl1_npc/rgrunt/rb_alert3.wav","vj_hlr/hl1_npc/rgrunt/rb_alert4.wav","vj_hlr/hl1_npc/rgrunt/rb_alert5.wav"}
-ENT.SoundTbl_CallForHelp = {"vj_hlr/hl1_npc/rgrunt/rb_help.wav"}
-ENT.SoundTbl_WeaponReload = {"vj_hlr/hl1_npc/rgrunt/rb_cover1.wav","vj_hlr/hl1_npc/rgrunt/rb_cover2.wav"}
-ENT.SoundTbl_GrenadeAttack = {"vj_hlr/hl1_npc/rgrunt/rb_deploy1.wav","vj_hlr/hl1_npc/rgrunt/rb_deploy2.wav"}
-ENT.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/rgrunt/rb_gren1.wav","vj_hlr/hl1_npc/rgrunt/rb_gren2.wav","vj_hlr/hl1_npc/rgrunt/rb_gren3.wav"}
-ENT.SoundTbl_OnKilledEnemy = {"vj_hlr/hl1_npc/rgrunt/rb_killed1.wav","vj_hlr/hl1_npc/rgrunt/rb_killed2.wav","vj_hlr/hl1_npc/rgrunt/rb_killed3.wav","vj_hlr/hl1_npc/rgrunt/rb_killed4.wav"}
-ENT.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/rgrunt/rb_allydeath1.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/rgrunt/spark1.wav","vj_hlr/hl1_npc/rgrunt/spark2.wav","vj_hlr/hl1_npc/rgrunt/spark3.wav","vj_hlr/hl1_npc/rgrunt/spark4.wav","vj_hlr/hl1_npc/rgrunt/spark5.wav","vj_hlr/hl1_npc/rgrunt/spark6.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/rgrunt/rb_die1.wav","vj_hlr/hl1_npc/rgrunt/rb_die2.wav","vj_hlr/hl1_npc/rgrunt/rb_die3.wav"}
-
 ENT.BreathSoundLevel = 50
-
 ENT.GeneralSoundPitch1 = 130
 ENT.GeneralSoundPitch2 = 140
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
 	self:SetBodygroup(1,math.random(0,1))
+	self.SoundTbl_FootStep = {"vj_hlr/hl1_npc/rgrunt/pl_metal1.wav","vj_hlr/hl1_npc/rgrunt/pl_metal2.wav","vj_hlr/hl1_npc/rgrunt/pl_metal3.wav","vj_hlr/hl1_npc/rgrunt/pl_metal4.wav"}
+	self.SoundTbl_Idle = {"vj_hlr/hl1_npc/rgrunt/rb_idle1.wav","vj_hlr/hl1_npc/rgrunt/rb_idle2.wav","vj_hlr/hl1_npc/rgrunt/rb_idle3.wav"}
+	self.SoundTbl_Breath = {"vj_hlr/hl1_npc/rgrunt/rb_engine.wav"}
+	self.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/rgrunt/rb_question1.wav","vj_hlr/hl1_npc/rgrunt/rb_question2.wav","vj_hlr/hl1_npc/rgrunt/rb_question3.wav","vj_hlr/hl1_npc/rgrunt/rb_question4.wav","vj_hlr/hl1_npc/rgrunt/rb_question5.wav"}
+	self.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/rgrunt/rb_answer1.wav","vj_hlr/hl1_npc/rgrunt/rb_answer2.wav","vj_hlr/hl1_npc/rgrunt/rb_answer3.wav","vj_hlr/hl1_npc/rgrunt/rb_answer4.wav","vj_hlr/hl1_npc/rgrunt/rb_answer5.wav"}
+	self.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/rgrunt/rb_combat1.wav","vj_hlr/hl1_npc/rgrunt/rb_combat2.wav","vj_hlr/hl1_npc/rgrunt/rb_combat3.wav","vj_hlr/hl1_npc/rgrunt/rb_combat4.wav","vj_hlr/hl1_npc/rgrunt/rb_taunt1.wav","vj_hlr/hl1_npc/rgrunt/rb_taunt2.wav","vj_hlr/hl1_npc/rgrunt/rb_taunt3.wav"}
+	self.SoundTbl_Investigate = {"vj_hlr/hl1_npc/rgrunt/rb_investigate.wav"}
+	self.SoundTbl_Alert = {"vj_hlr/hl1_npc/rgrunt/rb_alert1.wav","vj_hlr/hl1_npc/rgrunt/rb_alert2.wav","vj_hlr/hl1_npc/rgrunt/rb_alert3.wav","vj_hlr/hl1_npc/rgrunt/rb_alert4.wav","vj_hlr/hl1_npc/rgrunt/rb_alert5.wav"}
+	self.SoundTbl_CallForHelp = {"vj_hlr/hl1_npc/rgrunt/rb_help.wav"}
+	self.SoundTbl_WeaponReload = {"vj_hlr/hl1_npc/rgrunt/rb_cover1.wav","vj_hlr/hl1_npc/rgrunt/rb_cover2.wav"}
+	self.SoundTbl_GrenadeAttack = {"vj_hlr/hl1_npc/rgrunt/rb_deploy1.wav","vj_hlr/hl1_npc/rgrunt/rb_deploy2.wav"}
+	self.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/rgrunt/rb_gren1.wav","vj_hlr/hl1_npc/rgrunt/rb_gren2.wav","vj_hlr/hl1_npc/rgrunt/rb_gren3.wav"}
+	self.SoundTbl_OnKilledEnemy = {"vj_hlr/hl1_npc/rgrunt/rb_killed1.wav","vj_hlr/hl1_npc/rgrunt/rb_killed2.wav","vj_hlr/hl1_npc/rgrunt/rb_killed3.wav","vj_hlr/hl1_npc/rgrunt/rb_killed4.wav"}
+	self.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/rgrunt/rb_allydeath1.wav"}
+	self.SoundTbl_Pain = {"vj_hlr/hl1_npc/rgrunt/spark1.wav","vj_hlr/hl1_npc/rgrunt/spark2.wav","vj_hlr/hl1_npc/rgrunt/spark3.wav","vj_hlr/hl1_npc/rgrunt/spark4.wav","vj_hlr/hl1_npc/rgrunt/spark5.wav","vj_hlr/hl1_npc/rgrunt/spark6.wav"}
+	self.SoundTbl_Death = {"vj_hlr/hl1_npc/rgrunt/rb_die1.wav","vj_hlr/hl1_npc/rgrunt/rb_die2.wav","vj_hlr/hl1_npc/rgrunt/rb_die3.wav"}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnThink()

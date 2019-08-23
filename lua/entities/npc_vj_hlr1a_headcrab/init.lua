@@ -6,6 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hla/headcrab.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.StartHealth = 20
 ENT.LeapAttackDamage = 100
 ENT.SoundTbl_LeapAttackJump = {"vj_hlr/hla_npc/headcrab/hc_attack1.wav","vj_hlr/hl1_npc/headcrab/hc_attack2.wav","vj_hlr/hl1_npc/headcrab/hc_attack3.wav"}
 /*-----------------------------------------------

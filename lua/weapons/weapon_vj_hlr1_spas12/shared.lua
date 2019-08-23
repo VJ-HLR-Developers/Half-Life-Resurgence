@@ -39,7 +39,7 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as t
 function SWEP:CustomOnInitialize()
 	timer.Simple(0.1,function() -- Minag grunt-en model-e tske, yete ooresh model-e, serpe as zenke
 		if IsValid(self) then
-			if IsValid(self.Owner) && self.Owner:GetModel() != "models/vj_hlr/opfor/hgrunt.mdl" && self.Owner:GetModel() != "models/vj_hlr/hl1/hgrunt.mdl" && self.Owner:GetModel() != "models/vj_hlr/opfor/hgrunt_medic.mdl" && self.Owner:GetModel() != "models/vj_hlr/opfor/hgrunt_engineer.mdl" && self.Owner:GetModel() != "models/vj_hlr/hl1/rgrunt.mdl" then
+			if IsValid(self.Owner) && self.Owner:GetModel() != "models/vj_hlr/opfor/hgrunt.mdl" && self.Owner:GetModel() != "models/vj_hlr/hl1/hgrunt.mdl" && self.Owner:GetModel() != "models/vj_hlr/opfor/hgrunt_medic.mdl" && self.Owner:GetModel() != "models/vj_hlr/opfor/hgrunt_engineer.mdl" && self.Owner:GetModel() != "models/vj_hlr/hl1/rgrunt.mdl" && self.Owner:GetModel() != "models/vj_hlr/hl1/rgrunt_black.mdl" then
 				if IsValid(self.Owner:GetCreator()) then
 					self.Owner:GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for the Half Life 1 Human Grunts only!")
 				end
