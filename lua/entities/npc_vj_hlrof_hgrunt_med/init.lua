@@ -15,7 +15,7 @@ ENT.HECUMedic_HealBG = 0
 function ENT:HECU_CustomOnInitialize()
 	-- Medic bodygroup starts from 2
 	self:SetBodygroup(2,math.random(0,1))
-	self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIE_GUTSHOT,ACT_DIE_HEADSHOT,ACT_DIESIMPLE}
+	
 	self:SetBodygroup(3,math.random(0,1))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
