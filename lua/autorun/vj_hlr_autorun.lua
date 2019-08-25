@@ -27,6 +27,8 @@ if VJExists == true then
 			VJ.AddNPC("Human Grunt Engineer (OppF)","npc_vj_hlrof_hgrunt_eng",vCat)
 			-- Decay
 			VJ.AddNPC("HECU Sentry Gun","npc_vj_hlrdc_sentry",vCat)
+			-- Alpha
+			VJ.AddNPC("Human Grunt","npc_vj_hlr1a_hgrunt",vCat)
 		
 		-- Black Ops
 		VJ.AddNPC("Black Ops Male Assassin","npc_vj_hlrof_assassin_male",vCat)

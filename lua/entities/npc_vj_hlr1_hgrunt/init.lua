@@ -60,6 +60,7 @@ ENT.HECU_Type = 0
 	-- 3 = OppF Engineer
 	-- 4 = Black Ops Assassin
 	-- 5 = Robot Grunt
+	-- 6 = Alpha HGrunt
 ENT.HECU_WepBG = 2 -- The bodygroup that the weapons are in (Ourish e amen modelneroun)
 ENT.HECU_LastBodyGroup = 99
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -115,6 +116,9 @@ function ENT:CustomOnInitialize()
 	elseif self:GetModel() == "models/vj_hlr/hl1/rgrunt.mdl" or self:GetModel() == "models/vj_hlr/hl1/rgrunt_black.mdl" then
 		self.HECU_Type = 5
 		self.HECU_WepBG = 1
+	elseif self:GetModel() == "models/vj_hlr/hla/hgrunt.mdl" then
+		self.HECU_Type = 6
+		self.HECU_WepBG = 1
 	end
 	self.HECU_NextMouthMove = CurTime()
 	
@@ -131,13 +135,13 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	//print(key)
-	if key == "event_emit step" then
+	if key == "event_emit step" or key == "step" then
 		self:FootStepSoundCode()
 	end
 	if key == "event_mattack" then
 		self:MeleeAttackCode()
 	end
-	if key == "event_rattack mp5_fire" or key == "event_rattack shotgun_fire" or key == "event_rattack saw_fire" or key == "event_rattack pistol_fire" then
+	if key == "event_rattack mp5_fire" or key == "event_rattack shotgun_fire" or key == "event_rattack saw_fire" or key == "event_rattack pistol_fire" or key == "colt_fire" then
 		local wep = self:GetActiveWeapon()
 		if IsValid(wep) then
 			wep:NPCShoot_Primary(ShootPos,ShootDir)
@@ -171,7 +175,7 @@ end
 function ENT:CustomOnThink()
 	self:HECU_CustomOnThink()
 	-- Veravorvadz kalel
-	if self:Health() <= (self:GetMaxHealth() / 2.2) then
+	if self:Health() <= (self:GetMaxHealth() / 2.2) && self.HECU_Type != 6 then
 		self.AnimTbl_Walk = {ACT_WALK_HURT}
 		self.AnimTbl_Run = {ACT_RUN_HURT}
 		self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK_HURT}
@@ -257,6 +261,13 @@ function ENT:CustomOnThink()
 				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SHOTGUN}
 				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SHOTGUN_LOW}
 				self.Weapon_StartingAmmoAmount = 5
+			end
+		elseif self.HECU_Type == 6 then
+			if bgroup == 0 then -- Colt Carbine
+				self:DoChangeWeapon("weapon_vj_hlr1a_coltcarbine")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1}
+				self.Weapon_StartingAmmoAmount = 50
 			end
 		end
 	end
@@ -347,6 +358,8 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 	elseif self.HECU_Type == 5 then
 		self:SetBodygroup(self.HECU_WepBG,2)
 		self:SetSkin(4)
+	elseif self.HECU_Type == 6 then
+		self:SetBodygroup(self.HECU_WepBG,1)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
