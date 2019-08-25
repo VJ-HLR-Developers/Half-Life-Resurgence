@@ -119,6 +119,7 @@ function ENT:CustomOnInitialize()
 	elseif self:GetModel() == "models/vj_hlr/hla/hgrunt.mdl" then
 		self.HECU_Type = 6
 		self.HECU_WepBG = 1
+		self.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEFORWARD}
 	end
 	self.HECU_NextMouthMove = CurTime()
 	
