@@ -201,6 +201,7 @@ ENT.SoundTbl_Death = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
+	self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIE_GUTSHOT,ACT_DIE_HEADSHOT,ACT_DIESIMPLE}
 	if self.HECU_Type == 1 then
 		self:SetBodygroup(1,math.random(0,7))
 		

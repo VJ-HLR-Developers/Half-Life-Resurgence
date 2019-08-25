@@ -7,6 +7,7 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hla/hgrunt.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.HasGrenadeAttack = false
+ENT.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEFORWARD}
 
 -- Custom
 ENT.AHGR_NextStrafeT = 0
