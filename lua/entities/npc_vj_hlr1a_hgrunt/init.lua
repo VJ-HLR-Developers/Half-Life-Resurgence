@@ -40,17 +40,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnWeaponAttack()
 	if CurTime() > self.AHGR_NextRunT then
-		/*
-		timer.Simple(5,function() 
-			if IsValid(self) && !self:IsMoving() && self.Dead == false then
-				self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH")
-			end
-		end)
-		*/
-			self.AHGR_NextStrafeT = CurTime() + 8
-			self.AHGR_NextRunT= CurTime() + 12
-		end
+		self.AHGR_NextStrafeT = CurTime() + 8
+		self.AHGR_NextRunT= CurTime() + 12
 	end
+end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
