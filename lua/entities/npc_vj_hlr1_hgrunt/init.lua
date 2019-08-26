@@ -61,6 +61,7 @@ ENT.HECU_Type = 0
 	-- 4 = Black Ops Assassin
 	-- 5 = Robot Grunt
 	-- 6 = Alpha HGrunt
+	-- 7 = Human Sergeant
 ENT.HECU_WepBG = 2 -- The bodygroup that the weapons are in (Ourish e amen modelneroun)
 ENT.HECU_LastBodyGroup = 99
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -120,7 +121,12 @@ function ENT:CustomOnInitialize()
 		self.HECU_Type = 6
 		self.HECU_WepBG = 1
 		self.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEFORWARD}
+	elseif self:GetModel() == "models/vj_hlr/hl1/hassault.mdl" then
+		self.HECU_Type = 7
+		self.HECU_WepBG = 0
+		self.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEBACKWARDS,ACT_DIEVIOLENT}
 	end
+	
 	self.HECU_NextMouthMove = CurTime()
 	
 	self:HECU_CustomOnInitialize()
@@ -142,7 +148,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "event_mattack" then
 		self:MeleeAttackCode()
 	end
-	if key == "event_rattack mp5_fire" or key == "event_rattack shotgun_fire" or key == "event_rattack saw_fire" or key == "event_rattack pistol_fire" then
+	if key == "event_rattack mp5_fire" or key == "event_rattack shotgun_fire" or key == "event_rattack saw_fire" or key == "event_rattack pistol_fire" or key == "shoot" then
 		local wep = self:GetActiveWeapon()
 		if IsValid(wep) then
 			wep:NPCShoot_Primary(ShootPos,ShootDir)
@@ -269,9 +275,16 @@ function ENT:CustomOnThink()
 				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
 				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1}
 				self.Weapon_StartingAmmoAmount = 50
+		elseif self.HECU_Type == 7 then
+			if bgroup == 0 then -- 20mm Cannon
+				self:DoChangeWeapon("weapon_vj_hlr1_20mm")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_AR2}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_AR2}
+				self.Weapon_StartingAmmoAmount = 50
 			end
 		end
 	end
+end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
@@ -360,6 +373,8 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 		self:SetBodygroup(self.HECU_WepBG,2)
 		self:SetSkin(4)
 	elseif self.HECU_Type == 6 then
+		self:SetBodygroup(self.HECU_WepBG,1)
+	elseif self.HECU_Type == 7 then
 		self:SetBodygroup(self.HECU_WepBG,1)
 	end
 end
