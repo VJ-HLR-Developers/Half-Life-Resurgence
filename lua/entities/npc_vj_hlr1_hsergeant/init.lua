@@ -8,8 +8,6 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/opfor/massn.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.VJ_NPC_Class = {"CLASS_BLACKOPS"}
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1,ACT_MELEE_ATTACK2,ACT_MELEE_ATTACK_SWING} -- Melee Attack Animations
-ENT.HasPainSounds = false
-ENT.HasDeathSounds = false
 
 -- Custom
 ENT.BOA_NextStrafeT = 0
