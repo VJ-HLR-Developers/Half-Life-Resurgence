@@ -69,30 +69,35 @@ function ENT:HECU_CustomOnInitialize()
 	self.SoundTbl_Idle = {"vj_hlr/hl1_npc/hgrunt/gr_idle1.wav","vj_hlr/hl1_npc/hgrunt/gr_idle2.wav","vj_hlr/hl1_npc/hgrunt/gr_idle3.wav"}
 	self.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/hgrunt/gr_question1.wav","vj_hlr/hl1_npc/hgrunt/gr_question2.wav","vj_hlr/hl1_npc/hgrunt/gr_question3.wav","vj_hlr/hl1_npc/hgrunt/gr_question4.wav","vj_hlr/hl1_npc/hgrunt/gr_question5.wav","vj_hlr/hl1_npc/hgrunt/gr_question6.wav","vj_hlr/hl1_npc/hgrunt/gr_question7.wav","vj_hlr/hl1_npc/hgrunt/gr_question8.wav","vj_hlr/hl1_npc/hgrunt/gr_question9.wav","vj_hlr/hl1_npc/hgrunt/gr_question10.wav","vj_hlr/hl1_npc/hgrunt/gr_question11.wav","vj_hlr/hl1_npc/hgrunt/gr_question12.wav","vj_hlr/hl1_npc/hgrunt/gr_check1.wav","vj_hlr/hl1_npc/hgrunt/gr_check2.wav","vj_hlr/hl1_npc/hgrunt/gr_check3.wav","vj_hlr/hl1_npc/hgrunt/gr_check4.wav","vj_hlr/hl1_npc/hgrunt/gr_check5.wav","vj_hlr/hl1_npc/hgrunt/gr_check6.wav","vj_hlr/hl1_npc/hgrunt/gr_check7.wav","vj_hlr/hl1_npc/hgrunt/gr_check8.wav",}
 	self.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/hgrunt/gr_clear1.wav","vj_hlr/hl1_npc/hgrunt/gr_clear2.wav","vj_hlr/hl1_npc/hgrunt/gr_clear3.wav","vj_hlr/hl1_npc/hgrunt/gr_clear4.wav","vj_hlr/hl1_npc/hgrunt/gr_clear5.wav","vj_hlr/hl1_npc/hgrunt/gr_clear6.wav","vj_hlr/hl1_npc/hgrunt/gr_clear7.wav","vj_hlr/hl1_npc/hgrunt/gr_clear8.wav","vj_hlr/hl1_npc/hgrunt/gr_clear9.wav","vj_hlr/hl1_npc/hgrunt/gr_clear10.wav","vj_hlr/hl1_npc/hgrunt/gr_clear11.wav","vj_hlr/hl1_npc/hgrunt/gr_clear12.wav","vj_hlr/hl1_npc/hgrunt/gr_answer1.wav","vj_hlr/hl1_npc/hgrunt/gr_answer2.wav","vj_hlr/hl1_npc/hgrunt/gr_answer3.wav","vj_hlr/hl1_npc/hgrunt/gr_answer4.wav","vj_hlr/hl1_npc/hgrunt/gr_answer5.wav","vj_hlr/hl1_npc/hgrunt/gr_answer6.wav","vj_hlr/hl1_npc/hgrunt/gr_answer7.wav"}
-	self.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/hgrunt/gr_taunt2.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt3.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt4.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt5.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt6.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt1.wav","vj_hlr/hl1_npc/hgrunt/gr_combat1.wav","vj_hlr/hl1_npc/hgrunt/gr_combat2.wav","vj_hlr/hl1_npc/hgrunt/gr_combat3.wav","vj_hlr/hl1_npc/hgrunt/gr_combat4.wav"}
+	self.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/hgrunt/gr_taunt1.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt2.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt3.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt4.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt5.wav","vj_hlr/hl1_npc/hgrunt/gr_combat1.wav","vj_hlr/hl1_npc/hgrunt/gr_combat2.wav","vj_hlr/hl1_npc/hgrunt/gr_combat3.wav","vj_hlr/hl1_npc/hgrunt/gr_combat4.wav"}
+	self.SoundTbl_OnReceiveOrder = {"vj_hlr/hl1_npc/hgrunt/gr_answer1.wav","vj_hlr/hl1_npc/hgrunt/gr_answer2.wav","vj_hlr/hl1_npc/hgrunt/gr_answer3.wav","vj_hlr/hl1_npc/hgrunt/gr_answer5.wav","vj_hlr/hl1_npc/hgrunt/gr_answer7.wav"}
 	self.SoundTbl_Investigate = {"vj_hlr/hl1_npc/hgrunt/gr_investigate.wav"}
 	self.SoundTbl_Alert = {"vj_hlr/hl1_npc/hgrunt/gr_alert1.wav","vj_hlr/hl1_npc/hgrunt/gr_alert2.wav","vj_hlr/hl1_npc/hgrunt/gr_alert3.wav","vj_hlr/hl1_npc/hgrunt/gr_alert4.wav","vj_hlr/hl1_npc/hgrunt/gr_alert5.wav","vj_hlr/hl1_npc/hgrunt/gr_alert6.wav","vj_hlr/hl1_npc/hgrunt/gr_alert7.wav","vj_hlr/hl1_npc/hgrunt/gr_alert8.wav","vj_hlr/hl1_npc/hgrunt/gr_alert9.wav","vj_hlr/hl1_npc/hgrunt/gr_alert10.wav"}
-	self.SoundTbl_CallForHelp = {"vj_hlr/hl1_npc/hgrunt/gr_cover2.wav","vj_hlr/hl1_npc/hgrunt/gr_cover3.wav","vj_hlr/hl1_npc/hgrunt/gr_cover4.wav","vj_hlr/hl1_npc/hgrunt/gr_cover7.wav"}
+	self.SoundTbl_CallForHelp = {"vj_hlr/hl1_npc/hgrunt/gr_taunt6.wav","vj_hlr/hl1_npc/hgrunt/gr_cover2.wav","vj_hlr/hl1_npc/hgrunt/gr_cover3.wav","vj_hlr/hl1_npc/hgrunt/gr_cover4.wav","vj_hlr/hl1_npc/hgrunt/gr_cover7.wav"}
 	self.SoundTbl_WeaponReload = {"vj_hlr/hl1_npc/hgrunt/gr_cover1.wav","vj_hlr/hl1_npc/hgrunt/gr_cover2.wav","vj_hlr/hl1_npc/hgrunt/gr_cover3.wav","vj_hlr/hl1_npc/hgrunt/gr_cover4.wav","vj_hlr/hl1_npc/hgrunt/gr_cover5.wav","vj_hlr/hl1_npc/hgrunt/gr_cover6.wav","vj_hlr/hl1_npc/hgrunt/gr_cover7.wav","vj_hlr/hl1_npc/hgrunt/gr_cover8.wav","vj_hlr/hl1_npc/hgrunt/gr_cover9.wav"}
 	self.SoundTbl_GrenadeAttack = {"vj_hlr/hl1_npc/hgrunt/gr_throw1.wav","vj_hlr/hl1_npc/hgrunt/gr_throw2.wav","vj_hlr/hl1_npc/hgrunt/gr_throw3.wav","vj_hlr/hl1_npc/hgrunt/gr_throw4.wav"}
 	self.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/hgrunt/gr_cover7.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert1.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert2.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert3.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert4.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert5.wav","vj_hlr/hl1_npc/hgrunt/gr_grenadealert6.wav","vj_hlr/hl1_npc/hgrunt/gr_cover1.wav"}
 	self.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/hgrunt/gr_allydeath.wav","vj_hlr/hl1_npc/hgrunt/gr_cover2.wav","vj_hlr/hl1_npc/hgrunt/gr_cover3.wav","vj_hlr/hl1_npc/hgrunt/gr_cover4.wav","vj_hlr/hl1_npc/hgrunt/gr_cover7.wav"}
-
-	self:SetSkin(math.random(0,1))
 	
-	local randhead = math.random(0,3)
-	self:SetBodygroup(1,randhead)
-	if randhead == 1 then
-		self:SetSkin(0) -- Jermag
-	elseif randhead == 3 then
-		self:SetSkin(1) -- Sev
-	end
+	if self.HECU_Type == 7 then
+		self:SetBodygroup(1,0)
+	else
+		self:SetSkin(math.random(0,1))
 	
-	local randwep = math.random(1,3)
-	if randwep == 1 or randwep == 2 then
-		self:SetBodygroup(2,0)
-	elseif randwep == 3 then
-		self:SetBodygroup(2,1)
+		local randhead = math.random(0,3)
+		self:SetBodygroup(1,randhead)
+		if randhead == 1 then
+			self:SetSkin(0) -- Jermag
+		elseif randhead == 3 then
+			self:SetSkin(1) -- Sev
+		end
+		
+		local randwep = math.random(1,3)
+		if randwep == 1 or randwep == 2 then
+			self:SetBodygroup(2,0)
+		elseif randwep == 3 then
+			self:SetBodygroup(2,1)
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -123,8 +128,8 @@ function ENT:CustomOnInitialize()
 		self.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEFORWARD}
 	elseif self:GetModel() == "models/vj_hlr/hl1/hassault.mdl" then
 		self.HECU_Type = 7
-		self.HECU_WepBG = 0
-		self.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEBACKWARDS,ACT_DIEVIOLENT}
+		self.HECU_WepBG = 1
+		self.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEBACKWARD,ACT_DIEVIOLENT}
 	end
 	
 	self.HECU_NextMouthMove = CurTime()
@@ -182,7 +187,7 @@ end
 function ENT:CustomOnThink()
 	self:HECU_CustomOnThink()
 	-- Veravorvadz kalel
-	if self:Health() <= (self:GetMaxHealth() / 2.2) && self.HECU_Type != 6 then
+	if self:Health() <= (self:GetMaxHealth() / 2.2) && self.HECU_Type != 6 && self.HECU_Type != 7 then
 		self.AnimTbl_Walk = {ACT_WALK_HURT}
 		self.AnimTbl_Run = {ACT_RUN_HURT}
 		self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK_HURT}
@@ -275,16 +280,15 @@ function ENT:CustomOnThink()
 				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
 				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1}
 				self.Weapon_StartingAmmoAmount = 50
+			end
 		elseif self.HECU_Type == 7 then
 			if bgroup == 0 then -- 20mm Cannon
 				self:DoChangeWeapon("weapon_vj_hlr1_20mm")
 				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_AR2}
 				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_AR2}
-				self.Weapon_StartingAmmoAmount = 50
 			end
 		end
 	end
-end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
@@ -365,17 +369,15 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
-	if self.HECU_Type == 0 or self.HECU_Type == 3 or self.HECU_Type == 4 then
+	if self.HECU_Type == 6 or self.HECU_Type == 7 then
+		self:SetBodygroup(self.HECU_WepBG,1)
+	elseif self.HECU_Type == 0 or self.HECU_Type == 3 or self.HECU_Type == 4 then
 		self:SetBodygroup(self.HECU_WepBG,2)
-	elseif self.HECU_Type == 1 or self.HECU_Type == 2 then
-		self:SetBodygroup(self.HECU_WepBG,3)
 	elseif self.HECU_Type == 5 then
 		self:SetBodygroup(self.HECU_WepBG,2)
 		self:SetSkin(4)
-	elseif self.HECU_Type == 6 then
-		self:SetBodygroup(self.HECU_WepBG,1)
-	elseif self.HECU_Type == 7 then
-		self:SetBodygroup(self.HECU_WepBG,1)
+	elseif self.HECU_Type == 1 or self.HECU_Type == 2 then
+		self:SetBodygroup(self.HECU_WepBG,3)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

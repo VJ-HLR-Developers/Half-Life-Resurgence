@@ -5,8 +5,8 @@
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
 ------------------ Addon Information ------------------
-local PublicAddonName = "Half-Life: Resurgence"
-local AddonName = "Half-Life: Resurgence"
+local PublicAddonName = "Half-Life Resurgence"
+local AddonName = "Half-Life Resurgence"
 local AddonType = "SNPC"
 local AutorunFile = "autorun/vj_hlr_autorun.lua"
 -------------------------------------------------------
@@ -67,6 +67,7 @@ if VJExists == true then
 		-- Race X
 		VJ.AddNPC("Shock Trooper","npc_vj_hlrof_shocktrooper",vCat)
 		VJ.AddNPC("Shock Roach","npc_vj_hlrof_shockroach",vCat)
+		VJ.AddNPC("Pit Drone","npc_vj_hlrof_pitdrone",vCat)
 		
 		-- Animals
 		VJ.AddNPC("Cockroach","npc_vj_hlr1_cockroach",vCat)
