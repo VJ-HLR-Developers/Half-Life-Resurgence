@@ -19,6 +19,7 @@ if VJExists == true then
 	local vCat = "Half-Life Resurgence: HL1"
 		-- HECU
 		VJ.AddNPC("Human Grunt","npc_vj_hlr1_hgrunt",vCat)
+		VJ.AddNPC("Human Sergeant","npc_vj_hlr1_hsergeant",vCat)
 		VJ.AddNPC("Robot Grunt","npc_vj_hlr1_rgrunt",vCat)
 		VJ.AddNPC("HECU Sentry Gun","npc_vj_hlr1_sentry",vCat)
 			-- Opposing Force
