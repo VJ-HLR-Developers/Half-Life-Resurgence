@@ -113,9 +113,11 @@ function ENT:CustomOnInitialize()
 	elseif self:GetModel() == "models/vj_hlr/opfor/hgrunt_medic.mdl" then
 		self.HECU_Type = 2
 		self.HECU_WepBG = 3
+		self.AnimTbl_WeaponReload = {ACT_RELOAD_SMG1}
 	elseif self:GetModel() == "models/vj_hlr/opfor/hgrunt_engineer.mdl" then
 		self.HECU_Type = 3
 		self.HECU_WepBG = 1
+		self.AnimTbl_WeaponReload = {ACT_RELOAD_SMG1}
 	elseif self:GetModel() == "models/vj_hlr/opfor/massn.mdl" then
 		self.HECU_Type = 4
 		self.HECU_WepBG = 2
