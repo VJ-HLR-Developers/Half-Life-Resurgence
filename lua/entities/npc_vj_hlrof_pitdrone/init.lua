@@ -24,7 +24,7 @@ ENT.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1} -- Range Attack Animations
 ENT.RangeDistance = 1500 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 100 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
+ENT.NextRangeAttackTime = 1 -- How much time until it can use a range attack?
 ENT.NextRangeAttackTime_DoRand = 5 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
 ENT.RangeAttackPos_Up = 40 -- Up/Down spawning position for range attack
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
@@ -114,8 +114,13 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 		util.Effect("StriderBlood",effectdata)
 	end
 	
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib1.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,40))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib2.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,20))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pitdrone_gib1.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,20))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pitdrone_gib2.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,20))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pitdrone_gib3.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,20))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pitdrone_gib4.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,20))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pitdrone_gib5.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,20))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pitdrone_gib6.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,20))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pitdrone_gib7.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,20))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib3.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,30))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib4.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,35))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib5.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,50))})
