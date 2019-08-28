@@ -109,6 +109,8 @@ vj_hlr/hl1_npc/barney/soldier.wav
 vj_hlr/hl1_npc/barney/youneedmedic.wav
 */
 
+ENT.GeneralSoundPitch1 = 100
+
 -- Custom
 ENT.Security_NextMouthMove = 0
 ENT.Security_NextMouthDistance = 0
