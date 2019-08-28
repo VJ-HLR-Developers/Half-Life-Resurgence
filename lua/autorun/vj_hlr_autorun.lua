@@ -40,10 +40,11 @@ if VJExists == true then
 		VJ.AddNPC("Scientist","npc_vj_hlr1_scientist",vCat)
 			-- Blue Shift
 			VJ.AddNPC("Dr. Rosenberg","npc_vj_hlrbs_rosenberg",vCat)
-			-- Decay
-			VJ.AddNPC("Dr. Richard Keller","npc_vj_hlrdc_keller",vCat)
 			-- Opposing Force
 			VJ.AddNPC("Cleansuit Scientist","npc_vj_hlrof_cleansuitsci",vCat)
+			VJ.AddNPC("Otis Laurey","npc_vj_hlrof_otis",vCat)
+			-- Decay
+			VJ.AddNPC("Dr. Richard Keller","npc_vj_hlrdc_keller",vCat)
 			-- Alpha
 			VJ.AddNPC("Alpha Scientist","npc_vj_hlr1a_scientist",vCat)
 		

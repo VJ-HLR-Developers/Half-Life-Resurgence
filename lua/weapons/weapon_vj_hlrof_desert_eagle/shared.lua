@@ -31,7 +31,7 @@ SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/deagle/desert_eagle_fire_distan
 SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"
 
 -- Custom
-SWEP.HLR_ValidModels = {"models/vj_hlr/opfor/hgrunt.mdl","models/vj_hlr/hl1/hgrunt.mdl","models/vj_hlr/opfor/hgrunt_medic.mdl","models/vj_hlr/opfor/hgrunt_engineer.mdl"}
+SWEP.HLR_ValidModels = {"models/vj_hlr/opfor/otis.mdl","models/vj_hlr/opfor/hgrunt.mdl","models/vj_hlr/hl1/hgrunt.mdl","models/vj_hlr/opfor/hgrunt_medic.mdl","models/vj_hlr/opfor/hgrunt_engineer.mdl"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
 	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
@@ -43,6 +43,10 @@ function SWEP:CustomOnInitialize()
 				self:Remove()
 			else
 				self.NPC_NextPrimaryFire = false
+				if self.Owner:GetModel() == "models/vj_hlr/opfor/otis.mdl" then
+					self.WorldModel_CustomPositionAngle = Vector(80,0,10)
+					self.WorldModel_CustomPositionOrigin = Vector(-0.7,-1.3,-32.5)
+				end
 			end
 		end
 	end)
