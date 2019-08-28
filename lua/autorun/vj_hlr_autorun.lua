@@ -36,6 +36,7 @@ if VJExists == true then
 		VJ.AddNPC("Black Ops Robot Assassin","npc_vj_hlrof_assassin_rgrunt",vCat)
 		
 		-- Black Mesa Personnel
+		VJ.AddNPC("Security Guard","npc_vj_hlr1_securityguard",vCat)
 		VJ.AddNPC("Scientist","npc_vj_hlr1_scientist",vCat)
 			-- Blue Shift
 			VJ.AddNPC("Dr. Rosenberg","npc_vj_hlrbs_rosenberg",vCat)
