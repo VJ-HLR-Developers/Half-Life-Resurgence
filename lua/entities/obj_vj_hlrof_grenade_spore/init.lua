@@ -46,6 +46,13 @@ function ENT:CustomOnPhysicsCollide(data,phys)
 	if velocityspeed > 100 then -- If the grenade is going faster than 100, then play the touch sound
 		self:OnCollideSoundCode()
 	end
+	
+	local ent = data.HitEntity
+	if IsValid(ent) then
+		if ent:IsNPC() or ent:IsPlayer() then
+			self:DeathEffects()
+		end
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects()

@@ -50,6 +50,9 @@ ENT.SoundTbl_GrenadeAttack = {"vj_hlr/hl1_npc/shocktrooper/st_grenadethrow.wav"}
 ENT.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/shocktrooper/st_runfromgrenade.wav"}
 ENT.SoundTbl_OnKilledEnemy = {"vj_hlr/hl1_npc/shocktrooper/st_combat1.wav"}
 
+ENT.OnGrenadeSightSoundPitch1 = 105
+ENT.OnGrenadeSightSoundPitch2 = 110
+
 -- Custom
 ENT.Shocktrooper_Roach = NULL
 ENT.Shocktrooper_BlinkingT = 0
@@ -162,6 +165,103 @@ end
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
 	VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
 	return false
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:ThrowGrenadeCode(CustomEnt,NoOwner)
+	if self.Dead == true or self.Flinching == true or self.MeleeAttacking == true or (IsValid(self:GetEnemy()) && !self:Visible(self:GetEnemy())) then return end
+	//if self:VJ_ForwardIsHidingZone(self:NearestPoint(self:GetPos() +self:OBBCenter()),self:GetEnemy():EyePos()) == true then return end
+	local NoOwner = NoOwner or false
+	local getIsCustom = false
+	local gerModel = self.GrenadeAttackModel
+	local gerClass = self.GrenadeAttackEntity
+	local gerFussTime = self.GrenadeAttackFussTime
+
+	if IsValid(CustomEnt) then -- Custom nernagner gamal nernagner vor yete bidi nede
+		getIsCustom = true
+		gerModel = CustomEnt:GetModel()
+		gerClass = CustomEnt:GetClass()
+		CustomEnt:SetMoveType(MOVETYPE_NONE)
+		CustomEnt:SetParent(self)
+		CustomEnt:Fire("SetParentAttachment",self.GrenadeAttackAttachment)
+		//CustomEnt:SetPos(self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Pos)
+		CustomEnt:SetAngles(self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Ang)
+		if gerClass == "obj_vj_grenade" then
+			gerFussTime = math.abs(CustomEnt.FussTime - CustomEnt.TimeSinceSpawn)
+		elseif gerClass == "obj_handgrenade" or gerClass == "obj_spore" then
+			gerFussTime = 1
+		elseif gerClass == "npc_grenade_frag" or gerClass == "doom3_grenade" or gerClass == "fas2_thrown_m67" or gerClass == "cw_grenade_thrown" or gerClass == "cw_flash_thrown" or gerClass == "cw_smoke_thrown" then
+			gerFussTime = 1.5
+		elseif gerClass == "obj_cpt_grenade" then
+			gerFussTime = 2
+		end
+	end
+
+	self.ThrowingGrenade = true
+	self:CustomOnGrenadeAttack_BeforeThrowTime()
+	self:GrenadeAttackSoundCode()
+
+	if self.VJ_PlayingSequence == false && self.DisableGrenadeAttackAnimation == false then
+		self.CurrentAttackAnimation = VJ_PICKRANDOMTABLE(self.AnimTbl_GrenadeAttack)
+		self.PlayingAttackAnimation = true
+		timer.Simple(VJ_GetSequenceDuration(self,self.CurrentAttackAnimation) - 0.2,function()
+			if IsValid(self) then
+				self.PlayingAttackAnimation = false
+			end
+		end)
+		self:VJ_ACT_PLAYACTIVITY(self.CurrentAttackAnimation,self.GrenadeAttackAnimationStopAttacks,self:DecideAnimationLength(self.CurrentAttackAnimation,self.GrenadeAttackAnimationStopAttacksTime),false,self.GrenadeAttackAnimationDelay)
+	end
+
+	timer.Simple(self.TimeUntilGrenadeIsReleased,function()
+		if getIsCustom == true && !IsValid(CustomEnt) then return end
+		if IsValid(CustomEnt) then CustomEnt.VJHumanTossingAway = false CustomEnt:Remove() end
+		if IsValid(self) && self.Dead == false /*&& IsValid(self:GetEnemy())*/ then -- Yete SNPC ter artoon e...
+			local gerShootPos = self:GetPos() + self:GetForward()*200
+			if IsValid(self:GetEnemy()) then 
+				gerShootPos = self:GetEnemy():GetPos()
+			else -- Yete teshnami chooni, nede amenan lav goghme
+				local iamarmo = self:VJ_CheckAllFourSides()
+				if iamarmo.Forward then gerShootPos = self:GetPos() + self:GetForward()*200; self:FaceCertainPosition(gerShootPos)
+					elseif iamarmo.Right then gerShootPos = self:GetPos() + self:GetRight()*200; self:FaceCertainPosition(gerShootPos)
+					elseif iamarmo.Left then gerShootPos = self:GetPos() + self:GetRight()*-200; self:FaceCertainPosition(gerShootPos)
+					elseif iamarmo.Backward then gerShootPos = self:GetPos() + self:GetForward()*-200; self:FaceCertainPosition(gerShootPos)
+				end
+			end
+			local gent = ents.Create(gerClass)
+			local getShootVel = (gerShootPos - self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Pos) + (self:GetUp()*math.random(450,500) + self:GetForward()*math.Rand(-100,-250) + self:GetRight()*math.Rand(self.GrenadeAttackVelRight1,self.GrenadeAttackVelRight2))
+			if IsValid(CustomEnt) then
+				getShootVel = (gerShootPos - self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Pos) + (self:GetUp()*math.random(self.GrenadeAttackVelUp1,self.GrenadeAttackVelUp2) + self:GetForward()*math.Rand(self.GrenadeAttackVelForward1,self.GrenadeAttackVelForward2) + self:GetRight()*math.Rand(self.GrenadeAttackVelRight1,self.GrenadeAttackVelRight2))
+			end
+			if NoOwner == false then gent:SetOwner(self) end
+			gent:SetPos(self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Pos)
+			gent:SetAngles(self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Ang)
+			gent:SetModel(Model(gerModel))
+			if gerClass == "obj_vj_grenade" then
+				gent.FussTime = gerFussTime
+			elseif gerClass == "obj_cpt_grenade" then
+				gent:SetTimer(gerFussTime)
+			elseif gerClass == "obj_spore" then
+				gent:SetGrenade(true)
+			elseif gerClass == "ent_hl1_grenade" then
+				gent:ShootTimed(CustomEnt, getShootVel, gerFussTime)
+			elseif gerClass == "doom3_grenade" or gerClass == "obj_handgrenade" then
+				gent:SetExplodeDelay(gerFussTime)
+			elseif gerClass == "cw_grenade_thrown" or gerClass == "cw_flash_thrown" or gerClass == "cw_smoke_thrown" then
+				gent:SetOwner(self)
+				gent:Fuse(gerFussTime)
+			end
+			gent:Spawn()
+			gent:Activate()
+			if gerClass == "npc_grenade_frag" then gent:Input("SetTimer",self:GetOwner(),self:GetOwner(),gerFussTime) end
+			local phys = gent:GetPhysicsObject()
+			if (phys:IsValid()) then
+				phys:Wake()
+				phys:AddAngleVelocity(Vector(math.Rand(500,500),math.Rand(500,500),math.Rand(500,500)))
+				phys:SetVelocity(getShootVel)
+			end
+			self:CustomOnGrenadeAttack_OnThrow(gent)
+		end
+		self.ThrowingGrenade = false
+	end)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
