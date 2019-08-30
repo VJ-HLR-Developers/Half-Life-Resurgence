@@ -74,6 +74,9 @@ ENT.SoundTbl_Death = {
 	"vj_hlr/hl1_npc/agrunt/ag_die4.wav",
 	"vj_hlr/hl1_npc/agrunt/ag_die5.wav",
 }
+
+ENT.FootStepPitch1 = 70
+ENT.FootStepPitch2 = 70
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(20,20,90), Vector(-20,-20,0))

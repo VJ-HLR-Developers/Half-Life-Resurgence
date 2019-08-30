@@ -1,8 +1,0 @@
-"Unlitgeneric"
-{
-	"$spriteorientation" "vp_parallel_oriented"
-	"$spriteorigin" "[ 0.50 0.50 ]"
-	"$basetexture" "vj_hl/sprites/agrunt1"
-	"$translucent" 1
-	"$NoCull" 1
-}
