@@ -1,0 +1,5 @@
+"vertexlitgeneric"
+{
+	// original shader: basetimeslightmap
+	"$basetexture" "models/hl_resurgence/hl1/bradley/+a~generic65"
+}

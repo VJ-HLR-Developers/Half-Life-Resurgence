@@ -1,0 +1,6 @@
+"vertexlitgeneric"
+{
+	// original shader: basetimeslightma
+	"$basetexture" "models/hl_resurgence/hl1/bradley/silo2_wetdr"
+	"$surfaceprop" "metal"
+}
