@@ -54,6 +54,7 @@ if VJExists == true then
 		VJ.AddNPC("Gargantua","npc_vj_hlr1_garg",vCat)
 		VJ.AddNPC("Houndeye","npc_vj_hlr1_houndeye",vCat)
 		VJ.AddNPC("Snark","npc_vj_hlr1_snark",vCat)
+		VJ.AddNPC("Ichthyosaur","npc_vj_hlr1_ichthyosaur",vCat)
 			-- Opposing Force
 			VJ.AddNPC("Penguin","npc_vj_hlrof_penguin",vCat)
 			-- Headcrab
