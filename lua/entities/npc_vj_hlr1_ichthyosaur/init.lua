@@ -43,7 +43,7 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/ichy/ichy_die1.wav","vj_hlr/hl1_npc/ichy/i
 
 ENT.GeneralSoundPitch1 = 100
 -- Custom
-ENT.Bullsquid_BlinkingT = 0
+ENT.Icky_BlinkingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(40, 40 , 40), Vector(-40, -40, 0))
@@ -57,7 +57,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if self.Dead == false && CurTime() > self.Bullsquid_BlinkingT then
+	if self.Dead == false && CurTime() > self.Icky_BlinkingT then
 		self:SetSkin(4)
 		timer.Simple(0.2,function() if IsValid(self) then self:SetSkin(3) end end)
 		timer.Simple(0.3,function() if IsValid(self) then self:SetSkin(2) end end)
@@ -71,7 +71,7 @@ function ENT:CustomOnThink()
 				end
 			end
 		end)
-		self.Bullsquid_BlinkingT = CurTime() + math.Rand(2,3.5)
+		self.Icky_BlinkingT = CurTime() + math.Rand(2,3.5)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
