@@ -13,6 +13,7 @@ SWEP.NPC_CustomSpread	 		= 0.2 -- This is added on top of the custom spread that
 SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/sniper/sniper_reload_full.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
 SWEP.NPC_ExtraFireSound			= {"vj_hlr/hl1_weapon/sniper/sniper_bolt1.wav"} -- Plays an extra sound after it fires (Example: Bolt action sound)
 SWEP.NPC_ExtraFireSoundTime		= 0.5 -- How much time until it plays the sound (After Firing)?
+SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
 SWEP.WorldModel					= "models/vj_hlr/weapons/w_m40a1.mdl"
