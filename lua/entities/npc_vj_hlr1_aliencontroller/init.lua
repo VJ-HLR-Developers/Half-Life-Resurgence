@@ -10,7 +10,7 @@ ENT.StartHealth = 60
 ENT.HullType = HULL_HUMAN
 ENT.MovementType = VJ_MOVETYPE_AERIAL -- How does the SNPC move?
 ENT.Aerial_FlyingSpeed_Calm = 80 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking campared to ground SNPCs
-ENT.Aerial_FlyingSpeed_Alerted = 200 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running campared to ground SNPCs
+ENT.Aerial_FlyingSpeed_Alerted = 300 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running campared to ground SNPCs
 ENT.Aerial_AnimTbl_Calm = {"forward"} -- Animations it plays when it's wandering around while idle
 ENT.Aerial_AnimTbl_Alerted = {"forward"} -- Animations it plays when it's moving while alerted
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -36,6 +36,7 @@ ENT.NoChaseAfterCertainRange_Type = "Regular" -- "Regular" = Default behavior | 
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIESIMPLE} -- Death Animations
+ENT.DeathAnimationTime = 1.2 -- Time until the SNPC spawns its corpse and gets removed
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = {ACT_BIG_FLINCH} -- If it uses normal based animation, use this
@@ -131,6 +132,7 @@ end
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(TheProjectile)
 	if self.AlienC_AttackType == true && IsValid(self:GetEnemy()) then
 		TheProjectile.EO_Enemy = self:GetEnemy()
+		timer.Simple(10,function() if IsValid(TheProjectile) then TheProjectile:Remove() end end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

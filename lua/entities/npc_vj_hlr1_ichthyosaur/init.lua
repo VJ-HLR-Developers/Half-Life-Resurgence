@@ -8,9 +8,10 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/hl1/icky.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 200
 ENT.HullType = HULL_LARGE
+ENT.TurningUseAllAxis = true -- If set to true, angles will not be restricted to y-axis, it will change all axes (plural axis)
 ENT.MovementType = VJ_MOVETYPE_AQUATIC -- How does the SNPC move?
 ENT.Aquatic_SwimmingSpeed_Calm = 80 -- The speed it should swim with, when it's wandering, moving slowly, etc. | Basically walking campared to ground SNPCs
-ENT.Aquatic_SwimmingSpeed_Alerted = 300 -- The speed it should swim with, when it's chasing an enemy, moving away quickly, etc. | Basically running campared to ground SNPCs
+ENT.Aquatic_SwimmingSpeed_Alerted = 500 -- The speed it should swim with, when it's chasing an enemy, moving away quickly, etc. | Basically running campared to ground SNPCs
 ENT.Aquatic_AnimTbl_Calm = {ACT_WALK} -- Animations it plays when it's wandering around while idle
 ENT.Aquatic_AnimTbl_Alerted = {ACT_RUN} -- Animations it plays when it's moving while alerted
 ---------------------------------------------------------------------------------------------------------------------------------------------
