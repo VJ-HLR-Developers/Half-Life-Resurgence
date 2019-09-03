@@ -38,11 +38,11 @@ ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/ichy/ichy_alert1.wav","vj_hlr/hl1_npc/ichy
 ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/ichy/ichy_alert1.wav","vj_hlr/hl1_npc/ichy/ichy_alert2.wav","vj_hlr/hl1_npc/ichy/ichy_alert3.wav"}
 ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/ichy/ichy_attack1.wav","vj_hlr/hl1_npc/ichy/ichy_attack2.wav"}
 ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/ichy/ichy_bite1.wav","vj_hlr/hl1_npc/ichy/ichy_bite2.wav"}
-ENT.SoundTbl_MeleeAttackSlowPlayer = {"vj_player/heartbeat.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/ichy/ichy_pain1.wav","vj_hlr/hl1_npc/ichy/ichy_pain2.wav","vj_hlr/hl1_npc/ichy/ichy_pain3.wav","vj_hlr/hl1_npc/ichy/ichy_pain5.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/ichy/ichy_die1.wav","vj_hlr/hl1_npc/ichy/ichy_die2.wav","vj_hlr/hl1_npc/ichy/ichy_die3.wav","vj_hlr/hl1_npc/ichy/ichy_die4.wav"}
 
 ENT.GeneralSoundPitch1 = 100
+
 -- Custom
 ENT.Icky_BlinkingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
