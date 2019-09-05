@@ -6,84 +6,64 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hl1/agrunt.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.StartHealth = 120
+ENT.StartHealth = 140
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Decal = {"VJ_Blood_HL1_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
+
 ENT.MeleeAttackDamage = 20
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.HasGrenadeAttack = false -- Should the SNPC have a grenade attack?
-ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
-ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
-ENT.MoveRandomlyWhenShooting = false -- Should it move randomly when shooting?
-ENT.HasLostWeaponSightAnimation = true -- Set to true if you would like the SNPC to play a different animation when it has lost sight of the enemy and can't fire at it
-ENT.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK1} -- Animation played when the SNPC does weapon attack | For VJ Weapons
-ENT.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK1} -- Animation played when the SNPC does weapon attack while crouching | For VJ Weapons
-ENT.AnimTbl_CallForHelp = {} -- Call For Help Animations
-ENT.CallForBackUpOnDamageAnimation = {} -- Animation used if the SNPC does the CallForBackUpOnDamage function
-ENT.AnimTbl_TakingCover = {} -- The animation it plays when hiding in a covered position, leave empty to let the base decide
-ENT.AnimTbl_AlertFriendsOnDeath = {} -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
+ENT.MeleeAttackDistance = 40 -- How close does it have to be until it attacks?
+ENT.MeleeAttackDamageDistance = 70 -- How far does the damage go?
+
+ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_hornet" -- The entity that is spawned when range attacking
+ENT.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1} -- Range Attack Animations
+ENT.RangeDistance = 1100 -- This is how far away it can shoot
+ENT.RangeToMeleeDistance = 200 -- How close does it have to be until it uses melee?
+ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
+ENT.NextRangeAttackTime = 0 -- How much time until it can use a range attack?
+ENT.RangeAttackPos_Up = 50 -- Up/Down spawning position for range attack
+ENT.RangeAttackPos_Forward = 10 -- Forward/ Backward spawning position for range attack
+ENT.RangeAttackPos_Right = 15 -- Right/Left spawning position for range attack
+
+ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it's between number x and y?
+ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
+ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
+ENT.NoChaseAfterCertainRange_Type = "Regular" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIE_GUTSHOT,ACT_DIE_HEADSHOT,ACT_DIESIMPLE} -- Death Animations
+ENT.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE} -- Death Animations
 ENT.DeathAnimationTime = false -- Time until the SNPC spawns its corpse and gets removed
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} -- If it uses normal based animation, use this
+ENT.HasHitGroupFlinching = true -- It will flinch when hit in certain hitgroups | It can also have certain animations to play in certain hitgroups
+ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}},{HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}},{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}},{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_FootStep = {
-	"vj_hlr/hl1_npc/player/pl_ladder1.wav",
-	"vj_hlr/hl1_npc/player/pl_ladder2.wav",
-	"vj_hlr/hl1_npc/player/pl_ladder3.wav",
-	"vj_hlr/hl1_npc/player/pl_ladder4.wav"
-}
-ENT.SoundTbl_Idle = {
-	"vj_hlr/hl1_npc/agrunt/ag_idle1.wav",
-	"vj_hlr/hl1_npc/agrunt/ag_idle2.wav",
-	"vj_hlr/hl1_npc/agrunt/ag_idle3.wav",
-	"vj_hlr/hl1_npc/agrunt/ag_idle4.wav",
-	"vj_hlr/hl1_npc/agrunt/ag_idle5.wav",
-}
-ENT.SoundTbl_Alert = {
-	"vj_hlr/hl1_npc/agrunt/ag_alert1.wav",
-	"vj_hlr/hl1_npc/agrunt/ag_alert2.wav",
-	"vj_hlr/hl1_npc/agrunt/ag_alert3.wav",
-	"vj_hlr/hl1_npc/agrunt/ag_alert4.wav",
-	"vj_hlr/hl1_npc/agrunt/ag_alert5.wav",
-}
-ENT.SoundTbl_BeforeMeleeAttack = {
-	"vj_hlr/hl1_npc/agrunt/ag_attack1.wav",
-	"vj_hlr/hl1_npc/agrunt/ag_attack2.wav",
-	"vj_hlr/hl1_npc/agrunt/ag_attack3.wav",
-}
-ENT.SoundTbl_Pain = {
-	"vj_hlr/hl1_npc/agrunt/ag_pain1.wav",
-	"vj_hlr/hl1_npc/agrunt/ag_pain2.wav",
-	"vj_hlr/hl1_npc/agrunt/ag_pain3.wav",
-	"vj_hlr/hl1_npc/agrunt/ag_pain4.wav",
-	"vj_hlr/hl1_npc/agrunt/ag_pain5.wav",
-}
-ENT.SoundTbl_Death = {
-	"vj_hlr/hl1_npc/agrunt/ag_die1.wav",
-	"vj_hlr/hl1_npc/agrunt/ag_die2.wav",
-	"vj_hlr/hl1_npc/agrunt/ag_die3.wav",
-	"vj_hlr/hl1_npc/agrunt/ag_die4.wav",
-	"vj_hlr/hl1_npc/agrunt/ag_die5.wav",
-}
+ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/player/pl_ladder1.wav","vj_hlr/hl1_npc/player/pl_ladder2.wav","vj_hlr/hl1_npc/player/pl_ladder3.wav","vj_hlr/hl1_npc/player/pl_ladder4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/agrunt/ag_idle1.wav","vj_hlr/hl1_npc/agrunt/ag_idle2.wav","vj_hlr/hl1_npc/agrunt/ag_idle3.wav","vj_hlr/hl1_npc/agrunt/ag_idle4.wav","vj_hlr/hl1_npc/agrunt/ag_idle5.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/agrunt/ag_alert1.wav","vj_hlr/hl1_npc/agrunt/ag_alert2.wav","vj_hlr/hl1_npc/agrunt/ag_alert3.wav","vj_hlr/hl1_npc/agrunt/ag_alert4.wav","vj_hlr/hl1_npc/agrunt/ag_alert5.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/agrunt/ag_attack1.wav","vj_hlr/hl1_npc/agrunt/ag_attack2.wav","vj_hlr/hl1_npc/agrunt/ag_attack3.wav"}
+ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/agrunt/ag_attack1.wav","vj_hlr/hl1_npc/agrunt/ag_attack2.wav","vj_hlr/hl1_npc/agrunt/ag_attack3.wav"}
+ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/agrunt/ag_fire1.wav","vj_hlr/hl1_npc/agrunt/ag_fire2.wav","vj_hlr/hl1_npc/agrunt/ag_fire3.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/agrunt/ag_pain1.wav","vj_hlr/hl1_npc/agrunt/ag_pain2.wav","vj_hlr/hl1_npc/agrunt/ag_pain3.wav","vj_hlr/hl1_npc/agrunt/ag_pain4.wav","vj_hlr/hl1_npc/agrunt/ag_pain5.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/agrunt/ag_die1.wav","vj_hlr/hl1_npc/agrunt/ag_die2.wav","vj_hlr/hl1_npc/agrunt/ag_die3.wav","vj_hlr/hl1_npc/agrunt/ag_die4.wav","vj_hlr/hl1_npc/agrunt/ag_die5.wav"}
 
+ENT.GeneralSoundPitch1 = 100
 ENT.FootStepPitch1 = 70
 ENT.FootStepPitch2 = 70
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(20,20,90), Vector(-20,-20,0))
-	self:Give("weapon_vj_hl_agruntwep")
+	self:SetCollisionBounds(Vector(25,25,85), Vector(-25,-25,0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
+	//print(key)
 	if key == "event_emit Step" then
 		self:FootStepSoundCode()
 	end
@@ -91,25 +71,30 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		self:MeleeAttackCode()
 	end
 	if key == "event_rattack" then
-		local wep = self:GetActiveWeapon()
-		if IsValid(wep) then
-			wep:NPCShoot_Primary(ShootPos,ShootDir)
-		end
+		self:RangeAttackCode()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	-- if self:Health() <= (self:GetMaxHealth() / 2.2) then
-		-- self.AnimTbl_Walk = {ACT_WALK_HURT}
-		-- self.AnimTbl_Run = {ACT_RUN_HURT}
-		-- self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK_HURT}
-		-- self.AnimTbl_ShootWhileMovingRun = {ACT_RUN_HURT}
-	-- else
-		self.AnimTbl_Walk = {ACT_WALK}
-		self.AnimTbl_Run = {ACT_RUN}
-		self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK}
-		self.AnimTbl_ShootWhileMovingRun = {ACT_RUN}
-	-- end
+	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomRangeAttackCode_AfterProjectileSpawn(TheProjectile)
+	if IsValid(self:GetEnemy()) then
+		TheProjectile.MyEnemy = self:GetEnemy()
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+	if hitgroup == HITGROUP_GEAR then dmginfo:SetDamage(0) end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
+	if dmginfo:GetDamage() > 30 then
+		self.AnimTbl_Flinch = {ACT_BIG_FLINCH}
+	else
+		self.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
@@ -125,7 +110,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	self.HasDeathSounds = false
-	self.Shocktrooper_SpawnEnt = false
 	if self.HasGibDeathParticles == true then
 		local bloodeffect = EffectData()
 		bloodeffect:SetOrigin(self:GetPos() +self:OBBCenter())
@@ -148,7 +132,6 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 		util.Effect("StriderBlood",effectdata)
 	end
 	
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agrunt_gib.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,40))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib1.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,40))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib2.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,20))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib3.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,30))})
@@ -159,12 +142,21 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib8.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,45))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib9.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,25))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib10.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,15))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agrunt_gib.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,55))})
 	return true -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
 	VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
 	return false
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+	if hitgroup == HITGROUP_HEAD then
+		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
+	elseif hitgroup == HITGROUP_STOMACH then
+		self.AnimTbl_Death = {ACT_DIE_GUTSHOT}
+	end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***

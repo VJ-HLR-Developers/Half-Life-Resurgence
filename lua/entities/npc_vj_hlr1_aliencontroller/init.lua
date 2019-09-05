@@ -48,9 +48,6 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/controller/con_die1.wav","vj_hlr/hl1_npc/c
 
 ENT.GeneralSoundPitch1 = 100
 
-
-// Every 2 regular attack, it does big attack!
-
 -- Custom
 ENT.AlienC_AttackType = false -- 0 = Regular, 1 = Homing
 ---------------------------------------------------------------------------------------------------------------------------------------------
