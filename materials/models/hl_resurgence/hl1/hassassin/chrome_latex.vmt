@@ -1,4 +1,14 @@
 "VertexLitGeneric"
 {
-	"$basetexture" "models/hl_resurgence/hl1/hassassin/chrome_latex"
+	"$envmap" "models/chrome/hassassin/chrome_latex"
+	"$color2" "[.09 .09 .09]"
+	"$envmapmode" 1
+	"$multipass" 1
+	
+	"VertexLitGeneric_HDR_DX9"
+	{
+		"$envmaptint" "[.15 .15 .15]"
+		"$envmapcontrast" .8
+		"$envmapsaturation" 1.5
+	}
 }
