@@ -53,6 +53,9 @@ ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/archer/arch_bite1.wav","vj_hlr/hl1_n
 ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/archer/arch_attack1.wav","vj_hlr/hl1_npc/archer/arch_attack2.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/archer/arch_pain1.wav","vj_hlr/hl1_npc/archer/arch_pain2.wav","vj_hlr/hl1_npc/archer/arch_pain3.wav","vj_hlr/hl1_npc/archer/arch_pain4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/archer/arch_die1.wav","vj_hlr/hl1_npc/archer/arch_die2.wav","vj_hlr/hl1_npc/archer/arch_die3.wav"}
+
+-- Custom
+ENT.Archer_BlinkingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(20, 20, 20), Vector(-20, -20, 0))
@@ -65,6 +68,16 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	end
 	if key == "shoot" then
 		self:RangeAttackCode()
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink()
+	if self.Dead == false && CurTime() > self.Archer_BlinkingT then
+		timer.Simple(0.2,function() if IsValid(self) then self:SetSkin(1) end end)
+		timer.Simple(0.3,function() if IsValid(self) then self:SetSkin(2) end end)
+		timer.Simple(0.4,function() if IsValid(self) then self:SetSkin(1) end end)
+		timer.Simple(0.5,function() if IsValid(self) then self:SetSkin(0) end end)
+		self.Archer_BlinkingT = CurTime() + math.Rand(3,4.5)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -105,6 +118,10 @@ end
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
 	VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
 	return false
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
+	GetCorpse:SetSkin(2)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***

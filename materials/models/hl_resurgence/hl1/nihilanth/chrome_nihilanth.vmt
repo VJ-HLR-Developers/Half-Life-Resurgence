@@ -1,6 +1,6 @@
 "VertexLitGeneric"
 {
-	"$envmap" "models/chrome/agrunt/chrome2"
+	"$envmap" "models/hl_resurgence/hl1/nihilanth/chrome_nihilanth"
 	"$color2" "[.06 .06 .06]"
 	"$envmapmode" 1
 	"$multipass" 1

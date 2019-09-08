@@ -155,7 +155,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "event_mattack" then
 		self:MeleeAttackCode()
 	end
-	if key == "event_rattack mp5_fire" or key == "event_rattack shotgun_fire" or key == "event_rattack saw_fire" or key == "event_rattack pistol_fire" or key == "shoot" then
+	if key == "event_rattack mp5_fire" or key == "event_rattack shotgun_fire" or key == "event_rattack saw_fire" or key == "event_rattack pistol_fire" or key == "shoot" or key == "colt_fire" then
 		local wep = self:GetActiveWeapon()
 		if IsValid(wep) then
 			wep:NPCShoot_Primary(ShootPos,ShootDir)
