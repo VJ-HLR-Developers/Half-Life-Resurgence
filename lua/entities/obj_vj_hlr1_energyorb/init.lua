@@ -25,7 +25,7 @@ end
 function ENT:CustomOnInitialize()
 	self:SetNoDraw(true)
 	self.StartGlow1 = ents.Create("env_sprite")
-	self.StartGlow1:SetKeyValue("model","vj_hl/sprites/muz2.vmt")
+	self.StartGlow1:SetKeyValue("model","vj_hl/sprites/xspark4.vmt")
 	//self.StartGlow1:SetKeyValue("rendercolor","255 128 0")
 	self.StartGlow1:SetKeyValue("GlowProxySize","2.0")
 	self.StartGlow1:SetKeyValue("HDRColorScale","1.0")

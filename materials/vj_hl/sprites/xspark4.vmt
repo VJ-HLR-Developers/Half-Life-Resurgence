@@ -2,5 +2,5 @@
 {
 	"$spriteorientation" "vp_parallel"
 	"$spriteorigin" "[ 0.50 0.50 ]"
-	"$basetexture" "vj_hlr/sprites/xspark4"
+	"$basetexture" "vj_hl/sprites/xspark4"
 }

@@ -2,7 +2,7 @@
 {
 	// Original shader: DecalBaseTimesLightmapAlphaBlend
 	"$translucent" 1
-	"$basetexture" "vj_hlr/decals/spit1"
+	"$basetexture" "vj_hl/decals/spit1"
 	"$color2"  "[0.67 0.51 0.21]"
 	"$decal" 1
 	"$decalscale" 	0.50

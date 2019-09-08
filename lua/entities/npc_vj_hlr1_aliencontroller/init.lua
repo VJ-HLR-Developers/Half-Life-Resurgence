@@ -52,7 +52,7 @@ ENT.GeneralSoundPitch1 = 100
 ENT.AlienC_AttackType = false -- 0 = Regular, 1 = Homing
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleRangeAttacks()
-	if math.random(1,2) == 1 && self.NearestPointToEnemyDistance < 500 then
+	if math.random(1,2) == 1 && self.NearestPointToEnemyDistance < 850 then
 		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2}
 		self.RangeAttackPos_Up = 80
 		self.AlienC_AttackType = true
@@ -85,7 +85,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		if IsValid(self.Glow1) then self.Glow1:Remove() end
 		if IsValid(self.Glow2) then self.Glow2:Remove() end
 		self.Glow1 = ents.Create("env_sprite")
-		self.Glow1:SetKeyValue("model","vj_hl/sprites/muz2.vmt")
+		self.Glow1:SetKeyValue("model","vj_hl/sprites/xspark4.vmt")
 		self.Glow1:SetKeyValue("scale","1")
 		//self.Glow1:SetKeyValue("rendercolor","255 128 0")
 		self.Glow1:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
@@ -104,7 +104,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		timer.Simple(2,function() if IsValid(self) && IsValid(self.Glow1) then self.Glow1:Remove() end end)
 		
 		self.Glow2 = ents.Create("env_sprite")
-		self.Glow2:SetKeyValue("model","vj_hl/sprites/muz2.vmt")
+		self.Glow2:SetKeyValue("model","vj_hl/sprites/xspark4.vmt")
 		self.Glow2:SetKeyValue("scale","1")
 		//self.Glow2:SetKeyValue("rendercolor","255 128 0")
 		self.Glow2:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
