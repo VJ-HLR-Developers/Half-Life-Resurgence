@@ -21,16 +21,21 @@ ENT.MeleeAttackDamageDistance = 70 -- How far does the damage go?
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1} -- Range Attack Animations
-ENT.RangeDistance = 1100 -- This is how far away it can shoot
-ENT.RangeToMeleeDistance = 200 -- How close does it have to be until it uses melee?
+ENT.RangeDistance = 1020 -- This is how far away it can shoot
+ENT.RangeToMeleeDistance = 100 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-ENT.NextRangeAttackTime = 0 -- How much time until it can use a range attack?
+ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
 ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
 
+ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it's between number x and y?
+ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
+ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
+ENT.NoChaseAfterCertainRange_Type = "OnlyRange" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE} -- Death Animations
 ENT.DeathAnimationTime = false -- Time until the SNPC spawns its corpse and gets removed
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
+ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} -- If it uses normal based animation, use this
@@ -38,45 +43,24 @@ ENT.HasHitGroupFlinching = true -- It will flinch when hit in certain hitgroups 
 ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}},{HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}},{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}},{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/player/pl_ladder1.wav","vj_hlr/hl1_npc/player/pl_ladder2.wav","vj_hlr/hl1_npc/player/pl_ladder3.wav","vj_hlr/hl1_npc/player/pl_ladder4.wav"}
-ENT.SoundTbl_Breath = {}
-ENT.SoundTbl_Idle = {}
-ENT.SoundTbl_IdleDialogue = {}
-ENT.SoundTbl_IdleDialogueAnswer = {}
-ENT.SoundTbl_CombatIdle = {}
-ENT.SoundTbl_OnReceiveOrder = {}
-ENT.SoundTbl_FollowPlayer = {}
-ENT.SoundTbl_UnFollowPlayer = {}
-ENT.SoundTbl_MoveOutOfPlayersWay = {}
-ENT.SoundTbl_MedicBeforeHeal = {}
-ENT.SoundTbl_MedicAfterHeal = {}
-ENT.SoundTbl_MedicReceiveHeal = {}
-ENT.SoundTbl_OnPlayerSight = {}
-ENT.SoundTbl_Investigate = {}
-ENT.SoundTbl_LostEnemy = {}
-ENT.SoundTbl_Alert = {}
-ENT.SoundTbl_CallForHelp = {}
-ENT.SoundTbl_BecomeEnemyToPlayer = {}
-ENT.SoundTbl_BeforeMeleeAttack = {}
-ENT.SoundTbl_MeleeAttack = {}
-ENT.SoundTbl_MeleeAttackExtra = {}
-ENT.SoundTbl_MeleeAttackMiss = {}
-ENT.SoundTbl_BeforeRangeAttack = {}
-ENT.SoundTbl_RangeAttack = {}
-ENT.SoundTbl_BeforeLeapAttack = {}
-ENT.SoundTbl_LeapAttackJump = {}
-ENT.SoundTbl_LeapAttackDamage = {}
-ENT.SoundTbl_LeapAttackDamageMiss = {}
-ENT.SoundTbl_OnKilledEnemy = {}
-ENT.SoundTbl_AllyDeath = {}
-ENT.SoundTbl_Pain = {}
-ENT.SoundTbl_Impact = {}
-ENT.SoundTbl_DamageByPlayer = {}
-ENT.SoundTbl_Death = {}
+ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/aslave/vort_foot1.wav","vj_hlr/hl1_npc/aslave/vort_foot2.wav","vj_hlr/hl1_npc/aslave/vort_foot3.wav","vj_hlr/hl1_npc/aslave/vort_foot4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/aslave/slv_idle1.wav","vj_hlr/hl1_npc/aslave/slv_idle2.wav","vj_hlr/hl1_npc/aslave/slv_idle3.wav","vj_hlr/hl1_npc/aslave/slv_idle4.wav","vj_hlr/hl1_npc/aslave/slv_idle5.wav","vj_hlr/hl1_npc/aslave/slv_idle6.wav","vj_hlr/hl1_npc/aslave/slv_idle7.wav","vj_hlr/hl1_npc/aslave/slv_idle8.wav","vj_hlr/hl1_npc/aslave/slv_idle9.wav","vj_hlr/hl1_npc/aslave/slv_idle10.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/aslave/slv_alert01.wav","vj_hlr/hl1_npc/aslave/slv_alert02.wav","vj_hlr/hl1_npc/aslave/slv_alert03.wav","vj_hlr/hl1_npc/aslave/slv_alert04.wav","vj_hlr/hl1_npc/aslave/slv_alert05.wav","vj_hlr/hl1_npc/aslave/slv_alert06.wav"}
+ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav","vj_hlr/hl1_npc/zombie/claw_strike2.wav","vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/fx/zap4.wav"}
+ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/hassault/hw_shoot1.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/aslave/slv_pain1.wav","vj_hlr/hl1_npc/aslave/slv_pain2.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/aslave/slv_die1.wav","vj_hlr/hl1_npc/aslave/slv_die2.wav"}
+
+ENT.FootStepSoundLevel = 60
 
 ENT.GeneralSoundPitch1 = 100
-ENT.FootStepPitch1 = 70
-ENT.FootStepPitch2 = 70
+ENT.RangeAttackPitch1 = 130
+ENT.RangeAttackPitch2 = 160
+
+-- CustomBlood_Decal
+ENT.Vort_RunAway = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(20,20,65), Vector(-20,-20,0))
@@ -228,9 +212,20 @@ function ENT:CustomRangeAttackCode()
 	elec:SetAttachment(2)
 	util.Effect("VJ_HLR_ELECTRIC",elec)
 	
-	//VJ_EmitSound(self,"vj_fo3_libertyprime/laser.wav",110,100)
-	
-	util.VJ_SphereDamage(self,self,hitpos,40,30,DMG_SHOCK,true,false,{Force=90})
+	util.VJ_SphereDamage(self,self,hitpos,30,20,DMG_SHOCK,true,false,{Force=90})
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnSchedule()
+	if self.Dead == false && self.vACT_StopAttacks == false && self.Vort_RunAway == true && self.PlayingAttackAnimation == false then
+		self.Vort_RunAway = false
+		self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH")
+		self.NextDoAnyAttackT = CurTime() + 5
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
+	if (self.NextDoAnyAttackT + 2) > CurTime() then return end
+	self.Vort_RunAway = true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)

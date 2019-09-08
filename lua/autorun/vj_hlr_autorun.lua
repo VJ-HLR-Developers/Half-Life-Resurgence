@@ -211,6 +211,40 @@ if VJExists == true then
 	util.PrecacheModel("models/vj_hlr/gibs/zombiegib.mdl")
 	util.PrecacheModel("models/vj_hlr/gibs/islavegib.mdl")
 	
+	-- Sound Scripts --
+	/*sound.Add({
+		name = "enzo_engine_idle",
+		channel = CHAN_STATIC,
+		volume = 1.0,
+		level = 80,
+		pitch = {95, 110},
+		sound = "vehicles/enzo/idle.wav"
+	})
+
+	sound.Add("Vortigaunt.ZapPowerup"
+	{
+		"channel"    "CHAN_WEAPON"
+		"volume"    "VOL_NORM"
+		"soundlevel"    "SNDLVL_140db"
+		"pitch"        "PITCH_NORM"
+		"rndwave"
+		{
+			"wave"        "debris/zap4.wav"
+		}
+	}
+
+	"Vortigaunt.ZapShoot"
+	{
+		"channel"    "CHAN_WEAPON"
+		"volume"    "VOL_NORM"
+		"soundlevel"    "SNDLVL_140db"
+		"pitch"        "130,160"
+		"rndwave"
+		{
+			"wave"        "hassault/hw_shoot1.wav"
+		}
+	}*/
+	
 	-- ConVars --
 	VJ.AddConVar("vj_hl2c_soldier_h",60)
 	VJ.AddConVar("vj_hl2c_soldierprison_h",75)
