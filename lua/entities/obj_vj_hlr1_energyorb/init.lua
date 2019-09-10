@@ -47,6 +47,7 @@ end
 function ENT:CustomOnThink()
 	if IsValid(self.EO_Enemy) then -- Homing Behavior
 		self.DirectDamage = 25
+		self.StartGlow1:SetKeyValue("scale","1.5")
 		local phys = self:GetPhysicsObject()
 		if (phys:IsValid()) then
 			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.EO_Enemy:GetPos() + self.EO_Enemy:OBBCenter(), 700))

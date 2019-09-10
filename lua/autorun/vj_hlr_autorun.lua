@@ -137,6 +137,7 @@ if VJExists == true then
 	game.AddDecal("VJ_Blood_HL1_Yellow",{"vj_hl/decals/hl_yblood01","vj_hl/decals/hl_yblood02","vj_hl/decals/hl_yblood03","vj_hl/decals/hl_yblood04","vj_hl/decals/hl_yblood05","vj_hl/decals/hl_yblood06"})
 	
 	game.AddDecal("VJ_Spit_HL1_Acid",{"vj_hl/decals/spit1","vj_hl/decals/spit2"})
+	//game.AddDecal("VJ_Spit_HL1_Gonarch",{"vj_hl/decals/gonarch"})
 	
 	-- Particles
 	VJ.AddParticle("particles/advisor.pcf",{})
@@ -211,40 +212,6 @@ if VJExists == true then
 	util.PrecacheModel("models/vj_hlr/gibs/gib_hgrunt.mdl")
 	util.PrecacheModel("models/vj_hlr/gibs/zombiegib.mdl")
 	util.PrecacheModel("models/vj_hlr/gibs/islavegib.mdl")
-	
-	-- Sound Scripts --
-	/*sound.Add({
-		name = "enzo_engine_idle",
-		channel = CHAN_STATIC,
-		volume = 1.0,
-		level = 80,
-		pitch = {95, 110},
-		sound = "vehicles/enzo/idle.wav"
-	})
-
-	sound.Add("Vortigaunt.ZapPowerup"
-	{
-		"channel"    "CHAN_WEAPON"
-		"volume"    "VOL_NORM"
-		"soundlevel"    "SNDLVL_140db"
-		"pitch"        "PITCH_NORM"
-		"rndwave"
-		{
-			"wave"        "debris/zap4.wav"
-		}
-	}
-
-	"Vortigaunt.ZapShoot"
-	{
-		"channel"    "CHAN_WEAPON"
-		"volume"    "VOL_NORM"
-		"soundlevel"    "SNDLVL_140db"
-		"pitch"        "130,160"
-		"rndwave"
-		{
-			"wave"        "hassault/hw_shoot1.wav"
-		}
-	}*/
 	
 	-- ConVars --
 	VJ.AddConVar("vj_hl2c_soldier_h",60)

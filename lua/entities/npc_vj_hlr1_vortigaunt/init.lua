@@ -86,7 +86,7 @@ function ENT:Vort_DoElecEffect(sp,hp,a,t)
 	elec:SetEntity(self)
 	elec:SetAttachment(a)
 	elec:SetScale(t)
-	util.Effect("VJ_HLR_ELECTRIC_CHARGE",elec)
+	util.Effect("VJ_HLR_Electric_Charge",elec)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRangeAttack_AfterStartTimer()
@@ -203,14 +203,14 @@ function ENT:CustomRangeAttackCode()
 	elec:SetOrigin(hitpos)
 	elec:SetEntity(self)
 	elec:SetAttachment(1)
-	util.Effect("VJ_HLR_ELECTRIC",elec)
+	util.Effect("VJ_HLR_Electric",elec)
 	
 	local elec = EffectData()
 	elec:SetStart(startpos)
 	elec:SetOrigin(hitpos)
 	elec:SetEntity(self)
 	elec:SetAttachment(2)
-	util.Effect("VJ_HLR_ELECTRIC",elec)
+	util.Effect("VJ_HLR_Electric",elec)
 	
 	util.VJ_SphereDamage(self,self,hitpos,30,20,DMG_SHOCK,true,false,{Force=90})
 end
@@ -218,7 +218,7 @@ end
 function ENT:CustomOnSchedule()
 	if self.Dead == false && self.vACT_StopAttacks == false && self.Vort_RunAway == true && self.PlayingAttackAnimation == false then
 		self.Vort_RunAway = false
-		self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH")
+		self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH",function(x) x.RunCode_OnFail = function() self.NextDoAnyAttackT = 0 end end)
 		self.NextDoAnyAttackT = CurTime() + 5
 	end
 end
