@@ -1,0 +1,28 @@
+"VertexLitGeneric"
+{
+ 	"$model" 1
+    "$nocull" "1"
+	"$basetexture" "vj_hl/renderfx/render_blue"
+	"$texture2" "vj_hl/renderfx/render_blue"
+
+	"$translucent" "1"
+	"$alpha" "0"
+	"$additive" "1"
+	"$selfillum" "1"
+
+	"Proxies"
+	{
+		"TextureScroll"
+		{
+			"texturescrollvar" "$basetexturetransform"
+			"texturescrollrate" 0.6
+			"texturescrollangle" 75
+		}
+		"TextureScroll"
+		{
+			"texturescrollvar" "$texture2transform"
+			"texturescrollrate" 1
+			"texturescrollangle" 150
+		}
+	}
+}
