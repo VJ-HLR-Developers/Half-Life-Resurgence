@@ -12,8 +12,8 @@ ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits somethi
 ENT.DirectDamage = 4 -- How much damage should it do when it hits something
 ENT.DirectDamageType = DMG_SLASH -- Damage type
 ENT.CollideCodeWithoutRemoving = true -- If RemoveOnHit is set to false, you can still make the projectile deal damage, place a decal, etc.
-ENT.DecalTbl_DeathDecals = {"VJ_Blood_HL1_Yellow"}
-ENT.DecalTbl_OnCollideDecals = {"VJ_Blood_HL1_Yellow"} -- Decals that paint when the projectile collides with something | It picks a random one from this table
+ENT.DecalTbl_DeathDecals = {"VJ_HLR_Blood_Yellow"}
+ENT.DecalTbl_OnCollideDecals = {"VJ_HLR_Blood_Yellow"} -- Decals that paint when the projectile collides with something | It picks a random one from this table
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/hornet/ag_buzz1.wav","vj_hlr/hl1_npc/hornet/ag_buzz2.wav","vj_hlr/hl1_npc/hornet/ag_buzz3.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/hornet/ag_hornethit1.wav","vj_hlr/hl1_npc/hornet/ag_hornethit2.wav","vj_hlr/hl1_npc/hornet/ag_hornethit3.wav"}
 

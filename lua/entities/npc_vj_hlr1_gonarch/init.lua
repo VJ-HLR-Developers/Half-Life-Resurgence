@@ -11,7 +11,7 @@ ENT.HullType = HULL_LARGE
 ENT.EntitiesToNoCollide = {"npc_vj_hlr1_headcrab_baby","npc_vj_hlr1_headcrab","npc_vj_hlr1a_headcrab"} -- Entities to not collide with when HasEntitiesToNoCollide is set to true
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.CustomBlood_Decal = {"VJ_Blood_HL1_Yellow"} -- Decals to spawn when it's damaged
+ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"} -- NPCs with the same class with be allied to each other
 
@@ -169,12 +169,12 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 		util.Effect("StriderBlood",effectdata)
 	end
 	
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_shellgib.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(0,0,160)),Ang=self:LocalToWorldAngles(Angle(0,0,180))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_sacgib.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(20,0,60)),Ang=self:LocalToWorldAngles(Angle(-89.999908447266, 179.99996948242, 180))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_leggib.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(55,-70,80)),Ang=Angle(3.1017229557037, -35.476417541504, 91.352874755859)})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_leggib.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(70,55,80)),Ang=Angle(3.6497807502747, 60.498592376709, 93.368896484375)})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_leggib.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(-70,-45,80)),Ang=Angle(3.8801980018616, -128.15255737305, 91.630615234375)})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_leggib.mdl",{BloodType="Yellow",BloodDecal="VJ_Blood_HL1_Yellow",Pos=self:LocalToWorld(Vector(-45,70,80)),Ang=self:LocalToWorldAngles(Angle(3.8801965713501, -45, 91.630599975586))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_shellgib.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,160)),Ang=self:LocalToWorldAngles(Angle(0,0,180))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_sacgib.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(20,0,60)),Ang=self:LocalToWorldAngles(Angle(-89.999908447266, 179.99996948242, 180))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_leggib.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(55,-70,80)),Ang=Angle(3.1017229557037, -35.476417541504, 91.352874755859)})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_leggib.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(70,55,80)),Ang=Angle(3.6497807502747, 60.498592376709, 93.368896484375)})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_leggib.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(-70,-45,80)),Ang=Angle(3.8801980018616, -128.15255737305, 91.630615234375)})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_leggib.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(-45,70,80)),Ang=self:LocalToWorldAngles(Angle(3.8801965713501, -45, 91.630599975586))})
 	return true -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

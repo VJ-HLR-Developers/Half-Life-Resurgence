@@ -9,7 +9,7 @@ ENT.Model = {"models/spitball_medium.mdl"} -- The models it should spawn with | 
 ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
 ENT.DirectDamage = 20 -- How much damage should it do when it hits something
 ENT.DirectDamageType = DMG_ACID -- Damage type
-ENT.DecalTbl_DeathDecals = {"VJ_Blood_HL1_Red"}
+ENT.DecalTbl_DeathDecals = {"VJ_HLR_Blood_Red"}
 ENT.SoundTbl_Idle = {"vj_acid/acid_idle1.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/bullchicken/bc_spithit3.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
