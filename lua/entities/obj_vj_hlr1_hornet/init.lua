@@ -43,7 +43,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	if IsValid(self.MyEnemy) then -- Homing Behavior
-		self.DirectDamage = 25
 		local phys = self:GetPhysicsObject()
 		if (phys:IsValid()) then
 			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.MyEnemy:GetPos() + self.MyEnemy:OBBCenter() + self.MyEnemy:GetUp()*math.random(-50,50) + self.MyEnemy:GetRight()*math.random(-50,50), 600))

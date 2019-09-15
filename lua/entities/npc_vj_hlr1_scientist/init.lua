@@ -180,7 +180,7 @@ function ENT:SCI_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	print(key)
+	//print(key)
 	if key == "step" or key == "wheelchair" then
 		self:FootStepSoundCode()
 	end
