@@ -5,46 +5,54 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/boid.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.StartHealth = 25
+ENT.Model = {"models/vj_hlr/hl1/floater.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.StartHealth = 45
 ENT.HullType = HULL_TINY
+ENT.IdleAlwaysWander = true
+ENT.AA_ConstantlyMove = true
+ENT.CanOpenDoors = false
 ENT.MovementType = VJ_MOVETYPE_AERIAL -- How does the SNPC move?
-ENT.Aerial_FlyingSpeed_Calm = 130 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking campared to ground SNPCs
-ENT.Aerial_FlyingSpeed_Alerted = 130 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running campared to ground SNPCs
-ENT.Aerial_AnimTbl_Calm = {ACT_FLY} -- Animations it plays when it's wandering around while idle
-ENT.Aerial_AnimTbl_Alerted = {ACT_FLY} -- Animations it plays when it's moving while alerted
-ENT.AA_ConstantlyMove = true -- Used for aerial and aquatic SNPCs, makes them constantly move
+ENT.Aerial_FlyingSpeed_Calm = 185 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking campared to ground SNPCs
+ENT.Aerial_FlyingSpeed_Alerted = 185 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running campared to ground SNPCs
+ENT.AnimTbl_IdleStand = {"idle"}
+ENT.Aerial_AnimTbl_Calm = {"idle"} -- Animations it plays when it's wandering around while idle
+ENT.Aerial_AnimTbl_Alerted = {"idle"} -- Animations it plays when it's moving while alerted
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.AnimTbl_IdleStand = {ACT_FLY} -- The idle animation when AI is enabled
-ENT.IdleAlwaysWander = true -- If set to true, it will make the SNPC always wander when idling
-ENT.CanOpenDoors = false -- Can it open doors?
-ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE -- The behavior of the SNPC
+ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
-ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
+
+ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
+ENT.DisableRangeAttackAnimation = true
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_toxicspit" -- The entity that is spawned when range attacking
+ENT.RangeDistance = 1500 -- This is how far away it can shoot
+ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
+ENT.TimeUntilRangeAttackProjectileRelease = 0.2 -- How much time until the projectile code is ran?
+ENT.RangeAttackPos_Up = 20 -- Up/Down spawning position for range attack
+ENT.RangeAttackPos_Forward = 20 -- Forward/ Backward spawning position for range attack
+ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
+ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/boid/boid_idle1.wav","vj_hlr/hl1_npc/boid/boid_idle2.wav","vj_hlr/hl1_npc/boid/boid_idle3.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/boid/boid_alert1.wav","vj_hlr/hl1_npc/boid/boid_alert2.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/boid/boid_alert1.wav","vj_hlr/hl1_npc/boid/boid_alert2.wav"}
-
--- Custom
-ENT.Boid_Type = 0
-	-- 0 = Original / Default
-	-- 1 = AFlock
-ENT.BoidRandDistance = math.random(50,150)
+ENT.GeneralSoundPitch1 = 100
+ENT.GibOnDeathDamagesTable = {"All"}
 HLR_Boid_Leader = NULL
-HLR_AFlock_Leader = NULL
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(18, 18, 10), Vector(-18, -18, 0))
-	if !IsValid(Boid_Leader) then
-		Boid_Leader = self
+	self:SetCollisionBounds(Vector(15,15,40), Vector(-15,-15,0))
+	if !IsValid(Flock_Leader) then
+		Flock_Leader = self
 	end
-	self.RandomPositionUp = math.Rand(-self.BoidRandDistance,self.BoidRandDistance)
-	self.RandomPositionForward = math.Rand(-self.BoidRandDistance,self.BoidRandDistance)
-	self.RandomPositionRight = math.Rand(-self.BoidRandDistance,self.BoidRandDistance)
+	self.FlockRandDistance = math.random(50,150)
+	self.RandomPositionUp = math.Rand(-self.FlockRandDistance,self.FlockRandDistance)
+	self.RandomPositionForward = math.Rand(-self.FlockRandDistance,self.FlockRandDistance)
+	self.RandomPositionRight = math.Rand(-self.FlockRandDistance,self.FlockRandDistance)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:AAMove_ChaseEnemy(ShouldPlayAnim,UseCalmVariables)
+	if self.Dead == true or !IsValid(self:GetEnemy()) then return end
+	self:DoIdleAnimation(1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:AAMove_Wander(ShouldPlayAnim,NoFace)
@@ -231,15 +239,19 @@ function ENT:AAMove_MoveToPos(Ent,ShouldPlayAnim)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if IsValid(Boid_Leader) then
-		if Boid_Leader != self then
+	if IsValid(Flock_Leader) then
+		if Flock_Leader != self then
 			self.DisableWandering = true
-			self:AAMove_MoveToPos(Boid_Leader,true)
+			self:AAMove_MoveToPos(Flock_Leader,true)
 		end
 	else
 		self.DisableWandering = false
-		Boid_Leader = self
+		Flock_Leader = self
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackCode_GetShootPos(TheProjectile)
+	return self:CalculateProjectile("Curve", self:GetPos() + self:GetUp()*-15, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 750)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
@@ -268,7 +280,6 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib1.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,5))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib2.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,5))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib3.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,5))})
 	return true -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

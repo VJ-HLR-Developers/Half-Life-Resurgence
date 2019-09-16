@@ -300,6 +300,8 @@ function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
 	GrenadeEntity.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/grenade/grenade_hit1.wav","vj_hlr/hl1_weapon/grenade/grenade_hit2.wav","vj_hlr/hl1_weapon/grenade/grenade_hit3.wav"}
 	GrenadeEntity.SoundTbl_OnRemove = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}
 	GrenadeEntity.OnRemoveSoundLevel = 100
+	GrenadeEntity.MoveType = MOVETYPE_FLYGRAVITY
+	GrenadeEntity:SetFriction(0.8)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
