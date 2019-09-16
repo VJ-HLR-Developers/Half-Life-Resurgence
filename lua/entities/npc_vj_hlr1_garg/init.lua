@@ -108,6 +108,41 @@ function ENT:CustomOnInitialize()
 	glowLight:Fire("SetParentAttachment","eyes",0)
 	glowLight:Fire("TurnOn","",0)
 	self:DeleteOnRemove(glowLight)
+	
+	self.UsingFlameAttack = false
+	self.HasFlameParticle = false
+	self.FlameLoop = CreateSound(self,"vj_hlr/hl1_npc/garg/gar_flamerun1.wav")
+	self.FlameLoop:SetSoundLevel(80)
+	self.NextFlameLoopT = 0
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink()
+	local ent = self:GetEnemy()
+	-- if IsValid(ent) then
+		-- local dist = self:VJ_GetNearestPointToEntityDistance(ent)
+		-- if dist <= 200 then
+			-- self.UsingFlameAttack = true
+			-- self:StopMoving()
+			-- self:VJ_ACT_PLAYACTIVITY(ACT_MELEE_ATTACK2,true,false,true)
+		-- else
+			-- self.UsingFlameAttack = false
+			-- self.HasFlameParticle = false
+			-- self:StopParticles()
+			-- self.FlameLoop:Stop()
+		-- end
+	-- end
+	-- if self.UsingFlameAttack then
+		-- if CurTime() > self.NextFlameLoopT then
+			-- self.FlameLoop:Stop()
+			-- self.FlameLoop:Play()
+			-- self.NextFlameLoopT = CurTime() +SoundDuration("vj_hlr/hl1_npc/garg/gar_flamerun1.wav")
+		-- end
+		-- if !self.HasFlameParticle then
+			-- ParticleEffectAttach("vj_hl_garg_flame",PATTACH_POINT_FOLLOW,self,1)
+			-- ParticleEffectAttach("vj_hl_garg_flame",PATTACH_POINT_FOLLOW,self,2)
+			-- self.HasFlameParticle = true
+		-- end
+	-- end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
