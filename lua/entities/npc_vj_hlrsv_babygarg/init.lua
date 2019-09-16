@@ -7,11 +7,27 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/sven/babygarg.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 600
+ENT.HullType = HULL_HUMAN
+
+ENT.MeleeAttackDamageType = DMG_SLASH -- How close does it have to be until it attacks?
+ENT.MeleeAttackDistance = 40 -- How close does it have to be until it attacks?
+ENT.MeleeAttackDamageDistance = 165 -- How far does the damage go?
+
+ENT.WorldShakeOnMoveAmplitude = 6 -- How much the screen will shake | From 1 to 16, 1 = really low 16 = really high
+ENT.WorldShakeOnMoveRadius = 750 -- How far the screen shake goes, in world units
+ENT.WorldShakeOnMoveDuration = 0.4 -- How long the screen shake will last, in seconds
+
+ENT.BloodScale = 200
+ENT.GibColor = Color(255,127,127)
+ENT.GargDamageScale = 0.4
+ENT.FlameAttackDistance = 175
+ENT.FlameAnimation = ACT_MELEE_ATTACK2
+ENT.DeathExplosions = 3
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(78,78,220),Vector(-78,-78,0))
+	self:SetCollisionBounds(Vector(32,32,105), Vector(-32,-32,0))
 	local eyeGlow = ents.Create( "env_sprite" )
-	eyeGlow:SetKeyValue( "rendercolor","255 128 0" )
+	eyeGlow:SetKeyValue( "rendercolor","255 75 0" )
 	eyeGlow:SetKeyValue( "GlowProxySize","2.0" )
 	eyeGlow:SetKeyValue( "HDRColorScale","1.0" )
 	eyeGlow:SetKeyValue( "renderfx","14" )
@@ -35,7 +51,7 @@ function ENT:CustomOnInitialize()
 	glowLight:SetKeyValue("distance","150")
 	glowLight:SetLocalPos(self:GetPos())
 	glowLight:SetLocalAngles(self:GetAngles())
-	glowLight:Fire("Color", "255 128 0")
+	glowLight:Fire("Color", "255 75 0")
 	glowLight:SetParent(self)
 	glowLight:Spawn()
 	glowLight:Activate()

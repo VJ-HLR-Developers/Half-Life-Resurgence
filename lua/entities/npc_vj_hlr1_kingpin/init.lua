@@ -76,8 +76,7 @@ ENT.SoundTbl_Death = {
 }
 
 ENT.GeneralSoundPitch1 = 100
-//vj_hlr/hl1_npc/kingpin/port_suckin1.wav -- Teleport in
-//vj_hlr/hl1_npc/kingpin/port_suckout1.wav -- Teleport out
+ENT.TeleportTime = 1.3
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(35,35,120),Vector(-35,-35,0))
@@ -92,11 +91,11 @@ function ENT:CustomOnInitialize()
 	self.NextSummonT = CurTime()
 	self.NextCheckAIT = CurTime()
 	
-	for _,v in pairs(player.GetAll()) do
-		v:ChatPrint("Message from Cpt. Hazama:")
-		v:ChatPrint("Kingpin is still very much WIP")
-		v:ChatPrint("I still need to make proper particles for its' teleportation, so you may notice it turn invisible while teleporting. During this time it would normally be shrouded in a teleportation effect so you wouldn't notice.")
-	end
+	-- for _,v in pairs(player.GetAll()) do
+		-- v:ChatPrint("Message from Cpt. Hazama:")
+		-- v:ChatPrint("Kingpin is still very much WIP")
+		-- v:ChatPrint("I still need to make proper particles for its' teleportation, so you may notice it turn invisible while teleporting. During this time it would normally be shrouded in a teleportation effect so you wouldn't notice.")
+	-- end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(TheProjectile)
@@ -132,6 +131,80 @@ function ENT:HasShield()
 	return self:GetNWBool("shield")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:ControllerAI()
+	local ply = self.VJ_TheController
+	local ent = self.VJ_TheControllerBullseye
+	local dist = self:VJ_GetNearestPointToEntityDistance(ent)
+	local lmb = ply:KeyDown(IN_ATTACK)
+	local rmb = ply:KeyDown(IN_ATTACK2)
+	local ctrl = ply:KeyDown(IN_DUCK)
+	local space = ply:KeyDown(IN_JUMP)
+	local alt = ply:KeyDown(IN_WALK)
+	self.NextCtrl = self.NextCtrl or CurTime() +1
+	self.NextSpace = self.NextSpace or CurTime() +1
+	self.NextAlt = self.NextAlt or CurTime() +1
+	if ctrl && CurTime() > self.NextCtrl then
+		self:SummonAllies()
+		self.NextCtrl = CurTime() +1
+	end
+	if space && CurTime() > self.NextSpace then
+		self:UseZapAttack()
+		self.NextSpace = CurTime() +1
+	end
+	if alt && CurTime() > self.NextAlt then
+		self:UseTeleport(ent,true)
+		self.NextAlt = CurTime() +1
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SummonAllies()
+	if #self.tbl_Summons <= 3 && CurTime() > self.NextSummonT then
+		local x = ents.Create(VJ_PICKRANDOMTABLE({
+			"npc_vj_hlr1_bullsquid",
+			"npc_vj_hlr1_bullsquid",
+			"npc_vj_hlr1_bullsquid",
+			"npc_vj_hlr1_houndeye",
+			"npc_vj_hlr1_houndeye",
+			"npc_vj_hlr1_houndeye",
+			"npc_vj_hlr1_houndeye",
+			"npc_vj_hlr1_aliencontroller",
+			"npc_vj_hlr1_aliencontroller",
+			"npc_vj_hlrsv_babygarg"
+		}))
+		x:SetPos(self:GetPos() +self:GetForward() *125)
+		x:SetAngles(self:GetAngles())
+		x:Spawn()
+		local blast = ents.Create("prop_combine_ball")
+		blast:SetPos(self:GetPos() +self:GetForward() *125)
+		blast:SetParent(x)
+		blast:Spawn()
+		blast:Fire("explode","",0)
+		blast:Fire("disablepuntsound","1")
+		table.insert(self.tbl_Summons,x)
+		self.NextSummonT = CurTime() +math.Rand(3,12)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:UseZapAttack()
+	if CurTime() > self.NextZapT then
+		self:VJ_ACT_PLAYACTIVITY("distanceattack",true,false,true,0)
+		timer.Simple(self:SequenceDuration(self:LookupSequence("distanceattack")),function()
+			if IsValid(self) then
+				self.IsZapping = false
+			end
+		end)
+		self.IsZapping = true
+		self.NextZapT = CurTime() +math.Rand(4,5)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:UseTeleport(ent,forcepos)
+	if CurTime() > self.NextTeleportT then
+		self:Teleport(ent,forcepos)
+		self.NextTeleportT = CurTime() +3
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	local ent = self:GetEnemy()
 	self.DisableChasingEnemy = self.IsTeleporting
@@ -151,36 +224,21 @@ function ENT:CustomOnThink()
 		self.NextCheckAIT = CurTime() +10
 	end
 	if self.IsTeleporting then self:StopMoving(); self:StopMoving() end
+	if self.VJ_IsBeingControlled then self:ControllerAI() return end
 	if IsValid(ent) then
+		if self.Dead then return end
 		local dist = self:VJ_GetNearestPointToEntityDistance(ent)
 		if dist <= 2500 && dist > 150 then
 			if !self.RangeAttacking && !self.IsTeleporting && !self.IsZapping && CurTime() > self.NextTeleportT && math.Rand(1,1) == 1 then
 				self:Teleport(ent)
 			end
 			if !self.RangeAttacking && !self.IsTeleporting && !self.IsZapping && CurTime() > self.NextSummonT then
-				if math.random(1,120) == 1 && #self.tbl_Summons <= 3 then
-					local x = ents.Create(VJ_PICKRANDOMTABLE({"npc_vj_hlr1_bullsquid","npc_vj_hlr1_houndeye","npc_vj_hlr1_aliencontroller"}))
-					x:SetPos(self:GetPos() +self:GetForward() *125)
-					x:SetAngles(self:GetAngles())
-					x:Spawn()
-					local blast = ents.Create("prop_combine_ball")
-					blast:SetPos(self:GetPos() +self:GetForward() *125)
-					blast:SetParent(x)
-					blast:Spawn()
-					blast:Fire("explode","",0)
-					blast:Fire("disablepuntsound","1")
-					table.insert(self.tbl_Summons,x)
+				if math.random(1,50) == 1 then
+					self:SummonAllies()
 				end
 			end
 			if !self.RangeAttacking && !self.IsTeleporting && !self.IsZapping && CurTime() > self.NextZapT then
-				self:VJ_ACT_PLAYACTIVITY("distanceattack",true,false,true,0)
-				timer.Simple(self:SequenceDuration(self:LookupSequence("distanceattack")),function()
-					if IsValid(self) then
-						self.IsZapping = false
-					end
-				end)
-				self.IsZapping = true
-				self.NextZapT = CurTime() +math.Rand(4,10)
+				self:UseZapAttack()
 			end
 		end
 	end
@@ -237,8 +295,11 @@ function ENT:ZapEffect(pos,rand)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Teleport(ent)
+function ENT:Teleport(ent,forcepos)
 	local pos = ent:GetPos() +ent:GetForward() *math.Rand(-300,300) +ent:GetRight() *math.Rand(-300,300)
+	if forcepos then
+		pos = ent:GetPos() +Vector(0,0,5)
+	end
 	if !ent:VisibleVec(pos) then return end
 	if !util.IsInWorld(pos) then return end
 	self.NextTeleportT = CurTime() +math.Rand(7,15)
@@ -255,11 +316,7 @@ function ENT:Teleport(ent)
 			end
 		end
 	end)
-	timer.Simple(1.8,function()
-		if IsValid(self) then
-		end
-	end)
-	timer.Simple(2,function()
+	timer.Simple(self.TeleportTime,function()
 		if IsValid(self) then
 			self.IsTeleporting = false
 			self:SetPos(pos)

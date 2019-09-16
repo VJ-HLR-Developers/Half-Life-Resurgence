@@ -7,8 +7,8 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = {"models/spitball_large.mdl"} -- The models it should spawn with | Picks a random one from the table
 ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 5 -- How much damage should it do when it hits something
-ENT.DirectDamageType = DMG_SHOCK -- Damage type
+ENT.DirectDamage = 50 -- How much damage should it do when it hits something
+ENT.DirectDamageType = DMG_DISSOLVE -- Damage type
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav","vj_hlr/hl1_weapon/gauss/electro5.wav","vj_hlr/hl1_weapon/gauss/electro6.wav"}
 
 -- Custom
