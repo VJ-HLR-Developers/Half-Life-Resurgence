@@ -152,6 +152,10 @@ if VJExists == true then
 	-- Particles
 	VJ.AddParticle("particles/advisor.pcf",{})
 	VJ.AddParticle("particles/choreo_dog_v_strider.pcf",{})
+	VJ.AddParticle("particles/vj_hl_garg_flame.pcf",{
+		"vj_hl_garg_flame",
+		"vj_hl_garg_flame_small",
+	}
 	VJ.AddParticle("particles/vj_hl_shocktrooper.pcf",{
 		"vj_hl_shockroach",
 		"vj_hl_shockroach_aura",
