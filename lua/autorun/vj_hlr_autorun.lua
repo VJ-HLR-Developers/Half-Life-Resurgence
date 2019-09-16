@@ -88,6 +88,9 @@ if VJExists == true then
 		VJ.AddNPC("Cockroach","npc_vj_hlr1_cockroach",vCat)
 		-- Misc
 		VJ.AddNPC("Ivan the Space Biker","npc_vj_hlr1a_ivan",vCat)
+
+		-- Sven Co-Op
+		VJ.AddNPC("Baby Gargantua","npc_vj_hlrsv_babygarg",vCat)
 		
 		-- Weapons
 		//VJ.AddNPCWeapon("VJ_HLR1_Glock17","weapon_vj_hlr1_glock17",false,vCat)
@@ -155,7 +158,7 @@ if VJExists == true then
 	VJ.AddParticle("particles/vj_hl_garg_flame.pcf",{
 		"vj_hl_garg_flame",
 		"vj_hl_garg_flame_small",
-	}
+	})
 	VJ.AddParticle("particles/vj_hl_shocktrooper.pcf",{
 		"vj_hl_shockroach",
 		"vj_hl_shockroach_aura",
