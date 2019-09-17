@@ -14,9 +14,9 @@ ENT.CanOpenDoors = false
 ENT.MovementType = VJ_MOVETYPE_AERIAL -- How does the SNPC move?
 ENT.Aerial_FlyingSpeed_Calm = 185 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking campared to ground SNPCs
 ENT.Aerial_FlyingSpeed_Alerted = 185 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running campared to ground SNPCs
-ENT.AnimTbl_IdleStand = {"idle"}
-ENT.Aerial_AnimTbl_Calm = {"idle"} -- Animations it plays when it's wandering around while idle
-ENT.Aerial_AnimTbl_Alerted = {"idle"} -- Animations it plays when it's moving while alerted
+ENT.AnimTbl_IdleStand = {"vjseq_idle"}
+ENT.Aerial_AnimTbl_Calm = {"vjseq_idle"} -- Animations it plays when it's wandering around while idle
+ENT.Aerial_AnimTbl_Alerted = {"vjseq_idle"} -- Animations it plays when it's moving while alerted
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
