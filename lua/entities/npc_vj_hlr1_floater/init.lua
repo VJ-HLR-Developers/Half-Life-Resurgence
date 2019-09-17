@@ -34,6 +34,11 @@ ENT.RangeAttackPos_Forward = 20 -- Forward/ Backward spawning position for range
 ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
 ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
 	-- ====== Sound File Paths ====== --
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/floater/fl_idle1.wav","vj_hlr/hl1_npc/floater/fl_idle2.wav","vj_hlr/hl1_npc/floater/fl_idle3.wav","vj_hlr/hl1_npc/floater/fl_idle4.wav","vj_hlr/hl1_npc/floater/fl_idle5.wav","vj_hlr/hl1_npc/floater/fl_idle6.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/floater/fl_alert1.wav","vj_hlr/hl1_npc/floater/fl_alert2.wav","vj_hlr/hl1_npc/floater/fl_alert3.wav","vj_hlr/hl1_npc/floater/fl_alert4.wav"}
+ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/floater/fl_attack1.wav","vj_hlr/hl1_npc/floater/fl_attack2.wav","vj_hlr/hl1_npc/floater/fl_attack3.wav"}
+ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/bullchicken/bc_attack2.wav","vj_hlr/hl1_npc/bullchicken/bc_attack3.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/floater/fl_pain1.wav","vj_hlr/hl1_npc/floater/fl_pain2.wav"}
 -- Leave blank if you don't want any sounds to play
 ENT.GeneralSoundPitch1 = 100
 ENT.GibOnDeathDamagesTable = {"All"}
