@@ -1,6 +1,6 @@
 "VertexLitGeneric"
 {
-	"$envmap" "models/tor/bx_chrome1"
+	"$envmap" "models/chrome/tor/bx_chrome1"
 	"$color2" "[.06 .06 .06]"
 	"$envmapmode" 1
 	"$multipass" 1

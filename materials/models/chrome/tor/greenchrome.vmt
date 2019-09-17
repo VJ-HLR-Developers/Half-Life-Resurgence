@@ -1,6 +1,6 @@
 "VertexLitGeneric"
 {
-	"$envmap" "models/tor/greenchrome"
+	"$envmap" "models/chrome/tor/greenchrome"
 	"$color2" "[.06 .06 .06]"
 	"$envmapmode" 1
 	"$multipass" 1
