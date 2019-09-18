@@ -1,0 +1,16 @@
+"Sprite"
+{
+	"$spriteorientation" "vp_parallel_oriented"
+	"$spriteorigin" "[ 0.50 0.50 ]"
+	"$spriterendermode" 5
+	"$basetexture" "vj_hl/sprites/exit1"
+	"Proxies"
+	{
+		"AnimatedTexture"
+		{
+			"animatedtexturevar" "$basetexture"
+			"animatedtextureframenumvar" "$frame"
+			"animatedtextureframerate" 10
+		}
+	}
+}

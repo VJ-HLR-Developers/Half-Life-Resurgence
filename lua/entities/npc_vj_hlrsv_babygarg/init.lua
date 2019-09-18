@@ -17,6 +17,49 @@ ENT.WorldShakeOnMoveAmplitude = 6 -- How much the screen will shake | From 1 to 
 ENT.WorldShakeOnMoveRadius = 750 -- How far the screen shake goes, in world units
 ENT.WorldShakeOnMoveDuration = 0.4 -- How long the screen shake will last, in seconds
 
+ENT.SoundTbl_FootStep = {
+	"vj_hlr/hl1_npc/babygarg/gar_step1.wav",
+	"vj_hlr/hl1_npc/babygarg/gar_step2.wav",
+}
+ENT.SoundTbl_Idle = {
+	"vj_hlr/hl1_npc/babygarg/gar_breathe1.wav",
+	"vj_hlr/hl1_npc/babygarg/gar_breathe2.wav",
+	"vj_hlr/hl1_npc/babygarg/gar_breathe3.wav",
+	"vj_hlr/hl1_npc/babygarg/gar_idle1.wav",
+	"vj_hlr/hl1_npc/babygarg/gar_idle2.wav",
+	"vj_hlr/hl1_npc/babygarg/gar_idle3.wav",
+	"vj_hlr/hl1_npc/babygarg/gar_idle4.wav",
+	"vj_hlr/hl1_npc/babygarg/gar_idle5.wav",
+}
+ENT.SoundTbl_Alert = {
+	"vj_hlr/hl1_npc/babygarg/gar_alert1.wav",
+	"vj_hlr/hl1_npc/babygarg/gar_alert2.wav",
+	"vj_hlr/hl1_npc/babygarg/gar_alert3.wav",
+}
+ENT.SoundTbl_BeforeMeleeAttack = {
+	"vj_hlr/hl1_npc/babygarg/gar_attack1.wav",
+	"vj_hlr/hl1_npc/babygarg/gar_attack2.wav",
+	"vj_hlr/hl1_npc/babygarg/gar_attack3.wav",
+}
+ENT.SoundTbl_MeleeAttackExtra = {
+	"weapons/cbar_hitbod1.wav",
+	"weapons/cbar_hitbod2.wav",
+	"weapons/cbar_hitbod3.wav",
+}
+ENT.SoundTbl_MeleeAttackMiss = {
+	"vj_hlr/hl1_npc/zombie/claw_miss1.wav",
+	"vj_hlr/hl1_npc/zombie/claw_miss2.wav",
+}
+ENT.SoundTbl_Pain = {
+	"vj_hlr/hl1_npc/babygarg/gar_pain1.wav",
+	"vj_hlr/hl1_npc/babygarg/gar_pain2.wav",
+	"vj_hlr/hl1_npc/babygarg/gar_pain3.wav",
+}
+ENT.SoundTbl_Death = {
+	"vj_hlr/hl1_npc/babygarg/gar_die1.wav",
+	"vj_hlr/hl1_npc/babygarg/gar_die2.wav",
+}
+
 ENT.BloodScale = 200
 ENT.GibColor = Color(255,127,127)
 ENT.GargDamageScale = 0.4
@@ -61,7 +104,7 @@ function ENT:CustomOnInitialize()
 
 	self.UsingFlameAttack = false
 	self.HasFlameParticle = false
-	self.FlameLoop = CreateSound(self,"vj_hlr/hl1_npc/garg/gar_flamerun1.wav")
+	self.FlameLoop = CreateSound(self,"vj_hlr/hl1_npc/babygarg/gar_flamerun1.wav")
 	self.FlameLoop:SetSoundLevel(80)
 	self.NextFlameLoopT = 0
 end
