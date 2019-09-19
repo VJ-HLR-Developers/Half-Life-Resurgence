@@ -144,6 +144,9 @@ function ENT:SpawnAnEntity(keys,values,initspawn)
 			getthename:Give(randwep)
 		end
 	end
+	if IsValid(self.TeleportOwner) then
+		table.insert(self.TeleportOwner.tbl_Summons,getthename)
+	end
 	if initspawn == false then table.remove(self.CurrentEntities,k) end
 	table.insert(self.CurrentEntities,k,{EntityName=v.EntityName,SpawnPosition=v.SpawnPosition,Entities=v.Entities,TheEntity=getthename,WeaponsList=wepslist,Dead=false/*NextTimedSpawnT=CurTime()+self.TimedSpawn_Time*/})
 	self:SpawnEntitySoundCode()

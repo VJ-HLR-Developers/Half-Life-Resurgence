@@ -159,29 +159,47 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SummonAllies()
 	if #self.tbl_Summons <= 3 && CurTime() > self.NextSummonT then
-		local x = ents.Create(VJ_PICKRANDOMTABLE({
-			"npc_vj_hlr1_bullsquid",
-			"npc_vj_hlr1_bullsquid",
-			"npc_vj_hlr1_bullsquid",
-			"npc_vj_hlr1_houndeye",
-			"npc_vj_hlr1_houndeye",
-			"npc_vj_hlr1_houndeye",
-			"npc_vj_hlr1_houndeye",
-			"npc_vj_hlr1_aliencontroller",
-			"npc_vj_hlr1_aliencontroller",
-			"npc_vj_hlrsv_babygarg"
-		}))
+		-- local x = ents.Create(VJ_PICKRANDOMTABLE({
+			-- "npc_vj_hlr1_bullsquid",
+			-- "npc_vj_hlr1_bullsquid",
+			-- "npc_vj_hlr1_bullsquid",
+			-- "npc_vj_hlr1_houndeye",
+			-- "npc_vj_hlr1_houndeye",
+			-- "npc_vj_hlr1_houndeye",
+			-- "npc_vj_hlr1_houndeye",
+			-- "npc_vj_hlr1_aliencontroller",
+			-- "npc_vj_hlr1_aliencontroller",
+			-- "npc_vj_hlrsv_babygarg"
+		-- }))
+		-- x:SetPos(self:GetPos() +self:GetForward() *125)
+		-- x:SetAngles(self:GetAngles())
+		-- x:Spawn()
+		local x = ents.Create("sent_vj_hlr_alientp")
 		x:SetPos(self:GetPos() +self:GetForward() *125)
 		x:SetAngles(self:GetAngles())
+		x:SetNPC("npc_vj_hlr1_bullsquid")
+		x:SetNPC("npc_vj_hlr1_bullsquid")
+		x:SetNPC("npc_vj_hlr1_bullsquid")
+		x:SetNPC("npc_vj_hlr1_houndeye")
+		x:SetNPC("npc_vj_hlr1_houndeye")
+		x:SetNPC("npc_vj_hlr1_houndeye")
+		x:SetNPC("npc_vj_hlr1_aliencontroller")
+		x:SetNPC("npc_vj_hlr1_aliencontroller")
+		x:SetNPC("npc_vj_hlrsv_babygarg")
 		x:Spawn()
-		local blast = ents.Create("prop_combine_ball")
-		blast:SetPos(self:GetPos() +self:GetForward() *125)
-		blast:SetParent(x)
-		blast:Spawn()
-		blast:Fire("explode","",0)
-		blast:Fire("disablepuntsound","1")
-		table.insert(self.tbl_Summons,x)
-		self.NextSummonT = CurTime() +math.Rand(3,12)
+		x.TeleportOwner = self
+		-- local blast = ents.Create("prop_combine_ball")
+		-- blast:SetPos(self:GetPos() +self:GetForward() *125)
+		-- blast:SetParent(x)
+		-- blast:Spawn()
+		-- blast:Fire("explode","",0)
+		-- blast:Fire("disablepuntsound","1")
+		-- table.insert(self.tbl_Summons,x)
+		if self.VJ_IsBeingControlled then
+			self.NextSummonT = CurTime() +5
+		else
+			self.NextSummonT = CurTime() +math.Rand(8,14)
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
