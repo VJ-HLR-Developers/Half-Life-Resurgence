@@ -13,6 +13,9 @@ ENT.AnimTbl_Flinch = {ACT_BIG_FLINCH} -- If it uses normal based animation, use 
 function ENT:CustomOnInitialize()
 	self.Boid_Type = 1
 	self:SetCollisionBounds(Vector(18, 18, 10), Vector(-18, -18, 0))
+	self.Boid_PosForward = math.random(-50,50)
+	self.Boid_PosUp = math.random(-150,150)
+	self.Boid_PosRight = math.random(-120,120)
 	if !IsValid(HLR_AFlock_Leader) then
 		HLR_AFlock_Leader = self
 	end

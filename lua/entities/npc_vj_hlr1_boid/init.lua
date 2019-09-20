@@ -44,7 +44,7 @@ function ENT:CustomOnInitialize()
 	self.Boid_PosForward = math.random(-50,50)
 	self.Boid_PosUp = math.random(-150,150)
 	self.Boid_PosRight = math.random(-120,120)
-	if !IsValid(Boid_Leader) then
+	if !IsValid(Boid_Leader) then -- Yete ourish medzavor chiga, ere vor irzenike medzavor ene
 		Boid_Leader = self
 	end
 end
@@ -53,7 +53,7 @@ function ENT:CustomOnThink()
 	if IsValid(Boid_Leader) then
 		if Boid_Leader != self then
 			self.DisableWandering = true
-			self:AAMove_MoveToPos(Boid_Leader,true,{PosForward=self.Boid_PosForward,PosUp=self.Boid_PosUp,PosRight=self.Boid_PosRight})
+			self:AAMove_MoveToPos(Boid_Leader,true,{PosForward=self.Boid_PosForward,PosUp=self.Boid_PosUp,PosRight=self.Boid_PosRight}) -- Medzavorin haladz e (Kharen deghme)
 		end
 	else
 		self.DisableWandering = false
