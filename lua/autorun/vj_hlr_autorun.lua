@@ -264,6 +264,25 @@ if VJExists == true then
 		return self:GetSequenceInfo(self:VJ_GetSequenceID(seq)).activity
 	end
 	
+	-- Temp weapon hook!
+	hook.Add("PlayerSpawn","VJ_HL1SWEPs_AutoSpawn",function(ply)
+		if GetConVarNumber("hl1_sv_loadout") == 1 then
+			ply:Give("weapon_hl1_357")
+			ply:Give("weapon_hl1_glock")
+			ply:Give("weapon_hl1_crossbow")
+			ply:Give("weapon_hl1_egon")
+			ply:Give("weapon_hl1_handgrenade")
+			ply:Give("weapon_hl1_hornetgun")
+			ply:Give("weapon_hl1_mp5")
+			ply:Give("weapon_hl1_rpg")
+			ply:Give("weapon_hl1_satchel")
+			ply:Give("weapon_hl1_shotgun")
+			//ply:Give("weapon_hl1_snark")
+			ply:Give("weapon_hl1_gauss")
+			ply:Give("weapon_hl1_tripmine")
+		end
+	end)
+	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)
 	VJ.AddAddonProperty(AddonName,AddonType)

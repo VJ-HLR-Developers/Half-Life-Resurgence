@@ -9,7 +9,7 @@ ENT.Model = {"models/weapons/w_missile_launch.mdl"} -- The models it should spaw
 ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
 ENT.DirectDamage = 10 -- How much damage should it do when it hits something
 ENT.DirectDamageType = DMG_SHOCK -- Damage type
-ENT.DecalTbl_DeathDecals = {"fadingscorch"}
+ENT.DecalTbl_DeathDecals = {"VJ_HLR_Scorch_Small"}
 ENT.SoundTbl_OnCollide = {"ambient/energy/spark4.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()

@@ -39,6 +39,8 @@ SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/shockroach/shock_fire.wav"}
 SWEP.Primary.DisableBulletCode	= true
 SWEP.PrimaryEffects_SpawnShells = false
 
+SWEP.HasDryFireSound			= false -- Should it play a sound when it's out of ammo?
+
 -- Custom
 SWEP.HLR_ValidModels = {"models/vj_hlr/opfor/strooper.mdl"}
 SWEP.HLR_NextIdleSoundT = 0
