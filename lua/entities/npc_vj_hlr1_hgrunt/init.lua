@@ -130,7 +130,7 @@ function ENT:CustomOnInitialize()
 		self.HECU_Type = 6
 		self.HECU_WepBG = 1
 		self.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEFORWARD}
-	elseif self:GetModel() == "models/vj_hlr/hl1/hassault.mdl" then
+	elseif self:GetModel() == "models/vj_hlr/hl1/hassault.mdl" or self:GetModel() == "models/vj_hlr/hl_hd/hassault.mdl" then
 		self.HECU_Type = 7
 		self.HECU_WepBG = 1
 		self.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEBACKWARD,ACT_DIEVIOLENT}

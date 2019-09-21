@@ -31,7 +31,7 @@ SWEP.Primary.Sound				= {"vj_hlr/hl1_npc/hassault/hw_shoot1.wav","vj_hlr/hl1_npc
 SWEP.Primary.DistantSound		= {"vj_hlr/hl1_npc/hassault/hw_shoot_distant.wav"}
 
 -- Custom
-SWEP.HLR_ValidModels = {"models/vj_hlr/hl1/hassault.mdl"}
+SWEP.HLR_ValidModels = {"models/vj_hlr/hl1/hassault.mdl","models/vj_hlr/hl_hd/hassault.mdl"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
 	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
