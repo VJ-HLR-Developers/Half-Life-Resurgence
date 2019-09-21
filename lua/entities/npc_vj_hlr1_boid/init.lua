@@ -8,6 +8,8 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/hl1/boid.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 25
 ENT.HullType = HULL_TINY
+ENT.TurningSpeed = 12 -- How fast it can turn
+ENT.TurningUseAllAxis = true -- If set to true, angles will not be restricted to y-axis, it will change all axes (plural axis)
 ENT.MovementType = VJ_MOVETYPE_AERIAL -- How does the SNPC move?
 ENT.Aerial_FlyingSpeed_Calm = 130 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking campared to ground SNPCs
 ENT.Aerial_FlyingSpeed_Alerted = 130 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running campared to ground SNPCs
@@ -36,6 +38,7 @@ ENT.Boid_Type = 0
 ENT.Boid_PosForward = 0
 ENT.Boid_PosUp = 0
 ENT.Boid_PosRight = 0
+
 HLR_Boid_Leader = NULL
 HLR_AFlock_Leader = NULL
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -44,20 +47,20 @@ function ENT:CustomOnInitialize()
 	self.Boid_PosForward = math.random(-50,50)
 	self.Boid_PosUp = math.random(-150,150)
 	self.Boid_PosRight = math.random(-120,120)
-	if !IsValid(Boid_Leader) then -- Yete ourish medzavor chiga, ere vor irzenike medzavor ene
-		Boid_Leader = self
+	if !IsValid(HLR_Boid_Leader) then -- Yete ourish medzavor chiga, ere vor irzenike medzavor ene
+		HLR_Boid_Leader = self
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if IsValid(Boid_Leader) then
-		if Boid_Leader != self then
+	if IsValid(HLR_Boid_Leader) then
+		if HLR_Boid_Leader != self then
 			self.DisableWandering = true
-			self:AAMove_MoveToPos(Boid_Leader,true,{PosForward=self.Boid_PosForward,PosUp=self.Boid_PosUp,PosRight=self.Boid_PosRight}) -- Medzavorin haladz e (Kharen deghme)
+			self:AAMove_MoveToPos(HLR_Boid_Leader,true,{PosForward=self.Boid_PosForward,PosUp=self.Boid_PosUp,PosRight=self.Boid_PosRight}) -- Medzavorin haladz e (Kharen deghme)
 		end
 	else
 		self.DisableWandering = false
-		Boid_Leader = self
+		HLR_Boid_Leader = self
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

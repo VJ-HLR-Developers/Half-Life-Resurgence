@@ -25,7 +25,7 @@ function ENT:CustomOnThink()
 	if IsValid(HLR_AFlock_Leader) then
 		if HLR_AFlock_Leader != self then
 			self.DisableWandering = true
-			self:AAMove_MoveToPos(HLR_AFlock_Leader,true)
+			self:AAMove_MoveToPos(HLR_AFlock_Leader,true,{PosForward=self.Boid_PosForward,PosUp=self.Boid_PosUp,PosRight=self.Boid_PosRight}) -- Medzavorin haladz e (Kharen deghme)
 		end
 	else
 		self.DisableWandering = false
