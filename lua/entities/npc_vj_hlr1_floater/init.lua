@@ -11,9 +11,8 @@ ENT.HullType = HULL_TINY
 ENT.MovementType = VJ_MOVETYPE_AERIAL -- How does the SNPC move?
 ENT.Aerial_FlyingSpeed_Calm = 100 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking campared to ground SNPCs
 ENT.Aerial_FlyingSpeed_Alerted = 200 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running campared to ground SNPCs
-ENT.AnimTbl_IdleStand = {"vjseq_idle"}
-ENT.Aerial_AnimTbl_Calm = {"vjseq_idle"} -- Animations it plays when it's wandering around while idle
-ENT.Aerial_AnimTbl_Alerted = {"vjseq_idle"} -- Animations it plays when it's moving while alerted
+ENT.Aerial_AnimTbl_Calm = {ACT_WALK} -- Animations it plays when it's wandering around while idle
+ENT.Aerial_AnimTbl_Alerted = {ACT_RUN} -- Animations it plays when it's moving while alerted
 ENT.AA_ConstantlyMove = true -- Used for aerial and aquatic SNPCs, makes them constantly move
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.IdleAlwaysWander = true -- If set to true, it will make the SNPC always wander when idling
