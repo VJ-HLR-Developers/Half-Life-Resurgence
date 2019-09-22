@@ -23,7 +23,6 @@ ENT.AnimTbl_ShootWhileMovingRun = {ACT_RUN} -- Animations it will play when shoo
 ENT.AnimTbl_ShootWhileMovingWalk = {ACT_RUN} -- Animations it will play when shooting while walking | NOTE: Weapon may translate the animation that they see fit!
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIE_GUTSHOT,ACT_DIE_HEADSHOT,ACT_DIESIMPLE} -- Death Animations
 ENT.DeathAnimationTime = false -- Time until the SNPC spawns its corpse and gets removed
 ENT.AnimTbl_TakingCover = {ACT_CROUCHIDLE} -- The animation it plays when hiding in a covered position, leave empty to let the base decide
 ENT.AnimTbl_AlertFriendsOnDeath = {"vjseq_idle2"} -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
@@ -119,7 +118,7 @@ ENT.Security_GunHolstered = true
 ENT.Security_Type = 0
 	-- 0 = Security Guard
 	-- 1 = Otis
-	-- 3 = Alpha Security Guard
+	-- 2 = Alpha Security Guard
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Security_CustomOnInitialize()
 	self.SoundTbl_Idle = {"vj_hlr/hl1_npc/barney/whatisthat.wav","vj_hlr/hl1_npc/barney/somethingstinky.wav","vj_hlr/hl1_npc/barney/somethingdied.wav","vj_hlr/hl1_npc/barney/guyresponsible.wav","vj_hlr/hl1_npc/barney/coldone.wav","vj_hlr/hl1_npc/barney/ba_gethev.wav","vj_hlr/hl1_npc/barney/badfeeling.wav","vj_hlr/hl1_npc/barney/bigmess.wav","vj_hlr/hl1_npc/barney/bigplace.wav"}
@@ -141,6 +140,8 @@ function ENT:Security_CustomOnInitialize()
 	self.SoundTbl_DamageByPlayer = {"vj_hlr/hl1_npc/barney/donthurtem.wav","vj_hlr/hl1_npc/barney/ba_whoathere.wav","vj_hlr/hl1_npc/barney/ba_whatyou.wav","vj_hlr/hl1_npc/barney/ba_watchit.wav","vj_hlr/hl1_npc/barney/ba_shot1.wav","vj_hlr/hl1_npc/barney/ba_shot2.wav","vj_hlr/hl1_npc/barney/ba_shot3.wav","vj_hlr/hl1_npc/barney/ba_shot4.wav","vj_hlr/hl1_npc/barney/ba_shot5.wav","vj_hlr/hl1_npc/barney/ba_shot6.wav","vj_hlr/hl1_npc/barney/ba_shot7.wav","vj_hlr/hl1_npc/barney/ba_stepoff.wav","vj_hlr/hl1_npc/barney/ba_pissme.wav","vj_hlr/hl1_npc/barney/ba_mad1.wav","vj_hlr/hl1_npc/barney/ba_mad0.wav","vj_hlr/hl1_npc/barney/ba_friends.wav","vj_hlr/hl1_npc/barney/ba_dotoyou.wav","vj_hlr/hl1_npc/barney/ba_dontmake.wav","vj_hlr/hl1_npc/barney/ba_crazy.wav"}
 	self.SoundTbl_Death = {"vj_hlr/hl1_npc/barney/ba_ht06_02_alt.wav","vj_hlr/hl1_npc/barney/ba_ht06_02.wav","vj_hlr/hl1_npc/barney/ba_die1.wav","vj_hlr/hl1_npc/barney/ba_die2.wav","vj_hlr/hl1_npc/barney/ba_die3.wav"}
 
+	self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIE_GUTSHOT,ACT_DIE_HEADSHOT,ACT_DIESIMPLE} -- Death Animations
+	
 	self:Give("weapon_vj_hlr1_glock17")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

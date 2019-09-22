@@ -46,6 +46,7 @@ ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/floater/fl_alert1.wav","vj_hlr/hl1_npc/flo
 ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/floater/fl_attack1.wav","vj_hlr/hl1_npc/floater/fl_attack2.wav","vj_hlr/hl1_npc/floater/fl_attack3.wav"}
 ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/bullchicken/bc_attack2.wav","vj_hlr/hl1_npc/bullchicken/bc_attack3.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/floater/fl_pain1.wav","vj_hlr/hl1_npc/floater/fl_pain2.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/floater/fl_pain1.wav","vj_hlr/hl1_npc/floater/fl_pain2.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 

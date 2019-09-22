@@ -18,7 +18,7 @@ SWEP.HoldType 					= "pistol"
 SWEP.Spawnable					= false
 SWEP.AdminSpawnable				= false
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
+SWEP.WorldModel_Invisible = false -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
 SWEP.WorldModel_CustomPositionAngle = Vector(0,180,-90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(0,-5.5,-1)
@@ -32,11 +32,14 @@ SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/glock/glock_distant.wav"}
 SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"
 
 -- Custom
-SWEP.HLR_ValidModels = {"models/vj_hlr/hl1/barney.mdl","models/vj_hlr/opfor/hgrunt.mdl","models/vj_hlr/hl1/hgrunt.mdl","models/vj_hlr/opfor/hgrunt_medic.mdl","models/vj_hlr/opfor/hgrunt_engineer.mdl"}
+SWEP.HLR_ValidModels = {"models/vj_hlr/hl1/barney.mdl","models/vj_hlr/hla/barney.mdl","models/vj_hlr/opfor/hgrunt.mdl","models/vj_hlr/hl1/hgrunt.mdl","models/vj_hlr/opfor/hgrunt_medic.mdl","models/vj_hlr/opfor/hgrunt_engineer.mdl"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
 	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
 		if IsValid(self) && IsValid(self.Owner) then
+			if self.Owner:GetModel() == "models/vj_hlr/hla/barney.mdl" then
+				self.WorldModel_CustomPositionBone = "unnamed033"
+			end
 			if !VJ_HasValue(self.HLR_ValidModels,self.Owner:GetModel()) then
 				if IsValid(self.Owner:GetCreator()) then
 					self.Owner:GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
@@ -44,7 +47,7 @@ function SWEP:CustomOnInitialize()
 				self:Remove()
 			else
 				self.NPC_NextPrimaryFire = false
-				if self.Owner:GetModel() == "models/vj_hlr/hl1/barney.mdl" then
+				if self.Owner:GetModel() == "models/vj_hlr/hl1/barney.mdl" or self.Owner:GetModel() == "models/vj_hlr/hla/barney.mdl" then
 					self.Primary.Sound = {"vj_hlr/hl1_npc/barney/ba_attack2.wav"}
 					self.WorldModel_CustomPositionAngle = Vector(0,192,-90)
 					self.WorldModel_CustomPositionOrigin = Vector(-1.5,-7,-1)

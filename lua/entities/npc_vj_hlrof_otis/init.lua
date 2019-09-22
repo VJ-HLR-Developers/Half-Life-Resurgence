@@ -38,6 +38,7 @@ function ENT:Security_CustomOnInitialize()
 	self.SoundTbl_DamageByPlayer = {"vj_hlr/hl1_npc/otis/yourside.wav","vj_hlr/hl1_npc/otis/watchit.wav","vj_hlr/hl1_npc/otis/quitit.wav","vj_hlr/hl1_npc/otis/onry.wav","vj_hlr/hl1_npc/otis/dontmake.wav","vj_hlr/hl1_npc/otis/damn.wav","vj_hlr/hl1_npc/otis/chump.wav","vj_hlr/hl1_npc/otis/friends.wav"}
 	self.SoundTbl_Death = {"vj_hlr/hl1_npc/barney/ba_die1.wav","vj_hlr/hl1_npc/barney/ba_die2.wav","vj_hlr/hl1_npc/barney/ba_die3.wav"}
 	
+	self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIE_GUTSHOT,ACT_DIE_HEADSHOT,ACT_DIESIMPLE} -- Death Animations
 	self:Give("weapon_vj_hlrof_desert_eagle")
 	self:SetBodygroup(2,math.random(0,2))
 end
