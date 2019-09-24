@@ -7,6 +7,7 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hla/hgrunt.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.HasGrenadeAttack = false
+ENT.MoveRandomlyWhenShooting = true -- Should it move randomly when shooting?
 
 -- Custom
 ENT.AHGR_NextStrafeT = 0
@@ -28,20 +29,8 @@ function ENT:HECU_CustomOnInitialize()
 	self.AHGR_NextStrafeT = CurTime() + 4
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:HECU_CustomOnThink()
-	if IsValid(self:GetEnemy()) && self.DoingWeaponAttack_Standing == true && self.VJ_IsBeingControlled == false && CurTime() > self.AHGR_NextStrafeT && !self:IsMoving() && self:GetPos():Distance(self:GetEnemy():GetPos()) < 1400 then
-		self:StopMoving()
-		self:VJ_ACT_PLAYACTIVITY({ACT_STRAFE_RIGHT,ACT_STRAFE_LEFT},true,false,false)
-		self.AHGR_NextRunT= CurTime() + 2
-		self.AHGR_NextStrafeT = CurTime() + 8
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnWeaponAttack()
-	if CurTime() > self.AHGR_NextRunT then
-		self.AHGR_NextStrafeT = CurTime() + 8
-		self.AHGR_NextRunT= CurTime() + 12
-	end
+function ENT:CustomOnMoveMoveRandomlyWhenShooting()
+	self:VJ_ACT_PLAYACTIVITY({ACT_STRAFE_RIGHT,ACT_STRAFE_LEFT},true,false,false)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***

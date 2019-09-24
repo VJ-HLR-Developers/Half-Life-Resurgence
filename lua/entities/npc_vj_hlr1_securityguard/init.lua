@@ -179,15 +179,19 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if CurTime() < self.Security_NextMouthMove then
-		if self.Security_NextMouthDistance == 0 then
-			self.Security_NextMouthDistance = math.random(10,70)
+	if self.Security_Type != 2 then
+		if CurTime() < self.Security_NextMouthMove then
+			if self.Security_NextMouthDistance == 0 then
+				self.Security_NextMouthDistance = math.random(10,70)
+			else
+				self.Security_NextMouthDistance = 0
+			end
+			self:SetPoseParameter("m",self.Security_NextMouthDistance)
 		else
-			self.Security_NextMouthDistance = 0
+			self:SetPoseParameter("m",0)
 		end
-		self:SetPoseParameter("m",self.Security_NextMouthDistance)
 	else
-		self:SetPoseParameter("m",0)
+		self.Weapon_ShotsSinceLastReload = 0
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

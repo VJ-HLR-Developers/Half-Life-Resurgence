@@ -28,6 +28,8 @@ if VJExists == true then
 			VJ.AddNPC("Human Grunt Engineer (OppF)","npc_vj_hlrof_hgrunt_eng",vCat)
 			-- Decay
 			VJ.AddNPC("Decay HECU Sentry Gun","npc_vj_hlrdc_sentry",vCat)
+			-- Alpha
+			VJ.AddNPC("Alpha Human Grunt","npc_vj_hlr1a_hgrunt",vCat)
 		
 		-- Black Ops
 		VJ.AddNPC("Black Ops Male Assassin","npc_vj_hlrof_assassin_male",vCat)
@@ -43,6 +45,10 @@ if VJExists == true then
 			VJ.AddNPC("Otis Laurey","npc_vj_hlrof_otis",vCat)
 			-- Decay
 			VJ.AddNPC("Dr. Richard Keller","npc_vj_hlrdc_keller",vCat)
+			-- Alpha
+			VJ.AddNPC("Alpha Security Guard","npc_vj_hlr1a_securityguard",vCat)
+			VJ.AddNPC("Alpha Scientist","npc_vj_hlr1a_scientist",vCat)
+			VJ.AddNPC("Ivan the Space Biker","npc_vj_hlr1a_ivan",vCat)
 		
 		-- Xen Creatures
 		VJ.AddNPC("Flocking Floater","npc_vj_hlr1_floater",vCat)
@@ -70,6 +76,9 @@ if VJExists == true then
 			VJ.AddNPC("Headcrab","npc_vj_hlr1_headcrab",vCat)
 			VJ.AddNPC("Baby Headcrab","npc_vj_hlr1_headcrab_baby",vCat)
 			VJ.AddNPC("Zombie","npc_vj_hlr1_zombie",vCat)
+				-- Alpha
+				VJ.AddNPC("Alpha Zombie","npc_vj_hlr1a_zombie",vCat)
+				VJ.AddNPC("Alpha Headcrab","npc_vj_hlr1a_headcrab",vCat)
 				-- Opposing Force
 				VJ.AddNPC("Zombie Security Guard","npc_vj_hlrof_zombie_sec",vCat)
 				VJ.AddNPC("Zombie Soldier","npc_vj_hlrof_zombie_soldier",vCat)
@@ -89,14 +98,7 @@ if VJExists == true then
 		-- Weapons
 		//VJ.AddNPCWeapon("VJ_HLR1_Glock17","weapon_vj_hlr1_glock17",false,vCat)
 		//VJ.AddNPCWeapon("VJ_HLR1_MP5","weapon_vj_hlr1_mp5",false,vCat)
-	-- Half-Life: Alpha ----------------------------------------------------
-	local vCat = "Half-Life Resurgence: HLA"
-		VJ.AddNPC("Zombie","npc_vj_hlr1a_zombie",vCat)
-		VJ.AddNPC("Headcrab","npc_vj_hlr1a_headcrab",vCat)
-		VJ.AddNPC("Scientist","npc_vj_hlr1a_scientist",vCat)
-		VJ.AddNPC("Security Guard","npc_vj_hlr1a_securityguard",vCat)
-		VJ.AddNPC("Human Grunt","npc_vj_hlr1a_hgrunt",vCat)
-		VJ.AddNPC("Ivan the Space Biker","npc_vj_hlr1a_ivan",vCat)
+		
 	-- Source Engine -------------------------------------------------------
 	local vCat = "Half-Life Resurgence: HL2"
 		-- Antlions
