@@ -29,7 +29,7 @@ function ENT:HECU_CustomOnInitialize()
 	self.AHGR_NextStrafeT = CurTime() + 4
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMoveMoveRandomlyWhenShooting()
+function ENT:CustomOnMoveRandomlyWhenShooting()
 	self:VJ_ACT_PLAYACTIVITY({ACT_STRAFE_RIGHT,ACT_STRAFE_LEFT},true,false,false)
 end
 /*-----------------------------------------------
