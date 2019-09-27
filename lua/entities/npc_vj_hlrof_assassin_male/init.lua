@@ -26,11 +26,11 @@ function ENT:HECU_CustomOnThink()
 		self:StopMoving()
 		self:VJ_ACT_PLAYACTIVITY({ACT_STRAFE_RIGHT,ACT_STRAFE_LEFT},true,false,false)
 		self.BOA_NextRunT = CurTime() + 2
-		if self:GetBodygroup(2) == 1 then
-			self.BOA_NextStrafeT = CurTime() + 2
-		else
+		//if self:GetBodygroup(2) == 1 then
+			//self.BOA_NextStrafeT = CurTime() + 2
+		//else
 			self.BOA_NextStrafeT = CurTime() + 8
-		end
+		//end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -41,13 +41,13 @@ function ENT:CustomOnWeaponAttack()
 				self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH")
 			end
 		end)
-		if self:GetBodygroup(2) == 1 then
-			self.BOA_NextStrafeT = CurTime() + 5
-			self.BOA_NextRunT = CurTime() + 8
-		else
+		//if self:GetBodygroup(2) == 1 then
+			///self.BOA_NextStrafeT = CurTime() + 5
+			//self.BOA_NextRunT = CurTime() + 8
+		//else
 			self.BOA_NextStrafeT = CurTime() + 8
 			self.BOA_NextRunT = CurTime() + 12
-		end
+		//end
 	end
 end
 /*-----------------------------------------------

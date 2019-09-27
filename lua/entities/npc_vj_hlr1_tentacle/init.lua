@@ -6,7 +6,8 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hl1/tentacle.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.StartHealth = 120
+ENT.SightDistance = 800 -- How far it can see
+ENT.StartHealth = 1000
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
 ENT.HullType = HULL_LARGE
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -16,17 +17,24 @@ ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's dam
 ENT.HasBloodPool = false -- Does it have a blood pool?
 
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
+ENT.MeleeAttackDamage = 80
+ENT.MeleeAttackDamageType = DMG_ALWAYSGIB -- Type of Damage
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDistance = 35 -- How close does it have to be until it attacks?
-ENT.MeleeAttackDamageDistance = 125 -- How far does the damage go?
+ENT.MeleeAttackDistance = 300 -- How close does it have to be until it attacks?
+ENT.MeleeAttackDamageDistance = 380 -- How far does the damage go?
+ENT.MeleeAttackDamageAngleRadius = 10 -- What is the damage angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {"die1","die"} -- Death Animations
-ENT.DeathAnimationChance = 3 -- Put 1 if you want it to play the animation all the time
-ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
+ENT.AnimTbl_Death = {ACT_DIESIMPLE} -- Death Animations
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
+ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/tentacle/te_flies1.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/tentacle/te_sing1.wav","vj_hlr/hl1_npc/tentacle/te_sing2.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/tentacle/te_alert1.wav","vj_hlr/hl1_npc/tentacle/te_alert2.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/tentacle/te_roar1.wav","vj_hlr/hl1_npc/tentacle/te_roar2.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/tentacle/te_death2.wav"}
 
+ENT.GeneralSoundPitch1 = 100
 
 -- Custom
 ENT.Tentacle_Level = 0
@@ -43,44 +51,72 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	print(key)
 	if key == "attack" then
 		self:MeleeAttackCode()
+		self:MeleeAttackSoundCode({"vj_hlr/hl1_npc/tentacle/te_strike1.wav","vj_hlr/hl1_npc/tentacle/te_strike2.wav"},VJ_EmitSound)
 	end
 end
+-- 0 to 1 = ACT_SIGNAL1				1 to 2 = ACT_SIGNAL2			2 to 3 = ACT_SIGNAL3
+-- 1 to 0 = ACT_SIGNAL_ADVANCE		2 to 1 = ACT_SIGNAL_FORWARD		3 to 2 = ACT_SIGNAL_HALT
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tentacle_DoLevelChange(num)
 	local lvl = self.Tentacle_Level + num
-	
+	VJ_EmitSound(self,{"vj_hlr/hl1_npc/tentacle/te_swing1.wav","vj_hlr/hl1_npc/tentacle/te_swing2.wav"})
 	if lvl == 0 then
 		self.AnimTbl_IdleStand = {ACT_IDLE}
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
 		self.Tentacle_Level = 0
+		self:SetCollisionBounds(Vector(20, 20 , 160), Vector(-20, -20, 0))
 	elseif lvl == 1 then
 		self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
 		self.Tentacle_Level = 1
+		self:SetCollisionBounds(Vector(20, 20 , 380), Vector(-20, -20, 0))
 	elseif lvl == 2 then
 		self.AnimTbl_IdleStand = {ACT_IDLE_ANGRY_MELEE}
 		self.AnimTbl_MeleeAttack = {ACT_RANGE_ATTACK1_LOW}
 		self.Tentacle_Level = 2
+		self:SetCollisionBounds(Vector(20, 20 , 580), Vector(-20, -20, 0))
 	elseif lvl == 3 then
 		self.AnimTbl_IdleStand = {ACT_IDLE_ANGRY}
 		self.AnimTbl_MeleeAttack = {ACT_RANGE_ATTACK2_LOW}
 		self.Tentacle_Level = 3
+		self:SetCollisionBounds(Vector(20, 20 , 650), Vector(-20, -20, 0))
 	end
 end
-/*
- 0 to 1 = ACT_SIGNAL1
- 1 to 0 = ACT_SIGNAL_ADVANCE
- 
- 1 to 2 = ACT_SIGNAL2
- 2 to 1 = ACT_SIGNAL_FORWARD
- 
- 2 to 3 = ACT_SIGNAL3
- 3 to 2 = ACT_SIGNAL_HALT
-*/
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SetNearestPointToEntityPosition()
+	local resultz = 0
+	if self.Tentacle_Level == 3 then
+		resultz = 570
+	elseif self.Tentacle_Level == 2 then
+		resultz = 430
+	elseif self.Tentacle_Level == 1 then
+		resultz = 170
+	end
+	return self:GetPos() + self:GetForward() + self:GetUp()*resultz -- Override this to use a different position
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SetMeleeAttackDamagePosition()
+	local resultz = 0
+	if self.Tentacle_Level == 3 then
+		resultz = 570
+	elseif self.Tentacle_Level == 2 then
+		resultz = 430
+	elseif self.Tentacle_Level == 1 then
+		resultz = 170
+	end
+	return self:GetPos() + self:GetForward() + self:GetUp()*resultz -- Override this to use a different position
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	if IsValid(self:GetEnemy()) then
+		if (self:GetEnemy():GetVelocity():Length() > 50 && self:GetEnemy():IsOnGround()) or (self:GetEnemy():IsNPC() && self:GetEnemy():IsMoving()) then
+			self.CanTurnWhileStationary = true
+		else
+			self.CanTurnWhileStationary = false
+		end
+		
 		local enedist = (self.LatestEnemyPosition - self:GetPos()).z
+		//print("dist: "..enedist)
 		if enedist >= 570 then
 			if self.Tentacle_Level != 3 then
 				self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL3,true,false,true)
@@ -117,6 +153,8 @@ function ENT:CustomOnThink()
 				end
 			end
 		end
+	else
+		self.CanTurnWhileStationary = false
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
