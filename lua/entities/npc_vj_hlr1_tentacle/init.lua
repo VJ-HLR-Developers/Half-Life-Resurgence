@@ -7,6 +7,7 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hl1/tentacle.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.SightDistance = 800 -- How far it can see
+ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.StartHealth = 1000
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
 ENT.HullType = HULL_LARGE
@@ -44,7 +45,17 @@ ENT.Tentacle_Level = 0
 	-- 3 = Extreme Level
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(20, 20 , 60), Vector(-20, -20, 0))
+	self:SetCollisionBounds(Vector(20, 20, 160), Vector(-20, -20, 0))
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnHandleAnimEvent(ev,evTime,evCycle,evType,evOptions)
+	if ev == 6 then
+		self:MeleeAttackSoundCode({"vj_hlr/hl1_npc/tentacle/te_strike1.wav","vj_hlr/hl1_npc/tentacle/te_strike2.wav"},VJ_EmitSound)
+		if IsValid(self:GetEnemy()) && (self:GetEnemy():GetPos():Distance(self:GetPos() + self:GetForward()*150)) < 200 then
+			self.CanTurnWhileStationary = true
+			self:SetAngles(self:VJ_ReturnAngle((self:GetEnemy():GetPos()-self:GetPos()):Angle()))
+		end
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -52,6 +63,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "attack" then
 		self:MeleeAttackCode()
 		self:MeleeAttackSoundCode({"vj_hlr/hl1_npc/tentacle/te_strike1.wav","vj_hlr/hl1_npc/tentacle/te_strike2.wav"},VJ_EmitSound)
+		self:SetAngles(self:VJ_ReturnAngle((self:GetEnemy():GetPos()-self:GetPos()):Angle()))
 	end
 end
 -- 0 to 1 = ACT_SIGNAL1				1 to 2 = ACT_SIGNAL2			2 to 3 = ACT_SIGNAL3
@@ -64,22 +76,22 @@ function ENT:Tentacle_DoLevelChange(num)
 		self.AnimTbl_IdleStand = {ACT_IDLE}
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
 		self.Tentacle_Level = 0
-		self:SetCollisionBounds(Vector(20, 20 , 160), Vector(-20, -20, 0))
+		self:SetCollisionBounds(Vector(20, 20, 160), Vector(-20, -20, 0))
 	elseif lvl == 1 then
 		self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
 		self.Tentacle_Level = 1
-		self:SetCollisionBounds(Vector(20, 20 , 380), Vector(-20, -20, 0))
+		self:SetCollisionBounds(Vector(20, 20, 380), Vector(-20, -20, 0))
 	elseif lvl == 2 then
 		self.AnimTbl_IdleStand = {ACT_IDLE_ANGRY_MELEE}
 		self.AnimTbl_MeleeAttack = {ACT_RANGE_ATTACK1_LOW}
 		self.Tentacle_Level = 2
-		self:SetCollisionBounds(Vector(20, 20 , 580), Vector(-20, -20, 0))
+		self:SetCollisionBounds(Vector(20, 20, 580), Vector(-20, -20, 0))
 	elseif lvl == 3 then
 		self.AnimTbl_IdleStand = {ACT_IDLE_ANGRY}
 		self.AnimTbl_MeleeAttack = {ACT_RANGE_ATTACK2_LOW}
 		self.Tentacle_Level = 3
-		self:SetCollisionBounds(Vector(20, 20 , 650), Vector(-20, -20, 0))
+		self:SetCollisionBounds(Vector(20, 20, 650), Vector(-20, -20, 0))
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -115,41 +127,43 @@ function ENT:CustomOnThink()
 			self.CanTurnWhileStationary = false
 		end
 		
+		if self.CanTurnWhileStationary == true then
 		local enedist = (self.LatestEnemyPosition - self:GetPos()).z
 		//print("dist: "..enedist)
-		if enedist >= 570 then
-			if self.Tentacle_Level != 3 then
-				self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL3,true,false,true)
-				self:Tentacle_DoLevelChange(1)
-			end
-		elseif enedist >= 430 then
-			if self.Tentacle_Level != 2 then
-				if self.Tentacle_Level > 2 then
-					self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_HALT,true,false,true)
-					self:Tentacle_DoLevelChange(-1)
-				else
-					self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2,true,false,true)
+			if enedist >= 570 then
+				if self.Tentacle_Level != 3 then
+					self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL3,true,false,false)
 					self:Tentacle_DoLevelChange(1)
 				end
-			end
-		elseif enedist >= 170 then
-			if self.Tentacle_Level != 1 then
-				if self.Tentacle_Level > 1 then
-					self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_FORWARD,true,false,true)
-					self:Tentacle_DoLevelChange(-1)
-				else
-					self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,true)
-					self:Tentacle_DoLevelChange(1)
+			elseif enedist >= 430 then
+				if self.Tentacle_Level != 2 then
+					if self.Tentacle_Level > 2 then
+						self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_HALT,true,false,false)
+						self:Tentacle_DoLevelChange(-1)
+					else
+						self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2,true,false,false)
+						self:Tentacle_DoLevelChange(1)
+					end
 				end
-			end
-		else
-			if self.Tentacle_Level != 0 then
-				if self.Tentacle_Level > 0 then
-					self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_ADVANCE,true,false,true)
-					self:Tentacle_DoLevelChange(-1)
-				else
-					self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,true)
-					self:Tentacle_DoLevelChange(1)
+			elseif enedist >= 170 then
+				if self.Tentacle_Level != 1 then
+					if self.Tentacle_Level > 1 then
+						self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_FORWARD,true,false,false)
+						self:Tentacle_DoLevelChange(-1)
+					else
+						self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
+						self:Tentacle_DoLevelChange(1)
+					end
+				end
+			else
+				if self.Tentacle_Level != 0 then
+					if self.Tentacle_Level > 0 then
+						self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_ADVANCE,true,false,false)
+						self:Tentacle_DoLevelChange(-1)
+					else
+						self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1,true,false,false)
+						self:Tentacle_DoLevelChange(1)
+					end
 				end
 			end
 		end

@@ -43,8 +43,8 @@ ENT.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1} -- Range Attack Animations
 ENT.RangeDistance = 2000 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 500 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-ENT.NextRangeAttackTime = 2 -- How much time until it can use a range attack?
-ENT.NextRangeAttackTime_DoRand = 5 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
+ENT.NextRangeAttackTime = 0.1 -- How much time until it can use a range attack?
+ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
 ENT.RangeAttackPos_Up = 180 -- Up/Down spawning position for range attack
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
@@ -141,11 +141,11 @@ function ENT:CustomOnThink_AIEnabled()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(TheProjectile)
-	if math.random(1,math.random(2,4)) == 1 then
+	/*if math.random(1,math.random(2,4)) == 1 then
 		self.NextRangeAttackTime_DoRand = 0.1
 	else
 		self.NextRangeAttackTime_DoRand = 5
-	end
+	end*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(TheProjectile)
