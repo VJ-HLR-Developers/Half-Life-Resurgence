@@ -140,6 +140,14 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomRangeAttackCode_AfterProjectileSpawn(TheProjectile)
+	if math.random(1,math.random(2,4)) == 1 then
+		self.NextRangeAttackTime_DoRand = 0.1
+	else
+		self.NextRangeAttackTime_DoRand = 5
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(TheProjectile)
 	return self:CalculateProjectile("Curve", self:GetPos() + self:GetUp()*self.RangeAttackPos_Up, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1200)
 end
