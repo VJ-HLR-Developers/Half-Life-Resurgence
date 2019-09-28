@@ -67,6 +67,7 @@ if VJExists == true then
 		VJ.AddNPC("Boid","npc_vj_hlr1_boid",vCat)
 		VJ.AddNPC("AFlock","npc_vj_hlr1_aflock",vCat)
 		VJ.AddNPC("Tentacle","npc_vj_hlr1_tentacle",vCat)
+		VJ.AddNPC("Panther Eye","npc_vj_hlr1_panthereye",vCat)
 		VJ.AddNPC("Xen Tree","npc_vj_hlr1_xentree",vCat)
 		VJ.AddNPC("Xen Hair","sent_vj_xen_hair",vCat)
 		VJ.AddNPC("Xen Spore (Large)","sent_vj_xen_spore_large",vCat)

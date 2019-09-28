@@ -35,9 +35,9 @@ if (SERVER) then
 		self:DeleteOnRemove(self.StartLight1)
 		
 		self.StartGlow1 = ents.Create("env_sprite")
-		self.StartGlow1:SetKeyValue("model","sprites/glow01.vmt")
+		self.StartGlow1:SetKeyValue("model","vj_hl/sprites/flare3.vmt")
 		self.StartGlow1:SetKeyValue("rendercolor","255 128 0")
-		self.StartGlow1:SetKeyValue("GlowProxySize","2.0")
+		self.StartGlow1:SetKeyValue("GlowProxySize","5.0")
 		self.StartGlow1:SetKeyValue("HDRColorScale","1.0")
 		self.StartGlow1:SetKeyValue("renderfx","14")
 		self.StartGlow1:SetKeyValue("rendermode","3")
@@ -47,7 +47,7 @@ if (SERVER) then
 		self.StartGlow1:SetKeyValue("maxdxlevel","0")
 		self.StartGlow1:SetKeyValue("framerate","10.0")
 		self.StartGlow1:SetKeyValue("spawnflags","0")
-		self.StartGlow1:SetKeyValue("scale","1")
+		self.StartGlow1:SetKeyValue("scale","0.5")
 		self.StartGlow1:SetPos(self:GetPos())
 		self.StartGlow1:Spawn()
 		self.StartGlow1:SetParent(self)
@@ -56,7 +56,7 @@ if (SERVER) then
 	end
 	
 	function ENT:Think()
-		local getents = ents.FindInSphere(self:GetPos(), 200)
+		local getents = ents.FindInSphere(self:GetPos(), 150)
 		for k, v in ipairs(getents) do
 			if (v:IsNPC() or v:IsPlayer()) && VJ_IsAlive(v) then
 				if self.IsRetracted == false then

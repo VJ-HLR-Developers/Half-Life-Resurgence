@@ -8,6 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/hl1/garg.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 800
 ENT.HullType = HULL_LARGE
+ENT.VJ_IsHugeMonster = true -- Is this a huge monster?
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged

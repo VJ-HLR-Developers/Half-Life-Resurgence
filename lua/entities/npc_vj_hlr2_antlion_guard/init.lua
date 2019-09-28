@@ -8,6 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/antlion_guard.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 500
 ENT.HullType = HULL_LARGE
+ENT.VJ_IsHugeMonster = true -- Is this a huge monster?
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_ANTLION"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
