@@ -68,6 +68,11 @@ if VJExists == true then
 		VJ.AddNPC("AFlock","npc_vj_hlr1_aflock",vCat)
 		VJ.AddNPC("Tentacle","npc_vj_hlr1_tentacle",vCat)
 		VJ.AddNPC("Xen Tree","npc_vj_hlr1_xentree",vCat)
+		VJ.AddNPC("Xen Hair","sent_vj_xen_hair",vCat)
+		VJ.AddNPC("Xen Spore (Large)","sent_vj_xen_spore_large",vCat)
+		VJ.AddNPC("Xen Spore (Medium)","sent_vj_xen_spore_medium",vCat)
+		VJ.AddNPC("Xen Spore (Small)","sent_vj_xen_spore_small",vCat)
+		VJ.AddNPC("Xen Plant Light","sent_vj_xen_plant_light",vCat)
 			-- Extras
 			VJ.AddNPC("Portal (Xen)","sent_vj_hlr_alientp",vCat)
 			VJ.AddNPC("Portal (Race X)","sent_vj_hlr_alientp_x",vCat)
