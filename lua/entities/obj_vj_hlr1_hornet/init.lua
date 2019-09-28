@@ -32,7 +32,8 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitializeBeforePhys()
-	self:PhysicsInitSphere(1, "metal_bouncy") 
+	self:PhysicsInitSphere(1, "metal_bouncy")
+	//construct.SetPhysProp(self:GetOwner(), self, 0, self:GetPhysicsObject(), {GravityToggle = false, Material = "metal_bouncy"})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
