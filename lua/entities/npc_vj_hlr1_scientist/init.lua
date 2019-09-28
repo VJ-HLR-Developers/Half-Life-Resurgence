@@ -130,6 +130,11 @@ vj_hlr/hl1_npc/scientist/scream7.wav (duplicate of scream6)
 
 ENT.GeneralSoundPitch1 = 100
 
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "Bip02 Head"
+ENT.Controller_FirstPersonOffset = Vector(0,0,5)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+
 -- Custom
 ENT.SCI_NextMouthMove = 0
 ENT.SCI_NextMouthDistance = 0

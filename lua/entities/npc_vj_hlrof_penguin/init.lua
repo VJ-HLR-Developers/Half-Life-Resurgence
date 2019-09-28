@@ -9,6 +9,11 @@ ENT.Model = {"models/vj_hlr/opfor/penguin.mdl"} -- The game will pick a random m
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damaged
+
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "Bone22"
+ENT.Controller_FirstPersonOffset = Vector(5,0,23)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Snark_CustomOnInitialize()
 	self:SetCollisionBounds(Vector(7, 7, 25), Vector(-7, -7, 0))

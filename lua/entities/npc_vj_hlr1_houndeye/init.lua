@@ -42,6 +42,11 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/houndeye/he_die1.wav","vj_hlr/hl1_npc/houn
 ENT.FootStepSoundLevel = 80
 ENT.GeneralSoundPitch1 = 100
 
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "Bip01 Head"
+ENT.Controller_FirstPersonOffset = Vector(0,0,0)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+
 -- Custom
 ENT.Houndeye_BlinkingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------

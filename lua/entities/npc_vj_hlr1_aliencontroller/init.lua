@@ -48,6 +48,11 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/controller/con_die1.wav","vj_hlr/hl1_npc/c
 
 ENT.GeneralSoundPitch1 = 100
 
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "Bip01 Head"
+ENT.Controller_FirstPersonOffset = Vector(4,0,0)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+
 -- Custom
 ENT.AlienC_AttackType = false -- 0 = Regular, 1 = Homing
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -6,6 +6,11 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hla/barney.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "unnamed038"
+ENT.Controller_FirstPersonOffset = Vector(1,0,2)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Security_CustomOnInitialize()
 	self.SoundTbl_Alert = {"vj_hlr/hla_npc/barney/ba_attack1.wav"}

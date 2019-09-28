@@ -68,6 +68,11 @@ ENT.FootStepSoundLevel = 80
 ENT.GeneralSoundPitch1 = 100
 ENT.AllyDeathSoundLevel = 90
 
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "Bip01 Neck"
+ENT.Controller_FirstPersonOffset = Vector(4,0,-12)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+
 -- Custom
 ENT.Gonarch_NextBirthT = 0
 ENT.Gonarch_NumBabies = 0

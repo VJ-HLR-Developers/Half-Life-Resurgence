@@ -78,6 +78,12 @@ ENT.SoundTbl_Death = {
 	"vj_hlr/hl1_npc/garg/gar_die1.wav",
 	"vj_hlr/hl1_npc/garg/gar_die2.wav",
 }
+
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "Bip01 Head"
+ENT.Controller_FirstPersonOffset = Vector(0,0,0)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+
 ENT.FootStepSoundLevel = 95
 ENT.GeneralSoundPitch1 = 100
 ENT.GargFlameDamage = 3

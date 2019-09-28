@@ -41,6 +41,11 @@ ENT.SoundTbl_LeapAttackDamage = {"vj_hlr/hl1_npc/headcrab/hc_headbite.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/headcrab/hc_pain1.wav","vj_hlr/hl1_npc/headcrab/hc_pain2.wav","vj_hlr/hl1_npc/headcrab/hc_pain3.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/headcrab/hc_die1.wav","vj_hlr/hl1_npc/headcrab/hc_die2.wav"}
 
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "Bip01 Neck"
+ENT.Controller_FirstPersonOffset = Vector(0,0,0)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()

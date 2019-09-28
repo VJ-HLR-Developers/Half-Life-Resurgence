@@ -35,6 +35,11 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/chumtoad/toad_die1.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "Bip01 Head"
+ENT.Controller_FirstPersonOffset = Vector(1,0,2)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+
 -- Custom
 ENT.CT_BlinkingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------

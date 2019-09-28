@@ -8,6 +8,11 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/decay/wheelchair_sci.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 100
 ENT.IsMedicSNPC = false -- Is this SNPC a medic? Does it heal other friendly friendly SNPCs, and players(If friendly)
+
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "Bip01 Head"
+ENT.Controller_FirstPersonOffset = Vector(1.5,0,5.3)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
 /*
 -- Can't reach player, unfollow
 vj_hlr/hl1_npc/keller/dk_stop0.wav

@@ -54,6 +54,11 @@ ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/bullchicken/bc_attack2.wav","vj_hlr/
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/bullchicken/bc_pain1.wav","vj_hlr/hl1_npc/bullchicken/bc_pain2.wav","vj_hlr/hl1_npc/bullchicken/bc_pain3.wav","vj_hlr/hl1_npc/bullchicken/bc_pain4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/bullchicken/bc_die1.wav","vj_hlr/hl1_npc/bullchicken/bc_die2.wav","vj_hlr/hl1_npc/bullchicken/bc_die3.wav"}
 
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "Bip01 Head"
+ENT.Controller_FirstPersonOffset = Vector(-12,0,18)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+
 -- Custom
 ENT.Bullsquid_BlinkingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------

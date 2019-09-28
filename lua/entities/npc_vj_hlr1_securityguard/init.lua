@@ -111,6 +111,11 @@ vj_hlr/hl1_npc/barney/youneedmedic.wav
 
 ENT.GeneralSoundPitch1 = 100
 
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "Bip01 Head"
+ENT.Controller_FirstPersonOffset = Vector(5,0,1.75)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+
 -- Custom
 ENT.Security_NextMouthMove = 0
 ENT.Security_NextMouthDistance = 0

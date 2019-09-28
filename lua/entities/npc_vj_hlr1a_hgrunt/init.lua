@@ -9,6 +9,11 @@ ENT.Model = {"models/vj_hlr/hla/hgrunt.mdl"} -- The game will pick a random mode
 ENT.HasGrenadeAttack = false
 ENT.MoveRandomlyWhenShooting = true -- Should it move randomly when shooting?
 
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "unnamed022"
+ENT.Controller_FirstPersonOffset = Vector(2,0,3)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+
 -- Custom
 ENT.AHGR_NextStrafeT = 0
 ENT.AHGR_NextRunT = 0

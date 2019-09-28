@@ -51,6 +51,11 @@ ENT.GeneralSoundPitch2 = 100
 ENT.DeathSoundPitch1 = 100
 ENT.DeathSoundPitch2 = 100
 
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "Bip01 Head"
+ENT.Controller_FirstPersonOffset = Vector(0,0,0.5)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+
 -- Custom
 ENT.Snark_Explodes = true
 ENT.Snark_NextJumpWalkTime1 = 0.35

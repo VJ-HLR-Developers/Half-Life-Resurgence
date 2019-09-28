@@ -21,6 +21,11 @@ ENT.FootStepTimeWalk = 3 -- Next foot step sound when it is walking
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/roach/rch_walk.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/roach/rch_die.wav"}
+
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "Dummy01"
+ENT.Controller_FirstPersonOffset = Vector(2,0,2)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(2, 2, 2), Vector(-2, -2, 0))

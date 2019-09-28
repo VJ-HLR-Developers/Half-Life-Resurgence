@@ -53,6 +53,12 @@ ENT.SoundTbl_OnKilledEnemy = {"vj_hlr/hl1_npc/shocktrooper/st_combat1.wav"}
 ENT.OnGrenadeSightSoundPitch1 = 105
 ENT.OnGrenadeSightSoundPitch2 = 110
 
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "Bip01 Head"
+ENT.Controller_FirstPersonOffset = Vector(1,0,-3)
+-- ENT.Controller_FirstPersonOffset = Vector(-22,0,-8)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+
 -- Custom
 ENT.Shocktrooper_Roach = NULL
 ENT.Shocktrooper_BlinkingT = 0

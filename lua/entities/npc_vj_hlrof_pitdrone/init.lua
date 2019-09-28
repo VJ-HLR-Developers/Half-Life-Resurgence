@@ -46,6 +46,11 @@ ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/pitdrone/pit_drone_attack_spik
 ENT.SoundTbl_OnKilledEnemy = {"vj_hlr/hl1_npc/pitdrone/pit_drone_eat.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/pitdrone/pit_drone_pain1.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_pain2.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_pain3.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_pain4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/pitdrone/pit_drone_die1.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_die2.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_die3.wav"}
+
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "Bip01 Head"
+ENT.Controller_FirstPersonOffset = Vector(8,0,6)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(18, 18, 55), Vector(-18, -18, 0))

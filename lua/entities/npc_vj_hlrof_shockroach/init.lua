@@ -20,6 +20,11 @@ ENT.SoundTbl_LeapAttackDamage = {"vj_hlr/hl1_npc/shockroach/shock_bite.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/shockroach/shock_flinch.wav","vj_hlr/hl1_npc/shockroach/shock_flinch.wav","vj_hlr/hl1_npc/shockroach/shock_flinch.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/shockroach/shock_die.wav","vj_hlr/hl1_npc/shockroach/shock_die.wav"}
 
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "Bone02"
+ENT.Controller_FirstPersonOffset = Vector(1,0,0)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+
 -- Custom --
 ENT.Lifespan = false
 ENT.Lifespan_Ended = false

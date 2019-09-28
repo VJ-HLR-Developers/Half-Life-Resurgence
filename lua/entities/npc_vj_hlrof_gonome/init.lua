@@ -43,6 +43,11 @@ ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/gonome/gonome_melee1.wav","vj_
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/gonome/gonome_pain1.wav","vj_hlr/hl1_npc/gonome/gonome_pain2.wav","vj_hlr/hl1_npc/gonome/gonome_pain3.wav","vj_hlr/hl1_npc/gonome/gonome_pain4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/gonome/gonome_death2.wav","vj_hlr/hl1_npc/gonome/gonome_death3.wav","vj_hlr/hl1_npc/gonome/gonome_death4.wav"}
 
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "Bip01 Head"
+ENT.Controller_FirstPersonOffset = Vector(1,0,2)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)

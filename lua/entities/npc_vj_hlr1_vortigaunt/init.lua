@@ -59,6 +59,11 @@ ENT.GeneralSoundPitch1 = 100
 ENT.RangeAttackPitch1 = 130
 ENT.RangeAttackPitch2 = 160
 
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "Bip01 Head"
+ENT.Controller_FirstPersonOffset = Vector(4,0,0)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+
 -- CustomBlood_Decal
 ENT.Vort_RunAway = false
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -20,6 +20,11 @@ vj_hlr/hl1_npc/otis/of2a6_ot01.wav
 vj_hlr/hl1_npc/otis/of3a2_ot01.wav
 vj_hlr/hl1_npc/otis/of6a3_ot01.wav
 */
+
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "Bip01 Head"
+ENT.Controller_FirstPersonOffset = Vector(1,0,4)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Security_CustomOnInitialize()
 	self.SoundTbl_Idle = {"vj_hlr/hl1_npc/otis/stupidmachines.wav","vj_hlr/hl1_npc/otis/mmmm.wav","vj_hlr/hl1_npc/otis/janitor.wav","vj_hlr/hl1_npc/otis/insurance.wav","vj_hlr/hl1_npc/otis/candy.wav","vj_hlr/hl1_npc/otis/chili.wav","vj_hlr/hl1_npc/otis/cousin.wav"}

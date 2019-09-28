@@ -13,6 +13,11 @@ ENT.LeapAttackDamage = 5
 ENT.GeneralSoundPitch1 = 120
 ENT.GeneralSoundPitch2 = 120
 
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "Bip01 Neck"
+ENT.Controller_FirstPersonOffset = Vector(0,0,2)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+
 -- Custom
 ENT.BabH_Mother = NULL
 ---------------------------------------------------------------------------------------------------------------------------------------------

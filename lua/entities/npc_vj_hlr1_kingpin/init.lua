@@ -75,6 +75,11 @@ ENT.SoundTbl_Death = {
 	"vj_hlr/hl1_npc/kingpin/kingpin_death2.wav",
 }
 
+	-- ====== Controller Variables ====== --
+ENT.Controller_FirstPersonBone = "MDLDEC_Bone23"
+ENT.Controller_FirstPersonOffset = Vector(8,0,6)
+ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+
 ENT.GeneralSoundPitch1 = 100
 ENT.TeleportTime = 1.3
 ---------------------------------------------------------------------------------------------------------------------------------------------
