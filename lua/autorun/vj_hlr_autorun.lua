@@ -59,6 +59,7 @@ if VJExists == true then
 		VJ.AddNPC("Houndeye","npc_vj_hlr1_houndeye",vCat)
 		VJ.AddNPC("Kingpin","npc_vj_hlr1_kingpin",vCat)
 		VJ.AddNPC("Snark","npc_vj_hlr1_snark",vCat)
+		VJ.AddNPC("Snark Nest","npc_vj_hlr1_snarknest",vCat)
 		VJ.AddNPC("Ichthyosaur","npc_vj_hlr1_ichthyosaur",vCat)
 		VJ.AddNPC("Archer","npc_vj_hlr1_archer",vCat)
 		VJ.AddNPC("Leech","npc_vj_hlr1_leech",vCat)
@@ -68,6 +69,7 @@ if VJExists == true then
 		VJ.AddNPC("AFlock","npc_vj_hlr1_aflock",vCat)
 		VJ.AddNPC("Tentacle","npc_vj_hlr1_tentacle",vCat)
 		VJ.AddNPC("Panther Eye","npc_vj_hlr1_panthereye",vCat)
+		VJ.AddNPC("Control Sphere","npc_vj_hlr1_controlsphere",vCat)
 		VJ.AddNPC("Xen Tree","npc_vj_hlr1_xentree",vCat)
 		VJ.AddNPC("Xen Hair","sent_vj_xen_hair",vCat)
 		VJ.AddNPC("Xen Spore (Large)","sent_vj_xen_spore_large",vCat)
@@ -79,6 +81,7 @@ if VJExists == true then
 			VJ.AddNPC("Portal (Race X)","sent_vj_hlr_alientp_x",vCat)
 			-- Opposing Force
 			VJ.AddNPC("Penguin","npc_vj_hlrof_penguin",vCat)
+			VJ.AddNPC("Penguin Nest","npc_vj_hlrof_penguinnest",vCat)
 			-- Headcrab
 			VJ.AddNPC("Gonarch","npc_vj_hlr1_gonarch",vCat)
 			VJ.AddNPC("Headcrab","npc_vj_hlr1_headcrab",vCat)

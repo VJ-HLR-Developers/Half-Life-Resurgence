@@ -7,8 +7,10 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hl1/snark.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 5
-ENT.HullType = HULL_WIDE_SHORT
+ENT.HullType = HULL_TINY
+ENT.EntitiesToNoCollide = {"npc_vj_hlr1_snark"} -- Entities to not collide with when HasEntitiesToNoCollide is set to true
 ---------------------------------------------------------------------------------------------------------------------------------------------
+ENT.VJ_NPC_Class = {"CLASS_SNARK"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
@@ -28,7 +30,6 @@ ENT.LeapAttackDamageDistance = 100 -- How far does the damage go?
 ENT.HasDeathRagdoll = false -- If set to false, it will not spawn the regular ragdoll of the SNPC
 ENT.PushProps = false -- Should it push props when trying to move?
 ENT.IdleAlwaysWander = true -- If set to true, it will make the SNPC always wander when idling
-//ENT.EntitiesToNoCollide = {"npc_vj_bmsno_snark"}
 ENT.FindEnemy_UseSphere = true -- Should the SNPC be able to see all around him? (360) | Objects and walls can still block its sight!
 ENT.AnimTbl_IdleStand = {ACT_RUN} -- The idle animation when AI is enabled
 ENT.AnimTbl_Walk = {ACT_RUN} -- Set the walking animations | Put multiple to let the base pick a random animation when it moves

@@ -50,9 +50,12 @@ ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/panther/p_idle1.wav","vj_hlr/hl1_npc/panthe
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/panther/p_alert1.wav","vj_hlr/hl1_npc/panther/p_alert2.wav","vj_hlr/hl1_npc/panther/p_alert3.wav"}
 ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/panther/pclaw_strike1.wav","vj_hlr/hl1_npc/panther/pclaw_strike2.wav","vj_hlr/hl1_npc/panther/pclaw_strike3.wav"}
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/panther/pclaw_miss1.wav","vj_hlr/hl1_npc/panther/pclaw_miss2.wav"}
-ENT.SoundTbl_MeleeAttackSlowPlayer = {"vj_player/heartbeat.wav"}
+ENT.SoundTbl_LeapAttackDamage = {"vj_hlr/hl1_npc/panther/pclaw_strike1.wav","vj_hlr/hl1_npc/panther/pclaw_strike2.wav","vj_hlr/hl1_npc/panther/pclaw_strike3.wav"}
+ENT.SoundTbl_LeapAttackDamageMiss = {"vj_hlr/hl1_npc/panther/pclaw_miss1.wav","vj_hlr/hl1_npc/panther/pclaw_miss2.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/panther/p_pain1.wav","vj_hlr/hl1_npc/panther/p_pain2.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/panther/p_die1.wav","vj_hlr/hl1_npc/panther/p_die2.wav"}
+
+ENT.GeneralSoundPitch1 = 100
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
