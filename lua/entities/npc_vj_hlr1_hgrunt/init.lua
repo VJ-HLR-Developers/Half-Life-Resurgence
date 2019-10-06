@@ -315,6 +315,50 @@ function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
 			self:OnCollideSoundCode()
 		end
 	end
+	
+	function GrenadeEntity:DeathEffects()
+		spr = ents.Create("env_sprite")
+		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+		spr:SetKeyValue("GlowProxySize","2.0")
+		spr:SetKeyValue("HDRColorScale","1.0")
+		spr:SetKeyValue("renderfx","14")
+		spr:SetKeyValue("rendermode","5")
+		spr:SetKeyValue("renderamt","255")
+		spr:SetKeyValue("disablereceiveshadows","0")
+		spr:SetKeyValue("mindxlevel","0")
+		spr:SetKeyValue("maxdxlevel","0")
+		spr:SetKeyValue("framerate","15.0")
+		spr:SetKeyValue("spawnflags","0")
+		spr:SetKeyValue("scale","4")
+		spr:SetPos(GrenadeEntity:GetPos() + GrenadeEntity:GetUp()*35)
+		spr:Spawn()
+		spr:Fire("Kill","",0.9)
+		timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
+		
+		GrenadeEntity.ExplosionLight1 = ents.Create("light_dynamic")
+		GrenadeEntity.ExplosionLight1:SetKeyValue("brightness", "4")
+		GrenadeEntity.ExplosionLight1:SetKeyValue("distance", "300")
+		GrenadeEntity.ExplosionLight1:SetLocalPos(GrenadeEntity:GetPos())
+		GrenadeEntity.ExplosionLight1:SetLocalAngles( GrenadeEntity:GetAngles() )
+		GrenadeEntity.ExplosionLight1:Fire("Color", "255 150 0")
+		GrenadeEntity.ExplosionLight1:SetParent(GrenadeEntity)
+		GrenadeEntity.ExplosionLight1:Spawn()
+		GrenadeEntity.ExplosionLight1:Activate()
+		GrenadeEntity.ExplosionLight1:Fire("TurnOn", "", 0)
+		GrenadeEntity:DeleteOnRemove(GrenadeEntity.ExplosionLight1)
+		util.ScreenShake(GrenadeEntity:GetPos(), 100, 200, 1, 2500)
+		
+		GrenadeEntity:SetLocalPos(Vector(GrenadeEntity:GetPos().x,GrenadeEntity:GetPos().y,GrenadeEntity:GetPos().z +4)) -- Because the entity is too close to the ground
+		local tr = util.TraceLine({
+		start = GrenadeEntity:GetPos(),
+		endpos = GrenadeEntity:GetPos() - Vector(0, 0, 100),
+		filter = GrenadeEntity })
+		util.Decal(VJ_PICKRANDOMTABLE(GrenadeEntity.DecalTbl_DeathDecals),tr.HitPos+tr.HitNormal,tr.HitPos-tr.HitNormal)
+		
+		GrenadeEntity:DoDamageCode()
+		GrenadeEntity:SetDeathVariablesTrue(nil,nil,false)
+		GrenadeEntity:Remove()
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
