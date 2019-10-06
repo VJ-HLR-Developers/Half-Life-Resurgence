@@ -1,6 +1,6 @@
 ENT.Type 			= "anim"
 ENT.Base 			= "obj_vj_projectile_base"
-ENT.PrintName		= "Gargantua Stomp Laser"
+ENT.PrintName		= "Gargantua Stomp Shockwave"
 ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectiles for my addons"

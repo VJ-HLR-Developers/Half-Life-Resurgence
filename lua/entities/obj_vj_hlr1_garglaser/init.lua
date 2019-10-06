@@ -6,16 +6,22 @@ include("shared.lua")
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/spitball_large.mdl"} -- The models it should spawn with | Picks a random one from the table
+ENT.PhysicsInitType = SOLID_VPHYSICS
+ENT.MoveCollideType = MOVETYPE_NONE -- Move type | Some examples: MOVECOLLIDE_FLY_BOUNCE, MOVECOLLIDE_FLY_SLIDE
 ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 50 -- How much damage should it do when it hits something
-ENT.DirectDamageType = DMG_DISSOLVE -- Damage type
+ENT.DirectDamage = 100 -- How much damage should it do when it hits something
+ENT.DirectDamageType = DMG_DISSOLVE -- Damage type'
+ENT.SoundTbl_Startup = {"vj_hlr/hl1_weapon/tripmine/mine_charge.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav","vj_hlr/hl1_weapon/gauss/electro5.wav","vj_hlr/hl1_weapon/gauss/electro6.wav"}
 
+ENT.StartupSoundPitch1 = 100
+
 -- Custom
-ENT.EO_Enemy = NULL
+ENT.CodeAlreadyRan = false
+ENT.SpeedMultiplier = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
-	phys:Wake()
+	//phys:Wake()
 	phys:SetMass(1)
 	phys:SetBuoyancyRatio(0)
 	phys:EnableDrag(false)
@@ -24,9 +30,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetNoDraw(true)
+	
 	self.StartGlow1 = ents.Create("env_sprite")
-	self.StartGlow1:SetKeyValue("model","vj_hl/sprites/xspark4.vmt")
-	//self.StartGlow1:SetKeyValue("rendercolor","255 128 0")
+	self.StartGlow1:SetKeyValue("model","vj_hl/sprites/flare3.vmt")
+	self.StartGlow1:SetKeyValue("rendercolor","255 0 0")
 	self.StartGlow1:SetKeyValue("GlowProxySize","2.0")
 	self.StartGlow1:SetKeyValue("HDRColorScale","1.0")
 	self.StartGlow1:SetKeyValue("renderfx","14")
@@ -37,21 +44,77 @@ function ENT:CustomOnInitialize()
 	self.StartGlow1:SetKeyValue("maxdxlevel","0")
 	self.StartGlow1:SetKeyValue("framerate","10.0")
 	self.StartGlow1:SetKeyValue("spawnflags","0")
-	self.StartGlow1:SetKeyValue("scale","1")
+	self.StartGlow1:SetKeyValue("scale","0.5")
 	self.StartGlow1:SetPos(self:GetPos())
 	self.StartGlow1:Spawn()
 	self.StartGlow1:SetParent(self)
 	self:DeleteOnRemove(self.StartGlow1)
+	
+	util.SpriteTrail(self, 0, Color(255,0,0), true, 20, 1, 2, 1 / (20 + 1) * 0.5, "vj_hl/sprites/xbeam3.vmt")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if IsValid(self.EO_Enemy) then -- Homing Behavior
-		self.DirectDamage = 25
-		self.StartGlow1:SetKeyValue("scale","1.5")
+	if self.CodeAlreadyRan == false && IsValid(self.Owner) then 
+		self.CodeAlreadyRan = true
+		self:SetAngles(Angle(self.Owner:GetAngles().p,0,0))
+		local tr = util.TraceLine({
+			start = self:GetPos(),
+			endpos = self:GetPos() + self:GetUp()*-1000,
+			filter = {self, self.Owner}
+		})
+		//VJ_CreateTestObject(tr.HitPos,self:GetAngles(),Color(0,255,0),5)
+		self:SetPos(tr.HitPos + Vector(0,0,8))
+		
 		local phys = self:GetPhysicsObject()
 		if (phys:IsValid()) then
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.EO_Enemy:GetPos() + self.EO_Enemy:OBBCenter(), 700))
+			local res = self:CalculateProjectile("Line", self:GetPos(), self.Owner:GetEnemy():GetPos() + self.Owner:GetEnemy():OBBCenter(), 100)
+			res.z = 0
+			phys:SetVelocity(res)
 		end
+	end
+	
+	local phys = self:GetPhysicsObject()
+	if (phys:IsValid()) then
+		phys:SetVelocity(self:GetVelocity()*(1+self.SpeedMultiplier))
+	end
+	self.SpeedMultiplier = self.SpeedMultiplier + 0.005
+	
+/*
+	//self:SetAngles(Angle(0,0,0))
+	//if IsValid(self.Owner) then self:SetAngles(self.Owner:GetAngles()) end
+	local trfr = util.TraceLine({
+		start = self:GetPos(),
+		endpos = self:GetPos() + self:GetForward()*10,
+		filter = self
+	})
+	//VJ_CreateTestObject(trfr.HitPos,self:GetAngles(),Color(0,255,255),5)
+	//if trfr.HitWorld then self:Remove() return end
+	
+	local tr = util.TraceLine({
+		start = self:GetPos(),
+		endpos = self:GetPos() + self:GetUp()*-100,
+		filter = self
+	})
+	//VJ_CreateTestObject(tr.HitPos,self:GetAngles(),Color(0,255,0),5)
+	//self:SetPos(self:GetPos() + Vector(0,0,(tr.HitPos + Vector(0,0,100)).z))
+	//self:SetPos(tr.HitPos)
+	
+	if self.RanOnce == false then 
+	self.RanOnce = true
+		if IsValid(self.Owner) then self:SetAngles(self.Owner:GetAngles()) end
+		local phys = self:GetPhysicsObject()
+		if (phys:IsValid()) then
+			local res = self:CalculateProjectile("Line", self:GetPos(), self:GetPos() + self:GetForward()*500, 200)
+			res.z = 0
+			phys:SetVelocity(res)
+		end
+		end
+*/
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPhysicsCollide(data,phys)
+	if !IsValid(data.HitEntity) then
+		//return false
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -276,7 +276,7 @@ if VJExists == true then
 	end
 	
 	-- Temp weapon hook!
-	hook.Add("PlayerSpawn","VJ_HL1SWEPs_AutoSpawn",function(ply)
+	/*hook.Add("PlayerSpawn","VJ_HL1SWEPs_AutoSpawn",function(ply)
 		if GetConVarNumber("hl1_sv_loadout") == 1 then
 			ply:Give("weapon_hl1_357")
 			ply:Give("weapon_hl1_glock")
@@ -292,7 +292,7 @@ if VJExists == true then
 			ply:Give("weapon_hl1_gauss")
 			ply:Give("weapon_hl1_tripmine")
 		end
-	end)
+	end)*/
 	
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)
