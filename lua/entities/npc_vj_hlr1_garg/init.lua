@@ -131,7 +131,7 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(TheProjectile)
 	if IsValid(self:GetEnemy()) then
 		TheProjectile.EO_Enemy = self:GetEnemy()
 		TheProjectile:SetAngles(Angle(self:GetAngles().p,0,0))
-		timer.Simple(6,function() if IsValid(TheProjectile) then TheProjectile:Remove() end end)
+		timer.Simple(10,function() if IsValid(TheProjectile) then TheProjectile:Remove() end end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

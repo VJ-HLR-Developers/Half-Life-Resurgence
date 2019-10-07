@@ -13,6 +13,8 @@ ENT.DirectDamage = 100 -- How much damage should it do when it hits something
 ENT.DirectDamageType = DMG_DISSOLVE -- Damage type'
 ENT.SoundTbl_Startup = {"vj_hlr/hl1_weapon/tripmine/mine_charge.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav","vj_hlr/hl1_weapon/gauss/electro5.wav","vj_hlr/hl1_weapon/gauss/electro6.wav"}
+-- ENT.RemoveOnHit = false
+-- ENT.CollideCodeWithoutRemoving = true
 
 ENT.StartupSoundPitch1 = 100
 
@@ -44,7 +46,7 @@ function ENT:CustomOnInitialize()
 	self.StartGlow1:SetKeyValue("maxdxlevel","0")
 	self.StartGlow1:SetKeyValue("framerate","10.0")
 	self.StartGlow1:SetKeyValue("spawnflags","0")
-	self.StartGlow1:SetKeyValue("scale","0.5")
+	self.StartGlow1:SetKeyValue("scale","1")
 	self.StartGlow1:SetPos(self:GetPos())
 	self.StartGlow1:Spawn()
 	self.StartGlow1:SetParent(self)
@@ -75,9 +77,11 @@ function ENT:CustomOnThink()
 	
 	local phys = self:GetPhysicsObject()
 	if (phys:IsValid()) then
-		phys:SetVelocity(self:GetVelocity()*(1+self.SpeedMultiplier))
+		if self:GetVelocity():Length() < 400 then
+			phys:SetVelocity(self:GetVelocity()*(1+math.Clamp(self.SpeedMultiplier,0,0.1)))
+		end
 	end
-	self.SpeedMultiplier = self.SpeedMultiplier + 0.005
+	self.SpeedMultiplier = self.SpeedMultiplier + 0.01
 	
 /*
 	//self:SetAngles(Angle(0,0,0))
