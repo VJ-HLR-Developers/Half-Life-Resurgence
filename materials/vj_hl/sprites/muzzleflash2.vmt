@@ -1,6 +1,6 @@
 "Sprite"
 {
-	"$spriteorientation" "vp_parallel"
+	"$spriteorientation" "oriented"
 	"$spriteorigin" "[ 0.50 0.50 ]"
 	"$additive" 1
 	"$basetexture" "vj_hl/sprites/muzzleflash2"

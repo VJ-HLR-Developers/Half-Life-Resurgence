@@ -65,12 +65,15 @@ function ENT:OnPlayCreateSound(SoundData,SoundFile)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+	ParticleEffect("explosion_turret_break_fire", self:GetAttachment(self:LookupAttachment("head")).Pos, Angle(0,0,0), self)
+	ParticleEffect("explosion_turret_break_flash", self:GetAttachment(self:LookupAttachment("head")).Pos, Angle(0,0,0), self)
+	ParticleEffect("explosion_turret_break_pre_smoke Version #2", self:GetAttachment(self:LookupAttachment("head")).Pos, Angle(0,0,0), self)
+	ParticleEffect("explosion_turret_break_sparks", self:GetAttachment(self:LookupAttachment("head")).Pos, Angle(0,0,0), self)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
 	ParticleEffectAttach("smoke_exhaust_01a",PATTACH_POINT_FOLLOW,GetCorpse,5)
-	ParticleEffect("explosion_turret_break_fire", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("head")).Pos, Angle(0,0,0), GetCorpse)
-	ParticleEffect("explosion_turret_break_flash", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("head")).Pos, Angle(0,0,0), GetCorpse)
-	ParticleEffect("explosion_turret_break_pre_smoke Version #2", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("head")).Pos, Angle(0,0,0), GetCorpse)
-	ParticleEffect("explosion_turret_break_sparks", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("head")).Pos, Angle(0,0,0), GetCorpse)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)

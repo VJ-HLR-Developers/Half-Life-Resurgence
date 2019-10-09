@@ -43,9 +43,11 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/turret/tu_die.wav","vj_hlr/hl1_npc/turret/
 ENT.GeneralSoundPitch1 = 100
 
 -- Custom
-ENT.HECUTurret_StandDown = true
-ENT.HECUTurret_CurrentParameter = 0
-ENT.HECUTurret_NextAlarmT = 0
+ENT.Sentry_MuzzleAttach = "0"
+ENT.Sentry_AlarmAttach = "1"
+ENT.Sentry_StandDown = true
+ENT.Sentry_CurrentParameter = 0
+ENT.Sentry_NextAlarmT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(13, 13, 60), Vector(-13, -13, 0))
@@ -53,22 +55,22 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	local parameter = self:GetPoseParameter("aim_yaw")
-	if parameter != self.HECUTurret_CurrentParameter then
-		self.hecuturret_turningsd = CreateSound(self, "vj_hlr/hl1_npc/turret/motor_loop.wav") 
-		self.hecuturret_turningsd:SetSoundLevel(70)
-		self.hecuturret_turningsd:PlayEx(1,100)
+	if parameter != self.Sentry_CurrentParameter then
+		self.sentry_turningsd = CreateSound(self, "vj_hlr/hl1_npc/turret/motor_loop.wav") 
+		self.sentry_turningsd:SetSoundLevel(70)
+		self.sentry_turningsd:PlayEx(1,100)
 	else
-		VJ_STOPSOUND(self.hecuturret_turningsd)
+		VJ_STOPSOUND(self.sentry_turningsd)
 	end
-	self.HECUTurret_CurrentParameter = parameter
+	self.Sentry_CurrentParameter = parameter
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	if IsValid(self:GetEnemy()) then
-		self.HECUTurret_StandDown = false
+		self.Sentry_StandDown = false
 		self.AnimTbl_IdleStand = {"spin"}
 		
-		if CurTime() > self.HECUTurret_NextAlarmT then
+		if CurTime() > self.Sentry_NextAlarmT then
 			local glow = ents.Create("env_sprite")
 			glow:SetKeyValue("model","vj_base/sprites/vj_glow1.vmt")
 			glow:SetKeyValue("scale","0.1")
@@ -76,12 +78,12 @@ function ENT:CustomOnThink_AIEnabled()
 			glow:SetKeyValue("rendercolor","255 0 0")
 			glow:SetKeyValue("spawnflags","1") -- If animated
 			glow:SetParent(self)
-			glow:Fire("SetParentAttachment","1",0)
+			glow:Fire("SetParentAttachment",self.Sentry_AlarmAttach)
 			glow:Spawn()
 			glow:Activate()
 			glow:Fire("Kill","",0.1)
 			self:DeleteOnRemove(glow)
-			self.HECUTurret_NextAlarmT = CurTime() + 1
+			self.Sentry_NextAlarmT = CurTime() + 1
 			VJ_EmitSound(self,{"vj_hlr/hl1_npc/turret/tu_ping.wav"},75,100)
 		end
 		
@@ -93,13 +95,13 @@ function ENT:CustomOnThink_AIEnabled()
 	else
 		if CurTime() > self.NextResetEnemyT && self.Alerted == false then
 			self:SetSkin(0)
-			if self.HECUTurret_StandDown == false then
-				self.HECUTurret_StandDown = true
+			if self.Sentry_StandDown == false then
+				self.Sentry_StandDown = true
 				self:VJ_ACT_PLAYACTIVITY({"retire"},true,1)
 				VJ_EmitSound(self,{"vj_hlr/hl1_npc/turret/tu_retract.wav"},65,self:VJ_DecideSoundPitch(100,110))
 			end
 		end
-		if self.HECUTurret_StandDown == true then
+		if self.Sentry_StandDown == true then
 			self.AnimTbl_IdleStand = {"idle_off"}
 		end
 	end
@@ -117,7 +119,7 @@ function ENT:CustomAttackCheck_RangeAttack()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
-	self.HECUTurret_NextAlarmT = CurTime() + 3
+	self.Sentry_NextAlarmT = CurTime() + 3
 	self.NextResetEnemyT = CurTime() + 0.7
 	self:VJ_ACT_PLAYACTIVITY({"deploy"},true,false)
 	VJ_EmitSound(self,{"vj_hlr/hl1_npc/turret/tu_deploy.wav"},75,100)
@@ -126,8 +128,8 @@ end
 function ENT:CustomRangeAttackCode()
 	local bullet = {}
 	bullet.Num = 1
-	bullet.Src = self:GetAttachment(self:LookupAttachment("0")).Pos
-	bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter())-self:GetAttachment(self:LookupAttachment("0")).Pos
+	bullet.Src = self:GetAttachment(self:LookupAttachment(self.Sentry_MuzzleAttach)).Pos
+	bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter())-self:GetAttachment(self:LookupAttachment(self.Sentry_MuzzleAttach)).Pos
 	bullet.Spread = 0.001
 	bullet.Tracer = 1
 	bullet.TracerName = "Tracer"
@@ -138,13 +140,30 @@ function ENT:CustomRangeAttackCode()
 	
 	VJ_EmitSound(self,{"vj_hlr/hl1_npc/turret/tu_fire1.wav"},90,self:VJ_DecideSoundPitch(100,110))
 	
-	ParticleEffectAttach("vj_bms_turret_full",PATTACH_POINT_FOLLOW,self,1)
-	timer.Simple(0.2,function() if IsValid(self) then self:StopParticles() end end)
+	muz = ents.Create("env_sprite_oriented")
+	muz:SetKeyValue("model","vj_hl/sprites/muzzleflash3.vmt")
+	muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
+	muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+	muz:SetKeyValue("HDRColorScale","1.0")
+	muz:SetKeyValue("renderfx","14")
+	muz:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
+	muz:SetKeyValue("renderamt","255") -- Transparency
+	muz:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+	muz:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+	muz:SetKeyValue("spawnflags","0")
+	muz:SetParent(self)
+	muz:Fire("SetParentAttachment",self.Sentry_MuzzleAttach)
+	muz:SetAngles(Angle(math.random(-100,100),math.random(-100,100),math.random(-100,100)))
+	muz:Spawn()
+	muz:Activate()
+	muz:Fire("Kill","",0.08)
+	//ParticleEffectAttach("vj_bms_turret_full",PATTACH_POINT_FOLLOW,self,1)
+	//timer.Simple(0.2,function() if IsValid(self) then self:StopParticles() end end)
 	
 	local FireLight1 = ents.Create("light_dynamic")
 	FireLight1:SetKeyValue("brightness", "4")
 	FireLight1:SetKeyValue("distance", "120")
-	FireLight1:SetPos(self:GetAttachment(self:LookupAttachment("0")).Pos)
+	FireLight1:SetPos(self:GetAttachment(self:LookupAttachment(self.Sentry_MuzzleAttach)).Pos)
 	FireLight1:SetLocalAngles(self:GetAngles())
 	FireLight1:Fire("Color", "255 150 60")
 	FireLight1:SetParent(self)
@@ -155,16 +174,48 @@ function ENT:CustomRangeAttackCode()
 	self:DeleteOnRemove(FireLight1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnKilled(dmginfo,hitgroup)
+	ParticleEffect("explosion_turret_break_fire", self:GetPos() + self:GetUp()*30, Angle(0,0,0), NULL)
+	ParticleEffect("explosion_turret_break_flash", self:GetPos() + self:GetUp()*30, Angle(0,0,0), NULL)
+	//ParticleEffect("explosion_turret_break_pre_smoke Version #2", self:GetPos() + self:GetUp()*30, Angle(0,0,0), NULL)
+	ParticleEffect("explosion_turret_break_sparks", self:GetPos() + self:GetUp()*30, Angle(0,0,0), NULL)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
 	ParticleEffectAttach("smoke_exhaust_01a",PATTACH_POINT_FOLLOW,GetCorpse,2)
-	ParticleEffect("explosion_turret_break_fire", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("1")).Pos, Angle(0,0,0), GetCorpse)
-	ParticleEffect("explosion_turret_break_flash", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("1")).Pos, Angle(0,0,0), GetCorpse)
-	ParticleEffect("explosion_turret_break_pre_smoke Version #2", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("1")).Pos, Angle(0,0,0), GetCorpse)
-	ParticleEffect("explosion_turret_break_sparks", GetCorpse:GetAttachment(GetCorpse:LookupAttachment("1")).Pos, Angle(0,0,0), GetCorpse)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
+	self.HasDeathSounds = false
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p1_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p2_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p3_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p4_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p5_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p6_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p7_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p8_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p9_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p10_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p11_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_cog1.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_cog2.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,15)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_rib.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,15)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_screw.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,15)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_screw.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,15)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_screw.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,15)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_spring.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,15)),CollideSound=""}) -- Shad ge sharji, ere vor tsayn chi hane
+	return true
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
+	VJ_EmitSound(self,"vj_hlr/hl1_weapon/explosion/debris3.wav",150,math.random(100,100))
+	VJ_EmitSound(self,"vj_hlr/hl1_npc/rgrunt/rb_gib.wav",80,math.random(100,100))
+	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-	VJ_STOPSOUND(self.hecuturret_turningsd)
+	VJ_STOPSOUND(self.sentry_turningsd)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
