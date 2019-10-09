@@ -26,21 +26,14 @@ ENT.MeleeAttackKnockBack_Forward2 = 500 -- How far it will push you forward | Se
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_garglaser" -- The entity that is spawned when range attacking
 ENT.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2} -- Range Attack Animations
-	-- ====== Distance Variables ====== --
 ENT.RangeDistance = 2000 -- This is how far away it can shoot
-ENT.RangeToMeleeDistance = 800 -- How close does it have to be until it uses melee?
-ENT.RangeAttackAngleRadius = 100 -- What is the attack angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
-
+ENT.RangeToMeleeDistance = 200 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-
-ENT.NextRangeAttackTime = 1 -- How much time until it can use a range attack?
-ENT.NextRangeAttackTime_DoRand = 1 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
-	-- ====== Projectile Spawn Position Variables ====== --
-ENT.RangeUseAttachmentForPos = false -- Should the projectile spawn on a attachment?
-ENT.RangeUseAttachmentForPosID = "muzzle" -- The attachment used on the range attack if RangeUseAttachmentForPos is set to true
-ENT.RangeAttackPos_Up = 20 -- Up/Down spawning position for range attack
-ENT.RangeAttackPos_Forward = 0 -- Forward/Backward spawning position for range attack
-ENT.RangeAttackPos_Right = 0 -- Right/Left spawning position for range attack
+ENT.NextRangeAttackTime = 10 -- How much time until it can use a range attack?
+ENT.NextRangeAttackTime_DoRand = 13 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
+ENT.RangeAttackPos_Up = 10 -- Up/Down spawning position for range attack
+ENT.RangeAttackPos_Forward = 50 -- Forward/Backward spawning position for range attack
+ENT.RangeAttackPos_Right = -20 -- Right/Left spawning position for range attack
 
 ENT.HasWorldShakeOnMove = true -- Should the world shake when it's moving?
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
@@ -106,7 +99,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
-	local r = math.random(2,2)
+	local r = math.random(1,3)
 	if r == 1 then
 		self.AnimTbl_MeleeAttack = {"vjseq_smash"}
 		self.HasMeleeAttackKnockBack = false
@@ -133,6 +126,8 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(TheProjectile)
 		TheProjectile:SetAngles(Angle(self:GetAngles().p,0,0))
 		timer.Simple(10,function() if IsValid(TheProjectile) then TheProjectile:Remove() end end)
 	end
+	
+	util.Decal("VJ_HLR_Gargantua_Stomp", self:GetPos() + self:GetRight()*-20 + self:GetForward()*50, self:GetPos() + self:GetRight()*-20 + self:GetForward()*50 + self:GetUp()*-100, self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)

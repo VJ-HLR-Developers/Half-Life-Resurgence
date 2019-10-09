@@ -4,5 +4,5 @@
 	"$translucent" 1
 	"$basetexture" "vj_hl/decals/gargstomp"
 	"$decal" 1
-	"$decalscale" 	0.50
+	//"$decalscale" 	0.50
 }
