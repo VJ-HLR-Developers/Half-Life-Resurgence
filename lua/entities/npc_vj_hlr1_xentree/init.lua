@@ -53,6 +53,14 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnMeleeAttack_AfterChecks(TheHitEntity)
+	local sethp = self.MeleeAttackDamage
+	if self.MeleeAttackDamage > TheHitEntity:Health() then -- Yete ir damage-e aveli partser e, ere vor teshnamiyin ouje kordzadz e
+		sethp = TheHitEntity:Health()
+	end
+	self:SetHealth(math.Clamp(self:Health() + sethp, self:Health(), self:GetMaxHealth()*6))
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo,hitgroup)
 	if self.vACT_StopAttacks == false then
 		self:VJ_ACT_PLAYACTIVITY(ACT_MELEE_ATTACK1,true,false)

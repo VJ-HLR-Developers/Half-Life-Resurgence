@@ -25,12 +25,9 @@ ENT.MeleeAttackKnockBack_Forward2 = 500 -- How far it will push you forward | Se
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_garglaser" -- The entity that is spawned when range attacking
-ENT.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2} -- Range Attack Animations
 ENT.RangeDistance = 2000 -- This is how far away it can shoot
-ENT.RangeToMeleeDistance = 200 -- How close does it have to be until it uses melee?
+ENT.RangeToMeleeDistance = 80 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-ENT.NextRangeAttackTime = 10 -- How much time until it can use a range attack?
-ENT.NextRangeAttackTime_DoRand = 13 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
 ENT.RangeAttackPos_Up = 10 -- Up/Down spawning position for range attack
 ENT.RangeAttackPos_Forward = 50 -- Forward/Backward spawning position for range attack
 ENT.RangeAttackPos_Right = -20 -- Right/Left spawning position for range attack
@@ -52,7 +49,6 @@ ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/garg/gar_alert1.wav","vj_hlr/hl1_npc/garg/
 ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/garg/gar_attack1.wav","vj_hlr/hl1_npc/garg/gar_attack2.wav","vj_hlr/hl1_npc/garg/gar_attack3.wav"}
 ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav","vj_hlr/hl1_npc/zombie/claw_strike2.wav","vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/garg/gar_stomp1.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/garg/gar_pain1.wav","vj_hlr/hl1_npc/garg/gar_pain2.wav","vj_hlr/hl1_npc/garg/gar_pain3.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/garg/gar_die1.wav","vj_hlr/hl1_npc/garg/gar_die2.wav"}
 
@@ -66,6 +62,12 @@ vj_hlr/hl1_npc/garg/gar_flameoff1.wav
 vj_hlr/hl1_npc/garg/gar_flameon1.wav
 vj_hlr/hl1_npc/garg/gar_flamerun1.wav
 */
+
+-- Custom
+ENT.Garg_AttackType = -1
+ENT.Garg_AbleToFlame = false
+ENT.Garg_NextAbleToFlameT = 0
+ENT.Garg_NextStompAttackT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(70,70,210),Vector(-70,-70,0))
@@ -85,7 +87,7 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	print(key)
+	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
 		self:WorldShakeOnMoveCode()
@@ -116,11 +118,64 @@ function ENT:MultipleMeleeAttacks()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink_AIEnabled()
+	if IsValid(self:GetEnemy()) && self.NearestPointToEnemyDistance <= 200 && self.Garg_AbleToFlame == true && self.Garg_NextAbleToFlameT < CurTime() && self.Garg_AttackType == 0 && timer.Exists("timer_range_start"..self:EntIndex()) then
+		//self:VJ_ACT_PLAYACTIVITY("vjseq_shootflames2",false,false,true)
+		self.AnimTbl_IdleStand = {ACT_RANGE_ATTACK1}
+		self:StopMoving()
+		self.DisableChasingEnemy = true
+		util.VJ_SphereDamage(self,self,self:GetPos() + self:OBBCenter(),350,3,DMG_BURN,true,true,{Force=10,UseCone=true,UseConeDegree=70},function(ent) ent:Ignite(2) end)
+		print("haha yes flameing")
+		self.Garg_NextAbleToFlameT = CurTime() + 0.2 //0.74
+		timer.Adjust("timer_range_start"..self:EntIndex(), 1, 0, function()
+			print("lol")
+			self:RangeAttackCode()
+			self.Garg_AttackType = -1
+			timer.Remove("timer_range_start"..self:EntIndex())
+		end)
+	elseif self.Garg_AbleToFlame == false or self.RangeAttacking == false then
+		self.AnimTbl_IdleStand = {ACT_IDLE}
+		self.DisableChasingEnemy = false
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MultipleRangeAttacks()
+	print("pick rand")
+	self.NextRangeAttackTime = 2
+	self.NextRangeAttackTime_DoRand = 2
+	if self.NearestPointToEnemyDistance <= 200 then
+		self.Garg_AttackType = 0
+		self.Garg_AbleToFlame = true
+		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1}
+		self.TimeUntilRangeAttackProjectileRelease = 0.1
+		self.RangeDistance = 200
+		self.DisableRangeAttackAnimation = true
+		self.DisableDefaultRangeAttackCode = true
+		self.SoundTbl_RangeAttack = {} //"vj_hlr/hl1_npc/garg/gar_flameon1.wav"
+	/*elseif self.Garg_NextStompAttackT < CurTime() then
+		self.Garg_AttackType = 1
+		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2}
+		self.TimeUntilRangeAttackProjectileRelease = false
+		self.DisableRangeAttackAnimation = false
+		self.DisableDefaultRangeAttackCode = false
+		self.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/garg/gar_stomp1.wav"}*/
+	else
+		self.Garg_AttackType = -1
+		self.Garg_AbleToFlame = false
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomAttackCheck_RangeAttack()
+	if self.Garg_AttackType == -1 then return false end
+	return true
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(TheProjectile)
 	return self:CalculateProjectile("Line", self:GetPos(), self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 200)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(TheProjectile)
+	self.Garg_NextStompAttackT = CurTime() + math.Rand(10,13)
 	if IsValid(self:GetEnemy()) then
 		TheProjectile.EO_Enemy = self:GetEnemy()
 		TheProjectile:SetAngles(Angle(self:GetAngles().p,0,0))
