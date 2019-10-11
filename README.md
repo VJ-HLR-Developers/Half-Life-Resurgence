@@ -6,3 +6,4 @@ All files will be placed in this repository. Including the main base pack and an
 >* **hlr_hd** | ***DLC***, HD Pack.
 >* **hlr_ze** | ***DLC***, Zombie Edition.
 >* **hlr_quake** | ***DLC***, Quake.
+>* **hlr_csczds** | Counter-Strike: Condition Zero Deleted Scenes
