@@ -19,7 +19,7 @@ if VJExists == true then
 	local vCat = "Half-Life Resurgence: HL1"
 		-- HECU
 		VJ.AddNPC("Human Grunt","npc_vj_hlr1_hgrunt",vCat)
-		VJ.AddNPC("Human Sergeant","npc_vj_hlr1_hsergeant",vCat)
+		VJ.AddNPC("Human Sergeant","npc_vj_hlr1_hgrunt_serg",vCat)
 		VJ.AddNPC("Robot Grunt","npc_vj_hlr1_rgrunt",vCat)
 		VJ.AddNPC("HECU Sentry Gun","npc_vj_hlr1_sentry",vCat)
 			-- Opposing Force
@@ -54,6 +54,7 @@ if VJExists == true then
 		VJ.AddNPC("Flocking Floater","npc_vj_hlr1_floater",vCat)
 		VJ.AddNPC("Alien Controller","npc_vj_hlr1_aliencontroller",vCat)
 		VJ.AddNPC("Alien Grunt","npc_vj_hlr1_aliengrunt",vCat)
+		VJ.AddNPC("Alien Slave","npc_vj_hlr1_alienslave",vCat)
 		VJ.AddNPC("Bullsquid","npc_vj_hlr1_bullsquid",vCat)
 		VJ.AddNPC("Gargantua","npc_vj_hlr1_garg",vCat)
 		VJ.AddNPC("Houndeye","npc_vj_hlr1_houndeye",vCat)
@@ -64,7 +65,6 @@ if VJExists == true then
 		VJ.AddNPC("Archer","npc_vj_hlr1_archer",vCat)
 		VJ.AddNPC("Leech","npc_vj_hlr1_leech",vCat)
 		VJ.AddNPC("Chumtoad","npc_vj_hlr1_chumtoad",vCat)
-		VJ.AddNPC("Alien Slave","npc_vj_hlr1_vortigaunt",vCat)
 		VJ.AddNPC("Boid","npc_vj_hlr1_boid",vCat)
 		VJ.AddNPC("AFlock","npc_vj_hlr1_aflock",vCat)
 		VJ.AddNPC("Tentacle","npc_vj_hlr1_tentacle",vCat)
@@ -104,7 +104,7 @@ if VJExists == true then
 		VJ.AddNPC("Cockroach","npc_vj_hlr1_cockroach",vCat)
 
 		-- Sven Co-Op
-		VJ.AddNPC("Baby Gargantua","npc_vj_hlrsv_babygarg",vCat)
+		VJ.AddNPC("Baby Gargantua","npc_vj_hlrsv_garg_baby",vCat)
 		
 		-- Weapons
 		//VJ.AddNPCWeapon("VJ_HLR1_Glock17","weapon_vj_hlr1_glock17",false,vCat)

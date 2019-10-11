@@ -19,6 +19,13 @@ function ENT:SCI_CustomOnInitialize()
 	self.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hla_npc/barney/ba_pain1.wav"}
 	self:SetBodygroup(0,math.random(0,4))
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+// apparently they said no. my pleas were ignored.
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+	self.DeathAnimationTime = 5
+	self.HasDeathRagdoll = false
+	self:Fire("BecomeRagdoll","",1.6)
+end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

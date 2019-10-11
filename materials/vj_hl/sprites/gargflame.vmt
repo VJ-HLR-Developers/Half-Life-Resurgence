@@ -9,7 +9,7 @@
         {
             "texturescrollvar" "$basetexturetransform"
             "texturescrollrate" 20
-            "texturescrollangle" 0.0
+            "texturescrollangle" 180.0
         }
     }
 }

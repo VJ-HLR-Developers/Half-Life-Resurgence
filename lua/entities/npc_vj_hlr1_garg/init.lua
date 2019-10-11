@@ -24,7 +24,7 @@ ENT.MeleeAttackKnockBack_Forward1 = 500 -- How far it will push you forward | Fi
 ENT.MeleeAttackKnockBack_Forward2 = 500 -- How far it will push you forward | Second in math.random
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_garglaser" -- The entity that is spawned when range attacking
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_garg_stomp" -- The entity that is spawned when range attacking
 ENT.RangeDistance = 2000 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 80 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
