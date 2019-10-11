@@ -124,11 +124,16 @@ function ENT:CustomOnThink_AIEnabled()
 		self.AnimTbl_IdleStand = {ACT_RANGE_ATTACK1}
 		self:StopMoving()
 		self.DisableChasingEnemy = true
-		util.VJ_SphereDamage(self,self,self:GetPos() + self:OBBCenter(),350,3,DMG_BURN,true,true,{Force=10,UseCone=true,UseConeDegree=70},function(ent) ent:Ignite(2) end)
-		print("haha yes flameing")
+		
+		util.VJ_SphereDamage(self, self, self:GetPos() + self:OBBCenter() + self:GetForward()*50, 280, 3, DMG_BURN, true, true, {UseCone=true, UseConeDegree=50},function(ent) ent:Ignite(2) end)
+		self.Garg_FlameSd = VJ_CreateSound(self, "vj_hlr/hl1_npc/garg/gar_flamerun1.wav" ) //soundlevel,soundpitch,stoplatestsound,sounddsp)
+		local tr1 = util.TraceLine({start = self:GetAttachment(2).Pos, endpos = self:GetAttachment(2).Pos + self:GetForward()*280, filter = self})
+		local tr2 = util.TraceLine({start = self:GetAttachment(3).Pos, endpos = self:GetAttachment(3).Pos + self:GetForward()*280, filter = self})
+		util.Decal("VJ_HLR_Scorch", tr1.HitPos + tr1.HitNormal, tr1.HitPos - tr1.HitNormal)
+		util.Decal("VJ_HLR_Scorch", tr2.HitPos + tr2.HitNormal, tr2.HitPos - tr2.HitNormal)
+		
 		self.Garg_NextAbleToFlameT = CurTime() + 0.2 //0.74
 		timer.Adjust("timer_range_start"..self:EntIndex(), 1, 0, function()
-			print("lol")
 			self:RangeAttackCode()
 			self.Garg_AttackType = -1
 			timer.Remove("timer_range_start"..self:EntIndex())
@@ -136,11 +141,11 @@ function ENT:CustomOnThink_AIEnabled()
 	elseif self.Garg_AbleToFlame == false or self.RangeAttacking == false then
 		self.AnimTbl_IdleStand = {ACT_IDLE}
 		self.DisableChasingEnemy = false
+		VJ_STOPSOUND(self.Garg_FlameSd)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleRangeAttacks()
-	print("pick rand")
 	self.NextRangeAttackTime = 2
 	self.NextRangeAttackTime_DoRand = 2
 	if self.NearestPointToEnemyDistance <= 200 then
@@ -151,14 +156,15 @@ function ENT:MultipleRangeAttacks()
 		self.RangeDistance = 200
 		self.DisableRangeAttackAnimation = true
 		self.DisableDefaultRangeAttackCode = true
-		self.SoundTbl_RangeAttack = {} //"vj_hlr/hl1_npc/garg/gar_flameon1.wav"
-	/*elseif self.Garg_NextStompAttackT < CurTime() then
+		self.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/garg/gar_flameon1.wav"}
+		self.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/garg/gar_flameoff1.wav"}
+	elseif self.Garg_NextStompAttackT < CurTime() then
 		self.Garg_AttackType = 1
 		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2}
 		self.TimeUntilRangeAttackProjectileRelease = false
 		self.DisableRangeAttackAnimation = false
 		self.DisableDefaultRangeAttackCode = false
-		self.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/garg/gar_stomp1.wav"}*/
+		self.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/garg/gar_stomp1.wav"}
 	else
 		self.Garg_AttackType = -1
 		self.Garg_AbleToFlame = false
@@ -189,6 +195,10 @@ function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
 	if dmginfo:IsBulletDamage() == true then
 		dmginfo:ScaleDamage(0.4)
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRemove()
+	VJ_STOPSOUND(self.Garg_FlameSd)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***

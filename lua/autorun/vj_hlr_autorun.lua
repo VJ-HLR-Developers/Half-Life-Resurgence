@@ -165,6 +165,13 @@ if VJExists == true then
 		game.AddDecal("VJ_HLR_Scorch",{"vj_hl/decals/scorch1","vj_hl/decals/scorch2","vj_hl/decals/scorch3"})
 		game.AddDecal("VJ_HLR_Scorch_Small",{"vj_hl/decals/smscorch1","vj_hl/decals/smscorch2","vj_hl/decals/smscorch3"})
 		game.AddDecal("VJ_HLR_Gargantua_Stomp",{"vj_hl/decals/gargstomp"})
+		-- Bullet Holes
+		game.AddDecal("VJ_HLR_BULLET_HOLE",{"vj_hl/decals/shot1","vj_hl/decals/shot2","vj_hl/decals/shot3","vj_hl/decals/shot4","vj_hl/decals/shot5"})
+		/*
+		function SWEP:CustomOnPrimaryAttack_BulletCallback(attacker,tr,dmginfo)
+			util.Decal("VJ_HLR_BULLET_HOLE", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
+		end
+		*/
 	
 	-- Particles
 	VJ.AddParticle("particles/advisor.pcf",{})

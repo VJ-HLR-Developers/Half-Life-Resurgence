@@ -3,6 +3,6 @@
 	// Original shader: DecalBaseTimesLightmapAlphaBlend
 	"$translucent" 1
 	"$basetexture" "vj_hl/decals/shot4"
-	"$decalscale" 	0.50
+	//"$decalscale" 	0.50
 	"$decal" 1
 }
