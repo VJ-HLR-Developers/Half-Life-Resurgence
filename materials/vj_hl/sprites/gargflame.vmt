@@ -1,0 +1,15 @@
+"Sprite"
+{
+	"$spriteorientation" "vp_parallel_oriented"
+	"$spriteorigin" "[ 0.50 0.50 ]"
+	"$basetexture" "vj_hl/sprites/xbeam3"
+	"Proxies"
+    {
+        "TextureScroll"
+        {
+            "texturescrollvar" "$basetexturetransform"
+            "texturescrollrate" 20
+            "texturescrollangle" 0.0
+        }
+    }
+}
