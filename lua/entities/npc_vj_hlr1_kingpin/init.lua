@@ -115,7 +115,7 @@ function ENT:RangeAttackCode_GetShootPos(TheProjectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	-- print(key)
+	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
 		timer.Simple(0.35,function() if IsValid(self) then VJ_EmitSound(self,"vj_hlr/hl1_npc/bullchicken/bc_acid2.wav",78,100) end end)

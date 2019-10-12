@@ -59,7 +59,7 @@ function ENT:CustomOnHandleAnimEvent(ev,evTime,evCycle,evType,evOptions)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	print(key)
+	//print(key)
 	if key == "attack" then
 		self:MeleeAttackCode()
 		self:MeleeAttackSoundCode({"vj_hlr/hl1_npc/tentacle/te_strike1.wav","vj_hlr/hl1_npc/tentacle/te_strike2.wav"},VJ_EmitSound)

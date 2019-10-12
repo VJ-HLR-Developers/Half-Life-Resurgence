@@ -63,9 +63,9 @@ function ENT:CustomOnInitialize()
 	self:SetSkin(math.random(0,3))
 	self:Give("weapon_vj_hlr1a_ivanglock")
 end
-
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	print(key)
+	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
 	end
@@ -77,13 +77,17 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		end
 	end
 end
-
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-		self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
-		--self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
-		self.Weapon_StartingAmmoAmount = 9999
+	self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
+	--self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
+	self.Weapon_StartingAmmoAmount = 9999
 end
-
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+	self:SetBodygroup(0,1)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibDeathParticles == true then
@@ -114,11 +118,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_legbone.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,15))})
 	return true
 end
-
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-	self:SetBodygroup(0,1)
-end
-
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
 	VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
 	return false
