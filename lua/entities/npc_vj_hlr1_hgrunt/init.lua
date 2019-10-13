@@ -69,6 +69,7 @@ ENT.HECU_Type = 0
 	-- 5 = Robot Grunt
 	-- 6 = Alpha HGrunt
 	-- 7 = Human Sergeant
+	-- 8 = CS:CZDZ Faction
 ENT.HECU_WepBG = 2 -- The bodygroup that the weapons are in (Ourish e amen modelneroun)
 ENT.HECU_LastBodyGroup = 99
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -139,6 +140,9 @@ function ENT:CustomOnInitialize()
 		self.HECU_Type = 7
 		self.HECU_WepBG = 1
 		self.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEBACKWARD,ACT_DIEVIOLENT}
+	elseif self:GetModel() == "models/vj_hlr/czeror/gign.mdl" or self:GetModel() == "models/vj_hlr/czeror/arctic.mdl" then
+		self.HECU_Type = 8
+		self.HECU_WepBG = 2
 	end
 	
 	self.HECU_NextMouthMove = CurTime()
@@ -159,10 +163,10 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "event_emit step" or key == "step" then
 		self:FootStepSoundCode()
 	end
-	if key == "event_mattack" then
+	if key == "event_mattack" or key == "melee" then
 		self:MeleeAttackCode()
 	end
-	if key == "event_rattack mp5_fire" or key == "event_rattack shotgun_fire" or key == "event_rattack saw_fire" or key == "event_rattack pistol_fire" or key == "shoot" or key == "colt_fire" then
+	if key == "event_rattack mp5_fire" or key == "event_rattack shotgun_fire" or key == "event_rattack saw_fire" or key == "event_rattack pistol_fire" or key == "shoot" or key == "colt_fire" or key == "fire" then
 		local wep = self:GetActiveWeapon()
 		if IsValid(wep) then
 			wep:NPCShoot_Primary(ShootPos,ShootDir)
@@ -296,6 +300,18 @@ function ENT:CustomOnThink()
 				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_AR2}
 				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_AR2}
 			end
+		elseif self.HECU_Type == 8 then
+			if bgroup == 0 then -- MP5
+				self:DoChangeWeapon("weapon_vj_csczds_mp5")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
+				self.Weapon_StartingAmmoAmount = 30
+			elseif bgroup == 1 then -- XM1014
+				self:DoChangeWeapon("weapon_vj_csczds_xm1014")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SHOTGUN}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SHOTGUN_LOW}
+				self.Weapon_StartingAmmoAmount = 7
+			end
 		end
 	end
 end
@@ -404,7 +420,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_lung.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,45))})
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_skull.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,60))})
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_legbone.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,15))})
-		if self.HECU_Type != 4 then
+		if self.HECU_Type != 4 && self.HECU_Type != 8 then
 			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/gib_hgrunt.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,15))})
 		end
 		return true
@@ -442,6 +458,8 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 		self:SetSkin(4)
 	elseif self.HECU_Type == 1 or self.HECU_Type == 2 then
 		self:SetBodygroup(self.HECU_WepBG,3)
+	elseif self.HECU_Type == 8 then
+		self:SetBodygroup(self.HECU_WepBG,9)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -28,7 +28,7 @@ SWEP.Primary.Damage				= 5 -- Damage
 SWEP.Primary.ClipSize			= 50 -- Max amount of bullets per clip
 SWEP.Primary.Ammo				= "SMG1" -- Ammo type
 SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/mp5/hks1.wav","vj_hlr/hl1_weapon/mp5/hks2.wav","vj_hlr/hl1_weapon/mp5/hks3.wav"}
-SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/mp5/mp5_distant_fuckme.wav"}
+SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/mp5/mp5_distant_fuckme2.wav"}
 
 -- Custom
 SWEP.HLR_ValidModels = {"models/vj_hlr/opfor/hgrunt.mdl","models/vj_hlr/hl1/hgrunt.mdl","models/vj_hlr/opfor/hgrunt_medic.mdl","models/vj_hlr/opfor/hgrunt_engineer.mdl","models/vj_hlr/hl1/rgrunt.mdl","models/vj_hlr/hl1/rgrunt_black.mdl","models/vj_hlr/opfor/massn.mdl","models/vj_hlr/hl_hd/hassault.mdl"}
