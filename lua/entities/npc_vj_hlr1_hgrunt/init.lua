@@ -45,6 +45,8 @@ ENT.AnimTbl_TakingCover = {ACT_CROUCHIDLE} -- The animation it plays when hiding
 ENT.AnimTbl_AlertFriendsOnDeath = {"vjseq_idle2"} -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
 ENT.DropWeaponOnDeathAttachment = "rhand" -- Which attachment should it use for the weapon's position
 ENT.HasLostWeaponSightAnimation = true -- Set to true if you would like the SNPC to play a different animation when it has lost sight of the enemy and can't fire at it
+ENT.AnimTbl_WeaponAttackSecondary = {ACT_SPECIAL_ATTACK1} -- Animations played when the SNPC fires a secondary weapon attack
+ENT.WeaponAttackSecondaryTimeUntilFire = 0.9 -- The weapon uses this integer to set the time until the firing code is ran
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} -- If it uses normal based animation, use this
@@ -346,22 +348,22 @@ function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
 		spr:SetKeyValue("framerate","15.0")
 		spr:SetKeyValue("spawnflags","0")
 		spr:SetKeyValue("scale","4")
-		spr:SetPos(GrenadeEntity:GetPos() + GrenadeEntity:GetUp()*35)
+		spr:SetPos(GrenadeEntity:GetPos() + Vector(0,0,90))
 		spr:Spawn()
 		spr:Fire("Kill","",0.9)
 		timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
 		
-		GrenadeEntity.ExplosionLight1 = ents.Create("light_dynamic")
-		GrenadeEntity.ExplosionLight1:SetKeyValue("brightness", "4")
-		GrenadeEntity.ExplosionLight1:SetKeyValue("distance", "300")
-		GrenadeEntity.ExplosionLight1:SetLocalPos(GrenadeEntity:GetPos())
-		GrenadeEntity.ExplosionLight1:SetLocalAngles( GrenadeEntity:GetAngles() )
-		GrenadeEntity.ExplosionLight1:Fire("Color", "255 150 0")
-		GrenadeEntity.ExplosionLight1:SetParent(GrenadeEntity)
-		GrenadeEntity.ExplosionLight1:Spawn()
-		GrenadeEntity.ExplosionLight1:Activate()
-		GrenadeEntity.ExplosionLight1:Fire("TurnOn", "", 0)
-		GrenadeEntity:DeleteOnRemove(GrenadeEntity.ExplosionLight1)
+		light = ents.Create("light_dynamic")
+		light:SetKeyValue("brightness", "4")
+		light:SetKeyValue("distance", "300")
+		light:SetLocalPos(GrenadeEntity:GetPos())
+		light:SetLocalAngles( GrenadeEntity:GetAngles() )
+		light:Fire("Color", "255 150 0")
+		light:SetParent(GrenadeEntity)
+		light:Spawn()
+		light:Activate()
+		light:Fire("TurnOn", "", 0)
+		GrenadeEntity:DeleteOnRemove(light)
 		util.ScreenShake(GrenadeEntity:GetPos(), 100, 200, 1, 2500)
 		
 		GrenadeEntity:SetLocalPos(Vector(GrenadeEntity:GetPos().x,GrenadeEntity:GetPos().y,GrenadeEntity:GetPos().z +4)) -- Because the entity is too close to the ground

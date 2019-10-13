@@ -11,6 +11,8 @@ SWEP.Category					= "VJ Base"
 SWEP.NPC_NextPrimaryFire 		= false -- Next time it can use primary fire
 SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/mp5/mp_reload.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
+
+SWEP.NPC_HasSecondaryFireNext = true -- Can the weapon have a secondary fire?
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
 SWEP.WorldModel					= "models/vj_hlr/weapons/w_9mmar.mdl"
@@ -51,6 +53,23 @@ function SWEP:CustomOnInitialize()
 		end
 	end)
 end
+//SWEP.NPC_SecondaryFireChance = 1 -- Chance that the secondary fire is used | 1 = always
+//SWEP.NPC_SecondaryFireNext = {3,3} -- How much time until the secondary fire can be used again?
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:NPC_SecondaryFire()
+	local pos = self:GetNWVector("VJ_CurBulletPos")
+	local proj = ents.Create("obj_vj_hlr1_grenade_40mm")
+	proj:SetPos(pos)
+	proj:SetAngles(self.Owner:GetAngles())
+	proj:Spawn()
+	proj:Activate()
+	local phys = proj:GetPhysicsObject()
+	if phys:IsValid() then
+		phys:Wake()
+		phys:SetVelocity(self.Owner:CalculateProjectile("Curve", pos, self.Owner:GetEnemy():GetPos() + self.Owner:GetEnemy():OBBCenter(), 4000))
+	end
+	VJ_EmitSound(self.Owner,{"vj_hlr/hl1_weapon/mp5/glauncher.wav","vj_hlr/hl1_weapon/mp5/glauncher2.wav"},90)
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnDrawWorldModel() -- This is client only!
 	if IsValid(self.Owner) then
@@ -64,7 +83,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttackEffects()
 	self.PrimaryEffects_MuzzleFlash = false
-	muz = ents.Create("env_sprite_oriented")
+	muz = ents.Create("env_sprite")
 	muz:SetKeyValue("model","vj_hl/sprites/muzzleflash1.vmt")
 	muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
 	muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
