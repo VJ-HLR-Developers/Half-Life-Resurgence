@@ -11,7 +11,7 @@ ENT.DoesRadiusDamage = true -- Should it do a blast damage when it hits somethin
 ENT.RadiusDamageRadius = 150 -- How far the damage go? The farther away it's from its enemy, the less damage it will do | Counted in world units
 ENT.RadiusDamage = 80 -- How much damage should it deal? Remember this is a radius damage, therefore it will do less damage the farther away the entity is from its enemy
 ENT.RadiusDamageUseRealisticRadius = true -- Should the damage decrease the farther away the enemy is from the position that the projectile hit?
-ENT.RadiusDamageType = DMG_RADIATION -- Damage type
+ENT.RadiusDamageType = DMG_BLAST -- Damage type
 ENT.RadiusDamageForce = 90 -- Put the force amount it should apply | false = Don't apply any force
 ENT.DecalTbl_DeathDecals = {"VJ_HLR_Scorch"} -- Decals that paint when the projectile dies | It picks a random one from this table
 ENT.SoundTbl_OnRemove = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}
@@ -43,7 +43,7 @@ function ENT:DeathEffects()
 	spr:Spawn()
 	spr:Fire("Kill","",0.9)
 	//timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
-	
+	VJ_EmitSound(self,"vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav",80,math.random(100,100))
 	light = ents.Create("light_dynamic")
 	light:SetKeyValue("brightness", "4")
 	light:SetKeyValue("distance", "300")

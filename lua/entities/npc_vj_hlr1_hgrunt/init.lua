@@ -71,7 +71,8 @@ ENT.HECU_Type = 0
 	-- 5 = Robot Grunt
 	-- 6 = Alpha HGrunt
 	-- 7 = Human Sergeant
-	-- 8 = CS:CZDZ Faction
+	-- 8 = CS:CZDS Terrorists
+	-- 9 = CS:CZDS Counter-Terrorists
 ENT.HECU_WepBG = 2 -- The bodygroup that the weapons are in (Ourish e amen modelneroun)
 ENT.HECU_LastBodyGroup = 99
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -161,7 +162,7 @@ function ENT:OnPlayCreateSound(SoundData,SoundFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	//print(key)
+	print(key)
 	if key == "event_emit step" or key == "step" then
 		self:FootStepSoundCode()
 	end
@@ -313,6 +314,27 @@ function ENT:CustomOnThink()
 				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SHOTGUN}
 				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SHOTGUN_LOW}
 				self.Weapon_StartingAmmoAmount = 7
+			elseif bgroup == 2 then -- M72 LAW
+				self:DoChangeWeapon("weapon_vj_csczds_law")
+				self.AnimTbl_WeaponReload = {ACT_HL2MP_GESTURE_RELOAD_RPG}
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_RPG}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_RPG}
+				self.AnimTbl_IdleStand = {ACT_IDLE_RPG}
+				self.AnimTbl_Walk = {ACT_IDLE_RPG}
+				self.AnimTbl_Run = {ACT_RUN_RPG}
+				self.AnimTbl_LostWeaponSight = {ACT_IDLE_ANGRY_RPG}
+				self.Weapon_StartingAmmoAmount = 1
+			elseif bgroup == 3 then -- AWM
+				self:DoChangeWeapon("weapon_vj_csczds_awm")
+				self.AnimTbl_LostWeaponSight = {ACT_HL2MP_IDLE_AR2}
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_AR2}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_AR2_LOW}
+				self.Weapon_StartingAmmoAmount = 10
+			elseif bgroup == 4 then -- AK-47
+				self:DoChangeWeapon("weapon_vj_csczds_ak47")
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
+				self.Weapon_StartingAmmoAmount = 30
 			end
 		end
 	end
@@ -322,6 +344,10 @@ function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
 	GrenadeEntity.DecalTbl_DeathDecals = {"VJ_HLR_Scorch"}
 	GrenadeEntity.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/grenade/grenade_hit1.wav","vj_hlr/hl1_weapon/grenade/grenade_hit2.wav","vj_hlr/hl1_weapon/grenade/grenade_hit3.wav"}
 	GrenadeEntity.SoundTbl_OnRemove = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}
+	if self.HECU_Type == 8 then
+		GrenadeEntity.SoundTbl_OnCollide = {"vj_hlr/czeror_weapon/he_bounce-1.wav"}
+		GrenadeEntity.SoundTbl_OnRemove = {"vj_hlr/czeror_weapon/hegrenade-1.wav","vj_hlr/czeror_weapon/hegrenade-2.wav"}
+	end
 	GrenadeEntity.OnRemoveSoundLevel = 100
 	
 	function GrenadeEntity:CustomOnPhysicsCollide(data,phys)
@@ -375,6 +401,11 @@ function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
 		
 		GrenadeEntity:DoDamageCode()
 		GrenadeEntity:SetDeathVariablesTrue(nil,nil,false)
+		if self.HECU_Type == 8 then
+			VJ_EmitSound(self,"vj_hlr/czeror_weapon/debris"..math.random(1,3)..".wav",80,math.random(100,100))
+		else
+			VJ_EmitSound(self,"vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav",80,math.random(100,100))
+		end
 		GrenadeEntity:Remove()
 	end
 end
@@ -436,6 +467,8 @@ function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
 	elseif self.HECU_Type == 5 then
 		VJ_EmitSound(self,"vj_hlr/hl1_weapon/explosion/debris3.wav",150,math.random(100,100))
 		VJ_EmitSound(self,"vj_hlr/hl1_npc/rgrunt/rb_gib.wav",80,math.random(100,100))
+	elseif self.HECU_Type == 8 then
+		VJ_EmitSound(self,"vj_hlr/czeror_fx/bodysplat"..math.random(1,3)..".wav",100,math.random(100,100))
 	else
 		VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
 	end
