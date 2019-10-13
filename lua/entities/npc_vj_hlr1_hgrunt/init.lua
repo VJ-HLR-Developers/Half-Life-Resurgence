@@ -143,8 +143,11 @@ function ENT:CustomOnInitialize()
 		self.HECU_Type = 7
 		self.HECU_WepBG = 1
 		self.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEBACKWARD,ACT_DIEVIOLENT}
-	elseif self:GetModel() == "models/vj_hlr/czeror/gign.mdl" or self:GetModel() == "models/vj_hlr/czeror/arctic.mdl" then
+	elseif self:GetModel() == "models/vj_hlr/czeror/arctic.mdl" or self:GetModel() == "models/vj_hlr/czeror/terror.mdl" then
 		self.HECU_Type = 8
+		self.HECU_WepBG = 2
+	elseif self:GetModel() == "models/vj_hlr/czeror/gign.mdl" then
+		self.HECU_Type = 9
 		self.HECU_WepBG = 2
 	end
 	
@@ -453,7 +456,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_lung.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,45))})
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_skull.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,60))})
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_legbone.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,15))})
-		if self.HECU_Type != 4 && self.HECU_Type != 8 then
+		if self.HECU_Type != 4 && self.HECU_Type != 8 && self.HECU_Type != 9 then
 			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/gib_hgrunt.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,15))})
 		end
 		return true
