@@ -169,7 +169,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "event_emit step" or key == "step" then
 		self:FootStepSoundCode()
 	end
-	if key == "event_mattack" or key == "melee" then
+	if key == "event_mattack" or key == "melee" or key == "machete_melee" then
 		self:MeleeAttackCode()
 	end
 	if key == "event_rattack mp5_fire" or key == "event_rattack shotgun_fire" or key == "event_rattack saw_fire" or key == "event_rattack pistol_fire" or key == "shoot" or key == "colt_fire" or key == "fire" then
@@ -308,16 +308,21 @@ function ENT:CustomOnThink()
 			end
 		elseif self.HECU_Type == 8 then
 			if bgroup == 0 then -- MP5
+				self.MeleeAttackDistance = 30
 				self:DoChangeWeapon("weapon_vj_csczds_mp5")
+				self.AnimTbl_IdleStand = {ACT_IDLE}
 				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
 				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
 				self.Weapon_StartingAmmoAmount = 30
 			elseif bgroup == 1 then -- XM1014
+				self.MeleeAttackDistance = 30
 				self:DoChangeWeapon("weapon_vj_csczds_xm1014")
+				self.AnimTbl_IdleStand = {ACT_IDLE}
 				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SHOTGUN}
 				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SHOTGUN_LOW}
 				self.Weapon_StartingAmmoAmount = 7
 			elseif bgroup == 2 then -- M72 LAW
+				self.MeleeAttackDistance = 30
 				self:DoChangeWeapon("weapon_vj_csczds_law")
 				self.AnimTbl_WeaponReload = {ACT_HL2MP_GESTURE_RELOAD_RPG}
 				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_RPG}
@@ -328,13 +333,43 @@ function ENT:CustomOnThink()
 				self.AnimTbl_LostWeaponSight = {ACT_IDLE_ANGRY_RPG}
 				self.Weapon_StartingAmmoAmount = 1
 			elseif bgroup == 3 then -- AWM
+				self.MeleeAttackDistance = 30
 				self:DoChangeWeapon("weapon_vj_csczds_awm")
+				self.AnimTbl_IdleStand = {ACT_IDLE}
 				self.AnimTbl_LostWeaponSight = {ACT_HL2MP_IDLE_AR2}
 				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_AR2}
 				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_AR2_LOW}
 				self.Weapon_StartingAmmoAmount = 10
 			elseif bgroup == 4 then -- AK-47
+				self.MeleeAttackDistance = 30
 				self:DoChangeWeapon("weapon_vj_csczds_ak47")
+				self.AnimTbl_IdleStand = {ACT_IDLE_SMG1}
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
+				self.Weapon_StartingAmmoAmount = 30
+			elseif bgroup == 5 then -- Glock-18
+				self.MeleeAttackDistance = 30
+				self:DoChangeWeapon("weapon_vj_csczds_glock18")
+				self.AnimTbl_IdleStand = {ACT_IDLE_PISTOL}
+				self.AnimTbl_LostWeaponSight = {ACT_IDLE_ANGRY_PISTOL}
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
+				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_PISTOL_LOW}
+				self.Weapon_StartingAmmoAmount = 20
+			elseif bgroup == 6 then -- Machete (WIP, not sure how to implement this properly)
+				self.NoWeapon_UseScaredBehavior = false
+				self.MeleeAttackDamage = 35
+				self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK_SWING}
+			elseif bgroup == 7 then -- M60
+				self.MeleeAttackDistance = 30
+				self:DoChangeWeapon("weapon_vj_csczds_m60")
+				self.AnimTbl_IdleStand = {ACT_IDLE_SMG1}
+				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_HMG1}
+				self.AnimTbl_WeaponAttackCrouch = {AACT_RANGE_ATTACK_HMG1}
+				self.Weapon_StartingAmmoAmount = 100
+			elseif bgroup == 8 then -- TMP
+				self.MeleeAttackDistance = 30
+				self:DoChangeWeapon("weapon_vj_csczds_tmp")
+				self.AnimTbl_IdleStand = {ACT_IDLE_SMG1}
 				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
 				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
 				self.Weapon_StartingAmmoAmount = 30
