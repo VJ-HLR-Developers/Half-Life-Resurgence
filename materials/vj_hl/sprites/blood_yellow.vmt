@@ -2,8 +2,6 @@
 {
 	"$basetexture" "vj_hl/sprites/blood_yellow"
 	"$nolod" 1
-	"$nomip" 1
-	"$ignorez" 1
 	"$translucent" 1
 	//"$alphatest" 1
 	"Proxies"
