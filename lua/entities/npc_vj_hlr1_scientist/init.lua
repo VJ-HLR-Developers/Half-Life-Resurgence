@@ -250,6 +250,13 @@ function ENT:CustomOnThink()
 		self.AnimTbl_Run = {ACT_RUN}
 	end
 	
+	if self:GetModel() == "models/vj_hlr/decay/wheelchair_sci.mdl" && self:GetBodygroup(0) == 1 then
+		self:StopAllCommonSpeechSounds()
+		self:StopAllCommonSounds()
+		VJ_EmitSound(self,"vj_hlr/hl1_npc/keller/dk_die"..math.random(1,7)..".wav",80,math.random(100,100))
+		self:Fire("BecomeRagdoll","",0)
+	end
+	
 	if CurTime() < self.SCI_NextMouthMove then
 		if self.SCI_NextMouthDistance == 0 then
 			self.SCI_NextMouthDistance = math.random(10,70)
