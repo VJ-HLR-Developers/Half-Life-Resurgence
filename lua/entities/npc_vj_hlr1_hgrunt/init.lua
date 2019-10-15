@@ -9,8 +9,8 @@ ENT.Model = {"models/vj_hlr/hl1/hgrunt.mdl"} -- The game will pick a random mode
 ENT.StartHealth = 90
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
--- ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
+ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
+--ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
@@ -72,8 +72,6 @@ ENT.HECU_Type = 0
 	-- 5 = Robot Grunt
 	-- 6 = Alpha HGrunt
 	-- 7 = Human Sergeant
-	-- 8 = CS:CZDS Terrorists
-	-- 9 = CS:CZDS Counter-Terrorists
 ENT.HECU_WepBG = 2 -- The bodygroup that the weapons are in (Ourish e amen modelneroun)
 ENT.HECU_LastBodyGroup = 99
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -143,12 +141,6 @@ function ENT:CustomOnInitialize()
 		self.HECU_Type = 7
 		self.HECU_WepBG = 1
 		self.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEBACKWARD,ACT_DIEVIOLENT}
-	elseif self:GetModel() == "models/vj_hlr/czeror/arctic.mdl" or self:GetModel() == "models/vj_hlr/czeror/terror.mdl" then
-		self.HECU_Type = 8
-		self.HECU_WepBG = 2
-	elseif self:GetModel() == "models/vj_hlr/czeror/gign.mdl" then
-		self.HECU_Type = 9
-		self.HECU_WepBG = 2
 	end
 	
 	self.HECU_NextMouthMove = CurTime()
@@ -306,74 +298,6 @@ function ENT:CustomOnThink()
 				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_AR2}
 				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_AR2}
 			end
-		elseif self.HECU_Type == 8 then
-			if bgroup == 0 then -- MP5
-				self.MeleeAttackDistance = 30
-				self:DoChangeWeapon("weapon_vj_csczds_mp5")
-				self.AnimTbl_IdleStand = {ACT_IDLE}
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
-				self.Weapon_StartingAmmoAmount = 30
-			elseif bgroup == 1 then -- XM1014
-				self.MeleeAttackDistance = 30
-				self:DoChangeWeapon("weapon_vj_csczds_xm1014")
-				self.AnimTbl_IdleStand = {ACT_IDLE}
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SHOTGUN}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SHOTGUN_LOW}
-				self.Weapon_StartingAmmoAmount = 7
-			elseif bgroup == 2 then -- M72 LAW
-				self.MeleeAttackDistance = 30
-				self:DoChangeWeapon("weapon_vj_csczds_law")
-				self.AnimTbl_WeaponReload = {ACT_HL2MP_GESTURE_RELOAD_RPG}
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_RPG}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_RPG}
-				self.AnimTbl_IdleStand = {ACT_IDLE_RPG}
-				self.AnimTbl_Walk = {ACT_IDLE_RPG}
-				self.AnimTbl_Run = {ACT_RUN_RPG}
-				self.AnimTbl_LostWeaponSight = {ACT_IDLE_ANGRY_RPG}
-				self.Weapon_StartingAmmoAmount = 1
-			elseif bgroup == 3 then -- AWM
-				self.MeleeAttackDistance = 30
-				self:DoChangeWeapon("weapon_vj_csczds_awm")
-				self.AnimTbl_IdleStand = {ACT_IDLE}
-				self.AnimTbl_LostWeaponSight = {ACT_HL2MP_IDLE_AR2}
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_AR2}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_AR2_LOW}
-				self.Weapon_StartingAmmoAmount = 10
-			elseif bgroup == 4 then -- AK-47
-				self.MeleeAttackDistance = 30
-				self:DoChangeWeapon("weapon_vj_csczds_ak47")
-				self.AnimTbl_IdleStand = {ACT_IDLE_SMG1}
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
-				self.Weapon_StartingAmmoAmount = 30
-			elseif bgroup == 5 then -- Glock-18
-				self.MeleeAttackDistance = 30
-				self:DoChangeWeapon("weapon_vj_csczds_glock18")
-				self.AnimTbl_IdleStand = {ACT_IDLE_PISTOL}
-				self.AnimTbl_LostWeaponSight = {ACT_IDLE_ANGRY_PISTOL}
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_PISTOL_LOW}
-				self.Weapon_StartingAmmoAmount = 20
-			elseif bgroup == 6 then -- Machete (WIP, not sure how to implement this properly)
-				self.NoWeapon_UseScaredBehavior = false
-				self.MeleeAttackDamage = 35
-				self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK_SWING}
-			elseif bgroup == 7 then -- M60
-				self.MeleeAttackDistance = 30
-				self:DoChangeWeapon("weapon_vj_csczds_m60")
-				self.AnimTbl_IdleStand = {ACT_IDLE_SMG1}
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_HMG1}
-				self.AnimTbl_WeaponAttackCrouch = {AACT_RANGE_ATTACK_HMG1}
-				self.Weapon_StartingAmmoAmount = 100
-			elseif bgroup == 8 then -- TMP
-				self.MeleeAttackDistance = 30
-				self:DoChangeWeapon("weapon_vj_csczds_tmp")
-				self.AnimTbl_IdleStand = {ACT_IDLE_SMG1}
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
-				self.Weapon_StartingAmmoAmount = 30
-			end
 		end
 	end
 end
@@ -382,10 +306,6 @@ function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
 	GrenadeEntity.DecalTbl_DeathDecals = {"VJ_HLR_Scorch"}
 	GrenadeEntity.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/grenade/grenade_hit1.wav","vj_hlr/hl1_weapon/grenade/grenade_hit2.wav","vj_hlr/hl1_weapon/grenade/grenade_hit3.wav"}
 	GrenadeEntity.SoundTbl_OnRemove = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}
-	if self.HECU_Type == 8 then
-		GrenadeEntity.SoundTbl_OnCollide = {"vj_hlr/czeror_weapon/he_bounce-1.wav"}
-		GrenadeEntity.SoundTbl_OnRemove = {"vj_hlr/czeror_weapon/hegrenade-1.wav","vj_hlr/czeror_weapon/hegrenade-2.wav"}
-	end
 	GrenadeEntity.OnRemoveSoundLevel = 100
 	
 	function GrenadeEntity:CustomOnPhysicsCollide(data,phys)
@@ -439,11 +359,7 @@ function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
 		
 		GrenadeEntity:DoDamageCode()
 		GrenadeEntity:SetDeathVariablesTrue(nil,nil,false)
-		if self.HECU_Type == 8 then
-			VJ_EmitSound(self,"vj_hlr/czeror_weapon/debris"..math.random(1,3)..".wav",80,math.random(100,100))
-		else
-			VJ_EmitSound(self,"vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav",80,math.random(100,100))
-		end
+		VJ_EmitSound(self,"vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav",80,math.random(100,100))
 		GrenadeEntity:Remove()
 	end
 end
@@ -518,8 +434,6 @@ function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
 	elseif self.HECU_Type == 5 then
 		VJ_EmitSound(self,"vj_hlr/hl1_weapon/explosion/debris3.wav",150,math.random(100,100))
 		VJ_EmitSound(self,"vj_hlr/hl1_npc/rgrunt/rb_gib.wav",80,math.random(100,100))
-	elseif self.HECU_Type == 8 then
-		VJ_EmitSound(self,"vj_hlr/czeror_fx/bodysplat"..math.random(1,3)..".wav",100,math.random(100,100))
 	else
 		VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
 	end
@@ -544,8 +458,6 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 		self:SetSkin(4)
 	elseif self.HECU_Type == 1 or self.HECU_Type == 2 then
 		self:SetBodygroup(self.HECU_WepBG,3)
-	elseif self.HECU_Type == 8 then
-		self:SetBodygroup(self.HECU_WepBG,9)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
