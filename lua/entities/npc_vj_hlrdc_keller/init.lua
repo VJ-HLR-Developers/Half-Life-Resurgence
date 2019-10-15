@@ -33,6 +33,8 @@ vj_hlr/hl1_npc/keller/wheelchair_jog.wav
 vj_hlr/hl1_npc/keller/wheelchair_run.wav
 vj_hlr/hl1_npc/keller/wheelchair_walk.wav
 */
+-- Custom
+ENT.Keller_WheelChair = true
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SCI_CustomOnInitialize()
 	self.SoundTbl_FootStep = {"vj_hlr/hl1_npc/keller/wheelchair_walk.wav"}
@@ -55,12 +57,17 @@ function ENT:SCI_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
+	if self:GetBodygroup(0) == 1 then
+		self.Keller_WheelChair = false
+	end
 	self:SetBodygroup(0,1)
 	self:SetPos(self:GetPos() + self:GetUp()*5)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
-	self:CreateExtraDeathCorpse("prop_physics","models/vj_hlr/decay/wheelchair.mdl",{HasVel=false})
+	if self.Keller_WheelChair == true then
+		self:CreateExtraDeathCorpse("prop_physics","models/vj_hlr/decay/wheelchair.mdl",{HasVel=false})
+	end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***

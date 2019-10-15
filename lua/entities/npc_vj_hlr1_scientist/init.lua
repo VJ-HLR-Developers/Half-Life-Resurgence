@@ -250,7 +250,8 @@ function ENT:CustomOnThink()
 		self.AnimTbl_Run = {ACT_RUN}
 	end
 	
-	if self:GetModel() == "models/vj_hlr/decay/wheelchair_sci.mdl" && self:GetBodygroup(0) == 1 then
+	if self.SCI_Type == 2 && self:GetBodygroup(0) == 1 then
+		self.HasDeathAnimation = false
 		self:TakeDamage(999999999,self,self)
 	end
 	
