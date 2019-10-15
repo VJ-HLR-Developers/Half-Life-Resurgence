@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2018 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -176,7 +176,7 @@ function ENT:OnPlayCreateSound(SoundData,SoundFile)
 	timer.Simple(SoundDuration(SoundFile),function() if IsValid(self) && SoundData:IsPlaying() then VJ_EmitSound(self,"npc/metropolice/vo/off"..math.random(1,4)..".wav") end end)
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2018 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

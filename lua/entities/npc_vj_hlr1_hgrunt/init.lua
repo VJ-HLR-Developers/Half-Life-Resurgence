@@ -103,11 +103,10 @@ function ENT:HECU_CustomOnInitialize()
 			self:SetSkin(1) -- Sev
 		end
 		
-		local randwep = math.random(1,3)
-		if randwep == 1 or randwep == 2 then
-			self:SetBodygroup(2,0)
-		elseif randwep == 3 then
+		if randhead == 2 then
 			self:SetBodygroup(2,1)
+		else
+			self:SetBodygroup(2,0)
 		end
 	end
 end
@@ -453,12 +452,25 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	if self.HECU_GasTankHit == true then
 		util.BlastDamage(self,self,self:GetPos(),100,80)
 		util.ScreenShake(self:GetPos(),100,200,1,500)
+		VJ_EmitSound(self,{"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"},90)
 		
-		local effectdata = EffectData()
-		effectdata:SetOrigin(self:GetPos()+Vector(0,0,32))
-		util.Effect("Explosion",effectdata)
-		util.Effect("HelicopterMegaBomb",effectdata)
-		//ParticleEffect("vj_explosion2",self:GetPos(),Angle(0,0,0),nil)
+		spr = ents.Create("env_sprite")
+		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+		spr:SetKeyValue("GlowProxySize","2.0")
+		spr:SetKeyValue("HDRColorScale","1.0")
+		spr:SetKeyValue("renderfx","14")
+		spr:SetKeyValue("rendermode","5")
+		spr:SetKeyValue("renderamt","255")
+		spr:SetKeyValue("disablereceiveshadows","0")
+		spr:SetKeyValue("mindxlevel","0")
+		spr:SetKeyValue("maxdxlevel","0")
+		spr:SetKeyValue("framerate","15.0")
+		spr:SetKeyValue("spawnflags","0")
+		spr:SetKeyValue("scale","4")
+		spr:SetPos(self:GetPos() + Vector(0,0,90))
+		spr:Spawn()
+		spr:Fire("Kill","",0.9)
+		timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
 	end
 	if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD then
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_skull.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,60))})

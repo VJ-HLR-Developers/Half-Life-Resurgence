@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2018 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -9,7 +9,9 @@ ENT.Model = {"models/vj_hlr/hl1/apc_body.mdl"} -- The game will pick a random mo
 ENT.StartHealth = 500
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other\
+ENT.DeathCorpseModel = {"models/vj_hlr/hl1/apc_body_destroyed.mdl"} -- The corpse model that it will spawn when it dies | Leave empty to use the NPC's model | Put as many models as desired, the base will pick a random one.
 
+ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/tanks/bradley_idle.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/hgrunt/gr_idle1.wav","vj_hlr/hl1_npc/hgrunt/gr_idle2.wav","vj_hlr/hl1_npc/hgrunt/gr_idle3.wav"}
 ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/hgrunt/gr_taunt1.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt2.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt3.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt4.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt5.wav","vj_hlr/hl1_npc/hgrunt/gr_combat1.wav","vj_hlr/hl1_npc/hgrunt/gr_combat2.wav","vj_hlr/hl1_npc/hgrunt/gr_combat3.wav","vj_hlr/hl1_npc/hgrunt/gr_combat4.wav"}
 ENT.SoundTbl_OnReceiveOrder = {"vj_hlr/hl1_npc/hgrunt/gr_answer1.wav","vj_hlr/hl1_npc/hgrunt/gr_answer2.wav","vj_hlr/hl1_npc/hgrunt/gr_answer3.wav","vj_hlr/hl1_npc/hgrunt/gr_answer5.wav","vj_hlr/hl1_npc/hgrunt/gr_answer7.wav"}
@@ -20,6 +22,9 @@ ENT.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/hgrunt/gr_cover7.wav","vj_hlr/hl1
 ENT.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/hgrunt/gr_allydeath.wav","vj_hlr/hl1_npc/hgrunt/gr_cover2.wav","vj_hlr/hl1_npc/hgrunt/gr_cover3.wav","vj_hlr/hl1_npc/hgrunt/gr_cover4.wav","vj_hlr/hl1_npc/hgrunt/gr_cover7.wav"}
 
 -- Tank Base
+ENT.Tank_SoundTbl_DrivingEngine = {"vj_hlr/hl1_npc/tanks/tankdrive.wav"}
+ENT.Tank_SoundTbl_Track = {}
+
 ENT.Tank_GunnerENT = "npc_vj_hlr1_m2a3bradley_gun"
 ENT.Tank_SpawningAngle = 0
 ENT.Tank_AngleDiffuseNumber = 0
@@ -55,8 +60,88 @@ function ENT:GetNearDeathSparkPositions()
 		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*-60 + self:GetForward()*-40 + self:GetUp()*81)
 	end
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Tank_CustomOnPriorToKilled(dmginfo,hitgroup)
+	for i=0,1,0.5 do
+		timer.Simple(i,function()
+			if IsValid(self) then
+				VJ_EmitSound(self,{"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"},100)
+				util.BlastDamage(self,self,self:GetPos(),200,40)
+				util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
+				
+				spr = ents.Create("env_sprite")
+				spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+				spr:SetKeyValue("GlowProxySize","2.0")
+				spr:SetKeyValue("HDRColorScale","1.0")
+				spr:SetKeyValue("renderfx","14")
+				spr:SetKeyValue("rendermode","5")
+				spr:SetKeyValue("renderamt","255")
+				spr:SetKeyValue("disablereceiveshadows","0")
+				spr:SetKeyValue("mindxlevel","0")
+				spr:SetKeyValue("maxdxlevel","0")
+				spr:SetKeyValue("framerate","15.0")
+				spr:SetKeyValue("spawnflags","0")
+				spr:SetKeyValue("scale","4")
+				spr:SetPos(self:GetPos() + Vector(0,0,150))
+				spr:Spawn()
+				spr:Fire("Kill","",0.9)
+				timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
+			end
+		end)
+	end
+	
+	timer.Simple(1.5,function()
+		if IsValid(self) then
+			VJ_EmitSound(self,{"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"},100)
+			util.BlastDamage(self,self,self:GetPos(),200,40)
+			util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
+			
+			spr = ents.Create("env_sprite")
+			spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+			spr:SetKeyValue("GlowProxySize","2.0")
+			spr:SetKeyValue("HDRColorScale","1.0")
+			spr:SetKeyValue("renderfx","14")
+			spr:SetKeyValue("rendermode","5")
+			spr:SetKeyValue("renderamt","255")
+			spr:SetKeyValue("disablereceiveshadows","0")
+			spr:SetKeyValue("mindxlevel","0")
+			spr:SetKeyValue("maxdxlevel","0")
+			spr:SetKeyValue("framerate","15.0")
+			spr:SetKeyValue("spawnflags","0")
+			spr:SetKeyValue("scale","4")
+			spr:SetPos(self:GetPos() + Vector(0,0,150))
+			spr:Spawn()
+			spr:Fire("Kill","",0.9)
+			timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
+		end
+	end)
+	
+	return false
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Tank_CustomOnDeath_AfterCorpseSpawned_Effects(dmginfo,hitgroup,GetCorpse)
+	spr = ents.Create("env_sprite")
+	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+	spr:SetKeyValue("GlowProxySize","2.0")
+	spr:SetKeyValue("HDRColorScale","1.0")
+	spr:SetKeyValue("renderfx","14")
+	spr:SetKeyValue("rendermode","5")
+	spr:SetKeyValue("renderamt","255")
+	spr:SetKeyValue("disablereceiveshadows","0")
+	spr:SetKeyValue("mindxlevel","0")
+	spr:SetKeyValue("maxdxlevel","0")
+	spr:SetKeyValue("framerate","15.0")
+	spr:SetKeyValue("spawnflags","0")
+	spr:SetKeyValue("scale","4")
+	spr:SetPos(self:GetPos() + Vector(0,0,150))
+	spr:Spawn()
+	spr:Fire("Kill","",0.9)
+	timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
+	
+	return false
+end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2018 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2019 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
