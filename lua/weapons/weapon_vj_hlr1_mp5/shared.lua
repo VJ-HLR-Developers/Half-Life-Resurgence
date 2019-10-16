@@ -67,7 +67,7 @@ function SWEP:NPC_SecondaryFire()
 	local phys = proj:GetPhysicsObject()
 	if phys:IsValid() then
 		phys:Wake()
-		phys:SetVelocity(self.Owner:CalculateProjectile("Curve", pos, self.Owner:GetEnemy():GetPos() + self.Owner:GetEnemy():OBBCenter(), 4000))
+		phys:SetVelocity(self.Owner:CalculateProjectile("Curve", pos, self.Owner:GetEnemy():GetPos() + self.Owner:GetEnemy():OBBCenter(), 1000))
 	end
 	VJ_EmitSound(self.Owner,{"vj_hlr/hl1_weapon/mp5/glauncher.wav","vj_hlr/hl1_weapon/mp5/glauncher2.wav"},90)
 end

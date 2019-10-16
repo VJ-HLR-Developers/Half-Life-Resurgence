@@ -9,15 +9,16 @@ ENT.Model = {"models/vj_hlr/hl1/apc_turret.mdl"} -- The game will pick a random 
 ENT.StartHealth = 0
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
 
-ENT.Tank_SoundTbl_Turning = {"vj_hlr/hl1_npc/tanks/bradley_turret_rot.wav"}
-
 -- Tank Base
 ENT.Tank_SoundTbl_Turning = {"vj_hlr/hl1_npc/tanks/bradley_turret_rot.wav"}
-ENT.Tank_SoundTbl_ReloadShell = {}
+ENT.Tank_SoundTbl_ReloadShell = {"vj_hlr/hl1_npc/tanks/tank_reload.wav"}
 ENT.Tank_SoundTbl_FireShell = {"vj_hlr/hl1_npc/tanks/shoot.wav"}
 
+ENT.Tank_Shell_TimeUntilFire = 0.8 -- How much time until it fires the shell?
 ENT.Tank_AngleDiffuseNumber = 0
-ENT.Tank_Shell_SpawnPos = Vector(117,0,10)
+ENT.Tank_Shell_SpawnPos = Vector(55,0,10)
+ENT.Tank_Shell_EntityToSpawn = "obj_vj_hlr1_tank_shell" -- The entity that is spawned when the shell is fired
+ENT.Tank_Shell_VelocitySpeed = 3000 -- How fast should the tank shell travel?
 ENT.Tank_Shell_DynamicLightPos = Vector(117,0,10)
 ENT.Tank_Shell_MuzzleFlashPos = Vector(110,0,10)
 ENT.Tank_Shell_ParticlePos = Vector(117,00,10)

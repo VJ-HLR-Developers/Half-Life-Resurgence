@@ -233,7 +233,7 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 	for i = 0.3, 3.5, 0.5 do
 		timer.Simple(i,function()
 			if IsValid(self) then
-				spr = ents.Create("env_sprite")
+				local spr = ents.Create("env_sprite")
 				spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
 				spr:SetKeyValue("GlowProxySize","2.0")
 				spr:SetKeyValue("HDRColorScale","1.0")
@@ -276,7 +276,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 				util.Effect("bloodspray",bloodspray)
 				util.Effect("bloodspray",bloodspray)
 				
-				spr = ents.Create("env_sprite")
+				local spr = ents.Create("env_sprite")
 				spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
 				spr:SetKeyValue("GlowProxySize","2.0")
 				spr:SetKeyValue("HDRColorScale","1.0")

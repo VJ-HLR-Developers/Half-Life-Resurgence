@@ -157,7 +157,7 @@ function ENT:OnPlayCreateSound(SoundData,SoundFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	print(key)
+	//print(key)
 	if key == "event_emit step" or key == "step" then
 		self:FootStepSoundCode()
 	end
@@ -319,7 +319,7 @@ function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
 	end
 	
 	function GrenadeEntity:DeathEffects()
-		spr = ents.Create("env_sprite")
+		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
 		spr:SetKeyValue("GlowProxySize","2.0")
 		spr:SetKeyValue("HDRColorScale","1.0")
@@ -371,7 +371,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 		util.ScreenShake(self:GetPos(),100,200,1,500)
 		VJ_EmitSound(self,{"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"},90)
 		
-		spr = ents.Create("env_sprite")
+		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
 		spr:SetKeyValue("GlowProxySize","2.0")
 		spr:SetKeyValue("HDRColorScale","1.0")
