@@ -15,7 +15,7 @@ if (CLIENT) then
 	killicon.Add("#"..LangName,"HUD/killicons/default",Color(255,80,0,255))
 
 	function ENT:Think()
-		if self:IsValid() then
+		if IsValid(self) && self:GetNWBool("VJ_Dead") != true then
 			self.Emitter = ParticleEmitter(self:GetPos())
 			self.SmokeEffect1 = self.Emitter:Add("particles/flamelet2",self:GetPos() +self:GetForward()*-7)
 			self.SmokeEffect1:SetVelocity(self:GetForward() *math.Rand(0, -50) +Vector(math.Rand(5, -5), math.Rand(5, -5), math.Rand(5, -5)) +self:GetVelocity())
