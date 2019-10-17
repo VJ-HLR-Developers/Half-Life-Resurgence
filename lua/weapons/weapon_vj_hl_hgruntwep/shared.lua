@@ -30,9 +30,9 @@ function SWEP:CustomOnInitialize()
 	self:SetNWInt("VJ_HGrunt_BulletAttachmet","muzzle_mp5")
 	timer.Simple(0.1,function() -- Minag grunt-en model-e tske, yete ooresh model-e, serpe as zenke
 		if IsValid(self) then
-			if IsValid(self.Owner) && self.Owner:GetModel() != "models/vj_hlr/opfor/hgrunt.mdl" && self.Owner:GetModel() != "models/vj_hlr/hl1/hgrunt.mdl" && self.Owner:GetModel() != "models/vj_hlr/opfor/hgrunt_medic.mdl" && self.Owner:GetModel() != "models/vj_hlr/opfor/hgrunt_engineer.mdl" then
-				if IsValid(self.Owner:GetCreator()) then
-					self.Owner:GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for the Half Life 1 Human Grunts only!")
+			if IsValid(self:GetOwner()) && self:GetOwner():GetModel() != "models/vj_hlr/opfor/hgrunt.mdl" && self:GetOwner():GetModel() != "models/vj_hlr/hl1/hgrunt.mdl" && self:GetOwner():GetModel() != "models/vj_hlr/opfor/hgrunt_medic.mdl" && self:GetOwner():GetModel() != "models/vj_hlr/opfor/hgrunt_engineer.mdl" then
+				if IsValid(self:GetOwner():GetCreator()) then
+					self:GetOwner():GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for the Half Life 1 Human Grunts only!")
 				end
 				self:Remove()
 			end
@@ -47,10 +47,10 @@ function SWEP:CustomOnDrawWorldModel() -- This is client only!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnNPC_ServerThink()
-	local bgroup = self.Owner:GetBodygroup(self.Owner.HECU_WepBG)
+	local bgroup = self:GetOwner():GetBodygroup(self:GetOwner().HECU_WepBG)
 	if self.HGrunt_LastBodyGroup != bgroup then
 		self.HGrunt_LastBodyGroup = bgroup
-		if self.Owner.HECU_Type == 0 then
+		if self:GetOwner().HECU_Type == 0 then
 			if bgroup == 0 then -- MP5
 				self:SetNWString("VJ_HGrunt_WeaponModel","models/vj_hlr/weapons/w_9mmar.mdl")
 				self.WorldModel = self:GetNWInt("VJ_HGrunt_WeaponModel")
@@ -78,7 +78,7 @@ function SWEP:CustomOnNPC_ServerThink()
 				self.Primary.ClipSize = 8
 				self.Primary.NumberOfShots = 5
 			end
-		elseif self.Owner.HECU_Type == 1 then
+		elseif self:GetOwner().HECU_Type == 1 then
 			if bgroup == 0 then -- MP5
 				self:SetNWString("VJ_HGrunt_WeaponModel","models/vj_hlr/weapons/w_9mmar_opfor.mdl")
 				self.WorldModel = self:GetNWInt("VJ_HGrunt_WeaponModel")
@@ -119,7 +119,7 @@ function SWEP:CustomOnNPC_ServerThink()
 				self.Primary.ClipSize = 50
 				self.Primary.NumberOfShots = 1
 			end
-		elseif self.Owner.HECU_Type == 2 then
+		elseif self:GetOwner().HECU_Type == 2 then
 			if bgroup == 0 then -- Desert Eagle
 				self:SetNWString("VJ_HGrunt_WeaponModel","models/vj_hlr/weapons/w_desert_eagle.mdl")
 				self.WorldModel = self:GetNWInt("VJ_HGrunt_WeaponModel")
@@ -145,7 +145,7 @@ function SWEP:CustomOnNPC_ServerThink()
 				self.NPC_CustomSpread = 2.5
 				self.Primary.ClipSize = 17
 			end
-		elseif self.Owner.HECU_Type == 3 then
+		elseif self:GetOwner().HECU_Type == 3 then
 			if bgroup == 0 then -- Desert Eagle
 				self:SetNWString("VJ_HGrunt_WeaponModel","models/vj_hlr/weapons/w_desert_eagle.mdl")
 				self.WorldModel = self:GetNWInt("VJ_HGrunt_WeaponModel")
@@ -164,12 +164,12 @@ function SWEP:CustomOnNPC_ServerThink()
 end
  ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomBulletSpawnPosition()
-	return self.Owner:GetAttachment(self.Owner:LookupAttachment(self:GetNWInt("VJ_HGrunt_BulletAttachmet"))).Pos
+	return self:GetOwner():GetAttachment(self:GetOwner():LookupAttachment(self:GetNWInt("VJ_HGrunt_BulletAttachmet"))).Pos
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttackEffects()
 	if self.PrimaryEffects_MuzzleFlash == true && GetConVarNumber("vj_wep_nomuszzleflash") == 0 then
-		ParticleEffectAttach(VJ_PICKRANDOMTABLE(self.PrimaryEffects_MuzzleParticles),PATTACH_POINT_FOLLOW,self.Owner,self.Owner:LookupAttachment(self:GetNWInt("VJ_HGrunt_BulletAttachmet")))
+		ParticleEffectAttach(VJ_PICKRANDOMTABLE(self.PrimaryEffects_MuzzleParticles),PATTACH_POINT_FOLLOW,self:GetOwner(),self:GetOwner():LookupAttachment(self:GetNWInt("VJ_HGrunt_BulletAttachmet")))
 	end
 	return false
 end

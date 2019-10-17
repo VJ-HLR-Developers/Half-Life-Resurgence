@@ -36,18 +36,18 @@ SWEP.HLR_ValidModels = {"models/vj_hlr/hl1/barney.mdl","models/vj_hlr/hla/barney
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
 	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
-		if IsValid(self) && IsValid(self.Owner) then
-			if self.Owner:GetModel() == "models/vj_hlr/hla/barney.mdl" then
+		if IsValid(self) && IsValid(self:GetOwner()) then
+			if self:GetOwner():GetModel() == "models/vj_hlr/hla/barney.mdl" then
 				self.WorldModel_CustomPositionBone = "unnamed033"
 			end
-			if !VJ_HasValue(self.HLR_ValidModels,self.Owner:GetModel()) then
-				if IsValid(self.Owner:GetCreator()) then
-					self.Owner:GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
+			if !VJ_HasValue(self.HLR_ValidModels,self:GetOwner():GetModel()) then
+				if IsValid(self:GetOwner():GetCreator()) then
+					self:GetOwner():GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
 				end
 				self:Remove()
 			else
 				self.NPC_NextPrimaryFire = false
-				if self.Owner:GetModel() == "models/vj_hlr/hl1/barney.mdl" or self.Owner:GetModel() == "models/vj_hlr/hla/barney.mdl" then
+				if self:GetOwner():GetModel() == "models/vj_hlr/hl1/barney.mdl" or self:GetOwner():GetModel() == "models/vj_hlr/hla/barney.mdl" then
 					self.Primary.Sound = {"vj_hlr/hl1_npc/barney/ba_attack2.wav"}
 					self.WorldModel_CustomPositionAngle = Vector(0,192,-90)
 					self.WorldModel_CustomPositionOrigin = Vector(-1.5,-7,-1)
@@ -58,7 +58,7 @@ function SWEP:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnDrawWorldModel() -- This is client only!
-	if IsValid(self.Owner) then
+	if IsValid(self:GetOwner()) then
 		self.WorldModel_Invisible = true
 		return false
 	else

@@ -37,14 +37,14 @@ SWEP.HLR_ValidModels = {"models/vj_hlr/opfor/hgrunt.mdl","models/vj_hlr/hl1/hgru
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
 	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
-		if IsValid(self) && IsValid(self.Owner) then
-			if self.Owner:GetModel() == "models/vj_hlr/opfor/massn.mdl" then
+		if IsValid(self) && IsValid(self:GetOwner()) then
+			if self:GetOwner():GetModel() == "models/vj_hlr/opfor/massn.mdl" then
 				self.WorldModel_CustomPositionAngle = Vector(100,180,90)
 				self.WorldModel_CustomPositionOrigin = Vector(5.6,-4,-2)
 			end
-			if !VJ_HasValue(self.HLR_ValidModels,self.Owner:GetModel()) then
-				if IsValid(self.Owner:GetCreator()) then
-					self.Owner:GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
+			if !VJ_HasValue(self.HLR_ValidModels,self:GetOwner():GetModel()) then
+				if IsValid(self:GetOwner():GetCreator()) then
+					self:GetOwner():GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
 				end
 				self:Remove()
 			else
@@ -54,26 +54,26 @@ function SWEP:CustomOnInitialize()
 	end)
 end
 //SWEP.NPC_SecondaryFireChance = 1 -- Chance that the secondary fire is used | 1 = always
-//SWEP.NPC_SecondaryFireNext = {3,3} -- How much time until the secondary fire can be used again?
+//SWEP.NPC_SecondaryFireNext = VJ_Rand(3,3) -- How much time until the secondary fire can be used again?
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:NPC_SecondaryFire()
 	local pos = self:GetNWVector("VJ_CurBulletPos")
 	local proj = ents.Create("obj_vj_hlr1_grenade_40mm")
 	proj:SetPos(pos)
-	proj:SetAngles(self.Owner:GetAngles())
-	proj:SetOwner(self.Owner)
+	proj:SetAngles(self:GetOwner():GetAngles())
+	proj:SetOwner(self:GetOwner())
 	proj:Spawn()
 	proj:Activate()
 	local phys = proj:GetPhysicsObject()
 	if phys:IsValid() then
 		phys:Wake()
-		phys:SetVelocity(self.Owner:CalculateProjectile("Curve", pos, self.Owner:GetEnemy():GetPos() + self.Owner:GetEnemy():OBBCenter(), 1000))
+		phys:SetVelocity(self:GetOwner():CalculateProjectile("Curve", pos, self:GetOwner():GetEnemy():GetPos() + self:GetOwner():GetEnemy():OBBCenter(), 1000))
 	end
-	VJ_EmitSound(self.Owner,{"vj_hlr/hl1_weapon/mp5/glauncher.wav","vj_hlr/hl1_weapon/mp5/glauncher2.wav"},90)
+	VJ_EmitSound(self:GetOwner(),{"vj_hlr/hl1_weapon/mp5/glauncher.wav","vj_hlr/hl1_weapon/mp5/glauncher2.wav"},90)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnDrawWorldModel() -- This is client only!
-	if IsValid(self.Owner) then
+	if IsValid(self:GetOwner()) then
 		self.WorldModel_Invisible = true
 		return false
 	else

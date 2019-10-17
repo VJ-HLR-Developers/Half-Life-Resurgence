@@ -35,10 +35,10 @@ SWEP.HLR_ValidModels = {"models/vj_hlr/hl1/hassault.mdl","models/vj_hlr/hl_hd/ha
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
 	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
-		if IsValid(self) && IsValid(self.Owner) then
-			if !VJ_HasValue(self.HLR_ValidModels,self.Owner:GetModel()) then
-				if IsValid(self.Owner:GetCreator()) then
-					self.Owner:GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
+		if IsValid(self) && IsValid(self:GetOwner()) then
+			if !VJ_HasValue(self.HLR_ValidModels,self:GetOwner():GetModel()) then
+				if IsValid(self:GetOwner():GetCreator()) then
+					self:GetOwner():GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
 				end
 				self:Remove()
 			else
@@ -49,7 +49,7 @@ function SWEP:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnDrawWorldModel() -- This is client only!
-	if IsValid(self.Owner) then
+	if IsValid(self:GetOwner()) then
 		self.WorldModel_Invisible = true
 		return false
 	else

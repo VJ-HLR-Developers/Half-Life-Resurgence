@@ -47,10 +47,10 @@ SWEP.HLR_NextIdleSoundT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
 	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
-		if IsValid(self) && IsValid(self.Owner) then
-			if !VJ_HasValue(self.HLR_ValidModels,self.Owner:GetModel()) then
-				if IsValid(self.Owner:GetCreator()) then
-					self.Owner:GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
+		if IsValid(self) && IsValid(self:GetOwner()) then
+			if !VJ_HasValue(self.HLR_ValidModels,self:GetOwner():GetModel()) then
+				if IsValid(self:GetOwner():GetCreator()) then
+					self:GetOwner():GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
 				end
 				self:Remove()
 			else
@@ -63,33 +63,33 @@ end
 function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 	if (CLIENT) then return end
 	local plasma = ents.Create("obj_vj_hlrof_plasma")
-	plasma:SetPos(self.Owner:GetBonePosition(self.Owner:LookupBone(self.WorldModel_CustomPositionBone)))
-	plasma:SetAngles(self.Owner:GetAngles())
-	plasma:SetOwner(self.Owner)
+	plasma:SetPos(self:GetOwner():GetBonePosition(self:GetOwner():LookupBone(self.WorldModel_CustomPositionBone)))
+	plasma:SetAngles(self:GetOwner():GetAngles())
+	plasma:SetOwner(self:GetOwner())
 	plasma:Activate()
 	plasma:Spawn()
 
-	//phy:SetVelocity(self.Owner:CalculateProjectile("Line", self.Owner:GetPos(), self.Owner:GetEnemy():GetPos(), 10000))
+	//phy:SetVelocity(self:GetOwner():CalculateProjectile("Line", self:GetOwner():GetPos(), self:GetOwner():GetEnemy():GetPos(), 10000))
 	local phy = plasma:GetPhysicsObject()
 	if phy:IsValid() then
-		local pos = self.Owner:GetPos() +self.Owner:OBBCenter() +self.Owner:GetForward() *700
-		if IsValid(self.Owner:GetEnemy()) then
-			pos = self.Owner:GetEnemy():GetPos()
+		local pos = self:GetOwner():GetPos() +self:GetOwner():OBBCenter() +self:GetOwner():GetForward() *700
+		if IsValid(self:GetOwner():GetEnemy()) then
+			pos = self:GetOwner():GetEnemy():GetPos()
 		end
-		phy:ApplyForceCenter(((pos -self.Owner:GetRight() *20) - self.Owner:GetPos()) *150)
+		phy:ApplyForceCenter(((pos -self:GetOwner():GetRight() *20) - self:GetOwner():GetPos()) *150)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomBulletSpawnPosition()
 	-- Return a position to override the bullet spawn position
-	return self.Owner:GetAttachment(self.Owner:LookupAttachment("muzzle")).Pos
+	return self:GetOwner():GetAttachment(self:GetOwner():LookupAttachment("muzzle")).Pos
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnNPC_ServerThink()
-	self.Owner:SetBodygroup(1,0)
+	self:GetOwner():SetBodygroup(1,0)
 	
 	if CurTime() > self.HLR_NextIdleSoundT then
-		if IsValid(self.Owner:GetEnemy()) then
+		if IsValid(self:GetOwner():GetEnemy()) then
 			self:EmitSound("vj_hlr/hl1_npc/shockroach/shock_angry.wav",70,100)
 		else
 			self:EmitSound("vj_hlr/hl1_npc/shockroach/shock_idle" .. math.random(1,3) .. ".wav",65,100)
@@ -99,18 +99,18 @@ function SWEP:CustomOnNPC_ServerThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnRemove()
-	if IsValid(self.Owner) then self.Owner:SetBodygroup(1,1) end
+	if IsValid(self:GetOwner()) then self:GetOwner():SetBodygroup(1,1) end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttackEffects()
 	if self.PrimaryEffects_MuzzleFlash == true && GetConVarNumber("vj_wep_nomuszzleflash") == 0 then
-		-- ParticleEffectAttach(VJ_PICKRANDOMTABLE(self.PrimaryEffects_MuzzleParticles),PATTACH_POINT_FOLLOW,self.Owner,self.Owner:LookupAttachment(self:GetNWInt("VJ_HGrunt_BulletAttachmet")))
+		-- ParticleEffectAttach(VJ_PICKRANDOMTABLE(self.PrimaryEffects_MuzzleParticles),PATTACH_POINT_FOLLOW,self:GetOwner(),self:GetOwner():LookupAttachment(self:GetNWInt("VJ_HGrunt_BulletAttachmet")))
 	end
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnDrawWorldModel() -- This is client only!
-	if IsValid(self.Owner) then
+	if IsValid(self:GetOwner()) then
 		self.WorldModel_Invisible = true
 		return false
 	else
