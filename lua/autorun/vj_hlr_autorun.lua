@@ -113,9 +113,12 @@ if VJExists == true then
 		
 	-- Source Engine -------------------------------------------------------
 	local vCat = "Half-Life Resurgence: HL2"
+		-- Misc.
+		VJ.AddNPC("Mounted Turret","sent_vj_hlr2_mountedturret",vCat)
+
 		-- Antlions
-		-- VJ.AddNPC("Antlion","npc_vj_hlr2_antlion",vCat)
-		-- VJ.AddNPC("Antlion Worker","npc_vj_hlr2_antlion_worker",vCat)
+		VJ.AddNPC("Antlion","npc_vj_hlr2_antlion",vCat)
+		VJ.AddNPC("Antlion Worker","npc_vj_hlr2_antlion_worker",vCat)
 		VJ.AddNPC("Antlion Guard","npc_vj_hlr2_antlion_guard",vCat)
 		VJ.AddNPC("Antlion Guardian","npc_vj_hlr2_antlion_guardian",vCat)
 
