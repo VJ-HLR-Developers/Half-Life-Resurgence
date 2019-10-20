@@ -32,7 +32,7 @@ ENT.Tank_AngleDiffuseNumber = 0
 ENT.Tank_MoveAwaySpeed = 70 -- Move away speed
 ENT.Tank_CollisionBoundSize = 90
 ENT.Tank_CollisionBoundUp = 130
-ENT.Tank_DeathSoldierModels = {"models/vj_hlr/hl1/hgrunt.mdl"}
+ENT.Tank_DeathSoldierModels = {"models/vj_hlr/hl1/hgrunt.mdl"} -- The corpses it will spawn on death (Example: A soldier) | false = Don't spawn anything
 ENT.Tank_DeathDecal = {"VJ_HLR_Scorch"} -- The decal that it places on the ground when it dies
 
 util.AddNetworkString("vj_hlr1_m2a3bradley_moveeffects")
@@ -189,6 +189,11 @@ end
 function ENT:Tank_CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
 	self:CreateExtraDeathCorpse("prop_physics", "models/vj_hlr/hl1/apc_door.mdl", {Pos=GetCorpse:GetPos() + GetCorpse:GetUp()*30 + GetCorpse:GetForward()*-130, Vel=self.Bradley_DmgForce / 55}, function(extraent) extraent:SetSkin(GetCorpse:GetSkin()) extraent:SetCollisionGroup(0) end)
 	return true
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Tank_CustomOnDeath_AfterDeathSoldierSpawned(dmginfo,hitgroup,SoldierCorpse)
+	SoldierCorpse:SetSkin(math.random(0,1))
+	SoldierCorpse:SetBodygroup(2,2)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_CustomOnDeath_AfterCorpseSpawned_Effects(dmginfo,hitgroup,GetCorpse)
