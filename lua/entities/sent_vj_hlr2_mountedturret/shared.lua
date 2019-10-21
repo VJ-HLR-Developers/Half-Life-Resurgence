@@ -9,10 +9,15 @@ ENT.Category		= "VJ Base"
 
 if (SERVER) then
 	AddCSLuaFile()
-	
+
 	ENT.EmplacementModel = "models/props_combine/bunker_gun01.mdl"
 	ENT.BarricadeModel = "models/props_combine/combine_barricade_short01a.mdl"
-	
+	ENT.EmplacementPosition = {up=8,right=0,forward=-3.4}
+	ENT.IdleAnimation = "idle_inactive"
+	ENT.ActiveAnimation = "idle"
+	ENT.ActivateAnimation = "activate"
+	ENT.DeactivateAnimation = "retract"
+
 	function ENT:CustomOnInitialize()
 		self:SetModel(self.BarricadeModel)
 		-- self:SetCollisionBounds(Vector(20,20,65),Vector(-20,-20,0))
@@ -21,14 +26,14 @@ if (SERVER) then
 
 		self.Emplacement = ents.Create("prop_vj_animatable")
 		self.Emplacement:SetModel(self.EmplacementModel)
-		self.Emplacement:SetPos(self:GetPos() +self:GetUp() *10 +self:GetForward() *-3.4)
+		self.Emplacement:SetPos(self:GetPos() +self:GetUp() *self.EmplacementPosition.up +self:GetForward() *self.EmplacementPosition.forward +self:GetRight() *self.EmplacementPosition.right)
 		self.Emplacement:SetAngles(self:GetAngles())
 		self.Emplacement:Spawn()
 		self.Emplacement:SetParent(self)
 		self.Emplacement:SetMoveType(MOVETYPE_NONE)
 		self.Emplacement:SetSolid(SOLID_BBOX)
 		self:DeleteOnRemove(self.Emplacement)
-		self.Emplacement:ResetSequence("idle_inactive")
+		self.Emplacement:ResetSequence(self.IdleAnimation)
 
 		local eyeglow = ents.Create("env_sprite")
 		eyeglow:SetKeyValue("model","sprites/light_glow01.vmt")
@@ -41,7 +46,7 @@ if (SERVER) then
 		eyeglow:Spawn()
 		eyeglow:Activate()
 		self.Emplacement:DeleteOnRemove(eyeglow)
-		
+
 		self.Operator = NULL
 		self.PullingOperator = NULL -- Entity that the turret called to handle it
 		self.Overheat = 0
@@ -51,13 +56,12 @@ if (SERVER) then
 		self.IsActivated = false
 		self.IsActivating = false
 		self.CanPlayIdle = false
-		self.Shift = 12 -- Manipulate the pitch of the emplacement
 	end
 	
 	function ENT:SetEmplacementStatus()
 		if IsValid(self.Operator) then
 			if !self.IsActivated && !self.IsActivating then
-				self.Emplacement:ResetSequence("activate")
+				self.Emplacement:ResetSequence(self.ActivateAnimation)
 				self:EmitSound("weapons/shotgun/shotgun_cock.wav",70,100)
 				self.IsActivating = true
 				timer.Simple(1.3,function()
@@ -71,14 +75,14 @@ if (SERVER) then
 			elseif self.IsActivated then
 				self.CanFire = true
 				if self.CanPlayIdle then
-					self.Emplacement:ResetSequence("idle")
+					self.Emplacement:ResetSequence(self.ActiveAnimation)
 					self.CanPlayIdle = false
 				end
 			end
 		else
 			if self.IsActivated && !self.IsActivating then
 				self.CanFire = false
-				self.Emplacement:ResetSequence("retract")
+				self.Emplacement:ResetSequence(self.DeactivateAnimation)
 				self:EmitSound("weapons/shotgun/shotgun_cock.wav",70,92)
 				self.IsActivating = true
 				timer.Simple(1.3,function()
@@ -91,7 +95,7 @@ if (SERVER) then
 				end)
 			elseif !self.IsActivated then
 				if self.CanPlayIdle then
-					self.Emplacement:ResetSequence("idle_inactive")
+					self.Emplacement:ResetSequence(self.IdleAnimation)
 					self.CanPlayIdle = false
 				end
 			end
@@ -157,7 +161,7 @@ if (SERVER) then
 			if self.Emplacement.Loop then self.Emplacement:StopParticles(); self.Emplacement.Loop:Stop() end
 		end
 		self.TargetPos = self:GetPos() +self:GetForward() *-50
-		self.HandlePos = self:GetPos() +self:GetForward() *-40 +self:GetUp() *-30
+		self.HandlePos = self:GetPos() +self:GetForward() *-40 +self:GetUp() *-31
 		if !IsValid(self.Operator) then
 			self:WeaponAimPoseParameters(true)
 			if !IsValid(self.PullingOperator) then
@@ -188,12 +192,12 @@ if (SERVER) then
 			self.Operator:SetAngles(self:GetAngles())
 			if IsValid(self.Operator:GetEnemy()) then
 				local ene = self.Operator:GetEnemy()
-				if (self:GetForward():Dot((ene:GetPos() - self:GetPos()):GetNormalized()) > math.cos(math.rad(self.Operator.SightAngle))) && (ene:GetPos():Distance(self:GetPos()) < self.Operator.Weapon_FiringDistanceFar) then
+				if (self.Emplacement:GetForward():Dot((ene:GetPos() - self.Emplacement:GetPos()):GetNormalized()) > math.cos(math.rad(self.Operator.SightAngle))) && (ene:GetPos():Distance(self:GetPos()) < self.Operator.Weapon_FiringDistanceFar) then
 					if self:Visible(ene) then
 						self:FireEmplacement()
 					end
 				else
-					if ene:GetPos():Distance(self.Operator:GetPos()) <= 200 then
+					if ene:GetPos():Distance(self.Operator:GetPos()) <= 500 then
 						self:UnMan()
 					end
 				end
@@ -221,7 +225,7 @@ if (SERVER) then
 			laserhit:SetScale(25)
 			util.Effect("AR2Impact",laserhit)
 		end
-		bullet.Spread = Vector(0.04,0.04,0)
+		bullet.Spread = Vector(0.045,0.045,0)
 		bullet.Tracer = 1
 		bullet.TracerName = "AirboatGunTracer"
 		bullet.Force = 3
@@ -283,11 +287,25 @@ if (SERVER) then
 			if self.PoseParameterLooking_InvertYaw == true then y_enemy = -y_enemy end
 			r_enemy = ang_dif(enemy_ang.z,self_ang.z)
 			if self.PoseParameterLooking_InvertRoll == true then r_enemy = -r_enemy end
+			-- p_enemy = p_enemy +12
+			local newAng = ((ent:GetPos() +ent:OBBCenter()) -self.Emplacement:GetPos()):Angle()
+			p_enemy = ang_dif(newAng.p,self:GetAngles().p) +10
+			y_enemy = ang_dif(newAng.y,self:GetAngles().y)
+			if y_enemy < 0 then
+				y_enemy = y_enemy -2
+			else
+				y_enemy = y_enemy +2
+			end
+			-- p_enemy = p_enemy -(y_enemy /3)
+			print(y_enemy,p_enemy)
+			-- y_enemy = y_enemy +2
+			-- if !(self:GetForward():Dot((ent:GetPos() - self:GetPos()):GetNormalized()) > math.cos(math.rad(30))) then
+				-- y_enemy = y_enemy -5
+			-- end
 		end
-		self.Emplacement:SetPoseParameter("aim_pitch",ang_app(self.Emplacement:GetPoseParameter("aim_pitch"),p_enemy +self.Shift,10))
-		self:SetPoseParameter("aim_pitch",ang_app(self:GetPoseParameter("aim_pitch"),p_enemy,10))
-		self.Emplacement:SetPoseParameter("aim_yaw",ang_app(self.Emplacement:GetPoseParameter("aim_yaw"),y_enemy +5,10))
-		self:SetPoseParameter("aim_yaw",ang_app(self:GetPoseParameter("aim_yaw"),y_enemy,10))
-		self.DidWeaponAttackAimParameter = true
+		self.Emplacement:SetPoseParameter("aim_pitch",ang_app(self.Emplacement:GetPoseParameter("aim_pitch"),p_enemy,10))
+		self.Operator:SetPoseParameter("aim_pitch",ang_app(self.Operator:GetPoseParameter("aim_pitch"),p_enemy,10))
+		self.Emplacement:SetPoseParameter("aim_yaw",ang_app(self.Emplacement:GetPoseParameter("aim_yaw"),y_enemy,10))
+		self.Operator:SetPoseParameter("aim_yaw",ang_app(self.Operator:GetPoseParameter("aim_yaw"),y_enemy,10))
 	end
 end
