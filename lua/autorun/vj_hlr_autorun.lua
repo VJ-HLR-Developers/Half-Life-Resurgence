@@ -112,51 +112,6 @@ if VJExists == true then
 		//VJ.AddNPCWeapon("VJ_HLR1_Glock17","weapon_vj_hlr1_glock17",false,vCat)
 		//VJ.AddNPCWeapon("VJ_HLR1_MP5","weapon_vj_hlr1_mp5",false,vCat)
 		
-	-- Source Engine -------------------------------------------------------
-	local vCat = "Half-Life Resurgence: HL2"
-		-- Misc.
-		VJ.AddNPC("Mounted Turret","sent_vj_hlr2_mountedturret",vCat)
-
-		-- Antlions
-		VJ.AddNPC("Antlion","npc_vj_hlr2_antlion",vCat)
-		VJ.AddNPC("Antlion Worker","npc_vj_hlr2_antlion_worker",vCat)
-		VJ.AddNPC("Antlion Guard","npc_vj_hlr2_antlion_guard",vCat)
-		VJ.AddNPC("Antlion Guardian","npc_vj_hlr2_antlion_guardian",vCat)
-
-		-- Combine
-		VJ.AddNPC_HUMAN("Overwatch Soldier","npc_vj_hlr2_com_soldier",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
-		VJ.AddNPC_HUMAN("Overwatch Shotgun Soldier","npc_vj_hlr2_com_shotgunner",{"weapon_vj_spas12"},vCat)
-		VJ.AddNPC_HUMAN("Overwatch Elite","npc_vj_hlr2_com_elite",{"weapon_vj_ar2"},vCat)
-		VJ.AddNPC_HUMAN("Overwatch Prison Guard","npc_vj_hlr2_com_prospekt",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
-		VJ.AddNPC_HUMAN("Overwatch Prison Shotgun Guard","npc_vj_hlr2_com_prospekt_sg",{"weapon_vj_spas12"},vCat)
-		VJ.AddNPC_HUMAN("Civil Protection","npc_vj_hlr2_com_civilp",{"weapon_vj_9mmpistol","weapon_vj_smg1"},vCat)
-		VJ.AddNPC_HUMAN("Civil Protection Elite","npc_vj_hlr2_com_civilp_elite",{"weapon_vj_smg1"},vCat)
-		-- VJ.AddNPC("Combine Assassin","npc_vj_hlr2_com_assassin",vCat)
-
-		-- Resistance
-		-- VJ.AddNPC_HUMAN("Alyx Vance","npc_vj_hl2r_alyx",{"weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_hl2_alyxgun","weapon_vj_9mmpistol""weapon_vj_smg1","weapon_vj_ar2","weapon_vj_spas12"},vCat)
-		VJ.AddNPC_HUMAN("Barney Calhoun","npc_vj_hlr2_barney",{"weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
-		VJ.AddNPC_HUMAN("Father Grigori","npc_vj_hlr2_father_grigori",{"weapon_vj_hl2_annabelle"},vCat)
-		VJ.AddNPC_HUMAN("Rebel","npc_vj_hlr2_rebel",{"weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_k3","weapon_vj_k3","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_ak47","weapon_vj_m16a1","weapon_vj_mp40","weapon_vj_spas12","weapon_vj_rpg","weapon_vj_blaster"},vCat)
-
-		-- Xen Creatures
-			-- Headcrab
-			VJ.AddNPC("Zombie","npc_vj_hlr2_zombie",vCat)
-			VJ.AddNPC("Zombie Assassin","npc_vj_hlr2_zombie_assassin",vCat)
-			VJ.AddNPC("Fast Zombie","npc_vj_hlr2_zombie_fast",vCat)
-			VJ.AddNPC("Poison Zombie","npc_vj_hlr2_zombie_poison",vCat)
-			VJ.AddNPC("Zombine","npc_vj_hlr2_zombine",vCat)
-			VJ.AddNPC("Headcrab","npc_vj_hlr2_headcrab",vCat)
-			VJ.AddNPC("Fast Headcrab","npc_vj_hlr2_headcrab_fast",vCat)
-			VJ.AddNPC("Poison Headcrab","npc_vj_hlr2_headcrab_poison",vCat)
-		
-		-- Wild Life
-		VJ.AddNPC("Hydra","npc_vj_hlr2b_hydra",vCat)
-		
-		-- Weapons
-		VJ.AddNPCWeapon("VJ_Annabelle","weapon_vj_hl2_annabelle",false,vCat)
-		VJ.AddNPCWeapon("VJ_Alyx_Gun","weapon_vj_hl2_alyxgun",false,vCat)
-		
 	-- Decals
 		-- Blood
 		game.AddDecal("VJ_HLR_Blood_Red",{"vj_hl/decals/hl_blood01","vj_hl/decals/hl_blood02","vj_hl/decals/hl_blood03","vj_hl/decals/hl_blood04","vj_hl/decals/hl_blood05","vj_hl/decals/hl_blood06","vj_hl/decals/hl_blood07","vj_hl/decals/hl_blood08"})
@@ -263,17 +218,7 @@ if VJExists == true then
 	util.PrecacheModel("models/vj_hlr/gibs/islavegib.mdl")
 	
 	-- ConVars --
-	VJ.AddConVar("vj_hl2c_soldier_h",60)
-	VJ.AddConVar("vj_hl2c_soldierprison_h",75)
-	VJ.AddConVar("vj_hl2c_soldierelite_h",100)
-	VJ.AddConVar("vj_hl2c_soldier_d",10)
-	
-	VJ.AddConVar("vj_hl2c_metrocop_h",50)
-	VJ.AddConVar("vj_hl2c_elitecop_h",60)
-	VJ.AddConVar("vj_hl2c_metrocop_d",10)
-	
-	VJ.AddConVar("vj_hl2r_rebel_h",50)
-	VJ.AddConVar("vj_hl2r_rebel_d",10)
+	//VJ.AddConVar("vj_hl2c_soldier_h",60)
 	
 	-- Meta Tables --
 	local NPC = FindMetaTable("NPC")
