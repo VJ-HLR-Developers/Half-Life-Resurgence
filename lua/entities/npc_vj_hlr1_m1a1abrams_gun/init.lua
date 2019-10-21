@@ -8,6 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/hl1/tank_turret.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
 ENT.StartHealth = 0
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
+ENT.HasDeathRagdoll = false -- If set to false, it will not spawn the regular ragdoll of the SNPC
 
 -- Tank Base
 ENT.Tank_SoundTbl_Turning = {"vj_hlr/hl1_npc/tanks/abrams_turret_rot.wav"}
