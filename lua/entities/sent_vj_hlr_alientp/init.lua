@@ -27,7 +27,7 @@ function ENT:DefaultPortalValues()
 		self:SetNPC("npc_vj_hlr1_aliengrunt")
 		self:SetNPC("npc_vj_hlr1_bullsquid")
 		self:SetNPC("npc_vj_hlr1_houndeye")
-		self:SetNPC("npc_vj_hlr1_vortigaunt")
+		self:SetNPC("npc_vj_hlr1_alienslave")
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
