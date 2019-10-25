@@ -8,6 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/hla/hgrunt.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.HasGrenadeAttack = false
 ENT.MoveRandomlyWhenShooting = true -- Should it move randomly when shooting?
+ENT.WeaponAttackSecondaryTimeUntilFire = 1.2
 
 	-- ====== Controller Variables ====== --
 ENT.Controller_FirstPersonBone = "unnamed022"

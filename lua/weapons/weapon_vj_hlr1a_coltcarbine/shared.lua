@@ -11,6 +11,8 @@ SWEP.Category					= "VJ Base"
 SWEP.NPC_NextPrimaryFire 		= 0.08 -- Next time it can use primary fire
 SWEP.NPC_ReloadSound			= {"vj_hlr/hla_npc/hgrunt/gr_reload1.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
+
+SWEP.NPC_HasSecondaryFireNext = true -- Can the weapon have a secondary fire?
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
 SWEP.WorldModel					= "models/vj_hlr/weapons/w_coltcarbine.mdl"
@@ -46,6 +48,22 @@ function SWEP:CustomOnInitialize()
 			end
 		end
 	end)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:NPC_SecondaryFire()
+	local pos = self:GetNWVector("VJ_CurBulletPos")
+	local proj = ents.Create("obj_vj_hlr1_grenade_40mm")
+	proj:SetPos(pos)
+	proj:SetAngles(self:GetOwner():GetAngles())
+	proj:SetOwner(self:GetOwner())
+	proj:Spawn()
+	proj:Activate()
+	local phys = proj:GetPhysicsObject()
+	if phys:IsValid() then
+		phys:Wake()
+		phys:SetVelocity(self:GetOwner():CalculateProjectile("Curve", pos, self:GetOwner():GetEnemy():GetPos() + self:GetOwner():GetEnemy():OBBCenter(), 1000))
+	end
+	VJ_EmitSound(self:GetOwner(),{"vj_hlr/hla_npc/glauncher.wav","vj_hlr/hla_npc/glauncher2.wav"},90)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnDrawWorldModel() -- This is client only!
