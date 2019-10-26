@@ -61,7 +61,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttackEffects()
 	self.PrimaryEffects_MuzzleFlash = false
-	muz = ents.Create("env_sprite_oriented")
+	muz = ents.Create("env_sprite")
 	muz:SetKeyValue("model","vj_hl/sprites/muzzleflash1.vmt")
 	muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
 	muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
