@@ -169,7 +169,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttackEffects()
 	if self.PrimaryEffects_MuzzleFlash == true && GetConVarNumber("vj_wep_nomuszzleflash") == 0 then
-		ParticleEffectAttach(VJ_PICKRANDOMTABLE(self.PrimaryEffects_MuzzleParticles),PATTACH_POINT_FOLLOW,self:GetOwner(),self:GetOwner():LookupAttachment(self:GetNWInt("VJ_HGrunt_BulletAttachmet")))
+		ParticleEffectAttach(VJ_PICK(self.PrimaryEffects_MuzzleParticles),PATTACH_POINT_FOLLOW,self:GetOwner(),self:GetOwner():LookupAttachment(self:GetNWInt("VJ_HGrunt_BulletAttachmet")))
 	end
 	return false
 end

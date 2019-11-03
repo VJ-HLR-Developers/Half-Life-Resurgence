@@ -54,7 +54,7 @@ function SWEP:CustomOnInitialize()
 	end)
 end
 //SWEP.NPC_SecondaryFireChance = 1 -- Chance that the secondary fire is used | 1 = always
-//SWEP.NPC_SecondaryFireNext = VJ_Rand(3,3) -- How much time until the secondary fire can be used again?
+//SWEP.NPC_SecondaryFireNext = VJ_Set(3,3) -- How much time until the secondary fire can be used again?
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:NPC_SecondaryFire()
 	local pos = self:GetNWVector("VJ_CurBulletPos")

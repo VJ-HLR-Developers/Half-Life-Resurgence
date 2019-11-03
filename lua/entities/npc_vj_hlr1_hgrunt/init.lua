@@ -355,7 +355,7 @@ function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
 		start = GrenadeEntity:GetPos(),
 		endpos = GrenadeEntity:GetPos() - Vector(0, 0, 100),
 		filter = GrenadeEntity })
-		util.Decal(VJ_PICKRANDOMTABLE(GrenadeEntity.DecalTbl_DeathDecals),tr.HitPos+tr.HitNormal,tr.HitPos-tr.HitNormal)
+		util.Decal(VJ_PICK(GrenadeEntity.DecalTbl_DeathDecals),tr.HitPos+tr.HitNormal,tr.HitPos-tr.HitNormal)
 		
 		GrenadeEntity:DoDamageCode()
 		GrenadeEntity:SetDeathVariablesTrue(nil,nil,false)

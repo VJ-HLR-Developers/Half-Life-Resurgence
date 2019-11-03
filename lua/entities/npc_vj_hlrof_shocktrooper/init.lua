@@ -208,7 +208,7 @@ function ENT:ThrowGrenadeCode(CustomEnt,NoOwner)
 	self:GrenadeAttackSoundCode()
 
 	if self.VJ_PlayingSequence == false && self.DisableGrenadeAttackAnimation == false then
-		self.CurrentAttackAnimation = VJ_PICKRANDOMTABLE(self.AnimTbl_GrenadeAttack)
+		self.CurrentAttackAnimation = VJ_PICK(self.AnimTbl_GrenadeAttack)
 		self.PlayingAttackAnimation = true
 		timer.Simple(VJ_GetSequenceDuration(self,self.CurrentAttackAnimation) - 0.2,function()
 			if IsValid(self) then

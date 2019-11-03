@@ -165,7 +165,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SummonAllies()
 	if #self.tbl_Summons <= 3 && CurTime() > self.NextSummonT then
-		-- local x = ents.Create(VJ_PICKRANDOMTABLE({
+		-- local x = ents.Create(VJ_PICK({
 			-- "npc_vj_hlr1_bullsquid",
 			-- "npc_vj_hlr1_bullsquid",
 			-- "npc_vj_hlr1_bullsquid",
