@@ -91,6 +91,7 @@ function ENT:CustomOnThink()
 	if self.BOA_OffGround == true && self:GetVelocity().z == 0 then
 		self.BOA_OffGround = false
 		self:VJ_ACT_PLAYACTIVITY(ACT_LAND,true,false,false)
+		VJ_EmitSound(self,"vj_hlr/hl1_npc/player/pl_jumpland2.wav",80)
 	end
 	local bgroup = self:GetBodygroup(1)
 	if self.BOA_LastBodyGroup != bgroup then
