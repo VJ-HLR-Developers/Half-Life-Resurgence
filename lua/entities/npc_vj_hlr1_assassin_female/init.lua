@@ -8,6 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/hl1/hassassin.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 60
 ENT.HullType = HULL_HUMAN
+ENT.MaxJumpLegalDistance = 620 -- The max distance the NPC can jump (Usually from one node to another)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damaged
@@ -45,7 +46,7 @@ ENT.FootStepSoundLevel = 55
 
 -- Custom
 ENT.BOA_LastBodyGroup = 1
-ENT.BOA_NextStrafeT = 0
+ENT.BOA_NextJumpT = 0
 ENT.BOA_NextRunT = 0
 ENT.BOA_ShotsSinceRun = 0
 ENT.BOA_OffGround = false
@@ -69,6 +70,9 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 			wep:NPCShoot_Primary(ShootPos,ShootDir)
 		end
 	end
+	if key == "land" then
+		VJ_EmitSound(self,"vj_hlr/hl1_npc/player/pl_jumpland2.wav",70)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
@@ -91,7 +95,7 @@ function ENT:CustomOnThink()
 	if self.BOA_OffGround == true && self:GetVelocity().z == 0 then
 		self.BOA_OffGround = false
 		self:VJ_ACT_PLAYACTIVITY(ACT_LAND,true,false,false)
-		VJ_EmitSound(self,"vj_hlr/hl1_npc/player/pl_jumpland2.wav",80)
+		//VJ_EmitSound(self,"vj_hlr/hl1_npc/player/pl_jumpland2.wav",80)
 	end
 	local bgroup = self:GetBodygroup(1)
 	if self.BOA_LastBodyGroup != bgroup then
@@ -106,7 +110,7 @@ function ENT:CustomOnThink()
 			end
 		end
 	end
-	if IsValid(self:GetEnemy()) && self.DoingWeaponAttack_Standing == true && self.VJ_IsBeingControlled == false && CurTime() > self.BOA_NextStrafeT && !self:IsMoving() && self:GetPos():Distance(self:GetEnemy():GetPos()) < 1400 then
+	if IsValid(self:GetEnemy()) && self.DoingWeaponAttack_Standing == true && self.VJ_IsBeingControlled == false && CurTime() > self.BOA_NextJumpT && !self:IsMoving() && self:GetPos():Distance(self:GetEnemy():GetPos()) < 1400 then
 		self:StopMoving()
 		self:SetGroundEntity(NULL)
 		if math.random(1,2) == 1 then
@@ -121,7 +125,7 @@ function ENT:CustomOnThink()
 			//end
 		end)
 		self.BOA_NextRunT = CurTime() + 3
-		self.BOA_NextStrafeT = CurTime() + 8
+		self.BOA_NextJumpT = CurTime() + 8
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -135,7 +139,7 @@ function ENT:OnFireBullet(ent,data)
 				self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH")
 			//end
 		//end)
-		self.BOA_NextStrafeT = CurTime() + 4
+		self.BOA_NextJumpT = CurTime() + 4
 		self.BOA_NextRunT = CurTime() + 4
 	end
 end
