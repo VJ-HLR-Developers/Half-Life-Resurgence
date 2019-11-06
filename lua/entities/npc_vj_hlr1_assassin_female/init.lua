@@ -118,7 +118,7 @@ function ENT:CustomOnThink()
 		else
 			self:SetLocalVelocity(((self:GetPos() + self:GetRight()*-100) - (self:GetPos() + self:OBBCenter())):GetNormal()*200 +self:GetForward()*1 +self:GetUp()*600 + self:GetRight()*1)
 		end
-		self:VJ_ACT_PLAYACTIVITY(ACT_HOP,true,false,true,0,{},function(vsched)
+		self:VJ_ACT_PLAYACTIVITY(ACT_JUMP,true,false,true,0,{},function(vsched)
 			self.BOA_OffGround = true
 			//vsched.RunCode_OnFinish = function()
 				//self:VJ_ACT_PLAYACTIVITY("fly_attack",true,false,false)
