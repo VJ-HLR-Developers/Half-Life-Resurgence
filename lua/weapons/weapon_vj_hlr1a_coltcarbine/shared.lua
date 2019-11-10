@@ -12,7 +12,7 @@ SWEP.NPC_NextPrimaryFire 		= 0.08 -- Next time it can use primary fire
 SWEP.NPC_ReloadSound			= {"vj_hlr/hla_npc/hgrunt/gr_reload1.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 
-SWEP.NPC_HasSecondaryFireNext = true -- Can the weapon have a secondary fire?
+SWEP.NPC_HasSecondaryFire = true -- Can the weapon have a secondary fire?
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
 SWEP.WorldModel					= "models/vj_hlr/weapons/w_coltcarbine.mdl"
