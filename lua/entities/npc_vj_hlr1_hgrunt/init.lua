@@ -110,7 +110,7 @@ function ENT:HECU_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(15, 15, 80), Vector(-15, -15, 0))
+	self:SetCollisionBounds(Vector(15, 15, 78), Vector(-15, -15, 0))
 	
 	if self:GetModel() == "models/vj_hlr/hl1/hgrunt.mdl" then // Already the default
 		self.HECU_Type = 0
