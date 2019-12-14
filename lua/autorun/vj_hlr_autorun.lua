@@ -103,6 +103,7 @@ if VJExists == true then
 		VJ.AddNPC("Shock Roach","npc_vj_hlrof_shockroach",vCat)
 		VJ.AddNPC("Pit Drone","npc_vj_hlrof_pitdrone",vCat)
 		VJ.AddNPC("Pit Worm","npc_vj_hlrof_pitworm",vCat)
+		VJ.AddNPC("Baby Voltigore","npc_vj_hlrof_voltigore_baby",vCat)
 		
 		-- Animals
 		VJ.AddNPC("Cockroach","npc_vj_hlr1_cockroach",vCat)

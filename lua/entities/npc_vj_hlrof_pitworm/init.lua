@@ -146,7 +146,7 @@ function ENT:CustomRangeAttackCode()
 				util.Effect("VJ_HLR_PitWorm_Beam",elec)
 			
 				util.VJ_SphereDamage(self,self,hitpos,30,10,DMG_SHOCK,true,false,{Force=90})
-				VJ_EmitSound(self,"vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav",80)
+				sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitpos, 80)
 			end
 		end)
 	end
