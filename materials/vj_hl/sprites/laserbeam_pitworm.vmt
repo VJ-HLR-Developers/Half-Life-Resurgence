@@ -1,7 +1,5 @@
-"Sprite"
+"VertexLitGeneric"
 {
-	"$spriteorientation" "vp_parallel"
-	"$spriteorigin" "[ 0.50 0.50 ]"
 	"$basetexture" "vj_hl/sprites/laserbeam_pitworm"
-	"$alphatest" "1"
+	"$translucent" 1
 }
