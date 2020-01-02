@@ -1,4 +1,11 @@
 "VertexLitGeneric"
 {
 	"$basetexture" "models/hl_resurgence/opfor/volt_body"
+	$emissiveBlendEnabled 1
+    $emissiveBlendTexture    "dev/null"
+    $emissiveBlendBaseTexture    "models/hl_resurgence/opfor/volt_body_g"
+    $emissiveBlendFlowTexture    "dev/null"
+    $emissiveBlendTint "[1 1 1]"
+    $emissiveBlendStrength 1
+    $emissiveBlendScrollVector "[0 0]"
 }
