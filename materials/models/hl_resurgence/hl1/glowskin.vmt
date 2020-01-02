@@ -1,4 +1,9 @@
 "vertexlitgeneric"
 {
-	"$basetexture" "models/hl_resurgence/hl1/glowskin"
+	"$basetexture" "models/hl_resurgence/hl1/glowskin_edit"
+	"$surfaceprop"	"no_decal"
+	"$additive"	1
+	"$vertexcolor"	1
+	"$vertexalpha"	1
+	$selfillum
 }
