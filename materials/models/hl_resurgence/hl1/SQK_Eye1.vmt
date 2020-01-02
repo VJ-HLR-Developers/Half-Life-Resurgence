@@ -1,4 +1,11 @@
 "VertexLitGeneric"
 {
 	"$basetexture" "models/hl_resurgence/hl1/SQK_Eye1"
+	$emissiveBlendEnabled 1
+    $emissiveBlendTexture    "dev/null"
+    $emissiveBlendBaseTexture    "models/hl_resurgence/hl1/SQK_Eye1_g"
+    $emissiveBlendFlowTexture    "dev/null"
+    $emissiveBlendTint "[1 1 1]"
+    $emissiveBlendStrength 1
+    $emissiveBlendScrollVector "[0 0]"
 }

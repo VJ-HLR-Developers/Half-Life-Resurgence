@@ -1,4 +1,25 @@
 "VertexLitGeneric"
 {
 	"$basetexture" "models/hl_resurgence/hl1/houndeye/belly"
+	//$emissiveBlendEnabled 1
+   // $emissiveBlendTexture    "dev/null"
+   // $emissiveBlendBaseTexture    "models/hl_resurgence/hl1/houndeye/belly_g"
+   // $emissiveBlendFlowTexture    "dev/null"
+   // $emissiveBlendTint "[1 1 1]"
+   // $emissiveBlendStrength 0.1
+    //$emissiveBlendScrollVector "[0 0]"
+
+	"$selfillum" 1
+	$selfillummask "models/hl_resurgence/hl1/houndeye/belly_g"
+
+	"Proxies"
+	{
+		"Sine"
+		{
+			"resultVar"	"$selfillumtint"
+			"sineperiod"	5
+			"sinemin"	0.05
+			"sinemax"	1
+		}
+	}
 }
