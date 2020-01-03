@@ -5,5 +5,5 @@
 	"$additive"	1
 	"$vertexcolor"	1
 	"$vertexalpha"	1
-	$selfillum
+	$selfillum 1
 }
