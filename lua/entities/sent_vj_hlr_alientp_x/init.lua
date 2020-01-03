@@ -12,7 +12,8 @@ function ENT:DefaultPortalValues()
 	if #self.SpawnableNPC == 0 then
 		self:SetNPC("npc_vj_hlrof_shocktrooper")
 		self:SetNPC("npc_vj_hlrof_pitdrone")
-		-- self:SetNPC("npc_vj_hlrof_voltigore")
+		self:SetNPC("npc_vj_hlrof_voltigore")
+		self:SetNPC("npc_vj_hlrof_voltigore_baby")
 	end
 end
 /*-----------------------------------------------

@@ -146,6 +146,8 @@ if VJExists == true then
 		"vj_hl_blood_red_large",
 		"vj_hl_blood_yellow",
 		"vj_hl_blood_yellow_large",
+		"vj_hl_blood_boob_red",
+		"vj_hl_blood_boob_yellow",
 	})
 	VJ.AddParticle("particles/vj_hl_garg_flame.pcf",{
 		"vj_hl_garg_flame",
