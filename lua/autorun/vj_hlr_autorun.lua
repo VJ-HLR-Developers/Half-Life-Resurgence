@@ -70,6 +70,7 @@ if VJExists == true then
 		VJ.AddNPC("Chumtoad","npc_vj_hlr1_chumtoad",vCat)
 		VJ.AddNPC("Boid","npc_vj_hlr1_boid",vCat)
 		VJ.AddNPC("AFlock","npc_vj_hlr1_aflock",vCat)
+		VJ.AddNPC("Protozoan","npc_vj_hlr1_protozoan",vCat)
 		VJ.AddNPC("Tentacle","npc_vj_hlr1_tentacle",vCat)
 		VJ.AddNPC("Panther Eye","npc_vj_hlr1_panthereye",vCat)
 		VJ.AddNPC("Control Sphere","npc_vj_hlr1_controlsphere",vCat)
