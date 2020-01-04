@@ -7,6 +7,7 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hl1/tentacle.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.SightDistance = 800 -- How far it can see
+ENT.VJ_IsHugeMonster = true -- Is this a huge monster?
 ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.StartHealth = 1000
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
@@ -14,7 +15,7 @@ ENT.HullType = HULL_LARGE
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.CustomBlood_Particle = {"vj_hl_blood_yellow"}
+ENT.CustomBlood_Particle = {"vj_hl_blood_yellow_large"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 

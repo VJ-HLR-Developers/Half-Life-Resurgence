@@ -11,7 +11,7 @@ ENT.HullType = HULL_LARGE
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.CustomBlood_Particle = {"vj_hl_blood_yellow"}
+ENT.CustomBlood_Particle = {"vj_hl_blood_yellow_large"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 
@@ -62,6 +62,9 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "step" then
 		self:FootStepSoundCode()
 		self:WorldShakeOnMoveCode()
+	end
+	if key == "grunting_sounds" then
+		self:FootStepSoundCode({"vj_hlr/hl1_npc/voltigore/voltigore_run_grunt1.wav","vj_hlr/hl1_npc/voltigore/voltigore_run_grunt2.wav"})
 	end
 	if key == "single" or key == "both" then
 		self:MeleeAttackCode()

@@ -9,6 +9,7 @@ ENT.Model = {"models/vj_hlr/sven/babygarg.mdl"} -- The game will pick a random m
 ENT.StartHealth = 500
 ENT.HullType = HULL_HUMAN
 ENT.VJ_IsHugeMonster = false -- Is this a huge monster?
+ENT.CustomBlood_Particle = {"vj_hl_blood_yellow"}
 
 ENT.MeleeAttackDamage = 20 -- How close does it have to be until it attacks?
 ENT.MeleeAttackDamageType = DMG_SLASH -- How close does it have to be until it attacks?

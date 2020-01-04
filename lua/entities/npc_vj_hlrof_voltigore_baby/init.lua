@@ -63,26 +63,6 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	if key == "single" or key == "both" then
 		self:MeleeAttackCode()
 	end
-	if key == "purple_energy_ball" then
-		/*self.Glow1 = ents.Create("env_sprite")
-		self.Glow1:SetKeyValue("model","vj_hl/sprites/muz7.vmt")
-		self.Glow1:SetKeyValue("scale","0.4")
-		//self.Glow1:SetKeyValue("rendercolor","255 128 0")
-		self.Glow1:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
-		//self.Glow1:SetKeyValue("HDRColorScale","1.0")
-		self.Glow1:SetKeyValue("renderfx","14")
-		self.Glow1:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-		self.Glow1:SetKeyValue("renderamt","255") -- Transparency
-		self.Glow1:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-		self.Glow1:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
-		self.Glow1:SetKeyValue("spawnflags","0")
-		self.Glow1:SetParent(self)
-		self.Glow1:Fire("SetParentAttachment","0")
-		self.Glow1:Spawn()
-		self.Glow1:Activate()
-		self:DeleteOnRemove(self.Glow1)
-		timer.Simple(0.3,function() if IsValid(self) && IsValid(self.Glow1) then self.Glow1:Remove() end end)*/
-	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Vort_DoElecEffect(sp,hp,a,t)
@@ -133,6 +113,19 @@ function ENT:CustomOnRangeAttack_AfterStartTimer()
 	self.Glow1:Activate()
 	self:DeleteOnRemove(self.Glow1)
 	timer.Simple(randt,function() if IsValid(self) && IsValid(self.Glow1) then self.Glow1:Remove() end end)
+	
+	if math.random(1,150) == 1 then
+		timer.Simple(1, function()
+			if IsValid(self) then
+				local d = DamageInfo()
+				d:SetDamage(self:Health() + 10)
+				d:SetAttacker(self)
+				d:SetInflictor(self)
+				d:SetDamageType(DMG_ALWAYSGIB)
+				self:TakeDamageInfo(d)
+			end
+		end)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
