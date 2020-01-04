@@ -2,5 +2,5 @@
 {
 	"$basetexture" "vj_hl/sprites/laserbeam_pitworm"
 	"$translucent" 1
-	$selfillum
+	$selfillum 1
 }
