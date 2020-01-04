@@ -14,7 +14,7 @@ ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to t
 ENT.HullType = HULL_LARGE
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
---ENT.CustomBlood_Particle = {"vj_hl_blood_yellow"}
+ENT.CustomBlood_Particle = {"vj_hl_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 

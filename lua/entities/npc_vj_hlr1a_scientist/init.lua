@@ -8,9 +8,6 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/hla/scientist.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.IsMedicSNPC = false -- Is this SNPC a medic? Does it heal other friendly friendly SNPCs, and players(If friendly)
 
--- Experimental
-ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
-
 	-- ====== Controller Variables ====== --
 ENT.Controller_FirstPersonBone = "unnamed021"
 ENT.Controller_FirstPersonOffset = Vector(2,0,5)
