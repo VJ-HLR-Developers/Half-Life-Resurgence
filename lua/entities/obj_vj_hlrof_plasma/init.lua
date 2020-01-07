@@ -1,3 +1,4 @@
+-- AddCSLuaFile("cl_init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
@@ -10,11 +11,11 @@ ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits somethi
 ENT.DirectDamage = 10 -- How much damage should it do when it hits something
 ENT.DirectDamageType = DMG_SHOCK -- Damage type
 ENT.DecalTbl_DeathDecals = {"VJ_HLR_Scorch_Small"}
-ENT.SoundTbl_OnCollide = {"ambient/energy/spark4.wav"}
+ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro5.wav","vj_hlr/hl1_weapon/gauss/electro6.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetNoDraw(true)
-	ParticleEffectAttach("vj_hl_shockroach", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	ParticleEffectAttach("vj_hl_shockroach",PATTACH_ABSORIGIN_FOLLOW,self,0)
 	self.StartLight1 = ents.Create("light_dynamic")
 	self.StartLight1:SetKeyValue("brightness", "1")
 	self.StartLight1:SetKeyValue("distance", "200")
@@ -28,10 +29,13 @@ function ENT:CustomOnInitialize()
 	self:DeleteOnRemove(self.StartLight1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SetHitEnt(ent)
+	self:SetNWEntity("GlowEntity",ent)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoDamage(data,phys,hitent)
-	if IsValid(hitent) then
-		self:SetNetworkedInt("EFtime",3)
-		self:SetNetworkedEntity("EFent",hitent)
+	if IsValid(data.HitEntity) then
+		self:SetHitEnt(data.HitEntity)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

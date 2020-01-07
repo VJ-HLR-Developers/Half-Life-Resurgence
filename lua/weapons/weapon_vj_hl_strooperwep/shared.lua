@@ -31,7 +31,8 @@ SWEP.WorldModel_CustomPositionOrigin = Vector(20,3,-2.5)
 SWEP.WorldModel_CustomPositionBone = "Bone58" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 5 -- Damage
-SWEP.Primary.ClipSize			= 10 -- Max amount of bullets per clip
+-- SWEP.Primary.ClipSize			= 10 -- Max amount of bullets per clip
+SWEP.Primary.ClipSize			= 30 -- Max amount of bullets per clip
 SWEP.Primary.Delay				= 0.2 -- Time until it can shoot again
 SWEP.Primary.Automatic			= true -- Is it automatic?
 SWEP.Primary.Ammo				= "SMG1" -- Ammo type
