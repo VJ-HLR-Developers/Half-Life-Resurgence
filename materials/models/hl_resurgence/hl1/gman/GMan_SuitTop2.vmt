@@ -1,0 +1,5 @@
+"vertexlitgeneric"
+{
+	"$basetexture" "models/hl_resurgence/hl1/gman/GMan_SuitTop2"
+	"$nodecal" 1
+}
