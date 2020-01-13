@@ -1,0 +1,18 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/hl_resurgence/hl1/side"
+
+	"$selfillum" 1
+	$selfillummask "models/hl_resurgence/hl1/side"
+
+	"Proxies"
+	{
+		"Sine"
+		{
+			"resultVar"	"$selfillumtint"
+			"sineperiod"	3
+			"sinemin"	1
+			"sinemax"	3
+		}
+	}
+}
