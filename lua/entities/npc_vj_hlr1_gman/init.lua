@@ -19,7 +19,7 @@ ENT.BloodColor = "Red" -- The blood type, this will determine what it should use
 ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
-
+ENT.MoveOutOfFriendlyPlayersWay = false -- Should the SNPC move out of the way when a friendly player comes close to it?
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
 
 	-- ====== File Path Variables ====== --
