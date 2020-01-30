@@ -39,8 +39,8 @@ if VJExists == true then
 		VJ.AddNPC("Black Ops Robot Assassin","npc_vj_hlrof_assassin_rgrunt",vCat)
 		
 		-- Black Mesa Security Weaponry
-		VJ.AddNPC("Ceiling Turret (Large)","npc_vj_hlr1_turret",vCat)
-		VJ.AddNPC("Ceiling Turret (Small)","npc_vj_hlr1_turret_small",vCat)
+		VJ.AddNPC("Ceiling Turret (Large)","npc_vj_hlr1_turret",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
+		VJ.AddNPC("Ceiling Turret (Small)","npc_vj_hlr1_turret_small",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
 
 		-- Black Mesa Personnel
 		VJ.AddNPC("Security Guard","npc_vj_hlr1_securityguard",vCat)
@@ -80,7 +80,7 @@ if VJExists == true then
 		VJ.AddNPC("Control Sphere","npc_vj_hlr1_controlsphere",vCat)
 		VJ.AddNPC("Mr. Friendly","npc_vj_hlr1_mrfriendly",vCat)
 		VJ.AddNPC("Nihilanth","npc_vj_hlr1_nihilanth",vCat)
-		VJ.AddNPC("Barnacle","npc_vj_hlr1_barnacle",vCat)
+		VJ.AddNPC("Barnacle","npc_vj_hlr1_barnacle",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
 		VJ.AddNPC("Xen Tree","npc_vj_hlr1_xentree",vCat)
 		VJ.AddNPC("Xen Hair","sent_vj_xen_hair",vCat)
 		VJ.AddNPC("Xen Spore (Large)","sent_vj_xen_spore_large",vCat)
