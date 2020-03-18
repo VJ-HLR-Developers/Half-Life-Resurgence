@@ -1,10 +1,30 @@
-AddCSLuaFile("shared.lua")
-include("shared.lua")
-/*-----------------------------------------------
+/*--------------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/
+--------------------------------------------------*/
+AddCSLuaFile()
+if (!file.Exists("autorun/vj_base_autorun.lua","LUA")) then return end
+
+ENT.Type 			= "anim"
+ENT.Base 			= "obj_vj_projectile_base"
+ENT.PrintName		= "Grenade"
+ENT.Author 			= "DrVrej"
+ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
+ENT.Information		= "Projectiles for my addons"
+ENT.Category		= "VJ Base"
+
+if (CLIENT) then
+	local Name = "Spore Grenade"
+	local LangName = "obj_vj_hlrof_grenade_spore"
+	language.Add(LangName, Name)
+	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
+	language.Add("#"..LangName, Name)
+	killicon.Add("#"..LangName,"HUD/killicons/default",Color(255,80,0,255))
+end
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+if !(SERVER) then return end
+
 ENT.Model = {"models/vj_hlr/weapons/spore.mdl"} -- The models it should spawn with | Picks a random one from the table
 ENT.MoveCollideType = nil -- Move type | Some examples: MOVECOLLIDE_FLY_BOUNCE, MOVECOLLIDE_FLY_SLIDE
 ENT.CollisionGroupType = nil -- Collision type, recommended to keep it as it is

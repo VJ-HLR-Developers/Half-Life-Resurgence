@@ -1,10 +1,47 @@
-AddCSLuaFile("shared.lua")
-include("shared.lua")
-/*-----------------------------------------------
+/*--------------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/
+--------------------------------------------------*/
+AddCSLuaFile()
+if (!file.Exists("autorun/vj_base_autorun.lua","LUA")) then return end
+
+ENT.Type 			= "anim"
+ENT.Base 			= "obj_vj_projectile_base"
+ENT.PrintName		= "Tank Shell"
+ENT.Author 			= "DrVrej"
+ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
+ENT.Information		= "Projectiles for my addons"
+ENT.Category		= "Projectiles"
+
+if (CLIENT) then
+	local Name = "Tank Shell"
+	local LangName = "obj_vj_hlr1_tank_shell"
+	language.Add(LangName, Name)
+	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
+	language.Add("#"..LangName, Name)
+	killicon.Add("#"..LangName,"HUD/killicons/default",Color(255,80,0,255))
+
+	function ENT:Think()
+		if IsValid(self) && self:GetNWBool("VJ_Dead") != true then
+			self.Emitter = ParticleEmitter(self:GetPos())
+			self.SmokeEffect1 = self.Emitter:Add("particles/flamelet2",self:GetPos() +self:GetForward()*-7)
+			self.SmokeEffect1:SetVelocity(self:GetForward() *math.Rand(0, -50) +Vector(math.Rand(5, -5), math.Rand(5, -5), math.Rand(5, -5)) +self:GetVelocity())
+			self.SmokeEffect1:SetDieTime(0.2)
+			self.SmokeEffect1:SetStartAlpha(100)
+			self.SmokeEffect1:SetEndAlpha(0)
+			self.SmokeEffect1:SetStartSize(4)
+			self.SmokeEffect1:SetEndSize(1)
+			self.SmokeEffect1:SetRoll(math.Rand(-0.2,0.2))
+			self.SmokeEffect1:SetAirResistance(200)
+			self.Emitter:Finish()
+		end
+	end
+end
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+if !(SERVER) then return end
+
 ENT.Model = {"models/vj_hlr/hl1/rpgrocket.mdl"} -- The models it should spawn with | Picks a random one from the table
 ENT.DoesRadiusDamage = true -- Should it do a blast damage when it hits something?
 ENT.RadiusDamageRadius = 150 -- How far the damage go? The farther away it's from its enemy, the less damage it will do | Counted in world units

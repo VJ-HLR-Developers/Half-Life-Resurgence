@@ -6,7 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hl1/sentry.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.StartHealth = GetConVarNumber("vj_bms_turret_h")
+ENT.StartHealth = 100
 ENT.HullType = HULL_HUMAN
 ENT.SightDistance = 1300 -- How far it can see
 ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
@@ -22,29 +22,28 @@ ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation
 ENT.RangeDistance = 1300 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
 ENT.RangeAttackAngleRadius = 180 -- What is the attack angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
-ENT.TimeUntilRangeAttackProjectileRelease = 0.1 -- How much time until the projectile code is ran?
-ENT.RangeAttackReps = 3 -- How many times does it run the projectile code?
+ENT.TimeUntilRangeAttackProjectileRelease = 0.06 -- How much time until the projectile code is ran?
+ENT.RangeAttackReps = 1 -- How many times does it run the projectile code?
 ENT.NextRangeAttackTime = 0 -- How much time until it can use a range attack?
-ENT.NextAnyAttackTime_Range = 0.1 -- How much time until it can use any attack again? | Counted in Seconds
+ENT.NextAnyAttackTime_Range = 0.01 -- How much time until it can use any attack again? | Counted in Seconds
 
 ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
 ENT.PoseParameterLooking_InvertPitch = true -- Inverts the pitch poseparameters (X)
 ENT.PoseParameterLooking_InvertYaw = true -- Inverts the yaw poseparameters (Y)
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_Breath = {}
-ENT.SoundTbl_Idle = {}
-ENT.SoundTbl_CombatIdle = {}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/turret/tu_die.wav"}
-ENT.SoundTbl_Pain = {}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/turret/tu_deploy.wav"}
 ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav","ambient/energy/spark2.wav","ambient/energy/spark3.wav","ambient/energy/spark4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/turret/tu_die.wav","vj_hlr/hl1_npc/turret/tu_die2.wav","vj_hlr/hl1_npc/turret/tu_die2.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 
 -- Custom
-ENT.Sentry_MuzzleAttach = "0"
-ENT.Sentry_AlarmAttach = "1"
+ENT.Sentry_MuzzleAttach = "0" -- The bullet attachment
+ENT.Sentry_AlarmAttach = "1" -- Attachment that the alarm sprite spawns
+ENT.Sentry_Type = 0 -- 0 = Regular Ground Sentry | 1 = Ceiling Turret
+
+ENT.Sentry_HasLOS = false -- Has line of sight
 ENT.Sentry_StandDown = true
 ENT.Sentry_CurrentParameter = 0
 ENT.Sentry_NextAlarmT = 0
@@ -59,14 +58,22 @@ function ENT:CustomOnThink()
 		self.sentry_turningsd = CreateSound(self, "vj_hlr/hl1_npc/turret/motor_loop.wav") 
 		self.sentry_turningsd:SetSoundLevel(70)
 		self.sentry_turningsd:PlayEx(1,100)
+		if self.Sentry_Type == 1 then
+			self.sentry_turningsd2 = CreateSound(self, "vj_hlr/hl1_npc/turret/tu_active2.wav") 
+			self.sentry_turningsd2:SetSoundLevel(70)
+			self.sentry_turningsd2:PlayEx(1,100)
+		end
 	else
 		VJ_STOPSOUND(self.sentry_turningsd)
+		if self.Sentry_Type == 1 then
+			VJ_STOPSOUND(self.sentry_turningsd2)
+		end
 	end
 	self.Sentry_CurrentParameter = parameter
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if IsValid(self:GetEnemy()) then
+	if IsValid(self:GetEnemy()) or self.Alerted == true then
 		self.Sentry_StandDown = false
 		self.AnimTbl_IdleStand = {"spin"}
 		
@@ -87,14 +94,11 @@ function ENT:CustomOnThink_AIEnabled()
 			VJ_EmitSound(self,{"vj_hlr/hl1_npc/turret/tu_ping.wav"},75,100)
 		end
 		
-		if self:CustomAttackCheck_RangeAttack() == true && (self.RangeAttacking == true or self:GetEnemy():Visible(self)) then
-			self:SetSkin(0)
-		else
-			self:SetSkin(1)
+		if !IsValid(self:GetEnemy()) then
+			self:SetPoseParameter("aim_yaw", self:GetPoseParameter("aim_yaw") + 4)
 		end
 	else
 		if CurTime() > self.NextResetEnemyT && self.Alerted == false then
-			self:SetSkin(0)
 			if self.Sentry_StandDown == false then
 				self.Sentry_StandDown = true
 				self:VJ_ACT_PLAYACTIVITY({"retire"},true,1)
@@ -107,34 +111,49 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOn_PoseParameterLookingCode(pitch,yaw,roll)
+	-- Compare the difference between the current position of the pose parameter and the position it's suppose to go to
+	if math.abs(math.AngleDifference(self:GetPoseParameter("aim_yaw"), math.ApproachAngle(self:GetPoseParameter("aim_yaw"), yaw, self.PoseParameterLooking_TurningSpeed))) >= 10 then
+		self.Sentry_HasLOS = false
+	else
+		self.Sentry_HasLOS = true
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttackCheck_RangeAttack()
-	return true
-	
-	/*local pospara = self:GetPoseParameter("aim_yaw")
-	local viewcode = ((self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()) - (self:GetPos() + self:OBBCenter())):Angle()
-	local viewniger = math.abs(viewcode.y - (self:GetAngles().y + pospara))
-	if viewniger >= 330 then viewniger = viewniger - 360 end
-	if math.abs(viewniger) <= 10 then return true end
-	return false*/
+	if self.Sentry_HasLOS == true then return true end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnResetEnemy()
+	self.PoseParameterLooking_CanReset = false
+	self.Alerted = true -- Set it back to alerted (Since it gets turned off in reset enemy)
+	timer.Simple(16, function() -- After the timer, make it actually not alerted
+		if IsValid(self) then
+			self.PoseParameterLooking_CanReset = true
+			if !IsValid(self:GetEnemy()) then
+				self.Alerted = false
+			end
+		end
+	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
 	self.Sentry_NextAlarmT = CurTime() + 3
-	self.NextResetEnemyT = CurTime() + 0.7
+	self.NextResetEnemyT = CurTime() + 1
 	self:VJ_ACT_PLAYACTIVITY({"deploy"},true,false)
-	VJ_EmitSound(self,{"vj_hlr/hl1_npc/turret/tu_deploy.wav"},75,100)
+	VJ_EmitSound(self,{"vj_hlr/hl1_npc/turret/tu_alert.wav"},75,100)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
 	local bullet = {}
 	bullet.Num = 1
 	bullet.Src = self:GetAttachment(self:LookupAttachment(self.Sentry_MuzzleAttach)).Pos
-	bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter())-self:GetAttachment(self:LookupAttachment(self.Sentry_MuzzleAttach)).Pos
+	bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()) - self:GetAttachment(self:LookupAttachment(self.Sentry_MuzzleAttach)).Pos
 	bullet.Spread = 0.001
 	bullet.Tracer = 1
 	bullet.TracerName = "Tracer"
 	bullet.Force = 5
-	bullet.Damage = GetConVarNumber("vj_bms_turret_d")
+	bullet.Damage = 3
 	bullet.AmmoType = "SMG1"
 	self:FireBullets(bullet)
 	
@@ -157,8 +176,6 @@ function ENT:CustomRangeAttackCode()
 	muz:Spawn()
 	muz:Activate()
 	muz:Fire("Kill","",0.08)
-	//ParticleEffectAttach("vj_bms_turret_full",PATTACH_POINT_FOLLOW,self,1)
-	//timer.Simple(0.2,function() if IsValid(self) then self:StopParticles() end end)
 	
 	local FireLight1 = ents.Create("light_dynamic")
 	FireLight1:SetKeyValue("brightness", "4")
@@ -175,10 +192,23 @@ function ENT:CustomRangeAttackCode()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnKilled(dmginfo,hitgroup)
-	ParticleEffect("explosion_turret_break_fire", self:GetPos() + self:GetUp()*30, Angle(0,0,0), NULL)
-	ParticleEffect("explosion_turret_break_flash", self:GetPos() + self:GetUp()*30, Angle(0,0,0), NULL)
-	//ParticleEffect("explosion_turret_break_pre_smoke Version #2", self:GetPos() + self:GetUp()*30, Angle(0,0,0), NULL)
-	ParticleEffect("explosion_turret_break_sparks", self:GetPos() + self:GetUp()*30, Angle(0,0,0), NULL)
+	local spr = ents.Create("env_sprite")
+	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+	spr:SetKeyValue("GlowProxySize","2.0")
+	spr:SetKeyValue("HDRColorScale","1.0")
+	spr:SetKeyValue("renderfx","14")
+	spr:SetKeyValue("rendermode","5")
+	spr:SetKeyValue("renderamt","255")
+	spr:SetKeyValue("disablereceiveshadows","0")
+	spr:SetKeyValue("mindxlevel","0")
+	spr:SetKeyValue("maxdxlevel","0")
+	spr:SetKeyValue("framerate","15.0")
+	spr:SetKeyValue("spawnflags","0")
+	spr:SetKeyValue("scale","3")
+	spr:SetPos(self:GetPos() + self:GetUp()*80)
+	spr:Spawn()
+	spr:Fire("Kill","",0.9)
+	timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
@@ -216,6 +246,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
 	VJ_STOPSOUND(self.sentry_turningsd)
+	if self.Sentry_Type == 1 then
+		VJ_STOPSOUND(self.sentry_turningsd2)
+	end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***

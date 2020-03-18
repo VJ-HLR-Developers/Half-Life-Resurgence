@@ -1,10 +1,30 @@
-AddCSLuaFile("shared.lua")
-include("shared.lua")
-/*-----------------------------------------------
+/*--------------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/
+--------------------------------------------------*/
+AddCSLuaFile()
+if (!file.Exists("autorun/vj_base_autorun.lua","LUA")) then return end
+
+ENT.Type 			= "anim"
+ENT.Base 			= "obj_vj_projectile_base"
+ENT.PrintName		= "Hornet"
+ENT.Author 			= "DrVrej"
+ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
+ENT.Information		= "Projectiles for my addons"
+ENT.Category		= "Projectiles"
+
+if (CLIENT) then
+	local Name = "Hornet"
+	local LangName = "obj_vj_hlr1_hornet"
+	language.Add(LangName, Name)
+	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
+	language.Add("#"..LangName, Name)
+	killicon.Add("#"..LangName,"HUD/killicons/default",Color(255,80,0,255))
+end
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+if !(SERVER) then return end
+
 ENT.Model = {"models/vj_hlr/hl1/hornet.mdl"} -- The models it should spawn with | Picks a random one from the table
 ENT.MoveCollideType = MOVECOLLIDE_FLY_BOUNCE -- Move type | Some examples: MOVECOLLIDE_FLY_BOUNCE, MOVECOLLIDE_FLY_SLIDE
 ENT.RemoveOnHit = false -- Should it remove itself when it touches something? | It will run the hit sound, place a decal, etc.

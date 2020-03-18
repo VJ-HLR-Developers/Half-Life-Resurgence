@@ -13,7 +13,7 @@ ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectiles for my addons"
 ENT.Category		= "Projectiles"
----------------------------------------------------------------------------------------------------------------------------------------------
+
 if (CLIENT) then
 	local Name = "Voltigore Electrical Energy"
 	local LangName = "obj_vj_hlrof_voltigore_energy"
