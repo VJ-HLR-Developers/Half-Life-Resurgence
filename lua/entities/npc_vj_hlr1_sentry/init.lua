@@ -41,10 +41,11 @@ ENT.GeneralSoundPitch1 = 100
 -- Custom
 ENT.Sentry_MuzzleAttach = "0" -- The bullet attachment
 ENT.Sentry_AlarmAttach = "1" -- Attachment that the alarm sprite spawns
-ENT.Sentry_Type = 0 -- 0 = Regular Ground Sentry | 1 = Ceiling Turret
+ENT.Sentry_Type = 0 -- 0 = Regular Ground Sentry | 1 = Large Ceiling Turret | 2 = Small Ceiling Turret
 
 ENT.Sentry_HasLOS = false -- Has line of sight
 ENT.Sentry_StandDown = true
+ENT.Sentry_SpinnedUp = false
 ENT.Sentry_CurrentParameter = 0
 ENT.Sentry_NextAlarmT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -58,14 +59,14 @@ function ENT:CustomOnThink()
 		self.sentry_turningsd = CreateSound(self, "vj_hlr/hl1_npc/turret/motor_loop.wav") 
 		self.sentry_turningsd:SetSoundLevel(70)
 		self.sentry_turningsd:PlayEx(1,100)
-		if self.Sentry_Type == 1 then
+		if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
 			self.sentry_turningsd2 = CreateSound(self, "vj_hlr/hl1_npc/turret/tu_active2.wav") 
 			self.sentry_turningsd2:SetSoundLevel(70)
 			self.sentry_turningsd2:PlayEx(1,100)
 		end
 	else
 		VJ_STOPSOUND(self.sentry_turningsd)
-		if self.Sentry_Type == 1 then
+		if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
 			VJ_STOPSOUND(self.sentry_turningsd2)
 		end
 	end
@@ -94,7 +95,7 @@ function ENT:CustomOnThink_AIEnabled()
 			VJ_EmitSound(self,{"vj_hlr/hl1_npc/turret/tu_ping.wav"},75,100)
 		end
 		
-		if !IsValid(self:GetEnemy()) then
+		if !IsValid(self:GetEnemy()) then -- Look around randomly when the enemy is not found
 			self:SetPoseParameter("aim_yaw", self:GetPoseParameter("aim_yaw") + 4)
 		end
 	else
@@ -103,6 +104,10 @@ function ENT:CustomOnThink_AIEnabled()
 				self.Sentry_StandDown = true
 				self:VJ_ACT_PLAYACTIVITY({"retire"},true,1)
 				VJ_EmitSound(self,{"vj_hlr/hl1_npc/turret/tu_retract.wav"},65,self:VJ_DecideSoundPitch(100,110))
+				if self.Sentry_Type == 1 then
+					self.Sentry_SpinnedUp = false
+					VJ_EmitSound(self,"vj_hlr/hl1_npc/turret/tu_spindown.wav",80,100)
+				end
 			end
 		end
 		if self.Sentry_StandDown == true then
@@ -121,11 +126,11 @@ function ENT:CustomOn_PoseParameterLookingCode(pitch,yaw,roll)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttackCheck_RangeAttack()
-	if self.Sentry_HasLOS == true then return true end
+	if self.Sentry_HasLOS == true && self.Sentry_SpinnedUp == true then return true end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnResetEnemy()
-	self.PoseParameterLooking_CanReset = false
+	self.PoseParameterLooking_CanReset = false -- Used for looking around when enemy isn't found
 	self.Alerted = true -- Set it back to alerted (Since it gets turned off in reset enemy)
 	timer.Simple(16, function() -- After the timer, make it actually not alerted
 		if IsValid(self) then
@@ -138,9 +143,27 @@ function ENT:CustomOnResetEnemy()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
-	self.Sentry_NextAlarmT = CurTime() + 3
-	self.NextResetEnemyT = CurTime() + 1
+	if self.Sentry_Type == 1 then -- If it's ceiling turret, then make sure it's not looking until it has fully deployed
+		self.HasPoseParameterLooking = false
+	end
+	self.Sentry_NextAlarmT = CurTime() + 3 -- Make sure the Alarm light doesn't play right away
+	self.NextResetEnemyT = CurTime() + 1 -- Make sure it doesn't reset the enemy right away
 	self:VJ_ACT_PLAYACTIVITY({"deploy"},true,false)
+	if self.Sentry_Type == 1 then -- If it's a ceiling turret then do a spin up action
+		timer.Simple(1,function()
+			if IsValid(self) && IsValid(self:GetEnemy()) then
+				self.HasPoseParameterLooking = true
+				VJ_EmitSound(self,"vj_hlr/hl1_npc/turret/tu_spinup.wav",80,100)
+				timer.Simple(1,function()
+					if IsValid(self) && IsValid(self:GetEnemy()) then
+						self.Sentry_SpinnedUp = true
+					end
+				end)
+			end
+		end)
+	else
+		self.Sentry_SpinnedUp = true
+	end
 	VJ_EmitSound(self,{"vj_hlr/hl1_npc/turret/tu_alert.wav"},75,100)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -153,7 +176,11 @@ function ENT:CustomRangeAttackCode()
 	bullet.Tracer = 1
 	bullet.TracerName = "Tracer"
 	bullet.Force = 5
-	bullet.Damage = 3
+	if self.Sentry_Type == 1 then
+		bullet.Damage = 7
+	else
+		bullet.Damage = 3
+	end
 	bullet.AmmoType = "SMG1"
 	self:FireBullets(bullet)
 	
@@ -161,7 +188,11 @@ function ENT:CustomRangeAttackCode()
 	
 	muz = ents.Create("env_sprite_oriented")
 	muz:SetKeyValue("model","vj_hl/sprites/muzzleflash3.vmt")
-	muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
+	if self.Sentry_Type == 1 then
+		muz:SetKeyValue("scale",""..math.Rand(0.8,1))
+	else
+		muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
+	end
 	muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
 	muz:SetKeyValue("HDRColorScale","1.0")
 	muz:SetKeyValue("renderfx","14")
@@ -205,7 +236,11 @@ function ENT:CustomOnKilled(dmginfo,hitgroup)
 	spr:SetKeyValue("framerate","15.0")
 	spr:SetKeyValue("spawnflags","0")
 	spr:SetKeyValue("scale","3")
-	spr:SetPos(self:GetPos() + self:GetUp()*80)
+	if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
+		spr:SetPos(self:GetPos() + self:GetUp()*20)
+	else
+		spr:SetPos(self:GetPos() + self:GetUp()*80)
+	end
 	spr:Spawn()
 	spr:Fire("Kill","",0.9)
 	timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
@@ -246,7 +281,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
 	VJ_STOPSOUND(self.sentry_turningsd)
-	if self.Sentry_Type == 1 then
+	if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
 		VJ_STOPSOUND(self.sentry_turningsd2)
 	end
 end
