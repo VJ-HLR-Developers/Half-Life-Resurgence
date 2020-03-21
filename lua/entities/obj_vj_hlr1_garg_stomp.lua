@@ -54,7 +54,7 @@ end
 function ENT:CustomOnInitialize()
 	self:SetNoDraw(true)
 	
-	self.StartGlow1 = ents.Create("env_sprite")
+	/*self.StartGlow1 = ents.Create("env_sprite")
 	self.StartGlow1:SetKeyValue("model","vj_hl/sprites/flare3.vmt")
 	self.StartGlow1:SetKeyValue("rendercolor","255 0 0")
 	self.StartGlow1:SetKeyValue("GlowProxySize","2.0")
@@ -71,9 +71,11 @@ function ENT:CustomOnInitialize()
 	self.StartGlow1:SetPos(self:GetPos())
 	self.StartGlow1:Spawn()
 	self.StartGlow1:SetParent(self)
-	self:DeleteOnRemove(self.StartGlow1)
+	self:DeleteOnRemove(self.StartGlow1)*/
 	
-	util.SpriteTrail(self, 0, Color(255,0,0), true, 20, 1, 2, 1 / (20 + 1) * 0.5, "vj_hl/sprites/xbeam3.vmt")
+	//util.SpriteTrail(self, 0, Color(255,0,0), true, 20, 1, 2, 1 / (20 + 1) * 0.5, "vj_hl/sprites/xbeam3.vmt")
+	
+	ParticleEffectAttach("vj_hlr_garg_stomp_test",PATTACH_ABSORIGIN_FOLLOW,self,0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()

@@ -23,7 +23,7 @@ function ENT:CustomOnInitialize()
 	
 	self:SetCollisionBounds(Vector(25,25,40), Vector(-25,-25,-40))
 	
-	self.NextAnyAttackTime_Range = 0.15
+	self.NextAnyAttackTime_Range = 0.03
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
