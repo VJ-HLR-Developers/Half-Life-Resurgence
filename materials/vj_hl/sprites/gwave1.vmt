@@ -1,6 +1,15 @@
-"Sprite"
+"UnlitGeneric"
 {
-	"$spriteorientation" "vp_parallel_oriented"
-	"$spriteorigin" "[ 0.50 0.50 ]"
 	"$basetexture" "vj_hl/sprites/gwave1"
+	"$nolod" 1
+	"$alphatest" 1
+	"Proxies"
+	{
+		"AnimatedTexture"
+		{
+			"animatedtexturevar" "$basetexture"
+			"animatedtextureframenumvar" "$frame"
+			"animatedtextureframerate" 30
+		}
+	}
 }

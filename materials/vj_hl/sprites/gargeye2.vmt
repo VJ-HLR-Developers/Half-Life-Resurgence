@@ -1,6 +1,6 @@
 "UnlitGeneric"
 {
-	"$basetexture" "vj_hl/sprites/gargeye1"
+	"$basetexture" "vj_hl/sprites/gargeye2"
 	"$nolod" 1
 	"$translucent" 1
 	//"$alphatest" 1
