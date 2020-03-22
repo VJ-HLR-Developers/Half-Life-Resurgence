@@ -14,7 +14,7 @@ ENT.HECU_NextTurretT = 0
 ENT.HECU_GasTankHit = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if IsValid(self:GetEnemy()) && self.HECU_NextTurretT < CurTime() && self.HECU_PlacingTurret == false && !IsValid(self.HECU_MyTurret) then
+	if IsValid(self:GetEnemy()) && self:Visible(self:GetEnemy()) && self.HECU_NextTurretT < CurTime() && self.HECU_PlacingTurret == false && !IsValid(self.HECU_MyTurret) then
 		self.HECU_NextTurretT = CurTime() + 30
 		self.HECU_PlacingTurret = true
 		self:VJ_ACT_PLAYACTIVITY("pull_torch_wgun",true,false,true,0,{},function(vsched)

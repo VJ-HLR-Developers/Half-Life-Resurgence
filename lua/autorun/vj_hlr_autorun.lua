@@ -87,6 +87,7 @@ if VJExists == true then
 		VJ.AddNPC("Xen Spore (Medium)","sent_vj_xen_spore_medium",vCat)
 		VJ.AddNPC("Xen Spore (Small)","sent_vj_xen_spore_small",vCat)
 		VJ.AddNPC("Xen Plant Light","sent_vj_xen_plant_light",vCat)
+		VJ.AddNPC("Xen Crystal","sent_vj_xen_crystal",vCat)
 			-- Extras
 			VJ.AddNPC("Portal (Xen)","sent_vj_hlr_alientp",vCat)
 			VJ.AddNPC("Portal (Race X)","sent_vj_hlr_alientp_x",vCat)
@@ -208,6 +209,10 @@ if VJExists == true then
         "vj_hl_muzzle3", -- LD Shotgun
         "vj_hl_muzzle4", -- HD Pistol 2?
 		"vj_hl_muzzlebigturret",
+	})
+	VJ.AddParticle("particles/vj_hlr_garg_stomp.pcf",{
+		"vj_hlr_garg_stomp",
+		"vj_hlr_garg_stomp_test",
 	})
 	
 	-- Precache Models --
