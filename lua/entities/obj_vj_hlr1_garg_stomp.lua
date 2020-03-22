@@ -75,7 +75,7 @@ function ENT:CustomOnInitialize()
 	
 	//util.SpriteTrail(self, 0, Color(255,0,0), true, 20, 1, 2, 1 / (20 + 1) * 0.5, "vj_hl/sprites/xbeam3.vmt")
 	
-	ParticleEffectAttach("vj_hlr_garg_stomp_test",PATTACH_ABSORIGIN_FOLLOW,self,0)
+	ParticleEffectAttach("vj_hlr_garg_stomp",PATTACH_ABSORIGIN_FOLLOW,self,0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()

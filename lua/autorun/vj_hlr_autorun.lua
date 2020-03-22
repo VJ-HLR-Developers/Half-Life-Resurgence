@@ -212,7 +212,6 @@ if VJExists == true then
 	})
 	VJ.AddParticle("particles/vj_hlr_garg_stomp.pcf",{
 		"vj_hlr_garg_stomp",
-		"vj_hlr_garg_stomp_test",
 	})
 	
 	-- Precache Models --
