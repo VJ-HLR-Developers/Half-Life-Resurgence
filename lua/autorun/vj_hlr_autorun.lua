@@ -213,6 +213,10 @@ if VJExists == true then
 	VJ.AddParticle("particles/vj_hlr_garg_stomp.pcf",{
 		"vj_hlr_garg_stomp",
 	})
+	VJ.AddParticle("particles/vj_hlr_nihilanth.pcf",{
+		"vj_hlr_nihilanth_deathorbs",
+		"vj_hlr_nihilanth_deathorbs_white",
+	})
 	
 	-- Precache Models --
 	util.PrecacheModel("models/vj_hlr/gibs/agib1.mdl")
