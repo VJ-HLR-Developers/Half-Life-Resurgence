@@ -61,8 +61,22 @@ function ENT:CustomOnInitialize()
 	self.StartGlow1:SetParent(self)
 	self:DeleteOnRemove(self.StartGlow1)
 end
+ENT.TestPos = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Think()
+	if self.TestPos == 0 then
+		self:SetPos(self:GetPos() + self:GetForward() * 5 + self:GetRight() * 5)
+		self.TestPos = 1
+	elseif self.TestPos == 1 then
+		self:SetPos(self:GetPos() + self:GetForward() * -5 + self:GetRight() * -5)
+		self.TestPos = 2
+	elseif self.TestPos == 2 then
+		self:SetPos(self:GetPos() + self:GetForward() * -5 + self:GetRight() * -5)
+		self.TestPos = 3
+	elseif self.TestPos == 3 then
+		self:SetPos(self:GetPos() + self:GetForward() * 5 + self:GetRight() * 5)
+		self.TestPos = 0
+	end
 	if IsValid(self.EO_Enemy) then -- Homing Behavior
 		local phys = self:GetPhysicsObject()
 		if (phys:IsValid()) then

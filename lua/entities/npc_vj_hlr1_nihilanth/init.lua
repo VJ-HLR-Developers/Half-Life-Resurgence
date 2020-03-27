@@ -63,6 +63,7 @@ ENT.Nih_NextSpawn = 0 -- Max 4
 ENT.Nih_NumAllies = 0
 ENT.Nih_CrystalsDestroyed = false
 ENT.Nih_BrainOpen = false
+ENT.Nih_DidBrainOpenAnim = false
 
 /*
 vj_hl/sprites/flare6.vmt    right before nihilanth disappears on death he releases these bubbles
@@ -176,6 +177,28 @@ function ENT:CustomOnAlert(argent)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink()
+	local num = #self.Nih_Charges
+	if num > 0 then
+		for k, v in ipairs(self.Nih_Charges) do
+			local test = v:GetAngles()
+			test:Add(Angle(5,5,5))
+			test:Normalize()
+			v:SetAngles(test)
+		end
+	else
+		self.Nih_BrainOpen = true
+		if self.Nih_DidBrainOpenAnim == false then
+			self:VJ_ACT_PLAYACTIVITY("vjseq_transition_to_hurt", true, false)
+			self.Nih_DidBrainOpenAnim = true
+		end
+	end
+	
+	if self.Nih_BrainOpen == true then
+		self.AnimTbl_IdleStand = {ACT_IDLE_HURT}
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	if self.Dead == true then return end
 	if IsValid(self:GetEnemy()) && CurTime() > self.Nih_NextSpawn && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP))) then
@@ -191,10 +214,18 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleRangeAttacks()
 	if math.random(1,3) == 1 then
-		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2}
+		if self.Nih_BrainOpen == true then
+			self.AnimTbl_RangeAttack = {"attack2_open"}
+		else
+			self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2}
+		end
 		self.RangeAttackEntityToSpawn = "obj_vj_hlr1_orb_teleport"
 	else
-		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1}
+		if self.Nih_BrainOpen == true then
+			self.AnimTbl_RangeAttack = {"attack1_open"}
+		else
+			self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1}
+		end
 		self.RangeAttackEntityToSpawn = "obj_vj_hlr1_orb_electrical"
 	end
 end
@@ -287,12 +318,28 @@ function ENT:Nih_SpawnAlly()
 	return 8
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+	if self.Nih_CrystalsDestroyed == false then dmginfo:SetDamage(0) return end
+	
+	if self.Nih_BrainOpen == false then
+		local num = #self.Nih_Charges
+		if num > 0 then
+			local charge = self.Nih_Charges[num]
+			charge:Remove()
+			table.remove(self.Nih_Charges, num)
+			num = num - 1
+			dmginfo:SetDamage(0)
+			return
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	ParticleEffectAttach("vj_hlr_nihilanth_deathorbs", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("0")) -- Ganach louys ere
 	timer.Simple(14, function() -- Jermag louys ere
 		if IsValid(self) then
 			ParticleEffect("vj_hlr_nihilanth_deathorbs_white", self:GetAttachment(self:LookupAttachment("0")).Pos, self:GetAngles())
-			VJ_EmitSound(ally, "vj_hlr/hl1_npc/x/nih_die2.wav", 120)
+			VJ_EmitSound(self, "vj_hlr/hl1_npc/x/nih_die2.wav", 120)
 		end
 	end)
 end
