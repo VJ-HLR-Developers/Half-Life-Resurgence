@@ -42,6 +42,9 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Think()
+	if IsValid(self.Assignee) then
+		
+	end
 	self:NextThink(CurTime())
 	return true
 end

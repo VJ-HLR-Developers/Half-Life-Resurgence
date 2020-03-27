@@ -6,7 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hl1/nihilanth.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.StartHealth = 1
+ENT.StartHealth = 3000
 ENT.HullType = HULL_LARGE
 ENT.VJ_IsHugeMonster = true -- Is this a huge monster?
 ENT.SightDistance = 15000 -- How far it can see
@@ -25,6 +25,9 @@ ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
 ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
+ENT.RangeAttackPos_Up = -140 -- Up/Down spawning position for range attack
+ENT.RangeAttackPos_Forward = 430 -- Forward/Backward spawning position for range attack
+ENT.RangeAttackPos_Right = 0 -- Right/Left spawning position for range attack
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIESIMPLE} -- Death Animations
@@ -40,7 +43,6 @@ ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/x/x_attack1.wav","vj_hlr/hl1_n
 ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/x/x_shoot1.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/x/x_pain1.wav","vj_hlr/hl1_npc/x/x_pain2.wav","vj_hlr/hl1_npc/x/x_pain3.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/x/x_die1.wav"}
-ENT.SoundTbl_SoundTrack = {}
 
 ENT.NextSoundTime_Idle1 = 14
 ENT.NextSoundTime_Idle2 = 20
@@ -56,9 +58,11 @@ ENT.PainSoundLevel = 120
 ENT.DeathSoundLevel = 120
 
 -- Custom
-ENT.Nih_CrystalsDestroyed = false
+ENT.Nih_TeleportingOrb = false
 ENT.Nih_NextSpawn = 0 -- Max 4
 ENT.Nih_NumAllies = 0
+ENT.Nih_CrystalsDestroyed = false
+ENT.Nih_BrainOpen = false
 
 /*
 vj_hl/sprites/flare6.vmt    right before nihilanth disappears on death he releases these bubbles
@@ -109,22 +113,57 @@ function ENT:CustomOnInitialize()
 			self.Nih_Crystal3 = crystal
 		end
 	end
+	
+	self.Nih_Charges = {}
+	
+	local function MakeChargeOrb(pos)
+		local charge = ents.Create("sent_vj_hlr1_orb_crystal_charge")
+		charge:SetAngles(self:GetAngles())
+		charge:SetPos(pos)
+		charge.Assignee = self
+		charge:Spawn()
+		charge:Activate()
+		charge:SetParent(self)
+		self:DeleteOnRemove(charge)
+		self.Nih_Charges[#self.Nih_Charges+1] = charge
+	end
+	
+	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(400,330))
+	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(-220,-450))
+	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(20,-450))
+	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(220,-450))
+	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(420,-350))
+	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(480,-150))
+	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(480,150))
+	--------------------- ROTATE ---------------------
+	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(220,450))
+	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(-20,450))
+	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(-220,450))
+	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(-420,350))
+	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(-480,150))
+	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(-480,-150))
+	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(-400,-330))
 end
-ENT.RangeUseAttachmentForPos = true -- Should the projectile spawn on a attachment?
-ENT.RangeUseAttachmentForPosID = "3" -- The attachment used on the range attack if RangeUseAttachmentForPos is set to true
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	print(key)
 	if key == "orb-o-death" then
+		self.Nih_TeleportingOrb = false
+		self.RangeUseAttachmentForPos = false
 		self:RangeAttackCode()
-		timer.Simple(0.1,function() self:RangeAttackCode() end)
-		timer.Simple(0.2,function() self:RangeAttackCode() end)
-		timer.Simple(0.3,function() self:RangeAttackCode() end)
-		timer.Simple(0.4,function() self:RangeAttackCode() end)
-		timer.Simple(0.5,function() self:RangeAttackCode() end)
-		timer.Simple(0.6,function() self:RangeAttackCode() end)
+		if self.Nih_BrainOpen == false then
+			self.RangeUseAttachmentForPos = true
+			for i = 0.1, 0.6, 0.1 do
+				timer.Simple(i,function() if IsValid(self) then self.RangeUseAttachmentForPosID = "2" self:RangeAttackCode() end end)
+			end
+			for i = 0.1, 0.6, 0.1 do
+				timer.Simple(i,function() if IsValid(self) then self.RangeUseAttachmentForPosID = "3" self:RangeAttackCode() end end)
+			end
+		end
 	end
 	if key == "wtf" then
+		self.Nih_TeleportingOrb = true
+		self.RangeUseAttachmentForPos = false
 		self:RangeAttackCode()
 	end
 end
@@ -146,22 +185,29 @@ function ENT:CustomOnThink_AIEnabled()
 	if self.Nih_CrystalsDestroyed == false && !IsValid(self.Nih_Crystal1) && !IsValid(self.Nih_Crystal2) && !IsValid(self.Nih_Crystal3) then
 		print("CRYSTALS BROKE!")
 		self.Nih_CrystalsDestroyed = true
-		VJ_EmitSound(self,"vj_hlr/hl1_npc/nihilanth/nil_done.wav",120)
+		VJ_EmitSound(self, "vj_hlr/hl1_npc/nihilanth/nil_done.wav", 120)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleRangeAttacks()
-	if math.random(1,1) == 1 then
-		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1}
-		self.RangeAttackEntityToSpawn = "obj_vj_hlr1_energyorb"
+	if math.random(1,3) == 1 then
+		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2}
+		self.RangeAttackEntityToSpawn = "obj_vj_hlr1_orb_teleport"
 	else
 		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1}
-		self.RangeAttackEntityToSpawn = "obj_vj_hlr1_energyorb"
+		self.RangeAttackEntityToSpawn = "obj_vj_hlr1_orb_electrical"
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomRangeAttackCode_AfterProjectileSpawn(TheProjectile)
+	if self.Nih_TeleportingOrb == true && IsValid(self:GetEnemy()) then
+		TheProjectile.EO_Enemy = self:GetEnemy()
+		timer.Simple(10,function() if IsValid(TheProjectile) then TheProjectile:Remove() end end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(TheProjectile)
-	return self:CalculateProjectile("Line", self:GetPos() + self:GetUp()*20, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 700)
+	return self:CalculateProjectile("Line", TheProjectile:GetPos(), self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 700)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Nih_CreateAlly()
@@ -218,7 +264,7 @@ function ENT:Nih_CreateAlly()
 	StartGlow1:Fire("Kill","",1)
 	self:DeleteOnRemove(StartGlow1)
 	
-	VJ_EmitSound(ally,"vj_hlr/fx/beamstart" .. math.random(1,2) .. ".wav",85,100)
+	VJ_EmitSound(ally, "vj_hlr/fx/beamstart" .. math.random(1,2) .. ".wav", 85, 100)
 	
 	return ally
 end
@@ -245,7 +291,8 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	ParticleEffectAttach("vj_hlr_nihilanth_deathorbs", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("0")) -- Ganach louys ere
 	timer.Simple(14, function() -- Jermag louys ere
 		if IsValid(self) then
-			ParticleEffect("vj_hlr_nihilanth_deathorbs_white", self:GetPos() + self:GetUp() * 300, self:GetAngles())
+			ParticleEffect("vj_hlr_nihilanth_deathorbs_white", self:GetAttachment(self:LookupAttachment("0")).Pos, self:GetAngles())
+			VJ_EmitSound(ally, "vj_hlr/hl1_npc/x/nih_die2.wav", 120)
 		end
 	end)
 end
