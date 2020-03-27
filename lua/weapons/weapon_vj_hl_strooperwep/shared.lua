@@ -66,7 +66,7 @@ function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 	if IsValid(phys) then
 		local pos = self:GetOwner():GetPos() + self:GetOwner():OBBCenter() + self:GetOwner():GetForward() * 700
 		if IsValid(self:GetOwner():GetEnemy()) then
-			pos = self:GetOwner():GetEnemy():GetPos()
+			pos = self:GetOwner():GetEnemy():GetPos() + self:GetOwner():GetEnemy():OBBCenter()
 		end
 		phys:SetVelocity(self:GetOwner():CalculateProjectile("Line", self:GetNWVector("VJ_CurBulletPos"), pos, 10000))
 	end
