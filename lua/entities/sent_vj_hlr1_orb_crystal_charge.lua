@@ -30,14 +30,6 @@ ENT.Model = {"models/spitball_large.mdl"} -- The models it should spawn with | P
 -- Custom
 ENT.EO_Enemy = NULL
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomPhysicsObjectOnInitialize(phys)
-	/*phys:Wake()
-	phys:SetMass(1)
-	phys:SetBuoyancyRatio(0)
-	phys:EnableDrag(false)
-	phys:EnableGravity(false)*/
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetModel("models/spitball_large.mdl")
 	self:SetNoDraw(true)

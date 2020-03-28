@@ -319,7 +319,7 @@ function ENT:Nih_SpawnAlly()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	if self.Nih_CrystalsDestroyed == false then dmginfo:SetDamage(0) return end
+	/*if self.Nih_CrystalsDestroyed == false then dmginfo:SetDamage(0) return end
 	
 	if self.Nih_BrainOpen == false then
 		local num = #self.Nih_Charges
@@ -331,7 +331,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 			dmginfo:SetDamage(0)
 			return
 		end
-	end
+	end*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
