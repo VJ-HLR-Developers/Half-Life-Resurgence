@@ -42,6 +42,8 @@ function ENT:CustomOnInitialize()
 	self:SetModel("models/spitball_large.mdl")
 	self:SetNoDraw(true)
 	
+	//ParticleEffectAttach("vj_hlr_nihilanth_chargeorb", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	
 	self.StartGlow1 = ents.Create("env_sprite")
 	self.StartGlow1:SetKeyValue("model","vj_hl/sprites/muzzleflash3.vmt")
 	//self.StartGlow1:SetKeyValue("rendercolor","255 128 0")

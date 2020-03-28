@@ -214,6 +214,7 @@ if VJExists == true then
 		"vj_hlr_garg_stomp",
 	})
 	VJ.AddParticle("particles/vj_hlr_nihilanth.pcf",{
+		"vj_hlr_nihilanth_chargeorb",
 		"vj_hlr_nihilanth_deathorbs",
 		"vj_hlr_nihilanth_deathorbs_white",
 	})
