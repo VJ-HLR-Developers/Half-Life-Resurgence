@@ -1,5 +1,5 @@
-ENT.Base 			= "prop_vj_animatable"
-ENT.Type 			= "anim"
+ENT.Base 			= "base_entity"
+ENT.Type 			= "ai"
 ENT.PrintName 		= "Xen Crystal"
 ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
@@ -7,17 +7,22 @@ ENT.Purpose 		= "Used to make simple props and animate them, since prop_dynamic 
 ENT.Instructions 	= "Don't change anything."
 ENT.Category		= "VJ Base"
 
+function ENT:Draw() self:DrawModel() end
+
 if (!SERVER) then return end
 AddCSLuaFile()
 
+ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
+
 ENT.Assignee = NULL -- Is another entity the owner of this crystal?
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Initialize()
 	if !IsValid(self.Assignee) then
 		self:SetPos(self:GetPos() + self:GetUp()*-40)
 	end
+	
 	self:SetModel("models/vj_hlr/hl1/crystal.mdl")
-	self:SetMoveType(MOVETYPE_NONE)
+	self:SetMoveType(MOVETYPE_FLY)
 	self:SetSolid(SOLID_BBOX)
 	self:SetMaxHealth(200)
 	self:SetHealth(200)
@@ -42,9 +47,6 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Think()
-	if IsValid(self.Assignee) then
-		
-	end
 	self:NextThink(CurTime())
 	return true
 end
@@ -53,7 +55,24 @@ function ENT:OnTakeDamage(dmginfo)
 	self:SetHealth(self:Health() - dmginfo:GetDamage())
 	self:EmitSound(VJ_PICK({"vj_hlr/fx/bustglass1.wav","vj_hlr/fx/bustglass2.wav"}), 70)
 	if self:Health() <= 0 then
-		//util.BlastDamage(self, self, self:GetPos(), 100, 50)
+	
+		local spr = ents.Create("env_sprite")
+		spr:SetKeyValue("model","vj_hl/sprites/fexplo1.vmt")
+		spr:SetKeyValue("GlowProxySize","2.0")
+		spr:SetKeyValue("HDRColorScale","1.0")
+		spr:SetKeyValue("renderfx","14")
+		spr:SetKeyValue("rendermode","5")
+		spr:SetKeyValue("renderamt","255")
+		spr:SetKeyValue("disablereceiveshadows","0")
+		spr:SetKeyValue("mindxlevel","0")
+		spr:SetKeyValue("maxdxlevel","0")
+		spr:SetKeyValue("framerate","15.0")
+		spr:SetKeyValue("spawnflags","0")
+		spr:SetKeyValue("scale","7")
+		spr:SetPos(self:GetPos() + Vector(0,0,90))
+		spr:Spawn()
+		spr:Fire("Kill","",0.9)
+	
 		util.VJ_SphereDamage(self, self, self:GetPos(), 100, 50, DMG_NERVEGAS, true, true)
 		self:EmitSound("vj_hlr/fx/xtal_down1.wav", 100)
 		self:Remove()

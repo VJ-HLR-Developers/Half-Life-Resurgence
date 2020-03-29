@@ -44,6 +44,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetNoDraw(true)
+	
 	self.StartGlow1 = ents.Create("env_sprite")
 	self.StartGlow1:SetKeyValue("model","vj_hl/sprites/nhth1.vmt")
 	//self.StartGlow1:SetKeyValue("rendercolor","255 128 0")
@@ -65,14 +66,14 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if IsValid(self.EO_Enemy) then -- Homing Behavior
+	/*if IsValid(self.EO_Enemy) then -- Homing Behavior
 		self.DirectDamage = 25
 		self.StartGlow1:SetKeyValue("scale","1.5")
 		local phys = self:GetPhysicsObject()
 		if (phys:IsValid()) then
 			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.EO_Enemy:GetPos() + self.EO_Enemy:OBBCenter(), 700))
 		end
-	end
+	end*/
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***

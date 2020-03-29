@@ -7,7 +7,6 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hla/scientist.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.IsMedicSNPC = false -- Is this SNPC a medic? Does it heal other friendly friendly SNPCs, and players(If friendly)
-ENT.DeathAnimationTime = 5
 	-- ====== Controller Variables ====== --
 ENT.Controller_FirstPersonBone = "unnamed021"
 ENT.Controller_FirstPersonOffset = Vector(2,0,5)
@@ -18,8 +17,8 @@ function ENT:SCI_CustomOnInitialize()
 	self.SoundTbl_Pain = {"vj_hlr/hla_npc/barney/ba_pain1.wav"}
 	self.SoundTbl_Death = {"vj_hlr/hla_npc/barney/ba_die1.wav","vj_hlr/hla_npc/barney/ba_die2.wav","vj_hlr/hla_npc/barney/ba_die3.wav"}
 	self.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hla_npc/barney/ba_pain1.wav"}
-	self:SetBodygroup(0,math.random(0,4))
 	
+	self:SetBodygroup(0,math.random(0,4))
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***

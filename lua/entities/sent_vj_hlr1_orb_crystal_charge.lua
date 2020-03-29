@@ -31,8 +31,9 @@ ENT.Model = {"models/spitball_large.mdl"} -- The models it should spawn with | P
 ENT.EO_Enemy = NULL
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetModel("models/spitball_large.mdl")
+	self:SetModel("models/props_junk/watermelon01_chunk02c.mdl")
 	self:SetNoDraw(true)
+	self:SetCollisionGroup(COLLISION_GROUP_NONE)
 	
 	//ParticleEffectAttach("vj_hlr_nihilanth_chargeorb", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 	

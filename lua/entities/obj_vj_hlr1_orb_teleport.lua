@@ -27,7 +27,7 @@ if !(SERVER) then return end
 
 ENT.Model = {"models/spitball_large.mdl"} -- The models it should spawn with | Picks a random one from the table
 ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 80 -- How much damage should it do when it hits something
+ENT.DirectDamage = 25 -- How much damage should it do when it hits something
 ENT.DirectDamageType = DMG_SHOCK -- Damage type
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/x/x_teleattack1.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav","vj_hlr/hl1_weapon/gauss/electro5.wav","vj_hlr/hl1_weapon/gauss/electro6.wav"}
@@ -71,6 +71,39 @@ function ENT:CustomOnThink()
 		if (phys:IsValid()) then
 			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.EO_Enemy:GetPos() + self.EO_Enemy:OBBCenter(), 700))
 		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDoDamage(data,phys,hitent)
+	local owner = self:GetOwner()
+	if IsValid(owner) && (hitent:IsNPC() or hitent:IsPlayer()) && hitent.VJ_IsHugeMonster != true && hitent.Dead != true then
+		local tr = util.TraceLine({
+			start = owner:GetPos(),
+			endpos = owner:GetPos() + owner:GetForward() * math.Rand(-10000, 10000) + owner:GetRight() * math.Rand(-10000, 10000) + owner:GetUp() * -3000, //math.Rand(-10000, 10000),
+			filter = owner,
+		})
+		local pos = tr.HitPos + tr.HitNormal*hitent:OBBMaxs()
+		hitent:SetPos(pos)
+		
+		local StartGlow1 = ents.Create("env_sprite")
+		StartGlow1:SetKeyValue("model","vj_hl/sprites/exit1.vmt")
+		StartGlow1:SetKeyValue("GlowProxySize","2.0")
+		StartGlow1:SetKeyValue("HDRColorScale","1.0")
+		StartGlow1:SetKeyValue("renderfx","14")
+		StartGlow1:SetKeyValue("rendermode","3")
+		StartGlow1:SetKeyValue("renderamt","255")
+		StartGlow1:SetKeyValue("disablereceiveshadows","0")
+		StartGlow1:SetKeyValue("mindxlevel","0")
+		StartGlow1:SetKeyValue("maxdxlevel","0")
+		StartGlow1:SetKeyValue("framerate","10.0")
+		StartGlow1:SetKeyValue("spawnflags","0")
+		StartGlow1:SetKeyValue("scale","1")
+		StartGlow1:SetPos(pos)
+		StartGlow1:Spawn()
+		StartGlow1:Fire("Kill","",1)
+		owner:DeleteOnRemove(StartGlow1)
+		
+		VJ_EmitSound(hitent, "vj_hlr/fx/beamstart" .. math.random(1,2) .. ".wav", 85, 100)
 	end
 end
 /*-----------------------------------------------

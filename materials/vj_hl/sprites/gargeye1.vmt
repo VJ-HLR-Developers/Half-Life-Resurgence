@@ -4,4 +4,7 @@
 	"$nolod" 1
 	"$translucent" 1
 	//"$alphatest" 1
+	"$selfillum" 1
+	//$selfillumtint [255 255 255]
+	//$selfillummaskscale 100.0
 }

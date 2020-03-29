@@ -9,7 +9,7 @@ ENT.Model = {"models/vj_hlr/hl1/nihilanth.mdl"} -- The game will pick a random m
 ENT.StartHealth = 3000
 ENT.HullType = HULL_LARGE
 ENT.VJ_IsHugeMonster = true -- Is this a huge monster?
-ENT.SightDistance = 15000 -- How far it can see
+ENT.SightDistance = 20000 -- How far it can see
 ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -20,7 +20,7 @@ ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
-ENT.RangeDistance = 15000 -- This is how far away it can shoot
+ENT.RangeDistance = 20000 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
@@ -64,6 +64,8 @@ ENT.Nih_NumAllies = 0
 ENT.Nih_CrystalsDestroyed = false
 ENT.Nih_BrainOpen = false
 ENT.Nih_DidBrainOpenAnim = false
+ENT.Nih_LerpAngleDeath = nil
+ENT.Nih_OriginalGravity = 600
 
 /*
 vj_hl/sprites/flare6.vmt    right before nihilanth disappears on death he releases these bubbles
@@ -72,36 +74,34 @@ vj_hl/sprites/muzzleflash3.vmt       orb ring around his head that displays his 
 */
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+	local EntsTbl = ents.GetAll()
+	for x=1, #EntsTbl do
+		if EntsTbl[x]:GetClass() == "npc_vj_hlr1_nihilanth" && EntsTbl[x] != self then
+			if IsValid(self:GetCreator()) then
+				print("peppee")
+				self:GetCreator():PrintMessage(HUD_PRINTTALK, "WARNING: Only one Nihilanth is allowed in the map!")
+			end
+			self:Remove()
+		end
+	end
+	
+	self.Nih_OriginalGravity = GetConVarNumber("sv_gravity")
+	RunConsoleCommand("sv_gravity", 200)
+	
 	self:SetCollisionBounds(Vector(250, 250, 430), Vector(-250, -250, -530))
 	
 	self:SetPos(self:GetPos() + self:GetUp() * 1000)
 	
 	for i = 1, 3 do
-		local tr_offset;
-		if i == 1 then
-			tr_pos = self:GetForward() * 3000 + self:GetRight() * 3000
-			tr_offset = self:GetForward() * -50 + self:GetRight() * -50
-		elseif i == 2 then
-			tr_pos = self:GetForward() * -3000 + self:GetRight() * -3000
-			tr_offset = self:GetForward() * 50 + self:GetRight() * 50
-		elseif i == 3 then
-			tr_pos = self:GetForward() * -3000 + self:GetRight() * 3000
-			tr_offset = self:GetForward() * 50 + self:GetRight() * -50
-		end
 		local tr = util.TraceLine({
 			start = self:GetPos(),
-			endpos = self:GetPos() + tr_pos,
+			endpos = self:GetPos() + self:GetForward() * math.Rand(-10000, 10000) + self:GetRight() * math.Rand(-10000, 10000) + self:GetUp() * -3000, //math.Rand(-10000, 10000),
 			filter = self,
 		})
-		local tr_d = util.TraceLine({
-			start = (tr.HitPos + tr_offset),
-			endpos = (tr.HitPos + tr_offset) + Vector(0,0,-4000),
-			filter = self,
-		})
-		
+		-- HitNormal = Number between 0 to 1, use this to get the position the trace came from. Ex: Add it to the hit position to make it go farther away.
 		local crystal = ents.Create("sent_vj_xen_crystal")
-		crystal:SetPos(tr_d.HitPos + self:GetUp() * -10)
-		crystal:SetAngles(tr_d.HitPos:Angle())
+		crystal:SetPos(tr.HitPos - tr.HitNormal*10) -- Take the HitNormal and minus it by 10 units to make it go inside the position a bit
+		crystal:SetAngles(tr.HitNormal:Angle() + Angle(math.Rand(60, 120), math.Rand(-15,15), math.Rand(-15,15))) -- 90 = middle and 30 degree difference to make the pitch rotate randomly | yaw and roll are applied a bit of a random number
 		crystal.Assignee = self
 		crystal:Spawn()
 		crystal:Activate()
@@ -147,22 +147,27 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	print(key)
-	if key == "orb-o-death" then
+	//print(key)
+	if key == "elec_orbs" then
 		self.Nih_TeleportingOrb = false
 		self.RangeUseAttachmentForPos = false
 		self:RangeAttackCode()
-		if self.Nih_BrainOpen == false then
-			self.RangeUseAttachmentForPos = true
-			for i = 0.1, 0.6, 0.1 do
-				timer.Simple(i,function() if IsValid(self) then self.RangeUseAttachmentForPosID = "2" self:RangeAttackCode() end end)
-			end
-			for i = 0.1, 0.6, 0.1 do
-				timer.Simple(i,function() if IsValid(self) then self.RangeUseAttachmentForPosID = "3" self:RangeAttackCode() end end)
-			end
+		self.RangeUseAttachmentForPos = true
+		for i = 0.1, 0.6, 0.1 do
+			timer.Simple(i,function() if IsValid(self) then self.RangeUseAttachmentForPosID = "2" self:RangeAttackCode() end end)
+		end
+		for i = 0.1, 0.6, 0.1 do
+			timer.Simple(i,function() if IsValid(self) then self.RangeUseAttachmentForPosID = "3" self:RangeAttackCode() end end)
 		end
 	end
-	if key == "wtf" then
+	
+	if key == "elec_orbs_open" then
+		self.Nih_TeleportingOrb = false
+		self.RangeUseAttachmentForPos = false
+		self:RangeAttackCode()
+	end
+	
+	if key == "tele_orb" then
 		self.Nih_TeleportingOrb = true
 		self.RangeUseAttachmentForPos = false
 		self:RangeAttackCode()
@@ -178,6 +183,12 @@ function ENT:CustomOnAlert(argent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
+	if self.Dead == true then
+		if self.Nih_LerpAngleDeath == nil then self.Nih_LerpAngleDeath = self:GetAngles() end
+		self.Nih_LerpAngleDeath = LerpAngle(0.25, self.Nih_LerpAngleDeath, self.Nih_LerpAngleDeath + Angle(0,30,0))
+		self:SetAngles(self.Nih_LerpAngleDeath)
+	end
+	
 	local num = #self.Nih_Charges
 	if num > 0 then
 		for k, v in ipairs(self.Nih_Charges) do
@@ -188,14 +199,16 @@ function ENT:CustomOnThink()
 		end
 	else
 		self.Nih_BrainOpen = true
+		self.AnimTbl_IdleStand = {ACT_IDLE_HURT}
 		if self.Nih_DidBrainOpenAnim == false then
 			self:VJ_ACT_PLAYACTIVITY("vjseq_transition_to_hurt", true, false)
 			self.Nih_DidBrainOpenAnim = true
 		end
 	end
 	
-	if self.Nih_BrainOpen == true then
-		self.AnimTbl_IdleStand = {ACT_IDLE_HURT}
+	if self.Nih_CrystalsDestroyed == false && !IsValid(self.Nih_Crystal1) && !IsValid(self.Nih_Crystal2) && !IsValid(self.Nih_Crystal3) then
+		self.Nih_CrystalsDestroyed = true
+		VJ_EmitSound(self, "vj_hlr/hl1_npc/nihilanth/nil_done.wav", 120)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -204,25 +217,19 @@ function ENT:CustomOnThink_AIEnabled()
 	if IsValid(self:GetEnemy()) && CurTime() > self.Nih_NextSpawn && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self.Nih_NextSpawn = CurTime() + self:Nih_SpawnAlly()
 	end
-	
-	if self.Nih_CrystalsDestroyed == false && !IsValid(self.Nih_Crystal1) && !IsValid(self.Nih_Crystal2) && !IsValid(self.Nih_Crystal3) then
-		print("CRYSTALS BROKE!")
-		self.Nih_CrystalsDestroyed = true
-		VJ_EmitSound(self, "vj_hlr/hl1_npc/nihilanth/nil_done.wav", 120)
-	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleRangeAttacks()
 	if math.random(1,3) == 1 then
 		if self.Nih_BrainOpen == true then
-			self.AnimTbl_RangeAttack = {"attack2_open"}
+			self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2_LOW}
 		else
 			self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2}
 		end
 		self.RangeAttackEntityToSpawn = "obj_vj_hlr1_orb_teleport"
 	else
 		if self.Nih_BrainOpen == true then
-			self.AnimTbl_RangeAttack = {"attack1_open"}
+			self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1_LOW}
 		else
 			self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1}
 		end
@@ -242,36 +249,18 @@ function ENT:RangeAttackCode_GetShootPos(TheProjectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Nih_CreateAlly()
-	-- Trace to a random point around the Nihilanth then trace down
-	local tr_randp = math.random(1,4)
-	local tr_offset;
-	if tr_randp == 1 then
-		tr_pos = self:GetForward() * 2000
-		tr_offset = self:GetForward() * -50
-	elseif tr_randp == 2 then
-		tr_pos = self:GetForward() * -2000
-		tr_offset = self:GetForward() * 50
-	elseif tr_randp == 3 then
-		tr_pos = self:GetRight() * 2000
-		tr_offset = self:GetRight() * -50
-	elseif tr_randp == 4 then
-		tr_pos = self:GetRight() * -2000
-		tr_offset = self:GetRight() * 50
-	end
 	local tr = util.TraceLine({
 		start = self:GetPos(),
-		endpos = self:GetPos() + tr_pos,
+		endpos = self:GetPos() + self:GetForward() * math.Rand(-10000, 10000) + self:GetRight() * math.Rand(-10000, 10000) + self:GetUp() * -1000,
 		filter = self,
-	})
-	local tr_d = util.TraceLine({
-		start = (tr.HitPos + tr_offset),
-		endpos = (tr.HitPos + tr_offset) + Vector(0,0,-4000),
-		filter = self,
+		mask = MASK_ALL,
 	})
 	
-	local spawnpos = tr_d.HitPos + Vector(0,0,10) -- 10 WU ere vor kednin mech chi dzaki
-	local ally = ents.Create(VJ_PICK({"npc_vj_hlr1_aliengrunt", "npc_vj_hlr1_alienslave", "npc_vj_hlr1_aliencontroller"}))
-	if ally:GetClass() == "npc_vj_hlr1_aliencontroller" then spawnpos = tr_d.HitPos + Vector(0,0,300) end -- Yete controller e, ere vor kichme partser dzaki
+	local spawnpos = tr.HitPos + tr.HitNormal*30 -- 30 WU kichme tours hane
+	local type = VJ_PICK({"npc_vj_hlr1_aliengrunt", "npc_vj_hlr1_alienslave", "npc_vj_hlr1_aliencontroller"})
+	if tr.MatType == MAT_SLOSH then type = VJ_PICK({"npc_vj_hlr1_ichthyosaur", "npc_vj_hlr1_archer"}) spawnpos = spawnpos + Vector(0,0,-100) end
+	local ally = ents.Create(type)
+	if ally:GetClass() == "npc_vj_hlr1_aliencontroller" then spawnpos = spawnpos + Vector(0,0,250) end -- Yete controller e, ere vor kichme partser dzaki
 	ally:SetPos(spawnpos)
 	ally:SetAngles(self:GetAngles())
 	ally:Spawn()
@@ -319,7 +308,7 @@ function ENT:Nih_SpawnAlly()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	/*if self.Nih_CrystalsDestroyed == false then dmginfo:SetDamage(0) return end
+	if self.Nih_CrystalsDestroyed == false then dmginfo:SetDamage(0) return end
 	
 	if self.Nih_BrainOpen == false then
 		local num = #self.Nih_Charges
@@ -331,20 +320,352 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 			dmginfo:SetDamage(0)
 			return
 		end
-	end*/
+	end
+	
+	if hitgroup != 2 then
+		dmginfo:ScaleDamage(0.4)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Nih_DoElecEffect_Blue(sp,hp,a)
+	local elec = EffectData()
+	elec:SetStart(sp)
+	elec:SetOrigin(hp)
+	elec:SetEntity(self)
+	elec:SetAttachment(self:LookupAttachment(a))
+	util.Effect("VJ_HLR_Electric_Nihilanth_Blue",elec)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Nih_DoElecEffect_Green(sp,hp)
+	local elec = EffectData()
+	elec:SetStart(sp)
+	elec:SetOrigin(hp)
+	elec:SetEntity(self)
+	elec:SetAttachment(self:LookupAttachment("0"))
+	util.Effect("VJ_HLR_Electric_Nihilanth_Green",elec)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+	util.ScreenShake(self:GetPos(), 16, 5, 16, 30000)
 	ParticleEffectAttach("vj_hlr_nihilanth_deathorbs", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("0")) -- Ganach louys ere
+	
+	local spr = ents.Create("env_sprite")
+	spr:SetKeyValue("model","vj_hl/sprites/fexplo1.vmt")
+	spr:SetKeyValue("rendercolor","100 255 0")
+	spr:SetKeyValue("GlowProxySize","2.0")
+	spr:SetKeyValue("HDRColorScale","1.0")
+	spr:SetKeyValue("renderfx","14")
+	spr:SetKeyValue("rendermode","5")
+	spr:SetKeyValue("renderamt","255")
+	spr:SetKeyValue("disablereceiveshadows","0")
+	spr:SetKeyValue("mindxlevel","0")
+	spr:SetKeyValue("maxdxlevel","0")
+	spr:SetKeyValue("framerate","15.0")
+	spr:SetKeyValue("spawnflags","0")
+	spr:SetKeyValue("scale","10")
+	spr:SetPos(self:GetAttachment(self:LookupAttachment("0")).Pos)
+	spr:Spawn()
+	spr:Fire("Kill","",0.9)
+	
+	local function DoBlueElectric()
+		-- Keloukhen ver --------------------------
+		local tr = util.TraceLine({
+			start = self:GetAttachment(self:LookupAttachment("0")).Pos,
+			endpos = self:GetPos() + self:GetRight()*math.Rand(10000,20000) + self:GetUp()*20000,
+			filter = self
+		})
+		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "0")
+		
+		local tr = util.TraceLine({
+			start = self:GetAttachment(self:LookupAttachment("0")).Pos,
+			endpos = self:GetPos() + self:GetRight()*-math.Rand(10000,20000) + self:GetUp()*20000,
+			filter = self
+		})
+		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "0")
+		
+		-- Poren var --------------------------
+		local tr = util.TraceLine({
+			start = self:GetAttachment(self:LookupAttachment("1")).Pos,
+			endpos = self:GetPos() + self:GetRight()*math.Rand(10000,20000) + self:GetUp()*-20000,
+			filter = self
+		})
+		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "1")
+		
+		local tr = util.TraceLine({
+			start = self:GetAttachment(self:LookupAttachment("1")).Pos,
+			endpos = self:GetPos() + self:GetRight()*-math.Rand(10000,20000) + self:GetUp()*-20000,
+			filter = self
+		})
+		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "1")
+		
+		-- Tsakh --------------------------
+		local tr = util.TraceLine({
+			start = self:GetAttachment(self:LookupAttachment("3")).Pos,
+			endpos = self:GetPos() + self:GetRight()*math.Rand(10000,20000) + self:GetUp()*20000,
+			filter = self
+		})
+		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "3")
+		
+		local tr = util.TraceLine({
+			start = self:GetAttachment(self:LookupAttachment("3")).Pos,
+			endpos = self:GetPos() + self:GetRight()*math.Rand(10000,20000) + self:GetUp()*-20000 + self:GetForward()*-math.Rand(20000,20000),
+			filter = self
+		})
+		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "3")
+		
+		local tr = util.TraceLine({
+			start = self:GetAttachment(self:LookupAttachment("3")).Pos,
+			endpos = self:GetPos() + self:GetRight()*math.Rand(10000,20000) + self:GetUp()*-20000 + self:GetForward()*math.Rand(20000,20000),
+			filter = self
+		})
+		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "3")
+		
+		local tr = util.TraceLine({
+			start = self:GetAttachment(self:LookupAttachment("3")).Pos,
+			endpos = self:GetPos() + self:GetRight()*math.Rand(100,20000) + self:GetUp()*20000 + self:GetForward()*math.Rand(-10000,10000),
+			filter = self
+		})
+		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "3")
+		
+		-- Ach --------------------------
+		local tr = util.TraceLine({
+			start = self:GetAttachment(self:LookupAttachment("2")).Pos,
+			endpos = self:GetPos() + self:GetRight()*-math.Rand(10000,20000) + self:GetUp()*20000,
+			filter = self
+		})
+		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "2")
+		
+		local tr = util.TraceLine({
+			start = self:GetAttachment(self:LookupAttachment("2")).Pos,
+			endpos = self:GetPos() + self:GetRight()*-math.Rand(10000,20000) + self:GetUp()*-20000 + self:GetForward()*-math.Rand(20000,20000),
+			filter = self
+		})
+		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "2")
+		
+		local tr = util.TraceLine({
+			start = self:GetAttachment(self:LookupAttachment("2")).Pos,
+			endpos = self:GetPos() + self:GetRight()*-math.Rand(10000,20000) + self:GetUp()*-200 + self:GetForward()*math.Rand(20000,20000),
+			filter = self
+		})
+		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "2")
+		
+		local tr = util.TraceLine({
+			start = self:GetAttachment(self:LookupAttachment("2")).Pos,
+			endpos = self:GetPos() + self:GetRight()*-math.Rand(100,20000) + self:GetUp()*20000 + self:GetForward()*math.Rand(-10000,10000),
+			filter = self
+		})
+		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "2")
+	end
+	DoBlueElectric()
+	for i = 0.5, 15.5, 0.5 do
+		timer.Simple(i, function()
+			if IsValid(self) then
+				DoBlueElectric()
+			end
+		end)
+	end
+	
+	local function DoGreenElectric()
+		-- Tsakh --------------------------
+		local tr = util.TraceLine({
+			start = self:GetAttachment(self:LookupAttachment("0")).Pos,
+			endpos = self:GetPos() + self:GetRight()*math.Rand(20000,20000) + self:GetUp()*-20000,
+			filter = self
+		})
+		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
+		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
+		
+		local tr = util.TraceLine({
+			start = self:GetAttachment(self:LookupAttachment("0")).Pos,
+			endpos = self:GetPos() + self:GetRight()*math.Rand(20000,20000) + self:GetUp()*-20000 + self:GetForward()*-math.Rand(20000,20000),
+			filter = self
+		})
+		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
+		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
+		
+		local tr = util.TraceLine({
+			start = self:GetAttachment(self:LookupAttachment("0")).Pos,
+			endpos = self:GetPos() + self:GetRight()*math.Rand(20000,20000) + self:GetUp()*-20000 + self:GetForward()*math.Rand(20000,20000),
+			filter = self
+		})
+		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
+		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
+		
+		local tr = util.TraceLine({
+			start = self:GetAttachment(self:LookupAttachment("0")).Pos,
+			endpos = self:GetPos() + self:GetRight()*math.Rand(100,20000) + self:GetUp()*20000 + self:GetForward()*math.Rand(-10000,10000),
+			filter = self
+		})
+		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
+		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
+		
+		-- Ach --------------------------
+		local tr = util.TraceLine({
+			start = self:GetAttachment(self:LookupAttachment("0")).Pos,
+			endpos = self:GetPos() + self:GetRight()*-math.Rand(20000,20000) + self:GetUp()*-20000,
+			filter = self
+		})
+		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
+		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
+		
+		local tr = util.TraceLine({
+			start = self:GetAttachment(self:LookupAttachment("0")).Pos,
+			endpos = self:GetPos() + self:GetRight()*-math.Rand(20000,20000) + self:GetUp()*-20000 + self:GetForward()*-math.Rand(20000,20000),
+			filter = self
+		})
+		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
+		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
+		
+		local tr = util.TraceLine({
+			start = self:GetAttachment(self:LookupAttachment("0")).Pos,
+			endpos = self:GetPos() + self:GetRight()*-math.Rand(20000,20000) + self:GetUp()*-200 + self:GetForward()*math.Rand(20000,20000),
+			filter = self
+		})
+		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
+		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
+		
+		local tr = util.TraceLine({
+			start = self:GetAttachment(self:LookupAttachment("0")).Pos,
+			endpos = self:GetPos() + self:GetRight()*-math.Rand(100,20000) + self:GetUp()*20000 + self:GetForward()*math.Rand(-10000,10000),
+			filter = self
+		})
+		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
+		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
+	end
+	
+	for i = 10, 16, 0.5 do
+		timer.Simple(i, function()
+			if IsValid(self) then
+				DoGreenElectric()
+				
+				local spr = ents.Create("env_sprite")
+				spr:SetKeyValue("model","vj_hl/sprites/fexplo1.vmt")
+				spr:SetKeyValue("rendercolor","100 255 0")
+				spr:SetKeyValue("GlowProxySize","2.0")
+				spr:SetKeyValue("HDRColorScale","1.0")
+				spr:SetKeyValue("renderfx","14")
+				spr:SetKeyValue("rendermode","5")
+				spr:SetKeyValue("renderamt","255")
+				spr:SetKeyValue("disablereceiveshadows","0")
+				spr:SetKeyValue("mindxlevel","0")
+				spr:SetKeyValue("maxdxlevel","0")
+				spr:SetKeyValue("framerate","15.0")
+				spr:SetKeyValue("spawnflags","0")
+				spr:SetKeyValue("scale","20")
+				spr:SetPos(self:GetAttachment(self:LookupAttachment("0")).Pos + self:GetRight() * math.random(-200,200) + self:GetForward() * math.random(-200,200))
+				spr:Spawn()
+				spr:Fire("Kill","",0.9)
+			end
+		end)
+	end
+	
+	timer.Simple(10, function()
+		if IsValid(self) then
+			local spr = ents.Create("env_sprite")
+			spr:SetKeyValue("model","vj_hl/sprites/fexplo1.vmt")
+			spr:SetKeyValue("rendercolor","100 255 0")
+			spr:SetKeyValue("GlowProxySize","2.0")
+			spr:SetKeyValue("HDRColorScale","1.0")
+			spr:SetKeyValue("renderfx","14")
+			spr:SetKeyValue("rendermode","5")
+			spr:SetKeyValue("renderamt","255")
+			spr:SetKeyValue("disablereceiveshadows","0")
+			spr:SetKeyValue("mindxlevel","0")
+			spr:SetKeyValue("maxdxlevel","0")
+			spr:SetKeyValue("framerate","15.0")
+			spr:SetKeyValue("spawnflags","0")
+			spr:SetKeyValue("scale","20")
+			spr:SetPos(self:GetAttachment(self:LookupAttachment("0")).Pos)
+			spr:Spawn()
+			spr:Fire("Kill","",0.9)
+		end
+	end)
+	
 	timer.Simple(14, function() -- Jermag louys ere
 		if IsValid(self) then
 			ParticleEffect("vj_hlr_nihilanth_deathorbs_white", self:GetAttachment(self:LookupAttachment("0")).Pos, self:GetAngles())
 			VJ_EmitSound(self, "vj_hlr/hl1_npc/x/nih_die2.wav", 120)
+			
+			timer.Simple(1, function()
+				if IsValid(self) then
+					local spr = ents.Create("env_sprite")
+					spr:SetKeyValue("model","vj_hl/sprites/fexplo1.vmt")
+					spr:SetKeyValue("rendercolor","100 255 0")
+					spr:SetKeyValue("GlowProxySize","2.0")
+					spr:SetKeyValue("HDRColorScale","1.0")
+					spr:SetKeyValue("renderfx","14")
+					spr:SetKeyValue("rendermode","5")
+					spr:SetKeyValue("renderamt","255")
+					spr:SetKeyValue("disablereceiveshadows","0")
+					spr:SetKeyValue("mindxlevel","0")
+					spr:SetKeyValue("maxdxlevel","0")
+					spr:SetKeyValue("framerate","15.0")
+					spr:SetKeyValue("spawnflags","0")
+					spr:SetKeyValue("scale","20")
+					spr:SetPos(self:GetAttachment(self:LookupAttachment("1")).Pos)
+					spr:Spawn()
+					spr:Fire("Kill","",0.9)
+				end
+			end)
+			
+			timer.Simple(1.5, function()
+				if IsValid(self) then
+					local spr = ents.Create("env_sprite")
+					spr:SetKeyValue("model","vj_hl/sprites/fexplo1.vmt")
+					spr:SetKeyValue("rendercolor","100 255 0")
+					spr:SetKeyValue("GlowProxySize","2.0")
+					spr:SetKeyValue("HDRColorScale","1.0")
+					spr:SetKeyValue("renderfx","14")
+					spr:SetKeyValue("rendermode","5")
+					spr:SetKeyValue("renderamt","255")
+					spr:SetKeyValue("disablereceiveshadows","0")
+					spr:SetKeyValue("mindxlevel","0")
+					spr:SetKeyValue("maxdxlevel","0")
+					spr:SetKeyValue("framerate","15.0")
+					spr:SetKeyValue("spawnflags","0")
+					spr:SetKeyValue("scale","20")
+					spr:SetPos(self:GetAttachment(self:LookupAttachment("1")).Pos + self:GetUp() * 100 + self:GetRight() * 300)
+					spr:Spawn()
+					spr:Fire("Kill","",0.9)
+					
+					local spr = ents.Create("env_sprite")
+					spr:SetKeyValue("model","vj_hl/sprites/fexplo1.vmt")
+					spr:SetKeyValue("rendercolor","100 255 0")
+					spr:SetKeyValue("GlowProxySize","2.0")
+					spr:SetKeyValue("HDRColorScale","1.0")
+					spr:SetKeyValue("renderfx","14")
+					spr:SetKeyValue("rendermode","5")
+					spr:SetKeyValue("renderamt","255")
+					spr:SetKeyValue("disablereceiveshadows","0")
+					spr:SetKeyValue("mindxlevel","0")
+					spr:SetKeyValue("maxdxlevel","0")
+					spr:SetKeyValue("framerate","15.0")
+					spr:SetKeyValue("spawnflags","0")
+					spr:SetKeyValue("scale","20")
+					spr:SetPos(self:GetAttachment(self:LookupAttachment("1")).Pos + self:GetUp() * 100 + self:GetRight() * -300)
+					spr:Spawn()
+					spr:Fire("Kill","",0.9)
+				end
+			end)
 		end
 	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
+	RunConsoleCommand("sv_gravity", self.Nih_OriginalGravity)
+	
 	if IsValid(self.Nih_Crystal1) then self.Nih_Crystal1:Remove() end
 	if IsValid(self.Nih_Crystal2) then self.Nih_Crystal2:Remove() end
 	if IsValid(self.Nih_Crystal3) then self.Nih_Crystal3:Remove() end
