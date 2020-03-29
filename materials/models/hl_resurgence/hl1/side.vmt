@@ -2,6 +2,14 @@
 {
 	"$basetexture" "models/hl_resurgence/hl1/side"
 
+	$emissiveBlendEnabled 1
+	$emissiveBlendTexture    "models/hl_resurgence/hl1/side"
+	$emissiveBlendBaseTexture    "models/hl_resurgence/hl1/side"
+	$emissiveBlendFlowTexture    "models/hl_resurgence/hl1/side"
+	$emissiveBlendTint "[1 1 1]"
+	$emissiveBlendStrength 0.4
+	$emissiveBlendScrollVector "[1.25 0]"
+
 	"$selfillum" 1
 	$selfillummask "models/hl_resurgence/hl1/side"
 
