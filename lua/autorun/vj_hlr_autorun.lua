@@ -14,9 +14,10 @@ local AutorunFile = "autorun/vj_hlr_autorun.lua"
 local VJExists = file.Exists("lua/autorun/vj_base_autorun.lua","GAME")
 if VJExists == true then
 	include('autorun/vj_controls.lua')
-
+	
 	-- Gold Source Engine -------------------------------------------------------
 	local vCat = "Half-Life Resurgence: HL1"
+	VJ.AddCategoryInfo(vCat, {Icon = "icon16/gun.png"})
 		-- HECU
 		VJ.AddNPC("Human Grunt","npc_vj_hlr1_hgrunt",vCat)
 		VJ.AddNPC("Human Sergeant","npc_vj_hlr1_hgrunt_serg",vCat)

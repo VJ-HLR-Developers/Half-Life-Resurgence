@@ -92,10 +92,11 @@ function ENT:CustomOnInitialize()
 	
 	self:SetPos(self:GetPos() + self:GetUp() * 1000)
 	
+	-- Crystals
 	for i = 1, 3 do
 		local tr = util.TraceLine({
 			start = self:GetPos(),
-			endpos = self:GetPos() + self:GetForward() * math.Rand(-10000, 10000) + self:GetRight() * math.Rand(-10000, 10000) + self:GetUp() * -3000, //math.Rand(-10000, 10000),
+			endpos = self:GetPos() + self:GetForward() * math.Rand(-10000, 10000) + self:GetRight() * math.Rand(-10000, 10000) + self:GetUp() * -3000,
 			filter = self,
 		})
 		-- HitNormal = Number between 0 to 1, use this to get the position the trace came from. Ex: Add it to the hit position to make it go farther away.
@@ -115,8 +116,8 @@ function ENT:CustomOnInitialize()
 		end
 	end
 	
+	-- Charges
 	self.Nih_Charges = {}
-	
 	local function MakeChargeOrb(pos)
 		local charge = ents.Create("sent_vj_hlr1_orb_crystal_charge")
 		charge:SetAngles(self:GetAngles())
@@ -124,11 +125,10 @@ function ENT:CustomOnInitialize()
 		charge.Assignee = self
 		charge:Spawn()
 		charge:Activate()
-		charge:SetParent(self)
+		//charge:SetParent(self)
 		self:DeleteOnRemove(charge)
 		self.Nih_Charges[#self.Nih_Charges+1] = charge
 	end
-	
 	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(400,330))
 	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(-220,-450))
 	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(20,-450))
@@ -191,12 +191,12 @@ function ENT:CustomOnThink()
 	
 	local num = #self.Nih_Charges
 	if num > 0 then
-		for k, v in ipairs(self.Nih_Charges) do
+		/*for k, v in ipairs(self.Nih_Charges) do
 			local test = v:GetAngles()
 			test:Add(Angle(5,5,5))
 			test:Normalize()
 			v:SetAngles(test)
-		end
+		end*/
 	else
 		self.Nih_BrainOpen = true
 		self.AnimTbl_IdleStand = {ACT_IDLE_HURT}
@@ -302,6 +302,9 @@ function ENT:Nih_SpawnAlly()
 		return 15
 	elseif !IsValid(self.Nih_Ally4) then
 		self.Nih_Ally4 = self:Nih_CreateAlly()
+		return 15
+	elseif !IsValid(self.Nih_Ally5) then
+		self.Nih_Ally5 = self:Nih_CreateAlly()
 		return 15
 	end
 	return 8
@@ -669,6 +672,14 @@ function ENT:CustomOnRemove()
 	if IsValid(self.Nih_Crystal1) then self.Nih_Crystal1:Remove() end
 	if IsValid(self.Nih_Crystal2) then self.Nih_Crystal2:Remove() end
 	if IsValid(self.Nih_Crystal3) then self.Nih_Crystal3:Remove() end
+	
+	if self.Dead == false then
+		if IsValid(self.Nih_Ally1) then self.Nih_Ally1:Remove() end
+		if IsValid(self.Nih_Ally2) then self.Nih_Ally2:Remove() end
+		if IsValid(self.Nih_Ally3) then self.Nih_Ally3:Remove() end
+		if IsValid(self.Nih_Ally4) then self.Nih_Ally4:Remove() end
+		if IsValid(self.Nih_Ally5) then self.Nih_Ally5:Remove() end
+	end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***

@@ -37,7 +37,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function EFFECT:Render()
 	render.SetMaterial(self.MainMat)
-	render.DrawBeam(self.StartPos, self.EndPos, math.Rand(18,24), math.Rand(0,1), math.Rand(0,1) + ((self.StartPos - self.EndPos):Length() / 128), Color(255,127,223,(50 / ((self.DieTime - 0.5) - CurTime()))))
+	render.DrawBeam(self.StartPos, self.EndPos, math.Rand(18,24), math.Rand(0,1), math.Rand(0,1) + ((self.StartPos - self.EndPos):Length() / 128), Color(138,43,226,(50 / ((self.DieTime - 0.5) - CurTime()))))
 end
 /*--------------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***

@@ -1,3 +1,8 @@
+/*--------------------------------------------------
+	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
+	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
+--------------------------------------------------*/
 ENT.Base 			= "base_entity"
 ENT.Type 			= "ai"
 ENT.PrintName 		= "Xen Crystal"
@@ -82,3 +87,8 @@ end
 function ENT:OnRemove()
 	VJ_STOPSOUND(self.IdleSd)
 end
+/*--------------------------------------------------
+	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
+	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
+--------------------------------------------------*/

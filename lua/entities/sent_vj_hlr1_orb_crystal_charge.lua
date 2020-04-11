@@ -25,8 +25,6 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !(SERVER) then return end
 
-ENT.Model = {"models/spitball_large.mdl"} -- The models it should spawn with | Picks a random one from the table
-
 -- Custom
 ENT.EO_Enemy = NULL
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -57,9 +55,17 @@ function ENT:CustomOnInitialize()
 	self:DeleteOnRemove(self.StartGlow1)
 end
 ENT.TestPos = 0
+ENT.Tank_TurningLerp = nil
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Think()
-	if self.TestPos == 0 then
+	if self.Tank_TurningLerp == nil then self.Tank_TurningLerp = self.StartGlow1:GetAngles() end
+	self.Tank_TurningLerp = LerpAngle(1, self.Tank_TurningLerp, self.Tank_TurningLerp + Angle(1, 0, 0))
+	if self.Tank_TurningLerp.p >= 87.9 then print("test") self.Tank_TurningLerp = -self.Tank_TurningLerp end
+	//print(self.Tank_TurningLerp)
+	self:SetAngles(self.Tank_TurningLerp)
+	//self:SetAngles()
+	
+	/*if self.TestPos == 0 then
 		self:SetPos(self:GetPos() + self:GetForward() * 5 + self:GetRight() * 5)
 		self.TestPos = 1
 	elseif self.TestPos == 1 then
@@ -71,7 +77,8 @@ function ENT:Think()
 	elseif self.TestPos == 3 then
 		self:SetPos(self:GetPos() + self:GetForward() * 5 + self:GetRight() * 5)
 		self.TestPos = 0
-	end
+	end*/
+	
 	if IsValid(self.EO_Enemy) then -- Homing Behavior
 		local phys = self:GetPhysicsObject()
 		if (phys:IsValid()) then
