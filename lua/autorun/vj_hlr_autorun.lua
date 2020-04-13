@@ -17,7 +17,8 @@ if VJExists == true then
 	
 	-- Gold Source Engine -------------------------------------------------------
 	local vCat = "Half-Life Resurgence: HL1"
-	VJ.AddCategoryInfo(vCat, {Icon = "icon16/gun.png"})
+	VJ.AddCategoryInfo(vCat, {Icon = "vj_hl/icons/hl1.png"})
+		
 		-- HECU
 		VJ.AddNPC("Human Grunt","npc_vj_hlr1_hgrunt",vCat)
 		VJ.AddNPC("Human Sergeant","npc_vj_hlr1_hgrunt_serg",vCat)
