@@ -22,54 +22,54 @@ if (CLIENT) then
 	language.Add("#"..LangName, Name)
 	killicon.Add("#"..LangName,"HUD/killicons/default",Color(255,80,0,255))
 	
-	ENT.NextEffectBlendT = 0
-	ENT.EffectBlend = 1
-	function ENT:Initialize()
-		local ENTInd = self:EntIndex()
-		local Ent = self
-		hook.Add("RenderScreenspaceEffects","VJ_HLR_Effects" .. ENTInd,function()
-			if !IsValid(Ent) then
-				hook.Remove("RenderScreenspaceEffects","VJ_HLR_Effects" .. ENTInd)
-				return
-			end
-			local EffectTime = 3
-			local EffectDeathDelay = CurTime() +EffectTime
-			local EffectOverlay = Material("vj_hl/renderfx/render_blue")
-			local Target = Ent:GetNWEntity("GlowEntity")
-			local EffectBlendAdd = 0.05
-			-- print(Ent,EffectTime,Target)
-			if !IsValid(Target) then return end
-			cam.Start3D(EyePos(),EyeAngles())
-				if util.IsValidModel(Target:GetModel()) then
-					render.SetBlend(Ent.EffectBlend)
-					render.MaterialOverride(EffectOverlay)
-					Target:DrawModel()
-					render.MaterialOverride(0)
-					render.SetBlend(1)
-				end
-			cam.End3D()
-			cam.Start3D(EyePos(),EyeAngles(),70)
-				if Target:IsPlayer() && Target:GetViewModel() != nil && IsValid(Target:GetViewModel()) then
-					if util.IsValidModel(Target:GetViewModel():GetModel()) then
-						render.SetBlend(Ent.EffectBlend)
-						render.MaterialOverride(EffectOverlay)
-						Target:GetViewModel():DrawModel()
-						render.MaterialOverride(0)
-						render.SetBlend(1)
-					end
-				end
-			cam.End3D()
-			if CurTime() >= Ent.NextEffectBlendT then
-				Ent.NextEffectBlendT = CurTime() +0.05
-				if Ent.EffectBlend > 0 then
-					if CurTime() >= EffectDeathDelay then
-						EffectBlendAdd = EffectBlendAdd +math.Clamp(((CurTime() -EffectDeathDelay) /100), 0, 0.05)
-					end
-					Ent.EffectBlend = Ent.EffectBlend -(EffectTime /(EffectTime ^2)) *EffectBlendAdd
-				end
-			end
-		end)
-	end
+	-- net.Receive("vj_hlr_svencoop_glow",function(len,pl)
+		-- local Ent = net.ReadEntity()
+		-- local Target = net.ReadEntity()
+		-- local ENTInd = Target:EntIndex()
+		
+		-- Target.VJ_HLR_NextEffectBlendT = 0
+		-- Target.VJ_HLR_EffectBlend = 1
+
+		-- hook.Add("RenderScreenspaceEffects","VJ_HLR_Effects" .. ENTInd,function()
+			-- if !IsValid(Target) then
+				-- hook.Remove("RenderScreenspaceEffects","VJ_HLR_Effects" .. ENTInd)
+				-- return
+			-- end
+			-- local EffectTime = 5
+			-- local EffectDeathDelay = CurTime() +EffectTime
+			-- local EffectBlendAdd = 0.05
+			-- if !IsValid(Target) then return end
+			-- cam.Start3D(EyePos(),EyeAngles())
+				-- if util.IsValidModel(Target:GetModel()) then
+					-- render.SetBlend(Target.VJ_HLR_EffectBlend)
+					-- render.MaterialOverride(Material("vj_hl/renderfx/render_blue"))
+					-- Target:DrawModel()
+					-- render.MaterialOverride(0)
+					-- render.SetBlend(1)
+				-- end
+			-- cam.End3D()
+			-- cam.Start3D(EyePos(),EyeAngles(),70)
+				-- if Target:IsPlayer() && IsValid(Target:GetViewModel()) then
+					-- if util.IsValidModel(Target:GetViewModel():GetModel()) then
+						-- render.SetBlend(Target.VJ_HLR_EffectBlend)
+						-- render.MaterialOverride(Material("vj_hl/renderfx/render_blue"))
+						-- Target:GetViewModel():DrawModel()
+						-- render.MaterialOverride(0)
+						-- render.SetBlend(1)
+					-- end
+				-- end
+			-- cam.End3D()
+			-- if CurTime() >= Target.VJ_HLR_NextEffectBlendT then
+				-- Target.VJ_HLR_NextEffectBlendT = CurTime() +0.05
+				-- if Target.VJ_HLR_EffectBlend > 0 then
+					-- if CurTime() >= EffectDeathDelay then
+						-- EffectBlendAdd = EffectBlendAdd +math.Clamp(((CurTime() -EffectDeathDelay) /100),0,0.05)
+					-- end
+					-- Target.VJ_HLR_EffectBlend = Target.VJ_HLR_EffectBlend -(EffectTime /(EffectTime ^2)) *EffectBlendAdd
+				-- end
+			-- end
+		-- end)
+	-- end)
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !(SERVER) then return end
@@ -80,6 +80,8 @@ ENT.DirectDamage = 10 -- How much damage should it do when it hits something
 ENT.DirectDamageType = DMG_SHOCK -- Damage type
 ENT.DecalTbl_DeathDecals = {"VJ_HLR_Scorch_Small"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro5.wav","vj_hlr/hl1_weapon/gauss/electro6.wav"}
+
+util.AddNetworkString("vj_hlr_svencoop_glow")
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetNoDraw(true)
@@ -97,14 +99,12 @@ function ENT:CustomOnInitialize()
 	self:DeleteOnRemove(self.StartLight1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetHitEnt(ent)
-	self:SetNWEntity("GlowEntity",ent)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoDamage(data,phys,hitent)
-	if IsValid(data.HitEntity) then
-		self:SetHitEnt(data.HitEntity)
-	end
+	-- local ply = player.GetAll()[1]
+    -- net.Start("vj_hlr_svencoop_glow")
+		-- net.WriteEntity(self)
+		-- net.WriteEntity(hitent)
+    -- net.Send(ply)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects(data,phys)

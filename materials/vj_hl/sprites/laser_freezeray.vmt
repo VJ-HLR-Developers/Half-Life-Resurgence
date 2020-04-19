@@ -1,0 +1,6 @@
+"UnLitGeneric"
+{
+	"$basetexture" "vj_hl/sprites/laser_freezeray"
+	"$translucent" 1
+	$selfillum 1
+}
