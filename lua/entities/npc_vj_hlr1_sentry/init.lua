@@ -174,7 +174,7 @@ function ENT:CustomRangeAttackCode()
 	bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()) - self:GetAttachment(self:LookupAttachment(self.Sentry_MuzzleAttach)).Pos
 	bullet.Spread = 0.001
 	bullet.Tracer = 1
-	bullet.TracerName = "Tracer"
+	bullet.TracerName = "VJ_HLR_Tracer"
 	bullet.Force = 5
 	if self.Sentry_Type == 1 then
 		bullet.Damage = 7
