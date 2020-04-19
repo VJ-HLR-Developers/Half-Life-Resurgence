@@ -22,6 +22,7 @@ SWEP.AdminSpawnable				= false
 SWEP.Primary.Damage				= 5 -- Damage
 SWEP.Primary.ClipSize			= 50 -- Max amount of bullets per clip
 SWEP.Primary.Ammo				= "SMG1" -- Ammo type
+SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 
 -- Custom
 SWEP.HGrunt_LastBodyGroup = 999

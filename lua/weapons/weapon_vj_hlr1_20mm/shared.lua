@@ -29,6 +29,7 @@ SWEP.Primary.ClipSize			= 50 -- Max amount of bullets per clip
 SWEP.Primary.Ammo				= "AR2" -- Ammo type
 SWEP.Primary.Sound				= {"vj_hlr/hl1_npc/hassault/hw_shoot1.wav","vj_hlr/hl1_npc/hassault/hw_shoot2.wav","vj_hlr/hl1_npc/hassault/hw_shoot3.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/hl1_npc/hassault/hw_shoot_distant.wav"}
+SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 
 -- Custom
 SWEP.HLR_ValidModels = {"models/vj_hlr/hl1/hassault.mdl","models/vj_hlr/hl_hd/hassault.mdl"}

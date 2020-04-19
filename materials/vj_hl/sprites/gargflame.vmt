@@ -1,15 +1,14 @@
-"Sprite"
+"UnlitGeneric"
 {
-	"$spriteorientation" "oriented"
-	"$spriteorigin" "[ 0.50 0.50 ]"
 	"$basetexture" "vj_hl/sprites/xbeam3"
+	"$translucent" 1
 	"Proxies"
     {
         "TextureScroll"
         {
             "texturescrollvar" "$basetexturetransform"
-            "texturescrollrate" 20
-            "texturescrollangle" 180.0
+            "texturescrollrate" 0.1
+            "texturescrollangle" 90
         }
     }
 }

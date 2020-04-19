@@ -31,6 +31,7 @@ SWEP.Primary.ClipSize			= 50 -- Max amount of bullets per clip
 SWEP.Primary.Ammo				= "SMG1" -- Ammo type
 SWEP.Primary.Sound				= {"vj_hlr/hla_npc/hgrunt/gr_mgun1.wav","vj_hlr/hla_npc/hgrunt/gr_mgun2.wav","vj_hlr/hla_npc/hgrunt/gr_mgun3.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/hla_npc/hgrunt/gr_mgun_distant.wav"}
+SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 
 -- Custom
 SWEP.HLR_ValidModels = {"models/vj_hlr/hla/hgrunt.mdl"}

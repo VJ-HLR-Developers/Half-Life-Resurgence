@@ -30,6 +30,7 @@ SWEP.Primary.Ammo = "SMG1" -- Ammo type
 SWEP.Primary.Sound = {"vj_hlr/hl1_weapon/glock/glock_silenced1.wav","vj_hlr/hl1_weapon/glock/glock_silenced2.wav"}
 SWEP.Primary.DistantSound = {"vj_hlr/hl1_weapon/glock/glock_silenced_distant.wav"}
 SWEP.PrimaryEffects_ShellType = "VJ_Weapon_PistolShell1"
+SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 
 -- Custom
 SWEP.HLR_ValidModels = {"models/vj_hlr/hl1/hassassin.mdl"}
