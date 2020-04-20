@@ -83,7 +83,7 @@ function EFFECT:Render()
 	render.DrawBeam(
 		self.EndPos - self.Dir * (fDelta - sinWave * self.Length),
 		self.EndPos - self.Dir * (fDelta + sinWave * self.Length),
-		5 + sinWave * 10, 1, 0, Color(255, 255, 255, 25)
+		1 + sinWave * 3, 1, 0, Color(255, 255, 255, 25)
 		-- 5 + sinWave * 10, 1, 0, Color(255, 223, 137, 25)
 	)
 end
