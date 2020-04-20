@@ -208,14 +208,14 @@ function ENT:CustomOnAlert(argent)
 	if math.random(1,2) == 1 then
 		if self.Security_Type == 0 then
 			if argent:GetClass() == "npc_vj_hlr1_bullsquid" then
-				self:AlertSoundCode({"vj_hlr/hl1_npc/barney/c1a4_ba_octo1.wav"})
+				self:PlaySound("Alert", {"vj_hlr/hl1_npc/barney/c1a4_ba_octo1.wav"})
 				self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert1,self.NextSoundTime_Alert2)
 			elseif argent.IsVJBaseSNPC_Creature == true then
-				self:AlertSoundCode({"vj_hlr/hl1_npc/barney/diebloodsucker.wav"})
+				self:PlaySound("Alert", {"vj_hlr/hl1_npc/barney/diebloodsucker.wav"})
 				self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert1,self.NextSoundTime_Alert2)
 			end
 		elseif self.Security_Type == 1 && argent.IsVJBaseSNPC_Creature == true then
-			self:AlertSoundCode({"vj_hlr/hl1_npc/otis/aliens.wav"})
+			self:PlaySound("Alert", {"vj_hlr/hl1_npc/otis/aliens.wav"})
 			self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert1,self.NextSoundTime_Alert2)
 		end
 	end
@@ -282,6 +282,12 @@ end
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
 	VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
 	return false
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
+	self:DropWeaponOnDeathCode(dmginfo, hitgroup)
+	self:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
+	if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)

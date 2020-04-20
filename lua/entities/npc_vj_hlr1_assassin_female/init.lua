@@ -244,6 +244,12 @@ function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
+	self:DropWeaponOnDeathCode(dmginfo, hitgroup)
+	self:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
+	if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 	self:SetBodygroup(1,1)
 end

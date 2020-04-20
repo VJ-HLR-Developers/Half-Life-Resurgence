@@ -449,6 +449,12 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
+	self:DropWeaponOnDeathCode(dmginfo, hitgroup)
+	self:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
+	if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 	if self.HECU_Type == 6 or self.HECU_Type == 7 then
 		self:SetBodygroup(self.HECU_WepBG,1)
