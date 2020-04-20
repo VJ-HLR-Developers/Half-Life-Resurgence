@@ -94,7 +94,7 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 	
 	if self.Dead == false && self.Snark_Explodes == true && CurTime() > self.Snark_EnergyTime then
-		self:DeathSoundCode()
+		self:PlaySound("Death")
 		self.Dead = true
 		self:SetGroundEntity(NULL)
 		self:SetLocalVelocity(self:GetUp()*300)
