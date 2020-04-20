@@ -31,9 +31,7 @@ ENT.AnimTbl_ShootWhileMovingRun = {ACT_RUN} -- Animations it will play when shoo
 ENT.AnimTbl_ShootWhileMovingWalk = {ACT_WALK} -- Animations it will play when shooting while walking | NOTE: Weapon may translate the animation that they see fit!
 ENT.HasLostWeaponSightAnimation = true -- Set to true if you would like the SNPC to play a different animation when it has lost sight of the enemy and can't fire at it
 ENT.AnimTbl_LostWeaponSight = {ACT_COMBAT_IDLE} -- The animations that it will play if the variable above is set to true
-	-- ====== Flinching Code ====== --
---ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
---ENT.AnimTbl_Flinch = {ACT_FLINCH_PHYSICS} -- If it uses normal based animation, use this
+ENT.AllowWeaponReloading = false -- If false, the SNPC will no longer reload
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
@@ -57,12 +55,12 @@ ENT.SoundTbl_Death = {"vj_hlr/hla_npc/doctor/pl_pain2.wav","vj_hlr/hla_npc/docto
 ENT.Controller_FirstPersonBone = "unnamed021"
 ENT.Controller_FirstPersonOffset = Vector(0,0,5)
 ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+
+-- Custom
+ENT.Ivan_LastBodyGroup = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	--self:SetCollisionBounds(Vector(20,20,35),Vector(-20,-20,-36))
-	self:SetPos(self:GetPos() +self:GetUp() *70)
-	self:SetSkin(math.random(0,3))
-	self:Give("weapon_vj_hlr1a_ivanglock")
+	self:SetSkin(math.random(0, 3))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -80,13 +78,23 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
-	--self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
-	self.Weapon_StartingAmmoAmount = 9999
+	local bgroup = self:GetBodygroup(0)
+	if self.Ivan_LastBodyGroup != bgroup then
+		self.Ivan_LastBodyGroup = bgroup
+		if bgroup == 0 then
+			self:DoChangeWeapon("weapon_vj_hlr1a_ivanglock")
+			self.Weapon_StartingAmmoAmount = 17
+		elseif bgroup == 1 then
+			self.Ivan_LastBodyGroup = 1
+			if IsValid(self:GetActiveWeapon()) then
+				self:GetActiveWeapon():Remove()
+			end
+		end
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
-	self:SetBodygroup(0,1)
+	self:SetBodygroup(0, 1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
@@ -123,6 +131,16 @@ end
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
 	VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
 	return false
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
+	self:DropWeaponOnDeathCode(dmginfo, hitgroup)
+	if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDropWeapon_AfterWeaponSpawned(dmginfo,hitgroup,GetWeapon)
+	GetWeapon.WorldModel_Invisible = false
+	GetWeapon:SetNWBool("VJ_WorldModel_Invisible",false)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***

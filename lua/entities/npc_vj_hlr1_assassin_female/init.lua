@@ -99,6 +99,7 @@ function ENT:CustomOnThink()
 		self:VJ_ACT_PLAYACTIVITY(ACT_LAND,true,false,false)
 		//VJ_EmitSound(self,"vj_hlr/hl1_npc/player/pl_jumpland2.wav",80)
 	end
+	
 	local bgroup = self:GetBodygroup(1)
 	if self.BOA_LastBodyGroup != bgroup then
 		self.BOA_LastBodyGroup = bgroup
@@ -112,6 +113,7 @@ function ENT:CustomOnThink()
 			end
 		end
 	end
+	
 	if IsValid(self:GetEnemy()) && self.DoingWeaponAttack_Standing == true && self.VJ_IsBeingControlled == false && CurTime() > self.BOA_NextJumpT && !self:IsMoving() && self:GetPos():Distance(self:GetEnemy():GetPos()) < 1400 then
 		self:StopMoving()
 		self:SetGroundEntity(NULL)

@@ -97,7 +97,6 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
-		self:WorldShakeOnMoveCode()
 	end
 	if key == "melee" then
 		self:MeleeAttackCode()

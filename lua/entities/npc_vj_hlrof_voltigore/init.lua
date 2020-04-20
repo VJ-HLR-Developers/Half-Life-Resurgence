@@ -61,7 +61,6 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
-		self:WorldShakeOnMoveCode()
 	end
 	if key == "grunting_sounds" then
 		self:FootStepSoundCode({"vj_hlr/hl1_npc/voltigore/voltigore_run_grunt1.wav","vj_hlr/hl1_npc/voltigore/voltigore_run_grunt2.wav"})
