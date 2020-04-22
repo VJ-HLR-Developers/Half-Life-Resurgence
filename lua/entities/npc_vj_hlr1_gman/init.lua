@@ -56,6 +56,14 @@ function ENT:CustomOnIdleDialogue(argent, CanAnswer)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo,hitgroup) -- Fuck mane
+	local rico = EffectData()
+	rico:SetOrigin(dmginfo:GetDamagePosition())
+	rico:SetScale(5) -- Size
+	rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
+	util.Effect("VJ_HLR_Rico",rico)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	if CurTime() < self.GMAN_NextMouthMove then
 		if self.GMAN_NextMouthDistance == 0 then

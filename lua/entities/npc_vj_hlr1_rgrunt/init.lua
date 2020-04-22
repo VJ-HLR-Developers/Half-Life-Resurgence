@@ -72,6 +72,14 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 	ParticleEffect("explosion_turret_break_sparks", self:GetAttachment(self:LookupAttachment("head")).Pos, Angle(0,0,0), self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo,hitgroup)
+	local rico = EffectData()
+	rico:SetOrigin(dmginfo:GetDamagePosition())
+	rico:SetScale(4) -- Size
+	rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
+	util.Effect("VJ_HLR_Rico",rico)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
 	ParticleEffectAttach("smoke_exhaust_01a",PATTACH_POINT_FOLLOW,GetCorpse,5)
 end

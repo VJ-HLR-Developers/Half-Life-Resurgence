@@ -112,6 +112,14 @@ function ENT:Tank_CustomOnThink()
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo,hitgroup)
+	local rico = EffectData()
+	rico:SetOrigin(dmginfo:GetDamagePosition())
+	rico:SetScale(5) -- Size
+	rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
+	util.Effect("VJ_HLR_Rico",rico)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetNearDeathSparkPositions()
 	local randpos = math.random(1,5)
 	if randpos == 1 then

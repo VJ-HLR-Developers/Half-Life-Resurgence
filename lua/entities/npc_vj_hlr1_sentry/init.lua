@@ -142,6 +142,14 @@ function ENT:CustomOnResetEnemy()
 	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+	local rico = EffectData()
+	rico:SetOrigin(dmginfo:GetDamagePosition())
+	rico:SetScale(4) -- Size
+	rico:SetMagnitude(2) -- Effect type | 1 = Animated | 2 = Basic
+	util.Effect("VJ_HLR_Rico",rico)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert()
 	if self.Sentry_Type == 1 then -- If it's ceiling turret, then make sure it's not looking until it has fully deployed
 		self.HasPoseParameterLooking = false
