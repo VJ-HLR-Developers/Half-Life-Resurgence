@@ -135,7 +135,7 @@ function ENT:Gonarch_BabyDeath()
 	self.Gonarch_NumBabies = self.Gonarch_NumBabies - 1
 	if CurTime() > self.Gonarch_NextDeadBirthT then
 		self.AllyDeathSoundT = 0
-		self:PlaySound("AllyDeath", {"vj_hlr/hl1_npc/gonarch/gon_childdie1.wav", "vj_hlr/hl1_npc/gonarch/gon_childdie2.wav", "vj_hlr/hl1_npc/gonarch/gon_childdie3.wav"})
+		self:PlaySoundSystem("AllyDeath", {"vj_hlr/hl1_npc/gonarch/gon_childdie1.wav", "vj_hlr/hl1_npc/gonarch/gon_childdie2.wav", "vj_hlr/hl1_npc/gonarch/gon_childdie3.wav"})
 		self.Gonarch_NextDeadBirthT = CurTime() + 10
 	end
 end
