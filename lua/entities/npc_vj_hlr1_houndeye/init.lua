@@ -88,12 +88,9 @@ function ENT:CustomOnAlert(argent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_BeforeChecks()
-	local blast = ents.Create("prop_combine_ball")
-	blast:SetPos(self:GetPos())
-	blast:SetParent(self)
-	blast:Spawn()
-	blast:Fire("explode","",0)
-	//blast:Fire("disablepuntsound","1")
+	-- flags 0 = No fade!
+	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 400, 16, 0, Color(188,220,255), {material="vj_hl/sprites/shockwave", framerate=20, flags=0})
+	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 200, 16, 0, Color(188,220,255), {material="vj_hl/sprites/shockwave", framerate=20, flags=0})
 	
 	if self.HasSounds == true && GetConVarNumber("vj_npc_sd_meleeattack") == 0 then
 		VJ_EmitSound(self,{"vj_hlr/hl1_npc/houndeye/he_blast1.wav","vj_hlr/hl1_npc/houndeye/he_blast2.wav","vj_hlr/hl1_npc/houndeye/he_blast3.wav"},100,math.random(80,100))
