@@ -2,5 +2,5 @@
 {
 	"$spriteorientation" "vp_parallel_oriented"
 	"$spriteorigin" "[ 0.50 0.50 ]"
-	"$basetexture" "vj_hl/sprites/shockwave"
+	"$basetexture" "vj_hl/sprites/shockwave_test"
 }
