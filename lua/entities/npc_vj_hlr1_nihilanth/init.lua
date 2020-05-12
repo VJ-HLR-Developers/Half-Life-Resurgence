@@ -60,7 +60,6 @@ ENT.DeathSoundLevel = 120
 -- Custom
 ENT.Nih_TeleportingOrb = false
 ENT.Nih_NextSpawn = 0 -- Max 4
-ENT.Nih_NumAllies = 0
 ENT.Nih_CrystalsDestroyed = false
 ENT.Nih_BrainOpen = false
 ENT.Nih_DidBrainOpenAnim = false
@@ -68,9 +67,9 @@ ENT.Nih_LerpAngleDeath = nil
 ENT.Nih_OriginalGravity = 600
 
 /*
-vj_hl/sprites/flare6.vmt    right before nihilanth disappears on death he releases these bubbles
-vj_hl/sprites/nhth1.vmt     purple electric projectiles
-vj_hl/sprites/muzzleflash3.vmt       orb ring around his head that displays his health sorta
+vj_hl/sprites/flare6.vmt    	right before nihilanth disappears on death he releases these bubbles
+vj_hl/sprites/nhth1.vmt     	purple electric projectiles
+vj_hl/sprites/muzzleflash3.vmt	orb ring around his head that displays his health sorta
 */
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
@@ -352,23 +351,23 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	util.ScreenShake(self:GetPos(), 16, 5, 16, 30000)
 	ParticleEffectAttach("vj_hlr_nihilanth_deathorbs", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("0")) -- Ganach louys ere
 	
-	local spr = ents.Create("env_sprite")
-	spr:SetKeyValue("model","vj_hl/sprites/fexplo1.vmt")
-	spr:SetKeyValue("rendercolor","100 255 0")
-	spr:SetKeyValue("GlowProxySize","2.0")
-	spr:SetKeyValue("HDRColorScale","1.0")
-	spr:SetKeyValue("renderfx","14")
-	spr:SetKeyValue("rendermode","5")
-	spr:SetKeyValue("renderamt","255")
-	spr:SetKeyValue("disablereceiveshadows","0")
-	spr:SetKeyValue("mindxlevel","0")
-	spr:SetKeyValue("maxdxlevel","0")
-	spr:SetKeyValue("framerate","15.0")
-	spr:SetKeyValue("spawnflags","0")
-	spr:SetKeyValue("scale","10")
-	spr:SetPos(self:GetAttachment(self:LookupAttachment("0")).Pos)
-	spr:Spawn()
-	spr:Fire("Kill","",0.9)
+	local spr1 = ents.Create("env_sprite")
+	spr1:SetKeyValue("model","vj_hl/sprites/fexplo1.vmt")
+	spr1:SetKeyValue("rendercolor","100 255 0")
+	spr1:SetKeyValue("GlowProxySize","2.0")
+	spr1:SetKeyValue("HDRColorScale","1.0")
+	spr1:SetKeyValue("renderfx","14")
+	spr1:SetKeyValue("rendermode","5")
+	spr1:SetKeyValue("renderamt","255")
+	spr1:SetKeyValue("disablereceiveshadows","0")
+	spr1:SetKeyValue("mindxlevel","0")
+	spr1:SetKeyValue("maxdxlevel","0")
+	spr1:SetKeyValue("framerate","15.0")
+	spr1:SetKeyValue("spawnflags","0")
+	spr1:SetKeyValue("scale","10")
+	spr1:SetPos(self:GetAttachment(self:LookupAttachment("0")).Pos)
+	spr1:Spawn()
+	spr1:Fire("Kill","",0.9)
 	
 	local function DoBlueElectric()
 		-- Keloukhen ver --------------------------
@@ -380,7 +379,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "0")
 		
-		local tr = util.TraceLine({
+		tr = util.TraceLine({
 			start = self:GetAttachment(self:LookupAttachment("0")).Pos,
 			endpos = self:GetPos() + self:GetRight()*-math.Rand(10000,20000) + self:GetUp()*20000,
 			filter = self
@@ -389,7 +388,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "0")
 		
 		-- Poren var --------------------------
-		local tr = util.TraceLine({
+		tr = util.TraceLine({
 			start = self:GetAttachment(self:LookupAttachment("1")).Pos,
 			endpos = self:GetPos() + self:GetRight()*math.Rand(10000,20000) + self:GetUp()*-20000,
 			filter = self
@@ -397,7 +396,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "1")
 		
-		local tr = util.TraceLine({
+		tr = util.TraceLine({
 			start = self:GetAttachment(self:LookupAttachment("1")).Pos,
 			endpos = self:GetPos() + self:GetRight()*-math.Rand(10000,20000) + self:GetUp()*-20000,
 			filter = self
@@ -406,7 +405,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "1")
 		
 		-- Tsakh --------------------------
-		local tr = util.TraceLine({
+		tr = util.TraceLine({
 			start = self:GetAttachment(self:LookupAttachment("3")).Pos,
 			endpos = self:GetPos() + self:GetRight()*math.Rand(10000,20000) + self:GetUp()*20000,
 			filter = self
@@ -414,7 +413,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "3")
 		
-		local tr = util.TraceLine({
+		tr = util.TraceLine({
 			start = self:GetAttachment(self:LookupAttachment("3")).Pos,
 			endpos = self:GetPos() + self:GetRight()*math.Rand(10000,20000) + self:GetUp()*-20000 + self:GetForward()*-math.Rand(20000,20000),
 			filter = self
@@ -422,7 +421,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "3")
 		
-		local tr = util.TraceLine({
+		tr = util.TraceLine({
 			start = self:GetAttachment(self:LookupAttachment("3")).Pos,
 			endpos = self:GetPos() + self:GetRight()*math.Rand(10000,20000) + self:GetUp()*-20000 + self:GetForward()*math.Rand(20000,20000),
 			filter = self
@@ -430,7 +429,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "3")
 		
-		local tr = util.TraceLine({
+		tr = util.TraceLine({
 			start = self:GetAttachment(self:LookupAttachment("3")).Pos,
 			endpos = self:GetPos() + self:GetRight()*math.Rand(100,20000) + self:GetUp()*20000 + self:GetForward()*math.Rand(-10000,10000),
 			filter = self
@@ -439,7 +438,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "3")
 		
 		-- Ach --------------------------
-		local tr = util.TraceLine({
+		tr = util.TraceLine({
 			start = self:GetAttachment(self:LookupAttachment("2")).Pos,
 			endpos = self:GetPos() + self:GetRight()*-math.Rand(10000,20000) + self:GetUp()*20000,
 			filter = self
@@ -447,7 +446,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "2")
 		
-		local tr = util.TraceLine({
+		tr = util.TraceLine({
 			start = self:GetAttachment(self:LookupAttachment("2")).Pos,
 			endpos = self:GetPos() + self:GetRight()*-math.Rand(10000,20000) + self:GetUp()*-20000 + self:GetForward()*-math.Rand(20000,20000),
 			filter = self
@@ -455,7 +454,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "2")
 		
-		local tr = util.TraceLine({
+		tr = util.TraceLine({
 			start = self:GetAttachment(self:LookupAttachment("2")).Pos,
 			endpos = self:GetPos() + self:GetRight()*-math.Rand(10000,20000) + self:GetUp()*-200 + self:GetForward()*math.Rand(20000,20000),
 			filter = self
@@ -463,7 +462,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "2")
 		
-		local tr = util.TraceLine({
+		tr = util.TraceLine({
 			start = self:GetAttachment(self:LookupAttachment("2")).Pos,
 			endpos = self:GetPos() + self:GetRight()*-math.Rand(100,20000) + self:GetUp()*20000 + self:GetForward()*math.Rand(-10000,10000),
 			filter = self
@@ -490,7 +489,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
 		
-		local tr = util.TraceLine({
+		tr = util.TraceLine({
 			start = self:GetAttachment(self:LookupAttachment("0")).Pos,
 			endpos = self:GetPos() + self:GetRight()*math.Rand(20000,20000) + self:GetUp()*-20000 + self:GetForward()*-math.Rand(20000,20000),
 			filter = self
@@ -498,7 +497,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
 		
-		local tr = util.TraceLine({
+		tr = util.TraceLine({
 			start = self:GetAttachment(self:LookupAttachment("0")).Pos,
 			endpos = self:GetPos() + self:GetRight()*math.Rand(20000,20000) + self:GetUp()*-20000 + self:GetForward()*math.Rand(20000,20000),
 			filter = self
@@ -506,7 +505,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
 		
-		local tr = util.TraceLine({
+		tr = util.TraceLine({
 			start = self:GetAttachment(self:LookupAttachment("0")).Pos,
 			endpos = self:GetPos() + self:GetRight()*math.Rand(100,20000) + self:GetUp()*20000 + self:GetForward()*math.Rand(-10000,10000),
 			filter = self
@@ -515,7 +514,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
 		
 		-- Ach --------------------------
-		local tr = util.TraceLine({
+		tr = util.TraceLine({
 			start = self:GetAttachment(self:LookupAttachment("0")).Pos,
 			endpos = self:GetPos() + self:GetRight()*-math.Rand(20000,20000) + self:GetUp()*-20000,
 			filter = self
@@ -523,7 +522,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
 		
-		local tr = util.TraceLine({
+		tr = util.TraceLine({
 			start = self:GetAttachment(self:LookupAttachment("0")).Pos,
 			endpos = self:GetPos() + self:GetRight()*-math.Rand(20000,20000) + self:GetUp()*-20000 + self:GetForward()*-math.Rand(20000,20000),
 			filter = self
@@ -531,7 +530,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
 		
-		local tr = util.TraceLine({
+		tr = util.TraceLine({
 			start = self:GetAttachment(self:LookupAttachment("0")).Pos,
 			endpos = self:GetPos() + self:GetRight()*-math.Rand(20000,20000) + self:GetUp()*-200 + self:GetForward()*math.Rand(20000,20000),
 			filter = self
@@ -539,7 +538,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
 		
-		local tr = util.TraceLine({
+		tr = util.TraceLine({
 			start = self:GetAttachment(self:LookupAttachment("0")).Pos,
 			endpos = self:GetPos() + self:GetRight()*-math.Rand(100,20000) + self:GetUp()*20000 + self:GetForward()*math.Rand(-10000,10000),
 			filter = self
@@ -643,7 +642,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 					spr:Spawn()
 					spr:Fire("Kill","",0.9)
 					
-					local spr = ents.Create("env_sprite")
+					spr = ents.Create("env_sprite")
 					spr:SetKeyValue("model","vj_hl/sprites/fexplo1.vmt")
 					spr:SetKeyValue("rendercolor","100 255 0")
 					spr:SetKeyValue("GlowProxySize","2.0")

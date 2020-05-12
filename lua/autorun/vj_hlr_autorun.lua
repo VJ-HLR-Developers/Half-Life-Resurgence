@@ -126,7 +126,7 @@ if VJExists == true then
 
 		-- Sven Co-Op
 		VJ.AddNPC("Baby Gargantua","npc_vj_hlrsv_garg_baby",vCat)
-		VJ.AddNPC("Alien Tor","npc_vj_hlrsv_alien_tor",vCat)
+		VJ.AddNPC("Tor","npc_vj_hlrsv_tor",vCat)
 		
 		-- Weapons
 		//VJ.AddNPCWeapon("VJ_HLR1_Glock17","weapon_vj_hlr1_glock17",false,vCat)

@@ -23,10 +23,10 @@ if (CLIENT) then
 	killicon.Add("#"..LangName,"HUD/killicons/default",Color(255,80,0,255))
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-if !(SERVER) then return end
+if !SERVER then return end
 
 ENT.Model = {"models/vj_hlr/hl1/hornet.mdl"} -- The models it should spawn with | Picks a random one from the table
-ENT.MoveCollideType = MOVECOLLIDE_FLY_BOUNCE -- Move type | Some examples: MOVECOLLIDE_FLY_BOUNCE, MOVECOLLIDE_FLY_SLIDE
+ENT.MoveCollideType = MOVECOLLIDE_FLY_SLIDE -- Move type | Some examples: MOVECOLLIDE_FLY_BOUNCE, MOVECOLLIDE_FLY_SLIDE
 ENT.RemoveOnHit = false -- Should it remove itself when it touches something? | It will run the hit sound, place a decal, etc.
 ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
 ENT.DirectDamage = 4 -- How much damage should it do when it hits something
@@ -52,12 +52,12 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitializeBeforePhys()
-	self:PhysicsInitSphere(1, "metal_bouncy")
+	//self:PhysicsInitSphere(1, "metal_bouncy")
 	//construct.SetPhysProp(self:GetOwner(), self, 0, self:GetPhysicsObject(), {GravityToggle = false, Material = "metal_bouncy"})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	timer.Simple(5,function() if IsValid(self) then self:Remove() end end)
+	timer.Simple(5, function() if IsValid(self) then self:Remove() end end)
 	
 	util.SpriteTrail(self, 0, Color(255,math.random(50,200),0,120), true, 6, 0, 1.5, 1/(6 + 0)*0.5, "vj_hl/sprites/laserbeam.vmt")
 end
@@ -67,6 +67,12 @@ function ENT:CustomOnThink()
 		local phys = self:GetPhysicsObject()
 		if (phys:IsValid()) then
 			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.MyEnemy:GetPos() + self.MyEnemy:OBBCenter() + self.MyEnemy:GetUp()*math.random(-50,50) + self.MyEnemy:GetRight()*math.random(-50,50), 600))
+			self:SetAngles(self:GetVelocity():GetNormal():Angle())
+		end
+	else
+		local phys = self:GetPhysicsObject()
+		if (phys:IsValid()) then
+			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self:GetPos() + self:GetForward()*math.random(-80, 80)+ self:GetRight()*math.random(-80, 80) + self:GetUp()*math.random(-80, 80), 300))
 			self:SetAngles(self:GetVelocity():GetNormal():Angle())
 		end
 	end
@@ -79,22 +85,13 @@ function ENT:CustomOnDoDamage(data,phys,hitent)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPhysicsCollide(data,phys)
-	-- Let's use CollisionData!
+function ENT:CustomOnPhysicsCollide(data, phys)
 	local lastvel = math.max(data.OurOldVelocity:Length(), data.Speed) -- Get the last velocity and speed
-	local oldvel = phys:GetVelocity()
-	local newvel = oldvel:GetNormal()
+	local newvel = phys:GetVelocity():GetNormal()
 	lastvel = math.max(newvel:Length(), lastvel)
-	local setvel = newvel*lastvel*0.3
+	local setvel = newvel * lastvel * 0.3
 	phys:SetVelocity(setvel)
 	self:SetAngles(self:GetVelocity():GetNormal():Angle())
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DeathEffects(data,phys)
-	local effectdata = EffectData()
-	effectdata:SetOrigin(data.HitPos)
-	effectdata:SetScale(0.6)
-	util.Effect("StriderBlood",effectdata)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***

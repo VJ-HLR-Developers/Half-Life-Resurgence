@@ -33,6 +33,7 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav","vj_hlr/hl1_wea
 
 -- Custom
 ENT.EO_Enemy = NULL
+ENT.EO_SpriteScale = 1.2
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
@@ -58,7 +59,7 @@ function ENT:CustomOnInitialize()
 	self.StartGlow1:SetKeyValue("maxdxlevel","0")
 	self.StartGlow1:SetKeyValue("framerate","10.0")
 	self.StartGlow1:SetKeyValue("spawnflags","0")
-	self.StartGlow1:SetKeyValue("scale","1.2")
+	self.StartGlow1:SetKeyValue("scale",""..self.EO_SpriteScale)
 	self.StartGlow1:SetPos(self:GetPos())
 	self.StartGlow1:Spawn()
 	self.StartGlow1:SetParent(self)
@@ -66,14 +67,12 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	/*if IsValid(self.EO_Enemy) then -- Homing Behavior
-		self.DirectDamage = 25
-		self.StartGlow1:SetKeyValue("scale","1.5")
+	if IsValid(self.EO_Enemy) then -- Homing Behavior
 		local phys = self:GetPhysicsObject()
 		if (phys:IsValid()) then
 			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.EO_Enemy:GetPos() + self.EO_Enemy:OBBCenter(), 700))
 		end
-	end*/
+	end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
