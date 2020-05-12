@@ -1,11 +1,28 @@
 "Vertexlitgeneric"
 {
 	"$baseTexture" "models/hl_resurgence/opfor/shocktrooper/shock_rifle"
+
 	$emissiveBlendEnabled 1
     $emissiveBlendTexture    "dev/null"
     $emissiveBlendBaseTexture    "models/hl_resurgence/opfor/shocktrooper/shock_rifle_g"
     $emissiveBlendFlowTexture    "dev/null"
-    $emissiveBlendTint "[0 4 4]"
-    $emissiveBlendStrength 1
+	$emissiveBlendTint "[0 4 4]"
+    $emissiveBlendStrength 0
     $emissiveBlendScrollVector "[0 0]"
+
+	"Proxies"
+	{
+		"Sine"
+		{
+			"resultVar"	"$emissiveBlendStrength"
+			"sineperiod"	3
+			"sinemin"	0.3
+			"sinemax"	1
+		}
+		"IsNPC"
+		{
+			"scale" "1"
+			"resultvar" "$emissiveBlendEnabled"
+		}
+	}
 }
