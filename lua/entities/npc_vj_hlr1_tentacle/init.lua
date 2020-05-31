@@ -130,7 +130,7 @@ function ENT:CustomOnThink()
 		end
 		
 		if self.CanTurnWhileStationary == true then
-		local enedist = (self.LatestEnemyPosition - self:GetPos()).z
+		local enedist = (self:GetEnemyLastKnownPos() - self:GetPos()).z
 		//print("dist: "..enedist)
 			if enedist >= 570 then
 				if self.Tentacle_Level != 3 then
