@@ -19,6 +19,7 @@ AddCSLuaFile()
 
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
 
+-- Custom
 ENT.Assignee = NULL -- Is another entity the owner of this crystal?
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Initialize()
@@ -32,23 +33,39 @@ function ENT:Initialize()
 	self:SetMaxHealth(200)
 	self:SetHealth(200)
 	
-	self.StartLight1 = ents.Create("light_dynamic")
-	self.StartLight1:SetKeyValue("brightness", "4")
-	self.StartLight1:SetKeyValue("distance", "150")
-	self.StartLight1:SetKeyValue("style", 5)
-	self.StartLight1:SetLocalPos(self:GetPos() + self:GetUp()*30)
-	self.StartLight1:SetLocalAngles(self:GetAngles())
-	self.StartLight1:Fire("Color", "255 128 0")
-	self.StartLight1:SetParent(self)
-	self.StartLight1:Spawn()
-	self.StartLight1:Activate()
-	self.StartLight1:SetParent(self)
-	self.StartLight1:Fire("TurnOn", "", 0)
-	self:DeleteOnRemove(self.StartLight1)
+	StartLight1 = ents.Create("light_dynamic")
+	StartLight1:SetKeyValue("brightness", "4")
+	StartLight1:SetKeyValue("distance", "150")
+	StartLight1:SetKeyValue("style", 5)
+	StartLight1:SetLocalPos(self:GetPos() + self:GetUp()*30)
+	StartLight1:SetLocalAngles(self:GetAngles())
+	StartLight1:Fire("Color", "255 128 0")
+	StartLight1:SetParent(self)
+	StartLight1:Spawn()
+	StartLight1:Activate()
+	StartLight1:SetParent(self)
+	StartLight1:Fire("TurnOn", "", 0)
+	self:DeleteOnRemove(StartLight1)
 	
 	self.IdleSd = CreateSound(self, "vj_hlr/fx/alien_cycletone.wav")
 	self.IdleSd:SetSoundLevel(80)
 	self.IdleSd:Play()
+
+	for i = 0, 0.8, 0.2 do -- Create 5 energy charges
+		timer.Simple(i, function()
+			if IsValid(self) && IsValid(self.Assignee) then
+				local charge = ents.Create("sent_vj_hlr1_orb_crystal_charge")
+				charge:SetAngles(self.Assignee:GetAngles())
+				charge:SetPos(self:GetPos() + self:GetUp()*50)
+				charge.Assignee = self.Assignee
+				charge:Spawn()
+				charge:Activate()
+				//charge:SetParent(self)
+				self.Assignee:DeleteOnRemove(charge)
+				table.insert(self.Assignee.Nih_Charges, charge)
+			end
+		end)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Think()

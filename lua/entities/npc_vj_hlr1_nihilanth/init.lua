@@ -88,8 +88,8 @@ function ENT:CustomOnInitialize()
 	RunConsoleCommand("sv_gravity", 200)
 	
 	self:SetCollisionBounds(Vector(250, 250, 430), Vector(-250, -250, -530))
-	
 	self:SetPos(self:GetPos() + self:GetUp() * 1000)
+	self.Nih_Charges = {}
 	
 	-- Crystals
 	for i = 1, 3 do
@@ -116,7 +116,7 @@ function ENT:CustomOnInitialize()
 	end
 	
 	-- Charges
-	self.Nih_Charges = {}
+	/*self.Nih_Charges = {}
 	local function MakeChargeOrb(pos)
 		local charge = ents.Create("sent_vj_hlr1_orb_crystal_charge")
 		charge:SetAngles(self:GetAngles())
@@ -142,7 +142,7 @@ function ENT:CustomOnInitialize()
 	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(-420,350))
 	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(-480,150))
 	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(-480,-150))
-	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(-400,-330))
+	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(-400,-330))*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)

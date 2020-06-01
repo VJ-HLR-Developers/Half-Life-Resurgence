@@ -65,13 +65,13 @@ end
 function ENT:CustomOnThink()
 	if IsValid(self.MyEnemy) then -- Homing Behavior
 		local phys = self:GetPhysicsObject()
-		if (phys:IsValid()) then
+		if IsValid(phys) then
 			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.MyEnemy:GetPos() + self.MyEnemy:OBBCenter() + self.MyEnemy:GetUp()*math.random(-50,50) + self.MyEnemy:GetRight()*math.random(-50,50), 600))
 			self:SetAngles(self:GetVelocity():GetNormal():Angle())
 		end
 	else
 		local phys = self:GetPhysicsObject()
-		if (phys:IsValid()) then
+		if IsValid(phys) then
 			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self:GetPos() + self:GetForward()*math.random(-80, 80)+ self:GetRight()*math.random(-80, 80) + self:GetUp()*math.random(-80, 80), 300))
 			self:SetAngles(self:GetVelocity():GetNormal():Angle())
 		end

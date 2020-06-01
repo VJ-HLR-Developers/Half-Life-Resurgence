@@ -69,7 +69,7 @@ end
 function ENT:CustomOnThink()
 	if IsValid(self.EO_Enemy) then -- Homing Behavior
 		local phys = self:GetPhysicsObject()
-		if (phys:IsValid()) then
+		if IsValid(phys) then
 			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.EO_Enemy:GetPos() + self.EO_Enemy:OBBCenter(), 700))
 		end
 	end

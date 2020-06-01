@@ -260,7 +260,7 @@ function ENT:ThrowGrenadeCode(CustomEnt,NoOwner)
 			gent:Activate()
 			if gerClass == "npc_grenade_frag" then gent:Input("SetTimer",self:GetOwner(),self:GetOwner(),gerFussTime) end
 			local phys = gent:GetPhysicsObject()
-			if (phys:IsValid()) then
+			if IsValid(phys) then
 				phys:Wake()
 				phys:AddAngleVelocity(Vector(math.Rand(500,500),math.Rand(500,500),math.Rand(500,500)))
 				phys:SetVelocity(getShootVel)

@@ -91,7 +91,7 @@ function ENT:CustomOnThink()
 		self:SetPos(tr.HitPos + Vector(0,0,8))
 		
 		local phys = self:GetPhysicsObject()
-		if (phys:IsValid()) then
+		if IsValid(phys) then
 			local res = self:CalculateProjectile("Line", self:GetPos(), self:GetOwner():GetEnemy():GetPos() + self:GetOwner():GetEnemy():OBBCenter(), 100)
 			res.z = 0
 			phys:SetVelocity(res)
@@ -99,7 +99,7 @@ function ENT:CustomOnThink()
 	end
 	
 	local phys = self:GetPhysicsObject()
-	if (phys:IsValid()) then
+	if IsValid(phys) then
 		if self:GetVelocity():Length() < 400 then
 			phys:SetVelocity(self:GetVelocity()*(1+math.Clamp(self.SpeedMultiplier,0,0.1)))
 		end
@@ -130,7 +130,7 @@ function ENT:CustomOnThink()
 	self.RanOnce = true
 		if IsValid(self:GetOwner()) then self:SetAngles(self:GetOwner():GetAngles()) end
 		local phys = self:GetPhysicsObject()
-		if (phys:IsValid()) then
+		if IsValid(phys) then
 			local res = self:CalculateProjectile("Line", self:GetPos(), self:GetPos() + self:GetForward()*500, 200)
 			res.z = 0
 			phys:SetVelocity(res)

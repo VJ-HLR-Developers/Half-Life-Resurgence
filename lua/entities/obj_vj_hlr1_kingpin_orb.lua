@@ -77,7 +77,7 @@ function ENT:CustomOnThink()
 	self.EO_Enemy = self:GetOwner():GetEnemy()
 	if IsValid(self.EO_Enemy) then
 		local phys = self:GetPhysicsObject()
-		if (phys:IsValid()) then
+		if IsValid(phys) then
 			phys:SetVelocity(self:CalculateProjectile("Line",self:GetPos(),self.EO_Enemy:GetPos() +self.EO_Enemy:OBBCenter(),self.Speed))
 		end
 		if self.Speed < self.MaxSpeed then
