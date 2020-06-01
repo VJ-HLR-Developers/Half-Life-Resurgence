@@ -19,7 +19,6 @@ ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.AnimTbl_MeleeAttack = {ACT_RANGE_ATTACK1} -- Melee Attack Animations
 ENT.MeleeAttackDistance = 164 -- How close does it have to be until it attacks?
 ENT.TimeUntilMeleeAttackDamage = 2.35 -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDamage = 25
 ENT.MeleeAttackDamageType = DMG_SONIC -- Type of Damage
 ENT.MeleeAttackDSPSoundType = 34 -- What type of DSP effect? | Search online for the types
 ENT.MeleeAttackDSPSoundUseDamage = false -- Should it only do the DSP effect if gets damaged x or greater amount
@@ -50,9 +49,13 @@ ENT.Controller_FirstPersonAngle = Angle(90,0,90)
 
 -- Custom
 ENT.Houndeye_BlinkingT = 0
+ENT.Houndeye_NextSleepT = 0
+ENT.Houndeye_Sleeping = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(20, 20 , 40), Vector(-20, -20, 0))
+	
+	self.Houndeye_NextSleepT = CurTime() + math.Rand(0, 15)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -69,39 +72,94 @@ function ENT:CustomOnThink()
 	if IsValid(self:GetEnemy()) then
 		self.AnimTbl_IdleStand = {ACT_IDLE_ANGRY}
 	else
-		self.AnimTbl_IdleStand = {ACT_IDLE,"leaderlook"}
+		if self.Houndeye_Sleeping == true then
+			self.AnimTbl_IdleStand = {ACT_CROUCHIDLE}
+		else
+			self.AnimTbl_IdleStand = {ACT_IDLE, "leaderlook"}
+		end
 	end
 	
-	if self.Dead == false && CurTime() > self.Houndeye_BlinkingT then
+	if (self:GetMaxHealth() * 0.35) > self:Health() then
+		self.AnimTbl_Walk = {ACT_WALK_HURT}
+	else
+		self.AnimTbl_Walk = {ACT_WALK}
+	end
+	
+	if self.Dead == false && CurTime() > self.Houndeye_BlinkingT && self.Houndeye_Sleeping == false then
 		self:SetSkin(1)
-		timer.Simple(0.1,function() if IsValid(self) then self:SetSkin(2) end end)
-		timer.Simple(0.2,function() if IsValid(self) then self:SetSkin(1) end end)
-		timer.Simple(0.3,function() if IsValid(self) then self:SetSkin(0) end end)
-		self.Houndeye_BlinkingT = CurTime() + math.Rand(2,3.5)
+		timer.Simple(0.1, function() if IsValid(self) then self:SetSkin(2) end end)
+		timer.Simple(0.2, function() if IsValid(self) then self:SetSkin(1) end end)
+		timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(0) end end)
+		self.Houndeye_BlinkingT = CurTime() + math.Rand(2, 3.5)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink_AIEnabled()
+	if !IsValid(self:GetEnemy()) && CurTime() > self.Houndeye_NextSleepT && self.Houndeye_Sleeping == false && !self:IsMoving() then
+		local sleept = math.Rand(15,30)
+		self.Houndeye_Sleeping = true
+		self.AnimTbl_IdleStand = {ACT_CROUCHIDLE}
+		self:VJ_ACT_PLAYACTIVITY(ACT_CROUCH, true, false, false)
+		self:SetState(VJ_STATE_ONLY_ANIMATION, sleept)
+		timer.Simple(7, function() if IsValid(self) && self.Houndeye_Sleeping == true then self:SetSkin(2) end end) -- Close eyes
+		timer.Simple(sleept, function() -- Reset after sleept seconds
+			if IsValid(self) && self.Houndeye_Sleeping == true then 
+				self.Houndeye_Sleeping = false
+				self:VJ_ACT_PLAYACTIVITY(ACT_STAND, true, false, false)
+				self.Houndeye_NextSleepT = CurTime() + math.Rand(15, 45)
+			end
+		end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(argent)
-	if math.random(1,2) == 1 then
-		self:VJ_ACT_PLAYACTIVITY({"vjseq_madidle1","vjseq_madidle2","vjseq_madidle3"},true,false,true)
+	if self.Houndeye_Sleeping == true then
+		if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end
+		self.Houndeye_Sleeping = false
+		self:VJ_ACT_PLAYACTIVITY(ACT_HOP, true, false, false)
+		self.Houndeye_NextSleepT = CurTime() + 20
+	elseif math.random(1,2) == 1 then
+		self:VJ_ACT_PLAYACTIVITY({"vjseq_madidle1","vjseq_madidle2","vjseq_madidle3"}, true, false, true)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnResetEnemy()
+	self.Houndeye_NextSleepT = CurTime() + math.Rand(15, 45)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_BeforeChecks()
-	-- flags 0 = No fade!
-	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 400, 16, 0, Color(188,220,255), {material="vj_hl/sprites/shockwave", framerate=20, flags=0})
-	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 200, 16, 0, Color(188,220,255), {material="vj_hl/sprites/shockwave", framerate=20, flags=0})
-	
-	if self.HasSounds == true && GetConVarNumber("vj_npc_sd_meleeattack") == 0 then
-		VJ_EmitSound(self,{"vj_hlr/hl1_npc/houndeye/he_blast1.wav","vj_hlr/hl1_npc/houndeye/he_blast2.wav","vj_hlr/hl1_npc/houndeye/he_blast3.wav"},100,math.random(80,100))
+	local allynum = 0 -- How many allies exist around the Houndeye
+	local color = Color(188, 220, 255) -- The shock wave color
+	local dmg = 15 -- How much damage should the shock wave do?
+	for _, v in ipairs(ents.FindInSphere(self:GetPos(), 400)) do
+		if v != self && v:GetClass() == "npc_vj_hlr1_houndeye" then
+			allynum = allynum + 1
+		end
+	end
+	if allynum == 1 then
+		color = Color(101, 133, 221)
+		dmg = 30
+	elseif allynum == 2 then
+		color = Color(67, 85, 255)
+		dmg = 45
+	elseif allynum >= 3 then
+		color = Color(62, 33, 211)
+		dmg = 60
 	end
 	
-	util.VJ_SphereDamage(self,self,self:GetPos(),400,self.MeleeAttackDamage,self.MeleeAttackDamageType,true,true,{DisableVisibilityCheck=true,Force=80})
+	-- flags 0 = No fade!
+	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 400, 16, 0, color, {material="vj_hl/sprites/shockwave", framerate=20, flags=0})
+	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 200, 16, 0, color, {material="vj_hl/sprites/shockwave", framerate=20, flags=0})
+	
+	if self.HasSounds == true && GetConVarNumber("vj_npc_sd_meleeattack") == 0 then
+		VJ_EmitSound(self, {"vj_hlr/hl1_npc/houndeye/he_blast1.wav","vj_hlr/hl1_npc/houndeye/he_blast2.wav","vj_hlr/hl1_npc/houndeye/he_blast3.wav"}, 100, math.random(80,100))
+	end
+	util.VJ_SphereDamage(self, self, self:GetPos(), 400, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
 	if self.PlayingAttackAnimation == true then
-		return false
+		return false -- Don't flinch if we are playing an attack animation!
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
