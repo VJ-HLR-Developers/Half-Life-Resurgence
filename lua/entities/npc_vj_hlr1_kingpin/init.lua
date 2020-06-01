@@ -191,7 +191,7 @@ function ENT:SummonAllies()
 		x:SetNPC("npc_vj_hlr1_houndeye")
 		x:SetNPC("npc_vj_hlr1_aliencontroller")
 		x:SetNPC("npc_vj_hlr1_aliencontroller")
-		x:SetNPC("npc_vj_hlrsv_babygarg")
+		x:SetNPC("npc_vj_hlrsv_garg_baby")
 		x:Spawn()
 		x.TeleportOwner = self
 		-- local blast = ents.Create("prop_combine_ball")
