@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+	"$basetexture"	"models/hl_resurgence/hl2/weapons/w_sniper"
+	"$bumpmap"	"models/hl_resurgence/hl2/weapons/w_sniper_n"
+
+	"$phong" "1"
+	"$phongboost" "1"
+	"$phongexponenttexture" "models/hl_resurgence/hl2/weapons/w_sniper_s"
+	"$phongalbedotint" "1"								
+	"$phongfresnelranges"	"[.5 1 2]"
+}

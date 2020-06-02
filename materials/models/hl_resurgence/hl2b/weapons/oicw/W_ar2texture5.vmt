@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	// Original shader: VertexLitTexture
+	"$basetexture" "models/hl_resurgence/hl2b/weapons/oicw/w_ar2texture5"
+}

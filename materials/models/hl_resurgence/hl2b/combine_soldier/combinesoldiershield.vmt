@@ -1,0 +1,34 @@
+"Refract"
+{
+	"$model" 1
+	"$fadeoutonsilhouette" 1
+	"$bluramount" 1
+//	"$refractamount" "200.0"
+	"$refractamount" "40.0"
+//	"$refractamount" "0.0"
+//	"$refracttint" "[1 0 0]"
+
+	"$dudvmap" "dev/water_dudv"
+	"$normalmap" "dev/water_normal"
+
+	"$surfaceprop" "water"
+	"$bumpframe" "0"
+
+	"Proxies"
+	{
+		"AnimatedTexture"
+		{
+			"animatedtexturevar" "$normalmap"
+			"animatedtextureframenumvar" "$bumpframe"
+			"animatedtextureframerate" 47.00
+		}
+
+		"TextureScroll"
+		{
+			"texturescrollvar" "$bumptransform"
+			"texturescrollrate" .25
+			"texturescrollangle" 111.0
+		}
+	}
+}
+

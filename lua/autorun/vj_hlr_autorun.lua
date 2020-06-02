@@ -15,10 +15,34 @@ local VJExists = file.Exists("lua/autorun/vj_base_autorun.lua","GAME")
 if VJExists == true then
 	include('autorun/vj_controls.lua')
 	
-	-- Gold Source Engine -------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------ Gold Source Engine ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	local vCat = "Half-Life Resurgence: HL1"
 	VJ.AddCategoryInfo(vCat, {Icon = "vj_hl/icons/hl1.png"})
+	
+	-- Earth
+	VJ.AddNPC("Cockroach","npc_vj_hlr1_cockroach",vCat)
 		
+		-- Black Mesa Personnel
+		VJ.AddNPC("Security Guard","npc_vj_hlr1_securityguard",vCat)
+		VJ.AddNPC("Scientist","npc_vj_hlr1_scientist",vCat)
+			-- Blue Shift
+			VJ.AddNPC("Dr. Rosenberg","npc_vj_hlrbs_rosenberg",vCat)
+			-- Opposing Force
+			VJ.AddNPC("Cleansuit Scientist","npc_vj_hlrof_cleansuitsci",vCat)
+			VJ.AddNPC("Otis Laurey","npc_vj_hlrof_otis",vCat)
+			-- Decay
+			VJ.AddNPC("Dr. Richard Keller","npc_vj_hlrdc_keller",vCat)
+			-- Alpha
+			VJ.AddNPC("Alpha Security Guard","npc_vj_hlr1a_securityguard",vCat)
+			VJ.AddNPC("Alpha Scientist","npc_vj_hlr1a_scientist",vCat)
+			VJ.AddNPC("Ivan the Space Biker","npc_vj_hlr1a_ivan",vCat)
+			
+		-- Black Mesa Security Weaponry
+		VJ.AddNPC("Ceiling Turret (Large)","npc_vj_hlr1_turret",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
+		VJ.AddNPC("Ceiling Turret (Small)","npc_vj_hlr1_turret_small",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
+
 		-- HECU
 		VJ.AddNPC("Human Grunt","npc_vj_hlr1_hgrunt",vCat)
 		VJ.AddNPC("Human Sergeant","npc_vj_hlr1_hgrunt_serg",vCat)
@@ -34,105 +58,115 @@ if VJExists == true then
 			VJ.AddNPC("Decay HECU Sentry Gun","npc_vj_hlrdc_sentry",vCat)
 			-- Alpha
 			VJ.AddNPC("Alpha Human Grunt","npc_vj_hlr1a_hgrunt",vCat)
-		
+
 		-- Black Ops
 		VJ.AddNPC("Black Ops Female Assassin","npc_vj_hlr1_assassin_female",vCat)
 		VJ.AddNPC("Black Ops Male Assassin","npc_vj_hlrof_assassin_male",vCat)
 		VJ.AddNPC("Black Ops Robot Assassin","npc_vj_hlrof_assassin_rgrunt",vCat)
-		
-		-- Black Mesa Security Weaponry
-		VJ.AddNPC("Ceiling Turret (Large)","npc_vj_hlr1_turret",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
-		VJ.AddNPC("Ceiling Turret (Small)","npc_vj_hlr1_turret_small",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
-
-		-- Black Mesa Personnel
-		VJ.AddNPC("Security Guard","npc_vj_hlr1_securityguard",vCat)
-		VJ.AddNPC("Scientist","npc_vj_hlr1_scientist",vCat)
-			-- Blue Shift
-			VJ.AddNPC("Dr. Rosenberg","npc_vj_hlrbs_rosenberg",vCat)
-			-- Opposing Force
-			VJ.AddNPC("Cleansuit Scientist","npc_vj_hlrof_cleansuitsci",vCat)
-			VJ.AddNPC("Otis Laurey","npc_vj_hlrof_otis",vCat)
-			-- Decay
-			VJ.AddNPC("Dr. Richard Keller","npc_vj_hlrdc_keller",vCat)
-			-- Alpha
-			VJ.AddNPC("Alpha Security Guard","npc_vj_hlr1a_securityguard",vCat)
-			VJ.AddNPC("Alpha Scientist","npc_vj_hlr1a_scientist",vCat)
-			VJ.AddNPC("Ivan the Space Biker","npc_vj_hlr1a_ivan",vCat)
-		
-		-- Xen Creatures
-		VJ.AddNPC("Flocking Floater","npc_vj_hlr1_floater",vCat)
-		VJ.AddNPC("Alien Controller","npc_vj_hlr1_aliencontroller",vCat)
-		VJ.AddNPC("Alien Grunt","npc_vj_hlr1_aliengrunt",vCat)
-		VJ.AddNPC("Alien Slave","npc_vj_hlr1_alienslave",vCat)
-		VJ.AddNPC("Bullsquid","npc_vj_hlr1_bullsquid",vCat)
-		VJ.AddNPC("Gargantua","npc_vj_hlr1_garg",vCat)
-		VJ.AddNPC("Houndeye","npc_vj_hlr1_houndeye",vCat)
-		VJ.AddNPC("Kingpin","npc_vj_hlr1_kingpin",vCat)
-		VJ.AddNPC("Snark","npc_vj_hlr1_snark",vCat)
-		VJ.AddNPC("Snark Nest","npc_vj_hlr1_snarknest",vCat)
-		VJ.AddNPC("Ichthyosaur","npc_vj_hlr1_ichthyosaur",vCat)
-		VJ.AddNPC("Archer","npc_vj_hlr1_archer",vCat)
-		VJ.AddNPC("Leech","npc_vj_hlr1_leech",vCat)
-		VJ.AddNPC("Chumtoad","npc_vj_hlr1_chumtoad",vCat)
-		VJ.AddNPC("Boid","npc_vj_hlr1_boid",vCat)
-		VJ.AddNPC("AFlock","npc_vj_hlr1_aflock",vCat)
-		VJ.AddNPC("Protozoan","npc_vj_hlr1_protozoan",vCat)
-		VJ.AddNPC("Tentacle","npc_vj_hlr1_tentacle",vCat)
-		VJ.AddNPC("Panther Eye","npc_vj_hlr1_panthereye",vCat)
-		VJ.AddNPC("Control Sphere","npc_vj_hlr1_controlsphere",vCat)
-		VJ.AddNPC("Mr. Friendly","npc_vj_hlr1_mrfriendly",vCat)
-		VJ.AddNPC("Nihilanth","npc_vj_hlr1_nihilanth",vCat)
-		VJ.AddNPC("Barnacle","npc_vj_hlr1_barnacle",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
-		VJ.AddNPC("Xen Tree","npc_vj_hlr1_xentree",vCat)
-		VJ.AddNPC("Xen Hair","sent_vj_xen_hair",vCat)
-		VJ.AddNPC("Xen Spore (Large)","sent_vj_xen_spore_large",vCat)
-		VJ.AddNPC("Xen Spore (Medium)","sent_vj_xen_spore_medium",vCat)
-		VJ.AddNPC("Xen Spore (Small)","sent_vj_xen_spore_small",vCat)
-		VJ.AddNPC("Xen Plant Light","sent_vj_xen_plant_light",vCat)
-		VJ.AddNPC("Xen Crystal","sent_vj_xen_crystal",vCat)
-			-- Extras
-			VJ.AddNPC("Portal (Xen)","sent_vj_hlr_alientp",vCat)
-			VJ.AddNPC("Portal (Race X)","sent_vj_hlr_alientp_x",vCat)
-			-- Opposing Force
-			VJ.AddNPC("Penguin","npc_vj_hlrof_penguin",vCat)
-			VJ.AddNPC("Penguin Nest","npc_vj_hlrof_penguinnest",vCat)
-			-- Headcrab
-			VJ.AddNPC("Gonarch","npc_vj_hlr1_gonarch",vCat)
-			VJ.AddNPC("Headcrab","npc_vj_hlr1_headcrab",vCat)
-			VJ.AddNPC("Baby Headcrab","npc_vj_hlr1_headcrab_baby",vCat)
-			VJ.AddNPC("Zombie","npc_vj_hlr1_zombie",vCat)
-				-- Alpha
-				VJ.AddNPC("Alpha Zombie","npc_vj_hlr1a_zombie",vCat)
-				VJ.AddNPC("Alpha Headcrab","npc_vj_hlr1a_headcrab",vCat)
-				-- Opposing Force
-				VJ.AddNPC("Zombie Security Guard","npc_vj_hlrof_zombie_sec",vCat)
-				VJ.AddNPC("Zombie Soldier","npc_vj_hlrof_zombie_soldier",vCat)
-				VJ.AddNPC("Gonome","npc_vj_hlrof_gonome",vCat)
-		
-		-- Race X
-		VJ.AddNPC("Shock Trooper","npc_vj_hlrof_shocktrooper",vCat)
-		VJ.AddNPC("Shock Roach","npc_vj_hlrof_shockroach",vCat)
-		VJ.AddNPC("Pit Drone","npc_vj_hlrof_pitdrone",vCat)
-		VJ.AddNPC("Pit Worm","npc_vj_hlrof_pitworm",vCat)
-		VJ.AddNPC("Voltigore","npc_vj_hlrof_voltigore",vCat)
-		VJ.AddNPC("Baby Voltigore","npc_vj_hlrof_voltigore_baby",vCat)
-		VJ.AddNPC("Gene Worm","npc_vj_hlrof_geneworm",vCat)
-		
-		-- Animals
-		VJ.AddNPC("Cockroach","npc_vj_hlr1_cockroach",vCat)
-		
-		-- Unknown
-		VJ.AddNPC("The G-Man","npc_vj_hlr1_gman",vCat)
-
+	
+	-- Xen
+	VJ.AddNPC("Gonarch","npc_vj_hlr1_gonarch",vCat)
+	VJ.AddNPC("Headcrab","npc_vj_hlr1_headcrab",vCat)
+	VJ.AddNPC("Baby Headcrab","npc_vj_hlr1_headcrab_baby",vCat)
+	VJ.AddNPC("Zombie","npc_vj_hlr1_zombie",vCat)
+	VJ.AddNPC("Flocking Floater","npc_vj_hlr1_floater",vCat)
+	VJ.AddNPC("Alien Controller","npc_vj_hlr1_aliencontroller",vCat)
+	VJ.AddNPC("Alien Grunt","npc_vj_hlr1_aliengrunt",vCat)
+	VJ.AddNPC("Alien Slave","npc_vj_hlr1_alienslave",vCat)
+	VJ.AddNPC("Bullsquid","npc_vj_hlr1_bullsquid",vCat)
+	VJ.AddNPC("Gargantua","npc_vj_hlr1_garg",vCat)
+	VJ.AddNPC("Houndeye","npc_vj_hlr1_houndeye",vCat)
+	VJ.AddNPC("Kingpin","npc_vj_hlr1_kingpin",vCat)
+	VJ.AddNPC("Snark","npc_vj_hlr1_snark",vCat)
+	VJ.AddNPC("Snark Nest","npc_vj_hlr1_snarknest",vCat)
+	VJ.AddNPC("Ichthyosaur","npc_vj_hlr1_ichthyosaur",vCat)
+	VJ.AddNPC("Archer","npc_vj_hlr1_archer",vCat)
+	VJ.AddNPC("Leech","npc_vj_hlr1_leech",vCat)
+	VJ.AddNPC("Chumtoad","npc_vj_hlr1_chumtoad",vCat)
+	VJ.AddNPC("Boid","npc_vj_hlr1_boid",vCat)
+	VJ.AddNPC("AFlock","npc_vj_hlr1_aflock",vCat)
+	VJ.AddNPC("Protozoan","npc_vj_hlr1_protozoan",vCat)
+	VJ.AddNPC("Tentacle","npc_vj_hlr1_tentacle",vCat)
+	VJ.AddNPC("Panther Eye","npc_vj_hlr1_panthereye",vCat)
+	VJ.AddNPC("Control Sphere","npc_vj_hlr1_controlsphere",vCat)
+	VJ.AddNPC("Mr. Friendly","npc_vj_hlr1_mrfriendly",vCat)
+	VJ.AddNPC("Nihilanth","npc_vj_hlr1_nihilanth",vCat)
+	VJ.AddNPC("Barnacle","npc_vj_hlr1_barnacle",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
+	VJ.AddNPC("Xen Tree","npc_vj_hlr1_xentree",vCat)
+	VJ.AddNPC("Xen Hair","sent_vj_xen_hair",vCat)
+	VJ.AddNPC("Xen Spore (Large)","sent_vj_xen_spore_large",vCat)
+	VJ.AddNPC("Xen Spore (Medium)","sent_vj_xen_spore_medium",vCat)
+	VJ.AddNPC("Xen Spore (Small)","sent_vj_xen_spore_small",vCat)
+	VJ.AddNPC("Xen Plant Light","sent_vj_xen_plant_light",vCat)
+	VJ.AddNPC("Xen Crystal","sent_vj_xen_crystal",vCat)
+		-- Spawners
+		VJ.AddNPC("Portal (Xen)","sent_vj_hlr_alientp",vCat)
+		VJ.AddNPC("Portal (Race X)","sent_vj_hlr_alientp_x",vCat)
+		-- Alpha
+		VJ.AddNPC("Alpha Zombie","npc_vj_hlr1a_zombie",vCat)
+		VJ.AddNPC("Alpha Headcrab","npc_vj_hlr1a_headcrab",vCat)
+		-- Opposing Force
+		VJ.AddNPC("Zombie Security Guard","npc_vj_hlrof_zombie_sec",vCat)
+		VJ.AddNPC("Zombie Soldier","npc_vj_hlrof_zombie_soldier",vCat)
+		VJ.AddNPC("Gonome","npc_vj_hlrof_gonome",vCat)
+		VJ.AddNPC("Penguin","npc_vj_hlrof_penguin",vCat)
+		VJ.AddNPC("Penguin Nest","npc_vj_hlrof_penguinnest",vCat)
 		-- Sven Co-Op
 		VJ.AddNPC("Baby Gargantua","npc_vj_hlrsv_garg_baby",vCat)
 		VJ.AddNPC("Tor","npc_vj_hlrsv_tor",vCat)
+	
+	-- Race X (Opposing Force)
+	VJ.AddNPC("Shock Trooper","npc_vj_hlrof_shocktrooper",vCat)
+	VJ.AddNPC("Shock Roach","npc_vj_hlrof_shockroach",vCat)
+	VJ.AddNPC("Pit Drone","npc_vj_hlrof_pitdrone",vCat)
+	VJ.AddNPC("Pit Worm","npc_vj_hlrof_pitworm",vCat)
+	VJ.AddNPC("Voltigore","npc_vj_hlrof_voltigore",vCat)
+	VJ.AddNPC("Baby Voltigore","npc_vj_hlrof_voltigore_baby",vCat)
+	VJ.AddNPC("Gene Worm","npc_vj_hlrof_geneworm",vCat)
+	
+	-- Unknown
+	VJ.AddNPC("The G-Man","npc_vj_hlr1_gman",vCat)
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------ Source Engine ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	vCat = "Half-Life Resurgence: HL2"
+	VJ.AddCategoryInfo(vCat, {Icon = "vj_hl/icons/hl2.png"})
+	
+	-- Earth + Resistance
+	VJ.AddNPC("Citizen","npc_vj_hlr2_citizen",vCat)
+	VJ.AddNPC_HUMAN("Refugee","npc_vj_hlr2_refugee",{"weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1"},vCat)
+	VJ.AddNPC_HUMAN("Rebel","npc_vj_hlr2_rebel",{"weapon_vj_ssg08","weapon_vj_crossbow","weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_k3","weapon_vj_k3","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_ak47","weapon_vj_m16a1","weapon_vj_mp40","weapon_vj_spas12","weapon_vj_rpg","weapon_vj_blaster","weapon_vj_hl2_rpg"},vCat)
+	VJ.AddNPC_HUMAN("Alyx Vance","npc_vj_hlr2_alyx",{"weapon_vj_hl2_alyxgun"},vCat)
+	VJ.AddNPC_HUMAN("Barney Calhoun","npc_vj_hlr2_barney",{"weapon_vj_crossbow","weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
+	VJ.AddNPC_HUMAN("Father Grigori","npc_vj_hlr2_father_grigori",{"weapon_vj_hl2_annabelle"},vCat)
+	VJ.AddNPC("Floor Turret (Resistance)","npc_vj_hlr2_turret",vCat)
 		
-		-- Weapons
-		//VJ.AddNPCWeapon("VJ_HLR1_Glock17","weapon_vj_hlr1_glock17",false,vCat)
-		//VJ.AddNPCWeapon("VJ_HLR1_MP5","weapon_vj_hlr1_mp5",false,vCat)
-		
-	-- Decals
+	-- Combine
+	VJ.AddNPC_HUMAN("Overwatch Soldier","npc_vj_hlr2_com_soldier",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
+	VJ.AddNPC_HUMAN("Overwatch Sniper","npc_vj_hlr2_com_sniper",{"weapon_vj_hl2_csniper"},vCat)
+	VJ.AddNPC_HUMAN("Overwatch Shotgun Soldier","npc_vj_hlr2_com_shotgunner",{"weapon_vj_spas12"},vCat)
+	VJ.AddNPC_HUMAN("Overwatch Elite","npc_vj_hlr2_com_elite",{"weapon_vj_ar2"},vCat)
+	VJ.AddNPC_HUMAN("Overwatch Prison Guard","npc_vj_hlr2_com_prospekt",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
+	VJ.AddNPC_HUMAN("Overwatch Engineer","npc_vj_hlr2_com_engineer",{"weapon_vj_hlr2_reager"},vCat)
+	VJ.AddNPC_HUMAN("Overwatch Prison Shotgun Guard","npc_vj_hlr2_com_prospekt_sg",{"weapon_vj_spas12"},vCat)
+	VJ.AddNPC_HUMAN("Civil Protection","npc_vj_hlr2_com_civilp",{"weapon_vj_hl2_stunstick","weapon_vj_9mmpistol","weapon_vj_smg1"},vCat)
+	VJ.AddNPC_HUMAN("Civil Protection Elite","npc_vj_hlr2_com_civilp_elite",{"weapon_vj_smg1"},vCat)
+	VJ.AddNPC("Overwatch Floor Turret","npc_vj_hlr2_com_turret",vCat)
+		-- Beta
+		VJ.AddNPC_HUMAN("Overwatch Soldier (Beta)","npc_vj_hlr2b_com_soldier",{"weapon_vj_hl2b_oicw"},vCat)
+	
+	-- Weapons
+	VJ.AddNPCWeapon("VJ_Annabelle","weapon_vj_hl2_annabelle",false,vCat)
+	VJ.AddNPCWeapon("VJ_Alyx_Gun","weapon_vj_hl2_alyxgun",false,vCat)
+	VJ.AddNPCWeapon("VJ_Combine_Reager","weapon_vj_hlr2_reager",false,vCat)
+	VJ.AddNPCWeapon("VJ_StunStick","weapon_vj_hl2_stunstick",false,vCat)
+	VJ.AddNPCWeapon("VJ_RPG8","weapon_vj_hl2_rpg",false,vCat)
+		-- Beta
+		VJ.AddNPCWeapon("VJ_OICW","weapon_vj_hl2b_oicw",false,vCat)
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------ Decals ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 		-- Blood
 		game.AddDecal("VJ_HLR_Blood_Red",{"vj_hl/decals/hl_blood01","vj_hl/decals/hl_blood02","vj_hl/decals/hl_blood03","vj_hl/decals/hl_blood04","vj_hl/decals/hl_blood05","vj_hl/decals/hl_blood06","vj_hl/decals/hl_blood07","vj_hl/decals/hl_blood08"})
 		game.AddDecal("VJ_HLR_Blood_Red_Large",{"vj_hl/decals/hl_bigblood01","vj_hl/decals/hl_bigblood02"})
@@ -153,7 +187,9 @@ if VJExists == true then
 		end
 		*/
 	
-	-- Particles
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------ Particles ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	VJ.AddParticle("particles/advisor.pcf",{})
 	VJ.AddParticle("particles/choreo_dog_v_strider.pcf",{})
 	VJ.AddParticle("particles/vj_hl_blood.pcf",{
@@ -221,7 +257,9 @@ if VJExists == true then
 		"vj_hlr_nihilanth_deathorbs_white",
 	})
 	
-	-- Precache Models --
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------ Precaches ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	util.PrecacheModel("models/vj_hlr/gibs/agib1.mdl")
 	util.PrecacheModel("models/vj_hlr/gibs/agib2.mdl")
 	util.PrecacheModel("models/vj_hlr/gibs/agib3.mdl")
@@ -247,26 +285,20 @@ if VJExists == true then
 	util.PrecacheModel("models/vj_hlr/gibs/zombiegib.mdl")
 	util.PrecacheModel("models/vj_hlr/gibs/islavegib.mdl")
 	
-	-- ConVars --
-	//VJ.AddConVar("vj_hl2c_soldier_h",60)
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------ Convars ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	VJ.AddConVar("vj_hl2c_soldier_h",60)
+	VJ.AddConVar("vj_hl2c_soldierprison_h",75)
+	VJ.AddConVar("vj_hl2c_soldierelite_h",100)
+	VJ.AddConVar("vj_hl2c_soldier_d",10)
 	
-	-- Meta Tables --
-	local NPC = FindMetaTable("NPC")
-
-	function NPC:VJ_GetSequenceID(anim)
-		local tb = self:GetSequenceList()
-		local i = 0
-		for k,v in ipairs(tb) do
-			if v == anim then
-				i = k; break
-			end
-		end
-		return i
-	end
-
-	function NPC:VJ_LookupAnimationString(seq)
-		return self:GetSequenceInfo(self:VJ_GetSequenceID(seq)).activity
-	end
+	VJ.AddConVar("vj_hl2c_metrocop_h",50)
+	VJ.AddConVar("vj_hl2c_elitecop_h",60)
+	VJ.AddConVar("vj_hl2c_metrocop_d",10)
+	
+	VJ.AddConVar("vj_hl2r_rebel_h",50)
+	VJ.AddConVar("vj_hl2r_rebel_d",10)
 	
 	-- Temp weapon hook!
 	/*hook.Add("PlayerSpawn","VJ_HL1SWEPs_AutoSpawn",function(ply)
