@@ -6,20 +6,17 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/monk.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
-ENT.StartHealth = 80
+ENT.StartHealth = 100
+ENT.HasHealthRegeneration = true -- Can the SNPC regenerate its health?
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
 ENT.FriendsWithAllPlayerAllies = true -- Should this SNPC be friends with all other player allies that are running on VJ Base?
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.AnimTbl_MeleeAttack = {"vjseq_MeleeAttack01"} -- Melee Attack Animations
 ENT.TimeUntilMeleeAttackDamage = 0.7 -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDamage = GetConVarNumber("vj_hl2r_rebel_d")
 ENT.FootStepTimeRun = 0.25 -- Next foot step sound when it is running
 ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
-ENT.HasGrenadeAttack = false -- Should the SNPC have a grenade attack?
---ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
 ENT.MoveRandomlyWhenShooting = false -- Should it move randomly when shooting?
 ENT.AnimTbl_GrenadeAttack = {ACT_RANGE_ATTACK_THROW} -- Grenade Attack Animations
 ENT.TimeUntilGrenadeIsReleased = 0.87 -- Time until the grenade is released
@@ -28,7 +25,6 @@ ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Examp
 ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards the player if it's damaged by a player?
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = {ACT_FLINCH_PHYSICS} -- If it uses normal based animation, use this
 	-- ====== File Path Variables ====== --
 	-- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"npc/footsteps/hardboot_generic1.wav","npc/footsteps/hardboot_generic2.wav","npc/footsteps/hardboot_generic3.wav","npc/footsteps/hardboot_generic4.wav","npc/footsteps/hardboot_generic5.wav","npc/footsteps/hardboot_generic6.wav","npc/footsteps/hardboot_generic8.wav"}
@@ -165,8 +161,7 @@ ENT.SoundTbl_Death = {
 
 ENT.GeneralSoundPitch1 = 100
 
---[[
-unused sounds:
+/*
 "vo/ravenholm/attic_apologize.wav"
 "vo/ravenholm/bucket_almost.wav"
 "vo/ravenholm/bucket_brake.wav"
@@ -207,25 +202,7 @@ unused sounds:
 "vo/ravenholm/yard_shepherd.wav"
 "vo/ravenholm/yard_suspect.wav"
 "vo/ravenholm/yard_traps.wav"
---]]
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
-	self.NextRegen = CurTime()
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RegenerateHealth()
-	if CurTime() > self.NextRegen then
-		local setHealth = math.Clamp(self:Health() +1,0,self:GetMaxHealth())
-		if setHealth > self:Health() then
-			self:SetHealth(setHealth)
-			self.NextRegen = CurTime() +0.1
-		end
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
-	self:RegenerateHealth()
-end
+*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***

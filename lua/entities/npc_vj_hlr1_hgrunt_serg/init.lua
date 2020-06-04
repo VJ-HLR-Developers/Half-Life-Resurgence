@@ -25,7 +25,9 @@ ENT.GeneralSoundPitch2 = 80
 ENT.Serg_SpinUpT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnThink()
-	self.Weapon_ShotsSinceLastReload = 0
+	if IsValid(self:GetActiveWeapon()) then
+		self:GetActiveWeapon():SetClip1(999)
+	end
 	self.SoundTbl_Breath = {"vj_hlr/hl1_npc/hassault/hw_spin.wav"}
 	if self.DoingWeaponAttack == true then
 		self.HasBreathSound = true

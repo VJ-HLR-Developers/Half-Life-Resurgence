@@ -5,7 +5,6 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
 ENT.StartHealth = GetConVarNumber("vj_hl2r_rebel_h")
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -25,6 +24,7 @@ ENT.GrenadeAttackAttachment = "anim_attachment_RH" -- The attachment that the gr
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
 ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards the player if it's damaged by a player?
 ENT.AnimTbl_Medic_GiveHealth = {"heal"} -- Animations is plays when giving health to an ally
+ENT.WeaponInventory_AntiArmorList = {"weapon_vj_rpg", "weapon_vj_hl2_rpg"} -- It will randomly be given one of these weapons
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = {ACT_FLINCH_PHYSICS} -- If it uses normal based animation, use this
@@ -387,23 +387,44 @@ ENT.SoundTbl_Death = {
 	"vo/npc/male01/pain09.wav"
 }
 
-ENT.HLR_HL2_MyTurret = NULL
+/*ENT.HLR_HL2_MyTurret = NULL
 ENT.HLR_HL2_PlacingTurret = false
-ENT.HLR_HL2_NextTurretT = CurTime() +2
+ENT.HLR_HL2_NextTurretT = CurTime() +2*/
+
+-- Custom
+ENT.Human_Gender = 0 -- 0 = Male | 1 = Female
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-	self.IsEngineer = math.random(1,15) == 1
-	if math.random(1,5) == 1 then
-		self.Model = {"models/Humans/Group03m/Male_01.mdl","models/Humans/Group03m/male_02.mdl","models/Humans/Group03m/male_03.mdl","models/Humans/Group03m/male_04.mdl","models/Humans/Group03m/male_05.mdl","models/Humans/Group03m/male_06.mdl","models/Humans/Group03m/male_07.mdl","models/Humans/Group03m/male_08.mdl","models/Humans/Group03m/male_09.mdl"}
-		self.IsMedicSNPC = true
-		self.IsEngineer = false
+	if math.random(1,2) == 1 then
+		self.Human_Gender = 0
+		if math.random(1,5) == 1 then
+			self.Model = {"models/Humans/Group03m/male_01.mdl","models/Humans/Group03m/male_02.mdl","models/Humans/Group03m/male_03.mdl","models/Humans/Group03m/male_04.mdl","models/Humans/Group03m/male_05.mdl","models/Humans/Group03m/male_06.mdl","models/Humans/Group03m/male_07.mdl","models/Humans/Group03m/male_08.mdl","models/Humans/Group03m/male_09.mdl"}
+			self.IsMedicSNPC = true
+		else
+			self.Model = {"models/Humans/Group03/male_01.mdl","models/Humans/Group03/male_02.mdl","models/Humans/Group03/male_03.mdl","models/Humans/Group03/male_04.mdl","models/Humans/Group03/male_05.mdl","models/Humans/Group03/male_06.mdl","models/Humans/Group03/male_07.mdl","models/Humans/Group03/male_08.mdl","models/Humans/Group03/male_09.mdl"}
+		end
 	else
-		self.Model = {"models/Humans/Group03/male_01.mdl","models/Humans/Group03/male_02.mdl","models/Humans/Group03/male_03.mdl","models/Humans/Group03/male_04.mdl","models/Humans/Group03/male_05.mdl","models/Humans/Group03/male_06.mdl","models/Humans/Group03/male_07.mdl","models/Humans/Group03/male_08.mdl","models/Humans/Group03/male_09.mdl"}
+		self.Human_Gender = 1
+		if math.random(1,5) == 1 then
+			self.Model = {"models/Humans/Group03m/female_01.mdl","models/Humans/Group03m/female_02.mdl","models/Humans/Group03m/female_03.mdl","models/Humans/Group03m/female_04.mdl","models/Humans/Group03m/female_06.mdl","models/Humans/Group03m/female_07.mdl"}
+			self.IsMedicSNPC = true
+		else
+			self.Model = {"models/Humans/Group03/female_01.mdl","models/Humans/Group03/female_02.mdl","models/Humans/Group03/female_03.mdl","models/Humans/Group03/female_04.mdl","models/Humans/Group03/female_06.mdl","models/Humans/Group03/female_07.mdl"}
+		end
+	end
+	if self.IsMedicSNPC == false && math.random(1,3) == 1 then
+		self.WeaponInventory_AntiArmor = true
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDoChangeWeapon(newWeapon, oldWeapon, invSwitch)
+	if invSwitch == true then -- Only if it's a inventory switch
+		self:VJ_ACT_PLAYACTIVITY(ACT_PICKUP_RACK, true, false, true)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
-	self:VJ_ACT_PLAYACTIVITY({"vjseq_cheer1"},false,false,false,0,{vTbl_SequenceInterruptible=true})
+	self:VJ_ACT_PLAYACTIVITY("vjseq_cheer1", false, false, false, 0, {vTbl_SequenceInterruptible=true})
 end
 /* -- Disable for now
 ---------------------------------------------------------------------------------------------------------------------------------------------

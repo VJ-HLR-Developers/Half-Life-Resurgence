@@ -64,34 +64,34 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	print(key)
+	//print(key)
 	if key == "melee_attack" then
 		self:MeleeAttackCode()
 	end
 	if key == "death_gibs" then
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh1.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-20))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh2.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-20))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh3.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-20))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh4.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-20))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_b_bone.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-20))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_b_gib.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-20))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_guts.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-20))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_hmeat.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-20))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_lung.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-20))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_skull.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-20))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_legbone.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-20))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh1.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-25))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh2.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-25))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh3.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-25))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh4.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-25))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_b_bone.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-25))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_b_gib.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-25))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_guts.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-25))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_hmeat.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-25))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_lung.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-25))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_skull.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-25))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_legbone.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,-25))})
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 hook.Add("SetupMove", "VJ_Barnacle_SetupMove", function(ply, mv)
-	// Make the player not be able to walk
+	-- Make the player not be able to walk
 	if ply.Barnacle_Grabbed == true then
     	mv:SetMaxClientSpeed(0)
 	end
 end)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Barnacle_CalculateTongue()
-	print(self.Barnacle_LastHeight)
+	//print(self.Barnacle_LastHeight)
 	local tr = util.TraceLine({
 		start = self:GetPos(),
 		endpos = self:GetPos() + self:GetUp()*-self.Barnacle_LastHeight,
@@ -100,11 +100,11 @@ function ENT:Barnacle_CalculateTongue()
 	local trent = tr.Entity
 	local trpos = tr.HitPos
 	local height = self:GetPos():Distance(trpos)
-	// Increase the height by 10 every tick | minimum = 0, maximum = 1024
+	-- Increase the height by 10 every tick | minimum = 0, maximum = 1024
 	self.Barnacle_LastHeight = math.Clamp(height + 10, 0, 1024)
 
 	if IsValid(trent) && (trent:IsNPC() or trent:IsPlayer()) && self:DoRelationshipCheck(trent) == true && trent.VJ_IsHugeMonster != true then
-		// If the grabbed enemy is a new enemy then reset the enemy values
+		-- If the grabbed enemy is a new enemy then reset the enemy values
 		if self.Barnacle_CurEnt != trent then
 			self:Barnacle_ResetEnt()
 			self.Barnacle_CurEntMoveType = trent:GetMoveType()
@@ -115,6 +115,9 @@ function ENT:Barnacle_CalculateTongue()
 			trent:StopMoving()
 			trent:SetVelocity(Vector(0,0,2))
 			trent:SetMoveType(MOVETYPE_FLY)
+			if trent.IsVJBaseSNPC == true then
+				trent:SetState(VJ_STATE_FREEZE, 10)
+			end
 		elseif trent:IsPlayer() then
 			trent:SetMoveType(MOVETYPE_NONE)
 		end
@@ -123,9 +126,8 @@ function ENT:Barnacle_CalculateTongue()
 			local setpos = trent:GetPos() + trent:GetUp()*10
 			setpos.x = trpos.x
 			setpos.y = trpos.y
-			trent:SetPos(setpos) // Set the position for the enemy
-
-			// Play the pulling sound
+			trent:SetPos(setpos) -- Set the position for the enemy
+			-- Play the pulling sound
 			if CurTime() > self.Barnacle_NextPullSoundT then
 				VJ_EmitSound(self, "vj_hlr/hl1_npc/barnacle/bcl_alert2.wav")
 				self.Barnacle_NextPullSoundT = CurTime() + SoundDuration("vj_hlr/hl1_npc/barnacle/bcl_alert2.wav")
@@ -143,7 +145,7 @@ end
 function ENT:Barnacle_ResetEnt()
 	if !IsValid(self.Barnacle_CurEnt) then return end
 	self.Barnacle_CurEnt.Barnacle_Grabbed = false
-	self.Barnacle_CurEnt:SetMoveType(self.Barnacle_CurEntMoveType) // Reset the enemy's move type
+	self.Barnacle_CurEnt:SetMoveType(self.Barnacle_CurEntMoveType) -- Reset the enemy's move type
 	self.Barnacle_CurEnt = NULL
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -195,8 +195,8 @@ function ENT:CustomOnThink()
 		else
 			self:SetPoseParameter("m",0)
 		end
-	else
-		self.Weapon_ShotsSinceLastReload = 0
+	elseif IsValid(self:GetActiveWeapon()) then -- Alpha Security Guard can't reload!
+		self:GetActiveWeapon():SetClip1(999)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

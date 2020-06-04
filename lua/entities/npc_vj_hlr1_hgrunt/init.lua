@@ -192,9 +192,68 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:HECU_CustomOnThink()
-	
+function ENT:CustomOnSetupWeaponHoldTypeAnims(htype)
+	local bgroup = self.HGrunt_LastBodyGroup
+	if self.HECU_Type == 0 then-- 0 = HL1 Grunt
+		if bgroup == 0 then -- MP5
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
+		elseif bgroup == 1 then -- Shotgun
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SHOTGUN
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SHOTGUN_LOW
+		end
+	elseif self.HECU_Type == 1 then -- 1 = OppF Grunt
+		if bgroup == 0 then -- MP5
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
+		elseif bgroup == 1 then -- Shotgun
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SHOTGUN
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SHOTGUN_LOW
+		elseif bgroup == 2 then -- SAW
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_AR2
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_AR2_LOW
+		end
+	elseif self.HECU_Type == 2 then -- 2 = OppF Medic
+		if bgroup == 0 or bgroup == 1 then -- Desert Eagle or Glock 17
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_PISTOL
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_PISTOL_LOW
+		end
+	elseif self.HECU_Type == 3 then -- 3 = OppF Engineer
+		if bgroup == 0 then -- Desert Eagle
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_PISTOL
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_PISTOL_LOW
+		end
+	elseif self.HECU_Type == 4 then -- 4 = Black Ops Assassin
+		if bgroup == 0 then -- MP5
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
+		elseif bgroup == 1 then -- M-40A1
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_AR2
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_AR2_LOW
+		end
+	elseif self.HECU_Type == 5 then -- 5 = Robot Grunt
+		if bgroup == 0 then -- MP5
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
+		elseif bgroup == 1 then -- Shotgun
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SHOTGUN
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SHOTGUN_LOW
+		end
+	elseif self.HECU_Type == 6 then -- 6 = Alpha HGrunt
+		if bgroup == 0 then -- Colt Carbine
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1
+		end
+	elseif self.HECU_Type == 7 then -- 7 = Human Sergeant
+		if bgroup == 0 then -- 20mm Cannon
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_AR2
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_AR2
+		end
+	end
+	return true
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:HECU_CustomOnThink() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	self:HECU_CustomOnThink()
@@ -214,90 +273,65 @@ function ENT:CustomOnThink()
 	local bgroup = self:GetBodygroup(self.HECU_WepBG)
 	if self.HGrunt_LastBodyGroup != bgroup then
 		self.HGrunt_LastBodyGroup = bgroup
-		if self.HECU_Type == 0 then
+		if self.HECU_Type == 0 then -- 0 = HL1 Grunt
 			if bgroup == 0 then -- MP5
 				self:DoChangeWeapon("weapon_vj_hlr1_mp5")
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
-				self.Weapon_StartingAmmoAmount = 50
 			elseif bgroup == 1 then -- Shotgun
 				self:DoChangeWeapon("weapon_vj_hlr1_spas12")
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SHOTGUN}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SHOTGUN_LOW}
-				self.Weapon_StartingAmmoAmount = 8
+			elseif IsValid(self:GetActiveWeapon()) then
+				self:GetActiveWeapon():Remove()
 			end
-		elseif self.HECU_Type == 1 then
+		elseif self.HECU_Type == 1 then -- 1 = OppF Grunt
 			if bgroup == 0 then -- MP5
 				self:DoChangeWeapon("weapon_vj_hlr1_mp5")
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
-				self.Weapon_StartingAmmoAmount = 50
 			elseif bgroup == 1 then -- Shotgun
 				self:DoChangeWeapon("weapon_vj_hlr1_spas12")
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SHOTGUN}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SHOTGUN_LOW}
-				self.Weapon_StartingAmmoAmount = 8
 			elseif bgroup == 2 then -- SAW
 				self:DoChangeWeapon("weapon_vj_hlrof_m249")
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_AR2}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_AR2_LOW}
-				self.Weapon_StartingAmmoAmount = 50
+			elseif IsValid(self:GetActiveWeapon()) then
+				self:GetActiveWeapon():Remove()
 			end
-		elseif self.HECU_Type == 2 then
+		elseif self.HECU_Type == 2 then -- 2 = OppF Medic
 			if bgroup == 0 then -- Desert Eagle
 				self:DoChangeWeapon("weapon_vj_hlrof_desert_eagle")
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_PISTOL_LOW}
-				self.Weapon_StartingAmmoAmount = 7
 			elseif bgroup == 1 then -- Glock 17
 				self:DoChangeWeapon("weapon_vj_hlr1_glock17")
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_PISTOL_LOW}
-				self.Weapon_StartingAmmoAmount = 17
+			elseif IsValid(self:GetActiveWeapon()) then
+				self:GetActiveWeapon():Remove()
 			end
-		elseif self.HECU_Type == 3 then
+		elseif self.HECU_Type == 3 then -- 3 = OppF Engineer
 			if bgroup == 0 then -- Desert Eagle
 				self:DoChangeWeapon("weapon_vj_hlrof_desert_eagle")
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_PISTOL_LOW}
-				self.Weapon_StartingAmmoAmount = 7
+			elseif IsValid(self:GetActiveWeapon()) then
+				self:GetActiveWeapon():Remove()
 			end
-		elseif self.HECU_Type == 4 then
+		elseif self.HECU_Type == 4 then -- 4 = Black Ops Assassin
 			if bgroup == 0 then -- MP5
 				self:DoChangeWeapon("weapon_vj_hlr1_mp5")
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
-				self.Weapon_StartingAmmoAmount = 50
 			elseif bgroup == 1 then -- M-40A1
 				self:DoChangeWeapon("weapon_vj_hlr1_m40a1")
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_AR2}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_AR2_LOW}
-				self.Weapon_StartingAmmoAmount = 5
+			elseif IsValid(self:GetActiveWeapon()) then
+				self:GetActiveWeapon():Remove()
 			end
-		elseif self.HECU_Type == 5 then
+		elseif self.HECU_Type == 5 then -- 5 = Robot Grunt
 			if bgroup == 0 then -- MP5
 				self:DoChangeWeapon("weapon_vj_hlr1_mp5")
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1_LOW}
-				self.Weapon_StartingAmmoAmount = 50
 			elseif bgroup == 1 then -- Shotgun
 				self:DoChangeWeapon("weapon_vj_hlr1_spas12")
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SHOTGUN}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SHOTGUN_LOW}
-				self.Weapon_StartingAmmoAmount = 5
+			elseif IsValid(self:GetActiveWeapon()) then
+				self:GetActiveWeapon():Remove()
 			end
-		elseif self.HECU_Type == 6 then
+		elseif self.HECU_Type == 6 then -- 6 = Alpha HGrunt
 			if bgroup == 0 then -- Colt Carbine
 				self:DoChangeWeapon("weapon_vj_hlr1a_coltcarbine")
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_SMG1}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_SMG1}
-				self.Weapon_StartingAmmoAmount = 50
+			elseif IsValid(self:GetActiveWeapon()) then
+				self:GetActiveWeapon():Remove()
 			end
-		elseif self.HECU_Type == 7 then
+		elseif self.HECU_Type == 7 then -- 7 = Human Sergeant
 			if bgroup == 0 then -- 20mm Cannon
 				self:DoChangeWeapon("weapon_vj_hlr1_20mm")
-				self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_AR2}
-				self.AnimTbl_WeaponAttackCrouch = {ACT_RANGE_ATTACK_AR2}
+			elseif IsValid(self:GetActiveWeapon()) then
+				self:GetActiveWeapon():Remove()
 			end
 		end
 	end

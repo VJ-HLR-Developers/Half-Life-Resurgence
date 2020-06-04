@@ -1,6 +1,6 @@
 ENT.Base 			= "npc_vj_hlr2_com_soldier"
 ENT.Type 			= "ai"
-ENT.PrintName 		= "Overwatch Shotgun Soldier"
+ENT.PrintName 		= "Overwatch Engineer"
 ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Purpose 		= "Spawn it and fight with it!"

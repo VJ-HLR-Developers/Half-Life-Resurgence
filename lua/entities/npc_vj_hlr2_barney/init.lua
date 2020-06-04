@@ -6,20 +6,15 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/barney.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
-ENT.StartHealth = 80
+ENT.StartHealth = 100
+ENT.HasHealthRegeneration = true -- Can the SNPC regenerate its health?
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
 ENT.FriendsWithAllPlayerAllies = true -- Should this SNPC be friends with all other player allies that are running on VJ Base?
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.HasHealthRegeneration = true -- Can the SNPC regenerate its health?
-ENT.HealthRegenerationAmount = 2 -- How much should the health increase after every delay?
-ENT.HealthRegenerationDelay = VJ_Set(1,1) -- How much time until the health increases
-ENT.HealthRegenerationResetOnDmg = false -- Should the delay reset when it receives damage?
-ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.AnimTbl_MeleeAttack = {"vjseq_MeleeAttack01"} -- Melee Attack Animations
 ENT.TimeUntilMeleeAttackDamage = 0.7 -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDamage = GetConVarNumber("vj_hl2r_rebel_d")
 ENT.FootStepTimeRun = 0.25 -- Next foot step sound when it is running
 ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
 ENT.HasGrenadeAttack = true -- Should the SNPC have a grenade attack?
@@ -30,10 +25,12 @@ ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Examp
 ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards the player if it's damaged by a player?
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = {ACT_FLINCH_PHYSICS} -- If it uses normal based animation, use this
 	-- ====== File Path Variables ====== --
 	-- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"npc/footsteps/hardboot_generic1.wav","npc/footsteps/hardboot_generic2.wav","npc/footsteps/hardboot_generic3.wav","npc/footsteps/hardboot_generic4.wav","npc/footsteps/hardboot_generic5.wav","npc/footsteps/hardboot_generic6.wav","npc/footsteps/hardboot_generic8.wav"}
+ENT.SoundTbl_CombatIdle = {
+	"vo/npc/barney/ba_goingdown.wav",
+}
 ENT.SoundTbl_OnReceiveOrder = {
 	"vo/npc/barney/ba_imwithyou.wav",
 }
@@ -42,6 +39,9 @@ ENT.SoundTbl_FollowPlayer = {
 	"vo/npc/barney/ba_letsdoit.wav",
 	"vo/npc/barney/ba_letsgo.wav",
 	"vo/npc/barney/ba_oldtimes.wav",
+}
+ENT.SoundTbl_UnFollowPlayer = {
+	"vo/npc/barney/ba_hurryup.wav",
 }
 ENT.SoundTbl_Investigate = {
 	"vo/npc/barney/ba_danger02.wav",
@@ -54,7 +54,6 @@ ENT.SoundTbl_OnPlayerSight = {
 }
 ENT.SoundTbl_Alert = {
 	"vo/npc/barney/ba_bringiton.wav",
-	"vo/npc/barney/ba_goingdown.wav",
 	"vo/npc/barney/ba_hereitcomes.wav",
 	"vo/npc/barney/ba_heretheycome01.wav",
 	"vo/npc/barney/ba_heretheycome02.wav",
@@ -71,6 +70,7 @@ ENT.SoundTbl_CallForHelp = {
 }
 ENT.SoundTbl_WeaponReload = {
 	"vo/npc/barney/ba_covermegord.wav",
+	"vo/npc/barney/ba_damnit.wav",
 }
 ENT.SoundTbl_OnGrenadeSight = {
 	"vo/npc/barney/ba_damnit.wav",
@@ -115,10 +115,25 @@ ENT.SoundTbl_Death = {
 	"vo/npc/barney/ba_ohshit03.wav",
 }
 
+/*
+
+*/
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
 	self:VJ_ACT_PLAYACTIVITY({"vjseq_cheer1"},false,false,false,0,{vTbl_SequenceInterruptible=true})
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAlert(argent)
+	if math.random(1,2) == 1 then
+		if argent.IsVJBaseSNPC_Human == true then
+			self:PlaySoundSystem("Alert", {"vo/npc/barney/ba_soldiers.wav"})
+		elseif argent.HLR_Type == "Headcrab" or argent:GetClass() == "npc_headcrab" or argent:GetClass() == "npc_headcrab_black" or argent:GetClass() == "npc_headcrab_fast" then
+			self:PlaySoundSystem("Alert", {"vo/npc/barney/ba_headhumpers.wav"})
+		elseif argent.HLR_Type == "Turret" then
+			self:PlaySoundSystem("Alert", {"vo/npc/barney/ba_turret.wav"})
+		end
+	end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***

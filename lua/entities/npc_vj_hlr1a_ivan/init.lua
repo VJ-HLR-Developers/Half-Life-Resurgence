@@ -83,12 +83,8 @@ function ENT:CustomOnThink()
 		self.Ivan_LastBodyGroup = bgroup
 		if bgroup == 0 then
 			self:DoChangeWeapon("weapon_vj_hlr1a_ivanglock")
-			self.Weapon_StartingAmmoAmount = 17
-		elseif bgroup == 1 then
-			self.Ivan_LastBodyGroup = 1
-			if IsValid(self:GetActiveWeapon()) then
-				self:GetActiveWeapon():Remove()
-			end
+		elseif bgroup == 1 && IsValid(self:GetActiveWeapon()) then
+			self:GetActiveWeapon():Remove()
 		end
 	end
 end
