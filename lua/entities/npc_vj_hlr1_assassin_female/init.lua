@@ -77,6 +77,10 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
+	if IsValid(self:GetActiveWeapon()) then
+		self:GetActiveWeapon():SetClip1(999)
+	end
+	
 	if self.Dead == true then return end
 	local cloaklvl = math.Clamp(self.BOA_CloakLevel*255,40,255)
 	self:SetColor(Color(255,255,255,math.Clamp(self.BOA_CloakLevel * 255, 40, 255)))

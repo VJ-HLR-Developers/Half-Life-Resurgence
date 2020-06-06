@@ -79,7 +79,7 @@ function ENT:CustomOnThink()
 		end
 	end
 	
-	if (self:GetMaxHealth() * 0.35) > self:Health() then
+	if (self:GetMaxHealth() * 0.35) > self:Health() then -- Limp walking
 		self.AnimTbl_Walk = {ACT_WALK_HURT}
 	else
 		self.AnimTbl_Walk = {ACT_WALK}

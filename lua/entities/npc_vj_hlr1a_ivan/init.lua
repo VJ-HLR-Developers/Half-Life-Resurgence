@@ -78,6 +78,10 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
+	if IsValid(self:GetActiveWeapon()) then
+		self:GetActiveWeapon():SetClip1(999)
+	end
+	
 	local bgroup = self:GetBodygroup(0)
 	if self.Ivan_LastBodyGroup != bgroup then
 		self.Ivan_LastBodyGroup = bgroup
