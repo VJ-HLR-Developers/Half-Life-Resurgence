@@ -153,8 +153,6 @@ if VJExists == true then
 	VJ.AddNPC_HUMAN("Civil Protection","npc_vj_hlr2_com_civilp",{"weapon_vj_hl2_stunstick","weapon_vj_9mmpistol","weapon_vj_smg1"},vCat)
 	VJ.AddNPC_HUMAN("Civil Protection Elite","npc_vj_hlr2_com_civilp_elite",{"weapon_vj_smg1"},vCat)
 	VJ.AddNPC("Overwatch Floor Turret","npc_vj_hlr2_com_turret",vCat)
-		-- Beta
-		VJ.AddNPC_HUMAN("Overwatch Soldier (Beta)","npc_vj_hlr2b_com_soldier",{"weapon_vj_hl2b_oicw"},vCat)
 	
 	-- Weapons
 	VJ.AddNPCWeapon("VJ_Annabelle","weapon_vj_hl2_annabelle",false,vCat)
