@@ -1,6 +1,6 @@
 "VertexlitGeneric"
 {
-	"$basetexture" "models/police/supercop_lens"
+	"$basetexture" "models/hl_resurgence/hl2b/police/supercop_lens"
 //	"$envmap" "env_cubemap"
 //	"$envmaptint" "[0.5 0.5 0.5]"
 //	"$basealphaenvmapmask" 1

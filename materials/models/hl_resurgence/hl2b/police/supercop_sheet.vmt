@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "models/hl_resurgence/hl2b/police/supercop_sheet"
+	"$selfillum" 1
+}
