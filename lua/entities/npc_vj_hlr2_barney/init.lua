@@ -115,9 +115,10 @@ ENT.SoundTbl_Death = {
 	"vo/npc/barney/ba_ohshit03.wav",
 }
 
-/*
+--[[ UNUSED
 
-*/
+]]--
+
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)

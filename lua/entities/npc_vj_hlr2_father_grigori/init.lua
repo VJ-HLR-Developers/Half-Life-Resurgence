@@ -161,7 +161,7 @@ ENT.SoundTbl_Death = {
 
 ENT.GeneralSoundPitch1 = 100
 
-/*
+--[[ UNUSED
 "vo/ravenholm/attic_apologize.wav"
 "vo/ravenholm/bucket_almost.wav"
 "vo/ravenholm/bucket_brake.wav"
@@ -202,7 +202,7 @@ ENT.GeneralSoundPitch1 = 100
 "vo/ravenholm/yard_shepherd.wav"
 "vo/ravenholm/yard_suspect.wav"
 "vo/ravenholm/yard_traps.wav"
-*/
+]]--
 ---------------------------------------------------------------------------------------------------------------------------------------------
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
