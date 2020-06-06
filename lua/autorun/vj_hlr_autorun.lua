@@ -317,6 +317,11 @@ if VJExists == true then
 		end
 	end)*/
 	
+-- self.HLR_Type -------------------------------------------------------------------------------------------------------------------------
+/*
+	"Headcrab"
+	"Turret"
+*/
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)
 	VJ.AddAddonProperty(AddonName,AddonType)

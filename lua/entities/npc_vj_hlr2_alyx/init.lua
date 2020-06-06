@@ -90,19 +90,20 @@ function ENT:CustomOnInitialize()
 	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoChangeWeapon(NewWeapon,OldWeapon)
-	local htype = NewWeapon:GetHoldType()
-	if htype == "pistol" or htype == "revolver" then
-		self.WeaponAnimTranslations[ACT_COVER_LOW] 						= VJ_SequenceToActivity(self,"crouch_aim_pistol")
+function ENT:CustomOnSetupWeaponHoldTypeAnims(htype)
+	timer.Simple(0.1, function()
+		if IsValid(self) && htype == "pistol" or htype == "revolver" then
+			self.WeaponAnimTranslations[ACT_COVER_LOW] 						= {ACT_RANGE_AIM_PISTOL_LOW, "vjseq_crouchidlehide"}
 
-		self.WeaponAnimTranslations[ACT_WALK] 							= ACT_WALK_PISTOL
-		self.WeaponAnimTranslations[ACT_WALK_AIM] 						= ACT_WALK_AIM_PISTOL
-		self.WeaponAnimTranslations[ACT_WALK_CROUCH_AIM] 				= ACT_WALK_CROUCH_AIM_RIFLE
+			self.WeaponAnimTranslations[ACT_WALK] 							= ACT_WALK_PISTOL
+			self.WeaponAnimTranslations[ACT_WALK_AIM] 						= ACT_WALK_AIM_PISTOL
+			self.WeaponAnimTranslations[ACT_WALK_CROUCH_AIM] 				= ACT_WALK_CROUCH_AIM_RIFLE
 
-		self.WeaponAnimTranslations[ACT_RUN] 							= ACT_RUN_PISTOL
-		self.WeaponAnimTranslations[ACT_RUN_AIM] 						= ACT_RUN_AIM_PISTOL
-		self.WeaponAnimTranslations[ACT_RUN_CROUCH_AIM] 				= ACT_RUN_CROUCH_AIM_RIFLE
-	end
+			self.WeaponAnimTranslations[ACT_RUN] 							= ACT_RUN_PISTOL
+			self.WeaponAnimTranslations[ACT_RUN_AIM] 						= ACT_RUN_AIM_PISTOL
+			self.WeaponAnimTranslations[ACT_RUN_CROUCH_AIM] 				= ACT_RUN_CROUCH_AIM_RIFLE
+		end
+	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
@@ -127,6 +128,7 @@ function ENT:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
+	print("beep")
 	self:VJ_ACT_PLAYACTIVITY({"vjseq_cheer1"},false,false,false,0,{vTbl_SequenceInterruptible=true})
 end
 /*-----------------------------------------------
