@@ -83,13 +83,39 @@ ENT.SoundTbl_MoveOutOfPlayersWay = {
 */
 
 
-ENT.SoundTbl_Idle = {}
-ENT.SoundTbl_IdleDialogue = {}
-ENT.SoundTbl_IdleDialogueAnswer = {}
-ENT.SoundTbl_CombatIdle = {}
-ENT.SoundTbl_OnReceiveOrder = {}
-ENT.SoundTbl_FollowPlayer = {}
-ENT.SoundTbl_UnFollowPlayer = {}
+ENT.SoundTbl_Idle = {
+	"vo/eli_lab/al_hums.wav",
+	"vo/eli_lab/al_hums_b.wav",
+	"vo/k_lab/al_buyyoudrink01.wav",
+	"vo/k_lab/al_hmm.wav",
+}
+ENT.SoundTbl_IdleDialogue = {
+	"vo/novaprospekt/al_drkleiner01_e.wav",
+}
+ENT.SoundTbl_IdleDialogueAnswer = {
+	"vo/eli_lab/al_blamingme.wav",
+	"vo/k_lab2/al_whatdoyoumean.wav",
+	"vo/novaprospekt/al_betyoudid01.wav",
+	"vo/novaprospekt/al_notexactly.wav",
+}
+ENT.SoundTbl_CombatIdle = {
+	"vo/citadel/al_comeon.wav",
+}
+ENT.SoundTbl_OnReceiveOrder = {
+	"vo/eli_lab/al_dadwhatsup.wav",
+	"vo/k_lab/al_whatsgoingon.wav",
+	"vo/novaprospekt/al_holdon.wav",
+}
+ENT.SoundTbl_FollowPlayer = {
+	"vo/eli_lab/al_allright01.wav",
+	"vo/eli_lab/al_gravgun.wav",
+	"vo/k_lab/al_letsdoit.wav",
+}
+ENT.SoundTbl_UnFollowPlayer = {
+	"vo/eli_lab/al_thyristor02.wav",
+	"vo/k_lab/al_careful02.wav",
+	"vo/novaprospekt/al_careofyourself.wav",
+}
 ENT.SoundTbl_MoveOutOfPlayersWay = {
 	"vo/npc/alyx/al_excuse01.wav",
 	"vo/npc/alyx/al_excuse02.wav",
@@ -98,13 +124,39 @@ ENT.SoundTbl_MoveOutOfPlayersWay = {
 ENT.SoundTbl_MedicBeforeHeal = {}
 ENT.SoundTbl_MedicAfterHeal = {}
 ENT.SoundTbl_MedicReceiveHeal = {}
-ENT.SoundTbl_OnPlayerSight = {}
-ENT.SoundTbl_Investigate = {}
-ENT.SoundTbl_LostEnemy = {}
-ENT.SoundTbl_Alert = {}
-ENT.SoundTbl_CallForHelp = {}
-ENT.SoundTbl_BecomeEnemyToPlayer = {}
-ENT.SoundTbl_Suppressing = {}
+ENT.SoundTbl_OnPlayerSight = {
+	"vo/eli_lab/al_soquickly01.wav",
+	"vo/eli_lab/al_soquickly02.wav",
+	"vo/eli_lab/al_soquickly03.wav",
+	"vo/k_lab/al_heydoc.wav",
+	"vo/trainyard/al_imalyx.wav",
+	"vo/trainyard/al_nicetomeet_b.wav",
+	"vo/trainyard/al_presume.wav",
+	"vo/trainyard/al_thisday.wav",
+}
+ENT.SoundTbl_Investigate = {
+	"vo/citadel/al_heylisten.wav",
+	"vo/novaprospekt/al_overhere.wav",
+}
+ENT.SoundTbl_LostEnemy = {
+	"vo/citadel/al_notagain02.wav",
+	"vo/eli_lab/al_ugh.wav",
+}
+ENT.SoundTbl_Alert = {
+	"vo/novaprospekt/al_uhoh_np.wav",
+}
+ENT.SoundTbl_CallForHelp = {
+	"vo/eli_lab/al_cmongord02.wav",
+	"vo/eli_lab/al_getitopen01.wav",
+}
+ENT.SoundTbl_BecomeEnemyToPlayer = {
+	"vo/citadel/al_bitofit.wav",
+}
+ENT.SoundTbl_Suppressing = {
+	"vo/novaprospekt/al_gotyounow01.wav",
+	"vo/novaprospekt/al_holdit.wav",
+	"vo/streetwar/alyx_gate/al_thatsit.wav",
+}
 ENT.SoundTbl_WeaponReload = {
 	"vo/npc/alyx/coverme01.wav",
 	"vo/npc/alyx/coverme02.wav",
@@ -122,9 +174,17 @@ ENT.SoundTbl_OnGrenadeSight = {
 	"vo/npc/alyx/lookout03.wav",
 	"vo/npc/alyx/watchout01.wav",
 	"vo/npc/alyx/watchout02.wav",
+	"vo/novaprospekt/al_gasp01.wav",
 }
 ENT.SoundTbl_OnKilledEnemy = {
 	"vo/npc/alyx/brutal02.wav",
+	"vo/citadel/al_yes_nr.wav",
+	"vo/eli_lab/al_awesome.wav",
+	"vo/eli_lab/al_earnedit01.wav",
+	"vo/eli_lab/al_excellent01.wav",
+	"vo/eli_lab/al_sweet.wav",
+	"vo/k_lab2/al_whee_b.wav",
+	"vo/trainyard/al_noyoudont.wav",
 }
 ENT.SoundTbl_AllyDeath = {
 	"vo/npc/alyx/no01.wav",
@@ -133,6 +193,12 @@ ENT.SoundTbl_AllyDeath = {
 	"vo/npc/alyx/ohgod01.wav",
 	"vo/npc/alyx/ohno_startle01.wav",
 	"vo/npc/alyx/ohno_startle03.wav",
+	"vo/citadel/al_dadgordonno_c.wav",
+	"vo/k_lab2/al_notime.wav",
+	"vo/novaprospekt/al_combinespy01.wav",
+	"vo/novaprospekt/al_horrible01.wav",
+	"vo/novaprospekt/al_ohmygod.wav",
+	"vo/streetwar/alyx_gate/al_no.wav",
 }
 ENT.SoundTbl_Pain = {
 	"vo/npc/alyx/gasp02.wav",
@@ -141,9 +207,13 @@ ENT.SoundTbl_Pain = {
 	"vo/npc/alyx/hurt05.wav",
 	"vo/npc/alyx/hurt06.wav",
 	"vo/npc/alyx/hurt08.wav",
+	"vo/citadel/al_struggle07.wav",
+	"vo/citadel/al_struggle08.wav",
+	"vo/streetwar/alyx_gate/al_ah.wav",
 }
 ENT.SoundTbl_DamageByPlayer = {
 	"vo/npc/alyx/gordon_dist01.wav",
+	"vo/novaprospekt/al_nostop.wav",
 }
 ENT.SoundTbl_Death = {
 	"vo/npc/alyx/uggh01.wav",
@@ -152,16 +222,18 @@ ENT.SoundTbl_Death = {
 
 --[[ UNUSED
 
--- Player Needs to reload
-"vo/npc/alyx/youreload01.wav"
-"vo/npc/alyx/youreload02.wav"
+-- Complementing the player
+vo/eli_lab/al_niceshot.wav
+
+-- Player died
+vo/k_lab/al_lostgordon.wav
 
 ]]--
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	
+	self.Human_NextPlyReloadSd = CurTime()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnSetupWeaponHoldTypeAnims(htype)
@@ -183,6 +255,25 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnEntityRelationshipCheck(argent, entisfri, entdist)
+	-- Tell the player to reload their weapon
+	if argent:IsPlayer() && entisfri == true && entdist <= 200 && !IsValid(self:GetEnemy()) && CurTime() > self.Human_NextPlyReloadSd then
+		self.Human_NextPlyReloadSd = CurTime() + math.Rand(10,60)
+		local wep = argent:GetActiveWeapon()
+		if math.random(1,3) == 1 && IsValid(wep) && wep:Clip1() < wep:GetMaxClip1() && argent:GetAmmoCount(wep:GetPrimaryAmmoType()) > 0 then
+			self:PlaySoundSystem("GeneralSpeech",{"vo/npc/alyx/youreload01.wav","vo/npc/alyx/youreload02.wav"})
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAlert(argent)
+	if math.random(1,2) == 1 then
+		if argent:Classify() == CLASS_SCANNER then
+			self:PlaySoundSystem("Alert", {"vo/eli_lab/al_scanners03.wav"})
+		end
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)

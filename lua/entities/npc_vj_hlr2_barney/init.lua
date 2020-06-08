@@ -28,8 +28,19 @@ ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch on
 	-- ====== File Path Variables ====== --
 	-- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"npc/footsteps/hardboot_generic1.wav","npc/footsteps/hardboot_generic2.wav","npc/footsteps/hardboot_generic3.wav","npc/footsteps/hardboot_generic4.wav","npc/footsteps/hardboot_generic5.wav","npc/footsteps/hardboot_generic6.wav","npc/footsteps/hardboot_generic8.wav"}
+ENT.SoundTbl_Idle = {
+	"vo/streetwar/sniper/ba_hauntsme.wav",
+}
+ENT.SoundTbl_IdleDialogue = {
+	"vo/k_lab/ba_itsworking04.wav",
+	"vo/streetwar/sniper/ba_hearcat.wav",
+}
+ENT.SoundTbl_IdleDialogueAnswer = {
+	"vo/k_lab/ba_saidlasttime.wav",
+}
 ENT.SoundTbl_CombatIdle = {
 	"vo/npc/barney/ba_goingdown.wav",
+	"vo/streetwar/rubble/ba_damnitall.wav",
 }
 ENT.SoundTbl_OnReceiveOrder = {
 	"vo/npc/barney/ba_imwithyou.wav",
@@ -39,18 +50,40 @@ ENT.SoundTbl_FollowPlayer = {
 	"vo/npc/barney/ba_letsdoit.wav",
 	"vo/npc/barney/ba_letsgo.wav",
 	"vo/npc/barney/ba_oldtimes.wav",
+	"vo/k_lab2/ba_goodnews_c.wav",
+	"vo/streetwar/nexus/ba_thenletsgo.wav",
+	"vo/streetwar/sniper/ba_letsgetgoing.wav",
 }
 ENT.SoundTbl_UnFollowPlayer = {
 	"vo/npc/barney/ba_hurryup.wav",
+	"vo/k_lab/ba_dontblameyou.wav",
+	"vo/k_lab/ba_geethanks.wav",
+	"vo/k_lab/ba_getoutofsight02.wav",
+	"vo/k_lab/ba_goodluck02.wav",
+	"vo/trainyard/ba_goodluck01.wav",
+	"vo/trainyard/ba_meetyoulater01.wav",
+	"vo/streetwar/nexus/ba_seeyou.wav",
 }
-ENT.SoundTbl_Investigate = {
-	"vo/npc/barney/ba_danger02.wav",
-}
+ENT.SoundTbl_MoveOutOfPlayersWay = {}
+ENT.SoundTbl_MedicBeforeHeal = {}
+ENT.SoundTbl_MedicAfterHeal = {}
+ENT.SoundTbl_MedicReceiveHeal = {}
 ENT.SoundTbl_OnPlayerSight = {
 	"vo/npc/barney/ba_followme01.wav",
 	"vo/npc/barney/ba_followme02.wav",
 	"vo/npc/barney/ba_followme03.wav",
 	"vo/npc/barney/ba_followme05.wav",
+	"vo/k_lab/ba_thereyouare.wav",
+	"vo/trainyard/ba_heygordon.wav",
+	"vo/trainyard/ba_rememberme.wav",
+	"vo/streetwar/rubble/ba_gordon.wav",
+}
+ENT.SoundTbl_Investigate = {
+	"vo/npc/barney/ba_danger02.wav",
+	"vo/k_lab/ba_whatthehell.wav",
+}
+ENT.SoundTbl_LostEnemy = {
+	"vo/k_lab/ba_whatthehell.wav",
 }
 ENT.SoundTbl_Alert = {
 	"vo/npc/barney/ba_bringiton.wav",
@@ -59,19 +92,29 @@ ENT.SoundTbl_Alert = {
 	"vo/npc/barney/ba_heretheycome02.wav",
 	"vo/npc/barney/ba_openfiregord.wav",
 	"vo/npc/barney/ba_uhohheretheycome.wav",
-	"vj_hlr/hl2_npc/barney/ba_fuckyou.wav"
-}
-ENT.SoundTbl_BecomeEnemyToPlayer = {
-	"vj_hlr/hl2_npc/barney/ba_fuckyou.wav"
+	"vj_hlr/hl2_npc/barney/ba_fuckyou.wav",
+	"vo/k_lab2/ba_incoming.wav",
 }
 ENT.SoundTbl_CallForHelp = {
 	"vo/npc/barney/ba_gordonhelp.wav",
 	"vo/npc/barney/ba_littlehelphere.wav",
+	"vo/streetwar/nexus/ba_surrounded.wav",
+	"vo/streetwar/rubble/ba_helpmeout.wav",
+	"vo/streetwar/sniper/ba_overhere.wav",
 }
+ENT.SoundTbl_BecomeEnemyToPlayer = {
+	"vj_hlr/hl2_npc/barney/ba_fuckyou.wav"
+}
+ENT.SoundTbl_Suppressing = {}
 ENT.SoundTbl_WeaponReload = {
 	"vo/npc/barney/ba_covermegord.wav",
 	"vo/npc/barney/ba_damnit.wav",
 }
+ENT.SoundTbl_BeforeMeleeAttack = {}
+ENT.SoundTbl_MeleeAttack = {}
+ENT.SoundTbl_MeleeAttackExtra = {}
+ENT.SoundTbl_MeleeAttackMiss = {}
+ENT.SoundTbl_GrenadeAttack = {}
 ENT.SoundTbl_OnGrenadeSight = {
 	"vo/npc/barney/ba_damnit.wav",
 	"vo/npc/barney/ba_duck.wav",
@@ -81,6 +124,8 @@ ENT.SoundTbl_OnGrenadeSight = {
 	"vo/npc/barney/ba_grenade01.wav",
 	"vo/npc/barney/ba_grenade02.wav",
 	"vo/npc/barney/ba_lookout.wav",
+	"vo/k_lab/ba_headhumper02.wav",
+	"vo/k_lab/ba_thingaway02.wav",
 }
 ENT.SoundTbl_OnKilledEnemy = {
 	"vo/npc/barney/ba_downyougo.wav",
@@ -92,6 +137,14 @@ ENT.SoundTbl_OnKilledEnemy = {
 	"vo/npc/barney/ba_losttouch.wav",
 	"vo/npc/barney/ba_ohyeah.wav",
 	"vo/npc/barney/ba_yell.wav",
+	"vo/streetwar/nexus/ba_alldown.wav",
+	"vo/streetwar/nexus/ba_done.wav",
+	"vo/streetwar/sniper/ba_onedownonetogo.wav",
+}
+ENT.SoundTbl_AllyDeath = {
+	"vo/k_lab/ba_cantlook.wav",
+	"vo/k_lab/ba_guh.wav",
+	"vo/streetwar/rubble/ba_damnitall.wav",
 }
 ENT.SoundTbl_Pain = {
 	"vo/npc/barney/ba_damnit.wav",
@@ -109,6 +162,13 @@ ENT.SoundTbl_Pain = {
 	"vo/npc/barney/ba_wounded02.wav",
 	"vo/npc/barney/ba_wounded03.wav",
 }
+ENT.SoundTbl_DamageByPlayer = {
+	"vo/k_lab/ba_notime.wav",
+	"vo/k_lab/ba_notimetofool01.wav",
+	"vo/k_lab/ba_notimetofool02.wav",
+	"vo/k_lab/ba_pissinmeoff.wav",
+	"vo/k_lab/ba_pushinit.wav",
+}
 ENT.SoundTbl_Death = {
 	"vo/npc/barney/ba_no01.wav",
 	"vo/npc/barney/ba_no02.wav",
@@ -116,7 +176,11 @@ ENT.SoundTbl_Death = {
 }
 
 --[[ UNUSED
-
+-- Complementing the player
+vo/k_lab/ba_sarcastic01.wav
+vo/k_lab/ba_sarcastic02.wav
+vo/k_lab/ba_sarcastic03.wav
+vo/streetwar/sniper/ba_returnhero.wav
 ]]--
 
 ENT.GeneralSoundPitch1 = 100
@@ -129,6 +193,8 @@ function ENT:CustomOnAlert(argent)
 	if math.random(1,2) == 1 then
 		if argent.IsVJBaseSNPC_Human == true then
 			self:PlaySoundSystem("Alert", {"vo/npc/barney/ba_soldiers.wav"})
+		elseif argent:GetClass() == "npc_combinedropship" then
+			self:PlaySoundSystem("Alert", {"vo/streetwar/nexus/ba_uhohdropships.wav"})
 		elseif argent.HLR_Type == "Headcrab" or argent:GetClass() == "npc_headcrab" or argent:GetClass() == "npc_headcrab_black" or argent:GetClass() == "npc_headcrab_fast" then
 			self:PlaySoundSystem("Alert", {"vo/npc/barney/ba_headhumpers.wav"})
 		elseif argent.HLR_Type == "Turret" then

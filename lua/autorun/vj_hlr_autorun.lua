@@ -321,6 +321,7 @@ if VJExists == true then
 /*
 	"Headcrab"
 	"Turret"
+	"Police"
 */
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)
