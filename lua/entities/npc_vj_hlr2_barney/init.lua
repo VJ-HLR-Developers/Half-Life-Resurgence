@@ -190,7 +190,7 @@ function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(argent)
-	if math.random(1,2) == 1 then
+	if math.random(1,2) == 1 && argent:IsNPC() then
 		if argent.IsVJBaseSNPC_Human == true then
 			self:PlaySoundSystem("Alert", {"vo/npc/barney/ba_soldiers.wav"})
 		elseif argent:GetClass() == "npc_combinedropship" then

@@ -98,7 +98,7 @@ function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(argent)
-	if math.random(1,2) == 1 then
+	if math.random(1,2) == 1 && argent:IsNPC() then
 		//print(argent:Classify())
 		if argent.HLR_Type == "Headcrab" or argent:GetClass() == "npc_headcrab" or argent:GetClass() == "npc_headcrab_black" or argent:GetClass() == "npc_headcrab_fast" then
 			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/headcrabs01.wav","vo/npc/"..self.Human_SdFolder.."/headcrabs02.wav"})

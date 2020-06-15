@@ -269,7 +269,7 @@ function ENT:CustomOnEntityRelationshipCheck(argent, entisfri, entdist)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(argent)
-	if math.random(1,2) == 1 then
+	if math.random(1,2) == 1 && argent:IsNPC() then
 		if argent:Classify() == CLASS_SCANNER then
 			self:PlaySoundSystem("Alert", {"vo/eli_lab/al_scanners03.wav"})
 		end
