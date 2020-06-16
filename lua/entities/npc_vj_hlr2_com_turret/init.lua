@@ -138,7 +138,7 @@ function ENT:CustomAttackCheck_RangeAttack()
 	-- return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert()
+function ENT:CustomOnAlert(argent)
 	self:VJ_ACT_PLAYACTIVITY({"deploy"},true,0.7)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

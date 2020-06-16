@@ -99,15 +99,13 @@ function ENT:CustomOnThink_AIEnabled()
 			self:SetPoseParameter("aim_yaw", self:GetPoseParameter("aim_yaw") + 4)
 		end
 	else
-		if CurTime() > self.NextResetEnemyT && self.Alerted == false then
-			if self.Sentry_StandDown == false then
-				self.Sentry_StandDown = true
-				self:VJ_ACT_PLAYACTIVITY({"retire"},true,1)
-				VJ_EmitSound(self,{"vj_hlr/hl1_npc/turret/tu_retract.wav"},65,self:VJ_DecideSoundPitch(100,110))
-				if self.Sentry_Type == 1 then
-					self.Sentry_SpinnedUp = false
-					VJ_EmitSound(self,"vj_hlr/hl1_npc/turret/tu_spindown.wav",80,100)
-				end
+		if CurTime() > self.NextResetEnemyT && self.Alerted == false && self.Sentry_StandDown == false then
+			self.Sentry_StandDown = true
+			self:VJ_ACT_PLAYACTIVITY({"retire"},true,1)
+			VJ_EmitSound(self,{"vj_hlr/hl1_npc/turret/tu_retract.wav"},65,self:VJ_DecideSoundPitch(100,110))
+			if self.Sentry_Type == 1 then
+				self.Sentry_SpinnedUp = false
+				VJ_EmitSound(self,"vj_hlr/hl1_npc/turret/tu_spindown.wav",80,100)
 			end
 		end
 		if self.Sentry_StandDown == true then
@@ -150,7 +148,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	util.Effect("VJ_HLR_Rico",rico)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert()
+function ENT:CustomOnAlert(argent)
 	if self.Sentry_Type == 1 then -- If it's ceiling turret, then make sure it's not looking until it has fully deployed
 		self.HasPoseParameterLooking = false
 	end
@@ -172,7 +170,7 @@ function ENT:CustomOnAlert()
 	else
 		self.Sentry_SpinnedUp = true
 	end
-	VJ_EmitSound(self,{"vj_hlr/hl1_npc/turret/tu_alert.wav"},75,100)
+	VJ_EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_alert.wav"}, 75, 100)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()

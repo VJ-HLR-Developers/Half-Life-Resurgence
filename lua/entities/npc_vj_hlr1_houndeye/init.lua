@@ -85,6 +85,7 @@ function ENT:CustomOnThink()
 		self.AnimTbl_Walk = {ACT_WALK}
 	end
 	
+	-- Blinking
 	if self.Dead == false && CurTime() > self.Houndeye_BlinkingT && self.Houndeye_Sleeping == false then
 		self:SetSkin(1)
 		timer.Simple(0.1, function() if IsValid(self) then self:SetSkin(2) end end)
@@ -95,8 +96,8 @@ function ENT:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if !IsValid(self:GetEnemy()) && CurTime() > self.Houndeye_NextSleepT && self.Houndeye_Sleeping == false && !self:IsMoving() then
-		local sleept = math.Rand(15,30)
+	if self.Alerted != true && !IsValid(self:GetEnemy()) && CurTime() > self.Houndeye_NextSleepT && self.Houndeye_Sleeping == false && !self:IsMoving() then
+		local sleept = math.Rand(15,30) -- How long it should sleep
 		self.Houndeye_Sleeping = true
 		self.AnimTbl_IdleStand = {ACT_CROUCHIDLE}
 		self:VJ_ACT_PLAYACTIVITY(ACT_CROUCH, true, false, false)
@@ -113,12 +114,12 @@ function ENT:CustomOnThink_AIEnabled()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(argent)
-	if self.Houndeye_Sleeping == true then
+	if self.Houndeye_Sleeping == true then -- Wake up if sleeping and play a special alert animation
 		if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end
 		self.Houndeye_Sleeping = false
 		self:VJ_ACT_PLAYACTIVITY(ACT_HOP, true, false, false)
 		self.Houndeye_NextSleepT = CurTime() + 20
-	elseif math.random(1,2) == 1 then
+	elseif math.random(1,2) == 1 then -- Random alert animation
 		self:VJ_ACT_PLAYACTIVITY({"vjseq_madidle1","vjseq_madidle2","vjseq_madidle3"}, true, false, true)
 	end
 end
@@ -136,6 +137,7 @@ function ENT:CustomOnMeleeAttack_BeforeChecks()
 			allynum = allynum + 1
 		end
 	end
+	-- More allies = more damage and different colors
 	if allynum == 1 then
 		color = Color(101, 133, 221)
 		dmg = 30

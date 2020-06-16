@@ -21,7 +21,7 @@ SWEP.Instructions				= "Controls are like a regular weapon."
 SWEP.Category					= "VJ Base"
 SWEP.Spawnable = true
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
--- SWEP.MadeForNPCsOnly 			= true -- Is tihs weapon meant to be for NPCs only?
+-- SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
 SWEP.ViewModel					= "models/vj_hlr/hl2/weapons/c_combinesniper.mdl"
 SWEP.WorldModel					= "models/vj_hlr/hl2/weapons/w_combinesniper.mdl"
 SWEP.HoldType 					= "ar2"
