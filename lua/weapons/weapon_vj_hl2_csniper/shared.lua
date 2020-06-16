@@ -11,6 +11,7 @@ local firetimes = {}
 local nextpossiblefire = 1.75
 local muzzle = "muzzle"
 SWEP.PrimaryEffects_SpawnShells = false
+SWEP.NPC_FiringDistanceScale = 2.5
 ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Base 						= "weapon_vj_base"
 SWEP.PrintName					= name
@@ -37,7 +38,7 @@ SWEP.Primary.Damage				= dmg -- Damage
 SWEP.NPC_CustomSpread	 		= 0
 SWEP.Primary.Force				= 5 -- Force applied on the object the bullet hits
 SWEP.Primary.ClipSize			= clip -- Max amount of bullets per clip
-SWEP.Primary.Ammo				= "AR2" -- Ammo type
+SWEP.Primary.Ammo				= "SniperRound" -- Ammo type
 SWEP.Primary.TracerType			= "AR2Tracer"
 SWEP.Primary.Sound				= fire
 SWEP.Primary.DistantSound		= firedist
@@ -45,10 +46,6 @@ SWEP.PrimaryEffects_MuzzleAttachment = muzzle
 SWEP.NPC_ExtraFireSound			= extrafire
 SWEP.NPC_ReloadSound			= reload
 SWEP.PrimaryEffects_MuzzleParticles = {"vj_rifle_full_blue"}
-
-function SWEP:CustomOnInitialize()
-	self.Owner.Weapon_FiringDistanceFar = 18000
-end
 
 function SWEP:CustomOnThink()
 	self.Owner:SetNWEntity("enemy",self.Owner:GetEnemy())

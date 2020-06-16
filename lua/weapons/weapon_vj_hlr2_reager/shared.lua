@@ -42,13 +42,9 @@ SWEP.WorldModel_CustomPositionOrigin = Vector(-1,15,0.5)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.ParticleFX = "electrical_arc_01"
 SWEP.AttackRange = 450
+SWEP.NPC_FiringDistanceScale = 0.15
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
-	self.OldFireDistance = 3000
-	if IsValid(self.Owner) && self.Owner:IsNPC() then
-		self.OldFireDistance = self.Owner.Weapon_FiringDistanceFar
-		self.Owner.Weapon_FiringDistanceFar = self.AttackRange
-	end
 	self.StopLoopT = CurTime()
 	self.Loop = CreateSound(self,"ambient/levels/citadel/zapper_loop2.wav")
 	self.Loop:SetSoundLevel(80)
@@ -103,9 +99,6 @@ function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnRemove()
-	if IsValid(self.Owner) && self.Owner:IsNPC() then
-		self.Owner.Weapon_FiringDistanceFar = self.OldFireDistance
-	end
 	if self.Loop then self.Loop:Stop() end
 	if self.LoopB then self.LoopB:Stop() end
 end
