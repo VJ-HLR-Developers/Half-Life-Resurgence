@@ -381,7 +381,7 @@ function ENT:CustomOnAlert(argent)
 		elseif argent:GetClass() == "npc_antlionguard" then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_antguard.wav"})
 		elseif argent:Classify() == CLASS_MACHINE or argent.HLR_Type == "Turret" or argent:GetClass() == "npc_turret_floor" then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_turrets.wav",})
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_turrets.wav"})
 		else
 			local tbl = argent.VJ_NPC_Class or {1}
 			for _,v in ipairs(tbl) do
@@ -396,6 +396,7 @@ function ENT:CustomOnAlert(argent)
 					break
 				end
 			end
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

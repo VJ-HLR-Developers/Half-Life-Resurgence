@@ -210,8 +210,6 @@ ENT.SoundTbl_Death = {
 
 ]]--
 
-"vj_hlr/hl2_npc/ep1/c17/.wav"
-
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
