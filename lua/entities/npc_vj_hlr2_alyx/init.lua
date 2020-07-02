@@ -36,85 +36,77 @@ ENT.HitGroupFlinching_Values = {
 	-- ====== File Path Variables ====== --
 	-- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"npc/footsteps/hardboot_generic1.wav","npc/footsteps/hardboot_generic2.wav","npc/footsteps/hardboot_generic3.wav","npc/footsteps/hardboot_generic4.wav","npc/footsteps/hardboot_generic5.wav","npc/footsteps/hardboot_generic6.wav","npc/footsteps/hardboot_generic8.wav"}
-/*
-ENT.SoundTbl_Idle = {
-	"vo/eli_lab/al_hums.wav",
-	"vo/eli_lab/al_hums_b.wav",
-}
-ENT.SoundTbl_IdleDialogue = { -- Needs more lines, I'll let you guys add some more
-	"vo/k_lab/al_wontlook.wav",
-	"vo/novaprospekt/al_drkleiner01_e.wav",
-	"vo/novaprospekt/al_flyingblind.wav",
-}
-ENT.SoundTbl_IdleDialogueAnswer = {
-	"vo/k_lab2/al_optimism.wav",
-	"vo/k_lab2/al_whatdoyoumean.wav",
-	"vo/k_lab2/al_whee_b.wav",
-	"vo/eli_lab/al_allright01.wav",
-	"vo/eli_lab/al_awesome.wav",
-	"vo/eli_lab/al_blamingme.wav",
-	"vo/eli_lab/al_laugh01.wav",
-	"vo/eli_lab/al_laugh02.wav",
-	"vo/novaprospekt/al_betyoudid01.wav",
-	"vo/novaprospekt/al_elevator02.wav",
-	"vo/novaprospekt/al_notexactly.wav",
-}
-ENT.SoundTbl_OnReceiveOrder = {"vo/episode_1/npc/alyx/al_comingtohelp01.wav","vo/episode_1/npc/alyx/al_comingtohelp02.wav","vo/episode_1/npc/alyx/al_comingtohelp03.wav","vo/episode_1/npc/alyx/al_comingtohelp04.wav"}
-ENT.SoundTbl_FollowPlayer = {"vo/streetwar/alyx_gate/al_letsgo.wav","vo/streetwar/alyx_gate/al_letsgo01.wav","vo/streetwar/alyx_gate/al_readywhenyou.wav","vo/episode_1/npc/alyx/al_follow01.wav","vo/episode_1/npc/alyx/al_follow02.wav","vo/episode_1/npc/alyx/al_follow03.wav","vo/episode_1/npc/alyx/al_follow04.wav"}
-ENT.SoundTbl_UnFollowPlayer = {"vo/episode_1/npc/alyx/al_affirm_sarc01.wav","vo/episode_1/npc/alyx/al_affirm_sarc02.wav","vo/episode_1/npc/alyx/al_affirm_sarc03.wav","vo/episode_1/npc/alyx/al_affirm_sarc04.wav","vo/episode_1/npc/alyx/al_affirm_sarc05.wav"}
-ENT.SoundTbl_OnPlayerSight = {"vo/k_lab/al_heydoc.wav","vo/episode_1/npc/alyx/al_playerfalls01.wav",}
-ENT.SoundTbl_Alert = {"vo/episode_1/npc/alyx/al_startcombat01.wav","vo/episode_1/npc/alyx/al_combat_sudden01.wav","vo/episode_1/npc/alyx/al_combat_sudden02.wav","vo/episode_1/npc/alyx/al_combat_sudden03.wav","vo/episode_1/npc/alyx/al_combat_sudden04.wav","vo/episode_1/npc/alyx/al_combat_sudden05.wav","vo/episode_1/npc/alyx/al_combat_sudden06.wav"}
-ENT.SoundTbl_CallForHelp = {"vo/episode_1/npc/alyx/al_surround01.wav","vo/episode_1/npc/alyx/al_surround02.wav","vo/episode_1/npc/alyx/al_swamped04.wav"}
-ENT.SoundTbl_WeaponReload = {"vo/episode_1/npc/alyx/al_reload01.wav","vo/episode_1/npc/alyx/al_reload02.wav","vo/episode_1/npc/alyx/al_reload03.wav","vo/episode_1/npc/alyx/al_reload04.wav","vo/episode_1/npc/alyx/al_reload05.wav","vo/episode_1/npc/alyx/al_reload06.wav","vo/episode_1/npc/alyx/al_reloading_new02.wav","vo/episode_1/npc/alyx/al_reloading_new03.wav"}
-ENT.SoundTbl_OnGrenadeSight = {"vo/episode_1/npc/alyx/al_grenade_warn02.wav","vo/episode_1/npc/alyx/al_grenade_warn_new_02.wav","vo/npc/alyx/lookout01.wav","vo/npc/alyx/lookout03.wav"}
-ENT.SoundTbl_OnKilledEnemy = {"vo/novaprospekt/al_gotyounow01.wav","vo/eli_lab/al_sweet.wav","vo/npc/alyx/brutal02.wav","vo/episode_1/npc/alyx/al_laugh02.wav","vo/episode_1/npc/alyx/al_laugh04.wav",}
-ENT.SoundTbl_Pain = {"vo/npc/alyx/gasp02.wav","vo/npc/alyx/gasp03.wav","vo/npc/alyx/hurt04.wav","vo/npc/alyx/hurt05.wav","vo/episode_1/npc/alyx/al_post_combat01.wav","vo/episode_1/npc/alyx/al_post_combat03.wav","vo/episode_1/npc/alyx/al_post_combat04.wav"}
-ENT.SoundTbl_DamageByPlayer = {"vo/npc/alyx/gordon_dist01.wav"}
-ENT.SoundTbl_Death = {"vo/npc/alyx/uggh01.wav","vo/npc/alyx/uggh02.wav"}
-ENT.SoundTbl_AllyDeath = {
-	"vo/streetwar/alyx_gate/al_no.wav",
-	"vo/novaprospekt/al_horrible01.wav",
-}
-ENT.SoundTbl_MoveOutOfPlayersWay = {
-	"vo/npc/alyx/al_excuse01.wav",
-	"vo/npc/alyx/al_excuse02.wav",
-	"vo/npc/alyx/al_excuse03.wav",
-}
-*/
-
-
 ENT.SoundTbl_Idle = {
 	"vo/eli_lab/al_hums.wav",
 	"vo/eli_lab/al_hums_b.wav",
 	"vo/k_lab/al_buyyoudrink01.wav",
 	"vo/k_lab/al_hmm.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_alert_zombies07.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_cramped01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_elev_relief.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_pb1_hm.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_pb1_whatsthis.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_subwaymap02.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_zombine_joke01.wav",
 }
 ENT.SoundTbl_IdleDialogue = {
 	"vo/novaprospekt/al_drkleiner01_e.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_dontseehow.wav",
 }
 ENT.SoundTbl_IdleDialogueAnswer = {
 	"vo/eli_lab/al_blamingme.wav",
 	"vo/k_lab2/al_whatdoyoumean.wav",
 	"vo/novaprospekt/al_betyoudid01.wav",
 	"vo/novaprospekt/al_notexactly.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_excuseminute.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_notanymore.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_pb_crossfingers.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_pb_knowthedrill.wav",
 }
 ENT.SoundTbl_CombatIdle = {
 	"vo/citadel/al_comeon.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_elev_comeon.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_elev_letsgo.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_finale_herewego.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_finale_herewego_alt.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_finale_wediditg01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_gship_againagain.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_pb1_ohgreat.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_train_thisisit.wav",
 }
 ENT.SoundTbl_OnReceiveOrder = {
 	"vo/eli_lab/al_dadwhatsup.wav",
 	"vo/k_lab/al_whatsgoingon.wav",
 	"vo/novaprospekt/al_holdon.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_whythisway.wav",
 }
 ENT.SoundTbl_FollowPlayer = {
 	"vo/eli_lab/al_allright01.wav",
 	"vo/eli_lab/al_gravgun.wav",
 	"vo/k_lab/al_letsdoit.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_betterchance.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_elev_letsgetout.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_elev_letsgo_new.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_elev_ok.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_evac_eventually03.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_evac_soundsgood01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_gotyourback.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_hospital_afteryou.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_hospital_letsgo.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_letsgo02.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_letsgo03.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_safehouse_soundgood.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_safehouse_yeah.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_safehouse_yeah_new.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_whatwegonnado.wav",
 }
 ENT.SoundTbl_UnFollowPlayer = {
 	"vo/eli_lab/al_thyristor02.wav",
 	"vo/k_lab/al_careful02.wav",
 	"vo/novaprospekt/al_careofyourself.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_evac_leaveyoutoit.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_safehouse_yeah.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_safehouse_yeah_new.wav",
 }
 ENT.SoundTbl_MoveOutOfPlayersWay = {
 	"vo/npc/alyx/al_excuse01.wav",
@@ -123,7 +115,9 @@ ENT.SoundTbl_MoveOutOfPlayersWay = {
 }
 ENT.SoundTbl_MedicBeforeHeal = {}
 ENT.SoundTbl_MedicAfterHeal = {}
-ENT.SoundTbl_MedicReceiveHeal = {}
+ENT.SoundTbl_MedicReceiveHeal = {
+	"vj_hlr/hl2_npc/ep1/c17/al_cit_heythanks.wav",
+}
 ENT.SoundTbl_OnPlayerSight = {
 	"vo/eli_lab/al_soquickly01.wav",
 	"vo/eli_lab/al_soquickly02.wav",
@@ -133,10 +127,19 @@ ENT.SoundTbl_OnPlayerSight = {
 	"vo/trainyard/al_nicetomeet_b.wav",
 	"vo/trainyard/al_presume.wav",
 	"vo/trainyard/al_thisday.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_backsosoon.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_evac_madeit.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_thereyouare.wav",
 }
 ENT.SoundTbl_Investigate = {
 	"vo/citadel/al_heylisten.wav",
 	"vo/novaprospekt/al_overhere.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_elev_hearsomething_loud01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_elev_hearsomething01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_evac_advisor01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_rappel_hearthat.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_rappel_hearthat_loud.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_whatsound.wav",
 }
 ENT.SoundTbl_LostEnemy = {
 	"vo/citadel/al_notagain02.wav",
@@ -144,10 +147,23 @@ ENT.SoundTbl_LostEnemy = {
 }
 ENT.SoundTbl_Alert = {
 	"vo/novaprospekt/al_uhoh_np.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_ant_uncovered03.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_ant_uncovered04.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_elev_godnotagain.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_elev_kidding.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_elev_trouble.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_heretheycome.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_hospital_heretheycome.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_lasttrain_herewego.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_pb_herewego.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_rappel_spotted.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_train_hereitgoes.wav",
 }
 ENT.SoundTbl_CallForHelp = {
 	"vo/eli_lab/al_cmongord02.wav",
 	"vo/eli_lab/al_getitopen01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_evac_cits01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_strider_overhere.wav",
 }
 ENT.SoundTbl_BecomeEnemyToPlayer = {
 	"vo/citadel/al_bitofit.wav",
@@ -156,6 +172,7 @@ ENT.SoundTbl_Suppressing = {
 	"vo/novaprospekt/al_gotyounow01.wav",
 	"vo/novaprospekt/al_holdit.wav",
 	"vo/streetwar/alyx_gate/al_thatsit.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_train_thereitgoes.wav",
 }
 ENT.SoundTbl_WeaponReload = {
 	"vo/npc/alyx/coverme01.wav",
@@ -175,6 +192,16 @@ ENT.SoundTbl_OnGrenadeSight = {
 	"vo/npc/alyx/watchout01.wav",
 	"vo/npc/alyx/watchout02.wav",
 	"vo/novaprospekt/al_gasp01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_crabpod_omg.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_garrison_omgcitadel01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_hospital_fallthru01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_hospital_zombiefall.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_lasttrain_ohno.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_strider_getdown.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_strider_watchout.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_zombieroom_lookout01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_zombieroom_lookout02.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_zombine_crap.wav",
 }
 ENT.SoundTbl_OnKilledEnemy = {
 	"vo/npc/alyx/brutal02.wav",
@@ -185,6 +212,22 @@ ENT.SoundTbl_OnKilledEnemy = {
 	"vo/eli_lab/al_sweet.wav",
 	"vo/k_lab2/al_whee_b.wav",
 	"vo/trainyard/al_noyoudont.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_antguard_victory.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_elev_phew.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_elev_thatwasclose01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_elev_tooclose.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_evac_gothim01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_evac_notsohard01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_evac_thatsright.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_garrison_phew.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_gship_mess.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_pb_gettingbetter.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_pb_heyimgood.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_pbox_padlock01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_snipe_close01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_strider_yes.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_tougherthanithought.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_train_close.wav",
 }
 ENT.SoundTbl_AllyDeath = {
 	"vo/npc/alyx/no01.wav",
@@ -199,6 +242,13 @@ ENT.SoundTbl_AllyDeath = {
 	"vo/novaprospekt/al_horrible01.wav",
 	"vo/novaprospekt/al_ohmygod.wav",
 	"vo/streetwar/alyx_gate/al_no.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_gate_cantbelieve.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_gate_ohgodno.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_lasttrain_omg.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_meltdown01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_plaza_view02.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_train_omg.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_whystickaround01.wav",
 }
 ENT.SoundTbl_Pain = {
 	"vo/npc/alyx/gasp02.wav",
@@ -210,10 +260,15 @@ ENT.SoundTbl_Pain = {
 	"vo/citadel/al_struggle07.wav",
 	"vo/citadel/al_struggle08.wav",
 	"vo/streetwar/alyx_gate/al_ah.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_elev_zombiesurprise.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_flood_floodroom01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_pb1_oh.wav",
 }
 ENT.SoundTbl_DamageByPlayer = {
 	"vo/npc/alyx/gordon_dist01.wav",
 	"vo/novaprospekt/al_nostop.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_crabpod_wthell.wav",
+	"vj_hlr/hl2_npc/ep1/c17/al_watchself.wav",
 }
 ENT.SoundTbl_Death = {
 	"vo/npc/alyx/uggh01.wav",
@@ -223,12 +278,59 @@ ENT.SoundTbl_Death = {
 --[[ UNUSED
 
 -- Complementing the player
-vo/eli_lab/al_niceshot.wav
+"vo/eli_lab/al_niceshot.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_antlions_goodwork.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_cit_goodshot01.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_cit_goodshot02.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_cit_goodshot03.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_cit_goodshot04.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_cit_niceshooting.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_crank2_done01.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_evac_congrat01.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_evac_congrat03.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_evac_congrat04.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_evac_goodjob.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_evac_gothim02.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_pb_notbad.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_pbox_nicejobandgun01.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_strider_fantastic.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_strider_mynewhero.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_strider_mynewhero_alt.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_strider_pummel01.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_strider_youdidit.wav",
+
+"vj_hlr/hl2_npc/ep1/c17/al_antlions_goodidea.wav", -- Good idea gordon
+"vj_hlr/hl2_npc/ep1/c17/al_goodthink.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_tow_great.wav",
 
 -- Player died
-vo/k_lab/al_lostgordon.wav
+"vo/k_lab/al_lostgordon.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_lasttrain_gordon.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_lasttrain_ohnogordon.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_train_gordon.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_train_madeit02.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_zombieroom_gordon.wav",
 
+-- To dark
+"vj_hlr/hl2_npc/ep1/c17/al_darkinhere.wav",
+
+-- Enemy firing RPG
+"vj_hlr/hl2_npc/ep1/c17/al_evac_lookrpg.wav",
+
+-- Tired from moving
+"vj_hlr/hl2_npc/ep1/c17/al_tunnel_catchbreath01.wav",
+"vj_hlr/hl2_npc/ep1/c17/al_tunnel_catchbreath02.wav",
+
+-- Zombine with grenade
+"vj_hlr/hl2_npc/ep1/c17/al_zombine_grenade.wav",
+
+-- We don't have time
+"vj_hlr/hl2_npc/ep1/c17/al_anotherway02.wav"
+
+"vj_hlr/hl2_npc/ep1/c17/al_zombine_wth.wav",
 ]]--
+
+
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -253,10 +355,6 @@ function ENT:CustomOnHandleAnimEvent(ev,evTime,evCycle,evType,evOptions)
 	//print(ev)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
-	
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnEntityRelationshipCheck(argent, entisfri, entdist)
 	-- Tell the player to reload their weapon
 	if argent:IsPlayer() && entisfri == true && entdist <= 200 && !IsValid(self:GetEnemy()) && CurTime() > self.Human_NextPlyReloadSd then
@@ -271,13 +369,40 @@ end
 function ENT:CustomOnAlert(argent)
 	if math.random(1,2) == 1 && argent:IsNPC() then
 		if argent:Classify() == CLASS_SCANNER then
-			self:PlaySoundSystem("Alert", {"vo/eli_lab/al_scanners03.wav"})
-		end
+			self:PlaySoundSystem("Alert", {"vo/eli_lab/al_scanners03.wav","vj_hlr/hl2_npc/ep1/c17/al_rappel_scanners.wav"})
+		elseif argent:Classify() == CLASS_COMBINE_GUNSHIP then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_anothergunship.wav","vj_hlr/hl2_npc/ep1/c17/al_evac_gunship.wav"})
+		elseif argent:Classify() == CLASS_PROTOSNIPER then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_evac_sniper.wav"})
+		elseif argent:GetClass() == "npc_strider" then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_strider_omg.wav","vj_hlr/hl2_npc/ep1/c17/al_evac_nowstrider.wav"})
+		elseif argent:GetClass() == "npc_apcdriver " then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_ohnoapc.wav"})
+		elseif argent:GetClass() == "npc_antlionguard" then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_antguard.wav"})
+		elseif argent:Classify() == CLASS_MACHINE or argent.HLR_Type == "Turret" or argent:GetClass() == "npc_turret_floor" then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_turrets.wav",})
+		else
+			local tbl = argent.VJ_NPC_Class or {1}
+			for _,v in ipairs(tbl) do
+				if v == "CLASS_COMBINE" or argent:Classify() == CLASS_COMBINE then
+					self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_evac_ontous01.wav"})
+					break
+				elseif v == "CLASS_ZOMBIE" or argent:Classify() == CLASS_ZOMBIE then
+					self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_pzombie_ohno.wav","vj_hlr/hl2_npc/ep1/c17/al_hospital_morezombies.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies01.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies02.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies03.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies04.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies05.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies06.wav",})
+					break
+				elseif v == "CLASS_ANTLION" or argent:Classify() == CLASS_ANTLION then
+					self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_antlions_holycrap.wav","vj_hlr/hl2_npc/ep1/c17/al_ant_uncovered01.wav","vj_hlr/hl2_npc/ep1/c17/al_ant_uncovered02.wav","vj_hlr/hl2_npc/ep1/c17/al_antlions_firstsight.wav"})
+					break
+				end
+			end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
-	
+function ENT:CustomOnCallForHelp(ally)
+	if ally:GetClass() == "npc_vj_hlr2_barney" then
+		self:PlaySoundSystem("CallForHelp", {"vj_hlr/hl2_npc/ep1/c17/al_barneyoverhere.wav"})
+	end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***

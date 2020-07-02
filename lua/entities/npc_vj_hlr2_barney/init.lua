@@ -34,13 +34,17 @@ ENT.SoundTbl_Idle = {
 ENT.SoundTbl_IdleDialogue = {
 	"vo/k_lab/ba_itsworking04.wav",
 	"vo/streetwar/sniper/ba_hearcat.wav",
+	"vj_hlr/hl2_npc/ep1/c17/ba_knowevac.wav",
 }
 ENT.SoundTbl_IdleDialogueAnswer = {
 	"vo/k_lab/ba_saidlasttime.wav",
+	"vj_hlr/hl2_npc/ep1/c17/ba_deceiving01.wav",
 }
 ENT.SoundTbl_CombatIdle = {
 	"vo/npc/barney/ba_goingdown.wav",
 	"vo/streetwar/rubble/ba_damnitall.wav",
+	"vj_hlr/hl2_npc/ep1/c17/ba_comeon01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/ba_herewego.wav",
 }
 ENT.SoundTbl_OnReceiveOrder = {
 	"vo/npc/barney/ba_imwithyou.wav",
@@ -63,6 +67,11 @@ ENT.SoundTbl_UnFollowPlayer = {
 	"vo/trainyard/ba_goodluck01.wav",
 	"vo/trainyard/ba_meetyoulater01.wav",
 	"vo/streetwar/nexus/ba_seeyou.wav",
+	"vj_hlr/hl2_npc/ep1/c17/ba_areyousure.wav",
+	"vj_hlr/hl2_npc/ep1/c17/ba_dontletmedown.wav",
+	"vj_hlr/hl2_npc/ep1/c17/ba_donttakelong.wav",
+	"vj_hlr/hl2_npc/ep1/c17/ba_ifyousayso.wav",
+	"vo/streetwar/rubble/ba_seeya.wav",
 }
 ENT.SoundTbl_MoveOutOfPlayersWay = {}
 ENT.SoundTbl_MedicBeforeHeal = {}
@@ -77,6 +86,7 @@ ENT.SoundTbl_OnPlayerSight = {
 	"vo/trainyard/ba_heygordon.wav",
 	"vo/trainyard/ba_rememberme.wav",
 	"vo/streetwar/rubble/ba_gordon.wav",
+	"vj_hlr/hl2_npc/ep1/c17/ba_greeting01.wav",
 }
 ENT.SoundTbl_Investigate = {
 	"vo/npc/barney/ba_danger02.wav",
@@ -140,6 +150,10 @@ ENT.SoundTbl_OnKilledEnemy = {
 	"vo/streetwar/nexus/ba_alldown.wav",
 	"vo/streetwar/nexus/ba_done.wav",
 	"vo/streetwar/sniper/ba_onedownonetogo.wav",
+	"vj_hlr/hl2_npc/ep1/c17/ba_hellyeah.wav",
+	"vj_hlr/hl2_npc/ep1/c17/ba_ohyeah01.wav",
+	"vj_hlr/hl2_npc/ep1/c17/ba_woo.wav",
+	"vj_hlr/hl2_npc/ep1/c17/ba_yeah01.wav",
 }
 ENT.SoundTbl_AllyDeath = {
 	"vo/k_lab/ba_cantlook.wav",
@@ -176,12 +190,27 @@ ENT.SoundTbl_Death = {
 }
 
 --[[ UNUSED
+
 -- Complementing the player
-vo/k_lab/ba_sarcastic01.wav
-vo/k_lab/ba_sarcastic02.wav
-vo/k_lab/ba_sarcastic03.wav
-vo/streetwar/sniper/ba_returnhero.wav
+"vo/k_lab/ba_sarcastic01.wav",
+"vo/k_lab/ba_sarcastic02.wav",
+"vo/k_lab/ba_sarcastic03.wav",
+"vo/streetwar/sniper/ba_returnhero.wav",
+"vj_hlr/hl2_npc/ep1/c17/ba_asskicking.wav",
+"vj_hlr/hl2_npc/ep1/c17/ba_goodjob.wav",
+"vj_hlr/hl2_npc/ep1/c17/ba_gordoniknow.wav",
+"vj_hlr/hl2_npc/ep1/c17/ba_nicework.wav",
+"vj_hlr/hl2_npc/ep1/c17/ba_tellemdoc.wav",
+"vj_hlr/hl2_npc/ep1/c17/ba_yougothim.wav",
+
+-- Soldier with RPG
+"vj_hlr/hl2_npc/ep1/c17/ba_soldierrpg.wav",
+
+"vj_hlr/hl2_npc/ep1/c17/ba_luckydog.wav",
+
 ]]--
+
+"vj_hlr/hl2_npc/ep1/c17/.wav"
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -193,11 +222,17 @@ function ENT:CustomOnAlert(argent)
 	if math.random(1,2) == 1 && argent:IsNPC() then
 		if argent.IsVJBaseSNPC_Human == true then
 			self:PlaySoundSystem("Alert", {"vo/npc/barney/ba_soldiers.wav"})
+		elseif argent:Classify() == CLASS_COMBINE_GUNSHIP then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/ba_wrinkleship.wav"})
+		elseif argent:GetClass() == "npc_apcdriver " then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/ba_ohmanapc.wav"})
+		elseif argent:GetClass() == "npc_strider" then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/ba_kiddingstrider.wav","vj_hlr/hl2_npc/ep1/c17/ba_takedownstrider.wav"})
 		elseif argent:GetClass() == "npc_combinedropship" then
 			self:PlaySoundSystem("Alert", {"vo/streetwar/nexus/ba_uhohdropships.wav"})
 		elseif argent.HLR_Type == "Headcrab" or argent:GetClass() == "npc_headcrab" or argent:GetClass() == "npc_headcrab_black" or argent:GetClass() == "npc_headcrab_fast" then
 			self:PlaySoundSystem("Alert", {"vo/npc/barney/ba_headhumpers.wav"})
-		elseif argent.HLR_Type == "Turret" then
+		elseif argent:Classify() == CLASS_MACHINE or argent.HLR_Type == "Turret" or argent:GetClass() == "npc_turret_floor" then
 			self:PlaySoundSystem("Alert", {"vo/npc/barney/ba_turret.wav"})
 		end
 	end
