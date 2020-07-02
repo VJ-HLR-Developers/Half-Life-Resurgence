@@ -220,18 +220,25 @@ function ENT:CustomOnAlert(argent)
 	if math.random(1,2) == 1 && argent:IsNPC() then
 		if argent.IsVJBaseSNPC_Human == true then
 			self:PlaySoundSystem("Alert", {"vo/npc/barney/ba_soldiers.wav"})
+			return
 		elseif argent:Classify() == CLASS_COMBINE_GUNSHIP then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/ba_wrinkleship.wav"})
+			return
 		elseif argent:GetClass() == "npc_apcdriver " then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/ba_ohmanapc.wav"})
+			return
 		elseif argent:GetClass() == "npc_strider" then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/ba_kiddingstrider.wav","vj_hlr/hl2_npc/ep1/c17/ba_takedownstrider.wav"})
+			return
 		elseif argent:GetClass() == "npc_combinedropship" then
 			self:PlaySoundSystem("Alert", {"vo/streetwar/nexus/ba_uhohdropships.wav"})
+			return
 		elseif argent.HLR_Type == "Headcrab" or argent:GetClass() == "npc_headcrab" or argent:GetClass() == "npc_headcrab_black" or argent:GetClass() == "npc_headcrab_fast" then
 			self:PlaySoundSystem("Alert", {"vo/npc/barney/ba_headhumpers.wav"})
+			return
 		elseif argent:Classify() == CLASS_MACHINE or argent.HLR_Type == "Turret" or argent:GetClass() == "npc_turret_floor" then
 			self:PlaySoundSystem("Alert", {"vo/npc/barney/ba_turret.wav"})
+			return
 		end
 	end
 end
