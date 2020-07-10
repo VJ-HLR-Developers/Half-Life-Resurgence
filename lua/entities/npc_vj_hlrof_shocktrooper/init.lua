@@ -68,7 +68,7 @@ ENT.Shocktrooper_SpawnEnt = true
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(20, 20, 90), Vector(-20, -20, 0))
 	self:SetBodygroup(1,0)
-	self:Give("weapon_vj_hl_strooperwep")
+	self:Give("weapon_vj_hlrof_strooperwep")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)

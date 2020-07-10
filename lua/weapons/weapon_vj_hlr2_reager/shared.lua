@@ -37,8 +37,8 @@ SWEP.PrimaryEffects_SpawnShells = false
 SWEP.PrimaryEffects_DynamicLightColor = Color(0, 31, 225)
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
-SWEP.WorldModel_CustomPositionAngle = Vector(-10,0,180)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-1,15,0.5)
+SWEP.WorldModel_CustomPositionAngle = Vector(-10, 0, 180)
+SWEP.WorldModel_CustomPositionOrigin = Vector(-1, 15, 0.5)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.ParticleFX = "electrical_arc_01"
 SWEP.AttackRange = 450
