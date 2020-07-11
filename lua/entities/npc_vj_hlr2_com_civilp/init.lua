@@ -11,8 +11,8 @@ ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_COMBINE"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
+ENT.AnimTbl_MeleeAttack = {"pushplayer"} // ACT_MELEE_ATTACK_SWING
 ENT.MeleeAttackDamage = GetConVarNumber("vj_hl2c_metrocop_d")
-ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK_SWING} -- Melee Attack Animations
 ENT.FootStepTimeRun = 0.4 -- Next foot step sound when it is running
 ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
@@ -175,8 +175,23 @@ ENT.SoundTbl_Death = {"npc/metropolice/die1.wav","npc/metropolice/die2.wav","npc
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnPlayCreateSound(SoundData,SoundFile)
 	if VJ_HasValue(self.SoundTbl_Pain,SoundFile) or VJ_HasValue(self.DefaultSoundTbl_MeleeAttack,SoundFile) then return end
-	VJ_EmitSound(self,"npc/metropolice/vo/on"..math.random(1,2)..".wav")
+	VJ_EmitSound(self, "npc/metropolice/vo/on"..math.random(1,2)..".wav")
 	timer.Simple(SoundDuration(SoundFile),function() if IsValid(self) && SoundData:IsPlaying() then VJ_EmitSound(self,"npc/metropolice/vo/off"..math.random(1,4)..".wav") end end)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDoChangeWeapon(newWeapon, oldWeapon, invSwitch)
+	//if invSwitch == true then -- Only if it's a inventory switch
+	if newWeapon:GetClass() == "weapon_vj_hlr2_stunstick" then
+		timer.Simple(0.4, function()
+			if IsValid(self) then
+				VJ_EmitSound(self, {"weapons/stunstick/spark1.wav","weapons/stunstick/spark2.wav","weapons/stunstick/spark3.wav"})
+				local edata = EffectData()
+				edata:SetOrigin(newWeapon:GetAttachment(1).Pos)
+				util.Effect("StunstickImpact", edata)
+			end
+		end)
+		self:VJ_ACT_PLAYACTIVITY("activatebaton", true, false, true)
+	end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***

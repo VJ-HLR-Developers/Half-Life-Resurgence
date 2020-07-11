@@ -10,6 +10,7 @@ SWEP.MadeForNPCsOnly = true
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 1 -- Next time it can use primary fire
 SWEP.NPC_TimeUntilFire = 0.5 -- How much time until the bullet/projectile is fired?
+SWEP.NPC_BeforeFireSound = {"weapons/stunstick/stunstick_swing1.wav","weapons/stunstick/stunstick_swing2.wav"} -- Plays a sound before the firing code is ran, usually in the beginning of the animation
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel = "models/weapons/w_stunbaton.mdl"
 SWEP.HoldType = "melee"
@@ -18,5 +19,9 @@ SWEP.Primary.Damage = 30 -- Damage
 SWEP.IsMeleeWeapon = true -- Should this weapon be a melee weapon?
 SWEP.Primary.Sound = {"weapons/stunstick/spark1.wav","weapons/stunstick/spark2.wav","weapons/stunstick/spark3.wav"}
 SWEP.MeleeWeaponSound_Hit = {"weapons/stunstick/stunstick_fleshhit1.wav","weapons/stunstick/stunstick_fleshhit2.wav"} -- Sound it plays when it hits something
-SWEP.MeleeWeaponSound_Miss = {"weapons/stunstick/stunstick_swing1.wav","weapons/stunstick/stunstick_swing2.wav"} -- Sound it plays when it misses (Doesn't hit anything)
-// "physics/body/body_medium_impact_hard1.wav","physics/body/body_medium_impact_hard2.wav","physics/body/body_medium_impact_hard3.wav","physics/body/body_medium_impact_hard4.wav","physics/body/body_medium_impact_hard5.wav","physics/body/body_medium_impact_hard6.wav"
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:CustomOnPrimaryAttack_MeleeHit(argent)
+	local edata = EffectData()
+	edata:SetOrigin(self:GetAttachment(1).Pos)
+	util.Effect("StunstickImpact", edata)
+end
