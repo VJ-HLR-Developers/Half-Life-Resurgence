@@ -34,7 +34,7 @@ ENT.AnimTbl_Flinch = {ACT_FLINCH_PHYSICS} -- If it uses normal based animation, 
 ENT.SoundTbl_FootStep = {"npc/footsteps/hardboot_generic1.wav","npc/footsteps/hardboot_generic2.wav","npc/footsteps/hardboot_generic3.wav","npc/footsteps/hardboot_generic4.wav","npc/footsteps/hardboot_generic5.wav","npc/footsteps/hardboot_generic6.wav","npc/footsteps/hardboot_generic8.wav"}
 
 -- Custom
-ENT.Human_Gender = 0 -- 0 = Male | 1 = Female
+ENT.Human_Gender = 0 -- 0 = Male | 1 = male
 ENT.Human_SdFolder = "male01"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
@@ -49,10 +49,10 @@ function ENT:CustomOnPreInitialize()
 	else
 		self.Human_Gender = 1
 		if math.random(1,5) == 1 then
-			self.Model = {"models/Humans/Group03m/female_01.mdl","models/Humans/Group03m/female_02.mdl","models/Humans/Group03m/female_03.mdl","models/Humans/Group03m/female_04.mdl","models/Humans/Group03m/female_06.mdl","models/Humans/Group03m/female_07.mdl"}
+			self.Model = {"models/Humans/Group03m/male_01.mdl","models/Humans/Group03m/male_02.mdl","models/Humans/Group03m/male_03.mdl","models/Humans/Group03m/male_04.mdl","models/Humans/Group03m/male_06.mdl","models/Humans/Group03m/male_07.mdl"}
 			self.IsMedicSNPC = true
 		else
-			self.Model = {"models/Humans/Group03/female_01.mdl","models/Humans/Group03/female_02.mdl","models/Humans/Group03/female_03.mdl","models/Humans/Group03/female_04.mdl","models/Humans/Group03/female_06.mdl","models/Humans/Group03/female_07.mdl"}
+			self.Model = {"models/Humans/Group03/male_01.mdl","models/Humans/Group03/male_02.mdl","models/Humans/Group03/male_03.mdl","models/Humans/Group03/male_04.mdl","models/Humans/Group03/male_06.mdl","models/Humans/Group03/male_07.mdl"}
 		end
 	end
 	if self.IsMedicSNPC == false && math.random(1,3) == 1 then
@@ -66,13 +66,29 @@ end
 function ENT:CustomOnInitialize()
 	self.Human_NextPlyReloadSd = CurTime()
 	if self.Human_Gender == 1 then
-		self:HLR_ApplyFemaleSounds()
-		self.Human_SdFolder = "female01"
+		self:HLR_ApplymaleSounds()
+		self.Human_SdFolder = "male01"
 	else
 		self:HLR_ApplyMaleSounds()
 		self.Human_SdFolder = "male01"
 	end
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+/*function ENT:CustomOnThink_AIEnabled()
+	if IsValid(self:GetEnemy()) && self:GetEnemy():Classify() == CLASS_COMBINE_GUNSHIP then -- to do
+		
+		"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_gunship01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_gunship02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_gunship03.wav",
+		"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_gunship04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_gunship05.wav",
+		"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_gunship06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_gunship07.wav",
+		"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_gunship08.wav",
+		
+		
+	end
+end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnEntityRelationshipCheck(argent, entisfri, entdist)
 	-- Tell the player to reload their weapon
@@ -105,7 +121,10 @@ function ENT:CustomOnAlert(argent)
 	if math.random(1,2) == 1 && argent:IsNPC() then
 		//print(argent:Classify())
 		if argent.HLR_Type == "Headcrab" or argent:GetClass() == "npc_headcrab" or argent:GetClass() == "npc_headcrab_black" or argent:GetClass() == "npc_headcrab_fast" then
-			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/headcrabs01.wav","vo/npc/"..self.Human_SdFolder.."/headcrabs02.wav"})
+			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/headcrabs01.wav","vo/npc/"..self.Human_SdFolder.."/headcrabs02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head01.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head05.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head07.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head08.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_rollers02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_rollers03.wav"})
+			return
+		elseif argent:GetClass() == "npc_rollermine" then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_rollers01.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_rollers02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_rollers03.wav"})
 			return
 		elseif argent:GetClass() == "npc_combinedropship" then
 			self:PlaySoundSystem("Alert", {"vo/coast/barn/"..self.Human_SdFolder.."/crapships.wav","vo/coast/barn/"..self.Human_SdFolder.."/incomingdropship.wav"})
@@ -123,19 +142,30 @@ function ENT:CustomOnAlert(argent)
 			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/hacks01.wav","vo/npc/"..self.Human_SdFolder.."/hacks02.wav","vo/npc/"..self.Human_SdFolder.."/herecomehacks01.wav","vo/npc/"..self.Human_SdFolder.."/herecomehacks02.wav","vo/npc/"..self.Human_SdFolder.."/itsamanhack01.wav","vo/npc/"..self.Human_SdFolder.."/itsamanhack02.wav","vo/npc/"..self.Human_SdFolder.."/thehacks01.wav","vo/npc/"..self.Human_SdFolder.."/thehacks02.wav"})
 			return
 		elseif argent:Classify() == CLASS_COMBINE_GUNSHIP then
-			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/gunship02.wav","vo/coast/barn/"..self.Human_SdFolder.."/lite_gunship01.wav","vo/coast/barn/"..self.Human_SdFolder.."/lite_gunship02.wav"})
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_gunship.wav","vo/npc/"..self.Human_SdFolder.."/gunship02.wav","vo/coast/barn/"..self.Human_SdFolder.."/lite_gunship01.wav","vo/coast/barn/"..self.Human_SdFolder.."/lite_gunship02.wav"})
 			return
 		else
 			local tbl = argent.VJ_NPC_Class or {1}
 			for _,v in ipairs(tbl) do
 				if v == "CLASS_COMBINE" or argent:Classify() == CLASS_COMBINE then
-					self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/combine01.wav","vo/npc/"..self.Human_SdFolder.."/combine02.wav"})
+					self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_raidsoldiers.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_itsaraid.wav","vo/npc/"..self.Human_SdFolder.."/combine01.wav","vo/npc/"..self.Human_SdFolder.."/combine02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_soldier05.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_soldier06.wav"})
 					break
 				elseif v == "CLASS_ZOMBIE" or argent:Classify() == CLASS_ZOMBIE then
-					self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/zombies01.wav","vo/npc/"..self.Human_SdFolder.."/zombies02.wav"})
+					self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/zombies01.wav","vo/npc/"..self.Human_SdFolder.."/zombies02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_zombie01.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_zombie02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_zombie07.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_zombie08.wav"})
 					break
+				elseif v == "CLASS_ANTLION" or argent:Classify() == CLASS_ANTLION then
+					self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions03.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions05.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions07.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions12.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions13.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions15.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions18.wav"})
+					return
 				end
 			end
+		end
+		-- General type (If none of the specific ones above were found)
+		if  argent.IsVJBaseSNPC_Creature == true then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_zombie03.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_zombie05.wav"})
+			return
+		elseif argent.IsVJBaseSNPC_Human == true then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_raidsoldiers.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_soldier04.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_soldier07.wav"})
+			return
 		end
 	end
 end
@@ -206,6 +236,30 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/npc/male01/vquestion04.wav",
 		"vo/coast/cardock/le_onfoot.wav",
 		"vo/trainyard/cit_water.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_alert_antlions14.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks03.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks05.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks07.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks08.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks09.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks10.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks11.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks12.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks13.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks14.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks15.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks16.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks17.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks18.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks19.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks20.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks21.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks22.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_remarks23.wav",
 	}
 	self.SoundTbl_IdleDialogueAnswer = {
 		"vo/npc/male01/answer01.wav",
@@ -258,6 +312,10 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/npc/male01/squad_affirm05.wav",
 		"vo/npc/male01/squad_affirm06.wav",
 		"vo/canals/male01/stn6_go_nag02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_alert_zombie04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_behindyousfx01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_behindyousfx02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_squad_flee02.wav",
 	}
 	self.SoundTbl_OnReceiveOrder = {
 		"vo/npc/male01/ok01.wav",
@@ -289,6 +347,10 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/npc/male01/squad_train03.wav",
 		"vo/npc/male01/squad_train04.wav",
 		"vo/npc/male01/yougotit02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_evac_ok01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_evac_ok02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_evac_ok04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_youbet.wav",
 	}
 	self.SoundTbl_UnFollowPlayer = {
 		"vo/npc/male01/holddownspot01.wav",
@@ -346,12 +408,15 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/canals/male01/gunboat_owneyes.wav",
 		"vo/canals/shanty_yourefm.wav",
 		"vo/coast/odessa/nlo_greet_freeman.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_greet_alyx02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_greet_alyx04.wav",
 	}
 	self.SoundTbl_Investigate = {
 		"vo/npc/male01/startle01.wav",
 		"vo/npc/male01/startle02.wav",
 		"vo/canals/boxcar_becareful.wav",
 		"vo/streetwar/sniper/male01/c17_09_help03.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_alert_antlions09.wav",
 	}
 	self.SoundTbl_LostEnemy = {}
 	self.SoundTbl_Alert = {
@@ -366,12 +431,23 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/npc/male01/upthere01.wav",
 		"vo/npc/male01/upthere02.wav",
 		"vo/canals/male01/stn6_incoming.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_alert_antlions08.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_alert_head06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_evac_enemies01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_theyfoundus.wav",
 	}
 	self.SoundTbl_CallForHelp = {
 		"vo/npc/male01/help01.wav",
 		"vo/coast/bugbait/sandy_help.wav",
 		"vo/streetwar/sniper/male01/c17_09_help01.wav",
 		"vo/streetwar/sniper/male01/c17_09_help02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_alert_antlions06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_alert_rollers04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_comehere.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_evac_casualty08.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_evac_casualty11.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_getaboard01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_getaboard03.wav",
 	}
 	self.SoundTbl_BecomeEnemyToPlayer = {
 		"vo/npc/male01/heretohelp01.wav",
@@ -380,8 +456,13 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/npc/male01/notthemanithought02.wav",
 		"vo/npc/male01/wetrustedyou01.wav",
 		"vo/npc/male01/wetrustedyou02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_evac_casualty07.wav",
 	}
-	self.SoundTbl_Suppressing = {}
+	self.SoundTbl_Suppressing = {
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_alert_zombie06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_alert_zombie09.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_evac_enemies02.wav",
+	}
 	self.SoundTbl_WeaponReload = {
 		"vo/npc/male01/coverwhilereload01.wav",
 		"vo/npc/male01/coverwhilereload02.wav",
@@ -402,6 +483,19 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/npc/male01/takecover02.wav",
 		"vo/npc/male01/uhoh.wav",
 		"vo/npc/male01/watchout.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_alert_head06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_evac_defendus06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_shock01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_shock02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_shock03.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_shock04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_shock05.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_shock06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_shock07.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_shock08.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_shock09.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_shock10.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_shock11.wav",
 	}
 	self.SoundTbl_OnKilledEnemy = {
 		"vo/npc/male01/gotone01.wav",
@@ -413,6 +507,30 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/coast/odessa/male01/nlo_cheer02.wav",
 		"vo/coast/odessa/male01/nlo_cheer03.wav",
 		"vo/coast/odessa/male01/nlo_cheer04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_evac_casualty06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_evac_thanks03.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_evac_thanks04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_evac_thanks05.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_kill01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_kill02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_kill03.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_kill04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_kill05.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_kill06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_kill07.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_kill08.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_kill09.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_kill10.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_kill11.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_kill12.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_kill13.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_kill14.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_kill15.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_kill16.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_kill17.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_kill19.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_kill20.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_thesearesomuchfun.wav",
 	}
 	self.SoundTbl_AllyDeath = {
 		"vo/npc/male01/goodgod.wav",
@@ -422,6 +540,25 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/canals/matt_beglad_b.wav",
 		"vo/coast/odessa/male01/nlo_cubdeath01.wav",
 		"vo/coast/odessa/male01/nlo_cubdeath02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_buddykilled01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_buddykilled02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_buddykilled03.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_buddykilled04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_buddykilled05.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_buddykilled06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_buddykilled07.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_buddykilled08.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_buddykilled09.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_buddykilled10.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_buddykilled11.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_buddykilled12.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_buddykilled13.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_evac_casualty01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_evac_casualty02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_evac_casualty03.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_evac_casualty05.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_evac_casualty09.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_evac_casualty10.wav",
 	}
 	self.SoundTbl_Pain = {
 		"vo/npc/male01/imhurt01.wav",
@@ -434,6 +571,19 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/npc/male01/pain04.wav",
 		"vo/npc/male01/pain05.wav",
 		"vo/npc/male01/pain06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_pain01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_pain02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_pain03.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_pain04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_pain05.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_pain06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_pain07.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_pain08.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_pain09.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_pain10.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_pain11.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_pain12.wav",
+		"vj_hlr/hl2_npc/ep1/npc/male01/cit_pain13.wav",
 	}
 	self.SoundTbl_DamageByPlayer = {
 		"vo/npc/male01/onyourside.wav",
@@ -525,10 +675,17 @@ function ENT:HLR_ApplyMaleSounds()
 	vo/canals/male01/gunboat_pullout.wav
 	vo/canals/male01/stn6_shellingus.wav
 	
+	
+	-- Complement the player
+	"vj_hlr/hl2_npc/ep1/npc/male01/cit_greatshot.wav",
+	"vj_hlr/hl2_npc/ep1/npc/male01/cit_notice_gravgunkill01.wav",
+	"vj_hlr/hl2_npc/ep1/npc/male01/cit_notice_gravgunkill02.wav",
+	"vj_hlr/hl2_npc/ep1/npc/male01/cit_notice_gravgunkill03.wav",
+	"vj_hlr/hl2_npc/ep1/npc/male01/cit_notice_gravgunkill04.wav",
 	]]--
 end
 
-function ENT:HLR_ApplyFemaleSounds()
+function ENT:HLR_ApplyfemaleSounds()
 	self.SoundTbl_Idle = {
 		"vo/npc/female01/vanswer14.wav",
 	}
@@ -568,6 +725,30 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/npc/female01/vquestion01.wav",
 		"vo/npc/female01/vquestion02.wav",
 		"vo/npc/female01/vquestion04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_alert_antlions14.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks03.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks05.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks07.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks08.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks09.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks10.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks11.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks12.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks13.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks14.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks15.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks16.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks17.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks18.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks19.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks20.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks21.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks22.wav",
+		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks23.wav",
 	}
 	self.SoundTbl_IdleDialogueAnswer = {
 		"vo/npc/female01/answer01.wav",
@@ -618,6 +799,8 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/npc/female01/squad_affirm05.wav",
 		"vo/npc/female01/squad_affirm06.wav",
 		"vo/canals/female01/stn6_go_nag02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_alert_zombie04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_squad_flee02.wav",
 	}
 	self.SoundTbl_OnReceiveOrder = {
 		"vo/npc/female01/ok01.wav",
@@ -651,6 +834,10 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/npc/female01/squad_train03.wav",
 		"vo/npc/female01/squad_train04.wav",
 		"vo/npc/female01/yougotit02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_evac_ok01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_evac_ok02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_evac_ok04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_youbet.wav",
 	}
 	self.SoundTbl_UnFollowPlayer = {
 		"vo/npc/female01/holddownspot01.wav",
@@ -706,10 +893,13 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/npc/female01/squad_greet04.wav",
 		"vo/canals/female01/gunboat_owneyes.wav",
 		"vo/canals/gunboat_heyyourefm.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_greet_alyx02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_greet_alyx04.wav",
 	}
 	self.SoundTbl_Investigate = {
 		"vo/npc/female01/startle01.wav",
 		"vo/npc/female01/startle02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_alert_antlions09.wav",
 	}
 	self.SoundTbl_LostEnemy = {}
 	self.SoundTbl_Alert = {
@@ -724,10 +914,20 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/npc/female01/upthere01.wav",
 		"vo/npc/female01/upthere02.wav",
 		"vo/canals/female01/stn6_incoming.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_alert_antlions08.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_alert_head06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_evac_enemies01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_theyfoundus.wav",
 	}
 	self.SoundTbl_CallForHelp = {
 		"vo/npc/female01/help01.wav",
 		"vo/canals/arrest_helpme.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_alert_antlions06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_comehere.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_evac_casualty08.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_evac_casualty11.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_getaboard01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_getaboard03.wav",
 	}
 	self.SoundTbl_BecomeEnemyToPlayer = {
 		"vo/npc/female01/heretohelp01.wav",
@@ -736,8 +936,13 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/npc/female01/notthemanithought02.wav",
 		"vo/npc/female01/wetrustedyou01.wav",
 		"vo/npc/female01/wetrustedyou02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_evac_casualty07.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_evac_defendus01.wav",
 	}
-	self.SoundTbl_Suppressing = {}
+	self.SoundTbl_Suppressing = {
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_alert_zombie06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_evac_enemies02.wav",
+	}
 	self.SoundTbl_WeaponReload = {
 		"vo/npc/female01/coverwhilereload01.wav",
 		"vo/npc/female01/coverwhilereload02.wav",
@@ -757,6 +962,14 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/npc/female01/takecover02.wav",
 		"vo/npc/female01/uhoh.wav",
 		"vo/npc/female01/watchout.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_alert_head06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_evac_defendus06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_runforit.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_shock01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_shock02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_shock03.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_shock04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_shock05.wav",
 	}
 	self.SoundTbl_OnKilledEnemy = {
 		"vo/npc/female01/gotone01.wav",
@@ -768,6 +981,27 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/coast/odessa/female01/nlo_cheer01.wav",
 		"vo/coast/odessa/female01/nlo_cheer02.wav",
 		"vo/coast/odessa/female01/nlo_cheer03.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_evac_casualty06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_evac_thanks03.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_evac_thanks04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_evac_thanks05.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_kill01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_kill02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_kill03.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_kill04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_kill05.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_kill06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_kill07.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_kill08.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_kill09.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_kill10.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_kill11.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_kill12.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_kill13.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_kill14.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_kill15.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_kill16.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_kill17.wav",
 	}
 	self.SoundTbl_AllyDeath = {
 		"vo/npc/female01/goodgod.wav",
@@ -776,6 +1010,27 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/npc/female01/ohno.wav",
 		"vo/coast/odessa/female01/nlo_cubdeath01.wav",
 		"vo/coast/odessa/female01/nlo_cubdeath02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_buddykilled01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_buddykilled02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_buddykilled03.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_buddykilled04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_buddykilled05.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_buddykilled06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_buddykilled07.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_buddykilled08.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_buddykilled09.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_buddykilled10.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_buddykilled11.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_buddykilled12.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_buddykilled13.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_buddykilled14.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_buddykilled15.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_evac_casualty01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_evac_casualty02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_evac_casualty03.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_evac_casualty05.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_evac_casualty09.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_evac_casualty10.wav",
 	}
 	self.SoundTbl_Pain = {
 		"vo/npc/female01/imhurt01.wav",
@@ -787,6 +1042,16 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/npc/female01/pain03.wav",
 		"vo/npc/female01/pain04.wav",
 		"vo/npc/female01/pain05.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_pain01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_pain02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_pain03.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_pain04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_pain05.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_pain06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_pain07.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_pain08.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_pain09.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_pain10.wav",
 	}
 	self.SoundTbl_DamageByPlayer = {
 		"vo/npc/female01/onyourside.wav",
@@ -866,6 +1131,13 @@ function ENT:HLR_ApplyFemaleSounds()
 	vo/canals/female01/gunboat_parkboat.wav
 	vo/canals/female01/gunboat_pullout.wav
 	vo/canals/female01/stn6_shellingus.wav
+	
+	-- Complement the player
+	"vj_hlr/hl2_npc/ep1/npc/female01/cit_greatshot.wav",
+	"vj_hlr/hl2_npc/ep1/npc/female01/cit_notice_gravgunkill01.wav",
+	"vj_hlr/hl2_npc/ep1/npc/female01/cit_notice_gravgunkill02.wav",
+	"vj_hlr/hl2_npc/ep1/npc/female01/cit_notice_gravgunkill03.wav",
+	"vj_hlr/hl2_npc/ep1/npc/female01/cit_notice_gravgunkill04.wav",
 	]]--
 end
 /*-----------------------------------------------
