@@ -119,7 +119,7 @@ function ENT:CustomOnAlert(argent)
 		elseif argent:Classify() == CLASS_SCANNER then
 			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/scanners01.wav","vo/npc/"..self.Human_SdFolder.."/scanners02.wav"})
 			return
-		elseif argent:GetClass() == "npc_strider" then
+		elseif argent:GetClass() == "npc_strider" or argent:GetClass() == "npc_vj_hlr2_com_strider" then
 			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/strider.wav"})
 			return
 		elseif argent:Classify() == CLASS_MANHACK then

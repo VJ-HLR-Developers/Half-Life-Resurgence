@@ -377,7 +377,7 @@ function ENT:CustomOnAlert(argent)
 		elseif argent:Classify() == CLASS_PROTOSNIPER then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_evac_sniper.wav"})
 			return
-		elseif argent:GetClass() == "npc_strider" then
+		elseif argent:GetClass() == "npc_strider" or argent:GetClass() == "npc_vj_hlr2_com_strider" then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_strider_omg.wav","vj_hlr/hl2_npc/ep1/c17/al_evac_nowstrider.wav"})
 			return
 		elseif argent:GetClass() == "npc_apcdriver " then
