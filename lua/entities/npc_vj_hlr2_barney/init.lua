@@ -224,7 +224,7 @@ function ENT:CustomOnAlert(argent)
 		elseif argent:Classify() == CLASS_COMBINE_GUNSHIP then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/ba_wrinkleship.wav"})
 			return
-		elseif argent:GetClass() == "npc_apcdriver " then
+		elseif argent:GetClass() == "npc_apcdriver" then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/ba_ohmanapc.wav"})
 			return
 		elseif argent:GetClass() == "npc_strider" or argent:GetClass() == "npc_vj_hlr2_com_strider" then

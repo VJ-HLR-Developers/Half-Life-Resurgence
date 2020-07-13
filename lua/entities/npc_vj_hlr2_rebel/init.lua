@@ -113,17 +113,17 @@ function ENT:CustomOnAlert(argent)
 		elseif argent.HLR_Type == "Police" or argent:Classify() == CLASS_METROPOLICE then
 			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/civilprotection01.wav","vo/npc/"..self.Human_SdFolder.."/civilprotection02.wav","vo/npc/"..self.Human_SdFolder.."/cps01.wav","vo/npc/"..self.Human_SdFolder.."/cps02.wav"})
 			return
-		elseif argent:Classify() == CLASS_COMBINE_GUNSHIP then
-			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/gunship02.wav","vo/coast/barn/"..self.Human_SdFolder.."/lite_gunship01.wav","vo/coast/barn/"..self.Human_SdFolder.."/lite_gunship02.wav"})
+		elseif argent:GetClass() == "npc_strider" or argent:GetClass() == "npc_vj_hlr2_com_strider" then
+			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/strider.wav"})
 			return
 		elseif argent:Classify() == CLASS_SCANNER then
 			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/scanners01.wav","vo/npc/"..self.Human_SdFolder.."/scanners02.wav"})
 			return
-		elseif argent:GetClass() == "npc_strider" or argent:GetClass() == "npc_vj_hlr2_com_strider" then
-			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/strider.wav"})
-			return
 		elseif argent:Classify() == CLASS_MANHACK then
 			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/hacks01.wav","vo/npc/"..self.Human_SdFolder.."/hacks02.wav","vo/npc/"..self.Human_SdFolder.."/herecomehacks01.wav","vo/npc/"..self.Human_SdFolder.."/herecomehacks02.wav","vo/npc/"..self.Human_SdFolder.."/itsamanhack01.wav","vo/npc/"..self.Human_SdFolder.."/itsamanhack02.wav","vo/npc/"..self.Human_SdFolder.."/thehacks01.wav","vo/npc/"..self.Human_SdFolder.."/thehacks02.wav"})
+			return
+		elseif argent:Classify() == CLASS_COMBINE_GUNSHIP then
+			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/gunship02.wav","vo/coast/barn/"..self.Human_SdFolder.."/lite_gunship01.wav","vo/coast/barn/"..self.Human_SdFolder.."/lite_gunship02.wav"})
 			return
 		else
 			local tbl = argent.VJ_NPC_Class or {1}

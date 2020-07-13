@@ -48,6 +48,11 @@ ENT.SoundTbl_Idle = {
 	"vj_hlr/hl2_npc/ep1/c17/al_pb1_whatsthis.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_subwaymap02.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_zombine_joke01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_citvista_noidea01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_exhale01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_gravcharge_anotherconsole01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_roll_thinking.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_fewbolts01.wav",
 }
 ENT.SoundTbl_IdleDialogue = {
 	"vo/novaprospekt/al_drkleiner01_e.wav",
@@ -62,6 +67,14 @@ ENT.SoundTbl_IdleDialogueAnswer = {
 	"vj_hlr/hl2_npc/ep1/c17/al_notanymore.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_pb_crossfingers.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_pb_knowthedrill.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_idontgetit01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_random02.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_chuckle01.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_dognotserious01.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_dognotserious03.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_dognotserious04.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_dogshappy03.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_yeah.wav",
 }
 ENT.SoundTbl_CombatIdle = {
 	"vo/citadel/al_comeon.wav",
@@ -73,12 +86,15 @@ ENT.SoundTbl_CombatIdle = {
 	"vj_hlr/hl2_npc/ep1/c17/al_gship_againagain.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_pb1_ohgreat.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_train_thisisit.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_platform_getready.wav",
 }
 ENT.SoundTbl_OnReceiveOrder = {
 	"vo/eli_lab/al_dadwhatsup.wav",
 	"vo/k_lab/al_whatsgoingon.wav",
 	"vo/novaprospekt/al_holdon.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_whythisway.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_whatnow.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_whatthistime.wav",
 }
 ENT.SoundTbl_FollowPlayer = {
 	"vo/eli_lab/al_allright01.wav",
@@ -99,6 +115,16 @@ ENT.SoundTbl_FollowPlayer = {
 	"vj_hlr/hl2_npc/ep1/c17/al_safehouse_yeah.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_safehouse_yeah_new.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_whatwegonnado.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_citvista_glad.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_core_letsgo.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_goodletsgo02.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_letsgo01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_okletsgo01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_shallwe.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_stalk_okletsgetoutofhere02.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_vtex_behind.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_antenna01.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_cliff_afteryou02.wav",
 }
 ENT.SoundTbl_UnFollowPlayer = {
 	"vo/eli_lab/al_thyristor02.wav",
@@ -107,16 +133,32 @@ ENT.SoundTbl_UnFollowPlayer = {
 	"vj_hlr/hl2_npc/ep1/c17/al_evac_leaveyoutoit.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_safehouse_yeah.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_safehouse_yeah_new.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_cantwastetime.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_core_blowreactor02.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_core_parting.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_goodluck.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_stalk_okletsgetoutofhere02.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_whereyougoing.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_antenna01.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_seeyousoon01.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_somethingisaid.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_whatisitdog.wav",
 }
 ENT.SoundTbl_MoveOutOfPlayersWay = {
 	"vo/npc/alyx/al_excuse01.wav",
 	"vo/npc/alyx/al_excuse02.wav",
 	"vo/npc/alyx/al_excuse03.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_carefulgord.wav",
 }
 ENT.SoundTbl_MedicBeforeHeal = {}
 ENT.SoundTbl_MedicAfterHeal = {}
 ENT.SoundTbl_MedicReceiveHeal = {
 	"vj_hlr/hl2_npc/ep1/c17/al_cit_heythanks.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_advisor_findmap01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_random01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_thankskeepmoving01.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_cliff_afteryou01.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_thanksdog.wav",
 }
 ENT.SoundTbl_OnPlayerSight = {
 	"vo/eli_lab/al_soquickly01.wav",
@@ -140,10 +182,18 @@ ENT.SoundTbl_Investigate = {
 	"vj_hlr/hl2_npc/ep1/c17/al_rappel_hearthat.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_rappel_hearthat_loud.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_whatsound.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_advisor_whathell.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_core_hellitsjudith01.wav",
 }
 ENT.SoundTbl_LostEnemy = {
 	"vo/citadel/al_notagain02.wav",
 	"vo/eli_lab/al_ugh.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_backtrack01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_damn01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_gravgunlosingpower02.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_nothangaround.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_ugh01.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_damn.wav",
 }
 ENT.SoundTbl_Alert = {
 	"vo/novaprospekt/al_uhoh_np.wav",
@@ -158,15 +208,25 @@ ENT.SoundTbl_Alert = {
 	"vj_hlr/hl2_npc/ep1/c17/al_pb_herewego.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_rappel_spotted.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_train_hereitgoes.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_bridge_company.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_lift_last_upthere01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_lift_warns05.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_lift_warns07.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_lift_warns08.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_platform_company.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_platform_heretheycome.wav",
 }
 ENT.SoundTbl_CallForHelp = {
 	"vo/eli_lab/al_cmongord02.wav",
 	"vo/eli_lab/al_getitopen01.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_evac_cits01.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_strider_overhere.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_stalk_getemoff03.wav",
 }
 ENT.SoundTbl_BecomeEnemyToPlayer = {
 	"vo/citadel/al_bitofit.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_traitor.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_traitor02.wav",
 }
 ENT.SoundTbl_Suppressing = {
 	"vo/novaprospekt/al_gotyounow01.wav",
@@ -202,6 +262,29 @@ ENT.SoundTbl_OnGrenadeSight = {
 	"vj_hlr/hl2_npc/ep1/c17/al_zombieroom_lookout01.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_zombieroom_lookout02.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_zombine_crap.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_advisor_gonenow01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_advisor_outofhere.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback02.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback04.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback06.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback07.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_lift_last_lookout01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_lift_last_lookout02.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_lift_last_lookup02.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_lift_last_upthere02.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_lift_nearmiss01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_lift_warns06.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_lift_warns14.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_lift_watchout.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_pod_lookout.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_postcore_hurry04.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_stalk_brace.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_stalk_derail_omg.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_strider_whoa.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_omg02.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_putdown04.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_thatwasclose01.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_whoa.wav",
 }
 ENT.SoundTbl_OnKilledEnemy = {
 	"vo/npc/alyx/brutal02.wav",
@@ -228,6 +311,16 @@ ENT.SoundTbl_OnKilledEnemy = {
 	"vj_hlr/hl2_npc/ep1/c17/al_strider_yes.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_tougherthanithought.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_train_close.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_deadoffeasy01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_excelletsgo.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_lift_great01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_lift_nearmiss04.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_platform_slowthem01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_thatwasclose.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_smashscanner01.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_smashscanner02.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_thatwasclose02.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_whew.wav",
 }
 ENT.SoundTbl_AllyDeath = {
 	"vo/npc/alyx/no01.wav",
@@ -249,6 +342,12 @@ ENT.SoundTbl_AllyDeath = {
 	"vj_hlr/hl2_npc/ep1/c17/al_plaza_view02.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_train_omg.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_whystickaround01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_core_fargone01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_lift_nearmiss05.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_stalk_ohnostalkercar01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_stalkers_omg01.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_cantbelieveit.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_omg01.wav",
 }
 ENT.SoundTbl_Pain = {
 	"vo/npc/alyx/gasp02.wav",
@@ -263,12 +362,26 @@ ENT.SoundTbl_Pain = {
 	"vj_hlr/hl2_npc/ep1/c17/al_elev_zombiesurprise.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_flood_floodroom01.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_pb1_oh.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_advisor_gonenow01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_advisor_pain01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_advisor_pain02.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_advisor_pain03.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_advisor_pain04.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_advisor_pain05.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_advisor_pain06.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_advisor_shaking01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_gravcharge_explo.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_postcore_atwindow01.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_traitor01.wav",
 }
 ENT.SoundTbl_DamageByPlayer = {
 	"vo/npc/alyx/gordon_dist01.wav",
 	"vo/novaprospekt/al_nostop.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_crabpod_wthell.wav",
 	"vj_hlr/hl2_npc/ep1/c17/al_watchself.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_lift_nearmiss02.wav",
+	"vj_hlr/hl2_npc/ep1/citadel/al_lift_nearmiss03.wav",
+	"vj_hlr/hl2_npc/ep1/intro/al_alittleclose02.wav",
 }
 ENT.SoundTbl_Death = {
 	"vo/npc/alyx/uggh01.wav",
@@ -298,10 +411,17 @@ ENT.SoundTbl_Death = {
 "vj_hlr/hl2_npc/ep1/c17/al_strider_mynewhero_alt.wav",
 "vj_hlr/hl2_npc/ep1/c17/al_strider_pummel01.wav",
 "vj_hlr/hl2_npc/ep1/c17/al_strider_youdidit.wav",
+"vj_hlr/hl2_npc/ep1/citadel/al_nothangaround.wav",
+"vj_hlr/hl2_npc/ep1/citadel/al_nothangaround01.wav",
+"vj_hlr/hl2_npc/ep1/citadel/al_powerball01.wav",
+"vj_hlr/hl2_npc/ep1/citadel/al_powerball02.wav",
 
+-- Good thinking / idea gordon
 "vj_hlr/hl2_npc/ep1/c17/al_antlions_goodidea.wav", -- Good idea gordon
 "vj_hlr/hl2_npc/ep1/c17/al_goodthink.wav",
 "vj_hlr/hl2_npc/ep1/c17/al_tow_great.wav",
+"vj_hlr/hl2_npc/ep1/citadel/al_goodthinking01.wav",
+"vj_hlr/hl2_npc/ep1/citadel/al_lift_great.wav",
 
 -- Player died
 "vo/k_lab/al_lostgordon.wav",
@@ -310,6 +430,12 @@ ENT.SoundTbl_Death = {
 "vj_hlr/hl2_npc/ep1/c17/al_train_gordon.wav",
 "vj_hlr/hl2_npc/ep1/c17/al_train_madeit02.wav",
 "vj_hlr/hl2_npc/ep1/c17/al_zombieroom_gordon.wav",
+"vj_hlr/hl2_npc/ep1/citadel/al_advisor_breen02.wav",
+"vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback01.wav",
+"vj_hlr/hl2_npc/ep1/citadel/al_postcore_atwindow_new02.wav",
+"vj_hlr/hl2_npc/ep1/citadel/al_stalk_getemoff11.wav",
+"vj_hlr/hl2_npc/ep1/intro/al_gordon.wav",
+"vj_hlr/hl2_npc/ep1/intro/al_ohgordon.wav",
 
 -- To dark
 "vj_hlr/hl2_npc/ep1/c17/al_darkinhere.wav",
@@ -328,9 +454,12 @@ ENT.SoundTbl_Death = {
 "vj_hlr/hl2_npc/ep1/c17/al_anotherway02.wav"
 
 "vj_hlr/hl2_npc/ep1/c17/al_zombine_wth.wav",
+
+-- Kills an unidentified SNPC ?
+"vj_hlr/hl2_npc/ep1/citadel/al_advisor_wasthatthing.wav",
 ]]--
 
-
+"vj_hlr/hl2_npc/ep1/intro/al_alittleclose02.wav",
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -368,7 +497,28 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(argent)
 	if math.random(1,2) == 1 && argent:IsNPC() then
-		if argent:Classify() == CLASS_SCANNER then
+		if argent:GetClass() == "npc_breen" then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/citadel/al_advisor_breen01.wav"})
+			return
+		elseif argent:GetClass() == "npc_rollermine" then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/citadel/al_platform_rollers.wav"})
+			return
+		elseif argent:GetClass() == "npc_strider" or argent:GetClass() == "npc_vj_hlr2_com_strider" then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_strider_omg.wav","vj_hlr/hl2_npc/ep1/c17/al_evac_nowstrider.wav"})
+			return
+		elseif argent:GetClass() == "npc_combinedropship" then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback03.wav","vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback05.wav"})
+			return
+		elseif argent:GetClass() == "npc_apcdriver" then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_ohnoapc.wav"})
+			return
+		elseif argent:GetClass() == "npc_antlionguard" then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_antguard.wav"})
+			return
+		elseif argent:Classify() == CLASS_STALKER then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/citadel/al_stalker_gasp.wav","vj_hlr/hl2_npc/ep1/citadel/al_stalkers_omg02.wav"})
+			return
+		elseif argent:Classify() == CLASS_SCANNER then
 			self:PlaySoundSystem("Alert", {"vo/eli_lab/al_scanners03.wav","vj_hlr/hl2_npc/ep1/c17/al_rappel_scanners.wav"})
 			return
 		elseif argent:Classify() == CLASS_COMBINE_GUNSHIP then
@@ -376,15 +526,6 @@ function ENT:CustomOnAlert(argent)
 			return
 		elseif argent:Classify() == CLASS_PROTOSNIPER then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_evac_sniper.wav"})
-			return
-		elseif argent:GetClass() == "npc_strider" or argent:GetClass() == "npc_vj_hlr2_com_strider" then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_strider_omg.wav","vj_hlr/hl2_npc/ep1/c17/al_evac_nowstrider.wav"})
-			return
-		elseif argent:GetClass() == "npc_apcdriver " then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_ohnoapc.wav"})
-			return
-		elseif argent:GetClass() == "npc_antlionguard" then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_antguard.wav"})
 			return
 		elseif argent:Classify() == CLASS_MACHINE or argent.HLR_Type == "Turret" or argent:GetClass() == "npc_turret_floor" then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_turrets.wav"})
@@ -394,15 +535,23 @@ function ENT:CustomOnAlert(argent)
 			for _,v in ipairs(tbl) do
 				if v == "CLASS_COMBINE" or argent:Classify() == CLASS_COMBINE then
 					self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_evac_ontous01.wav"})
-					break
+					return
 				elseif v == "CLASS_ZOMBIE" or argent:Classify() == CLASS_ZOMBIE then
 					self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_pzombie_ohno.wav","vj_hlr/hl2_npc/ep1/c17/al_hospital_morezombies.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies01.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies02.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies03.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies04.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies05.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies06.wav",})
-					break
+					return
 				elseif v == "CLASS_ANTLION" or argent:Classify() == CLASS_ANTLION then
 					self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_antlions_holycrap.wav","vj_hlr/hl2_npc/ep1/c17/al_ant_uncovered01.wav","vj_hlr/hl2_npc/ep1/c17/al_ant_uncovered02.wav","vj_hlr/hl2_npc/ep1/c17/al_antlions_firstsight.wav"})
-					break
+					return
 				end
 			end
+		end
+		-- General type (If none of the specific ones above were found)
+		if  argent.IsVJBaseSNPC_Creature == true then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/citadel/al_advisor_podthings.wav","vj_hlr/hl2_npc/ep1/citadel/al_gravcharge_thing.wav"})
+			return
+		elseif argent.IsVJBaseSNPC_Human == true then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/citadel/al_bridge_soldiers.wav"})
+			return
 		end
 	end
 end
