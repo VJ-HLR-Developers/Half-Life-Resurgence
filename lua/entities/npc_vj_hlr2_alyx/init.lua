@@ -459,7 +459,7 @@ ENT.SoundTbl_Death = {
 "vj_hlr/hl2_npc/ep1/citadel/al_advisor_wasthatthing.wav",
 ]]--
 
-"vj_hlr/hl2_npc/ep1/intro/al_alittleclose02.wav",
+// "vj_hlr/hl2_npc/ep1/intro/al_alittleclose02.wav",
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------

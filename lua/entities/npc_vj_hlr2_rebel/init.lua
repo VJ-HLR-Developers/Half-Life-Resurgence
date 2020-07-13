@@ -34,7 +34,7 @@ ENT.AnimTbl_Flinch = {ACT_FLINCH_PHYSICS} -- If it uses normal based animation, 
 ENT.SoundTbl_FootStep = {"npc/footsteps/hardboot_generic1.wav","npc/footsteps/hardboot_generic2.wav","npc/footsteps/hardboot_generic3.wav","npc/footsteps/hardboot_generic4.wav","npc/footsteps/hardboot_generic5.wav","npc/footsteps/hardboot_generic6.wav","npc/footsteps/hardboot_generic8.wav"}
 
 -- Custom
-ENT.Human_Gender = 0 -- 0 = Male | 1 = male
+ENT.Human_Gender = 0 -- 0 = Male | 1 = Female
 ENT.Human_SdFolder = "male01"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
@@ -49,10 +49,10 @@ function ENT:CustomOnPreInitialize()
 	else
 		self.Human_Gender = 1
 		if math.random(1,5) == 1 then
-			self.Model = {"models/Humans/Group03m/male_01.mdl","models/Humans/Group03m/male_02.mdl","models/Humans/Group03m/male_03.mdl","models/Humans/Group03m/male_04.mdl","models/Humans/Group03m/male_06.mdl","models/Humans/Group03m/male_07.mdl"}
+			self.Model = {"models/Humans/Group03m/female_01.mdl","models/Humans/Group03m/female_02.mdl","models/Humans/Group03m/female_03.mdl","models/Humans/Group03m/female_04.mdl","models/Humans/Group03m/female_06.mdl","models/Humans/Group03m/female_07.mdl"}
 			self.IsMedicSNPC = true
 		else
-			self.Model = {"models/Humans/Group03/male_01.mdl","models/Humans/Group03/male_02.mdl","models/Humans/Group03/male_03.mdl","models/Humans/Group03/male_04.mdl","models/Humans/Group03/male_06.mdl","models/Humans/Group03/male_07.mdl"}
+			self.Model = {"models/Humans/Group03/female_01.mdl","models/Humans/Group03/female_02.mdl","models/Humans/Group03/female_03.mdl","models/Humans/Group03/female_04.mdl","models/Humans/Group03/female_06.mdl","models/Humans/Group03/female_07.mdl"}
 		end
 	end
 	if self.IsMedicSNPC == false && math.random(1,3) == 1 then
@@ -66,8 +66,8 @@ end
 function ENT:CustomOnInitialize()
 	self.Human_NextPlyReloadSd = CurTime()
 	if self.Human_Gender == 1 then
-		self:HLR_ApplymaleSounds()
-		self.Human_SdFolder = "male01"
+		self:HLR_ApplyFemaleSounds()
+		self.Human_SdFolder = "female01"
 	else
 		self:HLR_ApplyMaleSounds()
 		self.Human_SdFolder = "male01"
@@ -196,7 +196,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HLR_ApplyMaleSounds()
 	self.SoundTbl_Idle = {
-		"vo/npc/male01/vanswer14.wav",
+		//"vo/npc/male01/vanswer14.wav",
 	}
 	self.SoundTbl_IdleDialogue = {
 		"vo/npc/male01/doingsomething.wav",
@@ -685,9 +685,9 @@ function ENT:HLR_ApplyMaleSounds()
 	]]--
 end
 
-function ENT:HLR_ApplyfemaleSounds()
+function ENT:HLR_ApplyFemaleSounds()
 	self.SoundTbl_Idle = {
-		"vo/npc/female01/vanswer14.wav",
+		//"vo/npc/female01/vanswer14.wav",
 	}
 	self.SoundTbl_IdleDialogue = {
 		"vo/npc/female01/doingsomething.wav",
@@ -726,29 +726,29 @@ function ENT:HLR_ApplyfemaleSounds()
 		"vo/npc/female01/vquestion02.wav",
 		"vo/npc/female01/vquestion04.wav",
 		"vj_hlr/hl2_npc/ep1/npc/female01/cit_alert_antlions14.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks01.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks02.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks03.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks04.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks05.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks06.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks07.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks08.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks09.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks10.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks11.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks12.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks13.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks14.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks15.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks16.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks17.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks18.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks19.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks20.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks21.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks22.wav",
-		"vj_hlr/hl2_npc/ep1/npc/fefemale01/cit_remarks23.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks01.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks02.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks03.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks04.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks05.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks06.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks07.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks08.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks09.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks10.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks11.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks12.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks13.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks14.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks15.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks16.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks17.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks18.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks19.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks20.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks21.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks22.wav",
+		"vj_hlr/hl2_npc/ep1/npc/female01/cit_remarks23.wav",
 	}
 	self.SoundTbl_IdleDialogueAnswer = {
 		"vo/npc/female01/answer01.wav",
