@@ -102,7 +102,6 @@ ENT.SoundTbl_Alert = {
 	"vo/npc/barney/ba_heretheycome02.wav",
 	"vo/npc/barney/ba_openfiregord.wav",
 	"vo/npc/barney/ba_uhohheretheycome.wav",
-	"vj_hlr/hl2_npc/barney/ba_fuckyou.wav",
 	"vo/k_lab2/ba_incoming.wav",
 }
 ENT.SoundTbl_CallForHelp = {
@@ -115,7 +114,9 @@ ENT.SoundTbl_CallForHelp = {
 ENT.SoundTbl_BecomeEnemyToPlayer = {
 	"vj_hlr/hl2_npc/barney/ba_fuckyou.wav"
 }
-ENT.SoundTbl_Suppressing = {}
+ENT.SoundTbl_Suppressing = {
+	"vj_hlr/hl2_npc/barney/ba_fuckyou.wav",
+}
 ENT.SoundTbl_WeaponReload = {
 	"vo/npc/barney/ba_covermegord.wav",
 	"vo/npc/barney/ba_damnit.wav",
