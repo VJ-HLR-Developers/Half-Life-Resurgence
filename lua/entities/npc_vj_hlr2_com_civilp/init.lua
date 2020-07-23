@@ -51,6 +51,7 @@ ENT.SoundTbl_AllyDeath = {"npc/metropolice/vo/officerdowncode3tomy10-20.wav","np
 ENT.SoundTbl_Pain = {"npc/metropolice/vo/officerunderfiretakingcover.wav","npc/metropolice/vo/necrotics.wav","npc/metropolice/vo/help.wav","npc/metropolice/vo/freenecrotics.wav","npc/metropolice/knockout2.wav","npc/metropolice/pain1.wav","npc/metropolice/pain2.wav","npc/metropolice/pain3.wav","npc/metropolice/pain4.wav"}
 ENT.SoundTbl_DamageByPlayer = {"npc/metropolice/vo/watchit.wav"}
 ENT.SoundTbl_Death = {"npc/metropolice/die1.wav","npc/metropolice/die2.wav","npc/metropolice/die3.wav","npc/metropolice/die4.wav"}
+ENT.SoundTbl_DeployManhack = {"npc/metropolice/vo/visceratordeployed.wav","npc/metropolice/vo/visceratorisoc.wav","npc/metropolice/vo/visceratorisoffgrid.wav"}
 
 /*
 -- Number sounds have not been included!
@@ -173,6 +174,13 @@ ENT.SoundTbl_Death = {"npc/metropolice/die1.wav","npc/metropolice/die2.wav","npc
 "npc/metropolice/vo/on1.wav" - 2
 */
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnInitialize()
+	self.HasManhack = math.random(1,4) == 1
+	if self.HasManhack then
+		self:SetBodygroup(1,1)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnPlayCreateSound(SoundData,SoundFile)
 	if VJ_HasValue(self.SoundTbl_Pain,SoundFile) or VJ_HasValue(self.DefaultSoundTbl_MeleeAttack,SoundFile) then return end
 	VJ_EmitSound(self, "npc/metropolice/vo/on"..math.random(1,2)..".wav")
@@ -191,6 +199,41 @@ function ENT:CustomOnDoChangeWeapon(newWeapon, oldWeapon, invSwitch)
 			end
 		end)
 		self:VJ_ACT_PLAYACTIVITY("activatebaton", true, false, true)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink()
+	if self.HasManhack && IsValid(self:GetEnemy()) then
+		local dist = self:VJ_GetNearestPointToEntityDistance(self:GetEnemy())
+		if dist <= self.Weapon_FiringDistanceFar && dist > 300 then
+			self.HasManhack = false
+			self:VJ_ACT_PLAYACTIVITY("deploy", true, false, true)
+			self:StopAllCommonSpeechSounds()
+			VJ_CreateSound(self,self.SoundTbl_DeployManhack,72)
+			timer.Simple(0.3,function()
+				if IsValid(self) then
+					self:SetBodygroup(1,0)
+					self.ManhackProp = ents.Create("prop_vj_animatable")
+					self.ManhackProp:SetModel("models/manhack.mdl")
+					self.ManhackProp:SetLocalPos(self:GetPos())
+					self.ManhackProp:SetAngles(self:GetAngles())
+					self.ManhackProp:SetParent(self)
+					self.ManhackProp:Spawn()
+					self.ManhackProp:Fire("SetParentAttachment","anim_attachment_LH",0)
+				end
+			end)
+			timer.Simple(1.1,function()
+				if IsValid(self) then
+					local ent = ents.Create("npc_manhack")
+					ent:SetPos(self.ManhackProp:GetPos())
+					ent:SetAngles(self.ManhackProp:GetAngles())
+					ent:Spawn()
+					ent:GetPhysicsObject():AddVelocity(Vector(0,0,250))
+					ent:SetKeyValue("spawnflags","65536")
+					SafeRemoveEntity(self.ManhackProp)
+				end
+			end)
+		end
 	end
 end
 /*-----------------------------------------------
