@@ -21,10 +21,10 @@ ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calcula
 ENT.MeleeAttackDistance = 40 -- How close does it have to be until it attacks?
 ENT.MeleeAttackDamageDistance = 100 -- How far does the damage go?
 
-ENT.HasRangeAttack = false -- Should the SNPC have a range attack?
+ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1} -- Range Attack Animations
-ENT.RangeDistance = 1020 -- This is how far away it can shoot
-ENT.RangeToMeleeDistance = 100 -- How close does it have to be until it uses melee?
+ENT.RangeDistance = 140 -- This is how far away it can shoot
+ENT.RangeToMeleeDistance = 50 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
 ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
@@ -41,6 +41,7 @@ ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} -- If it uses normal based animation, us
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/friendly/fr_groan1.wav","vj_hlr/hl1_npc/friendly/fr_groan2.wav"}
 ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/friendly/fr_attack.wav"}
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/friendly/fr_attack.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/friendly/fr_groan1.wav","vj_hlr/hl1_npc/friendly/fr_groan2.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/friendly/fr_groan1.wav","vj_hlr/hl1_npc/friendly/fr_groan2.wav"}
 
@@ -54,7 +55,7 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	//print(key)
+	print(key)
 	if key == "event_emit step" or key == "step" then
 		self:FootStepSoundCode()
 	end
@@ -63,6 +64,27 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	end
 	if key == "vomitdmg" then
 		self:RangeAttackCode()
+	end
+end---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomRangeAttackCode()
+	//ParticleEffectAttach("vj_hlr_spit_friendly_impact", PATTACH_POINT_FOLLOW, self, 1)
+	local pos = self:GetAttachment(1).Pos
+	ParticleEffect("vj_hlr_spit_friendly_impact", pos, self:GetAngles(), self)
+	ParticleEffect("vj_hlr_spit_friendly_impact", pos + self:GetRight()*25, self:GetAngles(), self)
+	ParticleEffect("vj_hlr_spit_friendly_impact", pos + self:GetRight()*-25, self:GetAngles(), self)
+	ParticleEffect("vj_hlr_spit_friendly_impact", pos + self:GetForward()*30, self:GetAngles(), self)
+	ParticleEffect("vj_hlr_spit_friendly_impact", pos + self:GetForward()*60, self:GetAngles(), self)
+	timer.Simple(0.5, function()
+		if IsValid(self) then
+			self:StopParticles()
+		end
+	end)
+	util.VJ_SphereDamage(self, self, pos, 160, 5, DMG_ACID, true, true, {Force=10, UseCone=true, UseConeDegree=60})
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
+	if self:Health() < (self:GetMaxHealth() * 0.50) then
+		self.AnimTbl_Run = {ACT_RUN_STIMULATED}
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

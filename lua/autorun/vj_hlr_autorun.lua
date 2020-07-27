@@ -141,7 +141,7 @@ if VJExists == true then
 	VJ.AddNPC_HUMAN("Barney Calhoun","npc_vj_hlr2_barney",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
 	VJ.AddNPC_HUMAN("Father Grigori","npc_vj_hlr2_father_grigori",{"weapon_vj_hlr2_annabelle"},vCat)
 	VJ.AddNPC("Floor Turret (Resistance)","npc_vj_hlr2_turret",vCat)
-		
+	
 	-- Combine
 	VJ.AddNPC_HUMAN("Overwatch Soldier","npc_vj_hlr2_com_soldier",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
 	VJ.AddNPC_HUMAN("Overwatch Shotgun Soldier","npc_vj_hlr2_com_shotgunner",{"weapon_vj_spas12"},vCat)
@@ -162,6 +162,7 @@ if VJExists == true then
 	VJ.AddNPCWeapon("VJ_RPG8","weapon_vj_hl2_rpg",false,vCat)
 		-- Beta
 		VJ.AddNPCWeapon("VJ_OICW","weapon_vj_hl2b_oicw",false,vCat)
+		
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Decals ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -184,12 +185,10 @@ if VJExists == true then
 			util.Decal("VJ_HLR_BULLET_HOLE", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
 		end
 		*/
-	
+		
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Particles ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	VJ.AddParticle("particles/advisor.pcf",{})
-	VJ.AddParticle("particles/choreo_dog_v_strider.pcf",{})
 	VJ.AddParticle("particles/vj_hl_blood.pcf",{
 		"vj_hl_blood_red",
 		"vj_hl_blood_red_large",
@@ -227,6 +226,9 @@ if VJExists == true then
 		"vj_hl_spit_gonarch",
 		"vj_hl_spit_gonarch_impact",
 		"vj_hl_spit_spore_spawn",
+		"vj_hlr_spit_friendly",
+		"vj_hlr_spit_friendly_b",
+		"vj_hlr_spit_friendly_impact",
 	})
 	VJ.AddParticle("particles/vj_hl_torch.pcf",{
 		"vj_hl_torch",
@@ -253,6 +255,10 @@ if VJExists == true then
 		"vj_hlr_nihilanth_chargeorb",
 		"vj_hlr_nihilanth_deathorbs",
 		"vj_hlr_nihilanth_deathorbs_white",
+	})
+	VJ.AddParticle("particles/vj_hlr_geneworm.pcf",{
+		"vj_hlr_geneworm_spit",
+		"vj_hlr_geneworm_spit_b",
 	})
 	
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
