@@ -1,6 +1,12 @@
-"Sprite"
+//"Sprite"
+//{
+//	"$spriteorientation" "vp_parallel"
+//	"$spriteorigin" "[ 0.50 0.50 ]"
+//	"$basetexture" "vj_hl/sprites/bigspit"
+//}
+"UnlitGeneric"
 {
-	"$spriteorientation" "vp_parallel"
-	"$spriteorigin" "[ 0.50 0.50 ]"
+	"$nolod" 1
+	"$translucent" 1
 	"$basetexture" "vj_hl/sprites/bigspit"
 }
