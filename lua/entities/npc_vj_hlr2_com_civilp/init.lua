@@ -51,7 +51,8 @@ ENT.SoundTbl_AllyDeath = {"npc/metropolice/vo/officerdowncode3tomy10-20.wav","np
 ENT.SoundTbl_Pain = {"npc/metropolice/vo/officerunderfiretakingcover.wav","npc/metropolice/vo/necrotics.wav","npc/metropolice/vo/help.wav","npc/metropolice/vo/freenecrotics.wav","npc/metropolice/knockout2.wav","npc/metropolice/pain1.wav","npc/metropolice/pain2.wav","npc/metropolice/pain3.wav","npc/metropolice/pain4.wav"}
 ENT.SoundTbl_DamageByPlayer = {"npc/metropolice/vo/watchit.wav"}
 ENT.SoundTbl_Death = {"npc/metropolice/die1.wav","npc/metropolice/die2.wav","npc/metropolice/die3.wav","npc/metropolice/die4.wav"}
-ENT.SoundTbl_DeployManhack = {"npc/metropolice/vo/visceratordeployed.wav","npc/metropolice/vo/visceratorisoc.wav","npc/metropolice/vo/visceratorisoffgrid.wav"}
+
+local SoundTbl_DeployManhack = {"npc/metropolice/vo/visceratordeployed.wav","npc/metropolice/vo/visceratorisoc.wav","npc/metropolice/vo/visceratorisoffgrid.wav"}
 
 /*
 -- Number sounds have not been included!
@@ -209,7 +210,7 @@ function ENT:CustomOnThink()
 			self.HasManhack = false
 			self:VJ_ACT_PLAYACTIVITY("deploy", true, false, true)
 			self:StopAllCommonSpeechSounds()
-			VJ_CreateSound(self,self.SoundTbl_DeployManhack,72)
+			VJ_CreateSound(self, SoundTbl_DeployManhack, 72)
 			timer.Simple(0.3,function()
 				if IsValid(self) then
 					self:SetBodygroup(1,0)
