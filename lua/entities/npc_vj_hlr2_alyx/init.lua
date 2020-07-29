@@ -859,35 +859,6 @@ ENT.SoundTbl_Death = {
 "vj_hlr/hl2_npc/ep1/npc/alyx/al_combat_goodthinking02.wav",
 "vj_hlr/hl2_npc/ep1/npc/alyx/al_combat_goodthinking03.wav",
 
--- Player died
-"vo/k_lab/al_lostgordon.wav",
-"vj_hlr/hl2_npc/ep1/c17/al_lasttrain_gordon.wav",
-"vj_hlr/hl2_npc/ep1/c17/al_lasttrain_ohnogordon.wav",
-"vj_hlr/hl2_npc/ep1/c17/al_train_gordon.wav",
-"vj_hlr/hl2_npc/ep1/c17/al_train_madeit02.wav",
-"vj_hlr/hl2_npc/ep1/c17/al_zombieroom_gordon.wav",
-"vj_hlr/hl2_npc/ep1/citadel/al_advisor_breen02.wav",
-"vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback01.wav",
-"vj_hlr/hl2_npc/ep1/citadel/al_postcore_atwindow_new02.wav",
-"vj_hlr/hl2_npc/ep1/citadel/al_stalk_getemoff11.wav",
-"vj_hlr/hl2_npc/ep1/intro/al_gordon.wav",
-"vj_hlr/hl2_npc/ep1/intro/al_ohgordon.wav",
-"vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worried01.wav",
-"vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worrieder_02.wav",
-"vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriederer01.wav",
-"vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriederer02.wav",
-"vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriedest01.wav",
-"vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriedest03.wav",
-"vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath01.wav",
-"vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath02.wav",
-"vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath03.wav",
-"vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath04.wav",
-"vj_hlr/hl2_npc/ep1/npc/alyx/al_playerfalls01.wav",
-"vj_hlr/hl2_npc/ep1/npc/alyx/al_playerfalls03.wav",
-"vj_hlr/hl2_npc/ep2/outland_01/intro/al_rbed_callinggordon04.wav",
-"vj_hlr/hl2_npc/ep2/outland_12a/launch/al_launch_attackstart01.wav",
-"vj_hlr/hl2_npc/ep2/outland_12a/launch/al_launch_ohgord.wav",
-
 -- Detect enemy behind player
 "vj_hlr/hl2_npc/ep1/npc/alyx/al_behindyou01.wav"
 "vj_hlr/hl2_npc/ep1/npc/alyx/al_monsterbehindplayer01.wav",
@@ -932,25 +903,11 @@ ENT.SoundTbl_Death = {
 
 "vj_hlr/hl2_npc/ep1/c17/al_zombine_wth.wav",
 
--- Kills an unidentified SNPC ?
-"vj_hlr/hl2_npc/ep1/citadel/al_advisor_wasthatthing.wav",
-"vj_hlr/hl2_npc/ep1/npc/alyx/al_gross01.wav",
-"vj_hlr/hl2_npc/ep1/npc/alyx/al_gross02.wav",
-	
--- Detected barnacles
-"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle01.wav",
-"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle02.wav",
-"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle03.wav",
-"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle04.wav",
-"vj_hlr/hl2_npc/ep1/npc/alyx/al_firstbarnacle.wav",
-
 -- Creature Attacking
 "vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_attack01.wav", -- What? AAA
 "vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_attack03.wav", -- Something is one me
 "vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_attack02.wav", -- get it off get it off
 ]]--
-
-// "vj_hlr/hl2_npc/ep2/outland_01/intro/al_rbed_callinggordon04.wav",
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -1009,6 +966,9 @@ function ENT:CustomOnAlert(argent)
 		elseif argent.HLR_Type == "Headcrab" or argent:GetClass() == "npc_headcrab" or argent:GetClass() == "npc_headcrab_black" or argent:GetClass() == "npc_headcrab_fast" then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/alyx/al_pzcrabs_hatethings01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_pzcrabs_hatethings02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs03.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs04.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs05.wav"})
 			return
+		elseif argent:GetClass() == "npc_vj_hlr1_barnacle" or argent:GetClass() == "monster_barnacle" or argent:Classify() == CLASS_BARNACLE then
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle03.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle04.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_firstbarnacle.wav"})
+			return
 		elseif argent:Classify() == CLASS_COMBINE_HUNTER then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep2/outland_06a/radio/al_rad_theyreback02.wav"})
 			return
@@ -1028,8 +988,7 @@ function ENT:CustomOnAlert(argent)
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_turrets.wav"})
 			return
 		else
-			local tbl = argent.VJ_NPC_Class or {1}
-			for _,v in ipairs(tbl) do
+			for _,v in ipairs(argent.VJ_NPC_Class or {1}) do
 				if v == "CLASS_COMBINE" or argent:Classify() == CLASS_COMBINE then
 					self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_evac_ontous01.wav"})
 					return
@@ -1056,6 +1015,24 @@ end
 function ENT:CustomOnCallForHelp(ally)
 	if ally:GetClass() == "npc_vj_hlr2_barney" then
 		self:PlaySoundSystem("CallForHelp", {"vj_hlr/hl2_npc/ep1/c17/al_barneyoverhere.wav"})
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
+	-- Kills a unknown type (Not Zombie, Antlion or Combine) of creature SNPC
+	if math.random(1,2) == 1 && argent.IsVJBaseSNPC_Creature == true then
+		for _,v in ipairs(argent.VJ_NPC_Class or {1}) do
+			if v != "CLASS_COMBINE" && v != "CLASS_ZOMBIE" && v != "CLASS_ANTLION" then
+				self:PlaySoundSystem("OnKilledEnemy", {"vj_hlr/hl2_npc/ep1/citadel/al_advisor_wasthatthing.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_gross01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_gross02.wav"})
+				return
+			end
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAllyDeath(argent)
+	if argent:IsPlayer() then
+		self:PlaySoundSystem("AllyDeath", {"vo/k_lab/al_lostgordon.wav","vj_hlr/hl2_npc/ep1/c17/al_lasttrain_gordon.wav","vj_hlr/hl2_npc/ep1/c17/al_lasttrain_ohnogordon.wav","vj_hlr/hl2_npc/ep1/c17/al_train_gordon.wav","vj_hlr/hl2_npc/ep1/c17/al_train_madeit02.wav","vj_hlr/hl2_npc/ep1/c17/al_zombieroom_gordon.wav","vj_hlr/hl2_npc/ep1/citadel/al_advisor_breen02.wav","vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback01.wav","vj_hlr/hl2_npc/ep1/citadel/al_postcore_atwindow_new02.wav","vj_hlr/hl2_npc/ep1/citadel/al_stalk_getemoff11.wav","vj_hlr/hl2_npc/ep1/intro/al_gordon.wav","vj_hlr/hl2_npc/ep1/intro/al_ohgordon.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worried01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worrieder_02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriederer01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriederer02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriedest01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriedest03.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath03.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath04.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerfalls01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerfalls03.wav","vj_hlr/hl2_npc/ep2/outland_01/intro/al_rbed_callinggordon04.wav","vj_hlr/hl2_npc/ep2/outland_12a/launch/al_launch_attackstart01.wav","vj_hlr/hl2_npc/ep2/outland_12a/launch/al_launch_ohgord.wav"})
 	end
 end
 /*-----------------------------------------------

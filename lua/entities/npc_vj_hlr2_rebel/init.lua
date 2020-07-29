@@ -152,8 +152,7 @@ function ENT:CustomOnAlert(argent)
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_gunship.wav","vo/npc/"..self.Human_SdFolder.."/gunship02.wav","vo/coast/barn/"..self.Human_SdFolder.."/lite_gunship01.wav","vo/coast/barn/"..self.Human_SdFolder.."/lite_gunship02.wav"})
 			return
 		else
-			local tbl = argent.VJ_NPC_Class or {1}
-			for _,v in ipairs(tbl) do
+			for _,v in ipairs(argent.VJ_NPC_Class or {1}) do
 				if v == "CLASS_COMBINE" or argent:Classify() == CLASS_COMBINE then
 					self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_raidsoldiers.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_itsaraid.wav","vo/npc/"..self.Human_SdFolder.."/combine01.wav","vo/npc/"..self.Human_SdFolder.."/combine02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_soldier05.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_soldier06.wav"})
 					break
@@ -198,6 +197,50 @@ function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
 				"vo/npc/"..self.Human_SdFolder.."/mygut02.wav",
 			})
 		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAllyDeath(argent)
+	if argent:IsPlayer() then
+		self:PlaySoundSystem("AllyDeath", {
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ans01.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ans02.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ans03.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ans04.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ans05.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ans06.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ans07.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ans08.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ans09.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ans10.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ans11.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ans12.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ans13.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ans14.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ans15.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ans16.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ans17.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ans18.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ans19.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ans20.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ques01.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ques02.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ques03.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ques04.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ques05.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ques06.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ques07.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ques08.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ques09.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ques10.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ques11.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ques12.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ques13.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ques14.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ques15.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ques16.wav",
+			"vo/npc/"..self.Human_SdFolder.."/gordead_ques17.wav",
+		})
 	end
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -693,10 +736,6 @@ function ENT:HLR_ApplyMaleSounds()
 	vo/npc/male01/behindyou01.wav
 	vo/npc/male01/behindyou02.wav
 
-	-- Player died
-	vo/npc/male01/gordead_ans01.wav		1 - 20
-	vo/npc/male01/gordead_ques01.wav	1 - 17
-
 	-- Give player ammo
 	vo/npc/male01/ammo01.wav	1 - 5
 
@@ -1178,10 +1217,6 @@ function ENT:HLR_ApplyFemaleSounds()
 	vo/npc/female01/lookoutfm02.wav
 	vo/npc/female01/behindyou01.wav
 	vo/npc/female01/behindyou02.wav
-
-	-- Player died
-	vo/npc/female01/gordead_ans01.wav        1 - 20
-	vo/npc/female01/gordead_ques01.wav    1 - 17
 
 	-- Vortigaunt Answer and Question
 	vo/npc/female01/vanswer01.wav		1 - 14
