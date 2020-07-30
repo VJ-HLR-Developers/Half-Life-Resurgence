@@ -41,6 +41,24 @@ ENT.SoundTbl_AllyDeath = {"npc/combine_soldier/vo/overwatchteamisdown.wav", "npc
 ENT.SoundTbl_Pain = {"npc/combine_soldier/pain1.wav","npc/combine_soldier/pain2.wav","npc/combine_soldier/pain3.wav","npc/combine_soldier/vo/heavyresistance.wav","npc/combine_soldier/vo/bodypackholding.wav","npc/combine_soldier/vo/requestmedical.wav","npc/combine_soldier/vo/requeststimdose.wav"}
 ENT.SoundTbl_Death = {"npc/combine_soldier/die1.wav","npc/combine_soldier/die2.wav","npc/combine_soldier/die3.wav"}
 
+local SoundTbl_Combine_Chatter = {
+	"npc/combine_soldier/vo/prison_soldier_activatecentral.wav",
+	"npc/combine_soldier/vo/prison_soldier_boomersinbound.wav",
+	"npc/combine_soldier/vo/prison_soldier_bunker1.wav",
+	"npc/combine_soldier/vo/prison_soldier_bunker2.wav",
+	"npc/combine_soldier/vo/prison_soldier_bunker3.wav",
+	"npc/combine_soldier/vo/prison_soldier_containd8.wav",
+	"npc/combine_soldier/vo/prison_soldier_fallback_b4.wav",
+	"npc/combine_soldier/vo/prison_soldier_freeman_antlions.wav",
+	"npc/combine_soldier/vo/prison_soldier_fullbioticoverrun.wav",
+	"npc/combine_soldier/vo/prison_soldier_leader9dead.wav",
+	"npc/combine_soldier/vo/prison_soldier_negativecontainment.wav",
+	"npc/combine_soldier/vo/prison_soldier_prosecuted7.wav",
+	"npc/combine_soldier/vo/prison_soldier_sundown3dead.wav",
+	"npc/combine_soldier/vo/prison_soldier_tohighpoints.wav",
+	"npc/combine_soldier/vo/prison_soldier_visceratorsa5.wav",
+}
+
 /*
 -- NOTE: Number sounds aren't included here!
 
@@ -114,11 +132,30 @@ npc/combine_soldier/vo/prison_soldier_sundown3dead.wav
 npc/combine_soldier/vo/prison_soldier_tohighpoints.wav
 npc/combine_soldier/vo/prison_soldier_visceratorsa5.wav
 */
+
+-- Custom
+ENT.Combine_ChatterT = 0
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPreInitialize()
+	self.Combine_ChatterT = CurTime() + math.Rand(1, 30)
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnPlayCreateSound(SoundData,SoundFile)
-	if VJ_HasValue(self.SoundTbl_Pain,SoundFile) or VJ_HasValue(self.DefaultSoundTbl_MeleeAttack,SoundFile) then return end
-	VJ_EmitSound(self,"npc/combine_soldier/vo/on"..math.random(1,2)..".wav")
-	timer.Simple(SoundDuration(SoundFile),function() if IsValid(self) && SoundData:IsPlaying() then VJ_EmitSound(self,"npc/combine_soldier/vo/off"..math.random(1,3)..".wav") end end)
+	if VJ_HasValue(self.SoundTbl_Pain, SoundFile) or VJ_HasValue(self.DefaultSoundTbl_MeleeAttack, SoundFile) or VJ_HasValue(SoundTbl_Combine_Chatter, SoundFile) then return end
+	VJ_EmitSound(self, "npc/combine_soldier/vo/on"..math.random(1,2)..".wav")
+	timer.Simple(SoundDuration(SoundFile), function() if IsValid(self) && SoundData:IsPlaying() then VJ_EmitSound(self,"npc/combine_soldier/vo/off"..math.random(1,3)..".wav") end end)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink_AIEnabled()
+	-- Random background radio sounds
+	if self.Combine_ChatterT < CurTime() then
+		print("RUN")
+		if math.random(1,2) == 1 then
+			print("PLAY")
+			self.Combine_ChatterSd = VJ_CreateSound(self, SoundTbl_Combine_Chatter, 50, 90)
+		end
+		self.Combine_ChatterT = CurTime() + math.Rand(20, 40)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(argent)
@@ -127,8 +164,7 @@ function ENT:CustomOnAlert(argent)
 			self:PlaySoundSystem("Alert", {"npc/combine_soldier/vo/freeman3.wav","npc/combine_soldier/vo/anticitizenone.wav","npc/combine_soldier/vo/priority1objective.wav","npc/combine_soldier/vo/targetone.wav"})
 		elseif argent:IsNPC() && argent.IsVJBaseSNPC_Creature == true then
 			if math.random(1,2) == 1 then
-				local tbl = argent.VJ_NPC_Class or {1}
-				for _,v in ipairs(tbl) do
+				for _,v in ipairs(argent.VJ_NPC_Class or {1}) do
 					if v == "CLASS_ZOMBIE" or argent:Classify() == CLASS_ZOMBIE then
 						self:PlaySoundSystem("Alert", {"npc/combine_soldier/vo/infected.wav"})
 						goto skip_sound -- Skip the regular creature sounds!
@@ -142,43 +178,48 @@ function ENT:CustomOnAlert(argent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
+	-- Custom grenade model and sounds
 	GrenadeEntity.SoundTbl_Idle = {"weapons/grenade/tick1.wav"}
 	GrenadeEntity.IdleSoundPitch1 = 100
 	local redglow = ents.Create("env_sprite")
-	redglow:SetKeyValue("model","vj_base/sprites/vj_glow1.vmt")
-	redglow:SetKeyValue("scale","0.07")
-	redglow:SetKeyValue("rendermode","5")
-	redglow:SetKeyValue("rendercolor","150 0 0")
-	redglow:SetKeyValue("spawnflags","1") -- If animated
+	redglow:SetKeyValue("model", "vj_base/sprites/vj_glow1.vmt")
+	redglow:SetKeyValue("scale", "0.07")
+	redglow:SetKeyValue("rendermode", "5")
+	redglow:SetKeyValue("rendercolor", "150 0 0")
+	redglow:SetKeyValue("spawnflags", "1") -- If animated
 	redglow:SetParent(GrenadeEntity)
-	redglow:Fire("SetParentAttachment","fuse",0)
+	redglow:Fire("SetParentAttachment", "fuse", 0)
 	redglow:Spawn()
 	redglow:Activate()
 	GrenadeEntity:DeleteOnRemove(redglow)
-	util.SpriteTrail(GrenadeEntity,1,Color(200,0,0),true,15,15,0.35,1/(6+6)*0.5,"VJ_Base/sprites/vj_trial1.vmt")
+	util.SpriteTrail(GrenadeEntity, 1, Color(200,0,0), true, 15, 15, 0.35, 1/(6+6)*0.5, "VJ_Base/sprites/vj_trial1.vmt")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	if (dmginfo:IsBulletDamage()) then
-		dmginfo:ScaleDamage(0.60)
-		if self.HasSounds == true && self.HasImpactSounds == true then VJ_EmitSound(self,"vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav",70) end
-		local attacker = dmginfo:GetAttacker()
+	-- Absorb bullet damage
+	if dmginfo:IsBulletDamage() then
+		if self.HasSounds == true && self.HasImpactSounds == true then VJ_EmitSound(self, "vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav", 70) end
 		if math.random(1,3) == 1 then
 			dmginfo:ScaleDamage(0.50)
-			self.DamageSpark1 = ents.Create("env_spark")
-			self.DamageSpark1:SetKeyValue("Magnitude","1")
-			self.DamageSpark1:SetKeyValue("Spark Trail Length","1")
-			self.DamageSpark1:SetPos(dmginfo:GetDamagePosition())
-			self.DamageSpark1:SetAngles(self:GetAngles())
-			//self.DamageSpark1:Fire("LightColor", "255 255 255")
-			self.DamageSpark1:SetParent(self)
-			self.DamageSpark1:Spawn()
-			self.DamageSpark1:Activate()
-			self.DamageSpark1:Fire("StartSpark", "", 0)
-			self.DamageSpark1:Fire("StopSpark", "", 0.001)
-			self:DeleteOnRemove(self.DamageSpark1)
+			local spark = ents.Create("env_spark")
+			spark:SetKeyValue("Magnitude","1")
+			spark:SetKeyValue("Spark Trail Length","1")
+			spark:SetPos(dmginfo:GetDamagePosition())
+			spark:SetAngles(self:GetAngles())
+			spark:SetParent(self)
+			spark:Spawn()
+			spark:Activate()
+			spark:Fire("StartSpark", "", 0)
+			spark:Fire("StopSpark", "", 0.001)
+			self:DeleteOnRemove(spark)
+		else
+			dmginfo:ScaleDamage(0.80)
 		end
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRemove()
+	VJ_STOPSOUND(self.Combine_ChatterSd)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***

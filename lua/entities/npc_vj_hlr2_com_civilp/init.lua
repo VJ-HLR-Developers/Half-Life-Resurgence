@@ -24,8 +24,8 @@ ENT.WeaponInventory_MeleeList = {"weapon_vj_hlr2_stunstick"} -- It will randomly
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 	-- ====== File Path Variables ====== --
 	-- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_Idle = {"npc/metropolice/vo/allunitsmaintainthiscp.wav","npc/metropolice/vo/anyonepickup647e.wav","npc/metropolice/vo/wearesociostablethislocation.wav","npc/metropolice/vo/utlsuspect.wav","npc/metropolice/vo/unitisonduty10-8.wav","npc/metropolice/vo/unitis10-8standingby.wav","npc/metropolice/vo/ten97.wav","npc/metropolice/vo/ten8standingby.wav","npc/metropolice/vo/ten2.wav","npc/metropolice/vo/standardloyaltycheck.wav","npc/metropolice/vo/sacrificecode1maintaincp.wav","npc/metropolice/vo/readytojudge.wav","npc/metropolice/vo/ptatlocationreport.wav","npc/metropolice/vo/proceedtocheckpoints.wav","npc/metropolice/vo/patrol.wav","npc/metropolice/vo/novisualonupi.wav","npc/metropolice/vo/nonpatrolregion.wav","npc/metropolice/vo/nocontact.wav","npc/metropolice/vo/localcptreportstatus.wav","npc/metropolice/vo/keepmoving.wav","npc/metropolice/vo/ispassive.wav","npc/metropolice/vo/isathardpointreadytoprosecute.wav","npc/metropolice/vo/inpositiononeready.wav","npc/metropolice/vo/inpositionathardpoint.wav","npc/metropolice/vo/inposition.wav","npc/metropolice/vo/holdthisposition.wav","npc/metropolice/vo/holdingon10-14duty.wav","npc/metropolice/vo/dispupdatingapb.wav","npc/metropolice/vo/cpweneedtoestablishaperimeterat.wav","npc/metropolice/vo/cprequestsallunitsreportin.wav","npc/metropolice/vo/atcheckpoint.wav","npc/metropolice/vo/clearandcode100.wav","npc/metropolice/vo/code7.wav"}
-ENT.SoundTbl_CombatIdle = {"npc/metropolice/vo/unitreportinwith10-25suspect.wav","npc/metropolice/vo/tenzerovisceratorishunting.wav","npc/metropolice/vo/teaminpositionadvance.wav","npc/metropolice/vo/requestsecondaryviscerator.wav","npc/metropolice/vo/readytoamputate.wav","npc/metropolice/vo/preparingtojudge10-107.wav","npc/metropolice/vo/preparefor1015.wav","npc/metropolice/vo/positiontocontain.wav","npc/metropolice/vo/outlandbioticinhere.wav","npc/metropolice/vo/movingtohardpoint2.wav","npc/metropolice/vo/movingtohardpoint.wav","npc/metropolice/vo/movetoarrestpositions.wav","npc/metropolice/vo/malcompliant10107my1020.wav","npc/metropolice/vo/lockyourposition.wav","npc/metropolice/vo/issuingmalcompliantcitation.wav","npc/metropolice/vo/ismovingin.wav","npc/metropolice/vo/isgo.wav","npc/metropolice/vo/is415b.wav","npc/metropolice/vo/interlock.wav","npc/metropolice/vo/ihave10-30my10-20responding.wav","npc/metropolice/vo/highpriorityregion.wav","npc/metropolice/vo/hardpointscanning.wav","npc/metropolice/vo/establishnewcp.wav","npc/metropolice/vo/distributionblock.wav","npc/metropolice/vo/dispreportssuspectincursion.wav","npc/metropolice/vo/deservicedarea.wav","npc/metropolice/vo/cpbolforthat243.wav","npc/metropolice/vo/converging.wav","npc/metropolice/vo/airwatchsubjectis505.wav","npc/metropolice/vo/allunitscloseonsuspect.wav","npc/metropolice/vo/allunitsmovein.wav","npc/metropolice/vo/allunitsreportlocationsuspect.wav"}
+ENT.SoundTbl_Idle = {"npc/metropolice/hiding02.wav","npc/metropolice/vo/allunitsmaintainthiscp.wav","npc/metropolice/vo/anyonepickup647e.wav","npc/metropolice/vo/wearesociostablethislocation.wav","npc/metropolice/vo/utlsuspect.wav","npc/metropolice/vo/unitisonduty10-8.wav","npc/metropolice/vo/unitis10-8standingby.wav","npc/metropolice/vo/ten97.wav","npc/metropolice/vo/ten8standingby.wav","npc/metropolice/vo/ten2.wav","npc/metropolice/vo/standardloyaltycheck.wav","npc/metropolice/vo/sacrificecode1maintaincp.wav","npc/metropolice/vo/readytojudge.wav","npc/metropolice/vo/ptatlocationreport.wav","npc/metropolice/vo/proceedtocheckpoints.wav","npc/metropolice/vo/patrol.wav","npc/metropolice/vo/novisualonupi.wav","npc/metropolice/vo/nonpatrolregion.wav","npc/metropolice/vo/nocontact.wav","npc/metropolice/vo/localcptreportstatus.wav","npc/metropolice/vo/keepmoving.wav","npc/metropolice/vo/ispassive.wav","npc/metropolice/vo/isathardpointreadytoprosecute.wav","npc/metropolice/vo/inpositiononeready.wav","npc/metropolice/vo/inpositionathardpoint.wav","npc/metropolice/vo/inposition.wav","npc/metropolice/vo/holdthisposition.wav","npc/metropolice/vo/holdingon10-14duty.wav","npc/metropolice/vo/dispupdatingapb.wav","npc/metropolice/vo/cpweneedtoestablishaperimeterat.wav","npc/metropolice/vo/cprequestsallunitsreportin.wav","npc/metropolice/vo/atcheckpoint.wav","npc/metropolice/vo/clearandcode100.wav","npc/metropolice/vo/code7.wav"}
+ENT.SoundTbl_CombatIdle = {"npc/metropolice/hiding03.wav","npc/metropolice/vo/unitreportinwith10-25suspect.wav","npc/metropolice/vo/tenzerovisceratorishunting.wav","npc/metropolice/vo/teaminpositionadvance.wav","npc/metropolice/vo/requestsecondaryviscerator.wav","npc/metropolice/vo/readytoamputate.wav","npc/metropolice/vo/preparingtojudge10-107.wav","npc/metropolice/vo/preparefor1015.wav","npc/metropolice/vo/positiontocontain.wav","npc/metropolice/vo/outlandbioticinhere.wav","npc/metropolice/vo/movingtohardpoint2.wav","npc/metropolice/vo/movingtohardpoint.wav","npc/metropolice/vo/movetoarrestpositions.wav","npc/metropolice/vo/malcompliant10107my1020.wav","npc/metropolice/vo/lockyourposition.wav","npc/metropolice/vo/issuingmalcompliantcitation.wav","npc/metropolice/vo/ismovingin.wav","npc/metropolice/vo/isgo.wav","npc/metropolice/vo/is415b.wav","npc/metropolice/vo/interlock.wav","npc/metropolice/vo/ihave10-30my10-20responding.wav","npc/metropolice/vo/highpriorityregion.wav","npc/metropolice/vo/hardpointscanning.wav","npc/metropolice/vo/establishnewcp.wav","npc/metropolice/vo/distributionblock.wav","npc/metropolice/vo/dispreportssuspectincursion.wav","npc/metropolice/vo/deservicedarea.wav","npc/metropolice/vo/cpbolforthat243.wav","npc/metropolice/vo/converging.wav","npc/metropolice/vo/airwatchsubjectis505.wav","npc/metropolice/vo/allunitscloseonsuspect.wav","npc/metropolice/vo/allunitsmovein.wav","npc/metropolice/vo/allunitsreportlocationsuspect.wav"}
 ENT.SoundTbl_OnReceiveOrder = {"npc/metropolice/vo/ten4.wav","npc/metropolice/vo/rodgerthat.wav","npc/metropolice/vo/responding2.wav","npc/metropolice/vo/readytoprosecute.wav","npc/metropolice/vo/copy.wav","npc/metropolice/vo/affirmative.wav","npc/metropolice/vo/affirmative2.wav"}
 ENT.SoundTbl_FollowPlayer = {}
 ENT.SoundTbl_UnFollowPlayer = {}
@@ -34,7 +34,7 @@ ENT.SoundTbl_MedicBeforeHeal = {}
 ENT.SoundTbl_MedicAfterHeal = {}
 ENT.SoundTbl_MedicReceiveHeal = {}
 ENT.SoundTbl_OnPlayerSight = {"npc/metropolice/vo/freeman.wav"}
-ENT.SoundTbl_Investigate = {"npc/metropolice/vo/sweepingforsuspect.wav","npc/metropolice/vo/searchingforsuspect.wav","npc/metropolice/vo/possible647erequestairwatch.wav","npc/metropolice/vo/possible404here.wav","npc/metropolice/vo/possible10-103alerttagunits.wav","npc/metropolice/vo/pickingupnoncorplexindy.wav","npc/metropolice/vo/investigating10-103.wav","npc/metropolice/vo/investigate.wav","npc/metropolice/vo/goingtotakealook.wav","npc/metropolice/vo/allunitscode2.wav"}
+ENT.SoundTbl_Investigate = {"npc/metropolice/hiding05.wav","npc/metropolice/vo/sweepingforsuspect.wav","npc/metropolice/vo/searchingforsuspect.wav","npc/metropolice/vo/possible647erequestairwatch.wav","npc/metropolice/vo/possible404here.wav","npc/metropolice/vo/possible10-103alerttagunits.wav","npc/metropolice/vo/pickingupnoncorplexindy.wav","npc/metropolice/vo/investigating10-103.wav","npc/metropolice/vo/investigate.wav","npc/metropolice/vo/goingtotakealook.wav","npc/metropolice/vo/allunitscode2.wav"}
 ENT.SoundTbl_Alert = {"npc/metropolice/vo/wehavea10-108.wav","npc/metropolice/vo/tagonebug.wav","npc/metropolice/vo/subject.wav","npc/metropolice/vo/sociocide.wav","npc/metropolice/vo/shotsfiredhostilemalignants.wav","npc/metropolice/vo/reportsightingsaccomplices.wav","npc/metropolice/vo/priority2anticitizenhere.wav","npc/metropolice/vo/possiblelevel3civilprivacyviolator.wav","npc/metropolice/vo/noncitizen.wav","npc/metropolice/vo/non-taggedviromeshere.wav","npc/metropolice/vo/malignant.wav","npc/metropolice/vo/looseparasitics.wav","npc/metropolice/vo/level3civilprivacyviolator.wav","npc/metropolice/vo/is10-108.wav","npc/metropolice/vo/hesupthere.wav","npc/metropolice/vo/dispatchineed10-78.wav","npc/metropolice/vo/criminaltrespass63.wav","npc/metropolice/vo/contactwith243suspect.wav","npc/metropolice/vo/confirmadw.wav","npc/metropolice/vo/condemnedzone.wav","npc/metropolice/vo/allunitsrespondcode3.wav","npc/metropolice/vo/bugs.wav","npc/metropolice/vo/bugsontheloose.wav"}
 ENT.SoundTbl_CallForHelp = {"npc/metropolice/vo/reinforcementteamscode3.wav","npc/metropolice/vo/officerneedshelp.wav","npc/metropolice/vo/officerneedsassistance.wav","npc/metropolice/vo/needanyhelpwiththisone.wav","npc/metropolice/vo/ivegot408hereatlocation.wav","npc/metropolice/vo/hesupthere.wav","npc/metropolice/vo/gothimagainsuspect10-20at.wav","npc/metropolice/vo/gota10-107sendairwatch.wav","npc/metropolice/vo/dispatchineed10-78.wav","npc/metropolice/vo/backup.wav","npc/metropolice/vo/cpiscompromised.wav","npc/metropolice/vo/cpisoverrunwehavenocontainment.wav"}
 ENT.SoundTbl_BecomeEnemyToPlayer = {}
@@ -57,6 +57,7 @@ local SoundTbl_DeployManhack = {"npc/metropolice/vo/visceratordeployed.wav","npc
 /*
 -- Number sounds have not been included!
 
+"npc/metropolice/hiding04.wav"
 "npc/metropolice/vo/amputate.wav"
 "npc/metropolice/vo/anticitizen.wav"
 "npc/metropolice/vo/apply.wav"
@@ -165,20 +166,15 @@ local SoundTbl_DeployManhack = {"npc/metropolice/vo/visceratordeployed.wav","npc
 "npc/metropolice/vo/youknockeditover.wav"
 "npc/metropolice/vo/youwantamalcomplianceverdict.wav"
 "npc/metropolice/vo/zone.wav"
-
--- Manhack deploy
-"npc/metropolice/vo/visceratordeployed.wav"
-"npc/metropolice/vo/visceratorisoc.wav"
-"npc/metropolice/vo/visceratorisoffgrid.wav"
-
-"npc/metropolice/vo/off1.wav" - 4
-"npc/metropolice/vo/on1.wav" - 2
 */
+
+-- Custom
+ENT.Metrocop_HasManhack = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self.HasManhack = math.random(1,4) == 1
-	if self.HasManhack then
-		self:SetBodygroup(1,1)
+	if math.random(1,1) == 1 then
+		self.Metrocop_HasManhack = true
+		self:SetBodygroup(1, 1)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -203,38 +199,40 @@ function ENT:CustomOnDoChangeWeapon(newWeapon, oldWeapon, invSwitch)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
-	if self.HasManhack && IsValid(self:GetEnemy()) then
-		local dist = self:VJ_GetNearestPointToEntityDistance(self:GetEnemy())
-		if dist <= self.Weapon_FiringDistanceFar && dist > 300 then
-			self.HasManhack = false
-			self:VJ_ACT_PLAYACTIVITY("deploy", true, false, true)
-			self:StopAllCommonSpeechSounds()
-			VJ_CreateSound(self, SoundTbl_DeployManhack, 72)
-			timer.Simple(0.3,function()
-				if IsValid(self) then
-					self:SetBodygroup(1,0)
-					self.ManhackProp = ents.Create("prop_vj_animatable")
-					self.ManhackProp:SetModel("models/manhack.mdl")
-					self.ManhackProp:SetLocalPos(self:GetPos())
-					self.ManhackProp:SetAngles(self:GetAngles())
-					self.ManhackProp:SetParent(self)
-					self.ManhackProp:Spawn()
-					self.ManhackProp:Fire("SetParentAttachment","anim_attachment_LH",0)
-				end
-			end)
-			timer.Simple(1.1,function()
-				if IsValid(self) then
-					local ent = ents.Create("npc_manhack")
-					ent:SetPos(self.ManhackProp:GetPos())
-					ent:SetAngles(self.ManhackProp:GetAngles())
-					ent:Spawn()
-					ent:GetPhysicsObject():AddVelocity(Vector(0,0,250))
-					ent:SetKeyValue("spawnflags","65536")
-					SafeRemoveEntity(self.ManhackProp)
-				end
-			end)
-		end
+function ENT:CustomOnThink_AIEnabled()
+	if self.Metrocop_HasManhack && IsValid(self:GetEnemy()) && self.LatestEnemyDistance <= self.Weapon_FiringDistanceFar && self.LatestEnemyDistance > 300 then
+		self.Metrocop_HasManhack = false
+		self:VJ_ACT_PLAYACTIVITY("deploy", true, false, true)
+		self:StopAllCommonSpeechSounds()
+		self:PlaySoundSystem("GeneralSpeech", SoundTbl_DeployManhack)
+		timer.Simple(0.3, function()
+			if IsValid(self) then
+				self:SetBodygroup(1,0)
+				self.Metrocop_ManHackProp = ents.Create("prop_vj_animatable")
+				self.Metrocop_ManHackProp:SetModel("models/manhack.mdl")
+				self.Metrocop_ManHackProp:SetLocalPos(self:GetPos())
+				self.Metrocop_ManHackProp:SetAngles(self:GetAngles())
+				self.Metrocop_ManHackProp:SetParent(self)
+				self.Metrocop_ManHackProp:Spawn()
+				self.Metrocop_ManHackProp:Fire("SetParentAttachment", "anim_attachment_LH", 0)
+			end
+		end)
+		timer.Simple(1.1, function()
+			if IsValid(self) then
+				self.Metrocop_ManHackProp:Remove()
+				local ent = ents.Create("npc_manhack")
+				ent:SetPos(self.Metrocop_ManHackProp:GetPos())
+				ent:SetAngles(self.Metrocop_ManHackProp:GetAngles())
+				ent.VJ_NPC_Class = self.VJ_NPC_Class
+				table.insert(self.VJ_AddCertainEntityAsFriendly, ent)
+				ent:Spawn()
+				ent:GetPhysicsObject():AddVelocity(Vector(0, 0, 250))
+				ent:Fire("SetMaxLookDistance", 10000)
+				ent:SetKeyValue("spawnflags", "65536")
+				//ent:SetKeyValue("spawnflags", "256")
+				ent:SetEnemy(self:GetEnemy())
+			end
+		end)
 	end
 end
 /*-----------------------------------------------
