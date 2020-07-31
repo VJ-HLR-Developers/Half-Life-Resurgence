@@ -1,6 +1,6 @@
 "VertexLitGeneric"
 {
-	$basetexture 		"models\hl_resurgence\hl2\sniper\combinesoldiersheet"
+	$basetexture 		"models\hl_resurgence\hl2\sniper\combinesoldiersheet_new"
 	"$bumpmap" "models/combine_soldier/combinesoldier_normal"
 
 	"$surfaceprop" "flesh"
