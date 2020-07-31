@@ -149,9 +149,7 @@ end
 function ENT:CustomOnThink_AIEnabled()
 	-- Random background radio sounds
 	if self.Combine_ChatterT < CurTime() then
-		print("RUN")
 		if math.random(1,2) == 1 then
-			print("PLAY")
 			self.Combine_ChatterSd = VJ_CreateSound(self, SoundTbl_Combine_Chatter, 50, 90)
 		end
 		self.Combine_ChatterT = CurTime() + math.Rand(20, 40)

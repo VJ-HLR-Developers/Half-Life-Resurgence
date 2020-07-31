@@ -5,7 +5,6 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.StartHealth = GetConVarNumber("vj_hl2c_soldier_h")
 
 -- Custom
 ENT.HLR_HL2_MyTurret = NULL

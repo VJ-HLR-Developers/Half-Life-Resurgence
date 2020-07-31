@@ -36,7 +36,7 @@ SWEP.NPC_ExtraFireSoundPitch = VJ_Set(90,100) -- How much time until the seconda
 ------ Primary Fire Variables ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 95 -- Damage
-SWEP.Primary.Force = 5 -- Force applied on the object the bullet hits
+SWEP.Primary.Force = 3 -- Force applied on the object the bullet hits
 SWEP.Primary.ClipSize = 5 -- Max amount of bullets per clip
 SWEP.Primary.Ammo = "SniperRound" -- Ammo type
 SWEP.Primary.TracerType = "AR2Tracer"
@@ -45,6 +45,8 @@ SWEP.Primary.Cone = 1
 SWEP.Primary.Sound = {"vj_hlr/hl2_weapon/combinesniper/sniper_fire.wav"}
 SWEP.Primary.DistantSound = {"vj_hlr/hl2_weapon/combinesniper/sniper_fire_dist.wav"}
 SWEP.PrimaryEffects_MuzzleParticles = {"vj_rifle_full_blue"}
+SWEP.PrimaryEffects_SpawnShells = false
+SWEP.PrimaryEffects_DynamicLightColor = Color(0, 31, 225)
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Dry Fire Variables ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -96,7 +98,7 @@ function SWEP:CustomOnThink()
 			end
 		elseif self:GetOwner():IsPlayer() then
 			if self:GetZoomLevel() == 0 then -- If level is 0, reset it to the default FOV
-				self:GetOwner():SetFOV(90, 0.1)
+				self:GetOwner():SetFOV(GetConVarNumber("fov_desired"), 0.1)
 			end
 			self:SetZoomed(self:GetZoomLevel() > 0) -- > 0 means it's zoomed
 			self.Primary.Cone = (self:GetZoomed() and 1) or 10
@@ -105,11 +107,11 @@ function SWEP:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 if (CLIENT) then
-	-- DELETE: Unused code!
-	/*local aimPos = Vector(-9, 0, -32)
+	-- Make the gun move to the center when aiming
+	local aimPos = Vector(-9, 0, -32)
 	local aimAng = Angle(0, 0, 0)
 	---------------------------------------------------------------------------------------------------------------------------------------------
-	function SWEP:GetViewModelPosition(pos,ang)
+	function SWEP:GetViewModelPosition(pos, ang)
 		if !self:GetZoomed() then return pos,ang end
 
 		ang:RotateAroundAxis(ang:Right(),aimAng.x)
@@ -121,12 +123,12 @@ if (CLIENT) then
 		pos = pos +aimPos.z *ang:Forward()
 		
 		return pos, ang
-	end*/
+	end
 
 	local matLaser = Material("sprites/rollermine_shock")
 	local matSprite = Material("particle/particle_glow_02")
 	---------------------------------------------------------------------------------------------------------------------------------------------
-	function SWEP:PostDrawViewModel(vm,wep,ply)
+	function SWEP:PostDrawViewModel(vm, wep, ply)
 		-- Player only
 		local attach = vm:GetAttachment(vm:LookupAttachment("laser"))
 		render.SetMaterial(matLaser)
