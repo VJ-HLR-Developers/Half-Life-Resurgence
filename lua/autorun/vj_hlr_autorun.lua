@@ -148,20 +148,24 @@ if VJExists == true then
 	VJ.AddNPC_HUMAN("Overwatch Elite","npc_vj_hlr2_com_elite",{"weapon_vj_ar2"},vCat)
 	VJ.AddNPC_HUMAN("Overwatch Prison Guard","npc_vj_hlr2_com_prospekt",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
 	VJ.AddNPC_HUMAN("Overwatch Prison Shotgun Guard","npc_vj_hlr2_com_prospekt_sg",{"weapon_vj_spas12"},vCat)
-	VJ.AddNPC_HUMAN("Overwatch Sniper","npc_vj_hlr2_com_sniper",{"weapon_vj_hl2_csniper"},vCat)
+	VJ.AddNPC_HUMAN("Overwatch Sniper","npc_vj_hlr2_com_sniper",{"weapon_vj_hlr2_csniper"},vCat)
 	VJ.AddNPC_HUMAN("Overwatch Engineer","npc_vj_hlr2_com_engineer",{"weapon_vj_hlr2_reager"},vCat)
 	VJ.AddNPC_HUMAN("Civil Protection","npc_vj_hlr2_com_civilp",{"weapon_vj_9mmpistol","weapon_vj_smg1"},vCat)
 	VJ.AddNPC_HUMAN("Civil Protection Elite","npc_vj_hlr2_com_civilp_elite",{"weapon_vj_smg1"},vCat)
 	VJ.AddNPC("Overwatch Floor Turret","npc_vj_hlr2_com_turret",vCat)
 	
 	-- Weapons
-	VJ.AddNPCWeapon("VJ_Annabelle","weapon_vj_hlr2_annabelle",false,vCat)
-	VJ.AddNPCWeapon("VJ_Alyx_Gun","weapon_vj_hlr2_alyxgun",false,vCat)
-	VJ.AddNPCWeapon("VJ_Combine_Reager","weapon_vj_hlr2_reager",false,vCat)
-	VJ.AddNPCWeapon("VJ_StunStick","weapon_vj_hlr2_stunstick",false,vCat)
-	VJ.AddNPCWeapon("VJ_RPG8","weapon_vj_hl2_rpg",false,vCat)
+	VJ.AddNPCWeapon("VJ_Combine_Sniper","weapon_vj_hlr2_csniper")
+	VJ.AddNPCWeapon("VJ_Annabelle","weapon_vj_hlr2_annabelle")
+	VJ.AddNPCWeapon("VJ_Alyx_Gun","weapon_vj_hlr2_alyxgun")
+	VJ.AddNPCWeapon("VJ_Combine_Reager","weapon_vj_hlr2_reager")
+	VJ.AddNPCWeapon("VJ_StunStick","weapon_vj_hlr2_stunstick")
+	VJ.AddNPCWeapon("VJ_RPG8","weapon_vj_hl2_rpg")
 		-- Beta
 		VJ.AddNPCWeapon("VJ_OICW","weapon_vj_hl2b_oicw",false,vCat)
+	-- Player Weapons
+	vCat = "Half-Life Resurgence"
+	VJ.AddWeapon("Combine Sniper","weapon_vj_hlr2_csniper",false,vCat)
 		
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Decals ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -292,6 +296,8 @@ if VJExists == true then
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Convars ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	VJ.AddClientConVar("vj_hlr2_csniper_strict", 1, "Use strict laser pointer for the Combine Sniper")
+	
 	VJ.AddConVar("vj_hl2c_soldier_h",60)
 	VJ.AddConVar("vj_hl2c_soldierprison_h",75)
 	VJ.AddConVar("vj_hl2c_soldierelite_h",100)

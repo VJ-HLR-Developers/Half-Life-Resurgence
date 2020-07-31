@@ -55,7 +55,7 @@ ENT.SoundTbl_Death = {"npc/metropolice/die1.wav","npc/metropolice/die2.wav","npc
 local SoundTbl_DeployManhack = {"npc/metropolice/vo/visceratordeployed.wav","npc/metropolice/vo/visceratorisoc.wav","npc/metropolice/vo/visceratorisoffgrid.wav"}
 
 /*
--- Number sounds have not been included!
+-- NOTE: Number sounds have not been included!
 
 "npc/metropolice/hiding04.wav"
 "npc/metropolice/vo/amputate.wav"
@@ -172,7 +172,7 @@ local SoundTbl_DeployManhack = {"npc/metropolice/vo/visceratordeployed.wav","npc
 ENT.Metrocop_HasManhack = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	if math.random(1,1) == 1 then
+	if math.random(1,4) == 1 then
 		self.Metrocop_HasManhack = true
 		self:SetBodygroup(1, 1)
 	end
@@ -200,7 +200,7 @@ function ENT:CustomOnDoChangeWeapon(newWeapon, oldWeapon, invSwitch)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.Metrocop_HasManhack && IsValid(self:GetEnemy()) && self.LatestEnemyDistance <= self.Weapon_FiringDistanceFar && self.LatestEnemyDistance > 300 then
+	if self.Metrocop_HasManhack && IsValid(self:GetEnemy()) && self.LatestEnemyDistance <= 1000 && self.LatestEnemyDistance > 300 then
 		self.Metrocop_HasManhack = false
 		self:VJ_ACT_PLAYACTIVITY("deploy", true, false, true)
 		self:StopAllCommonSpeechSounds()
