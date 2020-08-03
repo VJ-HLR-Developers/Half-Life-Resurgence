@@ -1,0 +1,85 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/hl_resurgence/hl2/humans/male/group01/players_sheet"
+	"$bumpmap" "models/hl_resurgence/hl2/humans/male/group01/players_sheet_normal"
+	"$halflambert" "1"
+	
+	"$phong" "1"
+	// "$phongexponent" "4"
+	"$phongboost" "0.3"
+	"$phongfresnelranges" "[0.1 0.2 0.5]"
+	
+	"$phongexponenttexture" "models/hl_resurgence/hl2/humans/male/group01/players_sheet_phong"
+	
+	"$rimlight" "1"
+	"$rimlightexponent" "8"
+	"$rimlightboost" "2"
+	"$rimmask" "1"
+	
+	// ------------------------------------------------------------------------
+	// PLAYER COLOR CUSTOMIZATION
+	// ------------------------------------------------------------------------
+	
+	// The following chain of proxies is to modulate phong tint (and rimlight,
+	// by extension) according to your chosen player color, but only within a
+	// certain saturation range: 50%. This might be confusing, I tried my best
+	// to comment it, e-mail maxofs2d@facepunchstudios.com if you have any
+	// questions regarding how player colourability is set up in VMTs. GLHF.
+	
+	"$blendtintbybasealpha" "1" // alpha channel of $basetexture: color mask.
+ 	"$blendtintcoloroverbase" "0" // blend mode. anything =/= 0 is ugly!
+	
+	// --- Test values. Comment the PlayerColor proxy to use one of these.
+	// "$color2" "{0 0 0}" // Black
+	// "$color2" "{255 0 0}" // Blue (default)
+	// "$color2" "{59 121 160}" // Blue (TF2)
+	// "$color2" "{180 52 41}" // Red (TF2)
+	// "$color2" "{100 72 58}" // Brown
+	// "$color2" "{140 208 112}" // Green
+	// "$color2" "{248 166 202}" // Pink
+	// "$color2" "{160 100 140}" // Purple
+	// "$color2" "{242 168 96}" // Yellow (gold-ish)
+	
+	"$PhongBrightnessScalar" "0.5" // see below. "0.5" will get overwritten.
+	
+	Proxies
+	{
+		PlayerColor
+		{
+			resultVar	$color2 // pass the player color value to Gmod
+			default		0.23 0.35 0.41 // unused for now.
+		}
+		Clamp // clamp the chosen color between 1% and 125% (usually)
+		{
+			min 0.01
+			max 1.25
+			srcVar1 "$color2"
+			resultVar "$color2"
+		}
+		Clamp // copy this value to phong tint, clamp it to 50% min.
+		{
+			min 0.5
+			max 1.0
+			srcVar1 "$color2"
+			resultVar "$phongtint"
+		}
+		Equals // copy $color2 value to exterior variable. this makes it
+		{      // no longer a RGB array but a single float instead (!??)
+			srcVar1 "$color2"
+			resultVar "$PhongBrightnessScalar"
+		}
+		Multiply // multiply $phongtint by this new float value.
+		{
+			srcVar1 "$phongtint"
+			srcVar2 "$phongBrightnessScalar"
+			resultVar "$phongtint"
+		}
+		Clamp // the result of this multiply doesn't go any lower than 20%
+		{
+			min 0.25
+			max 1.00
+			srcVar1 "$phongtint"
+			resultVar "$phongtint"
+		}
+	}
+}
