@@ -12,13 +12,13 @@
 	// Use separate self-illum mask on Pre DX9 hardware
 	">=dx90_20b"
 	{
-		"$baseTexture" 		"Models/Combine_turrets/Floor_turret/floor_turret_citizen4_noalpha"
-		"$selfillummask" 	"Models/Combine_turrets/Floor_turret/floor_turret_citizen_glow"
+		"$baseTexture" 		"Models/hl_resurgence/hl2/Combine_turrets/Floor_turret/floor_turret_citizen2_noalpha"
+		"$selfillummask" 	"Models/hl_resurgence/hl2/Combine_turrets/Floor_turret/floor_turret_citizen_glow"
 	}
 
 	// Use redundant self-illum in base alpha on Pre DX9 hardware
 	"<dx90_20b"
 	{
-		"$basetexture"	"Models/Combine_turrets/Floor_turret/floor_turret_citizen4"
+		"$basetexture"	"Models/hl_resurgence/hl2/Combine_turrets/Floor_turret/floor_turret_citizen2"
 	}
 }
