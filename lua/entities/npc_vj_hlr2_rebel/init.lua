@@ -72,6 +72,52 @@ function ENT:CustomOnInitialize()
 		self:HLR_ApplyMaleSounds()
 		self.Human_SdFolder = "male01"
 	end
+	
+	-- Set different clothing
+	local rand_refugee = math.random(1,2)
+	local rand_rebel = math.random(1,7)
+	for k, v in ipairs(self:GetMaterials()) do
+		//print(v)
+		//if v == "models/humans/female/group01/citizen_sheet" then -- Female Citizen
+			//self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group01/citizen_sheet_color")
+		if v == "models/humans/female/group02/citizen_sheet" then -- Female Refugee
+			if rand_refugee == 2 then
+				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group02/citizen_sheet_jailbreak")
+			end
+		elseif v == "models/humans/female/group03/citizen_sheet" then -- Female Rebel
+			if rand_rebel == 2 then
+				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_color")
+			elseif rand_rebel == 3 then
+				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_guerilla")
+			elseif rand_rebel == 4 then
+				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_jailbreak")
+			elseif rand_rebel == 5 then
+				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_woodland")
+			elseif rand_rebel == 6 then
+				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_beta")
+			end
+		//elseif v == "models/humans/male/group01/citizen_sheet" then -- Male Citizen
+			//self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group01/citizen_sheet_color")
+		elseif v == "models/humans/male/group02/citizen_sheet" then -- Male Refugee
+			if rand_refugee == 2 then
+				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group02/citizen_sheet_jailbreak")
+			end
+		elseif v == "models/humans/male/group03/citizen_sheet" then -- Male Rebel
+			if rand_rebel == 2 then
+				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_color")
+			elseif rand_rebel == 3 then
+				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_guerilla")
+			elseif rand_rebel == 4 then
+				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_jailbreak")
+			elseif rand_rebel == 5 then
+				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_woodland")
+			elseif rand_rebel == 6 then
+				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_beta")
+			elseif rand_rebel == 7 then
+				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_highres")
+			end
+		end
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 /*function ENT:CustomOnThink_AIEnabled()

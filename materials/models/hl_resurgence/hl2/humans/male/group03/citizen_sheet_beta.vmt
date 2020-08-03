@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_beta"
+	"$halflambert" 1
+}
