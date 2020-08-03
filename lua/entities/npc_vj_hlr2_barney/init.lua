@@ -214,7 +214,7 @@ ENT.SoundTbl_Death = {
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
-	self:VJ_ACT_PLAYACTIVITY({"vjseq_cheer1"},false,false,false,0,{vTbl_SequenceInterruptible=true})
+	self:VJ_ACT_PLAYACTIVITY("vjseq_cheer1", false, false, false, 0, {vTbl_SequenceInterruptible=true})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(argent)
