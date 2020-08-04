@@ -93,16 +93,19 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(TheProjectile)
 		TheProjectile.MyEnemy = self:GetEnemy()
 	end
 end
+local vec = Vector(0,0,0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	if hitgroup == HITGROUP_GEAR then
 		dmginfo:SetDamage(0)
-
-		local rico = EffectData()
-		rico:SetOrigin(dmginfo:GetDamagePosition())
-		rico:SetScale(4) -- Size
-		rico:SetMagnitude(2) -- Effect type | 1 = Animated | 2 = Basic
-		util.Effect("VJ_HLR_Rico",rico)
+		
+		if dmginfo:GetDamagePosition() != vec then
+			local rico = EffectData()
+			rico:SetOrigin(dmginfo:GetDamagePosition())
+			rico:SetScale(4) -- Size
+			rico:SetMagnitude(2) -- Effect type | 1 = Animated | 2 = Basic
+			util.Effect("VJ_HLR_Rico",rico)
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

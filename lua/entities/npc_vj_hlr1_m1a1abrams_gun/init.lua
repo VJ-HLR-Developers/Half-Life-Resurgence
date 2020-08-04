@@ -30,14 +30,6 @@ function ENT:StartShootEffects()
 	net.WriteEntity(self)
 	net.Broadcast()
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo,hitgroup)
-	local rico = EffectData()
-	rico:SetOrigin(dmginfo:GetDamagePosition())
-	rico:SetScale(5) -- Size
-	rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
-	util.Effect("VJ_HLR_Rico",rico)
-end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

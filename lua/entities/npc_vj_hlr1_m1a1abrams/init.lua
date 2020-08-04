@@ -123,13 +123,16 @@ function ENT:Tank_CustomOnPriorToKilled(dmginfo,hitgroup)
 	end)
 	return false
 end
+local vec = Vector(0,0,0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo,hitgroup)
-	local rico = EffectData()
-	rico:SetOrigin(dmginfo:GetDamagePosition())
-	rico:SetScale(5) -- Size
-	rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
-	util.Effect("VJ_HLR_Rico",rico)
+	if dmginfo:GetDamagePosition() != vec then
+		local rico = EffectData()
+		rico:SetOrigin(dmginfo:GetDamagePosition())
+		rico:SetScale(5) -- Size
+		rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
+		util.Effect("VJ_HLR_Rico",rico)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)

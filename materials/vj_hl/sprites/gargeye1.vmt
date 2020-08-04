@@ -1,10 +1,6 @@
-"UnlitGeneric"
+"Sprite"
 {
-	"$basetexture" "vj_hl/sprites/gargeye1"
-	"$nolod" 1
-	"$translucent" 1
-	//"$alphatest" 1
-	"$selfillum" 1
-	//$selfillumtint [255 255 255]
-	//$selfillummaskscale 100.0
+    "$spriteorientation" "vp_parallel_oriented"
+    "$spriteorigin" "[ 0.50 0.50 ]"
+    "$basetexture" "vj_hl/sprites/gargeye1"
 }

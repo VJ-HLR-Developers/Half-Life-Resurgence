@@ -28,7 +28,8 @@ ENT.MeleeAttackKnockBack_Forward2 = 500 -- How far it will push you forward | Se
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_garg_stomp" -- The entity that is spawned when range attacking
 ENT.RangeDistance = 2000 -- This is how far away it can shoot
-ENT.RangeToMeleeDistance = 65 -- How close does it have to be until it uses melee?
+ENT.RangeToMeleeDistance = 80 -- How close does it have to be until it uses melee?
+ENT.NextRangeAttackTime = 2 -- How much time until it can use a range attack?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
 ENT.RangeAttackPos_Up = 10 -- Up/Down spawning position for range attack
 ENT.RangeAttackPos_Forward = 50 -- Forward/Backward spawning position for range attack
@@ -63,34 +64,33 @@ ENT.ExtraMeleeSoundPitch1 = 80
 ENT.ExtraMeleeSoundPitch2 = 80
 
 -- Custom
+ENT.Garg_Type = 0
+	-- 0 = Default Garg
+	-- 1 = Baby Garg
 ENT.Garg_AttackType = -1
 ENT.Garg_AbleToFlame = false
 ENT.Garg_NextAbleToFlameT = 0
 ENT.Garg_NextStompAttackT = 0
-
-ENT.Garg_Type = 0
-	-- 0 = Default Garg
-	-- 1 = Baby Garg
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	if self.Garg_Type == 0 then
-		self:SetCollisionBounds(Vector(70,70,210),Vector(-70,-70,0))
-	elseif self.Garg_Type == 1 then
+	if self.Garg_Type == 0 then -- Adult garg
+		self:SetCollisionBounds(Vector(70,70,210), Vector(-70,-70,0))
+	elseif self.Garg_Type == 1 then -- Baby garg
 		self:SetCollisionBounds(Vector(32,32,105), Vector(-32,-32,0))
 	end
 	
-	self.Glow1 = ents.Create("env_sprite")
-	self.Glow1:SetKeyValue("model","vj_hl/sprites/gargeye1.vmt")
-	self.Glow1:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
-	self.Glow1:SetKeyValue("renderfx","14")
-	self.Glow1:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-	self.Glow1:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-	self.Glow1:SetKeyValue("spawnflags","0")
-	self.Glow1:SetParent(self)
-	self.Glow1:Fire("SetParentAttachment","eyes")
-	self.Glow1:Spawn()
-	self.Glow1:Activate()
-	self:DeleteOnRemove(self.Glow1)
+	local glow1 = ents.Create("env_sprite")
+	glow1:SetKeyValue("model","vj_hl/sprites/gargeye1.vmt")
+	glow1:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+	glow1:SetKeyValue("renderfx","14")
+	glow1:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
+	glow1:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+	glow1:SetKeyValue("spawnflags","0")
+	glow1:SetParent(self)
+	glow1:Fire("SetParentAttachment","eyes")
+	glow1:Spawn()
+	glow1:Activate()
+	self:DeleteOnRemove(glow1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -103,6 +103,47 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	end
 	if key == "laser" then
 		self:RangeAttackCode()
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Garg_ResetFlame()
+	self.Garg_AbleToFlame = false
+	self.Garg_AttackType = -1
+	self.AnimTbl_IdleStand = {ACT_IDLE}
+	self.DisableChasingEnemy = false
+	VJ_STOPSOUND(self.Garg_FlameSd)
+	self:StopParticles()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink()
+	if self.Garg_AbleToFlame == false or self.RangeAttacking == false or !IsValid(self:GetEnemy()) then
+		self:Garg_ResetFlame()
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink_AIEnabled()
+	if IsValid(self:GetEnemy()) && (self.NearestPointToEnemyDistance <= 400 && self.NearestPointToEnemyDistance > self.MeleeAttackDistance) && self.Garg_AbleToFlame == true && self.Garg_NextAbleToFlameT < CurTime() && self.Garg_AttackType == 0 && timer.Exists("timer_range_start"..self:EntIndex()) then
+	//if IsValid(self:GetEnemy()) && self.Garg_AbleToFlame == true && (self.NearestPointToEnemyDistance <= 400 && self.NearestPointToEnemyDistance > self.MeleeAttackDistance) then
+		self.Garg_NextAbleToFlameT = CurTime() + 0.2
+		self.DisableChasingEnemy = true
+		self.AnimTbl_IdleStand = {ACT_RANGE_ATTACK1}
+		self:StopMoving()
+		util.VJ_SphereDamage(self, self, self:GetPos() + self:OBBCenter() + self:GetForward()*50, 500, 3, DMG_BURN, true, true, {UseCone=true, UseConeDegree=30}, function(ent) if !ent:IsOnFire() && (ent:IsPlayer() or ent:IsNPC()) then ent:Ignite(2) end end)
+		-- COSMETICS: Sound, particle and decal
+		self.Garg_FlameSd = VJ_CreateSound(self, "vj_hlr/hl1_npc/garg/gar_flamerun1.wav")
+		self:StopParticles()
+		ParticleEffectAttach("vj_hlr_garg_flame", PATTACH_POINT_FOLLOW,self, 2)
+		ParticleEffectAttach("vj_hlr_garg_flame", PATTACH_POINT_FOLLOW,self, 3)
+		local tr1 = util.TraceLine({start = self:GetAttachment(2).Pos, endpos = self:GetAttachment(2).Pos + self:GetForward()*500, filter = self})
+		local tr2 = util.TraceLine({start = self:GetAttachment(3).Pos, endpos = self:GetAttachment(3).Pos + self:GetForward()*500, filter = self})
+		util.Decal("VJ_HLR_Scorch", tr1.HitPos + tr1.HitNormal, tr1.HitPos - tr1.HitNormal)
+		util.Decal("VJ_HLR_Scorch", tr2.HitPos + tr2.HitNormal, tr2.HitPos - tr2.HitNormal)
+		-- Make it constantly delay the range attack timer by 1 second (Which will also successfully play the flame-end sound)
+		timer.Adjust("timer_range_start"..self:EntIndex(), 1, 0, function()
+			self:RangeAttackCode()
+			self:Garg_ResetFlame()
+			timer.Remove("timer_range_start"..self:EntIndex())
+		end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -124,73 +165,27 @@ function ENT:MultipleMeleeAttacks()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
-	if IsValid(self:GetEnemy()) && (self.NearestPointToEnemyDistance <= 200 && self.NearestPointToEnemyDistance > self.MeleeAttackDistance) && self.Garg_AbleToFlame == true && self.Garg_NextAbleToFlameT < CurTime() && self.Garg_AttackType == 0 && timer.Exists("timer_range_start"..self:EntIndex()) then
-		//self:VJ_ACT_PLAYACTIVITY("vjseq_shootflames2",false,false,true)
-		self.AnimTbl_IdleStand = {ACT_RANGE_ATTACK1}
-		self:StopMoving()
-		self.DisableChasingEnemy = true
-		
-			ParticleEffectAttach("vj_hl_torch",PATTACH_POINT_FOLLOW,self,2)
-			ParticleEffectAttach("vj_hl_torch",PATTACH_POINT_FOLLOW,self,3)
-		
-		util.VJ_SphereDamage(self, self, self:GetPos() + self:OBBCenter() + self:GetForward()*50, 280, 3, DMG_BURN, true, true, {UseCone=true, UseConeDegree=50},function(ent) if !ent:IsOnFire() then ent:Ignite(2) end end)
-		self.Garg_FlameSd = VJ_CreateSound(self, "vj_hlr/hl1_npc/garg/gar_flamerun1.wav" ) //soundlevel,soundpitch,stoplatestsound,sounddsp)
-		local tr1 = util.TraceLine({start = self:GetAttachment(2).Pos, endpos = self:GetAttachment(2).Pos + self:GetForward()*280, filter = self})
-		local tr2 = util.TraceLine({start = self:GetAttachment(3).Pos, endpos = self:GetAttachment(3).Pos + self:GetForward()*280, filter = self})
-		util.Decal("VJ_HLR_Scorch", tr1.HitPos + tr1.HitNormal, tr1.HitPos - tr1.HitNormal)
-		util.Decal("VJ_HLR_Scorch", tr2.HitPos + tr2.HitNormal, tr2.HitPos - tr2.HitNormal)
-		
-		/*self.Glow2 = ents.Create("env_sprite_oriented")
-		self.Glow2:SetKeyValue("model","vj_hl/sprites/gargflame.vmt")
-		self.Glow2:SetKeyValue("scale","1")
-		self.Glow2:SetKeyValue("rendercolor","255 128 0")
-		self.Glow2:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
-		//self.Glow2:SetKeyValue("HDRColorScale","1.0")
-		self.Glow2:SetKeyValue("renderfx","14")
-		self.Glow2:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-		self.Glow2:SetKeyValue("renderamt","255") -- Transparency
-		self.Glow2:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-		self.Glow2:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
-		self.Glow2:SetKeyValue("spawnflags","0")
-		self.Glow2:SetParent(self)
-		self.Glow2:Fire("SetParentAttachment","leftarm")
-		self.Glow2:Spawn()
-		self.Glow2:Activate()
-		self:DeleteOnRemove(self.Glow2)*/
-		
-		self.Garg_NextAbleToFlameT = CurTime() + 0.2 //0.74
-		timer.Adjust("timer_range_start"..self:EntIndex(), 1, 0, function()
-			self:RangeAttackCode()
-			self.Garg_AttackType = -1
-			timer.Remove("timer_range_start"..self:EntIndex())
-		end)
-	elseif self.Garg_AbleToFlame == false or self.RangeAttacking == false then
-		self.AnimTbl_IdleStand = {ACT_IDLE}
-		self.DisableChasingEnemy = false
-		VJ_STOPSOUND(self.Garg_FlameSd)
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleRangeAttacks()
-	self.NextRangeAttackTime = 2
-	self.NextRangeAttackTime_DoRand = 2
-	if self.NearestPointToEnemyDistance <= 200 then
+	if self.NearestPointToEnemyDistance <= 400 then -- Flame attack
 		self.Garg_AttackType = 0
 		self.Garg_AbleToFlame = true
+		self.RangeDistance = 400
 		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1}
 		self.TimeUntilRangeAttackProjectileRelease = 0.1
-		self.RangeDistance = 200
 		self.DisableRangeAttackAnimation = true
 		self.DisableDefaultRangeAttackCode = true
 		self.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/garg/gar_flameon1.wav"}
 		self.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/garg/gar_flameoff1.wav"}
-	elseif self.Garg_NextStompAttackT < CurTime() && self.Garg_Type != 1 then
+		self.NextIdleStandTime = 0 -- Reset the idle animation
+	elseif self.Garg_NextStompAttackT < CurTime() && self.Garg_Type != 1 then -- Laser stomp attack
 		self.Garg_AttackType = 1
+		self.Garg_AbleToFlame = false
+		self.RangeDistance = 2000
 		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2}
 		self.TimeUntilRangeAttackProjectileRelease = false
 		self.DisableRangeAttackAnimation = false
 		self.DisableDefaultRangeAttackCode = false
+		self.SoundTbl_BeforeRangeAttack = {}
 		self.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/garg/gar_stomp1.wav"}
 	else
 		self.Garg_AttackType = -1
@@ -199,46 +194,52 @@ function ENT:MultipleRangeAttacks()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttackCheck_RangeAttack()
-	if self.Garg_AttackType == -1 then return false end
+	if self.Garg_AttackType == -1 then return false end -- If it's -1 then don't range attack!
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(TheProjectile)
+	-- For stomp attack only!
 	return self:CalculateProjectile("Line", self:GetPos(), self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 200)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(TheProjectile)
-	self.Garg_NextStompAttackT = CurTime() + math.Rand(10,13)
+	-- For stomp attack only!
+	self.Garg_NextStompAttackT = CurTime() + math.Rand(10,13) -- Set a delay for the next stomp attack
+	util.Decal("VJ_HLR_Gargantua_Stomp", self:GetPos() + self:GetRight()*-20 + self:GetForward()*50, self:GetPos() + self:GetRight()*-20 + self:GetForward()*50 + self:GetUp()*-100, self)
 	if IsValid(self:GetEnemy()) then
 		TheProjectile.EO_Enemy = self:GetEnemy()
-		TheProjectile:SetAngles(Angle(self:GetAngles().p,0,0))
+		TheProjectile:SetAngles(Angle(self:GetAngles().p, 0, 0))
 		timer.Simple(10,function() if IsValid(TheProjectile) then TheProjectile:Remove() end end)
 	end
-	
-	util.Decal("VJ_HLR_Gargantua_Stomp", self:GetPos() + self:GetRight()*-20 + self:GetForward()*50, self:GetPos() + self:GetRight()*-20 + self:GetForward()*50 + self:GetUp()*-100, self)
 end
+local vec = Vector(0,0,0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo,hitgroup)
-	local rico = EffectData()
-	rico:SetOrigin(dmginfo:GetDamagePosition())
-	rico:SetScale(5) -- Size
-	rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
-	util.Effect("VJ_HLR_Rico",rico)
+	-- Make a metal ricochet effect
+	if dmginfo:GetDamagePosition() != vec then
+		local rico = EffectData()
+		rico:SetOrigin(dmginfo:GetDamagePosition())
+		rico:SetScale(5) -- Size
+		rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
+		util.Effect("VJ_HLR_Rico", rico)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
 	if dmginfo:IsBulletDamage() == true then
-		if self.Garg_Type == 1 then
+		if self.Garg_Type == 1 then -- Make babies take half damage for bullets
 			dmginfo:SetDamage(0.5)
-		else
+		else -- Make adult Gargantua take no bullet damage
 			dmginfo:SetDamage(0)
 		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+	-- Death sequence (With explosions)
 	for i = 0.3, 3.5, 0.5 do
-		timer.Simple(i,function()
+		timer.Simple(i, function()
 			if IsValid(self) then
 				local spr = ents.Create("env_sprite")
 				spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
@@ -259,7 +260,7 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 				
 				util.BlastDamage(self,self,self:GetPos(),150,50)
 				util.ScreenShake(self:GetPos(),100,200,1,2500)
-				VJ_EmitSound(self,{"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"},90,math.random(100,100))
+				VJ_EmitSound(self, {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}, 90, math.random(100,100))
 			end
 		end)
 	end
