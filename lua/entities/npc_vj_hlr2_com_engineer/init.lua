@@ -7,78 +7,45 @@ include('shared.lua')
 -----------------------------------------------*/
 
 -- Custom
-ENT.HLR_HL2_MyTurret = NULL
-ENT.HLR_HL2_PlacingTurret = false
-ENT.HLR_HL2_NextTurretT = 0
+ENT.Combine_TurretEnt = NULL
+ENT.Combine_TurretPlacing = false
+ENT.Combine_NextTurretCheckT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetMaterial("models/hl_resurgence/hl2/engineer/combinesoldiersheet")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if IsValid(self:GetEnemy()) && self:Visible(self:GetEnemy()) && self.HLR_HL2_NextTurretT < CurTime() && self.HLR_HL2_PlacingTurret == false && !IsValid(self.HLR_HL2_MyTurret) then
-		self.HLR_HL2_NextTurretT = CurTime() +30
-		self.HLR_HL2_PlacingTurret = true
-		self:VJ_ACT_PLAYACTIVITY("vjseq_Turret_Drop",true,false,true)
-		timer.Simple(0.9,function()
-			if IsValid(self) && !IsValid(self.HLR_HL2_MyTurret) then
-				self.HLR_HL2_MyTurret = ents.Create("npc_vj_hlr2_com_turret")
-				self.HLR_HL2_MyTurret:SetPos(self:GetPos() +self:GetForward() *50)
-				self.HLR_HL2_MyTurret:SetAngles(self:GetAngles())
-				self.HLR_HL2_MyTurret:Spawn()
-				self.HLR_HL2_MyTurret:Activate()
-				self.HLR_HL2_MyTurret.VJ_NPC_Class = table.Merge(self.HLR_HL2_MyTurret.VJ_NPC_Class,self.VJ_NPC_Class)
-				self.HLR_HL2_PlacingTurret = false
-				self.HLR_HL2_MyTurret.DisableFindEnemy = true
-				VJ_EmitSound(self.HLR_HL2_MyTurret,"npc/roller/blade_cut.wav",75,100)
-				local turret = self.HLR_HL2_MyTurret
-				undo.Create(self:GetName() .. "'s Turret")
-					undo.AddEntity(turret)
-					undo.SetPlayer(self:GetCreator() or Entity(1))
-				undo.Finish()
-				timer.Simple(1,function()
-					if IsValid(turret) then
-						turret.DisableFindEnemy = false
-						VJ_EmitSound(turret,"npc/roller/remote_yes.wav",80,100)
-
-						local glow = ents.Create("env_sprite")
-						glow:SetKeyValue("model","vj_base/sprites/vj_glow1.vmt")
-						glow:SetKeyValue("scale","0.125")
-						glow:SetKeyValue("rendermode","5")
-						glow:SetKeyValue("rendercolor","0 255 63")
-						glow:SetKeyValue("spawnflags","1") -- If animated
-						glow:SetParent(turret)
-						glow:Fire("SetParentAttachment",turret.Turret_AlarmAttachment,0)
-						glow:Spawn()
-						glow:Activate()
-						glow:Fire("Kill","",0.1)
-						turret:DeleteOnRemove(glow)
+	if IsValid(self:GetEnemy()) && self:Visible(self:GetEnemy()) && self.Combine_NextTurretCheckT < CurTime() && self.Combine_TurretPlacing == false && !IsValid(self.Combine_TurretEnt) then
+		-- Make sure not to place it if the front of the NPC is blocked!
+		local tr = util.TraceLine({
+			start = self:GetPos() + self:OBBCenter(),
+			endpos = self:GetPos() + self:OBBCenter() + self:GetForward()*80,
+			filter = self
+		})
+		if !tr.Hit then
+			self.Combine_NextTurretCheckT = CurTime() + 30
+			self.Combine_TurretPlacing = true
+			self:VJ_ACT_PLAYACTIVITY("vjseq_Turret_Drop" ,true, false, false)
+			timer.Simple(0.9, function()
+				if IsValid(self) && !IsValid(self.Combine_TurretEnt) then
+					self.Combine_TurretEnt = ents.Create("npc_vj_hlr2_com_turret")
+					self.Combine_TurretEnt:SetPos(self:GetPos() + self:GetForward()*50)
+					self.Combine_TurretEnt:SetAngles(self:GetAngles())
+					self.Combine_TurretEnt:Spawn()
+					self.Combine_TurretEnt:Activate()
+					self.Combine_TurretEnt.VJ_NPC_Class = self.VJ_NPC_Class
+					self.Combine_TurretEnt:SetState(VJ_STATE_FREEZE, 1)
+					VJ_EmitSound(self.Combine_TurretEnt, "npc/roller/blade_cut.wav", 75, 100)
+					if IsValid(self:GetCreator()) then -- If it has a creator, then add it to that player's undo list
+						undo.Create(self:GetName().."'s Turret")
+							undo.AddEntity(self.Combine_TurretEnt)
+							undo.SetPlayer(self:GetCreator())
+						undo.Finish()
 					end
-				end)
-			end
-		end)
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	if (dmginfo:IsBulletDamage()) then
-		dmginfo:ScaleDamage(0.5)
-		if self.HasSounds == true && self.HasImpactSounds == true then VJ_EmitSound(self,"vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav",70) end
-		local attacker = dmginfo:GetAttacker()
-		if math.random(1,3) == 1 then
-			dmginfo:ScaleDamage(0.35)
-			self.DamageSpark1 = ents.Create("env_spark")
-			self.DamageSpark1:SetKeyValue("Magnitude","1")
-			self.DamageSpark1:SetKeyValue("Spark Trail Length","1")
-			self.DamageSpark1:SetPos(dmginfo:GetDamagePosition())
-			self.DamageSpark1:SetAngles(self:GetAngles())
-			//self.DamageSpark1:Fire("LightColor", "255 255 255")
-			self.DamageSpark1:SetParent(self)
-			self.DamageSpark1:Spawn()
-			self.DamageSpark1:Activate()
-			self.DamageSpark1:Fire("StartSpark", "", 0)
-			self.DamageSpark1:Fire("StopSpark", "", 0.001)
-			self:DeleteOnRemove(self.DamageSpark1)
+					self.Combine_TurretPlacing = false
+				end
+			end)
 		end
 	end
 end
