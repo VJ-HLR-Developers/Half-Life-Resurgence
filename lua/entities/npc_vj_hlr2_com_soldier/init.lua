@@ -158,7 +158,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(argent)
 	if math.random(1,2) == 1 then
-		if argent:IsPlayer() then
+		if argent:IsPlayer() or argent.VJ_HLR_Freeman then
 			self:PlaySoundSystem("Alert", {"npc/combine_soldier/vo/freeman3.wav","npc/combine_soldier/vo/anticitizenone.wav","npc/combine_soldier/vo/priority1objective.wav","npc/combine_soldier/vo/targetone.wav"})
 		elseif argent:IsNPC() && argent.IsVJBaseSNPC_Creature == true then
 			if math.random(1,2) == 1 then

@@ -184,6 +184,14 @@ function ENT:OnPlayCreateSound(SoundData,SoundFile)
 	timer.Simple(SoundDuration(SoundFile),function() if IsValid(self) && SoundData:IsPlaying() then VJ_EmitSound(self,"npc/metropolice/vo/off"..math.random(1,4)..".wav") end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAlert(argent)
+	if math.random(1,2) == 1 then
+		if argent.VJ_HLR_Freeman then
+			self:PlaySoundSystem("Alert", self.SoundTbl_OnPlayerSight)
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoChangeWeapon(newWeapon, oldWeapon, invSwitch)
 	//if invSwitch == true then -- Only if it's a inventory switch
 	if newWeapon:GetClass() == "weapon_vj_hlr2_stunstick" then

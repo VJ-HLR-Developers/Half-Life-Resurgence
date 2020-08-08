@@ -247,7 +247,7 @@ function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAllyDeath(argent)
-	if argent:IsPlayer() then
+	if argent:IsPlayer() or argent.VJ_HLR_Freeman then
 		self:PlaySoundSystem("AllyDeath", {
 			"vo/npc/"..self.Human_SdFolder.."/gordead_ans01.wav",
 			"vo/npc/"..self.Human_SdFolder.."/gordead_ans02.wav",

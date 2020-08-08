@@ -8,6 +8,8 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/hl2/alyx_ep1.mdl","models/vj_hlr/hl2/alyx_ep2.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
 ENT.StartHealth = 100
 ENT.HasHealthRegeneration = true -- Can the SNPC regenerate its health?
+ENT.HealthRegenerationAmount = 1 -- How much should the health increase after every delay?
+ENT.HealthRegenerationDelay = VJ_Set(0.1,0.1) -- How much time until the health increases
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
@@ -1031,7 +1033,7 @@ function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAllyDeath(argent)
-	if argent:IsPlayer() then
+	if argent:IsPlayer() or argent.VJ_HLR_Freeman then
 		self:PlaySoundSystem("AllyDeath", {"vo/k_lab/al_lostgordon.wav","vj_hlr/hl2_npc/ep1/c17/al_lasttrain_gordon.wav","vj_hlr/hl2_npc/ep1/c17/al_lasttrain_ohnogordon.wav","vj_hlr/hl2_npc/ep1/c17/al_train_gordon.wav","vj_hlr/hl2_npc/ep1/c17/al_train_madeit02.wav","vj_hlr/hl2_npc/ep1/c17/al_zombieroom_gordon.wav","vj_hlr/hl2_npc/ep1/citadel/al_advisor_breen02.wav","vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback01.wav","vj_hlr/hl2_npc/ep1/citadel/al_postcore_atwindow_new02.wav","vj_hlr/hl2_npc/ep1/citadel/al_stalk_getemoff11.wav","vj_hlr/hl2_npc/ep1/intro/al_gordon.wav","vj_hlr/hl2_npc/ep1/intro/al_ohgordon.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worried01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worrieder_02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriederer01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriederer02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriedest01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriedest03.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath03.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath04.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerfalls01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerfalls03.wav","vj_hlr/hl2_npc/ep2/outland_01/intro/al_rbed_callinggordon04.wav","vj_hlr/hl2_npc/ep2/outland_12a/launch/al_launch_attackstart01.wav","vj_hlr/hl2_npc/ep2/outland_12a/launch/al_launch_ohgord.wav"})
 	end
 end
