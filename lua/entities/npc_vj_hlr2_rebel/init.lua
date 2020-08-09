@@ -36,11 +36,12 @@ ENT.SoundTbl_FootStep = {"npc/footsteps/hardboot_generic1.wav","npc/footsteps/ha
 -- Custom
 ENT.Human_Gender = 0 -- 0 = Male | 1 = Female
 ENT.Human_SdFolder = "male01"
+ENT.Human_Type = 0 -- 0 = Rebel | 1 = Engineer
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
 	if math.random(1,2) == 1 then
 		self.Human_Gender = 0
-		if math.random(1,5) == 1 then
+		if math.random(1,5) == 1 && self.Human_Type != 1 then
 			self.Model = {"models/Humans/Group03m/male_01.mdl","models/Humans/Group03m/male_02.mdl","models/Humans/Group03m/male_03.mdl","models/Humans/Group03m/male_04.mdl","models/Humans/Group03m/male_05.mdl","models/Humans/Group03m/male_06.mdl","models/Humans/Group03m/male_07.mdl","models/Humans/Group03m/male_08.mdl","models/Humans/Group03m/male_09.mdl"}
 			self.IsMedicSNPC = true
 		else
@@ -48,7 +49,7 @@ function ENT:CustomOnPreInitialize()
 		end
 	else
 		self.Human_Gender = 1
-		if math.random(1,5) == 1 then
+		if math.random(1,5) == 1 && self.Human_Type != 1 then
 			self.Model = {"models/Humans/Group03m/female_01.mdl","models/Humans/Group03m/female_02.mdl","models/Humans/Group03m/female_03.mdl","models/Humans/Group03m/female_04.mdl","models/Humans/Group03m/female_06.mdl","models/Humans/Group03m/female_07.mdl"}
 			self.IsMedicSNPC = true
 		else
@@ -58,7 +59,7 @@ function ENT:CustomOnPreInitialize()
 	if self.IsMedicSNPC == false && math.random(1,3) == 1 then
 		self.WeaponInventory_AntiArmor = true
 	end
-	if math.random(1,3) == 1 then
+	if math.random(1,3) == 1 or self.Human_Type == 1 then
 		self.WeaponInventory_Melee = true
 	end
 end
@@ -74,47 +75,57 @@ function ENT:CustomOnInitialize()
 	end
 	
 	-- Set different clothing
-	local rand_refugee = math.random(1,2)
-	local rand_rebel = math.random(1,7)
-	for k, v in ipairs(self:GetMaterials()) do
-		//print(v)
-		//if v == "models/humans/female/group01/citizen_sheet" then -- Female Citizen
-			//self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group01/citizen_sheet_color")
-		if v == "models/humans/female/group02/citizen_sheet" then -- Female Refugee
-			if rand_refugee == 2 then
-				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group02/citizen_sheet_jailbreak")
+	if self.Human_Type == 1 then -- If it's an engineer...
+		for k, v in ipairs(self:GetMaterials()) do
+			if v == "models/humans/female/group03/citizen_sheet" then
+				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_engineer")
+			elseif v == "models/humans/male/group03/citizen_sheet" then
+				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_engineer")
 			end
-		elseif v == "models/humans/female/group03/citizen_sheet" then -- Female Rebel
-			if rand_rebel == 2 then
-				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_color")
-			elseif rand_rebel == 3 then
-				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_guerilla")
-			elseif rand_rebel == 4 then
-				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_jailbreak")
-			elseif rand_rebel == 5 then
-				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_woodland")
-			elseif rand_rebel == 6 then
-				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_beta")
-			end
-		//elseif v == "models/humans/male/group01/citizen_sheet" then -- Male Citizen
-			//self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group01/citizen_sheet_color")
-		elseif v == "models/humans/male/group02/citizen_sheet" then -- Male Refugee
-			if rand_refugee == 2 then
-				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group02/citizen_sheet_jailbreak")
-			end
-		elseif v == "models/humans/male/group03/citizen_sheet" then -- Male Rebel
-			if rand_rebel == 2 then
-				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_color")
-			elseif rand_rebel == 3 then
-				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_guerilla")
-			elseif rand_rebel == 4 then
-				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_jailbreak")
-			elseif rand_rebel == 5 then
-				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_woodland")
-			elseif rand_rebel == 6 then
-				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_beta")
-			elseif rand_rebel == 7 then
-				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_highres")
+		end
+	else
+		local rand_refugee = math.random(1,2)
+		local rand_rebel = math.random(1,7)
+		for k, v in ipairs(self:GetMaterials()) do
+			//print(v)
+			//if v == "models/humans/female/group01/citizen_sheet" then -- Female Citizen
+				//self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group01/citizen_sheet_color")
+			if v == "models/humans/female/group02/citizen_sheet" then -- Female Refugee
+				if rand_refugee == 2 then
+					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group02/citizen_sheet_jailbreak")
+				end
+			elseif v == "models/humans/female/group03/citizen_sheet" then -- Female Rebel
+				if rand_rebel == 2 then
+					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_color")
+				elseif rand_rebel == 3 then
+					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_guerilla")
+				elseif rand_rebel == 4 then
+					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_jailbreak")
+				elseif rand_rebel == 5 then
+					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_woodland")
+				elseif rand_rebel == 6 then
+					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_beta")
+				end
+			//elseif v == "models/humans/male/group01/citizen_sheet" then -- Male Citizen
+				//self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group01/citizen_sheet_color")
+			elseif v == "models/humans/male/group02/citizen_sheet" then -- Male Refugee
+				if rand_refugee == 2 then
+					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group02/citizen_sheet_jailbreak")
+				end
+			elseif v == "models/humans/male/group03/citizen_sheet" then -- Male Rebel
+				if rand_rebel == 2 then
+					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_color")
+				elseif rand_rebel == 3 then
+					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_guerilla")
+				elseif rand_rebel == 4 then
+					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_jailbreak")
+				elseif rand_rebel == 5 then
+					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_woodland")
+				elseif rand_rebel == 6 then
+					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_beta")
+				elseif rand_rebel == 7 then
+					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_highres")
+				end
 			end
 		end
 	end

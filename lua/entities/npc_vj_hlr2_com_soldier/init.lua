@@ -41,6 +41,7 @@ ENT.SoundTbl_AllyDeath = {"npc/combine_soldier/vo/overwatchteamisdown.wav", "npc
 ENT.SoundTbl_Pain = {"npc/combine_soldier/pain1.wav","npc/combine_soldier/pain2.wav","npc/combine_soldier/pain3.wav","npc/combine_soldier/vo/heavyresistance.wav","npc/combine_soldier/vo/bodypackholding.wav","npc/combine_soldier/vo/requestmedical.wav","npc/combine_soldier/vo/requeststimdose.wav"}
 ENT.SoundTbl_Death = {"npc/combine_soldier/die1.wav","npc/combine_soldier/die2.wav","npc/combine_soldier/die3.wav"}
 
+-- Radio sounds (background)
 local SoundTbl_Combine_Chatter = {
 	"npc/combine_soldier/vo/prison_soldier_activatecentral.wav",
 	"npc/combine_soldier/vo/prison_soldier_boomersinbound.wav",
@@ -113,24 +114,6 @@ npc/combine_soldier/vo/tracker.wav
 npc/combine_soldier/vo/uniform.wav
 npc/combine_soldier/vo/vamp.wav
 npc/combine_soldier/vo/viscon.wav
-
-
--- Radio sounds (background)
-npc/combine_soldier/vo/prison_soldier_activatecentral.wav
-npc/combine_soldier/vo/prison_soldier_boomersinbound.wav
-npc/combine_soldier/vo/prison_soldier_bunker1.wav
-npc/combine_soldier/vo/prison_soldier_bunker2.wav
-npc/combine_soldier/vo/prison_soldier_bunker3.wav
-npc/combine_soldier/vo/prison_soldier_containd8.wav
-npc/combine_soldier/vo/prison_soldier_fallback_b4.wav
-npc/combine_soldier/vo/prison_soldier_freeman_antlions.wav
-npc/combine_soldier/vo/prison_soldier_fullbioticoverrun.wav
-npc/combine_soldier/vo/prison_soldier_leader9dead.wav
-npc/combine_soldier/vo/prison_soldier_negativecontainment.wav
-npc/combine_soldier/vo/prison_soldier_prosecuted7.wav
-npc/combine_soldier/vo/prison_soldier_sundown3dead.wav
-npc/combine_soldier/vo/prison_soldier_tohighpoints.wav
-npc/combine_soldier/vo/prison_soldier_visceratorsa5.wav
 */
 
 -- Custom
