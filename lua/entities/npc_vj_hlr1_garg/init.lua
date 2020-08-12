@@ -110,6 +110,7 @@ function ENT:Garg_ResetFlame()
 	self.Garg_AbleToFlame = false
 	self.Garg_AttackType = -1
 	self.AnimTbl_IdleStand = {ACT_IDLE}
+	self.NextIdleStandTime = 0
 	self.DisableChasingEnemy = false
 	VJ_STOPSOUND(self.Garg_FlameSd)
 	self:StopParticles()
@@ -124,18 +125,25 @@ end
 function ENT:CustomOnThink_AIEnabled()
 	if IsValid(self:GetEnemy()) && (self.NearestPointToEnemyDistance <= 400 && self.NearestPointToEnemyDistance > self.MeleeAttackDistance) && self.Garg_AbleToFlame == true && self.Garg_NextAbleToFlameT < CurTime() && self.Garg_AttackType == 0 && timer.Exists("timer_range_start"..self:EntIndex()) then
 	//if IsValid(self:GetEnemy()) && self.Garg_AbleToFlame == true && (self.NearestPointToEnemyDistance <= 400 && self.NearestPointToEnemyDistance > self.MeleeAttackDistance) then
+		local range = (self.Garg_Type == 1 and 320) or 470
 		self.Garg_NextAbleToFlameT = CurTime() + 0.2
 		self.DisableChasingEnemy = true
 		self.AnimTbl_IdleStand = {ACT_RANGE_ATTACK1}
+		self.NextIdleStandTime = 0
 		self:StopMoving()
-		util.VJ_SphereDamage(self, self, self:GetPos() + self:OBBCenter() + self:GetForward()*50, 500, 3, DMG_BURN, true, true, {UseCone=true, UseConeDegree=30}, function(ent) if !ent:IsOnFire() && (ent:IsPlayer() or ent:IsNPC()) then ent:Ignite(2) end end)
+		util.VJ_SphereDamage(self, self, self:GetPos() + self:OBBCenter() + self:GetForward()*50, range, 3, DMG_BURN, true, true, {UseCone=true, UseConeDegree=30}, function(ent) if !ent:IsOnFire() && (ent:IsPlayer() or ent:IsNPC()) then ent:Ignite(2) end end)
 		-- COSMETICS: Sound, particle and decal
 		self.Garg_FlameSd = VJ_CreateSound(self, "vj_hlr/hl1_npc/garg/gar_flamerun1.wav")
 		self:StopParticles()
-		ParticleEffectAttach("vj_hlr_garg_flame", PATTACH_POINT_FOLLOW,self, 2)
-		ParticleEffectAttach("vj_hlr_garg_flame", PATTACH_POINT_FOLLOW,self, 3)
-		local tr1 = util.TraceLine({start = self:GetAttachment(2).Pos, endpos = self:GetAttachment(2).Pos + self:GetForward()*500, filter = self})
-		local tr2 = util.TraceLine({start = self:GetAttachment(3).Pos, endpos = self:GetAttachment(3).Pos + self:GetForward()*500, filter = self})
+		if self.Garg_Type == 1 then -- Baby Garg
+			ParticleEffectAttach("vj_hlr_garg_flame_small", PATTACH_POINT_FOLLOW,self, 2)
+			ParticleEffectAttach("vj_hlr_garg_flame_small", PATTACH_POINT_FOLLOW,self, 3)
+		else
+			ParticleEffectAttach("vj_hlr_garg_flame", PATTACH_POINT_FOLLOW,self, 2)
+			ParticleEffectAttach("vj_hlr_garg_flame", PATTACH_POINT_FOLLOW,self, 3)
+		end
+		local tr1 = util.TraceLine({start = self:GetAttachment(2).Pos, endpos = self:GetAttachment(2).Pos + self:GetForward()*range, filter = self})
+		local tr2 = util.TraceLine({start = self:GetAttachment(3).Pos, endpos = self:GetAttachment(3).Pos + self:GetForward()*range, filter = self})
 		util.Decal("VJ_HLR_Scorch", tr1.HitPos + tr1.HitNormal, tr1.HitPos - tr1.HitNormal)
 		util.Decal("VJ_HLR_Scorch", tr2.HitPos + tr2.HitNormal, tr2.HitPos - tr2.HitNormal)
 		-- Make it constantly delay the range attack timer by 1 second (Which will also successfully play the flame-end sound)
