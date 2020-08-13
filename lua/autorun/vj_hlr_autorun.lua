@@ -172,7 +172,7 @@ if VJExists == true then
 		"weapon_vj_glock17",
 		"weapon_vj_ssg08",
 		"weapon_vj_rpg",
-		"weapon_vj_hl2_rpg"},vCat)
+		"weapon_vj_hlr2_rpg"},vCat)
 	VJ.AddNPC_HUMAN("Alyx Vance","npc_vj_hlr2_alyx",{"weapon_vj_hlr2_alyxgun"},vCat)
 	VJ.AddNPC_HUMAN("Barney Calhoun","npc_vj_hlr2_barney",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
 	VJ.AddNPC_HUMAN("Father Grigori","npc_vj_hlr2_father_grigori",{"weapon_vj_hlr2_annabelle"},vCat)
@@ -190,19 +190,23 @@ if VJExists == true then
 	VJ.AddNPC_HUMAN("Civil Protection Elite","npc_vj_hlr2_com_civilp_elite",{"weapon_vj_smg1"},vCat)
 	VJ.AddNPC("Overwatch Floor Turret","npc_vj_hlr2_com_turret",vCat)
 	
-	-- Weapons
+	-- NPC Weapons
 	VJ.AddNPCWeapon("VJ_Combine_Sniper","weapon_vj_hlr2_csniper")
 	VJ.AddNPCWeapon("VJ_Annabelle","weapon_vj_hlr2_annabelle")
 	VJ.AddNPCWeapon("VJ_Alyx_Gun","weapon_vj_hlr2_alyxgun")
 	VJ.AddNPCWeapon("VJ_Combine_Reager","weapon_vj_hlr2_reager")
 	VJ.AddNPCWeapon("VJ_StunStick","weapon_vj_hlr2_stunstick")
-	VJ.AddNPCWeapon("VJ_RPG8","weapon_vj_hl2_rpg")
+	VJ.AddNPCWeapon("VJ_RPG_Resistance","weapon_vj_hlr2_rpg")
 		-- Beta
-		VJ.AddNPCWeapon("VJ_OICW","weapon_vj_hl2b_oicw",false,vCat)
+		VJ.AddNPCWeapon("VJ_OICW","weapon_vj_hl2b_oicw")
+	
 	-- Player Weapons
 	vCat = "Half-Life Resurgence"
+	VJ.AddCategoryInfo(vCat, {Icon = "vj_hl/icons/hl2.png"})
 	VJ.AddWeapon("Combine Sniper","weapon_vj_hlr2_csniper",false,vCat)
-		
+	VJ.AddWeapon("Alyx Gun","weapon_vj_hlr2_alyxgun",false,vCat)
+	VJ.AddWeapon("Resistance RPG","weapon_vj_hlr2_rpg",false,vCat)
+	
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Decals ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

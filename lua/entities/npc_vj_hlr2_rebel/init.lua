@@ -24,7 +24,7 @@ ENT.GrenadeAttackAttachment = "anim_attachment_RH" -- The attachment that the gr
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
 ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards the player if it's damaged by a player?
 ENT.AnimTbl_Medic_GiveHealth = {"heal"} -- Animations is plays when giving health to an ally
-ENT.WeaponInventory_AntiArmorList = {"weapon_vj_rpg", "weapon_vj_hl2_rpg"} -- It will randomly be given one of these weapons
+ENT.WeaponInventory_AntiArmorList = {"weapon_vj_rpg", "weapon_vj_hlr2_rpg"} -- It will randomly be given one of these weapons
 ENT.WeaponInventory_MeleeList = {"weapon_vj_crowbar"} -- It will randomly be given one of these weapons
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
