@@ -1,0 +1,6 @@
+"UnLitGeneric"
+{
+	"$basetexture" "vj_hl/sprites/laserbeam_blue"
+	"$translucent" 1
+	$selfillum 1
+}
