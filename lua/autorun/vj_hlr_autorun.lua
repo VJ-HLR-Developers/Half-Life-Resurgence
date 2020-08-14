@@ -99,6 +99,7 @@ if VJExists == true then
 	VJ.AddNPC("Xen Spore (Small)","sent_vj_xen_spore_small",vCat)
 	VJ.AddNPC("Xen Plant Light","sent_vj_xen_plant_light",vCat)
 	VJ.AddNPC("Xen Crystal","sent_vj_xen_crystal",vCat)
+	VJ.AddNPC("Xen Sentry Cannon","npc_vj_hlr1_xen_cannon",vCat)
 		-- Spawners
 		VJ.AddNPC("Portal (Xen)","sent_vj_hlr_alientp",vCat)
 		VJ.AddNPC("Portal (Race X)","sent_vj_hlr_alientp_x",vCat)
@@ -164,6 +165,8 @@ if VJExists == true then
 		"weapon_vj_crossbow",
 		"weapon_vj_mp40",
 		"weapon_vj_mp40",
+		"weapon_vj_hlr2b_oicw",
+		"weapon_vj_hlr2b_oicw",
 		"weapon_vj_9mmpistol",
 		"weapon_vj_9mmpistol",
 		"weapon_vj_357",
@@ -198,7 +201,7 @@ if VJExists == true then
 	VJ.AddNPCWeapon("VJ_StunStick","weapon_vj_hlr2_stunstick")
 	VJ.AddNPCWeapon("VJ_RPG_Resistance","weapon_vj_hlr2_rpg")
 		-- Beta
-		VJ.AddNPCWeapon("VJ_OICW","weapon_vj_hl2b_oicw")
+		VJ.AddNPCWeapon("VJ_OICW","weapon_vj_hlr2b_oicw")
 	
 	-- Player Weapons
 	vCat = "Half-Life Resurgence"

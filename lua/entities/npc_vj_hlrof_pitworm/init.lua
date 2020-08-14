@@ -92,21 +92,24 @@ function ENT:CustomOnRangeAttack_AfterStartTimer()
 	self.PitWorm_BlinkingT = CurTime() + 2
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode()
+function ENT:PitWorm_DoLaserEffects()
 	local startpos = self:GetPos() + self:GetUp()*250 + self:GetForward()*230
 	local tr = util.TraceLine({
 		start = startpos,
-		endpos = self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter(),
+		endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(),
 		filter = self
 	})
-	local hitpos = tr.HitPos
-	
 	local elec = EffectData()
 	elec:SetStart(startpos)
-	elec:SetOrigin(hitpos)
+	elec:SetOrigin(tr.HitPos)
 	elec:SetEntity(self)
 	elec:SetAttachment(1)
-	util.Effect("VJ_HLR_PitWorm_Beam",elec)
+	util.Effect("VJ_HLR_PitWorm_Beam", elec)
+	return tr.HitPos
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomRangeAttackCode()
+	self:PitWorm_DoLaserEffects()
 	
 	local StartGlow1 = ents.Create("env_sprite")
 	StartGlow1:SetKeyValue("model","vj_hl/sprites/flare3.vmt")
@@ -127,26 +130,12 @@ function ENT:CustomRangeAttackCode()
 	StartGlow1:SetParent(self)
 	StartGlow1:Fire("SetParentAttachment", "0")
 	self:DeleteOnRemove(StartGlow1)
-	timer.Simple(0.65,function() if IsValid(self) && IsValid(StartGlow1) then StartGlow1:Remove() end end)
+	timer.Simple(0.65, function() if IsValid(self) && IsValid(StartGlow1) then StartGlow1:Remove() end end)
 	
 	for i = 0.1, 0.5, 0.1 do
 		timer.Simple(i,function()
 			if IsValid(self) && IsValid(self:GetEnemy()) && self.RangeAttacking == true then
-				local startpos = self:GetPos() + self:GetUp()*250 + self:GetForward()*230
-				local tr = util.TraceLine({
-					start = startpos,
-					endpos = self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter(),
-					filter = self
-				})
-				local hitpos = tr.HitPos
-				
-				local elec = EffectData()
-				elec:SetStart(startpos)
-				elec:SetOrigin(hitpos)
-				elec:SetEntity(self)
-				elec:SetAttachment(1)
-				util.Effect("VJ_HLR_PitWorm_Beam",elec)
-			
+				local hitpos = self:PitWorm_DoLaserEffects()
 				util.VJ_SphereDamage(self,self,hitpos,30,10,DMG_SHOCK,true,false,{Force=90})
 				sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitpos, 80)
 			end
