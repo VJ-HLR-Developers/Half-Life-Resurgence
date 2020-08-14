@@ -1,6 +1,6 @@
 "unlitgeneric"
 {
-	"$basetexture" "vj_hl/sprites/laserbeam_pitworm"
+	"$basetexture" "vj_hl/sprites/laserbeam"
 	"$translucent" 1
 	$selfillum 1
 }
