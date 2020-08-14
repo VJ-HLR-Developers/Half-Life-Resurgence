@@ -1,7 +1,6 @@
-"Sprite"
+"unlitgeneric"
 {
-	"$spriteorientation" "vp_parallel"
-	"$spriteorigin" "[ 0.50 0.50 ]"
-	"$basetexture" "vj_hl/sprites/laserbeam"
-	"$alphatest" "1"
+	"$basetexture" "vj_hl/sprites/laserbeam_pitworm"
+	"$translucent" 1
+	$selfillum 1
 }
