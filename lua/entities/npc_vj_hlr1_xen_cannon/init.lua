@@ -56,7 +56,7 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
-	print(key)
+	//print(key)
 	if key == "shoot" then
 		self:RangeAttackCode()
 	end
@@ -71,7 +71,7 @@ function ENT:CustomRangeAttackCode()
 	local tr = util.TraceLine({
 		start = startpos,
 		endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(),
-		filter = self
+		filter = {self, self.extmdl}
 	})
 	local hitpos = tr.HitPos
 	local elec = EffectData()

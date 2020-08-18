@@ -100,6 +100,7 @@ if VJExists == true then
 	VJ.AddNPC("Xen Plant Light","sent_vj_xen_plant_light",vCat)
 	VJ.AddNPC("Xen Crystal","sent_vj_xen_crystal",vCat)
 	VJ.AddNPC("Xen Sentry Cannon","npc_vj_hlr1_xen_cannon",vCat)
+	VJ.AddNPC("Xen Ceiling Turret","npc_vj_hlr1_xen_turretc",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
 		-- Spawners
 		VJ.AddNPC("Portal (Xen)","sent_vj_hlr_alientp",vCat)
 		VJ.AddNPC("Portal (Race X)","sent_vj_hlr_alientp_x",vCat)

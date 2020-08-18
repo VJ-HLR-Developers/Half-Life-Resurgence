@@ -1,6 +1,12 @@
 "Sprite"
 {
-	"$spriteorientation" "vp_parallel"
-	"$spriteorigin" "[ 0.50 0.50 ]"
 	"$basetexture" "vj_hl/sprites/lgtning"
+	//"$spriteorientation" "vp_parallel"
+	//"$spriteorigin" "[ 0.50 0.50 ]"
+	"$additive" "1"
+	$translucent 1
+	"$vertexcolor"		1
+	"$nocull"			1
+	"$spriterendermode" 5
+	$overbrightfactor 15
 }
