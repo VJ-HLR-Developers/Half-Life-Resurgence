@@ -65,7 +65,7 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if IsValid(self:GetOwner()) && self:GetOwner() == "npc_vj_hlr1_m1a1abrams_gun" then
+	if IsValid(self:GetOwner()) && self:GetOwner():GetClass() == "npc_vj_hlr1_m1a1abrams_gun" then
 		self.RadiusDamage = 100
 	end
 end

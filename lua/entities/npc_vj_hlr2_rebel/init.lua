@@ -78,8 +78,10 @@ function ENT:CustomOnInitialize()
 	if self.Human_Type == 1 then -- If it's an engineer...
 		for k, v in ipairs(self:GetMaterials()) do
 			if v == "models/humans/female/group03/citizen_sheet" then
+				self.DeathCorpseSubMaterials = {k - 1}
 				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_engineer")
 			elseif v == "models/humans/male/group03/citizen_sheet" then
+				self.DeathCorpseSubMaterials = {k - 1}
 				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_engineer")
 			end
 		end
@@ -91,10 +93,12 @@ function ENT:CustomOnInitialize()
 			//if v == "models/humans/female/group01/citizen_sheet" then -- Female Citizen
 				//self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group01/citizen_sheet_color")
 			if v == "models/humans/female/group02/citizen_sheet" then -- Female Refugee
+				self.DeathCorpseSubMaterials = {k - 1}
 				if rand_refugee == 2 then
 					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group02/citizen_sheet_jailbreak")
 				end
 			elseif v == "models/humans/female/group03/citizen_sheet" then -- Female Rebel
+				self.DeathCorpseSubMaterials = {k - 1}
 				if rand_rebel == 2 then
 					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_color")
 				elseif rand_rebel == 3 then
@@ -109,10 +113,12 @@ function ENT:CustomOnInitialize()
 			//elseif v == "models/humans/male/group01/citizen_sheet" then -- Male Citizen
 				//self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group01/citizen_sheet_color")
 			elseif v == "models/humans/male/group02/citizen_sheet" then -- Male Refugee
+				self.DeathCorpseSubMaterials = {k - 1}
 				if rand_refugee == 2 then
 					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group02/citizen_sheet_jailbreak")
 				end
 			elseif v == "models/humans/male/group03/citizen_sheet" then -- Male Rebel
+				self.DeathCorpseSubMaterials = {k - 1}
 				if rand_rebel == 2 then
 					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_color")
 				elseif rand_rebel == 3 then
