@@ -38,6 +38,37 @@ ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(25,25,0), Vector(-25,-25,-162))
+	self:DrawShadow(false) -- Because the light somehow makes a shadow =/
+	
+	local spotLight = ents.Create("light_dynamic")
+	spotLight:SetPos(self:GetAttachment(1).Pos + Vector(0,0,-5))
+	spotLight:SetKeyValue("_light", "135 24 194 120")
+	spotLight:SetKeyValue("brightness", "4")
+	spotLight:SetKeyValue("distance", "180")
+	spotLight:SetKeyValue("_inner_cone", "30")
+	spotLight:SetKeyValue("pitch", "90")
+	spotLight:SetParent(self)
+	spotLight:Spawn()
+	spotLight:Activate()
+	spotLight:Fire("TurnOn", "", 0)
+	self:DeleteOnRemove(spotLight)
+	
+	-- Doesn't work in game
+	/*local spotLight = ents.Create("light_spot")
+	spotLight:SetPos(self:GetAttachment(1).Pos)
+	spotLight:SetKeyValue("_light", "135 24 194 120")
+	spotLight:SetKeyValue("_constant_attn", "0")
+	spotLight:SetKeyValue("_linear_attn", "0")
+	spotLight:SetKeyValue("_quadratic_attn", "1")
+	spotLight:SetKeyValue("_cone", "15")
+	spotLight:SetKeyValue("_inner_cone", "30")
+	spotLight:SetKeyValue("pitch", "90")
+	spotLight:SetKeyValue("_exponent", "1")
+	spotLight:SetParent(self)
+	spotLight:Spawn()
+	spotLight:Activate()
+	spotLight:Fire("TurnOn", "", 0)
+	self:DeleteOnRemove(spotLight)*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
