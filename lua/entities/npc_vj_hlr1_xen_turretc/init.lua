@@ -30,8 +30,9 @@ ENT.DeathCorpseBodyGroup = VJ_Set(0,1) -- #1 = the category of the first bodygro
 ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_Idle = {}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/xenceiling_turret/bustflesh1.wav","vj_hlr/hl1_npc/xenceiling_turret/bustflesh2.wav"}
+
+local SdTbl_GibImpact = {"vj_hlr/hl1_npc/xenceiling_turret/flesh1.wav","vj_hlr/hl1_npc/xenceiling_turret/flesh2.wav","vj_hlr/hl1_npc/xenceiling_turret/flesh3.wav","vj_hlr/hl1_npc/xenceiling_turret/flesh4.wav","vj_hlr/hl1_npc/xenceiling_turret/flesh5.wav","vj_hlr/hl1_npc/xenceiling_turret/flesh6.wav","vj_hlr/hl1_npc/xenceiling_turret/flesh7.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -72,7 +73,7 @@ function ENT:CustomRangeAttackCode()
 	StartGlow1:SetKeyValue("maxdxlevel","0")
 	StartGlow1:SetKeyValue("framerate","60.0")
 	StartGlow1:SetKeyValue("spawnflags","0")
-	StartGlow1:SetKeyValue("scale","1")
+	StartGlow1:SetKeyValue("scale","0.8")
 	StartGlow1:SetPos(self:GetPos())
 	StartGlow1:Spawn()
 	StartGlow1:SetParent(self)
@@ -82,33 +83,50 @@ function ENT:CustomRangeAttackCode()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
-	if hitgroup != 2 && dmginfo:GetDamageType() != DMG_BLAST then -- Take damage only if the bottom part is hit or it's a blast damage!
+	-- Take damage only if the bottom part is hit or it's a blast damage!
+	if hitgroup == 3 && dmginfo:GetDamageType() != DMG_BLAST then
 		dmginfo:SetDamage(0)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	if self.HasGibDeathParticles == true then
+		local StartGlow1 = ents.Create("env_sprite")
+		StartGlow1:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+		StartGlow1:SetKeyValue("rendercolor","115, 30, 164")
+		StartGlow1:SetKeyValue("GlowProxySize","5.0")
+		StartGlow1:SetKeyValue("HDRColorScale","1.0")
+		StartGlow1:SetKeyValue("renderfx","14")
+		StartGlow1:SetKeyValue("rendermode","3")
+		StartGlow1:SetKeyValue("renderamt","200")
+		StartGlow1:SetKeyValue("disablereceiveshadows","0")
+		StartGlow1:SetKeyValue("mindxlevel","0")
+		StartGlow1:SetKeyValue("maxdxlevel","0")
+		StartGlow1:SetKeyValue("framerate","10.0")
+		StartGlow1:SetKeyValue("spawnflags","0")
+		StartGlow1:SetKeyValue("scale","1")
+		StartGlow1:SetPos(self:GetAttachment(1).Pos + Vector(0,0,20))
+		StartGlow1:Spawn()
+		//StartGlow1:SetParent(self)
+		//StartGlow1:Fire("SetParentAttachment", "0")
+		//self:DeleteOnRemove(StartGlow1)
+		timer.Simple(1.4, function() SafeRemoveEntity(StartGlow1) end)
 	end
 	
 	local pos = self:GetAttachment(1).Pos + Vector(0,0,12)
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh1.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=pos + Vector(1,0,0)})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh2.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=pos + Vector(2,0,0)})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh3.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=pos + Vector(3,0,0)})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh4.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=pos + Vector(4,0,0)})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh1.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=pos + Vector(5,0,0)})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh2.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=pos + Vector(6,0,0)})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh3.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=pos + Vector(0,1,0)})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh4.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=pos + Vector(0,2,0)})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh1.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=pos + Vector(0,3,0)})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh2.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=pos + Vector(0,4,0)})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh3.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=pos + Vector(0,5,0)})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh4.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=pos + Vector(0,6,0)})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh1.mdl",{BloodDecal="", Pos=pos + Vector(1,0,0), CollideSound=SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh2.mdl",{BloodDecal="", Pos=pos + Vector(2,0,0), CollideSound=SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh3.mdl",{BloodDecal="", Pos=pos + Vector(3,0,0), CollideSound=SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh4.mdl",{BloodDecal="", Pos=pos + Vector(4,0,0), CollideSound=SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh1.mdl",{BloodDecal="", Pos=pos + Vector(5,0,0), CollideSound=SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh2.mdl",{BloodDecal="", Pos=pos + Vector(6,0,0), CollideSound=SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh3.mdl",{BloodDecal="", Pos=pos + Vector(0,1,0), CollideSound=SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh4.mdl",{BloodDecal="", Pos=pos + Vector(0,2,0), CollideSound=SdTbl_GibImpact})
 	return true, {AllowCorpse=true} -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
-	VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
+	//VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
 	return false
 end
 /*-----------------------------------------------
