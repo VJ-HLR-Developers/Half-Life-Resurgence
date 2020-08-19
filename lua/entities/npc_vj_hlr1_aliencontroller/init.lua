@@ -70,7 +70,7 @@ function ENT:MultipleRangeAttacks()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(20, 20, 70), Vector(-20, -20, 0))
+	self:SetCollisionBounds(Vector(20, 20, 70), Vector(-20, -20, -10))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
