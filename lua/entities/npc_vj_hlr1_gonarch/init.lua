@@ -70,11 +70,6 @@ ENT.FootStepSoundLevel = 80
 ENT.GeneralSoundPitch1 = 100
 ENT.AllyDeathSoundLevel = 90
 
-	-- ====== Controller Variables ====== --
-ENT.Controller_FirstPersonBone = "Bip01 Neck"
-ENT.Controller_FirstPersonOffset = Vector(4,0,-12)
-ENT.Controller_FirstPersonAngle = Angle(90,0,90)
-
 -- Custom
 ENT.Gonarch_NextBirthT = 0
 ENT.Gonarch_NumBabies = 0
@@ -89,7 +84,7 @@ end
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	//print(key)
 	if key == "Step" then
-		util.ScreenShake(self:GetPos(),10,100,0.4,2000)
+		util.ScreenShake(self:GetPos(), 10, 100, 0.4, 2000)
 		self:FootStepSoundCode()
 	end
 	if key == "spawn" then
@@ -118,7 +113,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		self.MeleeAttackWorldShakeOnMiss = true
 		self:MeleeAttackCode()
 	elseif key == "mattack leftB" or key == "mattack rightB" then
-	self.MeleeAttackWorldShakeOnMiss = false
+		self.MeleeAttackWorldShakeOnMiss = false
 		self:MeleeAttackCode()
 	end
 	if key == "rattack" then
@@ -128,7 +123,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(argent)
 	self.Gonarch_NextBirthT = CurTime() + math.random(3,6)
-	self:VJ_ACT_PLAYACTIVITY({"vjseq_angry1","vjseq_angry2"},true,false,true)
+	self:VJ_ACT_PLAYACTIVITY({"vjseq_angry1", "vjseq_angry2"}, true, false, true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Gonarch_BabyDeath()
@@ -142,7 +137,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	if self.Dead == false && IsValid(self:GetEnemy()) && self.PlayingAttackAnimation == false && CurTime() > self.Gonarch_NextBirthT && self.Gonarch_NumBabies < 20 && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP))) then
-		self:VJ_ACT_PLAYACTIVITY(ACT_SPECIAL_ATTACK1,true,false,true)
+		self:VJ_ACT_PLAYACTIVITY(ACT_SPECIAL_ATTACK1, true, false, true)
 		self.Gonarch_NextBirthT = CurTime() + 15
 	end
 end
@@ -193,7 +188,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
-	VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
+	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, math.random(100,100))
 	return false
 end
 /*-----------------------------------------------

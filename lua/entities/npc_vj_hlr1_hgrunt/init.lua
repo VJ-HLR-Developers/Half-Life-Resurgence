@@ -394,7 +394,7 @@ function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
 		
 		GrenadeEntity:DoDamageCode()
 		GrenadeEntity:SetDeathVariablesTrue(nil,nil,false)
-		VJ_EmitSound(self,"vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav",80,math.random(100,100))
+		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 80, math.random(100,100))
 		GrenadeEntity:Remove()
 	end
 end
@@ -465,12 +465,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
 	if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD then
-		VJ_EmitSound(self,{"vj_hlr/fx/headshot1.wav","vj_hlr/fx/headshot2.wav","vj_hlr/fx/headshot3.wav"},75,math.random(100,100))
+		VJ_EmitSound(self, {"vj_hlr/fx/headshot1.wav","vj_hlr/fx/headshot2.wav","vj_hlr/fx/headshot3.wav"}, 75, math.random(100,100))
 	elseif self.HECU_Type == 5 then
-		VJ_EmitSound(self,"vj_hlr/hl1_weapon/explosion/debris3.wav",150,math.random(100,100))
-		VJ_EmitSound(self,"vj_hlr/hl1_npc/rgrunt/rb_gib.wav",80,math.random(100,100))
+		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, math.random(100,100))
+		VJ_EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 80, math.random(100,100))
 	else
-		VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
+		VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, math.random(100,100))
 	end
 	return false
 end

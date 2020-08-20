@@ -82,7 +82,7 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(TheProjectile)
 		self.HasRangeAttack = false
 		self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH",function(vsched)
 			vsched.RunCode_OnFinish = function()
-				self:VJ_ACT_PLAYACTIVITY(ACT_RELOAD,true,false,true,0,{},function(vsched2)
+				self:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true, 0, {}, function(vsched2)
 					vsched2.RunCode_OnFinish = function()
 						self.HasRangeAttack = true
 						self:SetBodygroup(1,1)
@@ -138,7 +138,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
-	VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
+	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, math.random(100,100))
 	return false
 end
 /*-----------------------------------------------

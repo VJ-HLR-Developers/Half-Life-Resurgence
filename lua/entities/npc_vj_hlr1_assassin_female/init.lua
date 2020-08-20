@@ -122,7 +122,7 @@ function ENT:CustomOnThink()
 		else
 			self:SetLocalVelocity(((self:GetPos() + self:GetRight()*-100) - (self:GetPos() + self:OBBCenter())):GetNormal()*200 +self:GetForward()*1 +self:GetUp()*600 + self:GetRight()*1)
 		end
-		self:VJ_ACT_PLAYACTIVITY(ACT_JUMP,true,false,true,0,{},function(vsched)
+		self:VJ_ACT_PLAYACTIVITY(ACT_JUMP, true, false, true,0,{},function(vsched)
 			self.BOA_OffGround = true
 			//vsched.RunCode_OnFinish = function()
 				//self:VJ_ACT_PLAYACTIVITY("fly_attack",true,false,false)
@@ -205,7 +205,7 @@ function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
 		
 		GrenadeEntity:DoDamageCode()
 		GrenadeEntity:SetDeathVariablesTrue(nil,nil,false)
-		VJ_EmitSound(self,"vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav",80,math.random(100,100))
+		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 80, math.random(100,100))
 		GrenadeEntity:Remove()
 	end
 end
@@ -242,7 +242,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
-	VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
+	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, math.random(100,100))
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

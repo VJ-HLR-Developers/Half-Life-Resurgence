@@ -225,7 +225,7 @@ function ENT:CustomOnAlert(argent)
 			self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert1,self.NextSoundTime_Alert2)
 		end
 		if argent:GetPos():Distance(self:GetPos()) >= 300 && math.random(1,2) == 1 then
-			self:VJ_ACT_PLAYACTIVITY({"vjseq_eye_wipe","vjseq_fear1","vjseq_fear2"},true,false,true)
+			self:VJ_ACT_PLAYACTIVITY({"vjseq_eye_wipe","vjseq_fear1","vjseq_fear2"}, true, false, true)
 		end
 	end
 end
@@ -325,10 +325,10 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
-	VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",100,math.random(100,100))
+	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 100, math.random(100,100))
 	if self.SCI_Type == 2 then
-		VJ_EmitSound(self,"vj_hlr/hl1_weapon/explosion/debris3.wav",150,math.random(100,100))
-		VJ_EmitSound(self,"vj_hlr/hl1_npc/rgrunt/rb_gib.wav",65,math.random(100,100))
+		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, math.random(100,100))
+		VJ_EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 65, math.random(100,100))
 	end
 	return false
 end

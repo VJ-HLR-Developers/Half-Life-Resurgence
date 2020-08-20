@@ -85,7 +85,7 @@ function ENT:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(argent)
-	self:VJ_ACT_PLAYACTIVITY(ACT_ARM,true,false,true)
+	self:VJ_ACT_PLAYACTIVITY(ACT_ARM, true, false, true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRangeAttack_AfterStartTimer()

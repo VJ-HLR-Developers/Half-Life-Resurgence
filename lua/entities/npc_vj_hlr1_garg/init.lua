@@ -314,8 +314,8 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 			util.BlastDamage(self,self,self:GetPos(),150,80)
 			util.ScreenShake(self:GetPos(),100,200,1,2500)
 			
-			VJ_EmitSound(self,{"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"},90,math.random(100,100))
-			VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
+			VJ_EmitSound(self,{"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}, 90, math.random(100,100))
+			VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, math.random(100,100))
 			
 			util.Decal("VJ_HLR_Scorch", self:GetPos(), self:GetPos() + self:GetUp()*-100, self)
 			

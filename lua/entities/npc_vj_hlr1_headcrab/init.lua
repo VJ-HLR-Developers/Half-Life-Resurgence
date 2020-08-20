@@ -66,7 +66,7 @@ end
 function ENT:CustomOnAlert(argent)
 	if self.VJ_IsBeingControlled == true then return end
 	if math.random(1,2) == 1 then
-		self:VJ_ACT_PLAYACTIVITY("angry",true,false,true)
+		self:VJ_ACT_PLAYACTIVITY("angry", true, false, true)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -105,7 +105,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
-	VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
+	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, math.random(100,100))
 	return false
 end
 /*-----------------------------------------------

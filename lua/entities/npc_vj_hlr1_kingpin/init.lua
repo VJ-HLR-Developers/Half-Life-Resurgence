@@ -211,7 +211,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:UseZapAttack()
 	if CurTime() > self.NextZapT then
-		self:VJ_ACT_PLAYACTIVITY("distanceattack",true,false,true,0)
+		self:VJ_ACT_PLAYACTIVITY("distanceattack", true, false, true, 0)
 		timer.Simple(self:SequenceDuration(self:LookupSequence("distanceattack")),function()
 			if IsValid(self) then
 				self.IsZapping = false
@@ -538,7 +538,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
-	VJ_EmitSound(self,"vj_gib/default_gib_splat.wav",90,math.random(100,100))
+	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, math.random(100,100))
 	return false
 end
 /*-----------------------------------------------
