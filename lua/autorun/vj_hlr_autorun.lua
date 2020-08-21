@@ -67,7 +67,7 @@ if VJExists == true then
 	-- Xen
 	VJ.AddNPC("Gonarch","npc_vj_hlr1_gonarch",vCat)
 	VJ.AddNPC("Headcrab","npc_vj_hlr1_headcrab",vCat)
-	VJ.AddNPC("Baby Headcrab","npc_vj_hlr1_headcrab_baby",vCat)
+	VJ.AddNPC("Headcrab (Baby)","npc_vj_hlr1_headcrab_baby",vCat)
 	VJ.AddNPC("Zombie","npc_vj_hlr1_zombie",vCat)
 	VJ.AddNPC("Flocking Floater","npc_vj_hlr1_floater",vCat)
 	VJ.AddNPC("Alien Controller","npc_vj_hlr1_aliencontroller",vCat)
@@ -114,7 +114,7 @@ if VJExists == true then
 		VJ.AddNPC("Penguin","npc_vj_hlrof_penguin",vCat)
 		VJ.AddNPC("Penguin Nest","npc_vj_hlrof_penguinnest",vCat)
 		-- Sven Co-Op
-		VJ.AddNPC("Baby Gargantua","npc_vj_hlrsv_garg_baby",vCat)
+		VJ.AddNPC("Gargantua (Baby)","npc_vj_hlrsv_garg_baby",vCat)
 		VJ.AddNPC("Tor","npc_vj_hlrsv_tor",vCat)
 	
 	-- Race X (Opposing Force)
@@ -123,7 +123,7 @@ if VJExists == true then
 	VJ.AddNPC("Pit Drone","npc_vj_hlrof_pitdrone",vCat)
 	VJ.AddNPC("Pit Worm","npc_vj_hlrof_pitworm",vCat)
 	VJ.AddNPC("Voltigore","npc_vj_hlrof_voltigore",vCat)
-	VJ.AddNPC("Baby Voltigore","npc_vj_hlrof_voltigore_baby",vCat)
+	VJ.AddNPC("Voltigore (Baby)","npc_vj_hlrof_voltigore_baby",vCat)
 	VJ.AddNPC("Gene Worm","npc_vj_hlrof_geneworm",vCat)
 	
 	-- Unknown

@@ -20,8 +20,7 @@ ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"} -- NPCs with the same class with be allied t
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.MeleeAttackDamage = 60
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1} -- Melee Attack Animations
-ENT.MeleeAttackAnimationFaceEnemy = true -- Should it face the enemy while playing the melee attack animation?
-ENT.MeleeAttackDistance = 100 -- How close does it have to be until it attacks?
+ENT.MeleeAttackDistance = 80 -- How close does it have to be until it attacks?
 ENT.MeleeAttackDamageDistance = 200 -- How far does the damage go?
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 	-- ====== Knock Back Variables ====== --
@@ -87,10 +86,10 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		util.ScreenShake(self:GetPos(), 10, 100, 0.4, 2000)
 		self:FootStepSoundCode()
 	end
-	if key == "spawn" then
-		for i=1,3 do
-			VJ_EmitSound(self,{"vj_hlr/hl1_npc/gonarch/gon_birth1.wav","vj_hlr/hl1_npc/gonarch/gon_birth1.wav","vj_hlr/hl1_npc/gonarch/gon_birth1.wav"},80)
-			if self.Gonarch_NumBabies < 20 then
+	if key == "spawn" then -- Create baby headcrabs
+		for i = 1,3 do
+			VJ_EmitSound(self, {"vj_hlr/hl1_npc/gonarch/gon_birth1.wav","vj_hlr/hl1_npc/gonarch/gon_birth1.wav","vj_hlr/hl1_npc/gonarch/gon_birth1.wav"}, 80)
+			if self.Gonarch_NumBabies < 20 then -- 20 babies max
 				local bcrab = ents.Create("npc_vj_hlr1_headcrab_baby")
 				if i == 1 then
 					bcrab:SetPos(self:GetPos() + self:GetUp()*20)
@@ -109,10 +108,10 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 		end
 		self.Gonarch_NextBirthT = CurTime() + 10
 	end
-	if key == "mattack leftA" or key == "mattack rightA" then
+	if key == "mattack leftA" or key == "mattack rightA" then -- Hit Ground
 		self.MeleeAttackWorldShakeOnMiss = true
 		self:MeleeAttackCode()
-	elseif key == "mattack leftB" or key == "mattack rightB" then
+	elseif key == "mattack leftB" or key == "mattack rightB" then -- Swipe Air
 		self.MeleeAttackWorldShakeOnMiss = false
 		self:MeleeAttackCode()
 	end
@@ -127,6 +126,7 @@ function ENT:CustomOnAlert(argent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Gonarch_BabyDeath()
+	-- Play a sound when one of the babies dies!
 	self.Gonarch_NumBabies = self.Gonarch_NumBabies - 1
 	if CurTime() > self.Gonarch_NextDeadBirthT then
 		self.AllyDeathSoundT = 0
@@ -136,18 +136,11 @@ function ENT:Gonarch_BabyDeath()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
+	-- Create baby headcrabs
 	if self.Dead == false && IsValid(self:GetEnemy()) && self.PlayingAttackAnimation == false && CurTime() > self.Gonarch_NextBirthT && self.Gonarch_NumBabies < 20 && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self:VJ_ACT_PLAYACTIVITY(ACT_SPECIAL_ATTACK1, true, false, true)
 		self.Gonarch_NextBirthT = CurTime() + 15
 	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_AfterProjectileSpawn(TheProjectile)
-	/*if math.random(1,math.random(2,4)) == 1 then
-		self.NextRangeAttackTime_DoRand = 0.1
-	else
-		self.NextRangeAttackTime_DoRand = 5
-	end*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(TheProjectile)
