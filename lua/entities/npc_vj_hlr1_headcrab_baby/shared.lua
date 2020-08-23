@@ -1,6 +1,6 @@
 ENT.Base 			= "npc_vj_hlr1_headcrab"
 ENT.Type 			= "ai"
-ENT.PrintName 		= "Headcrab (Baby)"
+ENT.PrintName 		= "Baby Headcrab"
 ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Purpose 		= "Spawn it and fight with it!"

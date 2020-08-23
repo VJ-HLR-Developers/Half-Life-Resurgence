@@ -75,7 +75,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tentacle_DoLevelChange(num)
 	local lvl = self.Tentacle_Level + num
-	VJ_EmitSound(self,{"vj_hlr/hl1_npc/tentacle/te_swing1.wav","vj_hlr/hl1_npc/tentacle/te_swing2.wav"})
+	VJ_EmitSound(self, {"vj_hlr/hl1_npc/tentacle/te_swing1.wav","vj_hlr/hl1_npc/tentacle/te_swing2.wav"})
 	if lvl == 0 then
 		self.AnimTbl_IdleStand = {ACT_IDLE}
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
