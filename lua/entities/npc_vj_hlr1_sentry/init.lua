@@ -181,7 +181,7 @@ function ENT:CustomRangeAttackCode()
 	bullet.Num = 1
 	bullet.Src = self:GetAttachment(self:LookupAttachment(self.Sentry_MuzzleAttach)).Pos
 	bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()) - self:GetAttachment(self:LookupAttachment(self.Sentry_MuzzleAttach)).Pos
-	bullet.Spread = 0.001
+	bullet.Spread = Vector(math.random(-15,15), math.random(-15,15), math.random(-15,15))
 	bullet.Tracer = 1
 	bullet.TracerName = "VJ_HLR_Tracer"
 	bullet.Force = 5
