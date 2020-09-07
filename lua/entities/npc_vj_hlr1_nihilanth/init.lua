@@ -265,25 +265,8 @@ function ENT:Nih_CreateAlly()
 	ally:Spawn()
 	ally:Activate()
 	
-	local StartGlow1 = ents.Create("env_sprite")
-	StartGlow1:SetKeyValue("model","vj_hl/sprites/exit1.vmt")
-	StartGlow1:SetKeyValue("GlowProxySize","2.0")
-	StartGlow1:SetKeyValue("HDRColorScale","1.0")
-	StartGlow1:SetKeyValue("renderfx","14")
-	StartGlow1:SetKeyValue("rendermode","3")
-	StartGlow1:SetKeyValue("renderamt","255")
-	StartGlow1:SetKeyValue("disablereceiveshadows","0")
-	StartGlow1:SetKeyValue("mindxlevel","0")
-	StartGlow1:SetKeyValue("maxdxlevel","0")
-	StartGlow1:SetKeyValue("framerate","10.0")
-	StartGlow1:SetKeyValue("spawnflags","0")
-	StartGlow1:SetKeyValue("scale","1")
-	StartGlow1:SetPos(spawnpos + Vector(0,0,20))
-	StartGlow1:Spawn()
-	StartGlow1:Fire("Kill","",1)
-	self:DeleteOnRemove(StartGlow1)
-	
-	VJ_EmitSound(ally, "vj_hlr/fx/beamstart" .. math.random(1,2) .. ".wav", 85, 100)
+	local effectTeleport = VJ_HLR_Effect_PortalSpawn(spawnpos + Vector(0,0,20))
+	effectTeleport:Fire("Kill","",1)
 	
 	return ally
 end

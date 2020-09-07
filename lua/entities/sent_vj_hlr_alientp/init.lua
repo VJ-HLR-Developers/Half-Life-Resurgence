@@ -76,6 +76,7 @@ function ENT:ActivateSpawner(ent)
 	self.StartGlow1:Spawn()
 	self.StartGlow1:SetParent(self)
 	self:DeleteOnRemove(self.StartGlow1)
+	
 	local FireLight1 = ents.Create("light_dynamic")
 	FireLight1:SetKeyValue("brightness", "8")
 	FireLight1:SetKeyValue("distance", "200")
