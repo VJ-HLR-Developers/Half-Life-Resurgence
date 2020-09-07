@@ -1,0 +1,25 @@
+"UnlitTwoTexture"
+{
+	"$baseTexture" "models/hl_resurgence/hl2/weapons/chargebow_Arrow"
+    "$texture2" "models/hl_resurgence/hl2/weapons/w_HealthCharge_op"
+	"$translucent" "1"
+	"$additive" 1
+ 	"$model" 1
+	"$nocull" 1
+	"Proxies"
+	{
+		"TextureScroll"
+		{
+			"texturescrollvar" "$texture2transform"
+			"texturescrollrate" -.50
+			"texturescrollangle" 70
+		}
+		"Sine"
+		{
+			"sineperiod"	"2"
+			"sinemin"	".1"
+			"sinemax"	"1.0"
+			"resultVar"	"$color"
+		}
+	}
+}

@@ -1,0 +1,27 @@
+"UnLitGeneric"
+{
+	// Original shader: VertexLitMaskedEnvMappedTexture
+	"$baseTexture" "models/hl_resurgence/hl2/weapons/w_chargebow_Arrow"
+       	"$envmapmask" "models\weapons\v_shaketrapAC\v_shake_right_mask"
+	"$envmap" "env_cubemap"
+	"$envmapsaturation" "[1 1 1]"
+	"$envmapcontrast" 1
+	"$surfaceprop" "flesh"
+	"$model" "1"
+         "Proxies"
+	{
+        	 "TextureScroll"
+		{
+			"texturescrollvar" "$baseTexturetransform"
+			"texturescrollrate" -.50
+			"texturescrollangle" 70
+		}
+		"Sine"
+		{
+			"sineperiod"	1.0
+			"sinemin"	".8"
+			"sinemax"	"1.0"
+			"resultVar"	"$color"
+		}
+	}
+}

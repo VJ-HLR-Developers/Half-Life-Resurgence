@@ -138,7 +138,7 @@ if VJExists == true then
 	-- Earth + Resistance
 	VJ.AddNPC("Citizen","npc_vj_hlr2_citizen",vCat)
 	VJ.AddNPC_HUMAN("Refugee","npc_vj_hlr2_refugee",{"weapon_vj_crowbar","weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1"},vCat)
-	VJ.AddNPC_HUMAN("Rebel Engineer","npc_vj_hlr2_rebel_engineer",{"weapon_vj_spas12"},vCat)
+	VJ.AddNPC_HUMAN("Rebel Engineer","npc_vj_hlr2_rebel_engineer",{"weapon_vj_spas12"/*,"weapon_vj_hlr2_chargebow"*/},vCat)
 	VJ.AddNPC_HUMAN("Rebel","npc_vj_hlr2_rebel",{
 		-- 5 = Very common, 4 = Common, 3 = Uncommon, 2 = Rare, 1 = Very rare
 		"weapon_vj_smg1",
@@ -198,6 +198,7 @@ if VJExists == true then
 	VJ.AddNPCWeapon("VJ_Combine_Sniper","weapon_vj_hlr2_csniper")
 	VJ.AddNPCWeapon("VJ_Annabelle","weapon_vj_hlr2_annabelle")
 	VJ.AddNPCWeapon("VJ_Alyx_Gun","weapon_vj_hlr2_alyxgun")
+	VJ.AddNPCWeapon("VJ_Charge_Bow","weapon_vj_hlr2_chargebow")
 	VJ.AddNPCWeapon("VJ_Combine_Reager","weapon_vj_hlr2_reager")
 	VJ.AddNPCWeapon("VJ_StunStick","weapon_vj_hlr2_stunstick")
 	VJ.AddNPCWeapon("VJ_RPG_Resistance","weapon_vj_hlr2_rpg")
@@ -209,6 +210,7 @@ if VJExists == true then
 	VJ.AddCategoryInfo(vCat, {Icon = "vj_hl/icons/hl2.png"})
 	VJ.AddWeapon("Combine Sniper","weapon_vj_hlr2_csniper",false,vCat)
 	VJ.AddWeapon("Alyx Gun","weapon_vj_hlr2_alyxgun",false,vCat)
+	VJ.AddWeapon("Charge Bow","weapon_vj_hlr2_chargebow",false,vCat)
 	VJ.AddWeapon("Resistance RPG","weapon_vj_hlr2_rpg",false,vCat)
 	
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
