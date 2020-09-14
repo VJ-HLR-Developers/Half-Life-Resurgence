@@ -164,12 +164,6 @@ function ENT:CustomOnInitialize()
 	self:Security_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnPlayCreateSound(SoundData,SoundFile)
-	if !self.SoundTbl_Breath[SoundFile] then
-		self.HECU_NextMouthMove = CurTime() + SoundDuration(SoundFile)
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
 	//print(key)
 	if key == "step" then
@@ -246,6 +240,17 @@ end
 function ENT:CustomOnIsAbleToShootWeapon()
 	if self.Security_GunHolstered == true then return false end
 	return true
+end
+local vec = Vector(0,0,0)
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo,hitgroup)
+	if hitgroup == HITGROUP_GEAR && dmginfo:GetDamagePosition() != vec then
+		local rico = EffectData()
+		rico:SetOrigin(dmginfo:GetDamagePosition())
+		rico:SetScale(4) -- Size
+		rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
+		util.Effect("VJ_HLR_Rico",rico)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)

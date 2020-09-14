@@ -180,7 +180,7 @@ if VJExists == true then
 	VJ.AddNPC_HUMAN("Alyx Vance","npc_vj_hlr2_alyx",{"weapon_vj_hlr2_alyxgun"},vCat)
 	VJ.AddNPC_HUMAN("Barney Calhoun","npc_vj_hlr2_barney",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
 	VJ.AddNPC_HUMAN("Father Grigori","npc_vj_hlr2_father_grigori",{"weapon_vj_hlr2_annabelle"},vCat)
-	VJ.AddNPC("Floor Turret (Resistance)","npc_vj_hlr2_turret",vCat)
+	VJ.AddNPC("Resistance Ground Turret","npc_vj_hlr2_turret",vCat)
 	
 	-- Combine
 	VJ.AddNPC_HUMAN("Overwatch Soldier","npc_vj_hlr2_com_soldier",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
@@ -192,7 +192,7 @@ if VJExists == true then
 	VJ.AddNPC_HUMAN("Overwatch Engineer","npc_vj_hlr2_com_engineer",{"weapon_vj_hlr2_reager"},vCat)
 	VJ.AddNPC_HUMAN("Civil Protection","npc_vj_hlr2_com_civilp",{"weapon_vj_9mmpistol","weapon_vj_9mmpistol","weapon_vj_smg1"},vCat)
 	VJ.AddNPC_HUMAN("Civil Protection Elite","npc_vj_hlr2_com_civilp_elite",{"weapon_vj_smg1"},vCat)
-	VJ.AddNPC("Overwatch Floor Turret","npc_vj_hlr2_com_turret",vCat)
+	VJ.AddNPC("Combine Ground Turret","npc_vj_hlr2_com_turret",vCat)
 	
 	-- NPC Weapons
 	VJ.AddNPCWeapon("VJ_Combine_Sniper","weapon_vj_hlr2_csniper")
@@ -311,6 +311,9 @@ if VJExists == true then
 		"vj_hlr_geneworm_spit_b",
 	})
 	
+	VJ.AddParticle("particles/electrical_fx.pcf",{
+		"electrical_arc_01", -- Used for the Combine Reager
+	})
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Precaches ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
