@@ -19,7 +19,7 @@ ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDistance = 35 -- How close does it have to be until it attacks?
 ENT.MeleeAttackDamageDistance = 125 -- How far does the damage go?
-ENT.HasMeleeAttackKnockBack = false -- If true, it will cause a knockback to its enemy
+ENT.HasMeleeAttackKnockBack = true -- If true, it will cause a knockback to its enemy
 ENT.MeleeAttackKnockBack_Forward1 = 50 -- How far it will push you forward | First in math.random
 ENT.MeleeAttackKnockBack_Forward2 = 60 -- How far it will push you forward | Second in math.random
 ENT.MeleeAttackKnockBack_Up1 = 250 -- How far it will push you up | First in math.random
@@ -40,7 +40,7 @@ ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until i
 ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_Type = "OnlyRange" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {"die1","die"} -- Death Animations
+ENT.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD} -- Death Animations
 ENT.DeathAnimationChance = 3 -- Put 1 if you want it to play the animation all the time
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 	-- ====== Sound File Paths ====== --
@@ -61,10 +61,15 @@ ENT.Controller_FirstPersonOffset = Vector(-12,0,18)
 ENT.Controller_FirstPersonAngle = Angle(90,0,90)
 
 -- Custom
+ENT.Bullsquid_Type = 0 -- 0 = Retail Half-Life 1 | Alpha Half-Life 1
 ENT.Bullsquid_BlinkingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(40, 40 , 40), Vector(-40, -40, 0))
+	if self.Bullsquid_Type == 1 then
+		self:SetCollisionBounds(Vector(52, 52 , 60), Vector(-52, -52, 0))
+	else
+		self:SetCollisionBounds(Vector(40, 40 , 40), Vector(-40, -40, 0))
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key,activator,caller,data)
@@ -80,6 +85,7 @@ function ENT:CustomOnAcceptInput(key,activator,caller,data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
+	if self.Bullsquid_Type == 1 then return end
 	if self.Dead == false && CurTime() > self.Bullsquid_BlinkingT then
 		self:SetSkin(1)
 		timer.Simple(0.3,function() if IsValid(self) then self:SetSkin(0) end end)
@@ -88,6 +94,7 @@ function ENT:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(argent)
+	if self.Bullsquid_Type == 1 then return end
 	if math.random(1,3) == 1 then
 		if argent.HLR_Type == "Headcrab" or argent:GetClass() == "npc_headcrab" or argent:GetClass() == "npc_headcrab_black" or argent:GetClass() == "npc_headcrab_fast" then
 			self:VJ_ACT_PLAYACTIVITY("seecrab", true, false, true)
@@ -98,7 +105,11 @@ function ENT:CustomOnAlert(argent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(TheProjectile)
-	return self:CalculateProjectile("Curve", self:GetPos(), self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1500)
+	if self.Bullsquid_BullSquidding == true then
+		return self:CalculateProjectile("Line", self:GetPos(), self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 250000)
+	else
+		return self:CalculateProjectile("Curve", self:GetPos(), self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1500)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
@@ -106,11 +117,9 @@ function ENT:MultipleMeleeAttacks()
 	if randattack == 1 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
 		self.MeleeAttackDamage = 35
-		self.HasMeleeAttackKnockBack = true
 	elseif randattack == 2 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
 		self.MeleeAttackDamage = 20
-		self.HasMeleeAttackKnockBack = true
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

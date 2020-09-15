@@ -40,6 +40,9 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 	//phys:SetMass(1)
 	phys:SetBuoyancyRatio(0)
 	phys:EnableDrag(false)
+	if IsValid(self:GetOwner()) && self:GetOwner().Bullsquid_BullSquidding == true then
+		phys:EnableGravity(false)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()

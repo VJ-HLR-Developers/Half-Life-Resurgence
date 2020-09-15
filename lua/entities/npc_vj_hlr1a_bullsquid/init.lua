@@ -7,40 +7,48 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hla/bullsquid.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 200
-ENT.AnimTbl_Death = {"die1","die2"} -- Death Animations
 ENT.SoundTbl_SoundTrack = {"vj_hlr/hla_npc/squidding.mp3"}
 
-ENT.Bullsquid_Boss = 0
+-- Custom
+ENT.Bullsquid_BullSquidding = false
+ENT.Bullsquid_BullSquiddingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
-	local squidder = math.random(1,100)
-	self:SetCollisionBounds(Vector(40, 40 , 55), Vector(-80, -40, 0))
-	if squidder = 1 then
-		self.SightAngle = 180
-		self.Bullsquid_Boss = 1
+function ENT:CustomOnPreInitialize()
+	self.Bullsquid_Type = 1
+	
+	if math.random(1, 1) == 1 then
+		self.Bullsquid_BullSquidding = true
+		self.Bullsquid_BullSquiddingT = CurTime()
 		self.VJ_IsHugeMonster = true
-		self.HasSoundTrack = true
-		self:SetHealth(1500)
-		self.NextRangeAttackTime = 0.2
+		self.SightAngle = 180
+		self.SightDistance = 30000
+		self.FindEnemy_UseSphere = true
+		self.FindEnemy_CanSeeThroughWalls = true
+		self.StartHealth = 1500
 		self.AnimTbl_IdleStand = {ACT_IDLE_AGITATED}
 		self.AnimTbl_Run = {ACT_RUN_AGITATED}
 		self.AnimTbl_Walk = {ACT_RUN_AGITATED}
 		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2}
+		self.DisableRangeAttackAnimation = true
+		self.RangeDistance = 30000
+		self.RangeAttackAngleRadius = 180
+		self.RangeAttackAnimationFaceEnemy = false
+		self.RangeAttackAnimationStopMovement = false
+		self.NextRangeAttackTime = 0
+		self.TimeUntilRangeAttackProjectileRelease = 0
+		self.NoChaseAfterCertainRange = false
+		self.HasSoundTrack = true
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
-	local randattack = math.random(1,2)
-	if self.Bullsquid_Boss == 1 then
-		if randattack == 1 then
-			self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
-			self.MeleeAttackDamage = 200
-			self.HasMeleeAttackKnockBack = true
-		elseif randattack == 2 then
-			self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
-			self.MeleeAttackDamage = 200
-			self.HasMeleeAttackKnockBack = true
-		end
+	self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
+	self.MeleeAttackDamage = (self.Bullsquid_BullSquidding == true and 200) or 35
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink()
+	if self.Bullsquid_BullSquidding == true then
+		PrintMessage(HUD_PRINTCENTER, "YOU HAVE BEEN BULLSQUIDDING FOR "..math.Round(CurTime() - self.Bullsquid_BullSquiddingT, 2).." SECONDS")
 	end
 end
 /*-----------------------------------------------
