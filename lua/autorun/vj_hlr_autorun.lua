@@ -107,6 +107,7 @@ if VJExists == true then
 		-- Alpha
 		VJ.AddNPC("Alpha Zombie","npc_vj_hlr1a_zombie",vCat)
 		VJ.AddNPC("Alpha Headcrab","npc_vj_hlr1a_headcrab",vCat)
+		VJ.AddNPC("Alpha Bullsquid","npc_vj_hlr1a_bullsquid",vCat)
 		-- Opposing Force
 		VJ.AddNPC("Zombie Security Guard","npc_vj_hlrof_zombie_sec",vCat)
 		VJ.AddNPC("Zombie Soldier","npc_vj_hlrof_zombie_soldier",vCat)

@@ -110,7 +110,7 @@ function ENT:MultipleMeleeAttacks()
 	elseif randattack == 2 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
 		self.MeleeAttackDamage = 20
-		self.HasMeleeAttackKnockBack = false
+		self.HasMeleeAttackKnockBack = true
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
