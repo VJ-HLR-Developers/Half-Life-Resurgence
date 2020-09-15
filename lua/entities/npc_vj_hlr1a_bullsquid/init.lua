@@ -16,7 +16,7 @@ ENT.Bullsquid_BullSquiddingT = 0
 function ENT:CustomOnPreInitialize()
 	self.Bullsquid_Type = 1
 	
-	if math.random(1, 1) == 1 then
+	if math.random(1, 100) == 1 then
 		self.Bullsquid_BullSquidding = true
 		self.Bullsquid_BullSquiddingT = CurTime()
 		self.VJ_IsHugeMonster = true
