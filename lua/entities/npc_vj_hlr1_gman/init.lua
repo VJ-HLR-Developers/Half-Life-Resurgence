@@ -41,7 +41,7 @@ function ENT:CustomOnInitialize()
 	self.VJ_NoTarget = true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()

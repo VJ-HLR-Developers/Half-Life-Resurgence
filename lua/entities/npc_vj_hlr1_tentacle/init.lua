@@ -51,7 +51,7 @@ function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(20, 20, 160), Vector(-20, -20, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnHandleAnimEvent(ev,evTime,evCycle,evType,evOptions)
+function ENT:CustomOnHandleAnimEvent(ev, evTime, evCycle, evType, evOptions)
 	-- Take care of the regular hit sound (When playing idle animations)
 	if ev == 6 then
 		self:PlaySoundSystem("MeleeAttack", {"vj_hlr/hl1_npc/tentacle/te_strike1.wav","vj_hlr/hl1_npc/tentacle/te_strike2.wav"}, VJ_EmitSound)
@@ -62,7 +62,7 @@ function ENT:CustomOnHandleAnimEvent(ev,evTime,evCycle,evType,evOptions)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "attack" then
 		self:MeleeAttackCode()

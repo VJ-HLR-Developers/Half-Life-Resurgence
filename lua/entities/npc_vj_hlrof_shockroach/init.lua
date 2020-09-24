@@ -29,7 +29,7 @@ ENT.Controller_FirstPersonAngle = Angle(90,0,90)
 ENT.Lifespan = false
 ENT.Lifespan_Ended = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	if key == "step" then
 		self:FootStepSoundCode()
 	end

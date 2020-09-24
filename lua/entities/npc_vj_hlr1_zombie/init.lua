@@ -63,7 +63,7 @@ function ENT:CustomOnInitialize()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "event_emit step" then
 		self:FootStepSoundCode()

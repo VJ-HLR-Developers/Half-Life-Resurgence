@@ -58,7 +58,7 @@ function ENT:CustomOnInitialize()
 	self.Houndeye_NextSleepT = CurTime() + math.Rand(0, 15)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "he_hunt" then
 		self:FootStepSoundCode()

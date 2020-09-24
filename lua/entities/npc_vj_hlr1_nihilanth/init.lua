@@ -145,7 +145,7 @@ function ENT:CustomOnInitialize()
 	MakeChargeOrb(self:GetPos() + self:GetUp() * 220 + Vector(-400,-330))*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "elec_orbs" then
 		self.Nih_TeleportingOrb = false

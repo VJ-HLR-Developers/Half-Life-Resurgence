@@ -73,7 +73,7 @@ function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(20, 20, 70), Vector(-20, -20, -10))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "rangeattack_close" then
 		if IsValid(self.Glow1) then self.Glow1:Remove() end

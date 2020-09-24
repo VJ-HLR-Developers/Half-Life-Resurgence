@@ -54,7 +54,7 @@ ENT.Controller_FirstPersonAngle = Angle(90,0,90)
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "event_emit step" then
 		self:FootStepSoundCode()

@@ -63,7 +63,7 @@ function ENT:CustomOnInitialize()
 	//self:VJ_GetAllPoseParameters(true) -- tongue_height 0 / 1024
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "melee_attack" then
 		self:MeleeAttackCode()

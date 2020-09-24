@@ -157,7 +157,7 @@ function ENT:OnPlayCreateSound(SoundData,SoundFile)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "event_emit step" or key == "step" then
 		self:FootStepSoundCode()

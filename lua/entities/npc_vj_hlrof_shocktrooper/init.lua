@@ -71,7 +71,7 @@ function ENT:CustomOnInitialize()
 	self:Give("weapon_vj_hlrof_strooperwep")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()

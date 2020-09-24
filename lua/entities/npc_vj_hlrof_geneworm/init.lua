@@ -68,7 +68,7 @@ function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(800, 800, 350), Vector(-800, -800, -180))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	print(key)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

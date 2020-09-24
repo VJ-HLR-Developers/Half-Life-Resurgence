@@ -930,7 +930,7 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(htype)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnHandleAnimEvent(ev,evTime,evCycle,evType,evOptions)
+function ENT:CustomOnHandleAnimEvent(ev, evTime, evCycle, evType, evOptions)
 	//print(ev)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

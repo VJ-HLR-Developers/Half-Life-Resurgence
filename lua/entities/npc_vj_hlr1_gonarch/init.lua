@@ -80,7 +80,7 @@ function ENT:CustomOnInitialize()
 	self.Gonarch_NumBabies = 0
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "Step" then
 		util.ScreenShake(self:GetPos(), 10, 100, 0.4, 2000)

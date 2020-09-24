@@ -55,7 +55,7 @@ function ENT:CustomOnInitialize()
 	self:DeleteOnRemove(self.extmdl)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "shoot" then
 		self:RangeAttackCode()

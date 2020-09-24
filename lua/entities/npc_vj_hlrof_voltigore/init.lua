@@ -57,7 +57,7 @@ function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(60, 60, 95), Vector(-60, -60, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()

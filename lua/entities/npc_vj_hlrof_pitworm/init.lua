@@ -61,7 +61,7 @@ function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(100, 100, 390), Vector(-100, -100, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "melee" then
 		self:MeleeAttackCode()

@@ -185,7 +185,7 @@ function ENT:SCI_CustomOnInitialize()
 	//self:VJ_GetAllPoseParameters(true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key,activator,caller,data)
+function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" or key == "wheelchair" then
 		self:FootStepSoundCode()
