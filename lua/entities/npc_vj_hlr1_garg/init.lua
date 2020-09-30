@@ -125,7 +125,7 @@ end
 function ENT:CustomOnThink_AIEnabled()
 	if IsValid(self:GetEnemy()) && (self.NearestPointToEnemyDistance <= 400 && self.NearestPointToEnemyDistance > self.MeleeAttackDistance) && self.Garg_AbleToFlame == true && self.Garg_NextAbleToFlameT < CurTime() && self.Garg_AttackType == 0 && timer.Exists("timer_range_start"..self:EntIndex()) then
 	//if IsValid(self:GetEnemy()) && self.Garg_AbleToFlame == true && (self.NearestPointToEnemyDistance <= 400 && self.NearestPointToEnemyDistance > self.MeleeAttackDistance) then
-		local range = (self.Garg_Type == 1 and 320) or 470
+		local range = (self.Garg_Type == 1 and 300) or 470
 		self.Garg_NextAbleToFlameT = CurTime() + 0.2
 		self.DisableChasingEnemy = true
 		self.AnimTbl_IdleStand = {ACT_RANGE_ATTACK1}
@@ -174,7 +174,8 @@ function ENT:MultipleMeleeAttacks()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleRangeAttacks()
-	if self.NearestPointToEnemyDistance <= 400 then -- Flame attack
+	local range = (self.Garg_Type == 1 and 300) or 400
+	if self.NearestPointToEnemyDistance <= range then -- Flame attack
 		self.Garg_AttackType = 0
 		self.Garg_AbleToFlame = true
 		self.RangeDistance = 400
@@ -234,7 +235,7 @@ function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo,hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	if dmginfo:IsBulletDamage() == true then
 		if self.Garg_Type == 1 then -- Make babies take half damage for bullets
 			dmginfo:SetDamage(0.5)
