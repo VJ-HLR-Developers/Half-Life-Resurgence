@@ -8,7 +8,7 @@ if (!file.Exists("autorun/vj_base_autorun.lua","LUA")) then return end
 
 ENT.Type 			= "anim"
 ENT.Base 			= "obj_vj_projectile_base"
-ENT.PrintName		= "Blaster Rod"
+ENT.PrintName		= "Shock Roach Plasma"
 ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectiles for my addons"

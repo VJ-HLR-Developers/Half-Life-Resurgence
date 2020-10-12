@@ -6,9 +6,8 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/opfor/shockroach.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.VJ_NPC_Class = {"CLASS_RACE_X"} -- NPCs with the same class with be allied to each other
-ENT.MeleeAttackDamage = 10
 ENT.StartHealth = 10
+ENT.VJ_NPC_Class = {"CLASS_RACE_X"} -- NPCs with the same class with be allied to each other
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
@@ -26,23 +25,21 @@ ENT.Controller_FirstPersonOffset = Vector(1,0,0)
 ENT.Controller_FirstPersonAngle = Angle(90,0,90)
 
 -- Custom --
-ENT.Lifespan = false
-ENT.Lifespan_Ended = false
+ENT.SRoach_Life = nil
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPreInitialize()
+	if self.SRoach_Life != nil then
+		timer.Simple(self.SRoach_Life, function()
+			if IsValid(self) && self.Dead == false then
+				self:TakeDamage(self:Health() + 1, self, self)
+			end
+		end)
+	end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	if key == "step" then
 		self:FootStepSoundCode()
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
-	if self.Dead == false && self.Lifespan == true then
-		timer.Simple(15,function()
-			if IsValid(self) then
-				self.Lifespan_Ended = true
-				self:TakeDamage(99999999999,self,self)
-			end
-		end)
 	end
 end
 /*-----------------------------------------------

@@ -16,12 +16,14 @@ ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's dam
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.MeleeAttackDamage = 10
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
+
 ENT.HasGrenadeAttack = true -- Should the SNPC have a grenade attack?
 ENT.GrenadeAttackEntity = "obj_vj_hlrof_grenade_spore" -- The entity that the SNPC throws | Half Life 2 Grenade: "npc_grenade_frag"
 ENT.AnimTbl_GrenadeAttack = {ACT_SPECIAL_ATTACK2} -- Grenade Attack Animations
 ENT.GrenadeAttackAttachment = "eyes" -- The attachment that the grenade will spawn at
 ENT.TimeUntilGrenadeIsReleased = 1.5 -- Time until the grenade is released
 ENT.ThrowGrenadeChance = 1
+
 ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
 ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
 ENT.MoveRandomlyWhenShooting = false -- Should it move randomly when shooting?
@@ -61,9 +63,8 @@ ENT.Controller_FirstPersonOffset = Vector(1,0,-3)
 ENT.Controller_FirstPersonAngle = Angle(90,0,90)
 
 -- Custom
-ENT.Shocktrooper_Roach = NULL
 ENT.Shocktrooper_BlinkingT = 0
-ENT.Shocktrooper_SpawnEnt = true
+ENT.Shocktrooper_SpawnedEnt = true
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(20, 20, 90), Vector(-20, -20, 0))
@@ -101,10 +102,10 @@ function ENT:CustomOnThink()
 	end
 	
 	if self.Dead == false && CurTime() > self.Shocktrooper_BlinkingT then
-		timer.Simple(0.2,function() if IsValid(self) then self:SetSkin(1) end end)
-		timer.Simple(0.3,function() if IsValid(self) then self:SetSkin(2) end end)
-		timer.Simple(0.4,function() if IsValid(self) then self:SetSkin(3) end end)
-		timer.Simple(0.5,function() if IsValid(self) then self:SetSkin(0) end end)
+		timer.Simple(0.2, function() if IsValid(self) then self:SetSkin(1) end end)
+		timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(2) end end)
+		timer.Simple(0.4, function() if IsValid(self) then self:SetSkin(3) end end)
+		timer.Simple(0.5, function() if IsValid(self) then self:SetSkin(0) end end)
 		self.Shocktrooper_BlinkingT = CurTime() + math.Rand(3,4.5)
 	end
 end
@@ -112,20 +113,20 @@ end
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 	self:SetBodygroup(1,1)
 	self:SetSkin(2)
-	if self.Shocktrooper_SpawnEnt == true then
-		self.Shocktrooper_Roach = ents.Create("npc_vj_hlrof_shockroach")
-		self.Shocktrooper_Roach:SetPos(self:GetAttachment(self:LookupAttachment("shock_roach")).Pos)//+ self:GetUp()*50)
-		self.Shocktrooper_Roach:SetAngles(self:GetAngles())
-		self.Shocktrooper_Roach:Spawn()
-		self.Shocktrooper_Roach:Activate()
-		self.Shocktrooper_Roach.VJ_NPC_Class = table.Merge(self.Shocktrooper_Roach.VJ_NPC_Class,self.VJ_NPC_Class)
-		self.Shocktrooper_Roach.Lifespan = true
+	if self.Shocktrooper_SpawnedEnt == true then
+		local sroach = ents.Create("npc_vj_hlrof_shockroach")
+		sroach:SetPos(self:GetAttachment(self:LookupAttachment("shock_roach")).Pos)//+ self:GetUp()*50)
+		sroach:SetAngles(self:GetAngles())
+		sroach.SRoach_Life = 15
+		sroach:Spawn()
+		sroach:Activate()
+		sroach.VJ_NPC_Class = self.VJ_NPC_Class
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	self.HasDeathSounds = false
-	self.Shocktrooper_SpawnEnt = false
+	self.Shocktrooper_SpawnedEnt = false
 	if self.HasGibDeathParticles == true then
 		local bloodeffect = EffectData()
 		bloodeffect:SetOrigin(self:GetPos() +self:OBBCenter())
@@ -148,21 +149,21 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 		util.Effect("StriderBlood",effectdata)
 	end
 	
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/strooper_gib1.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,40))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/strooper_gib1.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,42))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/strooper_gib2.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,20))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/strooper_gib3.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,30))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/strooper_gib4.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,35))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/strooper_gib5.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,40))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/strooper_gib6.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,20))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/strooper_gib7.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,30))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/strooper_gib3.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,31))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/strooper_gib4.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,36))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/strooper_gib5.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,43))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/strooper_gib6.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,21))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/strooper_gib7.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,32))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/strooper_gib8.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,35))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib1.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,40))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib2.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,20))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib3.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,30))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib2.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,24))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib3.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,37))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib4.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,35))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib5.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,50))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib6.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,55))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib7.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,40))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib7.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,41))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib8.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,45))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib9.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,25))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib10.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,15))})
