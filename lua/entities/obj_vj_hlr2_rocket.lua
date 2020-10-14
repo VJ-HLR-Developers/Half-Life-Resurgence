@@ -63,20 +63,24 @@ ENT.Rocket_Follow = true
 function ENT:CustomOnInitialize()
 	ParticleEffectAttach("vj_rpg1_smoke", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 	ParticleEffectAttach("vj_rpg2_smoke2", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	
+	self.LastAngle = self:GetAngles()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	local owner = self:GetOwner()
 	local phys = self:GetPhysicsObject()
 	if IsValid(owner) && IsValid(phys) then
-		local pos = self:GetPos() + self:GetForward() * 200
+		local pos = self:GetPos() +self:GetForward() *200
 		if owner:IsNPC() && IsValid(owner:GetEnemy()) then
-			pos = owner:GetEnemy():GetPos() + owner:GetEnemy():OBBCenter()
+			pos = owner:GetEnemy():GetPos() +owner:GetEnemy():OBBCenter()
 		elseif (owner:IsPlayer()) && self.Rocket_Follow == true then
 			pos = self:GetOwner():GetEyeTrace().HitPos
 		end
 		phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), pos, 2000))
-		self:SetAngles((pos - self:GetPos()):Angle())
+		self.LastAngle = LerpAngle(FrameTime() *1, self.LastAngle, (pos -self:GetPos()):Angle())
+		-- self:SetAngles((pos - self:GetPos()):Angle())
+		self:SetAngles(self.LastAngle)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
