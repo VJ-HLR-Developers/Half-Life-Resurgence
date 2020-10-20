@@ -12,7 +12,7 @@ ENT.BloodColor = "Red" -- The blood type, this will determine what it should use
 ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damaged
 
-ENT.BugType = "npc_vj_hlrof_penguin"
+ENT.Nest_SpawnEnt = "npc_vj_hlrof_penguin"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(15, 15, 60), Vector(-15, -15, 0))

@@ -26,7 +26,7 @@ ENT.IdleSoundLevel = 65
 ENT.GeneralSoundPitch1 = 50
 
 -- Custom
-ENT.BugType = "npc_vj_hlr1_snark"
+ENT.Nest_SpawnEnt = "npc_vj_hlr1_snark"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(15, 15, 18), Vector(-15, -15, 0))
@@ -34,8 +34,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnKilled(dmginfo,hitgroup)
 	if self.Snark_Type == 0 then
-		util.VJ_SphereDamage(self,self,self:GetPos(),50,15,DMG_ACID,true,true)
-		if self.BugType == "npc_vj_hlr1_snark" then
+		util.VJ_SphereDamage(self, self, self:GetPos(), 50, 15, DMG_ACID, true, true)
+		if self.Nest_SpawnEnt == "npc_vj_hlr1_snark" then
 			local bloodeffect = EffectData()
 			bloodeffect:SetOrigin(self:GetPos() + self:OBBCenter())
 			bloodeffect:SetColor(VJ_Color2Byte(Color(255,221,35)))
@@ -56,8 +56,8 @@ function ENT:CustomOnKilled(dmginfo,hitgroup)
 			util.Effect("StriderBlood",effectdata)
 			util.Effect("StriderBlood",effectdata)
 		end
-	elseif self.BugType == "npc_vj_hlrof_penguin" then
-		VJ_EmitSound(self,{"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"},90)
+	elseif self.Nest_SpawnEnt == "npc_vj_hlrof_penguin" then
+		VJ_EmitSound(self, {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}, 90)
 		util.BlastDamage(self,self,self:GetPos(),80,35)
 		if self.HasGibDeathParticles == true then
 			local bloodeffect = EffectData()
@@ -90,20 +90,20 @@ function ENT:CustomOnKilled(dmginfo,hitgroup)
 			spr:SetPos(self:GetPos() + self:GetUp()*80)
 			spr:Spawn()
 			spr:Fire("Kill","",0.9)
-			timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
+			timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 		end
 	end
 	
-	if math.random(1,1000) == 1 then
-		if self.BugType == "npc_vj_hlr1_snark" then
-			self.BugType = "npc_vj_hlrof_penguin"
-		elseif self.BugType == "npc_vj_hlrof_penguin" then
-			self.BugType = "npc_vj_hlr1_snark"
+	if math.random(1,1000) == 1 then -- Secret =)
+		if self.Nest_SpawnEnt == "npc_vj_hlr1_snark" then
+			self.Nest_SpawnEnt = "npc_vj_hlrof_penguin"
+		elseif self.Nest_SpawnEnt == "npc_vj_hlrof_penguin" then
+			self.Nest_SpawnEnt = "npc_vj_hlr1_snark"
 		end
 	end
 	
-	for i = 1,math.random(4,8) do
-		local ent = ents.Create(self.BugType)
+	for _ = 1, math.random(4,8) do
+		local ent = ents.Create(self.Nest_SpawnEnt)
 		ent:SetPos(self:GetPos())
 		ent:SetAngles(self:GetAngles())
 		ent:SetVelocity(self:GetUp()*math.Rand(250,350) + self:GetRight()*math.Rand(-100,100) + self:GetForward()*math.Rand(-100,100))

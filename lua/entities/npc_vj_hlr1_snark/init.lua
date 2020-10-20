@@ -60,6 +60,7 @@ ENT.Controller_FirstPersonAngle = Angle(90,0,90)
 
 -- Custom
 ENT.Snark_Explodes = true
+ENT.Snark_Exploded = false
 ENT.Snark_NextJumpWalkTime1 = 0.35
 ENT.Snark_NextJumpWalkTime2 = 0.8
 ENT.Snark_NextJumpWalkT = 0
@@ -79,13 +80,11 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if IsValid(self:GetEnemy()) && self.VJ_IsBeingControlled == false then
-		if self.Dead == false && self:IsOnGround() && self:Visible(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) > self.LeapDistance + 10 && CurTime() > self.Snark_NextJumpWalkT then
-			self:VJ_ACT_PLAYACTIVITY(ACT_RUN,false,0.7,true)
-			self:SetGroundEntity(NULL)
-			self:SetLocalVelocity((self:GetEnemy():GetPos() - self:GetPos()):GetNormal()*400 + self:GetUp()*300)
-			self.Snark_NextJumpWalkT = CurTime() + math.Rand(self.Snark_NextJumpWalkTime1,self.Snark_NextJumpWalkTime2)
-		end
+	if IsValid(self:GetEnemy()) && self.VJ_IsBeingControlled == false && self.Dead == false && self:IsOnGround() && self:Visible(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) > self.LeapDistance + 10 && CurTime() > self.Snark_NextJumpWalkT then
+		self:VJ_ACT_PLAYACTIVITY(ACT_RUN, false, 0.7, true)
+		self:SetGroundEntity(NULL)
+		self:SetLocalVelocity((self:GetEnemy():GetPos() - self:GetPos()):GetNormal()*400 + self:GetUp()*300)
+		self.Snark_NextJumpWalkT = CurTime() + math.Rand(self.Snark_NextJumpWalkTime1,self.Snark_NextJumpWalkTime2)
 	end
 	if (self.Snark_EnergyTime - CurTime()) < 6 then
 		self.UseTheSameGeneralSoundPitch_PickedNumber = self.UseTheSameGeneralSoundPitch_PickedNumber + 1
@@ -93,15 +92,16 @@ function ENT:CustomOnThink_AIEnabled()
 		self.UseTheSameGeneralSoundPitch_PickedNumber = 100
 	end
 	
-	if self.Dead == false && self.Snark_Explodes == true && CurTime() > self.Snark_EnergyTime then
+	if self.Dead == false && self.Snark_Explodes == true && !self.Snark_Exploded && CurTime() > self.Snark_EnergyTime then
+		self.Snark_Exploded = true
+		self:SetState(VJ_STATE_FREEZE)
 		self:PlaySoundSystem("Death")
-		self.Dead = true
+		self.HasDeathSounds = false
 		self:SetGroundEntity(NULL)
 		self:SetLocalVelocity(self:GetUp()*300)
-		timer.Simple(0.7,function()
+		timer.Simple(0.7, function()
 			if IsValid(self) then
-				self:CustomOnKilled(dmginfo,hitgroup)
-				self:Remove()
+				self:TakeDamage(self:Health(), self, self)
 			end
 		end)
 	end
@@ -113,9 +113,9 @@ function ENT:CustomOnLeapAttack_AfterChecks(TheHitEntity)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnKilled(dmginfo,hitgroup)
-	VJ_EmitSound(self,"vj_hlr/hl1_npc/squeek/sqk_blast1.wav",90)
+	VJ_EmitSound(self, "vj_hlr/hl1_npc/squeek/sqk_blast1.wav", 90)
 	if self.Snark_Type == 0 then
-		util.VJ_SphereDamage(self,self,self:GetPos(),50,15,DMG_ACID,true,true)
+		util.VJ_SphereDamage(self, self, self:GetPos(), 50, 15, DMG_ACID, true, true)
 		if self.HasGibDeathParticles == true then
 			local bloodeffect = EffectData()
 			bloodeffect:SetOrigin(self:GetPos() + self:OBBCenter())
@@ -138,7 +138,7 @@ function ENT:CustomOnKilled(dmginfo,hitgroup)
 			util.Effect("StriderBlood",effectdata)
 		end
 	elseif self.Snark_Type == 1 then
-		VJ_EmitSound(self,{"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"},90)
+		VJ_EmitSound(self, {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}, 90)
 		util.BlastDamage(self,self,self:GetPos(),80,35)
 		if self.HasGibDeathParticles == true then
 			local bloodeffect = EffectData()

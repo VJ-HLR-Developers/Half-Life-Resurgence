@@ -71,14 +71,14 @@ function ENT:CustomOnThink()
 	local owner = self:GetOwner()
 	local phys = self:GetPhysicsObject()
 	if IsValid(owner) && IsValid(phys) then
-		local pos = self:GetPos() +self:GetForward() *200
+		local pos = self:GetPos() + self:GetForward()*200
 		if owner:IsNPC() && IsValid(owner:GetEnemy()) then
-			pos = owner:GetEnemy():GetPos() +owner:GetEnemy():OBBCenter()
+			pos = owner:GetEnemy():GetPos() + owner:GetEnemy():OBBCenter()
 		elseif (owner:IsPlayer()) && self.Rocket_Follow == true then
-			pos = self:GetOwner():GetEyeTrace().HitPos
+			pos = owner:GetEyeTrace().HitPos
 		end
 		phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), pos, 2000))
-		self.LastAngle = LerpAngle(FrameTime() *1, self.LastAngle, (pos -self:GetPos()):Angle())
+		self.LastAngle = LerpAngle(FrameTime()*1, self.LastAngle, (pos - self:GetPos()):Angle())
 		-- self:SetAngles((pos - self:GetPos()):Angle())
 		self:SetAngles(self.LastAngle)
 	end
@@ -87,22 +87,22 @@ end
 function ENT:DeathEffects(data,phys)
 	local effectdata = EffectData()
 	effectdata:SetOrigin(data.HitPos)
-	util.Effect( "HelicopterMegaBomb", effectdata )
-	util.Effect( "ThumperDust", effectdata )
-	util.Effect( "Explosion", effectdata )
-	util.Effect( "VJ_Small_Explosion1", effectdata )
+	util.Effect("HelicopterMegaBomb", effectdata)
+	util.Effect("ThumperDust", effectdata)
+	util.Effect("Explosion", effectdata)
+	util.Effect("VJ_Small_Explosion1", effectdata)
 
-	self.ExplosionLight1 = ents.Create("light_dynamic")
-	self.ExplosionLight1:SetKeyValue("brightness", "4")
-	self.ExplosionLight1:SetKeyValue("distance", "300")
-	self.ExplosionLight1:SetLocalPos(data.HitPos)
-	self.ExplosionLight1:SetLocalAngles(self:GetAngles())
-	self.ExplosionLight1:Fire("Color", "255 150 0")
-	self.ExplosionLight1:SetParent(self)
-	self.ExplosionLight1:Spawn()
-	self.ExplosionLight1:Activate()
-	self.ExplosionLight1:Fire("TurnOn", "", 0)
-	self:DeleteOnRemove(self.ExplosionLight1)
+	local lightdyn = ents.Create("light_dynamic")
+	lightdyn:SetKeyValue("brightness", "4")
+	lightdyn:SetKeyValue("distance", "300")
+	lightdyn:SetLocalPos(data.HitPos)
+	lightdyn:SetLocalAngles(self:GetAngles())
+	lightdyn:Fire("Color", "255 150 0")
+	lightdyn:SetParent(self)
+	lightdyn:Spawn()
+	lightdyn:Activate()
+	lightdyn:Fire("TurnOn", "", 0)
+	self:DeleteOnRemove(lightdyn)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
