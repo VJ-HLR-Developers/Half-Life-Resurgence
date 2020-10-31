@@ -23,12 +23,12 @@ ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.MeleeAttackDamage = 35
 ENT.MeleeAttackDamageType = DMG_ALWAYSGIB -- Type of Damage
-ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1,ACT_MELEE_ATTACK2} -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2} -- Melee Attack Animations
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDistance = 50 -- How close does it have to be until it attacks?
 ENT.MeleeAttackDamageDistance = 120 -- How far does the damage go?
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {ACT_HOVER,ACT_DIEVIOLENT,ACT_DIESIMPLE} -- Death Animations
+ENT.AnimTbl_Death = {ACT_HOVER, ACT_DIEVIOLENT, ACT_DIESIMPLE} -- Death Animations
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = {ACT_BIG_FLINCH} -- If it uses normal based animation, use this
@@ -61,10 +61,10 @@ end
 function ENT:CustomOnThink()
 	if self.Dead == false && CurTime() > self.Icky_BlinkingT then
 		self:SetSkin(4)
-		timer.Simple(0.2,function() if IsValid(self) then self:SetSkin(3) end end)
-		timer.Simple(0.3,function() if IsValid(self) then self:SetSkin(2) end end)
-		timer.Simple(0.4,function() if IsValid(self) then self:SetSkin(3) end end)
-		timer.Simple(0.5,function()
+		timer.Simple(0.2, function() if IsValid(self) then self:SetSkin(3) end end)
+		timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(2) end end)
+		timer.Simple(0.4, function() if IsValid(self) then self:SetSkin(3) end end)
+		timer.Simple(0.5, function()
 			if IsValid(self) then 
 				if IsValid(self:GetEnemy()) then
 					self:SetSkin(0)
@@ -73,7 +73,7 @@ function ENT:CustomOnThink()
 				end
 			end
 		end)
-		self.Icky_BlinkingT = CurTime() + math.Rand(2,3.5)
+		self.Icky_BlinkingT = CurTime() + math.Rand(2, 3.5)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -27,7 +27,7 @@ ENT.TimeUntilMeleeAttackDamage = 0.1 -- This counted in seconds | This calculate
 ENT.MeleeAttackDistance = 40 -- How close does it have to be until it attacks?
 ENT.MeleeAttackDamageDistance = 20 -- How far does the damage go?
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {ACT_DIEFORWARD,ACT_DIESIMPLE} -- Death Animations
+ENT.AnimTbl_Death = {ACT_DIEFORWARD, ACT_DIESIMPLE} -- Death Animations
 ENT.PushProps = false -- Should it push props when trying to move?
 ENT.AttackProps = false -- Should it attack props when trying to move?
 	-- ====== Sound File Paths ====== --
@@ -35,17 +35,26 @@ ENT.AttackProps = false -- Should it attack props when trying to move?
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/leech/leech_alert1.wav","vj_hlr/hl1_npc/leech/leech_alert2.wav"}
 //ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/leech/leech_alert1.wav","vj_hlr/hl1_npc/leech/leech_alert2.wav"}
 ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/leech/leech_bite1.wav","vj_hlr/hl1_npc/leech/leech_bite2.wav","vj_hlr/hl1_npc/leech/leech_bite3.wav"}
+
+-- Custom
+ENT.Leech_Idle = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(4, 4, 3), Vector(-4, -4, -2))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if self.Dead == false && self:WaterLevel() == 0 then
+	if self.Leech_Idle == 0 && self:WaterLevel() == 0 then
+		self.Leech_Idle = 1
 		self.HasMeleeAttack = false
+		self.HasDeathAnimation = false
+		self.NextIdleStandTime = 0
 		self.AnimTbl_IdleStand = {ACT_HOP}
-	else
+	elseif self.Leech_Idle == 1 && self:WaterLevel() > 0 then
+		self.Leech_Idle = 0
 		self.HasMeleeAttack = true
+		self.HasDeathAnimation = true
+		self.NextIdleStandTime = 0
 		self.AnimTbl_IdleStand = {"swim"}
 	end
 end
