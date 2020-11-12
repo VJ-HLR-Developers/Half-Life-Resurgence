@@ -9,7 +9,7 @@ ENT.Model = {"models/vj_hlr/hl1/alien_cannon_top.mdl"} -- The game will pick a r
 ENT.StartHealth = 100
 ENT.HullType = HULL_WIDE_SHORT
 ENT.TurningSpeed = 20 -- How fast it can turn
-ENT.SightDistance = 8000 -- How far it can see
+ENT.SightDistance = 6000 -- How far it can see
 ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
 ENT.TurningUseAllAxis = true -- If set to true, angles will not be restricted to y-axis, it will change all axes (plural axis)
@@ -20,9 +20,9 @@ ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
-ENT.RangeDistance = 8000 -- This is how far away it can shoot
+ENT.RangeDistance = 6000 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
-ENT.RangeAttackAngleRadius = 180 -- What is the attack angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
+ENT.RangeAttackAngleRadius = 10 -- What is the attack angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
 ENT.TimeUntilRangeAttackProjectileRelease = 0 -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 0.5 -- How much time until it can use a range attack?
 
@@ -65,12 +65,13 @@ end
 function ENT:CustomOnThink()
 	self.extmdl:SetPos(self:GetPos())
 end
+local laserdmg = 50
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
 	local startpos = self:GetAttachment(1).Pos
 	local tr = util.TraceLine({
 		start = startpos,
-		endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(),
+		endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter() + VectorRand(-15, 15),
 		filter = {self, self.extmdl}
 	})
 	local hitpos = tr.HitPos
@@ -80,7 +81,7 @@ function ENT:CustomRangeAttackCode()
 	elec:SetEntity(self)
 	elec:SetAttachment(1)
 	util.Effect("VJ_HLR_XenCannon_Beam", elec)
-	util.VJ_SphereDamage(self, self, hitpos, 30, 20, DMG_ENERGYBEAM, true, false, {Force=90})
+	util.VJ_SphereDamage(self, self, hitpos, 30, laserdmg, DMG_ENERGYBEAM, true, false, {Force=90})
 	VJ_EmitSound(self, "vj_hlr/hl1_npc/xencannon/fire.wav", 90, 100)
 	sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitpos, 60)
 	
