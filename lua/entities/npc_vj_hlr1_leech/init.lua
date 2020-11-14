@@ -14,6 +14,7 @@ ENT.Aquatic_SwimmingSpeed_Calm = 80 -- The speed it should swim with, when it's 
 ENT.Aquatic_SwimmingSpeed_Alerted = 200 -- The speed it should swim with, when it's chasing an enemy, moving away quickly, etc. | Basically running campared to ground SNPCs
 ENT.Aquatic_AnimTbl_Calm = {"swim"} -- Animations it plays when it's wandering around while idle
 ENT.Aquatic_AnimTbl_Alerted = {"swim2"} -- Animations it plays when it's moving while alerted
+ENT.IdleAlwaysWander = true -- If set to true, it will make the SNPC always wander when idling
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)

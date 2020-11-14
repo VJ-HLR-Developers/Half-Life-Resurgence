@@ -107,9 +107,17 @@ end
 function ENT:CustomOnThink_AIEnabled()
 	if self.Dead == true then return end
 	if IsValid(self:GetEnemy()) && self:BusyWithActivity() != true && CurTime() > self.Tor_NextSpawnT && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP))) && (!IsValid(self.Tor_Ally1) or !IsValid(self.Tor_Ally2) or !IsValid(self.Tor_Ally3)) then
-		self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_GROUP, true, false)
-		VJ_EmitSound(self, "vj_hlr/hlsc_npc/tor/tor-summon.wav")
-		self.Tor_NextSpawnT = CurTime() + 10
+		-- Make sure not to place it if the front of the NPC is blocked!
+		local tr = util.TraceLine({
+			start = self:GetPos() + self:OBBCenter(),
+			endpos = self:GetPos() + self:OBBCenter() + self:GetForward()*150,
+			filter = self
+		})
+		if !tr.Hit then
+			self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_GROUP, true, false)
+			VJ_EmitSound(self, "vj_hlr/hlsc_npc/tor/tor-summon.wav")
+			self.Tor_NextSpawnT = CurTime() + 10
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -121,7 +129,7 @@ function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(TheProjectile)
 	if IsValid(self:GetEnemy()) then
 		TheProjectile.EO_Enemy = self:GetEnemy()
 		TheProjectile.EO_SpriteScale = (self.Tor_Level == 0 and 0.6) or 1
-		TheProjectile.DirectDamage = (self.Tor_Level == 0 and 20) or 10
+		TheProjectile.DirectDamage = (self.Tor_Level == 0 and 10) or 20
 		timer.Simple(10,function() if IsValid(TheProjectile) then TheProjectile:Remove() end end)
 	end
 end
@@ -131,7 +139,7 @@ function ENT:RangeAttackCode_GetShootPos(TheProjectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tor_CreateAlly()
-	spawnpos = self:GetPos() + self:GetForward() * 100 + self:GetUp() * 5
+	local spawnpos = self:GetPos() + self:GetForward() * 100 + self:GetUp() * 5
 	local ally = ents.Create("npc_vj_hlr1_aliengrunt")
 	ally:SetPos(spawnpos)
 	ally:SetAngles(self:GetAngles())

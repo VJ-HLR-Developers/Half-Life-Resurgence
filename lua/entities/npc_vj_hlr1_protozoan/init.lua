@@ -26,6 +26,13 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/protozoan/chirp03.wav","vj_hlr/hl1_npc/pro
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(28, 28, 65), Vector(-28, -28, 0))
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnKilled(dmginfo,hitgroup)
+	//ParticleEffect("vj_hl_blood_boob_yellow", self:GetPos() + self:OBBCenter(), self:GetAngles())
+	local effectdata = EffectData()
+	effectdata:SetOrigin(self:GetPos() + self:OBBCenter())
+	util.Effect("VJ_HLR_Protozoan_Pop", effectdata)
+end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
