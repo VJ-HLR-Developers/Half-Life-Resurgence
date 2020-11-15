@@ -15,7 +15,10 @@ ENT.CustomBlood_Particle = {"vj_hl_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 
-ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2, ACT_MELEE_ATTACK_SWING, ACT_SPECIAL_ATTACK1, ACT_RANGE_ATTACK2} -- Melee Attack Animations
+-- ACT_MELEE_ATTACK2, ACT_SPECIAL_ATTACK1    = Swing / stab
+-- ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK_SWING = Cutting (dozen times)
+-- ACT_RANGE_ATTACK2						 = Sonic attack (This must be inputted twice so it has a fair chance to the other attacks!)
+ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2, ACT_SPECIAL_ATTACK1, ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK_SWING, ACT_MELEE_ATTACK2, ACT_SPECIAL_ATTACK1} -- Melee Attack Animations
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDistance = 40 -- How close does it have to be until it attacks?
 ENT.MeleeAttackDamageDistance = 70 -- How far does the damage go?
@@ -93,7 +96,8 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	if key == "attack_slam" then
 		self.HasMeleeAttackMissSounds = false
 		self.DisableDefaultMeleeAttackCode = true
-		effects.BeamRingPoint(self:GetPos() + self:GetForward()*20, 0.3, 2, 600, 36, 0, Color(0,255,0), {framerate=20, flags=0})
+		VJ_EmitSound(self, {"vj_hlr/hlsc_npc/tor/tor-staff-discharge.wav"}, 90)
+		effects.BeamRingPoint(self:GetPos() + self:GetForward()*20, 0.3, 2, 600, 36, 0, (self.Tor_Level == 0 and Color(0, 255, 0)) or Color(0, 0, 255), {framerate=20, flags=0})
 		util.ScreenShake(self:GetPos() + self:GetForward()*20, 10, 10, 1, 1000)
 		util.Decal("VJ_HLR_Gargantua_Stomp", self:GetPos() + self:GetForward()*20, self:GetPos() + self:GetForward()*20 + self:GetUp()*-100, self)
 		util.VJ_SphereDamage(self, self, self:GetPos() + self:GetForward()*20, 500, (self.Tor_Level == 0 and 40) or 60, DMG_SONIC, true, true, {DisableVisibilityCheck=true, Force=20})
