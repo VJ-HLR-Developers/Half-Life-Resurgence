@@ -1,6 +1,8 @@
 # Half-Life-Resurgence
 An addon for Garry's Mod that aims to recreate NPCs, entities and weapons from the Half-Life series.
 
+**ROADMAP:** https://github.com/orgs/VJ-HLR-Developers/projects/1
+
 ### What the goals for Half-Life Resurgence? Here is a quick list:
 - Recreate every possible NPC, entity, and some weapons from the Half-Life series in Garry's Mod using Lua.
 - Keep the original effects, particles, decals and textures. This is something that was never done in Garry's Mod before.
@@ -9,5 +11,5 @@ An addon for Garry's Mod that aims to recreate NPCs, entities and weapons from t
 - Another goal is to make every single NPC fully controllable, allowing the player to play as an character they want!
 
 ### List of branches:
->* **master**  --->  The base pack
+>* **master**  --->  The base pack.
 >* **hlr_hd**  --->  HD version of the base pack (Mostly for *Half-Life 1* NPCs).
