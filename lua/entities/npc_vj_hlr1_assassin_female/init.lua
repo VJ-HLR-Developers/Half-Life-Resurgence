@@ -45,6 +45,13 @@ ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_
 
 ENT.FootStepSoundLevel = 55
 
+ENT.VJC_Data = {
+    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
+    ThirdP_Offset = Vector(-25, 0, -15), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bone10", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(-1, 0, -1), -- The offset for the controller when the camera is in first person
+}
+
 -- Custom
 ENT.BOA_LastBodyGroup = 1
 ENT.BOA_NextJumpT = 0

@@ -13,10 +13,12 @@ ENT.LeapAttackDamage = 5
 ENT.GeneralSoundPitch1 = 120
 ENT.GeneralSoundPitch2 = 120
 
-	-- ====== Controller Variables ====== --
-ENT.Controller_FirstPersonBone = "Bip01 Neck"
-ENT.Controller_FirstPersonOffset = Vector(0,0,2)
-ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+ENT.VJC_Data = {
+    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
+    ThirdP_Offset = Vector(10, 0, -5), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bip01 Neck", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(0, 0, 3.5), -- The offset for the controller when the camera is in first person
+}
 
 -- Custom
 ENT.BabH_Mother = NULL

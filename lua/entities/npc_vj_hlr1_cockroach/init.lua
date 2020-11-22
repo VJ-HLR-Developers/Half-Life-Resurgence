@@ -23,10 +23,13 @@ ENT.FootStepTimeWalk = 3 -- Next foot step sound when it is walking
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/roach/rch_walk.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/roach/rch_die.wav"}
 
-	-- ====== Controller Variables ====== --
-ENT.Controller_FirstPersonBone = "Dummy01"
-ENT.Controller_FirstPersonOffset = Vector(2,0,2)
-ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+
+ENT.VJC_Data = {
+    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
+    ThirdP_Offset = Vector(38, 0, 0), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Dummy01", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(0, 0, 3), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(2, 2, 2), Vector(-2, -2, 0))

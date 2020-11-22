@@ -42,6 +42,12 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/sphere/sp_die.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 
+ENT.VJC_Data = {
+    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
+    ThirdP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bone02", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(0, 0, 7), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(8,8,12), Vector(-8,-8,0))

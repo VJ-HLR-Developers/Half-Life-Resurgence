@@ -38,6 +38,15 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/turret/tu_die.wav","vj_hlr/hl1_npc/turret/
 
 ENT.GeneralSoundPitch1 = 100
 
+ENT.VJC_Data = {
+    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
+    ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Dummy03", -- If left empty, the base will attempt to calculate a position for first person
+    -- FirstP_Bone = "GButt01", -- If left empty, the base will attempt to calculate a position for first person
+    -- FirstP_Offset = Vector(0, 0, -5), -- The offset for the controller when the camera is in first person
+    FirstP_Offset = Vector(0, 0, 4), -- The offset for the controller when the camera is in first person
+}
+
 -- Custom
 ENT.Sentry_MuzzleAttach = "0" -- The bullet attachment
 ENT.Sentry_AlarmAttach = "1" -- Attachment that the alarm sprite spawns

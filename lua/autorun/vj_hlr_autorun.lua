@@ -348,6 +348,8 @@ if VJExists == true then
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	VJ.AddClientConVar("vj_hlr2_csniper_strict", 1, "Use strict laser pointer for the Combine Sniper")
 	
+	VJ.AddClientConVar("vj_hlr_sparkfx",0,"Allow spark effects to be created when a HLR1 bullet hits a metal surface")
+	
 	VJ.AddConVar("vj_hl2c_soldier_h",60)
 	VJ.AddConVar("vj_hl2c_soldierprison_h",75)
 	VJ.AddConVar("vj_hl2c_soldierelite_h",100)

@@ -12,6 +12,28 @@ function EFFECT:Init(data) // You're welcome @DrVrej for not making the effect n
 	if Emitter == nil then return end
 
 	sound.Play("vj_hlr/fx/ric" .. math.random(1,5) .. ".wav",self.Pos,80,100)
+
+	if GetConVarNumber("vj_hlr_sparkfx") == 1 then
+		for i = 1,math.random(5,15) do
+			local particle = Emitter:Add("vj_hl/tracer_middle",self.Pos)
+			particle:SetVelocity(VectorRand() *math.Rand(100,350))
+			particle:SetDieTime(math.Rand(0.1,1))
+			particle:SetStartAlpha(200)
+			particle:SetEndAlpha(0)
+			particle:SetStartSize(1)
+			particle:SetEndSize(3)
+			particle:SetRoll(math.random(0,360))
+			particle:SetGravity(Vector(math.random(-300,300),math.random(-300,300),math.random(-300,-700)))
+			particle:SetCollide(true)
+			particle:SetBounce(0.9)
+			particle:SetAirResistance(120)
+			particle:SetStartLength(0)
+			particle:SetEndLength(0.1)
+			particle:SetVelocityScale(true)
+			particle:SetCollide(true)
+			particle:SetColor(255,231,166)
+		end
+	end
 	
 	local effect = self.EffectType or math.random(1,2)
 	if effect == 1 then

@@ -53,10 +53,12 @@ ENT.GeneralSoundPitch2 = 100
 ENT.DeathSoundPitch1 = 100
 ENT.DeathSoundPitch2 = 100
 
-	-- ====== Controller Variables ====== --
-ENT.Controller_FirstPersonBone = "Bip01 Head"
-ENT.Controller_FirstPersonOffset = Vector(0,0,0.5)
-ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+ENT.VJC_Data = {
+    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
+    ThirdP_Offset = Vector(-5, 0, 0), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(1, 0, 0.5), -- The offset for the controller when the camera is in first person
+}
 
 -- Custom
 ENT.Snark_Explodes = true

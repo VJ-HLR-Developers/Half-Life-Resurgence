@@ -40,6 +40,13 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/tentacle/te_death2.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 
+ENT.VJC_Data = {
+    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
+    ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Dummy04", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(23, 0, 35), -- The offset for the controller when the camera is in first person
+}
+
 -- Custom
 ENT.Tentacle_Level = 0
 	-- 0 = Floor level

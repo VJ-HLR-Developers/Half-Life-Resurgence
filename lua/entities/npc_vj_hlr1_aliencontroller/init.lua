@@ -49,10 +49,12 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/controller/con_die1.wav","vj_hlr/hl1_npc/c
 
 ENT.GeneralSoundPitch1 = 100
 
-	-- ====== Controller Variables ====== --
-ENT.Controller_FirstPersonBone = "Bip01 Head"
-ENT.Controller_FirstPersonOffset = Vector(4,0,0)
-ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+ENT.VJC_Data = {
+    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
+    ThirdP_Offset = Vector(-25, 0, -15), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(7, 0, 3), -- The offset for the controller when the camera is in first person
+}
 
 -- Custom
 ENT.AlienC_AttackType = false -- 0 = Regular, 1 = Homing

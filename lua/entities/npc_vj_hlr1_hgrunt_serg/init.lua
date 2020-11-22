@@ -21,6 +21,13 @@ ENT.BreathSoundLevel = 80
 ENT.GeneralSoundPitch1 = 80
 ENT.GeneralSoundPitch2 = 80
 
+ENT.VJC_Data = {
+    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
+    ThirdP_Offset = Vector(-10, 0, -25), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(4, 0, 5), -- The offset for the controller when the camera is in first person
+}
+
 -- Custom
 ENT.Serg_SpinUpT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------

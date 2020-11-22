@@ -55,6 +55,12 @@ ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/archer/arch_attack1.wav","vj_h
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/archer/arch_pain1.wav","vj_hlr/hl1_npc/archer/arch_pain2.wav","vj_hlr/hl1_npc/archer/arch_pain3.wav","vj_hlr/hl1_npc/archer/arch_pain4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/archer/arch_die1.wav","vj_hlr/hl1_npc/archer/arch_die2.wav","vj_hlr/hl1_npc/archer/arch_die3.wav"}
 
+ENT.VJC_Data = {
+    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
+    ThirdP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(0, 0, 5), -- The offset for the controller when the camera is in first person
+}
 -- Custom
 ENT.Archer_BlinkingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------

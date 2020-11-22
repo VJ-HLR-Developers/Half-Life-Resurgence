@@ -33,6 +33,13 @@ ENT.SoundTbl_OnPlayerSight = {"vj_hlr/hl1_npc/gman/gman_suit.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 
+ENT.VJC_Data = {
+    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
+    ThirdP_Offset = Vector(-25, 0, -15), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(6, 0, 5), -- The offset for the controller when the camera is in first person
+}
+
 -- Custom
 ENT.GMAN_NextMouthMove = 0
 ENT.GMAN_NextMouthDistance = 0
