@@ -7,11 +7,6 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.StartHealth = 100
 
-	-- ====== Controller Variables ====== --
-ENT.Controller_FirstPersonBone = "Bip02 Head"
-ENT.Controller_FirstPersonOffset = Vector(4,0,4.2)
-ENT.Controller_FirstPersonAngle = Angle(90,0,90)
-
 /*
 -- Can't reach player, unfollow
 "vj_hlr/hl1_npc/rosenberg/ro_stop0.wav"

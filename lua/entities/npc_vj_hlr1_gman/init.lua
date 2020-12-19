@@ -8,6 +8,10 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/hl1/gman.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 999999
 ENT.HullType = HULL_HUMAN
+ENT.VJC_Data = {
+    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(6, 0, 5), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE -- Doesn't attack anything
@@ -32,13 +36,6 @@ ENT.SoundTbl_UnFollowPlayer = {"vj_hlr/hl1_npc/gman/gman_nowork.wav","vj_hlr/hl1
 ENT.SoundTbl_OnPlayerSight = {"vj_hlr/hl1_npc/gman/gman_suit.wav"}
 
 ENT.GeneralSoundPitch1 = 100
-
-ENT.VJC_Data = {
-    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-    ThirdP_Offset = Vector(-25, 0, -15), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(6, 0, 5), -- The offset for the controller when the camera is in first person
-}
 
 -- Custom
 ENT.GMAN_NextMouthMove = 0

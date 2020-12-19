@@ -8,6 +8,10 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/hl1/panthereye.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 150
 ENT.HullType = HULL_WIDE_SHORT
+ENT.VJC_Data = {
+    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(4, 0, 6), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
@@ -57,13 +61,6 @@ ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/panther/p_pain1.wav","vj_hlr/hl1_npc/panthe
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/panther/p_die1.wav","vj_hlr/hl1_npc/panther/p_die2.wav"}
 
 ENT.GeneralSoundPitch1 = 100
-
-ENT.VJC_Data = {
-    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-    ThirdP_Offset = Vector(-25, 0, -5), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(4, 0, 6), -- The offset for the controller when the camera is in first person
-}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(25, 25, 55), Vector(-25, -25, 0))

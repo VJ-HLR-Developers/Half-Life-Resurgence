@@ -9,6 +9,11 @@ ENT.Model = {"models/vj_hlr/hl1/snark.mdl"} -- The game will pick a random model
 ENT.StartHealth = 5
 ENT.HullType = HULL_TINY
 ENT.EntitiesToNoCollide = {"npc_vj_hlr1_snark"} -- Entities to not collide with when HasEntitiesToNoCollide is set to true
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(1, 0, 0.5), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_SNARK"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
@@ -52,13 +57,6 @@ ENT.GeneralSoundPitch2 = 100
 
 ENT.DeathSoundPitch1 = 100
 ENT.DeathSoundPitch2 = 100
-
-ENT.VJC_Data = {
-    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-    ThirdP_Offset = Vector(-5, 0, 0), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(1, 0, 0.5), -- The offset for the controller when the camera is in first person
-}
 
 -- Custom
 ENT.Snark_Explodes = true

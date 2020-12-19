@@ -6,6 +6,12 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/opfor/otis.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(10, 0, -30), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(4, 0, 5), -- The offset for the controller when the camera is in first person
+	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+}
 ENT.StartHealth = 100
 
 /*
@@ -20,11 +26,6 @@ vj_hlr/hl1_npc/otis/of2a6_ot01.wav
 vj_hlr/hl1_npc/otis/of3a2_ot01.wav
 vj_hlr/hl1_npc/otis/of6a3_ot01.wav
 */
-
-	-- ====== Controller Variables ====== --
-ENT.Controller_FirstPersonBone = "Bip01 Head"
-ENT.Controller_FirstPersonOffset = Vector(1,0,4)
-ENT.Controller_FirstPersonAngle = Angle(90,0,90)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Security_CustomOnInitialize()
 	self.SoundTbl_Idle = {"vj_hlr/hl1_npc/otis/stupidmachines.wav","vj_hlr/hl1_npc/otis/mmmm.wav","vj_hlr/hl1_npc/otis/janitor.wav","vj_hlr/hl1_npc/otis/insurance.wav","vj_hlr/hl1_npc/otis/candy.wav","vj_hlr/hl1_npc/otis/chili.wav","vj_hlr/hl1_npc/otis/cousin.wav"}

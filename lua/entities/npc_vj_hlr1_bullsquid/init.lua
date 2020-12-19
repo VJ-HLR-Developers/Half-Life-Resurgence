@@ -8,6 +8,11 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/hl1/bullsquid.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 120
 ENT.HullType = HULL_WIDE_SHORT
+ENT.VJC_Data = {
+    FirstP_Bone = "Bip01 Spine1", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(10, 0, 11.5), -- The offset for the controller when the camera is in first person
+	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
@@ -55,22 +60,15 @@ ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/bullchicken/bc_attack2.wav","vj_hlr/
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/bullchicken/bc_pain1.wav","vj_hlr/hl1_npc/bullchicken/bc_pain2.wav","vj_hlr/hl1_npc/bullchicken/bc_pain3.wav","vj_hlr/hl1_npc/bullchicken/bc_pain4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/bullchicken/bc_die1.wav","vj_hlr/hl1_npc/bullchicken/bc_die2.wav","vj_hlr/hl1_npc/bullchicken/bc_die3.wav"}
 
-ENT.VJC_Data = {
-    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-    ThirdP_Offset = Vector(-5, 0, 0), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(-8, 0, 15), -- The offset for the controller when the camera is in first person
-}
-
 -- Custom
 ENT.Bullsquid_Type = 0 -- 0 = Retail Half-Life 1 | Alpha Half-Life 1
 ENT.Bullsquid_BlinkingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	if self.Bullsquid_Type == 1 then
-		self:SetCollisionBounds(Vector(52, 52 , 60), Vector(-52, -52, 0))
+		self:SetCollisionBounds(Vector(35, 35 , 60), Vector(-35, -35, 0))
 	else
-		self:SetCollisionBounds(Vector(40, 40 , 40), Vector(-40, -40, 0))
+		self:SetCollisionBounds(Vector(30, 30 , 44), Vector(-30, -30, 0))
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

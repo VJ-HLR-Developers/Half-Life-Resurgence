@@ -10,6 +10,11 @@ ENT.StartHealth = 2000
 ENT.HullType = HULL_LARGE
 ENT.VJ_IsHugeMonster = true -- Is this a huge monster?
 ENT.EntitiesToNoCollide = {"npc_vj_hlr1_headcrab_baby","npc_vj_hlr1_headcrab","npc_vj_hlr1a_headcrab"} -- Entities to not collide with when HasEntitiesToNoCollide is set to true
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(-100, 0, -70), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bip01 Neck", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(0, 0, -5), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Particle = {"vj_hl_blood_yellow_large"}
@@ -68,13 +73,6 @@ ENT.AllyDeathSoundChance = 1
 ENT.FootStepSoundLevel = 80
 ENT.GeneralSoundPitch1 = 100
 ENT.AllyDeathSoundLevel = 90
-
-ENT.VJC_Data = {
-    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-    ThirdP_Offset = Vector(-100, 0, -70), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 Neck", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(0, 0, -5), -- The offset for the controller when the camera is in first person
-}
 
 -- Custom
 ENT.Gonarch_NextBirthT = 0

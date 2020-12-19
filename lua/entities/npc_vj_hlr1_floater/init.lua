@@ -10,10 +10,15 @@ ENT.StartHealth = 45
 ENT.HullType = HULL_TINY
 ENT.MovementType = VJ_MOVETYPE_AERIAL -- How does the SNPC move?
 ENT.Aerial_FlyingSpeed_Calm = 100 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking campared to ground SNPCs
-ENT.Aerial_FlyingSpeed_Alerted = 200 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running campared to ground SNPCs
+ENT.Aerial_FlyingSpeed_Alerted = 180 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running campared to ground SNPCs
 ENT.Aerial_AnimTbl_Calm = {ACT_WALK} -- Animations it plays when it's wandering around while idle
 ENT.Aerial_AnimTbl_Alerted = {ACT_RUN} -- Animations it plays when it's moving while alerted
 ENT.AA_ConstantlyMove = true -- Used for aerial and aquatic SNPCs, makes them constantly move
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bone01", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(1, 0, 5), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.IdleAlwaysWander = true -- If set to true, it will make the SNPC always wander when idling
 ENT.CanOpenDoors = false -- Can it open doors?
@@ -51,13 +56,6 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/floater/fl_pain1.wav","vj_hlr/hl1_npc/floa
 
 ENT.GeneralSoundPitch1 = 100
 
-ENT.VJC_Data = {
-    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-    ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bone01", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(1, 0, 5), -- The offset for the controller when the camera is in first person
-}
-
 -- Custom
 ENT.Floater_PosForward = 0
 ENT.Floater_PosUp = 0
@@ -85,9 +83,9 @@ end
 function ENT:CustomOnThink()
 	if !IsValid(self:GetEnemy()) then
 		if IsValid(HLR_Floater_Leader) then
-			if HLR_Floater_Leader != self then
+			if HLR_Floater_Leader != self /*&& HLR_Floater_Leader:GetPos():Distance(self:GetPos()) > 10*/ then
 				self.DisableWandering = true
-				self:AAMove_MoveToPos(HLR_Floater_Leader,true,{PosForward=self.Floater_PosForward,PosUp=self.Floater_PosUp,PosRight=self.Floater_PosRight}) -- Medzavorin haladz e (Kharen deghme)
+				self:AAMove_MoveToPos(HLR_Floater_Leader, true, "Calm", {PosForward=self.Floater_PosForward,PosUp=self.Floater_PosUp,PosRight=self.Floater_PosRight}) -- Medzavorin haladz e (Kharen deghme)
 			end
 		else
 			self.DisableWandering = false

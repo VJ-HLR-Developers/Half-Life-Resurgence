@@ -8,6 +8,11 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/opfor/strooper.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 150
 ENT.HullType = HULL_HUMAN
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(15, 0, -15), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(10, 0, 0), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
@@ -55,12 +60,6 @@ ENT.SoundTbl_OnKilledEnemy = {"vj_hlr/hl1_npc/shocktrooper/st_combat1.wav"}
 
 ENT.OnGrenadeSightSoundPitch1 = 105
 ENT.OnGrenadeSightSoundPitch2 = 110
-
-	-- ====== Controller Variables ====== --
-ENT.Controller_FirstPersonBone = "Bip01 Head"
-ENT.Controller_FirstPersonOffset = Vector(1,0,-3)
--- ENT.Controller_FirstPersonOffset = Vector(-22,0,-8)
-ENT.Controller_FirstPersonAngle = Angle(90,0,90)
 
 -- Custom
 ENT.Shocktrooper_BlinkingT = 0

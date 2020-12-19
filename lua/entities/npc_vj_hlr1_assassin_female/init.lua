@@ -9,6 +9,12 @@ ENT.Model = {"models/vj_hlr/hl1/hassassin.mdl"} -- The game will pick a random m
 ENT.StartHealth = 60
 ENT.HullType = HULL_HUMAN
 ENT.MaxJumpLegalDistance = VJ_Set(520, 620) -- The max distance the NPC can jump (Usually from one node to another)
+ENT.VJC_Data = {
+	//FirstP_Bone = "bip01 head", -- If left empty, the base will attempt to calculate a position for first person
+	//FirstP_Offset = Vector(6, 0, 2.5), -- The offset for the controller when the camera is in first person
+	FirstP_Bone = "bone10", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(-1, 0, -1), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Particle = {"vj_hl_blood_red"}
@@ -44,13 +50,6 @@ ENT.DeathAnimationTime = false -- Time until the SNPC spawns its corpse and gets
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
 
 ENT.FootStepSoundLevel = 55
-
-ENT.VJC_Data = {
-    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-    ThirdP_Offset = Vector(-25, 0, -15), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bone10", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(-1, 0, -1), -- The offset for the controller when the camera is in first person
-}
 
 -- Custom
 ENT.BOA_LastBodyGroup = 1

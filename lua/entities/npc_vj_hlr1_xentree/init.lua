@@ -12,6 +12,12 @@ ENT.StartHealth = 200
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
 ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
 ENT.HullType = HULL_LARGE
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(40, 0, -100), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(15, 0, 15), -- The offset for the controller when the camera is in first person
+	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Particle = {"vj_hl_blood_yellow"}

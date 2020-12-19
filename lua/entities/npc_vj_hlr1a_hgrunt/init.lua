@@ -9,11 +9,11 @@ ENT.Model = {"models/vj_hlr/hla/hgrunt.mdl"} -- The game will pick a random mode
 ENT.HasGrenadeAttack = false
 ENT.MoveRandomlyWhenShooting = true -- Should it move randomly when shooting?
 ENT.WeaponAttackSecondaryTimeUntilFire = 1.2
-
-	-- ====== Controller Variables ====== --
-ENT.Controller_FirstPersonBone = "unnamed022"
-ENT.Controller_FirstPersonOffset = Vector(2,0,3)
-ENT.Controller_FirstPersonAngle = Angle(90,0,90)
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "unnamed022", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(2, 0, 5), -- The offset for the controller when the camera is in first person
+}
 
 -- Custom
 ENT.AHGR_NextStrafeT = 0

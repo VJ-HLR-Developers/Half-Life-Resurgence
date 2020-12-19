@@ -8,6 +8,12 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/opfor/voltigore.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 320
 ENT.HullType = HULL_LARGE
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bone41", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(10, 0, 0), -- The offset for the controller when the camera is in first person
+	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)

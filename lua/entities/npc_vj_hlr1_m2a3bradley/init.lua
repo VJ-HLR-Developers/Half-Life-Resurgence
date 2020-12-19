@@ -7,8 +7,14 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hl1/apc_body.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
 ENT.StartHealth = 350
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(-40, 0, 20), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "static _prop", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(0, 0, 50), -- The offset for the controller when the camera is in first person
+	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other\
+ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
 ENT.DeathCorpseModel = {"models/vj_hlr/hl1/apc_body_destroyed.mdl"} -- The corpse model that it will spawn when it dies | Leave empty to use the NPC's model | Put as many models as desired, the base will pick a random one.
 
 ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/tanks/bradley_idle.wav"}
@@ -67,7 +73,7 @@ function ENT:Tank_CustomOnThink()
 		self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
 		self:VJ_ACT_PLAYACTIVITY(ACT_SPECIAL_ATTACK1,true,false,false)
 		self.Bradley_HasSpawnedSoldiers = true
-		timer.Simple(0.5,function()
+		timer.Simple(0.5, function()
 			if IsValid(self) then
 				if self.Bradley_DoorOpen == false then
 					self.Bradley_HasSpawnedSoldiers = false
@@ -76,31 +82,37 @@ function ENT:Tank_CustomOnThink()
 						local hgrunt = ents.Create("npc_vj_hlr1_hgrunt")
 						local rnum = 25
 						if i == 2 then rnum = -25 end
-						hgrunt:SetPos(self:GetPos() + self:GetForward()*-150 + self:GetRight()*rnum + self:GetUp()*10)
-						hgrunt:SetAngles(-self:GetAngles())
+						hgrunt:SetPos(self:GetPos() + self:GetForward()*-160 + self:GetRight()*rnum + self:GetUp()*10)
+						hgrunt:SetAngles(Angle(0, self:GetAngles().y + 180, 0))
 						hgrunt:Spawn()
 						hgrunt:VJ_DoSetEnemy(self:GetEnemy(),true)
-						timer.Simple(0.2,function() if IsValid(hgrunt) then hgrunt:SetLastPosition(self:GetPos() + self:GetForward()*-280 + self:GetRight()*rnum); hgrunt:VJ_TASK_GOTO_LASTPOS("TASK_RUN_PATH") end end)
+						hgrunt:SetState(VJ_STATE_FREEZE)
+						timer.Simple(0.2,function() if IsValid(hgrunt) then hgrunt:SetState(VJ_STATE_NONE) hgrunt:SetLastPosition(self:GetPos() + self:GetForward()*-280 + self:GetRight()*rnum); hgrunt:VJ_TASK_GOTO_LASTPOS("TASK_RUN_PATH") end end)
+						if i == 1 then self.Bradley_S1 = hgrunt else self.Bradley_S2 = hgrunt end -- Set the hgrunt to be registered as a child
 					end
 					for i=1,2 do
 						local hgrunt = ents.Create("npc_vj_hlr1_hgrunt")
 						local rnum = 25
 						if i == 2 then rnum = -25 end
 						hgrunt:SetPos(self:GetPos() + self:GetForward()*-220 + self:GetRight()*rnum + self:GetUp()*5)
-						hgrunt:SetAngles(-self:GetAngles())
+						hgrunt:SetAngles(Angle(0, self:GetAngles().y + 180, 0))
 						hgrunt:Spawn()
 						hgrunt:VJ_DoSetEnemy(self:GetEnemy(),true)
-						timer.Simple(0.2,function() if IsValid(hgrunt) then hgrunt:SetLastPosition(self:GetPos() + self:GetForward()*-370 + self:GetRight()*rnum); hgrunt:VJ_TASK_GOTO_LASTPOS("TASK_RUN_PATH") end end)
+						hgrunt:SetState(VJ_STATE_FREEZE)
+						timer.Simple(0.2,function() if IsValid(hgrunt) then hgrunt:SetState(VJ_STATE_NONE) hgrunt:SetLastPosition(self:GetPos() + self:GetForward()*-370 + self:GetRight()*rnum); hgrunt:VJ_TASK_GOTO_LASTPOS("TASK_RUN_PATH") end end)
+						if i == 1 then self.Bradley_S3 = hgrunt else self.Bradley_S4 = hgrunt end -- Set the hgrunt to be registered as a child
 					end
 					for i=1,2 do
 						local hgrunt = ents.Create("npc_vj_hlr1_hgrunt")
 						local rnum = 25
 						if i == 2 then rnum = -25 end
 						hgrunt:SetPos(self:GetPos() + self:GetForward()*-290 + self:GetRight()*rnum + self:GetUp()*5)
-						hgrunt:SetAngles(-self:GetAngles())
+						hgrunt:SetAngles(Angle(0, self:GetAngles().y + 180, 0))
 						hgrunt:Spawn()
 						hgrunt:VJ_DoSetEnemy(self:GetEnemy(),true)
-						timer.Simple(0.2,function() if IsValid(hgrunt) then hgrunt:SetLastPosition(self:GetPos() + self:GetForward()*-440 + self:GetRight()*rnum); hgrunt:VJ_TASK_GOTO_LASTPOS("TASK_RUN_PATH") end end)
+						hgrunt:SetState(VJ_STATE_FREEZE)
+						timer.Simple(0.2,function() if IsValid(hgrunt) then hgrunt:SetState(VJ_STATE_NONE) hgrunt:SetLastPosition(self:GetPos() + self:GetForward()*-440 + self:GetRight()*rnum); hgrunt:VJ_TASK_GOTO_LASTPOS("TASK_RUN_PATH") end end)
+						if i == 1 then self.Bradley_S5 = hgrunt else self.Bradley_S6 = hgrunt end -- Set the hgrunt to be registered as a child
 					end
 				end
 			end
@@ -232,6 +244,18 @@ function ENT:Tank_CustomOnDeath_AfterCorpseSpawned_Effects(dmginfo,hitgroup,GetC
 	spr:Fire("Kill","",0.9)
 	timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
 	return false
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRemove()
+	-- If the NPC was removed, then remove its children as well, but not when it's killed!
+	if self.Dead == false then
+		if IsValid(self.Bradley_S1) then self.Bradley_S1:Remove() end
+		if IsValid(self.Bradley_S2) then self.Bradley_S2:Remove() end
+		if IsValid(self.Bradley_S3) then self.Bradley_S3:Remove() end
+		if IsValid(self.Bradley_S4) then self.Bradley_S4:Remove() end
+		if IsValid(self.Bradley_S5) then self.Bradley_S5:Remove() end
+		if IsValid(self.Bradley_S6) then self.Bradley_S6:Remove() end
+	end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***

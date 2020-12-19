@@ -8,6 +8,11 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/hl1/scientist.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 50
 ENT.HullType = HULL_HUMAN
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(10, 0, -30), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bip02 Head", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(5, 0, 5), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
 ENT.FriendsWithAllPlayerAllies = true -- Should this SNPC be friends with all other player allies that are running on VJ Base?
@@ -131,13 +136,6 @@ vj_hlr/hl1_npc/scientist/scream7.wav (duplicate of scream6)
 
 ENT.GeneralSoundPitch1 = 100
 
-ENT.VJC_Data = {
-    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-    ThirdP_Offset = Vector(10, 0, -30), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip02 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(7, 0, 7), -- The offset for the controller when the camera is in first person
-}
-
 -- Custom
 ENT.SCI_NextMouthMove = 0
 ENT.SCI_NextMouthDistance = 0
@@ -207,8 +205,8 @@ end
 function ENT:CustomOnMedic_BeforeHeal()
 	self:VJ_ACT_PLAYACTIVITY("pull_needle",true,VJ_GetSequenceDuration(self,"pull_needle") + 0.1,false,0,{},function(vsched)
 		vsched.RunCode_OnFinish = function()
-			self:VJ_ACT_PLAYACTIVITY("give_shot",true,VJ_GetSequenceDuration(self,"give_shot") + 0.1,false,0,{},function(vsched)
-				vsched.RunCode_OnFinish = function()
+			self:VJ_ACT_PLAYACTIVITY("give_shot",true,VJ_GetSequenceDuration(self,"give_shot") + 0.1,false,0,{},function(vsched2)
+				vsched2.RunCode_OnFinish = function()
 					self:VJ_ACT_PLAYACTIVITY("return_needle",true,false)
 				end
 			end)

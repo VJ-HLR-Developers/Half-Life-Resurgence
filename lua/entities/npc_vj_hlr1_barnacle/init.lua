@@ -12,6 +12,11 @@ ENT.StartHealth = 30
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
 ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
 ENT.HullType = HULL_SMALL_CENTERED
+ENT.VJC_Data = {
+	FirstP_Bone = "bone01", -- If left empty, the base will attempt to calculate a position for first person
+	FirstP_Offset = Vector(0, 0, -44), -- The offset for the controller when the camera is in first person
+	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
@@ -44,14 +49,7 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/barnacle/bcl_die1.wav","vj_hlr/hl1_npc/bar
 
 ENT.GeneralSoundPitch1 = 100
 
-ENT.VJC_Data = {
-    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-    ThirdP_Offset = Vector(0, 0, -60), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bone01", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(0, 0, -40), -- The offset for the controller when the camera is in first person
-}
-
-	-- Custom
+-- Custom
 ENT.Barnacle_LastHeight = 180
 ENT.Barnacle_CurEnt = NULL
 ENT.Barnacle_CurEntMoveType = MOVETYPE_WALK

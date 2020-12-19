@@ -12,6 +12,12 @@ ENT.StartHealth = 160
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
 ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
 ENT.HullType = HULL_SMALL_CENTERED
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(0, 0, -250), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "joint2", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(0, 0, -60), -- The offset for the controller when the camera is in first person
+	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
 ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?

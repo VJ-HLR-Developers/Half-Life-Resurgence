@@ -9,6 +9,11 @@ ENT.Model = {"models/vj_hlr/hl1/kingpin.mdl"} -- The game will pick a random mod
 ENT.StartHealth = 450
 ENT.SightAngle = 180
 ENT.HullType = HULL_LARGE
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(-15, 0, -45), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "MDLDEC_Bone23", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(8, 0, 6), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
@@ -74,13 +79,6 @@ ENT.SoundTbl_Pain = {
 ENT.SoundTbl_Death = {
 	"vj_hlr/hl1_npc/kingpin/kingpin_death1.wav",
 	"vj_hlr/hl1_npc/kingpin/kingpin_death2.wav",
-}
-
-ENT.VJC_Data = {
-    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-    ThirdP_Offset = Vector(-45, 0, -35), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "MDLDEC_Bone23", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(8, 0, 6), -- The offset for the controller when the camera is in first person
 }
 
 ENT.GeneralSoundPitch1 = 100

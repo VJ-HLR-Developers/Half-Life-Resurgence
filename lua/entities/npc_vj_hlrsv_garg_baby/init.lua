@@ -9,6 +9,9 @@ ENT.Model = {"models/vj_hlr/sven/babygarg.mdl"} -- The game will pick a random m
 ENT.StartHealth = 500
 ENT.HullType = HULL_HUMAN
 ENT.VJ_IsHugeMonster = false -- Is this a huge monster?
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(15, 0, -15), -- The offset for the controller when the camera is in third person
+}
 ENT.CustomBlood_Particle = {"vj_hl_blood_yellow"}
 
 ENT.MeleeAttackDamage = 20 -- How close does it have to be until it attacks?

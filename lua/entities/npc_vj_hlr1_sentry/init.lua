@@ -12,6 +12,11 @@ ENT.SightDistance = 1300 -- How far it can see
 ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
 ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Dummy03", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(0, 0, 4), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
 ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
@@ -37,15 +42,6 @@ ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav","ambient/energy/spark2.wav","
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/turret/tu_die.wav","vj_hlr/hl1_npc/turret/tu_die2.wav","vj_hlr/hl1_npc/turret/tu_die2.wav"}
 
 ENT.GeneralSoundPitch1 = 100
-
-ENT.VJC_Data = {
-    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-    ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Dummy03", -- If left empty, the base will attempt to calculate a position for first person
-    -- FirstP_Bone = "GButt01", -- If left empty, the base will attempt to calculate a position for first person
-    -- FirstP_Offset = Vector(0, 0, -5), -- The offset for the controller when the camera is in first person
-    FirstP_Offset = Vector(0, 0, 4), -- The offset for the controller when the camera is in first person
-}
 
 -- Custom
 ENT.Sentry_MuzzleAttach = "0" -- The bullet attachment

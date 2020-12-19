@@ -8,6 +8,10 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/opfor/gonome.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 160
 ENT.HullType = HULL_HUMAN
+ENT.VJC_Data = {
+    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(1, 0, 4), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Particle = {"vj_hl_blood_yellow"}
@@ -46,11 +50,6 @@ ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav","vj_hl
 ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/gonome/gonome_melee1.wav","vj_hlr/hl1_npc/gonome/gonome_melee2.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/gonome/gonome_pain1.wav","vj_hlr/hl1_npc/gonome/gonome_pain2.wav","vj_hlr/hl1_npc/gonome/gonome_pain3.wav","vj_hlr/hl1_npc/gonome/gonome_pain4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/gonome/gonome_death2.wav","vj_hlr/hl1_npc/gonome/gonome_death3.wav","vj_hlr/hl1_npc/gonome/gonome_death4.wav"}
-
-	-- ====== Controller Variables ====== --
-ENT.Controller_FirstPersonBone = "Bip01 Head"
-ENT.Controller_FirstPersonOffset = Vector(1,0,2)
-ENT.Controller_FirstPersonAngle = Angle(90,0,90)
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------

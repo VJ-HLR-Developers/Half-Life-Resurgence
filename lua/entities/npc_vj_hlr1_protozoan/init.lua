@@ -13,6 +13,11 @@ ENT.MovementType = VJ_MOVETYPE_AERIAL -- How does the SNPC move?
 ENT.Aerial_FlyingSpeed_Calm = 100 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking campared to ground SNPCs
 ENT.Aerial_FlyingSpeed_Alerted = 100 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running campared to ground SNPCs
 ENT.AA_ConstantlyMove = true -- Used for aerial and aquatic SNPCs, makes them constantly move
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(-5, 0, -15), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bone03", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.IdleAlwaysWander = true -- If set to true, it will make the SNPC always wander when idling
 ENT.CanOpenDoors = false -- Can it open doors?
@@ -22,13 +27,6 @@ ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/protozoan/chirp03.wav","vj_hlr/hl1_npc/protozoan/chirp04.wav","vj_hlr/hl1_npc/protozoan/chirp05.wav","vj_hlr/hl1_npc/protozoan/chirp06.wav","vj_hlr/hl1_npc/protozoan/chirp07.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/protozoan/chirp03.wav","vj_hlr/hl1_npc/protozoan/chirp04.wav","vj_hlr/hl1_npc/protozoan/chirp05.wav","vj_hlr/hl1_npc/protozoan/chirp06.wav","vj_hlr/hl1_npc/protozoan/chirp07.wav"}
-
-ENT.VJC_Data = {
-    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-    ThirdP_Offset = Vector(-5, 0, -15), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bone03", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in first person
-}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(28, 28, 65), Vector(-28, -28, 0))

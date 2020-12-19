@@ -16,6 +16,11 @@ ENT.Aerial_FlyingSpeed_Alerted = 130 -- The speed it should fly with, when it's 
 ENT.Aerial_AnimTbl_Calm = {ACT_FLY} -- Animations it plays when it's wandering around while idle
 ENT.Aerial_AnimTbl_Alerted = {ACT_FLY} -- Animations it plays when it's moving while alerted
 ENT.AA_ConstantlyMove = true -- Used for aerial and aquatic SNPCs, makes them constantly move
+ENT.VJC_Data = {
+	FirstP_Bone = "bone01", -- If left empty, the base will attempt to calculate a position for first person
+	FirstP_Offset = Vector(10, 0, 0), -- The offset for the controller when the camera is in first person
+	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.AnimTbl_IdleStand = {ACT_FLY} -- The idle animation when AI is enabled
 ENT.IdleAlwaysWander = true -- If set to true, it will make the SNPC always wander when idling
@@ -57,7 +62,7 @@ function ENT:CustomOnThink()
 	if IsValid(HLR_Boid_Leader) then
 		if HLR_Boid_Leader != self then
 			self.DisableWandering = true
-			self:AAMove_MoveToPos(HLR_Boid_Leader,true,{PosForward=self.Boid_PosForward,PosUp=self.Boid_PosUp,PosRight=self.Boid_PosRight}) -- Medzavorin haladz e (Kharen deghme)
+			self:AAMove_MoveToPos(HLR_Boid_Leader, true, "Calm", {PosForward=self.Boid_PosForward,PosUp=self.Boid_PosUp,PosRight=self.Boid_PosRight}) -- Medzavorin haladz e (Kharen deghme)
 		end
 	else
 		self.DisableWandering = false

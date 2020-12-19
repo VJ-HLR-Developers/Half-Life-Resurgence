@@ -12,6 +12,11 @@ ENT.VJ_IsHugeMonster = true -- Is this a huge monster?
 ENT.SightDistance = 20000 -- How far it can see
 ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bip01 head", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(80, 0, 0), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Particle = {"vj_hl_blood_yellow_large"}

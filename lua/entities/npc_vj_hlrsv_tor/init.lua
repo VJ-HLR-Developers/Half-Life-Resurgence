@@ -8,6 +8,12 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/sven/tor.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 3000
 ENT.HullType = HULL_HUMAN
+ENT.VJ_IsHugeMonster = true -- Is this a huge monster?
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(15, 0, -15), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "TorSkel Head", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(15, 0, 0), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)

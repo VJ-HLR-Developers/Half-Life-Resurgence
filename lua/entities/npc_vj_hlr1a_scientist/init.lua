@@ -7,11 +7,11 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hla/scientist.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.IsMedicSNPC = false -- Is this SNPC a medic? Does it heal other friendly friendly SNPCs, and players(If friendly)
-	-- ====== Controller Variables ====== --
-ENT.Controller_FirstPersonBone = "unnamed021"
-ENT.Controller_FirstPersonOffset = Vector(2,0,5)
-ENT.Controller_FirstPersonAngle = Angle(90,0,90)
-
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(10, 0, -20), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "unnamed021", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(2, 0, 5), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SCI_CustomOnInitialize()
 	self.SoundTbl_Pain = {"vj_hlr/hla_npc/barney/ba_pain1.wav"}

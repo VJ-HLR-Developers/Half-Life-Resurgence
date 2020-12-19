@@ -8,6 +8,11 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/hl1/friendly.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 230
 ENT.HullType = HULL_MEDIUM
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(-25, 0, 0), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "MDLDEC_Bone23", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(7, 0, 5), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
@@ -49,20 +54,13 @@ ENT.PainSoundPitch1 = 150
 ENT.PainSoundPitch2 = 150
 ENT.DeathSoundPitch1 = 150
 ENT.DeathSoundPitch2 = 150
-
-ENT.VJC_Data = {
-    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-    ThirdP_Offset = Vector(-25, 0, -15), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "MDLDEC_Bone23", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(7, 0, 7), -- The offset for the controller when the camera is in first person
-}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(35,35,60), Vector(-35,-35,0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
-	print(key)
+	//print(key)
 	if key == "event_emit step" or key == "step" then
 		self:FootStepSoundCode()
 	end

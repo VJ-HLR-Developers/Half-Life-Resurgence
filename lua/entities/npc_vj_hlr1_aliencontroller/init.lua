@@ -13,6 +13,10 @@ ENT.Aerial_FlyingSpeed_Calm = 120 -- The speed it should fly with, when it's wan
 ENT.Aerial_FlyingSpeed_Alerted = 300 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running campared to ground SNPCs
 ENT.Aerial_AnimTbl_Calm = {"forward"} -- Animations it plays when it's wandering around while idle
 ENT.Aerial_AnimTbl_Alerted = {"forward"} -- Animations it plays when it's moving while alerted
+ENT.VJC_Data = {
+	FirstP_Bone = "bip01 neck", -- If left empty, the base will attempt to calculate a position for first person
+	FirstP_Offset = Vector(10, 0, -3), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
@@ -48,13 +52,6 @@ ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/controller/con_pain1.wav","vj_hlr/hl1_npc/c
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/controller/con_die1.wav","vj_hlr/hl1_npc/controller/con_die2.wav"}
 
 ENT.GeneralSoundPitch1 = 100
-
-ENT.VJC_Data = {
-    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-    ThirdP_Offset = Vector(-25, 0, -15), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(7, 0, 3), -- The offset for the controller when the camera is in first person
-}
 
 -- Custom
 ENT.AlienC_AttackType = false -- 0 = Regular, 1 = Homing

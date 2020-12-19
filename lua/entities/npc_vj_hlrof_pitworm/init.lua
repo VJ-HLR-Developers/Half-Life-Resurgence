@@ -11,6 +11,11 @@ ENT.VJ_IsHugeMonster = true -- Is this a huge monster?
 ENT.HullType = HULL_LARGE
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
 ENT.CanTurnWhileStationary = true -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(15, 0, -50), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Head", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(7, 0, 0), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)

@@ -8,6 +8,10 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/hl1/islave.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 60
 ENT.HullType = HULL_HUMAN
+ENT.VJC_Data = {
+	FirstP_Bone = "bip01 head", -- If left empty, the base will attempt to calculate a position for first person
+	FirstP_Offset = Vector(5, 0, 0), -- The offset for the controller when the camera is in first person
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
@@ -61,13 +65,6 @@ ENT.FootStepSoundLevel = 60
 ENT.GeneralSoundPitch1 = 100
 ENT.RangeAttackPitch1 = 130
 ENT.RangeAttackPitch2 = 160
-
-ENT.VJC_Data = {
-    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-    ThirdP_Offset = Vector(-25, 0, -15), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in first person
-}
 
 -- CustomBlood_Decal
 ENT.Vort_RunAway = false

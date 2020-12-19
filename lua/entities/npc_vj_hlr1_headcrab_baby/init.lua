@@ -8,17 +8,16 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/hl1/headcrab_baby.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.EntitiesToNoCollide = {"npc_vj_hlr1_gonarch"} -- Entities to not collide with when HasEntitiesToNoCollide is set to true
 ENT.StartHealth = 5
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(10, 0, 0), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bip01 Neck", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(0, 0, 4), -- The offset for the controller when the camera is in first person
+}
+---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.LeapAttackDamage = 5
 
 ENT.GeneralSoundPitch1 = 120
 ENT.GeneralSoundPitch2 = 120
-
-ENT.VJC_Data = {
-    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-    ThirdP_Offset = Vector(10, 0, -5), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 Neck", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(0, 0, 3.5), -- The offset for the controller when the camera is in first person
-}
 
 -- Custom
 ENT.BabH_Mother = NULL

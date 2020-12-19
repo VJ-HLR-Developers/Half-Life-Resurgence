@@ -7,12 +7,14 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/decay/wheelchair_sci.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 100
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(10, 0, -20), -- The offset for the controller when the camera is in third person
+    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(3, 0, 3.3), -- The offset for the controller when the camera is in first person
+	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+}
 ENT.IsMedicSNPC = false -- Is this SNPC a medic? Does it heal other friendly friendly SNPCs, and players(If friendly)
 
-	-- ====== Controller Variables ====== --
-ENT.Controller_FirstPersonBone = "Bip01 Head"
-ENT.Controller_FirstPersonOffset = Vector(1.5,0,5.3)
-ENT.Controller_FirstPersonAngle = Angle(90,0,90)
 /*
 -- Can't reach player, unfollow
 vj_hlr/hl1_npc/keller/dk_stop0.wav
