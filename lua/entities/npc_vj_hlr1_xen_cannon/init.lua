@@ -5,18 +5,17 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/alien_cannon_top.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = {"models/vj_hlr/hl1/alien_cannon.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 100
 ENT.HullType = HULL_WIDE_SHORT
-ENT.TurningSpeed = 20 -- How fast it can turn
 ENT.SightDistance = 6000 -- How far it can see
 ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
-ENT.TurningUseAllAxis = true -- If set to true, angles will not be restricted to y-axis, it will change all axes (plural axis)
+ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "fuckoff", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(-15, 0, 75), -- The offset for the controller when the camera is in first person
+    FirstP_Bone = "joint3", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(0, 0, 50), -- The offset for the controller when the camera is in first person
 	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -27,11 +26,14 @@ ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
 ENT.RangeDistance = 6000 -- This is how far away it can shoot
-ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
-ENT.RangeAttackAngleRadius = 10 -- What is the attack angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
+ENT.RangeToMeleeDistance = 170 -- How close does it have to be until it uses melee?
+ENT.RangeAttackAngleRadius = 180 -- What is the attack angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
 ENT.TimeUntilRangeAttackProjectileRelease = 0 -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 0.5 -- How much time until it can use a range attack?
 
+ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
+ENT.PoseParameterLooking_InvertPitch = true -- Inverts the pitch poseparameters (X)
+ENT.PoseParameterLooking_InvertYaw = true -- Inverts the yaw poseparameters (Y)
 ENT.Immune_AcidPoisonRadiation = true -- Immune to Acid, Poison and Radiation
 ENT.Immune_Bullet = true -- Immune to bullet type damages
 ENT.Immune_Melee = true -- Immune to melee-type damage | Example: Crowbar, slash damages
@@ -47,18 +49,12 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/xencannon/bustconcrete1.wav","vj_hlr/hl1_n
 
 ENT.BreathSoundLevel = 70
 ENT.DeathSoundLevel = 90
+
+-- Custom
+ENT.Cannon_HasLOS = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(45,45,65), Vector(-45,-45,0))
-	
-	self.extmdl = ents.Create("prop_vj_animatable")
-	self.extmdl:SetModel("models/vj_hlr/hl1/alien_cannon_bottom.mdl")
-	self.extmdl:SetLocalPos(self:GetPos())
-	self.extmdl:SetAngles(self:GetAngles())
-	//self.extmdl:SetParent(self)
-	self.extmdl:Spawn()
-	self.extmdl:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
-	self:DeleteOnRemove(self.extmdl)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
@@ -68,8 +64,17 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
-	self.extmdl:SetPos(self:GetPos())
+function ENT:CustomOn_PoseParameterLookingCode(pitch,yaw,roll)
+	-- Compare the difference between the current position of the pose parameter and the position it's suppose to go to
+	if (math.abs(math.AngleDifference(self:GetPoseParameter("aim_yaw"), math.ApproachAngle(self:GetPoseParameter("aim_yaw"), yaw, self.PoseParameterLooking_TurningSpeed))) >= 10) or (math.abs(math.AngleDifference(self:GetPoseParameter("aim_pitch"), math.ApproachAngle(self:GetPoseParameter("aim_pitch"), pitch, self.PoseParameterLooking_TurningSpeed))) >= 10) then
+		self.Cannon_HasLOS = false
+	else
+		self.Cannon_HasLOS = true
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomAttackCheck_RangeAttack()
+	if self.Cannon_HasLOS == true then return true end
 end
 local laserdmg = 50
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -78,7 +83,7 @@ function ENT:CustomRangeAttackCode()
 	local tr = util.TraceLine({
 		start = startpos,
 		endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter() + VectorRand(-15, 15),
-		filter = {self, self.extmdl}
+		filter = {self} // self.extmdl
 	})
 	local hitpos = tr.HitPos
 	local elec = EffectData()
@@ -108,7 +113,7 @@ function ENT:CustomRangeAttackCode()
 	StartGlow1:SetPos(self:GetPos())
 	StartGlow1:Spawn()
 	StartGlow1:SetParent(self)
-	StartGlow1:Fire("SetParentAttachment", "0")
+	StartGlow1:Fire("SetParentAttachment", "Cannon")
 	self:DeleteOnRemove(StartGlow1)
 	timer.Simple(0.1, function() SafeRemoveEntity(StartGlow1) end)
 end
