@@ -57,8 +57,9 @@ end
 function ENT:CustomOnThink_BeforeAliveChecks()
 	if self.VJBaseSpawnerDisabled && GetConVarNumber("ai_disabled") == 0 then
 		for _, v in ipairs(ents.FindInSphere(self:GetPos(), self.HLRSpawner_Distance)) do
-			if (v:IsNPC() or (v:IsPlayer() && GetConVarNumber("ai_ignoreplayers") == 0)) && !v.VJ_NoTarget && !v:IsFlagSet(FL_NOTARGET) && self:Visible(v) && (!v.VJ_NPC_Class or !VJ_HasValue(v.VJ_NPC_Class, self.HLRSpawner_ClassType)) then
+			if self.Dead == false && (v:IsNPC() or (v:IsPlayer() && GetConVarNumber("ai_ignoreplayers") == 0)) && !v.VJ_NoTarget && !v:IsFlagSet(FL_NOTARGET) && self:Visible(v) && (!v.VJ_NPC_Class or !VJ_HasValue(v.VJ_NPC_Class, self.HLRSpawner_ClassType)) then
 				self:ActivateSpawner()
+				break
 			end
 		end
 	end
