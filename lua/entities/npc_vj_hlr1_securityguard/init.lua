@@ -120,6 +120,7 @@ ENT.GeneralSoundPitch1 = 100
 ENT.Security_NextMouthMove = 0
 ENT.Security_NextMouthDistance = 0
 ENT.Security_GunHolstered = true
+ENT.Security_SwitchedIdle = false
 ENT.Security_Type = 0
 	-- 0 = Security Guard
 	-- 1 = Otis
@@ -178,7 +179,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if self.Security_Type != 2 then
+	if self.Security_Type != 2 then -- If it's regular or Otis...
 		if CurTime() < self.Security_NextMouthMove then
 			if self.Security_NextMouthDistance == 0 then
 				self.Security_NextMouthDistance = math.random(10,70)
@@ -188,6 +189,16 @@ function ENT:CustomOnThink()
 			self:SetPoseParameter("m",self.Security_NextMouthDistance)
 		else
 			self:SetPoseParameter("m",0)
+		end
+		-- For guarding
+		if self.IsGuard == true && self.Security_GunHolstered == true && !IsValid(self:GetEnemy()) then
+			if self.Security_SwitchedIdle == false then
+				self.Security_SwitchedIdle = true
+				self.AnimTbl_IdleStand = {ACT_GET_DOWN_STAND, ACT_GET_UP_STAND}
+			end
+		elseif self.Security_SwitchedIdle == true then
+			self.Security_SwitchedIdle = false
+			self.AnimTbl_IdleStand = {ACT_IDLE}
 		end
 	elseif IsValid(self:GetActiveWeapon()) then -- Alpha Security Guard can't reload!
 		self:GetActiveWeapon():SetClip1(999)
@@ -233,7 +244,7 @@ function ENT:CustomOnThink_AIEnabled()
 	elseif self.Security_GunHolstered == false && !IsValid(self:GetEnemy()) && self.TimeSinceLastSeenEnemy > 5 && self.IsReloadingWeapon == false then
 		self:VJ_ACT_PLAYACTIVITY(ACT_DISARM, true, false, true)
 		self.Security_GunHolstered = true
-		timer.Simple(1.5,function() if IsValid(self) then self:SetBodygroup(1,0) end end)
+		timer.Simple(1.5,function() if IsValid(self) && !IsValid(self:GetEnemy()) then self:SetBodygroup(1,0) end end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
