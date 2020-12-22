@@ -23,19 +23,19 @@ if (CLIENT) then
 	killicon.Add("#"..LangName,"HUD/killicons/default",Color(255,80,0,255))
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-if !(SERVER) then return end
+if !SERVER then return end
 
 ENT.Model = {"models/spitball_large.mdl"} -- The models it should spawn with | Picks a random one from the table
 ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 95 -- How much damage should it do when it hits something
+ENT.DirectDamage = 30 -- How much damage should it do when it hits something
 ENT.DirectDamageType = DMG_DISSOLVE -- Damage type
+ENT.DelayedRemove = 1.5 -- Change this to a number greater than 0 to delay the removal of the entity
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav","vj_hlr/hl1_weapon/gauss/electro5.wav","vj_hlr/hl1_weapon/gauss/electro6.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/kingpin/kingpin_seeker_amb.wav"}
 
 -- Custom
 ENT.EO_Enemy = NULL
-ENT.Speed = 100
-ENT.SpeedIncrease = 12
-ENT.MaxSpeed = 1250
+ENT.Orb_Speed = 200
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
@@ -47,6 +47,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetNoDraw(true)
+	
 	self.StartGlow1 = ents.Create("env_sprite")
 	self.StartGlow1:SetKeyValue("model","vj_hl/sprites/nhth1.vmt")
 	self.StartGlow1:SetKeyValue("GlowProxySize","2.0")
@@ -65,11 +66,6 @@ function ENT:CustomOnInitialize()
 	self.StartGlow1:SetParent(self)
 	self:DeleteOnRemove(self.StartGlow1)
 	util.SpriteTrail(self, 0, Color(255,127,223,180), true, 50, 0, 1.5, 1/(6 + 0)*0.5, "vj_hl/sprites/laserbeam.vmt")
-	self:EmitSound("vj_hlr/hl1_npc/kingpin/kingpin_seeker".. math.random(1,3) .. ".wav",85,100)
-	self.LoopSound = CreateSound(self,"vj_hlr/hl1_npc/kingpin/kingpin_seeker_amb.wav")
-	self.LoopSound:SetSoundLevel(80)
-	self.LoopSound:Play()
-	self.NextSpeedIncreaseT = CurTime() +2
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
@@ -78,29 +74,14 @@ function ENT:CustomOnThink()
 	if IsValid(self.EO_Enemy) then
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
-			phys:SetVelocity(self:CalculateProjectile("Line",self:GetPos(),self.EO_Enemy:GetPos() +self.EO_Enemy:OBBCenter(),self.Speed))
-		end
-		if self.Speed < self.MaxSpeed then
-			if CurTime() > self.NextSpeedIncreaseT then
-				self.Speed = self.Speed +self.SpeedIncrease
-				self.NextSpeedIncreaseT = CurTime() +0.2
-			end
+			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.EO_Enemy:GetPos() + self.EO_Enemy:OBBCenter(), 200))
 		end
 	end
+	self.Orb_Speed = math.Clamp(self.Orb_Speed + 10, 200, 2000)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnRemove()
-	self.LoopSound:Stop()
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DeathEffects(data,phys)
-	/*local effectdata = EffectData()
-	effectdata:SetOrigin(data.HitPos)
-	effectdata:SetScale(1)
-	util.Effect("StriderBlood",effectdata)
-	util.Effect("StriderBlood",effectdata)
-	util.Effect("StriderBlood",effectdata)*/
-	//ParticleEffect("vj_hl_spit_bullsquid_impact", data.HitPos, Angle(0,0,0), nil)
+function ENT:CustomOnPhysicsCollide(data,phys)
+	self.StartGlow1:Remove()
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
