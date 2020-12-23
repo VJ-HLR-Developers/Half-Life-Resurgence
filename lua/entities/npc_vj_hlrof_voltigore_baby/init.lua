@@ -52,8 +52,7 @@ ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/voltigore/voltigore_pain1.wav","vj_hlr/hl1_
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/voltigore/voltigore_die1.wav","vj_hlr/hl1_npc/voltigore/voltigore_die2.wav","vj_hlr/hl1_npc/voltigore/voltigore_die3.wav"}
 
 ENT.FootStepSoundLevel = 55
-ENT.FootStepPitch1 = 130
-ENT.FootStepPitch2 = 130
+ENT.FootStepPitch = VJ_Set(130, 130)
 ENT.GeneralSoundPitch1 = 120
 ENT.GeneralSoundPitch2 = 125
 ---------------------------------------------------------------------------------------------------------------------------------------------

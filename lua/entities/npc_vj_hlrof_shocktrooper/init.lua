@@ -58,8 +58,7 @@ ENT.SoundTbl_GrenadeAttack = {"vj_hlr/hl1_npc/shocktrooper/st_grenadethrow.wav"}
 ENT.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/shocktrooper/st_runfromgrenade.wav"}
 ENT.SoundTbl_OnKilledEnemy = {"vj_hlr/hl1_npc/shocktrooper/st_combat1.wav"}
 
-ENT.OnGrenadeSightSoundPitch1 = 105
-ENT.OnGrenadeSightSoundPitch2 = 110
+ENT.OnGrenadeSightSoundPitch = VJ_Set(105, 110)
 
 -- Custom
 ENT.Shocktrooper_BlinkingT = 0
