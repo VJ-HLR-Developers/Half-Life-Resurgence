@@ -35,6 +35,7 @@ ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/kingpin/kingpin_seeker_amb.wav"}
 
 -- Custom
 ENT.EO_Enemy = NULL
+ENT.EO_Position = Vector(0,0,0)
 ENT.Orb_Speed = 200
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
@@ -69,12 +70,18 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if !IsValid(self:GetOwner()) then return end
-	self.EO_Enemy = self:GetOwner():GetEnemy()
+	if IsValid(self:GetOwner()) then
+		self.EO_Enemy = self:GetOwner():GetEnemy()
+	end
 	if IsValid(self.EO_Enemy) then
+		local pos = self.EO_Enemy:EyePos()) or (self.EO_Enemy:GetPos() + self.EO_Enemy:OBBCenter())
+		if self:VisibleVec(pos) then
+			self.EO_Position = pos
+		end
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.EO_Enemy:GetPos() + self.EO_Enemy:OBBCenter(), 200))
+			-- phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.EO_Enemy:GetPos() + self.EO_Enemy:OBBCenter(), 200))
+			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.EO_Position, self.Orb_Speed))
 		end
 	end
 	self.Orb_Speed = math.Clamp(self.Orb_Speed + 10, 200, 2000)

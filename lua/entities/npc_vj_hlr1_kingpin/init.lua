@@ -108,6 +108,7 @@ function ENT:CustomOnThink_AIEnabled()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:KingPin_ResetPsionicAttack()
+	self.GodMode = false
 	self.KingPin_PsionicAttacking = false
 	self.KingPin_NextPsionicAttackT = CurTime() + math.Rand(8, 12)
 	self.AnimTbl_IdleStand = {ACT_IDLE}
@@ -130,6 +131,7 @@ function ENT:CustomAttack()
 		end
 		//print(pTbl)
 		if #pTbl > 0 then -- If greater then 1, then we found an object!
+			self.GodMode = true
 			self:SetNW2Bool("PsionicEffect", true)
 			VJ_EmitSound(self, "vj_hlr/hl1_npc/kingpin/port_suckin1.wav", 80, 140) -- 3.08025
 			self.KingPin_PsionicAttacking = true
