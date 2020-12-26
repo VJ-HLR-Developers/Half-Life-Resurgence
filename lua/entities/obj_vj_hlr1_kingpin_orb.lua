@@ -74,7 +74,7 @@ function ENT:CustomOnThink()
 		self.EO_Enemy = self:GetOwner():GetEnemy()
 	end
 	if IsValid(self.EO_Enemy) then
-		local pos = self.EO_Enemy:EyePos()) or (self.EO_Enemy:GetPos() + self.EO_Enemy:OBBCenter())
+		local pos = (self.EO_Enemy:EyePos()) or (self.EO_Enemy:GetPos() + self.EO_Enemy:OBBCenter())
 		if self:VisibleVec(pos) then
 			self.EO_Position = pos
 		end
