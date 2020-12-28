@@ -7,6 +7,7 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hl1/hassassin.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 60
+ENT.TurningSpeed = 50 -- How fast it can turn
 ENT.HullType = HULL_HUMAN
 ENT.MaxJumpLegalDistance = VJ_Set(520, 620) -- The max distance the NPC can jump (Usually from one node to another)
 ENT.VJC_Data = {
@@ -45,6 +46,7 @@ ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE} -- Death Animations
 ENT.DeathAnimationTime = false -- Time until the SNPC spawns its corpse and gets removed
+ENT.CombatFaceEnemy = false -- If enemy is exists and is visible
 	-- ====== File Path Variables ====== --
 	-- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
@@ -128,7 +130,7 @@ function ENT:CustomOnThink()
 		else
 			self:SetLocalVelocity(((self:GetPos() + self:GetRight()*-100) - (self:GetPos() + self:OBBCenter())):GetNormal()*200 +self:GetForward()*1 +self:GetUp()*600 + self:GetRight()*1)
 		end
-		self:VJ_ACT_PLAYACTIVITY(ACT_JUMP, true, false, true,0,{},function(vsched)
+		self:VJ_ACT_PLAYACTIVITY(ACT_JUMP, true, false, true, 0, {}, function(vsched)
 			self.BOA_OffGround = true
 			//vsched.RunCode_OnFinish = function()
 				//self:VJ_ACT_PLAYACTIVITY("fly_attack",true,false,false)
