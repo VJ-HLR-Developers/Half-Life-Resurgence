@@ -2,6 +2,7 @@
 {
 	"$model" 1
 	"$nocull" 1
+	"$nodecal" 1
 	"$basetexture" "vj_hl/opfor/geneportal_refract"
 	"$refractamount" "0.26"
 	"$bluramount" "1"
