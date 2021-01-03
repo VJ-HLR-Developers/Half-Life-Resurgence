@@ -39,9 +39,11 @@ if VJExists == true then
 			VJ.AddNPC("Alpha Scientist","npc_vj_hlr1a_scientist",vCat)
 			VJ.AddNPC("Ivan the Space Biker","npc_vj_hlr1a_ivan",vCat)
 			
-		-- Black Mesa Security Weaponry
-		VJ.AddNPC("Ceiling Turret (Large)","npc_vj_hlr1_turret",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
-		VJ.AddNPC("Ceiling Turret (Small)","npc_vj_hlr1_turret_small",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
+		-- Black Mesa Weaponry
+		VJ.AddNPC("Black Mesa Ground Turret","npc_vj_hlr1_gturret",vCat)
+		VJ.AddNPC("Black Mesa Ground Turret (Mini)","npc_vj_hlr1_gturret_mini",vCat)
+		VJ.AddNPC("Black Mesa Ceiling Turret","npc_vj_hlr1_cturret",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
+		VJ.AddNPC("Black Mesa Ceiling Turret (Mini)","npc_vj_hlr1_cturret_mini",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
 
 		-- HECU
 		VJ.AddNPC("Human Grunt","npc_vj_hlr1_hgrunt",vCat)
@@ -181,7 +183,7 @@ if VJExists == true then
 	VJ.AddNPC_HUMAN("Alyx Vance","npc_vj_hlr2_alyx",{"weapon_vj_hlr2_alyxgun"},vCat)
 	VJ.AddNPC_HUMAN("Barney Calhoun","npc_vj_hlr2_barney",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
 	VJ.AddNPC_HUMAN("Father Grigori","npc_vj_hlr2_father_grigori",{"weapon_vj_hlr2_annabelle"},vCat)
-	VJ.AddNPC("Resistance Ground Turret","npc_vj_hlr2_turret",vCat)
+	VJ.AddNPC("Resistance Sentry Gun","npc_vj_hlr2_res_sentry",vCat)
 	
 	-- Combine
 	VJ.AddNPC_HUMAN("Overwatch Soldier","npc_vj_hlr2_com_soldier",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
@@ -193,7 +195,7 @@ if VJExists == true then
 	VJ.AddNPC_HUMAN("Overwatch Engineer","npc_vj_hlr2_com_engineer",{"weapon_vj_hlr2_reager"},vCat)
 	VJ.AddNPC_HUMAN("Civil Protection","npc_vj_hlr2_com_civilp",{"weapon_vj_9mmpistol","weapon_vj_9mmpistol","weapon_vj_smg1"},vCat)
 	VJ.AddNPC_HUMAN("Civil Protection Elite","npc_vj_hlr2_com_civilp_elite",{"weapon_vj_smg1"},vCat)
-	VJ.AddNPC("Overwatch Ground Turret","npc_vj_hlr2_com_turret",vCat)
+	VJ.AddNPC("Combine Sentry Gun","npc_vj_hlr2_com_sentry",vCat)
 	
 	-- NPC Weapons
 	VJ.AddNPCWeapon("VJ_Combine_Sniper","weapon_vj_hlr2_csniper")

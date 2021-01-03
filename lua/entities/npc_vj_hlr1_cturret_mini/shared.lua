@@ -1,10 +1,10 @@
-ENT.Base 			= "npc_vj_creature_base"
+ENT.Base 			= "npc_vj_hlr1_sentry"
 ENT.Type 			= "ai"
-ENT.PrintName 		= "Combine Ground Turret"
+ENT.PrintName 		= "Black Mesa Ceiling Turret (Mini)"
 ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Purpose 		= "Spawn it and fight with it!"
 ENT.Instructions 	= "Click on the spawnicon to spawn it."
-ENT.Category		= "Half-Life Resurgence"
+ENT.Category		= "Hazardous Environment Combat Unit"
 
 ENT.HLR_Type = "Turret"

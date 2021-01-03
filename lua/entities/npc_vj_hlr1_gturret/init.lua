@@ -5,7 +5,7 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/turret.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = {"models/vj_hlr/hl1/gturret.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 150
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(0, 60, -60), -- The offset for the controller when the camera is in third person
@@ -13,7 +13,6 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(0, 0, 2), -- The offset for the controller when the camera is in first person
 	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
 }
----------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_AUTOMATIC_TURRET"} -- NPCs with the same class with be allied to each other
 
 //ENT.PoseParameterLooking_InvertPitch = false -- Inverts the pitch poseparameters (X)
@@ -25,10 +24,8 @@ ENT.Sentry_AlarmAttach = "frame"
 ENT.Sentry_Type = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	//local ang = self:GetAngles()
-	//self:SetAngles(Angle(ang.x, ang.y, 180))
 	self:DrawShadow(false)
-	self:SetCollisionBounds(Vector(25, 25, 0), Vector(-25, -25, -50)) // -50
+	self:SetCollisionBounds(Vector(25, 25, 50), Vector(-25, -25, 0))
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***

@@ -29,7 +29,7 @@ function ENT:CustomOnThink_AIEnabled()
 			self:VJ_ACT_PLAYACTIVITY("vjseq_Turret_Drop" ,true, false, false)
 			timer.Simple(0.9, function()
 				if IsValid(self) && !IsValid(self.Combine_TurretEnt) then
-					self.Combine_TurretEnt = ents.Create("npc_vj_hlr2_com_turret")
+					self.Combine_TurretEnt = ents.Create("npc_vj_hlr2_com_sentry")
 					self.Combine_TurretEnt:SetPos(self:GetPos() + self:GetForward()*50)
 					self.Combine_TurretEnt:SetAngles(self:GetAngles())
 					self.Combine_TurretEnt:Spawn()
