@@ -1,0 +1,30 @@
+"Refract"
+{
+	"$model" 1
+	"$nocull" 1
+	"$basetexture" "vj_hl/opfor/geneportal_refract"
+	"$refractamount" "0.26"
+	"$bluramount" "1"
+	"$scale" "[1 1]"
+	"$dudvmap" "models/effects/portal_camera_dudv"
+	"$normalmap" "models/effects/portalrift_normal"
+	"$bumpframe" 0
+	"$translucent" 1
+	"$refracttinttexture" "vj_hl/opfor/geneportal"
+
+	"Proxies"
+	{
+		"AnimatedTexture"
+		{
+			"animatedtexturevar" "$normalmap"
+			"animatedtextureframenumvar" "$bumpframe"
+			"animatedtextureframerate" 20
+		}
+		"AnimatedTexture"
+		{
+			"animatedtexturevar" "$refracttinttexture"
+			"animatedtextureframenumvar" "$refracttinttextureframe"
+			"animatedtextureframerate" 20
+		}
+	}
+}
