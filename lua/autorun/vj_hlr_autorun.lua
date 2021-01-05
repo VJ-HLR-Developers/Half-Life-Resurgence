@@ -313,7 +313,6 @@ if VJExists == true then
 		"vj_hlr_geneworm_spit",
 		"vj_hlr_geneworm_spit_b",
 	})
-	
 	VJ.AddParticle("particles/electrical_fx.pcf",{
 		"electrical_arc_01", -- Used for the Combine Reager
 	})

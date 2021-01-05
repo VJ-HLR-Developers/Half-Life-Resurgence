@@ -26,7 +26,7 @@ function ENT:CustomOnThink_AIEnabled()
 			self:VJ_ACT_PLAYACTIVITY("vjseq_pickup" ,true, false, false)
 			timer.Simple(0.45, function()
 				if IsValid(self) && !IsValid(self.Human_TurretEnt) then
-					self.Human_TurretEnt = ents.Create("npc_vj_hlr2_turret")
+					self.Human_TurretEnt = ents.Create("npc_vj_hlr2_res_sentry")
 					self.Human_TurretEnt:SetPos(self:GetPos() + self:GetForward()*50)
 					self.Human_TurretEnt:SetAngles(self:GetAngles())
 					self.Human_TurretEnt:Spawn()

@@ -908,7 +908,7 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/npc/female01/question28.wav",
 		"vo/npc/female01/question29.wav",
 		"vo/npc/female01/question30.wav",
-		"vo/npc/female01/question31.wav",
+		//"vo/npc/female01/question31.wav", -- This is actually a male sound... wtf...
 		"vo/npc/female01/vquestion01.wav",
 		"vo/npc/female01/vquestion02.wav",
 		"vo/npc/female01/vquestion04.wav",

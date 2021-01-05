@@ -6,7 +6,8 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/opfor/geneworm.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.StartHealth = 4000
+ENT.StartHealth = 1200
+ENT.SightAngle = 120 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.HullType = HULL_LARGE
 ENT.VJ_IsHugeMonster = true -- Is this a huge monster?
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
@@ -22,92 +23,269 @@ ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.MeleeAttackDamage = 60
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1} -- Melee Attack Animations
 ENT.MeleeAttackAnimationFaceEnemy = true -- Should it face the enemy while playing the melee attack animation?
-ENT.MeleeAttackDistance = 100 -- How close does it have to be until it attacks?
-ENT.MeleeAttackDamageDistance = 200 -- How far does the damage go?
+ENT.MeleeAttackDistance = 250 -- How close does it have to be until it attacks?
+ENT.MeleeAttackDamageDistance = 500 -- How far does the damage go?
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-	-- ====== Knock Back Variables ====== --
 ENT.HasMeleeAttackKnockBack = true -- If true, it will cause a knockback to its enemy
-ENT.MeleeAttackKnockBack_Forward1 = 100 -- How far it will push you forward | First in math.random
-ENT.MeleeAttackKnockBack_Forward2 = 100 -- How far it will push you forward | Second in math.random
-ENT.MeleeAttackKnockBack_Up1 = 10 -- How far it will push you up | First in math.random
-ENT.MeleeAttackKnockBack_Up2 = 10 -- How far it will push you up | Second in math.random
-ENT.MeleeAttackKnockBack_Right1 = 0 -- How far it will push you right | First in math.random
-ENT.MeleeAttackKnockBack_Right2 = 0 -- How far it will push you right | Second in math.random
-	-- ====== World Shake On Miss Variables ====== --
-ENT.MeleeAttackWorldShakeOnMiss = true -- Should it shake the world when it misses during melee attack?
-ENT.MeleeAttackWorldShakeOnMissAmplitude = 16 -- How much the screen will shake | From 1 to 16, 1 = really low 16 = really high
-ENT.MeleeAttackWorldShakeOnMissRadius = 1000 -- How far the screen shake goes, in world units
-ENT.MeleeAttackWorldShakeOnMissDuration = 1 -- How long the screen shake will last, in seconds
-ENT.MeleeAttackWorldShakeOnMissFrequency = 100 -- Just leave it to 100
+ENT.MeleeAttackKnockBack_Forward1 = 400 -- How far it will push you forward | First in math.random
+ENT.MeleeAttackKnockBack_Forward2 = 500 -- How far it will push you forward | Second in math.random
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_gonarchspit" -- The entity that is spawned when range attacking
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlrof_gw_biotoxin" -- The entity that is spawned when range attacking
 ENT.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1} -- Range Attack Animations
-ENT.RangeDistance = 2000 -- This is how far away it can shoot
+ENT.RangeDistance = 6000 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 500 -- How close does it have to be until it uses melee?
-ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-ENT.NextRangeAttackTime = 0.1 -- How much time until it can use a range attack?
+ENT.TimeUntilRangeAttackProjectileRelease = 2.1 -- How much time until the projectile code is ran?
+ENT.RangeAttackExtraTimers = {2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4, 4.1, 4.2, 4.3} -- Extra range attack timers | it will run the projectile code after the given amount of seconds
+ENT.NextRangeAttackTime = 2 -- How much time until it can use a range attack?
 ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
-ENT.RangeAttackPos_Up = 180 -- Up/Down spawning position for range attack
+ENT.RangeUseAttachmentForPos = true -- Should the projectile spawn on a attachment?
+ENT.RangeUseAttachmentForPosID = "mouth" -- The attachment used on the range attack if RangeUseAttachmentForPos is set to true
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {"death"} -- Death Animations
-ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
+ENT.SoundTbl_Breath = {}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/geneworm/geneworm_idle1.wav","vj_hlr/hl1_npc/geneworm/geneworm_idle2.wav","vj_hlr/hl1_npc/geneworm/geneworm_idle3.wav","vj_hlr/hl1_npc/geneworm/geneworm_idle4.wav"}
+ENT.SoundTbl_MeleeAttack = {}
+ENT.SoundTbl_MeleeAttackMiss = {}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/geneworm/geneworm_death.wav"}
 
+ENT.IdleSoundLevel = 90
+ENT.BeforeMeleeAttackSoundLevel = 90
+ENT.BeforeRangeAttackSoundLevel = 90
+ENT.PainSoundLevel = 90
+ENT.DeathSoundLevel = 90
 
-ENT.AllyDeathSoundChance = 1
+-- Custom
+ENT.GW_Fade = 0 -- 0 = No fade | 1 = Fade in | 2 = Fade out
+ENT.GW_EyeHealth = {}
+ENT.GW_OrbOpen = false
+ENT.GW_OrbHealth = 1 // 100
 
-ENT.FootStepSoundLevel = 80
-ENT.GeneralSoundPitch1 = 100
-ENT.AllyDeathSoundLevel = 90
+/* TODO:
+	- Add lights to the eyes
+	- Shock trooper spawn on pain_4
+	- Add sounds
+	- Death animation
+	- Death particles
+	- Set eye and orb health back to 100!
+*/
+ local defEyeHealth = 1 // 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(800, 800, 350), Vector(-800, -800, -180))
+	self:SetCollisionBounds(Vector(400, 400, 350), Vector(-400, -400, -240))
+	self:SetRenderMode(RENDERMODE_TRANSALPHA)
+	self.GW_EyeHealth = {r=defEyeHealth, l=defEyeHealth}
+	
+	self.Portal = ents.Create("prop_vj_animatable")
+	self.Portal:SetModel("models/vj_hlr/opfor/effects/geneportal.mdl")
+	self.Portal:SetPos(self:GetPos() + self:GetForward()*-507)
+	self.Portal:SetAngles(self:GetAngles())
+	self.Portal:SetParent(self)
+	self.Portal:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
+	self.Portal:Spawn()
+	self.Portal:Activate()
+	self:DeleteOnRemove(self.Portal)
+	-- Fade in on spawn, if AI is disabled, then don't do it
+	/*if GetConVarNumber("ai_disabled") == 0 then
+		self.Portal:ResetSequence("open")
+		timer.Simple(12, function()
+			if IsValid(self) && IsValid(self.Portal) && self.Portal:GetSequenceName(self.Portal:GetSequence()) == "open" then
+				self.Portal:ResetSequence("idle")
+			end
+		end)
+		self:SetColor(Color(255, 255, 255, 0))
+		self.GW_Fade = 1
+		timer.Simple(0.01, function()
+			if IsValid(self) then
+				VJ_EmitSound(self, "vj_hlr/hl1_npc/geneworm/geneworm_entry.wav", 90)
+				self:VJ_ACT_PLAYACTIVITY(ACT_ARM, true, false)
+			end
+		end)
+	else
+		self.Portal:ResetSequence("idle")
+	end*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	print(key)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
-	self.HasDeathSounds = false
-	if self.HasGibDeathParticles == true then
-		local bloodeffect = EffectData()
-		bloodeffect:SetOrigin(self:GetPos() +self:OBBCenter())
-		bloodeffect:SetColor(VJ_Color2Byte(Color(255,221,35)))
-		bloodeffect:SetScale(120)
-		util.Effect("VJ_Blood1",bloodeffect)
-		
-		local bloodspray = EffectData()
-		bloodspray:SetOrigin(self:GetPos() +self:OBBCenter())
-		bloodspray:SetScale(8)
-		bloodspray:SetFlags(3)
-		bloodspray:SetColor(1)
-		util.Effect("bloodspray",bloodspray)
-		util.Effect("bloodspray",bloodspray)
-		
-		local effectdata = EffectData()
-		effectdata:SetOrigin(self:GetPos() +self:OBBCenter())
-		effectdata:SetScale(1)
-		util.Effect("StriderBlood",effectdata)
-		util.Effect("StriderBlood",effectdata)
+	if key == "melee" or key == "shakeworld" then
+		self:MeleeAttackCode()
+	//elseif key == "spit_start" then
+		//self:RangeAttackCode()
+	elseif key == "spawn_portal" then
+		-- Spawn shock trooper
+		local at = self:GetAttachment(self:LookupAttachment("orb"))
+		sprite = ents.Create("obj_vj_hlrof_gw_spawner")
+		sprite:SetPos(at.Pos)
+		sprite:SetAngles(at.Ang)
+		sprite:Spawn()
+		sprite:Activate()
+		local phys = sprite:GetPhysicsObject()
+		if IsValid(phys) then
+			phys:Wake()
+			phys:EnableGravity(false)
+			phys:EnableDrag(false)
+			phys:SetVelocity(self:CalculateProjectile("Line", sprite:GetPos(), at.Pos + at.Ang:Forward()*500, 500))
+		end
 	end
-	
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_shellgib.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,160)),Ang=self:LocalToWorldAngles(Angle(0,0,180))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_sacgib.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(20,0,60)),Ang=self:LocalToWorldAngles(Angle(-89.999908447266, 179.99996948242, 180))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_leggib.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(55,-70,80)),Ang=Angle(3.1017229557037, -35.476417541504, 91.352874755859)})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_leggib.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(70,55,80)),Ang=Angle(3.6497807502747, 60.498592376709, 93.368896484375)})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_leggib.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(-70,-45,80)),Ang=Angle(3.8801980018616, -128.15255737305, 91.630615234375)})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_leggib.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(-45,70,80)),Ang=self:LocalToWorldAngles(Angle(3.8801965713501, -45, 91.630599975586))})
-	return true -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, math.random(100,100))
-	return false
+function ENT:CustomOnThink()
+	-- Fade in animation (On Spawn)
+	local a = self:GetColor().a
+	if self.GW_Fade == 1 && a < 255 then
+		self:SetColor(Color(255, 255, 255, a + 2))
+		if self:GetColor().a >= 255 then
+			self.GW_Fade = 0
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SetNearestPointToEntityPosition()
+	return self:GetPos() + self:GetForward()*200 -- Override this to use a different position
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SetMeleeAttackDamagePosition()
+	return self:GetPos() + self:GetForward()*200 -- Override this to use a different position
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnMeleeAttack_BeforeStartTimer()
+	local ene = self:GetEnemy()
+	if !IsValid(ene) then return end
+	local posR = self:GetPos() + self:GetForward()*200 + self:GetRight()*300
+	local posL = self:GetPos() + self:GetForward()*200 + self:GetRight()*-300
+	if math.random(1, 2) == 1 then
+		self.AnimTbl_MeleeAttack = {ACT_SPECIAL_ATTACK1}
+		self.MeleeAttackKnockBack_Up1 = 1000
+		self.MeleeAttackKnockBack_Up2 = 1200
+		self.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/geneworm/geneworm_big_attack_forward.wav"}
+	else
+		self.MeleeAttackKnockBack_Up1 = -100
+		self.MeleeAttackKnockBack_Up2 = -150
+		self.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/geneworm/geneworm_attack_mounted_gun.wav", "vj_hlr/hl1_npc/geneworm/geneworm_attack_mounted_rocket.wav"}
+		if self:GetForward():Dot((ene:GetPos() - self:GetPos()):GetNormalized()) > math.cos(math.rad(40)) then
+			//print("center")
+			self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
+		else
+			if posR:Distance(ene:GetPos()) > posL:Distance(ene:GetPos()) then
+				//print("left")
+				self.AnimTbl_MeleeAttack = {"melee1"}
+			else
+				//print("right")
+				self.AnimTbl_MeleeAttack = {"melee2"}
+			end
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRangeAttack_BeforeStartTimer()
+	self:PlaySoundSystem("BeforeMeleeAttack", "vj_hlr/hl1_npc/geneworm/geneworm_beam_attack.wav", VJ_EmitSound)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackCode_GetShootPos(TheProjectile)
+	local enePos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter()
+	local attachPos = self:GetAttachment(1).Pos
+	local vel = self:CalculateProjectile("Line", self:GetAttachment(1).Pos, enePos, 2000)
+	TheProjectile.EO_Enemy = self:GetEnemy()
+	TheProjectile.EO_OrgPosition = enePos
+	TheProjectile.EO_TrackTime = CurTime() + (enePos:Distance(attachPos) / vel:Length()) -- Stops chasing the enemy after this time
+	return vel
+end
+/*
+	pain_1 = Start animation when both eyes break
+	pain_2 = Idle animation when orb is open
+	pain_3 = When orb is destroyed -- Play this then pain_4
+	pain_4 = Spawns shocktrooper -- Can be triggered if it runs out of time or orb is destroyed
+*/
+---------------------------------------------------------------------------------------------------------------------------------------------
+-- Resets everything, including the eye & stomach health, idle animation and NPC state
+function ENT:GW_OrbOpenReset()
+	print("ORB RESET")
+	self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain4.wav")
+	timer.Remove("gw_closestomach"..self:EntIndex())
+	self.GW_OrbOpen = false
+	self.GW_EyeHealth = {r=defEyeHealth, l=defEyeHealth}
+	self.GW_OrbHealth = 100
+	self:SetSkin(0)
+	self.AnimTbl_IdleStand = {ACT_IDLE}
+	self:VJ_ACT_PLAYACTIVITY("pain_4", true, false)
+	self:SetState()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+-- Checks to the health of each eye and sets the skin
+	-- If both are broken, then it will open its stomach
+function ENT:GW_EyeHealthCheck()
+	local r = self.GW_EyeHealth.r
+	local l = self.GW_EyeHealth.l
+	if r <= 0 && l <= 0 then -- If both eyes have health below 1 then open stomach!
+		self:SetSkin(3)
+		if self.GW_OrbOpen == false then
+			print("ORB OPEN")
+			self.GW_OrbOpen = true
+			self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+			self.AnimTbl_IdleStand = {ACT_IDLE_STIMULATED}
+			self:VJ_ACT_PLAYACTIVITY("pain_1", true, false)
+			self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain1.wav")
+			timer.Create("gw_closestomach"..self:EntIndex(), 18, 1, function()
+				if IsValid(self) && self.GW_OrbOpen == true then
+					self:GW_OrbOpenReset()
+				end
+			end)
+		end
+	elseif r <= 0 then
+		self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_shot_in_eye.wav")
+		self:SetSkin(2)
+	elseif l <= 0 then
+		self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_shot_in_eye.wav")
+		self:SetSkin(1)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+	if self.GW_Fade == 1 then dmginfo:SetDamage(0) end -- If it's fading inthen don't take damage!
+	-- Left eye
+	if hitgroup == 14 && self.GW_EyeHealth.l > 0 then
+		self:SpawnBloodParticles(dmginfo,hitgroup)
+		self.GW_EyeHealth.l = self.GW_EyeHealth.l - dmginfo:GetDamage()
+		//print("Left hit!", self.GW_EyeHealth.l)
+		if self.GW_EyeHealth.l <= 0 then
+			self:VJ_ACT_PLAYACTIVITY(ACT_SMALL_FLINCH, true, false)
+			self:GW_EyeHealthCheck()
+		end
+		dmginfo:SetDamage(0)
+	 -- Right eye
+	elseif hitgroup == 15 && self.GW_EyeHealth.r > 0 then
+		self:SpawnBloodParticles(dmginfo,hitgroup)
+		self.GW_EyeHealth.r = self.GW_EyeHealth.r - dmginfo:GetDamage()
+		//print("Right hit!", self.GW_EyeHealth.r)
+		if self.GW_EyeHealth.r <= 0 then
+			self:VJ_ACT_PLAYACTIVITY(ACT_BIG_FLINCH, true, false)
+			self:GW_EyeHealthCheck()
+		end
+		dmginfo:SetDamage(0)
+	-- Stomach Orb
+	elseif hitgroup == 69 && self.GW_OrbOpen == true && self.GW_OrbHealth > 0 then
+		self.GW_OrbHealth = self.GW_OrbHealth - dmginfo:GetDamage()
+		if self.GW_OrbHealth <= 0 then
+			timer.Remove("gw_closestomach"..self:EntIndex())
+			self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain3.wav")
+			self:VJ_ACT_PLAYACTIVITY("pain_3", true, false, false, 0, {}, function(vsched)
+				vsched.RunCode_OnFinish = function()
+					self:GW_OrbOpenReset()
+				end
+			end)
+		end
+	else
+		dmginfo:SetDamage(0)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRemove()
+	timer.Remove("gw_closestomach"..self:EntIndex())
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
