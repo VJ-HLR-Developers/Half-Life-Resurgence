@@ -33,7 +33,7 @@ ENT.MeleeAttackKnockBack_Forward2 = 500 -- How far it will push you forward | Se
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlrof_gw_biotoxin" -- The entity that is spawned when range attacking
 ENT.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1} -- Range Attack Animations
-ENT.RangeDistance = 6000 -- This is how far away it can shoot
+ENT.RangeDistance = 8000 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 500 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = 2.1 -- How much time until the projectile code is ran?
 ENT.RangeAttackExtraTimers = {2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4, 4.1, 4.2, 4.3} -- Extra range attack timers | it will run the projectile code after the given amount of seconds
@@ -73,7 +73,7 @@ ENT.GW_OrbHealth = 1 // 100
 	- Death particles
 	- Set eye and orb health back to 100!
 */
- local defEyeHealth = 1 // 100
+local defEyeHealth = 1 // 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(400, 400, 350), Vector(-400, -400, -240))
@@ -89,12 +89,22 @@ function ENT:CustomOnInitialize()
 	self.Portal:Spawn()
 	self.Portal:Activate()
 	self:DeleteOnRemove(self.Portal)
+	
+	self.Portal.MoveLP = CreateSound(self.Portal,"vj_hlr/fx/alien_zonerator.wav")
+	self.Portal.MoveLP:SetSoundLevel(100)
+	self.Portal.IdleLP = CreateSound(self.Portal,"vj_hlr/fx/alien_creeper.wav")
+	self.Portal.IdleLP:SetSoundLevel(100)
+	
 	-- Fade in on spawn, if AI is disabled, then don't do it
-	/*if GetConVarNumber("ai_disabled") == 0 then
+	if GetConVarNumber("ai_disabled") == 0 then
 		self.Portal:ResetSequence("open")
+		self.Portal.MoveLP:Play()
+		self.Portal.IdleLP:Stop()
 		timer.Simple(12, function()
 			if IsValid(self) && IsValid(self.Portal) && self.Portal:GetSequenceName(self.Portal:GetSequence()) == "open" then
 				self.Portal:ResetSequence("idle")
+				self.Portal.MoveLP:Stop()
+				self.Portal.IdleLP:Play()
 			end
 		end)
 		self:SetColor(Color(255, 255, 255, 0))
@@ -107,7 +117,9 @@ function ENT:CustomOnInitialize()
 		end)
 	else
 		self.Portal:ResetSequence("idle")
-	end*/
+		self.Portal.MoveLP:Stop()
+		self.Portal.IdleLP:Play()
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
@@ -138,10 +150,15 @@ function ENT:CustomOnThink()
 	-- Fade in animation (On Spawn)
 	local a = self:GetColor().a
 	if self.GW_Fade == 1 && a < 255 then
-		self:SetColor(Color(255, 255, 255, a + 2))
+		self:SetColor(Color(255, 255, 255, a >= 180 && a + 25 or a + 2))
 		if self:GetColor().a >= 255 then
 			self.GW_Fade = 0
 		end
+	end
+
+	-- Fade Out animation (On Death)
+	if self.GW_Fade == 2 && a > 0 then
+		self:SetColor(Color(255, 255, 255, math.Clamp(a - 2,0,255)))
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -216,6 +233,15 @@ function ENT:GW_OrbOpenReset()
 	self:SetState()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+	if IsValid(self.Portal) then
+		self.Portal:ResetSequence("close")
+		self.Portal.MoveLP:Play()
+		self.Portal.IdleLP:Stop()
+	end
+	self.GW_Fade = 2
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 -- Checks to the health of each eye and sets the skin
 	-- If both are broken, then it will open its stomach
 function ENT:GW_EyeHealthCheck()
@@ -230,6 +256,12 @@ function ENT:GW_EyeHealthCheck()
 			self.AnimTbl_IdleStand = {ACT_IDLE_STIMULATED}
 			self:VJ_ACT_PLAYACTIVITY("pain_1", true, false)
 			self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain1.wav")
+			timer.Simple(VJ_GetSequenceDuration(self, "pain_1"),function()
+				if IsValid(self) then
+					self:VJ_ACT_PLAYACTIVITY("pain_2", true, false)
+					self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain2.wav")
+				end
+			end)
 			timer.Create("gw_closestomach"..self:EntIndex(), 18, 1, function()
 				if IsValid(self) && self.GW_OrbOpen == true then
 					self:GW_OrbOpenReset()
@@ -286,6 +318,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
 	timer.Remove("gw_closestomach"..self:EntIndex())
+
+	self.Portal.MoveLP:Stop()
+	self.Portal.IdleLP:Stop()
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
