@@ -53,11 +53,13 @@ ENT.SoundTbl_MeleeAttack = {}
 ENT.SoundTbl_MeleeAttackMiss = {}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/geneworm/geneworm_death.wav"}
 
-ENT.IdleSoundLevel = 90
-ENT.BeforeMeleeAttackSoundLevel = 90
-ENT.BeforeRangeAttackSoundLevel = 90
-ENT.PainSoundLevel = 90
-ENT.DeathSoundLevel = 90
+ENT.BreathSoundLevel = 100
+ENT.IdleSoundLevel = 100
+ENT.AlertSoundLevel = 100
+ENT.BeforeMeleeAttackSoundLevel = 100
+ENT.BeforeRangeAttackSoundLevel = 100
+ENT.PainSoundLevel = 100
+ENT.DeathSoundLevel = 100
 
 -- Custom
 ENT.GW_Fade = 0 -- 0 = No fade | 1 = Fade in | 2 = Fade out
@@ -67,58 +69,77 @@ ENT.GW_OrbHealth = 1 // 100
 
 /* TODO:
 	- Add lights to the eyes
-	- Shock trooper spawn on pain_4
-	- Add sounds
-	- Death animation
 	- Death particles
 	- Set eye and orb health back to 100!
 */
-local defEyeHealth = 1 // 100
+local maxEyeHealth = 1 // 100
+local maxOrbHealth = 1 // 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(400, 400, 350), Vector(-400, -400, -240))
 	self:SetRenderMode(RENDERMODE_TRANSALPHA)
-	self.GW_EyeHealth = {r=defEyeHealth, l=defEyeHealth}
+	self.GW_EyeHealth = {r=maxEyeHealth, l=maxEyeHealth}
 	
-	self.Portal = ents.Create("prop_vj_animatable")
-	self.Portal:SetModel("models/vj_hlr/opfor/effects/geneportal.mdl")
-	self.Portal:SetPos(self:GetPos() + self:GetForward()*-507)
-	self.Portal:SetAngles(self:GetAngles())
-	self.Portal:SetParent(self)
-	self.Portal:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
-	self.Portal:Spawn()
-	self.Portal:Activate()
-	self:DeleteOnRemove(self.Portal)
+	self.GW_OrbSprite = ents.Create("env_sprite")
+	self.GW_OrbSprite:SetKeyValue("model","vj_hl/sprites/boss_glow.vmt")
+	//self.GW_OrbSprite:SetKeyValue("rendercolor","255 128 0")
+	self.GW_OrbSprite:SetKeyValue("GlowProxySize","2.0")
+	self.GW_OrbSprite:SetKeyValue("HDRColorScale","1.0")
+	self.GW_OrbSprite:SetKeyValue("renderfx","14")
+	self.GW_OrbSprite:SetKeyValue("rendermode","3")
+	self.GW_OrbSprite:SetKeyValue("renderamt","255")
+	self.GW_OrbSprite:SetKeyValue("disablereceiveshadows","0")
+	self.GW_OrbSprite:SetKeyValue("mindxlevel","0")
+	self.GW_OrbSprite:SetKeyValue("maxdxlevel","0")
+	self.GW_OrbSprite:SetKeyValue("framerate","10.0")
+	self.GW_OrbSprite:SetKeyValue("spawnflags","0")
+	self.GW_OrbSprite:SetKeyValue("scale","1.5")
+	self.GW_OrbSprite:SetParent(self)
+	self.GW_OrbSprite:Fire("SetParentAttachment", "orb")
+	self.GW_OrbSprite:Fire("HideSprite")
+	self.GW_OrbSprite:Spawn()
+	self:DeleteOnRemove(self.GW_OrbSprite)
 	
-	self.Portal.MoveLP = CreateSound(self.Portal,"vj_hlr/fx/alien_zonerator.wav")
-	self.Portal.MoveLP:SetSoundLevel(100)
-	self.Portal.IdleLP = CreateSound(self.Portal,"vj_hlr/fx/alien_creeper.wav")
-	self.Portal.IdleLP:SetSoundLevel(100)
+	self.GW_Portal = ents.Create("prop_vj_animatable")
+	self.GW_Portal:SetModel("models/vj_hlr/opfor/effects/geneportal.mdl")
+	self.GW_Portal:SetPos(self:GetPos() + self:GetForward()*-507)
+	self.GW_Portal:SetAngles(self:GetAngles())
+	self.GW_Portal:SetParent(self)
+	self.GW_Portal:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
+	self.GW_Portal:Spawn()
+	self.GW_Portal:Activate()
+	self:DeleteOnRemove(self.GW_Portal)
+	
+	-- Portal ambient sounds
+	self.GW_Portal.MoveLP = CreateSound(self.GW_Portal, "vj_hlr/fx/alien_zonerator.wav")
+	self.GW_Portal.MoveLP:SetSoundLevel(100)
+	self.GW_Portal.IdleLP = CreateSound(self.GW_Portal, "vj_hlr/fx/alien_creeper.wav")
+	self.GW_Portal.IdleLP:SetSoundLevel(100)
 	
 	-- Fade in on spawn, if AI is disabled, then don't do it
 	if GetConVarNumber("ai_disabled") == 0 then
-		self.Portal:ResetSequence("open")
-		self.Portal.MoveLP:Play()
-		self.Portal.IdleLP:Stop()
+		self.GW_Portal:ResetSequence("open")
+		self.GW_Portal.MoveLP:Play()
+		self.GW_Portal.IdleLP:Stop()
 		timer.Simple(12, function()
-			if IsValid(self) && IsValid(self.Portal) && self.Portal:GetSequenceName(self.Portal:GetSequence()) == "open" then
-				self.Portal:ResetSequence("idle")
-				self.Portal.MoveLP:Stop()
-				self.Portal.IdleLP:Play()
+			if IsValid(self) && IsValid(self.GW_Portal) && self.GW_Portal:GetSequenceName(self.GW_Portal:GetSequence()) == "open" then
+				self.GW_Portal:ResetSequence("idle")
+				self.GW_Portal.MoveLP:Stop()
+				self.GW_Portal.IdleLP:Play()
 			end
 		end)
 		self:SetColor(Color(255, 255, 255, 0))
 		self.GW_Fade = 1
 		timer.Simple(0.01, function()
 			if IsValid(self) then
-				VJ_EmitSound(self, "vj_hlr/hl1_npc/geneworm/geneworm_entry.wav", 90)
+				self:PlaySoundSystem("Alert", "vj_hlr/hl1_npc/geneworm/geneworm_entry.wav")
 				self:VJ_ACT_PLAYACTIVITY(ACT_ARM, true, false)
 			end
 		end)
 	else
-		self.Portal:ResetSequence("idle")
-		self.Portal.MoveLP:Stop()
-		self.Portal.IdleLP:Play()
+		self.GW_Portal:ResetSequence("idle")
+		self.GW_Portal.MoveLP:Stop()
+		self.GW_Portal.IdleLP:Play()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -134,6 +155,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		sprite = ents.Create("obj_vj_hlrof_gw_spawner")
 		sprite:SetPos(at.Pos)
 		sprite:SetAngles(at.Ang)
+		sprite:SetOwner(self)
 		sprite:Spawn()
 		sprite:Activate()
 		local phys = sprite:GetPhysicsObject()
@@ -141,24 +163,22 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 			phys:Wake()
 			phys:EnableGravity(false)
 			phys:EnableDrag(false)
-			phys:SetVelocity(self:CalculateProjectile("Line", sprite:GetPos(), at.Pos + at.Ang:Forward()*500, 500))
+			phys:SetVelocity(self:CalculateProjectile("Line", sprite:GetPos(), at.Pos + self:GetForward()*400, 300))
 		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	-- Fade in animation (On Spawn)
 	local a = self:GetColor().a
+	-- Fade in animation (On Spawn)
 	if self.GW_Fade == 1 && a < 255 then
 		self:SetColor(Color(255, 255, 255, a >= 180 && a + 25 or a + 2))
 		if self:GetColor().a >= 255 then
 			self.GW_Fade = 0
 		end
-	end
-
-	-- Fade Out animation (On Death)
-	if self.GW_Fade == 2 && a > 0 then
-		self:SetColor(Color(255, 255, 255, math.Clamp(a - 2,0,255)))
+	-- Fade out animation (On Death)
+	elseif self.GW_Fade == 2 && a > 0 then
+		self:SetColor(Color(255, 255, 255, math.Clamp(a - 2, 0, 255)))
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -222,24 +242,18 @@ end
 -- Resets everything, including the eye & stomach health, idle animation and NPC state
 function ENT:GW_OrbOpenReset()
 	print("ORB RESET")
-	self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain4.wav")
 	timer.Remove("gw_closestomach"..self:EntIndex())
+	self.GW_OrbSprite:Fire("HideSprite")
+	self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain4.wav")
+	self.SoundTbl_Breath = {}
+	VJ_STOPSOUND(self.CurrentBreathSound)
 	self.GW_OrbOpen = false
-	self.GW_EyeHealth = {r=defEyeHealth, l=defEyeHealth}
-	self.GW_OrbHealth = 100
+	self.GW_EyeHealth = {r=maxEyeHealth, l=maxEyeHealth}
+	self.GW_OrbHealth = maxOrbHealth
 	self:SetSkin(0)
 	self.AnimTbl_IdleStand = {ACT_IDLE}
 	self:VJ_ACT_PLAYACTIVITY("pain_4", true, false)
 	self:SetState()
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
-	if IsValid(self.Portal) then
-		self.Portal:ResetSequence("close")
-		self.Portal.MoveLP:Play()
-		self.Portal.IdleLP:Stop()
-	end
-	self.GW_Fade = 2
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 -- Checks to the health of each eye and sets the skin
@@ -251,18 +265,20 @@ function ENT:GW_EyeHealthCheck()
 		self:SetSkin(3)
 		if self.GW_OrbOpen == false then
 			print("ORB OPEN")
+			self.GW_OrbSprite:Fire("ShowSprite")
 			self.GW_OrbOpen = true
 			self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
 			self.AnimTbl_IdleStand = {ACT_IDLE_STIMULATED}
 			self:VJ_ACT_PLAYACTIVITY("pain_1", true, false)
 			self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain1.wav")
-			timer.Simple(VJ_GetSequenceDuration(self, "pain_1"),function()
+			self.SoundTbl_Breath = {"vj_hlr/hl1_npc/geneworm/geneworm_final_pain2.wav"}
+			/*timer.Simple(VJ_GetSequenceDuration(self, "pain_1"),function()
 				if IsValid(self) then
 					self:VJ_ACT_PLAYACTIVITY("pain_2", true, false)
 					self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain2.wav")
 				end
-			end)
-			timer.Create("gw_closestomach"..self:EntIndex(), 18, 1, function()
+			end)*/
+			timer.Create("gw_closestomach"..self:EntIndex(), 200, 1, function()
 				if IsValid(self) && self.GW_OrbOpen == true then
 					self:GW_OrbOpenReset()
 				end
@@ -304,9 +320,14 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 		self.GW_OrbHealth = self.GW_OrbHealth - dmginfo:GetDamage()
 		if self.GW_OrbHealth <= 0 then
 			timer.Remove("gw_closestomach"..self:EntIndex())
+			self.GW_OrbSprite:Fire("HideSprite")
+			self.SoundTbl_Breath = {}
+			VJ_STOPSOUND(self.CurrentBreathSound)
 			self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain3.wav")
-			self:VJ_ACT_PLAYACTIVITY("pain_3", true, false, false, 0, {}, function(vsched)
-				vsched.RunCode_OnFinish = function()
+			print("PAIN 3")
+			self:VJ_ACT_PLAYACTIVITY("pain_3", true, false)
+			timer.Simple(VJ_GetSequenceDuration(self, "pain_3"),function()
+				if IsValid(self) then
 					self:GW_OrbOpenReset()
 				end
 			end)
@@ -316,11 +337,20 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+	if IsValid(self.GW_Portal) then
+		self.GW_Portal:ResetSequence("close")
+		self.GW_Portal.MoveLP:Play()
+		self.GW_Portal.IdleLP:Stop()
+	end
+	self.GW_Fade = 2
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
 	timer.Remove("gw_closestomach"..self:EntIndex())
 
-	self.Portal.MoveLP:Stop()
-	self.Portal.IdleLP:Stop()
+	self.GW_Portal.MoveLP:Stop()
+	self.GW_Portal.IdleLP:Stop()
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***

@@ -112,8 +112,8 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
-	if math.random(1,40) == 1 then
-		self:SetBodygroup(1,1)
+	if math.random(1, 50) == 1 then
+		self:SetBodygroup(1, 1)
 		self.HornetGun = ents.Create("weapon_hornetgun")
 		self.HornetGun:SetPos(self:GetAttachment(self:LookupAttachment("hornet")).Pos)
 		self.HornetGun:SetAngles(self:GetAngles())
