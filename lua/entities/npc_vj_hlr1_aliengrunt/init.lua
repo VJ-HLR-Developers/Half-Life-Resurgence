@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -89,7 +89,7 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 end
 local vec = Vector(0,0,0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	if hitgroup == HITGROUP_GEAR then
 		dmginfo:SetDamage(0)
 		
@@ -103,7 +103,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
+function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
 	if dmginfo:GetDamage() > 30 then
 		self.AnimTbl_Flinch = {ACT_BIG_FLINCH}
 	else
@@ -111,7 +111,7 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo,hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
+function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
 	if math.random(1, 50) == 1 then
 		self:SetBodygroup(1, 1)
 		self.HornetGun = ents.Create("weapon_hornetgun")
@@ -122,7 +122,7 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
+function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibDeathParticles == true then
 		local bloodeffect = EffectData()
@@ -160,12 +160,12 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	return true -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
+function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, math.random(100,100))
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	if hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
 	elseif hitgroup == HITGROUP_STOMACH then
@@ -173,7 +173,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	end
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

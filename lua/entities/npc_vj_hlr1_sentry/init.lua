@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -147,7 +147,7 @@ function ENT:CustomOnResetEnemy()
 end
 local vec = Vector(0,0,0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	if dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
@@ -237,7 +237,7 @@ function ENT:CustomRangeAttackCode()
 	self:DeleteOnRemove(FireLight1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnKilled(dmginfo,hitgroup)
+function ENT:CustomOnKilled(dmginfo, hitgroup)
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
 	spr:SetKeyValue("GlowProxySize","2.0")
@@ -262,15 +262,15 @@ function ENT:CustomOnKilled(dmginfo,hitgroup)
 	timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
-	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, GetCorpse, self.Sentry_Type == 2 and 1 or 2)
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, corpseEnt, self.Sentry_Type == 2 and 1 or 2)
 	if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
-		GetCorpse:DrawShadow(false)
-		GetCorpse:ResetSequence("die")
+		corpseEnt:DrawShadow(false)
+		corpseEnt:ResetSequence("die")
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
+function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	local upPos = self.Sentry_SubType == 1 and -30 or 20
 	if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
@@ -310,7 +310,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
+function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, math.random(100,100))
 	VJ_EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 80, math.random(100,100))
 	return false
@@ -323,7 +323,7 @@ function ENT:CustomOnRemove()
 	end
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -37,7 +37,7 @@ function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(15, 15, 18), Vector(-15, -15, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnKilled(dmginfo,hitgroup)
+function ENT:CustomOnKilled(dmginfo, hitgroup)
 	if self.Snark_Type == 0 then
 		util.VJ_SphereDamage(self, self, self:GetPos(), 50, 15, DMG_ACID, true, true)
 		if self.Nest_SpawnEnt == "npc_vj_hlr1_snark" then
@@ -117,7 +117,7 @@ function ENT:CustomOnKilled(dmginfo,hitgroup)
 	end
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

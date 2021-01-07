@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -266,15 +266,15 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnPlayCreateSound(SoundData,SoundFile)
-	self.SCI_NextMouthMove = CurTime() + SoundDuration(SoundFile)
+function ENT:OnPlayCreateSound(sdData, sdFile)
+	self.SCI_NextMouthMove = CurTime() + SoundDuration(sdFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	self:SetBodygroup(2,0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
+function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibDeathParticles == true then
 		local bloodeffect = EffectData()
@@ -325,7 +325,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
+function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 100, math.random(100,100))
 	if self.SCI_Type == 2 then
 		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, math.random(100,100))
@@ -334,7 +334,7 @@ function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	if hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
 	elseif hitgroup == HITGROUP_STOMACH && self.SCI_Type != 2 then
@@ -342,7 +342,7 @@ function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
 	end
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

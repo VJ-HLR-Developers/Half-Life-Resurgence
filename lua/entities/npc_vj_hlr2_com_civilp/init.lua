@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -178,10 +178,10 @@ function ENT:CustomOnInitialize()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnPlayCreateSound(SoundData,SoundFile)
-	if VJ_HasValue(self.SoundTbl_Pain,SoundFile) or VJ_HasValue(self.DefaultSoundTbl_MeleeAttack,SoundFile) then return end
+function ENT:OnPlayCreateSound(sdData, sdFile)
+	if VJ_HasValue(self.SoundTbl_Pain,sdFile) or VJ_HasValue(self.DefaultSoundTbl_MeleeAttack,sdFile) then return end
 	VJ_EmitSound(self, "npc/metropolice/vo/on"..math.random(1,2)..".wav")
-	timer.Simple(SoundDuration(SoundFile),function() if IsValid(self) && SoundData:IsPlaying() then VJ_EmitSound(self,"npc/metropolice/vo/off"..math.random(1,4)..".wav") end end)
+	timer.Simple(SoundDuration(sdFile),function() if IsValid(self) && sdData:IsPlaying() then VJ_EmitSound(self,"npc/metropolice/vo/off"..math.random(1,4)..".wav") end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(argent)
@@ -244,7 +244,7 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

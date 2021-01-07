@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -32,14 +32,14 @@ function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(28, 28, 65), Vector(-28, -28, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnKilled(dmginfo,hitgroup)
+function ENT:CustomOnKilled(dmginfo, hitgroup)
 	//ParticleEffect("vj_hl_blood_boob_yellow", self:GetPos() + self:OBBCenter(), self:GetAngles())
 	local effectdata = EffectData()
 	effectdata:SetOrigin(self:GetPos() + self:OBBCenter())
 	util.Effect("VJ_HLR_Protozoan_Pop", effectdata)
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

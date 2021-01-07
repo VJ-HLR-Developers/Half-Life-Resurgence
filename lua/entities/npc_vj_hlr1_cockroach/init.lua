@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -32,14 +32,14 @@ function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(2, 2, 2), Vector(-2, -2, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTouch(entity)
-	if entity:IsPlayer() or entity:IsNPC() then
-		self:TakeDamage(999999999,entity,entity)
-		VJ_EmitSound(self,"vj_hlr/hl1_npc/roach/rch_smash.wav",70)
+function ENT:CustomOnTouch(ent)
+	if ent:IsPlayer() or entity:IsNPC() then
+		self:TakeDamage(self:Health() + 1, ent, ent)
+		VJ_EmitSound(self, "vj_hlr/hl1_npc/roach/rch_smash.wav", 70)
 	end
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -232,14 +232,14 @@ function ENT:CustomRangeAttackCode()
 	self:DeleteOnRemove(FireLight1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnKilled(dmginfo,hitgroup)
+function ENT:CustomOnKilled(dmginfo, hitgroup)
 	ParticleEffect("explosion_turret_break_fire", self:GetPos() + self:OBBCenter(), Angle(0,0,0), NULL)
 	ParticleEffect("explosion_turret_break_flash", self:GetPos() + self:OBBCenter(), Angle(0,0,0), NULL)
 	ParticleEffect("explosion_turret_break_pre_smoke Version #2", self:GetPos() + self:OBBCenter(), Angle(0,0,0), NULL)
 	ParticleEffect("explosion_turret_break_sparks", self:GetPos() + self:OBBCenter(), Angle(0,0,0), NULL)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
+function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib1.mdl",{BloodType="",Pos=self:LocalToWorld(Vector(0,0,40)), CollideSound={"physics/metal/metal_box_impact_hard1.wav","physics/metal/metal_box_impact_hard2.wav","physics/metal/metal_box_impact_hard3.wav"}})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib2.mdl",{BloodType="",Pos=self:LocalToWorld(Vector(0,0,20)), CollideSound={"physics/metal/metal_box_impact_hard1.wav","physics/metal/metal_box_impact_hard2.wav","physics/metal/metal_box_impact_hard3.wav"}})
@@ -249,13 +249,13 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	return true -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
+function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	VJ_EmitSound(self, "vj_hlr/hl2_npc/turret/detonate.wav", 90, math.random(100,100))
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
-	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, GetCorpse, 2)
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, corpseEnt, 2)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
@@ -263,7 +263,7 @@ function ENT:CustomOnRemove()
 	VJ_STOPSOUND(self.turret_alertsd)
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

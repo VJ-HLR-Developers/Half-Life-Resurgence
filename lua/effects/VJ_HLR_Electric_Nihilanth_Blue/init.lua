@@ -1,6 +1,6 @@
 if (!file.Exists("autorun/vj_base_autorun.lua","LUA")) then return end
 /*--------------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
@@ -42,7 +42,7 @@ function EFFECT:Render()
 	render.DrawBeam(self.StartPos, self.EndPos, math.Rand(100,150), math.Rand(1,1.3) + ((self.StartPos - self.EndPos):Length() / 1280), ((self.StartPos - self.EndPos):Length() / 20000), Color(100,100,255,255))
 end
 /*--------------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/

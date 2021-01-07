@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -58,7 +58,7 @@ function ENT:SCI_CustomOnInitialize()
 	self.AnimTbl_Death = {ACT_DIESIMPLE}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
+function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
 	if self:GetBodygroup(0) == 1 then
 		self.Keller_WheelChair = false
 	end
@@ -66,13 +66,13 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 	self:SetPos(self:GetPos() + self:GetUp()*5)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 	if self.Keller_WheelChair == true then
 		self:CreateExtraDeathCorpse("prop_physics","models/vj_hlr/decay/wheelchair.mdl",{HasVel=false})
 	end
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

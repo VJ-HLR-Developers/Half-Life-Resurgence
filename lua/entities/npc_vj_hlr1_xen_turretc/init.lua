@@ -119,14 +119,14 @@ function ENT:CustomRangeAttackCode()
 	timer.Simple(0.2, function() SafeRemoveEntity(StartGlow1) end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	-- Take damage only if the bottom part is hit or it's a blast damage!
 	if hitgroup == 3 && dmginfo:GetDamageType() != DMG_BLAST then
 		dmginfo:SetDamage(0)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
+function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	if self.HasGibDeathParticles == true then
 		local StartGlow1 = ents.Create("env_sprite")
 		StartGlow1:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
@@ -162,7 +162,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	return true, {AllowCorpse=true} -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
+function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	//VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, math.random(100,100))
 	return false
 end

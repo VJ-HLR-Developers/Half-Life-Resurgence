@@ -173,26 +173,26 @@ end
 	return IsValid(self.Barnacle_CurEnt)
 end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
+function ENT:CustomOnDoKilledEnemy(argent, attacker, inflictor)
 	VJ_EmitSound(self, "vj_hlr/hl1_npc/barnacle/bcl_bite3.wav")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialKilled(dmginfo,hitgroup)
+function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 	self:Barnacle_ResetEnt()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
+function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
 	self:SetPos(self:GetPos() + self:GetUp()*-4)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
-	GetCorpse:DrawShadow(false)
-	GetCorpse:SetPoseParameter("tongue_height", self.Barnacle_LastHeight)
-	GetCorpse:ResetSequence("Death")
-	GetCorpse:SetCycle(1)
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+	corpseEnt:DrawShadow(false)
+	corpseEnt:SetPoseParameter("tongue_height", self.Barnacle_LastHeight)
+	corpseEnt:ResetSequence("Death")
+	corpseEnt:SetCycle(1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
+function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibDeathParticles == true then
 		local bloodeffect = EffectData()
@@ -225,7 +225,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	return true -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
+function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, math.random(100,100))
 	return false
 end

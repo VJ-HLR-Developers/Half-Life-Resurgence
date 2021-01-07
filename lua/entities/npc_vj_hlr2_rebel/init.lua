@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -153,9 +153,9 @@ end
 	end
 end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnEntityRelationshipCheck(argent, entisfri, entdist)
+function ENT:CustomOnEntityRelationshipCheck(argent, entFri, entDist)
 	-- Tell the player to reload their weapon
-	if argent:IsPlayer() && entisfri == true && entdist <= 200 && !IsValid(self:GetEnemy()) && CurTime() > self.Human_NextPlyReloadSd then
+	if argent:IsPlayer() && entFri == true && entDist <= 200 && !IsValid(self:GetEnemy()) && CurTime() > self.Human_NextPlyReloadSd then
 		self.Human_NextPlyReloadSd = CurTime() + math.Rand(10,60)
 		local wep = argent:GetActiveWeapon()
 		if math.random(1,3) == 1 && IsValid(wep) && wep:Clip1() < wep:GetMaxClip1() && argent:GetAmmoCount(wep:GetPrimaryAmmoType()) > 0 then
@@ -176,7 +176,7 @@ function ENT:CustomOnDoChangeWeapon(newWeapon, oldWeapon, invSwitch)
 	if self:GetWeaponState() == VJ_WEP_STATE_ANTI_ARMOR && self.Human_Gender == 0 && math.random(1,2) == 1 then self:PlaySoundSystem("GeneralSpeech",{"vo/npc/male01/evenodds.wav"}) end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoKilledEnemy(argent,attacker,inflictor)
+function ENT:CustomOnDoKilledEnemy(argent, attacker, inflictor)
 	self:VJ_ACT_PLAYACTIVITY("vjseq_cheer1", false, false, false, 0, {vTbl_SequenceInterruptible=true})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -241,7 +241,7 @@ function ENT:CustomOnAlert(argent)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
+function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
 	if self:Health() > 0 && math.random(1,2) == 1 then
 		if hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTARM then
 			self:PlaySoundSystem("Pain", {
@@ -1324,7 +1324,7 @@ function ENT:HLR_ApplyFemaleSounds()
 	]]--
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

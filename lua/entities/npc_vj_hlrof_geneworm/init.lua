@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -295,11 +295,11 @@ function ENT:GW_EyeHealthCheck()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	if self.GW_Fade == 1 then dmginfo:SetDamage(0) end -- If it's fading inthen don't take damage!
 	-- Left eye
 	if hitgroup == 14 && self.GW_EyeHealth.l > 0 then
-		self:SpawnBloodParticles(dmginfo,hitgroup)
+		self:SpawnBloodParticles(dmginfo, hitgroup)
 		self.GW_EyeHealth.l = self.GW_EyeHealth.l - dmginfo:GetDamage()
 		//print("Left hit!", self.GW_EyeHealth.l)
 		if self.GW_EyeHealth.l <= 0 then
@@ -309,7 +309,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 		dmginfo:SetDamage(0)
 	 -- Right eye
 	elseif hitgroup == 15 && self.GW_EyeHealth.r > 0 then
-		self:SpawnBloodParticles(dmginfo,hitgroup)
+		self:SpawnBloodParticles(dmginfo, hitgroup)
 		self.GW_EyeHealth.r = self.GW_EyeHealth.r - dmginfo:GetDamage()
 		//print("Right hit!", self.GW_EyeHealth.r)
 		if self.GW_EyeHealth.r <= 0 then
@@ -338,7 +338,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo,hitgroup)
+function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	if IsValid(self.GW_Portal) then
 		self.GW_Portal:ResetSequence("close")
 		self.GW_Portal.MoveLP:Play()
@@ -354,7 +354,7 @@ function ENT:CustomOnRemove()
 	self.GW_Portal.IdleLP:Stop()
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -166,9 +166,9 @@ function ENT:CustomOnInitialize()
 	//self:Give("weapon_vj_hl_hgruntwep")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnPlayCreateSound(SoundData,SoundFile)
-	if !self.SoundTbl_Breath[SoundFile] then
-		self.HECU_NextMouthMove = CurTime() + SoundDuration(SoundFile)
+function ENT:OnPlayCreateSound(sdData, sdFile)
+	if !self.SoundTbl_Breath[sdFile] then
+		self.HECU_NextMouthMove = CurTime() + SoundDuration(sdFile)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -207,7 +207,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnSetupWeaponHoldTypeAnims(htype)
+function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
 	local bgroup = self.HGrunt_LastBodyGroup
 	if self.HECU_Type == 0 then-- 0 = HL1 Grunt
 		if bgroup == 0 then -- MP5
@@ -352,13 +352,13 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
-	GrenadeEntity.DecalTbl_DeathDecals = {"VJ_HLR_Scorch"}
-	GrenadeEntity.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/grenade/grenade_hit1.wav","vj_hlr/hl1_weapon/grenade/grenade_hit2.wav","vj_hlr/hl1_weapon/grenade/grenade_hit3.wav"}
-	GrenadeEntity.SoundTbl_OnRemove = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}
-	GrenadeEntity.OnRemoveSoundLevel = 100
+function ENT:CustomOnGrenadeAttack_OnThrow(grenEnt)
+	grenEnt.DecalTbl_DeathDecals = {"VJ_HLR_Scorch"}
+	grenEnt.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/grenade/grenade_hit1.wav","vj_hlr/hl1_weapon/grenade/grenade_hit2.wav","vj_hlr/hl1_weapon/grenade/grenade_hit3.wav"}
+	grenEnt.SoundTbl_OnRemove = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}
+	grenEnt.OnRemoveSoundLevel = 100
 	
-	function GrenadeEntity:CustomOnPhysicsCollide(data,phys)
+	function grenEnt:CustomOnPhysicsCollide(data,phys)
 		getvelocity = phys:GetVelocity()
 		velocityspeed = getvelocity:Length()
 		phys:SetVelocity(getvelocity * 0.5)
@@ -368,7 +368,7 @@ function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
 		end
 	end
 	
-	function GrenadeEntity:DeathEffects()
+	function grenEnt:DeathEffects()
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
 		spr:SetKeyValue("GlowProxySize","2.0")
@@ -382,7 +382,7 @@ function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
 		spr:SetKeyValue("framerate","15.0")
 		spr:SetKeyValue("spawnflags","0")
 		spr:SetKeyValue("scale","4")
-		spr:SetPos(GrenadeEntity:GetPos() + Vector(0,0,90))
+		spr:SetPos(grenEnt:GetPos() + Vector(0,0,90))
 		spr:Spawn()
 		spr:Fire("Kill","",0.9)
 		timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
@@ -390,31 +390,31 @@ function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
 		light = ents.Create("light_dynamic")
 		light:SetKeyValue("brightness", "4")
 		light:SetKeyValue("distance", "300")
-		light:SetLocalPos(GrenadeEntity:GetPos())
-		light:SetLocalAngles( GrenadeEntity:GetAngles() )
+		light:SetLocalPos(grenEnt:GetPos())
+		light:SetLocalAngles( grenEnt:GetAngles() )
 		light:Fire("Color", "255 150 0")
-		light:SetParent(GrenadeEntity)
+		light:SetParent(grenEnt)
 		light:Spawn()
 		light:Activate()
 		light:Fire("TurnOn", "", 0)
-		GrenadeEntity:DeleteOnRemove(light)
-		util.ScreenShake(GrenadeEntity:GetPos(), 100, 200, 1, 2500)
+		grenEnt:DeleteOnRemove(light)
+		util.ScreenShake(grenEnt:GetPos(), 100, 200, 1, 2500)
 		
-		GrenadeEntity:SetLocalPos(Vector(GrenadeEntity:GetPos().x,GrenadeEntity:GetPos().y,GrenadeEntity:GetPos().z +4)) -- Because the entity is too close to the ground
+		grenEnt:SetLocalPos(Vector(grenEnt:GetPos().x,grenEnt:GetPos().y,grenEnt:GetPos().z +4)) -- Because the entity is too close to the ground
 		local tr = util.TraceLine({
-		start = GrenadeEntity:GetPos(),
-		endpos = GrenadeEntity:GetPos() - Vector(0, 0, 100),
-		filter = GrenadeEntity })
-		util.Decal(VJ_PICK(GrenadeEntity.DecalTbl_DeathDecals),tr.HitPos+tr.HitNormal,tr.HitPos-tr.HitNormal)
+		start = grenEnt:GetPos(),
+		endpos = grenEnt:GetPos() - Vector(0, 0, 100),
+		filter = grenEnt })
+		util.Decal(VJ_PICK(grenEnt.DecalTbl_DeathDecals),tr.HitPos+tr.HitNormal,tr.HitPos-tr.HitNormal)
 		
-		GrenadeEntity:DoDamageCode()
-		GrenadeEntity:SetDeathVariablesTrue(nil,nil,false)
+		grenEnt:DoDamageCode()
+		grenEnt:SetDeathVariablesTrue(nil,nil,false)
 		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 80, math.random(100,100))
-		GrenadeEntity:Remove()
+		grenEnt:Remove()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
+function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	if self.HECU_GasTankHit == true then
 		util.BlastDamage(self,self,self:GetPos(),100,80)
@@ -478,7 +478,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
+function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD then
 		VJ_EmitSound(self, {"vj_hlr/fx/headshot1.wav","vj_hlr/fx/headshot2.wav","vj_hlr/fx/headshot3.wav"}, 75, math.random(100,100))
 	elseif self.HECU_Type == 5 then
@@ -490,7 +490,7 @@ function ENT:CustomGibOnDeathSounds(dmginfo,hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	-- Regular Human Grunt head gib
 	if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then
 		self:SetBodygroup(1,4)
@@ -504,7 +504,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
+function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
 	if self.HECU_Type == 6 or self.HECU_Type == 7 then
 		self:SetBodygroup(self.HECU_WepBG,1)
 	elseif self.HECU_Type == 0 or self.HECU_Type == 3 or self.HECU_Type == 4 then
@@ -517,12 +517,12 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDropWeapon_AfterWeaponSpawned(dmginfo,hitgroup,GetWeapon)
-	GetWeapon.WorldModel_Invisible = false
-	GetWeapon:SetNWBool("VJ_WorldModel_Invisible",false)
+function ENT:CustomOnDropWeapon_AfterWeaponSpawned(dmginfo, hitgroup, wepEnt)
+	wepEnt.WorldModel_Invisible = false
+	wepEnt:SetNWBool("VJ_WorldModel_Invisible",false)
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

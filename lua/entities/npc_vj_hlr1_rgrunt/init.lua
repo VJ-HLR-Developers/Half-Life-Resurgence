@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -64,13 +64,13 @@ function ENT:HECU_CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnPlayCreateSound(SoundData,SoundFile)
-	if !self.SoundTbl_Breath[SoundFile] && !self.SoundTbl_Pain[SoundFile] then
-		self.HECU_NextMouthMove = CurTime() + SoundDuration(SoundFile)
+function ENT:OnPlayCreateSound(sdData, sdFile)
+	if !self.SoundTbl_Breath[sdFile] && !self.SoundTbl_Pain[sdFile] then
+		self.HECU_NextMouthMove = CurTime() + SoundDuration(sdFile)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
+function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	ParticleEffect("explosion_turret_break_fire", self:GetAttachment(self:LookupAttachment("head")).Pos, Angle(0,0,0), self)
 	ParticleEffect("explosion_turret_break_flash", self:GetAttachment(self:LookupAttachment("head")).Pos, Angle(0,0,0), self)
 	ParticleEffect("explosion_turret_break_pre_smoke Version #2", self:GetAttachment(self:LookupAttachment("head")).Pos, Angle(0,0,0), self)
@@ -78,7 +78,7 @@ function ENT:CustomOnPriorToKilled(dmginfo,hitgroup)
 end
 local vec = Vector(0,0,0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo,hitgroup)
+function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 	if dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
@@ -88,11 +88,11 @@ function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo,hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
-	ParticleEffectAttach("smoke_exhaust_01a",PATTACH_POINT_FOLLOW,GetCorpse,5)
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+	ParticleEffectAttach("smoke_exhaust_01a",PATTACH_POINT_FOLLOW,corpseEnt,5)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
+function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibDeathParticles == true then
 		local effectdata = EffectData()
@@ -121,7 +121,7 @@ function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)
 	return true
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/

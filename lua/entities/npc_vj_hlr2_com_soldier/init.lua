@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include('shared.lua')
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -123,10 +123,10 @@ function ENT:CustomOnPreInitialize()
 	self.Combine_ChatterT = CurTime() + math.Rand(1, 30)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnPlayCreateSound(SoundData,SoundFile)
-	if VJ_HasValue(self.SoundTbl_Pain, SoundFile) or VJ_HasValue(self.DefaultSoundTbl_MeleeAttack, SoundFile) or VJ_HasValue(SoundTbl_Combine_Chatter, SoundFile) then return end
+function ENT:OnPlayCreateSound(sdData, sdFile)
+	if VJ_HasValue(self.SoundTbl_Pain, sdFile) or VJ_HasValue(self.DefaultSoundTbl_MeleeAttack, sdFile) or VJ_HasValue(SoundTbl_Combine_Chatter, sdFile) then return end
 	VJ_EmitSound(self, "npc/combine_soldier/vo/on"..math.random(1,2)..".wav")
-	timer.Simple(SoundDuration(SoundFile), function() if IsValid(self) && SoundData:IsPlaying() then VJ_EmitSound(self,"npc/combine_soldier/vo/off"..math.random(1,3)..".wav") end end)
+	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ_EmitSound(self,"npc/combine_soldier/vo/off"..math.random(1,3)..".wav") end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
@@ -158,25 +158,25 @@ function ENT:CustomOnAlert(argent)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnGrenadeAttack_OnThrow(GrenadeEntity)
+function ENT:CustomOnGrenadeAttack_OnThrow(grenEnt)
 	-- Custom grenade model and sounds
-	GrenadeEntity.SoundTbl_Idle = {"weapons/grenade/tick1.wav"}
-	GrenadeEntity.IdleSoundPitch1 = 100
+	grenEnt.SoundTbl_Idle = {"weapons/grenade/tick1.wav"}
+	grenEnt.IdleSoundPitch1 = 100
 	local redglow = ents.Create("env_sprite")
 	redglow:SetKeyValue("model", "vj_base/sprites/vj_glow1.vmt")
 	redglow:SetKeyValue("scale", "0.07")
 	redglow:SetKeyValue("rendermode", "5")
 	redglow:SetKeyValue("rendercolor", "150 0 0")
 	redglow:SetKeyValue("spawnflags", "1") -- If animated
-	redglow:SetParent(GrenadeEntity)
+	redglow:SetParent(grenEnt)
 	redglow:Fire("SetParentAttachment", "fuse", 0)
 	redglow:Spawn()
 	redglow:Activate()
-	GrenadeEntity:DeleteOnRemove(redglow)
-	util.SpriteTrail(GrenadeEntity, 1, Color(200,0,0), true, 15, 15, 0.35, 1/(6+6)*0.5, "VJ_Base/sprites/vj_trial1.vmt")
+	grenEnt:DeleteOnRemove(redglow)
+	util.SpriteTrail(grenEnt, 1, Color(200,0,0), true, 15, 15, 0.35, 1/(6+6)*0.5, "VJ_Base/sprites/vj_trial1.vmt")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	-- Absorb bullet damage
 	if dmginfo:IsBulletDamage() then
 		if self.HasSounds == true && self.HasImpactSounds == true then VJ_EmitSound(self, "vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav", 70) end
@@ -203,7 +203,7 @@ function ENT:CustomOnRemove()
 	VJ_STOPSOUND(self.Combine_ChatterSd)
 end
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2020 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
