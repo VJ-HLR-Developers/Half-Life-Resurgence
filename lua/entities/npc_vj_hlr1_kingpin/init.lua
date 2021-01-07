@@ -186,14 +186,14 @@ function ENT:CustomAttackCheck_MeleeAttack() return self.KingPin_PsionicAttackin
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttackCheck_RangeAttack() return self.KingPin_PsionicAttacking != true end -- Not returning true will not let the melee attack code run!
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_AfterProjectileSpawn(TheProjectile)
+function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	if IsValid(self:GetEnemy()) then
-		TheProjectile.EO_Enemy = self:GetEnemy()
-		timer.Simple(20,function() if IsValid(TheProjectile) then TheProjectile:Remove() end end)
+		projectile.EO_Enemy = self:GetEnemy()
+		timer.Simple(20,function() if IsValid(projectile) then projectile:Remove() end end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(TheProjectile)
+function ENT:RangeAttackCode_GetShootPos(projectile)
 	return self:CalculateProjectile("Line", self:GetPos() + self:GetUp()*20, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 200)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

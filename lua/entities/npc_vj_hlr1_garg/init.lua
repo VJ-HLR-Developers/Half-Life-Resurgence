@@ -212,19 +212,19 @@ function ENT:CustomAttackCheck_RangeAttack()
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(TheProjectile)
+function ENT:RangeAttackCode_GetShootPos(projectile)
 	-- For stomp attack only!
 	return self:CalculateProjectile("Line", self:GetPos(), self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 200)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_AfterProjectileSpawn(TheProjectile)
+function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	-- For stomp attack only!
 	self.Garg_NextStompAttackT = CurTime() + math.Rand(10,13) -- Set a delay for the next stomp attack
 	util.Decal("VJ_HLR_Gargantua_Stomp", self:GetPos() + self:GetRight()*-20 + self:GetForward()*50, self:GetPos() + self:GetRight()*-20 + self:GetForward()*50 + self:GetUp()*-100, self)
 	if IsValid(self:GetEnemy()) then
-		TheProjectile.EO_Enemy = self:GetEnemy()
-		TheProjectile:SetAngles(Angle(self:GetAngles().p, 0, 0))
-		timer.Simple(10,function() if IsValid(TheProjectile) then TheProjectile:Remove() end end)
+		projectile.EO_Enemy = self:GetEnemy()
+		projectile:SetAngles(Angle(self:GetAngles().p, 0, 0))
+		timer.Simple(10,function() if IsValid(projectile) then projectile:Remove() end end)
 	end
 end
 local vec = Vector(0,0,0)

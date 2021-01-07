@@ -22,6 +22,7 @@ ENT.PoseParameterLooking_InvertYaw = false -- Inverts the yaw poseparameters (Y)
 ENT.Sentry_MuzzleAttach = "muzzle"
 ENT.Sentry_AlarmAttach = "frame"
 ENT.Sentry_Type = 2
+ENT.Sentry_SubType = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	//local ang = self:GetAngles()

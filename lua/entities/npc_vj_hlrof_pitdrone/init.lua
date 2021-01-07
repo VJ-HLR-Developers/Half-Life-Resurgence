@@ -71,11 +71,11 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(TheProjectile)
+function ENT:RangeAttackCode_GetShootPos(projectile)
 	return self:CalculateProjectile("Line", self:GetPos() + self:GetUp()*40, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 2000)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_AfterProjectileSpawn(TheProjectile)
+function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	local bg = self:GetBodygroup(1)
 	if bg == 0 or bg == 6 then
 		self:SetBodygroup(1,0)

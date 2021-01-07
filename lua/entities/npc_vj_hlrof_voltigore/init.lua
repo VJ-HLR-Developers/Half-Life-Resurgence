@@ -129,7 +129,7 @@ function ENT:CustomOnRangeAttack_AfterStartTimer()
 	timer.Simple(randt,function() if IsValid(self) && IsValid(self.Glow1) then self.Glow1:Remove() end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(TheProjectile)
+function ENT:RangeAttackCode_GetShootPos(projectile)
 	return self:CalculateProjectile("Line", self:GetAttachment(self:LookupAttachment("3")).Pos, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -82,9 +82,9 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_AfterProjectileSpawn(TheProjectile)
+function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	if IsValid(self:GetEnemy()) then
-		TheProjectile.MyEnemy = self:GetEnemy()
+		projectile.MyEnemy = self:GetEnemy()
 	end
 end
 local vec = Vector(0,0,0)

@@ -129,14 +129,14 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_AfterProjectileSpawn(TheProjectile)
+function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	if self.AlienC_AttackType == true && IsValid(self:GetEnemy()) then
-		TheProjectile.EO_Enemy = self:GetEnemy()
-		timer.Simple(10,function() if IsValid(TheProjectile) then TheProjectile:Remove() end end)
+		projectile.EO_Enemy = self:GetEnemy()
+		timer.Simple(10,function() if IsValid(projectile) then projectile:Remove() end end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(TheProjectile)
+function ENT:RangeAttackCode_GetShootPos(projectile)
 	return self:CalculateProjectile("Line", self:GetPos() + self:GetUp()*20, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 700)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

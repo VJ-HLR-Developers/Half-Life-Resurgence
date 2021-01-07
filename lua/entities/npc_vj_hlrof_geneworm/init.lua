@@ -6,7 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/opfor/geneworm.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.StartHealth = 1200
+ENT.StartHealth = 800
 ENT.SightAngle = 120 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.HullType = HULL_LARGE
 ENT.VJ_IsHugeMonster = true -- Is this a huge monster?
@@ -47,10 +47,7 @@ ENT.AnimTbl_Death = {"death"} -- Death Animations
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_Breath = {}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/geneworm/geneworm_idle1.wav","vj_hlr/hl1_npc/geneworm/geneworm_idle2.wav","vj_hlr/hl1_npc/geneworm/geneworm_idle3.wav","vj_hlr/hl1_npc/geneworm/geneworm_idle4.wav"}
-ENT.SoundTbl_MeleeAttack = {}
-ENT.SoundTbl_MeleeAttackMiss = {}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/geneworm/geneworm_death.wav"}
 
 ENT.BreathSoundLevel = 100
@@ -65,20 +62,21 @@ ENT.DeathSoundLevel = 100
 ENT.GW_Fade = 0 -- 0 = No fade | 1 = Fade in | 2 = Fade out
 ENT.GW_EyeHealth = {}
 ENT.GW_OrbOpen = false
-ENT.GW_OrbHealth = 1 // 100
+ENT.GW_OrbHealth = 100
 
 /* TODO:
 	- Add lights to the eyes
 	- Death particles
 	- Set eye and orb health back to 100!
 */
-local maxEyeHealth = 1 // 100
-local maxOrbHealth = 1 // 100
+local maxEyeHealth = 1 //100
+local maxOrbHealth = 1 //100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(400, 400, 350), Vector(-400, -400, -240))
 	self:SetRenderMode(RENDERMODE_TRANSALPHA)
 	self.GW_EyeHealth = {r=maxEyeHealth, l=maxEyeHealth}
+	self.GW_OrbHealth = maxOrbHealth
 	
 	self.GW_OrbSprite = ents.Create("env_sprite")
 	self.GW_OrbSprite:SetKeyValue("model","vj_hl/sprites/boss_glow.vmt")
@@ -150,7 +148,8 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//elseif key == "spit_start" then
 		//self:RangeAttackCode()
 	elseif key == "spawn_portal" then
-		-- Spawn shock trooper
+		self.GW_OrbSprite:Fire("HideSprite")
+		-- Shock trooper spawner
 		local at = self:GetAttachment(self:LookupAttachment("orb"))
 		sprite = ents.Create("obj_vj_hlrof_gw_spawner")
 		sprite:SetPos(at.Pos)
@@ -223,13 +222,13 @@ function ENT:CustomOnRangeAttack_BeforeStartTimer()
 	self:PlaySoundSystem("BeforeMeleeAttack", "vj_hlr/hl1_npc/geneworm/geneworm_beam_attack.wav", VJ_EmitSound)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(TheProjectile)
+function ENT:RangeAttackCode_GetShootPos(projectile)
 	local enePos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter()
 	local attachPos = self:GetAttachment(1).Pos
 	local vel = self:CalculateProjectile("Line", self:GetAttachment(1).Pos, enePos, 2000)
-	TheProjectile.EO_Enemy = self:GetEnemy()
-	TheProjectile.EO_OrgPosition = enePos
-	TheProjectile.EO_TrackTime = CurTime() + (enePos:Distance(attachPos) / vel:Length()) -- Stops chasing the enemy after this time
+	projectile.EO_Enemy = self:GetEnemy()
+	projectile.EO_OrgPosition = enePos
+	projectile.EO_TrackTime = CurTime() + (enePos:Distance(attachPos) / vel:Length()) -- Stops chasing the enemy after this time
 	return vel
 end
 /*
@@ -243,7 +242,6 @@ end
 function ENT:GW_OrbOpenReset()
 	print("ORB RESET")
 	timer.Remove("gw_closestomach"..self:EntIndex())
-	self.GW_OrbSprite:Fire("HideSprite")
 	self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain4.wav")
 	self.SoundTbl_Breath = {}
 	VJ_STOPSOUND(self.CurrentBreathSound)
@@ -252,7 +250,11 @@ function ENT:GW_OrbOpenReset()
 	self.GW_OrbHealth = maxOrbHealth
 	self:SetSkin(0)
 	self.AnimTbl_IdleStand = {ACT_IDLE}
-	self:VJ_ACT_PLAYACTIVITY("pain_4", true, false)
+	self:VJ_ACT_PLAYACTIVITY("pain_4", true, false, false, 0, {}, function(vsched)
+		vsched.RunCode_OnFinish = function() -- Just a backup in case event fails
+			self.GW_OrbSprite:Fire("HideSprite")
+		end
+	end)
 	self:SetState()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -278,7 +280,7 @@ function ENT:GW_EyeHealthCheck()
 					self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain2.wav")
 				end
 			end)*/
-			timer.Create("gw_closestomach"..self:EntIndex(), 200, 1, function()
+			timer.Create("gw_closestomach"..self:EntIndex(), 20, 1, function()
 				if IsValid(self) && self.GW_OrbOpen == true then
 					self:GW_OrbOpenReset()
 				end
@@ -320,7 +322,6 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
 		self.GW_OrbHealth = self.GW_OrbHealth - dmginfo:GetDamage()
 		if self.GW_OrbHealth <= 0 then
 			timer.Remove("gw_closestomach"..self:EntIndex())
-			self.GW_OrbSprite:Fire("HideSprite")
 			self.SoundTbl_Breath = {}
 			VJ_STOPSOUND(self.CurrentBreathSound)
 			self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain3.wav")

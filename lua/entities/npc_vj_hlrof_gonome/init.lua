@@ -27,7 +27,7 @@ ENT.MeleeAttackDamageDistance = 80 -- How far does the damage go?
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_gonomegut" -- The entity that is spawned when range attacking
 ENT.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1} -- Range Attack Animations
-ENT.RangeDistance = 1500 -- This is how far away it can shoot
+ENT.RangeDistance = 784 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 200 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 6 -- How much time until it can use a range attack?
@@ -53,20 +53,22 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/gonome/gonome_death2.wav","vj_hlr/hl1_npc/
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnInitialize()
+	self:SetCollisionBounds(Vector(20, 20, 85), Vector(-20, -20, 0))
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "event_emit step" then
 		self:FootStepSoundCode()
-	end
-	if key == "event_mattack right" or key == "event_mattack left" or key == "event_mattack chest_bite" then
+	elseif key == "event_mattack right" or key == "event_mattack left" or key == "event_mattack chest_bite" then
 		self:MeleeAttackCode()
-	end
-	if key == "event_rattack acidthrow" then
+	elseif key == "event_rattack acidthrow" then
 		self:RangeAttackCode()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(TheProjectile)
+function ENT:RangeAttackCode_GetShootPos(projectile)
 	return self:CalculateProjectile("Curve", self:GetAttachment(self:LookupAttachment(self.RangeUseAttachmentForPosID)).Pos, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -87,6 +89,12 @@ function ENT:MultipleMeleeAttacks()
 		self.MeleeAttack_NoProps = true
 		self.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/gonome/gonome_melee2.wav"}
 		self.SoundTbl_MeleeAttackMiss = {}
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo,hitgroup)
+	if dmginfo:IsBulletDamage() then -- Bullet sponge
+		dmginfo:ScaleDamage(0.15)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

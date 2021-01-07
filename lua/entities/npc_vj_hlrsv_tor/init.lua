@@ -135,16 +135,16 @@ function ENT:CustomOnAlert(argent)
 	self:VJ_ACT_PLAYACTIVITY(ACT_DEPLOY, true, false, true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(TheProjectile)
+function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(projectile)
 	if IsValid(self:GetEnemy()) then
-		TheProjectile.EO_Enemy = self:GetEnemy()
-		TheProjectile.EO_SpriteScale = (self.Tor_Level == 0 and 0.6) or 1
-		TheProjectile.DirectDamage = (self.Tor_Level == 0 and 10) or 20
-		timer.Simple(10,function() if IsValid(TheProjectile) then TheProjectile:Remove() end end)
+		projectile.EO_Enemy = self:GetEnemy()
+		projectile.EO_SpriteScale = (self.Tor_Level == 0 and 0.6) or 1
+		projectile.DirectDamage = (self.Tor_Level == 0 and 10) or 20
+		timer.Simple(10,function() if IsValid(projectile) then projectile:Remove() end end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(TheProjectile)
+function ENT:RangeAttackCode_GetShootPos(projectile)
 	return self:CalculateProjectile("Line", self:GetAttachment(self:LookupAttachment("0")).Pos, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 700)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

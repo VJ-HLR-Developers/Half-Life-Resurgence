@@ -60,10 +60,10 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_AfterChecks(TheHitEntity)
+function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt)
 	local sethp = self.MeleeAttackDamage
-	if self.MeleeAttackDamage > TheHitEntity:Health() then -- Yete ir damage-e aveli partser e, ere vor teshnamiyin ouje kordzadz e
-		sethp = TheHitEntity:Health()
+	if self.MeleeAttackDamage > hitEnt:Health() then -- Yete ir damage-e aveli partser e, ere vor teshnamiyin ouje kordzadz e
+		sethp = hitEnt:Health()
 	end
 	self:SetHealth(math.Clamp(self:Health() + sethp, self:Health(), self:GetMaxHealth()*6))
 end

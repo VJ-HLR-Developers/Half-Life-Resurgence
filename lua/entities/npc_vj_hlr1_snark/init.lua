@@ -107,7 +107,7 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnLeapAttack_AfterChecks(TheHitEntity)
+function ENT:CustomOnLeapAttack_AfterChecks(hitEnt)
 	self.Snark_EnergyTime = self.Snark_EnergyTime + 0.5
 	self.UseTheSameGeneralSoundPitch_PickedNumber = math.Clamp(self.UseTheSameGeneralSoundPitch_PickedNumber - 5, 100, 255)
 end

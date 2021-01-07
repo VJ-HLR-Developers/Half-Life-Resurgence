@@ -56,13 +56,6 @@ ENT.Barnacle_CurEntMoveType = MOVETYPE_WALK
 ENT.Barnacle_Status = 0
 ENT.Barnacle_NextPullSoundT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
-	GetCorpse:DrawShadow(false)
-	GetCorpse:SetPoseParameter("tongue_height", self.Barnacle_LastHeight)
-	GetCorpse:ResetSequence("Death")
-	GetCorpse:SetCycle(1)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(18,18,10),Vector(-18,-18,-50))
 	//self:VJ_GetAllPoseParameters(true) -- tongue_height 0 / 1024
@@ -190,6 +183,13 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo,hitgroup)
 	self:SetPos(self:GetPos() + self:GetUp()*-4)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo,hitgroup,GetCorpse)
+	GetCorpse:DrawShadow(false)
+	GetCorpse:SetPoseParameter("tongue_height", self.Barnacle_LastHeight)
+	GetCorpse:ResetSequence("Death")
+	GetCorpse:SetCycle(1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo,hitgroup)

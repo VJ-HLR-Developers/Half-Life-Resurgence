@@ -87,7 +87,7 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(TheProjectile)
+function ENT:RangeAttackCode_GetShootPos(projectile)
 	return self:CalculateProjectile("Line", self:GetPos() + self:GetUp()*10, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 2000)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

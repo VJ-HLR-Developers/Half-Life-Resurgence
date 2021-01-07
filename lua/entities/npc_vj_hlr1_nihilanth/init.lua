@@ -241,15 +241,15 @@ function ENT:MultipleRangeAttacks()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_AfterProjectileSpawn(TheProjectile)
+function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	if self.Nih_TeleportingOrb == true && IsValid(self:GetEnemy()) then
-		TheProjectile.EO_Enemy = self:GetEnemy()
-		timer.Simple(10,function() if IsValid(TheProjectile) then TheProjectile:Remove() end end)
+		projectile.EO_Enemy = self:GetEnemy()
+		timer.Simple(10,function() if IsValid(projectile) then projectile:Remove() end end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(TheProjectile)
-	return self:CalculateProjectile("Line", TheProjectile:GetPos(), self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 700)
+function ENT:RangeAttackCode_GetShootPos(projectile)
+	return self:CalculateProjectile("Line", projectile:GetPos(), self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 700)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Nih_CreateAlly()
