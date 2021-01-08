@@ -65,12 +65,11 @@ ENT.GW_OrbOpen = false
 ENT.GW_OrbHealth = 100
 
 /* TODO:
-	- Add lights to the eyes
 	- Death particles
 	- Set eye and orb health back to 100!
 */
-local maxEyeHealth = 1 //100
-local maxOrbHealth = 1 //100
+local maxEyeHealth = 100
+local maxOrbHealth = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(400, 400, 350), Vector(-400, -400, -240))
@@ -78,6 +77,29 @@ function ENT:CustomOnInitialize()
 	self.GW_EyeHealth = {r=maxEyeHealth, l=maxEyeHealth}
 	self.GW_OrbHealth = maxOrbHealth
 	
+	-- Eye Lights
+	self.GW_EyeLightL = ents.Create("light_dynamic")
+	self.GW_EyeLightL:SetKeyValue("brightness", 1)
+	self.GW_EyeLightL:SetKeyValue("distance", 400)
+	self.GW_EyeLightL:Fire("Color", "143 213 163")
+	self.GW_EyeLightL:SetParent(self)
+	self.GW_EyeLightL:Fire("SetParentAttachment", "eyeLeft")
+	self.GW_EyeLightL:Spawn()
+	self.GW_EyeLightL:Activate()
+	self.GW_EyeLightL:Fire("TurnOn")
+	self:DeleteOnRemove(self.GW_EyeLightL)
+	self.GW_EyeLightR = ents.Create("light_dynamic")
+	self.GW_EyeLightR:SetKeyValue("brightness", 1)
+	self.GW_EyeLightR:SetKeyValue("distance", 400)
+	self.GW_EyeLightR:Fire("Color", "143 213 163")
+	self.GW_EyeLightR:SetParent(self)
+	self.GW_EyeLightR:Fire("SetParentAttachment", "eyeRight")
+	self.GW_EyeLightR:Spawn()
+	self.GW_EyeLightR:Activate()
+	self.GW_EyeLightR:Fire("TurnOn")
+	self:DeleteOnRemove(self.GW_EyeLightR)
+	
+	-- Stomach Orb
 	self.GW_OrbSprite = ents.Create("env_sprite")
 	self.GW_OrbSprite:SetKeyValue("model","vj_hl/sprites/boss_glow.vmt")
 	//self.GW_OrbSprite:SetKeyValue("rendercolor","255 128 0")
@@ -142,11 +164,14 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
-	print(key)
+	//print(key)
 	if key == "melee" or key == "shakeworld" then
 		self:MeleeAttackCode()
 	//elseif key == "spit_start" then
 		//self:RangeAttackCode()
+	elseif key == "open_botheyes" then
+		self.GW_EyeLightL:Fire("TurnOn")
+		self.GW_EyeLightR:Fire("TurnOn")
 	elseif key == "spawn_portal" then
 		self.GW_OrbSprite:Fire("HideSprite")
 		-- Shock trooper spawner
@@ -240,7 +265,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 -- Resets everything, including the eye & stomach health, idle animation and NPC state
 function ENT:GW_OrbOpenReset()
-	print("ORB RESET")
 	timer.Remove("gw_closestomach"..self:EntIndex())
 	self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain4.wav")
 	self.SoundTbl_Breath = {}
@@ -253,6 +277,8 @@ function ENT:GW_OrbOpenReset()
 	self:VJ_ACT_PLAYACTIVITY("pain_4", true, false, false, 0, {}, function(vsched)
 		vsched.RunCode_OnFinish = function() -- Just a backup in case event fails
 			self.GW_OrbSprite:Fire("HideSprite")
+			self.GW_EyeLightL:Fire("TurnOn")
+			self.GW_EyeLightR:Fire("TurnOn")
 		end
 	end)
 	self:SetState()
@@ -266,7 +292,8 @@ function ENT:GW_EyeHealthCheck()
 	if r <= 0 && l <= 0 then -- If both eyes have health below 1 then open stomach!
 		self:SetSkin(3)
 		if self.GW_OrbOpen == false then
-			print("ORB OPEN")
+			self.GW_EyeLightL:Fire("TurnOff")
+			self.GW_EyeLightR:Fire("TurnOff")
 			self.GW_OrbSprite:Fire("ShowSprite")
 			self.GW_OrbOpen = true
 			self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
@@ -287,9 +314,11 @@ function ENT:GW_EyeHealthCheck()
 			end)
 		end
 	elseif r <= 0 then
+		self.GW_EyeLightR:Fire("TurnOff")
 		self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_shot_in_eye.wav")
 		self:SetSkin(2)
 	elseif l <= 0 then
+		self.GW_EyeLightL:Fire("TurnOff")
 		self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_shot_in_eye.wav")
 		self:SetSkin(1)
 	end
@@ -349,9 +378,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
 	timer.Remove("gw_closestomach"..self:EntIndex())
-
-	self.GW_Portal.MoveLP:Stop()
-	self.GW_Portal.IdleLP:Stop()
+	
+	if IsValid(self.GW_Portal) then
+		self.GW_Portal.MoveLP:Stop()
+		self.GW_Portal.IdleLP:Stop()
+	end
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
