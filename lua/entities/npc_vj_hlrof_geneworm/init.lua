@@ -76,6 +76,36 @@ function ENT:CustomOnInitialize()
 	self.GW_EyeHealth = {r=maxEyeHealth, l=maxEyeHealth}
 	self.GW_OrbHealth = maxOrbHealth
 	
+	-- self.E = ents.Create("obj_vj_bullseye")
+	-- self.E:SetModel("models/hunter/plates/plate.mdl")
+	-- self.E:SetPos(self:GetAttachment(3).Pos)
+	-- self.E:Spawn()
+	-- self.E:SetNoDraw(true)
+	-- self.E:DrawShadow(false)
+	-- self.E.VJ_NPC_Class = self.VJ_NPC_Class
+	-- self.E:SetParent(self)
+	-- self:DeleteOnRemove(self.E)
+	
+	-- self.E2 = ents.Create("obj_vj_bullseye")
+	-- self.E2:SetModel("models/hunter/plates/plate.mdl")
+	-- self.E2:SetPos(self:GetAttachment(4).Pos)
+	-- self.E2:Spawn()
+	-- self.E2:SetNoDraw(true)
+	-- self.E2:DrawShadow(false)
+	-- self.E2.VJ_NPC_Class = self.VJ_NPC_Class
+	-- self.E2:SetParent(self)
+	-- self:DeleteOnRemove(self.E2)
+	
+	-- self.E3 = ents.Create("obj_vj_bullseye")
+	-- self.E3:SetModel("models/hunter/plates/plate.mdl")
+	-- self.E3:SetPos(self:GetAttachment(2).Pos)
+	-- self.E3:Spawn()
+	-- self.E3:SetNoDraw(true)
+	-- self.E3:DrawShadow(false)
+	-- self.E3.VJ_NPC_Class = self.VJ_NPC_Class
+	-- self.E3:SetParent(self)
+	-- self:DeleteOnRemove(self.E3)
+	
 	-- Eye Lights
 	self.GW_EyeLightL = ents.Create("light_dynamic")
 	self.GW_EyeLightL:SetKeyValue("brightness", 1)
@@ -324,7 +354,7 @@ function ENT:GW_EyeHealthCheck()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
-	if self.GW_Fade == 1 or self:GetSequence() == "pain_4" then dmginfo:SetDamage(0) end -- If it's fading inthen don't take damage!
+	if self.GW_Fade == 1 or self:GetSequenceName(self:GetSequence()) == "pain_4" then dmginfo:SetDamage(0) end -- If it's fading inthen don't take damage!
 	-- Left eye
 	if hitgroup == 14 && self.GW_EyeHealth.l > 0 then
 		self:SpawnBloodParticles(dmginfo, hitgroup)
