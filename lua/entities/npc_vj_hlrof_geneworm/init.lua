@@ -66,7 +66,6 @@ ENT.GW_OrbHealth = 100
 
 /* TODO:
 	- Death particles
-	- Set eye and orb health back to 100!
 */
 local maxEyeHealth = 100
 local maxOrbHealth = 100
@@ -325,7 +324,7 @@ function ENT:GW_EyeHealthCheck()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
-	if self.GW_Fade == 1 then dmginfo:SetDamage(0) end -- If it's fading inthen don't take damage!
+	if self.GW_Fade == 1 or self:GetSequence() == "pain_4" then dmginfo:SetDamage(0) end -- If it's fading inthen don't take damage!
 	-- Left eye
 	if hitgroup == 14 && self.GW_EyeHealth.l > 0 then
 		self:SpawnBloodParticles(dmginfo, hitgroup)
