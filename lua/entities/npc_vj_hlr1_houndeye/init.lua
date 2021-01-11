@@ -112,7 +112,7 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(argent)
+function ENT:CustomOnAlert(ent)
 	if self.Houndeye_Sleeping == true then -- Wake up if sleeping and play a special alert animation
 		if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end
 		self.Houndeye_Sleeping = false

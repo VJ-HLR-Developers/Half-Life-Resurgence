@@ -181,7 +181,7 @@ function ENT:CustomOnResetEnemy()
 	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(argent)
+function ENT:CustomOnAlert(ent)
 	self.Turret_Sprite:Fire("Color","0 150 0") -- Green
 	self.Turret_Sprite:Fire("ShowSprite")
 	self.HasPoseParameterLooking = false -- Make it not aim at the enemy right away!

@@ -52,7 +52,7 @@ SWEP.PrimaryEffects_DynamicLightColor = Color(0, 31, 225)
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	-- Examples: Under water, out of ammo
 SWEP.DryFireSound = {"vj_hlr/hl2_weapon/combinesniper/sniper_empty.wav"} -- The sound that it plays when the weapon is out of ammo
-SWEP.DryFireSoundPitch1 = 100 -- Dry fire sound pitch 1
+SWEP.DryFireSoundPitch = VJ_Set(100, 100) -- Dry fire sound pitch 1
 -- Player Stuff ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.ReloadSound = "vj_hlr/hl2_weapon/combinesniper/sniper_reload.wav"
 SWEP.AnimTbl_PrimaryFire = {ACT_VM_SECONDARYATTACK}
@@ -92,9 +92,9 @@ function SWEP:CustomOnThink()
 	if IsValid(self:GetOwner()) then
 		if self:GetOwner():IsNPC() then
 			if IsValid(self:GetOwner():GetEnemy()) && self:Visible(self:GetOwner():GetEnemy()) then -- Return the enemy center position
-				self:SetNWVector("OwnerEnemyPos", self.Owner:GetEnemy():GetPos() + self.Owner:GetEnemy():OBBCenter())
+				self:SetNW2Vector("OwnerEnemyPos", self.Owner:GetEnemy():GetPos() + self.Owner:GetEnemy():OBBCenter())
 			else -- Make the vector default position, used to determine whether or not to lock onto the enemy (the laser)
-				self:SetNWVector("OwnerEnemyPos", vec_def)
+				self:SetNW2Vector("OwnerEnemyPos", vec_def)
 			end
 		elseif self:GetOwner():IsPlayer() then
 			if self:GetZoomLevel() == 0 then -- If level is 0, reset it to the default FOV
@@ -146,10 +146,10 @@ if (CLIENT) then
 			local attachAng = attach.Ang
 			local endPos = attachPos + attachAng:Forward()*10000 + attachAng:Up()*180 + attachAng:Right()*700
 			local strictPointer = (!self:GetOwner():IsNPC() and 1) or GetConVarNumber("vj_hlr2_csniper_strict")
-			if strictPointer == 1 or vec_def == self:GetNWVector("OwnerEnemyPos") then -- Face straight from the attachment
+			if strictPointer == 1 or vec_def == self:GetNW2Vector("OwnerEnemyPos") then -- Face straight from the attachment
 				endPos = attachPos + attachAng:Forward()*10000 + attachAng:Up()*180 + attachAng:Right()*700
 			else -- Face towards the enemy
-				endPos = self:GetNWVector("OwnerEnemyPos")
+				endPos = self:GetNW2Vector("OwnerEnemyPos")
 			end
 			local tr = util.TraceLine({
 				start = attachPos,

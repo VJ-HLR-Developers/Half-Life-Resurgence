@@ -210,17 +210,17 @@ function ENT:OnPlayCreateSound(sdData, sdFile)
 	self.Security_NextMouthMove = CurTime() + SoundDuration(sdFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(argent)
+function ENT:CustomOnAlert(ent)
 	if math.random(1,2) == 1 then
 		if self.Security_Type == 0 then
-			if argent:GetClass() == "npc_vj_hlr1_bullsquid" then
+			if ent:GetClass() == "npc_vj_hlr1_bullsquid" then
 				self:PlaySoundSystem("Alert", {"vj_hlr/hl1_npc/barney/c1a4_ba_octo1.wav"})
 				self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert1,self.NextSoundTime_Alert2)
-			elseif argent.IsVJBaseSNPC_Creature == true then
+			elseif ent.IsVJBaseSNPC_Creature == true then
 				self:PlaySoundSystem("Alert", {"vj_hlr/hl1_npc/barney/diebloodsucker.wav"})
 				self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert1,self.NextSoundTime_Alert2)
 			end
-		elseif self.Security_Type == 1 && argent.IsVJBaseSNPC_Creature == true then
+		elseif self.Security_Type == 1 && ent.IsVJBaseSNPC_Creature == true then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl1_npc/otis/aliens.wav"})
 			self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert1,self.NextSoundTime_Alert2)
 		end
@@ -313,7 +313,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDropWeapon_AfterWeaponSpawned(dmginfo, hitgroup, wepEnt)
 	wepEnt.WorldModel_Invisible = false
-	wepEnt:SetNWBool("VJ_WorldModel_Invisible",false)
+	wepEnt:SetNW2Bool("VJ_WorldModel_Invisible",false)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

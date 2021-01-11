@@ -23,7 +23,7 @@ if (CLIENT) then
 	killicon.Add("#"..LangName,"HUD/killicons/default",Color(255,80,0,255))
 
 	function ENT:Think()
-		if IsValid(self) && self:GetNWBool("VJ_Dead") != true then
+		if IsValid(self) && self:GetNW2Bool("VJ_Dead") != true then
 			self.Emitter = ParticleEmitter(self:GetPos())
 			self.SmokeEffect1 = self.Emitter:Add("particles/flamelet2",self:GetPos() +self:GetForward()*-7)
 			self.SmokeEffect1:SetVelocity(self:GetForward() *math.Rand(0, -50) +Vector(math.Rand(5, -5), math.Rand(5, -5), math.Rand(5, -5)) +self:GetVelocity())
@@ -61,7 +61,7 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	util.SpriteTrail(self, 0, Color(255,255,255,255), true, 5, 20, 3, 1/(5+20)*0.5, "vj_hl/sprites/smoke.vmt")
-	self:SetNWBool("VJ_Dead", false)
+	self:SetNW2Bool("VJ_Dead", false)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
@@ -71,7 +71,7 @@ function ENT:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects(data,phys)
-	self:SetNWBool("VJ_Dead", true)
+	self:SetNW2Bool("VJ_Dead", true)
 	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 80, math.random(100,100))
 	
 	local spr = ents.Create("env_sprite")

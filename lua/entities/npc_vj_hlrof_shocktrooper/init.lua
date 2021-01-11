@@ -174,26 +174,26 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:ThrowGrenadeCode(CustomEnt,NoOwner)
+function ENT:ThrowGrenadeCode(customEnt,noOwner)
 	if self.Dead == true or self.Flinching == true or self.MeleeAttacking == true or (IsValid(self:GetEnemy()) && !self:Visible(self:GetEnemy())) then return end
 	//if self:VJ_ForwardIsHidingZone(self:NearestPoint(self:GetPos() +self:OBBCenter()),self:GetEnemy():EyePos()) == true then return end
-	local NoOwner = NoOwner or false
+	local noOwner = noOwner or false
 	local getIsCustom = false
 	local gerModel = self.GrenadeAttackModel
 	local gerClass = self.GrenadeAttackEntity
 	local gerFussTime = self.GrenadeAttackFussTime
 
-	if IsValid(CustomEnt) then -- Custom nernagner gamal nernagner vor yete bidi nede
+	if IsValid(customEnt) then -- Custom nernagner gamal nernagner vor yete bidi nede
 		getIsCustom = true
-		gerModel = CustomEnt:GetModel()
-		gerClass = CustomEnt:GetClass()
-		CustomEnt:SetMoveType(MOVETYPE_NONE)
-		CustomEnt:SetParent(self)
-		CustomEnt:Fire("SetParentAttachment",self.GrenadeAttackAttachment)
-		//CustomEnt:SetPos(self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Pos)
-		CustomEnt:SetAngles(self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Ang)
+		gerModel = customEnt:GetModel()
+		gerClass = customEnt:GetClass()
+		customEnt:SetMoveType(MOVETYPE_NONE)
+		customEnt:SetParent(self)
+		customEnt:Fire("SetParentAttachment",self.GrenadeAttackAttachment)
+		//customEnt:SetPos(self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Pos)
+		customEnt:SetAngles(self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Ang)
 		if gerClass == "obj_vj_grenade" then
-			gerFussTime = math.abs(CustomEnt.FussTime - CustomEnt.TimeSinceSpawn)
+			gerFussTime = math.abs(customEnt.FussTime - customEnt.TimeSinceSpawn)
 		elseif gerClass == "obj_handgrenade" or gerClass == "obj_spore" then
 			gerFussTime = 1
 		elseif gerClass == "npc_grenade_frag" or gerClass == "doom3_grenade" or gerClass == "fas2_thrown_m67" or gerClass == "cw_grenade_thrown" or gerClass == "cw_flash_thrown" or gerClass == "cw_smoke_thrown" then
@@ -219,8 +219,8 @@ function ENT:ThrowGrenadeCode(CustomEnt,NoOwner)
 	end
 
 	timer.Simple(self.TimeUntilGrenadeIsReleased,function()
-		if getIsCustom == true && !IsValid(CustomEnt) then return end
-		if IsValid(CustomEnt) then CustomEnt.VJHumanTossingAway = false CustomEnt:Remove() end
+		if getIsCustom == true && !IsValid(customEnt) then return end
+		if IsValid(customEnt) then customEnt.VJHumanTossingAway = false customEnt:Remove() end
 		if IsValid(self) && self.Dead == false /*&& IsValid(self:GetEnemy())*/ then -- Yete SNPC ter artoon e...
 			local gerShootPos = self:GetPos() + self:GetForward()*200
 			if IsValid(self:GetEnemy()) then 
@@ -235,10 +235,10 @@ function ENT:ThrowGrenadeCode(CustomEnt,NoOwner)
 			end
 			local gent = ents.Create(gerClass)
 			local getShootVel = (gerShootPos - self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Pos) + (self:GetUp()*math.random(450,500) + self:GetForward()*math.Rand(-100,-250) + self:GetRight()*math.Rand(self.GrenadeAttackVelRight1,self.GrenadeAttackVelRight2))
-			if IsValid(CustomEnt) then
+			if IsValid(customEnt) then
 				getShootVel = (gerShootPos - self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Pos) + (self:GetUp()*math.random(self.GrenadeAttackVelUp1,self.GrenadeAttackVelUp2) + self:GetForward()*math.Rand(self.GrenadeAttackVelForward1,self.GrenadeAttackVelForward2) + self:GetRight()*math.Rand(self.GrenadeAttackVelRight1,self.GrenadeAttackVelRight2))
 			end
-			if NoOwner == false then gent:SetOwner(self) end
+			if noOwner == false then gent:SetOwner(self) end
 			gent:SetPos(self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Pos)
 			gent:SetAngles(self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Ang)
 			gent:SetModel(Model(gerModel))
@@ -249,7 +249,7 @@ function ENT:ThrowGrenadeCode(CustomEnt,NoOwner)
 			elseif gerClass == "obj_spore" then
 				gent:SetGrenade(true)
 			elseif gerClass == "ent_hl1_grenade" then
-				gent:ShootTimed(CustomEnt, getShootVel, gerFussTime)
+				gent:ShootTimed(customEnt, getShootVel, gerFussTime)
 			elseif gerClass == "doom3_grenade" or gerClass == "obj_handgrenade" then
 				gent:SetExplodeDelay(gerFussTime)
 			elseif gerClass == "cw_grenade_thrown" or gerClass == "cw_flash_thrown" or gerClass == "cw_smoke_thrown" then

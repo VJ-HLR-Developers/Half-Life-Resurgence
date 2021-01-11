@@ -131,7 +131,7 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(argent)
+function ENT:CustomOnAlert(ent)
 	self:VJ_ACT_PLAYACTIVITY(ACT_DEPLOY, true, false, true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

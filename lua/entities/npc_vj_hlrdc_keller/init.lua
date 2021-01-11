@@ -68,7 +68,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 	if self.Keller_WheelChair == true then
-		self:CreateExtraDeathCorpse("prop_physics","models/vj_hlr/decay/wheelchair.mdl",{HasVel=false})
+		self:CreateExtraDeathCorpse("prop_physics", "models/vj_hlr/decay/wheelchair.mdl")
 	end
 end
 /*-----------------------------------------------

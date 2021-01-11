@@ -234,7 +234,7 @@ if VJExists == true then
 		-- Bullet Holes
 		game.AddDecal("VJ_HLR_BULLET_HOLE",{"vj_hl/decals/shot1","vj_hl/decals/shot2","vj_hl/decals/shot3","vj_hl/decals/shot4","vj_hl/decals/shot5"})
 		/*
-		function SWEP:CustomOnPrimaryAttack_BulletCallback(attacker,tr,dmginfo)
+		function SWEP:CustomOnPrimaryAttack_BulletCallback(attacker, tr, dmginfo)
 			util.Decal("VJ_HLR_BULLET_HOLE", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
 		end
 		*/

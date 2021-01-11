@@ -157,7 +157,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(argent)
+function ENT:CustomOnAlert(ent)
 	if self.Sentry_Type == 1 then -- If it's big turret, then make sure it's not looking until it has fully deployed
 		self.HasPoseParameterLooking = false
 	end

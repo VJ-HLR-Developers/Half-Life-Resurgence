@@ -93,10 +93,10 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(argent)
+function ENT:CustomOnAlert(ent)
 	if self.Bullsquid_Type == 1 then return end
 	if math.random(1,3) == 1 then
-		if argent.HLR_Type == "Headcrab" or argent:GetClass() == "npc_headcrab" or argent:GetClass() == "npc_headcrab_black" or argent:GetClass() == "npc_headcrab_fast" then
+		if ent.HLR_Type == "Headcrab" or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast" then
 			self:VJ_ACT_PLAYACTIVITY("seecrab", true, false, true)
 		else
 			self:VJ_ACT_PLAYACTIVITY(ACT_HOP, true, false, true)

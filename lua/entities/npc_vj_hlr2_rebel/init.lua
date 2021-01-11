@@ -153,12 +153,12 @@ end
 	end
 end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnEntityRelationshipCheck(argent, entFri, entDist)
+function ENT:CustomOnEntityRelationshipCheck(ent, entFri, entDist)
 	-- Tell the player to reload their weapon
-	if argent:IsPlayer() && entFri == true && entDist <= 200 && !IsValid(self:GetEnemy()) && CurTime() > self.Human_NextPlyReloadSd then
+	if ent:IsPlayer() && entFri == true && entDist <= 200 && !IsValid(self:GetEnemy()) && CurTime() > self.Human_NextPlyReloadSd then
 		self.Human_NextPlyReloadSd = CurTime() + math.Rand(10,60)
-		local wep = argent:GetActiveWeapon()
-		if math.random(1,3) == 1 && IsValid(wep) && wep:Clip1() < wep:GetMaxClip1() && argent:GetAmmoCount(wep:GetPrimaryAmmoType()) > 0 then
+		local wep = ent:GetActiveWeapon()
+		if math.random(1,3) == 1 && IsValid(wep) && wep:Clip1() < wep:GetMaxClip1() && ent:GetAmmoCount(wep:GetPrimaryAmmoType()) > 0 then
 			self:PlaySoundSystem("GeneralSpeech",{
 				"vo/npc/"..self.Human_SdFolder.."/dontforgetreload01.wav",
 				"vo/npc/"..self.Human_SdFolder.."/reloadfm01.wav",
@@ -176,53 +176,53 @@ function ENT:CustomOnDoChangeWeapon(newWeapon, oldWeapon, invSwitch)
 	if self:GetWeaponState() == VJ_WEP_STATE_ANTI_ARMOR && self.Human_Gender == 0 && math.random(1,2) == 1 then self:PlaySoundSystem("GeneralSpeech",{"vo/npc/male01/evenodds.wav"}) end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoKilledEnemy(argent, attacker, inflictor)
+function ENT:CustomOnDoKilledEnemy(ent, attacker, inflictor)
 	self:VJ_ACT_PLAYACTIVITY("vjseq_cheer1", false, false, false, 0, {vTbl_SequenceInterruptible=true})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(argent)
-	if math.random(1,2) == 1 && argent:IsNPC() then
-		//print(argent:Classify())
-		if argent.HLR_Type == "Headcrab" or argent:GetClass() == "npc_headcrab" or argent:GetClass() == "npc_headcrab_black" or argent:GetClass() == "npc_headcrab_fast" then
+function ENT:CustomOnAlert(ent)
+	if math.random(1,2) == 1 && ent:IsNPC() then
+		//print(ent:Classify())
+		if ent.HLR_Type == "Headcrab" or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast" then
 			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/headcrabs01.wav","vo/npc/"..self.Human_SdFolder.."/headcrabs02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head01.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head05.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head07.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head08.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_rollers02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_rollers03.wav"})
 			return
-		elseif argent:GetClass() == "npc_rollermine" then
+		elseif ent:GetClass() == "npc_rollermine" then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_rollers01.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_rollers02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_rollers03.wav"})
 			return
-		elseif argent:GetClass() == "npc_combinedropship" then
+		elseif ent:GetClass() == "npc_combinedropship" then
 			local tbl2 = {"vo/coast/barn/"..self.Human_SdFolder.."/crapships.wav","vo/coast/barn/"..self.Human_SdFolder.."/incomingdropship.wav"}
 			if self.Human_Gender == 0 then table.insert(tbl2, "vj_hlr/hl2_npc/ep2/outland_12/reb1_lastwave06.wav") table.insert(tbl2, "vj_hlr/hl2_npc/ep2/outland_12/reb1_lastwave07.wav") end
 			self:PlaySoundSystem("Alert", tbl2)
 			return
-		elseif argent.HLR_Type == "Police" or argent:Classify() == CLASS_METROPOLICE then
+		elseif ent.HLR_Type == "Police" or ent:Classify() == CLASS_METROPOLICE then
 			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/civilprotection01.wav","vo/npc/"..self.Human_SdFolder.."/civilprotection02.wav","vo/npc/"..self.Human_SdFolder.."/cps01.wav","vo/npc/"..self.Human_SdFolder.."/cps02.wav"})
 			return
-		elseif argent:GetClass() == "npc_strider" or argent:GetClass() == "npc_vj_hlr2_com_strider" then
+		elseif ent:GetClass() == "npc_strider" or ent:GetClass() == "npc_vj_hlr2_com_strider" then
 			local tbl2 = {"vo/npc/"..self.Human_SdFolder.."/strider.wav"}
 			if self.Human_Gender == 0 then table.insert(tbl2, "vj_hlr/hl2b_npc/citizen/strider.wav") table.insert(tbl2, "vj_hlr/hl2b_npc/citizen/turret.wav") end
 			self:PlaySoundSystem("Alert", tbl2)
 			return
-		elseif self.Human_Gender == 0 && (argent:Classify() == CLASS_MACHINE or argent.HLR_Type == "Turret" or argent:GetClass() == "npc_turret_floor") then
+		elseif self.Human_Gender == 0 && (ent:Classify() == CLASS_MACHINE or ent.HLR_Type == "Turret" or ent:GetClass() == "npc_turret_floor") then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2b_npc/citizen/turret.wav","vj_hlr/hl2b_npc/citizen/turrets.wav"})
 			return
-		elseif argent:Classify() == CLASS_SCANNER then
+		elseif ent:Classify() == CLASS_SCANNER then
 			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/scanners01.wav","vo/npc/"..self.Human_SdFolder.."/scanners02.wav"})
 			return
-		elseif argent:Classify() == CLASS_MANHACK then
+		elseif ent:Classify() == CLASS_MANHACK then
 			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/hacks01.wav","vo/npc/"..self.Human_SdFolder.."/hacks02.wav","vo/npc/"..self.Human_SdFolder.."/herecomehacks01.wav","vo/npc/"..self.Human_SdFolder.."/herecomehacks02.wav","vo/npc/"..self.Human_SdFolder.."/itsamanhack01.wav","vo/npc/"..self.Human_SdFolder.."/itsamanhack02.wav","vo/npc/"..self.Human_SdFolder.."/thehacks01.wav","vo/npc/"..self.Human_SdFolder.."/thehacks02.wav"})
 			return
-		elseif argent:Classify() == CLASS_COMBINE_GUNSHIP then
+		elseif ent:Classify() == CLASS_COMBINE_GUNSHIP then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_gunship.wav","vo/npc/"..self.Human_SdFolder.."/gunship02.wav","vo/coast/barn/"..self.Human_SdFolder.."/lite_gunship01.wav","vo/coast/barn/"..self.Human_SdFolder.."/lite_gunship02.wav"})
 			return
 		else
-			for _,v in ipairs(argent.VJ_NPC_Class or {1}) do
-				if v == "CLASS_COMBINE" or argent:Classify() == CLASS_COMBINE then
+			for _,v in ipairs(ent.VJ_NPC_Class or {1}) do
+				if v == "CLASS_COMBINE" or ent:Classify() == CLASS_COMBINE then
 					self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_raidsoldiers.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_itsaraid.wav","vo/npc/"..self.Human_SdFolder.."/combine01.wav","vo/npc/"..self.Human_SdFolder.."/combine02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_soldier05.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_soldier06.wav"})
 					break
-				elseif v == "CLASS_ZOMBIE" or argent:Classify() == CLASS_ZOMBIE then
+				elseif v == "CLASS_ZOMBIE" or ent:Classify() == CLASS_ZOMBIE then
 					self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/zombies01.wav","vo/npc/"..self.Human_SdFolder.."/zombies02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_zombie01.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_zombie02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_zombie07.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_zombie08.wav"})
 					break
-				elseif v == "CLASS_ANTLION" or argent:Classify() == CLASS_ANTLION then
+				elseif v == "CLASS_ANTLION" or ent:Classify() == CLASS_ANTLION then
 					local tbl2 = {"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions03.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions05.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions07.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions12.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions13.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions15.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions18.wav"}
 					if self.Human_Gender == 0 then table.insert(tbl2, "vj_hlr/hl2_npc/ep2/outland_02/griggs_wegotantlions02.wav") end
 					self:PlaySoundSystem("Alert", tbl2)
@@ -231,10 +231,10 @@ function ENT:CustomOnAlert(argent)
 			end
 		end
 		-- General type (If none of the specific ones above were found)
-		if  argent.IsVJBaseSNPC_Creature == true then
+		if  ent.IsVJBaseSNPC_Creature == true then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_zombie03.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_zombie05.wav"})
 			return
-		elseif argent.IsVJBaseSNPC_Human == true then
+		elseif ent.IsVJBaseSNPC_Human == true then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_raidsoldiers.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_soldier04.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_soldier07.wav"})
 			return
 		end
@@ -263,8 +263,8 @@ function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAllyDeath(argent)
-	if argent:IsPlayer() or argent.VJ_HLR_Freeman then
+function ENT:CustomOnAllyDeath(ent)
+	if ent:IsPlayer() or ent.VJ_HLR_Freeman then
 		self:PlaySoundSystem("AllyDeath", {
 			"vo/npc/"..self.Human_SdFolder.."/gordead_ans01.wav",
 			"vo/npc/"..self.Human_SdFolder.."/gordead_ans02.wav",

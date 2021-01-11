@@ -125,7 +125,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(argent)
+function ENT:CustomOnAlert(ent)
 	self.Gonarch_NextBirthT = CurTime() + math.random(3,6)
 	self:VJ_ACT_PLAYACTIVITY({"vjseq_angry1", "vjseq_angry2"}, true, false, true)
 end

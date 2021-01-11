@@ -139,14 +139,14 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(argent)
+function ENT:CustomOnAlert(ent)
 	if math.random(1,2) == 1 then
-		if argent:IsPlayer() or argent.VJ_HLR_Freeman then
+		if ent:IsPlayer() or ent.VJ_HLR_Freeman then
 			self:PlaySoundSystem("Alert", {"npc/combine_soldier/vo/freeman3.wav","npc/combine_soldier/vo/anticitizenone.wav","npc/combine_soldier/vo/priority1objective.wav","npc/combine_soldier/vo/targetone.wav"})
-		elseif argent:IsNPC() && argent.IsVJBaseSNPC_Creature == true then
+		elseif ent:IsNPC() && ent.IsVJBaseSNPC_Creature == true then
 			if math.random(1,2) == 1 then
-				for _,v in ipairs(argent.VJ_NPC_Class or {1}) do
-					if v == "CLASS_ZOMBIE" or argent:Classify() == CLASS_ZOMBIE then
+				for _,v in ipairs(ent.VJ_NPC_Class or {1}) do
+					if v == "CLASS_ZOMBIE" or ent:Classify() == CLASS_ZOMBIE then
 						self:PlaySoundSystem("Alert", {"npc/combine_soldier/vo/infected.wav"})
 						goto skip_sound -- Skip the regular creature sounds!
 					end

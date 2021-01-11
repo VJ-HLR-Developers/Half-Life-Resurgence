@@ -78,12 +78,12 @@ ENT.HECU_WepBG = 2 -- The bodygroup that the weapons are in (Ourish e amen model
 ENT.HECU_LastBodyGroup = 99
 ENT.HECU_UsingDefault = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(argent)
+function ENT:CustomOnAlert(ent)
 	if math.random(1,3) == 1 && self.HECU_UsingDefault == true then
-		if argent.IsVJBaseSNPC_Creature == true then -- Alien sounds
+		if ent.IsVJBaseSNPC_Creature == true then -- Alien sounds
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl1_npc/hgrunt/gr_alert9.wav","vj_hlr/hl1_npc/hgrunt/gr_alert10.wav"})
 			return
-		elseif argent.IsVJBaseSNPC_Human == true or argent:IsPlayer() then -- Soldier sounds
+		elseif ent.IsVJBaseSNPC_Human == true or ent:IsPlayer() then -- Soldier sounds
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl1_npc/hgrunt/gr_alert2.wav","vj_hlr/hl1_npc/hgrunt/gr_alert5.wav"})
 			return
 		end
@@ -519,7 +519,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDropWeapon_AfterWeaponSpawned(dmginfo, hitgroup, wepEnt)
 	wepEnt.WorldModel_Invisible = false
-	wepEnt:SetNWBool("VJ_WorldModel_Invisible",false)
+	wepEnt:SetNW2Bool("VJ_WorldModel_Invisible",false)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

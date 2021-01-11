@@ -215,31 +215,31 @@ ENT.SoundTbl_Death = {
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoKilledEnemy(argent, attacker, inflictor)
+function ENT:CustomOnDoKilledEnemy(ent, attacker, inflictor)
 	self:VJ_ACT_PLAYACTIVITY("vjseq_cheer1", false, false, false, 0, {vTbl_SequenceInterruptible=true})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(argent)
-	if math.random(1,2) == 1 && argent:IsNPC() then
-		if argent.IsVJBaseSNPC_Human == true then
+function ENT:CustomOnAlert(ent)
+	if math.random(1,2) == 1 && ent:IsNPC() then
+		if ent.IsVJBaseSNPC_Human == true then
 			self:PlaySoundSystem("Alert", {"vo/npc/barney/ba_soldiers.wav"})
 			return
-		elseif argent:Classify() == CLASS_COMBINE_GUNSHIP then
+		elseif ent:Classify() == CLASS_COMBINE_GUNSHIP then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/ba_wrinkleship.wav"})
 			return
-		elseif argent:GetClass() == "npc_apcdriver" then
+		elseif ent:GetClass() == "npc_apcdriver" then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/ba_ohmanapc.wav"})
 			return
-		elseif argent:GetClass() == "npc_strider" or argent:GetClass() == "npc_vj_hlr2_com_strider" then
+		elseif ent:GetClass() == "npc_strider" or ent:GetClass() == "npc_vj_hlr2_com_strider" then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/ba_kiddingstrider.wav","vj_hlr/hl2_npc/ep1/c17/ba_takedownstrider.wav"})
 			return
-		elseif argent:GetClass() == "npc_combinedropship" then
+		elseif ent:GetClass() == "npc_combinedropship" then
 			self:PlaySoundSystem("Alert", {"vo/streetwar/nexus/ba_uhohdropships.wav"})
 			return
-		elseif argent.HLR_Type == "Headcrab" or argent:GetClass() == "npc_headcrab" or argent:GetClass() == "npc_headcrab_black" or argent:GetClass() == "npc_headcrab_fast" then
+		elseif ent.HLR_Type == "Headcrab" or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast" then
 			self:PlaySoundSystem("Alert", {"vo/npc/barney/ba_headhumpers.wav"})
 			return
-		elseif argent:Classify() == CLASS_MACHINE or argent.HLR_Type == "Turret" or argent:GetClass() == "npc_turret_floor" then
+		elseif ent:Classify() == CLASS_MACHINE or ent.HLR_Type == "Turret" or ent:GetClass() == "npc_turret_floor" then
 			self:PlaySoundSystem("Alert", {"vo/npc/barney/ba_turret.wav"})
 			return
 		end

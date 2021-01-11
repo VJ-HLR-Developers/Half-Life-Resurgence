@@ -52,8 +52,8 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnIdleDialogue(argent, canAnswer)
-	if argent:IsPlayer() then
+function ENT:CustomOnIdleDialogue(ent, canAnswer)
+	if ent:IsPlayer() then
 		return true
 	else
 		return false

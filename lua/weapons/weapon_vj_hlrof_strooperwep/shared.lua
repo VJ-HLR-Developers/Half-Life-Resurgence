@@ -56,7 +56,7 @@ function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 	if (CLIENT) then return end
 	
 	local plasma = ents.Create("obj_vj_hlrof_plasma")
-	plasma:SetPos(self:GetNWVector("VJ_CurBulletPos"))
+	plasma:SetPos(self:GetNW2Vector("VJ_CurBulletPos"))
 	plasma:SetAngles(self:GetOwner():GetAngles())
 	plasma:SetOwner(self:GetOwner())
 	plasma:Spawn()
@@ -68,7 +68,7 @@ function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 		if IsValid(self:GetOwner():GetEnemy()) then
 			pos = self:GetOwner():GetEnemy():GetPos() + self:GetOwner():GetEnemy():OBBCenter()
 		end
-		phys:SetVelocity(self:GetOwner():CalculateProjectile("Line", self:GetNWVector("VJ_CurBulletPos"), pos, 10000))
+		phys:SetVelocity(self:GetOwner():CalculateProjectile("Line", self:GetNW2Vector("VJ_CurBulletPos"), pos, 10000))
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -92,7 +92,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttackEffects()
 	if self.PrimaryEffects_MuzzleFlash == true && GetConVarNumber("vj_wep_nomuszzleflash") == 0 then
-		ParticleEffect("vj_hl_shockroach", self:GetNWVector("VJ_CurBulletPos"), self:GetNWVector("VJ_CurBulletPos"):Angle(), self:GetOwner())
+		ParticleEffect("vj_hl_shockroach", self:GetNW2Vector("VJ_CurBulletPos"), self:GetNW2Vector("VJ_CurBulletPos"):Angle(), self:GetOwner())
 		timer.Simple(0.05, function() if IsValid(self) && IsValid(self:GetOwner()) then self:GetOwner():StopParticles() end end)
 	end
 	return false

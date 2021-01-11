@@ -30,7 +30,7 @@ SWEP.Primary.DistantSound		= {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:NPC_SecondaryFire()
-	local pos = self:GetNWVector("VJ_CurBulletPos")
+	local pos = self:GetNW2Vector("VJ_CurBulletPos")
 	local proj = ents.Create("obj_vj_grenade_rifle")
 	proj:SetPos(pos)
 	proj:SetAngles(self:GetOwner():GetAngles())

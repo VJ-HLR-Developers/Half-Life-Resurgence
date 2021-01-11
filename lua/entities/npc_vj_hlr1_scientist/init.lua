@@ -219,13 +219,13 @@ function ENT:CustomOnMedic_OnReset()
 	timer.Simple(1.5,function() if IsValid(self) then self:SetBodygroup(2,0) end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(argent)
+function ENT:CustomOnAlert(ent)
 	if self.SCI_Type != 2 && self.SCI_Type != 3 then
-		if math.random(1,2) == 1 && argent.HLR_Type == "Headcrab" or argent:GetClass() == "npc_headcrab" or argent:GetClass() == "npc_headcrab_black" or argent:GetClass() == "npc_headcrab_fast" then
+		if math.random(1,2) == 1 && ent.HLR_Type == "Headcrab" or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast" then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl1_npc/scientist/seeheadcrab.wav"})
 			self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert1,self.NextSoundTime_Alert2)
 		end
-		if argent:GetPos():Distance(self:GetPos()) >= 300 && math.random(1,2) == 1 then
+		if ent:GetPos():Distance(self:GetPos()) >= 300 && math.random(1,2) == 1 then
 			self:VJ_ACT_PLAYACTIVITY({"vjseq_eye_wipe","vjseq_fear1","vjseq_fear2"}, true, false, true)
 		end
 	end

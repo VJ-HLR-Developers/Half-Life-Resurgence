@@ -173,7 +173,7 @@ end
 	return IsValid(self.Barnacle_CurEnt)
 end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoKilledEnemy(argent, attacker, inflictor)
+function ENT:CustomOnDoKilledEnemy(ent, attacker, inflictor)
 	VJ_EmitSound(self, "vj_hlr/hl1_npc/barnacle/bcl_bite3.wav")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

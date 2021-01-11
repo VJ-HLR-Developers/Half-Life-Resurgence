@@ -178,8 +178,8 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(argent)
-	if argent:IsPlayer() then
+function ENT:CustomOnAlert(ent)
+	if ent:IsPlayer() then
 		self.SoundTbl_Alert = {"vj_hlr/hl1_npc/nihilanth/nil_freeman.wav"}
 	else
 		self.SoundTbl_Alert = {"vj_hlr/hl1_npc/nihilanth/nil_comes.wav"}

@@ -184,9 +184,9 @@ function ENT:OnPlayCreateSound(sdData, sdFile)
 	timer.Simple(SoundDuration(sdFile),function() if IsValid(self) && sdData:IsPlaying() then VJ_EmitSound(self,"npc/metropolice/vo/off"..math.random(1,4)..".wav") end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(argent)
+function ENT:CustomOnAlert(ent)
 	if math.random(1,2) == 1 then
-		if argent.VJ_HLR_Freeman then
+		if ent.VJ_HLR_Freeman then
 			self:PlaySoundSystem("Alert", self.SoundTbl_OnPlayerSight)
 		end
 	end
