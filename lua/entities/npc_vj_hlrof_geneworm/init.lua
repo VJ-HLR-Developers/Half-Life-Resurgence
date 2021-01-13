@@ -71,40 +71,41 @@ local maxEyeHealth = 100
 local maxOrbHealth = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+	self.VJ_NoTarget = true -- They are going to target the bullseye only, so don't let other NPCs see the actual gene worm!
 	self:SetCollisionBounds(Vector(400, 400, 350), Vector(-400, -400, -240))
 	self:SetRenderMode(RENDERMODE_TRANSALPHA)
 	self.GW_EyeHealth = {r=maxEyeHealth, l=maxEyeHealth}
 	self.GW_OrbHealth = maxOrbHealth
 	
-	-- self.E = ents.Create("obj_vj_bullseye")
-	-- self.E:SetModel("models/hunter/plates/plate.mdl")
-	-- self.E:SetPos(self:GetAttachment(3).Pos)
-	-- self.E:Spawn()
-	-- self.E:SetNoDraw(true)
-	-- self.E:DrawShadow(false)
-	-- self.E.VJ_NPC_Class = self.VJ_NPC_Class
-	-- self.E:SetParent(self)
-	-- self:DeleteOnRemove(self.E)
-	
-	-- self.E2 = ents.Create("obj_vj_bullseye")
-	-- self.E2:SetModel("models/hunter/plates/plate.mdl")
-	-- self.E2:SetPos(self:GetAttachment(4).Pos)
-	-- self.E2:Spawn()
-	-- self.E2:SetNoDraw(true)
-	-- self.E2:DrawShadow(false)
-	-- self.E2.VJ_NPC_Class = self.VJ_NPC_Class
-	-- self.E2:SetParent(self)
-	-- self:DeleteOnRemove(self.E2)
-	
-	-- self.E3 = ents.Create("obj_vj_bullseye")
-	-- self.E3:SetModel("models/hunter/plates/plate.mdl")
-	-- self.E3:SetPos(self:GetAttachment(2).Pos)
-	-- self.E3:Spawn()
-	-- self.E3:SetNoDraw(true)
-	-- self.E3:DrawShadow(false)
-	-- self.E3.VJ_NPC_Class = self.VJ_NPC_Class
-	-- self.E3:SetParent(self)
-	-- self:DeleteOnRemove(self.E3)
+	-- Bulleye
+	self.GW_BE_EyeR = ents.Create("obj_vj_bullseye")
+	self.GW_BE_EyeR:SetModel("models/hunter/plates/plate.mdl")
+	self.GW_BE_EyeR:SetParent(self)
+	self.GW_BE_EyeR:Fire("SetParentAttachment", "eyeRight")
+	self.GW_BE_EyeR:Spawn()
+	self.GW_BE_EyeR:SetNoDraw(true)
+	self.GW_BE_EyeR:DrawShadow(false)
+	self.GW_BE_EyeR.VJ_NPC_Class = self.VJ_NPC_Class
+	self:DeleteOnRemove(self.GW_BE_EyeR)
+	self.GW_BE_EyeL = ents.Create("obj_vj_bullseye")
+	self.GW_BE_EyeL:SetModel("models/hunter/plates/plate.mdl")
+	self.GW_BE_EyeL:SetParent(self)
+	self.GW_BE_EyeL:Fire("SetParentAttachment", "eyeLeft")
+	self.GW_BE_EyeL:Spawn()
+	self.GW_BE_EyeL:SetNoDraw(true)
+	self.GW_BE_EyeL:DrawShadow(false)
+	self.GW_BE_EyeL.VJ_NPC_Class = self.VJ_NPC_Class
+	self:DeleteOnRemove(self.GW_BE_EyeL)
+	self.GW_BE_Orb = ents.Create("obj_vj_bullseye")
+	self.GW_BE_Orb:SetModel("models/hunter/plates/plate.mdl")
+	self.GW_BE_Orb:SetParent(self)
+	self.GW_BE_Orb:Fire("SetParentAttachment", "orb")
+	self.GW_BE_Orb:Spawn()
+	self.GW_BE_Orb:SetNoDraw(true)
+	self.GW_BE_Orb:DrawShadow(false)
+	self.GW_BE_Orb.VJ_NPC_Class = self.VJ_NPC_Class
+	self.GW_BE_Orb.VJ_NoTarget = true
+	self:DeleteOnRemove(self.GW_BE_Orb)
 	
 	-- Eye Lights
 	self.GW_EyeLightL = ents.Create("light_dynamic")
@@ -201,8 +202,11 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	elseif key == "open_botheyes" then
 		self.GW_EyeLightL:Fire("TurnOn")
 		self.GW_EyeLightR:Fire("TurnOn")
+		self.GW_BE_EyeL.VJ_NoTarget = false
+		self.GW_BE_EyeR.VJ_NoTarget = false
 	elseif key == "spawn_portal" then
 		self.GW_OrbSprite:Fire("HideSprite")
+		self.GW_BE_Orb.VJ_NoTarget = true
 		-- Shock trooper spawner
 		local at = self:GetAttachment(self:LookupAttachment("orb"))
 		sprite = ents.Create("obj_vj_hlrof_gw_spawner")
@@ -294,6 +298,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 -- Resets everything, including the eye & stomach health, idle animation and NPC state
 function ENT:GW_OrbOpenReset()
+	if self.Dead == true then return end
 	timer.Remove("gw_closestomach"..self:EntIndex())
 	self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain4.wav")
 	self.SoundTbl_Breath = {}
@@ -306,8 +311,11 @@ function ENT:GW_OrbOpenReset()
 	self:VJ_ACT_PLAYACTIVITY("pain_4", true, false, false, 0, {}, function(vsched)
 		vsched.RunCode_OnFinish = function() -- Just a backup in case event fails
 			self.GW_OrbSprite:Fire("HideSprite")
+			self.GW_BE_Orb.VJ_NoTarget = true
 			self.GW_EyeLightL:Fire("TurnOn")
 			self.GW_EyeLightR:Fire("TurnOn")
+			self.GW_BE_EyeL.VJ_NoTarget = false
+			self.GW_BE_EyeR.VJ_NoTarget = false
 		end
 	end)
 	self:SetState()
@@ -323,7 +331,10 @@ function ENT:GW_EyeHealthCheck()
 		if self.GW_OrbOpen == false then
 			self.GW_EyeLightL:Fire("TurnOff")
 			self.GW_EyeLightR:Fire("TurnOff")
+			self.GW_BE_EyeL.VJ_NoTarget = true
+			self.GW_BE_EyeR.VJ_NoTarget = true
 			self.GW_OrbSprite:Fire("ShowSprite")
+			self.GW_BE_Orb.VJ_NoTarget = false
 			self.GW_OrbOpen = true
 			self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
 			self.AnimTbl_IdleStand = {ACT_IDLE_STIMULATED}
@@ -344,10 +355,12 @@ function ENT:GW_EyeHealthCheck()
 		end
 	elseif r <= 0 then
 		self.GW_EyeLightR:Fire("TurnOff")
+		self.GW_BE_EyeR.VJ_NoTarget = true
 		self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_shot_in_eye.wav")
 		self:SetSkin(2)
 	elseif l <= 0 then
 		self.GW_EyeLightL:Fire("TurnOff")
+		self.GW_BE_EyeL.VJ_NoTarget = true
 		self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_shot_in_eye.wav")
 		self:SetSkin(1)
 	end
@@ -383,7 +396,6 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 			self.SoundTbl_Breath = {}
 			VJ_STOPSOUND(self.CurrentBreathSound)
 			self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain3.wav")
-			print("PAIN 3")
 			self:VJ_ACT_PLAYACTIVITY("pain_3", true, false)
 			timer.Simple(VJ_GetSequenceDuration(self, "pain_3"),function()
 				if IsValid(self) then
@@ -396,7 +408,19 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:GW_CleanUp()
+	timer.Remove("gw_closestomach"..self:EntIndex())
+	if IsValid(self.GW_EyeLightR) then self.GW_EyeLightR:Remove() end
+	if IsValid(self.GW_EyeLightL) then self.GW_EyeLightL:Remove() end
+	if IsValid(self.GW_BE_EyeR) then self.GW_BE_EyeR:Remove() end
+	if IsValid(self.GW_BE_EyeL) then self.GW_BE_EyeL:Remove() end
+	if IsValid(self.GW_BE_Orb) then self.GW_BE_Orb:Remove() end
+	if IsValid(self.GW_OrbSprite) then self.GW_OrbSprite:Remove() end
+	
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
+	self:GW_CleanUp()
 	if IsValid(self.GW_Portal) then
 		self.GW_Portal:ResetSequence("close")
 		self.GW_Portal.MoveLP:Play()
@@ -406,8 +430,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-	timer.Remove("gw_closestomach"..self:EntIndex())
-	
+	self:GW_CleanUp()
 	if IsValid(self.GW_Portal) then
 		self.GW_Portal.MoveLP:Stop()
 		self.GW_Portal.IdleLP:Stop()
