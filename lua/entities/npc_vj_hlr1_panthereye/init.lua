@@ -29,7 +29,6 @@ ENT.MeleeAttackDamageDistance = 80 -- How far does the damage go?
 ENT.HasLeapAttack = true -- Should the SNPC have a leap attack?
 ENT.LeapAttackDamage = 35
 ENT.AnimTbl_LeapAttack = {"vjseq_crouch_to_jump"} -- Melee Attack Animations
-ENT.LeapAttackAnimationFaceEnemy = true -- Should it face the enemy while playing the leap attack animation?
 ENT.LeapDistance = 300 -- The distance of the leap, for example if it is set to 500, when the SNPC is 500 Unit away, it will jump
 ENT.LeapToMeleeDistance = 100 -- How close does it have to be until it uses melee?
 ENT.LeapAttackDamageDistance = 100 -- How far does the damage go?

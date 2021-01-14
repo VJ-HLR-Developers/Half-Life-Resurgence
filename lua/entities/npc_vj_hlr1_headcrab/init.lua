@@ -24,20 +24,22 @@ ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
 ENT.HasLeapAttack = true -- Should the SNPC have a leap attack?
 ENT.LeapAttackDamage = 10
 ENT.AnimTbl_LeapAttack = {ACT_RANGE_ATTACK1} -- Melee Attack Animations
-ENT.LeapDistance = 230 -- The distance of the leap, for example if it is set to 500, when the SNPC is 500 Unit away, it will jump
+ENT.LeapDistance = 256 -- The distance of the leap, for example if it is set to 500, when the SNPC is 500 Unit away, it will jump
 ENT.LeapToMeleeDistance = 1 -- How close does it have to be until it uses melee?
 ENT.LeapAttackDamageDistance = 50 -- How far does the damage go?
 ENT.TimeUntilLeapAttackDamage = 0.4 -- How much time until it runs the leap damage code?
 ENT.TimeUntilLeapAttackVelocity = 0.4 -- How much time until it runs the velocity code?
+ENT.NextLeapAttackTime = 1 -- How much time until it can use a leap attack?
+ENT.LeapAttackExtraTimers = {0.6, 0.8, 1, 1.2, 1.4} -- Extra leap attack timers | it will run the damage code after the given amount of seconds
 ENT.NextAnyAttackTime_Leap = 3 -- How much time until it can use any attack again? | Counted in Seconds
-ENT.LeapAttackExtraTimers = {0.6,0.8,1} -- Extra leap attack timers | it will run the damage code after the given amount of seconds
 ENT.StopLeapAttackAfterFirstHit = true -- Should it stop the leap attack from running rest of timers when it hits an enemy?
-ENT.LeapAttackVelocityForward = 50 -- How much forward force should it apply?
-ENT.LeapAttackVelocityUp = 250 -- How much upward force should it apply?
-ENT.LeapAttackVelocityRight = 0 -- How much right force should it apply?
+ENT.LeapAttackVelocityForward = 70 -- How much forward force should it apply?
+ENT.LeapAttackVelocityUp = 200 -- How much upward force should it apply?
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIESIMPLE} -- Death Animations
-//ENT.DeathAnimationTime = 0.6 -- Time until the SNPC spawns its corpse and gets removed
+ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it's between number x and y?
+ENT.NoChaseAfterCertainRange_FarDistance = 200 -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
+ENT.NoChaseAfterCertainRange_CloseDistance = 0 -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/headcrab/hc_idle1.wav","vj_hlr/hl1_npc/headcrab/hc_idle2.wav","vj_hlr/hl1_npc/headcrab/hc_idle3.wav","vj_hlr/hl1_npc/headcrab/hc_idle4.wav","vj_hlr/hl1_npc/headcrab/hc_idle5.wav"}
@@ -58,16 +60,21 @@ function ENT:CustomOnThink()
 		self:SetHealth(self:Health() - 1)
 		if self:Health() <= 0 then
 			self.Bleeds = false
-			self:TakeDamage(1,self,self)
+			self:TakeDamage(1, self, self)
 		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
 	if self.VJ_IsBeingControlled == true then return end
-	if math.random(1,2) == 1 then
+	if math.random(1, 2) == 1 then
 		self:VJ_ACT_PLAYACTIVITY("angry", true, false, true)
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnLeapAttackVelocityCode()
+	self:SetVelocity(((self:GetEnemy():EyePos()) - (self:GetPos() + self:OBBCenter())):GetNormal()*400 + self:GetForward()*self.LeapAttackVelocityForward + self:GetUp()*self.LeapAttackVelocityUp)
+	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
