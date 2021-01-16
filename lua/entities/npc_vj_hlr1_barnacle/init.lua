@@ -57,7 +57,7 @@ ENT.Barnacle_Status = 0
 ENT.Barnacle_NextPullSoundT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(18,18,10),Vector(-18,-18,-50))
+	self:SetCollisionBounds(Vector(18,18,0),Vector(-18,-18,-50))
 	//self:VJ_GetAllPoseParameters(true) -- tongue_height 0 / 1024
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -67,26 +67,26 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self:MeleeAttackCode()
 	end
 	if key == "death_gibs" then
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh1.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(1,0,-25))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh2.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,2,-25))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh3.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(3,0,-25))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh4.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,4,-25))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_b_bone.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(5,0,-25))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_b_gib.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,6,-25))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_guts.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(-1,0,-25))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_hmeat.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,-2,-25))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_lung.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(-3,0,-25))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_skull.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,-4,-25))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_legbone.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(-5,0,-25))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh1.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(1,0,-30))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh2.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,2,-30))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh3.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(3,0,-30))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh4.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,4,-30))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_b_bone.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(5,0,-30))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_b_gib.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,6,-30))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_guts.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(-1,0,-30))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_hmeat.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,-2,-30))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_lung.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(-3,0,-30))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_skull.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,-4,-30))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_legbone.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(-5,0,-30))})
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-hook.Add("SetupMove", "VJ_Barnacle_SetupMove", function(ply, mv)
+/*hook.Add("SetupMove", "VJ_Barnacle_SetupMove", function(ply, mv)
 	-- Make the player not be able to walk
 	if ply.Barnacle_Grabbed == true then
     	mv:SetMaxClientSpeed(0)
 	end
-end)
+end)*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Barnacle_CalculateTongue()
 	//print(self.Barnacle_LastHeight)
@@ -108,16 +108,14 @@ function ENT:Barnacle_CalculateTongue()
 			self.Barnacle_CurEntMoveType = trent:GetMoveType()
 		end
 		self.Barnacle_CurEnt = trent
-		trent.Barnacle_Grabbed = true
+		trent:AddEFlags(EFL_IS_BEING_LIFTED_BY_BARNACLE)
 		if trent:IsNPC() then
 			trent:StopMoving()
 			trent:SetVelocity(Vector(0,0,2))
 			trent:SetMoveType(MOVETYPE_FLY)
-			if trent.IsVJBaseSNPC == true then
-				trent:SetState(VJ_STATE_FREEZE, 10)
-			end
 		elseif trent:IsPlayer() then
 			trent:SetMoveType(MOVETYPE_NONE)
+			//trent:AddFlags(FL_ATCONTROLS)
 		end
 		trent:SetGroundEntity(NULL)
 		if height >= 50 then
@@ -142,7 +140,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Barnacle_ResetEnt()
 	if !IsValid(self.Barnacle_CurEnt) then return end
-	self.Barnacle_CurEnt.Barnacle_Grabbed = false
+	self.Barnacle_CurEnt:RemoveEFlags(EFL_IS_BEING_LIFTED_BY_BARNACLE)
+	//self.Barnacle_CurEnt:RemoveFlags(FL_ATCONTROLS)
 	self.Barnacle_CurEnt:SetMoveType(self.Barnacle_CurEntMoveType) -- Reset the enemy's move type
 	self.Barnacle_CurEnt = NULL
 end
@@ -187,9 +186,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 	corpseEnt:DrawShadow(false)
-	corpseEnt:SetPoseParameter("tongue_height", self.Barnacle_LastHeight)
 	corpseEnt:ResetSequence("Death")
 	corpseEnt:SetCycle(1)
+	corpseEnt:SetPoseParameter("tongue_height", 1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
