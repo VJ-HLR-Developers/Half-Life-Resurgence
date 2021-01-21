@@ -58,7 +58,7 @@ ENT.Barnacle_NextPullSoundT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(18,18,0),Vector(-18,-18,-50))
-	//self:VJ_GetAllPoseParameters(true) -- tongue_height 0 / 1024
+	//self:GetPoseParameters(true) -- tongue_height 0 / 1024
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)

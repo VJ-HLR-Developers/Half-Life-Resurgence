@@ -62,7 +62,7 @@ function ENT:CustomOnHandleAnimEvent(ev, evTime, evCycle, evType, evOptions)
 		self:PlaySoundSystem("MeleeAttack", {"vj_hlr/hl1_npc/tentacle/te_strike1.wav","vj_hlr/hl1_npc/tentacle/te_strike2.wav"}, VJ_EmitSound)
 		if IsValid(self:GetEnemy()) && (self:GetEnemy():GetPos():Distance(self:GetPos() + self:GetForward()*150)) < 200 then
 			self.CanTurnWhileStationary = true
-			self:SetAngles(self:VJ_ReturnAngle((self:GetEnemy():GetPos()-self:GetPos()):Angle()))
+			self:SetAngles(self:GetFaceAngle((self:GetEnemy():GetPos()-self:GetPos()):Angle()))
 		end
 	end
 end
@@ -72,7 +72,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	if key == "attack" then
 		self:MeleeAttackCode()
 		self:PlaySoundSystem("MeleeAttack", {"vj_hlr/hl1_npc/tentacle/te_strike1.wav","vj_hlr/hl1_npc/tentacle/te_strike2.wav"}, VJ_EmitSound)
-		if IsValid(self:GetEnemy()) then self:SetAngles(self:VJ_ReturnAngle((self:GetEnemy():GetPos()-self:GetPos()):Angle())) end
+		if IsValid(self:GetEnemy()) then self:SetAngles(self:GetFaceAngle((self:GetEnemy():GetPos()-self:GetPos()):Angle())) end
 	end
 end
 -- 0 to 1 = ACT_SIGNAL1				1 to 2 = ACT_SIGNAL2			2 to 3 = ACT_SIGNAL3

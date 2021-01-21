@@ -18,9 +18,7 @@ ENT.AnimTbl_Flinch = {ACT_BIG_FLINCH} -- If it uses normal based animation, use 
 function ENT:CustomOnInitialize()
 	self.Boid_Type = 1
 	self:SetCollisionBounds(Vector(18, 18, 10), Vector(-18, -18, 0))
-	self.Boid_PosForward = math.random(-50,50)
-	self.Boid_PosUp = math.random(-150,150)
-	self.Boid_PosRight = math.random(-120,120)
+	self.Boid_FollowOffsetPos = Vector(math.random(-50, 50), math.random(-120, 120), math.random(-150, 150))
 	if !IsValid(HLR_AFlock_Leader) then
 		HLR_AFlock_Leader = self
 	end
@@ -30,7 +28,7 @@ function ENT:CustomOnThink()
 	if IsValid(HLR_AFlock_Leader) then
 		if HLR_AFlock_Leader != self then
 			self.DisableWandering = true
-			self:AAMove_MoveToPos(HLR_AFlock_Leader, true, "Calm", {PosForward=self.Boid_PosForward,PosUp=self.Boid_PosUp,PosRight=self.Boid_PosRight}) -- Medzavorin haladz e (Kharen deghme)
+			self:AA_MoveTo(HLR_AFlock_Leader, true, "Calm", {AddPos=self.Boid_FollowOffsetPos}) -- Medzavorin haladz e (Kharen deghme)
 		end
 	else
 		self.DisableWandering = false

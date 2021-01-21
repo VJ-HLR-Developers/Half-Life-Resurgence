@@ -57,17 +57,13 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/floater/fl_pain1.wav","vj_hlr/hl1_npc/floa
 ENT.GeneralSoundPitch1 = 100
 
 -- Custom
-ENT.Floater_PosForward = 0
-ENT.Floater_PosUp = 0
-ENT.Floater_PosRight = 0
+ENT.Floater_FollowOffsetPos = 0
 
 HLR_Floater_Leader = NULL
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(10,10,50), Vector(-10,-10,0))
-	self.Floater_PosForward = math.random(-50,50)
-	self.Floater_PosUp = math.random(-150,150)
-	self.Floater_PosRight = math.random(-120,120)
+	self.Floater_FollowOffsetPos = Vector(math.random(-50, 50), math.random(-120, 120), math.random(-150, 150))
 	if !IsValid(HLR_Floater_Leader) then -- Yete ourish medzavor chiga, ere vor irzenike medzavor ene
 		HLR_Floater_Leader = self
 	end
@@ -85,7 +81,7 @@ function ENT:CustomOnThink()
 		if IsValid(HLR_Floater_Leader) then
 			if HLR_Floater_Leader != self /*&& HLR_Floater_Leader:GetPos():Distance(self:GetPos()) > 10*/ then
 				self.DisableWandering = true
-				self:AAMove_MoveToPos(HLR_Floater_Leader, true, "Calm", {PosForward=self.Floater_PosForward,PosUp=self.Floater_PosUp,PosRight=self.Floater_PosRight}) -- Medzavorin haladz e (Kharen deghme)
+				self:AA_MoveTo(HLR_Floater_Leader, true, "Calm", {AddPos=self.Floater_FollowOffsetPos}) -- Medzavorin haladz e (Kharen deghme)
 			end
 		else
 			self.DisableWandering = false

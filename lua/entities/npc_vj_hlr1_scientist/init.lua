@@ -183,7 +183,7 @@ function ENT:SCI_CustomOnInitialize()
 	if randbg == 2 && self.SCI_Type == 0 then
 		self:SetSkin(1)
 	end
-	//self:VJ_GetAllPoseParameters(true)
+	//self:GetPoseParameters(true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)

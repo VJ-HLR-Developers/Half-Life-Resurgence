@@ -41,18 +41,14 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/boid/boid_alert1.wav","vj_hlr/hl1_npc/boid
 ENT.Boid_Type = 0
 	-- 0 = Original / Default
 	-- 1 = AFlock
-ENT.Boid_PosForward = 0
-ENT.Boid_PosUp = 0
-ENT.Boid_PosRight = 0
+ENT.Boid_FollowOffsetPos = 0
 
 HLR_Boid_Leader = NULL
 HLR_AFlock_Leader = NULL
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(18, 18, 10), Vector(-18, -18, 0))
-	self.Boid_PosForward = math.random(-50,50)
-	self.Boid_PosUp = math.random(-150,150)
-	self.Boid_PosRight = math.random(-120,120)
+	self.Boid_FollowOffsetPos = Vector(math.random(-50, 50), math.random(-120, 120), math.random(-150, 150))
 	if !IsValid(HLR_Boid_Leader) then -- Yete ourish medzavor chiga, ere vor irzenike medzavor ene
 		HLR_Boid_Leader = self
 	end
@@ -62,7 +58,7 @@ function ENT:CustomOnThink()
 	if IsValid(HLR_Boid_Leader) then
 		if HLR_Boid_Leader != self then
 			self.DisableWandering = true
-			self:AAMove_MoveToPos(HLR_Boid_Leader, true, "Calm", {PosForward=self.Boid_PosForward,PosUp=self.Boid_PosUp,PosRight=self.Boid_PosRight}) -- Medzavorin haladz e (Kharen deghme)
+			self:AA_MoveTo(HLR_Boid_Leader, true, "Calm", {AddPos=self.Boid_FollowOffsetPos}) -- Medzavorin haladz e (Kharen deghme)
 		end
 	else
 		self.DisableWandering = false
