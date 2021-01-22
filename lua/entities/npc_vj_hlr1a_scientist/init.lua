@@ -14,11 +14,11 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SCI_CustomOnInitialize()
+	self.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hla_npc/barney/ba_pain1.wav"}
 	self.SoundTbl_Pain = {"vj_hlr/hla_npc/barney/ba_pain1.wav"}
 	self.SoundTbl_Death = {"vj_hlr/hla_npc/barney/ba_die1.wav","vj_hlr/hla_npc/barney/ba_die2.wav","vj_hlr/hla_npc/barney/ba_die3.wav"}
-	self.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hla_npc/barney/ba_pain1.wav"}
 	
-	self:SetBodygroup(0,math.random(0,4))
+	self:SetBodygroup(0, math.random(0, 4))
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

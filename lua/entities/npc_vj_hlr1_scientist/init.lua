@@ -178,8 +178,8 @@ function ENT:SCI_CustomOnInitialize()
 	self.SoundTbl_DamageByPlayer = {"vj_hlr/hl1_npc/scientist/youinsane.wav","vj_hlr/hl1_npc/scientist/whatyoudoing.wav","vj_hlr/hl1_npc/scientist/please.wav","vj_hlr/hl1_npc/scientist/c3a2_sci_fool.wav","vj_hlr/hl1_npc/scientist/c1a3_sci_team.wav","vj_hlr/hl1_npc/scientist/c1a0_sci_stayback.wav","vj_hlr/hl1_npc/scientist/c1a2_sci_3zomb.wav","vj_hlr/hl1_npc/scientist/c1a2_sci_5zomb.wav"}
 	self.SoundTbl_Death = {"vj_hlr/hl1_npc/scientist/scream5.wav","vj_hlr/hl1_npc/scientist/scream21.wav","vj_hlr/hl1_npc/scientist/sci_die1.wav","vj_hlr/hl1_npc/scientist/sci_die2.wav","vj_hlr/hl1_npc/scientist/sci_die3.wav","vj_hlr/hl1_npc/scientist/sci_die4.wav","vj_hlr/hl1_npc/scientist/sci_dragoff.wav"}
 	
-	local randbg = math.random(0,4)
-	self:SetBodygroup(1,randbg)
+	local randbg = math.random(0, 4)
+	self:SetBodygroup(1, randbg)
 	if randbg == 2 && self.SCI_Type == 0 then
 		self:SetSkin(1)
 	end
@@ -191,9 +191,9 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	if key == "step" or key == "wheelchair" then
 		self:FootStepSoundCode()
 	end
-	if key == "tie" then
+	if key == "tie" && !self:BusyWithActivity() then
 		self:StopAllCommonSpeechSounds()
-		VJ_EmitSound(self,{"vj_hlr/hl1_npc/scientist/weartie.wav","vj_hlr/hl1_npc/scientist/ties.wav"},80,100)
+		VJ_EmitSound(self, {"vj_hlr/hl1_npc/scientist/weartie.wav","vj_hlr/hl1_npc/scientist/ties.wav"}, 80, 100)
 	end
 	if key == "draw" then
 		self:SetBodygroup(2,1)
@@ -216,7 +216,7 @@ function ENT:CustomOnMedic_BeforeHeal()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMedic_OnReset()
-	timer.Simple(1.5,function() if IsValid(self) then self:SetBodygroup(2,0) end end)
+	timer.Simple(1.5, function() if IsValid(self) then self:SetBodygroup(2, 0) end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
@@ -225,8 +225,8 @@ function ENT:CustomOnAlert(ent)
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl1_npc/scientist/seeheadcrab.wav"})
 			self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert1,self.NextSoundTime_Alert2)
 		end
-		if ent:GetPos():Distance(self:GetPos()) >= 300 && math.random(1,2) == 1 then
-			self:VJ_ACT_PLAYACTIVITY({"vjseq_eye_wipe","vjseq_fear1","vjseq_fear2"}, true, false, true)
+		if ent:GetPos():Distance(self:GetPos()) >= 300 && math.random(1, 2) == 1 then
+			self:VJ_ACT_PLAYACTIVITY({"vjseq_eye_wipe", "vjseq_fear1", "vjseq_fear2"}, true, false, true)
 		end
 	end
 end
@@ -240,7 +240,7 @@ function ENT:CustomOnThink()
 		end
 		self.AnimTbl_Run = {ACT_RUN_SCARED}
 	else
-		if math.random(1,25) == 1 && self.SCI_Type == 1 then
+		if self.SCI_Type == 0 && math.random(1,25) == 1 then
 			self.AnimTbl_IdleStand = {ACT_VM_IDLE_1}
 		else
 			self.AnimTbl_IdleStand = {ACT_IDLE}
@@ -249,9 +249,10 @@ function ENT:CustomOnThink()
 		self.AnimTbl_Run = {ACT_RUN}
 	end
 	
+	-- Is the wheel chair gone? Then kill Dr. Keller!
 	if self.SCI_Type == 2 && self:GetBodygroup(0) == 1 then
 		self.HasDeathAnimation = false
-		self:TakeDamage(999999999,self,self)
+		self:TakeDamage(self:Health(), self, self)
 	end
 	
 	if CurTime() < self.SCI_NextMouthMove then
@@ -260,9 +261,9 @@ function ENT:CustomOnThink()
 		else
 			self.SCI_NextMouthDistance = 0
 		end
-		self:SetPoseParameter("m",self.SCI_NextMouthDistance)
+		self:SetPoseParameter("m", self.SCI_NextMouthDistance)
 	else
-		self:SetPoseParameter("m",0)
+		self:SetPoseParameter("m", 0)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -271,7 +272,7 @@ function ENT:OnPlayCreateSound(sdData, sdFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
-	self:SetBodygroup(2,0)
+	self:SetBodygroup(2, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
@@ -309,7 +310,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_lung.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,45))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_skull.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,60))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_legbone.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,15))})
-	if self.SCI_Type == 2 then
+	if self.SCI_Type == 2 then -- Dr Keller
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/wheelchair_seat.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),Ang=self:LocalToWorldAngles(Angle(0,-10,0)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/wheelchair_back.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(-15,0,35)),Ang=self:LocalToWorldAngles(Angle(0,-10,0)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/wheelchair_headrest.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(-15,0,55)),Ang=self:LocalToWorldAngles(Angle(0,-10,0)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})

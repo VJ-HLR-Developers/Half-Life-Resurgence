@@ -94,11 +94,11 @@ function ENT:CustomOnThink()
 	self:SetColor(Color(255,255,255,math.Clamp(self.BOA_CloakLevel * 255, 40, 255)))
 	self.BOA_CloakLevel = math.Clamp(self.BOA_CloakLevel + 0.05, 0, 1)
 	if cloaklvl <= 220 then -- Yete asorme tsadz e, ere vor mouys NPC-nere chi desnen iren!
-		self.VJ_NoTarget = true
+		self:AddFlags(FL_NOTARGET)
 		self:DrawShadow(false)
 	else
 		self:DrawShadow(true)
-		self.VJ_NoTarget = false
+		self:RemoveFlags(FL_NOTARGET)
 	end
 	
 	if self:IsOnGround() == true then

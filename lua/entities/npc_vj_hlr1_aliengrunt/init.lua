@@ -87,8 +87,9 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 		projectile.MyEnemy = self:GetEnemy()
 	end
 end
-local vec = Vector(0,0,0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vec = Vector(0,0,0)
+--
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	if hitgroup == HITGROUP_GEAR then
 		dmginfo:SetDamage(0)

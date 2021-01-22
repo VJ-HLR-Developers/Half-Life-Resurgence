@@ -120,7 +120,6 @@ ENT.GeneralSoundPitch1 = 100
 -- Custom
 ENT.Security_NextMouthMove = 0
 ENT.Security_NextMouthDistance = 0
-ENT.Security_GunHolstered = true
 ENT.Security_SwitchedIdle = false
 ENT.Security_Type = 0
 	-- 0 = Security Guard
@@ -155,6 +154,7 @@ end
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(13, 13, 76), Vector(-13, -13, 0))
 	self:SetBodygroup(1,0)
+	self:SetWeaponState(VJ_WEP_STATE_HOLSTERED)
 	
 	if self:GetModel() == "models/vj_hlr/hl1/barney.mdl" then // Already the default
 		self.Security_Type = 0
@@ -192,7 +192,7 @@ function ENT:CustomOnThink()
 			self:SetPoseParameter("m",0)
 		end
 		-- For guarding
-		if self.IsGuard == true && self.Security_GunHolstered == true && !IsValid(self:GetEnemy()) then
+		if self.IsGuard == true && self:GetWeaponState() == VJ_WEP_STATE_HOLSTERED && !IsValid(self:GetEnemy()) then
 			if self.Security_SwitchedIdle == false then
 				self.Security_SwitchedIdle = true
 				self.AnimTbl_IdleStand = {ACT_GET_DOWN_STAND, ACT_GET_UP_STAND}
@@ -226,7 +226,7 @@ function ENT:CustomOnAlert(ent)
 		end
 	end
 	
-	if self.Security_GunHolstered == true then
+	if self:GetWeaponState() == VJ_WEP_STATE_HOLSTERED then
 		self:Security_UnHolsterGun()
 	end
 end
@@ -234,27 +234,23 @@ end
 function ENT:Security_UnHolsterGun()
 	self:StopMoving()
 	self:VJ_ACT_PLAYACTIVITY(ACT_ARM, true, false, true)
-	self.Security_GunHolstered = false
+	self:SetWeaponState()
 	timer.Simple(0.55,function() if IsValid(self) then self:SetBodygroup(1,1) end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.Dead == true then return end
-	if self.Security_GunHolstered == true && IsValid(self:GetEnemy()) then
-		self:Security_UnHolsterGun()
-	elseif self.Security_GunHolstered == false && !IsValid(self:GetEnemy()) && self.TimeSinceLastSeenEnemy > 5 && self.IsReloadingWeapon == false then
+	if self.Dead == true or self:BusyWithActivity() then return end
+	if IsValid(self:GetEnemy()) then
+		if self:GetWeaponState() == VJ_WEP_STATE_HOLSTERED then self:Security_UnHolsterGun() end
+	elseif self:GetWeaponState() != VJ_WEP_STATE_HOLSTERED && self.TimeSinceLastSeenEnemy > 5 then
 		self:VJ_ACT_PLAYACTIVITY(ACT_DISARM, true, false, true)
-		self.Security_GunHolstered = true
-		timer.Simple(1.5,function() if IsValid(self) && !IsValid(self:GetEnemy()) then self:SetBodygroup(1,0) end end)
+		self:SetWeaponState(VJ_WEP_STATE_HOLSTERED)
+		timer.Simple(1.5, function() if IsValid(self) && !IsValid(self:GetEnemy()) then self:SetBodygroup(1, 0) end end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnIsAbleToShootWeapon()
-	if self.Security_GunHolstered == true then return false end
-	return true
-end
 local vec = Vector(0,0,0)
----------------------------------------------------------------------------------------------------------------------------------------------
+--
 function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 	if self.Security_Type == 1 then return end
 	if hitgroup == HITGROUP_GEAR && dmginfo:GetDamagePosition() != vec then

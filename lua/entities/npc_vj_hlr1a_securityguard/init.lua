@@ -26,7 +26,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Security_UnHolsterGun()
 	self:StopMoving()
-	self.Security_GunHolstered = false
+	self:SetWeaponState()
 	if math.random(1,2) == 1 then
 		self:VJ_ACT_PLAYACTIVITY(ACT_ARM, true, false, true)
 		timer.Simple(0.3,function() if IsValid(self) then self:SetBodygroup(1,1) end end)
@@ -37,12 +37,13 @@ function ENT:Security_UnHolsterGun()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.Security_GunHolstered == true && IsValid(self:GetEnemy()) then
-		self:Security_UnHolsterGun()
-	elseif self.Security_GunHolstered == false && !IsValid(self:GetEnemy()) && self.TimeSinceLastSeenEnemy > 5 && self.IsReloadingWeapon == false then
+	if self.Dead == true or self:BusyWithActivity() then return end
+	if IsValid(self:GetEnemy()) then
+		if self:GetWeaponState() == VJ_WEP_STATE_HOLSTERED then self:Security_UnHolsterGun() end
+	elseif self:GetWeaponState() != VJ_WEP_STATE_HOLSTERED && self.TimeSinceLastSeenEnemy > 5 then
 		self:VJ_ACT_PLAYACTIVITY(ACT_DISARM, true, false, true)
-		self.Security_GunHolstered = true
-		timer.Simple(1,function() if IsValid(self) then self:SetBodygroup(1,0) end end)
+		self:SetWeaponState(VJ_WEP_STATE_HOLSTERED)
+		timer.Simple(1, function() if IsValid(self) && !IsValid(self:GetEnemy()) then self:SetBodygroup(1, 0) end end)
 	end
 end
 /*-----------------------------------------------
