@@ -71,7 +71,7 @@ function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 	local proj = ents.Create("obj_vj_hlr2_rocket")
 	local ply_Ang = self:GetOwner():GetAimVector():Angle()
 	local ply_Pos = self:GetOwner():GetShootPos() + ply_Ang:Forward()*-20 + ply_Ang:Up()*-9 + ply_Ang:Right()*10
-	if self:GetOwner():IsPlayer() then proj:SetPos(ply_Pos) else proj:SetPos(self:GetNWVector("VJ_CurBulletPos")) end
+	if self:GetOwner():IsPlayer() then proj:SetPos(ply_Pos) else proj:SetPos(self:GetNW2Vector("VJ_CurBulletPos")) end
 	if self:GetOwner():IsPlayer() then proj:SetAngles(ply_Ang) else proj:SetAngles(self:GetOwner():GetAngles()) end
 	proj:SetOwner(self:GetOwner())
 	proj:Activate()

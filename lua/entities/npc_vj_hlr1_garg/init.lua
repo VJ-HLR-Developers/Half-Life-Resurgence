@@ -65,8 +65,7 @@ ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/garg/gar_pain1.wav","vj_hlr/hl1_npc/garg/ga
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/garg/gar_die1.wav","vj_hlr/hl1_npc/garg/gar_die2.wav"}
 
 ENT.GeneralSoundPitch1 = 100
-ENT.ExtraMeleeSoundPitch1 = 80
-ENT.ExtraMeleeSoundPitch2 = 80
+ENT.ExtraMeleeSoundPitch = VJ_Set(80, 80)
 
 -- Custom
 ENT.Garg_Type = 0

@@ -113,11 +113,11 @@ function ENT:RangeAttackCode_GetShootPos(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
-	local randattack = math.random(1,2)
-	if randattack == 1 then
+	local randAttack = math.random(1,2)
+	if randAttack == 1 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
 		self.MeleeAttackDamage = 35
-	elseif randattack == 2 then
+	elseif randAttack == 2 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
 		self.MeleeAttackDamage = 20
 	end

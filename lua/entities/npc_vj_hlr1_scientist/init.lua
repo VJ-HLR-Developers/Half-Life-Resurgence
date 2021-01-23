@@ -223,7 +223,7 @@ function ENT:CustomOnAlert(ent)
 	if self.SCI_Type != 2 && self.SCI_Type != 3 then
 		if math.random(1,2) == 1 && ent.HLR_Type == "Headcrab" or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast" then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl1_npc/scientist/seeheadcrab.wav"})
-			self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert1,self.NextSoundTime_Alert2)
+			self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert.a, self.NextSoundTime_Alert.b)
 		end
 		if ent:GetPos():Distance(self:GetPos()) >= 300 && math.random(1, 2) == 1 then
 			self:VJ_ACT_PLAYACTIVITY({"vjseq_eye_wipe", "vjseq_fear1", "vjseq_fear2"}, true, false, true)

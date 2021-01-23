@@ -215,14 +215,14 @@ function ENT:CustomOnAlert(ent)
 		if self.Security_Type == 0 then
 			if ent:GetClass() == "npc_vj_hlr1_bullsquid" then
 				self:PlaySoundSystem("Alert", {"vj_hlr/hl1_npc/barney/c1a4_ba_octo1.wav"})
-				self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert1,self.NextSoundTime_Alert2)
+				self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert.a, self.NextSoundTime_Alert.b)
 			elseif ent.IsVJBaseSNPC_Creature == true then
 				self:PlaySoundSystem("Alert", {"vj_hlr/hl1_npc/barney/diebloodsucker.wav"})
-				self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert1,self.NextSoundTime_Alert2)
+				self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert.a, self.NextSoundTime_Alert.b)
 			end
 		elseif self.Security_Type == 1 && ent.IsVJBaseSNPC_Creature == true then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl1_npc/otis/aliens.wav"})
-			self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert1,self.NextSoundTime_Alert2)
+			self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert.a, self.NextSoundTime_Alert.b)
 		end
 	end
 	
