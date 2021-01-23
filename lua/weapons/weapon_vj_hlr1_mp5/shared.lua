@@ -12,6 +12,7 @@ SWEP.NPC_NextPrimaryFire 		= false -- Next time it can use primary fire
 SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/mp5/mp_reload.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 SWEP.NPC_HasSecondaryFire = true -- Can the weapon have a secondary fire?
+SWEP.NPC_SecondaryFireEnt = "obj_vj_hlr1_grenade_40mm" -- The entity to fire, this only applies if self:NPC_SecondaryFire() has NOT been overridden!
 SWEP.NPC_SecondaryFireSound = {"vj_hlr/hl1_weapon/mp5/glauncher.wav","vj_hlr/hl1_weapon/mp5/glauncher2.wav"} -- The sound it plays when the secondary fire is used
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
@@ -56,21 +57,6 @@ function SWEP:CustomOnInitialize()
 end
 //SWEP.NPC_SecondaryFireChance = 1 -- Chance that the secondary fire is used | 1 = always
 //SWEP.NPC_SecondaryFireNext = VJ_Set(3,3) -- How much time until the secondary fire can be used again?
----------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:NPC_SecondaryFire()
-	local pos = self:GetNW2Vector("VJ_CurBulletPos")
-	local proj = ents.Create("obj_vj_hlr1_grenade_40mm")
-	proj:SetPos(pos)
-	proj:SetAngles(self:GetOwner():GetAngles())
-	proj:SetOwner(self:GetOwner())
-	proj:Spawn()
-	proj:Activate()
-	local phys = proj:GetPhysicsObject()
-	if IsValid(phys) then
-		phys:Wake()
-		phys:SetVelocity(self:GetOwner():CalculateProjectile("Curve", pos, self:GetOwner():GetEnemy():GetPos() + self:GetOwner():GetEnemy():OBBCenter(), 1000))
-	end
-end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnDrawWorldModel() -- This is client only!
 	if IsValid(self:GetOwner()) then

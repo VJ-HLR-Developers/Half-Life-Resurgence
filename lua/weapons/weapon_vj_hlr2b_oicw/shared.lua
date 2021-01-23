@@ -28,18 +28,3 @@ SWEP.Primary.DistantSound		= {
 	"vj_hlr/hl2_weapon/oicw/ar2_echo2.wav",
 	"vj_hlr/hl2_weapon/oicw/ar2_echo3.wav",
 }
----------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:NPC_SecondaryFire()
-	local pos = self:GetNW2Vector("VJ_CurBulletPos")
-	local proj = ents.Create("obj_vj_grenade_rifle")
-	proj:SetPos(pos)
-	proj:SetAngles(self:GetOwner():GetAngles())
-	proj:SetOwner(self:GetOwner())
-	proj:Spawn()
-	proj:Activate()
-	local phys = proj:GetPhysicsObject()
-	if IsValid(phys) then
-		phys:Wake()
-		phys:SetVelocity(self:GetOwner():CalculateProjectile("Curve", pos, self:GetOwner():GetEnemy():GetPos() + self:GetOwner():GetEnemy():OBBCenter(), 1000))
-	end
-end
