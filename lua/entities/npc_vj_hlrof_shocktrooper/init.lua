@@ -174,6 +174,12 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+ENT.GrenadeAttackVelUp1 = 200 -- Grenade attack velocity up | The first # in math.random
+ENT.GrenadeAttackVelUp2 = 200 -- Grenade attack velocity up | The second # in math.random
+ENT.GrenadeAttackVelForward1 = 500 -- Grenade attack velocity up | The first # in math.random
+ENT.GrenadeAttackVelForward2 = 500 -- Grenade attack velocity up | The second # in math.random
+ENT.GrenadeAttackVelRight1 = -20 -- Grenade attack velocity right | The first # in math.random
+ENT.GrenadeAttackVelRight2 = 20 -- Grenade attack velocity right | The second # in math.random
 function ENT:ThrowGrenadeCode(customEnt,noOwner)
 	if self.Dead == true or self.Flinching == true or self.MeleeAttacking == true or (IsValid(self:GetEnemy()) && !self:Visible(self:GetEnemy())) then return end
 	//if self:VJ_ForwardIsHidingZone(self:NearestPoint(self:GetPos() +self:OBBCenter()),self:GetEnemy():EyePos()) == true then return end
@@ -204,7 +210,7 @@ function ENT:ThrowGrenadeCode(customEnt,noOwner)
 	end
 
 	self.ThrowingGrenade = true
-	self:CustomOnGrenadeAttack_BeforeThrowTime()
+	self:CustomOnGrenadeAttack_BeforeStartTimer()
 	self:PlaySoundSystem("GrenadeAttack")
 
 	if self.VJ_PlayingSequence == false && self.DisableGrenadeAttackAnimation == false then
