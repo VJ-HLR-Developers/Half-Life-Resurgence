@@ -49,8 +49,7 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/squeek/sqk_die1.wav"}
 
 ENT.IdleSoundChance = 1
 
-ENT.NextSoundTime_Idle1 = 1
-ENT.NextSoundTime_Idle2 = 1
+ENT.NextSoundTime_Idle = VJ_Set(1, 1)
 
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100

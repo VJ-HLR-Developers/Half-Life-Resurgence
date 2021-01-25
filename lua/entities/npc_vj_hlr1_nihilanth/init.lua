@@ -49,8 +49,7 @@ ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/x/x_shoot1.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/x/x_pain1.wav","vj_hlr/hl1_npc/x/x_pain2.wav","vj_hlr/hl1_npc/x/x_pain3.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/x/x_die1.wav"}
 
-ENT.NextSoundTime_Idle1 = 14
-ENT.NextSoundTime_Idle2 = 20
+ENT.NextSoundTime_Idle = VJ_Set(14, 20)
 
 ENT.GeneralSoundPitch1 = 100
 

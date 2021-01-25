@@ -37,7 +37,7 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav","vj_hlr/hl1_wea
 -- ENT.RemoveOnHit = false
 -- ENT.CollideCodeWithoutRemoving = true
 
-ENT.StartupSoundPitch1 = 100
+ENT.StartupSoundPitch = VJ_Set(100, 100)
 
 -- Custom
 ENT.CodeAlreadyRan = false

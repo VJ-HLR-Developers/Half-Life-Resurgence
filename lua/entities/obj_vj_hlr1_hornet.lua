@@ -37,8 +37,7 @@ ENT.DecalTbl_OnCollideDecals = {"VJ_HLR_Blood_Yellow"} -- Decals that paint when
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/hornet/ag_buzz1.wav","vj_hlr/hl1_npc/hornet/ag_buzz2.wav","vj_hlr/hl1_npc/hornet/ag_buzz3.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/hornet/ag_hornethit1.wav","vj_hlr/hl1_npc/hornet/ag_hornethit2.wav","vj_hlr/hl1_npc/hornet/ag_hornethit3.wav"}
 
-ENT.IdleSoundPitch1 = 100
-ENT.IdleSoundPitch2 = 100
+ENT.IdleSoundPitch = VJ_Set(100, 100)
 
 -- Custom
 ENT.MyEnemy = NULL
