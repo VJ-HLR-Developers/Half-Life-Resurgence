@@ -71,6 +71,7 @@ ENT.ExtraMeleeSoundPitch = VJ_Set(80, 80)
 ENT.Garg_Type = 0
 	-- 0 = Default Garg
 	-- 1 = Baby Garg
+	-- 2 = Custom (Not immune to bullets)
 ENT.Garg_AttackType = -1
 ENT.Garg_AbleToFlame = false
 ENT.Garg_NextAbleToFlameT = 0
@@ -243,8 +244,10 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	if dmginfo:IsBulletDamage() == true then
 		if self.Garg_Type == 1 then -- Make babies take half damage for bullets
 			dmginfo:SetDamage(0.5)
-		else -- Make adult Gargantua take no bullet damage
-			dmginfo:SetDamage(0)
+		elseif self.Garg_Type == 2 then 
+			dmginfo:SetDamage(1)
+		else
+			dmginfo:SetDamage(0) -- Make adult Gargantua take no bullet damage
 		end
 	end
 end
