@@ -6,13 +6,13 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/police.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.StartHealth = GetConVarNumber("vj_hl2c_metrocop_h")
+ENT.StartHealth = 50
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_COMBINE"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.AnimTbl_MeleeAttack = {"pushplayer"} // ACT_MELEE_ATTACK_SWING
-ENT.MeleeAttackDamage = GetConVarNumber("vj_hl2c_metrocop_d")
+ENT.MeleeAttackDamage = 10
 ENT.FootStepTimeRun = 0.4 -- Next foot step sound when it is running
 ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound

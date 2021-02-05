@@ -90,7 +90,7 @@ function ENT:CustomOnInitialize()
 		end
 	end
 	
-	self.Nih_OriginalGravity = GetConVarNumber("sv_gravity")
+	self.Nih_OriginalGravity = GetConVar("sv_gravity"):GetFloat()
 	RunConsoleCommand("sv_gravity", 200)
 	
 	self:SetCollisionBounds(Vector(250, 250, 430), Vector(-250, -250, -530))

@@ -91,7 +91,7 @@ function SWEP:CustomOnNPC_ServerThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttackEffects()
-	if self.PrimaryEffects_MuzzleFlash == true && GetConVarNumber("vj_wep_nomuszzleflash") == 0 then
+	if self.PrimaryEffects_MuzzleFlash == true && GetConVar("vj_wep_nomuszzleflash"):GetInt() == 0 then
 		ParticleEffect("vj_hl_shockroach", self:GetNW2Vector("VJ_CurBulletPos"), self:GetNW2Vector("VJ_CurBulletPos"):Angle(), self:GetOwner())
 		timer.Simple(0.05, function() if IsValid(self) && IsValid(self:GetOwner()) then self:GetOwner():StopParticles() end end)
 	end

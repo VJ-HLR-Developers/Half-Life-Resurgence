@@ -167,7 +167,7 @@ function ENT:CustomOnInitialize()
 	self.GW_Portal.IdleLP:SetSoundLevel(100)
 	
 	-- Fade in on spawn, if AI is disabled, then don't do it
-	if GetConVarNumber("ai_disabled") == 0 then
+	if GetConVar("ai_disabled"):GetInt() == 0 then
 		self.GW_Portal:ResetSequence("open")
 		self.GW_Portal.MoveLP:Play()
 		self.GW_Portal.IdleLP:Stop()

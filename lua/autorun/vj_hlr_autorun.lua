@@ -348,24 +348,11 @@ if VJExists == true then
 ------ Convars ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	VJ.AddClientConVar("vj_hlr2_csniper_strict", 1, "Use strict laser pointer for the Combine Sniper")
-	
 	VJ.AddClientConVar("vj_hlr_sparkfx",0,"Allow spark effects to be created when a HLR1 bullet hits a metal surface")
-	
-	VJ.AddConVar("vj_hl2c_soldier_h",60)
-	VJ.AddConVar("vj_hl2c_soldierprison_h",75)
-	VJ.AddConVar("vj_hl2c_soldierelite_h",100)
-	VJ.AddConVar("vj_hl2c_soldier_d",10)
-	
-	VJ.AddConVar("vj_hl2c_metrocop_h",50)
-	VJ.AddConVar("vj_hl2c_elitecop_h",60)
-	VJ.AddConVar("vj_hl2c_metrocop_d",10)
-	
-	VJ.AddConVar("vj_hl2r_rebel_h",50)
-	VJ.AddConVar("vj_hl2r_rebel_d",10)
 	
 	-- Temp weapon hook!
 	/*hook.Add("PlayerSpawn","VJ_HL1SWEPs_AutoSpawn",function(ply)
-		if GetConVarNumber("hl1_sv_loadout") == 1 then
+		if GetConVar("hl1_sv_loadout"):GetInt() == 1 then
 			ply:Give("weapon_hl1_357")
 			ply:Give("weapon_hl1_glock")
 			ply:Give("weapon_hl1_crossbow")

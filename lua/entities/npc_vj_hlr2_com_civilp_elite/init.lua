@@ -6,7 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hl2b/elitepolice.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.StartHealth = GetConVarNumber("vj_hl2c_elitecop_h")
+ENT.StartHealth = 60
 
 ENT.GeneralSoundPitch1 = 80
 ENT.GeneralSoundPitch2 = 80

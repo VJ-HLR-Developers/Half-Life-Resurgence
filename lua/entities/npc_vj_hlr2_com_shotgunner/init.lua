@@ -6,7 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/combine_soldier.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
-ENT.StartHealth = GetConVarNumber("vj_hl2c_soldier_h")
+ENT.StartHealth = 60
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetSkin(1)

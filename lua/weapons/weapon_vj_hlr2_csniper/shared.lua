@@ -98,7 +98,7 @@ function SWEP:CustomOnThink()
 			end
 		elseif self:GetOwner():IsPlayer() then
 			if self:GetZoomLevel() == 0 then -- If level is 0, reset it to the default FOV
-				self:GetOwner():SetFOV(GetConVarNumber("fov_desired"), 0.1)
+				self:GetOwner():SetFOV(GetConVar("fov_desired"):GetInt(), 0.1)
 			end
 			self:SetZoomed(self:GetZoomLevel() > 0) -- > 0 means it's zoomed
 			self.Primary.Cone = (self:GetZoomed() and 1) or 10
@@ -145,7 +145,7 @@ if (CLIENT) then
 			local attachPos = attach.Pos
 			local attachAng = attach.Ang
 			local endPos = attachPos + attachAng:Forward()*10000 + attachAng:Up()*180 + attachAng:Right()*700
-			local strictPointer = (!self:GetOwner():IsNPC() and 1) or GetConVarNumber("vj_hlr2_csniper_strict")
+			local strictPointer = (!self:GetOwner():IsNPC() and 1) or GetConVar("vj_hlr2_csniper_strict"):GetInt()
 			if strictPointer == 1 or vec_def == self:GetNW2Vector("OwnerEnemyPos") then -- Face straight from the attachment
 				endPos = attachPos + attachAng:Forward()*10000 + attachAng:Up()*180 + attachAng:Right()*700
 			else -- Face towards the enemy

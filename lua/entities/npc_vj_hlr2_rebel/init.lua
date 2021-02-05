@@ -5,7 +5,7 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.StartHealth = GetConVarNumber("vj_hl2r_rebel_h")
+ENT.StartHealth = 50
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
@@ -14,7 +14,7 @@ ENT.BloodColor = "Red" -- The blood type, this will determine what it should use
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.AnimTbl_MeleeAttack = {"vjseq_MeleeAttack01"} -- Melee Attack Animations
 ENT.TimeUntilMeleeAttackDamage = 0.7 -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDamage = GetConVarNumber("vj_hl2r_rebel_d")
+ENT.MeleeAttackDamage = 10
 ENT.FootStepTimeRun = 0.25 -- Next foot step sound when it is running
 ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
 ENT.HasGrenadeAttack = true -- Should the SNPC have a grenade attack?
