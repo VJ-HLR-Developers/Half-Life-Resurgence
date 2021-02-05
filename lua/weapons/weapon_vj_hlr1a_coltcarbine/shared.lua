@@ -13,7 +13,7 @@ SWEP.NPC_ReloadSound = {"vj_hlr/hla_npc/hgrunt/gr_reload1.wav"} -- Sounds it pla
 SWEP.NPC_CanBePickedUp = false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 SWEP.NPC_HasSecondaryFire = true -- Can the weapon have a secondary fire?
 SWEP.NPC_SecondaryFireEnt = "obj_vj_hlr1_grenade_40mm" -- The entity to fire, this only applies if self:NPC_SecondaryFire() has NOT been overridden!
-SWEP.NPC_SecondaryFireSound = {"vj_hlr/hl1_weapon/mp5/glauncher.wav","vj_hlr/hl1_weapon/mp5/glauncher2.wav"} -- The sound it plays when the secondary fire is used
+SWEP.NPC_SecondaryFireSound = {"vj_hlr/hla_npc/glauncher.wav","vj_hlr/hla_npc/glauncher2.wav"} -- The sound it plays when the secondary fire is used
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
 SWEP.WorldModel					= "models/vj_hlr/weapons/w_coltcarbine.mdl"
