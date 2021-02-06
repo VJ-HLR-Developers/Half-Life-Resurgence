@@ -227,8 +227,9 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 		timer.Simple(10,function() if IsValid(projectile) then projectile:Remove() end end)
 	end
 end
-local vec = Vector(0,0,0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vec = Vector(0, 0, 0)
+--
 function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 	-- Make a metal ricochet effect
 	if dmginfo:GetDamagePosition() != vec then
@@ -244,10 +245,10 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	if dmginfo:IsBulletDamage() == true then
 		if self.Garg_Type == 1 then -- Make babies take half damage for bullets
 			dmginfo:SetDamage(0.5)
-		elseif self.Garg_Type == 2 then 
+		elseif self.Garg_Type == 2 then -- Custom Gargantua
 			dmginfo:SetDamage(1)
-		else
-			dmginfo:SetDamage(0) -- Make adult Gargantua take no bullet damage
+		else -- Make regular Gargantua take no bullet damage
+			dmginfo:SetDamage(0)
 		end
 	end
 end

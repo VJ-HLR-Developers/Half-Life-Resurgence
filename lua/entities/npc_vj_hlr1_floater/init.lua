@@ -20,6 +20,7 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(1, 0, 5), -- The offset for the controller when the camera is in first person
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
+ENT.ConstantlyFaceEnemy = true -- Should it face the enemy constantly?
 ENT.IdleAlwaysWander = true -- If set to true, it will make the SNPC always wander when idling
 ENT.CanOpenDoors = false -- Can it open doors?
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other

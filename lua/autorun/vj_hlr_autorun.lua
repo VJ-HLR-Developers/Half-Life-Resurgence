@@ -23,6 +23,7 @@ if VJExists == true then
 	
 	-- Earth
 	VJ.AddNPC("Cockroach","npc_vj_hlr1_cockroach",vCat)
+	VJ.AddNPC("Rat","npc_vj_hlr1_rat",vCat)
 		
 		-- Black Mesa Personnel
 		VJ.AddNPC("Security Guard","npc_vj_hlr1_securityguard",vCat)
@@ -44,7 +45,9 @@ if VJExists == true then
 		VJ.AddNPC("Black Mesa Ground Turret (Mini)","npc_vj_hlr1_gturret_mini",vCat)
 		VJ.AddNPC("Black Mesa Ceiling Turret","npc_vj_hlr1_cturret",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
 		VJ.AddNPC("Black Mesa Ceiling Turret (Mini)","npc_vj_hlr1_cturret_mini",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
-
+			-- Alpha
+			VJ.AddNPC("Probe Droid","npc_vj_hlr1a_probedroid",vCat)
+			
 		-- HECU
 		VJ.AddNPC("Human Grunt","npc_vj_hlr1_hgrunt",vCat)
 		VJ.AddNPC("Human Sergeant","npc_vj_hlr1_hgrunt_serg",vCat)
