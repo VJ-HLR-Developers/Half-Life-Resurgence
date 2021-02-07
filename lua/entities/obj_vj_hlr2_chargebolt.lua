@@ -44,7 +44,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPhysicsCollide(data,phys)
 	if IsValid(data.HitEntity) then
-		hitent = data.HitEntity
+		hitEnt = data.HitEntity
 		if data.HitEntity:IsNPC() then
 			data.HitEntity:Ignite(3)
 		end
@@ -54,8 +54,8 @@ function ENT:CustomOnPhysicsCollide(data,phys)
 		damagecode:SetAttacker(IsValid(self:GetOwner()) && self:GetOwner() or self)
 		damagecode:SetInflictor(self)
 		damagecode:SetDamagePosition(data.HitPos)
-		hitent:TakeDamageInfo(damagecode,self)
-		VJ_DestroyCombineTurret(self,hitent)
+		hitEnt:TakeDamageInfo(damagecode,self)
+		VJ_DestroyCombineTurret(self,hitEnt)
 	else
 		local bolt = ents.Create("prop_dynamic")
 		bolt:SetModel("models/crossbow_bolt.mdl")

@@ -99,11 +99,11 @@ function ENT:CustomOnInitialize()
 	self:DeleteOnRemove(self.StartLight1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoDamage(data,phys,hitent)
+function ENT:CustomOnDoDamage(data,phys,hitEnt)
 	-- local ply = player.GetAll()[1]
     -- net.Start("vj_hlr_svencoop_glow")
 		-- net.WriteEntity(self)
-		-- net.WriteEntity(hitent)
+		-- net.WriteEntity(hitEnt)
     -- net.Send(ply)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

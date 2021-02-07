@@ -23,7 +23,7 @@ if (CLIENT) then
 	killicon.Add("#"..LangName,"HUD/killicons/default",Color(255,80,0,255))
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-if !(SERVER) then return end
+if !SERVER then return end
 
 ENT.Model = {"models/vj_hlr/weapons/grenade.mdl"} -- The models it should spawn with | Picks a random one from the table
 
@@ -46,7 +46,7 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:AddAngleVelocity(Vector(0,math.random(300,400),0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DeathEffects()
+function ENT:DeathEffects(data, phys)
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
 	spr:SetKeyValue("GlowProxySize","2.0")

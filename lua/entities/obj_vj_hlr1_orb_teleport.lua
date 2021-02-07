@@ -74,22 +74,22 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoDamage(data,phys,hitent)
+function ENT:CustomOnDoDamage(data,phys,hitEnt)
 	local owner = self:GetOwner()
-	if IsValid(owner) && (hitent:IsNPC() or hitent:IsPlayer()) && hitent.VJ_IsHugeMonster != true && hitent.Dead != true then
+	if IsValid(owner) && (hitEnt:IsNPC() or hitEnt:IsPlayer()) && hitEnt.VJ_IsHugeMonster != true && hitEnt.Dead != true then
 		local tr = util.TraceLine({
 			start = owner:GetPos(),
 			endpos = owner:GetPos() + owner:GetForward() * math.Rand(-10000, 10000) + owner:GetRight() * math.Rand(-10000, 10000) + owner:GetUp() * -3000, //math.Rand(-10000, 10000),
 			filter = owner,
 		})
-		local pos = tr.HitPos + tr.HitNormal*hitent:OBBMaxs()
-		hitent:SetPos(pos)
+		local pos = tr.HitPos + tr.HitNormal*hitEnt:OBBMaxs()
+		hitEnt:SetPos(pos)
 		
 		local effectTeleport = VJ_HLR_Effect_PortalSpawn(pos)
 		effectTeleport:Fire("Kill","",1)
 		owner:DeleteOnRemove(effectTeleport)
 		
-		VJ_EmitSound(hitent, "vj_hlr/fx/beamstart" .. math.random(1,2) .. ".wav", 85, 100)
+		VJ_EmitSound(hitEnt, "vj_hlr/fx/beamstart" .. math.random(1,2) .. ".wav", 85, 100)
 	end
 end
 /*-----------------------------------------------

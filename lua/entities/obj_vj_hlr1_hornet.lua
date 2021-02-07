@@ -77,7 +77,7 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoDamage(data,phys,hitent)
+function ENT:CustomOnDoDamage(data,phys,hitEnt)
 	if data.HitEntity:IsNPC() or data.HitEntity:IsPlayer() then
 		self:SetDeathVariablesTrue(data,phys)
 		self:Remove()
