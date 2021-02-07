@@ -33,6 +33,9 @@ ENT.DecalTbl_DeathDecals = {"Impact.Concrete"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/crossbow/xbow_hit1.wav"}
 
 local defAng = Angle(0 ,0, 0)
+
+-- Custom
+ENT.Needle_Heal = false -- Is this a healing needle?
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:SetMass(1)
@@ -42,8 +45,12 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	ParticleEffect("vj_hl_spit_drone_spawn", self:GetPos(), defAng, nil)
-	ParticleEffectAttach("vj_hl_spit_drone", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	if self.Needle_Heal == true then
+		self.DoesDirectDamage = false
+	else
+		ParticleEffect("vj_hl_spit_drone_spawn", self:GetPos(), defAng, nil)
+		ParticleEffectAttach("vj_hl_spit_drone", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPhysicsCollide(data,phys)
@@ -60,11 +67,26 @@ function ENT:CustomOnPhysicsCollide(data,phys)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoDamage(data,phys,hitent)
-	VJ_ApplySpeedEffect(hitent, 0.2, 5)
+function ENT:CustomOnPhysicsCollide(data,phys)
+	-- Only for healing
+	if self.Needle_Heal == false or !IsValid(self:GetOwner()) then return end
+	local hitEnt = data.HitEntity
+	if self:GetOwner():Disposition(hitEnt) then
+		self.SoundTbl_OnCollide = {"items/smallmedkit1.wav"}
+		hitEnt:RemoveAllDecals()
+		local fricurhp = hitEnt:Health()
+		hitEnt:SetHealth(math.Clamp(fricurhp + 40, fricurhp, hitEnt:GetMaxHealth()))
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDoDamage(data,phys,hitEnt)
+	-- Only for attacks
+	if self.Needle_Heal == true then return end
+	VJ_ApplySpeedEffect(hitEnt, 0.2, 5)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects(data,phys)
+	if self.Needle_Heal == true then return end
 	ParticleEffect("vj_hl_spit_drone_impact", self:GetPos(), defAng, nil)
 end
 /*-----------------------------------------------

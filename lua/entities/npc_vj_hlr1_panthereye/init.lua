@@ -92,7 +92,6 @@ end
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	if dmginfo:GetDamage() > 30 then
 		self.AnimTbl_Death = {ACT_DIEVIOLENT}
-		self.DeathAnimationChance = 1
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

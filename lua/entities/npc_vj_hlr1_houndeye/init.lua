@@ -28,8 +28,7 @@ ENT.MeleeAttackDSPSoundType = 34 -- What type of DSP effect? | Search online for
 ENT.MeleeAttackDSPSoundUseDamage = false -- Should it only do the DSP effect if gets damaged x or greater amount
 ENT.DisableDefaultMeleeAttackDamageCode = true -- Disables the default melee attack damage code
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEFORWARD,ACT_DIEBACKWARD} -- Death Animations
-ENT.DeathAnimationChance = 3 -- Put 1 if you want it to play the animation all the time
+ENT.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD, ACT_DIEBACKWARD} -- Death Animations
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages

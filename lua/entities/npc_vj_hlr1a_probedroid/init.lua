@@ -33,10 +33,10 @@ ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_probed_needle" -- The entity that is spawned when range attacking
 ENT.RangeDistance = 1500 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 60 -- How close does it have to be until it uses melee?
-ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
+ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the needle code is ran?
 ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
 ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
-ENT.RangeUseAttachmentForPos = true -- Should the projectile spawn on a attachment?
+ENT.RangeUseAttachmentForPos = true -- Should the needle spawn on a attachment?
 ENT.RangeUseAttachmentForPosID = "0" -- The attachment used on the range attack if RangeUseAttachmentForPos is set to true
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
 
@@ -44,6 +44,15 @@ ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when
 ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_Type = "OnlyRange" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
+
+ENT.IsMedicSNPC = true -- Is this SNPC a medic? Does it heal other friendly friendly SNPCs, and players(If friendly)
+ENT.AnimTbl_Medic_GiveHealth = {ACT_ARM} -- Animations is plays when giving health to an ally
+ENT.Medic_CheckDistance = 1000 -- How far does it check for allies that are hurt? | World units
+ENT.Medic_HealDistance = 600 -- How close does it have to be until it stops moving and heals its ally?
+ENT.Medic_DisableSetHealth = true -- If set to true, it won't set health to the ally & it won't clear its decals, allowing to custom code it
+ENT.Medic_NextHealTime = VJ_Set(5, 8) -- How much time until it can give health to an ally again
+ENT.Medic_SpawnPropOnHeal = false -- Should it spawn a prop, such as small health vial at a attachment when healing an ally?
+ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIESIMPLE} -- Death Animations
@@ -53,6 +62,7 @@ ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attac
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Breath = {"vj_hlr/hla_npc/prdroid/engine.wav"}
+ENT.SoundTbl_MedicAfterHeal = {"vj_hlr/hla_npc/prdroid/shoot_heal.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/hla_npc/prdroid/alert.wav"}
 ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/friendly/fr_attack.wav"}
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
@@ -61,10 +71,6 @@ ENT.SoundTbl_RangeAttack = {"vj_hlr/hla_npc/prdroid/shoot.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hla_npc/prdroid/die.wav"}
 
 ENT.GeneralSoundPitch1 = 100
-
-/*
-vj_hlr/hla_npc/prdroid/shoot_heal.wav
-*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(35, 35, 15), Vector(-35, -35, -50))
@@ -76,6 +82,23 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self:MeleeAttackCode()
 	elseif key == "shoot" then
 		self:RangeAttackCode()
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnMedic_OnHeal(ent)
+	self:VJ_ACT_PLAYACTIVITY(ACT_RANGE_ATTACK1, true, false)
+	local needle = ents.Create("obj_vj_hlr1_probed_needle")
+	needle:SetPos(self:GetAttachment(self:LookupAttachment("0")).Pos)
+	needle:SetAngles((ent:GetPos() - needle:GetPos()):Angle())
+	needle:SetOwner(self)
+	needle:SetPhysicsAttacker(self)
+	needle.Needle_Heal = true
+	needle:Spawn()
+	needle:Activate()
+	local phys = needle:GetPhysicsObject()
+	if IsValid(phys) then
+		phys:Wake()
+		phys:SetVelocity(self:CalculateProjectile("Line", self:GetAttachment(self:LookupAttachment("0")).Pos, ent:GetPos() + ent:OBBCenter(), 1500))
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -96,8 +119,20 @@ function ENT:CustomOnRangeAttack_BeforeStartTimer()
 	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
+function ENT:RangeAttackCode_GetShootPos(needle)
 	return self:CalculateProjectile("Line", self:GetAttachment(self:LookupAttachment("0")).Pos, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1500)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local vec = Vector(0, 0, 0)
+--
+function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
+	if dmginfo:GetDamagePosition() != vec then
+		local rico = EffectData()
+		rico:SetOrigin(dmginfo:GetDamagePosition())
+		rico:SetScale(5) -- Size
+		rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
+		util.Effect("VJ_HLR_Rico",rico)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local collideSds = {"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}
