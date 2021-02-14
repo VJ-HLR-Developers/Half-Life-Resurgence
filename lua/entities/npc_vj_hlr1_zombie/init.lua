@@ -71,6 +71,9 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	if key == "event_mattack right" or key == "event_mattack left" or key == "event_mattack both" then
 		self:MeleeAttackCode()
 	end
+	if key == "ragdoll" then
+		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3,4)..".wav", 85, math.random(100,100))
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
