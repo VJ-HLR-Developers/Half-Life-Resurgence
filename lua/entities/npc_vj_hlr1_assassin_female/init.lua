@@ -163,8 +163,8 @@ function ENT:CustomOnGrenadeAttack_OnThrow(grenEnt)
 	grenEnt.OnRemoveSoundLevel = 100
 	
 	function grenEnt:CustomOnPhysicsCollide(data,phys)
-		getvelocity = phys:GetVelocity()
-		velocityspeed = getvelocity:Length()
+		local getvelocity = phys:GetVelocity()
+		local velocityspeed = getvelocity:Length()
 		phys:SetVelocity(getvelocity * 0.5)
 		
 		if velocityspeed > 100 then -- If the grenade is going faster than 100, then play the touch sound
