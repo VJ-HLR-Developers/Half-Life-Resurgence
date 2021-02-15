@@ -145,6 +145,10 @@ ENT.SCI_Type = 0
 	-- 1 = Cleansuit Scientist
 	-- 2 = Dr. Keller
 	-- 3 = Alpha Scientist
+ENT.SCI_CurAnims = -1 -- 0 = Regular | 1 = Scared
+ENT.SCI_NextTieAnnoyanceT = 0
+	
+local sdTie = {"vj_hlr/hl1_npc/scientist/weartie.wav","vj_hlr/hl1_npc/scientist/ties.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	if self:GetModel() == "models/vj_hlr/hl1/scientist.mdl" then
@@ -184,6 +188,8 @@ function ENT:SCI_CustomOnInitialize()
 		self:SetSkin(1)
 	end
 	//self:GetPoseParameters(true)
+	
+	self.SCI_NextTieAnnoyanceT = CurTime() + math.Rand(10, 100)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
@@ -191,9 +197,10 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	if key == "step" or key == "wheelchair" then
 		self:FootStepSoundCode()
 	end
-	if key == "tie" && !self:BusyWithActivity() then
+	if key == "tie" /*&& !self:BusyWithActivity()*/ then
 		self:StopAllCommonSpeechSounds()
-		VJ_EmitSound(self, {"vj_hlr/hl1_npc/scientist/weartie.wav","vj_hlr/hl1_npc/scientist/ties.wav"}, 80, 100)
+		self:PlaySoundSystem("GeneralSpeech", sdTie)
+		//VJ_EmitSound(self, {"vj_hlr/hl1_npc/scientist/weartie.wav","vj_hlr/hl1_npc/scientist/ties.wav"}, 80, 100)
 	end
 	if key == "draw" then
 		self:SetBodygroup(2,1)
@@ -233,20 +240,33 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	if IsValid(self:GetEnemy()) && self.SCI_Type != 3 then
-		self.AnimTbl_ScaredBehaviorStand = {ACT_CROUCHIDLE}
-		self.AnimTbl_IdleStand = {ACT_CROUCHIDLE}
-		if self.SCI_Type != 2 then
-			self.AnimTbl_Walk = {ACT_WALK_SCARED}
+		if self.SCI_CurAnims != 1 then
+			self.SCI_CurAnims = 1
+			self.AnimTbl_ScaredBehaviorStand = {ACT_CROUCHIDLE}
+			self.AnimTbl_IdleStand = {ACT_CROUCHIDLE}
+			if self.SCI_Type != 2 then
+				self.AnimTbl_Walk = {ACT_WALK_SCARED}
+			end
+			self.AnimTbl_Run = {ACT_RUN_SCARED}
 		end
-		self.AnimTbl_Run = {ACT_RUN_SCARED}
 	else
-		if self.SCI_Type == 0 && math.random(1,25) == 1 then
-			self.AnimTbl_IdleStand = {ACT_VM_IDLE_1}
-		else
+		if self.SCI_CurAnims != 0 then
+			self.SCI_CurAnims = 0
+			/*if self.SCI_Type == 0 && math.random(1,25) == 1 then
+				self.AnimTbl_IdleStand = {ACT_VM_IDLE_1}
+			else
+				self.AnimTbl_IdleStand = {ACT_IDLE}
+			end*/
 			self.AnimTbl_IdleStand = {ACT_IDLE}
+			self.AnimTbl_Walk = {ACT_WALK}
+			self.AnimTbl_Run = {ACT_RUN}
 		end
-		self.AnimTbl_Walk = {ACT_WALK}
-		self.AnimTbl_Run = {ACT_RUN}
+		if CurTime() > self.SCI_NextTieAnnoyanceT && !self:BusyWithActivity() then
+			if math.random(1, 2) == 1 then
+				self:VJ_ACT_PLAYACTIVITY(ACT_VM_IDLE_1, true, false)
+			end
+			self.SCI_NextTieAnnoyanceT = CurTime() + math.Rand(15, 100)
+		end
 	end
 	
 	-- Is the wheel chair gone? Then kill Dr. Keller!
@@ -336,6 +356,7 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
+	if self.SCI_Type == 3 then return end
 	if hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
 	elseif hitgroup == HITGROUP_STOMACH && self.SCI_Type != 2 then

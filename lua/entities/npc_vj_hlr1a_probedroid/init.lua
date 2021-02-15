@@ -135,23 +135,30 @@ function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
+	if dmginfo:GetDamageType() == DMG_BLAST then
+		self.HasDeathAnimation = false
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 local collideSds = {"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}
 --
 function ENT:CustomOnKilled(dmginfo, hitgroup)
 	util.VJ_SphereDamage(self, self, self:GetPos(), 75, 25, DMG_BLAST, false, true)
 	VJ_EmitSound(self, "vj_hlr/hla_npc/prdroid/explode.wav", 90, 100)
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_cap.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("sphere01")),CollideSound=collideSds,Vel_ApplyDmgForce=false})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_armpiece.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed011")),CollideSound=collideSds,Vel_ApplyDmgForce=false})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_armpiece.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed007")),CollideSound=collideSds,Vel_ApplyDmgForce=false})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_claw.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed012")),CollideSound=collideSds,Vel_ApplyDmgForce=false})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_claw.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed008")),CollideSound=collideSds,Vel_ApplyDmgForce=false})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_dshooter.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed005")),CollideSound=collideSds,Vel_ApplyDmgForce=false})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_tail.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed014")),CollideSound=collideSds,Vel_ApplyDmgForce=false})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_upperarm.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed011")),CollideSound=collideSds,Vel_ApplyDmgForce=false})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_upperarm.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed007")),CollideSound=collideSds,Vel_ApplyDmgForce=false})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_body.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed003")),CollideSound=collideSds,Vel_ApplyDmgForce=false})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_forearm.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed011")),CollideSound=collideSds,Vel_ApplyDmgForce=false})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_forearm.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed007")),CollideSound=collideSds,Vel_ApplyDmgForce=false})
+	local applyForce = self.HasDeathAnimation and false or true
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_cap.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("sphere01")),CollideSound=collideSds,Vel_ApplyDmgForce=applyForce})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_armpiece.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed011")),CollideSound=collideSds,Vel_ApplyDmgForce=applyForce})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_armpiece.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed007")),CollideSound=collideSds,Vel_ApplyDmgForce=applyForce})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_claw.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed012")),CollideSound=collideSds,Vel_ApplyDmgForce=applyForce})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_claw.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed008")),CollideSound=collideSds,Vel_ApplyDmgForce=applyForce})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_dshooter.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed005")),CollideSound=collideSds,Vel_ApplyDmgForce=applyForce})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_tail.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed014")),CollideSound=collideSds,Vel_ApplyDmgForce=applyForce})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_upperarm.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed011")),CollideSound=collideSds,Vel_ApplyDmgForce=applyForce})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_upperarm.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed007")),CollideSound=collideSds,Vel_ApplyDmgForce=applyForce})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_body.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed003")),CollideSound=collideSds,Vel_ApplyDmgForce=applyForce})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_forearm.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed011")),CollideSound=collideSds,Vel_ApplyDmgForce=applyForce})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_forearm.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed007")),CollideSound=collideSds,Vel_ApplyDmgForce=applyForce})
 
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")

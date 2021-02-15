@@ -222,26 +222,26 @@ if VJExists == true then
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Decals ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		-- Blood
-		game.AddDecal("VJ_HLR_Blood_Red",{"vj_hl/decals/hl_blood01","vj_hl/decals/hl_blood02","vj_hl/decals/hl_blood03","vj_hl/decals/hl_blood04","vj_hl/decals/hl_blood05","vj_hl/decals/hl_blood06","vj_hl/decals/hl_blood07","vj_hl/decals/hl_blood08"})
-		game.AddDecal("VJ_HLR_Blood_Red_Large",{"vj_hl/decals/hl_bigblood01","vj_hl/decals/hl_bigblood02"})
-		game.AddDecal("VJ_HLR_Blood_Yellow",{"vj_hl/decals/hl_yblood01","vj_hl/decals/hl_yblood02","vj_hl/decals/hl_yblood03","vj_hl/decals/hl_yblood04","vj_hl/decals/hl_yblood05","vj_hl/decals/hl_yblood06"})
-		-- Spits
-		game.AddDecal("VJ_HLR_Spit_Acid",{"vj_hl/decals/spit1","vj_hl/decals/spit2"})
-		//game.AddDecal("VJ_HLR_Spit_Gonarch",{"vj_hl/decals/gonarch"})
-		game.AddDecal("VJ_HLR_Gonarch_Blob",{"vj_hl/decals/mommablob"})
-		-- Scorchs
-		game.AddDecal("VJ_HLR_Scorch",{"vj_hl/decals/scorch1","vj_hl/decals/scorch2","vj_hl/decals/scorch3"})
-		game.AddDecal("VJ_HLR_Scorch_Small",{"vj_hl/decals/smscorch1","vj_hl/decals/smscorch2","vj_hl/decals/smscorch3"})
-		game.AddDecal("VJ_HLR_Gargantua_Stomp",{"vj_hl/decals/gargstomp"})
-		-- Bullet Holes
-		game.AddDecal("VJ_HLR_BULLET_HOLE",{"vj_hl/decals/shot1","vj_hl/decals/shot2","vj_hl/decals/shot3","vj_hl/decals/shot4","vj_hl/decals/shot5"})
-		/*
-		function SWEP:CustomOnPrimaryAttack_BulletCallback(attacker, tr, dmginfo)
-			util.Decal("VJ_HLR_BULLET_HOLE", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
-		end
-		*/
-		
+	-- Blood
+	game.AddDecal("VJ_HLR_Blood_Red",{"vj_hl/decals/hl_blood01","vj_hl/decals/hl_blood02","vj_hl/decals/hl_blood03","vj_hl/decals/hl_blood04","vj_hl/decals/hl_blood05","vj_hl/decals/hl_blood06","vj_hl/decals/hl_blood07","vj_hl/decals/hl_blood08"})
+	game.AddDecal("VJ_HLR_Blood_Red_Large",{"vj_hl/decals/hl_bigblood01","vj_hl/decals/hl_bigblood02"})
+	game.AddDecal("VJ_HLR_Blood_Yellow",{"vj_hl/decals/hl_yblood01","vj_hl/decals/hl_yblood02","vj_hl/decals/hl_yblood03","vj_hl/decals/hl_yblood04","vj_hl/decals/hl_yblood05","vj_hl/decals/hl_yblood06"})
+	-- Spits
+	game.AddDecal("VJ_HLR_Spit_Acid",{"vj_hl/decals/spit1","vj_hl/decals/spit2"})
+	//game.AddDecal("VJ_HLR_Spit_Gonarch",{"vj_hl/decals/gonarch"})
+	game.AddDecal("VJ_HLR_Gonarch_Blob",{"vj_hl/decals/mommablob"})
+	-- Scorchs
+	game.AddDecal("VJ_HLR_Scorch",{"vj_hl/decals/scorch1","vj_hl/decals/scorch2","vj_hl/decals/scorch3"})
+	game.AddDecal("VJ_HLR_Scorch_Small",{"vj_hl/decals/smscorch1","vj_hl/decals/smscorch2","vj_hl/decals/smscorch3"})
+	game.AddDecal("VJ_HLR_Gargantua_Stomp",{"vj_hl/decals/gargstomp"})
+	-- Bullet Holes
+	game.AddDecal("VJ_HLR_BULLET_HOLE",{"vj_hl/decals/shot1","vj_hl/decals/shot2","vj_hl/decals/shot3","vj_hl/decals/shot4","vj_hl/decals/shot5"})
+	/*
+	function SWEP:CustomOnPrimaryAttack_BulletCallback(attacker, tr, dmginfo)
+		util.Decal("VJ_HLR_BULLET_HOLE", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
+	end
+	*/
+	
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Particles ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
