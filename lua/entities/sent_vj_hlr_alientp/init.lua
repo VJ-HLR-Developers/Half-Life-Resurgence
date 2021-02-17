@@ -16,7 +16,7 @@ ENT.HLRSpawner_ClassType = "CLASS_XEN" -- Type of class the spawner should when 
 ENT.HLRSpawner_Distance = 400
 ENT.HLRSpawner_ActivationTime = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize_BeforeNPCSpawn()
+function ENT:CustomOnInitialize()
 	timer.Simple(0.02, function()
 		if IsValid(self) then
 			self:SetPos(self:GetPos() + Vector(0,0,45))
@@ -30,7 +30,7 @@ function ENT:CustomOnInitialize_BeforeNPCSpawn()
 		enttbl = {"npc_vj_hlrof_shocktrooper","npc_vj_hlrof_pitdrone","npc_vj_hlrof_voltigore","npc_vj_hlrof_voltigore_baby"}
 		self.HLRSpawner_ClassType = "CLASS_RACE_X"
 	end
-	self.EntitiesToSpawn = {{EntityName = "NPC1", SpawnPosition = {vForward=0, vRight=0, vUp=0}, Entities = enttbl}}
+	self.EntitiesToSpawn = {{SpawnPosition = {vForward=0, vRight=0, vUp=0}, Entities = enttbl}}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:ActivateSpawner(ent)
@@ -54,7 +54,7 @@ function ENT:ActivateSpawner(ent)
 	for k, v in ipairs(self.EntitiesToSpawn) do self:SpawnAnEntity(k, v, true) end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_BeforeAliveChecks()
+function ENT:CustomOnThink()
 	if self.VJBaseSpawnerDisabled && GetConVar("ai_disabled"):GetInt() == 0 then
 		for _, v in ipairs(ents.FindInSphere(self:GetPos(), self.HLRSpawner_Distance)) do
 			if self.Dead == false && (v:IsNPC() or (v:IsPlayer() && GetConVar("ai_ignoreplayers"):GetInt() == 0)) && !v.VJ_NoTarget && !v:IsFlagSet(FL_NOTARGET) && self:Visible(v) && (!v.VJ_NPC_Class or !VJ_HasValue(v.VJ_NPC_Class, self.HLRSpawner_ClassType)) then
