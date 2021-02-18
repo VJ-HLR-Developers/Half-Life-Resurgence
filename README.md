@@ -12,4 +12,4 @@ An addon for Garry's Mod that aims to recreate NPCs, entities and weapons from t
 
 ### List of branches:
 >* **master**  --->  The base pack.
->* **hlr_hd**  --->  HD version of the base pack (Mostly for *Half-Life 1* NPCs).
+>* **hlr_hd**  --->  HD version of the base pack (Mostly for *Half-Life 1* NPCs, very very unfinished and should not be used as of right now).
