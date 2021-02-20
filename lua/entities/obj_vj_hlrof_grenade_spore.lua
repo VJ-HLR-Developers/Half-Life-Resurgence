@@ -4,7 +4,6 @@
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
 AddCSLuaFile()
-if (!file.Exists("autorun/vj_base_autorun.lua","LUA")) then return end
 
 ENT.Type 			= "anim"
 ENT.Base 			= "obj_vj_projectile_base"
@@ -14,7 +13,7 @@ ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectiles for my addons"
 ENT.Category		= "VJ Base"
 
-if (CLIENT) then
+if CLIENT then
 	local Name = "Spore Grenade"
 	local LangName = "obj_vj_hlrof_grenade_spore"
 	language.Add(LangName, Name)
@@ -23,7 +22,7 @@ if (CLIENT) then
 	killicon.Add("#"..LangName,"HUD/killicons/default",Color(255,80,0,255))
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-if !(SERVER) then return end
+if !SERVER then return end
 
 ENT.Model = {"models/vj_hlr/weapons/spore.mdl"} -- The models it should spawn with | Picks a random one from the table
 ENT.MoveCollideType = nil -- Move type | Some examples: MOVECOLLIDE_FLY_BOUNCE, MOVECOLLIDE_FLY_SLIDE

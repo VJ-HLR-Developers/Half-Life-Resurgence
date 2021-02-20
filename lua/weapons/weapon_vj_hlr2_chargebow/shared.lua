@@ -94,7 +94,7 @@ function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 	self.Reloading = true
 	timer.Simple(0.9,function() if IsValid(self) then self.Reloading = false self:DoIdleAnimation() end end)
 
-	if (CLIENT) then return end
+	if CLIENT then return end
 
 	local proj = ents.Create("obj_vj_hlr2_chargebolt")
 	local OwnerPos = self:GetOwner():GetShootPos()

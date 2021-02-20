@@ -106,7 +106,7 @@ function SWEP:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-if (CLIENT) then
+if CLIENT then
 	-- Make the gun move to the center when aiming
 	local aimPos = Vector(-9, 0, -32)
 	local aimAng = Angle(0, 0, 0)

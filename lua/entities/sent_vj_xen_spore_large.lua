@@ -12,7 +12,7 @@ ENT.Purpose 		= "Used to make simple props and animate them, since prop_dynamic 
 ENT.Instructions 	= "Don't change anything."
 ENT.Category		= "VJ Base"
 
-if (SERVER) then
+if SERVER then
 	AddCSLuaFile()
 	
 	function ENT:CustomOnInitialize()

@@ -64,7 +64,7 @@ function SWEP:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttack_BeforeShoot()
-	if (CLIENT) then return end
+	if CLIENT then return end
 	if IsValid(self.RPG_LastShotEnt) then return true end -- Wait until the last shot has detonated
 	
 	-- Create the rocket entity
@@ -102,7 +102,7 @@ function SWEP:SecondaryAttack()
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-if (CLIENT) then
+if CLIENT then
 	local SpriteMaterial = Material("sprites/redglow1")
 	function SWEP:PostDrawViewModel(vm, wep, ply)
 		if self:GetNWLaser() then

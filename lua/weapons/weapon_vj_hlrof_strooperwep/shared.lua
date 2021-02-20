@@ -53,7 +53,7 @@ function SWEP:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttack_BeforeShoot()
-	if (CLIENT) then return end
+	if CLIENT then return end
 	
 	local plasma = ents.Create("obj_vj_hlrof_plasma")
 	plasma:SetPos(self:GetNW2Vector("VJ_CurBulletPos"))

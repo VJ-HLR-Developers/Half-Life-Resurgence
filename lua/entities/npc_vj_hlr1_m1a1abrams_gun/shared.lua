@@ -7,7 +7,7 @@ ENT.Purpose 		= "Spawn it and fight with it!"
 ENT.Instructions 	= "Click on the spawnicon to spawn it."
 ENT.Category		= "Half-Life Resurgence"
 
-if (CLIENT) then
+if CLIENT then
 	local Name = "M1A1 Abrams"
 	local LangName = "npc_vj_hlr1_m1a1abrams_gun"
 	language.Add(LangName, Name)

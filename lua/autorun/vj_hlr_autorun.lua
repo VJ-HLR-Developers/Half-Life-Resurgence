@@ -409,14 +409,14 @@ end
 	AddCSLuaFile(AutorunFile)
 	VJ.AddAddonProperty(AddonName,AddonType)
 else
-	if (CLIENT) then
+	if CLIENT then
 		chat.AddText(Color(0,200,200),PublicAddonName,
 		Color(0,255,0)," was unable to install, you are missing ",
 		Color(255,100,0),"VJ Base!")
 	end
 	timer.Simple(1,function()
 		if not VJF then
-			if (CLIENT) then
+			if CLIENT then
 				VJF = vgui.Create("DFrame")
 				VJF:SetTitle("ERROR!")
 				VJF:SetSize(790,560)

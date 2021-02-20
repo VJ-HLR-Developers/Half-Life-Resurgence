@@ -54,7 +54,7 @@ function SWEP:CustomOnHolster(newWep)
 end -- Return false to disallow the weapon from switching
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttack_BeforeShoot()
-	if (CLIENT) then return end
+	if CLIENT then return end
 	local ene = self.Owner:GetEnemy()
 	if !IsValid(ene) then return end
 	

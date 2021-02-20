@@ -7,7 +7,7 @@ ENT.Purpose 		= "Spawn it and fight with it!"
 ENT.Instructions 	= "Click on the spawnicon to spawn it."
 ENT.Category		= "al-Qaeda"
 
-if (CLIENT) then
+if CLIENT then
 local Name = "yenraB"
 local LangName = "npc_vj_maw_barney"
 language.Add(LangName, Name)
