@@ -53,8 +53,16 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPhysicsCollide(data,phys)
-	if IsValid(data.HitEntity) then
-		self.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/crossbow/xbow_hitbod1.wav","vj_hlr/hl1_weapon/crossbow/xbow_hitbod2.wav"}
+	local hitEnt = data.HitEntity
+	if IsValid(hitEnt) then
+		-- Only for healing
+		if self.Needle_Heal == false or !IsValid(self:GetOwner()) then return end
+		if self:GetOwner():Disposition(hitEnt) then
+			self.SoundTbl_OnCollide = {"items/smallmedkit1.wav"}
+			hitEnt:RemoveAllDecals()
+			local friHP = hitEnt:Health()
+			hitEnt:SetHealth(math.Clamp(friHP + 40, friHP, hitEnt:GetMaxHealth()))
+		end
 	else
 		local spike = ents.Create("prop_dynamic")
 		spike:SetModel("models/vj_hlr/hla/pb_dart.mdl")
@@ -63,18 +71,6 @@ function ENT:CustomOnPhysicsCollide(data,phys)
 		spike:Activate()
 		spike:Spawn()
 		timer.Simple(6, function() if IsValid(spike) then spike:Remove() end end)
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPhysicsCollide(data,phys)
-	-- Only for healing
-	if self.Needle_Heal == false or !IsValid(self:GetOwner()) then return end
-	local hitEnt = data.HitEntity
-	if self:GetOwner():Disposition(hitEnt) then
-		self.SoundTbl_OnCollide = {"items/smallmedkit1.wav"}
-		hitEnt:RemoveAllDecals()
-		local fricurhp = hitEnt:Health()
-		hitEnt:SetHealth(math.Clamp(fricurhp + 40, fricurhp, hitEnt:GetMaxHealth()))
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
