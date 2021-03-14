@@ -72,7 +72,7 @@ function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 	if self.vACT_StopAttacks == false then
 		self:VJ_ACT_PLAYACTIVITY(ACT_MELEE_ATTACK1,true,false)
 	end
-	if dmginfo:GetDamageType() != DMG_BLAST then
+	if !dmginfo:IsDamageType(DMG_BLAST) then
 		dmginfo:SetDamage(0)
 	end
 end

@@ -121,7 +121,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	-- Take damage only if the bottom part is hit or it's a blast damage!
-	if hitgroup == 3 && dmginfo:GetDamageType() != DMG_BLAST then
+	if hitgroup == 3 && !dmginfo:IsDamageType(DMG_BLAST) then
 		dmginfo:SetDamage(0)
 	end
 end

@@ -136,7 +136,7 @@ function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
-	if dmginfo:GetDamageType() == DMG_BLAST then
+	if dmginfo:IsDamageType(DMG_BLAST) then
 		self.HasDeathAnimation = false
 	end
 end
