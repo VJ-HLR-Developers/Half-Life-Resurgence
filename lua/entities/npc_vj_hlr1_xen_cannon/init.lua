@@ -26,7 +26,7 @@ ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
 ENT.RangeDistance = 6000 -- This is how far away it can shoot
-ENT.RangeToMeleeDistance = 170 -- How close does it have to be until it uses melee?
+ENT.RangeToMeleeDistance = 150 -- How close does it have to be until it uses melee?
 ENT.RangeAttackAngleRadius = 180 -- What is the attack angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
 ENT.TimeUntilRangeAttackProjectileRelease = 0 -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 0.5 -- How much time until it can use a range attack?
@@ -76,23 +76,24 @@ end
 function ENT:CustomAttackCheck_RangeAttack()
 	if self.Cannon_HasLOS == true then return true end
 end
-local laserdmg = 50
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
-	local startpos = self:GetAttachment(1).Pos
+	//local attach = self:GetAttachment(1)
+	local startPos = self:GetAttachment(1).Pos
+	//local endPos = (self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter()) + attach.Ang:Forward()*20000 - Vector(0, 0, 10)
 	local tr = util.TraceLine({
-		start = startpos,
-		endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter() + VectorRand(-15, 15),
+		start = startPos,
+		endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter() + VectorRand(-20, 20),
 		filter = {self} // self.extmdl
 	})
 	local hitpos = tr.HitPos
 	local elec = EffectData()
-	elec:SetStart(startpos)
+	elec:SetStart(startPos)
 	elec:SetOrigin(hitpos)
 	elec:SetEntity(self)
 	elec:SetAttachment(1)
 	util.Effect("VJ_HLR_XenCannon_Beam", elec)
-	util.VJ_SphereDamage(self, self, hitpos, 30, laserdmg, DMG_ENERGYBEAM, true, false, {Force=90})
+	util.VJ_SphereDamage(self, self, hitpos, 30, 50, DMG_ENERGYBEAM, true, false, {Force=90})
 	VJ_EmitSound(self, "vj_hlr/hl1_npc/xencannon/fire.wav", 90, 100)
 	sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitpos, 60)
 	
