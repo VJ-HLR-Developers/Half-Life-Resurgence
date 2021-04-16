@@ -49,7 +49,6 @@ ENT.IsMedicSNPC = true -- Is this SNPC a medic? Does it heal other friendly frie
 ENT.AnimTbl_Medic_GiveHealth = {ACT_ARM} -- Animations is plays when giving health to an ally
 ENT.Medic_CheckDistance = 1000 -- How far does it check for allies that are hurt? | World units
 ENT.Medic_HealDistance = 600 -- How close does it have to be until it stops moving and heals its ally?
-ENT.Medic_DisableSetHealth = true -- If set to true, it won't set health to the ally & it won't clear its decals, allowing to custom code it
 ENT.Medic_NextHealTime = VJ_Set(5, 8) -- How much time until it can give health to an ally again
 ENT.Medic_SpawnPropOnHeal = false -- Should it spawn a prop, such as small health vial at a attachment when healing an ally?
 ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
@@ -100,6 +99,7 @@ function ENT:CustomOnMedic_OnHeal(ent)
 		phys:Wake()
 		phys:SetVelocity(self:CalculateProjectile("Line", self:GetAttachment(self:LookupAttachment("0")).Pos, ent:GetPos() + ent:OBBCenter(), 1500))
 	end
+	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local anim1 = ACT_ARM

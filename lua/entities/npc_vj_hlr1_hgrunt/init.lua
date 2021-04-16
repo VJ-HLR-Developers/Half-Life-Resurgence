@@ -175,34 +175,35 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "event_emit step" or key == "step" then
 		self:FootStepSoundCode()
-	end
-	if key == "event_mattack" or key == "melee" or key == "machete_melee" then
+	elseif key == "event_mattack" or key == "melee" or key == "machete_melee" then
 		self:MeleeAttackCode()
-	end
-	if key == "event_rattack mp5_fire" or key == "event_rattack shotgun_fire" or key == "event_rattack saw_fire" or key == "event_rattack pistol_fire" or key == "shoot" or key == "colt_fire" or key == "fire" then
+	elseif key == "event_rattack mp5_fire" or key == "event_rattack shotgun_fire" or key == "event_rattack saw_fire" or key == "event_rattack pistol_fire" or key == "shoot" or key == "colt_fire" or key == "fire" then
 		local wep = self:GetActiveWeapon()
 		if IsValid(wep) then
 			wep:NPCShoot_Primary(ShootPos,ShootDir)
 		end
-	end
-	
-	-- OppF Engineer
-	if key == "deagle_putout" then
-		self:SetBodygroup(1,2)
-	end
-	if key == "torch_pull" then
-		self:SetBodygroup(1,1)
-	end
-	if key == "torchlight_on" then
+	-- OppF Engineer --
+	elseif key == "deagle_putout" then
+		self:SetBodygroup(1, 2)
+	elseif key == "torch_pull" then
+		self:SetBodygroup(1, 1)
+	elseif key == "torchlight_on" then
 		ParticleEffectAttach("vj_hl_torch", PATTACH_POINT_FOLLOW, self, 5)
-		VJ_EmitSound(self,"vj_hlr/hl1_npc/hgrunt_oppf/torch_light.wav",80)
-	end
-	if key == "torch_putout" then
+		VJ_EmitSound(self, "vj_hlr/hl1_npc/hgrunt_oppf/torch_light.wav", 80)
+	elseif key == "torch_putout" then
 		self:StopParticles()
-		self:SetBodygroup(1,2)
-	end
-	if key == "deagle_pull" then
-		self:SetBodygroup(1,0)
+		self:SetBodygroup(1, 2)
+	elseif key == "deagle_pull" then
+		self:SetBodygroup(1, 0)
+	-- OppF Medic --
+	elseif key == "putgun" then
+		self:SetBodygroup(3, 3)
+	elseif key == "pullneedle" then
+		self:SetBodygroup(3, 2)
+	elseif key == "putneedle" then
+		self:SetBodygroup(3, 3)
+	elseif key == "pullgun" then
+		self:SetBodygroup(3, self.HECUMedic_HealBG)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

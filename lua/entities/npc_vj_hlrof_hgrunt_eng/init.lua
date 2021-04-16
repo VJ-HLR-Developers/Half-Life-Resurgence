@@ -19,7 +19,7 @@ ENT.HECU_NextTurretCheckT = 0
 ENT.HECU_GasTankHit = false -- Signals the code to preform an explosion
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if IsValid(self:GetEnemy()) && self:Visible(self:GetEnemy()) && self.HECU_NextTurretCheckT < CurTime() && self.HECU_TurretPlacing == false && !IsValid(self.HECU_TurretEnt) then
+	if IsValid(self:GetEnemy()) && self:Visible(self:GetEnemy()) && self.HECU_NextTurretCheckT < CurTime() && !IsValid(self.HECU_TurretEnt) then
 		-- Make sure not to place it if the front of the NPC is blocked!
 		local tr = util.TraceLine({
 			start = self:GetPos() + self:OBBCenter(),
@@ -27,34 +27,29 @@ function ENT:CustomOnThink_AIEnabled()
 			filter = self
 		})
 		if !tr.Hit then
-			self.HECU_NextTurretCheckT = CurTime() + 30
-			self.HECU_TurretPlacing = true
-			self:VJ_ACT_PLAYACTIVITY("pull_torch_wgun", true, false, false, 0, {}, function(vsched)
-				vsched.RunCode_OnFinish = function()
-					self:VJ_ACT_PLAYACTIVITY("open_floor_grate", true, false, false, 0, {}, function(vsched2)
-						timer.Simple(0.5, function()
-							if IsValid(self) && IsValid(self:GetEnemy()) && !IsValid(self.HECU_TurretEnt) then
-								self.HECU_TurretEnt = ents.Create("npc_vj_hlr1_sentry")
-								self.HECU_TurretEnt:SetPos(self:GetPos() + self:GetForward()*50)
-								self.HECU_TurretEnt:SetAngles(self:GetAngles())
-								self.HECU_TurretEnt:Spawn()
-								self.HECU_TurretEnt:Activate()
-								self.HECU_TurretEnt.VJ_NPC_Class = self.VJ_NPC_Class
-								self.HECU_TurretPlacing = false
-								if IsValid(self:GetCreator()) then -- If it has a creator, then add it to that player's undo list
-									undo.Create(self:GetName().."'s Turret")
-										undo.AddEntity(self.HECU_TurretEnt)
-										undo.SetPlayer(self:GetCreator())
-									undo.Finish()
-								end
-							end
-						end)
-						vsched2.RunCode_OnFinish = function()
-							self:VJ_ACT_PLAYACTIVITY("store_torch", true, false, false)
+			self.HECU_NextTurretCheckT = CurTime() + 5 //30
+			self:VJ_ACT_PLAYACTIVITY("pull_torch_wgun", true, false, false, 0, {OnFinish=function(interrupted, anim)
+				if interrupted then self:StopParticles() self:SetBodygroup(1, 0) return end -- If interrupted, then put the torch away!
+				timer.Simple(0.5, function()
+					if IsValid(self) && IsValid(self:GetEnemy()) && !IsValid(self.HECU_TurretEnt) then
+						self.HECU_TurretEnt = ents.Create("npc_vj_hlr1_sentry")
+						self.HECU_TurretEnt:SetPos(self:GetPos() + self:GetForward()*50)
+						self.HECU_TurretEnt:SetAngles(self:GetAngles())
+						self.HECU_TurretEnt:Spawn()
+						self.HECU_TurretEnt:Activate()
+						self.HECU_TurretEnt.VJ_NPC_Class = self.VJ_NPC_Class
+						if IsValid(self:GetCreator()) then -- If it has a creator, then add it to that player's undo list
+							undo.Create(self:GetName().."'s Turret")
+								undo.AddEntity(self.HECU_TurretEnt)
+								undo.SetPlayer(self:GetCreator())
+							undo.Finish()
 						end
-					end)
-				end
-			end)
+					end
+				end)
+				self:VJ_ACT_PLAYACTIVITY("open_floor_grate", true, false, false, 0, {OnFinish=function(interrupted2, anim2)
+					self:VJ_ACT_PLAYACTIVITY("store_torch", true, false)
+				end})
+			end})
 		end
 	end
 end

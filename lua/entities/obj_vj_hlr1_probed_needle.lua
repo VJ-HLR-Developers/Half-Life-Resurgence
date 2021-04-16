@@ -30,6 +30,7 @@ ENT.DirectDamage = 15 -- How much damage should it do when it hits something
 ENT.DirectDamageType = DMG_POISON -- Damage type
 ENT.DecalTbl_DeathDecals = {"Impact.Concrete"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/crossbow/xbow_hit1.wav"}
+ENT.OnCollideSoundPitch = VJ_Set(100, 100)
 
 local defAng = Angle(0 ,0, 0)
 

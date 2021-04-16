@@ -211,15 +211,13 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMedic_BeforeHeal()
-	self:VJ_ACT_PLAYACTIVITY("pull_needle",true,VJ_GetSequenceDuration(self,"pull_needle") + 0.1,false,0,{},function(vsched)
-		vsched.RunCode_OnFinish = function()
-			self:VJ_ACT_PLAYACTIVITY("give_shot",true,VJ_GetSequenceDuration(self,"give_shot") + 0.1,false,0,{},function(vsched2)
-				vsched2.RunCode_OnFinish = function()
-					self:VJ_ACT_PLAYACTIVITY("return_needle",true,false)
-				end
-			end)
-		end
-	end)
+	self:VJ_ACT_PLAYACTIVITY("pull_needle", true, false, false, 0, {OnFinish=function(interrupted, anim)
+		if interrupted then return end
+		self:VJ_ACT_PLAYACTIVITY("give_shot", true, false, false, 0, {OnFinish=function(interrupted2, anim2)
+			if interrupted2 then return end
+			self:VJ_ACT_PLAYACTIVITY("return_needle", true, false)
+		end})
+	end})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMedic_OnReset()

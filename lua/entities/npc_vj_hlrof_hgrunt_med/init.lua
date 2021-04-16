@@ -24,32 +24,13 @@ function ENT:HECU_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMedic_BeforeHeal()
-	print(self:GetBodygroup(3))
 	self.HECUMedic_HealBG = self:GetBodygroup(3)
-	timer.Simple(0.8,function()
-		if IsValid(self) then
-			self:SetBodygroup(3,3)
-		end
-	end)
-	timer.Simple(1.9,function()
-		if IsValid(self) then
-			self:SetBodygroup(3,2)
-		end
-	end)
-	self:VJ_ACT_PLAYACTIVITY("pull_needle",true,VJ_GetSequenceDuration(self,"pull_needle") + 0.1,false,0,{},function(vsched)
-		vsched.RunCode_OnFinish = function()
-			self:VJ_ACT_PLAYACTIVITY("give_shot",true,VJ_GetSequenceDuration(self,"give_shot") + 0.1,false,0,{},function(vsched)
-				vsched.RunCode_OnFinish = function()
-					self:VJ_ACT_PLAYACTIVITY("store_needle",true,false)
-				end
-			end)
-		end
-	end)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMedic_OnReset()
-	timer.Simple(0.85,function() if IsValid(self) then self:SetBodygroup(3,3) end end)
-	timer.Simple(1.7,function() if IsValid(self) then self:SetBodygroup(3,self.HECUMedic_HealBG) end end)
+	self:VJ_ACT_PLAYACTIVITY("pull_needle", true, false, false, 0, {OnFinish=function(interrupted, anim)
+		if interrupted then return end
+		self:VJ_ACT_PLAYACTIVITY("give_shot", true, false, false, 0, {OnFinish=function(interrupted2, anim2)
+			self:VJ_ACT_PLAYACTIVITY("store_needle", true, false)
+		end})
+	end})
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
