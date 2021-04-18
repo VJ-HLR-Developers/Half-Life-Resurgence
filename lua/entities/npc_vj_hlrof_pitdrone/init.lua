@@ -55,7 +55,7 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/pitdrone/pit_drone_die1.wav","vj_hlr/hl1_n
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(18, 18, 55), Vector(-18, -18, 0))
-	self:SetBodygroup(1,1)
+	self:SetBodygroup(1, 1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
@@ -78,20 +78,26 @@ end
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	local bg = self:GetBodygroup(1)
 	if bg == 0 or bg == 6 then
-		self:SetBodygroup(1,0)
+		self:SetBodygroup(1, 0)
 		self.HasRangeAttack = false
-		self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH",function(vsched)
-			vsched.RunCode_OnFinish = function()
-				self:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true, 0, {}, function(vsched2)
-					vsched2.RunCode_OnFinish = function()
-						self.HasRangeAttack = true
-						self:SetBodygroup(1,1)
+		
+		-- Run from the enemy and then play the reload animation and set the body group
+		self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH")
+		timer.Simple(0.1, function()
+			if IsValid(self) then
+				self.TakingCoverT = CurTime() + self:GetPathTimeToGoal()
+				timer.Simple(self:GetPathTimeToGoal(), function()  
+					if IsValid(self) then
+						self:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true, 0, {OnFinish=function(interrupted2, anim2)
+							self.HasRangeAttack = true
+							self:SetBodygroup(1, 1)
+						end})
 					end
 				end)
 			end
 		end)
 	else
-		self:SetBodygroup(1,bg + 1)
+		self:SetBodygroup(1, bg + 1)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -27,7 +27,7 @@ function ENT:CustomOnThink_AIEnabled()
 			filter = self
 		})
 		if !tr.Hit then
-			self.HECU_NextTurretCheckT = CurTime() + 5 //30
+			self.HECU_NextTurretCheckT = CurTime() + 30
 			self:VJ_ACT_PLAYACTIVITY("pull_torch_wgun", true, false, false, 0, {OnFinish=function(interrupted, anim)
 				if interrupted then self:StopParticles() self:SetBodygroup(1, 0) return end -- If interrupted, then put the torch away!
 				timer.Simple(0.5, function()
