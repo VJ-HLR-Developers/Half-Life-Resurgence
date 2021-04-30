@@ -61,11 +61,9 @@ function ENT:CustomOnThink_AIEnabled()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt)
-	local sethp = self.MeleeAttackDamage
-	if self.MeleeAttackDamage > hitEnt:Health() then -- Yete ir damage-e aveli partser e, ere vor teshnamiyin ouje kordzadz e
-		sethp = hitEnt:Health()
-	end
-	self:SetHealth(math.Clamp(self:Health() + sethp, self:Health(), self:GetMaxHealth()*6))
+	-- Increase its health when it deals damage (Up to 6x its max health)
+		-- If the enemy is less health than its melee attack, then use the enemy's health as the addition
+	self:SetHealth(math.Clamp(self:Health() + ((self.MeleeAttackDamage > hitEnt:Health() and hitEnt:Health()) or self.MeleeAttackDamage), self:Health(), self:GetMaxHealth()*6))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)

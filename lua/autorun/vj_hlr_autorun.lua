@@ -97,7 +97,7 @@ if VJExists == true then
 	VJ.AddNPC("Mr. Friendly","npc_vj_hlr1_mrfriendly",vCat)
 	VJ.AddNPC("Nihilanth","npc_vj_hlr1_nihilanth",vCat)
 	VJ.AddNPC("Barnacle","npc_vj_hlr1_barnacle",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
-	VJ.AddNPC("Xen Tree","npc_vj_hlr1_xentree",vCat)
+	VJ.AddNPC("Xen Tree","npc_vj_hlr1_xen_tree",vCat)
 	VJ.AddNPC("Xen Hair","sent_vj_xen_hair",vCat)
 	VJ.AddNPC("Xen Spore (Large)","sent_vj_xen_spore_large",vCat)
 	VJ.AddNPC("Xen Spore (Medium)","sent_vj_xen_spore_medium",vCat)
