@@ -33,9 +33,9 @@ ENT.SoundTbl_OnCollide = {}
 ENT.SoundTbl_Idle = {}
 
 -- Custom
-ENT.EO_Enemy = NULL
-ENT.EO_TrackTime = 0
-ENT.EO_OrgPosition = Vector(0, 0, 0)
+ENT.Track_Enemy = NULL
+ENT.Track_TrackTime = 0
+ENT.Track_OrgPosition = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
@@ -52,12 +52,12 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if CurTime() > self.EO_TrackTime then return end
-	if IsValid(self.EO_Enemy) then
-		if self.EO_Enemy:GetPos():Distance(self.EO_OrgPosition) > 500 then return end -- If enemy moves to far from org position, then stop tracking
+	if CurTime() > self.Track_TrackTime then return end
+	if IsValid(self.Track_Enemy) then
+		if self.Track_Enemy:GetPos():Distance(self.Track_OrgPosition) > 500 then return end -- If enemy moves to far from org position, then stop tracking
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.EO_Enemy:GetPos() + self.EO_Enemy:OBBCenter(), 2000))
+			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter(), 2000))
 		end
 	end
 end

@@ -244,7 +244,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	if self.Nih_TeleportingOrb == true && IsValid(self:GetEnemy()) then
-		projectile.EO_Enemy = self:GetEnemy()
+		projectile.Track_Enemy = self:GetEnemy()
 		timer.Simple(10,function() if IsValid(projectile) then projectile:Remove() end end)
 	end
 end

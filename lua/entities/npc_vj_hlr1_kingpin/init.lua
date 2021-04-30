@@ -188,7 +188,7 @@ function ENT:CustomAttackCheck_RangeAttack() return self.KingPin_PsionicAttackin
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	if IsValid(self:GetEnemy()) then
-		projectile.EO_Enemy = self:GetEnemy()
+		projectile.Track_Enemy = self:GetEnemy()
 		timer.Simple(20,function() if IsValid(projectile) then projectile:Remove() end end)
 	end
 end

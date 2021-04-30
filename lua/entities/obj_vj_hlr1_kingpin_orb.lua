@@ -33,9 +33,11 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav","vj_hlr/hl1_wea
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/kingpin/kingpin_seeker_amb.wav"}
 
 -- Custom
-ENT.EO_Enemy = NULL
-ENT.EO_Position = Vector(0,0,0)
-ENT.Orb_Speed = 200
+local defVec = Vector(0, 0, 0)
+
+ENT.Track_Enemy = NULL
+ENT.Track_Position = defVec
+ENT.Track_OrbSpeed = 200
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
@@ -70,20 +72,20 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	if IsValid(self:GetOwner()) then
-		self.EO_Enemy = self:GetOwner():GetEnemy()
+		self.Track_Enemy = self:GetOwner():GetEnemy()
 	end
-	if IsValid(self.EO_Enemy) then
-		local pos = (self.EO_Enemy:EyePos()) or (self.EO_Enemy:GetPos() + self.EO_Enemy:OBBCenter())
-		if self:VisibleVec(pos) then
-			self.EO_Position = pos
+	if IsValid(self.Track_Enemy) then
+		local pos = (self.Track_Enemy:EyePos()) or (self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter())
+		if self:VisibleVec(pos) or self.Track_Position == defVec then
+			self.Track_Position = pos
 		end
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
-			-- phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.EO_Enemy:GetPos() + self.EO_Enemy:OBBCenter(), 200))
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.EO_Position, self.Orb_Speed))
+			-- phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter(), 200))
+			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position, self.Track_OrbSpeed))
 		end
 	end
-	self.Orb_Speed = math.Clamp(self.Orb_Speed + 10, 200, 2000)
+	self.Track_OrbSpeed = math.Clamp(self.Track_OrbSpeed + 10, 200, 2000)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPhysicsCollide(data,phys)

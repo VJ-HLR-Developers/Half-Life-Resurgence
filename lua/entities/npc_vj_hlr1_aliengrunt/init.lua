@@ -84,7 +84,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	if IsValid(self:GetEnemy()) then
-		projectile.MyEnemy = self:GetEnemy()
+		projectile.Track_Enemy = self:GetEnemy()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -137,8 +137,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(projectile)
 	if IsValid(self:GetEnemy()) then
-		projectile.EO_Enemy = self:GetEnemy()
-		projectile.EO_SpriteScale = (self.Tor_Level == 0 and 0.6) or 1
+		projectile.Track_Enemy = self:GetEnemy()
+		projectile.Track_SpriteScale = (self.Tor_Level == 0 and 0.6) or 1
 		projectile.DirectDamage = (self.Tor_Level == 0 and 10) or 20
 		timer.Simple(10,function() if IsValid(projectile) then projectile:Remove() end end)
 	end

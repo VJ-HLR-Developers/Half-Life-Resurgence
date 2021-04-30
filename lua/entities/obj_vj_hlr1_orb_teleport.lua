@@ -32,7 +32,10 @@ ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/x/x_teleattack1.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav","vj_hlr/hl1_weapon/gauss/electro5.wav","vj_hlr/hl1_weapon/gauss/electro6.wav"}
 
 -- Custom
-ENT.EO_Enemy = NULL
+local defVec = Vector(0, 0, 0)
+
+ENT.Track_Enemy = NULL
+ENT.Track_Position = defVec
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
@@ -65,10 +68,14 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if IsValid(self.EO_Enemy) then -- Homing Behavior
+	if IsValid(self.Track_Enemy) then -- Homing Behavior
+		local pos = self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter()
+		if self:VisibleVec(pos) or self.Track_Position == defVec then
+			self.Track_Position = pos
+		end
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.EO_Enemy:GetPos() + self.EO_Enemy:OBBCenter(), 700))
+			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position, 700))
 		end
 	end
 end

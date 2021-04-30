@@ -39,7 +39,10 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/hornet/ag_hornethit1.wav","vj_hlr/hl1_
 ENT.IdleSoundPitch = VJ_Set(100, 100)
 
 -- Custom
-ENT.MyEnemy = NULL
+local defVec = Vector(0, 0, 0)
+
+ENT.Track_Enemy = NULL
+ENT.Track_Position = defVec
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
@@ -61,10 +64,14 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if IsValid(self.MyEnemy) then -- Homing Behavior
+	if IsValid(self.Track_Enemy) then -- Homing Behavior
+		local pos = self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter()
+		if self:VisibleVec(pos) or self.Track_Position == defVec then
+			self.Track_Position = pos
+		end
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.MyEnemy:GetPos() + self.MyEnemy:OBBCenter() + self.MyEnemy:GetUp()*math.random(-50,50) + self.MyEnemy:GetRight()*math.random(-50,50), 600))
+			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position + self.Track_Enemy:GetUp()*math.random(-50,50) + self.Track_Enemy:GetRight()*math.random(-50,50), 600))
 			self:SetAngles(self:GetVelocity():GetNormal():Angle())
 		end
 	else
@@ -76,20 +83,19 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPhysicsCollide(data, phys)
+	local lastVel = math.max(data.OurOldVelocity:Length(), data.Speed) -- Get the last velocity and speed
+	local newVel = phys:GetVelocity():GetNormal()
+	lastVel = math.max(newVel:Length(), lastVel)
+	phys:SetVelocity(newVel * lastVel * 0.3)
+	self:SetAngles(self:GetVelocity():GetNormal():Angle())
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoDamage(data,phys,hitEnt)
 	if data.HitEntity:IsNPC() or data.HitEntity:IsPlayer() then
 		self:SetDeathVariablesTrue(data,phys)
 		self:Remove()
 	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPhysicsCollide(data, phys)
-	local lastvel = math.max(data.OurOldVelocity:Length(), data.Speed) -- Get the last velocity and speed
-	local newvel = phys:GetVelocity():GetNormal()
-	lastvel = math.max(newvel:Length(), lastvel)
-	local setvel = newvel * lastvel * 0.3
-	phys:SetVelocity(setvel)
-	self:SetAngles(self:GetVelocity():GetNormal():Angle())
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

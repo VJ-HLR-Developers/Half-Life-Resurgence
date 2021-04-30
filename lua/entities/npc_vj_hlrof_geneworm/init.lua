@@ -284,9 +284,9 @@ function ENT:RangeAttackCode_GetShootPos(projectile)
 	local enePos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter()
 	local attachPos = self:GetAttachment(1).Pos
 	local vel = self:CalculateProjectile("Line", self:GetAttachment(1).Pos, enePos, 2000)
-	projectile.EO_Enemy = self:GetEnemy()
-	projectile.EO_OrgPosition = enePos
-	projectile.EO_TrackTime = CurTime() + (enePos:Distance(attachPos) / vel:Length()) -- Stops chasing the enemy after this time
+	projectile.Track_Enemy = self:GetEnemy()
+	projectile.Track_OrgPosition = enePos
+	projectile.Track_TrackTime = CurTime() + (enePos:Distance(attachPos) / vel:Length()) -- Stops chasing the enemy after this time
 	return vel
 end
 /*

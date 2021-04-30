@@ -222,7 +222,7 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	self.Garg_NextStompAttackT = CurTime() + math.Rand(10,13) -- Set a delay for the next stomp attack
 	util.Decal("VJ_HLR_Gargantua_Stomp", self:GetPos() + self:GetRight()*-20 + self:GetForward()*50, self:GetPos() + self:GetRight()*-20 + self:GetForward()*50 + self:GetUp()*-100, self)
 	if IsValid(self:GetEnemy()) then
-		projectile.EO_Enemy = self:GetEnemy()
+		projectile.Track_Enemy = self:GetEnemy()
 		projectile:SetAngles(Angle(self:GetAngles().p, 0, 0))
 		timer.Simple(10,function() if IsValid(projectile) then projectile:Remove() end end)
 	end

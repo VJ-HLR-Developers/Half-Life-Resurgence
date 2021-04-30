@@ -31,8 +31,11 @@ ENT.DirectDamageType = DMG_SHOCK -- Damage type
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav","vj_hlr/hl1_weapon/gauss/electro5.wav","vj_hlr/hl1_weapon/gauss/electro6.wav"}
 
 -- Custom
-ENT.EO_Enemy = NULL
-ENT.EO_SpriteScale = 1.2
+local defVec = Vector(0, 0, 0)
+
+ENT.Track_Enemy = NULL
+ENT.Track_Position = defVec
+ENT.Track_SpriteScale = 1.2
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
@@ -58,7 +61,7 @@ function ENT:CustomOnInitialize()
 	self.StartGlow1:SetKeyValue("maxdxlevel","0")
 	self.StartGlow1:SetKeyValue("framerate","10.0")
 	self.StartGlow1:SetKeyValue("spawnflags","0")
-	self.StartGlow1:SetKeyValue("scale",""..self.EO_SpriteScale)
+	self.StartGlow1:SetKeyValue("scale",""..self.Track_SpriteScale)
 	self.StartGlow1:SetPos(self:GetPos())
 	self.StartGlow1:Spawn()
 	self.StartGlow1:SetParent(self)
@@ -66,10 +69,14 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if IsValid(self.EO_Enemy) then -- Homing Behavior
+	if IsValid(self.Track_Enemy) then -- Homing Behavior
+		local pos = self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter()
+		if self:VisibleVec(pos) or self.Track_Position == defVec then
+			self.Track_Position = pos
+		end
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.EO_Enemy:GetPos() + self.EO_Enemy:OBBCenter(), 700))
+			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position, 700))
 		end
 	end
 end
