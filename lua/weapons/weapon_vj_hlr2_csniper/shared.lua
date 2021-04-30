@@ -145,7 +145,7 @@ if CLIENT then
 			local attachPos = attach.Pos
 			local attachAng = attach.Ang
 			local endPos = attachPos + attachAng:Forward()*10000 + attachAng:Up()*180 + attachAng:Right()*700
-			local strictPointer = (!self:GetOwner():IsNPC() and 1) or GetConVar("vj_hlr2_csniper_strict"):GetInt()
+			local strictPointer = (!self:GetOwner():IsNPC() and 1) or GetConVar("vj_hlr2_csniper_laser_usebarrel"):GetInt()
 			if strictPointer == 1 or vec_def == self:GetNW2Vector("OwnerEnemyPos") then -- Face straight from the attachment
 				endPos = attachPos + attachAng:Forward()*10000 + attachAng:Up()*180 + attachAng:Right()*700
 			else -- Face towards the enemy

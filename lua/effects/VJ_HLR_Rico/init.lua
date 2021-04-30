@@ -13,7 +13,7 @@ function EFFECT:Init(data) // You're welcome @DrVrej for not making the effect n
 
 	sound.Play("vj_hlr/fx/ric" .. math.random(1,5) .. ".wav",self.Pos,80,100)
 
-	if GetConVar("vj_hlr_sparkfx"):GetInt() == 1 then
+	if GetConVar("vj_hlr1_sparkfx"):GetInt() == 1 then
 		for i = 1,math.random(5,15) do
 			local particle = Emitter:Add("vj_hl/tracer_middle",self.Pos)
 			particle:SetVelocity(VectorRand() *math.Rand(100,350))
