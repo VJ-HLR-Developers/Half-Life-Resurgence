@@ -212,18 +212,18 @@ function ENT:CustomRangeAttackCode()
 	elec:SetAttachment(1)
 	util.Effect("VJ_HLR_Electric",elec)
 	
-	local elec = EffectData()
+	elec = EffectData()
 	elec:SetStart(startpos)
 	elec:SetOrigin(hitpos)
 	elec:SetEntity(self)
 	elec:SetAttachment(2)
 	util.Effect("VJ_HLR_Electric",elec)
 	
-	util.VJ_SphereDamage(self,self,hitpos,30,20,DMG_SHOCK,true,false,{Force=90})
+	util.VJ_SphereDamage(self, self, hitpos, 30, 20, DMG_SHOCK, true, false, {Force=90})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnSchedule()
-	if self.Dead == false && self.vACT_StopAttacks == false && self.Vort_RunAway == true && self.PlayingAttackAnimation == false then
+	if self.Dead == false && self.Vort_RunAway == true && !self:IsBusy() && !self.VJ_IsBeingControlled then
 		self.Vort_RunAway = false
 		self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH",function(x) x.RunCode_OnFail = function() self.NextDoAnyAttackT = 0 end end)
 		self.NextDoAnyAttackT = CurTime() + 5

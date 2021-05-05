@@ -55,19 +55,7 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/controller/con_die1.wav","vj_hlr/hl1_npc/c
 ENT.GeneralSoundPitch1 = 100
 
 -- Custom
-ENT.AlienC_AttackType = false -- 0 = Regular, 1 = Homing
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:MultipleRangeAttacks()
-	if math.random(1,2) == 1 && self.NearestPointToEnemyDistance < 850 then
-		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2}
-		self.RangeAttackPos_Up = 80
-		self.AlienC_AttackType = true
-	else
-		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1}
-		self.RangeAttackPos_Up = 20
-		self.AlienC_AttackType = false
-	end
-end
+ENT.AlienC_HomingAttack = false -- false = Regular, true = Homing
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(20, 20, 70), Vector(-20, -20, -10))
@@ -78,16 +66,16 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	if key == "rangeattack_close" then
 		if IsValid(self.Glow1) then self.Glow1:Remove() end
 		if IsValid(self.Glow2) then self.Glow2:Remove() end
-		self.AlienC_AttackType = true
+		self.AlienC_HomingAttack = true
 		self:RangeAttackCode()
 	end
 	if key == "rangeattack" then
 		if IsValid(self.Glow1) then self.Glow1:Remove() end
 		if IsValid(self.Glow2) then self.Glow2:Remove() end
-		self.AlienC_AttackType = false
+		self.AlienC_HomingAttack = false
 		self:RangeAttackCode()
 	end
-	if key == "sprite" && self.RangeAttacking == true && self.AlienC_AttackType == false then
+	if key == "sprite" && self.RangeAttacking == true && self.AlienC_HomingAttack == false then
 		if IsValid(self.Glow1) then self.Glow1:Remove() end
 		if IsValid(self.Glow2) then self.Glow2:Remove() end
 		self.Glow1 = ents.Create("env_sprite")
@@ -130,8 +118,24 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply)
+	ply:ChatPrint("Right Mouse + CTRL: Fire single homing orb")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MultipleRangeAttacks()
+	if (math.random(1,2) == 1 && self.NearestPointToEnemyDistance < 850) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_DUCK)) then
+		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2}
+		self.RangeAttackPos_Up = 80
+		self.AlienC_HomingAttack = true
+	else
+		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1}
+		self.RangeAttackPos_Up = 20
+		self.AlienC_HomingAttack = false
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
-	if self.AlienC_AttackType == true && IsValid(self:GetEnemy()) then
+	if self.AlienC_HomingAttack == true && IsValid(self:GetEnemy()) then
 		projectile.Track_Enemy = self:GetEnemy()
 		timer.Simple(10,function() if IsValid(projectile) then projectile:Remove() end end)
 	end

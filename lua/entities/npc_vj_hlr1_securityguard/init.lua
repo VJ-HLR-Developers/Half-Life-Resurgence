@@ -174,7 +174,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	if key == "shoot" then
 		local wep = self:GetActiveWeapon()
 		if IsValid(wep) then
-			wep:NPCShoot_Primary(ShootPos,ShootDir)
+			wep:NPCShoot_Primary()
 		end
 	end
 end

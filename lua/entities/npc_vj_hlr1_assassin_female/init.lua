@@ -9,7 +9,7 @@ ENT.Model = {"models/vj_hlr/hl1/hassassin.mdl"} -- The game will pick a random m
 ENT.StartHealth = 60
 ENT.TurningSpeed = 50 -- How fast it can turn
 ENT.HullType = HULL_HUMAN
-ENT.MaxJumpLegalDistance = VJ_Set(520, 620) -- The max distance the NPC can jump (Usually from one node to another)
+ENT.MaxJumpLegalDistance = VJ_Set(620, 620) -- The max distance the NPC can jump (Usually from one node to another)
 ENT.VJC_Data = {
 	//FirstP_Bone = "bip01 head", -- If left empty, the base will attempt to calculate a position for first person
 	//FirstP_Offset = Vector(6, 0, 2.5), -- The offset for the controller when the camera is in first person
@@ -54,12 +54,12 @@ ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_
 ENT.FootStepSoundLevel = 55
 
 -- Custom
-ENT.BOA_LastBodyGroup = 1
+ENT.BOA_CloakLevel = 1
 ENT.BOA_NextJumpT = 0
 ENT.BOA_NextRunT = 0
 ENT.BOA_ShotsSinceRun = 0
 ENT.BOA_OffGround = false
-ENT.BOA_CloakLevel = 1
+ENT.BOA_FlyAnimSet = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetRenderMode(RENDERMODE_TRANSALPHA)
@@ -76,60 +76,64 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	if key == "shooty"  or key == "shoot" then
 		local wep = self:GetActiveWeapon()
 		if IsValid(wep) then
-			wep:NPCShoot_Primary(ShootPos,ShootDir)
+			wep:NPCShoot_Primary()
 		end
 	end
 	if key == "land" then
-		VJ_EmitSound(self,"vj_hlr/hl1_npc/player/pl_jumpland2.wav",70)
+		VJ_EmitSound(self, "vj_hlr/hl1_npc/player/pl_jumpland2.wav", 70)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if IsValid(self:GetActiveWeapon()) then
-		self:GetActiveWeapon():SetClip1(999)
+	if self.Dead == true then return end
+	
+	-- Unlimited ammo + weapon body group change
+	local activeWep = self:GetActiveWeapon()
+	local bGroup = self:GetBodygroup(1)
+	if IsValid(activeWep) then
+		activeWep:SetClip1(999)
+		if bGroup == 1 then
+			self:GetActiveWeapon():Remove()
+		end
+	elseif bGroup == 0 then
+		self:DoChangeWeapon("weapon_vj_hlr1_glock17_sup")
 	end
 	
-	if self.Dead == true then return end
-	local cloaklvl = math.Clamp(self.BOA_CloakLevel*255,40,255)
+	-- Cloaking system
+	local cloakLvl = math.Clamp(self.BOA_CloakLevel*255, 40, 255)
 	self:SetColor(Color(255,255,255,math.Clamp(self.BOA_CloakLevel * 255, 40, 255)))
 	self.BOA_CloakLevel = math.Clamp(self.BOA_CloakLevel + 0.05, 0, 1)
-	if cloaklvl <= 220 then -- Yete asorme tsadz e, ere vor mouys NPC-nere chi desnen iren!
+	if cloakLvl <= 220 then -- NPCs can't seem me!
 		self:AddFlags(FL_NOTARGET)
 		self:DrawShadow(false)
-	else
+	else -- NPCs can see me! =(
 		self:DrawShadow(true)
 		self:RemoveFlags(FL_NOTARGET)
 	end
 	
-	if self:IsOnGround() == true then
-		self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK1}
-	else
-		self.AnimTbl_WeaponAttack = {VJ_SequenceToActivity(self,"fly_attack")}
+	-- Change the firing animation depending if it's on ground or flying
+	if self:IsOnGround() then
+		if self.BOA_FlyAnimSet then
+			self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK1}
+			self.BOA_FlyAnimSet = false
+		end
+	elseif !self.BOA_FlyAnimSet then
+		self.AnimTbl_WeaponAttack = {VJ_SequenceToActivity(self, "fly_attack")}
+		self.BOA_FlyAnimSet = true
 	end
+	
+	-- Handle landing animation after jumping
 	if self.BOA_OffGround == true && self:GetVelocity().z == 0 then
 		self.BOA_OffGround = false
-		self:VJ_ACT_PLAYACTIVITY(ACT_LAND,true,false,false)
-		//VJ_EmitSound(self,"vj_hlr/hl1_npc/player/pl_jumpland2.wav",80)
+		self:VJ_ACT_PLAYACTIVITY(ACT_LAND, true, false, false)
+		//VJ_EmitSound(self,"vj_hlr/hl1_npc/player/pl_jumpland2.wav",80) -- Done through event
 	end
 	
-	local bgroup = self:GetBodygroup(1)
-	if self.BOA_LastBodyGroup != bgroup then
-		self.BOA_LastBodyGroup = bgroup
-		if bgroup == 0 then
-			self:DoChangeWeapon("weapon_vj_hlr1_glock17_sup")
-		elseif bgroup == 1 && IsValid(self:GetActiveWeapon()) then
-			self:GetActiveWeapon():Remove()
-		end
-	end
-	
-	if IsValid(self:GetEnemy()) && self.DoingWeaponAttack_Standing == true && self.VJ_IsBeingControlled == false && CurTime() > self.BOA_NextJumpT && !self:IsMoving() && self:GetPos():Distance(self:GetEnemy():GetPos()) < 1400 then
+	-- Jump while attacking
+	if IsValid(self:GetEnemy()) && CurTime() > self.BOA_NextJumpT && self.DoingWeaponAttack_Standing == true && !self:IsMoving() && self.LatestEnemyDistance < 1400 && self.VJ_IsBeingControlled == false then
 		self:StopMoving()
 		self:SetGroundEntity(NULL)
-		if math.random(1,2) == 1 then
-			self:SetLocalVelocity(((self:GetPos() + self:GetRight()*100) - (self:GetPos() + self:OBBCenter())):GetNormal()*200 +self:GetForward()*1 +self:GetUp()*600 + self:GetRight()*1)
-		else
-			self:SetLocalVelocity(((self:GetPos() + self:GetRight()*-100) - (self:GetPos() + self:OBBCenter())):GetNormal()*200 +self:GetForward()*1 +self:GetUp()*600 + self:GetRight()*1)
-		end
+		self:SetLocalVelocity(((self:GetPos() + self:GetRight()*(math.random(1, 2) == 1 and 100 or -100)) - (self:GetPos() + self:OBBCenter())):GetNormal()*200 +self:GetUp()*600)
 		self:VJ_ACT_PLAYACTIVITY(ACT_JUMP, true, false, true, 0, {}, function(vsched)
 			self.BOA_OffGround = true
 			//vsched.RunCode_OnFinish = function()
@@ -143,6 +147,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFireBullet(ent, data)
 	self.BOA_CloakLevel = 0
+	if self.VJ_IsBeingControlled then return end
 	self.BOA_ShotsSinceRun = self.BOA_ShotsSinceRun + 1
 	if CurTime() > self.BOA_NextRunT && self.BOA_ShotsSinceRun >= 4 then -- Yete amenan keche chors ankam zenke zargadz e, ere vor vaz e!
 		self.BOA_ShotsSinceRun = 0

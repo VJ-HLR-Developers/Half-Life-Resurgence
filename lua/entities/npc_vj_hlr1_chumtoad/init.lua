@@ -9,7 +9,7 @@ ENT.Model = {"models/vj_hlr/hl1/chumtoad.mdl"} -- The game will pick a random mo
 ENT.StartHealth = 15
 ENT.HullType = HULL_TINY
 ENT.SightDistance = 250 -- How far it can see
-ENT.MovementType = VJ_MOVETYPE_AQUATIC -- How does the SNPC move?
+ENT.MovementType = VJ_MOVETYPE_GROUND -- How does the SNPC move?
 ENT.Aquatic_SwimmingSpeed_Calm = 80 -- The speed it should swim with, when it's wandering, moving slowly, etc. | Basically walking compared to ground SNPCs
 ENT.Aquatic_SwimmingSpeed_Alerted = 80 -- The speed it should swim with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground SNPCs
 ENT.Aquatic_AnimTbl_Calm = {ACT_SWIM} -- Animations it plays when it's wandering around while idle
@@ -43,18 +43,23 @@ ENT.GeneralSoundPitch1 = 100
 
 -- Custom
 ENT.CT_BlinkingT = 0
+ENT.CT_MoveTypeSwim = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(9, 9, 15), Vector(-9, -9, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if self:WaterLevel() == 0 then
-		self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-		self.AnimTbl_IdleStand = {ACT_IDLE}
-	else
+	if self:WaterLevel() < 2 then
+		if self.CT_MoveTypeSwim then
+			self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+			self.AnimTbl_IdleStand = {ACT_IDLE}
+			self.CT_MoveTypeSwim = false
+		end
+	elseif !self.CT_MoveTypeSwim then
 		self:DoChangeMovementType(VJ_MOVETYPE_AQUATIC)
 		self.AnimTbl_IdleStand = {ACT_SWIM}
+		self.CT_MoveTypeSwim = true
 	end
 	
 	if self.Dead == false && CurTime() > self.CT_BlinkingT then

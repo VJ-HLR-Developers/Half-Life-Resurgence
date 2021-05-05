@@ -55,6 +55,7 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
+	if self.VJ_IsBeingControlled == true then return end
 	if IsValid(HLR_Boid_Leader) then
 		if HLR_Boid_Leader != self then
 			self.DisableWandering = true

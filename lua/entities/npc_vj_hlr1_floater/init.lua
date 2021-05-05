@@ -78,6 +78,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
+	if self.VJ_IsBeingControlled then return end
 	if !IsValid(self:GetEnemy()) then
 		if IsValid(HLR_Floater_Leader) then
 			if HLR_Floater_Leader != self /*&& HLR_Floater_Leader:GetPos():Distance(self:GetPos()) > 10*/ then

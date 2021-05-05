@@ -21,6 +21,7 @@ ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should 
 ENT.CustomBlood_Particle = {"vj_hl_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
+ENT.ConstantlyFaceEnemy = true -- Should it face the enemy constantly?
 ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
@@ -45,6 +46,9 @@ ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/sphere/sp_pain1.wav","vj_hlr/hl1_npc/sphere
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/sphere/sp_die.wav"}
 
 ENT.GeneralSoundPitch1 = 100
+
+-- Custom
+ENT.ControlSphere_EneIdle = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(8,8,12), Vector(-8,-8,0))
@@ -59,16 +63,16 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	if IsValid(self:GetEnemy()) then
-		AnimTbl_IdleStand = {ACT_IDLE_ANGRY}
-	else
-		AnimTbl_IdleStand = {ACT_IDLE}
+		if self.ControlSphere_EneIdle then
+			self.AnimTbl_IdleStand = {ACT_IDLE_ANGRY}
+			self.ControlSphere_EneIdle = true
+		end
+	elseif !self.ControlSphere_EneIdle then
+		self.AnimTbl_IdleStand = {ACT_IDLE}
+		self.ControlSphere_EneIdle = false
 	end
 	
-	if self:Health() <= (self:GetMaxHealth() / 2.2) then
-		self:SetSkin(1)
-	else
-		self:SetSkin(0)
-	end
+	self:SetSkin((self:Health() <= (self:GetMaxHealth() / 2.2)) and 1 or 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:ControlSphere_DoElecEffect(sp,hp)

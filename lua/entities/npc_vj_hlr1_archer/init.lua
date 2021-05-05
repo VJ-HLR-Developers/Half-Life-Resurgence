@@ -79,10 +79,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	if self.Dead == false && CurTime() > self.Archer_BlinkingT then
-		timer.Simple(0.2,function() if IsValid(self) then self:SetSkin(1) end end)
-		timer.Simple(0.3,function() if IsValid(self) then self:SetSkin(2) end end)
-		timer.Simple(0.4,function() if IsValid(self) then self:SetSkin(1) end end)
-		timer.Simple(0.5,function() if IsValid(self) then self:SetSkin(0) end end)
+		timer.Simple(0.2, function() if IsValid(self) then self:SetSkin(1) end end)
+		timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(2) end end)
+		timer.Simple(0.4, function() if IsValid(self) then self:SetSkin(1) end end)
+		timer.Simple(0.5, function() if IsValid(self) then self:SetSkin(0) end end)
 		self.Archer_BlinkingT = CurTime() + math.Rand(3,4.5)
 	end
 end
