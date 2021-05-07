@@ -128,13 +128,13 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.Shocktrooper_SpawnedEnt = false
 	if self.HasGibDeathParticles == true then
 		local bloodeffect = EffectData()
-		bloodeffect:SetOrigin(self:GetPos() +self:OBBCenter())
+		bloodeffect:SetOrigin(self:GetPos() + self:OBBCenter())
 		bloodeffect:SetColor(VJ_Color2Byte(Color(255,221,35)))
 		bloodeffect:SetScale(120)
 		util.Effect("VJ_Blood1",bloodeffect)
 		
 		local bloodspray = EffectData()
-		bloodspray:SetOrigin(self:GetPos() +self:OBBCenter())
+		bloodspray:SetOrigin(self:GetPos() + self:OBBCenter())
 		bloodspray:SetScale(8)
 		bloodspray:SetFlags(3)
 		bloodspray:SetColor(1)
@@ -142,7 +142,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray",bloodspray)
 		
 		local effectdata = EffectData()
-		effectdata:SetOrigin(self:GetPos() +self:OBBCenter())
+		effectdata:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectdata:SetScale(1)
 		util.Effect("StriderBlood",effectdata)
 		util.Effect("StriderBlood",effectdata)
@@ -182,7 +182,7 @@ ENT.GrenadeAttackVelRight1 = -20 -- Grenade attack velocity right | The first # 
 ENT.GrenadeAttackVelRight2 = 20 -- Grenade attack velocity right | The second # in math.random
 function ENT:ThrowGrenadeCode(customEnt,noOwner)
 	if self.Dead == true or self.Flinching == true or self.MeleeAttacking == true or (IsValid(self:GetEnemy()) && !self:Visible(self:GetEnemy())) then return end
-	//if self:VJ_ForwardIsHidingZone(self:NearestPoint(self:GetPos() +self:OBBCenter()),self:GetEnemy():EyePos()) == true then return end
+	//if self:VJ_ForwardIsHidingZone(self:NearestPoint(self:GetPos() + self:OBBCenter()),self:GetEnemy():EyePos()) == true then return end
 	local noOwner = noOwner or false
 	local getIsCustom = false
 	local gerModel = self.GrenadeAttackModel

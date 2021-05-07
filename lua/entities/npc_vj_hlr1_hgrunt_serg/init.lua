@@ -26,10 +26,13 @@ ENT.GeneralSoundPitch2 = 80
 ENT.Serg_SpinUpT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnThink()
-	if IsValid(self:GetActiveWeapon()) then
-		self:GetActiveWeapon():SetClip1(999)
+	-- Unlimited ammo
+	local curWeapon = self:GetActiveWeapon()
+	if IsValid(curWeapon) then
+		curWeapon:SetClip1(999)
 	end
-	self.SoundTbl_Breath = {"vj_hlr/hl1_npc/hassault/hw_spin.wav"}
+	
+	-- For weapon spinning sound
 	if self.DoingWeaponAttack == true then
 		self.HasBreathSound = true
 	else
@@ -39,11 +42,12 @@ function ENT:HECU_CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnWeaponAttack()
+	-- Do the weapon spin up routine
 	if CurTime() > self.Serg_SpinUpT then
 		self.NextWeaponAttackT = CurTime() + 0.9
 		self.NextBreathSoundT = CurTime() + 0.9
-		self:VJ_ACT_PLAYACTIVITY(ACT_IDLE_ANGRY,true,0.9,true)
-		VJ_EmitSound(self,"vj_hlr/hl1_npc/hassault/hw_spinup.wav",80)
+		self:VJ_ACT_PLAYACTIVITY(ACT_IDLE_ANGRY, true, 0.9, true)
+		VJ_EmitSound(self, "vj_hlr/hl1_npc/hassault/hw_spinup.wav", 80)
 		self.Serg_SpinUpT = CurTime() + 4
 	end
 end

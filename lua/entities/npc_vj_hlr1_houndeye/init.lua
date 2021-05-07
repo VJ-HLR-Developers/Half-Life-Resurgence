@@ -49,11 +49,13 @@ ENT.GeneralSoundPitch1 = 100
 ENT.Houndeye_BlinkingT = 0
 ENT.Houndeye_NextSleepT = 0
 ENT.Houndeye_Sleeping = false
+ENT.Houndeye_LimpWalking = false -- Used for optimization
+ENT.Houndeye_CurIdleAnim = 0 -- 0 = regular | 1 = sleeping | 2 = angry
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(20, 20 , 40), Vector(-20, -20, 0))
 	
-	self.Houndeye_NextSleepT = CurTime() + math.Rand(0, 15)
+	self.Houndeye_NextSleepT = CurTime() + 1//math.Rand(0, 15)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
@@ -67,20 +69,27 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if IsValid(self:GetEnemy()) then
-		self.AnimTbl_IdleStand = {ACT_IDLE_ANGRY}
+	if self.VJ_IsBeingControlled then
+		self.AnimTbl_IdleStand = {ACT_IDLE, "leaderlook"}
 	else
-		if self.Houndeye_Sleeping == true then
-			self.AnimTbl_IdleStand = {ACT_CROUCHIDLE}
-		else
+		if IsValid(self:GetEnemy()) then
+			if self.Houndeye_CurIdleAnim != 2 then
+				self.AnimTbl_IdleStand = {ACT_IDLE_ANGRY}
+				self.Houndeye_CurIdleAnim = 2
+			end
+		elseif !self.Houndeye_Sleeping && self.Houndeye_CurIdleAnim != 0 then
 			self.AnimTbl_IdleStand = {ACT_IDLE, "leaderlook"}
 		end
 	end
 	
 	if (self:GetMaxHealth() * 0.35) > self:Health() then -- Limp walking
-		self.AnimTbl_Walk = {ACT_WALK_HURT}
-	else
+		if !self.Houndeye_LimpWalking then
+			self.AnimTbl_Walk = {ACT_WALK_HURT}
+			self.Houndeye_LimpWalking = true
+		end
+	elseif self.Houndeye_LimpWalking then
 		self.AnimTbl_Walk = {ACT_WALK}
+		self.Houndeye_LimpWalking = false
 	end
 	
 	-- Blinking
@@ -94,11 +103,14 @@ function ENT:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
+	if self.VJ_IsBeingControlled then return end
+	
 	-- Sleep system
-	if self.Alerted != true && !IsValid(self:GetEnemy()) && CurTime() > self.Houndeye_NextSleepT && self.Houndeye_Sleeping == false && !self:IsMoving() then
+	if !self.Alerted && !IsValid(self:GetEnemy()) && !self:IsMoving() && CurTime() > self.Houndeye_NextSleepT && !self.Houndeye_Sleeping && !self:IsBusy() then
 		local sleept = math.Rand(15,30) -- How long it should sleep
 		self.Houndeye_Sleeping = true
 		self.AnimTbl_IdleStand = {ACT_CROUCHIDLE}
+		self.Houndeye_CurIdleAnim = 1
 		self:VJ_ACT_PLAYACTIVITY(ACT_CROUCH, true, false, false)
 		self:SetState(VJ_STATE_ONLY_ANIMATION, sleept)
 		timer.Simple(7, function() if IsValid(self) && self.Houndeye_Sleeping == true then self:SetSkin(2) end end) -- Close eyes
@@ -128,22 +140,22 @@ function ENT:CustomOnResetEnemy()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_BeforeChecks()
-	local allynum = 0 -- How many allies exist around the Houndeye
+	local friNum = 0 -- How many allies exist around the Houndeye
 	local color = Color(188, 220, 255) -- The shock wave color
 	local dmg = 15 -- How much damage should the shock wave do?
 	for _, v in ipairs(ents.FindInSphere(self:GetPos(), 400)) do
 		if v != self && v:GetClass() == "npc_vj_hlr1_houndeye" then
-			allynum = allynum + 1
+			friNum = friNum + 1
 		end
 	end
 	-- More allies = more damage and different colors
-	if allynum == 1 then
+	if friNum == 1 then
 		color = Color(101, 133, 221)
 		dmg = 30
-	elseif allynum == 2 then
+	elseif friNum == 2 then
 		color = Color(67, 85, 255)
 		dmg = 45
-	elseif allynum >= 3 then
+	elseif friNum >= 3 then
 		color = Color(62, 33, 211)
 		dmg = 60
 	end
@@ -159,26 +171,34 @@ function ENT:CustomOnMeleeAttack_BeforeChecks()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
-	if self.PlayingAttackAnimation == true then
-		return false -- Don't flinch if we are playing an attack animation!
+	-- Houndeye shouldn't have its sonic attack interrupted by a flinch animation!
+	return !self.PlayingAttackAnimation
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
+	self.Houndeye_NextSleepT = CurTime() + math.Rand(15, 45)
+	if self.Houndeye_Sleeping == true then -- Wake up if sleeping and play a special alert animation
+		if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end
+		self.Houndeye_Sleeping = false
+		self:VJ_ACT_PLAYACTIVITY(ACT_HOP, true, false, false)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
-	corpseEnt:SetSkin(math.random(1,2))
+	corpseEnt:SetSkin(math.random(1, 2))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibDeathParticles == true then
 		local bloodeffect = EffectData()
-		bloodeffect:SetOrigin(self:GetPos() +self:OBBCenter())
+		bloodeffect:SetOrigin(self:GetPos() + self:OBBCenter())
 		bloodeffect:SetColor(VJ_Color2Byte(Color(255,221,35)))
 		bloodeffect:SetScale(120)
 		util.Effect("VJ_Blood1",bloodeffect)
 		
 		local bloodspray = EffectData()
-		bloodspray:SetOrigin(self:GetPos() +self:OBBCenter())
+		bloodspray:SetOrigin(self:GetPos() + self:OBBCenter())
 		bloodspray:SetScale(8)
 		bloodspray:SetFlags(3)
 		bloodspray:SetColor(1)
@@ -186,7 +206,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray",bloodspray)
 		
 		local effectdata = EffectData()
-		effectdata:SetOrigin(self:GetPos() +self:OBBCenter())
+		effectdata:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectdata:SetScale(1)
 		util.Effect("StriderBlood",effectdata)
 		util.Effect("StriderBlood",effectdata)

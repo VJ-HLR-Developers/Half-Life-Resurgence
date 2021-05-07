@@ -75,10 +75,12 @@ ENT.HECU_Type = 0
 	-- 7 = Human Sergeant
 ENT.HECU_WepBG = 2 -- The bodygroup that the weapons are in (Ourish e amen modelneroun)
 ENT.HECU_LastBodyGroup = 99
-ENT.HECU_UsingDefault = false
+ENT.HECU_UsingDefaultSounds = false -- Set automatically, if true then it's using the default HECU sounds
+ENT.HECU_CanHurtWalk = true -- Set to false to disable hurt-walking, automatically disabled for some of the HECU types!
+ENT.HECU_UsingHurtWalk = false -- Used for optimizations, makes sure that the animations are only changed once
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
-	if math.random(1,3) == 1 && self.HECU_UsingDefault == true then
+	if math.random(1,3) == 1 && self.HECU_UsingDefaultSounds == true then
 		if ent.IsVJBaseSNPC_Creature == true then -- Alien sounds
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl1_npc/hgrunt/gr_alert9.wav","vj_hlr/hl1_npc/hgrunt/gr_alert10.wav"})
 			return
@@ -90,7 +92,7 @@ function ENT:CustomOnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
-	self.HECU_UsingDefault = true
+	self.HECU_UsingDefaultSounds = true
 	self.SoundTbl_Idle = {"vj_hlr/hl1_npc/hgrunt/gr_alert1.wav","vj_hlr/hl1_npc/hgrunt/gr_idle1.wav","vj_hlr/hl1_npc/hgrunt/gr_idle2.wav","vj_hlr/hl1_npc/hgrunt/gr_idle3.wav"}
 	self.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/hgrunt/gr_question1.wav","vj_hlr/hl1_npc/hgrunt/gr_question2.wav","vj_hlr/hl1_npc/hgrunt/gr_question3.wav","vj_hlr/hl1_npc/hgrunt/gr_question4.wav","vj_hlr/hl1_npc/hgrunt/gr_question5.wav","vj_hlr/hl1_npc/hgrunt/gr_question6.wav","vj_hlr/hl1_npc/hgrunt/gr_question7.wav","vj_hlr/hl1_npc/hgrunt/gr_question8.wav","vj_hlr/hl1_npc/hgrunt/gr_question9.wav","vj_hlr/hl1_npc/hgrunt/gr_question10.wav","vj_hlr/hl1_npc/hgrunt/gr_question11.wav","vj_hlr/hl1_npc/hgrunt/gr_question12.wav","vj_hlr/hl1_npc/hgrunt/gr_check1.wav","vj_hlr/hl1_npc/hgrunt/gr_check2.wav","vj_hlr/hl1_npc/hgrunt/gr_check3.wav","vj_hlr/hl1_npc/hgrunt/gr_check4.wav","vj_hlr/hl1_npc/hgrunt/gr_check5.wav","vj_hlr/hl1_npc/hgrunt/gr_check6.wav","vj_hlr/hl1_npc/hgrunt/gr_check7.wav","vj_hlr/hl1_npc/hgrunt/gr_check8.wav",}
 	self.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/hgrunt/gr_clear1.wav","vj_hlr/hl1_npc/hgrunt/gr_clear2.wav","vj_hlr/hl1_npc/hgrunt/gr_clear3.wav","vj_hlr/hl1_npc/hgrunt/gr_clear4.wav","vj_hlr/hl1_npc/hgrunt/gr_clear5.wav","vj_hlr/hl1_npc/hgrunt/gr_clear6.wav","vj_hlr/hl1_npc/hgrunt/gr_clear7.wav","vj_hlr/hl1_npc/hgrunt/gr_clear8.wav","vj_hlr/hl1_npc/hgrunt/gr_clear9.wav","vj_hlr/hl1_npc/hgrunt/gr_clear10.wav","vj_hlr/hl1_npc/hgrunt/gr_clear11.wav","vj_hlr/hl1_npc/hgrunt/gr_clear12.wav","vj_hlr/hl1_npc/hgrunt/gr_answer1.wav","vj_hlr/hl1_npc/hgrunt/gr_answer2.wav","vj_hlr/hl1_npc/hgrunt/gr_answer3.wav","vj_hlr/hl1_npc/hgrunt/gr_answer4.wav","vj_hlr/hl1_npc/hgrunt/gr_answer5.wav","vj_hlr/hl1_npc/hgrunt/gr_answer6.wav","vj_hlr/hl1_npc/hgrunt/gr_answer7.wav"}
@@ -152,10 +154,12 @@ function ENT:CustomOnInitialize()
 		self.HECU_Type = 6
 		self.HECU_WepBG = 1
 		self.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEFORWARD}
+		self.HECU_CanHurtWalk = false
 	elseif self:GetModel() == "models/vj_hlr/hl1/hassault.mdl" or self:GetModel() == "models/vj_hlr/hl_hd/hassault.mdl" then
 		self.HECU_Type = 7
 		self.HECU_WepBG = 1
 		self.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEBACKWARD,ACT_DIEVIOLENT}
+		self.HECU_CanHurtWalk = false
 	end
 	
 	self.HECU_NextMouthMove = CurTime()
@@ -182,6 +186,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		if IsValid(wep) then
 			wep:NPCShoot_Primary()
 		end
+	
 	-- OppF Engineer --
 	elseif key == "deagle_putout" then
 		self:SetBodygroup(1, 2)
@@ -195,6 +200,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self:SetBodygroup(1, 2)
 	elseif key == "deagle_pull" then
 		self:SetBodygroup(1, 0)
+	
 	-- OppF Medic --
 	elseif key == "putgun" then
 		self:SetBodygroup(3, 3)
@@ -268,23 +274,30 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+-- Used for custom HECU soldiers
 function ENT:HECU_CustomOnThink() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	self:HECU_CustomOnThink()
-	-- Veravorvadz kalel
-	if self:Health() <= (self:GetMaxHealth() / 2.2) && self.HECU_Type != 6 && self.HECU_Type != 7 then
-		self.AnimTbl_Walk = {ACT_WALK_HURT}
-		self.AnimTbl_Run = {ACT_RUN_HURT}
-		self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK_HURT}
-		self.AnimTbl_ShootWhileMovingRun = {ACT_RUN_HURT}
-	else
+	
+	-- Hurt walking
+	if self.HECU_CanHurtWalk && self:Health() <= (self:GetMaxHealth() / 2.2) then
+		if !self.HECU_UsingHurtWalk then
+			self.AnimTbl_Walk = {ACT_WALK_HURT}
+			self.AnimTbl_Run = {ACT_RUN_HURT}
+			self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK_HURT}
+			self.AnimTbl_ShootWhileMovingRun = {ACT_RUN_HURT}
+			self.HECU_UsingHurtWalk = true
+		end
+	elseif self.HECU_UsingHurtWalk then
 		self.AnimTbl_Walk = {ACT_WALK}
 		self.AnimTbl_Run = {ACT_RUN}
 		self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK}
 		self.AnimTbl_ShootWhileMovingRun = {ACT_RUN}
+		self.HECU_UsingHurtWalk = false
 	end
 	
+	-- Handle weapon body group changing
 	local bgroup = self:GetBodygroup(self.HECU_WepBG)
 	if self.HGrunt_LastBodyGroup != bgroup then
 		self.HGrunt_LastBodyGroup = bgroup
@@ -387,11 +400,11 @@ function ENT:CustomOnGrenadeAttack_OnThrow(grenEnt)
 		spr:Fire("Kill","",0.9)
 		timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
 		
-		light = ents.Create("light_dynamic")
+		local light = ents.Create("light_dynamic")
 		light:SetKeyValue("brightness", "4")
 		light:SetKeyValue("distance", "300")
 		light:SetLocalPos(grenEnt:GetPos())
-		light:SetLocalAngles( grenEnt:GetAngles() )
+		light:SetLocalAngles(grenEnt:GetAngles())
 		light:Fire("Color", "255 150 0")
 		light:SetParent(grenEnt)
 		light:Spawn()
@@ -402,9 +415,10 @@ function ENT:CustomOnGrenadeAttack_OnThrow(grenEnt)
 		
 		grenEnt:SetLocalPos(Vector(grenEnt:GetPos().x,grenEnt:GetPos().y,grenEnt:GetPos().z +4)) -- Because the entity is too close to the ground
 		local tr = util.TraceLine({
-		start = grenEnt:GetPos(),
-		endpos = grenEnt:GetPos() - Vector(0, 0, 100),
-		filter = grenEnt })
+			start = grenEnt:GetPos(),
+			endpos = grenEnt:GetPos() - Vector(0, 0, 100),
+			filter = grenEnt
+		})
 		util.Decal(VJ_PICK(grenEnt.DecalTbl_DeathDecals),tr.HitPos+tr.HitNormal,tr.HitPos-tr.HitNormal)
 		
 		grenEnt:DoDamageCode()
@@ -446,7 +460,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	else
 		if self.HasGibDeathParticles == true then
 			local bloodeffect = EffectData()
-			bloodeffect:SetOrigin(self:GetPos() +self:OBBCenter())
+			bloodeffect:SetOrigin(self:GetPos() + self:OBBCenter())
 			bloodeffect:SetColor(VJ_Color2Byte(Color(130,19,10)))
 			bloodeffect:SetScale(120)
 			util.Effect("VJ_Blood1",bloodeffect)
@@ -519,7 +533,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDropWeapon_AfterWeaponSpawned(dmginfo, hitgroup, wepEnt)
 	wepEnt.WorldModel_Invisible = false
-	wepEnt:SetNW2Bool("VJ_WorldModel_Invisible",false)
+	wepEnt:SetNW2Bool("VJ_WorldModel_Invisible", false)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

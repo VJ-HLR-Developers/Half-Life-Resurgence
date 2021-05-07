@@ -181,7 +181,7 @@ function ENT:MultipleMeleeAttacks()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply)
+function ENT:Controller_IntMsg(ply, controlEnt)
 	if self.Garg_Type == 1 then return end
 	ply:ChatPrint("Right Mouse + CTRL: Preform Stomp attack")
 end
@@ -300,13 +300,13 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		if IsValid(self) then
 			if self.HasGibDeathParticles == true then
 				local bloodeffect = EffectData()
-				bloodeffect:SetOrigin(self:GetPos() +self:OBBCenter())
+				bloodeffect:SetOrigin(self:GetPos() + self:OBBCenter())
 				bloodeffect:SetColor(VJ_Color2Byte(Color(255,221,35)))
 				bloodeffect:SetScale(120)
 				util.Effect("VJ_Blood1",bloodeffect)
 				
 				local bloodspray = EffectData()
-				bloodspray:SetOrigin(self:GetPos() +self:OBBCenter())
+				bloodspray:SetOrigin(self:GetPos() + self:OBBCenter())
 				bloodspray:SetScale(8)
 				bloodspray:SetFlags(3)
 				bloodspray:SetColor(1)

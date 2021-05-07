@@ -38,7 +38,7 @@ function EFFECT:Init(data) // You're welcome @DrVrej for not making the effect n
 	local effect = self.EffectType or math.random(1,2)
 	if effect == 1 then
 		local fx = Emitter:Add("vj_hl/rico2",self.Pos)
-		fx:SetVelocity(Vector(0,0,0))
+		fx:SetVelocity(Vector(0, 0, 0))
 		fx:SetAirResistance(160)
 		fx:SetDieTime(0.15)
 		fx:SetStartAlpha(255)
@@ -50,7 +50,7 @@ function EFFECT:Init(data) // You're welcome @DrVrej for not making the effect n
 		fx:SetColor(255,255,255)
 	elseif effect == 2 then
 		local fx = Emitter:Add("vj_hl/rico1",self.Pos)
-		fx:SetVelocity(Vector(0,0,0))
+		fx:SetVelocity(Vector(0, 0, 0))
 		fx:SetAirResistance(160)
 		fx:SetDieTime(0.15)
 		fx:SetStartAlpha(255)

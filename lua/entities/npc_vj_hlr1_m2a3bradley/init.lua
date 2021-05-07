@@ -38,7 +38,7 @@ ENT.Tank_AngleDiffuseNumber = 0
 ENT.Tank_MoveAwaySpeed = 70 -- Move away speed
 ENT.Tank_CollisionBoundSize = 90
 ENT.Tank_CollisionBoundUp = 130
-ENT.Tank_DeathSoldierModels = {"models/vj_hlr/hl1/hgrunt.mdl"} -- The corpses it will spawn on death (Example: A soldier) | false = Don't spawn anything
+ENT.Tank_DeathSoldierModels = {"models/vj_hlr/hl1/hGrunt.mdl"} -- The corpses it will spawn on death (Example: A soldier) | false = Don't spawn anything
 ENT.Tank_DeathDecal = {"VJ_HLR_Scorch"} -- The decal that it places on the ground when it dies
 
 util.AddNetworkString("vj_hlr1_m2a3bradley_moveeffects")
@@ -49,7 +49,12 @@ ENT.Bradley_DoorOpen = false
 ENT.Bradley_HasSpawnedSoldiers = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomInitialize_CustomTank()
-	self:SetSkin(math.random(0,1))
+	self:SetSkin(math.random(0, 1))
+	self.Bradley_Grunts = {}
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply, controlEnt)
+	ply:ChatPrint("JUMP: Deploy human grunt squad (1 time)")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_GunnerSpawnPosition()
@@ -63,89 +68,76 @@ function ENT:StartMoveEffects()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_CustomOnThink()
+	-- If moving then close the door
 	if self.Tank_Status == 0 && self.Bradley_DoorOpen == true then
 		self.Bradley_DoorOpen = false
-		self:VJ_ACT_PLAYACTIVITY(ACT_SPECIAL_ATTACK2,true,false,false)
+		self:VJ_ACT_PLAYACTIVITY(ACT_SPECIAL_ATTACK2, true, false, false)
 		self.AnimTbl_IdleStand = {ACT_IDLE}
 	end
-	if self.Tank_Status == 1 && self.Bradley_HasSpawnedSoldiers == false && IsValid(self:GetEnemy()) && self.Bradley_DoorOpen == false then
+	
+	-- Deploy soldiers
+	if self.Tank_Status == 1 && self.Bradley_HasSpawnedSoldiers == false && self.Bradley_DoorOpen == false && IsValid(self:GetEnemy()) && GetConVar("vj_hlr1_bradley_deploygrunts"):GetInt() == 1 && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self.Bradley_DoorOpen = true
 		self.AnimTbl_IdleStand = {ACT_IDLE_RELAXED}
-		self:VJ_ACT_PLAYACTIVITY(ACT_SPECIAL_ATTACK1,true,false,false)
+		self:VJ_ACT_PLAYACTIVITY(ACT_SPECIAL_ATTACK1, true, false, false)
 		self.Bradley_HasSpawnedSoldiers = true
 		timer.Simple(0.5, function()
 			if IsValid(self) then
-				if self.Bradley_DoorOpen == false then
+				if self.Bradley_DoorOpen == false then -- Door was suddenly closed, so try again later
 					self.Bradley_HasSpawnedSoldiers = false
 				else
-					for i=1,2 do
-						local hgrunt = ents.Create("npc_vj_hlr1_hgrunt")
-						local rnum = 25
-						if i == 2 then rnum = -25 end
-						hgrunt:SetPos(self:GetPos() + self:GetForward()*-160 + self:GetRight()*rnum + self:GetUp()*10)
-						hgrunt:SetAngles(Angle(0, self:GetAngles().y + 180, 0))
-						hgrunt:Spawn()
-						hgrunt:VJ_DoSetEnemy(self:GetEnemy(),true)
-						hgrunt:SetState(VJ_STATE_FREEZE)
-						timer.Simple(0.2,function() if IsValid(hgrunt) then hgrunt:SetState(VJ_STATE_NONE) hgrunt:SetLastPosition(self:GetPos() + self:GetForward()*-280 + self:GetRight()*rnum); hgrunt:VJ_TASK_GOTO_LASTPOS("TASK_RUN_PATH") end end)
-						if i == 1 then self.Bradley_S1 = hgrunt else self.Bradley_S2 = hgrunt end -- Set the hgrunt to be registered as a child
-					end
-					for i=1,2 do
-						local hgrunt = ents.Create("npc_vj_hlr1_hgrunt")
-						local rnum = 25
-						if i == 2 then rnum = -25 end
-						hgrunt:SetPos(self:GetPos() + self:GetForward()*-220 + self:GetRight()*rnum + self:GetUp()*5)
-						hgrunt:SetAngles(Angle(0, self:GetAngles().y + 180, 0))
-						hgrunt:Spawn()
-						hgrunt:VJ_DoSetEnemy(self:GetEnemy(),true)
-						hgrunt:SetState(VJ_STATE_FREEZE)
-						timer.Simple(0.2,function() if IsValid(hgrunt) then hgrunt:SetState(VJ_STATE_NONE) hgrunt:SetLastPosition(self:GetPos() + self:GetForward()*-370 + self:GetRight()*rnum); hgrunt:VJ_TASK_GOTO_LASTPOS("TASK_RUN_PATH") end end)
-						if i == 1 then self.Bradley_S3 = hgrunt else self.Bradley_S4 = hgrunt end -- Set the hgrunt to be registered as a child
-					end
-					for i=1,2 do
-						local hgrunt = ents.Create("npc_vj_hlr1_hgrunt")
-						local rnum = 25
-						if i == 2 then rnum = -25 end
-						hgrunt:SetPos(self:GetPos() + self:GetForward()*-290 + self:GetRight()*rnum + self:GetUp()*5)
-						hgrunt:SetAngles(Angle(0, self:GetAngles().y + 180, 0))
-						hgrunt:Spawn()
-						hgrunt:VJ_DoSetEnemy(self:GetEnemy(),true)
-						hgrunt:SetState(VJ_STATE_FREEZE)
-						timer.Simple(0.2,function() if IsValid(hgrunt) then hgrunt:SetState(VJ_STATE_NONE) hgrunt:SetLastPosition(self:GetPos() + self:GetForward()*-440 + self:GetRight()*rnum); hgrunt:VJ_TASK_GOTO_LASTPOS("TASK_RUN_PATH") end end)
-						if i == 1 then self.Bradley_S5 = hgrunt else self.Bradley_S6 = hgrunt end -- Set the hgrunt to be registered as a child
+					for i = 1, 6 do
+						local hGrunt = ents.Create("npc_vj_hlr1_hgrunt")
+						local opSide = ((i % 2 == 0) and -25) or 25 -- Make every other grunt spawn to the opposite side
+						hGrunt:SetPos(self:GetPos() + self:GetForward()*(i <= 2 and -160 or (i <= 4 and -220 or -290)) + self:GetRight()*opSide + self:GetUp()*5)
+						hGrunt:SetAngles(Angle(0, self:GetAngles().y + 180, 0))
+						hGrunt:Spawn()
+						hGrunt:VJ_DoSetEnemy(self:GetEnemy(), true)
+						hGrunt:SetState(VJ_STATE_FREEZE)
+						timer.Simple(0.2, function()
+							if IsValid(hGrunt) then
+								hGrunt:SetState(VJ_STATE_NONE)
+								hGrunt:SetLastPosition(hGrunt:GetPos() + hGrunt:GetForward()*150 + hGrunt:GetRight()*opSide)
+								hGrunt:VJ_TASK_GOTO_LASTPOS("TASK_RUN_PATH")
+							end
+						end)
+						self.Bradley_Grunts[#self.Bradley_Grunts + 1] = hGrunt -- Register the grunt
 					end
 				end
 			end
 		end)
 	end
+	
+	-- Keep the skin of the gunner the same!
 	if IsValid(self.Gunner) then
 		self.Gunner:SetSkin(self:GetSkin())
 	end
 	return true
 end
-local vec = Vector(0,0,0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vec = Vector(0, 0, 0)
+--
 function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 	if dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(5) -- Size
-		rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
+		rico:SetMagnitude(math.random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
 		util.Effect("VJ_HLR_Rico",rico)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetNearDeathSparkPositions()
-	local randpos = math.random(1,5)
-	if randpos == 1 then
+	local randPos = math.random(1,5)
+	if randPos == 1 then
 		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*15 + self:GetForward()*-16 + self:GetUp()*120)
-	elseif randpos == 2 then
+	elseif randPos == 2 then
 		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*42 + self:GetForward()*123 + self:GetUp()*50)
-	elseif randpos == 3 then
+	elseif randPos == 3 then
 		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*-42 + self:GetForward()*123 + self:GetUp()*50)
-	elseif randpos == 4 then
+	elseif randPos == 4 then
 		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*60 + self:GetForward()*-40 + self:GetUp()*81)
-	elseif randpos == 5 then
+	elseif randPos == 5 then
 		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*-60 + self:GetForward()*-40 + self:GetUp()*81)
 	end
 end
@@ -153,11 +145,11 @@ end
 function ENT:Tank_CustomOnPriorToKilled(dmginfo, hitgroup)
 	self.Bradley_DmgForce = dmginfo:GetDamageForce()
 	for i=0,1,0.5 do
-		timer.Simple(i,function()
+		timer.Simple(i, function()
 			if IsValid(self) then
-				VJ_EmitSound(self,{"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"},100)
-				VJ_EmitSound(self,"vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav",100)
-				util.BlastDamage(self,self,self:GetPos(),200,40)
+				VJ_EmitSound(self, self.SoundTbl_Death, 100)
+				VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 100)
+				util.BlastDamage(self, self, self:GetPos(), 200, 40)
 				util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
 				
 				local spr = ents.Create("env_sprite")
@@ -181,10 +173,10 @@ function ENT:Tank_CustomOnPriorToKilled(dmginfo, hitgroup)
 		end)
 	end
 	
-	timer.Simple(1.5,function()
+	timer.Simple(1.5, function()
 		if IsValid(self) then
-			VJ_EmitSound(self,{"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"},100)
-			util.BlastDamage(self,self,self:GetPos(),200,40)
+			VJ_EmitSound(self, self.SoundTbl_Death, 100)
+			util.BlastDamage(self, self, self:GetPos(), 200, 40)
 			util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
 			
 			local spr = ents.Create("env_sprite")
@@ -221,10 +213,12 @@ function ENT:Tank_CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_CustomOnDeath_AfterDeathSoldierSpawned(dmginfo, hitgroup,SoldierCorpse)
-	SoldierCorpse:SetSkin(math.random(0,1))
-	SoldierCorpse:SetBodygroup(2,2)
+	SoldierCorpse:SetSkin(math.random(0, 1))
+	SoldierCorpse:SetBodygroup(2, 2)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vecZ150 = Vector(0, 0, 150)
+--
 function ENT:Tank_CustomOnDeath_AfterCorpseSpawned_Effects(dmginfo, hitgroup, corpseEnt)
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
@@ -239,7 +233,7 @@ function ENT:Tank_CustomOnDeath_AfterCorpseSpawned_Effects(dmginfo, hitgroup, co
 	spr:SetKeyValue("framerate","15.0")
 	spr:SetKeyValue("spawnflags","0")
 	spr:SetKeyValue("scale","4")
-	spr:SetPos(self:GetPos() + Vector(0,0,150))
+	spr:SetPos(self:GetPos() + vecZ150)
 	spr:Spawn()
 	spr:Fire("Kill","",0.9)
 	timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
@@ -249,12 +243,9 @@ end
 function ENT:CustomOnRemove()
 	-- If the NPC was removed, then remove its children as well, but not when it's killed!
 	if self.Dead == false then
-		if IsValid(self.Bradley_S1) then self.Bradley_S1:Remove() end
-		if IsValid(self.Bradley_S2) then self.Bradley_S2:Remove() end
-		if IsValid(self.Bradley_S3) then self.Bradley_S3:Remove() end
-		if IsValid(self.Bradley_S4) then self.Bradley_S4:Remove() end
-		if IsValid(self.Bradley_S5) then self.Bradley_S5:Remove() end
-		if IsValid(self.Bradley_S6) then self.Bradley_S6:Remove() end
+		for _, v in pairs(self.Bradley_Grunts) do
+			if IsValid(v) then v:Remove() end
+		end
 	end
 end
 /*-----------------------------------------------

@@ -129,7 +129,7 @@ function ENT:Tank_CustomOnPriorToKilled(dmginfo, hitgroup)
 	end)
 	return false
 end
-local vec = Vector(0,0,0)
+local vec = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 	if dmginfo:GetDamagePosition() != vec then

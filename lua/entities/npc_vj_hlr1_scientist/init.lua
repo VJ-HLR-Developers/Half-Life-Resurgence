@@ -147,6 +147,7 @@ ENT.SCI_Type = 0
 	-- 3 = Alpha Scientist
 ENT.SCI_CurAnims = -1 -- 0 = Regular | 1 = Scared
 ENT.SCI_NextTieAnnoyanceT = 0
+ENT.SCI_ControllerAnim = 0
 	
 local sdTie = {"vj_hlr/hl1_npc/scientist/weartie.wav","vj_hlr/hl1_npc/scientist/ties.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -182,9 +183,9 @@ function ENT:SCI_CustomOnInitialize()
 	self.SoundTbl_DamageByPlayer = {"vj_hlr/hl1_npc/scientist/youinsane.wav","vj_hlr/hl1_npc/scientist/whatyoudoing.wav","vj_hlr/hl1_npc/scientist/please.wav","vj_hlr/hl1_npc/scientist/c3a2_sci_fool.wav","vj_hlr/hl1_npc/scientist/c1a3_sci_team.wav","vj_hlr/hl1_npc/scientist/c1a0_sci_stayback.wav","vj_hlr/hl1_npc/scientist/c1a2_sci_3zomb.wav","vj_hlr/hl1_npc/scientist/c1a2_sci_5zomb.wav"}
 	self.SoundTbl_Death = {"vj_hlr/hl1_npc/scientist/scream5.wav","vj_hlr/hl1_npc/scientist/scream21.wav","vj_hlr/hl1_npc/scientist/sci_die1.wav","vj_hlr/hl1_npc/scientist/sci_die2.wav","vj_hlr/hl1_npc/scientist/sci_die3.wav","vj_hlr/hl1_npc/scientist/sci_die4.wav","vj_hlr/hl1_npc/scientist/sci_dragoff.wav"}
 	
-	local randbg = math.random(0, 4)
-	self:SetBodygroup(1, randbg)
-	if randbg == 2 && self.SCI_Type == 0 then
+	local randBG = math.random(0, 4)
+	self:SetBodygroup(1, randBG)
+	if randBG == 2 && self.SCI_Type == 0 then
 		self:SetSkin(1)
 	end
 	//self:GetPoseParameters(true)
@@ -211,6 +212,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMedic_BeforeHeal()
+	-- Healing routine
 	self:VJ_ACT_PLAYACTIVITY("pull_needle", true, false, false, 0, {OnFinish=function(interrupted, anim)
 		if interrupted then return end
 		self:VJ_ACT_PLAYACTIVITY("give_shot", true, false, false, 0, {OnFinish=function(interrupted2, anim2)
@@ -225,8 +227,9 @@ function ENT:CustomOnMedic_OnReset()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
+	if self.VJ_IsBeingControlled then return end
 	if self.SCI_Type != 2 && self.SCI_Type != 3 then
-		if math.random(1,2) == 1 && ent.HLR_Type == "Headcrab" or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast" then
+		if math.random(1, 2) == 1 && ent.HLR_Type == "Headcrab" or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast" then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl1_npc/scientist/seeheadcrab.wav"})
 			self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert.a, self.NextSoundTime_Alert.b)
 		end
@@ -236,8 +239,28 @@ function ENT:CustomOnAlert(ent)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+	self.SCI_ControllerAnim = 0
+	self.SCI_NextTieAnnoyanceT = 0
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply, controlEnt)
+	ply:ChatPrint("RELOAD: Toggle scared animations")
+	ply:ChatPrint("LMOUSE: Play tie annoyance (if not scared)")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if IsValid(self:GetEnemy()) && self.SCI_Type != 3 then
+	if self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) then
+		if self.SCI_ControllerAnim == 0 then
+			self.SCI_ControllerAnim = 1
+			self.VJ_TheController:ChatPrint("I am scared!")
+		else
+			self.SCI_ControllerAnim = 0
+			self.VJ_TheController:ChatPrint("Calming down...")
+		end
+	end
+	-- self.SCI_CurAnims --> 0 = Regular | 1 = Scared
+	if self.SCI_Type != 3 && ((!self.VJ_IsBeingControlled && IsValid(self:GetEnemy())) or (self.VJ_IsBeingControlled && self.SCI_ControllerAnim == 1)) then
 		if self.SCI_CurAnims != 1 then
 			self.SCI_CurAnims = 1
 			self.AnimTbl_ScaredBehaviorStand = {ACT_CROUCHIDLE}
@@ -247,7 +270,7 @@ function ENT:CustomOnThink()
 			end
 			self.AnimTbl_Run = {ACT_RUN_SCARED}
 		end
-	else
+	elseif (!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.SCI_ControllerAnim == 0) then
 		if self.SCI_CurAnims != 0 then
 			self.SCI_CurAnims = 0
 			/*if self.SCI_Type == 0 && math.random(1,25) == 1 then
@@ -259,11 +282,12 @@ function ENT:CustomOnThink()
 			self.AnimTbl_Walk = {ACT_WALK}
 			self.AnimTbl_Run = {ACT_RUN}
 		end
-		if CurTime() > self.SCI_NextTieAnnoyanceT && !self:BusyWithActivity() then
-			if math.random(1, 2) == 1 then
+		-- Tie annoyance
+		if CurTime() > self.SCI_NextTieAnnoyanceT && !self:BusyWithActivity() && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK))) then
+			if math.random(1, (self.VJ_IsBeingControlled and 1) or 2) == 1 then
 				self:VJ_ACT_PLAYACTIVITY(ACT_VM_IDLE_1, true, false)
 			end
-			self.SCI_NextTieAnnoyanceT = CurTime() + math.Rand(15, 100)
+			self.SCI_NextTieAnnoyanceT = CurTime() + ((self.VJ_IsBeingControlled and 4) or math.Rand(15, 100))
 		end
 	end
 	
@@ -273,6 +297,7 @@ function ENT:CustomOnThink()
 		self:TakeDamage(self:Health(), self, self)
 	end
 	
+	-- Mouth animation when talking
 	if CurTime() < self.SCI_NextMouthMove then
 		if self.SCI_NextMouthDistance == 0 then
 			self.SCI_NextMouthDistance = math.random(10,70)
@@ -297,7 +322,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibDeathParticles == true then
 		local bloodeffect = EffectData()
-		bloodeffect:SetOrigin(self:GetPos() +self:OBBCenter())
+		bloodeffect:SetOrigin(self:GetPos() + self:OBBCenter())
 		bloodeffect:SetColor(VJ_Color2Byte(Color(130,19,10)))
 		bloodeffect:SetScale(120)
 		util.Effect("VJ_Blood1",bloodeffect)

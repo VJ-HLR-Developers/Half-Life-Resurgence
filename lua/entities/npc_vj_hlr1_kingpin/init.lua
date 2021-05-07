@@ -59,6 +59,7 @@ ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/kingpin/kingpin_alert1.wav","vj_hlr/hl1_np
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/kingpin/kingpin_pain1.wav","vj_hlr/hl1_npc/kingpin/kingpin_pain2.wav","vj_hlr/hl1_npc/kingpin/kingpin_pain3.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/kingpin/kingpin_death1.wav","vj_hlr/hl1_npc/kingpin/kingpin_death2.wav"}
+local scanSd = {"vj_hlr/hl1_npc/kingpin/kingpin_seeker1.wav", "vj_hlr/hl1_npc/kingpin/kingpin_seeker2.wav", "vj_hlr/hl1_npc/kingpin/kingpin_seeker3.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 
@@ -89,10 +90,14 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply, controlEnt)
+	ply:ChatPrint("RMouse + CTRL: Preform Psionic Attack")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	-- Ability to see through walls
 	if !IsValid(self:GetEnemy()) && CurTime() > self.KingPin_NextScanT then
-		VJ_EmitSound(self, {"vj_hlr/hl1_npc/kingpin/kingpin_seeker1.wav", "vj_hlr/hl1_npc/kingpin/kingpin_seeker2.wav", "vj_hlr/hl1_npc/kingpin/kingpin_seeker3.wav"}, 85)
+		VJ_EmitSound(self, scanSd, 85)
 		timer.Simple(0.5, function()
 			if IsValid(self) then
 				local orgDist = self.SightDistance
@@ -117,7 +122,7 @@ function ENT:KingPin_ResetPsionicAttack()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttack()
-	if CurTime() > self.KingPin_NextPsionicAttackT && self.LatestEnemyDistance <= 1000 && !self:BusyWithActivity() && self.KingPin_PsionicAttacking == false && self:Visible(self:GetEnemy()) then
+	if CurTime() > self.KingPin_NextPsionicAttackT && !self:IsBusy() && self.KingPin_PsionicAttacking == false && self:Visible(self:GetEnemy()) && ((!self.VJ_IsBeingControlled && self.LatestEnemyDistance <= 1000) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK2) && self.VJ_TheController:KeyDown(IN_DUCK))) then
 		//print("SEARCH ----")
 		local pTbl = {} -- Table of props that it found
 		for _, v in ipairs(ents.FindInSphere(self:GetPos(), 600)) do
@@ -184,7 +189,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttackCheck_MeleeAttack() return self.KingPin_PsionicAttacking != true end -- Not returning true will not let the melee attack code run!
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomAttackCheck_RangeAttack() return self.KingPin_PsionicAttacking != true end -- Not returning true will not let the melee attack code run!
+function ENT:CustomAttackCheck_RangeAttack() return self.KingPin_PsionicAttacking != true end -- Not returning true will not let the range attack code run!
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	if IsValid(self:GetEnemy()) then
@@ -221,13 +226,13 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibDeathParticles == true then
 		local bloodeffect = EffectData()
-		bloodeffect:SetOrigin(self:GetPos() +self:OBBCenter())
+		bloodeffect:SetOrigin(self:GetPos() + self:OBBCenter())
 		bloodeffect:SetColor(VJ_Color2Byte(Color(255,221,35)))
 		bloodeffect:SetScale(120)
 		util.Effect("VJ_Blood1",bloodeffect)
 		
 		local bloodspray = EffectData()
-		bloodspray:SetOrigin(self:GetPos() +self:OBBCenter())
+		bloodspray:SetOrigin(self:GetPos() + self:OBBCenter())
 		bloodspray:SetScale(8)
 		bloodspray:SetFlags(3)
 		bloodspray:SetColor(1)
@@ -235,7 +240,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray",bloodspray)
 		
 		local effectdata = EffectData()
-		effectdata:SetOrigin(self:GetPos() +self:OBBCenter())
+		effectdata:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectdata:SetScale(1)
 		util.Effect("StriderBlood",effectdata)
 		util.Effect("StriderBlood",effectdata)

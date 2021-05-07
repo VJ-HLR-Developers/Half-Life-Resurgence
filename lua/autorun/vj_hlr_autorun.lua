@@ -350,11 +350,14 @@ if VJExists == true then
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Convars & Menu ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	VJ.AddConVar("vj_hlr1_gonarch_babylimit", 20, {FCVAR_ARCHIVE})
+	VJ.AddConVar("vj_hlr1_bradley_deploygrunts", 1, {FCVAR_ARCHIVE})
+	
 	VJ.AddClientConVar("vj_hlr1_sparkfx", 0, "Create HL1-Style Sparks on Metal Surfaces")	
 	VJ.AddClientConVar("vj_hlr2_csniper_laser_usebarrel", 1, "Combine Sniper Laser Follows Gun Barrel")
 	
 	if CLIENT then
-		hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_L4D", function()
+		hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_HLR", function()
 			spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HL Resurgence (Server)", "HL Resurgence (Server)", "", "", function(Panel)
 				if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
 					Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.not"})
@@ -362,11 +365,13 @@ if VJExists == true then
 					return
 				end
 				Panel:AddControl("Label", {Text = "Notice: Only admins can change this settings."})
-				Panel:AddControl("Button",{Text = "Reset Everything", Command = "vj_hlr2_csniper_laser_usebarrel 0"})
+				Panel:AddControl("Button", {Text = "Reset Everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1"})
+				Panel:AddControl("Slider", {Label = "Gonarch Baby Headcrab Limit", min = 0, max = 100, Command = "vj_hlr1_gonarch_babylimit"})
+				Panel:AddControl("Checkbox", {Label = "M2A3 Bradley Deploys Human Grunts", Command = "vj_hlr1_bradley_deploygrunts"})
 			end)
 			
 			spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HL Resurgence (Client)", "HL Resurgence (Client)", "", "", function(Panel)
-				Panel:AddControl("Button",{Text = "Reset Everything", Command = "vj_hlr2_csniper_laser_usebarrel 1\nvj_hlr1_sparkfx 0"})
+				Panel:AddControl("Button", {Text = "Reset Everything", Command = "vj_hlr2_csniper_laser_usebarrel 1\nvj_hlr1_sparkfx 0"})
 				Panel:AddControl("Checkbox", {Label = "Create HL1-Style Sparks on Metal Surfaces", Command = "vj_hlr1_sparkfx"})
 				Panel:ControlHelp("Applies ONLY to HL1 NPCs & weapons!")
 				Panel:AddControl("Checkbox", {Label = "Combine Sniper Laser Follows Gun Barrel", Command = "vj_hlr2_csniper_laser_usebarrel"})

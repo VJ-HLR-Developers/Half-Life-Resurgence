@@ -44,13 +44,14 @@ ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/leech/leech_alert1.wav","vj_hlr/hl1_npc/lee
 ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/leech/leech_bite1.wav","vj_hlr/hl1_npc/leech/leech_bite2.wav","vj_hlr/hl1_npc/leech/leech_bite3.wav"}
 
 -- Custom
-ENT.Leech_Idle = 0
+ENT.Leech_Idle = 0 -- Used for optimizations
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(4, 4, 3), Vector(-4, -4, -2))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
+	-- Change variables depending if the leech is in/out of water
 	if self.Leech_Idle == 0 && self:WaterLevel() == 0 then
 		self.Leech_Idle = 1
 		self.HasMeleeAttack = false

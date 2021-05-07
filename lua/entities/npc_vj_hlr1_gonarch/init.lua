@@ -68,6 +68,9 @@ ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/gonarch/gon_sack1.wav","vj_hlr/hl1_n
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/gonarch/gon_pain2.wav","vj_hlr/hl1_npc/gonarch/gon_pain4.wav","vj_hlr/hl1_npc/gonarch/gon_pain5.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/gonarch/gon_die1.wav"}
 
+local sdBirth = {"vj_hlr/hl1_npc/gonarch/gon_birth1.wav","vj_hlr/hl1_npc/gonarch/gon_birth1.wav","vj_hlr/hl1_npc/gonarch/gon_birth1.wav"}
+local sdBabyDeath = {"vj_hlr/hl1_npc/gonarch/gon_childdie1.wav", "vj_hlr/hl1_npc/gonarch/gon_childdie2.wav", "vj_hlr/hl1_npc/gonarch/gon_childdie3.wav"}
+
 ENT.AllyDeathSoundChance = 1
 
 ENT.FootStepSoundLevel = 80
@@ -75,14 +78,16 @@ ENT.GeneralSoundPitch1 = 100
 ENT.AllyDeathSoundLevel = 90
 
 -- Custom
-ENT.Gonarch_NextBirthT = 0
 ENT.Gonarch_NumBabies = 0
+ENT.Gonarch_BabyLimit = 20
+ENT.Gonarch_NextBirthT = 0
 ENT.Gonarch_NextDeadBirthT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(100, 100, 200), Vector(-100, -100, 0))
 	self.Gonarch_NextBirthT = CurTime() + 3
 	self.Gonarch_NumBabies = 0
+	self.Gonarch_BabyLimit = GetConVar("vj_hlr1_gonarch_babylimit"):GetInt()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
@@ -93,21 +98,21 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 	if key == "spawn" then -- Create baby headcrabs
 		for i = 1,3 do
-			VJ_EmitSound(self, {"vj_hlr/hl1_npc/gonarch/gon_birth1.wav","vj_hlr/hl1_npc/gonarch/gon_birth1.wav","vj_hlr/hl1_npc/gonarch/gon_birth1.wav"}, 80)
-			if self.Gonarch_NumBabies < 20 then -- 20 babies max
-				local bcrab = ents.Create("npc_vj_hlr1_headcrab_baby")
+			VJ_EmitSound(self, sdBirth, 80)
+			if self.Gonarch_NumBabies < self.Gonarch_BabyLimit then -- Default: 20 babies max
+				local bCrab = ents.Create("npc_vj_hlr1_headcrab_baby")
 				if i == 1 then
-					bcrab:SetPos(self:GetPos() + self:GetUp()*20)
+					bCrab:SetPos(self:GetPos() + self:GetUp()*20)
 				elseif i == 2 then
-					bcrab:SetPos(self:GetPos() + self:GetUp()*20 + self:GetRight()*25)
+					bCrab:SetPos(self:GetPos() + self:GetUp()*20 + self:GetRight()*25)
 				elseif i == 3 then
-					bcrab:SetPos(self:GetPos() + self:GetUp()*20 + self:GetRight()*-25)
+					bCrab:SetPos(self:GetPos() + self:GetUp()*20 + self:GetRight()*-25)
 				end
-				bcrab:SetAngles(self:GetAngles())
-				bcrab.BabH_Mother = self
-				bcrab:Spawn()
-				bcrab:Activate()
-				bcrab:SetOwner(self)
+				bCrab:SetAngles(self:GetAngles())
+				bCrab.BabH_Mother = self
+				bCrab:Spawn()
+				bCrab:Activate()
+				bCrab:SetOwner(self)
 				self.Gonarch_NumBabies = self.Gonarch_NumBabies + 1
 			end
 		end
@@ -125,6 +130,10 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply, controlEnt)
+	ply:ChatPrint("JUMP: Spawn baby headcrabs")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
 	self.Gonarch_NextBirthT = CurTime() + math.random(3,6)
 	self:VJ_ACT_PLAYACTIVITY({"vjseq_angry1", "vjseq_angry2"}, true, false, true)
@@ -135,14 +144,14 @@ function ENT:Gonarch_BabyDeath()
 	self.Gonarch_NumBabies = self.Gonarch_NumBabies - 1
 	if CurTime() > self.Gonarch_NextDeadBirthT then
 		self.AllyDeathSoundT = 0
-		self:PlaySoundSystem("AllyDeath", {"vj_hlr/hl1_npc/gonarch/gon_childdie1.wav", "vj_hlr/hl1_npc/gonarch/gon_childdie2.wav", "vj_hlr/hl1_npc/gonarch/gon_childdie3.wav"})
+		self:PlaySoundSystem("AllyDeath", sdBabyDeath)
 		self.Gonarch_NextDeadBirthT = CurTime() + 10
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	-- Create baby headcrabs
-	if self.Dead == false && IsValid(self:GetEnemy()) && self.PlayingAttackAnimation == false && CurTime() > self.Gonarch_NextBirthT && self.Gonarch_NumBabies < 20 && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP))) then
+	if self.Dead == false && IsValid(self:GetEnemy()) && self.PlayingAttackAnimation == false && CurTime() > self.Gonarch_NextBirthT && self.Gonarch_NumBabies < self.Gonarch_BabyLimit && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self:VJ_ACT_PLAYACTIVITY(ACT_SPECIAL_ATTACK1, true, false, true)
 		self.Gonarch_NextBirthT = CurTime() + 15
 	end
@@ -156,13 +165,13 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibDeathParticles == true then
 		local bloodeffect = EffectData()
-		bloodeffect:SetOrigin(self:GetPos() +self:OBBCenter())
+		bloodeffect:SetOrigin(self:GetPos() + self:OBBCenter())
 		bloodeffect:SetColor(VJ_Color2Byte(Color(255,221,35)))
 		bloodeffect:SetScale(120)
 		util.Effect("VJ_Blood1",bloodeffect)
 		
 		local bloodspray = EffectData()
-		bloodspray:SetOrigin(self:GetPos() +self:OBBCenter())
+		bloodspray:SetOrigin(self:GetPos() + self:OBBCenter())
 		bloodspray:SetScale(8)
 		bloodspray:SetFlags(3)
 		bloodspray:SetColor(1)
@@ -170,7 +179,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray",bloodspray)
 		
 		local effectdata = EffectData()
-		effectdata:SetOrigin(self:GetPos() +self:OBBCenter())
+		effectdata:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectdata:SetScale(1)
 		util.Effect("StriderBlood",effectdata)
 		util.Effect("StriderBlood",effectdata)

@@ -145,7 +145,7 @@ function ENT:CustomOnResetEnemy()
 		end
 	end)
 end
-local vec = Vector(0,0,0)
+local vec = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	if dmginfo:GetDamagePosition() != vec then

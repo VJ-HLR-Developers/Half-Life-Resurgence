@@ -26,7 +26,7 @@ ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
 ENT.MoveOutOfFriendlyPlayersWay = false -- Should the SNPC move out of the way when a friendly player comes close to it?
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
-
+ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 	-- ====== File Path Variables ====== --
 	-- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
@@ -63,13 +63,13 @@ end
 function ENT:CustomOnThink()
 	if CurTime() < self.GMAN_NextMouthMove then
 		if self.GMAN_NextMouthDistance == 0 then
-			self.GMAN_NextMouthDistance = math.random(10,70)
+			self.GMAN_NextMouthDistance = math.random(10, 70)
 		else
 			self.GMAN_NextMouthDistance = 0
 		end
-		self:SetPoseParameter("m",self.GMAN_NextMouthDistance)
+		self:SetPoseParameter("m", self.GMAN_NextMouthDistance)
 	else
-		self:SetPoseParameter("m",0)
+		self:SetPoseParameter("m", 0)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

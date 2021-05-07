@@ -196,11 +196,11 @@ function ENT:CustomOnGrenadeAttack_OnThrow(grenEnt)
 		spr:Fire("Kill","",0.9)
 		timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
 		
-		light = ents.Create("light_dynamic")
+		local light = ents.Create("light_dynamic")
 		light:SetKeyValue("brightness", "4")
 		light:SetKeyValue("distance", "300")
 		light:SetLocalPos(grenEnt:GetPos())
-		light:SetLocalAngles( grenEnt:GetAngles() )
+		light:SetLocalAngles(grenEnt:GetAngles())
 		light:Fire("Color", "255 150 0")
 		light:SetParent(grenEnt)
 		light:Spawn()
@@ -227,7 +227,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibDeathParticles == true then
 		local bloodeffect = EffectData()
-		bloodeffect:SetOrigin(self:GetPos() +self:OBBCenter())
+		bloodeffect:SetOrigin(self:GetPos() + self:OBBCenter())
 		bloodeffect:SetColor(VJ_Color2Byte(Color(130,19,10)))
 		bloodeffect:SetScale(120)
 		util.Effect("VJ_Blood1",bloodeffect)
@@ -271,7 +271,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDropWeapon_AfterWeaponSpawned(dmginfo, hitgroup, wepEnt)
 	wepEnt.WorldModel_Invisible = false
-	wepEnt:SetNW2Bool("VJ_WorldModel_Invisible",false)
+	wepEnt:SetNW2Bool("VJ_WorldModel_Invisible", false)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

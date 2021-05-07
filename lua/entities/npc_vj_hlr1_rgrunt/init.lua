@@ -45,7 +45,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnThink()
 	if self.HECU_NextMouthMove > CurTime() then
-		local changeTo = self:GetSkin() +1
+		local changeTo = self:GetSkin() + 1
 		if changeTo > 3 then
 			changeTo = 1
 		end
@@ -55,11 +55,11 @@ function ENT:HECU_CustomOnThink()
 		self:SetSkin(0)
 	end
 	
+	-- Take damage if in water
 	if self:WaterLevel() == 3 then
 		self:SetHealth(self:Health() - 1)
-		if self:Health() <= 0 then
-			self.Bleeds = false
-			self:TakeDamage(1,self,self)
+		if self:Health() <= 0 then -- Actually kill it
+			self:TakeDamage(1, self, self)
 		end
 	end
 end
@@ -76,7 +76,7 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	ParticleEffect("explosion_turret_break_pre_smoke Version #2", self:GetAttachment(self:LookupAttachment("head")).Pos, Angle(0,0,0), self)
 	ParticleEffect("explosion_turret_break_sparks", self:GetAttachment(self:LookupAttachment("head")).Pos, Angle(0,0,0), self)
 end
-local vec = Vector(0,0,0)
+local vec = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 	if dmginfo:GetDamagePosition() != vec then
