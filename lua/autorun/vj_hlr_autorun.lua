@@ -364,14 +364,14 @@ if VJExists == true then
 					Panel:ControlHelp("#vjbase.menu.general.admin.only")
 					return
 				end
-				Panel:AddControl("Label", {Text = "Notice: Only admins can change this settings."})
-				Panel:AddControl("Button", {Text = "Reset Everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1"})
+				Panel:ControlHelp("#vjbase.menu.general.admin.only")
+				Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1"})
 				Panel:AddControl("Slider", {Label = "Gonarch Baby Headcrab Limit", min = 0, max = 100, Command = "vj_hlr1_gonarch_babylimit"})
 				Panel:AddControl("Checkbox", {Label = "M2A3 Bradley Deploys Human Grunts", Command = "vj_hlr1_bradley_deploygrunts"})
 			end)
 			
 			spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HL Resurgence (Client)", "HL Resurgence (Client)", "", "", function(Panel)
-				Panel:AddControl("Button", {Text = "Reset Everything", Command = "vj_hlr2_csniper_laser_usebarrel 1\nvj_hlr1_sparkfx 0"})
+				Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr2_csniper_laser_usebarrel 1\nvj_hlr1_sparkfx 0"})
 				Panel:AddControl("Checkbox", {Label = "Create HL1-Style Sparks on Metal Surfaces", Command = "vj_hlr1_sparkfx"})
 				Panel:ControlHelp("Applies ONLY to HL1 NPCs & weapons!")
 				Panel:AddControl("Checkbox", {Label = "Combine Sniper Laser Follows Gun Barrel", Command = "vj_hlr2_csniper_laser_usebarrel"})
