@@ -146,7 +146,7 @@ function ENT:Security_CustomOnInitialize()
 	self.SoundTbl_DamageByPlayer = {"vj_hlr/hl1_npc/barney/donthurtem.wav","vj_hlr/hl1_npc/barney/ba_whoathere.wav","vj_hlr/hl1_npc/barney/ba_whatyou.wav","vj_hlr/hl1_npc/barney/ba_watchit.wav","vj_hlr/hl1_npc/barney/ba_shot1.wav","vj_hlr/hl1_npc/barney/ba_shot2.wav","vj_hlr/hl1_npc/barney/ba_shot3.wav","vj_hlr/hl1_npc/barney/ba_shot4.wav","vj_hlr/hl1_npc/barney/ba_shot5.wav","vj_hlr/hl1_npc/barney/ba_shot6.wav","vj_hlr/hl1_npc/barney/ba_shot7.wav","vj_hlr/hl1_npc/barney/ba_stepoff.wav","vj_hlr/hl1_npc/barney/ba_pissme.wav","vj_hlr/hl1_npc/barney/ba_mad1.wav","vj_hlr/hl1_npc/barney/ba_mad0.wav","vj_hlr/hl1_npc/barney/ba_friends.wav","vj_hlr/hl1_npc/barney/ba_dotoyou.wav","vj_hlr/hl1_npc/barney/ba_dontmake.wav","vj_hlr/hl1_npc/barney/ba_crazy.wav"}
 	self.SoundTbl_Death = {"vj_hlr/hl1_npc/barney/ba_ht06_02_alt.wav","vj_hlr/hl1_npc/barney/ba_ht06_02.wav","vj_hlr/hl1_npc/barney/ba_die1.wav","vj_hlr/hl1_npc/barney/ba_die2.wav","vj_hlr/hl1_npc/barney/ba_die3.wav"}
 
-	self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIE_GUTSHOT,ACT_DIE_HEADSHOT,ACT_DIESIMPLE} -- Death Animations
+	self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE} -- Death Animations
 	
 	self:Give("weapon_vj_hlr1_glock17")
 end
@@ -183,13 +183,13 @@ function ENT:CustomOnThink()
 	if self.Security_Type != 2 then -- If it's regular or Otis...
 		if CurTime() < self.Security_NextMouthMove then
 			if self.Security_NextMouthDistance == 0 then
-				self.Security_NextMouthDistance = math.random(10,70)
+				self.Security_NextMouthDistance = math.random(10, 70)
 			else
 				self.Security_NextMouthDistance = 0
 			end
-			self:SetPoseParameter("m",self.Security_NextMouthDistance)
+			self:SetPoseParameter("m", self.Security_NextMouthDistance)
 		else
-			self:SetPoseParameter("m",0)
+			self:SetPoseParameter("m", 0)
 		end
 		-- For guarding
 		if self.IsGuard == true && self:GetWeaponState() == VJ_WEP_STATE_HOLSTERED && !IsValid(self:GetEnemy()) then
@@ -235,7 +235,7 @@ function ENT:Security_UnHolsterGun()
 	self:StopMoving()
 	self:VJ_ACT_PLAYACTIVITY(ACT_ARM, true, false, true)
 	self:SetWeaponState()
-	timer.Simple(0.55,function() if IsValid(self) then self:SetBodygroup(1,1) end end)
+	timer.Simple(0.55, function() if IsValid(self) then self:SetBodygroup(1, 1) end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()

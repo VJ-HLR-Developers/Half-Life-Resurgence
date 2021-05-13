@@ -6,12 +6,18 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/opfor/geneworm.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.StartHealth = 800
+ENT.StartHealth = 1080
 ENT.SightAngle = 120 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.HullType = HULL_LARGE
 ENT.VJ_IsHugeMonster = true -- Is this a huge monster?
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
 ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
+ENT.VJC_Data = {
+    ThirdP_Offset = Vector(0, 0, -150), -- The offset for the controller when the camera is in third person
+	FirstP_Bone = "Bone96", -- If left empty, the base will attempt to calculate a position for first person
+	FirstP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in first person
+	FirstP_ShrinkBone = true, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Particle = {"vj_hl_blood_yellow_large"}
@@ -77,7 +83,7 @@ function ENT:CustomOnInitialize()
 	self.GW_EyeHealth = {r=maxEyeHealth, l=maxEyeHealth}
 	self.GW_OrbHealth = maxOrbHealth
 	
-	-- Bulleye
+	-- Bulleyes for both eyes & the core
 	self.GW_BE_EyeR = ents.Create("obj_vj_bullseye")
 	self.GW_BE_EyeR:SetModel("models/hunter/plates/plate.mdl")
 	self.GW_BE_EyeR:SetParent(self)
@@ -129,7 +135,7 @@ function ENT:CustomOnInitialize()
 	self.GW_EyeLightR:Fire("TurnOn")
 	self:DeleteOnRemove(self.GW_EyeLightR)
 	
-	-- Stomach Orb
+	-- Stomach Orb (core)
 	self.GW_OrbSprite = ents.Create("env_sprite")
 	self.GW_OrbSprite:SetKeyValue("model","vj_hl/sprites/boss_glow.vmt")
 	//self.GW_OrbSprite:SetKeyValue("rendercolor","255 128 0")
@@ -150,6 +156,7 @@ function ENT:CustomOnInitialize()
 	self.GW_OrbSprite:Spawn()
 	self:DeleteOnRemove(self.GW_OrbSprite)
 	
+	-- The purple portal
 	self.GW_Portal = ents.Create("prop_vj_animatable")
 	self.GW_Portal:SetModel("models/vj_hlr/opfor/effects/geneportal.mdl")
 	self.GW_Portal:SetPos(self:GetPos() + self:GetForward()*-507)
@@ -166,7 +173,7 @@ function ENT:CustomOnInitialize()
 	self.GW_Portal.IdleLP = CreateSound(self.GW_Portal, "vj_hlr/fx/alien_creeper.wav")
 	self.GW_Portal.IdleLP:SetSoundLevel(100)
 	
-	-- Fade in on spawn, if AI is disabled, then don't do it
+	-- Fade in on spawn (Only if AI is enabled!)
 	if GetConVar("ai_disabled"):GetInt() == 0 then
 		self.GW_Portal:ResetSequence("open")
 		self.GW_Portal.MoveLP:Play()
@@ -395,6 +402,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 			timer.Remove("gw_closestomach"..self:EntIndex())
 			self.SoundTbl_Breath = {}
 			VJ_STOPSOUND(self.CurrentBreathSound)
+			self.PainSoundT = 0 -- Otherwise it won't play the sound because it played another pain sound right before this!
 			self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain3.wav")
 			self:VJ_ACT_PLAYACTIVITY("pain_3", true, false)
 			timer.Simple(VJ_GetSequenceDuration(self, "pain_3"),function()
