@@ -35,17 +35,6 @@ function ENT:Security_UnHolsterGun()
 		timer.Simple(0.85,function() if IsValid(self) then self:SetBodygroup(1,1) end end)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
-	if self.Dead == true or self:BusyWithActivity() then return end
-	if IsValid(self:GetEnemy()) then
-		if self:GetWeaponState() == VJ_WEP_STATE_HOLSTERED then self:Security_UnHolsterGun() end
-	elseif self:GetWeaponState() != VJ_WEP_STATE_HOLSTERED && self.TimeSinceLastSeenEnemy > 5 then
-		self:VJ_ACT_PLAYACTIVITY(ACT_DISARM, true, false, true)
-		self:SetWeaponState(VJ_WEP_STATE_HOLSTERED)
-		timer.Simple(1, function() if IsValid(self) && !IsValid(self:GetEnemy()) then self:SetBodygroup(1, 0) end end)
-	end
-end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

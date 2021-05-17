@@ -78,6 +78,12 @@ function ENT:CustomOnInitialize()
 	self.NextIdleSoundT_RegularChange = 0
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+	function controlEnt:CustomOnThink(key)
+		self.VJCE_Player:ChatPrint(math.max(0, self.VJCE_NPC.Snark_EnergyTime - CurTime()) .. " seconds left! Eat to gain more!")
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	if IsValid(self:GetEnemy()) && self.VJ_IsBeingControlled == false && self.Dead == false && self:IsOnGround() && self:Visible(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) > self.LeapDistance + 10 && CurTime() > self.Snark_NextJumpWalkT then
 		self:VJ_ACT_PLAYACTIVITY(ACT_RUN, false, 0.7, true)

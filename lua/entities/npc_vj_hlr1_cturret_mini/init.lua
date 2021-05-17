@@ -8,7 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/hl1/turret_mini.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 50
 ENT.VJC_Data = {
-    ThirdP_Offset = Vector(0, 30, -60), -- The offset for the controller when the camera is in third person
+    ThirdP_Offset = Vector(0, 0, -80), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Dummy02", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in first person
 	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view

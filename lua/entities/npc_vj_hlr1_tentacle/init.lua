@@ -56,9 +56,40 @@ function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(20, 20, 160), Vector(-20, -20, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+	self.CanTurnWhileStationary = true
+	controlEnt.LastTentacleLevel = self.Tentacle_Level
+	
+	function controlEnt:CustomOnKeyPressed(key)
+		if key == KEY_SPACE then
+			local curLvl = self.VJCE_NPC.Tentacle_Level
+			//print("Cur: " .. curLvl)
+			//print("Last: " .. self.LastTentacleLevel)
+			if curLvl == 0 then
+				self.VJCE_NPC:Tentacle_CalculateLevel(170)
+			elseif curLvl == 1 then
+				self.VJCE_NPC:Tentacle_CalculateLevel(self.LastTentacleLevel == 2 and 0 or 430)
+			elseif curLvl == 2 then
+				self.VJCE_NPC:Tentacle_CalculateLevel(self.LastTentacleLevel == 3 and 0 or 570)
+			elseif curLvl == 3 then
+				self.VJCE_NPC:Tentacle_CalculateLevel(0)
+			end
+			self.LastTentacleLevel = curLvl
+		end
+	end
+	
+	function controlEnt:CustomOnStopControlling()
+		self.CanTurnWhileStationary = false
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply, controlEnt)
+	ply:ChatPrint("SPACE: Cycle through height levels")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnHandleAnimEvent(ev, evTime, evCycle, evType, evOptions)
 	-- Take care of the regular hit sound (When playing idle animations)
-	if ev == 6 then
+	if ev == 6 && !self.VJ_IsBeingControlled then
 		self:PlaySoundSystem("MeleeAttack", {"vj_hlr/hl1_npc/tentacle/te_strike1.wav","vj_hlr/hl1_npc/tentacle/te_strike2.wav"}, VJ_EmitSound)
 		if IsValid(self:GetEnemy()) && (self:GetEnemy():GetPos():Distance(self:GetPos() + self:GetForward()*150)) < 200 then
 			self.CanTurnWhileStationary = true
@@ -75,8 +106,6 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		if IsValid(self:GetEnemy()) then self:SetAngles(self:GetFaceAngle((self:GetEnemy():GetPos()-self:GetPos()):Angle())) end
 	end
 end
--- 0 to 1 = ACT_SIGNAL1				1 to 2 = ACT_SIGNAL2			2 to 3 = ACT_SIGNAL3
--- 1 to 0 = ACT_SIGNAL_ADVANCE		2 to 1 = ACT_SIGNAL_FORWARD		3 to 2 = ACT_SIGNAL_HALT
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tentacle_DoLevelChange(num)
 	local lvl = self.Tentacle_Level + num
@@ -104,85 +133,96 @@ function ENT:Tentacle_DoLevelChange(num)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+--
+-- 0 to 1 = ACT_SIGNAL1				1 to 2 = ACT_SIGNAL2			2 to 3 = ACT_SIGNAL3
+-- 1 to 0 = ACT_SIGNAL_ADVANCE		2 to 1 = ACT_SIGNAL_FORWARD		3 to 2 = ACT_SIGNAL_HALT
+--
+function ENT:Tentacle_CalculateLevel(eneDist)
+	-- 0 = Floor level
+	-- 1 = Medium Level
+	-- 2 = High Level
+	-- 3 = Extreme Level
+	//print("dist: "..eneDist)
+	if eneDist >= 570 then
+		if self.Tentacle_Level != 3 then
+			self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL3, true, false, false)
+			self:Tentacle_DoLevelChange(1)
+		end
+	elseif eneDist >= 430 then
+		if self.Tentacle_Level != 2 then
+			if self.Tentacle_Level > 2 then
+				self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_HALT, true, false, false)
+				self:Tentacle_DoLevelChange(-1)
+			else
+				self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2, true, false, false)
+				self:Tentacle_DoLevelChange(1)
+			end
+		end
+	elseif eneDist >= 170 then
+		if self.Tentacle_Level != 1 then
+			if self.Tentacle_Level > 1 then
+				self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_FORWARD, true, false, false)
+				self:Tentacle_DoLevelChange(-1)
+			else
+				self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1, true, false, false)
+				self:Tentacle_DoLevelChange(1)
+			end
+		end
+	else
+		if self.Tentacle_Level != 0 then
+			if self.Tentacle_Level > 0 then
+				self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_ADVANCE, true, false, false)
+				self:Tentacle_DoLevelChange(-1)
+			else
+				self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1, true, false, false)
+				self:Tentacle_DoLevelChange(1)
+			end
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetNearestPointToEntityPosition()
 	-- Take care of the nearest point starting position
-	local resultz = 0
+	local resultZ = 0
 	if self.Tentacle_Level == 3 then
-		resultz = 570
+		resultZ = 570
 	elseif self.Tentacle_Level == 2 then
-		resultz = 430
+		resultZ = 430
 	elseif self.Tentacle_Level == 1 then
-		resultz = 170
+		resultZ = 170
 	end
-	return self:GetPos() + self:GetForward() + self:GetUp()*resultz -- Override this to use a different position
+	return self:GetPos() + self:GetForward() + self:GetUp()*resultZ -- Override this to use a different position
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetMeleeAttackDamagePosition()
 	-- Take care of the melee damage starting position
-	local resultz = 0
+	local resultZ = 0
 	if self.Tentacle_Level == 3 then
-		resultz = 570
+		resultZ = 570
 	elseif self.Tentacle_Level == 2 then
-		resultz = 430
+		resultZ = 430
 	elseif self.Tentacle_Level == 1 then
-		resultz = 170
+		resultZ = 170
 	end
-	return self:GetPos() + self:GetForward() + self:GetUp()*resultz -- Override this to use a different position
+	return self:GetPos() + self:GetForward() + self:GetUp()*resultZ -- Override this to use a different position
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
+	if self.VJ_IsBeingControlled == true then return end
+	
 	if IsValid(self:GetEnemy()) then
+		-- If enemy is (on ground & moving) OR (its an NPC that is moving)
 		if (self:GetEnemy():GetVelocity():Length() > 50 && self:GetEnemy():IsOnGround()) or (self:GetEnemy():IsNPC() && self:GetEnemy():IsMoving()) then
 			self.CanTurnWhileStationary = true
 		else
 			self.CanTurnWhileStationary = false
 		end
 		
+		-- Take care of the level calculation
 		if self.CanTurnWhileStationary == true then
-			-- 0 = Floor level
-			-- 1 = Medium Level
-			-- 2 = High Level
-			-- 3 = Extreme Level
-			local enedist = (self:GetEnemyLastKnownPos() - self:GetPos()).z
-			//print("dist: "..enedist)
-			if enedist >= 570 then
-				if self.Tentacle_Level != 3 then
-					self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL3, true, false, false)
-					self:Tentacle_DoLevelChange(1)
-				end
-			elseif enedist >= 430 then
-				if self.Tentacle_Level != 2 then
-					if self.Tentacle_Level > 2 then
-						self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_HALT, true, false, false)
-						self:Tentacle_DoLevelChange(-1)
-					else
-						self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2, true, false, false)
-						self:Tentacle_DoLevelChange(1)
-					end
-				end
-			elseif enedist >= 170 then
-				if self.Tentacle_Level != 1 then
-					if self.Tentacle_Level > 1 then
-						self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_FORWARD, true, false, false)
-						self:Tentacle_DoLevelChange(-1)
-					else
-						self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1, true, false, false)
-						self:Tentacle_DoLevelChange(1)
-					end
-				end
-			else
-				if self.Tentacle_Level != 0 then
-					if self.Tentacle_Level > 0 then
-						self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_ADVANCE, true, false, false)
-						self:Tentacle_DoLevelChange(-1)
-					else
-						self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1, true, false, false)
-						self:Tentacle_DoLevelChange(1)
-					end
-				end
-			end
+			self:Tentacle_CalculateLevel((self:GetEnemyLastKnownPos() - self:GetPos()).z)
 		end
-	else
+	else -- Don't turn while idle!
 		self.CanTurnWhileStationary = false
 	end
 end

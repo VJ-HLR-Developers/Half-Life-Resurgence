@@ -166,6 +166,22 @@ function ENT:CustomOnInitialize()
 	self:Security_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+	function controlEnt:CustomOnKeyPressed(key)
+		if key == KEY_SPACE && self.VJCE_NPC:GetActivity() != ACT_DISARM && self.VJCE_NPC:GetActivity() != ACT_ARM then
+			if self.VJCE_NPC:GetWeaponState() == VJ_WEP_STATE_HOLSTERED then
+				self.VJCE_NPC:Security_UnHolsterGun()
+			else
+				self.VJCE_NPC:Security_HolsterGun()
+			end
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply, controlEnt)
+	ply:ChatPrint("SPACE: Holster / Unholster gun")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
@@ -181,6 +197,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	if self.Security_Type != 2 then -- If it's regular or Otis...
+		-- Mouth movement
 		if CurTime() < self.Security_NextMouthMove then
 			if self.Security_NextMouthDistance == 0 then
 				self.Security_NextMouthDistance = math.random(10, 70)
@@ -191,6 +208,7 @@ function ENT:CustomOnThink()
 		else
 			self:SetPoseParameter("m", 0)
 		end
+		
 		-- For guarding
 		if self.IsGuard == true && self:GetWeaponState() == VJ_WEP_STATE_HOLSTERED && !IsValid(self:GetEnemy()) then
 			if self.Security_SwitchedIdle == false then
@@ -211,7 +229,9 @@ function ENT:OnPlayCreateSound(sdData, sdFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
-	if math.random(1,2) == 1 then
+	if self.VJ_IsBeingControlled == true then return end
+	
+	if math.random(1, 2) == 1 then
 		if self.Security_Type == 0 then
 			if ent:GetClass() == "npc_vj_hlr1_bullsquid" then
 				self:PlaySoundSystem("Alert", {"vj_hlr/hl1_npc/barney/c1a4_ba_octo1.wav"})
@@ -231,6 +251,16 @@ function ENT:CustomOnAlert(ent)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Security_HolsterGun()
+	self:VJ_ACT_PLAYACTIVITY(ACT_DISARM, true, false, true)
+	self:SetWeaponState(VJ_WEP_STATE_HOLSTERED)
+	timer.Simple(self.Security_Type == 2 and 1 or 1.5, function()
+		if IsValid(self) && self:GetWeaponState() == VJ_WEP_STATE_HOLSTERED then
+			self:SetBodygroup(1, 0)
+		end
+	end)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Security_UnHolsterGun()
 	self:StopMoving()
 	self:VJ_ACT_PLAYACTIVITY(ACT_ARM, true, false, true)
@@ -239,25 +269,27 @@ function ENT:Security_UnHolsterGun()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.Dead == true or self:BusyWithActivity() then return end
-	if IsValid(self:GetEnemy()) then
-		if self:GetWeaponState() == VJ_WEP_STATE_HOLSTERED then self:Security_UnHolsterGun() end
+	if self.VJ_IsBeingControlled == true or self.Dead == true or self:BusyWithActivity() then return end
+	
+	if IsValid(self:GetEnemy()) then -- If enemy is seen then make sure gun is NOT holstered
+		if self:GetWeaponState() == VJ_WEP_STATE_HOLSTERED then
+			self:Security_UnHolsterGun()
+		end
 	elseif self:GetWeaponState() != VJ_WEP_STATE_HOLSTERED && self.TimeSinceLastSeenEnemy > 5 then
-		self:VJ_ACT_PLAYACTIVITY(ACT_DISARM, true, false, true)
-		self:SetWeaponState(VJ_WEP_STATE_HOLSTERED)
-		timer.Simple(1.5, function() if IsValid(self) && !IsValid(self:GetEnemy()) then self:SetBodygroup(1, 0) end end)
+		self:Security_HolsterGun()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
 --
 function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
-	if self.Security_Type == 1 then return end
+	-- Make a metal effect when the helmet is hit!
+	if self.Security_Type == 1 then return end -- Only types that do have a helmet
 	if hitgroup == HITGROUP_GEAR && dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(4) -- Size
-		rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
+		rico:SetMagnitude(math.random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
 		util.Effect("VJ_HLR_Rico",rico)
 	end
 end

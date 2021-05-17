@@ -51,12 +51,43 @@ ENT.Sentry_SubType = 0 -- 0 = Ground | 1 = Ceiling
 
 ENT.Sentry_HasLOS = false -- Has line of sight
 ENT.Sentry_StandDown = true
-ENT.Sentry_SpinnedUp = false
+ENT.Sentry_SpunUp = false
 ENT.Sentry_CurrentParameter = 0
 ENT.Sentry_NextAlarmT = 0
+ENT.Sentry_ControllerStatus = 0 -- Current status of the controller, 0 = Idle | 1 = Alerted
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(13, 13, 60), Vector(-13, -13, 0))
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+	self.Sentry_ControllerStatus = 0
+	self.HasPoseParameterLooking = false -- Initially, we are going to start as idle, we do NOT want the sentry turning!
+	self.NextAlertSoundT = CurTime() + 1 -- So it doesn't play the alert sound as soon as it enters the NPC!
+	
+	function controlEnt:CustomOnKeyPressed(key)
+		if key == KEY_SPACE then
+			if self.VJCE_NPC.Sentry_ControllerStatus == 0 then
+				self.VJCE_NPC.Sentry_ControllerStatus = 1
+				self.VJCE_NPC.HasPoseParameterLooking = true
+				self.VJCE_NPC:PlaySoundSystem("Alert")
+				self.VJCE_NPC:Sentry_Activate()
+			elseif self.VJCE_NPC.Sentry_SpunUp then -- Do NOT become idle if we are playing an activate routine!
+				self.VJCE_NPC.Sentry_ControllerStatus = 0
+				self.VJCE_NPC.HasPoseParameterLooking = false
+			end
+		end
+	end
+	
+	function controlEnt:CustomOnStopControlling()
+		if IsValid(self.VJCE_NPC) then
+			self.VJCE_NPC.HasPoseParameterLooking = true
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply, controlEnt)
+	ply:ChatPrint("SPACE: Activate / Deactivate")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
@@ -80,7 +111,7 @@ function ENT:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if IsValid(self:GetEnemy()) or self.Alerted == true then
+	if (self.Sentry_ControllerStatus == 1) or (!self.VJ_IsBeingControlled && (IsValid(self:GetEnemy()) or self.Alerted == true)) then
 		self.Sentry_StandDown = false
 		self.AnimTbl_IdleStand = {"spin"}
 		
@@ -105,13 +136,13 @@ function ENT:CustomOnThink_AIEnabled()
 			self:SetPoseParameter("aim_yaw", self:GetPoseParameter("aim_yaw") + 4)
 		end
 	else
-		if CurTime() > self.NextResetEnemyT && self.Alerted == false && self.Sentry_StandDown == false then
+		if ((self.Sentry_ControllerStatus == 0) or (!self.VJ_IsBeingControlled && self.Alerted == false && CurTime() > self.NextResetEnemyT)) && self.Sentry_StandDown == false then
 			self.Sentry_StandDown = true
-			self:VJ_ACT_PLAYACTIVITY({"retire"},true,1)
-			VJ_EmitSound(self,{"vj_hlr/hl1_npc/turret/tu_retract.wav"},65,self:VJ_DecideSoundPitch(100,110))
+			self:VJ_ACT_PLAYACTIVITY("retire", true, 1)
+			VJ_EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_retract.wav"}, 65, self:VJ_DecideSoundPitch(100, 110))
 			if self.Sentry_Type == 1 then
-				self.Sentry_SpinnedUp = false
-				VJ_EmitSound(self,"vj_hlr/hl1_npc/turret/tu_spindown.wav",80,100)
+				self.Sentry_SpunUp = false
+				VJ_EmitSound(self, "vj_hlr/hl1_npc/turret/tu_spindown.wav", 80, 100)
 			end
 		end
 		if self.Sentry_StandDown == true then
@@ -130,7 +161,7 @@ function ENT:CustomOn_PoseParameterLookingCode(pitch, yaw, roll)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttackCheck_RangeAttack()
-	if self.Sentry_HasLOS == true && self.Sentry_SpinnedUp == true then return true end
+	return self.Sentry_HasLOS == true && self.Sentry_SpunUp == true && !self.Sentry_StandDown
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnResetEnemy()
@@ -145,8 +176,9 @@ function ENT:CustomOnResetEnemy()
 		end
 	end)
 end
-local vec = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vec = Vector(0, 0, 0)
+--
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	if dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
@@ -158,26 +190,31 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
+	if self.VJ_IsBeingControlled == true then return end
+	self:Sentry_Activate()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Sentry_Activate()
 	if self.Sentry_Type == 1 then -- If it's big turret, then make sure it's not looking until it has fully deployed
 		self.HasPoseParameterLooking = false
 	end
 	self.Sentry_NextAlarmT = CurTime() + 3 -- Make sure the Alarm light doesn't play right away
 	self.NextResetEnemyT = CurTime() + 1 -- Make sure it doesn't reset the enemy right away
-	self:VJ_ACT_PLAYACTIVITY({"deploy"},true,false)
+	self:VJ_ACT_PLAYACTIVITY("deploy", true, false)
 	if self.Sentry_Type == 1 then -- If it's a big turret then do a spin up action
 		timer.Simple(1, function()
 			if IsValid(self) && IsValid(self:GetEnemy()) then
 				self.HasPoseParameterLooking = true
-				VJ_EmitSound(self,"vj_hlr/hl1_npc/turret/tu_spinup.wav",80,100)
-				timer.Simple(1,function()
+				VJ_EmitSound(self, "vj_hlr/hl1_npc/turret/tu_spinup.wav", 80, 100)
+				timer.Simple(1, function()
 					if IsValid(self) && IsValid(self:GetEnemy()) then
-						self.Sentry_SpinnedUp = true
+						self.Sentry_SpunUp = true
 					end
 				end)
 			end
 		end)
 	else
-		self.Sentry_SpinnedUp = true
+		self.Sentry_SpunUp = true
 	end
 	VJ_EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_alert.wav"}, 75, 100)
 end
@@ -201,7 +238,7 @@ function ENT:CustomRangeAttackCode()
 	
 	VJ_EmitSound(self,{"vj_hlr/hl1_npc/turret/tu_fire1.wav"},90,self:VJ_DecideSoundPitch(100,110))
 	
-	muz = ents.Create("env_sprite_oriented")
+	local muz = ents.Create("env_sprite_oriented")
 	muz:SetKeyValue("model","vj_hl/sprites/muzzleflash3.vmt")
 	if self.Sentry_Type == 1 then
 		muz:SetKeyValue("scale",""..math.Rand(0.8,1))
@@ -259,7 +296,7 @@ function ENT:CustomOnKilled(dmginfo, hitgroup)
 	end
 	spr:Spawn()
 	spr:Fire("Kill","",0.9)
-	timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
+	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
