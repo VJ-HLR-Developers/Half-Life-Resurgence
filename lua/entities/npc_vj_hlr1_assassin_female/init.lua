@@ -26,11 +26,13 @@ ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1,ACT_MELEE_ATTACK2} -- Melee Attack Animations
 ENT.MeleeAttackDamage = 15
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
+
 ENT.HasGrenadeAttack = true -- Should the SNPC have a grenade attack?
-ENT.GrenadeAttackModel = "models/vj_hlr/weapons/w_grenade.mdl" -- The model for the grenade entity
+ENT.GrenadeAttackEntity = "obj_vj_hlr1_grenade" -- The entity that the SNPC throws | Half Life 2 Grenade: "npc_grenade_frag"
 ENT.AnimTbl_GrenadeAttack = {ACT_RANGE_ATTACK2} -- Grenade Attack Animations
 ENT.GrenadeAttackAttachment = "grenadehand" -- The attachment that the grenade will spawn at
 ENT.TimeUntilGrenadeIsReleased = 0.4 -- Time until the grenade is released
+
 ENT.AllowWeaponReloading = false -- If false, the SNPC will no longer reload
 ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
 ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
@@ -158,68 +160,6 @@ function ENT:OnFireBullet(ent, data)
 		//end)
 		self.BOA_NextJumpT = CurTime() + 4
 		self.BOA_NextRunT = CurTime() + 4
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnGrenadeAttack_OnThrow(grenEnt)
-	grenEnt.DecalTbl_DeathDecals = {"VJ_HLR_Scorch"}
-	grenEnt.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/grenade/grenade_hit1.wav","vj_hlr/hl1_weapon/grenade/grenade_hit2.wav","vj_hlr/hl1_weapon/grenade/grenade_hit3.wav"}
-	grenEnt.SoundTbl_OnRemove = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}
-	grenEnt.OnRemoveSoundLevel = 100
-	
-	function grenEnt:CustomOnPhysicsCollide(data,phys)
-		local getvelocity = phys:GetVelocity()
-		local velocityspeed = getvelocity:Length()
-		phys:SetVelocity(getvelocity * 0.5)
-		
-		if velocityspeed > 100 then -- If the grenade is going faster than 100, then play the touch sound
-			self:OnCollideSoundCode()
-		end
-	end
-	
-	function grenEnt:DeathEffects()
-		local spr = ents.Create("env_sprite")
-		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-		spr:SetKeyValue("GlowProxySize","2.0")
-		spr:SetKeyValue("HDRColorScale","1.0")
-		spr:SetKeyValue("renderfx","14")
-		spr:SetKeyValue("rendermode","5")
-		spr:SetKeyValue("renderamt","255")
-		spr:SetKeyValue("disablereceiveshadows","0")
-		spr:SetKeyValue("mindxlevel","0")
-		spr:SetKeyValue("maxdxlevel","0")
-		spr:SetKeyValue("framerate","15.0")
-		spr:SetKeyValue("spawnflags","0")
-		spr:SetKeyValue("scale","4")
-		spr:SetPos(grenEnt:GetPos() + Vector(0,0,90))
-		spr:Spawn()
-		spr:Fire("Kill","",0.9)
-		timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
-		
-		local light = ents.Create("light_dynamic")
-		light:SetKeyValue("brightness", "4")
-		light:SetKeyValue("distance", "300")
-		light:SetLocalPos(grenEnt:GetPos())
-		light:SetLocalAngles(grenEnt:GetAngles())
-		light:Fire("Color", "255 150 0")
-		light:SetParent(grenEnt)
-		light:Spawn()
-		light:Activate()
-		light:Fire("TurnOn", "", 0)
-		grenEnt:DeleteOnRemove(light)
-		util.ScreenShake(grenEnt:GetPos(), 100, 200, 1, 2500)
-		
-		grenEnt:SetLocalPos(Vector(grenEnt:GetPos().x,grenEnt:GetPos().y,grenEnt:GetPos().z +4)) -- Because the entity is too close to the ground
-		local tr = util.TraceLine({
-		start = grenEnt:GetPos(),
-		endpos = grenEnt:GetPos() - Vector(0, 0, 100),
-		filter = grenEnt })
-		util.Decal(VJ_PICK(grenEnt.DecalTbl_DeathDecals),tr.HitPos+tr.HitNormal,tr.HitPos-tr.HitNormal)
-		
-		grenEnt:DoDamageCode()
-		grenEnt:SetDeathVariablesTrue(nil,nil,false)
-		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 80, 100)
-		grenEnt:Remove()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

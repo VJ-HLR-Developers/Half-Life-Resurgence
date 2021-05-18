@@ -56,21 +56,19 @@ function ENT:CustomOnTakeDamage(dmginfo)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPhysicsCollide(data,phys)
-	local getvelocity = phys:GetVelocity()
-	local velocityspeed = getvelocity:Length()
-	//if velocityspeed > 500 then -- Or else it will go flying!
-		//phys:SetVelocity(getvelocity + self:GetUp()*1000)
+	local getVel = phys:GetVelocity()
+	local curVelSpeed = getVel:Length()
+	//if curVelSpeed > 500 then -- Or else it will go flying!
+		//phys:SetVelocity(getVel + self:GetUp()*1000)
 	//end
 	
-	if velocityspeed > 100 then -- If the grenade is going faster than 100, then play the touch sound
+	if curVelSpeed > 100 then -- If the grenade is going faster than 100, then play the touch sound
 		self:OnCollideSoundCode()
 	end
 	
 	local ent = data.HitEntity
-	if IsValid(ent) then
-		if ent:IsNPC() or ent:IsPlayer() then
-			self:DeathEffects()
-		end
+	if IsValid(ent) && (ent:IsNPC() or ent:IsPlayer()) then
+		self:DeathEffects()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -81,7 +79,7 @@ function ENT:DeathEffects()
 	//ParticleEffect("vj_hl_spore_splash2", self:GetPos(), Angle(0,0,0), nil)
 	
 	self:DoDamageCode()
-	self:SetDeathVariablesTrue(nil,nil,false)
+	self:SetDeathVariablesTrue(nil, nil, false)
 	self:Remove()
 end
 /*-----------------------------------------------

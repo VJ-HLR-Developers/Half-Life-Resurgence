@@ -24,7 +24,7 @@ ENT.HasBloodPool = false -- Does it have a blood pool?
 -- ACT_MELEE_ATTACK2, ACT_SPECIAL_ATTACK1    = Swing / stab
 -- ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK_SWING = Cutting (dozen times)
 -- ACT_RANGE_ATTACK2						 = Sonic attack (This must be inputted twice so it has a fair chance to the other attacks!)
-ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2, ACT_SPECIAL_ATTACK1, ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK_SWING, ACT_MELEE_ATTACK2, ACT_SPECIAL_ATTACK1} -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2, ACT_SPECIAL_ATTACK1, ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK_SWING, ACT_MELEE_ATTACK2, ACT_SPECIAL_ATTACK1, ACT_RANGE_ATTACK2, ACT_RANGE_ATTACK2} -- Melee Attack Animations
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDistance = 40 -- How close does it have to be until it attacks?
 ENT.MeleeAttackDamageDistance = 70 -- How far does the damage go?
@@ -79,6 +79,64 @@ function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(25, 25, 90), Vector(-25, -25, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+	function controlEnt:CustomOnKeyPressed(key)
+		if key == KEY_SPACE then
+			self.VJCE_NPC:Tor_StartSpawnAlly()
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply, controlEnt)
+	ply:ChatPrint("SPACE: Spawn an Alien Grunt")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local vezZ20 = Vector(0, 0, 20)
+--
+function ENT:Tor_CreateAlly()
+	local spawnPos = self:GetPos() + self:GetForward() * 100 + self:GetUp() * 5
+	local ally = ents.Create("npc_vj_hlr1_aliengrunt")
+	ally:SetPos(spawnPos)
+	ally:SetAngles(self:GetAngles())
+	ally:Spawn()
+	ally:Activate()
+	
+	local effectTeleport = VJ_HLR_Effect_PortalSpawn(spawnPos + vezZ20)
+	effectTeleport:Fire("Kill", "", 1)
+	self:DeleteOnRemove(effectTeleport)
+	return ally
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Tor_SpawnAlly()
+	-- Can have a total of 4, only 1 can be spawned at a time with a delay until another one is spawned
+	if !IsValid(self.Tor_Ally1) then
+		self.Tor_Ally1 = self:Tor_CreateAlly()
+		return
+	elseif !IsValid(self.Tor_Ally2) then
+		self.Tor_Ally2 = self:Tor_CreateAlly()
+		return
+	elseif !IsValid(self.Tor_Ally3) then
+		self.Tor_Ally3 = self:Tor_CreateAlly()
+		return
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Tor_StartSpawnAlly()
+	if !self:BusyWithActivity() && CurTime() > self.Tor_NextSpawnT && (!IsValid(self.Tor_Ally1) or !IsValid(self.Tor_Ally2) or !IsValid(self.Tor_Ally3)) then
+		-- Make sure not to place it if the front of the NPC is blocked!
+		local tr = util.TraceLine({
+			start = self:GetPos() + self:OBBCenter(),
+			endpos = self:GetPos() + self:OBBCenter() + self:GetForward()*150,
+			filter = self
+		})
+		if !tr.Hit then
+			self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_GROUP, true, false)
+			VJ_EmitSound(self, "vj_hlr/hlsc_npc/tor/tor-summon.wav")
+			self.Tor_NextSpawnT = CurTime() + 10
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
@@ -115,24 +173,16 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.Dead == true then return end
-	if IsValid(self:GetEnemy()) && self:BusyWithActivity() != true && CurTime() > self.Tor_NextSpawnT && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP))) && (!IsValid(self.Tor_Ally1) or !IsValid(self.Tor_Ally2) or !IsValid(self.Tor_Ally3)) then
-		-- Make sure not to place it if the front of the NPC is blocked!
-		local tr = util.TraceLine({
-			start = self:GetPos() + self:OBBCenter(),
-			endpos = self:GetPos() + self:OBBCenter() + self:GetForward()*150,
-			filter = self
-		})
-		if !tr.Hit then
-			self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_GROUP, true, false)
-			VJ_EmitSound(self, "vj_hlr/hlsc_npc/tor/tor-summon.wav")
-			self.Tor_NextSpawnT = CurTime() + 10
-		end
+	if self.Dead or self.VJ_IsBeingControlled then return end
+	
+	-- Spawn an ally
+	if IsValid(self:GetEnemy()) then
+		self:Tor_StartSpawnAlly()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
-	self:VJ_ACT_PLAYACTIVITY(ACT_DEPLOY, true, false, true)
+	self:VJ_ACT_PLAYACTIVITY(ACT_DEPLOY, true, false, true) -- Angry animation
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(projectile)
@@ -146,34 +196,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(projectile)
 	return self:CalculateProjectile("Line", self:GetAttachment(self:LookupAttachment("0")).Pos, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 700)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Tor_CreateAlly()
-	local spawnpos = self:GetPos() + self:GetForward() * 100 + self:GetUp() * 5
-	local ally = ents.Create("npc_vj_hlr1_aliengrunt")
-	ally:SetPos(spawnpos)
-	ally:SetAngles(self:GetAngles())
-	ally:Spawn()
-	ally:Activate()
-	
-	local effectTeleport = VJ_HLR_Effect_PortalSpawn(spawnpos + Vector(0,0,20))
-	effectTeleport:Fire("Kill","",1)
-	self:DeleteOnRemove(effectTeleport)
-	return ally
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Tor_SpawnAlly()
-	-- Can have a total of 4, only 1 can be spawned at a time with a delay until another one is spawned
-	if !IsValid(self.Tor_Ally1) then
-		self.Tor_Ally1 = self:Tor_CreateAlly()
-		return
-	elseif !IsValid(self.Tor_Ally2) then
-		self.Tor_Ally2 = self:Tor_CreateAlly()
-		return
-	elseif !IsValid(self.Tor_Ally3) then
-		self.Tor_Ally3 = self:Tor_CreateAlly()
-		return
-	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
