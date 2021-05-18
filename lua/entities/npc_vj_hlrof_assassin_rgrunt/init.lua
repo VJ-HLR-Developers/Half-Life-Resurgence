@@ -17,7 +17,7 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
-	self:SetBodygroup(1,math.random(0,1))
+	self:SetBodygroup(1, math.random(0, 1))
 	self.SoundTbl_FootStep = {"vj_hlr/hl1_npc/rgrunt/pl_metal1.wav","vj_hlr/hl1_npc/rgrunt/pl_metal2.wav","vj_hlr/hl1_npc/rgrunt/pl_metal3.wav","vj_hlr/hl1_npc/rgrunt/pl_metal4.wav"}
 	self.SoundTbl_Breath = {"vj_hlr/hl1_npc/rgrunt/rb_engine_alt.wav"}
 	self.SoundTbl_Alert = {"vj_hlr/hl1_npc/rgrunt/rb_cover1.wav"}

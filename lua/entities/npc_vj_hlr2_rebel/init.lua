@@ -39,9 +39,9 @@ ENT.Human_SdFolder = "male01"
 ENT.Human_Type = 0 -- 0 = Rebel | 1 = Engineer
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-	if math.random(1,2) == 1 then
+	if math.random(1, 2) == 1 then
 		self.Human_Gender = 0
-		if math.random(1,5) == 1 && self.Human_Type != 1 then
+		if math.random(1, 5) == 1 && self.Human_Type != 1 then
 			self.Model = {"models/Humans/Group03m/male_01.mdl","models/Humans/Group03m/male_02.mdl","models/Humans/Group03m/male_03.mdl","models/Humans/Group03m/male_04.mdl","models/Humans/Group03m/male_05.mdl","models/Humans/Group03m/male_06.mdl","models/Humans/Group03m/male_07.mdl","models/Humans/Group03m/male_08.mdl","models/Humans/Group03m/male_09.mdl"}
 			self.IsMedicSNPC = true
 		else
@@ -56,10 +56,10 @@ function ENT:CustomOnPreInitialize()
 			self.Model = {"models/Humans/Group03/female_01.mdl","models/Humans/Group03/female_02.mdl","models/Humans/Group03/female_03.mdl","models/Humans/Group03/female_04.mdl","models/Humans/Group03/female_06.mdl","models/Humans/Group03/female_07.mdl"}
 		end
 	end
-	if self.IsMedicSNPC == false && math.random(1,3) == 1 then
+	if self.IsMedicSNPC == false && math.random(1, 3) == 1 then
 		self.WeaponInventory_AntiArmor = true
 	end
-	if math.random(1,3) == 1 or self.Human_Type == 1 then
+	if math.random(1, 3) == 1 or self.Human_Type == 1 then
 		self.WeaponInventory_Melee = true
 	end
 end
@@ -158,7 +158,7 @@ function ENT:CustomOnEntityRelationshipCheck(ent, entFri, entDist)
 	if ent:IsPlayer() && entFri == true && entDist <= 200 && !IsValid(self:GetEnemy()) && CurTime() > self.Human_NextPlyReloadSd then
 		self.Human_NextPlyReloadSd = CurTime() + math.Rand(10,60)
 		local wep = ent:GetActiveWeapon()
-		if math.random(1,3) == 1 && IsValid(wep) && wep:Clip1() < wep:GetMaxClip1() && ent:GetAmmoCount(wep:GetPrimaryAmmoType()) > 0 then
+		if math.random(1, 3) == 1 && IsValid(wep) && wep:Clip1() < wep:GetMaxClip1() && ent:GetAmmoCount(wep:GetPrimaryAmmoType()) > 0 then
 			self:PlaySoundSystem("GeneralSpeech",{
 				"vo/npc/"..self.Human_SdFolder.."/dontforgetreload01.wav",
 				"vo/npc/"..self.Human_SdFolder.."/reloadfm01.wav",
@@ -173,7 +173,7 @@ function ENT:CustomOnDoChangeWeapon(newWeapon, oldWeapon, invSwitch)
 	if invSwitch == true then -- Only if it's a inventory switch
 		self:VJ_ACT_PLAYACTIVITY(ACT_PICKUP_RACK, true, false, true)
 	end
-	if self:GetWeaponState() == VJ_WEP_STATE_ANTI_ARMOR && self.Human_Gender == 0 && math.random(1,2) == 1 then self:PlaySoundSystem("GeneralSpeech",{"vo/npc/male01/evenodds.wav"}) end
+	if self:GetWeaponState() == VJ_WEP_STATE_ANTI_ARMOR && self.Human_Gender == 0 && math.random(1, 2) == 1 then self:PlaySoundSystem("GeneralSpeech", "vo/npc/male01/evenodds.wav") end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoKilledEnemy(ent, attacker, inflictor)
@@ -181,7 +181,7 @@ function ENT:CustomOnDoKilledEnemy(ent, attacker, inflictor)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
-	if math.random(1,2) == 1 && ent:IsNPC() then
+	if math.random(1, 2) == 1 && ent:IsNPC() then
 		//print(ent:Classify())
 		if ent.HLR_Type == "Headcrab" or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast" then
 			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/headcrabs01.wav","vo/npc/"..self.Human_SdFolder.."/headcrabs02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head01.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head05.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head07.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head08.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_rollers02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_rollers03.wav"})

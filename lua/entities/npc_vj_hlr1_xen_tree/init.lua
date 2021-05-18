@@ -24,7 +24,7 @@ ENT.CustomBlood_Particle = {"vj_hl_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 
-ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
+ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.MeleeAttackDamage = 30
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDistance = 70 -- How close does it have to be until it attacks?
@@ -52,12 +52,9 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
-	if IsValid(self:GetEnemy()) && self:GetEnemy().VJ_IsHugeMonster != true && ((self:GetEnemy():GetVelocity():Length() > 2 && self:GetEnemy():IsOnGround()) or (self:GetEnemy():IsNPC() && self:GetEnemy():IsMoving())) then
-		self.HasMeleeAttack = true
-	else
-		self.HasMeleeAttack = false
-	end
+function ENT:CustomAttackCheck_MeleeAttack()
+	local ene = self:GetEnemy()
+	return (!ene.VJ_IsHugeMonster && ((ene:GetVelocity():Length() > 2 && ene:IsOnGround()) or (ene:IsNPC() && ene:IsMoving()))) or self.VJ_IsBeingControlled
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt)
@@ -68,7 +65,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 	if self.vACT_StopAttacks == false then
-		self:VJ_ACT_PLAYACTIVITY(ACT_MELEE_ATTACK1,true,false)
+		self:VJ_ACT_PLAYACTIVITY(ACT_MELEE_ATTACK1, true, false)
 	end
 	if !dmginfo:IsDamageType(DMG_BLAST) then
 		dmginfo:SetDamage(0)
@@ -121,7 +118,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, math.random(100,100))
+	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
 end
 /*-----------------------------------------------

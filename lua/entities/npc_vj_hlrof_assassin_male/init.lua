@@ -16,15 +16,16 @@ ENT.BOA_NextStrafeT = 0
 ENT.BOA_NextRunT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
-	self:SetBodygroup(1,math.random(0,2))
-	self:SetBodygroup(2,math.random(0,1))
+	self:SetBodygroup(1 ,math.random(0, 2))
+	self:SetBodygroup(2, math.random(0, 1))
 	self.BOA_NextStrafeT = CurTime() + 4
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnThink()
+	if self.VJ_IsBeingControlled == true then return end
 	if IsValid(self:GetEnemy()) && self.DoingWeaponAttack_Standing == true && self.VJ_IsBeingControlled == false && CurTime() > self.BOA_NextStrafeT && !self:IsMoving() && self:GetPos():Distance(self:GetEnemy():GetPos()) < 1400 then
 		self:StopMoving()
-		self:VJ_ACT_PLAYACTIVITY({ACT_STRAFE_RIGHT,ACT_STRAFE_LEFT},true,false,false)
+		self:VJ_ACT_PLAYACTIVITY({ACT_STRAFE_RIGHT,ACT_STRAFE_LEFT}, true, false, false)
 		self.BOA_NextRunT = CurTime() + 2
 		//if self:GetBodygroup(2) == 1 then
 			//self.BOA_NextStrafeT = CurTime() + 2
@@ -35,8 +36,9 @@ function ENT:HECU_CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnWeaponAttack()
+	if self.VJ_IsBeingControlled == true then return end
 	if CurTime() > self.BOA_NextRunT then
-		timer.Simple(0.8,function() 
+		timer.Simple(0.8, function() 
 			if IsValid(self) && !self:IsMoving() && self.Dead == false then
 				self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH")
 			end

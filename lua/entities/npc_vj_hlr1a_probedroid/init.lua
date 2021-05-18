@@ -75,6 +75,10 @@ function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(35, 35, 15), Vector(-35, -35, -50))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply, controlEnt)
+	ply:ChatPrint("Hold-SPACE: Fires healing needle while range attacking")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "melee" then
@@ -119,7 +123,13 @@ function ENT:CustomOnRangeAttack_BeforeStartTimer()
 	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(needle)
+function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(projectile)
+	if self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP) then
+		projectile.Needle_Heal = true
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackCode_GetShootPos(projectile)
 	return self:CalculateProjectile("Line", self:GetAttachment(self:LookupAttachment("0")).Pos, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -130,7 +140,7 @@ function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(5) -- Size
-		rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
+		rico:SetMagnitude(math.random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
 		util.Effect("VJ_HLR_Rico",rico)
 	end
 end
@@ -178,7 +188,6 @@ function ENT:CustomOnKilled(dmginfo, hitgroup)
 	spr:Fire("Kill","",0.9)
 	timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
 end
-
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,

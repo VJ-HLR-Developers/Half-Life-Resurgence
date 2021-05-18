@@ -46,7 +46,7 @@ function ENT:Security_CustomOnInitialize()
 	
 	self.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIE_GUTSHOT,ACT_DIE_HEADSHOT,ACT_DIESIMPLE} -- Death Animations
 	self:Give("weapon_vj_hlrof_desert_eagle")
-	self:SetBodygroup(2,math.random(0,2))
+	self:SetBodygroup(2, math.random(0, 2))
 end
 
 // vj_hlr/hl1_npc/otis/aliens.wav

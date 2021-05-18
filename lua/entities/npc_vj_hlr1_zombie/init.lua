@@ -35,11 +35,11 @@ ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch on
 ENT.AnimTbl_Flinch = {"vjseq_flinch"} -- If it uses normal based animation, use this
 ENT.HasHitGroupFlinching = true -- It will flinch when hit in certain hitgroups | It can also have certain animations to play in certain hitgroups
 ENT.HitGroupFlinching_Values = {
-	{HitGroup={HITGROUP_LEFTARM},IsSchedule=false,Animation={ACT_FLINCH_LEFTARM}},
-	{HitGroup={HITGROUP_LEFTLEG},IsSchedule=false,Animation={ACT_FLINCH_LEFTLEG}},
-	{HitGroup={HITGROUP_RIGHTARM},IsSchedule=false,Animation={ACT_FLINCH_RIGHTARM}},
-	{HitGroup={HITGROUP_RIGHTLEG},IsSchedule=false,Animation={ACT_FLINCH_RIGHTLEG}}
-} -- if "IsSchedule" is set to true, "Animation" needs to be a schedule
+	{HitGroup={HITGROUP_LEFTARM}, Animation={ACT_FLINCH_LEFTARM}},
+	{HitGroup={HITGROUP_LEFTLEG}, Animation={ACT_FLINCH_LEFTLEG}},
+	{HitGroup={HITGROUP_RIGHTARM}, Animation={ACT_FLINCH_RIGHTARM}},
+	{HitGroup={HITGROUP_RIGHTLEG}, Animation={ACT_FLINCH_RIGHTLEG}}
+}
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
@@ -55,7 +55,8 @@ ENT.GeneralSoundPitch1 = 100
 
 -- Custom
 ENT.Zombie_Type = 0
-	-- 1 = Scientist
+	-- 0 = Default / Categorized
+	-- 1 = Default Zombie Scientist
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	if self:GetModel() == "models/vj_hlr/hl1/zombie.mdl" then
@@ -72,12 +73,12 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self:MeleeAttackCode()
 	end
 	if key == "ragdoll" then
-		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3,4)..".wav", 85, math.random(100,100))
+		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3,4)..".wav", 85, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
-	if math.random(1,2) == 1 then
+	if math.random(1, 2) == 1 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
 		self.MeleeAttackDamage = 20
 	else
@@ -127,7 +128,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, math.random(100,100))
+	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -62,7 +62,7 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
 	if self:GetBodygroup(0) == 1 then
 		self.Keller_WheelChair = false
 	end
-	self:SetBodygroup(0,1)
+	self:SetBodygroup(0, 1)
 	self:SetPos(self:GetPos() + self:GetUp()*5)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

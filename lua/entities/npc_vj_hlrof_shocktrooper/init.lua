@@ -64,6 +64,7 @@ ENT.OnGrenadeSightSoundPitch = VJ_Set(105, 110)
 -- Custom
 ENT.Shocktrooper_BlinkingT = 0
 ENT.Shocktrooper_SpawnedEnt = true
+ENT.HECU_UsingHurtWalk = false -- Used for optimizations, makes sure that the animations are only changed once
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(20, 20, 90), Vector(-20, -20, 0))
@@ -89,15 +90,19 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	if self:Health() <= (self:GetMaxHealth() / 2.2) then
-		self.AnimTbl_Walk = {ACT_WALK_HURT}
-		self.AnimTbl_Run = {ACT_RUN_HURT}
-		self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK_HURT}
-		self.AnimTbl_ShootWhileMovingRun = {ACT_RUN_HURT}
-	else
+		if !self.HECU_UsingHurtWalk then
+			self.AnimTbl_Walk = {ACT_WALK_HURT}
+			self.AnimTbl_Run = {ACT_RUN_HURT}
+			self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK_HURT}
+			self.AnimTbl_ShootWhileMovingRun = {ACT_RUN_HURT}
+			self.HECU_UsingHurtWalk = true
+		end
+	elseif self.HECU_UsingHurtWalk then
 		self.AnimTbl_Walk = {ACT_WALK}
 		self.AnimTbl_Run = {ACT_RUN}
 		self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK}
 		self.AnimTbl_ShootWhileMovingRun = {ACT_RUN}
+		self.HECU_UsingHurtWalk = false
 	end
 	
 	if self.Dead == false && CurTime() > self.Shocktrooper_BlinkingT then
@@ -110,16 +115,16 @@ function ENT:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
-	self:SetBodygroup(1,1)
+	self:SetBodygroup(1, 1)
 	self:SetSkin(2)
 	if self.Shocktrooper_SpawnedEnt == true then
-		local sroach = ents.Create("npc_vj_hlrof_shockroach")
-		sroach:SetPos(self:GetAttachment(self:LookupAttachment("shock_roach")).Pos)//+ self:GetUp()*50)
-		sroach:SetAngles(self:GetAngles())
-		sroach.SRoach_Life = 15
-		sroach:Spawn()
-		sroach:Activate()
-		sroach.VJ_NPC_Class = self.VJ_NPC_Class
+		local roachEnt = ents.Create("npc_vj_hlrof_shockroach")
+		roachEnt:SetPos(self:GetAttachment(self:LookupAttachment("shock_roach")).Pos)//+ self:GetUp()*50)
+		roachEnt:SetAngles(self:GetAngles())
+		roachEnt.SRoach_Life = 15
+		roachEnt:Spawn()
+		roachEnt:Activate()
+		roachEnt.VJ_NPC_Class = self.VJ_NPC_Class
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -170,7 +175,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, math.random(100,100))
+	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

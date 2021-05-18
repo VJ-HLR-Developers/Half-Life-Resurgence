@@ -14,7 +14,7 @@ ENT.GeneralSoundPitch2 = 80
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	if dmginfo:IsBulletDamage() then
 		if self.HasSounds == true && self.HasImpactSounds == true then VJ_EmitSound(self, "vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav", 70) end
-		if math.random(1,3) == 1 then
+		if math.random(1, 3) == 1 then
 			dmginfo:ScaleDamage(0.50)
 			local spark = ents.Create("env_spark")
 			spark:SetKeyValue("Magnitude","1")

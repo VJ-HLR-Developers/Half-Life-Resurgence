@@ -80,12 +80,12 @@ end
 function ENT:CustomOnThink()
 	if self.Dead == false && CurTime() > self.PitWorm_BlinkingT then
 		self:SetSkin(1)
-		timer.Simple(0.1,function() if IsValid(self) then self:SetSkin(2) end end)
-		timer.Simple(0.2,function() if IsValid(self) then self:SetSkin(3) end end)
-		timer.Simple(0.3,function() if IsValid(self) then self:SetSkin(2) end end)
-		timer.Simple(0.4,function() if IsValid(self) then self:SetSkin(1) end end)
-		timer.Simple(0.5,function() if IsValid(self) then self:SetSkin(0) end end)
-		self.PitWorm_BlinkingT = CurTime() + math.Rand(2,3.5)
+		timer.Simple(0.1, function() if IsValid(self) then self:SetSkin(2) end end)
+		timer.Simple(0.2, function() if IsValid(self) then self:SetSkin(3) end end)
+		timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(2) end end)
+		timer.Simple(0.4, function() if IsValid(self) then self:SetSkin(1) end end)
+		timer.Simple(0.5, function() if IsValid(self) then self:SetSkin(0) end end)
+		self.PitWorm_BlinkingT = CurTime() + math.Rand(2, 3.5)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -98,14 +98,14 @@ function ENT:CustomOnRangeAttack_AfterStartTimer()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PitWorm_DoLaserEffects()
-	local startpos = self:GetPos() + self:GetUp()*250 + self:GetForward()*230
+	local startPos = self:GetPos() + self:GetUp()*250 + self:GetForward()*230
 	local tr = util.TraceLine({
-		start = startpos,
+		start = startPos,
 		endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(),
 		filter = self
 	})
 	local elec = EffectData()
-	elec:SetStart(startpos)
+	elec:SetStart(startPos)
 	elec:SetOrigin(tr.HitPos)
 	elec:SetEntity(self)
 	elec:SetAttachment(1)
@@ -116,32 +116,32 @@ end
 function ENT:CustomRangeAttackCode()
 	self:PitWorm_DoLaserEffects()
 	
-	local StartGlow1 = ents.Create("env_sprite")
-	StartGlow1:SetKeyValue("model","vj_hl/sprites/flare3.vmt")
-	StartGlow1:SetKeyValue("rendercolor","124 252 0")
-	StartGlow1:SetKeyValue("GlowProxySize","5.0")
-	StartGlow1:SetKeyValue("HDRColorScale","1.0")
-	StartGlow1:SetKeyValue("renderfx","14")
-	StartGlow1:SetKeyValue("rendermode","3")
-	StartGlow1:SetKeyValue("renderamt","255")
-	StartGlow1:SetKeyValue("disablereceiveshadows","0")
-	StartGlow1:SetKeyValue("mindxlevel","0")
-	StartGlow1:SetKeyValue("maxdxlevel","0")
-	StartGlow1:SetKeyValue("framerate","10.0")
-	StartGlow1:SetKeyValue("spawnflags","0")
-	StartGlow1:SetKeyValue("scale","3")
-	StartGlow1:SetPos(self:GetPos())
-	StartGlow1:Spawn()
-	StartGlow1:SetParent(self)
-	StartGlow1:Fire("SetParentAttachment", "0")
-	self:DeleteOnRemove(StartGlow1)
-	timer.Simple(0.65, function() if IsValid(self) && IsValid(StartGlow1) then StartGlow1:Remove() end end)
+	local spr = ents.Create("env_sprite")
+	spr:SetKeyValue("model","vj_hl/sprites/flare3.vmt")
+	spr:SetKeyValue("rendercolor","124 252 0")
+	spr:SetKeyValue("GlowProxySize","5.0")
+	spr:SetKeyValue("HDRColorScale","1.0")
+	spr:SetKeyValue("renderfx","14")
+	spr:SetKeyValue("rendermode","3")
+	spr:SetKeyValue("renderamt","255")
+	spr:SetKeyValue("disablereceiveshadows","0")
+	spr:SetKeyValue("mindxlevel","0")
+	spr:SetKeyValue("maxdxlevel","0")
+	spr:SetKeyValue("framerate","10.0")
+	spr:SetKeyValue("spawnflags","0")
+	spr:SetKeyValue("scale","3")
+	spr:SetPos(self:GetPos())
+	spr:Spawn()
+	spr:SetParent(self)
+	spr:Fire("SetParentAttachment", "0")
+	self:DeleteOnRemove(spr)
+	timer.Simple(0.65, function() if IsValid(self) && IsValid(spr) then spr:Remove() end end)
 	
 	for i = 0.1, 0.5, 0.1 do
 		timer.Simple(i,function()
 			if IsValid(self) && IsValid(self:GetEnemy()) && self.RangeAttacking == true then
 				local hitpos = self:PitWorm_DoLaserEffects()
-				util.VJ_SphereDamage(self,self,hitpos,30,10,DMG_SHOCK,true,false,{Force=90})
+				util.VJ_SphereDamage(self, self, hitpos, 30, 10, DMG_SHOCK, true, false, {Force=90})
 				sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitpos, 80)
 			end
 		end)

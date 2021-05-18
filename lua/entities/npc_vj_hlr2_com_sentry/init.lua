@@ -46,6 +46,7 @@ ENT.Turret_CurrentParameter = 0
 ENT.Turret_ScanDirSide = 0
 ENT.Turret_ScanDirUp = 0
 ENT.Turret_NextScanBeepT = 0
+ENT.Turret_ControllerStatus = 0 -- Current status of the controller, 0 = Idle | 1 = Alerted
 
 -- Pose Parameters:
 	-- aim_yaw -60 / 60
@@ -69,8 +70,38 @@ function ENT:CustomOnInitialize()
 	
 	-- For resistance turrets
 	if self:GetModel() == "models/vj_hlr/hl2/floor_turret.mdl" then
-		self:SetSkin(math.random(1,3))
+		self:SetSkin(math.random(1, 3))
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+	self.Turret_ControllerStatus = 0
+	self.HasPoseParameterLooking = false -- Initially, we are going to start as idle, we do NOT want the turret turning!
+	self.NextAlertSoundT = CurTime() + 1 -- So it doesn't play the alert sound as soon as it enters the NPC!
+	
+	function controlEnt:CustomOnKeyPressed(key)
+		if key == KEY_SPACE then
+			if self.VJCE_NPC.Turret_ControllerStatus == 0 then
+				self.VJCE_NPC.Turret_ControllerStatus = 1
+				self.VJCE_NPC.HasPoseParameterLooking = true
+				self.VJCE_NPC:PlaySoundSystem("Alert")
+				self.VJCE_NPC:Turret_Activate()
+			else
+				self.VJCE_NPC.Turret_ControllerStatus = 0
+				self.VJCE_NPC.HasPoseParameterLooking = false
+			end
+		end
+	end
+	
+	function controlEnt:CustomOnStopControlling()
+		if IsValid(self.VJCE_NPC) then
+			self.VJCE_NPC.HasPoseParameterLooking = true
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply, controlEnt)
+	ply:ChatPrint("SPACE: Activate / Deactivate")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
@@ -86,7 +117,7 @@ function ENT:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if IsValid(self:GetEnemy()) or self.Alerted == true then
+	if (self.Turret_ControllerStatus == 1) or (!self.VJ_IsBeingControlled && (IsValid(self:GetEnemy()) or self.Alerted == true)) then
 		self.Turret_StandDown = false
 		self.AnimTbl_IdleStand = {"idlealert"}
 		-- Handle the light sprite
@@ -135,12 +166,16 @@ function ENT:CustomOnThink_AIEnabled()
 		end
 	else
 		-- Play the retracting sequence and sound
-		if CurTime() > self.NextResetEnemyT && self.Alerted == false && self.Turret_StandDown == false then
-			self.Turret_Sprite:Fire("Color","0 150 0") -- Green
-			self.Turret_Sprite:Fire("ShowSprite")
+		if ((self.Turret_ControllerStatus == 0) or (!self.VJ_IsBeingControlled && CurTime() > self.NextResetEnemyT && self.Alerted == false)) && self.Turret_StandDown == false then
+			if self.VJ_IsBeingControlled then
+				self.Turret_Sprite:Fire("HideSprite")
+			else
+				self.Turret_Sprite:Fire("Color","0 150 0") -- Green
+				self.Turret_Sprite:Fire("ShowSprite")
+			end
 			self.Turret_StandDown = true
 			self:VJ_ACT_PLAYACTIVITY({"retire"}, true, 1)
-			VJ_EmitSound(self,{"npc/turret_floor/retract.wav"}, 70, 100)
+			VJ_EmitSound(self, "npc/turret_floor/retract.wav", 70, 100)
 		end
 		if self.Turret_StandDown == true then
 			if self:GetPoseParameter("aim_yaw") == 0 then -- Hide the green light once it fully rests
@@ -157,14 +192,14 @@ function ENT:CustomOn_PoseParameterLookingCode(pitch, yaw, roll)
 		self.Turret_HasLOS = false
 	else
 		if self.Turret_HasLOS == false && IsValid(self:GetEnemy()) then -- If it just got LOS, then play the gun "activate" sound
-			VJ_EmitSound(self,{"npc/turret_floor/active.wav"}, 70, 100)
+			VJ_EmitSound(self, "npc/turret_floor/active.wav", 70, 100)
 		end
 		self.Turret_HasLOS = true
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttackCheck_RangeAttack()
-	if self.Turret_HasLOS == true then return true end
+	return self.Turret_HasLOS && !self.Turret_StandDown
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnResetEnemy()
@@ -182,6 +217,11 @@ function ENT:CustomOnResetEnemy()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
+	if self.VJ_IsBeingControlled == true then return end
+	self:Turret_Activate()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Turret_Activate()
 	self.Turret_Sprite:Fire("Color","0 150 0") -- Green
 	self.Turret_Sprite:Fire("ShowSprite")
 	self.HasPoseParameterLooking = false -- Make it not aim at the enemy right away!
@@ -192,7 +232,7 @@ function ENT:CustomOnAlert(ent)
 	end)
 	self.NextResetEnemyT = CurTime() + 1 -- Make sure it doesn't reset the enemy right away
 	self:VJ_ACT_PLAYACTIVITY({"deploy"}, true, false)
-	VJ_EmitSound(self,{"npc/turret_floor/deploy.wav"}, 70, 100)
+	VJ_EmitSound(self, "npc/turret_floor/deploy.wav", 70, 100)
 	self.turret_alertsd = VJ_CreateSound(self, "npc/turret_floor/alarm.wav", 75, 100)
 	timer.Simple(0.8, function() VJ_STOPSOUND(self.turret_alertsd) end)
 end
@@ -250,7 +290,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_hlr/hl2_npc/turret/detonate.wav", 90, math.random(100,100))
+	VJ_EmitSound(self, "vj_hlr/hl2_npc/turret/detonate.wav", 90, 100)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

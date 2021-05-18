@@ -12,8 +12,12 @@ ENT.Human_TurretEnt = NULL
 ENT.Human_TurretPlacing = false
 ENT.Human_NextTurretCheckT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply, controlEnt)
+	ply:ChatPrint("CTRL: Deploy Sentry Gun")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if IsValid(self:GetEnemy()) && self:Visible(self:GetEnemy()) && self.Human_NextTurretCheckT < CurTime() && self.Human_TurretPlacing == false && !IsValid(self.Human_TurretEnt) then
+	if ((self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) or !self.VJ_IsBeingControlled) && IsValid(self:GetEnemy()) && self:Visible(self:GetEnemy()) && self.Human_NextTurretCheckT < CurTime() && self.Human_TurretPlacing == false && !IsValid(self.Human_TurretEnt) then
 		-- Make sure not to place it if the front of the NPC is blocked!
 		local tr = util.TraceLine({
 			start = self:GetPos() + self:OBBCenter(),

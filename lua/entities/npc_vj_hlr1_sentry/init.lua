@@ -165,6 +165,7 @@ function ENT:CustomAttackCheck_RangeAttack()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnResetEnemy()
+	-- Make it look around for couple seconds before sleeping
 	self.PoseParameterLooking_CanReset = false -- Used for looking around when enemy isn't found
 	self.Alerted = true -- Set it back to alerted (Since it gets turned off in reset enemy)
 	timer.Simple(16, function() -- After the timer, make it actually not alerted
@@ -185,7 +186,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(4) -- Size
 		rico:SetMagnitude(2) -- Effect type | 1 = Animated | 2 = Basic
-		util.Effect("VJ_HLR_Rico",rico)
+		util.Effect("VJ_HLR_Rico", rico)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -348,8 +349,8 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, math.random(100,100))
-	VJ_EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 80, math.random(100,100))
+	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, 100)
+	VJ_EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 80, 100)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

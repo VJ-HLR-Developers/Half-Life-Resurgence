@@ -58,6 +58,21 @@ function ENT:CustomOnInitialize()
 	self:SetBodygroup(1, 1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+	function controlEnt:CustomOnKeyBindPressed(key)
+		if key == IN_RELOAD && self.VJCE_NPC:GetBodygroup(1) != 1 then
+			self.VJCE_NPC:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true, 0, {OnFinish=function(interrupted2, anim2)
+				self.VJCE_NPC.HasRangeAttack = true
+				self.VJCE_NPC:SetBodygroup(1, 1)
+			end})
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply, controlEnt)
+	ply:ChatPrint("RELOAD: Reload all the spikes")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
@@ -81,21 +96,23 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 		self:SetBodygroup(1, 0)
 		self.HasRangeAttack = false
 		
-		-- Run from the enemy and then play the reload animation and set the body group
-		self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH")
-		timer.Simple(0.1, function()
-			if IsValid(self) then
-				self.TakingCoverT = CurTime() + self:GetPathTimeToGoal()
-				timer.Simple(self:GetPathTimeToGoal(), function()  
-					if IsValid(self) then
-						self:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true, 0, {OnFinish=function(interrupted2, anim2)
-							self.HasRangeAttack = true
-							self:SetBodygroup(1, 1)
-						end})
-					end
-				end)
-			end
-		end)
+		if !self.VJ_IsBeingControlled then
+			-- Run from the enemy and then play the reload animation and set the body group
+			self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH")
+			timer.Simple(0.1, function()
+				if IsValid(self) then
+					self.TakingCoverT = CurTime() + self:GetPathTimeToGoal()
+					timer.Simple(self:GetPathTimeToGoal(), function()
+						if IsValid(self) then
+							self:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true, 0, {OnFinish=function(interrupted2, anim2)
+								self.HasRangeAttack = true
+								self:SetBodygroup(1, 1)
+							end})
+						end
+					end)
+				end
+			end)
+		end
 	else
 		self:SetBodygroup(1, bg + 1)
 	end
@@ -144,7 +161,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, math.random(100,100))
+	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
 end
 /*-----------------------------------------------

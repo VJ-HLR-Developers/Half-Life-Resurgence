@@ -70,7 +70,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Vort_DoElecEffect(sp,hp,a,t)
+function ENT:Volt_DoElecEffect(sp,hp,a,t)
 	local elec = EffectData()
 	elec:SetStart(sp)
 	elec:SetOrigin(hp)
@@ -87,39 +87,40 @@ function ENT:CustomOnRangeAttack_AfterStartTimer()
 		endpos = self:GetAttachment(self:LookupAttachment("3")).Pos,
 		filter = self
 	})
-	self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 0, randt)
+	self:Volt_DoElecEffect(tr.StartPos, tr.HitPos, 0, randt)
 	
-	local tr = util.TraceLine({
+	tr = util.TraceLine({
 		start = self:GetAttachment(self:LookupAttachment("1")).Pos,
 		endpos = self:GetAttachment(self:LookupAttachment("3")).Pos,
 		filter = self
 	})
-	self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 1, randt)
+	self:Volt_DoElecEffect(tr.StartPos, tr.HitPos, 1, randt)
 	
-	local tr = util.TraceLine({
+	tr = util.TraceLine({
 		start = self:GetAttachment(self:LookupAttachment("2")).Pos,
 		endpos = self:GetAttachment(self:LookupAttachment("3")).Pos,
 		filter = self
 	})
-	self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 2, randt)
+	self:Volt_DoElecEffect(tr.StartPos, tr.HitPos, 2, randt)
 	
-	self.Glow1 = ents.Create("env_sprite")
-	self.Glow1:SetKeyValue("model","vj_hl/sprites/flare3.vmt")
-	self.Glow1:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
-	self.Glow1:SetKeyValue("renderfx","14")
-	self.Glow1:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-	self.Glow1:SetKeyValue("renderamt","255") -- Transparency
-	self.Glow1:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-	self.Glow1:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
-	self.Glow1:SetKeyValue("spawnflags","0")
-	self.Glow1:SetParent(self)
-	self.Glow1:Fire("SetParentAttachment","3")
-	self.Glow1:Spawn()
-	self.Glow1:Activate()
-	self:DeleteOnRemove(self.Glow1)
-	timer.Simple(randt,function() if IsValid(self) && IsValid(self.Glow1) then self.Glow1:Remove() end end)
+	local spr = ents.Create("env_sprite")
+	spr:SetKeyValue("model","vj_hl/sprites/flare3.vmt")
+	spr:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+	spr:SetKeyValue("renderfx","14")
+	spr:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
+	spr:SetKeyValue("renderamt","255") -- Transparency
+	spr:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+	spr:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+	spr:SetKeyValue("spawnflags","0")
+	spr:SetParent(self)
+	spr:Fire("SetParentAttachment","3")
+	spr:Spawn()
+	spr:Activate()
+	self:DeleteOnRemove(spr)
+	timer.Simple(randt, function() if IsValid(self) && IsValid(spr) then spr:Remove() end end)
 	
-	if math.random(1,150) == 1 then
+	-- Chance of hurting itself!
+	if math.random(1, 150) == 1 then
 		timer.Simple(1, function()
 			if IsValid(self) then
 				local d = DamageInfo()
@@ -171,7 +172,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, math.random(100,100))
+	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
 end
 /*-----------------------------------------------

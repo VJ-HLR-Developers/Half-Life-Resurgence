@@ -18,9 +18,9 @@ ENT.HECUMedic_HealBG = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
 	-- Medic bodygroup starts from 2
-	self:SetBodygroup(2,math.random(0,1))
+	self:SetBodygroup(2, math.random(0, 1))
 	
-	self:SetBodygroup(3,math.random(0,1))
+	self:SetBodygroup(3, math.random(0, 1))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMedic_BeforeHeal()

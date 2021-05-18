@@ -16,6 +16,7 @@ ENT.Bullsquid_BullSquiddingT = 0
 function ENT:CustomOnPreInitialize()
 	self.Bullsquid_Type = 1
 	
+	-- BullSquidding!
 	if math.random(1, 100) == 1 then
 		self.Bullsquid_BullSquidding = true
 		self.Bullsquid_BullSquiddingT = CurTime()
@@ -39,6 +40,42 @@ function ENT:CustomOnPreInitialize()
 		self.NoChaseAfterCertainRange = false
 		self.HasSoundTrack = true
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+	function controlEnt:CustomOnKeyPressed(key)
+		if key == KEY_SPACE && !self.VJCE_NPC.Bullsquid_BullSquidding then
+			self.VJCE_NPC:Bullsquid_ActivateBullSquidding()
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply, controlEnt)
+	ply:ChatPrint("SPACE: Transform into a BullSquidding! (Irreversible!)")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Bullsquid_ActivateBullSquidding()
+	self.Bullsquid_BullSquidding = true
+	self.Bullsquid_BullSquiddingT = CurTime()
+	self.VJ_IsHugeMonster = true
+	self.SightAngle = 180
+	self.SightDistance = 30000
+	self.FindEnemy_UseSphere = true
+	self.FindEnemy_CanSeeThroughWalls = true
+	self.StartHealth = 1500
+	self.AnimTbl_IdleStand = {ACT_IDLE_AGITATED}
+	self.AnimTbl_Run = {ACT_RUN_AGITATED}
+	self.AnimTbl_Walk = {ACT_RUN_AGITATED}
+	self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2}
+	self.DisableRangeAttackAnimation = true
+	self.RangeDistance = 30000
+	self.RangeAttackAngleRadius = 180
+	self.RangeAttackAnimationFaceEnemy = false
+	self.RangeAttackAnimationStopMovement = false
+	self.NextRangeAttackTime = 0
+	self.TimeUntilRangeAttackProjectileRelease = 0
+	self.NoChaseAfterCertainRange = false
+	self.HasSoundTrack = true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()

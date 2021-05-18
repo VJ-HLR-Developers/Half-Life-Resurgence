@@ -193,6 +193,16 @@ function ENT:SCI_CustomOnInitialize()
 	self.SCI_NextTieAnnoyanceT = CurTime() + math.Rand(10, 100)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+	self.SCI_ControllerAnim = 0
+	self.SCI_NextTieAnnoyanceT = 0
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply, controlEnt)
+	ply:ChatPrint("RELOAD: Toggle scared animations")
+	ply:ChatPrint("LMOUSE: Play tie annoyance (if not scared & possible)")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" or key == "wheelchair" then
@@ -239,16 +249,6 @@ function ENT:CustomOnAlert(ent)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_Initialize(ply, controlEnt)
-	self.SCI_ControllerAnim = 0
-	self.SCI_NextTieAnnoyanceT = 0
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply, controlEnt)
-	ply:ChatPrint("RELOAD: Toggle scared animations")
-	ply:ChatPrint("LMOUSE: Play tie annoyance (if not scared)")
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	if self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) then
 		if self.SCI_ControllerAnim == 0 then
@@ -284,7 +284,7 @@ function ENT:CustomOnThink()
 		end
 		-- Tie annoyance
 		if CurTime() > self.SCI_NextTieAnnoyanceT && !self:BusyWithActivity() && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK))) then
-			if math.random(1, (self.VJ_IsBeingControlled and 1) or 2) == 1 then
+			if math.random(1, (self.VJ_IsBeingControlled and 1) or 2) == 1 && self:GetClass() != "npc_vj_hlrbs_rosenberg" then
 				self:VJ_ACT_PLAYACTIVITY(ACT_VM_IDLE_1, true, false)
 			end
 			self.SCI_NextTieAnnoyanceT = CurTime() + ((self.VJ_IsBeingControlled and 4) or math.Rand(15, 100))
@@ -370,10 +370,10 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 100, math.random(100,100))
+	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 100, 100)
 	if self.SCI_Type == 2 then
-		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, math.random(100,100))
-		VJ_EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 65, math.random(100,100))
+		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, 100)
+		VJ_EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 65, 100)
 	end
 	return false
 end

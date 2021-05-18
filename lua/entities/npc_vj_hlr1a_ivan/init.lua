@@ -83,12 +83,12 @@ function ENT:CustomOnThink()
 		self:GetActiveWeapon():SetClip1(999)
 	end
 	
-	local bgroup = self:GetBodygroup(0)
-	if self.Ivan_LastBodyGroup != bgroup then
-		self.Ivan_LastBodyGroup = bgroup
-		if bgroup == 0 then
+	local bodyGroup = self:GetBodygroup(0)
+	if self.Ivan_LastBodyGroup != bodyGroup then
+		self.Ivan_LastBodyGroup = bodyGroup
+		if bodyGroup == 0 then
 			self:DoChangeWeapon("weapon_vj_hlr1a_ivanglock")
-		elseif bgroup == 1 && IsValid(self:GetActiveWeapon()) then
+		elseif bodyGroup == 1 && IsValid(self:GetActiveWeapon()) then
 			self:GetActiveWeapon():Remove()
 		end
 	end
@@ -130,7 +130,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, math.random(100,100))
+	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

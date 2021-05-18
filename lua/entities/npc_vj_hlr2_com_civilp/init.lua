@@ -172,10 +172,22 @@ local SoundTbl_DeployManhack = {"npc/metropolice/vo/visceratordeployed.wav","npc
 ENT.Metrocop_HasManhack = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	if math.random(1,4) == 1 then
+	if math.random(1, 4) == 1 then
 		self.Metrocop_HasManhack = true
 		self:SetBodygroup(1, 1)
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+	function controlEnt:CustomOnKeyPressed(key)
+		if key == KEY_SPACE && self.VJCE_NPC.Metrocop_HasManhack then
+			self.VJCE_NPC:Metrocop_DeployManhack()
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply, controlEnt)
+	ply:ChatPrint("SPACE: Deploy Manhack (if available)")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnPlayCreateSound(sdData, sdFile)
@@ -185,10 +197,8 @@ function ENT:OnPlayCreateSound(sdData, sdFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
-	if math.random(1,2) == 1 then
-		if ent.VJ_HLR_Freeman then
-			self:PlaySoundSystem("Alert", self.SoundTbl_OnPlayerSight)
-		end
+	if math.random(1, 2) == 1 && ent.VJ_HLR_Freeman then
+		self:PlaySoundSystem("Alert", self.SoundTbl_OnPlayerSight)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -207,40 +217,47 @@ function ENT:CustomOnDoChangeWeapon(newWeapon, oldWeapon, invSwitch)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vecZ250 = Vector(0, 0, 250)
+--
+function ENT:Metrocop_DeployManhack()
+	self.Metrocop_HasManhack = false
+	self:VJ_ACT_PLAYACTIVITY("deploy", true, false, true)
+	self:StopAllCommonSpeechSounds()
+	self:PlaySoundSystem("GeneralSpeech", SoundTbl_DeployManhack)
+	timer.Simple(0.3, function()
+		if IsValid(self) then
+			self:SetBodygroup(1, 0)
+			self.Metrocop_ManHackProp = ents.Create("prop_vj_animatable")
+			self.Metrocop_ManHackProp:SetModel("models/manhack.mdl")
+			self.Metrocop_ManHackProp:SetLocalPos(self:GetPos())
+			self.Metrocop_ManHackProp:SetAngles(self:GetAngles())
+			self.Metrocop_ManHackProp:SetParent(self)
+			self.Metrocop_ManHackProp:Spawn()
+			self.Metrocop_ManHackProp:Fire("SetParentAttachment", "anim_attachment_LH", 0)
+		end
+	end)
+	timer.Simple(1.1, function()
+		if IsValid(self) then
+			self.Metrocop_ManHackProp:Remove()
+			local ent = ents.Create("npc_manhack")
+			ent:SetPos(self.Metrocop_ManHackProp:GetPos())
+			ent:SetAngles(self.Metrocop_ManHackProp:GetAngles())
+			ent.VJ_NPC_Class = self.VJ_NPC_Class
+			table.insert(self.VJ_AddCertainEntityAsFriendly, ent)
+			ent:Spawn()
+			ent:GetPhysicsObject():AddVelocity(vecZ250)
+			ent:Fire("SetMaxLookDistance", self.SightDistance)
+			ent:SetKeyValue("spawnflags", "65536")
+			//ent:SetKeyValue("spawnflags", "256")
+			ent:SetEnemy(self:GetEnemy())
+		end
+	end)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
+	if self.VJ_IsBeingControlled then return end
 	if self.Metrocop_HasManhack && IsValid(self:GetEnemy()) && self.LatestEnemyDistance <= 1000 && self.LatestEnemyDistance > 300 then
-		self.Metrocop_HasManhack = false
-		self:VJ_ACT_PLAYACTIVITY("deploy", true, false, true)
-		self:StopAllCommonSpeechSounds()
-		self:PlaySoundSystem("GeneralSpeech", SoundTbl_DeployManhack)
-		timer.Simple(0.3, function()
-			if IsValid(self) then
-				self:SetBodygroup(1,0)
-				self.Metrocop_ManHackProp = ents.Create("prop_vj_animatable")
-				self.Metrocop_ManHackProp:SetModel("models/manhack.mdl")
-				self.Metrocop_ManHackProp:SetLocalPos(self:GetPos())
-				self.Metrocop_ManHackProp:SetAngles(self:GetAngles())
-				self.Metrocop_ManHackProp:SetParent(self)
-				self.Metrocop_ManHackProp:Spawn()
-				self.Metrocop_ManHackProp:Fire("SetParentAttachment", "anim_attachment_LH", 0)
-			end
-		end)
-		timer.Simple(1.1, function()
-			if IsValid(self) then
-				self.Metrocop_ManHackProp:Remove()
-				local ent = ents.Create("npc_manhack")
-				ent:SetPos(self.Metrocop_ManHackProp:GetPos())
-				ent:SetAngles(self.Metrocop_ManHackProp:GetAngles())
-				ent.VJ_NPC_Class = self.VJ_NPC_Class
-				table.insert(self.VJ_AddCertainEntityAsFriendly, ent)
-				ent:Spawn()
-				ent:GetPhysicsObject():AddVelocity(Vector(0, 0, 250))
-				ent:Fire("SetMaxLookDistance", self.SightDistance)
-				ent:SetKeyValue("spawnflags", "65536")
-				//ent:SetKeyValue("spawnflags", "256")
-				ent:SetEnemy(self:GetEnemy())
-			end
-		end)
+		self:Metrocop_DeployManhack()
 	end
 end
 /*-----------------------------------------------
