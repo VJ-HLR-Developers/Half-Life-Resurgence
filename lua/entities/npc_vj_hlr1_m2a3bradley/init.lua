@@ -33,9 +33,7 @@ ENT.Tank_SoundTbl_DrivingEngine = {"vj_hlr/hl1_npc/tanks/tankdrive.wav"}
 ENT.Tank_SoundTbl_Track = {"vj_hlr/hl1_npc/tanks/tanktrack.wav"}
 
 ENT.Tank_GunnerENT = "npc_vj_hlr1_m2a3bradley_gun"
-ENT.Tank_SpawningAngle = 0
 ENT.Tank_AngleDiffuseNumber = 0
-ENT.Tank_MoveAwaySpeed = 70 -- Move away speed
 ENT.Tank_CollisionBoundSize = 90
 ENT.Tank_CollisionBoundUp = 130
 ENT.Tank_DeathSoldierModels = {"models/vj_hlr/hl1/hGrunt.mdl"} -- The corpses it will spawn on death (Example: A soldier) | false = Don't spawn anything
