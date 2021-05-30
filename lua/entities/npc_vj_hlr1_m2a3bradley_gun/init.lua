@@ -70,17 +70,60 @@ function ENT:Tank_CustomOnReloadShell()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vecZ40 = Vector(0, 0, 40)
+--
 function ENT:Tank_CustomOnShellFire_BeforeShellCreate()
 	if self.Bradley_DoingMissileAtk then return true end
 	
 	local ene = self:GetEnemy()
 	local pos = self:LocalToWorld(vecBullet)
 	self:FireBullets({
-		Damage = 30,
+		Damage = 1,
 		Force = 100,
-		HullSize = 2,
+		HullSize = 10,
 		Dir = (ene:GetPos() + ene:OBBCenter()) -  pos,
-		Src = pos
+		Src = pos,
+		Spread = Vector(math.Rand(-50, 50), math.Rand(-50, 50), 0),
+		TracerName = "VJ_HLR_Tracer_Large",
+		Callback = function(attack, tr, dmginfo)
+			local hitPos = tr.HitPos
+			util.Decal("VJ_HLR_Scorch_Small", hitPos + tr.HitNormal, hitPos - tr.HitNormal)
+			util.VJ_SphereDamage(self, self, hitPos, 50, 30, DMG_BLAST, true, true, {Force=100})
+			
+			sound.Play("vj_hlr/hl1_weapon/explosion/debris"..math.random(3, 5)..".wav", hitPos, 70, 100, 1)
+			sound.Play("vj_hlr/hl1_weapon/explosion/debris"..math.random(1, 3)..".wav", hitPos, 70, 100, 1)
+	
+			local spr = ents.Create("env_sprite")
+			spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+			spr:SetKeyValue("GlowProxySize","2.0")
+			spr:SetKeyValue("HDRColorScale","1.0")
+			spr:SetKeyValue("renderfx","14")
+			spr:SetKeyValue("rendermode","5")
+			spr:SetKeyValue("renderamt","255")
+			spr:SetKeyValue("disablereceiveshadows","0")
+			spr:SetKeyValue("mindxlevel","0")
+			spr:SetKeyValue("maxdxlevel","0")
+			spr:SetKeyValue("framerate","15.0")
+			spr:SetKeyValue("spawnflags","0")
+			spr:SetKeyValue("scale","1.5")
+			spr:SetPos(hitPos + vecZ40)
+			spr:Spawn()
+			spr:Fire("Kill","",0.9)
+			timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+			
+			local explight = ents.Create("light_dynamic")
+			explight:SetKeyValue("brightness", "4")
+			explight:SetKeyValue("distance", "300")
+			explight:SetLocalPos(hitPos)
+			explight:SetLocalAngles(self:GetAngles())
+			explight:Fire("Color", "255 150 0")
+			explight:SetParent(self)
+			explight:Spawn()
+			explight:Activate()
+			explight:Fire("TurnOn", "", 0)
+			explight:Fire("Kill", "", 0.1)
+			self:DeleteOnRemove(explight)
+		end
 	})
 	return false
 end
@@ -88,7 +131,7 @@ end
 function ENT:Tank_CustomOnShellFire_BeforeShellSpawn(shell, spawnPos)
 	-- Only ran when its a missile attack, so no need to check if its bullet attacking
 	shell.Rocket_AirMissile = true
-	self.Bradley_NextMissileAtkT = CurTime() + 15
+	self.Bradley_NextMissileAtkT = CurTime() + math.Rand(12, 25)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_ShellFireVelocity(shell, spawnPos, calculatedVel)

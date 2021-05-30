@@ -89,7 +89,7 @@ function EFFECT:Render()
 	fDelta = math.Clamp(fDelta, 0, 1) ^ 0.5
 	render.SetMaterial(self.MainMat)
 	local sinWave = math.sin(fDelta * math.pi)
-	render.DrawBeam(self.EndPos - self.Dir * (fDelta - sinWave * self.Length), self.EndPos - self.Dir * (fDelta + sinWave * self.Length), 1 + sinWave * 3, 1, 0, colorBeam)
+	render.DrawBeam(self.EndPos - self.Dir * (fDelta - sinWave * self.Length), self.EndPos - self.Dir * (fDelta + sinWave * self.Length), 20 + sinWave * 3, 1, 0, colorBeam)
 end
 /*--------------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

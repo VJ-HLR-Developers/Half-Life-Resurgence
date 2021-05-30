@@ -60,21 +60,24 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1
 -- Custom
 ENT.Rocket_AirMissile = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vecZ20 = Vector(0, 0, 20)
+local vecZ20 = Vector(0, 0, 40)
 function ENT:CustomOnInitialize()
 	util.SpriteTrail(self, 0, Color(255,255,255,255), true, 5, 20, 3, 1/(5+20)*0.5, "vj_hl/sprites/smoke.vmt")
 	self:SetNW2Bool("VJ_Dead", false)
 	
+	-- Used by the Bradley
 	if self.Rocket_AirMissile then
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
+			-- Go forward
 			phys:SetVelocity(self:GetForward()*200)
 			self:SetAngles(self:GetVelocity():GetNormal():Angle())
 			timer.Simple(0.5, function()
 				if IsValid(self) then
+					-- Go up
 					local tr = util.TraceLine({
 						start = self:GetPos(),
-						endpos = self:GetPos() + self:GetUp()*2500,
+						endpos = self:GetPos() + self:GetUp()*math.random(2000, 2800),
 						filter = self
 					})
 					local hitPos = tr.HitPos - vecZ20
@@ -84,10 +87,11 @@ function ENT:CustomOnInitialize()
 						self:SetAngles(self:GetVelocity():GetNormal():Angle())
 						timer.Simple(self:GetPos():Distance(hitPos) / self:GetVelocity():Length(), function()
 							if IsValid(self) && IsValid(self:GetOwner()) then
+								-- Finally, go to the enemy!
 								phys = self:GetPhysicsObject()
 								local ene = self:GetOwner():GetEnemy()
 								if IsValid(phys) && IsValid(ene) then
-									phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), ene:GetPos(), 5000))
+									phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), ene:GetPos() + ene:OBBCenter(), 5000))
 									self:SetAngles(self:GetVelocity():GetNormal():Angle())
 								end
 							end
