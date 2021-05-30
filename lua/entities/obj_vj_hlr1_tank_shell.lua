@@ -24,14 +24,14 @@ if CLIENT then
 	function ENT:Think()
 		if IsValid(self) && self:GetNW2Bool("VJ_Dead") != true then
 			self.Emitter = ParticleEmitter(self:GetPos())
-			self.SmokeEffect1 = self.Emitter:Add("particles/flamelet2",self:GetPos() +self:GetForward()*-7)
-			self.SmokeEffect1:SetVelocity(self:GetForward() *math.Rand(0, -50) +Vector(math.Rand(5, -5), math.Rand(5, -5), math.Rand(5, -5)) +self:GetVelocity())
+			self.SmokeEffect1 = self.Emitter:Add("particles/flamelet2", self:GetPos() + self:GetForward()*-7)
+			self.SmokeEffect1:SetVelocity(self:GetForward() *math.Rand(0, -50) +Vector(math.Rand(5, -5), math.Rand(5, -5), math.Rand(5, -5)) + self:GetVelocity())
 			self.SmokeEffect1:SetDieTime(0.2)
 			self.SmokeEffect1:SetStartAlpha(100)
 			self.SmokeEffect1:SetEndAlpha(0)
 			self.SmokeEffect1:SetStartSize(4)
 			self.SmokeEffect1:SetEndSize(1)
-			self.SmokeEffect1:SetRoll(math.Rand(-0.2,0.2))
+			self.SmokeEffect1:SetRoll(math.Rand(-0.2, 0.2))
 			self.SmokeEffect1:SetAirResistance(200)
 			self.Emitter:Finish()
 		end
@@ -44,7 +44,7 @@ if !SERVER then return end
 ENT.Model = {"models/vj_hlr/hl1/rpgrocket.mdl"} -- The models it should spawn with | Picks a random one from the table
 ENT.DoesRadiusDamage = true -- Should it do a blast damage when it hits something?
 ENT.RadiusDamageRadius = 150 -- How far the damage go? The farther away it's from its enemy, the less damage it will do | Counted in world units
-ENT.RadiusDamage = 30 -- How much damage should it deal? Remember this is a radius damage, therefore it will do less damage the farther away the entity is from its enemy
+ENT.RadiusDamage = 100 -- How much damage should it deal? Remember this is a radius damage, therefore it will do less damage the farther away the entity is from its enemy
 ENT.RadiusDamageUseRealisticRadius = true -- Should the damage decrease the farther away the enemy is from the position that the projectile hit?
 ENT.RadiusDamageType = DMG_BLAST -- Damage type
 ENT.RadiusDamageForce = 90 -- Put the force amount it should apply | false = Don't apply any force
@@ -56,18 +56,51 @@ ENT.DelayedRemove = 3 -- Change this to a number greater than 0 to delay the rem
 ENT.DecalTbl_DeathDecals = {"VJ_HLR_Scorch"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_weapon/rpg/rocket1.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}
+
+-- Custom
+ENT.Rocket_AirMissile = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vecZ20 = Vector(0, 0, 20)
 function ENT:CustomOnInitialize()
 	util.SpriteTrail(self, 0, Color(255,255,255,255), true, 5, 20, 3, 1/(5+20)*0.5, "vj_hl/sprites/smoke.vmt")
 	self:SetNW2Bool("VJ_Dead", false)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
-	if IsValid(self:GetOwner()) && self:GetOwner():GetClass() == "npc_vj_hlr1_m1a1abrams_gun" then
-		self.RadiusDamage = 100
+	
+	if self.Rocket_AirMissile then
+		local phys = self:GetPhysicsObject()
+		if IsValid(phys) then
+			phys:SetVelocity(self:GetForward()*200)
+			self:SetAngles(self:GetVelocity():GetNormal():Angle())
+			timer.Simple(0.5, function()
+				if IsValid(self) then
+					local tr = util.TraceLine({
+						start = self:GetPos(),
+						endpos = self:GetPos() + self:GetUp()*2500,
+						filter = self
+					})
+					local hitPos = tr.HitPos - vecZ20
+					phys = self:GetPhysicsObject()
+					if IsValid(phys) then
+						phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), hitPos, 800))
+						self:SetAngles(self:GetVelocity():GetNormal():Angle())
+						timer.Simple(self:GetPos():Distance(hitPos) / self:GetVelocity():Length(), function()
+							if IsValid(self) && IsValid(self:GetOwner()) then
+								phys = self:GetPhysicsObject()
+								local ene = self:GetOwner():GetEnemy()
+								if IsValid(phys) && IsValid(ene) then
+									phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), ene:GetPos(), 5000))
+									self:SetAngles(self:GetVelocity():GetNormal():Angle())
+								end
+							end
+						end)
+					end
+				end
+			end)
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vecZ80 = Vector(0, 0, 80)
+--
 function ENT:DeathEffects(data,phys)
 	self:SetNW2Bool("VJ_Dead", true)
 	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 80, 100)
@@ -85,12 +118,12 @@ function ENT:DeathEffects(data,phys)
 	spr:SetKeyValue("framerate","15.0")
 	spr:SetKeyValue("spawnflags","0")
 	spr:SetKeyValue("scale","4")
-	spr:SetPos(self:GetPos() + Vector(0,0,80))
+	spr:SetPos(self:GetPos() + vecZ80)
 	spr:Spawn()
 	spr:Fire("Kill","",0.9)
-	timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
+	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 	
-	explight = ents.Create("light_dynamic")
+	local explight = ents.Create("light_dynamic")
 	explight:SetKeyValue("brightness", "4")
 	explight:SetKeyValue("distance", "300")
 	explight:SetLocalPos(data.HitPos)

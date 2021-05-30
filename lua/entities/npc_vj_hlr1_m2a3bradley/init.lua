@@ -210,9 +210,9 @@ function ENT:Tank_CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Tank_CustomOnDeath_AfterDeathSoldierSpawned(dmginfo, hitgroup,SoldierCorpse)
-	SoldierCorpse:SetSkin(math.random(0, 1))
-	SoldierCorpse:SetBodygroup(2, 2)
+function ENT:Tank_CustomOnDeath_AfterDeathSoldierSpawned(dmginfo, hitgroup,soldierCorpse)
+	soldierCorpse:SetSkin(math.random(0, 1))
+	soldierCorpse:SetBodygroup(2, 2)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vecZ150 = Vector(0, 0, 150)
