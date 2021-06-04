@@ -188,9 +188,9 @@ ENT.GrenadeAttackVelRight2 = 20 -- Grenade attack velocity right | The second # 
 function ENT:ThrowGrenadeCode(customEnt,noOwner)
 	if self.Dead == true or self.Flinching == true or self.MeleeAttacking == true or (IsValid(self:GetEnemy()) && !self:Visible(self:GetEnemy())) then return end
 	//if self:VJ_ForwardIsHidingZone(self:NearestPoint(self:GetPos() + self:OBBCenter()),self:GetEnemy():EyePos()) == true then return end
-	local noOwner = noOwner or false
+	noOwner = noOwner or false
 	local getIsCustom = false
-	local gerModel = self.GrenadeAttackModel
+	local gerModel = VJ_PICK(self.GrenadeAttackModel)
 	local gerClass = self.GrenadeAttackEntity
 	local gerFussTime = self.GrenadeAttackFussTime
 
@@ -252,7 +252,7 @@ function ENT:ThrowGrenadeCode(customEnt,noOwner)
 			if noOwner == false then gent:SetOwner(self) end
 			gent:SetPos(self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Pos)
 			gent:SetAngles(self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Ang)
-			gent:SetModel(Model(gerModel))
+			if gerModel then gent:SetModel(Model(gerModel)) end
 			if gerClass == "obj_vj_grenade" then
 				gent.FussTime = gerFussTime
 			elseif gerClass == "obj_cpt_grenade" then

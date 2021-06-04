@@ -84,13 +84,14 @@ function ENT:Tank_CustomOnThink()
 				if self.Bradley_DoorOpen == false then -- Door was suddenly closed, so try again later
 					self.Bradley_HasSpawnedSoldiers = false
 				else
+					local ene = self:GetEnemy()
 					for i = 1, 6 do
 						local hGrunt = ents.Create("npc_vj_hlr1_hgrunt")
 						local opSide = ((i % 2 == 0) and -25) or 25 -- Make every other grunt spawn to the opposite side
 						hGrunt:SetPos(self:GetPos() + self:GetForward()*(i <= 2 and -160 or (i <= 4 and -220 or -290)) + self:GetRight()*opSide + self:GetUp()*5)
 						hGrunt:SetAngles(Angle(0, self:GetAngles().y + 180, 0))
 						hGrunt:Spawn()
-						hGrunt:VJ_DoSetEnemy(self:GetEnemy(), true)
+						hGrunt:VJ_DoSetEnemy(ene, true)
 						hGrunt:SetState(VJ_STATE_FREEZE)
 						timer.Simple(0.2, function()
 							if IsValid(hGrunt) then
@@ -121,7 +122,7 @@ function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(5) -- Size
 		rico:SetMagnitude(math.random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
-		util.Effect("VJ_HLR_Rico",rico)
+		util.Effect("VJ_HLR_Rico", rico)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

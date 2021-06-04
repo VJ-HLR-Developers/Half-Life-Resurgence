@@ -61,6 +61,7 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1
 ENT.Rocket_AirMissile = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vecZ20 = Vector(0, 0, 40)
+--
 function ENT:CustomOnInitialize()
 	util.SpriteTrail(self, 0, Color(255,255,255,255), true, 5, 20, 3, 1/(5+20)*0.5, "vj_hl/sprites/smoke.vmt")
 	self:SetNW2Bool("VJ_Dead", false)
@@ -127,18 +128,18 @@ function ENT:DeathEffects(data,phys)
 	spr:Fire("Kill","",0.9)
 	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 	
-	local explight = ents.Create("light_dynamic")
-	explight:SetKeyValue("brightness", "4")
-	explight:SetKeyValue("distance", "300")
-	explight:SetLocalPos(data.HitPos)
-	explight:SetLocalAngles(self:GetAngles())
-	explight:Fire("Color", "255 150 0")
-	explight:SetParent(self)
-	explight:Spawn()
-	explight:Activate()
-	explight:Fire("TurnOn", "", 0)
-	explight:Fire("Kill", "", 0.1)
-	self:DeleteOnRemove(explight)
+	local expLight = ents.Create("light_dynamic")
+	expLight:SetKeyValue("brightness", "4")
+	expLight:SetKeyValue("distance", "300")
+	expLight:SetLocalPos(data.HitPos)
+	expLight:SetLocalAngles(self:GetAngles())
+	expLight:Fire("Color", "255 150 0")
+	expLight:SetParent(self)
+	expLight:Spawn()
+	expLight:Activate()
+	expLight:Fire("TurnOn", "", 0)
+	expLight:Fire("Kill", "", 0.1)
+	self:DeleteOnRemove(expLight)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

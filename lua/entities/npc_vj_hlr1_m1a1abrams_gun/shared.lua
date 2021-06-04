@@ -16,11 +16,13 @@ if CLIENT then
 	killicon.Add("#"..LangName,"HUD/killicons/default",Color(255,80,0,255))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vec = Vector(281.34, -7.63, 23.87)
+--
 net.Receive("vj_hlr1_m1a1abrams_shooteffects", function()
 	local ent = net.ReadEntity()
 	if IsValid(ent) then
 		ent.Emitter = ParticleEmitter(ent:GetPos())
-		ent.SmokeEffect2 = ent.Emitter:Add("particles/smokey", ent:GetPos() + ent:GetForward()*80 + ent:GetUp()*10)
+		ent.SmokeEffect2 = ent.Emitter:Add("particles/smokey", ent:LocalToWorld(vec))
 		ent.SmokeEffect2:SetVelocity(ent:GetForward()*math.Rand(0,-50) + Vector(0,-30,math.Rand(-10,-20)) + ent:GetVelocity())
 		ent.SmokeEffect2:SetDieTime(2)
 		ent.SmokeEffect2:SetStartAlpha(30)
