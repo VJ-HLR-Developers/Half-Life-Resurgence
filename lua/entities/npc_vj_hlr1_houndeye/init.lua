@@ -175,7 +175,7 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
 	return !self.PlayingAttackAnimation
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_AfterDamage(dmginfo,hitgroup)
+function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
 	self.Houndeye_NextSleepT = CurTime() + math.Rand(15, 45)
 	if self.Houndeye_Sleeping == true then -- Wake up if sleeping and play a special alert animation
 		if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end

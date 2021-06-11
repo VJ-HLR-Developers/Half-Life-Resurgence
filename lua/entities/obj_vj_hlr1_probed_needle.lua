@@ -86,8 +86,3 @@ function ENT:DeathEffects(data, phys)
 	if self.Needle_Heal == true then return end
 	ParticleEffect("vj_hl_spit_drone_impact", self:GetPos(), defAng, nil)
 end
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

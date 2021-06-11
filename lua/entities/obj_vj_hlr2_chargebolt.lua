@@ -26,12 +26,17 @@ if !SERVER then return end
 
 ENT.Model = {"models/crossbow_bolt.mdl"} -- The models it should spawn with | Picks a random one from the table
 ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 0 -- How much damage should it do when it hits something
+ENT.DirectDamage = 65 -- How much damage should it do when it hits something
+ENT.DirectDamageType = bit.bor(DMG_SLASH, DMG_DISSOLVE, DMG_SHOCK) -- Damage type
 ENT.DecalTbl_DeathDecals = {"Impact.Concrete"}
 ENT.SoundTbl_Idle = {"ambient/energy/electric_loop.wav"}
 ENT.SoundTbl_OnCollide = {"ambient/energy/weld1.wav","ambient/energy/weld2.wav"}
 
 ENT.IdleSoundLevel = 60
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnInitializeBeforePhys()
+	self:PhysicsInitSphere(1, "metal_bouncy")
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:SetMass(1)
@@ -42,20 +47,7 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPhysicsCollide(data, phys)
-	if IsValid(data.HitEntity) then
-		hitEnt = data.HitEntity
-		if data.HitEntity:IsNPC() then
-			data.HitEntity:Ignite(3)
-		end
-		local damagecode = DamageInfo()
-		damagecode:SetDamage(65)
-		damagecode:SetDamageType(bit.bor(DMG_SLASH,DMG_DISSOLVE,DMG_SHOCK))
-		damagecode:SetAttacker(IsValid(self:GetOwner()) && self:GetOwner() or self)
-		damagecode:SetInflictor(self)
-		damagecode:SetDamagePosition(data.HitPos)
-		hitEnt:TakeDamageInfo(damagecode,self)
-		VJ_DestroyCombineTurret(self,hitEnt)
-	else
+	if !IsValid(data.HitEntity) then
 		local bolt = ents.Create("prop_dynamic")
 		bolt:SetModel("models/crossbow_bolt.mdl")
 		bolt:SetPos(data.HitPos + data.HitNormal + self:GetForward()*-15)
@@ -64,11 +56,13 @@ function ENT:CustomOnPhysicsCollide(data, phys)
 		bolt:Spawn()
 		bolt:DrawShadow(false)
 		bolt:SetMaterial("models/hl_resurgence/hl2/weapons/chargebow_arrow")
-		timer.Simple(3, function() if IsValid(bolt) then bolt:Remove() end end)
+		timer.Simple(15, function() if IsValid(bolt) then bolt:Remove() end end)
 	end
+	local effectSpark = EffectData()
+	effectSpark:SetOrigin(data.HitPos)
+	util.Effect("StunstickImpact", effectSpark)
 end
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDoDamage_Direct(data, phys, hitEnt)
+	hitEnt:Ignite(3)
+end
