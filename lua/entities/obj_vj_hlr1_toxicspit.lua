@@ -48,7 +48,7 @@ function ENT:CustomOnInitialize()
 	ParticleEffectAttach("vj_hl_spit_bullsquid", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DeathEffects(data,phys)
+function ENT:DeathEffects(data, phys)
 	local effectdata = EffectData()
 	effectdata:SetOrigin(data.HitPos)
 	effectdata:SetScale(1)

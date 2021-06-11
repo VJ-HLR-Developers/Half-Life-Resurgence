@@ -88,7 +88,7 @@ function ENT:CustomOnThink()
 	self.Track_OrbSpeed = math.Clamp(self.Track_OrbSpeed + 10, 200, 2000)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPhysicsCollide(data,phys)
+function ENT:CustomOnPhysicsCollide(data, phys)
 	self.StartGlow1:Remove()
 end
 /*-----------------------------------------------

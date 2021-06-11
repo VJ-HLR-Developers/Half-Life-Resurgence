@@ -138,13 +138,13 @@ function ENT:CustomOnThink()
 */
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPhysicsCollide(data,phys)
+function ENT:CustomOnPhysicsCollide(data, phys)
 	if !IsValid(data.HitEntity) then
 		//return false
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DeathEffects(data,phys)
+function ENT:DeathEffects(data, phys)
 	/*local effectdata = EffectData()
 	effectdata:SetOrigin(data.HitPos)
 	effectdata:SetScale(1)

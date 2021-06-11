@@ -55,7 +55,7 @@ function ENT:CustomOnTakeDamage(dmginfo)
 	self:GetPhysicsObject():AddVelocity(dmginfo:GetDamageForce() * 0.1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPhysicsCollide(data,phys)
+function ENT:CustomOnPhysicsCollide(data, phys)
 	local getVel = phys:GetVelocity()
 	local curVelSpeed = getVel:Length()
 	//if curVelSpeed > 500 then -- Or else it will go flying!

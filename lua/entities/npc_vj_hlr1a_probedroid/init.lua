@@ -25,7 +25,7 @@ ENT.ConstantlyFaceEnemy = true -- Should it face the enemy constantly?
 
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.MeleeAttackDamage = 20
-ENT.MeleeAttackDistance = 45 -- How close does it have to be until it attacks?
+ENT.MeleeAttackDistance = 55 -- How close does it have to be until it attacks?
 ENT.MeleeAttackDamageDistance = 80 -- How far does the damage go?
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 

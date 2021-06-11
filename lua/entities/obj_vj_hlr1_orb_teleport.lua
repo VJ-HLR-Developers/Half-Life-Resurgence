@@ -80,7 +80,7 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoDamage(data,phys,hitEnt)
+function ENT:CustomOnDoDamage(data, phys, hitEnt)
 	local owner = self:GetOwner()
 	if IsValid(owner) && (hitEnt:IsNPC() or hitEnt:IsPlayer()) && hitEnt.VJ_IsHugeMonster != true && hitEnt.Dead != true then
 		local tr = util.TraceLine({

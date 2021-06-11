@@ -41,7 +41,7 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 	self:SetMaterial("models/hl_resurgence/hl2/weapons/w_chargebow_arrow")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPhysicsCollide(data,phys)
+function ENT:CustomOnPhysicsCollide(data, phys)
 	if IsValid(data.HitEntity) then
 		hitEnt = data.HitEntity
 		if data.HitEntity:IsNPC() then

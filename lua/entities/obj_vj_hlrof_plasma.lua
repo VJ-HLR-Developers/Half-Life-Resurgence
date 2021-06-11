@@ -98,7 +98,7 @@ function ENT:CustomOnInitialize()
 	self:DeleteOnRemove(self.StartLight1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoDamage(data,phys,hitEnt)
+function ENT:CustomOnDoDamage(data, phys, hitEnt)
 	-- local ply = player.GetAll()[1]
     -- net.Start("vj_hlr_svencoop_glow")
 		-- net.WriteEntity(self)
@@ -106,7 +106,7 @@ function ENT:CustomOnDoDamage(data,phys,hitEnt)
     -- net.Send(ply)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DeathEffects(data,phys)
+function ENT:DeathEffects(data, phys)
 	local effectdata = EffectData()
 	effectdata:SetOrigin(data.HitPos)
 	util.Effect("StunstickImpact", effectdata)

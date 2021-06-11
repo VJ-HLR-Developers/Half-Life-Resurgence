@@ -91,9 +91,9 @@ function ENT:CustomOnPhysicsCollide(data, phys)
 	self:SetAngles(self:GetVelocity():GetNormal():Angle())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoDamage(data,phys,hitEnt)
+function ENT:CustomOnDoDamage(data, phys, hitEnt)
 	if data.HitEntity:IsNPC() or data.HitEntity:IsPlayer() then
-		self:SetDeathVariablesTrue(data,phys)
+		self:SetDeathVariablesTrue(data, phys)
 		self:Remove()
 	end
 end

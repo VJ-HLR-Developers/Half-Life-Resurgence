@@ -44,7 +44,7 @@ function ENT:CustomOnInitialize()
 	ParticleEffectAttach("vj_hl_gonome_idle", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DeathEffects(data,phys)
+function ENT:DeathEffects(data, phys)
 	ParticleEffect("vj_hl_gonome",self:GetPos(),Angle(0,0,0),nil)
 end
 /*-----------------------------------------------

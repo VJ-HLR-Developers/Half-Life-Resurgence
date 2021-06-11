@@ -31,7 +31,7 @@ ENT.SoundTbl_OnRemove = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_
 ENT.OnRemoveSoundLevel = 100
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPhysicsCollide(data,phys)
+function ENT:CustomOnPhysicsCollide(data, phys)
 	local getVel = phys:GetVelocity()
 	local curVelSpeed = getVel:Length()
 	phys:SetVelocity(getVel * 0.5)

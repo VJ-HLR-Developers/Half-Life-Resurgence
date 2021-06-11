@@ -63,7 +63,7 @@ function ENT:CustomOnInitialize()
 	self:DeleteOnRemove(self.Sprite1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DeathEffects(data,phys)
+function ENT:DeathEffects(data, phys)
 	ParticleEffect("vj_hl_spit_gonarch_impact", data.HitPos, Angle(0,0,0), nil)
 end
 /*-----------------------------------------------

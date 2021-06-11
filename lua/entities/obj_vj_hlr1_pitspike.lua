@@ -43,7 +43,7 @@ function ENT:CustomOnInitialize()
 	ParticleEffectAttach("vj_hl_spit_drone", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPhysicsCollide(data,phys)
+function ENT:CustomOnPhysicsCollide(data, phys)
 	if IsValid(data.HitEntity) then
 		self.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/crossbow/xbow_hitbod1.wav","vj_hlr/hl1_weapon/crossbow/xbow_hitbod2.wav"}
 	else
@@ -57,7 +57,7 @@ function ENT:CustomOnPhysicsCollide(data,phys)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DeathEffects(data,phys)
+function ENT:DeathEffects(data, phys)
 	ParticleEffect("vj_hl_spit_drone_impact",self:GetPos(),Angle(0,0,0),nil)
 end
 /*-----------------------------------------------

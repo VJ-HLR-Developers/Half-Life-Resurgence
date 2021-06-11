@@ -106,7 +106,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vecZ80 = Vector(0, 0, 80)
 --
-function ENT:DeathEffects(data,phys)
+function ENT:DeathEffects(data, phys)
 	self:SetNW2Bool("VJ_Dead", true)
 	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 80, 100)
 	

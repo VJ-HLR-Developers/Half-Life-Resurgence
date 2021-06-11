@@ -3,6 +3,8 @@
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
+AddCSLuaFile()
+
 ENT.Base 			= "base_entity"
 ENT.Type 			= "ai"
 ENT.PrintName 		= "Xen Crystal"
@@ -13,9 +15,8 @@ ENT.Instructions 	= "Don't change anything."
 ENT.Category		= "VJ Base"
 
 function ENT:Draw() self:DrawModel() end
-
+---------------------------------------------------------------------------------------------------------------------------------------------
 if (!SERVER) then return end
-AddCSLuaFile()
 
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
 
@@ -104,8 +105,3 @@ end
 function ENT:OnRemove()
 	VJ_STOPSOUND(self.IdleSd)
 end
-/*--------------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
---------------------------------------------------*/

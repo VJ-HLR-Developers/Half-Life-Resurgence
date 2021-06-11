@@ -82,7 +82,7 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DeathEffects(data,phys)
+function ENT:DeathEffects(data, phys)
 	local effectdata = EffectData()
 	effectdata:SetOrigin(data.HitPos)
 	util.Effect("HelicopterMegaBomb", effectdata)
