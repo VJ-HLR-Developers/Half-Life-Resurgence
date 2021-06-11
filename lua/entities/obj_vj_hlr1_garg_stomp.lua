@@ -39,8 +39,8 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav","vj_hlr/hl1_wea
 ENT.StartupSoundPitch = VJ_Set(100, 100)
 
 -- Custom
-ENT.CodeAlreadyRan = false
-ENT.SpeedMultiplier = 0
+ENT.Stomp_InitialRan = false
+ENT.Stomp_SpeedMultiplier = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	//phys:Wake()
@@ -74,36 +74,37 @@ function ENT:CustomOnInitialize()
 	
 	//util.SpriteTrail(self, 0, Color(255,0,0), true, 20, 1, 2, 1 / (20 + 1) * 0.5, "vj_hl/sprites/xbeam3.vmt")
 	
-	ParticleEffectAttach("vj_hlr_garg_stomp",PATTACH_ABSORIGIN_FOLLOW,self,0)
+	ParticleEffectAttach("vj_hlr_garg_stomp", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if self.CodeAlreadyRan == false && IsValid(self:GetOwner()) then 
-		self.CodeAlreadyRan = true
-		self:SetAngles(Angle(self:GetOwner():GetAngles().p,0,0))
+	local owner = self:GetOwner()
+	if !self.Stomp_InitialRan && IsValid(owner) then 
+		self.Stomp_InitialRan = true
+		self:SetAngles(Angle(owner:GetAngles().p, 0, 0))
+		local myPos = self:GetPos()
 		local tr = util.TraceLine({
-			start = self:GetPos(),
-			endpos = self:GetPos() + self:GetUp()*-1000,
-			filter = {self, self:GetOwner()}
+			start = myPos,
+			endpos = myPos + self:GetUp()*-1000,
+			filter = {self, owner}
 		})
-		//VJ_CreateTestObject(tr.HitPos,self:GetAngles(),Color(0,255,0),5)
+		//VJ_CreateTestObject(tr.HitPos, self:GetAngles(), Color(0,255,0), 5)
 		self:SetPos(tr.HitPos + Vector(0,0,8))
 		
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
-			local res = self:CalculateProjectile("Line", self:GetPos(), self:GetOwner():GetEnemy():GetPos() + self:GetOwner():GetEnemy():OBBCenter(), 100)
+			local res = self:CalculateProjectile("Line", myPos, owner:GetEnemy():GetPos() + owner:GetEnemy():OBBCenter(), 100)
 			res.z = 0
 			phys:SetVelocity(res)
 		end
 	end
 	
 	local phys = self:GetPhysicsObject()
-	if IsValid(phys) then
-		if self:GetVelocity():Length() < 400 then
-			phys:SetVelocity(self:GetVelocity()*(1+math.Clamp(self.SpeedMultiplier,0,0.1)))
-		end
+	local myVel = self:GetVelocity()
+	if IsValid(phys) && myVel:Length() < 400 then
+		phys:SetVelocity(myVel*(1 + math.Clamp(self.Stomp_SpeedMultiplier, 0, 0.1)))
 	end
-	self.SpeedMultiplier = self.SpeedMultiplier + 0.01
+	self.Stomp_SpeedMultiplier = self.Stomp_SpeedMultiplier + 0.01
 	
 /*
 	//self:SetAngles(Angle(0,0,0))
@@ -136,22 +137,6 @@ function ENT:CustomOnThink()
 		end
 		end
 */
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPhysicsCollide(data, phys)
-	if !IsValid(data.HitEntity) then
-		//return false
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DeathEffects(data, phys)
-	/*local effectdata = EffectData()
-	effectdata:SetOrigin(data.HitPos)
-	effectdata:SetScale(1)
-	util.Effect("StriderBlood",effectdata)
-	util.Effect("StriderBlood",effectdata)
-	util.Effect("StriderBlood",effectdata)*/
-	//ParticleEffect("vj_hl_spit_bullsquid_impact", data.HitPos, Angle(0,0,0), nil)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***

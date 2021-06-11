@@ -38,10 +38,7 @@ ENT.MeleeAttackKnockBack_Right1 = 0 -- How far it will push you right | First in
 ENT.MeleeAttackKnockBack_Right2 = 0 -- How far it will push you right | Second in math.random
 	-- ====== World Shake On Miss Variables ====== --
 ENT.MeleeAttackWorldShakeOnMiss = true -- Should it shake the world when it misses during melee attack?
-ENT.MeleeAttackWorldShakeOnMissAmplitude = 16 -- How much the screen will shake | From 1 to 16, 1 = really low 16 = really high
 ENT.MeleeAttackWorldShakeOnMissRadius = 1000 -- How far the screen shake goes, in world units
-ENT.MeleeAttackWorldShakeOnMissDuration = 1 -- How long the screen shake will last, in seconds
-ENT.MeleeAttackWorldShakeOnMissFrequency = 100 -- Just leave it to 100
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_gonarchspit" -- The entity that is spawned when range attacking

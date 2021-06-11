@@ -361,10 +361,10 @@ if VJExists == true then
 			spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HL Resurgence (Server)", "HL Resurgence (Server)", "", "", function(Panel)
 				if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
 					Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.not"})
-					Panel:ControlHelp("#vjbase.menu.general.admin.only")
+					Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
 					return
 				end
-				Panel:ControlHelp("#vjbase.menu.general.admin.only")
+				Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
 				Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1"})
 				Panel:AddControl("Slider", {Label = "Gonarch Baby Headcrab Limit", min = 0, max = 100, Command = "vj_hlr1_gonarch_babylimit"})
 				Panel:AddControl("Checkbox", {Label = "M2A3 Bradley Deploys Human Grunts", Command = "vj_hlr1_bradley_deploygrunts"})
