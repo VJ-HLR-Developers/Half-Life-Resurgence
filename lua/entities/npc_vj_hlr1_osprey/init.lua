@@ -52,13 +52,27 @@ function ENT:RangeAttackCode_GetShootPos(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(140,140,100),Vector(-140,-140,0))
+	self:SetCollisionBounds(Vector(140,140,120),Vector(-140,-140,0))
 	self:SetPos(self:GetPos() +Vector(0,0,400))
 	
 	self.IdleLP = CreateSound(self,"vj_hlr/hl1_npc/apache/ap_rotor2.wav")
 	self.IdleLP:SetSoundLevel(105)
 	self.IdleLP:Play()
 	self.IdleLP:ChangeVolume(1)
+	
+	self.Gunners = {}
+	for i = 1,2 do
+		local gunner = ents.Create("npc_vj_hlr1_hgrunt_serg")
+		gunner:SetPos(self:GetAttachment(i).Pos)
+		gunner:SetAngles(self:GetAttachment(i).Ang)
+		gunner:SetOwner(self)
+		gunner:SetParent(self)
+		gunner:Spawn()
+		gunner:Fire("SetParentAttachment",i == 1 && "gunner_left" or "gunner_right",0)
+		self:DeleteOnRemove(gunner)
+		table.insert(self.Gunners,gunner)
+		gunner:SetState(VJ_STATE_ONLY_ANIMATION)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
@@ -117,7 +131,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
 	self.IdleLP:Stop()
-	timer.Remove("vj_timer_fire_" .. self:EntIndex())
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
