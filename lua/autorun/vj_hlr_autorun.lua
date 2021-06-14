@@ -54,6 +54,7 @@ if VJExists == true then
 		VJ.AddNPC("Robot Grunt","npc_vj_hlr1_rgrunt",vCat)
 		VJ.AddNPC("HECU Sentry Gun","npc_vj_hlr1_sentry",vCat)
 		VJ.AddNPC("M2A3 Bradley","npc_vj_hlr1_m2a3bradley",vCat)
+		VJ.AddNPC("M1A1 Abrams","npc_vj_hlr1_m1a1abrams",vCat)
 		VJ.AddNPC("AH-64 Apache","npc_vj_hlr1_apache",vCat)
 		VJ.AddNPC("V-22 Osprey","npc_vj_hlr1_osprey",vCat)
 			-- Opposing Force
@@ -145,7 +146,7 @@ if VJExists == true then
 	-- Earth + Resistance
 	VJ.AddNPC("Citizen","npc_vj_hlr2_citizen",vCat)
 	VJ.AddNPC_HUMAN("Refugee","npc_vj_hlr2_refugee",{"weapon_vj_crowbar","weapon_vj_357","weapon_vj_9mmpistol","weapon_vj_glock17","weapon_vj_smg1"},vCat)
-	VJ.AddNPC_HUMAN("Rebel Engineer","npc_vj_hlr2_rebel_engineer",{"weapon_vj_spas12"/*,"weapon_vj_hlr2_chargebow"*/},vCat)
+	VJ.AddNPC_HUMAN("Rebel Engineer","npc_vj_hlr2_rebel_engineer",{"weapon_vj_spas12", "weapon_vj_hlr2_chargebow"},vCat)
 	VJ.AddNPC_HUMAN("Rebel","npc_vj_hlr2_rebel",{
 		-- 5 = Very common, 4 = Common, 3 = Uncommon, 2 = Rare, 1 = Very rare
 		"weapon_vj_smg1",
