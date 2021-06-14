@@ -54,7 +54,8 @@ if VJExists == true then
 		VJ.AddNPC("Robot Grunt","npc_vj_hlr1_rgrunt",vCat)
 		VJ.AddNPC("HECU Sentry Gun","npc_vj_hlr1_sentry",vCat)
 		VJ.AddNPC("M2A3 Bradley","npc_vj_hlr1_m2a3bradley",vCat)
-		VJ.AddNPC("M1A1 Abrams","npc_vj_hlr1_m1a1abrams",vCat)
+		VJ.AddNPC("AH-64 Apache","npc_vj_hlr1_apache",vCat)
+		VJ.AddNPC("V-22 Osprey","npc_vj_hlr1_osprey",vCat)
 			-- Opposing Force
 			VJ.AddNPC("Human Grunt (OppF)","npc_vj_hlrof_hgrunt",vCat)
 			VJ.AddNPC("Human Grunt Medic (OppF)","npc_vj_hlrof_hgrunt_med",vCat)
