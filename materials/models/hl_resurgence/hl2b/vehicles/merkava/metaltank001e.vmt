@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/hl_resurgence/hl2b/vehicles/merkava/metaltank001e"
+	"$bumpmap" "models/hl_resurgence/hl2b/vehicles/merkava/metaltank001e_n"
+}
