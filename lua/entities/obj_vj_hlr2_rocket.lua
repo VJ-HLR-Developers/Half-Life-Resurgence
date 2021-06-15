@@ -70,7 +70,7 @@ function ENT:CustomOnThink()
 	local phys = self:GetPhysicsObject()
 	if IsValid(owner) && IsValid(phys) then
 		local pos = self:GetPos() + self:GetForward()*200
-		if owner:IsNPC() && IsValid(owner:GetEnemy()) && IsValid(owner:GetActiveWeapon()) then
+		if owner:IsNPC() && IsValid(owner:GetEnemy()) && (owner.VJ_ForceRocketFollow or IsValid(owner:GetActiveWeapon())) then
 			pos = owner:GetEnemy():GetPos() + owner:GetEnemy():OBBCenter()
 		elseif (owner:IsPlayer()) && self.Rocket_Follow == true then
 			pos = owner:GetEyeTrace().HitPos
