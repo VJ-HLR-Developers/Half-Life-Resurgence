@@ -46,6 +46,8 @@ SWEP.HasIdleAnimation = true -- Does it have a idle animation?
 SWEP.AnimTbl_Idle = {ACT_VM_IDLE}
 SWEP.NextIdle_Deploy = 1.55 -- How much time until it plays the idle animation after the weapon gets deployed
 SWEP.NextIdle_PrimaryAttack = 1 -- How much time until it plays the idle animation after attacking(Primary)
+
+SWEP.TotalShots = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:PreDrawViewModel(vm, weapon, ply)
 	vm:SetBodygroup(1, 1) -- Because bodygroup texture is broken
@@ -73,10 +75,18 @@ function SWEP:CustomOnDrawWorldModel() -- This is client only!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnReload()
+	self.TotalShots = 1
 	VJ_CreateSound(self, "buttons/button19.wav")
 	self.AnimTbl_Idle = {ACT_VM_IDLE}
 	self.AnimTbl_Draw = {ACT_VM_DRAW}
 	self.NextIdle_Deploy = 1.55
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:SecondaryAttack()
+	self.TotalShots = 3
+	self:PrimaryAttack()
+	self:SetNextSecondaryFire(CurTime() + self.Primary.Delay)
+	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttack_BeforeShoot()
@@ -91,25 +101,29 @@ function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 	if CLIENT then return end
 
 	-- Projectile
-	local proj = ents.Create("obj_vj_hlr2_chargebolt")
-	if owner:IsPlayer() then
-		local ply_Ang = owner:GetAimVector():Angle()
-		proj:SetPos(owner:GetShootPos() + ply_Ang:Forward()*-33 + ply_Ang:Up()*-5 + ply_Ang:Right()*1)
-		proj:SetAngles(ply_Ang)
-	else
-		proj:SetPos(self:GetNW2Vector("VJ_CurBulletPos"))
-		proj:SetAngles(owner:GetAngles())
-	end
-	proj:SetOwner(owner)
-	proj:Activate()
-	proj:Spawn()
-	
-	local phys = proj:GetPhysicsObject()
-	if phys:IsValid() then
+	local count = math.Clamp(self.TotalShots,1,3)
+	for i = 1,count do
+		local proj = ents.Create("obj_vj_hlr2_chargebolt")
 		if owner:IsPlayer() then
-			phys:SetVelocity(owner:GetAimVector() * 3000)
+			local ply_Ang = owner:GetAimVector():Angle()
+			proj:SetPos(owner:GetShootPos() + ply_Ang:Forward()*-33 + ply_Ang:Up()*-5 + ply_Ang:Right()*1)
+			proj:SetAngles(ply_Ang)
 		else
-			phys:SetVelocity(owner:CalculateProjectile("Line", self:GetNW2Vector("VJ_CurBulletPos"), owner:GetEnemy():GetPos() + owner:GetEnemy():OBBCenter(), 3000))
+			proj:SetPos(self:GetNW2Vector("VJ_CurBulletPos"))
+			proj:SetAngles(owner:GetAngles())
+		end
+		proj:SetOwner(owner)
+		proj:Activate()
+		proj:Spawn()
+		proj.DirectDamage = proj.DirectDamage /count
+
+		local phys = proj:GetPhysicsObject()
+		if phys:IsValid() then
+			if owner:IsPlayer() then
+				phys:SetVelocity(owner:GetAimVector() * 3000 +Vector((i == 2 && -75	 or i == 3 && 75 or 0),0,0))
+			else
+				phys:SetVelocity(owner:CalculateProjectile("Line", self:GetNW2Vector("VJ_CurBulletPos"), owner:GetEnemy():GetPos() + owner:GetEnemy():OBBCenter(), 3000))
+			end
 		end
 	end
 end
