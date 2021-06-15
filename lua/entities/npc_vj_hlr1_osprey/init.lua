@@ -60,6 +60,11 @@ function ENT:CustomOnInitialize()
 	self.IdleLP:Play()
 	self.IdleLP:ChangeVolume(1)
 	
+	self.DroppedSoldiers = false
+	self.Dropping = false
+	self.DropMax = 12
+	self.DropCount = 0
+	self.DropZone = false
 	self.Gunners = {}
 	for i = 1,2 do
 		local gunner = ents.Create("npc_vj_hlr1_hgrunt_serg")
@@ -76,11 +81,65 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
+	self.NoChaseAfterCertainRange = !self.DisableFlying
 	if self.AA_MoveTimeCur > CurTime() then
 		local remaining = self.AA_MoveTimeCur -CurTime()
 		if remaining < 1.75 then
 			self:AA_StopMoving()
 		end
+	end
+	if !self.DroppedSoldiers then
+		if self.DropZone then
+			self:SetEnemy(NULL)
+			if (self:GetPos() +self:OBBCenter()):Distance(self.DropZone) > 900 then
+				self:FaceCertainPosition(self.DropZone)
+				self:AAMove_FlyToPosition(self.DropZone)
+			else
+				if self.Dropping then return end
+				self:AA_StopMoving()
+				self.DisableFlying = true
+				self.Dropping = true
+				for i = 1,self.DropMax do
+					timer.Simple(i *2,function()
+						if IsValid(self) then
+							local att = (i % 2 == 0) && 2 or 1
+							local grunt = ents.Create("npc_vj_hlr1_hgrunt")
+							grunt:SetPos(self:GetAttachment(att).Pos +self:GetAttachment(att).Ang:Forward() *100)
+							grunt:SetAngles(self:GetAttachment(att).Ang)
+							grunt:SetOwner(self)
+							grunt:Spawn()
+							timer.Simple(0.1,function()
+								if IsValid(grunt) then
+									local tr = util.TraceLine({
+										start = grunt:GetPos(),
+										endpos = grunt:GetPos() +Vector(0,0,-1000),
+										filter = {self,grunt},
+									})
+									local fallTime = ((grunt:GetPos():Distance(tr.Hit && tr.HitPos or grunt:GetPos())) /grunt:GetVelocity():Length()) or 2
+									timer.Simple(fallTime,function()
+										if IsValid(grunt) then
+											grunt:SetLastPosition(grunt:GetPos() +grunt:GetForward() *200)
+											grunt:VJ_TASK_GOTO_LASTPOS("TASK_RUN_PATH")
+										end
+									end)
+								end
+							end)
+							if i == self.DropMax then self.DroppedSoldiers = true end
+						end
+					end)
+				end
+			end
+			return
+		end
+		if !IsValid(self:GetEnemy()) then return end
+		local tr = util.TraceLine({
+			start = self:GetEnemy():GetPos(),
+			endpos = self:GetEnemy():GetPos() +Vector(0,0,1000),
+			filter = self,
+		})
+		self.DropZone = tr.Hit && (tr.HitPos +tr.HitNormal *150) or self:GetEnemy():GetPos() +Vector(0,0,500)
+	else
+		self.DisableFlying = false
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

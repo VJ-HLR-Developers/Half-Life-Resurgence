@@ -14,6 +14,7 @@ ENT.AA_MoveLength_Wander = 0
 ENT.AA_MoveLength_Chase = 0
 ENT.AA_MoveTime = 0
 ENT.AA_MoveTimeCur = 0
+ENT.DisableFlying = false
 //ENT.AA_TargetPos = Vector(0, 0, 0)
 
 ENT.FlySpeed = 425
@@ -89,6 +90,7 @@ function ENT:AA_IdleWander()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:AAMove_FlyToPosition(Pos,isWander,ovSpeed)
+	if self.DisableFlying then return end
 	self.AA_CanPlayMoveAnimation = true
 	self.AA_CurrentMoveAnimationType = "Calm"
 
