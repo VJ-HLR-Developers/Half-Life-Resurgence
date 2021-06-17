@@ -27,14 +27,14 @@ ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's dam
 ENT.HasBloodPool = false -- Does it have a blood pool?
 
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
-ENT.MeleeAttackDamage = 1
+ENT.MeleeAttackDamage = 15
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1} -- Melee Attack Animations
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDistance = 40 -- How close does it have to be until it attacks?
 ENT.MeleeAttackDamageDistance = 50 -- How far does the damage go?
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_pitspike" -- The entity that is spawned when range attacking
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_archerspit" -- The entity that is spawned when range attacking
 ENT.RangeDistance = 1500 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 100 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
@@ -44,7 +44,11 @@ ENT.NextRangeAttackTime_DoRand = 3 -- False = Don't use random time | Number = P
 ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it's between number x and y?
 ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
-ENT.NoChaseAfterCertainRange_Type = "Regular" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
+ENT.NoChaseAfterCertainRange_Type = "OnlyRange" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
+
+ENT.ConstantlyFaceEnemy = true -- Should it face the enemy constantly?
+ENT.ConstantlyFaceEnemyDistance = 1500 -- How close does it have to be until it starts to face the enemy?
+
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIESIMPLE} -- Death Animations
 	-- ====== Flinching Code ====== --
@@ -78,12 +82,12 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if self.Dead == false && CurTime() > self.Archer_BlinkingT then
+	if !self.Dead && CurTime() > self.Archer_BlinkingT then
 		timer.Simple(0.2, function() if IsValid(self) then self:SetSkin(1) end end)
 		timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(2) end end)
 		timer.Simple(0.4, function() if IsValid(self) then self:SetSkin(1) end end)
 		timer.Simple(0.5, function() if IsValid(self) then self:SetSkin(0) end end)
-		self.Archer_BlinkingT = CurTime() + math.Rand(3,4.5)
+		self.Archer_BlinkingT = CurTime() + math.Rand(3, 4.5)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -91,6 +95,8 @@ function ENT:RangeAttackCode_GetShootPos(projectile)
 	return self:CalculateProjectile("Line", self:GetPos() + self:GetUp()*10, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 2000)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local gibPos = Vector(0, 0, 5)
+--
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibDeathParticles == true then
@@ -115,9 +121,10 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		util.Effect("StriderBlood",effectdata)
 	end
 	
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib1.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,5))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib2.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,5))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib3.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,5))})
+	local spawnPos = self:LocalToWorld(gibPos)
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=spawnPos})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=spawnPos})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=spawnPos})
 	return true -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -129,8 +136,3 @@ end
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 	corpseEnt:SetSkin(2)
 end
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

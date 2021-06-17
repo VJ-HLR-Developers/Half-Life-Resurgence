@@ -12,7 +12,6 @@ ENT.TurningSpeed = 1 -- How fast it can turn
 ENT.MovementType = VJ_MOVETYPE_AERIAL -- How does the SNPC move?
 ENT.Aerial_FlyingSpeed_Calm = 100 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground SNPCs
 ENT.Aerial_FlyingSpeed_Alerted = 100 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground SNPCs
-ENT.AA_ConstantlyMove = true -- Used for aerial and aquatic SNPCs, makes them constantly move
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(-5, 0, -15), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bone03", -- If left empty, the base will attempt to calculate a position for first person

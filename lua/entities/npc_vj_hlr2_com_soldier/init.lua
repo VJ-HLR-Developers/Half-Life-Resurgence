@@ -160,7 +160,7 @@ end
 function ENT:CustomOnGrenadeAttack_OnThrow(grenEnt)
 	-- Custom grenade model and sounds
 	grenEnt.SoundTbl_Idle = {"weapons/grenade/tick1.wav"}
-	grenEnt.IdleSoundPitch1 = 100
+	grenEnt.IdleSoundPitch = VJ_Set(100, 100)
 	
 	local redGlow = ents.Create("env_sprite")
 	redGlow:SetKeyValue("model", "vj_base/sprites/vj_glow1.vmt")

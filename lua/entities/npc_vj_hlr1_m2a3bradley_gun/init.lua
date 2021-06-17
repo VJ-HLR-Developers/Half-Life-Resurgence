@@ -14,7 +14,7 @@ ENT.Tank_SoundTbl_Turning = {"vj_hlr/hl1_npc/tanks/bradley_turret_rot.wav"}
 //ENT.Tank_ReloadShellSoundLevel = 75
 
 ENT.Tank_AngleDiffuseNumber = 0
-ENT.Tank_Shell_EntityToSpawn = "obj_vj_hlr1_tank_shell" -- The entity that is spawned when the shell is fired
+ENT.Tank_Shell_EntityToSpawn = "obj_vj_hlr1_rocket" -- The entity that is spawned when the shell is fired
 ENT.Tank_Shell_VelocitySpeed = 3000 -- How fast should the tank shell travel?
 
 util.AddNetworkString("vj_hlr1_m2a3bradleyg_shooteffects")

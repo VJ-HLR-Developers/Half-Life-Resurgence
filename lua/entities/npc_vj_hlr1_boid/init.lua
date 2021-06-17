@@ -15,7 +15,8 @@ ENT.Aerial_FlyingSpeed_Calm = 130 -- The speed it should fly with, when it's wan
 ENT.Aerial_FlyingSpeed_Alerted = 130 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground SNPCs
 ENT.Aerial_AnimTbl_Calm = {ACT_FLY} -- Animations it plays when it's wandering around while idle
 ENT.Aerial_AnimTbl_Alerted = {ACT_FLY} -- Animations it plays when it's moving while alerted
-ENT.AA_ConstantlyMove = true -- Used for aerial and aquatic SNPCs, makes them constantly move
+ENT.AA_GroundLimit = 400 -- If the NPC's distance from itself to the ground is less than this, it will attempt to move up
+ENT.AA_MinWanderDist = 300 -- Minimum distance that the NPC should go to when wandering
 ENT.VJC_Data = {
 	FirstP_Bone = "bone01", -- If left empty, the base will attempt to calculate a position for first person
 	FirstP_Offset = Vector(10, 0, 0), -- The offset for the controller when the camera is in first person
@@ -49,7 +50,7 @@ HLR_AFlock_Leader = NULL
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(18, 18, 10), Vector(-18, -18, 0))
 	self.Boid_FollowOffsetPos = Vector(math.random(-50, 50), math.random(-120, 120), math.random(-150, 150))
-	if !IsValid(HLR_Boid_Leader) then -- Yete ourish medzavor chiga, ere vor irzenike medzavor ene
+	if !IsValid(HLR_Boid_Leader) then
 		HLR_Boid_Leader = self
 	end
 end
@@ -57,9 +58,9 @@ end
 function ENT:CustomOnThink()
 	if self.VJ_IsBeingControlled == true then return end
 	if IsValid(HLR_Boid_Leader) then
-		if HLR_Boid_Leader != self then
+		if HLR_Boid_Leader != self && HLR_Boid_Leader.AA_CurrentMovePos then
 			self.DisableWandering = true
-			self:AA_MoveTo(HLR_Boid_Leader, true, "Calm", {AddPos=self.Boid_FollowOffsetPos}) -- Medzavorin haladz e (Kharen deghme)
+			self:AA_MoveTo(HLR_Boid_Leader, true, "Calm", {AddPos=self.Boid_FollowOffsetPos, IgnoreGround=true}) -- Medzavorin haladz e (Kharen deghme)
 		end
 	else
 		self.DisableWandering = false

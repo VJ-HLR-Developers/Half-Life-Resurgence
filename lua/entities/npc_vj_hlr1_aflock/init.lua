@@ -25,7 +25,7 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if self.Boid_Type == 1 && self:Health() <= (self:GetMaxHealth() / 2.2) then
+	if self:Health() <= (self:GetMaxHealth() / 2.2) then
 		self.AnimTbl_IdleStand = {"wounded"}
 		self.Aerial_AnimTbl_Calm = {"wounded"}
 		self.Aerial_AnimTbl_Alerted = {"wounded"}
@@ -37,9 +37,9 @@ function ENT:CustomOnThink()
 	
 	if self.VJ_IsBeingControlled == true then return end
 	if IsValid(HLR_AFlock_Leader) then
-		if HLR_AFlock_Leader != self then
+		if HLR_AFlock_Leader != self && HLR_AFlock_Leader.AA_CurrentMovePos then
 			self.DisableWandering = true
-			self:AA_MoveTo(HLR_AFlock_Leader, true, "Calm", {AddPos=self.Boid_FollowOffsetPos}) -- Medzavorin haladz e (Kharen deghme)
+			self:AA_MoveTo(HLR_AFlock_Leader, true, "Calm", {AddPos=self.Boid_FollowOffsetPos, IgnoreGround=true}) -- Medzavorin haladz e (Kharen deghme)
 		end
 	else
 		self.DisableWandering = false

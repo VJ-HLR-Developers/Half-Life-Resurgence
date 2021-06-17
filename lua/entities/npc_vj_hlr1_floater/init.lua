@@ -13,7 +13,6 @@ ENT.Aerial_FlyingSpeed_Calm = 100 -- The speed it should fly with, when it's wan
 ENT.Aerial_FlyingSpeed_Alerted = 180 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground SNPCs
 ENT.Aerial_AnimTbl_Calm = {ACT_WALK} -- Animations it plays when it's wandering around while idle
 ENT.Aerial_AnimTbl_Alerted = {ACT_RUN} -- Animations it plays when it's moving while alerted
-ENT.AA_ConstantlyMove = true -- Used for aerial and aquatic SNPCs, makes them constantly move
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bone01", -- If left empty, the base will attempt to calculate a position for first person
@@ -81,9 +80,9 @@ function ENT:CustomOnThink()
 	if self.VJ_IsBeingControlled then return end
 	if !IsValid(self:GetEnemy()) then
 		if IsValid(HLR_Floater_Leader) then
-			if HLR_Floater_Leader != self /*&& HLR_Floater_Leader:GetPos():Distance(self:GetPos()) > 10*/ then
+			if HLR_Floater_Leader != self && HLR_Floater_Leader.AA_CurrentMovePos then
 				self.DisableWandering = true
-				self:AA_MoveTo(HLR_Floater_Leader, true, "Calm", {AddPos=self.Floater_FollowOffsetPos}) -- Medzavorin haladz e (Kharen deghme)
+				self:AA_MoveTo(HLR_Floater_Leader, true, "Calm", {AddPos=self.Floater_FollowOffsetPos, IgnoreGround=true}) -- Medzavorin haladz e (Kharen deghme)
 			end
 		else
 			self.DisableWandering = false

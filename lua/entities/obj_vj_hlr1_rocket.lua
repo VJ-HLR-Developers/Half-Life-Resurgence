@@ -7,7 +7,7 @@ AddCSLuaFile()
 
 ENT.Type 			= "anim"
 ENT.Base 			= "obj_vj_projectile_base"
-ENT.PrintName		= "Tank Shell"
+ENT.PrintName		= "Rocket"
 ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectiles for my addons"
@@ -15,7 +15,7 @@ ENT.Category		= "Projectiles"
 
 if CLIENT then
 	local Name = "Tank Shell"
-	local LangName = "obj_vj_hlr1_tank_shell"
+	local LangName = "obj_vj_hlr1_rocket"
 	language.Add(LangName, Name)
 	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
 	language.Add("#"..LangName, Name)
@@ -141,8 +141,3 @@ function ENT:DeathEffects(data, phys)
 	expLight:Fire("Kill", "", 0.1)
 	self:DeleteOnRemove(expLight)
 end
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/
