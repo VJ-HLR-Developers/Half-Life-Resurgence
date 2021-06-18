@@ -1,5 +1,4 @@
 AddCSLuaFile("shared.lua")
-include("movetype_aa.lua")
 include("shared.lua")
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
@@ -9,17 +8,24 @@ include("shared.lua")
 ENT.Model = {"models/vj_hlr/hl1/osprey.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 500
 ENT.HullType = HULL_LARGE
+ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
+ENT.TurningSpeed = 2 -- How fast it can turn
+ENT.TurningUseAllAxis = false -- If set to true, angles will not be restricted to y-axis, it will change all axes (plural axis)
 ENT.VJ_IsHugeMonster = true
 
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
 ENT.FindEnemy_UseSphere = true
 
 ENT.MovementType = VJ_MOVETYPE_AERIAL
-ENT.Aerial_FlyingSpeed_Alerted = 300
+ENT.Aerial_FlyingSpeed_Alerted = 300 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground SNPCs
+ENT.Aerial_FlyingSpeed_Calm = ENT.Aerial_FlyingSpeed_Alerted -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground SNPCs
+ENT.Aerial_AnimTbl_Calm = {ACT_FLY} -- Animations it plays when it's wandering around while idle
+ENT.Aerial_AnimTbl_Alerted = {ACT_FLY} -- Animations it plays when it's moving while alerted
+ENT.AA_GroundLimit = 1200 -- If the NPC's distance from itself to the ground is less than this, it will attempt to move up
+ENT.AA_MinWanderDist = 1000 -- Minimum distance that the NPC should go to when wandering
+ENT.AA_MoveAccelerate = 1 -- The NPC will gradually speed up to the max movement speed as it moves towards its destination | Calculation = FrameTime * x
+ENT.AA_MoveDecelerate = 1 -- The NPC will slow down as it approaches its destination | Calculation = MaxSpeed / x
 ENT.AnimTbl_IdleStand = {ACT_FLY}
-ENT.Aerial_AnimTbl_Calm = {ACT_FLY}
-ENT.Aerial_AnimTbl_Alerted = {ACT_FLY}
-ENT.Aerial_FlyingSpeed_Calm = ENT.Aerial_FlyingSpeed_Alerted
 
 ENT.Bleeds = false
 ENT.Immune_AcidPoisonRadiation = true -- Immune to Acid, Poison and Radiation
@@ -87,18 +93,15 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	self.NoChaseAfterCertainRange = !self.DisableFlying
-	if self.AA_MoveTimeCur > CurTime() then
-		local remaining = self.AA_MoveTimeCur -CurTime()
-		if remaining < 1.75 then
-			self:AA_StopMoving()
-		end
+	if self.DisableFlying then
+		self:AA_StopMoving()
 	end
 	if !self.DroppedSoldiers then
 		if self.DropZone then
 			self:SetEnemy(NULL)
-			if (self:GetPos() +self:OBBCenter()):Distance(self.DropZone) > 900 then
-				self:FaceCertainPosition(self.DropZone)
-				self:AAMove_FlyToPosition(self.DropZone)
+			print((self:GetPos() +self:OBBCenter()):Distance(self.DropZone))
+			if (self:GetPos() +self:OBBCenter()):Distance(self.DropZone) > 100 then
+				self:AA_MoveTo(self.DropZone,true,"Alert",{FaceDest=true,IgnoreGround=true})
 			else
 				if self.Dropping then return end
 				self:AA_StopMoving()
@@ -140,7 +143,7 @@ function ENT:CustomOnThink()
 		local tr = util.TraceLine({
 			start = self:GetEnemy():GetPos(),
 			endpos = self:GetEnemy():GetPos() +Vector(0,0,1000),
-			filter = self,
+			filter = {self:GetEnemy(),self},
 		})
 		self.DropZone = tr.Hit && (tr.HitPos +tr.HitNormal *150) or self:GetEnemy():GetPos() +Vector(0,0,500)
 	else
