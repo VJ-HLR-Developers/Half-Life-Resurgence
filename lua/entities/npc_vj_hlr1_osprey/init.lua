@@ -42,6 +42,7 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(140, 0, -45), -- The offset for the controller when the camera is in first person
 }
 
+ENT.CombatFaceEnemy = false
 ENT.ConstantlyFaceEnemy = false -- Should it face the enemy constantly?
 ENT.ConstantlyFaceEnemy_IfVisible = true -- Should it only face the enemy if it"s visible?
 ENT.ConstantlyFaceEnemy_IfAttacking = false -- Should it face the enemy when attacking?
@@ -93,17 +94,21 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	self.NoChaseAfterCertainRange = !self.DisableFlying
+	-- self:SetPoseParameter("tilt", Lerp(FrameTime()*4, self:GetPoseParameter("tilt"), self:GetVelocity():GetNormal().y)) // Disables flight for some reason?
 	if self.DisableFlying then
 		self:AA_StopMoving()
+		self:SetEnemy(NULL)
+		self:FaceCertainPosition(self:GetPos() +self:GetForward() *200 +self:GetRight() *3)
 	end
 	if !self.DroppedSoldiers then
 		if self.DropZone then
 			self:SetEnemy(NULL)
-			print((self:GetPos() +self:OBBCenter()):Distance(self.DropZone))
 			if (self:GetPos() +self:OBBCenter()):Distance(self.DropZone) > 100 then
-				self:AA_MoveTo(self.DropZone,true,"Alert",{FaceDest=true,IgnoreGround=true})
+				self.Aerial_FlyingSpeed_Calm = 70
+				self:AA_MoveTo(self.DropZone,true,"Calm",{FaceDest=true,IgnoreGround=true})
 			else
 				if self.Dropping then return end
+				self.Aerial_FlyingSpeed_Calm = self.Aerial_FlyingSpeed_Alert
 				self:AA_StopMoving()
 				self.DisableFlying = true
 				self.Dropping = true
@@ -140,12 +145,27 @@ function ENT:CustomOnThink()
 			return
 		end
 		if !IsValid(self:GetEnemy()) then return end
+		local startPos = self:GetEnemy():GetPos()
 		local tr = util.TraceLine({
-			start = self:GetEnemy():GetPos(),
-			endpos = self:GetEnemy():GetPos() +Vector(0,0,1000),
+			start = startPos,
+			endpos = startPos +Vector(0,0,self.AA_GroundLimit),
 			filter = {self:GetEnemy(),self},
 		})
 		self.DropZone = tr.Hit && (tr.HitPos +tr.HitNormal *150) or self:GetEnemy():GetPos() +Vector(0,0,500)
+		
+		local heightMax = (800 *math.Rand(0.85,1.5))
+		local vecRand = VectorRand() *250
+		vecRand.z = 0
+		local startPos = self:GetEnemy():GetPos() +Vector(0,0,heightMax) +vecRand
+		local tr = util.TraceLine({
+			start = startPos,
+			endpos = startPos -Vector(0,0,8000),
+			filter = {self:GetEnemy(),self},
+		})
+		self.DropZone = startPos
+		if tr.Hit && tr.HitPos:Distance(startPos) > heightMax then
+			self.DropZone = tr.HitPos +Vector(0,0,heightMax)
+		end
 	else
 		self.DisableFlying = false
 	end

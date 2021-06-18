@@ -117,7 +117,7 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	self:SetPoseParameter("tilt", Lerp(FrameTime()*4, self:GetPoseParameter("tilt"), -self:GetVelocity():GetNormal().y))
+	self:SetPoseParameter("tilt", Lerp(FrameTime()*4, self:GetPoseParameter("tilt"), self:GetVelocity():GetNormal().y))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local bulletSpread = Vector(0.05, 0.05, 0)
