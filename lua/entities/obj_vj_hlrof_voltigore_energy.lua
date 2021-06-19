@@ -60,117 +60,60 @@ function ENT:CustomOnInitialize()
 	self:DeleteOnRemove(self.Glow1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Vort_DoElecEffect(sp,hp,a,t)
+function ENT:Vort_DoElecEffect(sp, hp, hn, a, t)
 	local elec = EffectData()
 	elec:SetStart(sp)
 	elec:SetOrigin(hp)
 	elec:SetEntity(self)
+	elec:SetNormal(hn)
 	elec:SetAttachment(a)
-	elec:SetScale(t)
-	util.Effect("VJ_HLR_Electric_Purple",elec)
+	elec:SetScale(0.2)
+	util.Effect("VJ_HLR_Electric_Purple", elec)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
+	local myPos = self:GetPos()
 	-- Tsakh --------------------------
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*20,
-				endpos = self:GetPos() + self:GetRight()*math.Rand(150,200) + self:GetUp()*-200,
-				filter = self
-			})
-			self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 1, randt)
-		end
-	end)
-	
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*20,
-				endpos = self:GetPos() + self:GetRight()*math.Rand(150,200) + self:GetUp()*-200 + self:GetForward()*-math.Rand(150,200),
-				filter = self
-			})
-			self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 1, randt)
-		end
-	end)
-	
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*20,
-				endpos = self:GetPos() + self:GetRight()*math.Rand(150,200) + self:GetUp()*-200 + self:GetForward()*math.Rand(150,200),
-				filter = self
-			})
-			self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 1, randt)
-		end
-	end)
-	
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*20,
-				endpos = self:GetPos() + self:GetRight()*math.Rand(1,150) + self:GetUp()*200 + self:GetForward()*math.Rand(-100,100),
-				filter = self
-			})
-			self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 1, randt)
-		end
-	end)
-	
+	local tsakhSpawn = myPos + self:GetUp()*45 + self:GetRight()*20
+	local tsakhLocations = {
+		myPos + self:GetRight()*math.Rand(150, 500) + self:GetUp()*-200,
+		myPos + self:GetRight()*math.Rand(150, 500) + self:GetUp()*-200 + self:GetForward()*-math.Rand(150, 500),
+		myPos + self:GetRight()*math.Rand(150, 500) + self:GetUp()*-200 + self:GetForward()*math.Rand(150, 500),
+		myPos + self:GetRight()*math.Rand(1, 150) + self:GetUp()*200 + self:GetForward()*math.Rand(-100, 100),
+	}
+	for i = 1, 4 do
+		local randt = math.Rand(0, 0.6)
+		timer.Simple(randt,function()
+			if IsValid(self) then
+				local tr = util.TraceLine({
+					start = tsakhSpawn,
+					endpos = tsakhLocations[i],
+					filter = self
+				})
+				if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 1, randt) end
+			end
+		end)
+	end
 	-- Ach --------------------------
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*-20,
-				endpos = self:GetPos() + self:GetRight()*-math.Rand(150,200) + self:GetUp()*-200,
-				filter = self
-			})
-			self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 2, randt)
-		end
-	end)
+	local achSpawn = myPos + self:GetUp()*45 + self:GetRight()*-20
+	local achLocations = {
+		myPos + self:GetRight()*-math.Rand(150, 500) + self:GetUp()*-200,
+		myPos + self:GetRight()*-math.Rand(150, 500) + self:GetUp()*-200 + self:GetForward()*-math.Rand(150, 500),
+		myPos + self:GetRight()*-math.Rand(150, 500) + self:GetUp()*-200 + self:GetForward()*math.Rand(150, 500),
+		myPos + self:GetRight()*-math.Rand(1, 150) + self:GetUp()*200 + self:GetForward()*math.Rand(-100, 100),
+	}
+	for i = 1, 4 do
+		local randt = math.Rand(0, 0.6)
+		timer.Simple(randt,function()
+			if IsValid(self) then
+				local tr = util.TraceLine({
+					start = achSpawn,
+					endpos = achLocations[i],
+					filter = self
+				})
+				if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 1, randt) end
+			end
+		end)
+	end
 	
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*-20,
-				endpos = self:GetPos() + self:GetRight()*-math.Rand(150,200) + self:GetUp()*-200 + self:GetForward()*-math.Rand(150,200),
-				filter = self
-			})
-			self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 2, randt)
-		end
-	end)
-	
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*-20,
-				endpos = self:GetPos() + self:GetRight()*-math.Rand(150,200) + self:GetUp()*-200 + self:GetForward()*math.Rand(150,200),
-				filter = self
-			})
-			self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 2, randt)
-		end
-	end)
-	
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*-20,
-				endpos = self:GetPos() + self:GetRight()*-math.Rand(1,150) + self:GetUp()*200 + self:GetForward()*math.Rand(-100,100),
-				filter = self
-			})
-			self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 2, randt)
-		end
-	end)
 end
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

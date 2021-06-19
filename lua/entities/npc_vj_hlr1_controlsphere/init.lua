@@ -75,81 +75,58 @@ function ENT:CustomOnThink()
 	self:SetSkin((self:Health() <= (self:GetMaxHealth() / 2.2)) and 1 or 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:ControlSphere_DoElecEffect(sp,hp)
+function ENT:ControlSphere_DoElecEffect(sp, hp, np)
 	local elec = EffectData()
 	elec:SetStart(sp)
 	elec:SetOrigin(hp)
+	elec:SetNormal(np)
 	elec:SetEntity(self)
 	elec:SetAttachment(1)
-	elec:SetScale(0)
-	util.Effect("VJ_HLR_Electric_Charge",elec)
+	elec:SetScale(0.8)
+	util.Effect("VJ_HLR_Electric_Charge", elec)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRangeAttack_AfterStartTimer()
+	local myPos = self:GetPos()
 	-- Tsakh --------------------------
-	local tr = util.TraceLine({
-		start = self:GetPos() + self:GetUp()*45 + self:GetRight()*20,
-		endpos = self:GetPos() + self:GetRight()*math.Rand(150,500) + self:GetUp()*-200,
-		filter = self
-	})
-	if tr.Hit == true then self:ControlSphere_DoElecEffect(tr.StartPos, tr.HitPos) end
-	
-	local tr = util.TraceLine({
-		start = self:GetPos() + self:GetUp()*45 + self:GetRight()*20,
-		endpos = self:GetPos() + self:GetRight()*math.Rand(150,500) + self:GetUp()*-200 + self:GetForward()*-math.Rand(150,500),
-		filter = self
-	})
-	if tr.Hit == true then self:ControlSphere_DoElecEffect(tr.StartPos, tr.HitPos) end
-	
-	local tr = util.TraceLine({
-		start = self:GetPos() + self:GetUp()*45 + self:GetRight()*20,
-		endpos = self:GetPos() + self:GetRight()*math.Rand(150,500) + self:GetUp()*-200 + self:GetForward()*math.Rand(150,500),
-		filter = self
-	})
-	if tr.Hit == true then self:ControlSphere_DoElecEffect(tr.StartPos, tr.HitPos) end
-	
-	local tr = util.TraceLine({
-		start = self:GetPos() + self:GetUp()*45 + self:GetRight()*20,
-		endpos = self:GetPos() + self:GetRight()*math.Rand(1,150) + self:GetUp()*200 + self:GetForward()*math.Rand(-100,100),
-		filter = self
-	})
-	if tr.Hit == true then self:ControlSphere_DoElecEffect(tr.StartPos, tr.HitPos) end
-	
+	local tsakhSpawn = myPos + self:GetUp()*45 + self:GetRight()*20
+	local tsakhLocations = {
+		myPos + self:GetRight()*math.Rand(150, 500) + self:GetUp()*-200,
+		myPos + self:GetRight()*math.Rand(150, 500) + self:GetUp()*-200 + self:GetForward()*-math.Rand(150, 500),
+		myPos + self:GetRight()*math.Rand(150, 500) + self:GetUp()*-200 + self:GetForward()*math.Rand(150, 500),
+		myPos + self:GetRight()*math.Rand(1, 150) + self:GetUp()*200 + self:GetForward()*math.Rand(-100, 100),
+	}
+	for i = 1, 4 do
+		local tr = util.TraceLine({
+			start = tsakhSpawn,
+			endpos = tsakhLocations[i],
+			filter = self
+		})
+		if tr.Hit == true then self:ControlSphere_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal) end
+	end
 	-- Ach --------------------------
-	local tr = util.TraceLine({
-		start = self:GetPos() + self:GetUp()*45 + self:GetRight()*-20,
-		endpos = self:GetPos() + self:GetRight()*-math.Rand(150,500) + self:GetUp()*-200,
-		filter = self
-	})
-	if tr.Hit == true then self:ControlSphere_DoElecEffect(tr.StartPos, tr.HitPos) end
-	
-	local tr = util.TraceLine({
-		start = self:GetPos() + self:GetUp()*45 + self:GetRight()*-20,
-		endpos = self:GetPos() + self:GetRight()*-math.Rand(150,500) + self:GetUp()*-200 + self:GetForward()*-math.Rand(150,500),
-		filter = self
-	})
-	if tr.Hit == true then self:ControlSphere_DoElecEffect(tr.StartPos, tr.HitPos) end
-	
-	local tr = util.TraceLine({
-		start = self:GetPos() + self:GetUp()*45 + self:GetRight()*-20,
-		endpos = self:GetPos() + self:GetRight()*-math.Rand(150,500) + self:GetUp()*-200 + self:GetForward()*math.Rand(150,500),
-		filter = self
-	})
-	if tr.Hit == true then self:ControlSphere_DoElecEffect(tr.StartPos, tr.HitPos) end
-	
-	local tr = util.TraceLine({
-		start = self:GetPos() + self:GetUp()*45 + self:GetRight()*-20,
-		endpos = self:GetPos() + self:GetRight()*-math.Rand(1,150) + self:GetUp()*200 + self:GetForward()*math.Rand(-100,100),
-		filter = self
-	})
-	if tr.Hit == true then self:ControlSphere_DoElecEffect(tr.StartPos, tr.HitPos) end
+	local achSpawn = myPos + self:GetUp()*45 + self:GetRight()*-20
+	local achLocations = {
+		myPos + self:GetRight()*-math.Rand(150, 500) + self:GetUp()*-200,
+		myPos + self:GetRight()*-math.Rand(150, 500) + self:GetUp()*-200 + self:GetForward()*-math.Rand(150, 500),
+		myPos + self:GetRight()*-math.Rand(150, 500) + self:GetUp()*-200 + self:GetForward()*math.Rand(150, 500),
+		myPos + self:GetRight()*-math.Rand(1, 150) + self:GetUp()*200 + self:GetForward()*math.Rand(-100, 100),
+	}
+	for i = 1, 4 do
+		local tr = util.TraceLine({
+			start = achSpawn,
+			endpos = achLocations[i],
+			filter = self
+		})
+		if tr.Hit == true then self:ControlSphere_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal) end
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
 	local startpos = self:GetPos() + self:GetForward()*8
 	local tr = util.TraceLine({
-		start = self:GetPos() + self:GetUp()*45 + self:GetForward()*40,
-		endpos = self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter(),
+		start = startpos,
+		endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(),
 		filter = self
 	})
 	local hitpos = tr.HitPos
@@ -159,12 +136,13 @@ function ENT:CustomRangeAttackCode()
 	elec:SetOrigin(hitpos)
 	elec:SetEntity(self)
 	elec:SetAttachment(1)
-	util.Effect("VJ_HLR_Electric",elec)
+	util.Effect("VJ_HLR_Electric", elec)
 	
-	util.VJ_SphereDamage(self,self,hitpos,30,10,DMG_SHOCK,true,false,{Force=90})
+	util.VJ_SphereDamage(self, self, hitpos, 30, 10, DMG_SHOCK, true, false, {Force=90})
 end
-local vec = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vec = Vector(0, 0, 0)
+--
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	if dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()

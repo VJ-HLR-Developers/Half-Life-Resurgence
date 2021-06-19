@@ -18,14 +18,7 @@ function EFFECT:Init(data)
 	self.DieTime = CurTime() + (0.6 - data:GetScale())
 	self:SetRenderBoundsWS(self.StartPos, self.EndPos)
 	
-	util.Decal("VJ_HLR_Scorch_Small", self.EndPos + self.HitPos:GetNormalized(), self.EndPos - self.HitPos:GetNormalized())
-	/*local effectdata = EffectData()
-	effectdata:SetOrigin(self.EndPos + self.HitPos:GetNormalized()*-2)
-	effectdata:SetNormal(self.HitPos:GetNormalized()*-3)
-	effectdata:SetMagnitude(0.1)
-	effectdata:SetScale(0.4)
-	effectdata:SetRadius(3)
-	util.Effect("Sparks", effectdata)*/
+	util.Decal("VJ_HLR_Scorch_Small", self.EndPos + data:GetNormal(), self.EndPos - data:GetNormal())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function EFFECT:Think()
@@ -39,10 +32,5 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function EFFECT:Render()
 	render.SetMaterial(self.MainMat)
-	render.DrawBeam(self.StartPos, self.EndPos, 10, 30, 35, Color(115, 30, 164, math.Rand(150,255)))
+	render.DrawBeam(self.StartPos, self.EndPos, 10, 30, 35, Color(115, 30, 164, math.Rand(150, 255)))
 end
-/*--------------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
---------------------------------------------------*/

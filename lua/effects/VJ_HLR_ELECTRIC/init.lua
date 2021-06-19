@@ -18,10 +18,11 @@ function EFFECT:Init(data)
 	self.DieTime = CurTime() + 0.2
 	self:SetRenderBoundsWS(self.StartPos, self.EndPos)
 	
-	util.Decal("VJ_HLR_Scorch_Small", self.EndPos + self.HitPos:GetNormalized(), self.EndPos - self.HitPos:GetNormalized())
+	local hitPosNormal = self.HitPos:GetNormalized()
+	util.Decal("VJ_HLR_Scorch_Small", self.EndPos + hitPosNormal, self.EndPos - hitPosNormal)
 	local effectdata = EffectData()
-	effectdata:SetOrigin(self.EndPos + self.HitPos:GetNormalized()*-2)
-	effectdata:SetNormal(self.HitPos:GetNormalized()*-3)
+	effectdata:SetOrigin(self.EndPos + hitPosNormal*-2)
+	effectdata:SetNormal(hitPosNormal*-3)
 	effectdata:SetMagnitude(0.1)
 	effectdata:SetScale(0.4)
 	effectdata:SetRadius(3)
@@ -37,12 +38,8 @@ function EFFECT:Think()
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local defColor = Color(255, 255, 255)
 function EFFECT:Render()
 	render.SetMaterial(self.MainMat)
-	render.DrawBeam(self.StartPos, self.EndPos, math.Rand(18,24), math.Rand(0,1), math.Rand(0,1) + ((self.StartPos - self.EndPos):Length() / 128), Color(255,255,255,(50 / ((self.DieTime - 0.5) - CurTime()))))
+	render.DrawBeam(self.StartPos, self.EndPos, math.Rand(18, 24), math.Rand(0, 1), math.Rand(0, 1) + ((self.StartPos - self.EndPos):Length() / 128), defColor)
 end
-/*--------------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
---------------------------------------------------*/

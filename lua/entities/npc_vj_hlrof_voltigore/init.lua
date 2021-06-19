@@ -79,38 +79,27 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Volt_DoElecEffect(sp,hp,a,t)
+function ENT:Volt_DoElecEffect(sp, hp, a, t)
 	local elec = EffectData()
 	elec:SetStart(sp)
 	elec:SetOrigin(hp)
 	elec:SetEntity(self)
 	elec:SetAttachment(a)
-	elec:SetScale(t)
-	util.Effect("VJ_HLR_Electric_Charge_Purple",elec)
+	elec:SetScale(0.989990234375 + t)
+	util.Effect("VJ_HLR_Electric_Charge_Purple", elec)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRangeAttack_AfterStartTimer()
-	local randt = 0.9
-	local tr = util.TraceLine({
-		start = self:GetAttachment(self:LookupAttachment("0")).Pos,
-		endpos = self:GetAttachment(self:LookupAttachment("3")).Pos,
-		filter = self
-	})
-	self:Volt_DoElecEffect(tr.StartPos, tr.HitPos, 0, randt)
-	
-	tr = util.TraceLine({
-		start = self:GetAttachment(self:LookupAttachment("1")).Pos,
-		endpos = self:GetAttachment(self:LookupAttachment("3")).Pos,
-		filter = self
-	})
-	self:Volt_DoElecEffect(tr.StartPos, tr.HitPos, 1, randt)
-	
-	tr = util.TraceLine({
-		start = self:GetAttachment(self:LookupAttachment("2")).Pos,
-		endpos = self:GetAttachment(self:LookupAttachment("3")).Pos,
-		filter = self
-	})
-	self:Volt_DoElecEffect(tr.StartPos, tr.HitPos, 2, randt)
+	local endPos = self:GetAttachment(self:LookupAttachment("3")).Pos
+	local randt = 0.989990234375
+	for i = 1, 3 do
+		local tr = util.TraceLine({
+			start = self:GetAttachment(i).Pos,
+			endpos = endPos,
+			filter = self
+		})
+		self:Volt_DoElecEffect(tr.StartPos, tr.HitPos, i, randt)
+	end
 	
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model","vj_hl/sprites/flare3.vmt")
@@ -130,7 +119,7 @@ function ENT:CustomOnRangeAttack_AfterStartTimer()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(projectile)
-	return self:CalculateProjectile("Line", self:GetAttachment(self:LookupAttachment("3")).Pos, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1500)
+	return self:CalculateProjectile("Line", projectile:GetPos(), self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)

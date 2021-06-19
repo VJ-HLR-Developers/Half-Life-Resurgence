@@ -13,7 +13,6 @@ ENT.StartHealth = 400 -- The starting health of the NPC
 ENT.HullType = HULL_LARGE
 ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.TurningSpeed = 2 -- How fast it can turn
-ENT.TurningUseAllAxis = false -- If set to true, angles will not be restricted to y-axis, it will change all axes (plural axis)
 	-- ====== Movement Variables ====== --
 ENT.MovementType = VJ_MOVETYPE_AERIAL -- How does the SNPC move?
 ENT.Aerial_FlyingSpeed_Alerted = 400 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground SNPCs
@@ -45,7 +44,6 @@ ENT.Immune_Bullet = true -- Immune to bullet type damages
 ENT.Immune_Fire = true -- Immune to fire-type damages
 ENT.ImmuneDamagesTable = {DMG_BULLET, DMG_BUCKSHOT, DMG_PHYSGUN}
 ENT.BringFriendsOnDeath = false -- Should the SNPC's friends come to its position before it dies?
-
 ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
@@ -61,6 +59,16 @@ ENT.RangeUseAttachmentForPos = true -- Should the projectile spawn on a attachme
 ENT.RangeUseAttachmentForPosID = "missile_left"
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
 
+ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
+ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
+	-- ====== Sound File Paths ====== --
+-- Leave blank if you don't want any sounds to play
+ENT.SoundTbl_Death = {"vj_hlr/hl1_weapon/mortar/mortarhit.wav"}
+local sdExplosions = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
+
+ENT.GeneralSoundPitch1 = 100
+ENT.DeathSoundLevel = 100
+
 /* https://github.com/ValveSoftware/halflife/blob/master/dlls/apache.cpp
 	EMIT_SOUND_DYN(ENT(pev), CHAN_STATIC, "apache/ap_rotor2.wav", 1.0, 0.3, 0, 110 );
 	firing: tu_fire1.wav, EMIT_SOUND(ENT(pev), CHAN_WEAPON, "turret/tu_fire1.wav", 1, 0.3);
@@ -71,6 +79,7 @@ ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation
 */
 -- Custom
 ENT.Apache_HasLOS = false
+ENT.Apache_SmokeStatus = 0 -- 0 = No smoke | 1 = Tail smoke | 2 = Tail & Rotor smoke
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local spawnPos = Vector(0, 0, 400)
 --
@@ -83,18 +92,43 @@ function ENT:CustomOnInitialize()
 	self.ApacheSD_Rotor = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_rotor2.wav", 120)
 	self.ApacheSD_Whine = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_whine1.wav", 70)
 	
-	local glow = ents.Create("env_sprite")
-	glow:SetKeyValue("model","vj_base/sprites/vj_glow1.vmt")
-	glow:SetKeyValue("scale", "0.5")
-	glow:SetKeyValue("rendermode","5")
-	glow:SetKeyValue("renderfx","9")
-	glow:SetKeyValue("rendercolor","255 0 0")
-	glow:SetKeyValue("spawnflags","1") -- If animated
-	glow:SetParent(self)
-	glow:Fire("SetParentAttachment", "rotor_tail")
-	glow:Spawn()
-	glow:Activate()
-	self:DeleteOnRemove(glow)
+	local tailLight = ents.Create("env_sprite")
+	tailLight:SetKeyValue("model","vj_base/sprites/vj_glow1.vmt")
+	tailLight:SetKeyValue("scale", "0.3")
+	tailLight:SetKeyValue("rendermode","5")
+	tailLight:SetKeyValue("rendercolor","255 191 0")
+	tailLight:SetKeyValue("spawnflags","1") -- If animated
+	tailLight:SetParent(self)
+	tailLight:Fire("SetParentAttachment", "light_1")
+	tailLight:Spawn()
+	tailLight:Activate()
+	self:DeleteOnRemove(tailLight)
+	
+	local sideLight1 = ents.Create("env_sprite")
+	sideLight1:SetKeyValue("model","vj_base/sprites/vj_glow1.vmt")
+	sideLight1:SetKeyValue("scale", "0.5")
+	sideLight1:SetKeyValue("rendermode","5")
+	sideLight1:SetKeyValue("renderfx","9")
+	sideLight1:SetKeyValue("rendercolor","255 0 0")
+	sideLight1:SetKeyValue("spawnflags","1") -- If animated
+	sideLight1:SetParent(self)
+	sideLight1:Fire("SetParentAttachment", "light_2")
+	sideLight1:Spawn()
+	sideLight1:Activate()
+	self:DeleteOnRemove(sideLight1)
+	
+	local sideLight2 = ents.Create("env_sprite")
+	sideLight2:SetKeyValue("model","vj_base/sprites/vj_glow1.vmt")
+	sideLight2:SetKeyValue("scale", "0.5")
+	sideLight2:SetKeyValue("rendermode","5")
+	sideLight2:SetKeyValue("renderfx","9")
+	sideLight2:SetKeyValue("rendercolor","255 0 0")
+	sideLight2:SetKeyValue("spawnflags","1") -- If animated
+	sideLight2:SetParent(self)
+	sideLight2:Fire("SetParentAttachment", "light_3")
+	sideLight2:Spawn()
+	sideLight2:Activate()
+	self:DeleteOnRemove(sideLight2)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOn_PoseParameterLookingCode(pitch, yaw, roll)
@@ -117,7 +151,17 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	self:SetPoseParameter("tilt", Lerp(FrameTime()*4, self:GetPoseParameter("tilt"), self:GetVelocity():GetNormal().y))
+	-- Flying tilt (X & Y)
+	local velNorm = self:GetVelocity():GetNormal()
+	local speed = FrameTime()*4
+	self:SetPoseParameter("tilt_x", Lerp(speed, self:GetPoseParameter("tilt_x"), velNorm.x))
+	self:SetPoseParameter("tilt_y", Lerp(speed, self:GetPoseParameter("tilt_y"), velNorm.y))
+	
+	-- If the helicopter healed, then make sure to stop the smoke particles as well!
+	if self.Apache_SmokeStatus > 0 && self:Health() > (self:GetMaxHealth() * 0.25) then
+		self.Apache_SmokeStatus = 0
+		self:StopParticles()
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local bulletSpread = Vector(0.05, 0.05, 0)
@@ -171,49 +215,79 @@ function ENT:CustomAttack()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
-	ParticleEffectAttach("fire_large_01",PATTACH_POINT_FOLLOW,self,4)
-	ParticleEffectAttach("smoke_burning_engine_01",PATTACH_POINT_FOLLOW,self,7)
-	ParticleEffectAttach("smoke_burning_engine_01",PATTACH_POINT_FOLLOW,self,8)
-	ParticleEffectAttach("smoke_burning_engine_01",PATTACH_POINT_FOLLOW,self,9)
+function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
+	if self.Apache_SmokeStatus == 2 then return end
+	local maxHP = self:GetMaxHealth()
+	local hp = self:Health()
+	if hp <= (maxHP * 0.25) then
+		-- Only set the tail smoke if we haven't set it already
+		if self.Apache_SmokeStatus == 0 then
+			self.Apache_SmokeStatus = 1
+			ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("rotor_tail"))
+		end
+		-- If even lower, then make the rotor smoke too
+		if hp <= (maxHP * 0.15) then
+			self.Apache_SmokeStatus = 2
+			ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("rotor"))
+		end
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
-	local pos,ang = self:GetBonePosition(0)
-	corpseEnt:SetPos(pos)
-	corpseEnt:GetPhysicsObject():SetVelocity(((self:GetPos() +self:GetRight() *-700 +self:GetForward() *-300 +self:GetUp() *-200) -self:GetPos()))
-	util.BlastDamage(self, self, corpseEnt:GetPos(), 400, 40)
-	util.ScreenShake(corpseEnt:GetPos(), 100, 200, 1, 2500)
-
-	VJ_EmitSound(self,"vj_mili_tank/tank_death2.wav",100,100)
-	VJ_EmitSound(self,"vj_mili_tank/tank_death3.wav",100,100)
-	util.BlastDamage(self,self,corpseEnt:GetPos(),200,40)
-	util.ScreenShake(corpseEnt:GetPos(), 100, 200, 1, 2500)
-	if self.HasGibDeathParticles == true then ParticleEffect("vj_explosion2",corpseEnt:GetPos(),Angle(0,0,0),nil) end
-
-	if math.random(1,3) == 1 then
-		self:CreateExtraDeathCorpse("prop_ragdoll","models/combine_soldier.mdl",{Pos=corpseEnt:GetPos()+corpseEnt:GetUp()*90+corpseEnt:GetRight()*-30,Vel=Vector(math.Rand(-600,600), math.Rand(-600,600),500)},function(extraent) extraent:Ignite(math.Rand(8,10),0); extraent:SetColor(Color(90,90,90)) end)
-	end
-
-	if self.HasGibDeathParticles == true then
-		ParticleEffect("vj_explosion3",corpseEnt:GetPos(),Angle(0,0,0),nil)
-		ParticleEffect("vj_explosion2",corpseEnt:GetPos() +corpseEnt:GetForward()*-130,Angle(0,0,0),nil)
-		ParticleEffect("vj_explosion2",corpseEnt:GetPos() +corpseEnt:GetForward()*130,Angle(0,0,0),nil)
-		ParticleEffectAttach("fire_large_01",PATTACH_POINT_FOLLOW,corpseEnt,4)
-		ParticleEffectAttach("smoke_burning_engine_01",PATTACH_POINT_FOLLOW,corpseEnt,7)
-		ParticleEffectAttach("smoke_burning_engine_01",PATTACH_POINT_FOLLOW,corpseEnt,8)
-		ParticleEffectAttach("smoke_burning_engine_01",PATTACH_POINT_FOLLOW,corpseEnt,9)
-		
-		local explosioneffect = EffectData()
-		explosioneffect:SetOrigin(corpseEnt:GetPos())
-		util.Effect("VJ_Medium_Explosion1",explosioneffect)
-		util.Effect("Explosion", explosioneffect)
-		
-		local dusteffect = EffectData()
-		dusteffect:SetOrigin(corpseEnt:GetPos())
-		dusteffect:SetScale(800)
-		util.Effect("ThumperDust",dusteffect)
-	end
+function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
+	local expPos = self:GetAttachment(self:LookupAttachment("rotor")).Pos
+	local spr = ents.Create("env_sprite")
+	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+	spr:SetKeyValue("GlowProxySize","2.0")
+	spr:SetKeyValue("HDRColorScale","1.0")
+	spr:SetKeyValue("renderfx","14")
+	spr:SetKeyValue("rendermode","5")
+	spr:SetKeyValue("renderamt","255")
+	spr:SetKeyValue("disablereceiveshadows","0")
+	spr:SetKeyValue("mindxlevel","0")
+	spr:SetKeyValue("maxdxlevel","0")
+	spr:SetKeyValue("framerate","15.0")
+	spr:SetKeyValue("spawnflags","0")
+	spr:SetKeyValue("scale","5")
+	spr:SetPos(expPos)
+	spr:Spawn()
+	spr:Fire("Kill", "", 0.9)
+	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+	
+	util.BlastDamage(self, self, expPos, 400, 100)
+	
+	VJ_EmitSound(self, sdExplosions, 100, 100)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local sdGibCollide = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
+--
+function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
+	self.HasDeathSounds = false
+	local upPos = self.Sentry_SubType == 1 and -30 or 20
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p1_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(1,0,20)),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p2_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,1,20)),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p3_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(2,0,20)),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p4_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,2,20)),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p5_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(3,0,20)),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p6_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,3,20)),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p7_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(4,0,20)),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p8_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,4,20)),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p9_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(5,0,20)),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p10_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,5,20)),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p11_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(6,0,20)),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_cog1.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(1,0,upPos)),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_cog2.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,1,upPos)),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_rib.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(2,0,upPos)),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_screw.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,2,upPos)),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_screw.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(3,0,upPos)),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_screw.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,3,upPos)),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_spring.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(4,0,upPos)),CollideSound=""}) -- Shad ge sharji, ere vor tsayn chi hane
+	return true
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
+	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, 100)
+	VJ_EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 80, 100)
+	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()

@@ -221,30 +221,27 @@ function ENT:Sentry_Activate()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
+	local gunPos = self:GetAttachment(self:LookupAttachment(self.Sentry_MuzzleAttach)).Pos
 	local bullet = {}
 	bullet.Num = 1
-	bullet.Src = self:GetAttachment(self:LookupAttachment(self.Sentry_MuzzleAttach)).Pos
-	bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()) - self:GetAttachment(self:LookupAttachment(self.Sentry_MuzzleAttach)).Pos
+	bullet.Src = gunPos
+	bullet.Dir = (self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter()) - gunPos
 	bullet.Spread = Vector(math.random(-15,15), math.random(-15,15), math.random(-15,15))
 	bullet.Tracer = 1
 	bullet.TracerName = "VJ_HLR_Tracer"
 	bullet.Force = 5
-	if self.Sentry_Type == 1 then
-		bullet.Damage = 7
-	else
-		bullet.Damage = 3
-	end
+	bullet.Damage = (self.Sentry_Type == 1 and 7) or 3
 	bullet.AmmoType = "SMG1"
 	self:FireBullets(bullet)
 	
-	VJ_EmitSound(self,{"vj_hlr/hl1_npc/turret/tu_fire1.wav"},90,self:VJ_DecideSoundPitch(100,110))
+	VJ_EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_fire1.wav"}, 90, self:VJ_DecideSoundPitch(100, 110))
 	
 	local muz = ents.Create("env_sprite_oriented")
 	muz:SetKeyValue("model","vj_hl/sprites/muzzleflash3.vmt")
 	if self.Sentry_Type == 1 then
-		muz:SetKeyValue("scale",""..math.Rand(0.8,1))
+		muz:SetKeyValue("scale",""..math.Rand(0.8, 1))
 	else
-		muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
+		muz:SetKeyValue("scale",""..math.Rand(0.3, 0.5))
 	end
 	muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
 	muz:SetKeyValue("HDRColorScale","1.0")
@@ -255,24 +252,24 @@ function ENT:CustomRangeAttackCode()
 	muz:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
 	muz:SetKeyValue("spawnflags","0")
 	muz:SetParent(self)
-	muz:Fire("SetParentAttachment",self.Sentry_MuzzleAttach)
+	muz:Fire("SetParentAttachment", self.Sentry_MuzzleAttach)
 	muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
 	muz:Spawn()
 	muz:Activate()
 	muz:Fire("Kill","",0.08)
 	
-	local FireLight1 = ents.Create("light_dynamic")
-	FireLight1:SetKeyValue("brightness", "4")
-	FireLight1:SetKeyValue("distance", "120")
-	FireLight1:SetPos(self:GetAttachment(self:LookupAttachment(self.Sentry_MuzzleAttach)).Pos)
-	FireLight1:SetLocalAngles(self:GetAngles())
-	FireLight1:Fire("Color", "255 150 60")
-	FireLight1:SetParent(self)
-	FireLight1:Spawn()
-	FireLight1:Activate()
-	FireLight1:Fire("TurnOn","",0)
-	FireLight1:Fire("Kill","",0.07)
-	self:DeleteOnRemove(FireLight1)
+	local muzzleLight = ents.Create("light_dynamic")
+	muzzleLight:SetKeyValue("brightness", "4")
+	muzzleLight:SetKeyValue("distance", "120")
+	muzzleLight:SetPos(gunPos)
+	muzzleLight:SetLocalAngles(self:GetAngles())
+	muzzleLight:Fire("Color", "255 150 60")
+	muzzleLight:SetParent(self)
+	muzzleLight:Spawn()
+	muzzleLight:Activate()
+	muzzleLight:Fire("TurnOn","",0)
+	muzzleLight:Fire("Kill","",0.07)
+	self:DeleteOnRemove(muzzleLight)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnKilled(dmginfo, hitgroup)
@@ -360,8 +357,3 @@ function ENT:CustomOnRemove()
 		VJ_STOPSOUND(self.sentry_turningsd2)
 	end
 end
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

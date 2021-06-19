@@ -69,137 +69,82 @@ ENT.RangeAttackPitch2 = 160
 ENT.Vort_RunAway = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(20,20,65), Vector(-20,-20,0))
+	self:SetCollisionBounds(Vector(20, 20, 65), Vector(-20, -20, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "event_emit step" or key == "step" then
 		self:FootStepSoundCode()
-	end
-	if key == "right" or key == "left" then
+	elseif key == "right" or key == "left" then
 		self:MeleeAttackCode()
-	end
-	if key == "shoot" then
+	elseif key == "shoot" then
 		self:RangeAttackCode()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Vort_DoElecEffect(sp,hp,a,t)
+function ENT:Vort_DoElecEffect(sp, hp, hn, a, t)
 	local elec = EffectData()
 	elec:SetStart(sp)
 	elec:SetOrigin(hp)
+	elec:SetNormal(hn)
 	elec:SetEntity(self)
 	elec:SetAttachment(a)
-	elec:SetScale(t)
-	util.Effect("VJ_HLR_Electric_Charge",elec)
+	elec:SetScale(2.2 - t)
+	util.Effect("VJ_HLR_Electric_Charge", elec)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRangeAttack_AfterStartTimer()
+	local myPos = self:GetPos()
 	-- Tsakh --------------------------
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*20,
-				endpos = self:GetPos() + self:GetRight()*math.Rand(150,500) + self:GetUp()*-200,
-				filter = self
-			})
-			if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 1, randt) end
-		end
-	end)
-	
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*20,
-				endpos = self:GetPos() + self:GetRight()*math.Rand(150,500) + self:GetUp()*-200 + self:GetForward()*-math.Rand(150,500),
-				filter = self
-			})
-			if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 1, randt) end
-		end
-	end)
-	
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*20,
-				endpos = self:GetPos() + self:GetRight()*math.Rand(150,500) + self:GetUp()*-200 + self:GetForward()*math.Rand(150,500),
-				filter = self
-			})
-			if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 1, randt) end
-		end
-	end)
-	
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*20,
-				endpos = self:GetPos() + self:GetRight()*math.Rand(1,150) + self:GetUp()*200 + self:GetForward()*math.Rand(-100,100),
-				filter = self
-			})
-			if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 1, randt) end
-		end
-	end)
-	
+	local tsakhSpawn = myPos + self:GetUp()*45 + self:GetRight()*20
+	local tsakhLocations = {
+		myPos + self:GetRight()*math.Rand(150, 500) + self:GetUp()*-200,
+		myPos + self:GetRight()*math.Rand(150, 500) + self:GetUp()*-200 + self:GetForward()*-math.Rand(150, 500),
+		myPos + self:GetRight()*math.Rand(150, 500) + self:GetUp()*-200 + self:GetForward()*math.Rand(150, 500),
+		myPos + self:GetRight()*math.Rand(1, 150) + self:GetUp()*200 + self:GetForward()*math.Rand(-100, 100),
+	}
+	for i = 1, 4 do
+		local randt = math.Rand(0, 0.6)
+		timer.Simple(randt,function()
+			if IsValid(self) then
+				local tr = util.TraceLine({
+					start = tsakhSpawn,
+					endpos = tsakhLocations[i],
+					filter = self
+				})
+				if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 1, randt) end
+			end
+		end)
+	end
 	-- Ach --------------------------
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*-20,
-				endpos = self:GetPos() + self:GetRight()*-math.Rand(150,500) + self:GetUp()*-200,
-				filter = self
-			})
-			if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 2, randt) end
-		end
-	end)
-	
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*-20,
-				endpos = self:GetPos() + self:GetRight()*-math.Rand(150,500) + self:GetUp()*-200 + self:GetForward()*-math.Rand(150,500),
-				filter = self
-			})
-			if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 2, randt) end
-		end
-	end)
-	
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*-20,
-				endpos = self:GetPos() + self:GetRight()*-math.Rand(150,500) + self:GetUp()*-200 + self:GetForward()*math.Rand(150,500),
-				filter = self
-			})
-			if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 2, randt) end
-		end
-	end)
-	
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*-20,
-				endpos = self:GetPos() + self:GetRight()*-math.Rand(1,150) + self:GetUp()*200 + self:GetForward()*math.Rand(-100,100),
-				filter = self
-			})
-			if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 2, randt) end
-		end
-	end)
+	local achSpawn = myPos + self:GetUp()*45 + self:GetRight()*-20
+	local achLocations = {
+		myPos + self:GetRight()*-math.Rand(150, 500) + self:GetUp()*-200,
+		myPos + self:GetRight()*-math.Rand(150, 500) + self:GetUp()*-200 + self:GetForward()*-math.Rand(150, 500),
+		myPos + self:GetRight()*-math.Rand(150, 500) + self:GetUp()*-200 + self:GetForward()*math.Rand(150, 500),
+		myPos + self:GetRight()*-math.Rand(1, 150) + self:GetUp()*200 + self:GetForward()*math.Rand(-100, 100),
+	}
+	for i = 1, 4 do
+		local randt = math.Rand(0, 0.6)
+		timer.Simple(randt,function()
+			if IsValid(self) then
+				local tr = util.TraceLine({
+					start = achSpawn,
+					endpos = achLocations[i],
+					filter = self
+				})
+				if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 1, randt) end
+			end
+		end)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
 	local startpos = self:GetPos() + self:GetUp()*45 + self:GetForward()*40
 	local tr = util.TraceLine({
-		start = self:GetPos() + self:GetUp()*45 + self:GetForward()*40,
-		endpos = self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter(),
+		start = startpos,
+		endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(),
 		filter = self
 	})
 	local hitpos = tr.HitPos

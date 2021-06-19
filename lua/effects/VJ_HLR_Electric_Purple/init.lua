@@ -12,17 +12,16 @@ function EFFECT:Init(data)
 	self.EndPos = data:GetOrigin()
 	self.Ent = data:GetEntity()
 	self.Att = data:GetAttachment()
-	self.Time = data:GetScale()
 	if IsValid(self.Ent) then
 		//self.StartPos = self.Ent:GetAttachment(self.Ent:LookupAttachment(self.Att)).Pos
 		//self.EndPos = self.Ent:GetAttachment(4).Pos
 	end
 	
 	self.HitPos = self.EndPos - self.StartPos
-	self.DieTime = CurTime() + self.Time
+	self.DieTime = CurTime() + data:GetScale()
 	self:SetRenderBoundsWS(self.StartPos, self.EndPos)
 	
-	util.Decal("VJ_HLR_Scorch_Small", self.EndPos + self.HitPos:GetNormalized(), self.EndPos - self.HitPos:GetNormalized())
+	util.Decal("VJ_HLR_Scorch_Small", self.EndPos + data:GetNormal(), self.EndPos - data:GetNormal())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function EFFECT:Think()
@@ -35,9 +34,11 @@ function EFFECT:Think()
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local colorPurple = Color(138, 43, 226)
+--
 function EFFECT:Render()
 	render.SetMaterial(self.MainMat)
-	render.DrawBeam(self.StartPos, self.EndPos, math.Rand(18,24), math.Rand(0,1), math.Rand(0,1) + ((self.StartPos - self.EndPos):Length() / 128), Color(138,43,226,(50 / ((self.DieTime - 0.5) - CurTime()))))
+	render.DrawBeam(self.StartPos, self.EndPos, math.Rand(18,24), math.Rand(0,1), math.Rand(0,1) + ((self.StartPos - self.EndPos):Length() / 128), colorPurple)
 end
 /*--------------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
