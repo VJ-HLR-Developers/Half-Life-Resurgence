@@ -192,6 +192,14 @@ ENT.SoundTbl_Death = {
 	"vo/npc/barney/ba_ohshit03.wav",
 }
 
+local sdAlertHuman = {"vo/npc/barney/ba_soldiers.wav"}
+local sdAlertGunship = {"vj_hlr/hl2_npc/ep1/c17/ba_wrinkleship.wav"}
+local sdAlertAPC = {"vj_hlr/hl2_npc/ep1/c17/ba_ohmanapc.wav"}
+local sdAlertStrider = {"vj_hlr/hl2_npc/ep1/c17/ba_kiddingstrider.wav","vj_hlr/hl2_npc/ep1/c17/ba_takedownstrider.wav"}
+local sdAlertDropShip = {"vo/streetwar/nexus/ba_uhohdropships.wav"}
+local sdAlertHeadcrab = {"vo/npc/barney/ba_headhumpers.wav"}
+local sdAlertTurret = {"vo/npc/barney/ba_turret.wav"}
+
 --[[ UNUSED
 
 -- Complementing the player
@@ -209,7 +217,7 @@ ENT.SoundTbl_Death = {
 -- Soldier with RPG
 "vj_hlr/hl2_npc/ep1/c17/ba_soldierrpg.wav",
 
-"vj_hlr/hl2_npc/ep1/c17/ba_luckydog.wav",
+"vj_hlr/hl2_npc/ep1/c17/ba_luckydog.wav", -- You lucky dog youuuuuuuuuuuu
 
 ]]--
 
@@ -220,33 +228,28 @@ function ENT:CustomOnDoKilledEnemy(ent, attacker, inflictor)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
-	if math.random(1,2) == 1 && ent:IsNPC() then
+	if math.random(1, 2) == 1 && ent:IsNPC() then
 		if ent.IsVJBaseSNPC_Human == true then
-			self:PlaySoundSystem("Alert", {"vo/npc/barney/ba_soldiers.wav"})
+			self:PlaySoundSystem("Alert", sdAlertHuman)
 			return
 		elseif ent:Classify() == CLASS_COMBINE_GUNSHIP then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/ba_wrinkleship.wav"})
+			self:PlaySoundSystem("Alert", sdAlertGunship)
 			return
 		elseif ent:GetClass() == "npc_apcdriver" then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/ba_ohmanapc.wav"})
+			self:PlaySoundSystem("Alert", sdAlertAPC)
 			return
 		elseif ent:GetClass() == "npc_strider" or ent:GetClass() == "npc_vj_hlr2_com_strider" then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/ba_kiddingstrider.wav","vj_hlr/hl2_npc/ep1/c17/ba_takedownstrider.wav"})
+			self:PlaySoundSystem("Alert", sdAlertStrider)
 			return
 		elseif ent:GetClass() == "npc_combinedropship" then
-			self:PlaySoundSystem("Alert", {"vo/streetwar/nexus/ba_uhohdropships.wav"})
+			self:PlaySoundSystem("Alert", sdAlertDropShip)
 			return
 		elseif ent.HLR_Type == "Headcrab" or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast" then
-			self:PlaySoundSystem("Alert", {"vo/npc/barney/ba_headhumpers.wav"})
+			self:PlaySoundSystem("Alert", sdAlertHeadcrab)
 			return
 		elseif ent:Classify() == CLASS_MACHINE or ent.HLR_Type == "Turret" or ent:GetClass() == "npc_turret_floor" then
-			self:PlaySoundSystem("Alert", {"vo/npc/barney/ba_turret.wav"})
+			self:PlaySoundSystem("Alert", sdAlertTurret)
 			return
 		end
 	end
 end
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

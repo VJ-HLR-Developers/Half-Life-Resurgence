@@ -34,9 +34,142 @@ ENT.AnimTbl_Flinch = {ACT_FLINCH_PHYSICS} -- If it uses normal based animation, 
 ENT.SoundTbl_FootStep = {"npc/footsteps/hardboot_generic1.wav","npc/footsteps/hardboot_generic2.wav","npc/footsteps/hardboot_generic3.wav","npc/footsteps/hardboot_generic4.wav","npc/footsteps/hardboot_generic5.wav","npc/footsteps/hardboot_generic6.wav","npc/footsteps/hardboot_generic8.wav"}
 
 -- Custom
+ENT.Human_Type = 0 -- 0 = Rebel | 1 = Engineer
 ENT.Human_Gender = 0 -- 0 = Male | 1 = Female
 ENT.Human_SdFolder = "male01"
-ENT.Human_Type = 0 -- 0 = Rebel | 1 = Engineer
+-- MALE
+local sdGiveAmmo_M = {
+	"vo/npc/male01/ammo01.wav",
+	"vo/npc/male01/ammo02.wav",
+	"vo/npc/male01/ammo03.wav",
+	"vo/npc/male01/ammo04.wav",
+	"vo/npc/male01/ammo05.wav",
+}
+local sdSuggestReloadPly_M = {
+	"vo/npc/male01/dontforgetreload01.wav",
+	"vo/npc/male01/reloadfm01.wav",
+	"vo/npc/male01/reloadfm02.wav",
+	"vo/npc/male01/youdbetterreload01.wav",
+}
+local sdPainArm_M = {
+	"vo/npc/male01/myarm01.wav",
+	"vo/npc/male01/myarm02.wav",
+}
+local sdPainLeg_M = {
+	"vo/npc/male01/myleg01.wav",
+	"vo/npc/male01/myleg02.wav",
+}
+local sdPainGut_M = {
+	"vo/npc/male01/hitingut01.wav",
+	"vo/npc/male01/hitingut02.wav",
+	"vo/npc/male01/mygut02.wav",
+}
+local sdAllyDeathPly_M = {
+	"vo/npc/male01/gordead_ans01.wav",
+	"vo/npc/male01/gordead_ans02.wav",
+	"vo/npc/male01/gordead_ans03.wav",
+	"vo/npc/male01/gordead_ans04.wav",
+	"vo/npc/male01/gordead_ans05.wav",
+	"vo/npc/male01/gordead_ans06.wav",
+	"vo/npc/male01/gordead_ans07.wav",
+	"vo/npc/male01/gordead_ans08.wav",
+	"vo/npc/male01/gordead_ans09.wav",
+	"vo/npc/male01/gordead_ans10.wav",
+	"vo/npc/male01/gordead_ans11.wav",
+	"vo/npc/male01/gordead_ans12.wav",
+	"vo/npc/male01/gordead_ans13.wav",
+	"vo/npc/male01/gordead_ans14.wav",
+	"vo/npc/male01/gordead_ans15.wav",
+	"vo/npc/male01/gordead_ans16.wav",
+	"vo/npc/male01/gordead_ans17.wav",
+	"vo/npc/male01/gordead_ans18.wav",
+	"vo/npc/male01/gordead_ans19.wav",
+	"vo/npc/male01/gordead_ans20.wav",
+	"vo/npc/male01/gordead_ques01.wav",
+	"vo/npc/male01/gordead_ques02.wav",
+	"vo/npc/male01/gordead_ques03.wav",
+	"vo/npc/male01/gordead_ques04.wav",
+	"vo/npc/male01/gordead_ques05.wav",
+	"vo/npc/male01/gordead_ques06.wav",
+	"vo/npc/male01/gordead_ques07.wav",
+	"vo/npc/male01/gordead_ques08.wav",
+	"vo/npc/male01/gordead_ques09.wav",
+	"vo/npc/male01/gordead_ques10.wav",
+	"vo/npc/male01/gordead_ques11.wav",
+	"vo/npc/male01/gordead_ques12.wav",
+	"vo/npc/male01/gordead_ques13.wav",
+	"vo/npc/male01/gordead_ques14.wav",
+	"vo/npc/male01/gordead_ques15.wav",
+	"vo/npc/male01/gordead_ques16.wav",
+	"vo/npc/male01/gordead_ques17.wav",
+}
+
+-- FEMALE
+local sdGiveAmmo_F = {
+	"vo/npc/female01/ammo01.wav",
+	"vo/npc/female01/ammo02.wav",
+	"vo/npc/female01/ammo03.wav",
+	"vo/npc/female01/ammo04.wav",
+	"vo/npc/female01/ammo05.wav",
+}
+local sdSuggestReloadPly_F = {
+	"vo/npc/female01/dontforgetreload01.wav",
+	"vo/npc/female01/reloadfm01.wav",
+	"vo/npc/female01/reloadfm02.wav",
+	"vo/npc/female01/youdbetterreload01.wav",
+}
+local sdPainArm_F = {
+	"vo/npc/female01/myarm01.wav",
+	"vo/npc/female01/myarm02.wav",
+}
+local sdPainLeg_F = {
+	"vo/npc/female01/myleg01.wav",
+	"vo/npc/female01/myleg02.wav",
+}
+local sdPainGut_F = {
+	"vo/npc/female01/hitingut01.wav",
+	"vo/npc/female01/hitingut02.wav",
+	"vo/npc/female01/mygut02.wav",
+}
+local sdAllyDeathPly_F = {
+	"vo/npc/female01/gordead_ans01.wav",
+	"vo/npc/female01/gordead_ans02.wav",
+	"vo/npc/female01/gordead_ans03.wav",
+	"vo/npc/female01/gordead_ans04.wav",
+	"vo/npc/female01/gordead_ans05.wav",
+	"vo/npc/female01/gordead_ans06.wav",
+	"vo/npc/female01/gordead_ans07.wav",
+	"vo/npc/female01/gordead_ans08.wav",
+	"vo/npc/female01/gordead_ans09.wav",
+	"vo/npc/female01/gordead_ans10.wav",
+	"vo/npc/female01/gordead_ans11.wav",
+	"vo/npc/female01/gordead_ans12.wav",
+	"vo/npc/female01/gordead_ans13.wav",
+	"vo/npc/female01/gordead_ans14.wav",
+	"vo/npc/female01/gordead_ans15.wav",
+	"vo/npc/female01/gordead_ans16.wav",
+	"vo/npc/female01/gordead_ans17.wav",
+	"vo/npc/female01/gordead_ans18.wav",
+	"vo/npc/female01/gordead_ans19.wav",
+	"vo/npc/female01/gordead_ans20.wav",
+	"vo/npc/female01/gordead_ques01.wav",
+	"vo/npc/female01/gordead_ques02.wav",
+	"vo/npc/female01/gordead_ques03.wav",
+	"vo/npc/female01/gordead_ques04.wav",
+	"vo/npc/female01/gordead_ques05.wav",
+	"vo/npc/female01/gordead_ques06.wav",
+	"vo/npc/female01/gordead_ques07.wav",
+	"vo/npc/female01/gordead_ques08.wav",
+	"vo/npc/female01/gordead_ques09.wav",
+	"vo/npc/female01/gordead_ques10.wav",
+	"vo/npc/female01/gordead_ques11.wav",
+	"vo/npc/female01/gordead_ques12.wav",
+	"vo/npc/female01/gordead_ques13.wav",
+	"vo/npc/female01/gordead_ques14.wav",
+	"vo/npc/female01/gordead_ques15.wav",
+	"vo/npc/female01/gordead_ques16.wav",
+	"vo/npc/female01/gordead_ques17.wav",
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
 	if math.random(1, 2) == 1 then
@@ -74,30 +207,36 @@ function ENT:CustomOnInitialize()
 		self.Human_SdFolder = "male01"
 	end
 	
-	-- Set different clothing
-	if self.Human_Type == 1 then -- If it's an engineer...
+	-- Set different clothing --
+	-- For Engineers
+	if self.Human_Type == 1 then
 		for k, v in ipairs(self:GetMaterials()) do
+			-- Female Engineer
 			if v == "models/humans/female/group03/citizen_sheet" then
 				self.DeathCorpseSubMaterials = {k - 1}
 				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_engineer")
+			-- Male Engineer
 			elseif v == "models/humans/male/group03/citizen_sheet" then
 				self.DeathCorpseSubMaterials = {k - 1}
 				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_engineer")
 			end
 		end
 	else
-		local rand_refugee = math.random(1,2)
-		local rand_rebel = math.random(1,7)
+		local rand_refugee = math.random(1, 2)
+		local rand_rebel = math.random(1, 7)
 		for k, v in ipairs(self:GetMaterials()) do
 			//print(v)
-			//if v == "models/humans/female/group01/citizen_sheet" then -- Female Citizen
+			-- Female Citizen
+			//if v == "models/humans/female/group01/citizen_sheet" then
 				//self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group01/citizen_sheet_color")
-			if v == "models/humans/female/group02/citizen_sheet" then -- Female Refugee
+			-- Female Refugee
+			if v == "models/humans/female/group02/citizen_sheet" then
 				self.DeathCorpseSubMaterials = {k - 1}
 				if rand_refugee == 2 then
 					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group02/citizen_sheet_jailbreak")
 				end
-			elseif v == "models/humans/female/group03/citizen_sheet" then -- Female Rebel
+			-- Female Rebel
+			elseif v == "models/humans/female/group03/citizen_sheet" then
 				self.DeathCorpseSubMaterials = {k - 1}
 				if rand_rebel == 2 then
 					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_color")
@@ -110,14 +249,17 @@ function ENT:CustomOnInitialize()
 				elseif rand_rebel == 6 then
 					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_beta")
 				end
-			//elseif v == "models/humans/male/group01/citizen_sheet" then -- Male Citizen
+			-- Male Citizen
+			//elseif v == "models/humans/male/group01/citizen_sheet" then
 				//self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group01/citizen_sheet_color")
-			elseif v == "models/humans/male/group02/citizen_sheet" then -- Male Refugee
+			-- Male Refugee
+			elseif v == "models/humans/male/group02/citizen_sheet" then
 				self.DeathCorpseSubMaterials = {k - 1}
 				if rand_refugee == 2 then
 					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group02/citizen_sheet_jailbreak")
 				end
-			elseif v == "models/humans/male/group03/citizen_sheet" then -- Male Rebel
+			-- Male Rebel
+			elseif v == "models/humans/male/group03/citizen_sheet" then
 				self.DeathCorpseSubMaterials = {k - 1}
 				if rand_rebel == 2 then
 					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_color")
@@ -139,7 +281,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 /*function ENT:CustomOnThink_AIEnabled()
 	if IsValid(self:GetEnemy()) && self:GetEnemy():Classify() == CLASS_COMBINE_GUNSHIP then -- to do
-		
 		"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_gunship01.wav",
 		"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_gunship02.wav",
 		"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_gunship03.wav",
@@ -148,23 +289,39 @@ end
 		"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_gunship06.wav",
 		"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_gunship07.wav",
 		"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_gunship08.wav",
-		
-		
 	end
 end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPlayerSight(ent)
+	self.Human_NextPlyReloadSd = CurTime() + math.Rand(10, 60)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnEntityRelationshipCheck(ent, entFri, entDist)
 	-- Tell the player to reload their weapon
-	if ent:IsPlayer() && entFri == true && entDist <= 200 && !IsValid(self:GetEnemy()) && CurTime() > self.Human_NextPlyReloadSd then
-		self.Human_NextPlyReloadSd = CurTime() + math.Rand(10,60)
+	if entFri == true && ent:IsPlayer() && CurTime() > self.Human_NextPlyReloadSd && !IsValid(self:GetEnemy()) && entDist <= 200 then
+		self.Human_NextPlyReloadSd = CurTime() + math.Rand(10, 60)
 		local wep = ent:GetActiveWeapon()
-		if math.random(1, 3) == 1 && IsValid(wep) && wep:Clip1() < wep:GetMaxClip1() && ent:GetAmmoCount(wep:GetPrimaryAmmoType()) > 0 then
-			self:PlaySoundSystem("GeneralSpeech",{
-				"vo/npc/"..self.Human_SdFolder.."/dontforgetreload01.wav",
-				"vo/npc/"..self.Human_SdFolder.."/reloadfm01.wav",
-				"vo/npc/"..self.Human_SdFolder.."/reloadfm02.wav",
-				"vo/npc/"..self.Human_SdFolder.."/youdbetterreload01.wav",
-			})
+		if IsValid(wep) && math.random(1, 3) == 1 then
+			local ammoType = wep:GetPrimaryAmmoType()
+			if wep:GetPrimaryAmmoType() > -1 then
+				-- Give ammo to player
+				if !self.IsMedicSNPC && ent:GetAmmoCount(ammoType) <= 255 && IsValid(self:GetActiveWeapon()) && !self:IsBusy() then
+					if entDist > 100 then
+						self.Human_NextPlyReloadSd = 0
+					else
+						self:FaceCertainPosition(ent:GetPos(), 2)
+						self:VJ_ACT_PLAYACTIVITY("heal", true, false, true, 0, {OnFinish=function(interrupted, anim)
+							if !interrupted then
+								ent:GiveAmmo(20, ammoType)
+							end
+						end})
+						self:PlaySoundSystem("GeneralSpeech", (self.Human_Gender == 1 and sdGiveAmmo_F) or sdGiveAmmo_M)
+					end
+				-- Reload Freeman
+				elseif wep:Clip1() < wep:GetMaxClip1() && ent:GetAmmoCount(ammoType) > 0 then
+					self:PlaySoundSystem("GeneralSpeech", (self.Human_Gender == 1 and sdSuggestReloadPly_F) or sdSuggestReloadPly_M)
+				end
+			end
 		end
 	end
 end
@@ -173,7 +330,8 @@ function ENT:CustomOnDoChangeWeapon(newWeapon, oldWeapon, invSwitch)
 	if invSwitch == true then -- Only if it's a inventory switch
 		self:VJ_ACT_PLAYACTIVITY(ACT_PICKUP_RACK, true, false, true)
 	end
-	if self:GetWeaponState() == VJ_WEP_STATE_ANTI_ARMOR && self.Human_Gender == 0 && math.random(1, 2) == 1 then self:PlaySoundSystem("GeneralSpeech", "vo/npc/male01/evenodds.wav") end
+	-- Only males can play a sound when taking out an anti-armor weapon
+	if self.Human_Gender == 0 && self:GetWeaponState() == VJ_WEP_STATE_ANTI_ARMOR && math.random(1, 2) == 1 then self:PlaySoundSystem("GeneralSpeech", "vo/npc/male01/evenodds.wav") end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoKilledEnemy(ent, attacker, inflictor)
@@ -244,66 +402,18 @@ end
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
 	if self:Health() > 0 && math.random(1,2) == 1 then
 		if hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTARM then
-			self:PlaySoundSystem("Pain", {
-				"vo/npc/"..self.Human_SdFolder.."/myarm01.wav",
-				"vo/npc/"..self.Human_SdFolder.."/myarm02.wav",
-			})
+			self:PlaySoundSystem("Pain", (self.Human_Gender == 1 and sdPainArm_F) or sdPainArm_M)
 		elseif hitgroup == HITGROUP_LEFTLEG or hitgroup == HITGROUP_RIGHTLEG then
-			self:PlaySoundSystem("Pain", {
-				"vo/npc/"..self.Human_SdFolder.."/myleg01.wav",
-				"vo/npc/"..self.Human_SdFolder.."/myleg02.wav",
-			})
+			self:PlaySoundSystem("Pain", (self.Human_Gender == 1 and sdPainLeg_F) or sdPainLeg_M)
 		elseif hitgroup == HITGROUP_STOMACH then
-			self:PlaySoundSystem("Pain", {
-				"vo/npc/"..self.Human_SdFolder.."/hitingut01.wav",
-				"vo/npc/"..self.Human_SdFolder.."/hitingut02.wav",
-				"vo/npc/"..self.Human_SdFolder.."/mygut02.wav",
-			})
+			self:PlaySoundSystem("Pain", (self.Human_Gender == 1 and sdPainGut_F) or sdPainGut_M)
 		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAllyDeath(ent)
 	if ent:IsPlayer() or ent.VJ_HLR_Freeman then
-		self:PlaySoundSystem("AllyDeath", {
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ans01.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ans02.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ans03.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ans04.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ans05.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ans06.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ans07.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ans08.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ans09.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ans10.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ans11.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ans12.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ans13.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ans14.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ans15.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ans16.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ans17.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ans18.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ans19.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ans20.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ques01.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ques02.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ques03.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ques04.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ques05.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ques06.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ques07.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ques08.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ques09.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ques10.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ques11.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ques12.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ques13.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ques14.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ques15.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ques16.wav",
-			"vo/npc/"..self.Human_SdFolder.."/gordead_ques17.wav",
-		})
+		self:PlaySoundSystem("AllyDeath", (self.Human_Gender == 1 and sdAllyDeathPly_F) or sdAllyDeathPly_M)
 	end
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -786,10 +896,6 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/npc/male01/pain09.wav"
 	}
 
-	--[[ CUSTOM CODE
-
-	]]--
-
 
 	--[[ UNUSED
 
@@ -798,9 +904,6 @@ function ENT:HLR_ApplyMaleSounds()
 	vo/npc/male01/lookoutfm02.wav
 	vo/npc/male01/behindyou01.wav
 	vo/npc/male01/behindyou02.wav
-
-	-- Give player ammo
-	vo/npc/male01/ammo01.wav	1 - 5
 
 	-- Pick-up weapon
 	vo/npc/male01/fantastic01.wav
@@ -1257,15 +1360,8 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/npc/female01/pain09.wav",
 	}
 
-	--[[ CUSTOM CODE
-
-	]]--
-
 
 	--[[ UNUSED
-
-	-- Give player ammo
-	vo/npc/female01/ammo01.wav    1 - 5
 
 	-- Pick-up weapon
 	vo/npc/female01/fantastic01.wav
@@ -1323,8 +1419,3 @@ function ENT:HLR_ApplyFemaleSounds()
 	"vj_hlr/hl2_npc/ep1/npc/female01/cit_notice_gravgunkill04.wav",
 	]]--
 end
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

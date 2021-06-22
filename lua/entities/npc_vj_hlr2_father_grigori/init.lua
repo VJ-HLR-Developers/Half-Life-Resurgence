@@ -9,7 +9,7 @@ ENT.Model = {"models/monk.mdl"} -- The game will pick a random model from the ta
 ENT.StartHealth = 100
 ENT.HasHealthRegeneration = true -- Can the SNPC regenerate its health?
 ENT.HealthRegenerationAmount = 1 -- How much should the health increase after every delay?
-ENT.HealthRegenerationDelay = VJ_Set(0.5,1) -- How much time until the health increases
+ENT.HealthRegenerationDelay = VJ_Set(0.5, 1) -- How much time until the health increases
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
@@ -206,8 +206,3 @@ ENT.GeneralSoundPitch1 = 100
 "vo/ravenholm/yard_traps.wav"
 ]]--
 ---------------------------------------------------------------------------------------------------------------------------------------------
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

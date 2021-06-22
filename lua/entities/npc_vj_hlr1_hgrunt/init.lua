@@ -132,35 +132,36 @@ end
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(15, 15, 78), Vector(-15, -15, 0))
 	
-	if self:GetModel() == "models/vj_hlr/hl1/hgrunt.mdl" then // Already the default
+	local myMDL = myMDL
+	if myMDL == "models/vj_hlr/hl1/hgrunt.mdl" then // Already the default
 		self.HECU_Type = 0
 		self.HECU_WepBG = 2
-	elseif self:GetModel() == "models/vj_hlr/opfor/hgrunt.mdl" then
+	elseif myMDL == "models/vj_hlr/opfor/hgrunt.mdl" then
 		self.HECU_Type = 1
 		self.HECU_WepBG = 3
-	elseif self:GetModel() == "models/vj_hlr/opfor/hgrunt_medic.mdl" then
+	elseif myMDL == "models/vj_hlr/opfor/hgrunt_medic.mdl" then
 		self.HECU_Type = 2
 		self.HECU_WepBG = 3
 		self.AnimTbl_WeaponReload = {ACT_RELOAD_SMG1}
-	elseif self:GetModel() == "models/vj_hlr/opfor/hgrunt_engineer.mdl" then
+	elseif myMDL == "models/vj_hlr/opfor/hgrunt_engineer.mdl" then
 		self.HECU_Type = 3
 		self.HECU_WepBG = 1
 		self.AnimTbl_WeaponReload = {ACT_RELOAD_SMG1}
-	elseif self:GetModel() == "models/vj_hlr/opfor/massn.mdl" then
+	elseif myMDL == "models/vj_hlr/opfor/massn.mdl" then
 		self.HECU_Type = 4
 		self.HECU_WepBG = 2
-	elseif self:GetModel() == "models/vj_hlr/hl1/rgrunt.mdl" or self:GetModel() == "models/vj_hlr/hl1/rgrunt_black.mdl" then
+	elseif myMDL == "models/vj_hlr/hl1/rgrunt.mdl" or myMDL == "models/vj_hlr/hl1/rgrunt_black.mdl" then
 		self.HECU_Type = 5
 		self.HECU_WepBG = 1
-	elseif self:GetModel() == "models/vj_hlr/hla/hgrunt.mdl" then
+	elseif myMDL == "models/vj_hlr/hla/hgrunt.mdl" then
 		self.HECU_Type = 6
 		self.HECU_WepBG = 1
-		self.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEFORWARD}
+		self.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD}
 		self.HECU_CanHurtWalk = false
-	elseif self:GetModel() == "models/vj_hlr/hl1/hassault.mdl" or self:GetModel() == "models/vj_hlr/hl_hd/hassault.mdl" then
+	elseif myMDL == "models/vj_hlr/hl1/hassault.mdl" or myMDL == "models/vj_hlr/hl_hd/hassault.mdl" then
 		self.HECU_Type = 7
 		self.HECU_WepBG = 1
-		self.AnimTbl_Death = {ACT_DIESIMPLE,ACT_DIEBACKWARD,ACT_DIEVIOLENT}
+		self.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEBACKWARD, ACT_DIEVIOLENT}
 		self.HECU_CanHurtWalk = false
 	end
 	
@@ -367,11 +368,12 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local gasTankExpPos = Vector(0, 0, 90)
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	if self.HECU_GasTankHit == true then
-		util.BlastDamage(self,self,self:GetPos(),100,80)
-		util.ScreenShake(self:GetPos(),100,200,1,500)
+		util.BlastDamage(self, self, self:GetPos(), 100, 80)
+		util.ScreenShake(self:GetPos(), 100, 200, 1, 500)
 		VJ_EmitSound(self,{"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"},90)
 		
 		local spr = ents.Create("env_sprite")
@@ -387,7 +389,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		spr:SetKeyValue("framerate","15.0")
 		spr:SetKeyValue("spawnflags","0")
 		spr:SetKeyValue("scale","4")
-		spr:SetPos(self:GetPos() + Vector(0,0,90))
+		spr:SetPos(self:GetPos() + gasTankExpPos)
 		spr:Spawn()
 		spr:Fire("Kill","",0.9)
 		timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
@@ -395,7 +397,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD then
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_skull.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,60))})
 		self.HasDeathAnimation = false
-		return true,{DeathAnim=false,AllowCorpse=true}
+		return true, {DeathAnim=false, AllowCorpse=true}
 	else
 		if self.HasGibDeathParticles == true then
 			local bloodeffect = EffectData()
@@ -458,15 +460,16 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
+	-- Remove the weapon body group
 	if self.HECU_Type == 6 or self.HECU_Type == 7 then
-		self:SetBodygroup(self.HECU_WepBG,1)
+		self:SetBodygroup(self.HECU_WepBG, 1)
 	elseif self.HECU_Type == 0 or self.HECU_Type == 3 or self.HECU_Type == 4 then
-		self:SetBodygroup(self.HECU_WepBG,2)
+		self:SetBodygroup(self.HECU_WepBG, 2)
 	elseif self.HECU_Type == 5 then
-		self:SetBodygroup(self.HECU_WepBG,2)
+		self:SetBodygroup(self.HECU_WepBG, 2)
 		self:SetSkin(4)
 	elseif self.HECU_Type == 1 or self.HECU_Type == 2 then
-		self:SetBodygroup(self.HECU_WepBG,3)
+		self:SetBodygroup(self.HECU_WepBG, 3)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -474,8 +477,3 @@ function ENT:CustomOnDropWeapon_AfterWeaponSpawned(dmginfo, hitgroup, wepEnt)
 	wepEnt.WorldModel_Invisible = false
 	wepEnt:SetNW2Bool("VJ_WorldModel_Invisible", false)
 end
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

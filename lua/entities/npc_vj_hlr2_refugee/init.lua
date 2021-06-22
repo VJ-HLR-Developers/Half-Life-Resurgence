@@ -18,8 +18,3 @@ function ENT:CustomOnPreInitialize()
 		self.Model = {"models/Humans/Group02/female_01.mdl","models/Humans/Group02/female_02.mdl","models/Humans/Group02/female_03.mdl","models/Humans/Group02/female_04.mdl","models/Humans/Group02/female_06.mdl","models/Humans/Group02/female_07.mdl"}
 	end
 end
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

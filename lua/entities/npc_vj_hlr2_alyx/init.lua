@@ -790,9 +790,9 @@ ENT.SoundTbl_Death = {
 	"vj_hlr/hl2_npc/ep1/npc/alyx/al_explo_agh.wav",
 }
 
+local sdFreemanReload = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_playerreload01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerreload02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerreload03.wav","vo/npc/alyx/youreload01.wav","vo/npc/alyx/youreload02.wav"}
 local sdKilledEnemy = {"vj_hlr/hl2_npc/ep1/citadel/al_advisor_wasthatthing.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_gross01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_gross02.wav"}
 local sdAllyDeath = {"vo/k_lab/al_lostgordon.wav","vj_hlr/hl2_npc/ep1/c17/al_lasttrain_gordon.wav","vj_hlr/hl2_npc/ep1/c17/al_lasttrain_ohnogordon.wav","vj_hlr/hl2_npc/ep1/c17/al_train_gordon.wav","vj_hlr/hl2_npc/ep1/c17/al_train_madeit02.wav","vj_hlr/hl2_npc/ep1/c17/al_zombieroom_gordon.wav","vj_hlr/hl2_npc/ep1/citadel/al_advisor_breen02.wav","vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback01.wav","vj_hlr/hl2_npc/ep1/citadel/al_postcore_atwindow_new02.wav","vj_hlr/hl2_npc/ep1/citadel/al_stalk_getemoff11.wav","vj_hlr/hl2_npc/ep1/intro/al_gordon.wav","vj_hlr/hl2_npc/ep1/intro/al_ohgordon.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worried01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worrieder_02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriederer01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriederer02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriedest01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriedest03.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath03.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath04.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerfalls01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerfalls03.wav","vj_hlr/hl2_npc/ep2/outland_01/intro/al_rbed_callinggordon04.wav","vj_hlr/hl2_npc/ep2/outland_12a/launch/al_launch_attackstart01.wav","vj_hlr/hl2_npc/ep2/outland_12a/launch/al_launch_ohgord.wav"}
-local sdFreemanReload = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_playerreload01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerreload02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerreload03.wav","vo/npc/alyx/youreload01.wav","vo/npc/alyx/youreload02.wav"}
 
 --[[ UNUSED
 
@@ -871,10 +871,8 @@ local sdFreemanReload = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_playerreload01.wav","vj
 "vj_hlr/hl2_npc/ep1/npc/alyx/al_monsterbehindplayer04.wav",
 
 -- Player needs healing
+	-- Wrong file path! =O
 "vj_hlr/hl2_npc/ep1/npc/alyx/al_player_goodshot01.wav",		1  -  5
-
--- Give player ammo
-"vj_hlr/hl2_npc/ep1/npc/alyx/al_takeammo.wav",
 
 -- To dark
 "vj_hlr/hl2_npc/ep1/c17/al_darkinhere.wav",
@@ -933,22 +931,45 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnHandleAnimEvent(ev, evTime, evCycle, evType, evOptions)
-	//print(ev)
+	print()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPlayerSight(ent)
+	self.Human_NextPlyReloadSd = CurTime() + math.Rand(10, 60)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnEntityRelationshipCheck(ent, entFri, entDist)
 	-- Tell the player to reload their weapon
-	if ent:IsPlayer() && entFri == true && entDist <= 200 && !IsValid(self:GetEnemy()) && CurTime() > self.Human_NextPlyReloadSd then
-		self.Human_NextPlyReloadSd = CurTime() + math.Rand(10,60)
+	if entFri == true && ent:IsPlayer() && CurTime() > self.Human_NextPlyReloadSd && !IsValid(self:GetEnemy()) && entDist <= 200 then
+		self.Human_NextPlyReloadSd = CurTime() + math.Rand(10, 60)
 		local wep = ent:GetActiveWeapon()
-		if math.random(1,3) == 1 && IsValid(wep) && wep:Clip1() < wep:GetMaxClip1() && ent:GetAmmoCount(wep:GetPrimaryAmmoType()) > 0 then
-			self:PlaySoundSystem("GeneralSpeech", sdFreemanReload)
+		if IsValid(wep) && math.random(1, 3) == 1 then
+			local ammoType = wep:GetPrimaryAmmoType()
+			if wep:GetPrimaryAmmoType() > -1 then
+				-- Give ammo to player
+				if ent:GetAmmoCount(ammoType) <= 255 && IsValid(self:GetActiveWeapon()) && !self:IsBusy() then
+					if entDist > 100 then
+						self.Human_NextPlyReloadSd = 0
+					else
+						self:FaceCertainPosition(ent:GetPos(), 2)
+						self:VJ_ACT_PLAYACTIVITY("heal", true, false, true, 0, {OnFinish=function(interrupted, anim)
+							if !interrupted then
+								ent:GiveAmmo(20, ammoType)
+							end
+						end})
+						self:PlaySoundSystem("GeneralSpeech", "vj_hlr/hl2_npc/ep1/npc/alyx/al_takeammo.wav")
+					end
+				-- Reload Freeman
+				elseif wep:Clip1() < wep:GetMaxClip1() && ent:GetAmmoCount(ammoType) > 0 then
+					self:PlaySoundSystem("GeneralSpeech", sdFreemanReload)
+				end
+			end
 		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
-	if math.random(1,2) == 1 && ent:IsNPC() then
+	if math.random(1, 2) == 1 && ent:IsNPC() then
 		if ent:GetClass() == "npc_breen" then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/citadel/al_advisor_breen01.wav"})
 			return
@@ -1039,8 +1060,3 @@ function ENT:CustomOnAllyDeath(ent)
 		self:PlaySoundSystem("AllyDeath", sdAllyDeath)
 	end
 end
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

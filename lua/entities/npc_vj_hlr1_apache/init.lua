@@ -164,7 +164,7 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local bulletSpread = Vector(0.05, 0.05, 0)
+local bulletSpread = Vector(0.03490, 0.03490, 0.03490)
 --
 function ENT:CustomAttack()
 	local ene = self:GetEnemy()
@@ -234,6 +234,8 @@ function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
+	self.HasDeathRagdoll = false // TODO: Add proper death corpse
+	
 	local expPos = self:GetAttachment(self:LookupAttachment("rotor")).Pos
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")

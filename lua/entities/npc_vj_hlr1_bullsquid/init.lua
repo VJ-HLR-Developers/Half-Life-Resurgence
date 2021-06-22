@@ -6,7 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hl1/bullsquid.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.StartHealth = 120
+ENT.StartHealth = 100
 ENT.HullType = HULL_WIDE_SHORT
 ENT.VJC_Data = {
     FirstP_Bone = "Bip01 Spine1", -- If left empty, the base will attempt to calculate a position for first person
@@ -20,6 +20,7 @@ ENT.CustomBlood_Particle = {"vj_hl_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.Immune_AcidPoisonRadiation = true -- Makes the SNPC not get damage from Acid, poison, radiation
+
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDistance = 35 -- How close does it have to be until it attacks?
@@ -29,6 +30,7 @@ ENT.MeleeAttackKnockBack_Forward1 = 50 -- How far it will push you forward | Fir
 ENT.MeleeAttackKnockBack_Forward2 = 60 -- How far it will push you forward | Second in math.random
 ENT.MeleeAttackKnockBack_Up1 = 250 -- How far it will push you up | First in math.random
 ENT.MeleeAttackKnockBack_Up2 = 260 -- How far it will push you up | Second in math.random
+
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1} -- Range Attack Animations
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_toxicspit" -- The entity that is spawned when range attacking
@@ -40,6 +42,7 @@ ENT.RangeUseAttachmentForPos = false -- Should the projectile spawn on a attachm
 ENT.RangeAttackPos_Up = 20 -- Up/Down spawning position for range attack
 ENT.RangeAttackPos_Forward = 0 -- Forward/ Backward spawning position for range attack
 ENT.RangeAttackPos_Right = 0 -- Right/Left spawning position for range attack
+
 ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it's between number x and y?
 ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
@@ -104,21 +107,21 @@ function ENT:CustomOnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(projectile)
+	local ene = self:GetEnemy()
 	if self.Bullsquid_BullSquidding == true then
-		return self:CalculateProjectile("Line", self:GetPos(), self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 250000)
+		return self:CalculateProjectile("Line", projectile:GetPos(), ene:GetPos() + ene:OBBCenter(), 250000)
 	else
-		return self:CalculateProjectile("Curve", self:GetPos(), self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1500)
+		return self:CalculateProjectile("Curve", projectile:GetPos(), ene:GetPos() + ene:OBBCenter(), 1500)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
-	local randAttack = math.random(1,2)
-	if randAttack == 1 then
+	if math.random(1, 2) == 1 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
 		self.MeleeAttackDamage = 35
-	elseif randAttack == 2 then
+	else
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
-		self.MeleeAttackDamage = 20
+		self.MeleeAttackDamage = 25
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

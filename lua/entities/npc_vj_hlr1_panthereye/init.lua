@@ -63,7 +63,7 @@ ENT.GeneralSoundPitch1 = 100
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(25, 25, 55), Vector(-25, -25, 0))
 	
-	self:SetSkin(math.random(0,1))
+	self:SetSkin(math.random(0, 1))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
@@ -136,8 +136,3 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
 end
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

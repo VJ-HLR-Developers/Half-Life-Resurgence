@@ -79,10 +79,10 @@ end
 function ENT:MultipleMeleeAttacks()
 	if math.random(1, 2) == 1 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
-		self.MeleeAttackDamage = 20
+		self.MeleeAttackDamage = 10
 	else
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
-		self.MeleeAttackDamage = 40
+		self.MeleeAttackDamage = 25
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
