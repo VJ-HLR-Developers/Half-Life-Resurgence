@@ -182,7 +182,7 @@ function ENT:CustomOnPreInitialize()
 		end
 	else
 		self.Human_Gender = 1
-		if math.random(1,5) == 1 && self.Human_Type != 1 then
+		if math.random(1, 5) == 1 && self.Human_Type != 1 then
 			self.Model = {"models/Humans/Group03m/female_01.mdl","models/Humans/Group03m/female_02.mdl","models/Humans/Group03m/female_03.mdl","models/Humans/Group03m/female_04.mdl","models/Humans/Group03m/female_06.mdl","models/Humans/Group03m/female_07.mdl"}
 			self.IsMedicSNPC = true
 		else

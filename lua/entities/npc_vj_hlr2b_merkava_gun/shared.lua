@@ -9,7 +9,7 @@ ENT.Category		= "Half-Life Resurgence"
 
 if CLIENT then
 	local Name = "Merkava"
-	local LangName = "npc_vj_hlr1_m2a3bradley_gun"
+	local LangName = "npc_vj_hlr2b_merkava_gun"
 	language.Add(LangName, Name)
 	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
 	language.Add("#"..LangName, Name)
