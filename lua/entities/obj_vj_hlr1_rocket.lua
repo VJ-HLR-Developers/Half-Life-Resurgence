@@ -25,7 +25,7 @@ if CLIENT then
 		if IsValid(self) && self:GetNW2Bool("VJ_Dead") != true then
 			self.Emitter = ParticleEmitter(self:GetPos())
 			self.SmokeEffect1 = self.Emitter:Add("particles/flamelet2", self:GetPos() + self:GetForward()*-7)
-			self.SmokeEffect1:SetVelocity(self:GetForward() *math.Rand(0, -50) +Vector(math.Rand(5, -5), math.Rand(5, -5), math.Rand(5, -5)) + self:GetVelocity())
+			self.SmokeEffect1:SetVelocity(self:GetForward()*math.Rand(0, -50) + Vector(math.Rand(5, -5), math.Rand(5, -5), math.Rand(5, -5)) + self:GetVelocity())
 			self.SmokeEffect1:SetDieTime(0.2)
 			self.SmokeEffect1:SetStartAlpha(100)
 			self.SmokeEffect1:SetEndAlpha(0)
@@ -52,22 +52,54 @@ ENT.ShakeWorldOnDeath = true -- Should the world shake when the projectile hits 
 ENT.ShakeWorldOnDeathAmplitude = 16 -- How much the screen will shake | From 1 to 16, 1 = really low 16 = really high
 ENT.ShakeWorldOnDeathRadius = 3000 -- How far the screen shake goes, in world units
 ENT.ShakeWorldOnDeathFrequency = 200 -- The frequency
-ENT.DelayedRemove = 3 -- Change this to a number greater than 0 to delay the removal of the entity
+ENT.DelayedRemove = 6 -- Change this to a number greater than 0 to delay the removal of the entity
 ENT.DecalTbl_DeathDecals = {"VJ_HLR_Scorch"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_weapon/rpg/rocket1.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}
 
 -- Custom
 ENT.Rocket_AirMissile = false
+ENT.Rocket_HelicopterMissile = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vecZ20 = Vector(0, 0, 40)
+local colorTrail = Color(224, 224, 255, 255)
 --
 function ENT:CustomOnInitialize()
-	util.SpriteTrail(self, 0, Color(255,255,255,255), true, 5, 20, 3, 1/(5+20)*0.5, "vj_hl/sprites/smoke.vmt")
+	self.StartGlow1 = ents.Create("env_sprite")
+	self.StartGlow1:SetKeyValue("model","vj_hl/sprites/animglow01.vmt")
+	self.StartGlow1:SetKeyValue("rendercolor","224 224 255")
+	self.StartGlow1:SetKeyValue("GlowProxySize","5.0")
+	self.StartGlow1:SetKeyValue("HDRColorScale","1.0")
+	self.StartGlow1:SetKeyValue("renderfx","14")
+	self.StartGlow1:SetKeyValue("rendermode","3")
+	self.StartGlow1:SetKeyValue("renderamt","255")
+	self.StartGlow1:SetKeyValue("disablereceiveshadows","0")
+	self.StartGlow1:SetKeyValue("mindxlevel","0")
+	self.StartGlow1:SetKeyValue("maxdxlevel","0")
+	self.StartGlow1:SetKeyValue("framerate","40.0")
+	self.StartGlow1:SetKeyValue("spawnflags","0")
+	self.StartGlow1:SetKeyValue("scale","0.5")
+	self.StartGlow1:SetPos(self:GetPos())
+	self.StartGlow1:Spawn()
+	self.StartGlow1:SetParent(self)
+	self:DeleteOnRemove(self.StartGlow1)
+	util.SpriteTrail(self, 0, colorTrail, true, 5, 20, 6, 1/(5+20)*0.5, "vj_hl/sprites/smoke.vmt")
 	self:SetNW2Bool("VJ_Dead", false)
 	
+	-- Used by helicopters
+	if self.Rocket_HelicopterMissile then
+		timer.Simple(0.5, function()
+			if IsValid(self) && IsValid(self:GetOwner()) then
+				local phys = self:GetPhysicsObject()
+				local ene = self:GetOwner():GetEnemy()
+				if IsValid(phys) && IsValid(ene) then
+					phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), ene:GetPos() + ene:OBBCenter(), 2000))
+					self:SetAngles(self:GetVelocity():GetNormal():Angle())
+				end
+			end
+		end)
 	-- Used by the Bradley
-	if self.Rocket_AirMissile then
+	elseif self.Rocket_AirMissile then
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
 			-- Go forward
@@ -107,6 +139,8 @@ end
 local vecZ80 = Vector(0, 0, 80)
 --
 function ENT:DeathEffects(data, phys)
+	if IsValid(self.StartGlow1) then self.StartGlow1:Remove() end
+	
 	self:SetNW2Bool("VJ_Dead", true)
 	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 80, 100)
 	

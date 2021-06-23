@@ -123,7 +123,7 @@ function ENT:Controller_IntMsg(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleRangeAttacks()
-	if (math.random(1,2) == 1 && self.NearestPointToEnemyDistance < 850) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_DUCK)) then
+	if (math.random(1, 2) == 1 && self.NearestPointToEnemyDistance < 850) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_DUCK)) then
 		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2}
 		self.RangeAttackPos_Up = 80
 		self.AlienC_HomingAttack = true

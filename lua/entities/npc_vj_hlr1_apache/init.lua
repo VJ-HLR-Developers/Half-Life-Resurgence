@@ -59,6 +59,7 @@ ENT.RangeUseAttachmentForPos = true -- Should the projectile spawn on a attachme
 ENT.RangeUseAttachmentForPosID = "missile_left"
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
 
+ENT.HasDeathRagdoll = false
 ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
 ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
 	-- ====== Sound File Paths ====== --
@@ -80,6 +81,7 @@ ENT.DeathSoundLevel = 100
 -- Custom
 ENT.Apache_HasLOS = false
 ENT.Apache_SmokeStatus = 0 -- 0 = No smoke | 1 = Tail smoke | 2 = Tail & Rotor smoke
+ENT.Apache_DeathCollided = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local spawnPos = Vector(0, 0, 400)
 --
@@ -141,15 +143,6 @@ function ENT:CustomOn_PoseParameterLookingCode(pitch, yaw, roll)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
-	return self:CalculateProjectile("Line", projectile:GetPos(), self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 2000)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_AfterProjectileSpawn(ent)
-	self.RangeUseAttachmentForPosID = self.RangeUseAttachmentForPosID == "missile_left" and "missile_right" or "missile_left"
-	VJ_CreateSound(ent, "vj_hlr/hl1_weapon/rpg/rocketfire1.wav", 100)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	-- Flying tilt (X & Y)
 	local velNorm = self:GetVelocity():GetNormal()
@@ -164,8 +157,23 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackCode_GetShootPos(projectile)
+	return self:GetForward()*400
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(projectile)
+	projectile.Model = "models/vj_hlr/hl1/hvr.mdl"
+	projectile.Rocket_HelicopterMissile = true
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomRangeAttackCode_AfterProjectileSpawn(ent)
+	self.RangeUseAttachmentForPosID = self.RangeUseAttachmentForPosID == "missile_left" and "missile_right" or "missile_left"
+	VJ_CreateSound(ent, "vj_hlr/hl1_weapon/rpg/rocketfire1.wav", 100)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 local bulletSpread = Vector(0.03490, 0.03490, 0.03490)
 --
+-- Firing Delay: Checked in Half-Life 1 (GoldSrc), there is NO delay as long as the gun is facing the enemy!
 function ENT:CustomAttack()
 	local ene = self:GetEnemy()
 	if self.Apache_HasLOS && self.NearestPointToEnemyDistance <= combatDistance && self:Visible(ene) then
@@ -233,9 +241,28 @@ function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local colorHeliExp = Color(255, 255, 192, 128)
+local sdGibCollide = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
+local heliExpGibs = {
+	"models/vj_hlr/gibs/metalgib_p1_g.mdl",
+	"models/vj_hlr/gibs/metalgib_p2_g.mdl",
+	"models/vj_hlr/gibs/metalgib_p3_g.mdl",
+	"models/vj_hlr/gibs/metalgib_p4_g.mdl",
+	"models/vj_hlr/gibs/metalgib_p5_g.mdl",
+	"models/vj_hlr/gibs/metalgib_p6_g.mdl",
+	"models/vj_hlr/gibs/metalgib_p7_g.mdl",
+	"models/vj_hlr/gibs/metalgib_p8_g.mdl",
+	"models/vj_hlr/gibs/metalgib_p9_g.mdl",
+	"models/vj_hlr/gibs/metalgib_p10_g.mdl",
+	"models/vj_hlr/gibs/metalgib_p11_g.mdl",
+	"models/vj_hlr/gibs/rgib_cog1.mdl",
+	"models/vj_hlr/gibs/rgib_cog2.mdl",
+	"models/vj_hlr/gibs/rgib_rib.mdl",
+	"models/vj_hlr/gibs/rgib_screw.mdl",
+	"models/vj_hlr/gibs/rgib_spring.mdl"
+}
+--
 function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
-	self.HasDeathRagdoll = false // TODO: Add proper death corpse
-	
 	local expPos = self:GetAttachment(self:LookupAttachment("rotor")).Pos
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
@@ -255,35 +282,112 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	spr:Fire("Kill", "", 0.9)
 	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 	
-	util.BlastDamage(self, self, expPos, 400, 100)
-	
+	util.BlastDamage(self, self, expPos, 300, 100)
 	VJ_EmitSound(self, sdExplosions, 100, 100)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-local sdGibCollide = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
---
-function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
-	self.HasDeathSounds = false
-	local upPos = self.Sentry_SubType == 1 and -30 or 20
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p1_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(1,0,20)),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p2_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,1,20)),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p3_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(2,0,20)),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p4_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,2,20)),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p5_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(3,0,20)),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p6_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,3,20)),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p7_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(4,0,20)),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p8_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,4,20)),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p9_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(5,0,20)),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p10_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,5,20)),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p11_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(6,0,20)),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_cog1.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(1,0,upPos)),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_cog2.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,1,upPos)),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_rib.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(2,0,upPos)),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_screw.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,2,upPos)),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_screw.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(3,0,upPos)),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_screw.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,3,upPos)),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_spring.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(4,0,upPos)),CollideSound=""}) -- Shad ge sharji, ere vor tsayn chi hane
-	return true
+	
+	local deathCorpse = ents.Create("prop_vj_animatable")
+	deathCorpse:SetModel(self:GetModel())
+	deathCorpse:SetPos(self:GetPos())
+	deathCorpse:SetAngles(self:GetAngles())
+	function deathCorpse:Initialize()
+		self:PhysicsInit(SOLID_VPHYSICS)
+		self:SetMoveType(MOVETYPE_VPHYSICS)
+		self:SetMoveCollide(MOVECOLLIDE_FLY_BOUNCE)
+		self:SetCollisionGroup(COLLISION_GROUP_NONE)
+		self:SetSolid(SOLID_CUSTOM)
+		local phys = self:GetPhysicsObject()
+		if IsValid(phys) then
+			phys:Wake()
+			phys:EnableGravity(true)
+			phys:SetBuoyancyRatio(0)
+			phys:SetVelocity(self:GetVelocity())
+		end
+	end
+	deathCorpse.NextExpT = 0
+	deathCorpse:Spawn()
+	deathCorpse:Activate()
+	
+	function deathCorpse:Think()
+		self:ResetSequence("idle_move")
+		if CurTime() > self.NextExpT then
+			self.NextExpT = CurTime() + 0.2
+			local expPos = self:GetPos() + Vector(math.Rand(-150, 150), math.Rand(-150, 150), math.Rand(-150, -50))
+			local spr = ents.Create("env_sprite")
+			spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+			spr:SetKeyValue("GlowProxySize","2.0")
+			spr:SetKeyValue("HDRColorScale","1.0")
+			spr:SetKeyValue("renderfx","14")
+			spr:SetKeyValue("rendermode","5")
+			spr:SetKeyValue("renderamt","255")
+			spr:SetKeyValue("disablereceiveshadows","0")
+			spr:SetKeyValue("mindxlevel","0")
+			spr:SetKeyValue("maxdxlevel","0")
+			spr:SetKeyValue("framerate","15.0")
+			spr:SetKeyValue("spawnflags","0")
+			spr:SetKeyValue("scale","5")
+			spr:SetPos(expPos)
+			spr:Spawn()
+			spr:Fire("Kill", "", 0.9)
+			timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+			
+			util.BlastDamage(self, self, expPos, 300, 100)
+			VJ_EmitSound(self, sdExplosions, 100, 100)
+		end
+	
+		self:NextThink(CurTime())
+		return true
+	end
+	
+	function deathCorpse:PhysicsCollide(data, phys)
+		if self.Dead then return end
+		self.Dead = true
+		
+		-- Create gibs
+		for _ = 1, 40 do
+			local gib = ents.Create("obj_vj_gib")
+			gib:SetModel(VJ_PICK(heliExpGibs))
+			gib:SetPos(self:GetPos() + Vector(math.random(-100, 100), math.random(-100, 100), math.random(10, 100)))
+			gib:SetAngles(Angle(math.Rand(-180, 180), math.Rand(-180, 180), math.Rand(-180, 180)))
+			gib.Collide_Decal = ""
+			gib.CollideSound = sdGibCollide
+			gib:Spawn()
+			gib:Activate()
+			local phys = gib:GetPhysicsObject()
+			if IsValid(phys) then
+				phys:AddVelocity(Vector(math.Rand(-100, 100), math.Rand(-100, 100), math.Rand(150, 250)))
+				phys:AddAngleVelocity(Vector(math.Rand(-200, 200), math.Rand(-200, 200), math.Rand(-200, 200)))
+			end
+			if GetConVar("vj_npc_fadegibs"):GetInt() == 1 then
+				timer.Simple(GetConVar("vj_npc_fadegibstime"):GetInt(), function() SafeRemoveEntity(gib) end)
+			end
+		end
+		
+		local expPos = self:GetPos() + Vector(math.Rand(-150, 150), math.Rand(-150, 150), math.Rand(-150, -50))
+		local spr = ents.Create("env_sprite")
+		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+		spr:SetKeyValue("GlowProxySize","2.0")
+		spr:SetKeyValue("HDRColorScale","1.0")
+		spr:SetKeyValue("renderfx","14")
+		spr:SetKeyValue("rendermode","5")
+		spr:SetKeyValue("renderamt","255")
+		spr:SetKeyValue("disablereceiveshadows","0")
+		spr:SetKeyValue("mindxlevel","0")
+		spr:SetKeyValue("maxdxlevel","0")
+		spr:SetKeyValue("framerate","15.0")
+		spr:SetKeyValue("spawnflags","0")
+		spr:SetKeyValue("scale","5")
+		spr:SetPos(expPos)
+		spr:Spawn()
+		spr:Fire("Kill", "", 0.9)
+		timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+		util.BlastDamage(self, self, expPos, 300, 100)
+		VJ_EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit.wav", 100, 100)
+		
+		-- flags 0 = No fade!
+		effects.BeamRingPoint(self:GetPos(), 0.4, 0, 1500, 32, 0, colorHeliExp, {material="vj_hl/sprites/shockwave", framerate=0, flags=0})
+		
+		self:Remove()
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)

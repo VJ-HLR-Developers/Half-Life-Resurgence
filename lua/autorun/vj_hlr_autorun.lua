@@ -39,14 +39,13 @@ if VJExists == true then
 			VJ.AddNPC("Alpha Security Guard","npc_vj_hlr1a_securityguard",vCat)
 			VJ.AddNPC("Alpha Scientist","npc_vj_hlr1a_scientist",vCat)
 			VJ.AddNPC("Ivan the Space Biker","npc_vj_hlr1a_ivan",vCat)
+			VJ.AddNPC("Probe Droid","npc_vj_hlr1a_probedroid",vCat)
 			
 		-- Black Mesa Weaponry
 		VJ.AddNPC("Black Mesa Ground Turret","npc_vj_hlr1_gturret",vCat)
 		VJ.AddNPC("Black Mesa Ground Turret (Mini)","npc_vj_hlr1_gturret_mini",vCat)
 		VJ.AddNPC("Black Mesa Ceiling Turret","npc_vj_hlr1_cturret",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
 		VJ.AddNPC("Black Mesa Ceiling Turret (Mini)","npc_vj_hlr1_cturret_mini",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
-			-- Alpha
-			VJ.AddNPC("Probe Droid","npc_vj_hlr1a_probedroid",vCat)
 			
 		-- HECU
 		VJ.AddNPC("Human Grunt","npc_vj_hlr1_hgrunt",vCat)
@@ -70,6 +69,7 @@ if VJExists == true then
 		VJ.AddNPC("Black Ops Female Assassin","npc_vj_hlr1_assassin_female",vCat)
 		VJ.AddNPC("Black Ops Male Assassin","npc_vj_hlrof_assassin_male",vCat)
 		VJ.AddNPC("Black Ops Robot Assassin","npc_vj_hlrof_assassin_rgrunt",vCat)
+		VJ.AddNPC("Black Ops AH-64 Apache","npc_vj_hlrof_assassin_apache",vCat)
 	
 	-- Xen
 	VJ.AddNPC("Gonarch","npc_vj_hlr1_gonarch",vCat)
@@ -189,6 +189,7 @@ if VJExists == true then
 	VJ.AddNPC_HUMAN("Barney Calhoun","npc_vj_hlr2_barney",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
 	VJ.AddNPC_HUMAN("Father Grigori","npc_vj_hlr2_father_grigori",{"weapon_vj_hlr2_annabelle"},vCat)
 	VJ.AddNPC("Resistance Sentry Gun","npc_vj_hlr2_res_sentry",vCat)
+	VJ.AddNPC("Merkava","npc_vj_hlr2b_merkava",vCat)
 	
 	-- Combine
 	VJ.AddNPC_HUMAN("Overwatch Soldier","npc_vj_hlr2_com_soldier",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)

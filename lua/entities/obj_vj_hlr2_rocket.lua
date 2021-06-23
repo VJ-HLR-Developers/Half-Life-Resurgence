@@ -25,7 +25,7 @@ if CLIENT then
 		if self:IsValid() then
 			self.Emitter = ParticleEmitter(self:GetPos())
 			self.SmokeEffect1 = self.Emitter:Add("particles/flamelet2",self:GetPos() +self:GetForward()*-7)
-			self.SmokeEffect1:SetVelocity(self:GetForward() *math.Rand(0, -50) +Vector(math.Rand(5, -5), math.Rand(5, -5), math.Rand(5, -5)) +self:GetVelocity())
+			self.SmokeEffect1:SetVelocity(self:GetForward() * math.Rand(0, -50) + Vector(math.Rand(5, -5), math.Rand(5, -5), math.Rand(5, -5)) + self:GetVelocity())
 			self.SmokeEffect1:SetDieTime(0.2)
 			self.SmokeEffect1:SetStartAlpha(100)
 			self.SmokeEffect1:SetEndAlpha(0)
