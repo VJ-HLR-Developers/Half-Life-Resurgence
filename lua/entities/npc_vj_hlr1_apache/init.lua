@@ -255,11 +255,8 @@ local heliExpGibs = {
 	"models/vj_hlr/gibs/metalgib_p9_g.mdl",
 	"models/vj_hlr/gibs/metalgib_p10_g.mdl",
 	"models/vj_hlr/gibs/metalgib_p11_g.mdl",
-	"models/vj_hlr/gibs/rgib_cog1.mdl",
-	"models/vj_hlr/gibs/rgib_cog2.mdl",
-	"models/vj_hlr/gibs/rgib_rib.mdl",
 	"models/vj_hlr/gibs/rgib_screw.mdl",
-	"models/vj_hlr/gibs/rgib_spring.mdl"
+	"models/vj_hlr/gibs/rgib_screw.mdl"
 }
 --
 function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
@@ -343,7 +340,7 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 		self.Dead = true
 		
 		-- Create gibs
-		for _ = 1, 40 do
+		for _ = 1, 90 do
 			local gib = ents.Create("obj_vj_gib")
 			gib:SetModel(VJ_PICK(heliExpGibs))
 			gib:SetPos(self:GetPos() + Vector(math.random(-100, 100), math.random(-100, 100), math.random(10, 100)))
@@ -354,7 +351,7 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 			gib:Activate()
 			local phys = gib:GetPhysicsObject()
 			if IsValid(phys) then
-				phys:AddVelocity(Vector(math.Rand(-100, 100), math.Rand(-100, 100), math.Rand(150, 250)))
+				phys:AddVelocity(Vector(math.Rand(-300, 300), math.Rand(-300, 300), math.Rand(150, 250)))
 				phys:AddAngleVelocity(Vector(math.Rand(-200, 200), math.Rand(-200, 200), math.Rand(-200, 200)))
 			end
 			if GetConVar("vj_npc_fadegibs"):GetInt() == 1 then
