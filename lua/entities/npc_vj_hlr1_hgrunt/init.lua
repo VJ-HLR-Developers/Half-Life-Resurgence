@@ -132,7 +132,7 @@ end
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(15, 15, 78), Vector(-15, -15, 0))
 	
-	local myMDL = myMDL
+	local myMDL = self:GetModel()
 	if myMDL == "models/vj_hlr/hl1/hgrunt.mdl" then // Already the default
 		self.HECU_Type = 0
 		self.HECU_WepBG = 2
