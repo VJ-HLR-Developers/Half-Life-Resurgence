@@ -323,7 +323,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 			spr:Fire("Kill", "", 0.9)
 			timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 			
-			util.BlastDamage(self, self, expPos, 450, 100)
+			util.BlastDamage(self, self, expPos, 300, 100)
 			VJ_EmitSound(self, sdExplosions, 100, 100)
 		end
 	
@@ -341,7 +341,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 		for _ = 1, 90 do
 			local gib = ents.Create("obj_vj_gib")
 			gib:SetModel(VJ_PICK(gibTbl))
-			gib:SetPos(self:GetPos() + Vector(math.random(-100, 100), math.random(-100, 100), math.random(10, 100)))
+			gib:SetPos(self:GetPos() + Vector(math.random(-100, 100), math.random(-100, 100), math.random(20, 150)))
 			gib:SetAngles(Angle(math.Rand(-180, 180), math.Rand(-180, 180), math.Rand(-180, 180)))
 			gib.Collide_Decal = ""
 			gib.CollideSound = sdGibCollide
@@ -357,9 +357,9 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 			end
 		end
 		
-		local expPos = self:GetPos() + Vector(math.Rand(-150, 150), math.Rand(-150, 150), math.Rand(-150, -50))
+		local expPos = self:GetPos() + Vector(0,0,math.Rand(150, 150))
 		local spr = ents.Create("env_sprite")
-		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+		spr:SetKeyValue("model","vj_hl/sprites/fexplo1.vmt")
 		spr:SetKeyValue("GlowProxySize","2.0")
 		spr:SetKeyValue("HDRColorScale","1.0")
 		spr:SetKeyValue("renderfx","14")
@@ -370,12 +370,12 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 		spr:SetKeyValue("maxdxlevel","0")
 		spr:SetKeyValue("framerate","15.0")
 		spr:SetKeyValue("spawnflags","0")
-		spr:SetKeyValue("scale","5")
+		spr:SetKeyValue("scale","15")
 		spr:SetPos(expPos)
 		spr:Spawn()
-		spr:Fire("Kill", "", 0.9)
-		timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
-		util.BlastDamage(self, self, expPos, 450, 100)
+		spr:Fire("Kill", "", 1.19)
+		timer.Simple(1.19, function() if IsValid(spr) then spr:Remove() end end)
+		util.BlastDamage(self, self, expPos, 600, 200)
 		VJ_EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit.wav", 100, 100)
 		
 		-- flags 0 = No fade!
@@ -405,7 +405,7 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	spr:Fire("Kill", "", 0.9)
 	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 	
-	util.BlastDamage(self, self, expPos, 450, 100)
+	util.BlastDamage(self, self, expPos, 300, 100)
 	VJ_EmitSound(self, sdExplosions, 100, 100)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
