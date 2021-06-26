@@ -54,6 +54,13 @@ ENT.NoChaseAfterCertainRange_FarDistance = 4000 -- How far until it can chase ag
 ENT.NoChaseAfterCertainRange_CloseDistance = 0 -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_Type = "Regular" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it"s able to range attack
 
+ENT.HasDeathRagdoll = false
+ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
+ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
+
+ENT.SoundTbl_Death = {"vj_hlr/hl1_weapon/mortar/mortarhit.wav"}
+local sdExplosions = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
+
 /* https://github.com/ValveSoftware/halflife/blob/master/dlls/osprey.cpp
 	EMIT_SOUND_DYN(ENT(pev), CHAN_STATIC, "apache/ap_rotor4.wav", 1.0, 0.15, 0, 110 );
 	death: EMIT_SOUND(ENT(pev), CHAN_STATIC, "weapons/mortarhit.wav", 1.0, 0.3);
@@ -171,49 +178,183 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
-	ParticleEffectAttach("fire_large_01",PATTACH_POINT_FOLLOW,self,4)
-	ParticleEffectAttach("smoke_burning_engine_01",PATTACH_POINT_FOLLOW,self,7)
-	ParticleEffectAttach("smoke_burning_engine_01",PATTACH_POINT_FOLLOW,self,8)
-	ParticleEffectAttach("smoke_burning_engine_01",PATTACH_POINT_FOLLOW,self,9)
+local colorHeliExp = Color(255, 255, 192, 128)
+local sdGibCollide = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
+local heliExpGibs_Green = { -- For HECU
+	"models/vj_hlr/gibs/metalgib_p1_g.mdl",
+	"models/vj_hlr/gibs/metalgib_p2_g.mdl",
+	"models/vj_hlr/gibs/metalgib_p3_g.mdl",
+	"models/vj_hlr/gibs/metalgib_p4_g.mdl",
+	"models/vj_hlr/gibs/metalgib_p5_g.mdl",
+	"models/vj_hlr/gibs/metalgib_p6_g.mdl",
+	"models/vj_hlr/gibs/metalgib_p7_g.mdl",
+	"models/vj_hlr/gibs/metalgib_p8_g.mdl",
+	"models/vj_hlr/gibs/metalgib_p9_g.mdl",
+	"models/vj_hlr/gibs/metalgib_p10_g.mdl",
+	"models/vj_hlr/gibs/metalgib_p11_g.mdl",
+	"models/vj_hlr/gibs/rgib_screw.mdl",
+	"models/vj_hlr/gibs/rgib_screw.mdl"
+}
+--
+function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
+	-- Spawn a animated model of the helicopter that explodes constantly and gets destroyed when it collides with something
+	-- Based on source code
+	local deathCorpse = ents.Create("prop_vj_animatable")
+	deathCorpse:SetModel(self:GetModel())
+	deathCorpse:SetPos(self:GetPos())
+	deathCorpse:SetAngles(self:GetAngles())
+	function deathCorpse:Initialize()
+		self:PhysicsInit(SOLID_VPHYSICS)
+		self:SetMoveType(MOVETYPE_VPHYSICS)
+		self:SetMoveCollide(MOVECOLLIDE_FLY_BOUNCE)
+		self:SetCollisionGroup(COLLISION_GROUP_NONE)
+		self:SetSolid(SOLID_CUSTOM)
+		local phys = self:GetPhysicsObject()
+		if IsValid(phys) then
+			phys:Wake()
+			phys:EnableGravity(true)
+			phys:SetBuoyancyRatio(0)
+			phys:SetVelocity(self:GetVelocity())
+		end
+	end
+	deathCorpse.NextExpT = 0
+	deathCorpse:Spawn()
+	deathCorpse:Activate()
+	
+	-- Explode as it goes down
+	function deathCorpse:Think()
+		self:ResetSequence("idle_move")
+		if CurTime() > self.NextExpT then
+			self.NextExpT = CurTime() + 0.2
+			local expPos = self:GetPos() + Vector(math.Rand(-150, 150), math.Rand(-150, 150), math.Rand(-150, -50))
+			local spr = ents.Create("env_sprite")
+			spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+			spr:SetKeyValue("GlowProxySize","2.0")
+			spr:SetKeyValue("HDRColorScale","1.0")
+			spr:SetKeyValue("renderfx","14")
+			spr:SetKeyValue("rendermode","5")
+			spr:SetKeyValue("renderamt","255")
+			spr:SetKeyValue("disablereceiveshadows","0")
+			spr:SetKeyValue("mindxlevel","0")
+			spr:SetKeyValue("maxdxlevel","0")
+			spr:SetKeyValue("framerate","15.0")
+			spr:SetKeyValue("spawnflags","0")
+			spr:SetKeyValue("scale","5")
+			spr:SetPos(expPos)
+			spr:Spawn()
+			spr:Fire("Kill", "", 0.9)
+			timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+			
+			util.BlastDamage(self, self, expPos, 300, 100)
+			VJ_EmitSound(self, sdExplosions, 100, 100)
+		end
+	
+		self:NextThink(CurTime())
+		return true
+	end
+	
+	-- Get destroyed when it collides with something
+	function deathCorpse:PhysicsCollide(data, phys)
+		if self.Dead then return end
+		self.Dead = true
+		
+		-- Create gibs
+		for _ = 1, 90 do
+			local gib = ents.Create("obj_vj_gib")
+			gib:SetModel(VJ_PICK(heliExpGibs_Green))
+			gib:SetPos(self:GetPos() + Vector(math.random(-100, 100), math.random(-100, 100), math.random(20, 150)))
+			gib:SetAngles(Angle(math.Rand(-180, 180), math.Rand(-180, 180), math.Rand(-180, 180)))
+			gib.Collide_Decal = ""
+			gib.CollideSound = sdGibCollide
+			gib:Spawn()
+			gib:Activate()
+			gib:SetColor(Color(255, 223, 137))
+			local myPhys = gib:GetPhysicsObject()
+			if IsValid(myPhys) then
+				myPhys:AddVelocity(Vector(math.Rand(-300, 300), math.Rand(-300, 300), math.Rand(150, 250)))
+				myPhys:AddAngleVelocity(Vector(math.Rand(-200, 200), math.Rand(-200, 200), math.Rand(-200, 200)))
+			end
+			if GetConVar("vj_npc_fadegibs"):GetInt() == 1 then
+				timer.Simple(GetConVar("vj_npc_fadegibstime"):GetInt(), function() SafeRemoveEntity(gib) end)
+			end
+		end
+		
+		local expPos = self:GetPos() + Vector(0,0,math.Rand(150, 150))
+		local spr = ents.Create("env_sprite")
+		spr:SetKeyValue("model","vj_hl/sprites/fexplo1.vmt")
+		spr:SetKeyValue("GlowProxySize","2.0")
+		spr:SetKeyValue("HDRColorScale","1.0")
+		spr:SetKeyValue("renderfx","14")
+		spr:SetKeyValue("rendermode","5")
+		spr:SetKeyValue("renderamt","255")
+		spr:SetKeyValue("disablereceiveshadows","0")
+		spr:SetKeyValue("mindxlevel","0")
+		spr:SetKeyValue("maxdxlevel","0")
+		spr:SetKeyValue("framerate","15.0")
+		spr:SetKeyValue("spawnflags","0")
+		spr:SetKeyValue("scale","15")
+		spr:SetPos(expPos)
+		spr:Spawn()
+		spr:Fire("Kill", "", 1.19)
+		timer.Simple(1.19, function() if IsValid(spr) then spr:Remove() end end)
+		util.BlastDamage(self, self, expPos, 600, 200)
+		VJ_EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit.wav", 100, 100)
+		
+		effects.BeamRingPoint(self:GetPos(), 0.4, 0, 1500, 32, 0, colorHeliExp, {material="vj_hl/sprites/shockwave", framerate=0, flags=0})
+		
+		self:Remove()
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
-	local pos,ang = self:GetBonePosition(0)
-	corpseEnt:SetPos(pos)
-	corpseEnt:GetPhysicsObject():SetVelocity(((self:GetPos() +self:GetRight() *-700 +self:GetForward() *-300 +self:GetUp() *-200) -self:GetPos()))
-	util.BlastDamage(self, self, corpseEnt:GetPos(), 400, 40)
-	util.ScreenShake(corpseEnt:GetPos(), 100, 200, 1, 2500)
+function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
+	local expPos = self:GetAttachment(self:LookupAttachment("engine_left")).Pos
+	local spr = ents.Create("env_sprite")
+	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+	spr:SetKeyValue("GlowProxySize","2.0")
+	spr:SetKeyValue("HDRColorScale","1.0")
+	spr:SetKeyValue("renderfx","14")
+	spr:SetKeyValue("rendermode","5")
+	spr:SetKeyValue("renderamt","255")
+	spr:SetKeyValue("disablereceiveshadows","0")
+	spr:SetKeyValue("mindxlevel","0")
+	spr:SetKeyValue("maxdxlevel","0")
+	spr:SetKeyValue("framerate","15.0")
+	spr:SetKeyValue("spawnflags","0")
+	spr:SetKeyValue("scale","5")
+	spr:SetPos(expPos)
+	spr:Spawn()
+	spr:Fire("Kill", "", 0.9)
+	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+	
+	util.BlastDamage(self, self, expPos, 300, 100)
 
-	VJ_EmitSound(self,"vj_mili_tank/tank_death2.wav",100,100)
-	VJ_EmitSound(self,"vj_mili_tank/tank_death3.wav",100,100)
-	util.BlastDamage(self,self,corpseEnt:GetPos(),200,40)
-	util.ScreenShake(corpseEnt:GetPos(), 100, 200, 1, 2500)
-	if self.HasGibDeathParticles == true then ParticleEffect("vj_explosion2",corpseEnt:GetPos(),Angle(0,0,0),nil) end
-
-	if math.random(1,3) == 1 then
-		self:CreateExtraDeathCorpse("prop_ragdoll","models/combine_soldier.mdl",{Pos=corpseEnt:GetPos()+corpseEnt:GetUp()*90+corpseEnt:GetRight()*-30,Vel=Vector(math.Rand(-600,600), math.Rand(-600,600),500)},function(extraent) extraent:Ignite(math.Rand(8,10),0); extraent:SetColor(Color(90,90,90)) end)
-	end
-
-	if self.HasGibDeathParticles == true then
-		ParticleEffect("vj_explosion3",corpseEnt:GetPos(),Angle(0,0,0),nil)
-		ParticleEffect("vj_explosion2",corpseEnt:GetPos() +corpseEnt:GetForward()*-130,Angle(0,0,0),nil)
-		ParticleEffect("vj_explosion2",corpseEnt:GetPos() +corpseEnt:GetForward()*130,Angle(0,0,0),nil)
-		ParticleEffectAttach("fire_large_01",PATTACH_POINT_FOLLOW,corpseEnt,4)
-		ParticleEffectAttach("smoke_burning_engine_01",PATTACH_POINT_FOLLOW,corpseEnt,7)
-		ParticleEffectAttach("smoke_burning_engine_01",PATTACH_POINT_FOLLOW,corpseEnt,8)
-		ParticleEffectAttach("smoke_burning_engine_01",PATTACH_POINT_FOLLOW,corpseEnt,9)
-		
-		local explosioneffect = EffectData()
-		explosioneffect:SetOrigin(corpseEnt:GetPos())
-		util.Effect("VJ_Medium_Explosion1",explosioneffect)
-		util.Effect("Explosion", explosioneffect)
-		
-		local dusteffect = EffectData()
-		dusteffect:SetOrigin(corpseEnt:GetPos())
-		dusteffect:SetScale(800)
-		util.Effect("ThumperDust",dusteffect)
-	end
+	local expPos = self:GetAttachment(self:LookupAttachment("engine_right")).Pos
+	local spr = ents.Create("env_sprite")
+	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+	spr:SetKeyValue("GlowProxySize","2.0")
+	spr:SetKeyValue("HDRColorScale","1.0")
+	spr:SetKeyValue("renderfx","14")
+	spr:SetKeyValue("rendermode","5")
+	spr:SetKeyValue("renderamt","255")
+	spr:SetKeyValue("disablereceiveshadows","0")
+	spr:SetKeyValue("mindxlevel","0")
+	spr:SetKeyValue("maxdxlevel","0")
+	spr:SetKeyValue("framerate","15.0")
+	spr:SetKeyValue("spawnflags","0")
+	spr:SetKeyValue("scale","5")
+	spr:SetPos(expPos)
+	spr:Spawn()
+	spr:Fire("Kill", "", 0.9)
+	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+	
+	util.BlastDamage(self, self, expPos, 300, 100)
+	VJ_EmitSound(self, sdExplosions, 100, 100)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
+	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, 100)
+	VJ_EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 80, 100)
+	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
