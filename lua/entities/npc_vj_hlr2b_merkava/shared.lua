@@ -8,8 +8,6 @@ ENT.Instructions 	= "Click on the spawnicon to spawn it."
 ENT.Category		= "Half-Life Resurgence"
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local exhaust1Pos = Vector(-130, 25, 45)
-local exhaust2Pos = Vector(-130, -28, 45)
 local smokeSize = 80
 local heatSize = 20
 --
@@ -17,7 +15,7 @@ net.Receive("vj_hlr1_merkava_spawneffects", function()
 	local ent = net.ReadEntity()
 	if IsValid(ent) then
 		ent.Emitter = ParticleEmitter(ent:GetPos())
-		ent.SmokeEffect1 = ent.Emitter:Add("particles/smokey",ent:GetPos() + exhaust1Pos)
+		ent.SmokeEffect1 = ent.Emitter:Add("particles/smokey",ent:GetPos() + ent:GetForward()*-130 + ent:GetRight()*25 + ent:GetUp()*45)
 		ent.SmokeEffect1:SetVelocity(ent:GetVelocity() + ent:GetForward()*-30)
 		ent.SmokeEffect1:SetDieTime(0.6)
 		ent.SmokeEffect1:SetStartAlpha(80)
@@ -28,7 +26,7 @@ net.Receive("vj_hlr1_merkava_spawneffects", function()
 		ent.SmokeEffect1:SetColor(150,150,150,255)
 		ent.SmokeEffect1:SetAirResistance(100)
 
-		ent.HeatEffect1 = ent.Emitter:Add("sprites/heatwave",ent:GetPos() + exhaust1Pos)
+		ent.HeatEffect1 = ent.Emitter:Add("sprites/heatwave",ent:GetPos() + ent:GetForward()*-130 + ent:GetRight()*25 + ent:GetUp()*45)
 		ent.HeatEffect1:SetVelocity(ent:GetForward() * math.Rand(0, 50) + Vector(math.Rand(5, -5),math.Rand(5, -5),math.Rand(5, -5)) + ent:GetVelocity())
 		ent.HeatEffect1:SetDieTime(0.1)
 		ent.HeatEffect1:SetStartAlpha(255)
@@ -41,7 +39,7 @@ net.Receive("vj_hlr1_merkava_spawneffects", function()
 		ent.Emitter:Finish()
 		
 		ent.Emitter = ParticleEmitter(ent:GetPos())
-		ent.SmokeEffect1 = ent.Emitter:Add("particles/smokey",ent:GetPos() + exhaust2Pos)
+		ent.SmokeEffect1 = ent.Emitter:Add("particles/smokey",ent:GetPos() + ent:GetForward()*-130 + ent:GetRight()*-28 + ent:GetUp()*45)
 		ent.SmokeEffect1:SetVelocity(ent:GetVelocity() + ent:GetForward()*-30)
 		ent.SmokeEffect1:SetDieTime(0.6)
 		ent.SmokeEffect1:SetStartAlpha(80)
@@ -52,7 +50,7 @@ net.Receive("vj_hlr1_merkava_spawneffects", function()
 		ent.SmokeEffect1:SetColor(150,150,150,255)
 		ent.SmokeEffect1:SetAirResistance(100)
 
-		ent.HeatEffect1 = ent.Emitter:Add("sprites/heatwave",ent:GetPos() + exhaust2Pos)
+		ent.HeatEffect1 = ent.Emitter:Add("sprites/heatwave",ent:GetPos() + ent:GetForward()*-130 + ent:GetRight()*-28 + ent:GetUp()*45)
 		ent.HeatEffect1:SetVelocity(ent:GetForward() * math.Rand(0, 50) + Vector(math.Rand(5, -5),math.Rand(5, -5),math.Rand(5, -5)) + ent:GetVelocity())
 		ent.HeatEffect1:SetDieTime(0.1)
 		ent.HeatEffect1:SetStartAlpha(255)

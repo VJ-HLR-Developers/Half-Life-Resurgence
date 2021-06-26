@@ -10,7 +10,7 @@ ENT.HullType = HULL_HUMAN
 ENT.HasGrenadeAttack = false -- Should the SNPC have a grenade attack?
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-	if math.random(1,2) == 1 then
+	if self.Human_Gender == 0 or math.random(1,2) == 1 then
 		self.Human_Gender = 0
 		self.Model = {"models/Humans/Group02/male_01.mdl","models/Humans/Group02/male_02.mdl","models/Humans/Group02/male_03.mdl","models/Humans/Group02/male_04.mdl","models/Humans/Group02/male_05.mdl","models/Humans/Group02/male_06.mdl","models/Humans/Group02/male_07.mdl","models/Humans/Group02/male_08.mdl","models/Humans/Group02/male_09.mdl"}
 	else

@@ -793,6 +793,19 @@ ENT.SoundTbl_Death = {
 local sdFreemanReload = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_playerreload01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerreload02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerreload03.wav","vo/npc/alyx/youreload01.wav","vo/npc/alyx/youreload02.wav"}
 local sdKilledEnemy = {"vj_hlr/hl2_npc/ep1/citadel/al_advisor_wasthatthing.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_gross01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_gross02.wav"}
 local sdAllyDeath = {"vo/k_lab/al_lostgordon.wav","vj_hlr/hl2_npc/ep1/c17/al_lasttrain_gordon.wav","vj_hlr/hl2_npc/ep1/c17/al_lasttrain_ohnogordon.wav","vj_hlr/hl2_npc/ep1/c17/al_train_gordon.wav","vj_hlr/hl2_npc/ep1/c17/al_train_madeit02.wav","vj_hlr/hl2_npc/ep1/c17/al_zombieroom_gordon.wav","vj_hlr/hl2_npc/ep1/citadel/al_advisor_breen02.wav","vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback01.wav","vj_hlr/hl2_npc/ep1/citadel/al_postcore_atwindow_new02.wav","vj_hlr/hl2_npc/ep1/citadel/al_stalk_getemoff11.wav","vj_hlr/hl2_npc/ep1/intro/al_gordon.wav","vj_hlr/hl2_npc/ep1/intro/al_ohgordon.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worried01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worrieder_02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriederer01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriederer02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriedest01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriedest03.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath03.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath04.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerfalls01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerfalls03.wav","vj_hlr/hl2_npc/ep2/outland_01/intro/al_rbed_callinggordon04.wav","vj_hlr/hl2_npc/ep2/outland_12a/launch/al_launch_attackstart01.wav","vj_hlr/hl2_npc/ep2/outland_12a/launch/al_launch_ohgord.wav"}
+-- Specific alert sounds
+local sdAlertStrider = {"vj_hlr/hl2_npc/ep2/outland_11/dogfight/al_str_ohshistrid.wav","vj_hlr/hl2_npc/ep1/c17/al_strider_omg.wav","vj_hlr/hl2_npc/ep1/c17/al_evac_nowstrider.wav"}
+local sdAlertDropship = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_dropship.wav","vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback03.wav","vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback05.wav"}
+local sdAlertAntlionGuard = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_aguard.wav","vj_hlr/hl2_npc/ep1/c17/al_antguard.wav"}
+local sdAlertHeadcrab = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_pzcrabs_hatethings01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_pzcrabs_hatethings02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs03.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs04.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs05.wav"}
+local sdAlertBarnacle = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle03.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle04.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_firstbarnacle.wav"}
+local sdAlertStalker = {"vj_hlr/hl2_npc/ep1/citadel/al_stalker_gasp.wav","vj_hlr/hl2_npc/ep1/citadel/al_stalkers_omg02.wav"}
+local sdAlertScanner = {"vo/eli_lab/al_scanners03.wav","vj_hlr/hl2_npc/ep1/c17/al_rappel_scanners.wav"}
+local sdAlertGunship = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_gunship.wav","vj_hlr/hl2_npc/ep1/c17/al_anothergunship.wav","vj_hlr/hl2_npc/ep1/c17/al_evac_gunship.wav"}
+local sdAlertZombie = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_zombie_itsalive01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_zombie_liveone01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_zombie_liveone02.wav","vj_hlr/hl2_npc/ep1/c17/al_pzombie_ohno.wav","vj_hlr/hl2_npc/ep1/c17/al_hospital_morezombies.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies01.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies02.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies03.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies04.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies05.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies06.wav"}
+local sdAlertAntlion = {"vj_hlr/hl2_npc/ep1/c17/al_antlions_holycrap.wav","vj_hlr/hl2_npc/ep1/c17/al_ant_uncovered01.wav","vj_hlr/hl2_npc/ep1/c17/al_ant_uncovered02.wav","vj_hlr/hl2_npc/ep1/c17/al_antlions_firstsight.wav"}
+local sdAlertCreature = {"vj_hlr/hl2_npc/ep1/citadel/al_advisor_podthings.wav","vj_hlr/hl2_npc/ep1/citadel/al_gravcharge_thing.wav"}
+local sdAlertHuman = {"vj_hlr/hl2_npc/ep2/outland_07/barn/al_barn_soldiers01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_soldiers.wav","vj_hlr/hl2_npc/ep1/citadel/al_bridge_soldiers.wav"}
 
 --[[ UNUSED
 
@@ -920,11 +933,11 @@ end
 function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
 	timer.Simple(0.1, function() -- Make sure the base functions have ran!
 		if IsValid(self) && hType == "pistol" or hType == "revolver" then
-			self.WeaponAnimTranslations[ACT_COVER_LOW] 						= {ACT_CROUCHIDLE_STIMULATED, ACT_RANGE_AIM_PISTOL_LOW, "vjseq_crouchidlehide", "vjseq_blindfire_low_entry", "vjseq_crouchhide_01"}
+			self.WeaponAnimTranslations[ACT_COVER_LOW] = {ACT_CROUCHIDLE_STIMULATED, ACT_RANGE_AIM_PISTOL_LOW, "vjseq_crouchidlehide", "vjseq_blindfire_low_entry", "vjseq_crouchhide_01"}
 
-			self.WeaponAnimTranslations[ACT_WALK_AIM] 						= ACT_WALK_AIM_PISTOL
+			self.WeaponAnimTranslations[ACT_WALK_AIM] = ACT_WALK_AIM_PISTOL
 
-			self.WeaponAnimTranslations[ACT_RUN_AIM] 						= ACT_RUN_AIM_PISTOL
+			self.WeaponAnimTranslations[ACT_RUN_AIM] = ACT_RUN_AIM_PISTOL
 		end
 	end)
 	return false
@@ -935,7 +948,7 @@ function ENT:CustomOnHandleAnimEvent(ev, evTime, evCycle, evType, evOptions)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPlayerSight(ent)
-	self.Human_NextPlyReloadSd = CurTime() + math.Rand(10, 60)
+	self.Human_NextPlyReloadSd = CurTime() + math.Rand(5, 20)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnEntityRelationshipCheck(ent, entFri, entDist)
@@ -971,67 +984,67 @@ end
 function ENT:CustomOnAlert(ent)
 	if math.random(1, 2) == 1 && ent:IsNPC() then
 		if ent:GetClass() == "npc_breen" then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/citadel/al_advisor_breen01.wav"})
+			self:PlaySoundSystem("Alert", "vj_hlr/hl2_npc/ep1/citadel/al_advisor_breen01.wav")
 			return
 		elseif ent:GetClass() == "npc_rollermine" then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/citadel/al_platform_rollers.wav"})
+			self:PlaySoundSystem("Alert", "vj_hlr/hl2_npc/ep1/citadel/al_platform_rollers.wav")
 			return
 		elseif ent:GetClass() == "npc_strider" or ent:GetClass() == "npc_vj_hlr2_com_strider" then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep2/outland_11/dogfight/al_str_ohshistrid.wav","vj_hlr/hl2_npc/ep1/c17/al_strider_omg.wav","vj_hlr/hl2_npc/ep1/c17/al_evac_nowstrider.wav"})
+			self:PlaySoundSystem("Alert", sdAlertStrider)
 			return
 		elseif ent:GetClass() == "npc_combinedropship" then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_dropship.wav","vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback03.wav","vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback05.wav"})
+			self:PlaySoundSystem("Alert", sdAlertDropship)
 			return
 		elseif ent:GetClass() == "npc_apcdriver" then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_ohnoapc.wav"})
+			self:PlaySoundSystem("Alert", "vj_hlr/hl2_npc/ep1/c17/al_ohnoapc.wav")
 			return
 		elseif ent:GetClass() == "npc_antlionguard" then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_aguard.wav","vj_hlr/hl2_npc/ep1/c17/al_antguard.wav"})
+			self:PlaySoundSystem("Alert", sdAlertAntlionGuard)
 			return
 		elseif ent.HLR_Type == "Headcrab" or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast" then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/alyx/al_pzcrabs_hatethings01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_pzcrabs_hatethings02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs03.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs04.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs05.wav"})
+			self:PlaySoundSystem("Alert", sdAlertHeadcrab)
 			return
 		elseif ent:GetClass() == "npc_vj_hlr1_barnacle" or ent:GetClass() == "monster_barnacle" or ent:Classify() == CLASS_BARNACLE then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle03.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle04.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_firstbarnacle.wav"})
+			self:PlaySoundSystem("Alert", sdAlertBarnacle)
 			return
 		elseif ent:Classify() == CLASS_COMBINE_HUNTER then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep2/outland_06a/radio/al_rad_theyreback02.wav"})
+			self:PlaySoundSystem("Alert", "vj_hlr/hl2_npc/ep2/outland_06a/radio/al_rad_theyreback02.wav")
 			return
 		elseif ent:Classify() == CLASS_STALKER then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/citadel/al_stalker_gasp.wav","vj_hlr/hl2_npc/ep1/citadel/al_stalkers_omg02.wav"})
+			self:PlaySoundSystem("Alert", sdAlertStalker)
 			return
 		elseif ent:Classify() == CLASS_SCANNER then
-			self:PlaySoundSystem("Alert", {"vo/eli_lab/al_scanners03.wav","vj_hlr/hl2_npc/ep1/c17/al_rappel_scanners.wav"})
+			self:PlaySoundSystem("Alert", sdAlertScanner)
 			return
 		elseif ent:Classify() == CLASS_COMBINE_GUNSHIP then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_gunship.wav","vj_hlr/hl2_npc/ep1/c17/al_anothergunship.wav","vj_hlr/hl2_npc/ep1/c17/al_evac_gunship.wav"})
+			self:PlaySoundSystem("Alert", sdAlertGunship)
 			return
 		elseif ent:Classify() == CLASS_PROTOSNIPER then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_evac_sniper.wav"})
+			self:PlaySoundSystem("Alert", "vj_hlr/hl2_npc/ep1/c17/al_evac_sniper.wav")
 			return
 		elseif ent:Classify() == CLASS_MACHINE or ent.HLR_Type == "Turret" or ent:GetClass() == "npc_turret_floor" then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_turrets.wav"})
+			self:PlaySoundSystem("Alert", "vj_hlr/hl2_npc/ep1/c17/al_turrets.wav")
 			return
 		else
 			for _,v in ipairs(ent.VJ_NPC_Class or {1}) do
 				if v == "CLASS_COMBINE" or ent:Classify() == CLASS_COMBINE then
-					self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_evac_ontous01.wav"})
+					self:PlaySoundSystem("Alert", "vj_hlr/hl2_npc/ep1/c17/al_evac_ontous01.wav")
 					return
 				elseif v == "CLASS_ZOMBIE" or ent:Classify() == CLASS_ZOMBIE then
-					self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/npc/alyx/al_zombie_itsalive01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_zombie_liveone01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_zombie_liveone02.wav","vj_hlr/hl2_npc/ep1/c17/al_pzombie_ohno.wav","vj_hlr/hl2_npc/ep1/c17/al_hospital_morezombies.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies01.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies02.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies03.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies04.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies05.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies06.wav",})
+					self:PlaySoundSystem("Alert", sdAlertZombie)
 					return
 				elseif v == "CLASS_ANTLION" or ent:Classify() == CLASS_ANTLION then
-					self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/c17/al_antlions_holycrap.wav","vj_hlr/hl2_npc/ep1/c17/al_ant_uncovered01.wav","vj_hlr/hl2_npc/ep1/c17/al_ant_uncovered02.wav","vj_hlr/hl2_npc/ep1/c17/al_antlions_firstsight.wav"})
+					self:PlaySoundSystem("Alert", sdAlertAntlion)
 					return
 				end
 			end
 		end
 		-- General type (If none of the specific ones above were found)
 		if  ent.IsVJBaseSNPC_Creature == true then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep1/citadel/al_advisor_podthings.wav","vj_hlr/hl2_npc/ep1/citadel/al_gravcharge_thing.wav"})
+			self:PlaySoundSystem("Alert", sdAlertCreature)
 			return
 		elseif ent.IsVJBaseSNPC_Human == true then
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl2_npc/ep2/outland_07/barn/al_barn_soldiers01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_soldiers.wav","vj_hlr/hl2_npc/ep1/citadel/al_bridge_soldiers.wav"})
+			self:PlaySoundSystem("Alert", sdAlertHuman)
 			return
 		end
 	end

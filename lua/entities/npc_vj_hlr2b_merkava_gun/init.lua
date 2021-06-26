@@ -40,6 +40,8 @@ function ENT:CustomInitialize_CustomTank()
 	self.Spotter.DisableWeapons = true
 	self.Spotter.CanTurnWhileStationary = false
 	self.Spotter.NoWeapon_UseScaredBehavior = false
+	self.Spotter.Medic_CanBeHealed = false
+	self.Spotter.Human_Driver = true
 	self.Spotter:Spawn()
 	self.Spotter:Fire("SetParentAttachment", "gunner")
 	self.Spotter:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)

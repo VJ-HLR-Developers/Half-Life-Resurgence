@@ -192,6 +192,7 @@ ENT.SoundTbl_Death = {
 	"vo/npc/barney/ba_ohshit03.wav",
 }
 
+-- Specific alert sounds
 local sdAlertHuman = {"vo/npc/barney/ba_soldiers.wav"}
 local sdAlertGunship = {"vj_hlr/hl2_npc/ep1/c17/ba_wrinkleship.wav"}
 local sdAlertAPC = {"vj_hlr/hl2_npc/ep1/c17/ba_ohmanapc.wav"}

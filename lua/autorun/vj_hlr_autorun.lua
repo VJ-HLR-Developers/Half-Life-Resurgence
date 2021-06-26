@@ -349,85 +349,51 @@ if VJExists == true then
 	util.PrecacheModel("models/vj_hlr/gibs/gib_hgrunt.mdl")
 	util.PrecacheModel("models/vj_hlr/gibs/zombiegib.mdl")
 	util.PrecacheModel("models/vj_hlr/gibs/islavegib.mdl")
-	
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------- Convars & Menu ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	VJ.AddConVar("vj_hlr1_gonarch_babylimit", 20, {FCVAR_ARCHIVE})
-	VJ.AddConVar("vj_hlr1_bradley_deploygrunts", 1, {FCVAR_ARCHIVE})
-	
-	VJ.AddClientConVar("vj_hlr1_sparkfx", 0, "Create HL1-Style Sparks on Metal Surfaces")	
-	VJ.AddClientConVar("vj_hlr2_csniper_laser_usebarrel", 1, "Combine Sniper Laser Follows Gun Barrel")
-	
-	if CLIENT then
-		hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_HLR", function()
-			spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HL Resurgence (Server)", "HL Resurgence (Server)", "", "", function(Panel)
-				if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
-					Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.not"})
-					Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
-					return
-				end
-				Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
-				Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1"})
-				Panel:AddControl("Slider", {Label = "Gonarch Baby Headcrab Limit", min = 0, max = 100, Command = "vj_hlr1_gonarch_babylimit"})
-				Panel:AddControl("Checkbox", {Label = "M2A3 Bradley Deploys Human Grunts", Command = "vj_hlr1_bradley_deploygrunts"})
-			end)
-			
-			spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HL Resurgence (Client)", "HL Resurgence (Client)", "", "", function(Panel)
-				Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr2_csniper_laser_usebarrel 1\nvj_hlr1_sparkfx 0"})
-				Panel:AddControl("Checkbox", {Label = "Create HL1-Style Sparks on Metal Surfaces", Command = "vj_hlr1_sparkfx"})
-				Panel:ControlHelp("Applies ONLY to HL1 NPCs & weapons!")
-				Panel:AddControl("Checkbox", {Label = "Combine Sniper Laser Follows Gun Barrel", Command = "vj_hlr2_csniper_laser_usebarrel"})
-				Panel:ControlHelp("Unchecked = Laser will pinpoint to the enemy instead")
-			end)
-		end)
-	end
-	
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Functions ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function VJ_HLR_Effect_PortalSpawn(pos, size, color)
-	size = size or 1.5
-	color = color or "77 210 130" -- TODO: Not implemented yet!
-	local ent = ents.Create("env_sprite")
-	ent:SetKeyValue("model","vj_hl/sprites/fexplo1.vmt")
-	ent:SetKeyValue("GlowProxySize","2.0")
-	ent:SetKeyValue("HDRColorScale","1.0")
-	ent:SetKeyValue("rendercolor",color)
-	ent:SetKeyValue("renderfx","14")
-	ent:SetKeyValue("rendermode","3")
-	ent:SetKeyValue("renderamt","255")
-	ent:SetKeyValue("disablereceiveshadows","0")
-	ent:SetKeyValue("mindxlevel","0")
-	ent:SetKeyValue("maxdxlevel","0")
-	ent:SetKeyValue("framerate","10.0")
-	ent:SetKeyValue("spawnflags","0")
-	ent:SetKeyValue("scale",""..size)
-	ent:SetPos(pos)
-	ent:Spawn()
-	
-	sound.Play("vj_hlr/fx/beamstart"..math.random(1,2)..".wav", pos, 85)
-	return ent
-end
-
--- Weapon hook that gives the player HL1 weapons on spawn
-/*hook.Add("PlayerSpawn","VJ_HL1SWEPs_AutoSpawn",function(ply)
-	if GetConVar("hl1_sv_loadout"):GetInt() == 1 then
-		ply:Give("weapon_hl1_357")
-		ply:Give("weapon_hl1_glock")
-		ply:Give("weapon_hl1_crossbow")
-		ply:Give("weapon_hl1_egon")
-		ply:Give("weapon_hl1_handgrenade")
-		ply:Give("weapon_hl1_hornetgun")
-		ply:Give("weapon_hl1_mp5")
-		ply:Give("weapon_hl1_rpg")
-		ply:Give("weapon_hl1_satchel")
-		ply:Give("weapon_hl1_shotgun")
-		//ply:Give("weapon_hl1_snark")
-		ply:Give("weapon_hl1_gauss")
-		ply:Give("weapon_hl1_tripmine")
+	function VJ_HLR_Effect_PortalSpawn(pos, size, color)
+		size = size or 1.5
+		color = color or "77 210 130" -- TODO: Not implemented yet!
+		local ent = ents.Create("env_sprite")
+		ent:SetKeyValue("model","vj_hl/sprites/fexplo1.vmt")
+		ent:SetKeyValue("GlowProxySize","2.0")
+		ent:SetKeyValue("HDRColorScale","1.0")
+		ent:SetKeyValue("rendercolor",color)
+		ent:SetKeyValue("renderfx","14")
+		ent:SetKeyValue("rendermode","3")
+		ent:SetKeyValue("renderamt","255")
+		ent:SetKeyValue("disablereceiveshadows","0")
+		ent:SetKeyValue("mindxlevel","0")
+		ent:SetKeyValue("maxdxlevel","0")
+		ent:SetKeyValue("framerate","10.0")
+		ent:SetKeyValue("spawnflags","0")
+		ent:SetKeyValue("scale",""..size)
+		ent:SetPos(pos)
+		ent:Spawn()
+		
+		sound.Play("vj_hlr/fx/beamstart"..math.random(1,2)..".wav", pos, 85)
+		return ent
 	end
-end)*/
+
+	-- Weapon hook that gives the player HL1 weapons on spawn
+	/*hook.Add("PlayerSpawn","VJ_HL1SWEPs_AutoSpawn",function(ply)
+		if GetConVar("hl1_sv_loadout"):GetInt() == 1 then
+			ply:Give("weapon_hl1_357")
+			ply:Give("weapon_hl1_glock")
+			ply:Give("weapon_hl1_crossbow")
+			ply:Give("weapon_hl1_egon")
+			ply:Give("weapon_hl1_handgrenade")
+			ply:Give("weapon_hl1_hornetgun")
+			ply:Give("weapon_hl1_mp5")
+			ply:Give("weapon_hl1_rpg")
+			ply:Give("weapon_hl1_satchel")
+			ply:Give("weapon_hl1_shotgun")
+			//ply:Give("weapon_hl1_snark")
+			ply:Give("weapon_hl1_gauss")
+			ply:Give("weapon_hl1_tripmine")
+		end
+	end)*/
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ self.HLR_Type ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -436,6 +402,73 @@ end)*/
 	"Turret"
 	"Police"
 */
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------ Convars & Menu ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+VJ.AddConVar("vj_hlr1_gonarch_babylimit", 20, {FCVAR_ARCHIVE})
+VJ.AddConVar("vj_hlr1_bradley_deploygrunts", 1, {FCVAR_ARCHIVE})
+
+VJ.AddConVar("vj_hlr_autoreplace", 0, {FCVAR_ARCHIVE, FCVAR_NOTIFY})
+VJ.AddConVar("vj_hlr_autoreplace_hl1", 1, {FCVAR_ARCHIVE, FCVAR_NOTIFY})
+VJ.AddConVar("vj_hlr_autoreplace_hl2", 1, {FCVAR_ARCHIVE, FCVAR_NOTIFY})
+
+VJ.AddClientConVar("vj_hlr1_sparkfx", 0, "Create HL1-Style Sparks on Metal Surfaces")	
+VJ.AddClientConVar("vj_hlr2_csniper_laser_usebarrel", 1, "Combine Sniper Laser Follows Gun Barrel")
+
+if CLIENT then
+	hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_HLR", function()
+		spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HL Resurgence (Server)", "HL Resurgence (Server)", "", "", function(Panel)
+			if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
+				Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.not"})
+				Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
+				return
+			end
+			Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
+			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1"})
+			Panel:AddControl("Slider", {Label = "Gonarch Baby Headcrab Limit", min = 0, max = 100, Command = "vj_hlr1_gonarch_babylimit"})
+			Panel:AddControl("Checkbox", {Label = "M2A3 Bradley Deploys Human Grunts", Command = "vj_hlr1_bradley_deploygrunts"})
+		end)
+		
+		spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HL Resurgence (AutoReplace)", "HL Resurgence (AutoReplace)", "", "", function(Panel)
+			if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
+				Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.not"})
+				Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
+				return
+			end
+			Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
+			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr_autoreplace 0\nvj_hlr_autoreplace_hl1 1\nvj_hlr_autoreplace_hl2 1"})
+			Panel:AddControl("Label", {Text = "Half-Life Resurgence Auto Replace script replaces HL1 or HL2 NPCs with the corresponding HLR SNPC!"})
+			Panel:AddControl("Checkbox", {Label = "Enable Auto Replacement Script", Command = "vj_hlr_autoreplace"})
+			Panel:AddControl("Checkbox", {Label = "Replace HL1 NPCs", Command = "vj_hlr_autoreplace_hl1"})
+			Panel:AddControl("Checkbox", {Label = "Replace HL2 NPCs", Command = "vj_hlr_autoreplace_hl2"})
+			Panel:AddControl("Label", {Text = "WARNINGS: Certain maps may occasionally break or crash! Some parts of the campaign may require the player to remove invisible barriers or physgun important NPCs to their proper location to continue to the next level."})
+		end)
+		
+		spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HL Resurgence (Client)", "HL Resurgence (Client)", "", "", function(Panel)
+			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr2_csniper_laser_usebarrel 1\nvj_hlr1_sparkfx 0"})
+			Panel:AddControl("Checkbox", {Label = "Create HL1-Style Sparks on Metal Surfaces", Command = "vj_hlr1_sparkfx"})
+			Panel:ControlHelp("Applies ONLY to HL1 NPCs & weapons!")
+			Panel:AddControl("Checkbox", {Label = "Combine Sniper Laser Follows Gun Barrel", Command = "vj_hlr2_csniper_laser_usebarrel"})
+			Panel:ControlHelp("Unchecked = Laser will pinpoint to the enemy instead")
+		end)
+	end)
+end
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------ Replacement Script ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- If enabled during startup, then just run it!
+if GetConVar("vj_hlr_autoreplace"):GetInt() == 1 then
+	include("hlr/autoreplace.lua")
+end
+-- Detect changes to the convar...
+cvars.AddChangeCallback("vj_hlr_autoreplace", function(convar_name, value_old, value_new)
+    if value_new == "1" then
+		include("autorun/hlr/autoreplace.lua")
+	else
+		hook.Remove("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate")
+		hook.Remove("Think", "VJ_HLR_AutoReplace_Think")
+	end
+end)
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile(AutorunFile)
 	VJ.AddAddonProperty(AddonName,AddonType)

@@ -35,8 +35,9 @@ ENT.SoundTbl_FootStep = {"npc/footsteps/hardboot_generic1.wav","npc/footsteps/ha
 
 -- Custom
 ENT.Human_Type = 0 -- 0 = Rebel | 1 = Engineer
-ENT.Human_Gender = 0 -- 0 = Male | 1 = Female
+ENT.Human_Gender = nil -- 0 = Male | 1 = Female
 ENT.Human_SdFolder = "male01"
+ENT.Human_Driver = false
 -- MALE
 local sdGiveAmmo_M = {
 	"vo/npc/male01/ammo01.wav",
@@ -103,6 +104,7 @@ local sdAllyDeathPly_M = {
 	"vo/npc/male01/gordead_ques16.wav",
 	"vo/npc/male01/gordead_ques17.wav",
 }
+-- Specific alert sounds
 
 -- FEMALE
 local sdGiveAmmo_F = {
@@ -170,11 +172,12 @@ local sdAllyDeathPly_F = {
 	"vo/npc/female01/gordead_ques16.wav",
 	"vo/npc/female01/gordead_ques17.wav",
 }
+-- Specific alert sounds
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-	if math.random(1, 2) == 1 then
+	if self.Human_Gender == 0 or math.random(1, 2) == 1 then
 		self.Human_Gender = 0
-		if math.random(1, 5) == 1 && self.Human_Type != 1 then
+		if math.random(1, 5) == 1 && self.Human_Type != 1 && !self.Human_Driver then
 			self.Model = {"models/Humans/Group03m/male_01.mdl","models/Humans/Group03m/male_02.mdl","models/Humans/Group03m/male_03.mdl","models/Humans/Group03m/male_04.mdl","models/Humans/Group03m/male_05.mdl","models/Humans/Group03m/male_06.mdl","models/Humans/Group03m/male_07.mdl","models/Humans/Group03m/male_08.mdl","models/Humans/Group03m/male_09.mdl"}
 			self.IsMedicSNPC = true
 		else
@@ -182,7 +185,7 @@ function ENT:CustomOnPreInitialize()
 		end
 	else
 		self.Human_Gender = 1
-		if math.random(1, 5) == 1 && self.Human_Type != 1 then
+		if math.random(1, 5) == 1 && self.Human_Type != 1 && !self.Human_Driver  then
 			self.Model = {"models/Humans/Group03m/female_01.mdl","models/Humans/Group03m/female_02.mdl","models/Humans/Group03m/female_03.mdl","models/Humans/Group03m/female_04.mdl","models/Humans/Group03m/female_06.mdl","models/Humans/Group03m/female_07.mdl"}
 			self.IsMedicSNPC = true
 		else
@@ -293,7 +296,7 @@ end
 end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPlayerSight(ent)
-	self.Human_NextPlyReloadSd = CurTime() + math.Rand(10, 60)
+	self.Human_NextPlyReloadSd = CurTime() + math.Rand(5, 40)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnEntityRelationshipCheck(ent, entFri, entDist)

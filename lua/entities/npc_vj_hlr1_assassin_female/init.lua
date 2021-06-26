@@ -102,8 +102,8 @@ function ENT:CustomOnThink()
 	end
 	
 	-- Cloaking system
-	local cloakLvl = math.Clamp(self.BOA_CloakLevel*255, 40, 255)
-	self:SetColor(Color(255,255,255,math.Clamp(self.BOA_CloakLevel * 255, 40, 255)))
+	local cloakLvl = math.Clamp(self.BOA_CloakLevel * 255, 40, 255)
+	self:SetColor(Color(255, 255, 255, cloakLvl))
 	self.BOA_CloakLevel = math.Clamp(self.BOA_CloakLevel + 0.05, 0, 1)
 	if cloakLvl <= 220 then -- NPCs can't seem me!
 		self:AddFlags(FL_NOTARGET)
