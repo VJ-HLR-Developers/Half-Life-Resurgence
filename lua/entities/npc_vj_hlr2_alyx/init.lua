@@ -805,7 +805,7 @@ local sdAlertGunship = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_gunship.wav","vj_h
 local sdAlertZombie = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_zombie_itsalive01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_zombie_liveone01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_zombie_liveone02.wav","vj_hlr/hl2_npc/ep1/c17/al_pzombie_ohno.wav","vj_hlr/hl2_npc/ep1/c17/al_hospital_morezombies.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies01.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies02.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies03.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies04.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies05.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies06.wav"}
 local sdAlertAntlion = {"vj_hlr/hl2_npc/ep1/c17/al_antlions_holycrap.wav","vj_hlr/hl2_npc/ep1/c17/al_ant_uncovered01.wav","vj_hlr/hl2_npc/ep1/c17/al_ant_uncovered02.wav","vj_hlr/hl2_npc/ep1/c17/al_antlions_firstsight.wav"}
 local sdAlertCreature = {"vj_hlr/hl2_npc/ep1/citadel/al_advisor_podthings.wav","vj_hlr/hl2_npc/ep1/citadel/al_gravcharge_thing.wav"}
-local sdAlertHuman = {"vj_hlr/hl2_npc/ep2/outland_07/barn/al_barn_soldiers01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_soldiers.wav","vj_hlr/hl2_npc/ep1/citadel/al_bridge_soldiers.wav"}
+local sdAlertHuman = {"vj_hlr/hl2_npc/ep1/c17/al_evac_ontous01.wav","vj_hlr/hl2_npc/ep2/outland_07/barn/al_barn_soldiers01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_soldiers.wav","vj_hlr/hl2_npc/ep1/citadel/al_bridge_soldiers.wav"}
 
 --[[ UNUSED
 
@@ -943,10 +943,6 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnHandleAnimEvent(ev, evTime, evCycle, evType, evOptions)
-	print()
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPlayerSight(ent)
 	self.Human_NextPlyReloadSd = CurTime() + math.Rand(5, 20)
 end
@@ -982,7 +978,7 @@ function ENT:CustomOnEntityRelationshipCheck(ent, entFri, entDist)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
-	if math.random(1, 2) == 1 && ent:IsNPC() then
+	if math.random(1, 1) == 1 && ent:IsNPC() then
 		if ent:GetClass() == "npc_breen" then
 			self:PlaySoundSystem("Alert", "vj_hlr/hl2_npc/ep1/citadel/al_advisor_breen01.wav")
 			return
@@ -1027,10 +1023,10 @@ function ENT:CustomOnAlert(ent)
 			return
 		else
 			for _,v in ipairs(ent.VJ_NPC_Class or {1}) do
-				if v == "CLASS_COMBINE" or ent:Classify() == CLASS_COMBINE then
+				/*if v == "CLASS_COMBINE" or ent:Classify() == CLASS_COMBINE then
 					self:PlaySoundSystem("Alert", "vj_hlr/hl2_npc/ep1/c17/al_evac_ontous01.wav")
-					return
-				elseif v == "CLASS_ZOMBIE" or ent:Classify() == CLASS_ZOMBIE then
+					return*/
+				if v == "CLASS_ZOMBIE" or ent:Classify() == CLASS_ZOMBIE then
 					self:PlaySoundSystem("Alert", sdAlertZombie)
 					return
 				elseif v == "CLASS_ANTLION" or ent:Classify() == CLASS_ANTLION then
@@ -1043,7 +1039,7 @@ function ENT:CustomOnAlert(ent)
 		if  ent.IsVJBaseSNPC_Creature == true then
 			self:PlaySoundSystem("Alert", sdAlertCreature)
 			return
-		elseif ent.IsVJBaseSNPC_Human == true then
+		elseif ent.IsVJBaseSNPC_Human == true or ent:Classify() == CLASS_COMBINE then
 			self:PlaySoundSystem("Alert", sdAlertHuman)
 			return
 		end
