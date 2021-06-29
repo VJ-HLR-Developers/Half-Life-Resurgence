@@ -42,7 +42,7 @@ ENT.GMAN_NextMouthMove = 0
 ENT.GMAN_NextMouthDistance = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self.VJ_NoTarget = true
+	self:AddFlags(FL_NOTARGET)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)

@@ -32,7 +32,6 @@ ENT.MeleeAttackAngleRadius = 60 -- What is the attack angle radius? | 100 = In f
 ENT.MeleeAttackDamageDistance = 140 -- How far does the damage go?
 ENT.MeleeAttackDamageAngleRadius = 60 -- What is the damage angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
 
-ENT.VJ_NoTarget = true
 ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
@@ -43,6 +42,7 @@ ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(25, 25, 190), Vector(-25, -25, 0))
+	self:AddFlags(FL_NOTARGET)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)

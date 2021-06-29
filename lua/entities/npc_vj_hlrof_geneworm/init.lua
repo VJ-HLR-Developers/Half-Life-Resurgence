@@ -77,7 +77,7 @@ local maxEyeHealth = 100
 local maxOrbHealth = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self.VJ_NoTarget = true -- They are going to target the bullseye only, so don't let other NPCs see the actual gene worm!
+	self:AddFlags(FL_NOTARGET) -- They are going to target the bullseye only, so don't let other NPCs see the actual gene worm!
 	self:SetCollisionBounds(Vector(400, 400, 350), Vector(-400, -400, -240))
 	self:SetRenderMode(RENDERMODE_TRANSALPHA)
 	self.GW_EyeHealth = {r=maxEyeHealth, l=maxEyeHealth}
@@ -110,7 +110,7 @@ function ENT:CustomOnInitialize()
 	self.GW_BE_Orb:SetNoDraw(true)
 	self.GW_BE_Orb:DrawShadow(false)
 	self.GW_BE_Orb.VJ_NPC_Class = self.VJ_NPC_Class
-	self.GW_BE_Orb.VJ_NoTarget = true
+	self.GW_BE_Orb:AddFlags(FL_NOTARGET)
 	self:DeleteOnRemove(self.GW_BE_Orb)
 	
 	-- Eye Lights
@@ -209,11 +209,11 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	elseif key == "open_botheyes" then
 		self.GW_EyeLightL:Fire("TurnOn")
 		self.GW_EyeLightR:Fire("TurnOn")
-		self.GW_BE_EyeL.VJ_NoTarget = false
-		self.GW_BE_EyeR.VJ_NoTarget = false
+		self.GW_BE_EyeL:RemoveFlags(FL_NOTARGET)
+		self.GW_BE_EyeR:RemoveFlags(FL_NOTARGET)
 	elseif key == "spawn_portal" then
 		self.GW_OrbSprite:Fire("HideSprite")
-		self.GW_BE_Orb.VJ_NoTarget = true
+		self.GW_BE_Orb:AddFlags(FL_NOTARGET)
 		-- Shock trooper spawner
 		local at = self:GetAttachment(self:LookupAttachment("orb"))
 		sprite = ents.Create("obj_vj_hlrof_gw_spawner")
@@ -318,11 +318,11 @@ function ENT:GW_OrbOpenReset()
 	self:VJ_ACT_PLAYACTIVITY("pain_4", true, false, false, 0, {}, function(vsched)
 		vsched.RunCode_OnFinish = function() -- Just a backup in case event fails
 			self.GW_OrbSprite:Fire("HideSprite")
-			self.GW_BE_Orb.VJ_NoTarget = true
+			self.GW_BE_Orb:AddFlags(FL_NOTARGET)
 			self.GW_EyeLightL:Fire("TurnOn")
 			self.GW_EyeLightR:Fire("TurnOn")
-			self.GW_BE_EyeL.VJ_NoTarget = false
-			self.GW_BE_EyeR.VJ_NoTarget = false
+			self.GW_BE_EyeL:RemoveFlags(FL_NOTARGET)
+			self.GW_BE_EyeR:RemoveFlags(FL_NOTARGET)
 		end
 	end)
 	self:SetState()
@@ -338,10 +338,10 @@ function ENT:GW_EyeHealthCheck()
 		if self.GW_OrbOpen == false then
 			self.GW_EyeLightL:Fire("TurnOff")
 			self.GW_EyeLightR:Fire("TurnOff")
-			self.GW_BE_EyeL.VJ_NoTarget = true
-			self.GW_BE_EyeR.VJ_NoTarget = true
+			self.GW_BE_EyeL:AddFlags(FL_NOTARGET)
+			self.GW_BE_EyeR:AddFlags(FL_NOTARGET)
 			self.GW_OrbSprite:Fire("ShowSprite")
-			self.GW_BE_Orb.VJ_NoTarget = false
+			self.GW_BE_Orb:RemoveFlags(FL_NOTARGET)
 			self.GW_OrbOpen = true
 			self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
 			self.AnimTbl_IdleStand = {ACT_IDLE_STIMULATED}
@@ -362,12 +362,12 @@ function ENT:GW_EyeHealthCheck()
 		end
 	elseif r <= 0 then
 		self.GW_EyeLightR:Fire("TurnOff")
-		self.GW_BE_EyeR.VJ_NoTarget = true
+		self.GW_BE_EyeR:AddFlags(FL_NOTARGET)
 		self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_shot_in_eye.wav")
 		self:SetSkin(2)
 	elseif l <= 0 then
 		self.GW_EyeLightL:Fire("TurnOff")
-		self.GW_BE_EyeL.VJ_NoTarget = true
+		self.GW_BE_EyeL:AddFlags(FL_NOTARGET)
 		self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_shot_in_eye.wav")
 		self:SetSkin(1)
 	end

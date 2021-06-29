@@ -4,7 +4,7 @@ print("Executing Half-Life Resurgence auto replace script...")
 -- https://developer.valvesoftware.com/wiki/Half-Life.fgd
 -- https://developer.valvesoftware.com/wiki/Half_Life_2.fgd
 
-local replaceList = {
+local replaceTbl_Entities = {
 		-- Half-Life 1 --
 	["monster_alien_grunt"] = "npc_vj_hlr1_aliengrunt",
 	["monster_nihilanth"] = "npc_vj_hlr1_nihilanth",
@@ -36,7 +36,6 @@ local replaceList = {
 	["monster_osprey"] = "npc_vj_hlr1_osprey",
 	["monster_turret"] = "npc_vj_hlr1_cturret",
 	["monster_miniturret"] = "npc_vj_hlr1_cturret_mini",
-
 		-- Half-Life 2 --
 	["npc_advisor"] = "npc_vj_hlr2_com_advisor",
 	["npc_alyx"] = "npc_vj_hlr2_alyx",
@@ -69,11 +68,28 @@ local replaceList = {
 	["prop_vehicle_apc"] = "npc_vj_hlr2_com_apc",
 }
 
+local replaceTbl_Weapons = {
+		-- Half-Life 2 --
+	["weapon_357"] = "weapon_vj_357",
+	["weapon_alyxgun"] = "weapon_vj_hlr2_alyxgun",
+	["weapon_annabelle"] = "weapon_vj_hlr2_annabelle",
+	["weapon_ar2"] = "weapon_vj_ar2",
+	["weapon_crossbow"] = "weapon_vj_crossbow",
+	["weapon_crowbar"] = "weapon_vj_crowbar",
+	["weapon_pistol"] = "weapon_vj_9mmpistol",
+	["weapon_rpg"] = "weapon_vj_hlr2_rpg",
+	["weapon_shotgun"] = "weapon_vj_spas12",
+	["weapon_smg1"] = "weapon_vj_smg1",
+	["weapon_stunstick"] = "weapon_vj_hlr2_stunstick"
+}
+
 -- Before Create
 local replaceOptions = {
+	-- If its an antlion guardian, then make sure to spawn that variant!
 	["npc_antlionguard"] = function(ent, replaceEnt)
 		return (ent:GetSkin() == 0 && "npc_vj_hlr2_antlion_guard") or "npc_vj_hlr2_antlion_guardian"
 	end,
+	-- Handle citizen / refugee / rebel variants
 	["npc_citizen"] = function(ent, replaceEnt)
 		for key, val in pairs(ent:GetKeyValues()) do
 			if key == "citizentype" then
@@ -87,6 +103,7 @@ local replaceOptions = {
 			end
 		end
 	end,
+	-- Handle combine soldier variants
 	["npc_combine_s"] = function(ent, replaceEnt)
 		local mdl = ent:GetModel()
 		if mdl == "models/combine_soldier.mdl" then
@@ -113,21 +130,6 @@ local replacePreSpawn = {
 -- After Spawn
 -- local afterSpawned = {}
 
-local replaceWeaponList = {
-		-- Half-Life 2 --
-	["weapon_357"] = "weapon_vj_357",
-	["weapon_alyxgun"] = "weapon_vj_hlr2_alyxgun",
-	["weapon_annabelle"] = "weapon_vj_hlr2_annabelle",
-	["weapon_ar2"] = "weapon_vj_ar2",
-	["weapon_crossbow"] = "weapon_vj_crossbow",
-	["weapon_crowbar"] = "weapon_vj_crowbar",
-	["weapon_pistol"] = "weapon_vj_9mmpistol",
-	["weapon_rpg"] = "weapon_vj_hlr2_rpg",
-	["weapon_shotgun"] = "weapon_vj_spas12",
-	["weapon_smg1"] = "weapon_vj_smg1",
-	["weapon_stunstick"] = "weapon_vj_hlr2_stunstick"
-}
-
 local defPos = Vector(0, 0, 0)
 
 local gStatePrecriminal = false
@@ -135,15 +137,17 @@ local gStateAntlionFri = false
 
 hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 	local class = ent:GetClass()
-	local rEnt = VJ_PICK(replaceList[class])
+	local rEnt = VJ_PICK(replaceTbl_Entities[class])
 	if rEnt then
 		-- Make sure the game is loaded
 		if game && game.GetGlobalState then
 			gStatePrecriminal = game.GetGlobalState("gordon_precriminal") == 1
 		end
 		-- Check if it's HL1 & HL2 and stop if it's not supposed to continue
-		if GetConVar("vj_hlr_autoreplace_hl1"):GetInt() == 0 && string.StartWith(rEnt, "monster_") then
-			return
+		if string.StartWith(class, "monster_") then
+			if GetConVar("vj_hlr_autoreplace_hl1"):GetInt() == 0 then
+				return
+			end
 		elseif GetConVar("vj_hlr_autoreplace_hl2"):GetInt() == 0 then
 			return
 		end
@@ -176,7 +180,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				-- Handle weapon
 				local wep = ent:GetActiveWeapon()
 				if IsValid(wep) then
-					local foundWep = replaceWeaponList[wep:GetClass()]
+					local foundWep = replaceTbl_Weapons[wep:GetClass()]
 					finalEnt:Give(VJ_PICK(foundWep))
 				end
 				-- Handle enemy
@@ -212,7 +216,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 					finalEnt.FollowPlayer = false
 					finalEnt.Behavior = VJ_BEHAVIOR_PASSIVE
 					finalEnt.VJ_AutoScript_OldClass = finalEnt.VJ_NPC_Class
-					finalEnt.VJ_NPC_Class = {"CLASS_PLAYER_ALLY","CLASS_COMBINE"}
+					finalEnt.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_COMBINE"}
 					finalEnt.VJ_AutoScript_Reset = true
 				end
 				-- Things to run after it's fully spawned (EX: )
@@ -220,6 +224,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				//if afterSpawned[rEnt] then
 					//afterSpawned[rEnt](ent,finalEnt)
 				//end
+				print(ent:GetClass(), ent:GetInternalVariable("GameEndAlly"))
 				-- Set the starting animation AND velocity
 				local vel = ent:GetVelocity()
 				timer.Simple(0.01, function()
