@@ -144,7 +144,8 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 			gStatePrecriminal = game.GetGlobalState("gordon_precriminal") == 1
 		end
 		-- Check if it's HL1 & HL2 and stop if it's not supposed to continue
-		if string.StartWith(class, "monster_") then
+		local isHL1 = string.StartWith(class, "monster_")
+		if isHL1 then
 			if GetConVar("vj_hlr_autoreplace_hl1"):GetInt() == 0 then
 				return
 			end
@@ -159,8 +160,21 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				if replaceOptions[class] then
 					rEnt = replaceOptions[class](ent, rEnt) or rEnt
 				end
+				if GetConVar("vj_hlr_autoreplace_random"):GetInt() == 1 then
+					local tempTable = {}
+					for oldClass,newClass in pairs(replaceTbl_Entities) do -- Not sure what the best way is to do this, feel free to mess with it @Vrej
+						if isHL1 then
+							if string.StartWith(oldClass, "monster_") then
+								table.insert(tempTable,newClass)
+							end
+						else
+							table.insert(tempTable,newClass)
+						end
+					end
+					rEnt = VJ_PICK(tempTable) or rEnt
+				end
 				-- Start the actual final entity --
-				local finalEnt = ents.Create(rEnt)
+				local finalEnt = ents.Create(VJ_PICK(rEnt))
 				if !IsValid(finalEnt) then MsgN("Entity [" .. rEnt .. "] not valid (missing pack?), keeping original entity") return end
 				-- Certain entities need some checks before spawn (Ex: Citizen gender)
 				if replacePreSpawn[class] then
@@ -224,7 +238,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				//if afterSpawned[rEnt] then
 					//afterSpawned[rEnt](ent,finalEnt)
 				//end
-				print(ent:GetClass(), ent:GetInternalVariable("GameEndAlly"))
+				-- print(ent:GetClass(), ent:GetInternalVariable("GameEndAlly"))
 				-- Set the starting animation AND velocity
 				local vel = ent:GetVelocity()
 				timer.Simple(0.01, function()

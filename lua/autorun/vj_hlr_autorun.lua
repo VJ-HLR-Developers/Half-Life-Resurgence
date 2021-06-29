@@ -377,23 +377,24 @@ if VJExists == true then
 	end
 
 	-- Weapon hook that gives the player HL1 weapons on spawn
-	/*hook.Add("PlayerSpawn","VJ_HL1SWEPs_AutoSpawn",function(ply)
-		if GetConVar("hl1_sv_loadout"):GetInt() == 1 then
-			ply:Give("weapon_hl1_357")
-			ply:Give("weapon_hl1_glock")
-			ply:Give("weapon_hl1_crossbow")
-			ply:Give("weapon_hl1_egon")
-			ply:Give("weapon_hl1_handgrenade")
-			ply:Give("weapon_hl1_hornetgun")
-			ply:Give("weapon_hl1_mp5")
-			ply:Give("weapon_hl1_rpg")
-			ply:Give("weapon_hl1_satchel")
-			ply:Give("weapon_hl1_shotgun")
-			//ply:Give("weapon_hl1_snark")
-			ply:Give("weapon_hl1_gauss")
-			ply:Give("weapon_hl1_tripmine")
-		end
-	end)*/
+	-- hook.Add("PlayerSpawn","VJ_HL1SWEPs_AutoSpawn",function(ply)
+		-- if GetConVar("hl1_sv_loadout"):GetInt() == 1 then
+			-- ply:Give("weapon_hl1_crowbar")
+			-- ply:Give("weapon_hl1_357")
+			-- ply:Give("weapon_hl1_glock")
+			-- ply:Give("weapon_hl1_crossbow")
+			-- ply:Give("weapon_hl1_egon")
+			-- ply:Give("weapon_hl1_handgrenade")
+			-- ply:Give("weapon_hl1_hornetgun")
+			-- ply:Give("weapon_hl1_mp5")
+			-- ply:Give("weapon_hl1_rpg")
+			-- ply:Give("weapon_hl1_satchel")
+			-- ply:Give("weapon_hl1_shotgun")
+			-- //ply:Give("weapon_hl1_snark")
+			-- ply:Give("weapon_hl1_gauss")
+			-- ply:Give("weapon_hl1_tripmine")
+		-- end
+	-- end)
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ self.HLR_Type ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -411,6 +412,7 @@ VJ.AddConVar("vj_hlr1_bradley_deploygrunts", 1, {FCVAR_ARCHIVE})
 VJ.AddConVar("vj_hlr_autoreplace", 0, {FCVAR_ARCHIVE, FCVAR_NOTIFY})
 VJ.AddConVar("vj_hlr_autoreplace_hl1", 1, {FCVAR_ARCHIVE, FCVAR_NOTIFY})
 VJ.AddConVar("vj_hlr_autoreplace_hl2", 1, {FCVAR_ARCHIVE, FCVAR_NOTIFY})
+VJ.AddConVar("vj_hlr_autoreplace_random", 0, {FCVAR_ARCHIVE, FCVAR_NOTIFY})
 
 VJ.AddClientConVar("vj_hlr1_sparkfx", 0, "Create HL1-Style Sparks on Metal Surfaces")	
 VJ.AddClientConVar("vj_hlr2_csniper_laser_usebarrel", 1, "Combine Sniper Laser Follows Gun Barrel")
@@ -436,11 +438,12 @@ if CLIENT then
 				return
 			end
 			Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
-			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr_autoreplace 0\nvj_hlr_autoreplace_hl1 1\nvj_hlr_autoreplace_hl2 1"})
+			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr_autoreplace 0\nvj_hlr_autoreplace_hl1 1\nvj_hlr_autoreplace_hl2 1\nvj_hlr_autoreplace_random 0"})
 			Panel:AddControl("Label", {Text = "Half-Life Resurgence Auto Replace script replaces HL1 or HL2 NPCs with the corresponding HLR SNPC!"})
 			Panel:AddControl("Checkbox", {Label = "Enable Auto Replacement Script", Command = "vj_hlr_autoreplace"})
 			Panel:AddControl("Checkbox", {Label = "Replace HL1 NPCs", Command = "vj_hlr_autoreplace_hl1"})
 			Panel:AddControl("Checkbox", {Label = "Replace HL2 NPCs", Command = "vj_hlr_autoreplace_hl2"})
+			Panel:AddControl("Checkbox", {Label = "Enable Random Replacements", Command = "vj_hlr_autoreplace_random"})
 			Panel:AddControl("Label", {Text = "WARNINGS: Certain maps may occasionally break or crash! Some parts of the campaign may require the player to remove invisible barriers or physgun important NPCs to their proper location to continue to the next level."})
 		end)
 		
