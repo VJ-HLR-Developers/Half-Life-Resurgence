@@ -230,7 +230,8 @@ if VJExists == true then
 	game.AddDecal("VJ_HLR_Blood_Red_Large",{"vj_hl/decals/hl_bigblood01","vj_hl/decals/hl_bigblood02"})
 	game.AddDecal("VJ_HLR_Blood_Yellow",{"vj_hl/decals/hl_yblood01","vj_hl/decals/hl_yblood02","vj_hl/decals/hl_yblood03","vj_hl/decals/hl_yblood04","vj_hl/decals/hl_yblood05","vj_hl/decals/hl_yblood06"})
 	-- Spits
-	game.AddDecal("VJ_HLR_Spit_Acid",{"vj_hl/decals/spit1","vj_hl/decals/spit2"})
+	-- game.AddDecal("VJ_HLR_Spit_Acid",{"vj_hl/decals/spit1","vj_hl/decals/spit2"})
+	game.AddDecal("VJ_HLR_Spit_Acid",{"vj_hl/decals/spit1_green","vj_hl/decals/spit2_green"})
 	//game.AddDecal("VJ_HLR_Spit_Gonarch",{"vj_hl/decals/gonarch"})
 	game.AddDecal("VJ_HLR_Gonarch_Blob",{"vj_hl/decals/mommablob"})
 	-- Scorchs

@@ -24,7 +24,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/spitball_small.mdl","models/spitball_medium.mdl","models/spitball_medium.mdl"} -- The models it should spawn with | Picks a random one from the table
+ENT.Model = "models/spitball_medium.mdl" -- The models it should spawn with | Picks a random one from the table
 ENT.DoesRadiusDamage = true -- Should it do a blast damage when it hits something?
 ENT.RadiusDamageRadius = 70 -- How far the damage go? The farther away it's from its enemy, the less damage it will do | Counted in world units
 ENT.RadiusDamage = 15 -- How much damage should it deal? Remember this is a radius damage, therefore it will do less damage the farther away the entity is from its enemy
@@ -45,17 +45,58 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	ParticleEffectAttach("vj_hl_spit_bullsquid", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	-- ParticleEffectAttach("vj_hl_spit_bullsquid", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	
+	self.Scale = math.Rand(0.5,1.15)
+
+	self.IdleEffect = ents.Create("env_sprite")
+	self.IdleEffect:SetKeyValue("model","vj_hl/sprites/bigspit.vmt")
+	self.IdleEffect:SetKeyValue("rendercolor","224 224 255")
+	self.IdleEffect:SetKeyValue("GlowProxySize","5.0")
+	self.IdleEffect:SetKeyValue("HDRColorScale","1.0")
+	self.IdleEffect:SetKeyValue("renderfx","14")
+	self.IdleEffect:SetKeyValue("rendermode","3")
+	self.IdleEffect:SetKeyValue("renderamt","255")
+	self.IdleEffect:SetKeyValue("disablereceiveshadows","0")
+	self.IdleEffect:SetKeyValue("mindxlevel","0")
+	self.IdleEffect:SetKeyValue("maxdxlevel","0")
+	self.IdleEffect:SetKeyValue("framerate","40.0")
+	self.IdleEffect:SetKeyValue("spawnflags","0")
+	self.IdleEffect:SetKeyValue("scale",tostring(self.Scale))
+	self.IdleEffect:SetPos(self:GetPos())
+	self.IdleEffect:Spawn()
+	self.IdleEffect:SetParent(self)
+	self:DeleteOnRemove(self.IdleEffect)
+	
+	self:SetNoDraw(true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects(data, phys)
-	local effectdata = EffectData()
-	effectdata:SetOrigin(data.HitPos)
-	effectdata:SetScale(1)
-	util.Effect("StriderBlood",effectdata)
-	util.Effect("StriderBlood",effectdata)
-	util.Effect("StriderBlood",effectdata)
-	ParticleEffect("vj_hl_spit_bullsquid_impact", data.HitPos, Angle(0,0,0), nil)
+	local spr = ents.Create("env_sprite")
+	spr:SetKeyValue("model","vj_hl/sprites/bigspit_impact.vmt")
+	spr:SetKeyValue("GlowProxySize","2.0")
+	spr:SetKeyValue("HDRColorScale","1.0")
+	spr:SetKeyValue("renderfx","14")
+	spr:SetKeyValue("rendermode","5")
+	spr:SetKeyValue("renderamt","255")
+	spr:SetKeyValue("disablereceiveshadows","0")
+	spr:SetKeyValue("mindxlevel","0")
+	spr:SetKeyValue("maxdxlevel","0")
+	spr:SetKeyValue("framerate","15.0")
+	spr:SetKeyValue("spawnflags","0")
+	spr:SetKeyValue("scale",tostring(self.Scale *0.3))
+	spr:SetPos(data.HitPos)
+	spr:Spawn()
+	spr:Fire("Kill","",0.3)
+	timer.Simple(0.3, function() if IsValid(spr) then spr:Remove() end end)
+
+	-- local effectdata = EffectData()
+	-- effectdata:SetOrigin(data.HitPos)
+	-- effectdata:SetScale(1)
+	-- util.Effect("StriderBlood",effectdata)
+	-- util.Effect("StriderBlood",effectdata)
+	-- util.Effect("StriderBlood",effectdata)
+	-- ParticleEffect("vj_hl_spit_bullsquid_impact", data.HitPos, Angle(0,0,0), nil)
 end
 /*-----------------------------------------------
 	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
