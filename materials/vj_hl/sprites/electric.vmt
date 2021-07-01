@@ -1,0 +1,9 @@
+"SpriteCard"
+{
+	"$basetexture"	"vj_hl/sprites/electric"
+	"$surfaceprop"	"no_decal"
+	"$additive"		"1"
+	"$vertexalpha"	"1"
+	"$vertexcolor"	"1"
+	"$DEPTHBLEND" 	"0"
+}

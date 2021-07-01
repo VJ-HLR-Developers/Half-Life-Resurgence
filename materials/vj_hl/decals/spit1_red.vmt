@@ -2,7 +2,7 @@
 {
 	// Original shader: DecalBaseTimesLightmapAlphaBlend
 	"$translucent" 1
-	"$basetexture" "vj_hl/decals/mommablob"
+	"$basetexture" "vj_hl/decals/spit1_red"
 	"$decal" 1
-	"$decalscale" 	0.50
+	"$decalscale" 	0.70
 }

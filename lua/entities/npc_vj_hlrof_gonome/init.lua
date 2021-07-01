@@ -65,6 +65,9 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self:MeleeAttackCode()
 	elseif key == "event_rattack acidthrow" then
 		self:RangeAttackCode()
+	elseif key == "event_rattack acidtake" then
+		local att = self:GetAttachment(2)
+		ParticleEffect("vj_hl_spit_red_spawn",att.Pos,att.Ang,self)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
