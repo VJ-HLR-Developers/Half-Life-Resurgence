@@ -1,15 +1,10 @@
-"Sprite"
+"UnlitGeneric"
 {
-	"$spriteorientation" "vp_parallel_oriented"
-	"$spriteorigin" "[ 0.50 0.50 ]"
 	"$basetexture" "vj_hl/sprites/steam1"
-	"Proxies"
-	{
-		"AnimatedTexture"
-		{
-			"animatedtexturevar" "$basetexture"
-			"animatedtextureframenumvar" "$frame"
-			"animatedtextureframerate" 15
-		}
-	}
+	"$color2" "{30 30 30}"
+	"$nolod" 1
+	"$frame" 6
+	"$translucent" 1
+	//"$alphatest" 1
+
 }

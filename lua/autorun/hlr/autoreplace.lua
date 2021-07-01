@@ -125,6 +125,13 @@ local replacePreSpawn = {
 			newEnt.Human_Gender = 0
 		end
 	end,
+	["npc_metropolice"] = function(ent, newEnt)
+		for key, val in pairs(ent:GetKeyValues()) do
+			if key == manhacks && val == 0 then
+				newEnt.Metrocop_CanHaveManhack = false
+			end
+		end
+	end,
 }
 
 -- After Spawn
@@ -165,10 +172,10 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 					for oldClass,newClass in pairs(replaceTbl_Entities) do -- Not sure what the best way is to do this, feel free to mess with it @Vrej
 						if isHL1 then
 							if string.StartWith(oldClass, "monster_") then
-								table.insert(tempTable,newClass)
+								table.insert(tempTable, newClass)
 							end
 						else
-							table.insert(tempTable,newClass)
+							table.insert(tempTable, newClass)
 						end
 					end
 					rEnt = VJ_PICK(tempTable) or rEnt
@@ -182,6 +189,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				end
 				finalEnt:SetPos(ent:GetPos() + Vector(0, 0, (class == "monster_barnacle" && -1) or 4))
 				finalEnt:SetAngles(ent:GetAngles())
+				if IsValid(ent:GetParent()) then finalEnt:SetParent(ent:GetParent()) end
 				finalEnt:Spawn()
 				finalEnt:Activate()
 				-- Handle naming
@@ -204,6 +212,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				end
 				-- Handle key values
 				for key, val in pairs(ent:GetSaveTable()) do
+					//finalEnt:SetSaveValue(key, val)
 					key = tostring(key)
 					if key == "health" then
 						finalEnt:SetHealth(val)
@@ -219,8 +228,21 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 							finalEnt:SetLastPosition(val)
 							finalEnt:VJ_TASK_GOTO_LASTPOS("TASK_WALK_PATH")
 						end
+					elseif key == "m_bShouldPatrol" && val == false then
+						finalEnt.DisableWandering = true
+					elseif key == "m_flDistTooFar" then
+						finalEnt.SightDistance = val
 					end
 				end
+				-- Handle spawn flags
+				finalEnt:SetKeyValue("spawnflags", ent:GetSpawnFlags())
+				if ent:HasSpawnFlags(SF_NPC_LONG_RANGE) then
+					finalEnt.SightDistance = 6000
+				end
+				if ent:HasSpawnFlags(SF_CITIZEN_NOT_COMMANDABLE) then
+					finalEnt.FollowPlayer = false
+				end
+				//print(ent:GetInternalVariable("m_bShouldPatrol"))
 				-- Handle Gordon precriminal game state
 				if gStatePrecriminal == true then -- Toggles friendly-AI for the intro of Half-Life 2
 					//finalEnt.DisableWandering = true

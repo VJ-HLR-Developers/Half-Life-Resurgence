@@ -169,10 +169,11 @@ local SoundTbl_DeployManhack = {"npc/metropolice/vo/visceratordeployed.wav","npc
 */
 
 -- Custom
+ENT.Metrocop_CanHaveManhack = true
 ENT.Metrocop_HasManhack = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	if math.random(1, 4) == 1 then
+	if self.Metrocop_CanHaveManhack && math.random(1, 4) == 1 then
 		self.Metrocop_HasManhack = true
 		self:SetBodygroup(1, 1)
 	end
@@ -189,6 +190,19 @@ end
 function ENT:Controller_IntMsg(ply, controlEnt)
 	ply:ChatPrint("SPACE: Deploy Manhack (if available)")
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+/*function ENT:CustomOnAcceptInput(key, activator, caller, data)
+	if key == "SetPoliceGoal" then
+		print(self, key, activator, caller, data)
+		local policeEnt = ents.FindByName("ai_breakin_cop3goal2")[1]
+		if IsValid(policeEnt) then
+			print("------")
+			function policeEnt:KeyValue(key, value)
+				print(self, key, value)
+			end
+		end
+	end
+end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnPlayCreateSound(sdData, sdFile)
 	if VJ_HasValue(self.SoundTbl_Pain,sdFile) or VJ_HasValue(self.DefaultSoundTbl_MeleeAttack,sdFile) then return end

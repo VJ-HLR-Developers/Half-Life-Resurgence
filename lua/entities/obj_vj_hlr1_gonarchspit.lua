@@ -30,7 +30,7 @@ ENT.RadiusDamageRadius = 70 -- How far the damage go? The farther away it's from
 ENT.RadiusDamage = 15 -- How much damage should it deal? Remember this is a radius damage, therefore it will do less damage the farther away the entity is from its enemy
 ENT.RadiusDamageUseRealisticRadius = true -- Should the damage decrease the farther away the enemy is from the position that the projectile hit?
 ENT.RadiusDamageType = DMG_ACID -- Damage type
-ENT.DecalTbl_DeathDecals = {"VJ_HLR_Spit_Acid"}
+ENT.DecalTbl_DeathDecals = {"VJ_HLR_Gonarch_Blob"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/bullchicken/bc_acid1.wav", "vj_hlr/hl1_npc/bullchicken/bc_acid2.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/bullchicken/bc_spithit1.wav", "vj_hlr/hl1_npc/bullchicken/bc_spithit2.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------

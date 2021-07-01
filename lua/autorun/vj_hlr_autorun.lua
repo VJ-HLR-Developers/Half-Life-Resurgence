@@ -378,7 +378,7 @@ if VJExists == true then
 	end
 
 	-- Weapon hook that gives the player HL1 weapons on spawn
-	-- hook.Add("PlayerSpawn","VJ_HL1SWEPs_AutoSpawn",function(ply)
+	-- hook.Add("PlayerSpawn", "VJ_HL1SWEPs_AutoSpawn", function(ply)
 		-- if GetConVar("hl1_sv_loadout"):GetInt() == 1 then
 			-- ply:Give("weapon_hl1_crowbar")
 			-- ply:Give("weapon_hl1_357")

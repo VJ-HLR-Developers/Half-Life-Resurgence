@@ -108,7 +108,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(projectile)
 	local ene = self:GetEnemy()
-	ParticleEffect("vj_hl_spit_spawn",self:GetPos() +self:OBBCenter() +self:GetForward() *35,self:GetForward():Angle(),projectile)
+	ParticleEffect("vj_hl_spit_spawn", self:GetPos() + self:OBBCenter() + self:GetForward()*35, self:GetForward():Angle(), projectile)
 	if self.Bullsquid_BullSquidding == true then
 		return self:CalculateProjectile("Line", projectile:GetPos(), ene:GetPos() + ene:OBBCenter(), 250000)
 	else

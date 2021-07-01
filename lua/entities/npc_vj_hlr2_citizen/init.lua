@@ -12,13 +12,11 @@ ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the s
 ENT.HasGrenadeAttack = false -- Should the SNPC have a grenade attack?
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-	if self.Human_Gender == 0 or self.Human_Gender == nil then
-		if math.random(1,2) == 1 then
-			self.Human_Gender = 0
-			self.Model = {"models/Humans/Group01/male_01.mdl","models/Humans/Group01/male_02.mdl","models/Humans/Group01/male_03.mdl","models/Humans/Group01/male_04.mdl","models/Humans/Group01/male_05.mdl","models/Humans/Group01/male_06.mdl","models/Humans/Group01/male_07.mdl","models/Humans/Group01/male_08.mdl","models/Humans/Group01/male_09.mdl"}
-		else
-			self.Human_Gender = 1
-			self.Model = {"models/Humans/Group01/female_01.mdl","models/Humans/Group01/female_02.mdl","models/Humans/Group01/female_03.mdl","models/Humans/Group01/female_04.mdl","models/Humans/Group01/female_06.mdl","models/Humans/Group01/female_07.mdl"}
-		end
+	if self.Human_Gender == 0 or (self.Human_Gender == nil && math.random(1, 2) == 1) then
+		self.Human_Gender = 0
+		self.Model = {"models/Humans/Group01/male_01.mdl","models/Humans/Group01/male_02.mdl","models/Humans/Group01/male_03.mdl","models/Humans/Group01/male_04.mdl","models/Humans/Group01/male_05.mdl","models/Humans/Group01/male_06.mdl","models/Humans/Group01/male_07.mdl","models/Humans/Group01/male_08.mdl","models/Humans/Group01/male_09.mdl"}
+	else
+		self.Human_Gender = 1
+		self.Model = {"models/Humans/Group01/female_01.mdl","models/Humans/Group01/female_02.mdl","models/Humans/Group01/female_03.mdl","models/Humans/Group01/female_04.mdl","models/Humans/Group01/female_06.mdl","models/Humans/Group01/female_07.mdl"}
 	end
 end

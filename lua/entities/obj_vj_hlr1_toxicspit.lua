@@ -47,26 +47,26 @@ end
 function ENT:CustomOnInitialize()
 	-- ParticleEffectAttach("vj_hl_spit_bullsquid", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 	
-	self.Scale = math.Rand(0.5,1.15)
+	self.Scale = math.Rand(0.5, 1.15)
 
-	self.IdleEffect = ents.Create("env_sprite")
-	self.IdleEffect:SetKeyValue("model","vj_hl/sprites/bigspit.vmt")
-	self.IdleEffect:SetKeyValue("rendercolor","224 224 255")
-	self.IdleEffect:SetKeyValue("GlowProxySize","5.0")
-	self.IdleEffect:SetKeyValue("HDRColorScale","1.0")
-	self.IdleEffect:SetKeyValue("renderfx","14")
-	self.IdleEffect:SetKeyValue("rendermode","3")
-	self.IdleEffect:SetKeyValue("renderamt","255")
-	self.IdleEffect:SetKeyValue("disablereceiveshadows","0")
-	self.IdleEffect:SetKeyValue("mindxlevel","0")
-	self.IdleEffect:SetKeyValue("maxdxlevel","0")
-	self.IdleEffect:SetKeyValue("framerate","40.0")
-	self.IdleEffect:SetKeyValue("spawnflags","0")
-	self.IdleEffect:SetKeyValue("scale",tostring(self.Scale))
-	self.IdleEffect:SetPos(self:GetPos())
-	self.IdleEffect:Spawn()
-	self.IdleEffect:SetParent(self)
-	self:DeleteOnRemove(self.IdleEffect)
+	local sprIdle = ents.Create("env_sprite")
+	sprIdle:SetKeyValue("model","vj_hl/sprites/bigspit.vmt")
+	sprIdle:SetKeyValue("rendercolor","224 224 255")
+	sprIdle:SetKeyValue("GlowProxySize","5.0")
+	sprIdle:SetKeyValue("HDRColorScale","1.0")
+	sprIdle:SetKeyValue("renderfx","14")
+	sprIdle:SetKeyValue("rendermode","3")
+	sprIdle:SetKeyValue("renderamt","255")
+	sprIdle:SetKeyValue("disablereceiveshadows","0")
+	sprIdle:SetKeyValue("mindxlevel","0")
+	sprIdle:SetKeyValue("maxdxlevel","0")
+	sprIdle:SetKeyValue("framerate","40.0")
+	sprIdle:SetKeyValue("spawnflags","0")
+	sprIdle:SetKeyValue("scale",tostring(self.Scale))
+	sprIdle:SetPos(self:GetPos())
+	sprIdle:Spawn()
+	sprIdle:SetParent(self)
+	self:DeleteOnRemove(sprIdle)
 	
 	self:SetNoDraw(true)
 end
@@ -98,8 +98,3 @@ function ENT:DeathEffects(data, phys)
 	-- util.Effect("StriderBlood",effectdata)
 	-- ParticleEffect("vj_hl_spit_bullsquid_impact", data.HitPos, Angle(0,0,0), nil)
 end
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

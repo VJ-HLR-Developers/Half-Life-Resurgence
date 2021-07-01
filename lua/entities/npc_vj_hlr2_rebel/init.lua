@@ -175,7 +175,7 @@ local sdAllyDeathPly_F = {
 -- Specific alert sounds
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-	if self.Human_Gender == 0 or math.random(1, 2) == 1 then
+	if self.Human_Gender == 0 or (self.Human_Gender == nil && math.random(1, 2) == 1) then
 		self.Human_Gender = 0
 		if math.random(1, 5) == 1 && self.Human_Type != 1 && !self.Human_Driver then
 			self.Model = {"models/Humans/Group03m/male_01.mdl","models/Humans/Group03m/male_02.mdl","models/Humans/Group03m/male_03.mdl","models/Humans/Group03m/male_04.mdl","models/Humans/Group03m/male_05.mdl","models/Humans/Group03m/male_06.mdl","models/Humans/Group03m/male_07.mdl","models/Humans/Group03m/male_08.mdl","models/Humans/Group03m/male_09.mdl"}

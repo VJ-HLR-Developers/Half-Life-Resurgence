@@ -86,6 +86,7 @@ ENT.Apache_DeathCollided = false
 local spawnPos = Vector(0, 0, 400)
 --
 function ENT:CustomOnInitialize()
+	self:SetNW2Int("Apache_SmokeLevel", 0)
 	self.ConstantlyFaceEnemyDistance = self.SightDistance
 	
 	self:SetCollisionBounds(Vector(150, 150, 180), Vector(-150, -150, 0))
@@ -152,6 +153,7 @@ function ENT:CustomOnThink()
 	
 	-- If the helicopter healed, then make sure to stop the smoke particles as well!
 	if self.Apache_SmokeStatus > 0 && self:Health() > (self:GetMaxHealth() * 0.25) then
+		self:SetNW2Int("Apache_SmokeLevel", 0)
 		self.Apache_SmokeStatus = 0
 		self:StopParticles()
 	end
@@ -230,13 +232,15 @@ function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
 	if hp <= (maxHP * 0.25) then
 		-- Only set the tail smoke if we haven't set it already
 		if self.Apache_SmokeStatus == 0 then
+			self:SetNW2Int("Apache_SmokeLevel", 1)
 			self.Apache_SmokeStatus = 1
-			ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("rotor_tail"))
+			//ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("rotor_tail"))
 		end
 		-- If even lower, then make the rotor smoke too
 		if hp <= (maxHP * 0.15) then
+			self:SetNW2Int("Apache_SmokeLevel", 2)
 			self.Apache_SmokeStatus = 2
-			ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("rotor"))
+			//ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("rotor"))
 		end
 	end
 end
