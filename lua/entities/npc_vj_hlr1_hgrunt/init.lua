@@ -380,6 +380,18 @@ function ENT:CustomOnThink()
 				end
 			end
 		else
+			if self.HECU_DeployedByOsprey then
+				if !IsValid(self:GetOwner()) then -- Osprey was killed or removed...
+					-- self:TakeDamage(self:GetMaxHealth(),self,self) -- Killing is cool and all, but watching the Osprey drop onto them is more satisfying
+					self.HECU_Rappelling = false
+					self.HasGrenadeAttack = true
+					self.CanUseSecondaryOnWeaponAttack = true
+					self:SetVelocity(defPos)
+					self:SetState()
+					self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+					self:CustomOnSetupWeaponHoldTypeAnims()
+				end
+			end
 			return
 		end
 	end

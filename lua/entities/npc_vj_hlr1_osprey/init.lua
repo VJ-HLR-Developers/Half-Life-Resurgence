@@ -170,7 +170,10 @@ function ENT:CustomOnThink_AIEnabled()
 	local ene = self:GetEnemy()
 	if self.Osprey_DropStatus == 0 && IsValid(ene) then
 		self.Osprey_DropStatus = 1
-		self.Osprey_DropPos = ene:GetPos() + ene:GetUp()*600
+		local vecRand = VectorRand() *600
+		local vecZ = vecRand.z
+		vecRand.z = vecZ < 0 && vecZ *-1 or vecZ
+		self.Osprey_DropPos = ene:GetPos() + ene:GetUp()*600 + vecRand
 		self:SetState(VJ_STATE_ONLY_ANIMATION)
 		self.NoChaseAfterCertainRange = false
 	elseif self.Osprey_DropStatus == 1 then
