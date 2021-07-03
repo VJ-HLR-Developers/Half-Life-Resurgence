@@ -256,11 +256,11 @@ end
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	if dmginfo:IsBulletDamage() == true then
 		if self.Garg_Type == 1 then -- Make babies take half damage for bullets
-			dmginfo:SetDamage(0.5)
+			dmginfo:ScaleDamage(0.5)
 		elseif self.Garg_Type == 2 then -- Custom Gargantua
-			dmginfo:SetDamage(1)
+			dmginfo:ScaleDamage(1)
 		else -- Make regular Gargantua take no bullet damage
-			dmginfo:SetDamage(0)
+			dmginfo:ScaleDamage(0)
 		end
 	end
 end

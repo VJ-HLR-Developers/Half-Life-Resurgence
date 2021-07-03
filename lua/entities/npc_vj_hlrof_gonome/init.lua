@@ -97,7 +97,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	if dmginfo:IsBulletDamage() then -- Bullet sponge
-		dmginfo:ScaleDamage(0.15)
+		dmginfo:ScaleDamage(0.5)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
