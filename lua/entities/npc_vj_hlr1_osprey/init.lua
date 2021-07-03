@@ -242,7 +242,15 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorHeliExp = Color(255, 255, 192, 128)
 local sdGibCollide = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
-local heliExpGibs_Green = { -- For HECU
+
+--[[
+Notes for dev:
+		DO NOT USE THE GREEN GIBS AND OSPREY ENGINE GIBS, USE THE GRAY METAL ONES (without the _g prefix at the end) PLUS THE NEW OSPREY BODY AND TAIL GIBS.
+		FOR BLACKOPS, use SetSkin on the new osprey gibs.
+		DON'T FORGET TO USE SKIN 2 on models/vj_hlr/hl1/osprey_dead.mdl FOR BLACK OPS AS WELL.
+--]]
+
+local heliExpGibs_Green = { -- For HECU	
 	"models/vj_hlr/gibs/metalgib_p1_g.mdl",
 	"models/vj_hlr/gibs/metalgib_p2_g.mdl",
 	"models/vj_hlr/gibs/metalgib_p3_g.mdl",
@@ -277,8 +285,8 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 	-- Spawn a animated model of the helicopter that explodes constantly and gets destroyed when it collides with something
 	-- Based on source code
 	local deathCorpse = ents.Create("prop_vj_animatable")
-	deathCorpse:SetModel(self:GetModel())
-	deathCorpse:SetPos(self:GetPos())
+	deathCorpse:SetModel("models/vj_hlr/hl1/osprey_dead.mdl")
+	deathCorpse:SetPos(self:GetPos() + Vector(0, 0, 100)) -- + vector fixes the positioning, because osprey_dead spawns a little below due to the way the model is. 
 	deathCorpse:SetAngles(self:GetAngles())
 	function deathCorpse:Initialize()
 		self:PhysicsInit(SOLID_VPHYSICS)
@@ -427,6 +435,15 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	timer.Simple(0.9, function() if IsValid(spr2) then spr2:Remove() end end)
 	util.BlastDamage(self, self, expPos, 300, 100)
 	VJ_EmitSound(self, sdExplosions, 100, 100)
+	
+	-- right engine gibs
+	-- FIXME: this needs to be implemented better, right now this is a basic idea, often causes osprey to just explode midair, but the shit looks beautiful when everything goes right.
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/osprey_enginegib1.mdl",{BloodDecal="",Pos=self:GetAttachment(self:LookupAttachment("engine_right")).Pos + Vector(90,0,-100),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/osprey_enginegib2.mdl",{BloodDecal="",Pos=self:GetAttachment(self:LookupAttachment("engine_right")).Pos + Vector(90,0,0),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/osprey_enginegib3.mdl",{BloodDecal="",Pos=self:GetAttachment(self:LookupAttachment("engine_right")).Pos + Vector(95,0,90),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/osprey_enginegib9.mdl",{BloodDecal="",Pos=self:GetAttachment(self:LookupAttachment("engine_right")).Pos + Vector(95,0,93),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/osprey_enginegib10.mdl",{BloodDecal="",Pos=self:GetAttachment(self:LookupAttachment("engine_right")).Pos + Vector(95,0,95),CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/osprey_enginegib11.mdl",{BloodDecal="",Pos=self:GetAttachment(self:LookupAttachment("engine_right")).Pos + Vector(95,0,95),CollideSound=sdGibCollide})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
