@@ -8,18 +8,18 @@ SWEP.Purpose					= "This weapon is made for Players and NPCs"
 SWEP.Instructions				= "Controls are like a regular weapon."
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= false -- Next time it can use primary fire
-SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/mp5/mp_reload.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
-SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
+SWEP.NPC_NextPrimaryFire = false -- Next time it can use primary fire
+SWEP.NPC_ReloadSound = {"vj_hlr/hl1_weapon/mp5/mp_reload.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
+SWEP.NPC_CanBePickedUp = false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 SWEP.NPC_HasSecondaryFire = true -- Can the weapon have a secondary fire?
 SWEP.NPC_SecondaryFireEnt = "obj_vj_hlr1_grenade_40mm" -- The entity to fire, this only applies if self:NPC_SecondaryFire() has NOT been overridden!
 SWEP.NPC_SecondaryFireSound = {"vj_hlr/hl1_weapon/mp5/glauncher.wav","vj_hlr/hl1_weapon/mp5/glauncher2.wav"} -- The sound it plays when the secondary fire is used
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
-SWEP.WorldModel					= "models/vj_hlr/weapons/w_9mmar.mdl"
-SWEP.HoldType 					= "smg"
-SWEP.Spawnable					= false
-SWEP.AdminSpawnable				= false
+SWEP.MadeForNPCsOnly = true -- Is this weapon meant to be for NPCs only?
+SWEP.WorldModel = "models/vj_hlr/weapons/w_9mmar.mdl"
+SWEP.HoldType = "smg"
+SWEP.Spawnable = false
+SWEP.AdminSpawnable = false
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
@@ -27,11 +27,11 @@ SWEP.WorldModel_CustomPositionAngle = Vector(90, 180, 90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(10, -2, -2)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 5 -- Damage
-SWEP.Primary.ClipSize			= 50 -- Max amount of bullets per clip
-SWEP.Primary.Ammo				= "SMG1" -- Ammo type
-SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/mp5/hks1.wav","vj_hlr/hl1_weapon/mp5/hks2.wav","vj_hlr/hl1_weapon/mp5/hks3.wav"}
-SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/mp5/mp5_distant_fuckme2.wav"}
+SWEP.Primary.Damage = 5 -- Damage
+SWEP.Primary.ClipSize = 50 -- Max amount of bullets per clip
+SWEP.Primary.Ammo = "SMG1" -- Ammo type
+SWEP.Primary.Sound = {"vj_hlr/hl1_weapon/mp5/hks1.wav","vj_hlr/hl1_weapon/mp5/hks2.wav","vj_hlr/hl1_weapon/mp5/hks3.wav"}
+SWEP.Primary.DistantSound = {"vj_hlr/hl1_weapon/mp5/mp5_distant_fuckme2.wav"}
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 
 -- Custom

@@ -5,176 +5,235 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
+local combatDistance = 4000 -- When closer then this, it will stop chasing and start firing
+
 ENT.Model = {"models/vj_hlr/hl1/osprey.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.StartHealth = 500
+ENT.VJ_IsHugeMonster = true
+ENT.StartHealth = 800
 ENT.HullType = HULL_LARGE
 ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.TurningSpeed = 2 -- How fast it can turn
 ENT.TurningUseAllAxis = false -- If set to true, angles will not be restricted to y-axis, it will change all axes (plural axis)
-ENT.VJ_IsHugeMonster = true
-
-ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
-ENT.FindEnemy_UseSphere = true
-
-ENT.MovementType = VJ_MOVETYPE_AERIAL
+	-- ====== Movement Variables ====== --
+ENT.MovementType = VJ_MOVETYPE_AERIAL -- How does the SNPC move?
 ENT.Aerial_FlyingSpeed_Alerted = 300 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground SNPCs
 ENT.Aerial_FlyingSpeed_Calm = ENT.Aerial_FlyingSpeed_Alerted -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground SNPCs
-ENT.Aerial_AnimTbl_Calm = {ACT_FLY} -- Animations it plays when it's wandering around while idle
-ENT.Aerial_AnimTbl_Alerted = {ACT_FLY} -- Animations it plays when it's moving while alerted
+ENT.Aerial_AnimTbl_Calm = {nil} -- Animations it plays when it's wandering around while idle
+ENT.Aerial_AnimTbl_Alerted = {nil} -- Animations it plays when it's moving while alerted
 ENT.AA_GroundLimit = 1200 -- If the NPC's distance from itself to the ground is less than this, it will attempt to move up
 ENT.AA_MinWanderDist = 1000 -- Minimum distance that the NPC should go to when wandering
-ENT.AA_MoveAccelerate = 1 -- The NPC will gradually speed up to the max movement speed as it moves towards its destination | Calculation = FrameTime * x
-ENT.AA_MoveDecelerate = 1 -- The NPC will slow down as it approaches its destination | Calculation = MaxSpeed / x
-ENT.AnimTbl_IdleStand = {ACT_FLY}
-
+ENT.AA_MoveAccelerate = 8 -- The NPC will gradually speed up to the max movement speed as it moves towards its destination | Calculation = FrameTime * x
+ENT.AA_MoveDecelerate = 4 -- The NPC will slow down as it approaches its destination | Calculation = MaxSpeed / x
+ENT.VJC_Data = {
+    FirstP_Bone = "Bone01", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(140, 0, -45), -- The offset for the controller when the camera is in first person
+	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+}
+---------------------------------------------------------------------------------------------------------------------------------------------
+ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
+ENT.FindEnemy_UseSphere = true -- Should the SNPC be able to see all around him? (360) | Objects and walls can still block its sight!
+ENT.CombatFaceEnemy = false -- If enemy is exists and is visible
+ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it"s between number x and y?
+ENT.NoChaseAfterCertainRange_FarDistance = combatDistance -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
+ENT.NoChaseAfterCertainRange_CloseDistance = 0 -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.Bleeds = false
 ENT.Immune_AcidPoisonRadiation = true -- Immune to Acid, Poison and Radiation
 ENT.Immune_Bullet = true -- Immune to bullet type damages
 ENT.Immune_Fire = true -- Immune to fire-type damages
-ENT.ImmuneDamagesTable = {DMG_BULLET,DMG_BUCKSHOT,DMG_PHYSGUN}
-
+ENT.ImmuneDamagesTable = {DMG_BULLET, DMG_BUCKSHOT, DMG_PHYSGUN}
+ENT.BringFriendsOnDeath = false -- Should the SNPC's friends come to its position before it dies?
 ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
-
-ENT.VJC_Data = {
-    CameraMode = 1, -- Sets the default camera mode | 1 = Third Person, 2 = First Person
-    ThirdP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bone01", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(140, 0, -45), -- The offset for the controller when the camera is in first person
-}
-
-ENT.CombatFaceEnemy = false
-ENT.ConstantlyFaceEnemy = false -- Should it face the enemy constantly?
-ENT.ConstantlyFaceEnemy_IfVisible = true -- Should it only face the enemy if it"s visible?
-ENT.ConstantlyFaceEnemy_IfAttacking = false -- Should it face the enemy when attacking?
-ENT.ConstantlyFaceEnemy_Postures = "Both" -- "Both" = Moving or standing | "Moving" = Only when moving | "Standing" = Only when standing
-ENT.ConstantlyFaceEnemyDistance = 7500
-
-ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it"s between number x and y?
-ENT.NoChaseAfterCertainRange_FarDistance = 4000 -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
-ENT.NoChaseAfterCertainRange_CloseDistance = 0 -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
-ENT.NoChaseAfterCertainRange_Type = "Regular" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it"s able to range attack
-
 ENT.HasDeathRagdoll = false
 ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
-ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
-
+	-- ====== Sound File Paths ====== --
+-- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Death = {"vj_hlr/hl1_weapon/mortar/mortarhit.wav"}
 local sdExplosions = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
+
+ENT.GeneralSoundPitch1 = 100
+ENT.DeathSoundLevel = 100
 
 /* https://github.com/ValveSoftware/halflife/blob/master/dlls/osprey.cpp
 	EMIT_SOUND_DYN(ENT(pev), CHAN_STATIC, "apache/ap_rotor4.wav", 1.0, 0.15, 0, 110 );
 	death: EMIT_SOUND(ENT(pev), CHAN_STATIC, "weapons/mortarhit.wav", 1.0, 0.3);
 */
+-- Custom
+ENT.Osprey_DropPos = nil
+ENT.Osprey_DropStatus = 0 -- -1 = Can NOT deploy | 0 = Not dropped off | 1 = Moving to drop zone | 2 = Dropping soldiers | 3 = Soldiers rappelling down | 4 = Soldiers fully on ground
+ENT.Osprey_DropSoldierStatus = 0 -- if this number reaches the max amount, then it means that all soldiers are on ground, Osprey can go back to normal!
+ENT.Osprey_DropSoldierStatusDead = 0 -- Similar to the one above, but this one keeps track of how many of the 4 soldiers have died!
+ENT.Osprey_NextDropT = 0
+ENT.Heli_SmokeStatus = 0 -- 0 = No smoke | 1 = Left tail smoke | 2 = Left & Right tail smoke
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
-	return self:CalculateProjectile("Line",self:GetAttachment(self:LookupAttachment(self.RangeUseAttachmentForPosID)).Pos,self:GetEnemy():GetPos() +self:GetEnemy():OBBCenter(),0)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
+local spawnPos = Vector(0, 0, 400)
+--
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(140,140,120),Vector(-140,-140,0))
-	self:SetPos(self:GetPos() +Vector(0,0,400))
+	self:SetNW2Int("Heli_SmokeLevel", 0)
+	//self.ConstantlyFaceEnemyDistance = self.SightDistance -- Osprey does NOT face the enemy!
 	
-	self.IdleLP = CreateSound(self,"vj_hlr/hl1_npc/apache/ap_rotor2.wav")
-	self.IdleLP:SetSoundLevel(105)
-	self.IdleLP:Play()
-	self.IdleLP:ChangeVolume(1)
+	self:SetCollisionBounds(Vector(300, 300, 250), Vector(-300, -300, 0))
+	self:SetPos(self:GetPos() + spawnPos)
 	
-	self.DroppedSoldiers = false
-	self.Dropping = false
-	self.DropMax = 12
-	self.DropCount = 0
-	self.DropZone = false
-	self.Gunners = {}
-	for i = 1,2 do
+	self.HeliSD_Rotor = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_rotor4.wav", 120)
+	self.HeliSD_Whine = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_whine1.wav", 70)
+	
+	if GetConVar("vj_hlr1_osprey_deploygrunts"):GetInt() == 0 then self.Osprey_DropStatus = -1 end
+	self.Osprey_DroppedSoldiers = {}
+	
+	-- Create & Spawn the 2 gunners
+	for i = 1, 2 do
+		local att = self:GetAttachment(i)
 		local gunner = ents.Create("npc_vj_hlr1_hgrunt_serg")
-		gunner:SetPos(self:GetAttachment(i).Pos)
-		gunner:SetAngles(self:GetAttachment(i).Ang)
+		gunner:SetPos(att.Pos)
+		gunner:SetAngles(att.Ang)
 		gunner:SetOwner(self)
 		gunner:SetParent(self)
+		gunner.MovementType = VJ_MOVETYPE_STATIONARY
+		gunner.DisableWeapons = true
+		gunner.CanTurnWhileStationary = false
+		gunner.NoWeapon_UseScaredBehavior = false
+		gunner.Medic_CanBeHealed = false
 		gunner:Spawn()
+		gunner.Weapon_FiringDistanceFar = self.SightDistance
 		gunner:Fire("SetParentAttachment",i == 1 && "gunner_left" or "gunner_right",0)
-		self:DeleteOnRemove(gunner)
-		table.insert(self.Gunners,gunner)
 		gunner:SetState(VJ_STATE_ONLY_ANIMATION)
+		self:DeleteOnRemove(gunner)
 	end
+	
+	-- 1 red tail light (Flashing) + 1 green & 1 red solid lights
+	local tailLight = ents.Create("env_sprite")
+	tailLight:SetKeyValue("model","vj_base/sprites/vj_glow1.vmt")
+	tailLight:SetKeyValue("scale", "1")
+	tailLight:SetKeyValue("rendermode","5")
+	tailLight:SetKeyValue("renderfx","9")
+	tailLight:SetKeyValue("rendercolor","255 0 0")
+	tailLight:SetKeyValue("spawnflags","1") -- If animated
+	tailLight:SetParent(self)
+	tailLight:Fire("SetParentAttachment", "flash_red")
+	tailLight:Spawn()
+	tailLight:Activate()
+	self:DeleteOnRemove(tailLight)
+	
+	local sideLight1 = ents.Create("env_sprite")
+	sideLight1:SetKeyValue("model","vj_base/sprites/vj_glow1.vmt")
+	sideLight1:SetKeyValue("scale", "0.5")
+	sideLight1:SetKeyValue("rendermode","5")
+	sideLight1:SetKeyValue("rendercolor","255 0 0")
+	sideLight1:SetKeyValue("spawnflags","1") -- If animated
+	sideLight1:SetParent(self)
+	sideLight1:Fire("SetParentAttachment", "light_red")
+	sideLight1:Spawn()
+	sideLight1:Activate()
+	self:DeleteOnRemove(sideLight1)
+	
+	local sideLight2 = ents.Create("env_sprite")
+	sideLight2:SetKeyValue("model","vj_base/sprites/vj_glow1.vmt")
+	sideLight2:SetKeyValue("scale", "0.5")
+	sideLight2:SetKeyValue("rendermode","5")
+	sideLight2:SetKeyValue("rendercolor","0 255 0")
+	sideLight2:SetKeyValue("spawnflags","1") -- If animated
+	sideLight2:SetParent(self)
+	sideLight2:Fire("SetParentAttachment", "light_green")
+	sideLight2:Spawn()
+	sideLight2:Activate()
+	self:DeleteOnRemove(sideLight2)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	self.NoChaseAfterCertainRange = !self.DisableFlying
-	-- self:SetPoseParameter("tilt", Lerp(FrameTime()*4, self:GetPoseParameter("tilt"), self:GetVelocity():GetNormal().y)) // Disables flight for some reason?
-	if self.DisableFlying then
-		self:AA_StopMoving()
-		self:SetEnemy(NULL)
-		self:FaceCertainPosition(self:GetPos() +self:GetForward() *200 +self:GetRight() *3)
+	-- Flying tilt (X & Y)
+	local velNorm = self:GetVelocity():GetNormal()
+	local speed = FrameTime()*4
+	self:SetPoseParameter("tilt_x", Lerp(speed, self:GetPoseParameter("tilt_x"), velNorm.x))
+	self:SetPoseParameter("tilt_y", Lerp(speed, self:GetPoseParameter("tilt_y"), velNorm.y))
+	
+	-- If the helicopter healed, then make sure to stop the smoke particles as well!
+	if self.Heli_SmokeStatus > 0 && self:Health() > (self:GetMaxHealth() * 0.25) then
+		self:SetNW2Int("Heli_SmokeLevel", 0)
+		self.Heli_SmokeStatus = 0
 	end
-	if !self.DroppedSoldiers then
-		if self.DropZone then
-			self:SetEnemy(NULL)
-			if (self:GetPos() +self:OBBCenter()):Distance(self.DropZone) > 100 then
-				self.Aerial_FlyingSpeed_Calm = 70
-				self:AA_MoveTo(self.DropZone,true,"Calm",{FaceDest=true,IgnoreGround=true})
-			else
-				if self.Dropping then return end
-				self.Aerial_FlyingSpeed_Calm = self.Aerial_FlyingSpeed_Alert
-				self:AA_StopMoving()
-				self.DisableFlying = true
-				self.Dropping = true
-				for i = 1,self.DropMax do
-					timer.Simple(i *2,function()
-						if IsValid(self) then
-							local att = (i % 2 == 0) && 2 or 1
-							local grunt = ents.Create("npc_vj_hlr1_hgrunt")
-							grunt:SetPos(self:GetAttachment(att).Pos +self:GetAttachment(att).Ang:Forward() *100)
-							grunt:SetAngles(self:GetAttachment(att).Ang)
-							grunt:SetOwner(self)
-							grunt:Spawn()
-							timer.Simple(0.1,function()
-								if IsValid(grunt) then
-									local tr = util.TraceLine({
-										start = grunt:GetPos(),
-										endpos = grunt:GetPos() +Vector(0,0,-1000),
-										filter = {self,grunt},
-									})
-									local fallTime = ((grunt:GetPos():Distance(tr.Hit && tr.HitPos or grunt:GetPos())) /grunt:GetVelocity():Length()) or 2
-									timer.Simple(fallTime,function()
-										if IsValid(grunt) then
-											grunt:SetLastPosition(grunt:GetPos() +grunt:GetForward() *200)
-											grunt:VJ_TASK_GOTO_LASTPOS("TASK_RUN_PATH")
-										end
-									end)
-								end
-							end)
-							if i == self.DropMax then self.DroppedSoldiers = true end
-						end
-					end)
-				end
-			end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local ropePos1 = Vector(0, 0, 112)
+local ropePos2 = Vector(0, 0, -4096)
+--
+function ENT:CustomOnThink_AIEnabled()
+	if self.Osprey_DropStatus == -1 then return end
+	-- All have landed and died
+	if self.Osprey_DropStatus == 4 then
+		if self.Osprey_DropSoldierStatusDead == 4 && CurTime() > self.Osprey_NextDropT then
+			self.Osprey_DropStatus = 0
+			self.Osprey_DropSoldierStatusDead = 0
+		else
 			return
 		end
-		if !IsValid(self:GetEnemy()) then return end
-		local startPos = self:GetEnemy():GetPos()
-		local tr = util.TraceLine({
-			start = startPos,
-			endpos = startPos +Vector(0,0,self.AA_GroundLimit),
-			filter = {self:GetEnemy(),self},
-		})
-		self.DropZone = tr.Hit && (tr.HitPos +tr.HitNormal *150) or self:GetEnemy():GetPos() +Vector(0,0,500)
-		
-		local heightMax = (800 *math.Rand(0.85,1.5))
-		local vecRand = VectorRand() *250
-		vecRand.z = 0
-		local startPos = self:GetEnemy():GetPos() +Vector(0,0,heightMax) +vecRand
-		local tr = util.TraceLine({
-			start = startPos,
-			endpos = startPos -Vector(0,0,8000),
-			filter = {self:GetEnemy(),self},
-		})
-		self.DropZone = startPos
-		if tr.Hit && tr.HitPos:Distance(startPos) > heightMax then
-			self.DropZone = tr.HitPos +Vector(0,0,heightMax)
+	end
+	local ene = self:GetEnemy()
+	if self.Osprey_DropStatus == 0 && IsValid(ene) then
+		self.Osprey_DropStatus = 1
+		self.Osprey_DropPos = ene:GetPos() + ene:GetUp()*600
+		self:SetState(VJ_STATE_ONLY_ANIMATION)
+		self.NoChaseAfterCertainRange = false
+	elseif self.Osprey_DropStatus == 1 then
+		self:AA_MoveTo(self.Osprey_DropPos, true, "Alert", {FaceDest=true, FaceDestTarget=false, IgnoreGround=true})
+		if self:GetPos():Distance(self.Osprey_DropPos) < 180 then
+			self.Osprey_DropStatus = 2
 		end
-	else
-		self.DisableFlying = false
+	elseif self.Osprey_DropStatus == 2 then
+		self:AA_StopMoving()
+		self.Osprey_DropStatus = 3
+		self.Osprey_DropSoldierStatus = 0 -- Start at 0
+		self.Osprey_NextDropT = CurTime() + 30
+		for i = 1, 4 do
+			local att = self:GetAttachment((i % 2 == 0) && 2 or 1)
+			local startPos = att.Pos + att.Ang:Forward()*100 + self:GetForward()*((i >= 3) && -30 or 60)
+			local grunt = ents.Create("npc_vj_hlr1_hgrunt")
+			grunt:SetPos(startPos)
+			grunt:SetAngles(att.Ang)
+			grunt:SetOwner(self)
+			grunt.HECU_DeployedByOsprey = true
+			grunt.HECU_Rappelling = true
+			grunt:Spawn()
+			grunt:SetLocalVelocity(Vector(0, 0, math.Rand(-196, -128)))
+			grunt:SetEnemy(ene)
+			
+			-- Create the rope
+			local ropeStart = grunt:GetPos() + ropePos1
+			local tr = util.TraceLine({
+				start = ropeStart,
+				endpos = grunt:GetPos() + ropePos2,
+				filter = {self, grunt},
+			})
+			local rope = EffectData()
+			rope:SetStart(ropeStart)
+			rope:SetOrigin(tr.HitPos)
+			rope:SetEntity(grunt)
+			util.Effect("VJ_HLR_Rope", rope)
+			
+			self.Osprey_DroppedSoldiers[i] = grunt
+		end
+	elseif self.Osprey_DropStatus == 3 && self.Osprey_DropSoldierStatus >= 4 then
+		-- Reset Osprey to normal
+		self.Osprey_DropStatus = 4
+		self:SetState()
+		self.NoChaseAfterCertainRange = true
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
+	if self.Heli_SmokeStatus == 2 then return end
+	local maxHP = self:GetMaxHealth()
+	local hp = self:Health()
+	if hp <= (maxHP * 0.25) then
+		-- Only set left tail smoke if we haven't set it already
+		if self.Heli_SmokeStatus == 0 then
+			self:SetNW2Int("Heli_SmokeLevel", 1)
+			self.Heli_SmokeStatus = 1
+		end
+		-- If even lower, then make the right tail smoke too
+		if hp <= (maxHP * 0.15) then
+			self:SetNW2Int("Heli_SmokeLevel", 2)
+			self.Heli_SmokeStatus = 2
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -192,6 +251,21 @@ local heliExpGibs_Green = { -- For HECU
 	"models/vj_hlr/gibs/metalgib_p9_g.mdl",
 	"models/vj_hlr/gibs/metalgib_p10_g.mdl",
 	"models/vj_hlr/gibs/metalgib_p11_g.mdl",
+	"models/vj_hlr/gibs/rgib_screw.mdl",
+	"models/vj_hlr/gibs/rgib_screw.mdl"
+}
+local heliExpGibs_Gray = { -- For Black Ops
+	"models/vj_hlr/gibs/metalgib_p1.mdl",
+	"models/vj_hlr/gibs/metalgib_p2.mdl",
+	"models/vj_hlr/gibs/metalgib_p3.mdl",
+	"models/vj_hlr/gibs/metalgib_p4.mdl",
+	"models/vj_hlr/gibs/metalgib_p5.mdl",
+	"models/vj_hlr/gibs/metalgib_p6.mdl",
+	"models/vj_hlr/gibs/metalgib_p7.mdl",
+	"models/vj_hlr/gibs/metalgib_p8.mdl",
+	"models/vj_hlr/gibs/metalgib_p9.mdl",
+	"models/vj_hlr/gibs/metalgib_p10.mdl",
+	"models/vj_hlr/gibs/metalgib_p11.mdl",
 	"models/vj_hlr/gibs/rgib_screw.mdl",
 	"models/vj_hlr/gibs/rgib_screw.mdl"
 }
@@ -223,7 +297,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 	
 	-- Explode as it goes down
 	function deathCorpse:Think()
-		self:ResetSequence("idle_move")
+		self:ResetSequence("idle_ground")
 		if CurTime() > self.NextExpT then
 			self.NextExpT = CurTime() + 0.2
 			local expPos = self:GetPos() + Vector(math.Rand(-150, 150), math.Rand(-150, 150), math.Rand(-150, -50))
@@ -259,9 +333,10 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 		self.Dead = true
 		
 		-- Create gibs
+		local gibTbl = self:GetModel() == "models/vj_hlr/hl1/osprey_blkops.mdl" and heliExpGibs_Gray or heliExpGibs_Green
 		for _ = 1, 90 do
 			local gib = ents.Create("obj_vj_gib")
-			gib:SetModel(VJ_PICK(heliExpGibs_Green))
+			gib:SetModel(VJ_PICK(gibTbl))
 			gib:SetPos(self:GetPos() + Vector(math.random(-100, 100), math.random(-100, 100), math.random(20, 150)))
 			gib:SetAngles(Angle(math.Rand(-180, 180), math.Rand(-180, 180), math.Rand(-180, 180)))
 			gib.Collide_Decal = ""
@@ -300,6 +375,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 		util.BlastDamage(self, self, expPos, 600, 200)
 		VJ_EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit.wav", 100, 100)
 		
+		-- flags 0 = No fade!
 		effects.BeamRingPoint(self:GetPos(), 0.4, 0, 1500, 32, 0, colorHeliExp, {material="vj_hl/sprites/shockwave", framerate=0, flags=0})
 		
 		self:Remove()
@@ -325,43 +401,41 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	spr:Spawn()
 	spr:Fire("Kill", "", 0.9)
 	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
-	
 	util.BlastDamage(self, self, expPos, 300, 100)
-
-	local expPos = self:GetAttachment(self:LookupAttachment("engine_right")).Pos
-	local spr = ents.Create("env_sprite")
-	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-	spr:SetKeyValue("GlowProxySize","2.0")
-	spr:SetKeyValue("HDRColorScale","1.0")
-	spr:SetKeyValue("renderfx","14")
-	spr:SetKeyValue("rendermode","5")
-	spr:SetKeyValue("renderamt","255")
-	spr:SetKeyValue("disablereceiveshadows","0")
-	spr:SetKeyValue("mindxlevel","0")
-	spr:SetKeyValue("maxdxlevel","0")
-	spr:SetKeyValue("framerate","15.0")
-	spr:SetKeyValue("spawnflags","0")
-	spr:SetKeyValue("scale","5")
-	spr:SetPos(expPos)
-	spr:Spawn()
-	spr:Fire("Kill", "", 0.9)
-	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+	VJ_EmitSound(self, sdExplosions, 100, 100)
 	
+	expPos = self:GetAttachment(self:LookupAttachment("engine_right")).Pos
+	local spr2 = ents.Create("env_sprite")
+	spr2:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+	spr2:SetKeyValue("GlowProxySize","2.0")
+	spr2:SetKeyValue("HDRColorScale","1.0")
+	spr2:SetKeyValue("renderfx","14")
+	spr2:SetKeyValue("rendermode","5")
+	spr2:SetKeyValue("renderamt","255")
+	spr2:SetKeyValue("disablereceiveshadows","0")
+	spr2:SetKeyValue("mindxlevel","0")
+	spr2:SetKeyValue("maxdxlevel","0")
+	spr2:SetKeyValue("framerate","15.0")
+	spr2:SetKeyValue("spawnflags","0")
+	spr2:SetKeyValue("scale","5")
+	spr2:SetPos(expPos)
+	spr2:Spawn()
+	spr2:Fire("Kill", "", 0.9)
+	timer.Simple(0.9, function() if IsValid(spr2) then spr2:Remove() end end)
 	util.BlastDamage(self, self, expPos, 300, 100)
 	VJ_EmitSound(self, sdExplosions, 100, 100)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, 100)
-	VJ_EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 80, 100)
-	return false
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-	self.IdleLP:Stop()
+	VJ_STOPSOUND(self.HeliSD_Rotor)
+	VJ_STOPSOUND(self.HeliSD_Whine)
+	
+	-- Remove soldiers if Osprey was removed (Not killed)
+	if !self.Dead then
+		for _, v in pairs(self.Osprey_DroppedSoldiers) do
+			if IsValid(v) then
+				v:Remove()
+			end
+		end
+	end
 end
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

@@ -24,16 +24,15 @@ ENT.AA_MinWanderDist = 1000 -- Minimum distance that the NPC should go to when w
 ENT.AA_MoveAccelerate = 8 -- The NPC will gradually speed up to the max movement speed as it moves towards its destination | Calculation = FrameTime * x
 ENT.AA_MoveDecelerate = 4 -- The NPC will slow down as it approaches its destination | Calculation = MaxSpeed / x
 ENT.VJC_Data = {
-    ThirdP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bone14", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(-50, 0, -40), -- The offset for the controller when the camera is in first person
 	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
+ENT.FindEnemy_UseSphere = true -- Should the SNPC be able to see all around him? (360) | Objects and walls can still block its sight!
 ENT.AnimTbl_IdleStand = {ACT_FLY} -- The idle animation table when AI is enabled | DEFAULT: {ACT_IDLE}
 ENT.PoseParameterLooking_InvertYaw = true -- Inverts the yaw poseparameters (Y)
-ENT.FindEnemy_UseSphere = true -- Should the SNPC be able to see all around him? (360) | Objects and walls can still block its sight!
 ENT.ConstantlyFaceEnemy = true -- Should it face the enemy constantly?
 ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it"s between number x and y?
 ENT.NoChaseAfterCertainRange_FarDistance = combatDistance -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
@@ -60,8 +59,7 @@ ENT.RangeUseAttachmentForPosID = "missile_left"
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
 
 ENT.HasDeathRagdoll = false
-ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
-ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
+ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!\
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Death = {"vj_hlr/hl1_weapon/mortar/mortarhit.wav"}
@@ -79,21 +77,20 @@ ENT.DeathSoundLevel = 100
 	- Chain gun: Continuos fire as long as front is visible
 */
 -- Custom
-ENT.Apache_HasLOS = false
-ENT.Apache_SmokeStatus = 0 -- 0 = No smoke | 1 = Tail smoke | 2 = Tail & Rotor smoke
-ENT.Apache_DeathCollided = false
+ENT.Apache_HasLOS = false -- Does the Apache's chain gun have sight on the enemy?
+ENT.Heli_SmokeStatus = 0 -- 0 = No smoke | 1 = Tail smoke | 2 = Tail & Rotor smoke
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local spawnPos = Vector(0, 0, 400)
 --
 function ENT:CustomOnInitialize()
-	self:SetNW2Int("Apache_SmokeLevel", 0)
+	self:SetNW2Int("Heli_SmokeLevel", 0)
 	self.ConstantlyFaceEnemyDistance = self.SightDistance
 	
 	self:SetCollisionBounds(Vector(150, 150, 180), Vector(-150, -150, 0))
 	self:SetPos(self:GetPos() + spawnPos)
 	
-	self.ApacheSD_Rotor = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_rotor2.wav", 120)
-	self.ApacheSD_Whine = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_whine1.wav", 70)
+	self.HeliSD_Rotor = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_rotor2.wav", 120)
+	self.HeliSD_Whine = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_whine1.wav", 70)
 	
 	local tailLight = ents.Create("env_sprite")
 	tailLight:SetKeyValue("model","vj_base/sprites/vj_glow1.vmt")
@@ -152,10 +149,10 @@ function ENT:CustomOnThink()
 	self:SetPoseParameter("tilt_y", Lerp(speed, self:GetPoseParameter("tilt_y"), velNorm.y))
 	
 	-- If the helicopter healed, then make sure to stop the smoke particles as well!
-	if self.Apache_SmokeStatus > 0 && self:Health() > (self:GetMaxHealth() * 0.25) then
-		self:SetNW2Int("Apache_SmokeLevel", 0)
-		self.Apache_SmokeStatus = 0
-		self:StopParticles()
+	if self.Heli_SmokeStatus > 0 && self:Health() > (self:GetMaxHealth() * 0.25) then
+		self:SetNW2Int("Heli_SmokeLevel", 0)
+		self.Heli_SmokeStatus = 0
+		//self:StopParticles()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -226,20 +223,20 @@ function ENT:CustomAttack()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
-	if self.Apache_SmokeStatus == 2 then return end
+	if self.Heli_SmokeStatus == 2 then return end
 	local maxHP = self:GetMaxHealth()
 	local hp = self:Health()
 	if hp <= (maxHP * 0.25) then
 		-- Only set the tail smoke if we haven't set it already
-		if self.Apache_SmokeStatus == 0 then
-			self:SetNW2Int("Apache_SmokeLevel", 1)
-			self.Apache_SmokeStatus = 1
+		if self.Heli_SmokeStatus == 0 then
+			self:SetNW2Int("Heli_SmokeLevel", 1)
+			self.Heli_SmokeStatus = 1
 			//ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("rotor_tail"))
 		end
 		-- If even lower, then make the rotor smoke too
 		if hp <= (maxHP * 0.15) then
-			self:SetNW2Int("Apache_SmokeLevel", 2)
-			self.Apache_SmokeStatus = 2
+			self:SetNW2Int("Heli_SmokeLevel", 2)
+			self.Heli_SmokeStatus = 2
 			//ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("rotor"))
 		end
 	end
@@ -413,13 +410,7 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	VJ_EmitSound(self, sdExplosions, 100, 100)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, 100)
-	VJ_EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 80, 100)
-	return false
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-	VJ_STOPSOUND(self.ApacheSD_Rotor)
-	VJ_STOPSOUND(self.ApacheSD_Whine)
+	VJ_STOPSOUND(self.HeliSD_Rotor)
+	VJ_STOPSOUND(self.HeliSD_Whine)
 end

@@ -11,7 +11,7 @@ if CLIENT then
 	ENT.Apache_NextSmoke = 0
 	function ENT:CustomOnDraw()
 		if IsValid(self) && CurTime() > self.Apache_NextSmoke then
-			local lvl = self:GetNW2Int("Apache_SmokeLevel")
+			local lvl = self:GetNW2Int("Heli_SmokeLevel")
 			self.Apache_NextSmoke = CurTime() + 0.1
 			if lvl > 0 then
 				local emitter = ParticleEmitter(self:GetPos())

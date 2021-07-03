@@ -87,7 +87,7 @@ local replaceTbl_Weapons = {
 local replaceOptions = {
 	-- If its an antlion guardian, then make sure to spawn that variant!
 	["npc_antlionguard"] = function(ent, replaceEnt)
-		return (ent:GetSkin() == 0 && "npc_vj_hlr2_antlion_guard") or "npc_vj_hlr2_antlion_guardian"
+		return (ent:GetSkin() == 0 and "npc_vj_hlr2_antlion_guard") or "npc_vj_hlr2_antlion_guardian"
 	end,
 	-- Handle citizen / refugee / rebel variants
 	["npc_citizen"] = function(ent, replaceEnt)
@@ -107,12 +107,16 @@ local replaceOptions = {
 	["npc_combine_s"] = function(ent, replaceEnt)
 		local mdl = ent:GetModel()
 		if mdl == "models/combine_soldier.mdl" then
-			return (ent:GetSkin() == 0 && "npc_vj_hlr2_com_soldier") or "npc_vj_hlr2_com_shotgunner"
+			return (ent:GetSkin() == 0 and "npc_vj_hlr2_com_soldier") or "npc_vj_hlr2_com_shotgunner"
 		elseif mdl == "models/combine_soldier_prisonguard.mdl" then
-			return (ent:GetSkin() == 0 && "npc_vj_hlr2_com_prospekt") or "npc_vj_hlr2_com_prospekt_sg"
+			return (ent:GetSkin() == 0 and "npc_vj_hlr2_com_prospekt") or "npc_vj_hlr2_com_prospekt_sg"
 		elseif mdl == "models/combine_super_soldier.mdl" then
 			return "npc_vj_hlr2_com_elite"
 		end
+	end,
+	-- Check for resistance turrets!
+	["npc_turret_floor"] = function(ent, replaceEnt)
+		return ent:HasSpawnFlags(SF_FLOOR_TURRET_CITIZEN) and "npc_vj_hlr2_res_sentry" or "npc_vj_hlr2_com_sentry"
 	end
 }
 
@@ -135,8 +139,11 @@ local replacePreSpawn = {
 }
 
 -- After Spawn
--- local afterSpawned = {}
+local afterSpawned = {
+	
+}
 
+// lua_run PrintTable(Entity(1):GetEyeTrace().Entity:GetTable())
 local defPos = Vector(0, 0, 0)
 
 local gStatePrecriminal = false
@@ -167,9 +174,10 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				if replaceOptions[class] then
 					rEnt = replaceOptions[class](ent, rEnt) or rEnt
 				end
+				-- Spawn random NPCs!
 				if GetConVar("vj_hlr_autoreplace_random"):GetInt() == 1 then
 					local tempTable = {}
-					for oldClass,newClass in pairs(replaceTbl_Entities) do -- Not sure what the best way is to do this, feel free to mess with it @Vrej
+					for oldClass, newClass in pairs(replaceTbl_Entities) do -- Not sure what the best way is to do this, feel free to mess with it @Vrej -- @Cpt, Seems good!
 						if isHL1 then
 							if string.StartWith(oldClass, "monster_") then
 								table.insert(tempTable, newClass)
@@ -181,98 +189,100 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 					rEnt = VJ_PICK(tempTable) or rEnt
 				end
 				-- Start the actual final entity --
-				local finalEnt = ents.Create(VJ_PICK(rEnt))
-				if !IsValid(finalEnt) then MsgN("Entity [" .. rEnt .. "] not valid (missing pack?), keeping original entity") return end
+				local newEnt = ents.Create(VJ_PICK(rEnt))
+				if !IsValid(newEnt) then MsgN("Entity [" .. rEnt .. "] not valid (missing pack?), keeping original entity") return end
 				-- Certain entities need some checks before spawn (Ex: Citizen gender)
 				if replacePreSpawn[class] then
-					replacePreSpawn[class](ent,finalEnt)
+					replacePreSpawn[class](ent, newEnt)
 				end
-				finalEnt:SetPos(ent:GetPos() + Vector(0, 0, (class == "monster_barnacle" && -1) or 4))
-				finalEnt:SetAngles(ent:GetAngles())
-				if IsValid(ent:GetParent()) then finalEnt:SetParent(ent:GetParent()) end
-				finalEnt:Spawn()
-				finalEnt:Activate()
+				newEnt:SetPos(ent:GetPos() + Vector(0, 0, (class == "monster_barnacle" && -1) or 4))
+				newEnt:SetAngles(ent:GetAngles())
+				if IsValid(ent:GetParent()) then newEnt:SetParent(ent:GetParent()) end
+				newEnt:Spawn()
+				newEnt:Activate()
 				-- Handle naming
 				if worldName then
-					finalEnt:SetName(worldName)
+					newEnt:SetName(worldName)
 					if worldName != "" then -- Scripted NPC
-						finalEnt.DisableWandering = true
+						newEnt.DisableWandering = true
 					end
 				end
 				-- Handle weapon
 				local wep = ent:GetActiveWeapon()
 				if IsValid(wep) then
 					local foundWep = replaceTbl_Weapons[wep:GetClass()]
-					finalEnt:Give(VJ_PICK(foundWep))
+					newEnt:Give(VJ_PICK(foundWep))
 				end
 				-- Handle enemy
 				local ene = ent:GetEnemy()
 				if IsValid(ene) then
-					finalEnt:SetEnemy(ene)
+					newEnt:SetEnemy(ene)
 				end
 				-- Handle key values
 				for key, val in pairs(ent:GetSaveTable()) do
-					//finalEnt:SetSaveValue(key, val)
+					//newEnt:SetSaveValue(key, val)
 					key = tostring(key)
 					if key == "health" then
-						finalEnt:SetHealth(val)
+						newEnt:SetHealth(val)
 					elseif key == "max_health" then
-						finalEnt:SetMaxHealth(val)
-					-- elseif key == "m_bSequenceLoops" && val == true && finalEnt:GetInternalVariable("sequence") != -1 then
-						-- finalEnt.Old_AnimTbl_IdleStand = finalEnt.AnimTbl_IdleStand
-						-- finalEnt.AnimTbl_IdleStand = {VJ_SequenceToActivity(finalEnt,finalEnt:GetInternalVariable("sequence"))}
-						-- finalEnt:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
-						-- finalEnt:VJ_ACT_PLAYACTIVITY(finalEnt:GetInternalVariable("sequence"),true,false,false)
+						newEnt:SetMaxHealth(val)
+					-- elseif key == "m_bSequenceLoops" && val == true && newEnt:GetInternalVariable("sequence") != -1 then
+						-- newEnt.Old_AnimTbl_IdleStand = newEnt.AnimTbl_IdleStand
+						-- newEnt.AnimTbl_IdleStand = {VJ_SequenceToActivity(newEnt,newEnt:GetInternalVariable("sequence"))}
+						-- newEnt:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+						-- newEnt:VJ_ACT_PLAYACTIVITY(newEnt:GetInternalVariable("sequence"),true,false,false)
 					elseif key == "m_vecLastPosition" then
 						if val != defPos then
-							finalEnt:SetLastPosition(val)
-							finalEnt:VJ_TASK_GOTO_LASTPOS("TASK_WALK_PATH")
+							newEnt:SetLastPosition(val)
+							newEnt:VJ_TASK_GOTO_LASTPOS("TASK_WALK_PATH")
 						end
 					elseif key == "m_bShouldPatrol" && val == false then
-						finalEnt.DisableWandering = true
-					elseif key == "m_flDistTooFar" then
-						finalEnt.SightDistance = val
+						newEnt.DisableWandering = true
+					-- Not what I thought it was, actual variable is m_LookDist using the function SetDistLook
+					-- Which both of them can't be accessed in Lua...
+					//elseif key == "m_flDistTooFar" then
+						//newEnt.SightDistance = val
 					end
 				end
+				newEnt.SightDistance = 2048 -- Default Source engine sight distance...
 				-- Handle spawn flags
-				finalEnt:SetKeyValue("spawnflags", ent:GetSpawnFlags())
+				newEnt:SetKeyValue("spawnflags", ent:GetSpawnFlags())
 				if ent:HasSpawnFlags(SF_NPC_LONG_RANGE) then
-					finalEnt.SightDistance = 6000
+					newEnt.SightDistance = 6000
 				end
 				if ent:HasSpawnFlags(SF_CITIZEN_NOT_COMMANDABLE) then
-					finalEnt.FollowPlayer = false
+					newEnt.FollowPlayer = false
 				end
 				//print(ent:GetInternalVariable("m_bShouldPatrol"))
 				-- Handle Gordon precriminal game state
 				if gStatePrecriminal == true then -- Toggles friendly-AI for the intro of Half-Life 2
-					//finalEnt.DisableWandering = true
-					finalEnt.DisableFindEnemy = true
-					finalEnt.DisableMakingSelfEnemyToNPCs = true
-					finalEnt.FriendsWithAllPlayerAllies = true
-					finalEnt.FollowPlayer = false
-					finalEnt.Behavior = VJ_BEHAVIOR_PASSIVE
-					finalEnt.VJ_AutoScript_OldClass = finalEnt.VJ_NPC_Class
-					finalEnt.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_COMBINE"}
-					finalEnt.VJ_AutoScript_Reset = true
+					//newEnt.DisableWandering = true
+					newEnt.DisableFindEnemy = true
+					newEnt.DisableMakingSelfEnemyToNPCs = true
+					newEnt.FriendsWithAllPlayerAllies = true
+					newEnt.FollowPlayer = false
+					newEnt.Behavior = VJ_BEHAVIOR_PASSIVE
+					newEnt.VJ_AutoScript_OldClass = newEnt.VJ_NPC_Class
+					newEnt.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_COMBINE"}
+					newEnt.VJ_AutoScript_Reset = true
 				end
-				-- Things to run after it's fully spawned (EX: )
-				-- NONE atm
-				//if afterSpawned[rEnt] then
-					//afterSpawned[rEnt](ent,finalEnt)
-				//end
+				-- Things to run after it's fully spawned (EX: Turret sight distance)
+				if afterSpawned[rEnt] then
+					afterSpawned[rEnt](ent, newEnt)
+				end
 				-- print(ent:GetClass(), ent:GetInternalVariable("GameEndAlly"))
 				-- Set the starting animation AND velocity
 				local vel = ent:GetVelocity()
 				timer.Simple(0.01, function()
-					if IsValid(finalEnt) then
-						//finalEnt:VJ_ACT_PLAYACTIVITY(spawnAnim, true, false, false)
+					if IsValid(newEnt) then
+						//newEnt:VJ_ACT_PLAYACTIVITY(spawnAnim, true, false, false)
 						if vel:Length() > 0 then
-							finalEnt:SetGroundEntity(NULL)
-							finalEnt:SetVelocity(vel)
+							newEnt:SetGroundEntity(NULL)
+							newEnt:SetVelocity(vel)
 						end
 					end
 				end)
-				undo.ReplaceEntity(ent, finalEnt)
+				undo.ReplaceEntity(ent, newEnt)
 				ent:Remove()
 			end
 		end)

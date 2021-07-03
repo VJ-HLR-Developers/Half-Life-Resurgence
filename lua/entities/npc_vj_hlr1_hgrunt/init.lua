@@ -80,6 +80,10 @@ ENT.HECU_LastBodyGroup = 99
 ENT.HECU_UsingDefaultSounds = false -- Set automatically, if true then it's using the default HECU sounds
 ENT.HECU_CanHurtWalk = true -- Set to false to disable hurt-walking, automatically disabled for some of the HECU types!
 ENT.HECU_UsingHurtWalk = false -- Used for optimizations, makes sure that the animations are only changed once
+ENT.HECU_Rappelling = false
+ENT.HECU_DeployedByOsprey = 0
+
+local defPos = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
 	if math.random(1,3) == 1 && self.HECU_UsingDefaultSounds == true then
@@ -169,7 +173,15 @@ function ENT:CustomOnInitialize()
 	
 	self:HECU_CustomOnInitialize()
 	
-	//self:Give("weapon_vj_hl_hgruntwep")
+	if self.HECU_Rappelling then
+		self:SetGroundEntity(NULL)
+		self:AddFlags(FL_FLY)
+		self:SetNavType(NAV_FLY)
+		self:SetState(VJ_STATE_ONLY_ANIMATION)
+		timer.Simple(0.1, function() if IsValid(self) then self:VJ_ACT_PLAYACTIVITY("repel_jump", true, false, false) end end)
+		self.HasGrenadeAttack = false
+		self.CanUseSecondaryOnWeaponAttack = false
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnPlayCreateSound(sdData, sdFile)
@@ -218,13 +230,15 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
 	local bgroup = self.HGrunt_LastBodyGroup
+	self.WeaponAnimTranslations[ACT_IDLE] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_repel") or ACT_IDLE
+	self.WeaponAnimTranslations[ACT_IDLE_ANGRY] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_repel") or ACT_IDLE_ANGRY
 	if self.HECU_Type == 0 then-- 0 = HL1 Grunt
 		if bgroup == 0 then -- MP5
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1_LOW
 		elseif bgroup == 1 then -- Shotgun
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SHOTGUN
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SHOTGUN_LOW
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN_LOW
 		end
 	elseif self.HECU_Type == 1 then -- 1 = OppF Grunt
 		if bgroup == 0 then -- MP5
@@ -281,25 +295,6 @@ end
 function ENT:HECU_CustomOnThink() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	self:HECU_CustomOnThink()
-	
-	-- Hurt walking
-	if self.HECU_CanHurtWalk && self:Health() <= (self:GetMaxHealth() / 2.2) then
-		if !self.HECU_UsingHurtWalk then
-			self.AnimTbl_Walk = {ACT_WALK_HURT}
-			self.AnimTbl_Run = {ACT_RUN_HURT}
-			self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK_HURT}
-			self.AnimTbl_ShootWhileMovingRun = {ACT_RUN_HURT}
-			self.HECU_UsingHurtWalk = true
-		end
-	elseif self.HECU_UsingHurtWalk then
-		self.AnimTbl_Walk = {ACT_WALK}
-		self.AnimTbl_Run = {ACT_RUN}
-		self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK}
-		self.AnimTbl_ShootWhileMovingRun = {ACT_RUN}
-		self.HECU_UsingHurtWalk = false
-	end
-	
 	-- Handle weapon body group changing
 	local bgroup = self:GetBodygroup(self.HECU_WepBG)
 	if self.HGrunt_LastBodyGroup != bgroup then
@@ -365,6 +360,46 @@ function ENT:CustomOnThink()
 				self:GetActiveWeapon():Remove()
 			end
 		end
+	end
+	
+	if self.HECU_Rappelling && !self.Dead then
+		if self:IsOnGround() then
+			self.HECU_Rappelling = false
+			self.HasGrenadeAttack = true
+			self.CanUseSecondaryOnWeaponAttack = true
+			self:SetVelocity(defPos)
+			self:SetState()
+			self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+			self:CustomOnSetupWeaponHoldTypeAnims()
+			self:VJ_ACT_PLAYACTIVITY("repel_land", true, false, false)
+			-- Let the Osprey know I landed!
+			if self.HECU_DeployedByOsprey then
+				local owner = self:GetOwner()
+				if IsValid(owner) then
+					owner.Osprey_DropSoldierStatus = owner.Osprey_DropSoldierStatus + 1
+				end
+			end
+		else
+			return
+		end
+	end
+	self:HECU_CustomOnThink()
+	
+	-- Hurt walking
+	if self.HECU_CanHurtWalk && self:Health() <= (self:GetMaxHealth() / 2.2) then
+		if !self.HECU_UsingHurtWalk then
+			self.AnimTbl_Walk = {ACT_WALK_HURT}
+			self.AnimTbl_Run = {ACT_RUN_HURT}
+			self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK_HURT}
+			self.AnimTbl_ShootWhileMovingRun = {ACT_RUN_HURT}
+			self.HECU_UsingHurtWalk = true
+		end
+	elseif self.HECU_UsingHurtWalk then
+		self.AnimTbl_Walk = {ACT_WALK}
+		self.AnimTbl_Run = {ACT_RUN}
+		self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK}
+		self.AnimTbl_ShootWhileMovingRun = {ACT_RUN}
+		self.HECU_UsingHurtWalk = false
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -451,6 +486,10 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 		self:SetBodygroup(1,4)
 		self.GibOnDeathDamagesTable = {"All"}
 	end
+	-- If we are still rappelling then play the rappel death animation!
+	if self.HECU_Rappelling then
+		self.AnimTbl_Death = {"repel_die"}
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
@@ -476,4 +515,15 @@ end
 function ENT:CustomOnDropWeapon_AfterWeaponSpawned(dmginfo, hitgroup, wepEnt)
 	wepEnt.WorldModel_Invisible = false
 	wepEnt:SetNW2Bool("VJ_WorldModel_Invisible", false)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRemove()
+	-- Make sure to let the Osprey know I have died ='(
+	if self.HECU_DeployedByOsprey then
+		local owner = self:GetOwner()
+		if IsValid(owner) then
+			owner.Osprey_DropSoldierStatus = owner.Osprey_DropSoldierStatus + 1
+			owner.Osprey_DropSoldierStatusDead = owner.Osprey_DropSoldierStatusDead + 1
+		end
+	end
 end
