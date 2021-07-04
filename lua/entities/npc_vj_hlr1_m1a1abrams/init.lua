@@ -5,7 +5,7 @@ include('shared.lua')
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/tank_body.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
+ENT.Model = {"models/vj_hlr/hl1/tank_body_destroyed.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
 ENT.StartHealth = 500
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(-20, 0, 40), -- The offset for the controller when the camera is in third person
@@ -15,7 +15,6 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other\
-ENT.DeathCorpseModel = {"models/vj_hlr/hl1/tank_body_destroyed.mdl"} -- The corpse model that it will spawn when it dies | Leave empty to use the NPC's model | Put as many models as desired, the base will pick a random one.
 
 ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/tanks/abrams_idle_loop.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/hgrunt/gr_idle1.wav","vj_hlr/hl1_npc/hgrunt/gr_idle2.wav","vj_hlr/hl1_npc/hgrunt/gr_idle3.wav"}
@@ -45,7 +44,7 @@ util.AddNetworkString("vj_hlr1_m1a1abrams_moveeffects")
 ENT.Bradley_DmgForce = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_GunnerSpawnPosition()
-	return self:GetPos() + self:GetUp()*60
+	return self:GetPos() + self:GetUp()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:StartMoveEffects()
