@@ -33,10 +33,10 @@ ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards 
 ENT.HasItemDropsOnDeath = false -- Should it drop items on death?
 ENT.MoveRandomlyWhenShooting = false
 ENT.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK_PISTOL}
+ENT.AnimTbl_WeaponAim = {ACT_COMBAT_IDLE} -- Animations played when the NPC is aiming | EX: Gun is out of ammo OR waiting for the enemy to peak
 ENT.AnimTbl_ShootWhileMovingRun = {ACT_RUN} -- Animations it will play when shooting while running | NOTE: Weapon may translate the animation that they see fit!
 ENT.AnimTbl_ShootWhileMovingWalk = {ACT_WALK} -- Animations it will play when shooting while walking | NOTE: Weapon may translate the animation that they see fit!
 ENT.HasLostWeaponSightAnimation = true -- Set to true if you would like the SNPC to play a different animation when it has lost sight of the enemy and can't fire at it
-ENT.AnimTbl_LostWeaponSight = {ACT_COMBAT_IDLE} -- The animations that it will play if the variable above is set to true
 ENT.AllowWeaponReloading = false -- If false, the SNPC will no longer reload
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play

@@ -180,6 +180,7 @@ function ENT:CustomOnInitialize()
 		self:SetState(VJ_STATE_ONLY_ANIMATION)
 		self.HasGrenadeAttack = false
 		self.CanUseSecondaryOnWeaponAttack = false
+		self.AllowWeaponReloading = false
 		timer.Simple(0.1, function() if IsValid(self) then self:VJ_ACT_PLAYACTIVITY("repel_jump", true, false, false) end end)
 	end
 end
@@ -295,6 +296,7 @@ function ENT:HECU_StopRappelling()
 	self.HECU_Rappelling = false
 	self.HasGrenadeAttack = true
 	self.CanUseSecondaryOnWeaponAttack = true
+	self.AllowWeaponReloading = true
 	self:SetVelocity(defPos)
 	self:SetState()
 	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
