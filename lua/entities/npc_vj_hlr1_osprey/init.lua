@@ -25,8 +25,8 @@ ENT.AA_MinWanderDist = 1000 -- Minimum distance that the NPC should go to when w
 ENT.AA_MoveAccelerate = 8 -- The NPC will gradually speed up to the max movement speed as it moves towards its destination | Calculation = FrameTime * x
 ENT.AA_MoveDecelerate = 4 -- The NPC will slow down as it approaches its destination | Calculation = MaxSpeed / x
 ENT.VJC_Data = {
-    FirstP_Bone = "Bone01", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(140, 0, -45), -- The offset for the controller when the camera is in first person
+    FirstP_Bone = "Osprey", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Offset = Vector(365, 0, -80), -- The offset for the controller when the camera is in first person
 	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -58,6 +58,7 @@ ENT.DeathSoundLevel = 100
 	death: EMIT_SOUND(ENT(pev), CHAN_STATIC, "weapons/mortarhit.wav", 1.0, 0.3);
 */
 -- Custom
+ENT.Osprey_IsBlackOps = false
 ENT.Osprey_DropPos = nil
 ENT.Osprey_DropStatus = 0 -- -1 = Can NOT deploy | 0 = Not dropped off | 1 = Moving to drop zone | 2 = Dropping soldiers | 3 = Soldiers rappelling down | 4 = Soldiers fully on ground
 ENT.Osprey_DropSoldierStatus = 0 -- if this number reaches the max amount, then it means that all soldiers are on ground, Osprey can go back to normal!
@@ -77,13 +78,14 @@ function ENT:CustomOnInitialize()
 	self.HeliSD_Rotor = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_rotor4.wav", 120)
 	self.HeliSD_Whine = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_whine1.wav", 70)
 	
-	if GetConVar("vj_hlr1_osprey_deploygrunts"):GetInt() == 0 then self.Osprey_DropStatus = -1 end
+	if GetConVar("vj_hlr1_osprey_deploysoldiers"):GetInt() == 0 then self.Osprey_DropStatus = -1 end
+	self.Osprey_Gunners = {}
 	self.Osprey_DroppedSoldiers = {}
 	
 	-- Create & Spawn the 2 gunners
 	for i = 1, 2 do
 		local att = self:GetAttachment(i)
-		local gunner = ents.Create("npc_vj_hlr1_hgrunt_serg")
+		local gunner = ents.Create(self.Osprey_IsBlackOps and "npc_vj_hlrof_assassin_male" or "npc_vj_hlr1_hgrunt_serg")
 		gunner:SetPos(att.Pos)
 		gunner:SetAngles(att.Ang)
 		gunner:SetOwner(self)
@@ -93,11 +95,14 @@ function ENT:CustomOnInitialize()
 		gunner.CanTurnWhileStationary = false
 		gunner.NoWeapon_UseScaredBehavior = false
 		gunner.Medic_CanBeHealed = false
+		gunner.VJ_NPC_Class = self.VJ_NPC_Class
 		gunner:Spawn()
+		if self.Osprey_IsBlackOps then gunner:SetBodygroup(2, 1) end -- Always give the Black Ops snipers!
 		gunner.Weapon_FiringDistanceFar = self.SightDistance
-		gunner:Fire("SetParentAttachment",i == 1 && "gunner_left" or "gunner_right",0)
+		gunner:Fire("SetParentAttachment", i == 1 and "gunner_left" or "gunner_right", 0)
 		gunner:SetState(VJ_STATE_ONLY_ANIMATION)
 		self:DeleteOnRemove(gunner)
+		self.Osprey_Gunners[i] = gunner
 	end
 	
 	-- 1 red tail light (Flashing) + 1 green & 1 red solid lights
@@ -139,6 +144,10 @@ function ENT:CustomOnInitialize()
 	self:DeleteOnRemove(sideLight2)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply, controlEnt)
+	ply:ChatPrint("JUMP: Deploy soldiers, can redeploy after all die & cool down expires!")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	-- Flying tilt (X & Y)
 	local velNorm = self:GetVelocity():GetNormal()
@@ -160,7 +169,7 @@ function ENT:CustomOnThink_AIEnabled()
 	if self.Osprey_DropStatus == -1 then return end
 	-- All have landed and died
 	if self.Osprey_DropStatus == 4 then
-		if self.Osprey_DropSoldierStatusDead == 4 && CurTime() > self.Osprey_NextDropT then
+		if self.Osprey_DropSoldierStatusDead >= 4 && CurTime() > self.Osprey_NextDropT then
 			self.Osprey_DropStatus = 0
 			self.Osprey_DropSoldierStatusDead = 0
 		else
@@ -168,12 +177,11 @@ function ENT:CustomOnThink_AIEnabled()
 		end
 	end
 	local ene = self:GetEnemy()
-	if self.Osprey_DropStatus == 0 && IsValid(ene) then
+	if self.Osprey_DropStatus == 0 && IsValid(ene) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self.Osprey_DropStatus = 1
-		local vecRand = VectorRand() *600
-		local vecZ = vecRand.z
-		vecRand.z = vecZ < 0 && vecZ *-1 or vecZ
-		self.Osprey_DropPos = ene:GetPos() + ene:GetUp()*600 + vecRand
+		local vecRand = VectorRand()*600
+		vecRand.z = math.abs(vecRand.z) -- Make sure negative Zs are cancelled out
+		self.Osprey_DropPos = (self.VJ_IsBeingControlled and self:GetPos()) or (ene:GetPos() + ene:GetUp()*600 + vecRand)
 		self:SetState(VJ_STATE_ONLY_ANIMATION)
 		self.NoChaseAfterCertainRange = false
 	elseif self.Osprey_DropStatus == 1 then
@@ -189,30 +197,30 @@ function ENT:CustomOnThink_AIEnabled()
 		for i = 1, 4 do
 			local att = self:GetAttachment((i % 2 == 0) && 2 or 1)
 			local startPos = att.Pos + att.Ang:Forward()*100 + self:GetForward()*((i >= 3) && -30 or 60)
-			local grunt = ents.Create("npc_vj_hlr1_hgrunt")
-			grunt:SetPos(startPos)
-			grunt:SetAngles(att.Ang)
-			grunt:SetOwner(self)
-			grunt.HECU_DeployedByOsprey = true
-			grunt.HECU_Rappelling = true
-			grunt:Spawn()
-			grunt:SetLocalVelocity(Vector(0, 0, math.Rand(-196, -128)))
-			grunt:SetEnemy(ene)
+			local soldier = ents.Create(self.Osprey_IsBlackOps and "npc_vj_hlrof_assassin_male" or "npc_vj_hlr1_hgrunt")
+			soldier:SetPos(startPos)
+			soldier:SetAngles(att.Ang)
+			soldier:SetOwner(self)
+			soldier.HECU_DeployedByOsprey = true
+			soldier.HECU_Rappelling = true
+			soldier:Spawn()
+			soldier:SetLocalVelocity(Vector(0, 0, math.Rand(-196, -128)))
+			soldier:SetEnemy(ene)
 			
 			-- Create the rope
-			local ropeStart = grunt:GetPos() + ropePos1
+			local ropeStart = soldier:GetPos() + ropePos1
 			local tr = util.TraceLine({
 				start = ropeStart,
-				endpos = grunt:GetPos() + ropePos2,
-				filter = {self, grunt},
+				endpos = soldier:GetPos() + ropePos2,
+				filter = {self, soldier},
 			})
 			local rope = EffectData()
 			rope:SetStart(ropeStart)
 			rope:SetOrigin(tr.HitPos)
-			rope:SetEntity(grunt)
+			rope:SetEntity(soldier)
 			util.Effect("VJ_HLR_Rope", rope)
 			
-			self.Osprey_DroppedSoldiers[i] = grunt
+			self.Osprey_DroppedSoldiers[i] = soldier
 		end
 	elseif self.Osprey_DropStatus == 3 && self.Osprey_DropSoldierStatus >= 4 then
 		-- Reset Osprey to normal
@@ -241,16 +249,9 @@ function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorHeliExp = Color(255, 255, 192, 128)
+local colorYellowOsprey = Color(255, 223, 137)
 local sdGibCollide = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
-
---[[
-Notes for dev:
-		DO NOT USE THE GREEN GIBS AND OSPREY ENGINE GIBS, USE THE GRAY METAL ONES (without the _g prefix at the end) PLUS THE NEW OSPREY BODY AND TAIL GIBS.
-		FOR BLACKOPS, use SetSkin on the new osprey gibs.
-		DON'T FORGET TO USE SKIN 2 on models/vj_hlr/hl1/osprey_dead.mdl FOR BLACK OPS AS WELL.
---]]
-
-local heliExpGibs_Green = { -- For HECU	
+local heliExpGibs_Green = { -- For HECU
 	"models/vj_hlr/gibs/metalgib_p1_g.mdl",
 	"models/vj_hlr/gibs/metalgib_p2_g.mdl",
 	"models/vj_hlr/gibs/metalgib_p3_g.mdl",
@@ -280,6 +281,27 @@ local heliExpGibs_Gray = { -- For Black Ops
 	"models/vj_hlr/gibs/rgib_screw.mdl",
 	"models/vj_hlr/gibs/rgib_screw.mdl"
 }
+local heliExpGibs_Main = {
+	"models/vj_hlr/gibs/osprey_bodygib1.mdl",
+	"models/vj_hlr/gibs/osprey_bodygib2.mdl",
+	"models/vj_hlr/gibs/osprey_bodygib3.mdl",
+	"models/vj_hlr/gibs/osprey_bodygib4.mdl",
+	"models/vj_hlr/gibs/osprey_bodygib5.mdl",
+	"models/vj_hlr/gibs/osprey_bodygib6.mdl",
+	"models/vj_hlr/gibs/osprey_bodygib7.mdl",
+	"models/vj_hlr/gibs/osprey_bodygib8.mdl",
+	"models/vj_hlr/gibs/osprey_bodygib9.mdl",
+	"models/vj_hlr/gibs/osprey_bodygib10.mdl",
+	"models/vj_hlr/gibs/osprey_bodygib11.mdl",
+	"models/vj_hlr/gibs/osprey_bodygib12.mdl",
+	"models/vj_hlr/gibs/osprey_bodygib13.mdl",
+	"models/vj_hlr/gibs/osprey_bodygib14.mdl",
+	"models/vj_hlr/gibs/osprey_bodygib15.mdl",
+	"models/vj_hlr/gibs/osprey_bodygib16.mdl",
+	"models/vj_hlr/gibs/osprey_bodygib17.mdl",
+	"models/vj_hlr/gibs/osprey_tailgib1.mdl",
+	"models/vj_hlr/gibs/osprey_tailgib4.mdl"
+}
 --
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 	-- Spawn a animated model of the helicopter that explodes constantly and gets destroyed when it collides with something
@@ -288,6 +310,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 	deathCorpse:SetModel("models/vj_hlr/hl1/osprey_dead.mdl")
 	deathCorpse:SetPos(self:GetPos() + Vector(0, 0, 100)) -- + vector fixes the positioning, because osprey_dead spawns a little below due to the way the model is. 
 	deathCorpse:SetAngles(self:GetAngles())
+	deathCorpse:SetSkin(self:GetModel() == "models/vj_hlr/hl1/osprey_blkops.mdl" and 1 or 0)
 	function deathCorpse:Initialize()
 		self:PhysicsInit(SOLID_VPHYSICS)
 		self:SetMoveType(MOVETYPE_VPHYSICS)
@@ -341,11 +364,13 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 	-- Get destroyed when it collides with something
 	function deathCorpse:PhysicsCollide(data, phys)
 		if self.Dead then return end
+		if data.HitEntity.IsVJBase_Gib then return end -- Do NOT explode if its an engine part
 		self.Dead = true
 		
 		-- Create gibs
-		local gibTbl = self:GetModel() == "models/vj_hlr/hl1/osprey_blkops.mdl" and heliExpGibs_Gray or heliExpGibs_Green
-		for _ = 1, 90 do
+		local isBlackOps = self:GetModel() == "models/vj_hlr/hl1/osprey_dead.mdl"
+		local gibTbl = isBlackOps and heliExpGibs_Gray or heliExpGibs_Green
+		for _ = 1, 70 do
 			local gib = ents.Create("obj_vj_gib")
 			gib:SetModel(VJ_PICK(gibTbl))
 			gib:SetPos(self:GetPos() + Vector(math.random(-100, 100), math.random(-100, 100), math.random(20, 150)))
@@ -354,7 +379,28 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 			gib.CollideSound = sdGibCollide
 			gib:Spawn()
 			gib:Activate()
-			gib:SetColor(Color(255, 223, 137))
+			if !isBlackOps then gib:SetColor(colorYellowOsprey) end
+			local myPhys = gib:GetPhysicsObject()
+			if IsValid(myPhys) then
+				myPhys:AddVelocity(Vector(math.Rand(-300, 300), math.Rand(-300, 300), math.Rand(150, 250)))
+				myPhys:AddAngleVelocity(Vector(math.Rand(-200, 200), math.Rand(-200, 200), math.Rand(-200, 200)))
+			end
+			if GetConVar("vj_npc_fadegibs"):GetInt() == 1 then
+				timer.Simple(GetConVar("vj_npc_fadegibstime"):GetInt(), function() SafeRemoveEntity(gib) end)
+			end
+		end
+		
+		local gibSkin = isBlackOps and 1 or 0
+		for _, v in pairs(heliExpGibs_Main) do
+			local gib = ents.Create("obj_vj_gib")
+			gib:SetModel(v)
+			gib:SetPos(self:GetPos() + Vector(math.random(-100, 100), math.random(-100, 100), math.random(20, 150)))
+			gib:SetAngles(Angle(math.Rand(-180, 180), math.Rand(-180, 180), math.Rand(-180, 180)))
+			gib.Collide_Decal = ""
+			gib.CollideSound = sdGibCollide
+			gib:SetSkin(gibSkin)
+			gib:Spawn()
+			gib:Activate()
 			local myPhys = gib:GetPhysicsObject()
 			if IsValid(myPhys) then
 				myPhys:AddVelocity(Vector(math.Rand(-300, 300), math.Rand(-300, 300), math.Rand(150, 250)))
@@ -436,14 +482,38 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	util.BlastDamage(self, self, expPos, 300, 100)
 	VJ_EmitSound(self, sdExplosions, 100, 100)
 	
-	-- right engine gibs
+	
+	-- Engine gibs (Right side)
 	-- FIXME: this needs to be implemented better, right now this is a basic idea, often causes osprey to just explode midair, but the shit looks beautiful when everything goes right.
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/osprey_enginegib1.mdl",{BloodDecal="",Pos=self:GetAttachment(self:LookupAttachment("engine_right")).Pos + Vector(90,0,-100),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/osprey_enginegib2.mdl",{BloodDecal="",Pos=self:GetAttachment(self:LookupAttachment("engine_right")).Pos + Vector(90,0,0),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/osprey_enginegib3.mdl",{BloodDecal="",Pos=self:GetAttachment(self:LookupAttachment("engine_right")).Pos + Vector(95,0,90),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/osprey_enginegib9.mdl",{BloodDecal="",Pos=self:GetAttachment(self:LookupAttachment("engine_right")).Pos + Vector(95,0,93),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/osprey_enginegib10.mdl",{BloodDecal="",Pos=self:GetAttachment(self:LookupAttachment("engine_right")).Pos + Vector(95,0,95),CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/osprey_enginegib11.mdl",{BloodDecal="",Pos=self:GetAttachment(self:LookupAttachment("engine_right")).Pos + Vector(95,0,95),CollideSound=sdGibCollide})
+	local pos = self:GetAttachment(self:LookupAttachment("engine_right")).Pos
+	local gibSkin = self:GetModel() == "models/vj_hlr/hl1/osprey_blkops.mdl" and 1 or 0
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib1.mdl", {BloodDecal="",Pos=pos + Vector(90,0,-100),CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib2.mdl", {BloodDecal="",Pos=pos + Vector(90,0,0),CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib3.mdl", {BloodDecal="",Pos=pos + Vector(95,0,90),CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib9.mdl", {BloodDecal="",Pos=pos + Vector(95,0,93),CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib10.mdl", {BloodDecal="",Pos=pos + Vector(95,0,95),CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib11.mdl", {BloodDecal="",Pos=pos + Vector(95,0,96),CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+	
+	-- Make the gunners gib into pieces!
+	-- Also unparent them because Source engine spawns them at a random location...
+	local gunner1 = self.Osprey_Gunners[1]
+	local gunner2 = self.Osprey_Gunners[2]
+	if IsValid(gunner1) then
+		gunner1:SetParent(NULL)
+		gunner1:SetPos(self:GetAttachment(self:LookupAttachment("gunner_left")).Pos)
+		local doDmg = DamageInfo()
+		doDmg:SetDamage(gunner1:Health())
+		doDmg:SetDamageType(DMG_BLAST)
+		gunner1:TakeDamageInfo(doDmg)
+	end
+	if IsValid(gunner2) then
+		gunner2:SetParent(NULL)
+		gunner2:SetPos(self:GetAttachment(self:LookupAttachment("gunner_right")).Pos)
+		local doDmg = DamageInfo()
+		doDmg:SetDamage(gunner2:Health())
+		doDmg:SetDamageType(DMG_BLAST)
+		gunner2:TakeDamageInfo(doDmg)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()

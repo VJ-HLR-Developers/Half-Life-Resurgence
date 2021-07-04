@@ -16,7 +16,7 @@ if VJExists == true then
 	include('autorun/vj_controls.lua')
 	
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------- Gold Source Engine ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------ GoldSrc Engine ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	local vCat = "HL Resurgence: GoldSrc"
 	VJ.AddCategoryInfo(vCat, {Icon = "vj_hl/icons/hl1.png"})
@@ -70,6 +70,7 @@ if VJExists == true then
 		VJ.AddNPC("Black Ops Male Assassin","npc_vj_hlrof_assassin_male",vCat)
 		VJ.AddNPC("Black Ops Robot Assassin","npc_vj_hlrof_assassin_rgrunt",vCat)
 		VJ.AddNPC("Black Ops AH-64 Apache","npc_vj_hlrof_assassin_apache",vCat)
+		VJ.AddNPC("Black Ops V-22 Osprey","npc_vj_hlrof_assassin_osprey",vCat)
 	
 	-- Xen
 	VJ.AddNPC("Gonarch","npc_vj_hlr1_gonarch",vCat)
@@ -408,9 +409,13 @@ if VJExists == true then
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Convars & Menu ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- GoldSrc
 VJ.AddConVar("vj_hlr1_gonarch_babylimit", 20, {FCVAR_ARCHIVE})
 VJ.AddConVar("vj_hlr1_bradley_deploygrunts", 1, {FCVAR_ARCHIVE})
-VJ.AddConVar("vj_hlr1_osprey_deploygrunts", 1, {FCVAR_ARCHIVE})
+VJ.AddConVar("vj_hlr1_osprey_deploysoldiers", 1, {FCVAR_ARCHIVE})
+VJ.AddConVar("vj_hlr1_assassin_cloaks", 1, {FCVAR_ARCHIVE})
+-- Source
+VJ.AddConVar("vj_hlr2_merkava_gunner", 1, {FCVAR_ARCHIVE})
 
 VJ.AddConVar("vj_hlr_autoreplace", 0, {FCVAR_ARCHIVE, FCVAR_NOTIFY})
 VJ.AddConVar("vj_hlr_autoreplace_hl1", 1, {FCVAR_ARCHIVE, FCVAR_NOTIFY})
@@ -429,10 +434,14 @@ if CLIENT then
 				return
 			end
 			Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
-			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_osprey_deploygrunts 1"})
+			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_osprey_deploysoldiers 1\nvj_hlr2_merkava_gunner 1\nvj_hlr1_assassin_cloaks 1"})
+			Panel:AddControl( "Label", {Text = "GoldSrc Engine:"})
 			Panel:AddControl("Slider", {Label = "Gonarch Baby Headcrab Limit", min = 0, max = 100, Command = "vj_hlr1_gonarch_babylimit"})
 			Panel:AddControl("Checkbox", {Label = "M2A3 Bradley Deploys Human Grunts", Command = "vj_hlr1_bradley_deploygrunts"})
-			Panel:AddControl("Checkbox", {Label = "V-22 Osprey Deploys Human Grunts", Command = "vj_hlr1_osprey_deploygrunts"})
+			Panel:AddControl("Checkbox", {Label = "V-22 Osprey Deploys Human Grunts / Assassins", Command = "vj_hlr1_osprey_deploysoldiers"})
+			Panel:AddControl("Checkbox", {Label = "Female Assassin Cloaks During Combat", Command = "vj_hlr1_assassin_cloaks"})
+			Panel:AddControl( "Label", {Text = "Source Engine:"})
+			Panel:AddControl("Checkbox", {Label = "Merkava Spawns With a Gunner", Command = "vj_hlr2_merkava_gunner"})
 		end)
 		
 		spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HL Resurgence (AutoReplace)", "HL Resurgence (AutoReplace)", "", "", function(Panel)

@@ -17,7 +17,7 @@ ENT.BOA_NextRunT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
 	self:SetBodygroup(1 ,math.random(0, 2))
-	self:SetBodygroup(2, math.random(0, 1))
+	self:SetBodygroup(2, self.HECU_Rappelling and 0 or math.random(0, 1)) -- If we spawn as a rappelling soldier, then only spawn with MP5!
 	self.BOA_NextStrafeT = CurTime() + 4
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

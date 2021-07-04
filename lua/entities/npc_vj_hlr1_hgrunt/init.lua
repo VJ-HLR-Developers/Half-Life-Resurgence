@@ -81,7 +81,7 @@ ENT.HECU_UsingDefaultSounds = false -- Set automatically, if true then it's usin
 ENT.HECU_CanHurtWalk = true -- Set to false to disable hurt-walking, automatically disabled for some of the HECU types!
 ENT.HECU_UsingHurtWalk = false -- Used for optimizations, makes sure that the animations are only changed once
 ENT.HECU_Rappelling = false
-ENT.HECU_DeployedByOsprey = 0
+ENT.HECU_DeployedByOsprey = false
 
 local defPos = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -178,9 +178,9 @@ function ENT:CustomOnInitialize()
 		self:AddFlags(FL_FLY)
 		self:SetNavType(NAV_FLY)
 		self:SetState(VJ_STATE_ONLY_ANIMATION)
-		timer.Simple(0.1, function() if IsValid(self) then self:VJ_ACT_PLAYACTIVITY("repel_jump", true, false, false) end end)
 		self.HasGrenadeAttack = false
 		self.CanUseSecondaryOnWeaponAttack = false
+		timer.Simple(0.1, function() if IsValid(self) then self:VJ_ACT_PLAYACTIVITY("repel_jump", true, false, false) end end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -263,8 +263,8 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
 		end
 	elseif self.HECU_Type == 4 then -- 4 = Black Ops Assassin
 		if bgroup == 0 then -- MP5
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1_LOW
 		elseif bgroup == 1 then -- M-40A1
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_AR2
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_AR2_LOW
@@ -289,6 +289,16 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
 		end
 	end
 	return true
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:HECU_StopRappelling()
+	self.HECU_Rappelling = false
+	self.HasGrenadeAttack = true
+	self.CanUseSecondaryOnWeaponAttack = true
+	self:SetVelocity(defPos)
+	self:SetState()
+	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+	self:CustomOnSetupWeaponHoldTypeAnims()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 -- Used for custom HECU soldiers
@@ -363,14 +373,9 @@ function ENT:CustomOnThink()
 	end
 	
 	if self.HECU_Rappelling && !self.Dead then
+		-- If it's on ground then stop rappelling!
 		if self:IsOnGround() then
-			self.HECU_Rappelling = false
-			self.HasGrenadeAttack = true
-			self.CanUseSecondaryOnWeaponAttack = true
-			self:SetVelocity(defPos)
-			self:SetState()
-			self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-			self:CustomOnSetupWeaponHoldTypeAnims()
+			self:HECU_StopRappelling()
 			self:VJ_ACT_PLAYACTIVITY("repel_land", true, false, false)
 			-- Let the Osprey know I landed!
 			if self.HECU_DeployedByOsprey then
@@ -379,19 +384,11 @@ function ENT:CustomOnThink()
 					owner.Osprey_DropSoldierStatus = owner.Osprey_DropSoldierStatus + 1
 				end
 			end
+		-- If it was deployed by an Osprey and the Osprey no longer exists, then stop rappelling!
+		elseif self.HECU_DeployedByOsprey && !IsValid(self:GetOwner()) then
+			self:HECU_StopRappelling()
+		-- I am still rappelling...
 		else
-			if self.HECU_DeployedByOsprey then
-				if !IsValid(self:GetOwner()) then -- Osprey was killed or removed...
-					-- self:TakeDamage(self:GetMaxHealth(),self,self) -- Killing is cool and all, but watching the Osprey drop onto them is more satisfying
-					self.HECU_Rappelling = false
-					self.HasGrenadeAttack = true
-					self.CanUseSecondaryOnWeaponAttack = true
-					self:SetVelocity(defPos)
-					self:SetState()
-					self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-					self:CustomOnSetupWeaponHoldTypeAnims()
-				end
-			end
 			return
 		end
 	end
@@ -416,8 +413,10 @@ function ENT:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gasTankExpPos = Vector(0, 0, 90)
+--
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
+	-- Handle gas tank for the hgrunt engineer
 	if self.HECU_GasTankHit == true then
 		util.BlastDamage(self, self, self:GetPos(), 100, 80)
 		util.ScreenShake(self:GetPos(), 100, 200, 1, 500)
@@ -462,9 +461,9 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 			util.Effect("bloodspray",bloodspray)
 		end
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh1.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh2.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh3.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh4.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh2.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,1,40))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh3.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(1,0,40))})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh4.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,2,40))})
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_b_bone.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,50))})
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_b_gib.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_guts.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,40))})

@@ -131,6 +131,10 @@ function ENT:CustomOnInitialize()
 	self:DeleteOnRemove(sideLight2)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply, controlEnt)
+	ply:ChatPrint("MOUSE1: Fire chain gun")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOn_PoseParameterLookingCode(pitch, yaw, roll)
 	-- Compare the difference between the current position of the pose parameter and the position it's suppose to go to
 	-- Using 20 for "aim_pitch" to make it a little more forgiving
@@ -175,7 +179,7 @@ local bulletSpread = Vector(0.03490, 0.03490, 0.03490)
 -- Firing Delay: Checked in Half-Life 1 (GoldSrc), there is NO delay as long as the gun is facing the enemy!
 function ENT:CustomAttack()
 	local ene = self:GetEnemy()
-	if self.Apache_HasLOS && self.NearestPointToEnemyDistance <= combatDistance && self:Visible(ene) then
+	if self.Apache_HasLOS && self.NearestPointToEnemyDistance <= combatDistance && self:Visible(ene) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK))) then
 		local att = self:GetAttachment(1)
 		self:FireBullets({
 			Num = 1,

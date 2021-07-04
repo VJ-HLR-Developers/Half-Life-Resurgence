@@ -56,6 +56,7 @@ ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_
 ENT.FootStepSoundLevel = 55
 
 -- Custom
+ENT.BOA_CanCloak = true
 ENT.BOA_CloakLevel = 1
 ENT.BOA_NextJumpT = 0
 ENT.BOA_NextRunT = 0
@@ -65,6 +66,10 @@ ENT.BOA_FlyAnimSet = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetRenderMode(RENDERMODE_TRANSALPHA)
+	
+	if GetConVar("vj_hlr1_assassin_cloaks"):GetInt() == 0 then
+		self.BOA_CanCloak = false
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
@@ -102,17 +107,19 @@ function ENT:CustomOnThink()
 	end
 	
 	-- Cloaking system
-	local cloakLvl = math.Clamp(self.BOA_CloakLevel * 255, 40, 255)
-	self:SetColor(Color(255, 255, 255, cloakLvl))
-	self.BOA_CloakLevel = math.Clamp(self.BOA_CloakLevel + 0.05, 0, 1)
-	if cloakLvl <= 220 then -- NPCs can't seem me!
-		self:AddFlags(FL_NOTARGET)
-		self:DrawShadow(false)
-	else -- NPCs can see me! =(
-		self:DrawShadow(true)
-		self:RemoveFlags(FL_NOTARGET)
+	if self.BOA_CanCloak then
+		local cloakLvl = math.Clamp(self.BOA_CloakLevel * 255, 40, 255)
+		self:SetColor(Color(255, 255, 255, cloakLvl))
+		self.BOA_CloakLevel = math.Clamp(self.BOA_CloakLevel + 0.05, 0, 1)
+		if cloakLvl <= 220 then -- NPCs can't seem me!
+			self:AddFlags(FL_NOTARGET)
+			self:DrawShadow(false)
+		else -- NPCs can see me! =(
+			self:DrawShadow(true)
+			self:RemoveFlags(FL_NOTARGET)
+		end
 	end
-	
+
 	-- Change the firing animation depending if it's on ground or flying
 	if self:IsOnGround() then
 		if self.BOA_FlyAnimSet then

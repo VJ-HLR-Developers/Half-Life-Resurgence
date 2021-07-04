@@ -68,14 +68,16 @@ function ENT:GetNearDeathSparkPositions()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local expPos = Vector(0, 0, 150)
+--
 function ENT:Tank_CustomOnPriorToKilled(dmginfo, hitgroup)
 	self.Bradley_DmgForce = dmginfo:GetDamageForce()
 	for i=0,1,0.5 do
-		timer.Simple(i,function()
+		timer.Simple(i, function()
 			if IsValid(self) then
-				VJ_EmitSound(self,{"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"},100)
-				VJ_EmitSound(self,"vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav",100)
-				util.BlastDamage(self,self,self:GetPos(),200,40)
+				VJ_EmitSound(self, self.SoundTbl_Death, 100)
+				VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 100)
+				util.BlastDamage(self, self, self:GetPos(), 200, 40)
 				util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
 				
 				local spr = ents.Create("env_sprite")
@@ -91,7 +93,7 @@ function ENT:Tank_CustomOnPriorToKilled(dmginfo, hitgroup)
 				spr:SetKeyValue("framerate","15.0")
 				spr:SetKeyValue("spawnflags","0")
 				spr:SetKeyValue("scale","4")
-				spr:SetPos(self:GetPos() + Vector(0,0,150))
+				spr:SetPos(self:GetPos() + expPos)
 				spr:Spawn()
 				spr:Fire("Kill","",0.9)
 				timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
@@ -99,10 +101,10 @@ function ENT:Tank_CustomOnPriorToKilled(dmginfo, hitgroup)
 		end)
 	end
 	
-	timer.Simple(1.5,function()
+	timer.Simple(1.5, function()
 		if IsValid(self) then
-			VJ_EmitSound(self,{"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"},100)
-			util.BlastDamage(self,self,self:GetPos(),200,40)
+			VJ_EmitSound(self, self.SoundTbl_Death, 100)
+			util.BlastDamage(self, self, self:GetPos(), 200, 40)
 			util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
 			
 			local spr = ents.Create("env_sprite")
@@ -118,7 +120,7 @@ function ENT:Tank_CustomOnPriorToKilled(dmginfo, hitgroup)
 			spr:SetKeyValue("framerate","15.0")
 			spr:SetKeyValue("spawnflags","0")
 			spr:SetKeyValue("scale","4")
-			spr:SetPos(self:GetPos() + Vector(0,0,150))
+			spr:SetPos(self:GetPos() + expPos)
 			spr:Spawn()
 			spr:Fire("Kill","",0.9)
 			timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
@@ -133,7 +135,7 @@ function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(5) -- Size
-		rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
+		rico:SetMagnitude(math.random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
 		util.Effect("VJ_HLR_Rico",rico)
 	end
 end
@@ -171,9 +173,9 @@ function ENT:Tank_CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Tank_CustomOnDeath_AfterDeathSoldierSpawned(dmginfo, hitgroup,soldierCorpse)
-	soldierCorpse:SetSkin(math.random(0,1))
-	soldierCorpse:SetBodygroup(2,2)
+function ENT:Tank_CustomOnDeath_AfterDeathSoldierSpawned(dmginfo, hitgroup, soldierCorpse)
+	soldierCorpse:SetSkin(math.random(0, 1))
+	soldierCorpse:SetBodygroup(2, 2)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_CustomOnDeath_AfterCorpseSpawned_Effects(dmginfo, hitgroup, corpseEnt)
@@ -190,14 +192,9 @@ function ENT:Tank_CustomOnDeath_AfterCorpseSpawned_Effects(dmginfo, hitgroup, co
 	spr:SetKeyValue("framerate","15.0")
 	spr:SetKeyValue("spawnflags","0")
 	spr:SetKeyValue("scale","4")
-	spr:SetPos(self:GetPos() + Vector(0,0,150))
+	spr:SetPos(self:GetPos() + expPos)
 	spr:Spawn()
 	spr:Fire("Kill","",0.9)
 	timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
 	return false
 end
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

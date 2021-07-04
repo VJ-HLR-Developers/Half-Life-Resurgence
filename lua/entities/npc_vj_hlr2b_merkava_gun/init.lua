@@ -29,6 +29,7 @@ function ENT:StartShootEffects()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomInitialize_CustomTank()
+	if GetConVar("vj_hlr2_merkava_gunner"):GetInt() == 0 then return end
 	local att = self:GetAttachment(3)
 	self.Spotter = ents.Create("npc_vj_hlr2_rebel")
 	self.Spotter:SetPos(att.Pos)
@@ -42,6 +43,7 @@ function ENT:CustomInitialize_CustomTank()
 	self.Spotter.NoWeapon_UseScaredBehavior = false
 	self.Spotter.Medic_CanBeHealed = false
 	self.Spotter.Human_Driver = true
+	self.Spotter.VJ_NPC_Class = self.VJ_NPC_Class
 	self.Spotter:Spawn()
 	self.Spotter:Fire("SetParentAttachment", "gunner")
 	self.Spotter:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)

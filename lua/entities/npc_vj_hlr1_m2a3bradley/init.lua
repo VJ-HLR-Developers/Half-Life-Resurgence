@@ -211,7 +211,7 @@ function ENT:Tank_CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Tank_CustomOnDeath_AfterDeathSoldierSpawned(dmginfo, hitgroup,soldierCorpse)
+function ENT:Tank_CustomOnDeath_AfterDeathSoldierSpawned(dmginfo, hitgroup, soldierCorpse)
 	soldierCorpse:SetSkin(math.random(0, 1))
 	soldierCorpse:SetBodygroup(2, 2)
 end
