@@ -1,14 +1,12 @@
-// "Sprite"
-// {
-	// "$spriteorientation" "vp_parallel"
-	// "$spriteorigin" "[ 0.50 0.50 ]"
-	// "$basetexture" "vj_hl/sprites/bigspit"
-// }
 "UnlitGeneric"
 {
+	"$basetexture" "vj_hl/sprites/animglow02"
 	"$nolod" 1
 	"$translucent" 1
-	"$basetexture" "vj_hl/sprites/bigspit"
+	"$additive" "1"
+	"$nocull" "1"
+	"$vertexcolor" "1"
+	"$overbrightfactor" "15"
 	"Proxies"
 	{
 		"AnimatedTexture"

@@ -47,7 +47,7 @@ end
 function ENT:CustomOnInitialize()
 	self:PhysicsInitSphere(4, "gmod_bouncy")
 	self:SetModel("models/vj_hlr/weapons/spore.mdl")
-	ParticleEffectAttach("vj_hl_spore_idle", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	ParticleEffectAttach("vj_hlr_spore_idle", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 	timer.Simple(3,function() if IsValid(self) then self:DeathEffects() end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ function ENT:CustomOnPhysicsCollide(data, phys)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects()
-	ParticleEffect("vj_hl_spore", self:GetPos(), Angle(0,0,0), nil)
+	ParticleEffect("vj_hlr_spore", self:GetPos(), Angle(0,0,0), nil)
 	self:EmitSound("vj_hlr/hl1_weapon/sporelauncher/splauncher_impact.wav", 100, 100)
 	//ParticleEffect("vj_hl_spore_splash1", self:GetPos(), Angle(0,0,0), nil)
 	//ParticleEffect("vj_hl_spore_splash2", self:GetPos(), Angle(0,0,0), nil)

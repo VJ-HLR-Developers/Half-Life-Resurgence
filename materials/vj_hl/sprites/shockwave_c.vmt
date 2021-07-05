@@ -1,0 +1,10 @@
+"UnlitGeneric"
+{
+	"$basetexture" "vj_hl/sprites/shockwave_c"
+	"$nolod" 1
+	"$translucent" 1
+	"$additive" "1"
+	"$nocull" "1"
+	"$vertexcolor" "1"
+	"$overbrightfactor" "15"
+}

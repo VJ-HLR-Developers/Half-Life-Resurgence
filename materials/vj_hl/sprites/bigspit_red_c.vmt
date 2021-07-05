@@ -9,4 +9,13 @@
 	"$nolod" 1
 	"$translucent" 1
 	"$basetexture" "vj_hl/sprites/bigspit_red"
+	"Proxies"
+	{
+		"AnimatedTexture"
+		{
+			"animatedtexturevar" "$basetexture"
+			"animatedtextureframenumvar" "$frame"
+			"animatedtextureframerate" 15
+		}
+	}
 }
