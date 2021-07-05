@@ -96,8 +96,8 @@ function ENT:MultipleMeleeAttacks()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
-	if dmginfo:IsBulletDamage() then -- Bullet sponge
-		dmginfo:ScaleDamage(0.15) -- This is from the source code. Please, do not remove features we took from the original source code!
+	if hitgroup != HITGROUP_HEAD && dmginfo:IsBulletDamage() then -- Only scale damage deal to the host, headcrab takes full damage
+		dmginfo:ScaleDamage(0.15)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
