@@ -188,8 +188,3 @@ function ENT:CustomOnKilled(dmginfo, hitgroup)
 	spr:Fire("Kill","",0.9)
 	timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
 end
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

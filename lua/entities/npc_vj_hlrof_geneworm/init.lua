@@ -444,8 +444,3 @@ function ENT:CustomOnRemove()
 		self.GW_Portal.IdleLP:Stop()
 	end
 end
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

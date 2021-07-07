@@ -76,8 +76,9 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	ParticleEffect("explosion_turret_break_pre_smoke Version #2", self:GetAttachment(self:LookupAttachment("head")).Pos, Angle(0,0,0), self)
 	ParticleEffect("explosion_turret_break_sparks", self:GetAttachment(self:LookupAttachment("head")).Pos, Angle(0,0,0), self)
 end
-local vec = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vec = Vector(0, 0, 0)
+--
 function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 	if dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
@@ -120,8 +121,3 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_spring.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,15)),CollideSound=""}) -- Shad ge sharji, ere vor tsayn chi hane
 	return true
 end
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

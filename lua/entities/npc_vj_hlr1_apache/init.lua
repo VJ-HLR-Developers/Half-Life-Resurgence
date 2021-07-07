@@ -41,7 +41,7 @@ ENT.Bleeds = false
 ENT.Immune_AcidPoisonRadiation = true -- Immune to Acid, Poison and Radiation
 ENT.Immune_Bullet = true -- Immune to bullet type damages
 ENT.Immune_Fire = true -- Immune to fire-type damages
-ENT.ImmuneDamagesTable = {DMG_BULLET, DMG_BUCKSHOT, DMG_PHYSGUN}
+ENT.ImmuneDamagesTable = {DMG_PHYSGUN}
 ENT.BringFriendsOnDeath = false -- Should the SNPC's friends come to its position before it dies?
 ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
 
@@ -223,6 +223,26 @@ function ENT:CustomAttack()
 		flash:Fire("TurnOn", "", 0)
 		flash:Fire("Kill", "", 0.07)
 		self:DeleteOnRemove(flash)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local vec = Vector(0, 0, 0)
+--
+function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
+	-- If hit in the engine area, then get damage by bullets!
+	if dmginfo:IsBulletDamage() && hitgroup == 2 then
+		dmginfo:ScaleDamage(0.05)
+		self.Immune_Bullet = false -- To counter the dmginfo:IsBulletDamage() function
+	else
+		self.Immune_Bullet = true
+	end
+	
+	if dmginfo:GetDamagePosition() != vec then
+		local rico = EffectData()
+		rico:SetOrigin(dmginfo:GetDamagePosition())
+		rico:SetScale(4) -- Size
+		rico:SetMagnitude(math.random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
+		util.Effect("VJ_HLR_Rico", rico)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

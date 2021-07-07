@@ -98,8 +98,3 @@ function ENT:CustomOnDoDamage(data, phys, hitEnt)
 		VJ_EmitSound(hitEnt, "vj_hlr/fx/beamstart" .. math.random(1,2) .. ".wav", 85, 100)
 	end
 end
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/
