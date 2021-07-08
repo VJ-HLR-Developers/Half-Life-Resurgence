@@ -54,9 +54,6 @@ ENT.NextSoundTime_Idle = VJ_Set(1, 1)
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 
-ENT.DeathSoundPitch1 = 100
-ENT.DeathSoundPitch2 = 100
-
 -- Custom
 ENT.Snark_Explodes = true
 ENT.Snark_Exploded = false

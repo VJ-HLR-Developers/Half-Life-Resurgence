@@ -48,6 +48,7 @@ ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Death = {"vj_hlr/hl1_weapon/mortar/mortarhit.wav"}
+
 local sdExplosions = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
 
 ENT.GeneralSoundPitch1 = 100

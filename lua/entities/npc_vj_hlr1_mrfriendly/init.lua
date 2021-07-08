@@ -50,24 +50,20 @@ ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/friendly/fr_attack.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/friendly/fr_groan1.wav","vj_hlr/hl1_npc/friendly/fr_groan2.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/friendly/fr_groan1.wav","vj_hlr/hl1_npc/friendly/fr_groan2.wav"}
 
-ENT.PainSoundPitch1 = 150
-ENT.PainSoundPitch2 = 150
-ENT.DeathSoundPitch1 = 150
-ENT.DeathSoundPitch2 = 150
+ENT.PainSoundPitch = VJ_Set(150, 150)
+ENT.DeathSoundPitch = VJ_Set(150, 150)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(35,35,60), Vector(-35,-35,0))
+	self:SetCollisionBounds(Vector(35, 35, 60), Vector(-35, -35, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "event_emit step" or key == "step" then
 		self:FootStepSoundCode()
-	end
-	if key == "event_mattack left" or key == "event_mattack right" or key == "attack" then
+	elseif key == "event_mattack left" or key == "event_mattack right" or key == "attack" then
 		self:MeleeAttackCode()
-	end
-	if key == "vomitdmg" then
+	elseif key == "vomitdmg" then
 		self:RangeAttackCode()
 	end
 end---------------------------------------------------------------------------------------------------------------------------------------------
@@ -88,6 +84,7 @@ function ENT:CustomRangeAttackCode()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
+	-- Run like crazy
 	if self:Health() < (self:GetMaxHealth() * 0.50) then
 		self.AnimTbl_Run = {ACT_RUN_STIMULATED}
 	end
