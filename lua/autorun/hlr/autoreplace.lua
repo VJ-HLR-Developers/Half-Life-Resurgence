@@ -83,6 +83,13 @@ local replaceTbl_Weapons = {
 	["weapon_stunstick"] = "weapon_vj_hlr2_stunstick"
 }
 
+local essentialTbl = { -- Will expand upon this later, I recommend we add support for custom HLR packs to add their own data to the auto-replace script (Example: Half-Life 2 HLR pack adding Kleiner or Breen to the auto-script)
+		-- Half-Life 2 --
+	npc_vj_hlr2_alyx=true,
+	npc_vj_hlr2_barney=true,
+	npc_vj_hlr2_father_grigori=true,
+}
+
 -- Before Create
 local replaceOptions = {
 	-- If its an antlion guardian, then make sure to spawn that variant!
@@ -189,8 +196,9 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 					rEnt = VJ_PICK(tempTable) or rEnt
 				end
 				-- Start the actual final entity --
-				local newEnt = ents.Create(VJ_PICK(rEnt))
-				if !IsValid(newEnt) then MsgN("Entity [" .. rEnt .. "] not valid (missing pack?), keeping original entity") return end
+				local newClass = VJ_PICK(rEnt)
+				local newEnt = ents.Create(newClass)
+				if !IsValid(newEnt) then MsgN("Entity [" .. newClass .. "] not valid (missing pack?), keeping original entity") return end
 				-- Certain entities need some checks before spawn (Ex: Citizen gender)
 				if replacePreSpawn[class] then
 					replacePreSpawn[class](ent, newEnt)
@@ -269,6 +277,10 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				-- Things to run after it's fully spawned (EX: Turret sight distance)
 				if afterSpawned[rEnt] then
 					afterSpawned[rEnt](ent, newEnt)
+				end
+				-- Handle Essentials
+				if GetConVar("vj_hlr_autoreplace_essential"):GetInt() == 1 && essentialTbl[newClass] then
+					newEnt.GodMode = true
 				end
 				-- print(ent:GetClass(), ent:GetInternalVariable("GameEndAlly"))
 				-- Set the starting animation AND velocity
