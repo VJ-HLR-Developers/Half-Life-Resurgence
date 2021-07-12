@@ -165,7 +165,13 @@ function ENT:CustomOnInitialize()
 	elseif myMDL == "models/vj_hlr/hl1/hassault.mdl" or myMDL == "models/vj_hlr/hl_hd/hassault.mdl" then
 		self.HECU_Type = 7
 		self.HECU_WepBG = 1
-		self.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEBACKWARD, ACT_DIEVIOLENT}
+		if math.random(1, 3) == 1 then
+			self.AnimTbl_Death = {ACT_DIESIMPLE}
+			self.DeathAnimationTime = 0.6
+		else
+			self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEVIOLENT}
+			self.DeathAnimationTime  = false
+		end
 		self.HECU_CanHurtWalk = false
 	end
 	

@@ -80,6 +80,8 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self:MeleeAttackCode()
 	elseif key == "shoot" then
 		self:RangeAttackCode()
+	elseif key == "body" then
+		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3,4)..".wav", 85, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
