@@ -201,8 +201,11 @@ if VJExists == true then
 	VJ.AddNPC_HUMAN("Overwatch Sniper","npc_vj_hlr2_com_sniper",{"weapon_vj_hlr2_csniper"},vCat)
 	VJ.AddNPC_HUMAN("Overwatch Engineer","npc_vj_hlr2_com_engineer",{"weapon_vj_hlr2_reager"},vCat)
 	VJ.AddNPC_HUMAN("Civil Protection","npc_vj_hlr2_com_civilp",{"weapon_vj_9mmpistol","weapon_vj_9mmpistol","weapon_vj_smg1"},vCat)
-	VJ.AddNPC_HUMAN("Civil Protection Elite","npc_vj_hlr2_com_civilp_elite",{"weapon_vj_smg1"},vCat)
 	VJ.AddNPC("Combine Sentry Gun","npc_vj_hlr2_com_sentry",vCat)
+
+		-- Beta --
+		VJ.AddNPC_HUMAN("Overwatch Soldier (Beta)","npc_vj_hlr2b_com_soldier",{"weapon_vj_hlr2b_oicw"},vCat)
+		VJ.AddNPC_HUMAN("Civil Protection Elite","npc_vj_hlr2_com_civilp_elite",{"weapon_vj_smg1"},vCat) -- Class name should be changed
 	
 	-- NPC Weapons
 	VJ.AddNPCWeapon("VJ_Combine_Sniper","weapon_vj_hlr2_csniper")

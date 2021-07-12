@@ -1,0 +1,12 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" 	"models/hl_resurgence/hl2b/combine_soldier/combinesoldiersheet"
+	"$envmap" "env_cubemap"	
+	//"$bumpmap" "dev/flat_normal"
+	"$basealphaenvmapmask" 1
+	"$envmapsaturation" .1
+	//"$envmaptint" "[0.6 0.6 0.6]"
+	"$envmapcontrast" 1
+	"$surfaceprop" "flesh"
+
+}
