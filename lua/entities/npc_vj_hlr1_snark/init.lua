@@ -57,8 +57,6 @@ ENT.GeneralSoundPitch2 = 100
 -- Custom
 ENT.Snark_Explodes = true
 ENT.Snark_Exploded = false
-ENT.Snark_NextJumpWalkTime1 = 0.35
-ENT.Snark_NextJumpWalkTime2 = 0.8
 ENT.Snark_NextJumpWalkT = 0
 ENT.Snark_Type = 0
 	-- 0 = Snark
@@ -71,7 +69,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:Snark_CustomOnInitialize()
-	self.Snark_EnergyTime = CurTime() + 20
+	self.Snark_EnergyTime = CurTime() + math.Rand(18, 22)
 	self.NextIdleSoundT_RegularChange = 0
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -86,7 +84,7 @@ function ENT:CustomOnThink_AIEnabled()
 		self:VJ_ACT_PLAYACTIVITY(ACT_RUN, false, 0.7, true)
 		self:SetGroundEntity(NULL)
 		self:SetLocalVelocity((self:GetEnemy():GetPos() - self:GetPos()):GetNormal()*400 + self:GetUp()*300)
-		self.Snark_NextJumpWalkT = CurTime() + math.Rand(self.Snark_NextJumpWalkTime1,self.Snark_NextJumpWalkTime2)
+		self.Snark_NextJumpWalkT = CurTime() + math.Rand(0.35, 1.8)
 	end
 	if (self.Snark_EnergyTime - CurTime()) < 6 then
 		self.UseTheSameGeneralSoundPitch_PickedNumber = self.UseTheSameGeneralSoundPitch_PickedNumber + 1

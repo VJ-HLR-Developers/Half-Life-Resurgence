@@ -63,6 +63,7 @@ function ENT:CustomOnThink()
 			self:AA_MoveTo(HLR_Boid_Leader, true, "Calm", {AddPos=self.Boid_FollowOffsetPos, IgnoreGround=true}) -- Medzavorin haladz e (Kharen deghme)
 		end
 	else
+		self.IsGuard = false
 		self.DisableWandering = false
 		HLR_Boid_Leader = self
 	end

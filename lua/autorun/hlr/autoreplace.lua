@@ -252,11 +252,11 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 						//newEnt.SightDistance = val
 					end
 				end
-				newEnt.SightDistance = 2048 -- Default Source engine sight distance...
+				//newEnt.SightDistance = 2048 -- Default Source engine sight distance...
 				-- Handle spawn flags
 				newEnt:SetKeyValue("spawnflags", ent:GetSpawnFlags())
 				if ent:HasSpawnFlags(SF_NPC_LONG_RANGE) then
-					newEnt.SightDistance = 6000
+					//newEnt.SightDistance = 6000
 				end
 				if ent:HasSpawnFlags(SF_CITIZEN_NOT_COMMANDABLE) then
 					newEnt.FollowPlayer = false
