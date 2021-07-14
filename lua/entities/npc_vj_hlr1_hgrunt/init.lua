@@ -53,7 +53,6 @@ ENT.AnimTbl_AlertFriendsOnDeath = {"vjseq_idle2"} -- Animations it plays when an
 ENT.DropWeaponOnDeathAttachment = "rhand" -- Which attachment should it use for the weapon's position
 ENT.HasLostWeaponSightAnimation = true -- Set to true if you would like the SNPC to play a different animation when it has lost sight of the enemy and can't fire at it
 ENT.AnimTbl_WeaponAttackSecondary = {ACT_SPECIAL_ATTACK1} -- Animations played when the SNPC fires a secondary weapon attack
-ENT.WeaponAttackSecondaryTimeUntilFire = 0.9 -- The weapon uses this integer to set the time until the firing code is ran
 ENT.AnimTbl_WeaponReload = {ACT_RELOAD_SMG1} -- Animations that play when the SNPC reloads
 ENT.CombatFaceEnemy = false -- If enemy is exists and is visible
 	-- ====== Flinching Code ====== --
