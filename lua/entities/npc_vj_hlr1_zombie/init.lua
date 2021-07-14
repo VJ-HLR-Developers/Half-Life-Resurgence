@@ -29,7 +29,7 @@ ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attac
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.AnimTbl_Run = {ACT_WALK} -- Set the running animations | Put multiple to let the base pick a random animation when it moves
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-//ENT.DeathAnimationTime = 0.8 -- Time until the SNPC spawns its corpse and gets removed
+--ENT.DeathAnimationTime = 0.8 -- Time until the SNPC spawns its corpse and gets removed
 	-- ====== Flinching Variables ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = {"vjseq_flinch"} -- If it uses normal based animation, use this
@@ -72,7 +72,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self:MeleeAttackCode()
 	end
 	if key == "ragdoll" then
-		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -285,12 +285,12 @@ function ENT:CustomOnKilled(dmginfo, hitgroup)
 	spr:SetKeyValue("maxdxlevel","0")
 	spr:SetKeyValue("framerate","15.0")
 	spr:SetKeyValue("spawnflags","0")
-	spr:SetKeyValue("scale","3")
+	spr:SetKeyValue("scale","1.5")
 	if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		spr:SetPos(self:GetPos() + self:GetUp()*(self.Sentry_SubType == 1 and -30 or 20))
 	else
-		spr:SetPos(self:GetPos() + self:GetUp()*80)
+		spr:SetPos(self:GetPos() + self:GetUp()*60)
 	end
 	spr:Spawn()
 	spr:Fire("Kill","",0.9)

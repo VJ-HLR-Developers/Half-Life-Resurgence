@@ -77,7 +77,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	elseif key == "event_rattack" then
 		self:RangeAttackCode()
 	elseif key == "body" then
-		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3,4)..".wav", 85, 100)
+		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

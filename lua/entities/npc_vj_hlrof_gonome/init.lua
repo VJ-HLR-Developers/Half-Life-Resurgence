@@ -37,7 +37,7 @@ ENT.RangeUseAttachmentForPosID = "0" -- The attachment used on the range attack 
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.DeathAnimationTime = 1 -- Time until the SNPC spawns its corpse and gets removed
+--ENT.DeathAnimationTime = 2.2 -- Time until the SNPC spawns its corpse and gets removed
 	-- ====== Flinching Variables ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} -- If it uses normal based animation, use this
@@ -68,6 +68,8 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	elseif key == "event_rattack acidtake" then
 		local att = self:GetAttachment(2)
 		ParticleEffect("vj_hl_spit_red_spawn",att.Pos,att.Ang,self)
+	elseif key == "body" then
+		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
