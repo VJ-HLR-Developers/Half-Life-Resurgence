@@ -391,7 +391,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 		-- Create gibs
 		local isBlackOps = self:GetModel() == "models/vj_hlr/hl1/osprey_dead.mdl"
 		local gibTbl = isBlackOps and heliExpGibs_Gray or heliExpGibs_Green
-		for _ = 1, 70 do
+		for _ = 1, 30 do
 			local gib = ents.Create("obj_vj_gib")
 			gib:SetModel(VJ_PICK(gibTbl))
 			gib:SetPos(self:GetPos() + Vector(math.random(-100, 100), math.random(-100, 100), math.random(20, 150)))

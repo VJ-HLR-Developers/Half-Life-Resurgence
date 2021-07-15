@@ -233,6 +233,7 @@ if VJExists == true then
 	game.AddDecal("VJ_HLR_Blood_Red",{"vj_hl/decals/hl_blood01","vj_hl/decals/hl_blood02","vj_hl/decals/hl_blood03","vj_hl/decals/hl_blood04","vj_hl/decals/hl_blood05","vj_hl/decals/hl_blood06","vj_hl/decals/hl_blood07","vj_hl/decals/hl_blood08"})
 	game.AddDecal("VJ_HLR_Blood_Red_Large",{"vj_hl/decals/hl_bigblood01","vj_hl/decals/hl_bigblood02"})
 	game.AddDecal("VJ_HLR_Blood_Yellow",{"vj_hl/decals/hl_yblood01","vj_hl/decals/hl_yblood02","vj_hl/decals/hl_yblood03","vj_hl/decals/hl_yblood04","vj_hl/decals/hl_yblood05","vj_hl/decals/hl_yblood06"})
+	game.AddDecal("VJ_HLR_Blood_Yellow_Large",{"vj_hl/decals/hl_bigyblood01","vj_hl/decals/hl_bigyblood02"})
 	-- Spits
 	-- game.AddDecal("VJ_HLR_Spit_Acid",{"vj_hl/decals/spit1","vj_hl/decals/spit2"})
 	game.AddDecal("VJ_HLR_Spit_Red",{"vj_hl/decals/spit1_red","vj_hl/decals/spit2_red"})
@@ -356,7 +357,7 @@ if VJExists == true then
 	util.PrecacheModel("models/vj_hlr/gibs/zombiegib.mdl")
 	util.PrecacheModel("models/vj_hlr/gibs/islavegib.mdl")
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------- Functions ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------ Functions & Hooks ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	function VJ_HLR_Effect_PortalSpawn(pos, size, color)
 		size = size or 1.5
@@ -381,7 +382,166 @@ if VJExists == true then
 		sound.Play("vj_hlr/fx/beamstart"..math.random(1,2)..".wav", pos, 85)
 		return ent
 	end
-
+	
+	local defGibs_Yellow = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib6.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
+	local defGibs_Red = {"models/vj_hlr/gibs/flesh1.mdl", "models/vj_hlr/gibs/flesh2.mdl", "models/vj_hlr/gibs/flesh3.mdl", "models/vj_hlr/gibs/flesh4.mdl", "models/vj_hlr/gibs/hgib_b_bone.mdl", "models/vj_hlr/gibs/hgib_b_gib.mdl", "models/vj_hlr/gibs/hgib_guts.mdl", "models/vj_hlr/gibs/hgib_hmeat.mdl", "models/vj_hlr/gibs/hgib_lung.mdl", "models/vj_hlr/gibs/hgib_skull.mdl", "models/vj_hlr/gibs/hgib_legbone.mdl"}
+	function VJ_HLR_ApplyCorpseEffects(ent, corpse, gibTbl, extraOptions)
+		extraOptions = extraOptions or {} -- CollideSound, ExpSound, Gibbable, CanBleed, ExtraGibs
+		local entHP = ent:GetMaxHealth() + 200
+		corpse:SetMaxHealth(entHP)
+		corpse:SetHealth(entHP)
+		corpse.HLR_Corpse = true
+		corpse.HLR_Corpse_Type = ent.BloodColor
+		if ent.HasBloodParticle then corpse.HLR_Corpse_Particle = ent.CustomBlood_Particle end
+		corpse.HLR_Corpse_Decal = ent.HasBloodDecal and VJ_PICK(ent.CustomBlood_Decal) or ""
+		corpse.HLR_Corpse_Gibbable = extraOptions.Gibbable != false
+		if !gibTbl then
+			if corpse.HLR_Corpse_Type == "Yellow" then
+				gibTbl = defGibs_Yellow
+			elseif corpse.HLR_Corpse_Type == "Red" then
+				gibTbl = defGibs_Red
+			end
+		end
+		if extraOptions.ExtraGibs then
+			gibTbl = table.Copy(gibTbl) -- So Lua doesn't override the localized tables above
+			gibTbl = table.Add(gibTbl, extraOptions.ExtraGibs)
+		end
+		corpse.HLR_Corpse_Gibs = gibTbl
+		corpse.HLR_Corpse_CollideSound = extraOptions.CollideSound or "Default"
+		corpse.HLR_Corpse_ExpSound = extraOptions.ExpSound or "vj_gib/default_gib_splat.wav"
+	end
+	
+	local defPos = Vector(0, 0, 0)
+	local colorYellow = VJ_Color2Byte(Color(255, 221, 35))
+	local colorRed = VJ_Color2Byte(Color(130, 19, 10))
+	hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo)
+		if target.HLR_Corpse && !target.Dead then
+			local dmgForce = dmginfo:GetDamageForce()
+			
+			-- Blood hit effects & decals
+			if GetConVar("vj_hlr1_corpse_effects"):GetInt() == 1 then
+				local pos = dmginfo:GetDamagePosition()
+				if pos == defPos then pos = target:GetPos() + target:OBBCenter() end
+				
+				-- Blood particle
+				local part = VJ_PICK(target.HLR_Corpse_Particle)
+				if part then
+					local particle = ents.Create("info_particle_system")
+					particle:SetKeyValue("effect_name", part)
+					particle:SetPos(pos)
+					particle:Spawn()
+					particle:Activate()
+					particle:Fire("Start")
+					particle:Fire("Kill", "", 0.1)
+				end
+				
+				-- Blood decal
+				local decal = VJ_PICK(target.HLR_Corpse_Decal)
+				if decal then
+					local tr = util.TraceLine({start = pos, endpos = pos + dmgForce:GetNormal() * math.Clamp(dmgForce:Length() * 10, 100, 150), filter = target})
+					util.Decal(decal, tr.HitPos + tr.HitNormal + Vector(math.random(-30, 30), math.random(-30, 30), 0), tr.HitPos - tr.HitNormal, target)
+				end
+			end
+			
+			if GetConVar("vj_hlr1_corpse_gibbable"):GetInt() == 1 && !dmginfo:IsBulletDamage() && target.HLR_Corpse_Gibbable then
+				local noDamage = false
+				-- DMG_CRUSH is usually when the ragdoll is slammed to a wall, we want it to only gib if it's hit hard enough!
+				if dmginfo:GetDamageType() == DMG_CRUSH && dmginfo:GetDamage() < 100 then
+					noDamage = true
+				end
+				-- If it's a child corpse piece, then we want to make sure it doesn't cause damage
+				for _, v in pairs(target.ExtraCorpsesToRemove) do
+					if IsValid(v) && v == dmginfo:GetAttacker() then
+						noDamage = true
+						break
+					end
+				end
+				if !noDamage then target:SetHealth(target:Health() - dmginfo:GetDamage()) end
+				if target:Health() <= 0 then
+					local centerPos = target:GetPos() + target:OBBCenter()
+					target.Dead = true
+					VJ_EmitSound(target, VJ_PICK(target.HLR_Corpse_ExpSound), 90, 100)
+					
+					-- Spawn gibs
+					local gibMaxs = target:OBBMaxs()
+					local gibMins = target:OBBMins()
+					for _, v in pairs(target.HLR_Corpse_Gibs) do
+						local gib = ents.Create("obj_vj_gib")
+						gib:SetModel(v)
+						gib:SetPos(centerPos + Vector(math.random(gibMins.x, gibMaxs.x), math.random(gibMins.y, gibMaxs.y), 10))
+						gib:SetAngles(Angle(math.Rand(-180, 180), math.Rand(-180, 180), math.Rand(-180, 180)))
+						gib.BloodType = target.HLR_Corpse_Type
+						gib.Collide_Decal = target.HLR_Corpse_Decal
+						gib.CollideSound = target.HLR_Corpse_CollideSound or "Default"
+						gib:Spawn()
+						gib:Activate()
+						local phys = gib:GetPhysicsObject()
+						if IsValid(phys) then
+							phys:AddVelocity(Vector(math.Rand(-100, 100), math.Rand(-100, 100), math.Rand(150, 250)) + (dmgForce / 70))
+							phys:AddAngleVelocity(Vector(math.Rand(-200, 200), math.Rand(-200, 200), math.Rand(-200, 200)))
+						end
+						if GetConVar("vj_npc_fadegibs"):GetInt() == 1 then
+							timer.Simple(GetConVar("vj_npc_fadegibstime"):GetInt(), function()
+								SafeRemoveEntity(gib)
+							end)
+						end
+					end
+					
+					local bloodIsYellow = target.HLR_Corpse_Type == "Yellow"
+					local bloodIsRed = target.HLR_Corpse_Type == "Red"
+					
+					-- Death effects & decals
+					if bloodIsYellow or bloodIsRed then
+						local maxDist = gibMaxs:Length()
+						local splatDecal = bloodIsYellow and "VJ_HLR_Blood_Yellow_Large" or "VJ_HLR_Blood_Red_Large"
+						local tr = util.TraceLine({start = centerPos, endpos = centerPos - Vector(0, 0, maxDist), filter = target})
+						util.Decal(splatDecal, tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, target)
+						tr = util.TraceLine({start = centerPos, endpos = centerPos + Vector(0, 0, maxDist), filter = target})
+						util.Decal(splatDecal, tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, target)
+						tr = util.TraceLine({start = centerPos, endpos = centerPos - Vector(maxDist, 0, 0), filter = target})
+						util.Decal(splatDecal, tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, target)
+						tr = util.TraceLine({start = centerPos, endpos = centerPos + Vector(maxDist, 0, 0), filter = target})
+						util.Decal(splatDecal, tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, target)
+						tr = util.TraceLine({start = centerPos, endpos = centerPos - Vector(0, maxDist, 0), filter = target})
+						util.Decal(splatDecal, tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, target)
+						tr = util.TraceLine({start = centerPos, endpos = centerPos + Vector(0, maxDist, 0), filter = target})
+						util.Decal(splatDecal, tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, target)
+						/*local dmgPos = dmginfo:GetDamagePosition()
+						if pos == defPos then pos = target:GetPos() + target:OBBCenter() end
+						VJ_CreateTestObject(dmgPos, Angle(0,0,0), Color(0, 225, 255))
+						VJ_CreateTestObject(dmgPos + dmgPos:GetNormal() * 10)
+						local tr = util.TraceLine({start = dmgPos, endpos = dmgPos + dmgPos:GetNormal() * 10, filter = target})
+						VJ_CreateTestObject(tr.HitPos, Angle(0,0,0), Color(94, 255, 0))
+						util.Decal("VJ_HLR_Blood_Red_Large", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, target)*/
+						
+						local effectBlood = EffectData()
+						effectBlood:SetOrigin(centerPos)
+						effectBlood:SetColor(bloodIsYellow and colorYellow or colorRed)
+						effectBlood:SetScale(120)
+						util.Effect("VJ_Blood1",effectBlood)
+						
+						local bloodspray = EffectData()
+						bloodspray:SetOrigin(centerPos)
+						bloodspray:SetScale(8)
+						bloodspray:SetFlags(3)
+						bloodspray:SetColor(bloodIsYellow and 1 or 0)
+						util.Effect("bloodspray",bloodspray)
+						util.Effect("bloodspray",bloodspray)
+						
+						if bloodIsYellow then
+							local effectdata = EffectData()
+							effectdata:SetOrigin(centerPos)
+							effectdata:SetScale(1)
+							util.Effect("StriderBlood",effectdata)
+							util.Effect("StriderBlood",effectdata)
+						end
+					end
+					target:Remove()
+				end
+			end
+		end
+	end)
+	
 	-- Weapon hook that gives the player HL1 weapons on spawn
 	-- hook.Add("PlayerSpawn", "VJ_HL1SWEPs_AutoSpawn", function(ply)
 		-- if GetConVar("hl1_sv_loadout"):GetInt() == 1 then
@@ -402,17 +562,22 @@ if VJExists == true then
 		-- end
 	-- end)
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------- self.HLR_Type ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------ Entity Tags ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-/* Used to classify certain types of SNPCs
-	"Headcrab"
-	"Turret"
-	"Police"
-*/
+--[[
+	ent.HLR_Type = Classifies popular type of NPCs
+		"Headcrab"
+		"Turret"
+		"Police"
+	ent.HLR_Corpse = If true then this is an HLR corpse
+		ent.HLR_Corpse_Type, ent.HLR_Corpse_Particle, ent.HLR_Corpse_Decal
+]]--
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Convars & Menu ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- GoldSrc
+VJ.AddConVar("vj_hlr1_corpse_effects", 1, {FCVAR_ARCHIVE})
+VJ.AddConVar("vj_hlr1_corpse_gibbable", 1, {FCVAR_ARCHIVE})
 VJ.AddConVar("vj_hlr1_gonarch_babylimit", 20, {FCVAR_ARCHIVE})
 VJ.AddConVar("vj_hlr1_bradley_deploygrunts", 1, {FCVAR_ARCHIVE})
 VJ.AddConVar("vj_hlr1_osprey_deploysoldiers", 1, {FCVAR_ARCHIVE})
@@ -438,8 +603,10 @@ if CLIENT then
 				return
 			end
 			Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
-			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_osprey_deploysoldiers 1\nvj_hlr2_merkava_gunner 1\nvj_hlr1_assassin_cloaks 1"})
+			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_osprey_deploysoldiers 1\nvj_hlr2_merkava_gunner 1\nvj_hlr1_assassin_cloaks 1\nvj_hlr1_corpse_effects 1\n vj_hlr1_corpse_gibbable 1"})
 			Panel:AddControl( "Label", {Text = "GoldSrc Engine:"})
+			Panel:AddControl("Checkbox", {Label = "Corpses Create Effects & Decals", Command = "vj_hlr1_corpse_effects"})
+			Panel:AddControl("Checkbox", {Label = "Corpses Can Be Dismembered", Command = "vj_hlr1_corpse_gibbable"})
 			Panel:AddControl("Checkbox", {Label = "M2A3 Bradley Deploys Human Grunts", Command = "vj_hlr1_bradley_deploygrunts"})
 			Panel:AddControl("Checkbox", {Label = "V-22 Osprey Deploys Human Grunts / Assassins", Command = "vj_hlr1_osprey_deploysoldiers"})
 			Panel:AddControl("Checkbox", {Label = "Female Assassin Cloaks During Combat", Command = "vj_hlr1_assassin_cloaks"})

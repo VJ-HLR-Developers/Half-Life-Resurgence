@@ -213,21 +213,14 @@ function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
-	local at = self:GetAttachment(self:LookupAttachment("0")) //self:GetBonePosition(self:LookupBone("Dummy01"))
-	self:CreateExtraDeathCorpse("prop_physics", "models/vj_hlr/sven/tor_staff.mdl", {Pos=at.Pos, Ang=at.Ang}, function(x)
-		x:SetSkin(self:GetSkin())
-	end)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibDeathParticles == true then
-		local bloodeffect = EffectData()
-		bloodeffect:SetOrigin(self:GetPos() + self:OBBCenter())
-		bloodeffect:SetColor(VJ_Color2Byte(Color(255,221,35)))
-		bloodeffect:SetScale(120)
-		util.Effect("VJ_Blood1",bloodeffect)
+		local effectBlood = EffectData()
+		effectBlood:SetOrigin(self:GetPos() + self:OBBCenter())
+		effectBlood:SetColor(VJ_Color2Byte(Color(255,221,35)))
+		effectBlood:SetScale(120)
+		util.Effect("VJ_Blood1",effectBlood)
 		
 		local bloodspray = EffectData()
 		bloodspray:SetOrigin(self:GetPos() + self:OBBCenter())
@@ -277,6 +270,16 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	if hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = {ACT_DIEBACKWARD}
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local gibs = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib6.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl", "models/vj_hlr/gibs/islavegib.mdl"}
+--
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+	local at = self:GetAttachment(self:LookupAttachment("0")) //self:GetBonePosition(self:LookupBone("Dummy01"))
+	self:CreateExtraDeathCorpse("prop_physics", "models/vj_hlr/sven/tor_staff.mdl", {Pos=at.Pos, Ang=at.Ang}, function(x)
+		x:SetSkin(self:GetSkin())
+	end)
+	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, nil, {ExtraGibs = gibs})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()

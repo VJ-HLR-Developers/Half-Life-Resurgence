@@ -72,11 +72,11 @@ end
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibDeathParticles == true then
-		local bloodeffect = EffectData()
-		bloodeffect:SetOrigin(self:GetPos() + self:OBBCenter())
-		bloodeffect:SetColor(VJ_Color2Byte(Color(255,221,35)))
-		bloodeffect:SetScale(120)
-		util.Effect("VJ_Blood1",bloodeffect)
+		local effectBlood = EffectData()
+		effectBlood:SetOrigin(self:GetPos() + self:OBBCenter())
+		effectBlood:SetColor(VJ_Color2Byte(Color(255,221,35)))
+		effectBlood:SetScale(120)
+		util.Effect("VJ_Blood1",effectBlood)
 		
 		local bloodspray = EffectData()
 		bloodspray:SetOrigin(self:GetPos() + self:OBBCenter())
@@ -102,4 +102,10 @@ end
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local gibs = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl"}
+--
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, gibs)
 end

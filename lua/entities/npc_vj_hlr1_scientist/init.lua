@@ -319,11 +319,11 @@ end
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibDeathParticles == true then
-		local bloodeffect = EffectData()
-		bloodeffect:SetOrigin(self:GetPos() + self:OBBCenter())
-		bloodeffect:SetColor(VJ_Color2Byte(Color(130,19,10)))
-		bloodeffect:SetScale(120)
-		util.Effect("VJ_Blood1",bloodeffect)
+		local effectBlood = EffectData()
+		effectBlood:SetOrigin(self:GetPos() + self:OBBCenter())
+		effectBlood:SetColor(VJ_Color2Byte(Color(130,19,10)))
+		effectBlood:SetScale(120)
+		util.Effect("VJ_Blood1",effectBlood)
 		
 		local bloodspray = EffectData()
 		bloodspray:SetOrigin(self:GetPos())
@@ -398,4 +398,8 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	elseif hitgroup == HITGROUP_STOMACH && self.SCI_Type != 2 then
 		self.AnimTbl_Death = {ACT_DIE_GUTSHOT}
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+	VJ_HLR_ApplyCorpseEffects(self, corpseEnt)
 end

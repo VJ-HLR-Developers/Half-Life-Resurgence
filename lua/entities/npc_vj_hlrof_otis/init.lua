@@ -48,10 +48,3 @@ function ENT:Security_CustomOnInitialize()
 	self:Give("weapon_vj_hlrof_desert_eagle")
 	self:SetBodygroup(2, math.random(0, 2))
 end
-
-// vj_hlr/hl1_npc/otis/aliens.wav
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2021 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

@@ -114,29 +114,15 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
-	self:SetBodygroup(1, 1)
-	self:SetSkin(2)
-	if self.Shocktrooper_SpawnedEnt == true then
-		local roachEnt = ents.Create("npc_vj_hlrof_shockroach")
-		roachEnt:SetPos(self:GetAttachment(self:LookupAttachment("shock_roach")).Pos)//+ self:GetUp()*50)
-		roachEnt:SetAngles(self:GetAngles())
-		roachEnt.SRoach_Life = 15
-		roachEnt:Spawn()
-		roachEnt:Activate()
-		roachEnt.VJ_NPC_Class = self.VJ_NPC_Class
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	self.Shocktrooper_SpawnedEnt = false
 	if self.HasGibDeathParticles == true then
-		local bloodeffect = EffectData()
-		bloodeffect:SetOrigin(self:GetPos() + self:OBBCenter())
-		bloodeffect:SetColor(VJ_Color2Byte(Color(255,221,35)))
-		bloodeffect:SetScale(120)
-		util.Effect("VJ_Blood1",bloodeffect)
+		local effectBlood = EffectData()
+		effectBlood:SetOrigin(self:GetPos() + self:OBBCenter())
+		effectBlood:SetColor(VJ_Color2Byte(Color(255,221,35)))
+		effectBlood:SetScale(120)
+		util.Effect("VJ_Blood1",effectBlood)
 		
 		local bloodspray = EffectData()
 		bloodspray:SetOrigin(self:GetPos() + self:OBBCenter())
@@ -177,6 +163,26 @@ end
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
+	self:SetBodygroup(1, 1)
+	self:SetSkin(2)
+	if self.Shocktrooper_SpawnedEnt == true then
+		local roachEnt = ents.Create("npc_vj_hlrof_shockroach")
+		roachEnt:SetPos(self:GetAttachment(self:LookupAttachment("shock_roach")).Pos)//+ self:GetUp()*50)
+		roachEnt:SetAngles(self:GetAngles())
+		roachEnt.SRoach_Life = 15
+		roachEnt:Spawn()
+		roachEnt:Activate()
+		roachEnt.VJ_NPC_Class = self.VJ_NPC_Class
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local gibs = {"models/vj_hlr/gibs/strooper_gib1.mdl", "models/vj_hlr/gibs/strooper_gib2.mdl", "models/vj_hlr/gibs/strooper_gib3.mdl", "models/vj_hlr/gibs/strooper_gib4.mdl", "models/vj_hlr/gibs/strooper_gib5.mdl", "models/vj_hlr/gibs/strooper_gib6.mdl", "models/vj_hlr/gibs/strooper_gib7.mdl", "models/vj_hlr/gibs/strooper_gib8.mdl", "models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib6.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
+--
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, nil, {ExtraGibs = gibs})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.GrenadeAttackVelUp1 = 200 -- Grenade attack velocity up | The first # in math.random

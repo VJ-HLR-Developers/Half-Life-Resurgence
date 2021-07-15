@@ -71,9 +71,11 @@ ENT.SoundTbl_Death = {"vj_hlr/hla_npc/prdroid/die.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local spawnPos = Vector(0, 0, 80)
+--
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(35, 35, 15), Vector(-35, -35, -50))
-	self:SetPos(self:GetPos() + Vector(0, 0, 80))
+	self:SetPos(self:GetPos() + spawnPos)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_IntMsg(ply, controlEnt)

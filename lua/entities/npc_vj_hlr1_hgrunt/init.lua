@@ -455,11 +455,11 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		return true, {DeathAnim=false, AllowCorpse=true}
 	else
 		if self.HasGibDeathParticles == true then
-			local bloodeffect = EffectData()
-			bloodeffect:SetOrigin(self:GetPos() + self:OBBCenter())
-			bloodeffect:SetColor(VJ_Color2Byte(Color(130,19,10)))
-			bloodeffect:SetScale(120)
-			util.Effect("VJ_Blood1",bloodeffect)
+			local effectBlood = EffectData()
+			effectBlood:SetOrigin(self:GetPos() + self:OBBCenter())
+			effectBlood:SetColor(VJ_Color2Byte(Color(130,19,10)))
+			effectBlood:SetScale(120)
+			util.Effect("VJ_Blood1",effectBlood)
 			
 			local bloodspray = EffectData()
 			bloodspray:SetOrigin(self:GetPos())
@@ -480,7 +480,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_lung.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,45))})
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_skull.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,60))})
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_legbone.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,15))})
-		if self.HECU_Type != 4 && self.HECU_Type != 8 && self.HECU_Type != 9 then
+		if self.HECU_Type != 4 then -- Not Black Ops
 			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/gib_hgrunt.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,15))})
 		end
 		return true
@@ -530,6 +530,10 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
 	elseif self.HECU_Type == 1 or self.HECU_Type == 2 then
 		self:SetBodygroup(self.HECU_WepBG, 3)
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, nil, {ExtraGibs = self.HECU_Type != 4 and {"models/vj_hlr/gibs/gib_hgrunt.mdl"} or nil})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDropWeapon_AfterWeaponSpawned(dmginfo, hitgroup, wepEnt)
