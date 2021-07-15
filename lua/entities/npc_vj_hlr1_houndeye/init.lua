@@ -62,9 +62,10 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "he_hunt" then
 		self:FootStepSoundCode()
-	end
-	if key == "placeholder_eye_event_dont_use" then
+	elseif key == "placeholder_eye_event_dont_use" then
 		VJ_EmitSound(self,{"vj_hlr/hl1_npc/houndeye/he_pain1.wav","vj_hlr/hl1_npc/houndeye/he_pain3.wav"})
+	elseif key == "body" then
+		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -47,7 +47,7 @@ ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time
 ENT.AnimTbl_CallForHelp = {ACT_SIGNAL1} -- Call For Help Animations
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIE_GUTSHOT,ACT_DIE_HEADSHOT,ACT_DIESIMPLE} -- Death Animations
-ENT.DeathAnimationTime = 0.8 -- Time until the SNPC spawns its corpse and gets removed
+--ENT.DeathAnimationTime = 0.8 -- Time until the SNPC spawns its corpse and gets removed
 ENT.AnimTbl_TakingCover = {ACT_CROUCHIDLE} -- The animation it plays when hiding in a covered position, leave empty to let the base decide
 ENT.AnimTbl_AlertFriendsOnDeath = {"vjseq_idle2"} -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
 ENT.DropWeaponOnDeathAttachment = "rhand" -- Which attachment should it use for the weapon's position
@@ -207,7 +207,9 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		if IsValid(wep) then
 			wep:NPCShoot_Primary()
 		end
-	
+	elseif key == "body" then
+		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+
 	-- OppF Engineer --
 	elseif key == "deagle_putout" then
 		self:SetBodygroup(1, 2)

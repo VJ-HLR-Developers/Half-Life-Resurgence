@@ -76,18 +76,17 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
-	end
-	if key == "melee" then
+	elseif key == "melee" then
 		self:MeleeAttackCode()
-	end
-	if key == "shooty"  or key == "shoot" then
+	elseif key == "shooty"  or key == "shoot" then
 		local wep = self:GetActiveWeapon()
 		if IsValid(wep) then
 			wep:NPCShoot_Primary()
 		end
-	end
-	if key == "land" then
+	elseif key == "land" then
 		VJ_EmitSound(self, "vj_hlr/hl1_npc/player/pl_jumpland2.wav", 70)
+	elseif key == "body" then
+		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -206,17 +206,16 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" or key == "wheelchair" then
 		self:FootStepSoundCode()
-	end
-	if key == "tie" /*&& !self:BusyWithActivity()*/ then
+	elseif key == "tie" /*&& !self:BusyWithActivity()*/ then
 		self:StopAllCommonSpeechSounds()
 		self:PlaySoundSystem("GeneralSpeech", sdTie)
 		//VJ_EmitSound(self, {"vj_hlr/hl1_npc/scientist/weartie.wav","vj_hlr/hl1_npc/scientist/ties.wav"}, 80, 100)
-	end
-	if key == "draw" then
+	elseif key == "draw" then
 		self:SetBodygroup(2,1)
-	end
-	if key == "holster" then
+	elseif key == "holster" then
 		self:SetBodygroup(2,0)
+	elseif key == "body" then
+		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

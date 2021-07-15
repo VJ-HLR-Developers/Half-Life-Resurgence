@@ -73,6 +73,7 @@ ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(35, 35, 15), Vector(-35, -35, -50))
+	self:SetPos(self:GetPos() + Vector(0, 0, 80))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_IntMsg(ply, controlEnt)
