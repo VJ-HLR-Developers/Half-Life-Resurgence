@@ -318,6 +318,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 			phys:EnableGravity(true)
 			phys:SetBuoyancyRatio(0)
 			phys:SetVelocity(self:GetVelocity())
+			phys:AddAngleVelocity(Vector(math.Rand(-20, 20), math.Rand(-20, 20), 200))
 		end
 	end
 	deathCorpse.NextExpT = 0

@@ -206,3 +206,30 @@ ENT.GeneralSoundPitch1 = 100
 "vo/ravenholm/yard_traps.wav"
 ]]--
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
+	if hType == "crossbow" or hType == "shotgun" then
+		self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_RANGE_ATTACK_SHOTGUN
+		self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK_SHOTGUN
+		self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] 				= ACT_RANGE_ATTACK_SMG1_LOW
+		self.WeaponAnimTranslations[ACT_RELOAD] 						= ACT_RELOAD_SMG1
+		self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= ACT_RELOAD_SMG1_LOW
+		
+		self.WeaponAnimTranslations[ACT_IDLE] 							= ACT_IDLE
+		self.WeaponAnimTranslations[ACT_IDLE_ANGRY] 					= ACT_IDLE_ANGRY
+		
+		self.WeaponAnimTranslations[ACT_WALK] 							= ACT_WALK_RIFLE
+		self.WeaponAnimTranslations[ACT_WALK_AIM] 						= ACT_WALK_AIM_RIFLE
+		self.WeaponAnimTranslations[ACT_WALK_CROUCH] 					= ACT_WALK_CROUCH_RPG
+		self.WeaponAnimTranslations[ACT_WALK_CROUCH_AIM] 				= ACT_WALK_CROUCH_AIM_RIFLE
+		
+		self.WeaponAnimTranslations[ACT_RUN] 							= ACT_RUN_RIFLE
+		self.WeaponAnimTranslations[ACT_RUN_AIM] 						= ACT_RUN_AIM_RIFLE
+		self.WeaponAnimTranslations[ACT_RUN_CROUCH] 					= ACT_RUN_CROUCH_RPG
+		self.WeaponAnimTranslations[ACT_RUN_CROUCH_AIM] 				= ACT_RUN_CROUCH_AIM_RIFLE
+		self.CanCrouchOnWeaponAttack = false
+		return true
+	else
+		self.CanCrouchOnWeaponAttack = true
+		return false
+	end
+end
