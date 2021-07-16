@@ -83,7 +83,6 @@ function ENT:CustomOnInitialize()
 	for x=1, #EntsTbl do
 		if EntsTbl[x]:GetClass() == "npc_vj_hlr1_nihilanth" && EntsTbl[x] != self then
 			if IsValid(self:GetCreator()) then
-				print("peppee")
 				self:GetCreator():PrintMessage(HUD_PRINTTALK, "WARNING: Only one Nihilanth is allowed in the map!")
 			end
 			self:Remove()

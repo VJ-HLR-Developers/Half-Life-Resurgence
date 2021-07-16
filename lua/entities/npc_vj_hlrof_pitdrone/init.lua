@@ -87,8 +87,9 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(projectile)
-	ParticleEffect("vj_hl_split_spawn_drone", projectile:GetPos() +projectile:GetForward() *30, self:GetForward():Angle(), projectile)
-	return self:CalculateProjectile("Line", self:GetPos() + self:GetUp()*40, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 2000)
+	local startPos = projectile:GetPos()
+	ParticleEffect("vj_hl_split_spawn_drone", startPos + projectile:GetForward() *30, self:GetForward():Angle(), projectile)
+	return self:CalculateProjectile("Line", startPos, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 2000)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)

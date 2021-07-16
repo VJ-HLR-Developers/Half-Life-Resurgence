@@ -413,7 +413,7 @@ if VJExists == true then
 	local defGibs_Red = {"models/vj_hlr/gibs/flesh1.mdl", "models/vj_hlr/gibs/flesh2.mdl", "models/vj_hlr/gibs/flesh3.mdl", "models/vj_hlr/gibs/flesh4.mdl", "models/vj_hlr/gibs/hgib_b_bone.mdl", "models/vj_hlr/gibs/hgib_b_gib.mdl", "models/vj_hlr/gibs/hgib_guts.mdl", "models/vj_hlr/gibs/hgib_hmeat.mdl", "models/vj_hlr/gibs/hgib_lung.mdl", "models/vj_hlr/gibs/hgib_skull.mdl", "models/vj_hlr/gibs/hgib_legbone.mdl"}
 	function VJ_HLR_ApplyCorpseEffects(ent, corpse, gibTbl, extraOptions)
 		extraOptions = extraOptions or {} -- CollideSound, ExpSound, Gibbable, CanBleed, ExtraGibs
-		local entHP = ent:GetMaxHealth() + 200
+		local entHP = ent:GetMaxHealth() + 100
 		corpse:SetMaxHealth(entHP)
 		corpse:SetHealth(entHP)
 		corpse.HLR_Corpse = true
@@ -435,13 +435,14 @@ if VJExists == true then
 		corpse.HLR_Corpse_Gibs = gibTbl
 		corpse.HLR_Corpse_CollideSound = extraOptions.CollideSound or "Default"
 		corpse.HLR_Corpse_ExpSound = extraOptions.ExpSound or "vj_gib/default_gib_splat.wav"
+		corpse.HLR_Corpse_StartT = CurTime() + 1
 	end
 	
 	local defPos = Vector(0, 0, 0)
 	local colorYellow = VJ_Color2Byte(Color(255, 221, 35))
 	local colorRed = VJ_Color2Byte(Color(130, 19, 10))
 	hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo)
-		if target.HLR_Corpse && !target.Dead then
+		if target.HLR_Corpse && !target.Dead && CurTime() > target.HLR_Corpse_StartT then
 			local dmgForce = dmginfo:GetDamageForce()
 			
 			-- Blood hit effects & decals
@@ -471,8 +472,10 @@ if VJExists == true then
 			
 			if GetConVar("vj_hlr1_corpse_gibbable"):GetInt() == 1 && !dmginfo:IsBulletDamage() && target.HLR_Corpse_Gibbable then
 				local noDamage = false
+				local dmgType = dmginfo:GetDamageType()
+				
 				-- DMG_CRUSH is usually when the ragdoll is slammed to a wall, we want it to only gib if it's hit hard enough!
-				if dmginfo:GetDamageType() == DMG_CRUSH && dmginfo:GetDamage() < 100 then
+				if dmgType == DMG_CRUSH && dmginfo:GetDamage() < 500 then
 					noDamage = true
 				end
 				-- If it's a child corpse piece, then we want to make sure it doesn't cause damage
@@ -481,6 +484,10 @@ if VJExists == true then
 						noDamage = true
 						break
 					end
+				end
+				-- If DMG_BLAST, then increase the damage to make it easier to gib
+				if bit.band(dmgType, DMG_BLAST) != 0 then
+					dmginfo:ScaleDamage(2)
 				end
 				if !noDamage then target:SetHealth(target:Health() - dmginfo:GetDamage()) end
 				if target:Health() <= 0 then

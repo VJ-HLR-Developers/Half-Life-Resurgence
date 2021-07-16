@@ -182,7 +182,14 @@ function ENT:CustomOnThink_AIEnabled()
 		self.Osprey_DropStatus = 1
 		local vecRand = VectorRand()*600
 		vecRand.z = math.abs(vecRand.z) -- Make sure negative Zs are cancelled out
-		self.Osprey_DropPos = (self.VJ_IsBeingControlled and self:GetPos()) or (ene:GetPos() + ene:GetUp()*600 + vecRand)
+		local tr = util.TraceHull({
+			start = self:GetPos() + self:OBBCenter(),
+			endpos = (self.VJ_IsBeingControlled and self:GetPos()) or (ene:GetPos() + ene:GetUp()*600 + vecRand),
+			filter = {self, self.Osprey_Gunners[1], self.Osprey_Gunners[2]},
+			mins = self:OBBMins(),
+			maxs = self:OBBMaxs()
+		})
+		self.Osprey_DropPos = tr.HitPos
 		self:SetState(VJ_STATE_ONLY_ANIMATION)
 		self.NoChaseAfterCertainRange = false
 	elseif self.Osprey_DropStatus == 1 then
