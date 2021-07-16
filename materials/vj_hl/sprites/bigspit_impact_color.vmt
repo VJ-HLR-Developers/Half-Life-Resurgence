@@ -1,0 +1,18 @@
+
+"UnlitGeneric"
+{
+	"$nolod" 1
+	"$translucent" 1
+	"$vertexcolor" 1
+	"$vertexalpha" 1
+	"$basetexture" "vj_hl/sprites/bigspit_impact_color"
+	"Proxies"
+	{
+		"AnimatedTexture"
+		{
+			"animatedtexturevar" "$basetexture"
+			"animatedtextureframenumvar" "$frame"
+			"animatedtextureframerate" 15
+		}
+	}
+}
