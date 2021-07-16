@@ -70,11 +70,8 @@ ENT.GW_EyeHealth = {}
 ENT.GW_OrbOpen = false
 ENT.GW_OrbHealth = 100
 
-/* TODO:
-	- Death particles
-*/
-local maxEyeHealth = 1
-local maxOrbHealth = 1
+local maxEyeHealth = 100
+local maxOrbHealth = 100
 local vecPortal = Vector(0,0,100)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
