@@ -73,8 +73,9 @@ ENT.GW_OrbHealth = 100
 /* TODO:
 	- Death particles
 */
-local maxEyeHealth = 100
-local maxOrbHealth = 100
+local maxEyeHealth = 1
+local maxOrbHealth = 1
+local vecPortal = Vector(0,0,100)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:AddFlags(FL_NOTARGET) -- They are going to target the bullseye only, so don't let other NPCs see the actual gene worm!
@@ -172,10 +173,21 @@ function ENT:CustomOnInitialize()
 	self.GW_Portal.MoveLP:SetSoundLevel(100)
 	self.GW_Portal.IdleLP = CreateSound(self.GW_Portal, "vj_hlr/fx/alien_creeper.wav")
 	self.GW_Portal.IdleLP:SetSoundLevel(100)
-	
+
 	-- Fade in on spawn (Only if AI is enabled!)
 	if GetConVar("ai_disabled"):GetInt() == 0 then
 		self.GW_Portal:ResetSequence("open")
+		local HLR_ParticleSys = ents.Create("info_particle_system")
+		HLR_ParticleSys:SetKeyValue("effect_name","vj_hlr_geneworm_sprites")
+		HLR_ParticleSys:SetPos(self.GW_Portal:GetPos() +self.GW_Portal:OBBCenter() +vecPortal)
+		HLR_ParticleSys:SetAngles(self.GW_Portal:GetAngles())
+		HLR_ParticleSys:SetParent(self.GW_Portal)
+		HLR_ParticleSys:Spawn()
+		HLR_ParticleSys:Activate()
+		HLR_ParticleSys:Fire("Start","",0)
+		HLR_ParticleSys:Fire("Kill","",10)
+		self:DeleteOnRemove(HLR_ParticleSys)
+
 		self.GW_Portal.MoveLP:Play()
 		self.GW_Portal.IdleLP:Stop()
 		timer.Simple(12, function()
@@ -431,6 +443,25 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	self:GW_CleanUp()
 	if IsValid(self.GW_Portal) then
 		self.GW_Portal:ResetSequence("close")
+		local HLR_ParticleSys = ents.Create("info_particle_system")
+		HLR_ParticleSys:SetKeyValue("effect_name","vj_hlr_geneworm_sprites_death")
+		HLR_ParticleSys:SetPos(self.GW_Portal:GetPos() +self.GW_Portal:OBBCenter() +Vector(0,0,-25))
+		HLR_ParticleSys:SetAngles(self.GW_Portal:GetAngles())
+		HLR_ParticleSys:SetParent(self.GW_Portal)
+		HLR_ParticleSys:Spawn()
+		HLR_ParticleSys:Activate()
+		HLR_ParticleSys:Fire("Start","",0)
+		HLR_ParticleSys:Fire("Kill","",20)
+		self:DeleteOnRemove(HLR_ParticleSys)
+
+		for i = 1, math.random(12,20) do
+			timer.Simple(i *math.Rand(0.5,1),function()
+				if IsValid(self) then
+					VJ_HLR_Effect_Explosion(self:GetAttachment(2).Pos +Vector(math.Rand(-100,100), math.Rand(-100,100), math.Rand(-100,100)), 2, math.Rand(2.5,5), "50 255 50")
+				end
+			end)
+		end
+
 		self.GW_Portal.MoveLP:Play()
 		self.GW_Portal.IdleLP:Stop()
 	end
