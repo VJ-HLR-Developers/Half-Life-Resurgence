@@ -65,6 +65,8 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self:MeleeAttackCode()
 	elseif key == "vomitdmg" then
 		self:RangeAttackCode()
+	elseif key == "body" then
+		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 	end
 end---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
