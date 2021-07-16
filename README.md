@@ -3,12 +3,15 @@ An addon for Garry's Mod that aims to recreate NPCs, entities and weapons from t
 
 **ROADMAP:** https://github.com/orgs/VJ-HLR-Developers/projects/1
 
-### What the goals for Half-Life Resurgence? Here is a quick list:
-- Recreate every possible NPC, entity, and some weapons from the Half-Life series in Garry's Mod using Lua.
-- Use the original effects, particles, decals and textures. This is something that was never done in Garry's Mod before.
-- Add cut content that were never included in the retail version and reimagine them if no information was given by Valve.
-- Add more features and extra characters that we or the community has imagined! Examples: HECU engineer that can construct turrets, Black Ops Robo Grunts, content from Sven Coop, and many more!
-- Another goal is to make every single NPC fully controllable, allowing the player to play as any character they want!
+### Quick overview of the features and goals of Half-Life Resurgence:
+- Recreate every possible NPC, entity, and some weapons from the Half-Life series with respect to the original games.
+- Use only the original effects, particles, decals and textures wherever possible.
+- Recreate cut, alpha, and beta content, if no information is given by Valve, then reimagine them to the best of our ability.
+- Add new features, including new abilities, AI behaviors, weapons, etc. Examples: HECU engineers can construct turrets, new weapons for Rebels, and many more!
+- Add custom content that we or the community have envisioned. Examples: Black Ops Robo Grunts, Combine & Rebel engineers, content from Sven Coop, and much more!
+- Add NPC Controller support to all the NPCs, allowing the user to play as any character.
+- Introduce an optional feature that automatically replaces Half-Life 1 & 2 NPCs with their Half-Life-Resurgence counterpart.
+- Add support for Half-Life 1 & 2 campaigns to the necessary NPCs, allowing the user to play any of the campaign using the Auto Replace feature.
 
 ### List of branches:
 >* **master**  --->  The base pack.
