@@ -1,9 +1,13 @@
 # Half-Life-Resurgence
-An addon for Garry's Mod that aims to recreate NPCs, entities and weapons from the Half-Life series.
+**Recreation & expansion of NPCs, entities, and weapons from the Half-Life series into Garry's Mod.**
 
-**ROADMAP:** https://github.com/orgs/VJ-HLR-Developers/projects/1
+**Steam Workshop Page:** https://steamcommunity.com/sharedfiles/filedetails/?id=2548809283   
+**Change Log:** https://steamcommunity.com/sharedfiles/filedetails/changelog/131759821   
+**Roadmap:** https://github.com/orgs/VJ-HLR-Developers/projects/1   
+**VJ Base (Required):** http://steamcommunity.com/sharedfiles/filedetails/?id=131759821   
+**Half-Life Resurgence Videos:** https://www.youtube.com/playlist?list=PL6fdmm0WenpO1DGSGhedrC3Yio9JEl-P-   
 
-### Quick overview of the features and goals of Half-Life Resurgence:
+### FEATURES & GOALS OVERVIEW:
 - Recreate every possible NPC, entity, and some weapons from the Half-Life series with respect to the original games.
 - Use only the original effects, particles, decals and textures wherever possible.
 - Recreate cut, alpha, and beta content, if no information is given by Valve, then reimagine them to the best of our ability.
@@ -12,7 +16,3 @@ An addon for Garry's Mod that aims to recreate NPCs, entities and weapons from t
 - Add NPC Controller support to all the NPCs, allowing the user to play as any character.
 - Introduce an optional feature that automatically replaces Half-Life 1 & 2 NPCs with their Half-Life-Resurgence counterpart.
 - Add support for Half-Life 1 & 2 campaigns to the necessary NPCs, allowing the user to play any of the campaign using the Auto Replace feature.
-
-### List of branches:
->* **master**  --->  The base pack.
->* **hlr_hd**  --->  HD version of the base pack (Mostly for *Half-Life 1* NPCs, very very unfinished and should not be used as of right now).
