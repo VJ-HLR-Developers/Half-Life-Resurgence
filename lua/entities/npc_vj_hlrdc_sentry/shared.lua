@@ -1,6 +1,6 @@
 ENT.Base 			= "npc_vj_hlr1_sentry"
 ENT.Type 			= "ai"
-ENT.PrintName 		= "HECU Sentry Gun"
+ENT.PrintName 		= "HECU Sentry Gun (Decay)"
 ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Purpose 		= "Spawn it and fight with it!"

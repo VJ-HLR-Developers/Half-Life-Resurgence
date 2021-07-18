@@ -79,9 +79,10 @@ vj_hl/sprites/muzzleflash3.vmt	orb ring around his head that displays his health
 */
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	local EntsTbl = ents.GetAll()
-	for x=1, #EntsTbl do
-		if EntsTbl[x]:GetClass() == "npc_vj_hlr1_nihilanth" && EntsTbl[x] != self then
+	-- Allow only 1 Nihilanth at a time
+	local entsAll = ents.GetAll()
+	for x = 1, #entsAll do
+		if entsAll[x]:GetClass() == "npc_vj_hlr1_nihilanth" && entsAll[x] != self then
 			if IsValid(self:GetCreator()) then
 				self:GetCreator():PrintMessage(HUD_PRINTTALK, "WARNING: Only one Nihilanth is allowed in the map!")
 			end
@@ -106,7 +107,7 @@ function ENT:CustomOnInitialize()
 		-- HitNormal = Number between 0 to 1, use this to get the position the trace came from. Ex: Add it to the hit position to make it go farther away.
 		local crystal = ents.Create("sent_vj_xen_crystal")
 		crystal:SetPos(tr.HitPos - tr.HitNormal*10) -- Take the HitNormal and minus it by 10 units to make it go inside the position a bit
-		crystal:SetAngles(tr.HitNormal:Angle() + Angle(math.Rand(60, 120), math.Rand(-15,15), math.Rand(-15,15))) -- 90 = middle and 30 degree difference to make the pitch rotate randomly | yaw and roll are applied a bit of a random number
+		crystal:SetAngles(tr.HitNormal:Angle() + Angle(math.Rand(60, 120), math.Rand(-15, 15), math.Rand(-15, 15))) -- 90 = middle and 30 degree difference to make the pitch rotate randomly | yaw and roll are applied a bit of a random number
 		crystal.Assignee = self
 		crystal:Spawn()
 		crystal:Activate()
@@ -158,20 +159,17 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self:RangeAttackCode()
 		self.RangeUseAttachmentForPos = true
 		for i = 0.1, 0.6, 0.1 do
-			timer.Simple(i,function() if IsValid(self) then self.RangeUseAttachmentForPosID = "2" self:RangeAttackCode() end end)
+			timer.Simple(i, function() if IsValid(self) then self.RangeUseAttachmentForPosID = "2" self:RangeAttackCode() end end)
 		end
 		for i = 0.1, 0.6, 0.1 do
-			timer.Simple(i,function() if IsValid(self) then self.RangeUseAttachmentForPosID = "3" self:RangeAttackCode() end end)
+			timer.Simple(i, function() if IsValid(self) then self.RangeUseAttachmentForPosID = "3" self:RangeAttackCode() end end)
 		end
-	end
-	
-	if key == "elec_orbs_open" then
+	-- We have been weakend, we should only fire 1 orb!
+	elseif key == "elec_orbs_open" then
 		self.Nih_TeleportingOrb = false
 		self.RangeUseAttachmentForPos = false
 		self:RangeAttackCode()
-	end
-	
-	if key == "tele_orb" then
+	elseif key == "tele_orb" then
 		self.Nih_TeleportingOrb = true
 		self.RangeUseAttachmentForPos = false
 		self:RangeAttackCode()
@@ -271,7 +269,7 @@ function ENT:Nih_CreateAlly()
 	ally:Activate()
 	
 	local effectTeleport = VJ_HLR_Effect_PortalSpawn(spawnpos + Vector(0,0,20))
-	effectTeleport:Fire("Kill","",1)
+	effectTeleport:Fire("Kill", "", 1)
 	
 	return ally
 end
@@ -660,6 +658,7 @@ function ENT:CustomOnRemove()
 	if IsValid(self.Nih_Crystal2) then self.Nih_Crystal2:Remove() end
 	if IsValid(self.Nih_Crystal3) then self.Nih_Crystal3:Remove() end
 	
+	-- Remove allies if we were removed without being killed
 	if self.Dead == false then
 		if IsValid(self.Nih_Ally1) then self.Nih_Ally1:Remove() end
 		if IsValid(self.Nih_Ally2) then self.Nih_Ally2:Remove() end

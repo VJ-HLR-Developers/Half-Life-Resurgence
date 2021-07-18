@@ -68,14 +68,12 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		if IsValid(self.Glow2) then self.Glow2:Remove() end
 		self.AlienC_HomingAttack = true
 		self:RangeAttackCode()
-	end
-	if key == "rangeattack" then
+	elseif key == "rangeattack" then
 		if IsValid(self.Glow1) then self.Glow1:Remove() end
 		if IsValid(self.Glow2) then self.Glow2:Remove() end
 		self.AlienC_HomingAttack = false
 		self:RangeAttackCode()
-	end
-	if key == "sprite" && self.RangeAttacking == true && self.AlienC_HomingAttack == false then
+	elseif key == "sprite" && self.RangeAttacking == true && self.AlienC_HomingAttack == false then
 		if IsValid(self.Glow1) then self.Glow1:Remove() end
 		if IsValid(self.Glow2) then self.Glow2:Remove() end
 		self.Glow1 = ents.Create("env_sprite")

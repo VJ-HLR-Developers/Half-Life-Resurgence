@@ -82,5 +82,5 @@ function ENT:SCI_CustomOnInitialize()
 	self.SoundTbl_DamageByPlayer = {"vj_hlr/hl1_npc/rosenberg/ro_plfear0.wav","vj_hlr/hl1_npc/rosenberg/ro_scared0.wav","vj_hlr/hl1_npc/rosenberg/ro_scared1.wav","vj_hlr/hl1_npc/rosenberg/ro_scared2.wav"}
 	self.SoundTbl_Death = {"vj_hlr/hl1_npc/rosenberg/ro_pain0.wav","vj_hlr/hl1_npc/rosenberg/ro_pain1.wav","vj_hlr/hl1_npc/rosenberg/ro_pain2.wav","vj_hlr/hl1_npc/rosenberg/ro_pain3.wav","vj_hlr/hl1_npc/rosenberg/ro_pain4.wav","vj_hlr/hl1_npc/rosenberg/ro_pain5.wav","vj_hlr/hl1_npc/rosenberg/ro_pain6.wav","vj_hlr/hl1_npc/rosenberg/ro_pain7.wav","vj_hlr/hl1_npc/rosenberg/ro_pain8.wav"}
 
-	self:SetBodygroup(1,5)
+	self:SetBodygroup(1, 5)
 end

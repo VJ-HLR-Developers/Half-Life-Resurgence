@@ -54,7 +54,7 @@ ENT.DeathSoundLevel = 90
 ENT.Cannon_HasLOS = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(45,45,65), Vector(-45,-45,0))
+	self:SetCollisionBounds(Vector(45, 45, 65), Vector(-45, -45, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
@@ -83,19 +83,26 @@ function ENT:CustomRangeAttackCode()
 	//local endPos = (self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter()) + attach.Ang:Forward()*20000 - Vector(0, 0, 10)
 	local tr = util.TraceLine({
 		start = startPos,
-		endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter() + VectorRand(-20, 20),
+		endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter() + VectorRand(-50, 50),
 		filter = {self} // self.extmdl
 	})
-	local hitpos = tr.HitPos
+	local hitPos = tr.HitPos
+	util.VJ_SphereDamage(self, self, hitPos, 30, 40, DMG_ENERGYBEAM, true, false, {Force=90})
+	VJ_EmitSound(self, "vj_hlr/hl1_npc/xencannon/fire.wav", 90, 100)
+	sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitPos, 60)
+	
 	local elec = EffectData()
 	elec:SetStart(startPos)
-	elec:SetOrigin(hitpos)
+	elec:SetOrigin(hitPos)
 	elec:SetEntity(self)
 	elec:SetAttachment(1)
 	util.Effect("VJ_HLR_XenCannon_Beam", elec)
+<<<<<<< Updated upstream
 	util.VJ_SphereDamage(self, self, hitpos, 30, 10, DMG_ENERGYBEAM, true, false, {Force=90})
 	VJ_EmitSound(self, "vj_hlr/hl1_npc/xencannon/fire.wav", 90, 100)
 	sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitpos, 60)
+=======
+>>>>>>> Stashed changes
 	
 	local spriteGlow = ents.Create("env_sprite")
 	spriteGlow:SetKeyValue("model","vj_hl/sprites/flare3.vmt")
@@ -119,13 +126,15 @@ function ENT:CustomRangeAttackCode()
 	timer.Simple(0.1, function() SafeRemoveEntity(spriteGlow) end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vec = Vector(0, 0, 0)
+--
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	if dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(4) -- Size
 		rico:SetMagnitude(2) -- Effect type | 1 = Animated | 2 = Basic
-		util.Effect("VJ_HLR_Rico",rico)
+		util.Effect("VJ_HLR_Rico", rico)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -153,17 +162,19 @@ function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_ABSORIGIN_FOLLOW, corpseEnt, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local gibCollideSd = {"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}
+--
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub1.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub2.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub3.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub4.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub5.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub1.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub2.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub3.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub4.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub5.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,20)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub1.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(1,0,20)),CollideSound=gibCollideSd})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub2.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,1,20)),CollideSound=gibCollideSd})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub3.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(2,0,20)),CollideSound=gibCollideSd})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub4.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,2,20)),CollideSound=gibCollideSd})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub5.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(3,0,20)),CollideSound=gibCollideSd})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub1.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,3,20)),CollideSound=gibCollideSd})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub2.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(4,0,20)),CollideSound=gibCollideSd})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub3.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,4,20)),CollideSound=gibCollideSd})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub4.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(5,0,20)),CollideSound=gibCollideSd})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub5.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,5,20)),CollideSound=gibCollideSd})
 	return true, {AllowCorpse=true}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -6,14 +6,15 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hla/hgrunt.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.HasGrenadeAttack = false
-ENT.MoveRandomlyWhenShooting = true -- Should it move randomly when shooting?
-ENT.WeaponAttackSecondaryTimeUntilFire = 1.2
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "unnamed022", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(2, 0, 5), -- The offset for the controller when the camera is in first person
 }
+ENT.HasGrenadeAttack = false
+ENT.WeaponAttackSecondaryTimeUntilFire = 1.2
+ENT.MoveRandomlyWhenShooting = true -- Should it move randomly when shooting?
+ENT.CombatFaceEnemy = true -- If enemy is exists and is visible
 
 -- Custom
 ENT.AHGR_NextStrafeT = 0
@@ -35,6 +36,9 @@ function ENT:HECU_CustomOnInitialize()
 	self.AHGR_NextStrafeT = CurTime() + 4
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local strafeAnims = {ACT_STRAFE_RIGHT, ACT_STRAFE_LEFT}
+--
 function ENT:CustomOnMoveRandomlyWhenShooting()
-	self:VJ_ACT_PLAYACTIVITY({ACT_STRAFE_RIGHT, ACT_STRAFE_LEFT}, true, false, false)
+	self:VJ_ACT_PLAYACTIVITY(strafeAnims, true, false, false)
+	return false
 end

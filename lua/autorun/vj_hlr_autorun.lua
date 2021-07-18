@@ -15,6 +15,7 @@ local VJExists = file.Exists("lua/autorun/vj_base_autorun.lua","GAME")
 if VJExists == true then
 	include('autorun/vj_controls.lua')
 	
+	VJBASE_HLR_VERSION = "1.0.1"
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ GoldSrc Engine ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -61,7 +62,7 @@ if VJExists == true then
 			VJ.AddNPC("Human Grunt Medic (OppF)","npc_vj_hlrof_hgrunt_med",vCat)
 			VJ.AddNPC("Human Grunt Engineer (OppF)","npc_vj_hlrof_hgrunt_eng",vCat)
 			-- Decay
-			VJ.AddNPC("Decay HECU Sentry Gun","npc_vj_hlrdc_sentry",vCat)
+			VJ.AddNPC("HECU Sentry Gun (Decay)","npc_vj_hlrdc_sentry",vCat)
 			-- Alpha
 			VJ.AddNPC("Alpha Human Grunt","npc_vj_hlr1a_hgrunt",vCat)
 
@@ -190,7 +191,8 @@ if VJExists == true then
 	VJ.AddNPC_HUMAN("Barney Calhoun","npc_vj_hlr2_barney",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2","weapon_vj_spas12"},vCat)
 	VJ.AddNPC_HUMAN("Father Grigori","npc_vj_hlr2_father_grigori",{"weapon_vj_hlr2_annabelle"},vCat)
 	VJ.AddNPC("Resistance Sentry Gun","npc_vj_hlr2_res_sentry",vCat)
-	VJ.AddNPC("Merkava","npc_vj_hlr2b_merkava",vCat)
+	-- Beta
+		VJ.AddNPC("Merkava","npc_vj_hlr2b_merkava",vCat)
 	
 	-- Combine
 	VJ.AddNPC_HUMAN("Overwatch Soldier","npc_vj_hlr2_com_soldier",{"weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_smg1","weapon_vj_ar2","weapon_vj_ar2"},vCat)
@@ -202,8 +204,7 @@ if VJExists == true then
 	VJ.AddNPC_HUMAN("Overwatch Engineer","npc_vj_hlr2_com_engineer",{"weapon_vj_hlr2_reager"},vCat)
 	VJ.AddNPC_HUMAN("Civil Protection","npc_vj_hlr2_com_civilp",{"weapon_vj_9mmpistol","weapon_vj_9mmpistol","weapon_vj_smg1"},vCat)
 	VJ.AddNPC("Combine Sentry Gun","npc_vj_hlr2_com_sentry",vCat)
-
-		-- Beta --
+		-- Beta
 		VJ.AddNPC_HUMAN("Overwatch Soldier (Beta)","npc_vj_hlr2b_com_soldier",{"weapon_vj_hlr2b_oicw"},vCat)
 		VJ.AddNPC_HUMAN("Civil Protection Elite","npc_vj_hlr2_com_civilp_elite",{"weapon_vj_smg1"},vCat) -- Class name should be changed
 	
