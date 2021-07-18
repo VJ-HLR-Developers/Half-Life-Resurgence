@@ -97,12 +97,6 @@ function ENT:CustomRangeAttackCode()
 	elec:SetEntity(self)
 	elec:SetAttachment(1)
 	util.Effect("VJ_HLR_XenCannon_Beam", elec)
-<<<<<<< Updated upstream
-	util.VJ_SphereDamage(self, self, hitpos, 30, 10, DMG_ENERGYBEAM, true, false, {Force=90})
-	VJ_EmitSound(self, "vj_hlr/hl1_npc/xencannon/fire.wav", 90, 100)
-	sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitpos, 60)
-=======
->>>>>>> Stashed changes
 	
 	local spriteGlow = ents.Create("env_sprite")
 	spriteGlow:SetKeyValue("model","vj_hl/sprites/flare3.vmt")
