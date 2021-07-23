@@ -93,11 +93,13 @@ function SWEP:SecondaryAttack()
 	-- Toggle whether to laser track or not (Only for players)
 	VJ_EmitSound(self, (self:GetNWLaser() and "buttons/button16.wav") or "buttons/button17.wav")
 	self:SetNWLaser(!self:GetNWLaser())
-	if IsValid(self:GetOwner()) && self:GetOwner():IsPlayer() then
-		self:GetOwner():PrintMessage(HUD_PRINTTALK, "Laser tracking has been "..(self:GetNWLaser() == true and "enabled" or "disabled"))
+	
+	local owner = self:GetOwner()
+	if IsValid(owner) && owner:IsPlayer() then
+		owner:PrintMessage(HUD_PRINTTALK, "Laser tracking has been "..(self:GetNWLaser() == true and "enabled" or "disabled"))
 	end
 	if IsValid(self.RPG_LastShotEnt) then
-		self.RPG_LastShotEnt = self:GetNWLaser()
+		self.RPG_LastShotEnt.Rocket_Follow = self:GetNWLaser()
 	end
 	return false
 end

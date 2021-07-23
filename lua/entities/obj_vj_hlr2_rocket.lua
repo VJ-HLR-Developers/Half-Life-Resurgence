@@ -59,8 +59,8 @@ ENT.SoundTbl_OnCollide = {"ambient/explosions/explode_8.wav"}
 ENT.Rocket_Follow = true
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	ParticleEffectAttach("vj_rpg1_smoke", PATTACH_ABSORIGIN_FOLLOW, self, 0)
-	ParticleEffectAttach("vj_rpg2_smoke2", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+//	ParticleEffectAttach("vj_rpg1_smoke", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	//ParticleEffectAttach("vj_rpg2_smoke2", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 	
 	self.LastAngle = self:GetAngles()
 end
@@ -75,9 +75,9 @@ function ENT:CustomOnThink()
 		elseif (owner:IsPlayer()) && self.Rocket_Follow == true then
 			pos = owner:GetEyeTrace().HitPos
 		end
-		phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), pos, 2000))
-		self.LastAngle = LerpAngle(FrameTime()*1, self.LastAngle, (pos - self:GetPos()):Angle())
+		self.LastAngle = LerpAngle(FrameTime()*42, self.LastAngle, (pos - self:GetPos()):Angle())
 		-- self:SetAngles((pos - self:GetPos()):Angle())
+		phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self:GetPos() + self.LastAngle:Forward(), 2000))
 		self:SetAngles(self.LastAngle)
 	end
 end
