@@ -443,7 +443,7 @@ if VJExists == true then
 	local colorYellow = VJ_Color2Byte(Color(255, 221, 35))
 	local colorRed = VJ_Color2Byte(Color(130, 19, 10))
 	hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo)
-		if target.HLR_Corpse && !target.Dead && CurTime() > target.HLR_Corpse_StartT then
+		if target.HLR_Corpse && !target.Dead && CurTime() > target.HLR_Corpse_StartT && target:GetColor().a > 50 then
 			local dmgForce = dmginfo:GetDamageForce()
 			
 			-- Blood hit effects & decals
@@ -471,6 +471,7 @@ if VJExists == true then
 				end
 			end
 			
+			-- Damage & Gibs
 			if GetConVar("vj_hlr1_corpse_gibbable"):GetInt() == 1 && !dmginfo:IsBulletDamage() && target.HLR_Corpse_Gibbable then
 				local noDamage = false
 				local dmgType = dmginfo:GetDamageType()
@@ -618,6 +619,7 @@ VJ.AddConVar("vj_hlr1_osprey_deploysoldiers", 1, {FCVAR_ARCHIVE})
 VJ.AddConVar("vj_hlr1_assassin_cloaks", 1, {FCVAR_ARCHIVE})
 -- Source
 VJ.AddConVar("vj_hlr2_merkava_gunner", 1, {FCVAR_ARCHIVE})
+VJ.AddConVar("vj_hlr2_custom_skins", 1, {FCVAR_ARCHIVE})
 
 VJ.AddConVar("vj_hlr_autoreplace", 0, {FCVAR_ARCHIVE, FCVAR_NOTIFY})
 VJ.AddConVar("vj_hlr_autoreplace_hl1", 1, {FCVAR_ARCHIVE, FCVAR_NOTIFY})
@@ -637,7 +639,7 @@ if CLIENT then
 				return
 			end
 			Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
-			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_osprey_deploysoldiers 1\nvj_hlr2_merkava_gunner 1\nvj_hlr1_assassin_cloaks 1\nvj_hlr1_corpse_effects 1\n vj_hlr1_corpse_gibbable 1"})
+			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_osprey_deploysoldiers 1\nvj_hlr2_merkava_gunner 1\nvj_hlr1_assassin_cloaks 1\nvj_hlr1_corpse_effects 1\nvj_hlr1_corpse_gibbable 1\nvj_hlr2_custom_skins 1"})
 			Panel:AddControl( "Label", {Text = "GoldSrc Engine:"})
 			Panel:AddControl("Checkbox", {Label = "Corpses Create Effects & Decals", Command = "vj_hlr1_corpse_effects"})
 			Panel:AddControl("Checkbox", {Label = "Corpses Can Be Dismembered", Command = "vj_hlr1_corpse_gibbable"})
@@ -647,6 +649,8 @@ if CLIENT then
 			Panel:AddControl("Slider", {Label = "Gonarch Baby Headcrab Limit", min = 0, max = 100, Command = "vj_hlr1_gonarch_babylimit"})
 			Panel:AddControl( "Label", {Text = "Source Engine:"})
 			Panel:AddControl("Checkbox", {Label = "Merkava Spawns With a Gunner", Command = "vj_hlr2_merkava_gunner"})
+			Panel:AddControl("Checkbox", {Label = "Allow Custom NPC Skins", Command = "vj_hlr2_custom_skins"})
+			Panel:ControlHelp("Ex: Custom skins for Rebels & Refugees")
 		end)
 		
 		spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HL Resurgence (AutoReplace)", "HL Resurgence (AutoReplace)", "", "", function(Panel)

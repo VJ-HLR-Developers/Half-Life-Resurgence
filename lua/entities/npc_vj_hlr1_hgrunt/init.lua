@@ -381,6 +381,7 @@ function ENT:CustomOnThink()
 		end
 	end
 	
+	-- Rappelling System
 	if self.HECU_Rappelling && !self.Dead then
 		-- If it's on ground then stop rappelling!
 		if self:IsOnGround() then
@@ -403,7 +404,7 @@ function ENT:CustomOnThink()
 	end
 	self:HECU_CustomOnThink()
 	
-	-- Hurt walking
+	-- Hurt Walking
 	if self.HECU_CanHurtWalk && self:Health() <= (self:GetMaxHealth() / 2.2) then
 		if !self.HECU_UsingHurtWalk then
 			self.AnimTbl_Walk = {ACT_WALK_HURT}

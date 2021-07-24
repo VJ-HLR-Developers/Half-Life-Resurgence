@@ -91,7 +91,7 @@ function ENT:CustomRangeAttackCode()
 	//local endPos = (self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter()) + attach.Ang:Forward()*20000 - Vector(0, 0, 10)
 	local tr = util.TraceLine({
 		start = startPos,
-		endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter() + VectorRand(-5, 5),
+		endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter() + VectorRand(-15, 15),
 		filter = {self} // self.extmdl
 	})
 	local hitPos = tr.HitPos

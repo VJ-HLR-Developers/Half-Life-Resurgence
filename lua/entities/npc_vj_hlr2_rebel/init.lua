@@ -211,7 +211,7 @@ function ENT:CustomOnInitialize()
 	end
 	
 	-- Set different clothing --
-	-- For Engineers
+	-- For Engineers (Always have custom skin!)
 	if self.Human_Type == 1 then
 		for k, v in ipairs(self:GetMaterials()) do
 			-- Female Engineer
@@ -224,7 +224,8 @@ function ENT:CustomOnInitialize()
 				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_engineer")
 			end
 		end
-	else
+	-- Set custom skins (If enabled!)
+	elseif GetConVar("vj_hlr2_custom_skins"):GetInt() == 1 then
 		local rand_refugee = math.random(1, 2)
 		local rand_rebel = math.random(1, 7)
 		for k, v in ipairs(self:GetMaterials()) do
