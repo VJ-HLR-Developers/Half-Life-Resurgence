@@ -81,6 +81,8 @@ ENT.HECU_CanHurtWalk = true -- Set to false to disable hurt-walking, automatical
 ENT.HECU_UsingHurtWalk = false -- Used for optimizations, makes sure that the animations are only changed once
 ENT.HECU_Rappelling = false
 ENT.HECU_DeployedByOsprey = false
+ENT.HECU_NextMouthMove = 0
+ENT.HECU_NextMouthDistance = 0
 
 local defPos = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -314,6 +316,18 @@ end
 function ENT:HECU_CustomOnThink() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
+	-- Mouth movement
+	if CurTime() < self.HECU_NextMouthMove then
+		if self.HECU_NextMouthDistance == 0 then
+			self.HECU_NextMouthDistance = math.random(10, 70)
+		else
+			self.HECU_NextMouthDistance = 0
+		end
+		self:SetPoseParameter("m", self.HECU_NextMouthDistance)
+	else
+		self:SetPoseParameter("m", 0)
+	end
+
 	-- Handle weapon body group changing
 	local bgroup = self:GetBodygroup(self.HECU_WepBG)
 	if self.HGrunt_LastBodyGroup != bgroup then
