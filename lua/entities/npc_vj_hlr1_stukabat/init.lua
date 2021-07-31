@@ -135,7 +135,7 @@ function ENT:ChangeMode(mode)
 	end
 	self.Stuka_Mode = mode
 	-- self.Stuka_ModeChangeT = CurTime() + 4 -- Debug
-	self.Stuka_ModeChangeT = CurTime() + math.Rand(15,35)
+	self.Stuka_ModeChangeT = CurTime() + (IsValid(self.VJ_TheController) && 4 or math.Rand(15,35))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
@@ -153,12 +153,39 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:HandleModeChanging(mode,pos,cont)
+	if mode == 1 && CurTime() > self.Stuka_ModeChangeT && (IsValid(cont) && cont:KeyDown(IN_JUMP) or true) then
+		if self.Stuka_LandingType == 0 && self.Stuka_LandingPos == nil then
+			if !self.Stuka_LandingPos then
+				local ceiling = math.random(1,10) == 1
+				local pos = self:GetLandingPos(ceiling)
+				if pos then
+					self.Stuka_LandingPos = pos
+					self.Stuka_LandingType = ceiling && 2 or 1
+				end
+			end
+		else
+			local landType = self.Stuka_LandingType
+			-- util.ParticleTracerEx("Weapon_Combine_Ion_Cannon_Beam", self:GetPos(), self.Stuka_LandingPos, false, self:EntIndex(), 0)//vortigaunt_beam
+			-- VJ_CreateTestObject(self.Stuka_LandingPos, self:GetAngles(), Color(212,0,255), 5)
+			self:AA_MoveTo(self.Stuka_LandingPos,true,"Calm",{FaceDest=true,FaceDestTarget=false,IgnoreGround=true})
+			local tr = util.TraceLine({start = pos,endpos = pos +Vector(0,0,(landType == 1 && -35 or 75)),filter = self})
+			if tr.Hit /*&& tr.HitPos:Distance(pos) <= 35*/ then
+				if landType == 2 then
+					self:SetPos(tr.HitPos +tr.HitNormal *35)
+				end
+				self:ChangeMode(landType == 1 && 0 or 2)
+			end
+		end
+	elseif mode != 1 && CurTime() > self.Stuka_ModeChangeT && (!IsValid(cont) && math.random(1,30) == 1 or IsValid(cont) && cont:KeyDown(IN_JUMP)) then
+		self:ChangeMode(1)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	-- if self.VJ_IsBeingControlled then return end
-
+	local cont = self.VJ_TheController
 	local enemy = self:GetEnemy()
 	local pos = self:GetPos()
-	local ang = self:GetAngles()
 	-- local waypoint = self:GetCurWaypointPos()
 	local waypoint = pos +self:GetVelocity():Angle():Forward() *50
 	local mode = self.Stuka_Mode
@@ -168,55 +195,46 @@ function ENT:CustomOnThink()
 	if IsValid(enemy) then
 		local dist = pos:Distance(enemy:GetPos())
 		self.Aerial_AnimTbl_Calm = dist <= self.RangeDistance && ACT_HOVER or self.Stuka_FlyAnimation
-		if mode != 1 then
+		if IsValid(cont) then
+			self:HandleModeChanging(mode,pos,cont)
+		elseif mode != 1 && !IsValid(cont) then
 			self:ChangeMode(1)
 		end
 	else
 		self.Aerial_AnimTbl_Calm = self.Stuka_FlyAnimation
-		if mode == 1 && CurTime() > self.Stuka_ModeChangeT then
-			if self.Stuka_LandingType == 0 && self.Stuka_LandingPos == nil then
-				if !self.Stuka_LandingPos then
-					local ceiling = math.random(1,10) == 1
-					local pos = self:GetLandingPos(ceiling)
-					if pos then
-						self.Stuka_LandingPos = pos
-						self.Stuka_LandingType = ceiling && 2 or 1
-					end
-				end
-			else
-				local landType = self.Stuka_LandingType
-				-- util.ParticleTracerEx("Weapon_Combine_Ion_Cannon_Beam", self:GetPos(), self.Stuka_LandingPos, false, self:EntIndex(), 0)//vortigaunt_beam
-				-- VJ_CreateTestObject(self.Stuka_LandingPos, self:GetAngles(), Color(212,0,255), 5)
-				self:AA_MoveTo(self.Stuka_LandingPos,true,"Calm",{FaceDest=true,FaceDestTarget=false,IgnoreGround=true})
-				local tr = util.TraceLine({start = pos,endpos = pos +Vector(0,0,(landType == 1 && -35 or 75)),filter = self})
-				if tr.Hit /*&& tr.HitPos:Distance(pos) <= 35*/ then
-					if landType == 2 then
-						self:SetPos(tr.HitPos +tr.HitNormal *35)
-					end
-					self:ChangeMode(landType == 1 && 0 or 2)
-				end
-			end
-		elseif mode != 2 && CurTime() > self.Stuka_ModeChangeT && math.random(1,30) == 1 then
-			self:ChangeMode(1)
-		end
+		self:HandleModeChanging(mode,pos,cont)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetLandingPos(ceiling)
 	local ang = self:GetAngles() +AngleRand()
+	local filt = {self,self.VJ_TheController}
 	if ceiling then
 		ang.p = -70
-		local tr1 = util.TraceLine({start = self:GetPos(),endpos = self:GetPos() +ang:Forward() *32000,filter = self})
+		local tr1 = util.TraceLine({start = self:GetPos(),endpos = self:GetPos() +ang:Forward() *32000,filter = filt})
 		return tr1.MatType && tr1.MatType != 88 && tr1.HitPos +tr1.Normal *5
 	end
 	ang.p = 35
 	local pos = self:GetPos() +(self:GetVelocity() *ang:Forward() *0.1) *ang:Forward()
 
-	local tr1 = util.TraceLine({start = pos,endpos = pos +ang:Forward() *32000,filter = self})
+	local tr1 = util.TraceLine({start = pos,endpos = pos +ang:Forward() *32000,filter = filt})
 	local tr1Pos = tr1.HitPos -tr1.Normal *100
-	local tr2 = util.TraceLine({start = tr1Pos,endpos = tr1Pos +Vector(0,0,-120),filter = self})
+	local tr2 = util.TraceLine({start = tr1Pos,endpos = tr1Pos +Vector(0,0,-120),filter = filt})
 
 	return tr2.HitWorld && tr2.MatType && tr2.MatType != 88 && tr2.HitPos
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:AA_StopMoving()
+	if IsValid(self.VJ_TheController) && self.Stuka_LandingPos != nil then return end
+	if self:GetVelocity():Length() > 0 then
+		self.AA_CurrentMoveMaxSpeed = 0
+		self.AA_CurrentMoveTime = 0
+		self.AA_CurrentMoveType = 0
+		self.AA_CurrentMovePos = nil
+		self.AA_CurrentMovePosDir = nil
+		self.AA_CurrentMoveDist = -1
+		self:SetLocalVelocity(Vector(0,0,0))
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(projectile)
@@ -224,6 +242,7 @@ function ENT:RangeAttackCode_GetShootPos(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
+	if IsValid(self.VJ_TheController) then return end
 	if self.Stuka_Mode != 1 then
 		self.Stuka_ModeChangeT = CurTime()
 		self:ChangeMode(1)
@@ -231,6 +250,7 @@ function ENT:CustomOnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_OnBleed(dmginfo, hitgroup)
+	if IsValid(self.VJ_TheController) then return end
 	if self.Stuka_Mode != 1 then
 		self.Stuka_ModeChangeT = CurTime()
 		self:ChangeMode(1)
