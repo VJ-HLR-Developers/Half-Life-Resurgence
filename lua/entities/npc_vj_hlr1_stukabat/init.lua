@@ -99,9 +99,6 @@ function ENT:ChangeMode(mode)
 		self.Stuka_LandingPos = nil
 		self.AnimTbl_IdleStand = {ACT_HOVER}
 		self:VJ_ACT_PLAYACTIVITY(lastMode == 2 && ACT_SPRINT or ACT_LEAP,true,false,false)
-		if lastMode == 2 then
-			self:SetPos(self:GetPos() +Vector(0,0,-35))
-		end
 		timer.Simple(self:DecideAnimationLength(lastMode == 2 && ACT_SPRINT or ACT_LEAP, false),function()
 			if IsValid(self) then
 				self:DoChangeMovementType(VJ_MOVETYPE_AERIAL)
@@ -112,6 +109,9 @@ function ENT:ChangeMode(mode)
 				self.HasRangeAttack = true
 				self:SetMaxYawSpeed(20)
 				self.TurningSpeed = 20
+				if lastMode == 2 then
+					self:SetPos(self:GetPos() +Vector(0,0,-35))
+				end
 			end
 		end)
 	elseif mode == 2 then -- Ceiling
