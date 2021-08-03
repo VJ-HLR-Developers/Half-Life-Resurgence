@@ -933,6 +933,10 @@ end
 function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
 	timer.Simple(0.1, function() -- Make sure the base functions have ran!
 		if IsValid(self) && hType == "pistol" or hType == "revolver" then
+			self.WeaponAnimTranslations[ACT_IDLE] = {ACT_IDLE_STIMULATED} -- This animation set is used more often in HL2, not to mention there are multiple idle animations tied to this so it gives more variety + this syncs up with the rest of Alyx's animations better
+			self.WeaponAnimTranslations[ACT_WALK] = {ACT_WALK_STIMULATED}
+			self.WeaponAnimTranslations[ACT_RUN] = {ACT_RUN_STIMULATED}
+
 			self.WeaponAnimTranslations[ACT_COVER_LOW] = {ACT_CROUCHIDLE_STIMULATED, ACT_RANGE_AIM_PISTOL_LOW, "vjseq_crouchidlehide", "vjseq_blindfire_low_entry", "vjseq_crouchhide_01"}
 
 			self.WeaponAnimTranslations[ACT_WALK_AIM] = ACT_WALK_AIM_PISTOL
