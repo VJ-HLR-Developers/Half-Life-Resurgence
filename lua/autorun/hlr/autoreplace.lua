@@ -190,7 +190,9 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 								table.insert(tempTable, newClass)
 							end
 						else
-							table.insert(tempTable, newClass)
+							if string.StartWith(oldClass, "npc_") then
+								table.insert(tempTable, newClass)
+							end
 						end
 					end
 					rEnt = VJ_PICK(tempTable) or rEnt

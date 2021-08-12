@@ -67,9 +67,9 @@ ENT.Stuka_FlyAnimation = ACT_FLY
 ENT.Stuka_ModeChangeT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(10,10,50), Vector(-10,-10,0))
+	self:SetCollisionBounds(Vector(23, 23, 40), Vector(-23, -23, 0))
 
-	self.Stuka_ModeChangeT = CurTime() +math.Rand(3,6)
+	self.Stuka_ModeChangeT = CurTime() + math.Rand(3, 6)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:ChangeMode(mode)
@@ -141,11 +141,11 @@ end
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	-- print(key)
 	if key == "wing" then
-		VJ_EmitSound(self,"vj_hlr/hl1_npc/stukabat/stkb_wings" .. math.random(1,3) .. ".wav", 70)
+		VJ_EmitSound(self,"vj_hlr/hl1_npc/stukabat/stkb_wings" .. math.random(1, 3) .. ".wav", 70)
 	elseif key == "body" then
 		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
 	elseif key == "attack" then
-		VJ_CreateSound(self, "vj_hlr/hl1_npc/stukabat/stkb_fire"..math.random(1,2)..".wav", 75, 100)
+		VJ_CreateSound(self, "vj_hlr/hl1_npc/stukabat/stkb_fire"..math.random(1, 2)..".wav", 75, 100)
 	elseif key == "melee" then
 		self:MeleeAttackCode()
 	elseif key == "dropbomb" then
@@ -184,25 +184,23 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	local cont = self.VJ_TheController
-	local enemy = self:GetEnemy()
+	local ene = self:GetEnemy()
 	local pos = self:GetPos()
-	-- local waypoint = self:GetCurWaypointPos()
-	local waypoint = pos +self:GetVelocity():Angle():Forward() *50
-	local mode = self.Stuka_Mode
+	local waypoint = pos + self:GetVelocity():Angle():Forward()*50
+	local mode = self.Stuka_Mode -- 0 = Ground, 1 = Air, 2 = Ceiling
 	if mode == 1 then
 		self.Stuka_FlyAnimation = pos.z <= waypoint.z && ACT_FLY or ACT_GLIDE
 	end
-	if IsValid(enemy) then
-		local dist = pos:Distance(enemy:GetPos())
-		self.Aerial_AnimTbl_Calm = dist <= self.RangeDistance && ACT_HOVER or self.Stuka_FlyAnimation
+	if IsValid(ene) then
+		self.Aerial_AnimTbl_Calm = self.LatestEnemyDistance <= self.RangeDistance && ACT_HOVER or self.Stuka_FlyAnimation
 		if IsValid(cont) then
-			self:HandleModeChanging(mode,pos,cont)
+			self:HandleModeChanging(mode, pos, cont)
 		elseif mode != 1 && !IsValid(cont) then
 			self:ChangeMode(1)
 		end
 	else
 		self.Aerial_AnimTbl_Calm = self.Stuka_FlyAnimation
-		self:HandleModeChanging(mode,pos,cont)
+		self:HandleModeChanging(mode, pos, cont)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -238,7 +236,7 @@ function ENT:AA_StopMoving()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(projectile)
-	return self:CalculateProjectile("Curve", projectile:GetPos(),self:GetEnemy():GetPos() +self:GetEnemy():OBBCenter(),1500)
+	return self:CalculateProjectile("Curve", projectile:GetPos(), self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
