@@ -147,12 +147,12 @@ function ENT:CustomOnAlert(ent)
 			if math.random(1, 2) == 1 then
 				for _,v in ipairs(ent.VJ_NPC_Class or {1}) do
 					if v == "CLASS_ZOMBIE" or ent:Classify() == CLASS_ZOMBIE then
-						self:PlaySoundSystem("Alert", "npc/combine_soldier/vo/infected.wav")
+						self:PlaySoundSystem("Alert", {"npc/combine_soldier/vo/infected.wav","npc/combine_soldier/vo/necrotics.wav","npc/combine_soldier/vo/necroticsinbound.wav"})
 						return -- Skip the regular creature sounds!
 					end
 				end
 			end
-			self:PlaySoundSystem("Alert", {"npc/combine_soldier/vo/outbreak.wav","npc/combine_soldier/vo/callcontactparasitics.wav","npc/combine_soldier/vo/necroticsinbound.wav","npc/combine_soldier/vo/necrotics.wav","npc/combine_soldier/vo/swarmoutbreakinsector.wav","npc/combine_soldier/vo/visualonexogens.wav","npc/combine_soldier/vo/wehavefreeparasites.wav","npc/combine_soldier/vo/wehavenontaggedviromes.wav","npc/combine_soldier/vo/weareinaninfestationzone.wav"})
+			self:PlaySoundSystem("Alert", {"npc/combine_soldier/vo/outbreak.wav","npc/combine_soldier/vo/callcontactparasitics.wav","npc/combine_soldier/vo/swarmoutbreakinsector.wav","npc/combine_soldier/vo/visualonexogens.wav","npc/combine_soldier/vo/wehavefreeparasites.wav","npc/combine_soldier/vo/wehavenontaggedviromes.wav","npc/combine_soldier/vo/weareinaninfestationzone.wav"})
 		end
 	end
 end
