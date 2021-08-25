@@ -29,7 +29,6 @@ ENT.RangeDistance = 2000 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
 ENT.RangeAttackAngleRadius = 75 -- What is the attack angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
 ENT.TimeUntilRangeAttackProjectileRelease = 0.06 -- How much time until the projectile code is ran?
-ENT.RangeAttackReps = 1 -- How many times does it run the projectile code?
 ENT.NextRangeAttackTime = 0 -- How much time until it can use a range attack?
 ENT.NextAnyAttackTime_Range = 0.01 -- How much time until it can use any attack again? | Counted in Seconds
 
@@ -38,6 +37,8 @@ ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav","ambient/energy/spark2.wav","ambient/energy/spark3.wav","ambient/energy/spark4.wav"}
 ENT.SoundTbl_Death = {"npc/turret_floor/die.wav"}
+
+local sdFiring = {"npc/turret_floor/shoot1.wav","npc/turret_floor/shoot2.wav","npc/turret_floor/shoot3.wav"}
 
 -- Custom
 ENT.Turret_HasLOS = false -- Has line of sight
@@ -105,6 +106,7 @@ function ENT:Controller_IntMsg(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
+	-- Turning sound
 	local parameter = self:GetPoseParameter("aim_yaw")
 	if parameter != self.Turret_CurrentParameter then
 		self.turret_turningsd = CreateSound(self, "npc/turret_wall/turret_loop1.wav") 
@@ -144,7 +146,7 @@ function ENT:CustomOnThink_AIEnabled()
 		if !IsValid(self:GetEnemy()) or scan == true then
 			-- Playing a beeping noise
 			if self.Turret_NextScanBeepT < CurTime() then
-				VJ_EmitSound(self, {"npc/turret_floor/ping.wav"}, 75, 100)
+				VJ_EmitSound(self, "npc/turret_floor/ping.wav", 75, 100)
 				self.Turret_NextScanBeepT = CurTime() + 1
 			end
 			-- LEFT TO RIGHT
@@ -191,29 +193,12 @@ function ENT:CustomOn_PoseParameterLookingCode(pitch, yaw, roll)
 	if (math.abs(math.AngleDifference(self:GetPoseParameter("aim_yaw"), math.ApproachAngle(self:GetPoseParameter("aim_yaw"), yaw, self.PoseParameterLooking_TurningSpeed))) >= 10) or (math.abs(math.AngleDifference(self:GetPoseParameter("aim_pitch"), math.ApproachAngle(self:GetPoseParameter("aim_pitch"), pitch, self.PoseParameterLooking_TurningSpeed))) >= 10) then
 		self.Turret_HasLOS = false
 	else
-		if self.Turret_HasLOS == false && IsValid(self:GetEnemy()) then -- If it just got LOS, then play the gun "activate" sound
+		-- If it just got LOS, then play the gun "activate" sound
+		if self.Turret_HasLOS == false && IsValid(self:GetEnemy()) then
 			VJ_EmitSound(self, "npc/turret_floor/active.wav", 70, 100)
 		end
 		self.Turret_HasLOS = true
 	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomAttackCheck_RangeAttack()
-	return self.Turret_HasLOS && !self.Turret_StandDown
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnResetEnemy()
-	-- Make it look around for couple seconds before sleeping
-	self.PoseParameterLooking_CanReset = false -- Used for looking around when enemy isn't found
-	self.Alerted = true -- Set it back to alerted (Since it gets turned off in reset enemy)
-	timer.Simple(5, function() -- After the timer, make it actually not alerted
-		if IsValid(self) then
-			self.PoseParameterLooking_CanReset = true
-			if !IsValid(self:GetEnemy()) then
-				self.Alerted = false
-			end
-		end
-	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
@@ -237,6 +222,25 @@ function ENT:Turret_Activate()
 	timer.Simple(0.8, function() VJ_STOPSOUND(self.turret_alertsd) end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnResetEnemy()
+	-- Make it look around for couple seconds before sleeping
+	self.PoseParameterLooking_CanReset = false -- Used for looking around when enemy isn't found
+	self.Alerted = true -- Set it back to alerted (Since it gets turned off in reset enemy)
+	timer.Simple(5, function() -- After the timer, make it actually not alerted
+		if IsValid(self) then
+			self.PoseParameterLooking_CanReset = true
+			if !IsValid(self:GetEnemy()) then
+				self.Alerted = false
+			end
+		end
+	end)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomAttackCheck_RangeAttack()
+	-- Only fire if we have LOS and not in stand down mode!
+	return self.Turret_HasLOS && !self.Turret_StandDown
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
 	self:VJ_ACT_PLAYACTIVITY("vjseq_fire", false)
 	
@@ -246,7 +250,7 @@ function ENT:CustomRangeAttackCode()
 	bullet.Num = 1
 	bullet.Src = startpos
 	bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()) - startpos
-	bullet.Spread = Vector(math.random(-15,15), math.random(-15,15), math.random(-15,15))
+	bullet.Spread = Vector(math.random(-15, 15), math.random(-15, 15), math.random(-15, 15))
 	bullet.Tracer = 1
 	bullet.TracerName = "AR2Tracer"
 	bullet.Force = 5
@@ -254,7 +258,7 @@ function ENT:CustomRangeAttackCode()
 	bullet.AmmoType = "AR2"
 	self:FireBullets(bullet)
 	
-	VJ_EmitSound(self, {"npc/turret_floor/shoot1.wav","npc/turret_floor/shoot2.wav","npc/turret_floor/shoot3.wav"}, 90, self:VJ_DecideSoundPitch(100,110))
+	VJ_EmitSound(self, sdFiring, 90, self:VJ_DecideSoundPitch(100, 110))
 	
 	-- Effects & Light
 	//ParticleEffect("vj_rifle_full_blue", startpos, self:GetAngles(), self)
@@ -267,25 +271,30 @@ function ENT:CustomRangeAttackCode()
 	FireLight1:SetParent(self)
 	FireLight1:Spawn()
 	FireLight1:Activate()
-	FireLight1:Fire("TurnOn","",0)
-	FireLight1:Fire("Kill","",0.07)
+	FireLight1:Fire("TurnOn", "", 0)
+	FireLight1:Fire("Kill", "", 0.07)
 	self:DeleteOnRemove(FireLight1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local defAng = Angle(0, 0, 0)
+--
 function ENT:CustomOnKilled(dmginfo, hitgroup)
-	ParticleEffect("explosion_turret_break_fire", self:GetPos() + self:OBBCenter(), Angle(0,0,0), NULL)
-	ParticleEffect("explosion_turret_break_flash", self:GetPos() + self:OBBCenter(), Angle(0,0,0), NULL)
-	ParticleEffect("explosion_turret_break_pre_smoke Version #2", self:GetPos() + self:OBBCenter(), Angle(0,0,0), NULL)
-	ParticleEffect("explosion_turret_break_sparks", self:GetPos() + self:OBBCenter(), Angle(0,0,0), NULL)
+	local startPos = self:GetPos() + self:OBBCenter()
+	ParticleEffect("explosion_turret_break_fire", startPos, defAng, NULL)
+	ParticleEffect("explosion_turret_break_flash", startPos, defAng, NULL)
+	ParticleEffect("explosion_turret_break_pre_smoke Version #2", startPos, defAng, NULL)
+	ParticleEffect("explosion_turret_break_sparks", startPos, defAng, NULL)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local sdGibCollide = {"physics/metal/metal_box_impact_hard1.wav", "physics/metal/metal_box_impact_hard2.wav", "physics/metal/metal_box_impact_hard3.wav"}
+--
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib1.mdl",{BloodType="",Pos=self:LocalToWorld(Vector(0,0,40)), CollideSound={"physics/metal/metal_box_impact_hard1.wav","physics/metal/metal_box_impact_hard2.wav","physics/metal/metal_box_impact_hard3.wav"}})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib2.mdl",{BloodType="",Pos=self:LocalToWorld(Vector(0,0,20)), CollideSound={"physics/metal/metal_box_impact_hard1.wav","physics/metal/metal_box_impact_hard2.wav","physics/metal/metal_box_impact_hard3.wav"}})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib3.mdl",{BloodType="",Pos=self:LocalToWorld(Vector(0,0,30)), CollideSound={"physics/metal/metal_box_impact_hard1.wav","physics/metal/metal_box_impact_hard2.wav","physics/metal/metal_box_impact_hard3.wav"}})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib4.mdl",{BloodType="",Pos=self:LocalToWorld(Vector(0,0,35)), CollideSound={"physics/metal/metal_box_impact_hard1.wav","physics/metal/metal_box_impact_hard2.wav","physics/metal/metal_box_impact_hard3.wav"}})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib5.mdl",{BloodType="",Pos=self:LocalToWorld(Vector(0,0,35)), CollideSound={"physics/metal/metal_box_impact_hard1.wav","physics/metal/metal_box_impact_hard2.wav","physics/metal/metal_box_impact_hard3.wav"}})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib1.mdl", {BloodType="",Pos=self:LocalToWorld(Vector(0,0,40)), CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib2.mdl", {BloodType="",Pos=self:LocalToWorld(Vector(0,0,20)), CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib3.mdl", {BloodType="",Pos=self:LocalToWorld(Vector(0,0,30)), CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib4.mdl", {BloodType="",Pos=self:LocalToWorld(Vector(0,0,35)), CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib5.mdl", {BloodType="",Pos=self:LocalToWorld(Vector(0,0,35)), CollideSound=sdGibCollide})
 	return true -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
