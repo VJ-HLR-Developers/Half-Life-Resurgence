@@ -127,6 +127,7 @@ function ENT:MultipleMeleeAttacks()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
+	if self.Bullsquid_Type != 0 then return end
 	if dmginfo:GetDamage() > 35 then
 		self.AnimTbl_Death = {ACT_DIEBACKWARD}
 	end
