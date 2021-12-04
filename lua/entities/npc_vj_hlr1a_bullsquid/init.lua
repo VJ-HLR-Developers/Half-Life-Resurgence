@@ -54,6 +54,12 @@ function ENT:Controller_IntMsg(ply, controlEnt)
 	ply:ChatPrint("SPACE: Transform into a BullSquidding! (Irreversible!)")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
+	if dmginfo:GetDamage() > 35 then
+		self.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD}
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Bullsquid_ActivateBullSquidding()
 	self.Bullsquid_BullSquidding = true
 	self.Bullsquid_BullSquiddingT = CurTime()

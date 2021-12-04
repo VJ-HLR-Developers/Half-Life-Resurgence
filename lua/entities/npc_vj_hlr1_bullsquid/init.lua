@@ -126,6 +126,12 @@ function ENT:MultipleMeleeAttacks()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
+	if dmginfo:GetDamage() > 35 then
+		self.AnimTbl_Death = {ACT_DIEBACKWARD}
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 	corpseEnt:SetSkin(1)
 	VJ_HLR_ApplyCorpseEffects(self, corpseEnt)
