@@ -33,7 +33,7 @@ SWEP.PrimaryEffects_ShellType = "VJ_Weapon_PistolShell1"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 
 -- Custom
-SWEP.HLR_ValidModels = {"models/vj_hlr/hl1/hassassin.mdl"}
+SWEP.HLR_ValidModels = {"models/vj_hlr/hl1/hassassin.mdl","models/vj_hlr/cracklife/hassassin.mdl"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
 	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
