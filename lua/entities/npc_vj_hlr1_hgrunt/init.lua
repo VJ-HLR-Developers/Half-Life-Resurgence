@@ -81,6 +81,8 @@ ENT.HECU_CanHurtWalk = true -- Set to false to disable hurt-walking, automatical
 ENT.HECU_UsingHurtWalk = false -- Used for optimizations, makes sure that the animations are only changed once
 ENT.HECU_Rappelling = false
 ENT.HECU_DeployedByOsprey = false
+ENT.HECU_CanUseGuardAnim = true -- Set to false to disable the guard animation when it's set to guard
+ENT.HECU_SwitchedIdle = false
 ENT.HECU_NextMouthMove = 0
 ENT.HECU_NextMouthDistance = 0
 
@@ -114,20 +116,20 @@ function ENT:HECU_CustomOnInitialize()
 	self.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/hgrunt/gr_allydeath.wav","vj_hlr/hl1_npc/hgrunt/gr_cover2.wav","vj_hlr/hl1_npc/hgrunt/gr_cover3.wav","vj_hlr/hl1_npc/hgrunt/gr_cover4.wav","vj_hlr/hl1_npc/hgrunt/gr_cover7.wav"}
 	
 	if self.HECU_Type == 7 then
-		self:SetBodygroup(1,0)
+		self:SetBodygroup(1, 0)
 	else
-		self:SetSkin(math.random(0,1))
+		self:SetSkin(math.random(0, 1))
 	
-		local randhead = math.random(0,3)
-		self:SetBodygroup(1,randhead)
-		if randhead == 1 then
+		local randHead = math.random(0, 3)
+		self:SetBodygroup(1, randHead)
+		if randHead == 1 then
 			self:SetSkin(0) -- Jermag
-		elseif randhead == 3 then
+		elseif randHead == 3 then
 			self:SetSkin(1) -- Sev
 		end
 		
-		if randhead == 2 then
-			self:SetBodygroup(2,1)
+		if randHead == 2 then
+			self:SetBodygroup(2, 1)
 		else
 			self:SetBodygroup(2,0)
 		end
@@ -163,6 +165,7 @@ function ENT:CustomOnInitialize()
 		self.HECU_WepBG = 1
 		self.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD}
 		self.HECU_CanHurtWalk = false
+		self.HECU_CanUseGuardAnim = false
 	elseif myMDL == "models/vj_hlr/hl1/hassault.mdl" or myMDL == "models/vj_hlr/hl_hd/hassault.mdl" then
 		self.HECU_Type = 7
 		self.HECU_WepBG = 1
@@ -174,6 +177,7 @@ function ENT:CustomOnInitialize()
 			self.DeathAnimationTime  = false
 		end
 		self.HECU_CanHurtWalk = false
+		self.HECU_CanUseGuardAnim = false
 	end
 	
 	self.HECU_NextMouthMove = CurTime()
@@ -434,6 +438,19 @@ function ENT:CustomOnThink()
 		self.AnimTbl_ShootWhileMovingRun = {ACT_RUN}
 		self.HECU_UsingHurtWalk = false
 	end
+	
+	-- For guarding
+	/*if self.HECU_CanUseGuardAnim then
+		if self.IsGuard == true && !self.HECU_Rappelling && !IsValid(self:GetEnemy()) then
+			if self.HECU_SwitchedIdle == false then
+				self.HECU_SwitchedIdle = true
+				self.AnimTbl_IdleStand = {ACT_GET_DOWN_STAND}
+			end
+		elseif self.HECU_SwitchedIdle == true then
+			self.HECU_SwitchedIdle = false
+			self.AnimTbl_IdleStand = {ACT_IDLE}
+		end
+	end*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gasTankExpPos = Vector(0, 0, 90)
@@ -530,7 +547,8 @@ end
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	self:DropWeaponOnDeathCode(dmginfo, hitgroup)
 	self:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
-	if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
+	local activeWep = self:GetActiveWeapon()
+	if IsValid(activeWep) then activeWep:Remove() end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)

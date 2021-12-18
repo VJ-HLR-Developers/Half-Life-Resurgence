@@ -48,6 +48,16 @@ function ENT:CustomOnThink()
 	if self:WaterLevel() == 3 then
 		effects.BubbleTrail(self:GetPos(), self:GetPos() + self:GetForward()*400, 6, -500, 100)
 	end
+	
+	-- Make it slow down when its out of the water and fall down
+	/*if self:WaterLevel() == 0 then
+		local phys = self:GetPhysicsObject()
+		if IsValid(phys) then
+			phys:EnableGravity(true)
+			phys:EnableDrag(true)
+			phys:SetVelocity(phys:GetVelocity() * 0.3)
+		end
+	end*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local defAng = Angle(0, 0, 0)
