@@ -43,3 +43,35 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self:MeleeAttackCode()
 	end
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
+	self.HasDeathSounds = false
+	if self.HasGibDeathParticles == true then
+		local effectBlood = EffectData()
+			effectBlood:SetOrigin(self:GetPos() + self:OBBCenter())
+			effectBlood:SetColor(VJ_Color2Byte(Color(130,19,10)))
+			effectBlood:SetScale(120)
+			util.Effect("VJ_Blood1",effectBlood)
+			
+			local bloodspray = EffectData()
+			bloodspray:SetOrigin(self:GetPos())
+			bloodspray:SetScale(8)
+			bloodspray:SetFlags(3)
+			bloodspray:SetColor(0)
+			util.Effect("bloodspray",bloodspray)
+			util.Effect("bloodspray",bloodspray)
+	end
+	
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh3.mdl",{BloodType="Red",BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,0))})
+	return true -- Return to true if it gibbed!
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local gibs = {"models/vj_hlr/gibs/flesh3.mdl"}
+function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
+	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+	return false
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, gibs)
+end
