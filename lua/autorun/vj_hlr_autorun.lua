@@ -15,7 +15,7 @@ local VJExists = file.Exists("lua/autorun/vj_base_autorun.lua","GAME")
 if VJExists == true then
 	include('autorun/vj_controls.lua')
 	
-	VJBASE_HLR_VERSION = "1.0.1"
+	VJBASE_HLR_VERSION = "1.1.0"
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ GoldSrc Engine ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -101,7 +101,7 @@ if VJExists == true then
 	VJ.AddNPC("Control Sphere","npc_vj_hlr1_controlsphere",vCat)
 	VJ.AddNPC("Mr. Friendly","npc_vj_hlr1_mrfriendly",vCat)
 	VJ.AddNPC("Nihilanth","npc_vj_hlr1_nihilanth",vCat)
-	VJ.AddNPC("Barnacle","npc_vj_hlr1_barnacle",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
+	VJ.AddNPC("Barnacle","npc_vj_hlr1_barnacle",vCat,false, function(x) x.OnCeiling = true x.Offset = 0 end)
 	VJ.AddNPC("Xen Tree","npc_vj_hlr1_xen_tree",vCat)
 	VJ.AddNPC("Xen Hair","sent_vj_xen_hair",vCat)
 	VJ.AddNPC("Xen Spore (Large)","sent_vj_xen_spore_large",vCat)
@@ -110,7 +110,7 @@ if VJExists == true then
 	VJ.AddNPC("Xen Plant Light","sent_vj_xen_plant_light",vCat)
 	VJ.AddNPC("Xen Crystal","sent_vj_xen_crystal",vCat)
 	VJ.AddNPC("Xen Sentry Cannon","npc_vj_hlr1_xen_cannon",vCat)
-	VJ.AddNPC("Xen Ceiling Turret","npc_vj_hlr1_xen_turretc",vCat,false,function(x) x.OnCeiling = true x.Offset = 0 end)
+	VJ.AddNPC("Xen Ceiling Turret","npc_vj_hlr1_xen_turretc",vCat,false, function(x) x.OnCeiling = true x.Offset = 0 end)
 		-- Spawners
 		VJ.AddNPC("Portal (Xen)","sent_vj_hlr_alientp",vCat)
 		VJ.AddNPC("Portal (Race X)","sent_vj_hlr_alientp_x",vCat)

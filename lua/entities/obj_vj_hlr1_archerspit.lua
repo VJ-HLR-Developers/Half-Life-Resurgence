@@ -46,7 +46,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	if self:WaterLevel() == 3 then
-		effects.BubbleTrail(self:GetPos(), self:GetPos() + self:GetForward()*400, 6, -500, 100)
+		local myPos = self:GetPos()
+		effects.BubbleTrail(myPos, myPos + self:GetForward()*400, 6, -500, 100)
 	end
 	
 	-- Make it slow down when its out of the water and fall down
