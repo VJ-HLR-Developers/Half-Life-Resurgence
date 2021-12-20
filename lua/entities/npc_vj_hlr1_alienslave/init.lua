@@ -97,7 +97,7 @@ function ENT:Vort_DoElecEffect(sp, hp, hn, a, t)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRangeAttack_AfterStartTimer()
-	if self.CurrentBeforeRangeAttackSound then self.CurrentBeforeRangeAttackSound:ChangePitch(100 + 8 * 10, 1.5) end
+	if self.CurrentBeforeRangeAttackSound then self.CurrentBeforeRangeAttackSound:ChangePitch(90 + 90, 1.2) end
 	local myPos = self:GetPos()
 	-- Tsakh --------------------------
 	local tsakhSpawn = myPos + self:GetUp()*45 + self:GetRight()*20
