@@ -74,6 +74,7 @@ ENT.HECU_Type = 0
 	-- 5 = Robot Grunt
 	-- 6 = Alpha HGrunt
 	-- 7 = Human Sergeant
+	-- 8 = Soviet Grunt (Crack-Life Resurgence)
 ENT.HECU_WepBG = 2 -- The bodygroup that the weapons are in (Ourish e amen modelneroun)
 ENT.HECU_LastBodyGroup = 99
 ENT.HECU_UsingDefaultSounds = false -- Set automatically, if true then it's using the default HECU sounds
@@ -172,6 +173,10 @@ function ENT:CustomOnInitialize()
 			self.DeathAnimationTime  = false
 		end
 		self.HECU_CanHurtWalk = false
+		self.HECU_CanUseGuardAnim = false
+	elseif myMDL == "models/vj_hlr/cracklife/hgrunt.mdl" then
+		self.HECU_Type = 8
+		self.HECU_WepBG = 1
 	end
 	
 	self.HECU_NextMouthMove = CurTime()
@@ -295,6 +300,14 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_AR2
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_AR2
 		end
+	elseif self.HECU_Type == 8 then -- 8 = Soviet Grunt (Crack-Life Resurgence)
+		if bgroup == 0 then -- MP5
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
+		elseif bgroup == 1 then -- Shotgun
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SHOTGUN
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SHOTGUN_LOW
+		end
 	end
 	return true
 end
@@ -375,6 +388,14 @@ function ENT:CustomOnThink()
 		elseif self.HECU_Type == 7 then -- 7 = Human Sergeant
 			if bgroup == 0 then -- 20mm Cannon
 				self:DoChangeWeapon("weapon_vj_hlr1_20mm")
+			elseif IsValid(self:GetActiveWeapon()) then
+				self:GetActiveWeapon():Remove()
+			end
+		elseif self.HECU_Type == 8 then -- 8 = Soviet Grunt (Crack-Life Resurgence)
+			if bgroup == 0 then -- MP5
+				self:DoChangeWeapon("weapon_vj_hlr1_mp5")
+			elseif bgroup == 1 then -- Shotgun
+				self:DoChangeWeapon("weapon_vj_hlr1_spas12")
 			elseif IsValid(self:GetActiveWeapon()) then
 				self:GetActiveWeapon():Remove()
 			end
@@ -530,6 +551,8 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
 		self:SetSkin(4)
 	elseif self.HECU_Type == 1 or self.HECU_Type == 2 then
 		self:SetBodygroup(self.HECU_WepBG, 3)
+	elseif self.HECU_Type == 8 then
+		self:SetBodygroup(self.HECU_WepBG, 2)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
