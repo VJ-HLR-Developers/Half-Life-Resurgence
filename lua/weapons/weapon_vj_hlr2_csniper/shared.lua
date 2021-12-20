@@ -89,16 +89,17 @@ end
 local vec_def = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnThink()
-	if IsValid(self:GetOwner()) then
-		if self:GetOwner():IsNPC() then
-			if IsValid(self:GetOwner():GetEnemy()) && self:Visible(self:GetOwner():GetEnemy()) then -- Return the enemy center position
+	local owner = self:GetOwner()
+	if IsValid(owner) then
+		if owner:IsNPC() then
+			if IsValid(owner:GetEnemy()) && self:Visible(owner:GetEnemy()) then -- Return the enemy center position
 				self:SetNW2Vector("OwnerEnemyPos", self.Owner:GetEnemy():GetPos() + self.Owner:GetEnemy():OBBCenter())
 			else -- Make the vector default position, used to determine whether or not to lock onto the enemy (the laser)
 				self:SetNW2Vector("OwnerEnemyPos", vec_def)
 			end
-		elseif self:GetOwner():IsPlayer() then
+		elseif owner:IsPlayer() then
 			if self:GetZoomLevel() == 0 then -- If level is 0, reset it to the default FOV
-				self:GetOwner():SetFOV(GetConVar("fov_desired"):GetInt(), 0.1)
+				owner:SetFOV(GetConVar("fov_desired"):GetInt() or 90, 0.1)
 			end
 			self:SetZoomed(self:GetZoomLevel() > 0) -- > 0 means it's zoomed
 			self.Primary.Cone = (self:GetZoomed() and 1) or 10
@@ -114,38 +115,41 @@ if CLIENT then
 	function SWEP:GetViewModelPosition(pos, ang)
 		if !self:GetZoomed() then return pos,ang end
 
-		ang:RotateAroundAxis(ang:Right(),aimAng.x)
-		ang:RotateAroundAxis(ang:Up(),aimAng.y)
-		ang:RotateAroundAxis(ang:Forward(),aimAng.z)
+		ang:RotateAroundAxis(ang:Right(), aimAng.x)
+		ang:RotateAroundAxis(ang:Up(), aimAng.y)
+		ang:RotateAroundAxis(ang:Forward(), aimAng.z)
 
-		pos = pos +aimPos.x *ang:Right()
-		pos = pos +aimPos.y *ang:Up()
-		pos = pos +aimPos.z *ang:Forward()
+		pos = pos + aimPos.x * ang:Right()
+		pos = pos + aimPos.y * ang:Up()
+		pos = pos + aimPos.z * ang:Forward()
 		
 		return pos, ang
 	end
 
 	local matLaser = Material("sprites/rollermine_shock")
 	local matSprite = Material("particle/particle_glow_02")
+	local laserColor = Color(0, 161, 255, 255)
 	---------------------------------------------------------------------------------------------------------------------------------------------
 	function SWEP:PostDrawViewModel(vm, wep, ply)
+		local owner = wep:GetOwner()
 		-- Player only
 		local attach = vm:GetAttachment(vm:LookupAttachment("laser"))
 		render.SetMaterial(matLaser)
-		render.DrawBeam(attach.Pos, wep:GetOwner():GetEyeTrace().HitPos, 5, 0, 5, Color(0,161,255,255))
+		render.DrawBeam(attach.Pos, owner:GetEyeTrace().HitPos, 5, 0, 5, laserColor)
 		render.SetMaterial(matSprite)
-		render.DrawSprite(attach.Pos, 3, 3, Color(0,161,255,255))
+		render.DrawSprite(attach.Pos, 3, 3, laserColor)
 		render.SetMaterial(matSprite)
-		render.DrawSprite(wep:GetOwner():GetEyeTrace().HitPos, math.random(4,6), math.random(4,6), Color(0,161,255,255))
+		render.DrawSprite(owner:GetEyeTrace().HitPos, math.random(4, 6), math.random(4, 6), laserColor)
 	end
 	---------------------------------------------------------------------------------------------------------------------------------------------
 	function SWEP:CustomOnDrawWorldModel()
-		if IsValid(self:GetOwner()) then
+		local owner = self:GetOwner()
+		if IsValid(owner) then
 			local attach = self:GetAttachment(self:LookupAttachment("laser"))
 			local attachPos = attach.Pos
 			local attachAng = attach.Ang
 			local endPos = attachPos + attachAng:Forward()*10000 + attachAng:Up()*180 + attachAng:Right()*700
-			local strictPointer = (!self:GetOwner():IsNPC() and 1) or GetConVar("vj_hlr2_csniper_laser_usebarrel"):GetInt()
+			local strictPointer = (!owner:IsNPC() and 1) or GetConVar("vj_hlr2_csniper_laser_usebarrel"):GetInt()
 			if strictPointer == 1 or vec_def == self:GetNW2Vector("OwnerEnemyPos") then -- Face straight from the attachment
 				endPos = attachPos + attachAng:Forward()*10000 + attachAng:Up()*180 + attachAng:Right()*700
 			else -- Face towards the enemy
@@ -157,12 +161,12 @@ if CLIENT then
 				filter = self,
 			})
 			render.SetMaterial(matLaser)
-			render.DrawBeam(attachPos, tr.HitPos, 5, 0, 5, Color(0,161,255,255))
+			render.DrawBeam(attachPos, tr.HitPos, 5, 0, 5, laserColor)
 			render.SetMaterial(matSprite)
-			render.DrawSprite(attachPos, 3, 3, Color(0,161,255,255))
+			render.DrawSprite(attachPos, 3, 3, laserColor)
 			if tr.Hit == true then
 				render.SetMaterial(matSprite)
-				render.DrawSprite(tr.HitPos, math.random(4,6), math.random(4,6), Color(0,161,255,255))
+				render.DrawSprite(tr.HitPos, math.random(4, 6), math.random(4, 6), laserColor)
 			end
 		end
 		return true
