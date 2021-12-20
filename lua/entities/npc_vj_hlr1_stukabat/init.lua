@@ -143,7 +143,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	if key == "wing" then
 		VJ_EmitSound(self,"vj_hlr/hl1_npc/stukabat/stkb_wings" .. math.random(1, 3) .. ".wav", 70)
 	elseif key == "body" then
-		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	elseif key == "attack" then
 		VJ_CreateSound(self, "vj_hlr/hl1_npc/stukabat/stkb_fire"..math.random(1, 2)..".wav", 75, 100)
 	elseif key == "melee" then
@@ -341,7 +341,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 					self:Remove()
 				end
 			end)
-			VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+			VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 		end
 
 		self:Remove()

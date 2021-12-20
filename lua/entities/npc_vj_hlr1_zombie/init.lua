@@ -67,12 +67,10 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "event_emit step" then
 		self:FootStepSoundCode()
-	end
-	if key == "event_mattack right" or key == "event_mattack left" or key == "event_mattack both" then
+	elseif key == "event_mattack right" or key == "event_mattack left" or key == "event_mattack both" then
 		self:MeleeAttackCode()
-	end
-	if key == "ragdoll" then
-		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+	elseif key == "ragdoll" then
+		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -139,6 +137,8 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local extraGibs = {"models/vj_hlr/gibs/zombiegib.mdl"}
+--
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
-	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, nil, {ExtraGibs = self.Zombie_Type == 1 and {"models/vj_hlr/gibs/zombiegib.mdl"} or nil})
+	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, nil, {ExtraGibs = self.Zombie_Type == 1 and extraGibs or nil})
 end

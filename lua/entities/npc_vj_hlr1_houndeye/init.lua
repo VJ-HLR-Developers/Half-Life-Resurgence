@@ -42,6 +42,9 @@ ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/houndeye/he_attack1.wav","vj_h
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/houndeye/he_pain1.wav","vj_hlr/hl1_npc/houndeye/he_pain2.wav","vj_hlr/hl1_npc/houndeye/he_pain3.wav","vj_hlr/hl1_npc/houndeye/he_pain4.wav","vj_hlr/hl1_npc/houndeye/he_pain5.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/houndeye/he_die1.wav","vj_hlr/hl1_npc/houndeye/he_die2.wav","vj_hlr/hl1_npc/houndeye/he_die3.wav"}
 
+local blastSd = {"vj_hlr/hl1_npc/houndeye/he_blast1.wav","vj_hlr/hl1_npc/houndeye/he_blast2.wav","vj_hlr/hl1_npc/houndeye/he_blast3.wav"}
+local painSd = {"vj_hlr/hl1_npc/houndeye/he_pain1.wav","vj_hlr/hl1_npc/houndeye/he_pain3.wav"}
+
 ENT.FootStepSoundLevel = 80
 ENT.GeneralSoundPitch1 = 100
 
@@ -63,13 +66,14 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	if key == "he_hunt" then
 		self:FootStepSoundCode()
 	elseif key == "placeholder_eye_event_dont_use" then
-		VJ_EmitSound(self,{"vj_hlr/hl1_npc/houndeye/he_pain1.wav","vj_hlr/hl1_npc/houndeye/he_pain3.wav"})
+		VJ_EmitSound(self, painSd)
 	elseif key == "body" then
-		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
+	-- Idle animations
 	if self.VJ_IsBeingControlled then
 		self.AnimTbl_IdleStand = {ACT_IDLE, "leaderlook"}
 	else
@@ -83,7 +87,8 @@ function ENT:CustomOnThink()
 		end
 	end
 	
-	if (self:GetMaxHealth() * 0.35) > self:Health() then -- Limp walking
+	-- Limp walking
+	if (self:GetMaxHealth() * 0.35) > self:Health() then
 		if !self.Houndeye_LimpWalking then
 			self.AnimTbl_Walk = {ACT_WALK_HURT}
 			self.Houndeye_LimpWalking = true
@@ -125,6 +130,8 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local alertAnims = {"vjseq_madidle1","vjseq_madidle2","vjseq_madidle3"}
+--
 function ENT:CustomOnAlert(ent)
 	if self.Houndeye_Sleeping == true then -- Wake up if sleeping and play a special alert animation
 		if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end
@@ -132,7 +139,7 @@ function ENT:CustomOnAlert(ent)
 		self:VJ_ACT_PLAYACTIVITY(ACT_HOP, true, false, false)
 		self.Houndeye_NextSleepT = CurTime() + 20
 	elseif math.random(1,2) == 1 then -- Random alert animation
-		self:VJ_ACT_PLAYACTIVITY({"vjseq_madidle1","vjseq_madidle2","vjseq_madidle3"}, true, false, true)
+		self:VJ_ACT_PLAYACTIVITY(alertAnims, true, false, true)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -144,7 +151,8 @@ function ENT:CustomOnMeleeAttack_BeforeChecks()
 	local friNum = 0 -- How many allies exist around the Houndeye
 	local color = Color(188, 220, 255) -- The shock wave color
 	local dmg = 15 -- How much damage should the shock wave do?
-	for _, v in ipairs(ents.FindInSphere(self:GetPos(), 400)) do
+	local myPos = self:GetPos()
+	for _, v in ipairs(ents.FindInSphere(myPos, 400)) do
 		if v != self && v:GetClass() == "npc_vj_hlr1_houndeye" then
 			friNum = friNum + 1
 		end
@@ -162,13 +170,13 @@ function ENT:CustomOnMeleeAttack_BeforeChecks()
 	end
 	
 	-- flags 0 = No fade!
-	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 400, 16, 0, color, {material="vj_hl/sprites/shockwave", framerate=20, flags=0})
-	effects.BeamRingPoint(self:GetPos(), 0.3, 2, 200, 16, 0, color, {material="vj_hl/sprites/shockwave", framerate=20, flags=0})
+	effects.BeamRingPoint(myPos, 0.3, 2, 400, 16, 0, color, {material="vj_hl/sprites/shockwave", framerate=20, flags=0})
+	effects.BeamRingPoint(myPos, 0.3, 2, 200, 16, 0, color, {material="vj_hl/sprites/shockwave", framerate=20, flags=0})
 	
 	if self.HasSounds == true && GetConVar("vj_npc_sd_meleeattack"):GetInt() == 0 then
-		VJ_EmitSound(self, {"vj_hlr/hl1_npc/houndeye/he_blast1.wav","vj_hlr/hl1_npc/houndeye/he_blast2.wav","vj_hlr/hl1_npc/houndeye/he_blast3.wav"}, 100, math.random(80,100))
+		VJ_EmitSound(self, blastSd, 100, math.random(80, 100))
 	end
-	util.VJ_SphereDamage(self, self, self:GetPos(), 400, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
+	util.VJ_SphereDamage(self, self, myPos, 400, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)

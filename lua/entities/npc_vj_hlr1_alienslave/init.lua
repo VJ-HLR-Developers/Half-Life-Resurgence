@@ -81,7 +81,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	elseif key == "shoot" then
 		self:RangeAttackCode()
 	elseif key == "body" then
-		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3,4)..".wav", 75, 100)
+		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -97,6 +97,7 @@ function ENT:Vort_DoElecEffect(sp, hp, hn, a, t)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRangeAttack_AfterStartTimer()
+	if self.CurrentBeforeRangeAttackSound then self.CurrentBeforeRangeAttackSound:ChangePitch(100 + 8 * 10, 1.5) end
 	local myPos = self:GetPos()
 	-- Tsakh --------------------------
 	local tsakhSpawn = myPos + self:GetUp()*45 + self:GetRight()*20

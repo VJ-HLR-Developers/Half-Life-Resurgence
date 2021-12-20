@@ -58,6 +58,8 @@ ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/voltigore/voltigore_attack_sho
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/voltigore/voltigore_pain1.wav","vj_hlr/hl1_npc/voltigore/voltigore_pain2.wav","vj_hlr/hl1_npc/voltigore/voltigore_pain3.wav","vj_hlr/hl1_npc/voltigore/voltigore_pain4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/voltigore/voltigore_die1.wav","vj_hlr/hl1_npc/voltigore/voltigore_die2.wav","vj_hlr/hl1_npc/voltigore/voltigore_die3.wav"}
 
+local extraMoveSd = {"vj_hlr/hl1_npc/voltigore/voltigore_run_grunt1.wav","vj_hlr/hl1_npc/voltigore/voltigore_run_grunt2.wav"}
+
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(60, 60, 95), Vector(-60, -60, 0))
@@ -69,7 +71,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self:FootStepSoundCode()
 	end
 	if key == "grunting_sounds" then
-		self:FootStepSoundCode({"vj_hlr/hl1_npc/voltigore/voltigore_run_grunt1.wav","vj_hlr/hl1_npc/voltigore/voltigore_run_grunt2.wav"})
+		self:FootStepSoundCode(extraMoveSd)
 	end
 	if key == "single" or key == "both" then
 		self:MeleeAttackCode()
