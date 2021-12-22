@@ -231,6 +231,8 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local extraGibs = {"models/vj_hlr/gibs/islavegib.mdl"}
+--
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
-	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, nil, {ExtraGibs = {"models/vj_hlr/gibs/islavegib.mdl"}})
+	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, nil, {ExtraGibs = extraGibs})
 end

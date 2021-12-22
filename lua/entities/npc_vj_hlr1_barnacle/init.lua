@@ -88,6 +88,8 @@ end
 	end
 end)*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local velInitial = Vector(0, 0, 2)
+--
 function ENT:Barnacle_CalculateTongue()
 	//print(self.Barnacle_LastHeight)
 	local tr = util.TraceLine({
@@ -111,7 +113,7 @@ function ENT:Barnacle_CalculateTongue()
 		trent:AddEFlags(EFL_IS_BEING_LIFTED_BY_BARNACLE)
 		if trent:IsNPC() then
 			trent:StopMoving()
-			trent:SetVelocity(Vector(0,0,2))
+			trent:SetVelocity(velInitial)
 			trent:SetMoveType(MOVETYPE_FLY)
 		elseif trent:IsPlayer() then
 			trent:SetMoveType(MOVETYPE_NONE)
@@ -166,6 +168,15 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetMeleeAttackDamagePosition()
 	return self:GetPos() + self:GetUp()*-100 -- Override this to use a different position
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt, isProp)
+	if hitEnt.IsVJBaseSNPC_Human then
+		self.MeleeAttackDamage = hitEnt:Health() + 10
+	else
+		self.MeleeAttackDamage = 80
+	end
+	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 /*function ENT:CustomAttackCheck_MeleeAttack()

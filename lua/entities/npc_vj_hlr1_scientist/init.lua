@@ -144,7 +144,7 @@ ENT.SCI_Type = 0
 	-- 1 = Cleansuit Scientist
 	-- 2 = Dr. Keller
 	-- 3 = Alpha Scientist
-ENT.SCI_CurAnims = -1 -- 0 = Regular | 1 = Scared
+ENT.SCI_CurAnims = -1 -- 0 = Regular | 1 = Scared | 2 = Grabbed by barnacle
 ENT.SCI_NextTieAnnoyanceT = 0
 ENT.SCI_ControllerAnim = 0
 	
@@ -248,6 +248,7 @@ function ENT:CustomOnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
+	-- NPC Controller behavior setting
 	if self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_RELOAD) then
 		if self.SCI_ControllerAnim == 0 then
 			self.SCI_ControllerAnim = 1
@@ -257,8 +258,16 @@ function ENT:CustomOnThink()
 			self.VJ_TheController:ChatPrint("Calming down...")
 		end
 	end
-	-- self.SCI_CurAnims --> 0 = Regular | 1 = Scared
-	if self.SCI_Type != 3 && ((!self.VJ_IsBeingControlled && IsValid(self:GetEnemy())) or (self.VJ_IsBeingControlled && self.SCI_ControllerAnim == 1)) then
+	
+	-- self.SCI_CurAnims --> 0 = Regular | 1 = Scared | 2 = Grabbed by barnacle
+	if self:IsEFlagSet(EFL_IS_BEING_LIFTED_BY_BARNACLE) then
+		if self.SCI_CurAnims != 2 then
+			self.SCI_CurAnims = 2
+			self.AnimTbl_ScaredBehaviorStand = {ACT_BARNACLE_PULL}
+			self.AnimTbl_IdleStand = {ACT_BARNACLE_PULL}
+			self:SelectSchedule() -- Make sure to update the idle anims because AI is suspended when EFL_IS_BEING_LIFTED_BY_BARNACLE
+		end
+	elseif self.SCI_Type != 3 && ((!self.VJ_IsBeingControlled && IsValid(self:GetEnemy())) or (self.VJ_IsBeingControlled && self.SCI_ControllerAnim == 1)) then
 		if self.SCI_CurAnims != 1 then
 			self.SCI_CurAnims = 1
 			self.AnimTbl_ScaredBehaviorStand = {ACT_CROUCHIDLE}
