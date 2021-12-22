@@ -76,7 +76,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnTakeDamage(dmginfo)
 	self:SetHealth(self:Health() - dmginfo:GetDamage())
-	self:EmitSound(VJ_PICK({"vj_hlr/fx/bustglass1.wav","vj_hlr/fx/bustglass2.wav"}), 70)
+	self:EmitSound(VJ_PICK({"vj_hlr/fx/glass1.wav","vj_hlr/fx/glass2.wav","vj_hlr/fx/glass3"}), 70)
 	if self:Health() <= 0 then
 	
 		local spr = ents.Create("env_sprite")
@@ -98,6 +98,7 @@ function ENT:OnTakeDamage(dmginfo)
 	
 		util.VJ_SphereDamage(self, self, self:GetPos(), 100, 50, DMG_NERVEGAS, true, true)
 		self:EmitSound("vj_hlr/fx/xtal_down1.wav", 100)
+		self:EmitSound(VJ_PICK({"vj_hlr/fx/bustglass1.wav","vj_hlr/fx/bustglass2.wav"}), 70)
 		self:Remove()
 	end
 end
