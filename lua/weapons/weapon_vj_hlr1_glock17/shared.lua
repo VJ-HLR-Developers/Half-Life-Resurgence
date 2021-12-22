@@ -48,7 +48,7 @@ function SWEP:CustomOnInitialize()
 				self:Remove()
 			else
 				self.NPC_NextPrimaryFire = false
-				if self:GetOwner():GetModel() == "models/vj_hlr/hl1/barney.mdl" or self:GetOwner():GetModel() == "models/vj_hlr/hla/barney.mdl" then
+				if self:GetOwner():GetModel() == "models/vj_hlr/hl1/barney.mdl" or self:GetOwner():GetModel() == "models/vj_hlr/hla/barney.mdl" or self:GetOwner():GetModel() == "models/vj_hlr/cracklife/barney.mdl" then
 					self.Primary.Sound = {"vj_hlr/hl1_npc/barney/ba_attack2.wav"}
 					self.WorldModel_CustomPositionAngle = Vector(0,192,-90)
 					self.WorldModel_CustomPositionOrigin = Vector(-1.5,-7,-1)
