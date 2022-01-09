@@ -19,6 +19,7 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
+ENT.AlertedToIdleTime = VJ_Set(16, 16) -- How much time until it calms down after the enemy has been killed/disappeared | Sets self.Alerted to false after the timer expires
 ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
@@ -167,13 +168,13 @@ end
 function ENT:CustomOnResetEnemy()
 	-- Make it look around for couple seconds before sleeping
 	self.PoseParameterLooking_CanReset = false -- Used for looking around when enemy isn't found
-	self.Alerted = true -- Set it back to alerted (Since it gets turned off in reset enemy)
+	//self.Alerted = true -- Set it back to alerted (Since it gets turned off in reset enemy)
 	timer.Simple(16, function() -- After the timer, make it actually not alerted
 		if IsValid(self) then
 			self.PoseParameterLooking_CanReset = true
-			if !IsValid(self:GetEnemy()) then
-				self.Alerted = false
-			end
+			//if !IsValid(self:GetEnemy()) then -- Now handled by self.AlertedToIdleTime
+				//self.Alerted = false
+			//end
 		end
 	end)
 end
