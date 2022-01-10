@@ -19,12 +19,9 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(1, 0, 5), -- The offset for the controller when the camera is in first person
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.ConstantlyFaceEnemy = false -- Should it face the enemy constantly?
+ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
 ENT.IdleAlwaysWander = false -- If set to true, it will make the SNPC always wander when idling
 ENT.CanOpenDoors = false -- Can it open doors?
-
-ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
-ENT.Behavior = VJ_BEHAVIOR_NEUTRAL -- The behavior of the SNPC
 
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Particle = {"vj_hl_blood_yellow"}
