@@ -15,7 +15,7 @@ local VJExists = file.Exists("lua/autorun/vj_base_autorun.lua","GAME")
 if VJExists == true then
 	include('autorun/vj_controls.lua')
 	
-	VJBASE_HLR_VERSION = "1.1.0"
+	VJBASE_HLR_VERSION = "1.0.3"
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ GoldSrc Engine ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -79,7 +79,7 @@ if VJExists == true then
 	VJ.AddNPC("Headcrab (Baby)","npc_vj_hlr1_headcrab_baby",vCat)
 	VJ.AddNPC("Zombie","npc_vj_hlr1_zombie",vCat)
 	VJ.AddNPC("Flocking Floater","npc_vj_hlr1_floater",vCat)
-	VJ.AddNPC("Stukabat","npc_vj_hlr1_stukabat",vCat)
+	//VJ.AddNPC("Stukabat","npc_vj_hlr1_stukabat",vCat)
 	VJ.AddNPC("Alien Controller","npc_vj_hlr1_aliencontroller",vCat)
 	VJ.AddNPC("Alien Grunt","npc_vj_hlr1_aliengrunt",vCat)
 	VJ.AddNPC("Alien Slave","npc_vj_hlr1_alienslave",vCat)
