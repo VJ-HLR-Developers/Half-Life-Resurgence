@@ -26,55 +26,55 @@ ENT.AnimTbl_Flinch = {"vjges_flinch_gesture"} -- If it uses normal based animati
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"npc/combine_soldier/gear1.wav","npc/combine_soldier/gear2.wav","npc/combine_soldier/gear3.wav","npc/combine_soldier/gear4.wav","npc/combine_soldier/gear5.wav","npc/combine_soldier/gear6.wav"}
 ENT.SoundTbl_CombatIdle = {
-	"vj_hlr/hl2_npc/combine/go_alert1.wav",
-	"vj_hlr/hl2_npc/combine/go_alert2.wav",
-	"vj_hlr/hl2_npc/combine/go_alert3.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/go_alert1.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/go_alert2.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/go_alert3.wav",
 }
 ENT.SoundTbl_LostEnemy = {
-	"vj_hlr/hl2_npc/combine/lost_long1.wav",
-	"vj_hlr/hl2_npc/combine/lost_long2.wav",
-	"vj_hlr/hl2_npc/combine/lost_long3.wav",
-	"vj_hlr/hl2_npc/combine/lost_short1.wav",
-	"vj_hlr/hl2_npc/combine/lost_short2.wav",
-	"vj_hlr/hl2_npc/combine/lost_short3.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/lost_long1.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/lost_long2.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/lost_long3.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/lost_short1.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/lost_short2.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/lost_short3.wav",
 }
 ENT.SoundTbl_Alert = {
-	"vj_hlr/hl2_npc/combine/announce1.wav",
-	"vj_hlr/hl2_npc/combine/announce2.wav",
-	"vj_hlr/hl2_npc/combine/announce3.wav",
-	"vj_hlr/hl2_npc/combine/refind_enemy1.wav",
-	"vj_hlr/hl2_npc/combine/refind_enemy2.wav",
-	"vj_hlr/hl2_npc/combine/refind_enemy3.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/announce1.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/announce2.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/announce3.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/refind_enemy1.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/refind_enemy2.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/refind_enemy3.wav",
 }
 ENT.SoundTbl_GrenadeAttack = {
-	"vj_hlr/hl2_npc/combine/throw_grenade1.wav",
-	"vj_hlr/hl2_npc/combine/throw_grenade2.wav",
-	"vj_hlr/hl2_npc/combine/throw_grenade3.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/throw_grenade1.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/throw_grenade2.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/throw_grenade3.wav",
 }
 ENT.SoundTbl_OnGrenadeSight = {
-	"vj_hlr/hl2_npc/combine/spot_grenade1.wav",
-	"vj_hlr/hl2_npc/combine/spot_grenade2.wav",
-	"vj_hlr/hl2_npc/combine/spot_grenade3.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/spot_grenade1.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/spot_grenade2.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/spot_grenade3.wav",
 }
 ENT.SoundTbl_OnKilledEnemy = {
-	"vj_hlr/hl2_npc/combine/player_dead1.wav",
-	"vj_hlr/hl2_npc/combine/player_dead2.wav",
-	"vj_hlr/hl2_npc/combine/player_dead3.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/player_dead1.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/player_dead2.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/player_dead3.wav",
 }
 ENT.SoundTbl_AllyDeath = {
-	"vj_hlr/hl2_npc/combine/man_down1.wav",
-	"vj_hlr/hl2_npc/combine/man_down2.wav",
-	"vj_hlr/hl2_npc/combine/man_down3.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/man_down1.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/man_down2.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/man_down3.wav",
 }
 ENT.SoundTbl_Pain = {
-	"vj_hlr/hl2_npc/combine/assault1.wav",
-	"vj_hlr/hl2_npc/combine/assault2.wav",
-	"vj_hlr/hl2_npc/combine/assault3.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/assault1.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/assault2.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/assault3.wav",
 }
 ENT.SoundTbl_Death = {
-	"vj_hlr/hl2_npc/combine/die1.wav",
-	"vj_hlr/hl2_npc/combine/die2.wav",
-	"vj_hlr/hl2_npc/combine/die3.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/die1.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/die2.wav",
+	"vj_hlr/hl2b_npc/combine_soldier/die3.wav",
 }
 
 /* -- Vault over objects test
@@ -139,12 +139,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnPlayCreateSound(sdData, sdFile)
 	if VJ_HasValue(self.SoundTbl_Death,sdFile) then
-		VJ_EmitSound(self,"vj_hlr/hl2_npc/combine/click_terminated.wav")
+		VJ_EmitSound(self,"vj_hlr/hl2b_npc/combine_soldier/click_terminated.wav")
 		return
 	end
 	if VJ_HasValue(self.DefaultSoundTbl_MeleeAttack,sdFile) then return end
-	VJ_EmitSound(self,"vj_hlr/hl2_npc/combine/clik.wav")
-	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ_EmitSound(self,"vj_hlr/hl2_npc/combine/click_off.wav") end end)
+	VJ_EmitSound(self,"vj_hlr/hl2b_npc/combine_soldier/clik.wav")
+	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ_EmitSound(self,"vj_hlr/hl2b_npc/combine_soldier/click_off.wav") end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnGrenadeAttack_OnThrow(grenEnt)
