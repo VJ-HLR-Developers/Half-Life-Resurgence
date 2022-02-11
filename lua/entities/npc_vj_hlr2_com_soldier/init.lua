@@ -43,11 +43,13 @@ ENT.SoundTbl_Pain = {"vj_hlr/hl2_npc/combine_soldier/pain4.wav","vj_hlr/hl2_npc/
 ENT.SoundTbl_Death = {"npc/combine_soldier/die1.wav","npc/combine_soldier/die2.wav","npc/combine_soldier/die3.wav","vj_hlr/hl2_npc/combine_soldier/die4.wav"}
 
 -- Alert: Player or Freeman NPC
-local sdCombine_Alert_Freeman = {"vj_hlr/hl2_npc/combine_soldier/visualonfreeman.wav","vj_hlr/hl2_npc/combine_soldier/priority1.wav","vj_hlr/hl2_npc/combine_soldier/confirmtargetisfreeman.wav","vj_hlr/hl2_npc/combine_soldier/anticitizen.wav","npc/combine_soldier/vo/freeman3.wav","npc/combine_soldier/vo/anticitizenone.wav","npc/combine_soldier/vo/priority1objective.wav","npc/combine_soldier/vo/targetone.wav"}
+local sdCombine_Alert_Freeman = {"vj_hlr/hl2_npc/combine_soldier/visualonfreeman.wav","vj_hlr/hl2_npc/combine_soldier/priority1.wav","vj_hlr/hl2_npc/combine_soldier/confirmtargetisfreeman.wav","npc/combine_soldier/vo/freeman3.wav","npc/combine_soldier/vo/anticitizenone.wav","npc/combine_soldier/vo/priority1objective.wav","npc/combine_soldier/vo/targetone.wav"}
 -- Alert: Zombies
 local sdCombine_Alert_Zombies = {"npc/combine_soldier/vo/infected.wav","npc/combine_soldier/vo/necrotics.wav","npc/combine_soldier/vo/necroticsinbound.wav"}
 -- Alert: Creature NPCs
 local sdCombine_Alert_Creatures = {"vj_hlr/hl2_npc/combine_soldier/prioritytwo.wav","vj_hlr/hl2_npc/combine_soldier/outbreakinsector.wav","vj_hlr/hl2_npc/combine_soldier/exogens.wav","vj_hlr/hl2_npc/combine_soldier/contactparasitics.wav","npc/combine_soldier/vo/outbreak.wav","npc/combine_soldier/vo/callcontactparasitics.wav","npc/combine_soldier/vo/swarmoutbreakinsector.wav","npc/combine_soldier/vo/visualonexogens.wav","npc/combine_soldier/vo/wehavefreeparasites.wav","npc/combine_soldier/vo/wehavenontaggedviromes.wav","npc/combine_soldier/vo/weareinaninfestationzone.wav"}
+-- Alert: Citizens / Rebels
+local sdCombine_Alert_Citizens = {"vj_hlr/hl2_npc/combine_soldier/anticitizen.wav","vj_hlr/hl2_npc/combine_soldier/escapee.wav","vj_hlr/hl2_npc/combine_soldier/noncitizen.wav"}
 
 -- Killed Enemy: Player or Freeman NPC
 local sdCombine_KilledEnemy_Freeman = {"vj_hlr/hl2_npc/combine_soldier/wegothimnow.wav","vj_hlr/hl2_npc/combine_soldier/wehavefreeman.wav"}
@@ -90,16 +92,15 @@ local sdCombine_Radio_Off = {
 }
 
 /*
--- NOTE: Number sounds aren't included here!
 -- Unused MMod sounds:
-"vj_hlr/hl2_npc/combine_soldier/pain4.wav",
-"vj_hlr/hl2_npc/combine_soldier/escapee.wav", -- When detecting rebels / citizens
 "vj_hlr/hl2_npc/combine_soldier/flareflareflare.wav",
 "vj_hlr/hl2_npc/combine_soldier/move.wav",
-"vj_hlr/hl2_npc/combine_soldier/noncitizen.wav", -- When detecting rebels / citizens
 "vj_hlr/hl2_npc/combine_soldier/objective.wav",
 "vj_hlr/hl2_npc/combine_soldier/sundown.wav",
 "vj_hlr/hl2_npc/combine_soldier/time.wav",
+
+
+-- NOTE: Number sounds aren't included here!
 
 npc/combine_soldier/vo/apex.wav
 npc/combine_soldier/vo/blade.wav
@@ -181,16 +182,20 @@ function ENT:CustomOnAlert(ent)
 	if math.random(1, 2) == 1 then
 		if ent:IsPlayer() or ent.VJ_HLR_Freeman then
 			self:PlaySoundSystem("Alert", sdCombine_Alert_Freeman)
-		elseif ent:IsNPC() && ent.IsVJBaseSNPC_Creature then
-			if math.random(1, 2) == 1 then
-				for _,v in ipairs(ent.VJ_NPC_Class or {1}) do
-					if v == "CLASS_ZOMBIE" or ent:Classify() == CLASS_ZOMBIE then
-						self:PlaySoundSystem("Alert", sdCombine_Alert_Zombies)
-						return -- Skip the regular creature sounds!
+		elseif ent:IsNPC() then
+			if ent.IsVJBaseSNPC_Creature then
+				if math.random(1, 2) == 1 then
+					for _,v in ipairs(ent.VJ_NPC_Class or {1}) do
+						if v == "CLASS_ZOMBIE" or ent:Classify() == CLASS_ZOMBIE then
+							self:PlaySoundSystem("Alert", sdCombine_Alert_Zombies)
+							return -- Skip the regular creature sounds!
+						end
 					end
 				end
+				self:PlaySoundSystem("Alert", sdCombine_Alert_Creatures)
+			elseif ent:Classify() == CLASS_PLAYER_ALLY or ent.HLR_Type == "Citizen" then
+				self:PlaySoundSystem("Alert", sdCombine_Alert_Citizens)
 			end
-			self:PlaySoundSystem("Alert", sdCombine_Alert_Creatures)
 		end
 	end
 end
