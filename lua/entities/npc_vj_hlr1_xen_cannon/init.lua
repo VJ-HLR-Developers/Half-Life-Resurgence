@@ -78,7 +78,6 @@ function ENT:CustomOn_PoseParameterLookingCode(pitch, yaw, roll)
 	else
 		self.Cannon_HasLOS = true
 	end
-	print(self.Cannon_HasLOS)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttackCheck_RangeAttack()

@@ -90,8 +90,7 @@ ENT.SoundTbl_Death = {}
 ENT.FootStepSoundLevel = 60
 
 ENT.GeneralSoundPitch1 = 100
-ENT.RangeAttackPitch1 = 130
-ENT.RangeAttackPitch2 = 160
+ENT.RangeAttackPitch = VJ_Set(130, 160)
 
 --[[ UNUSED
 -- Complementing the player

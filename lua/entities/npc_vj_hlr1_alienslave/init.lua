@@ -62,8 +62,7 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/aslave/slv_die1.wav","vj_hlr/hl1_npc/aslav
 ENT.FootStepSoundLevel = 60
 
 ENT.GeneralSoundPitch1 = 100
-ENT.RangeAttackPitch1 = 130
-ENT.RangeAttackPitch2 = 160
+ENT.RangeAttackPitch = VJ_Set(130, 160)
 
 -- CustomBlood_Decal
 ENT.Vort_RunAway = false

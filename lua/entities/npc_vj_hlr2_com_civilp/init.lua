@@ -92,7 +92,7 @@ local sdCop_DeployStunStick = {"weapons/stunstick/spark1.wav","weapons/stunstick
 "vj_hlr/hl2_npc/metropolice/zone.wav",
 
 
--- NOTE: Number sounds have not been included!
+-- NOTE: Number sounds aren't included here!
 
 "npc/metropolice/hiding04.wav"
 "npc/metropolice/vo/amputate.wav"
