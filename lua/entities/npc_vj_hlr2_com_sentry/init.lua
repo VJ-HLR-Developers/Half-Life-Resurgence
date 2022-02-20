@@ -39,7 +39,7 @@ ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
 ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav","ambient/energy/spark2.wav","ambient/energy/spark3.wav","ambient/energy/spark4.wav"}
 ENT.SoundTbl_Death = {"npc/turret_floor/die.wav"}
 
-local sdFiring = {"npc/turret_floor/shoot1.wav","npc/turret_floor/shoot2.wav","npc/turret_floor/shoot3.wav"}
+local sdFiring = {"^npc/turret_floor/shoot1.wav","^npc/turret_floor/shoot2.wav","^npc/turret_floor/shoot3.wav"}
 
 -- Custom
 ENT.Turret_HasLOS = false -- Has line of sight
