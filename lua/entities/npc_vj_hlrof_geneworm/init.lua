@@ -255,7 +255,7 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetNearestPointToEntityPosition()
+function ENT:GetDynamicOrigin()
 	return self:GetPos() + self:GetForward()*200 -- Override this to use a different position
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

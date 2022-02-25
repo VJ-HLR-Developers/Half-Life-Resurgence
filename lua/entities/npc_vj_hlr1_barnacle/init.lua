@@ -162,7 +162,7 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetNearestPointToEntityPosition()
+function ENT:GetDynamicOrigin()
 	return self:GetPos() + self:GetUp()*-100 -- Override this to use a different position
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

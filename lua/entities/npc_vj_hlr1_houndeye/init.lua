@@ -113,7 +113,7 @@ function ENT:CustomOnThink_AIEnabled()
 	
 	-- Sleep system
 	if !self.Alerted && !IsValid(self:GetEnemy()) && !self:IsMoving() && CurTime() > self.Houndeye_NextSleepT && !self.Houndeye_Sleeping && !self:IsBusy() then
-		local sleept = math.Rand(15,30) -- How long it should sleep
+		local sleept = math.Rand(15, 30) -- How long it should sleep
 		self.Houndeye_Sleeping = true
 		self.AnimTbl_IdleStand = {ACT_CROUCHIDLE}
 		self.Houndeye_CurIdleAnim = 1
@@ -121,7 +121,7 @@ function ENT:CustomOnThink_AIEnabled()
 		self:SetState(VJ_STATE_ONLY_ANIMATION, sleept)
 		timer.Simple(7, function() if IsValid(self) && self.Houndeye_Sleeping == true then self:SetSkin(2) end end) -- Close eyes
 		timer.Simple(sleept, function() -- Reset after sleept seconds
-			if IsValid(self) && self.Houndeye_Sleeping == true then 
+			if IsValid(self) && self.Houndeye_Sleeping == true then
 				self.Houndeye_Sleeping = false
 				self:VJ_ACT_PLAYACTIVITY(ACT_STAND, true, false, false)
 				self.Houndeye_NextSleepT = CurTime() + math.Rand(15, 45)

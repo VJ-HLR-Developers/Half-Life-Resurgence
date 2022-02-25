@@ -181,7 +181,7 @@ function ENT:Tentacle_CalculateLevel(eneDist)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetNearestPointToEntityPosition()
+function ENT:GetDynamicOrigin()
 	-- Take care of the nearest point starting position
 	local resultZ = 0
 	if self.Tentacle_Level == 3 then
