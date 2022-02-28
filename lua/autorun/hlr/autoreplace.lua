@@ -156,6 +156,26 @@ local defPos = Vector(0, 0, 0)
 local gStatePrecriminal = false
 local gStateAntlionFri = false
 
+-- Prepare the HL1 and HL2 tables (This includes ALL NPCs!)
+local allNPCs = list.Get("NPC")
+local allHLR = {}
+local allHLR1 = {}
+local allHLR2 = {}
+timer.Simple(0.01, function()
+	for k, _ in pairs(allNPCs) do
+		-- This should capture all the HL2 NPCs
+		if string.StartWith(k, "npc_vj_hlr2") then
+			table.insert(allHLR, k)
+			table.insert(allHLR2, k)
+		-- This should capture all the HL1 NPCs because many of them are "hlrof", "hlr1", "hlrsv", "hlrdc", etc.
+		elseif string.StartWith(k, "npc_vj_hlr") then
+			table.insert(allHLR, k)
+			table.insert(allHLR1, k)
+		end
+	end
+end)
+
+
 hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 	local class = ent:GetClass()
 	local rEnt = VJ_PICK(replaceTbl_Entities[class])
@@ -176,26 +196,23 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 		timer.Simple(0.01, function()
 			if IsValid(ent) then
 				local worldName = ent.GetName && ent:GetName() or nil
+				//if worldName == "rocketman" then return end -- Makes Odessa work a little bit
 				//local spawnAnim = ent:GetSequenceName(ent:GetSequence())
 				-- Spawn the correct entity (Ex: different combine or rebels/citizens)
 				if replaceOptions[class] then
 					rEnt = replaceOptions[class](ent, rEnt) or rEnt
 				end
-				-- Spawn random NPCs!
+				-- FUN OPTION: Randomized NPC System
 				if GetConVar("vj_hlr_autoreplace_random"):GetInt() == 1 then
-					local tempTable = {}
-					for oldClass, newClass in pairs(replaceTbl_Entities) do -- Not sure what the best way is to do this, feel free to mess with it @Vrej -- @Cpt, Seems good!
+					if GetConVar("vj_hlr_autoreplace_randommix"):GetInt() == 1 then
+						rEnt = VJ_PICK(allHLR) or rEnt
+					else
 						if isHL1 then
-							if string.StartWith(oldClass, "monster_") then
-								table.insert(tempTable, newClass)
-							end
+							rEnt = VJ_PICK(allHLR1) or rEnt
 						else
-							if string.StartWith(oldClass, "npc_") then
-								table.insert(tempTable, newClass)
-							end
+							rEnt = VJ_PICK(allHLR2) or rEnt
 						end
 					end
-					rEnt = VJ_PICK(tempTable) or rEnt
 				end
 				-- Start the actual final entity --
 				local newClass = VJ_PICK(rEnt)
@@ -218,13 +235,14 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 					end
 				end
 				-- Handle weapon
-				local wep = ent:GetActiveWeapon()
+				local wep = ent.GetActiveWeapon && ent:GetActiveWeapon() or false -- In case GetActiveWeapon is not in the ent's metatable
+				print(worldName, wep)
 				if IsValid(wep) then
 					local foundWep = replaceTbl_Weapons[wep:GetClass()]
 					newEnt:Give(VJ_PICK(foundWep))
 				end
 				-- Handle enemy
-				local ene = ent:GetEnemy()
+				local ene = ent.GetEnemy && ent:GetEnemy() or false -- In case GetEnemy is not in the ent's metatable
 				if IsValid(ene) then
 					newEnt:SetEnemy(ene)
 				end
@@ -280,9 +298,13 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				if afterSpawned[rEnt] then
 					afterSpawned[rEnt](ent, newEnt)
 				end
-				-- Handle Essentials
+				-- Handle Essential NPCs
 				if GetConVar("vj_hlr_autoreplace_essential"):GetInt() == 1 && essentialTbl[newClass] then
 					newEnt.GodMode = true
+				end
+				-- FUN OPTION: Make them all allied together against players
+				if GetConVar("vj_hlr_autoreplace_alliedagainstply"):GetInt() == 1 then
+					newEnt.VJ_NPC_Class = {"CLASS_HALF_LIFE_AGAINST_PLAYERS"}
 				end
 				-- print(ent:GetClass(), ent:GetInternalVariable("GameEndAlly"))
 				-- Set the starting animation AND velocity
