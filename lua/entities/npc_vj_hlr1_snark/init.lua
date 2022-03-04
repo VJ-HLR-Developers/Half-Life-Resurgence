@@ -43,13 +43,14 @@ ENT.AnimTbl_Run = {ACT_RUN} -- Set the running animations | Put multiple to let 
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/squeek/sqk_hunt1.wav","vj_hlr/hl1_npc/squeek/sqk_hunt2.wav","vj_hlr/hl1_npc/squeek/sqk_hunt3.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/squeek/sqk_hunt1.wav","vj_hlr/hl1_npc/squeek/sqk_hunt2.wav","vj_hlr/hl1_npc/squeek/sqk_hunt3.wav"}
 ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/squeek/sqk_deploy1.wav"}
 ENT.SoundTbl_LeapAttackDamage = {"vj_hlr/hl1_npc/squeek/sqk_deploy1.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/squeek/sqk_die1.wav"}
 
 ENT.IdleSoundChance = 1
 
-ENT.NextSoundTime_Idle = VJ_Set(1, 1)
+ENT.NextSoundTime_Idle = VJ_Set(1, 3)
 
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -82,6 +83,7 @@ end
 function ENT:CustomOnThink_AIEnabled()
 	if IsValid(self:GetEnemy()) && self.VJ_IsBeingControlled == false && self.Dead == false && self:IsOnGround() && self:Visible(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) > self.LeapDistance + 10 && CurTime() > self.Snark_NextJumpWalkT then
 		self:VJ_ACT_PLAYACTIVITY(ACT_RUN, false, 0.7, true)
+		self:PlaySoundSystem("Alert")
 		self:SetGroundEntity(NULL)
 		self:SetLocalVelocity((self:GetEnemy():GetPos() - self:GetPos()):GetNormal()*400 + self:GetUp()*300)
 		self.Snark_NextJumpWalkT = CurTime() + math.Rand(0.35, 1.8)
