@@ -96,6 +96,7 @@ function ENT:CustomOnInitialize()
 		gunner.CanTurnWhileStationary = false
 		gunner.NoWeapon_UseScaredBehavior = false
 		gunner.Medic_CanBeHealed = false
+		gunner.HasDeathAnimation = false
 		gunner.VJ_NPC_Class = self.VJ_NPC_Class
 		gunner:Spawn()
 		if self.Osprey_IsBlackOps then gunner:SetBodygroup(2, 1) end -- Always give the Black Ops snipers!
