@@ -651,6 +651,14 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnKilled(dmginfo, hitgroup)
+	for _,v in pairs(ents.FindInSphere(self:GetPos(), 100000)) do
+		if v:IsPlayer() then
+			v:ScreenFade(SCREENFADE.IN,Color(0,255,0,255),1,0)
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
 	RunConsoleCommand("sv_gravity", self.Nih_OriginalGravity)
 	
