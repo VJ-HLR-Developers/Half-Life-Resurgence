@@ -125,7 +125,7 @@ function ENT:RangeAttackCode_GetShootPos(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-	if self.RangeAttacking == true then
+	if self.AttackType == VJ_ATTACK_RANGE then
 		self.GibOnDeathDamagesTable = {"All"}
 	end
 end

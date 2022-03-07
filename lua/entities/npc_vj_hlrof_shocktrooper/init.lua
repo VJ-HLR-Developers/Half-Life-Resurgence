@@ -192,7 +192,7 @@ ENT.GrenadeAttackVelForward2 = 500 -- Grenade attack velocity up | The second # 
 ENT.GrenadeAttackVelRight1 = -20 -- Grenade attack velocity right | The first # in math.random
 ENT.GrenadeAttackVelRight2 = 20 -- Grenade attack velocity right | The second # in math.random
 function ENT:ThrowGrenadeCode(customEnt,noOwner)
-	if self.Dead == true or self.Flinching == true or self.MeleeAttacking == true or (IsValid(self:GetEnemy()) && !self:Visible(self:GetEnemy())) then return end
+	if self.Dead == true or self.Flinching == true or self.AttackType == VJ_ATTACK_MELEE or (IsValid(self:GetEnemy()) && !self:Visible(self:GetEnemy())) then return end
 	//if self:VJ_ForwardIsHidingZone(self:NearestPoint(self:GetPos() + self:OBBCenter()),self:GetEnemy():EyePos()) == true then return end
 	noOwner = noOwner or false
 	local getIsCustom = false
@@ -220,7 +220,7 @@ function ENT:ThrowGrenadeCode(customEnt,noOwner)
 		end
 	end
 
-	self.ThrowingGrenade = true
+	self.AttackType = VJ_ATTACK_GRENADE
 	self:CustomOnGrenadeAttack_BeforeStartTimer()
 	self:PlaySoundSystem("GrenadeAttack")
 
@@ -284,6 +284,8 @@ function ENT:ThrowGrenadeCode(customEnt,noOwner)
 			end
 			self:CustomOnGrenadeAttack_OnThrow(gent)
 		end
-		self.ThrowingGrenade = false
+		if self.AttackType == VJ_ATTACK_GRENADE then
+			self.AttackType = VJ_ATTACK_NONE
+		end
 	end)
 end

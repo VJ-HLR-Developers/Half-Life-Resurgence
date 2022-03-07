@@ -81,11 +81,12 @@ function ENT:Controller_Initialize(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if IsValid(self:GetEnemy()) && self.VJ_IsBeingControlled == false && self.Dead == false && self:IsOnGround() && self:Visible(self:GetEnemy()) && self:GetPos():Distance(self:GetEnemy():GetPos()) > self.LeapDistance + 10 && CurTime() > self.Snark_NextJumpWalkT then
+	local ene = self:GetEnemy()
+	if IsValid(ene) && self.VJ_IsBeingControlled == false && self.Dead == false && self:IsOnGround() && self:Visible(ene) && self.LatestEnemyDistance > self.LeapDistance + 10 && CurTime() > self.Snark_NextJumpWalkT then
 		self:VJ_ACT_PLAYACTIVITY(ACT_RUN, false, 0.7, true)
 		self:PlaySoundSystem("Alert")
 		self:SetGroundEntity(NULL)
-		self:SetLocalVelocity((self:GetEnemy():GetPos() - self:GetPos()):GetNormal()*400 + self:GetUp()*300)
+		self:SetLocalVelocity((ene:GetPos() - self:GetPos()):GetNormal()*400 + self:GetUp()*300)
 		self.Snark_NextJumpWalkT = CurTime() + math.Rand(0.35, 1.8)
 	end
 	if (self.Snark_EnergyTime - CurTime()) < 6 then
