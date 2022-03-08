@@ -120,11 +120,12 @@ function ENT:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if (self.Turret_ControllerStatus == 1) or (!self.VJ_IsBeingControlled && (IsValid(self:GetEnemy()) or self.Alerted == true)) then
+	local eneValid = IsValid(self:GetEnemy())
+	if (self.Turret_ControllerStatus == 1) or (!self.VJ_IsBeingControlled && (eneValid or self.Alerted == true)) then
 		self.Turret_StandDown = false
 		self.AnimTbl_IdleStand = {"idlealert"}
 		-- Handle the light sprite
-		if self.Turret_HasLOS == true && IsValid(self:GetEnemy()) then
+		if self.Turret_HasLOS == true && eneValid then
 			self.Turret_Sprite:Fire("Color","255 0 0") -- Red
 			self.Turret_Sprite:Fire("ShowSprite")
 		elseif self.HasPoseParameterLooking == true then -- So when the alert animation is playing, it won't replace the activating light (green)
@@ -136,7 +137,7 @@ function ENT:CustomOnThink_AIEnabled()
 		local pyaw = self:GetPoseParameter("aim_yaw")
 		
 		-- Make it scan around if the enemy is behind, which is unreachable for it!
-		if IsValid(self:GetEnemy()) && self.Turret_HasLOS == false && (self:GetForward():Dot((self:GetEnemy():GetPos() - self:GetPos()):GetNormalized()) <= math.cos(math.rad(self.RangeAttackAngleRadius))) then
+		if eneValid && self.Turret_HasLOS == false && (self.LastEnemySightDiff <= math.cos(math.rad(self.RangeAttackAngleRadius))) then
 			scan = true
 			self.HasPoseParameterLooking = false
 		else
@@ -144,7 +145,7 @@ function ENT:CustomOnThink_AIEnabled()
 		end
 		
 		 -- Look around randomly when the enemy is not found
-		if !IsValid(self:GetEnemy()) or scan == true then
+		if !eneValid or scan == true then
 			-- Playing a beeping noise
 			if self.Turret_NextScanBeepT < CurTime() then
 				VJ_EmitSound(self, "npc/turret_floor/ping.wav", 75, 100)
@@ -169,7 +170,7 @@ function ENT:CustomOnThink_AIEnabled()
 		end
 	else
 		-- Play the retracting sequence and sound
-		if ((self.Turret_ControllerStatus == 0) or (!self.VJ_IsBeingControlled && CurTime() > self.NextResetEnemyT && self.Alerted == false)) && self.Turret_StandDown == false then
+		if ((self.Turret_ControllerStatus == 0) or (!self.VJ_IsBeingControlled && self.Alerted == false)) && self.Turret_StandDown == false then
 			if self.VJ_IsBeingControlled then
 				self.Turret_Sprite:Fire("HideSprite")
 			else
@@ -216,7 +217,7 @@ function ENT:Turret_Activate()
 			self.HasPoseParameterLooking = true
 		end
 	end)
-	self.NextResetEnemyT = CurTime() + 1 -- Make sure it doesn't reset the enemy right away
+	//self.NextResetEnemyT = CurTime() + 1 -- Make sure it doesn't reset the enemy right away
 	self:VJ_ACT_PLAYACTIVITY({"deploy"}, true, false)
 	VJ_EmitSound(self, "npc/turret_floor/deploy.wav", 70, 100)
 	self.turret_alertsd = VJ_CreateSound(self, "npc/turret_floor/alarm.wav", 75, 100)

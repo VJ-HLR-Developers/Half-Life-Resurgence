@@ -112,7 +112,8 @@ function ENT:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if (self.Sentry_ControllerStatus == 1) or (!self.VJ_IsBeingControlled && (IsValid(self:GetEnemy()) or self.Alerted == true)) then
+	local eneValid = IsValid(self:GetEnemy())
+	if (self.Sentry_ControllerStatus == 1) or (!self.VJ_IsBeingControlled && (eneValid or self.Alerted == true)) then
 		self.Sentry_StandDown = false
 		self.AnimTbl_IdleStand = {"spin"}
 		
@@ -130,14 +131,14 @@ function ENT:CustomOnThink_AIEnabled()
 			glow:Fire("Kill", "", 0.1)
 			self:DeleteOnRemove(glow)
 			self.Sentry_NextAlarmT = CurTime() + 1
-			VJ_EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_ping.wav"}, 75, 100)
+			VJ_EmitSound(self, "vj_hlr/hl1_npc/turret/tu_ping.wav", 75, 100)
 		end
 		
-		if !IsValid(self:GetEnemy()) then -- Look around randomly when the enemy is not found
+		if !eneValid then -- Look around randomly when the enemy is not found
 			self:SetPoseParameter("aim_yaw", self:GetPoseParameter("aim_yaw") + 4)
 		end
 	else
-		if ((self.Sentry_ControllerStatus == 0) or (!self.VJ_IsBeingControlled && self.Alerted == false && CurTime() > self.NextResetEnemyT)) && self.Sentry_StandDown == false then
+		if ((self.Sentry_ControllerStatus == 0) or (!self.VJ_IsBeingControlled && self.Alerted == false)) && self.Sentry_StandDown == false then
 			self.Sentry_StandDown = true
 			self:VJ_ACT_PLAYACTIVITY("retire", true, 1)
 			VJ_EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_retract.wav"}, 65, self:VJ_DecideSoundPitch(100, 110))
@@ -201,7 +202,7 @@ function ENT:Sentry_Activate()
 		self.HasPoseParameterLooking = false
 	end
 	self.Sentry_NextAlarmT = CurTime() + 3 -- Make sure the Alarm light doesn't play right away
-	self.NextResetEnemyT = CurTime() + 1 -- Make sure it doesn't reset the enemy right away
+	//self.NextResetEnemyT = CurTime() + 1 -- Make sure it doesn't reset the enemy right away
 	self:VJ_ACT_PLAYACTIVITY("deploy", true, false)
 	if self.Sentry_Type == 1 then -- If it's a big turret then do a spin up action
 		timer.Simple(1, function()
