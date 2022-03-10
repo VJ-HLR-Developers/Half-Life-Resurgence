@@ -66,8 +66,16 @@ ENT.RangeAttackPitch = VJ_Set(130, 160)
 
 -- CustomBlood_Decal
 ENT.Vort_RunAway = false
+
+--local HDExists = file.Exists("lua/autorun/vj_hlr_hd_autorun.lua","GAME")
+
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+	--[[																		-- internal disagreements
+	if HDExists == true && GetConVar("vj_hlr1_hd"):GetInt() == 1 then
+		self:SetModel("models/vj_hlr/hl_hd/islave.mdl")
+	end
+	--]]
 	self:SetCollisionBounds(Vector(20, 20, 65), Vector(-20, -20, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
