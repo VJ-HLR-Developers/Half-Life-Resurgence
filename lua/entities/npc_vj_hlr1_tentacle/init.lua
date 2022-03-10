@@ -194,7 +194,7 @@ function ENT:GetDynamicOrigin()
 	return self:GetPos() + self:GetForward() + self:GetUp()*resultZ -- Override this to use a different position
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetMeleeAttackDamagePosition()
+function ENT:GetMeleeAttackDamageOrigin()
 	-- Take care of the melee damage starting position
 	local resultZ = 0
 	if self.Tentacle_Level == 3 then

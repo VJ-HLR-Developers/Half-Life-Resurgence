@@ -259,7 +259,7 @@ function ENT:GetDynamicOrigin()
 	return self:GetPos() + self:GetForward()*200 -- Override this to use a different position
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetMeleeAttackDamagePosition()
+function ENT:GetMeleeAttackDamageOrigin()
 	return self:GetPos() + self:GetForward()*200 -- Override this to use a different position
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -166,7 +166,7 @@ function ENT:GetDynamicOrigin()
 	return self:GetPos() + self:GetUp()*-100 -- Override this to use a different position
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SetMeleeAttackDamagePosition()
+function ENT:GetMeleeAttackDamageOrigin()
 	return self:GetPos() + self:GetUp()*-100 -- Override this to use a different position
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
