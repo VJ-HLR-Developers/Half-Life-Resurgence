@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "vj_hl/sprites/hl2/turret_laser_fade"
+	"$nolod" "1"
+	"$translucent" "1"
+}
