@@ -121,6 +121,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	local eneValid = IsValid(self:GetEnemy())
+	-- Make it not reset its pose parameters while its transitioning from Alert to Idle
+	if self.Alerted && !eneValid then
+		self.PoseParameterLooking_CanReset = false
+	else
+		self.PoseParameterLooking_CanReset = true
+	end
 	if (self.Turret_ControllerStatus == 1) or (!self.VJ_IsBeingControlled && (eneValid or self.Alerted == true)) then
 		self.Turret_StandDown = false
 		self.AnimTbl_IdleStand = {"idlealert"}
@@ -222,20 +228,6 @@ function ENT:Turret_Activate()
 	VJ_EmitSound(self, "npc/turret_floor/deploy.wav", 70, 100)
 	self.turret_alertsd = VJ_CreateSound(self, "npc/turret_floor/alarm.wav", 75, 100)
 	timer.Simple(0.8, function() VJ_STOPSOUND(self.turret_alertsd) end)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnResetEnemy()
-	-- Make it look around for couple seconds before sleeping
-	self.PoseParameterLooking_CanReset = false -- Used for looking around when enemy isn't found
-	//self.Alerted = true -- Set it back to alerted (Since it gets turned off in reset enemy)
-	timer.Simple(5, function() -- After the timer, make it actually not alerted
-		if IsValid(self) then
-			self.PoseParameterLooking_CanReset = true
-			//if !IsValid(self:GetEnemy()) then -- Now handled by self.AlertedToIdleTime
-				//self.Alerted = false
-			//end
-		end
-	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttackCheck_RangeAttack()

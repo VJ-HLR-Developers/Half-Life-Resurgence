@@ -170,7 +170,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 		if key == KEY_SPACE && self.VJCE_NPC:GetActivity() != ACT_DISARM && self.VJCE_NPC:GetActivity() != ACT_ARM then
 			if self.VJCE_NPC:GetWeaponState() == VJ_WEP_STATE_HOLSTERED then
 				self.VJCE_NPC:Security_UnHolsterGun()
-			else
+			elseif self.VJCE_NPC:GetWeaponState() == VJ_WEP_STATE_READY then
 				self.VJCE_NPC:Security_HolsterGun()
 			end
 		end
@@ -275,7 +275,7 @@ function ENT:CustomOnThink_AIEnabled()
 		if self:GetWeaponState() == VJ_WEP_STATE_HOLSTERED then
 			self:Security_UnHolsterGun()
 		end
-	elseif self:GetWeaponState() != VJ_WEP_STATE_HOLSTERED && (CurTime() - self.LastEnemyTime) > 5 then
+	elseif self:GetWeaponState() == VJ_WEP_STATE_READY && (CurTime() - self.LastEnemyTime) > 5 then
 		self:Security_HolsterGun()
 	end
 end

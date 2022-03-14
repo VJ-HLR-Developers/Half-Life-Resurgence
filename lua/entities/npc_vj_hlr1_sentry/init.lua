@@ -113,6 +113,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	local eneValid = IsValid(self:GetEnemy())
+	-- Make it not reset its pose parameters while its transitioning from Alert to Idle
+	if self.Alerted && !eneValid then
+		self.PoseParameterLooking_CanReset = false
+	else
+		self.PoseParameterLooking_CanReset = true
+	end
 	if (self.Sentry_ControllerStatus == 1) or (!self.VJ_IsBeingControlled && (eneValid or self.Alerted == true)) then
 		self.Sentry_StandDown = false
 		self.AnimTbl_IdleStand = {"spin"}
@@ -164,20 +170,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttackCheck_RangeAttack()
 	return self.Sentry_HasLOS == true && self.Sentry_SpunUp == true && !self.Sentry_StandDown
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnResetEnemy()
-	-- Make it look around for couple seconds before sleeping
-	self.PoseParameterLooking_CanReset = false -- Used for looking around when enemy isn't found
-	//self.Alerted = true -- Set it back to alerted (Since it gets turned off in reset enemy)
-	timer.Simple(16, function() -- After the timer, make it actually not alerted
-		if IsValid(self) then
-			self.PoseParameterLooking_CanReset = true
-			//if !IsValid(self:GetEnemy()) then -- Now handled by self.AlertedToIdleTime
-				//self.Alerted = false
-			//end
-		end
-	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)

@@ -335,7 +335,7 @@ function ENT:CustomOnDoChangeWeapon(newWeapon, oldWeapon, invSwitch)
 		self:VJ_ACT_PLAYACTIVITY(ACT_PICKUP_RACK, true, false, true)
 	end
 	-- Only males can play a sound when taking out an anti-armor weapon
-	if self.Human_Gender == 0 && self:GetWeaponState() == VJ_WEP_STATE_ANTI_ARMOR && math.random(1, 2) == 1 then self:PlaySoundSystem("GeneralSpeech", "vo/npc/male01/evenodds.wav") end
+	if self.Human_Gender == 0 && self.WeaponInventoryStatus == VJ_WEP_INVENTORY_ANTI_ARMOR && math.random(1, 2) == 1 then self:PlaySoundSystem("GeneralSpeech", "vo/npc/male01/evenodds.wav") end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoKilledEnemy(ent, attacker, inflictor)
