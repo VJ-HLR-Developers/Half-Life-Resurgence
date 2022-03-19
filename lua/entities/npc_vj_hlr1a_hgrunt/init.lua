@@ -18,7 +18,6 @@ ENT.CombatFaceEnemy = true -- If enemy is exists and is visible
 
 -- Custom
 ENT.AHGR_NextStrafeT = 0
-ENT.AHGR_NextRunT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
 	local randSkin = math.random(0, 3)
@@ -32,7 +31,9 @@ function ENT:HECU_CustomOnInitialize()
 	self.SoundTbl_Idle = {"vj_hlr/hla_npc/hgrunt/gr_idle1.wav","vj_hlr/hla_npc/hgrunt/gr_idle2.wav","vj_hlr/hla_npc/hgrunt/gr_idle3.wav","vj_hlr/hla_npc/hgrunt/gr_radio1.wav","vj_hlr/hla_npc/hgrunt/gr_radio2.wav","vj_hlr/hla_npc/hgrunt/gr_radio3.wav","vj_hlr/hla_npc/hgrunt/gr_radio4.wav","vj_hlr/hla_npc/hgrunt/gr_radio5.wav","vj_hlr/hla_npc/hgrunt/gr_radio6.wav"}
 	self.SoundTbl_CombatIdle = {"vj_hlr/hla_npc/hgrunt/gr_radio1.wav","vj_hlr/hla_npc/hgrunt/gr_radio2.wav","vj_hlr/hla_npc/hgrunt/gr_radio3.wav","vj_hlr/hla_npc/hgrunt/gr_radio4.wav","vj_hlr/hla_npc/hgrunt/gr_radio5.wav","vj_hlr/hla_npc/hgrunt/gr_radio6.wav"}
 	self.SoundTbl_Alert = {"vj_hlr/hla_npc/hgrunt/gr_alert1.wav"}
+	self.SoundTbl_CallForHelp = {"vj_hlr/hla_npc/hgrunt/gr_squadform.wav"}
 	self.SoundTbl_WeaponReload = {"vj_hlr/hla_npc/hgrunt/gr_cover2.wav"}
+	self.SoundTbl_GrenadeAttack = {"vj_hlr/hla_npc/hgrunt/gr_loadtalk.wav"}
 	self.AHGR_NextStrafeT = CurTime() + 4
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
