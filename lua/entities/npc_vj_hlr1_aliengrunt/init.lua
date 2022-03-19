@@ -57,7 +57,8 @@ ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav","vj_hl
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
 ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/agrunt/ag_attack1.wav","vj_hlr/hl1_npc/agrunt/ag_attack2.wav","vj_hlr/hl1_npc/agrunt/ag_attack3.wav"}
 ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/agrunt/ag_attack1.wav","vj_hlr/hl1_npc/agrunt/ag_attack2.wav","vj_hlr/hl1_npc/agrunt/ag_attack3.wav"}
-ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/agrunt/ag_fire1.wav","vj_hlr/hl1_npc/agrunt/ag_fire2.wav","vj_hlr/hl1_npc/agrunt/ag_fire3.wav"}
+--ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/agrunt/ag_fire1.wav","vj_hlr/hl1_npc/agrunt/ag_fire2.wav","vj_hlr/hl1_npc/agrunt/ag_fire3.wav"}
+-- due to an odd reason it seems like range attack sounds are always delayed, so i had to do a shitty (?) workaround seen in customonacceptinput
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/agrunt/ag_pain1.wav","vj_hlr/hl1_npc/agrunt/ag_pain2.wav","vj_hlr/hl1_npc/agrunt/ag_pain3.wav","vj_hlr/hl1_npc/agrunt/ag_pain4.wav","vj_hlr/hl1_npc/agrunt/ag_pain5.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/agrunt/ag_die1.wav","vj_hlr/hl1_npc/agrunt/ag_die2.wav","vj_hlr/hl1_npc/agrunt/ag_die3.wav","vj_hlr/hl1_npc/agrunt/ag_die4.wav","vj_hlr/hl1_npc/agrunt/ag_die5.wav"}
 
@@ -76,6 +77,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self:MeleeAttackCode()
 	elseif key == "event_rattack" then
 		self:RangeAttackCode()
+		VJ_EmitSound(self, "vj_hlr/hl1_npc/agrunt/ag_fire"..math.random(1, 3)..".wav", 75, 100)
 	elseif key == "body" then
 		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
@@ -150,6 +152,10 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib2.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,20))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib3.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,30))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib4.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,35))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib1.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,10))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib2.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,20))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib3.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,50))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib4.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,15))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib5.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,50))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib6.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,55))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib7.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,40))})
@@ -174,5 +180,5 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
-	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, nil, {ExtraGibs = {"models/vj_hlr/gibs/agrunt_gib.mdl"}})
+	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, nil, {ExtraGibs = {"models/vj_hlr/gibs/agrunt_gib.mdl","models/vj_hlr/gibs/agib1.mdl","models/vj_hlr/gibs/agib2.mdl","models/vj_hlr/gibs/agib3.mdl","models/vj_hlr/gibs/agib4.mdl"}})
 end

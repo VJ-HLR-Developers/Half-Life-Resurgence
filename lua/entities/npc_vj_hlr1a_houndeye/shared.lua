@@ -1,6 +1,6 @@
-ENT.Base 			= "npc_vj_hlr1_aliengrunt"
+ENT.Base 			= "npc_vj_hlr1_houndeye"
 ENT.Type 			= "ai"
-ENT.PrintName 		= "Alpha Alien Grunt"
+ENT.PrintName 		= "Alpha Houndeye"
 ENT.Author 			= "oteek"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Purpose 		= "Spawn it and fight with it!"

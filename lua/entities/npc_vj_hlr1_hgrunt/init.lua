@@ -243,7 +243,13 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self:SetBodygroup(3, 3)
 	elseif key == "pullgun" then
 		self:SetBodygroup(3, self.HECUMedic_HealBG)
+	
+	-- Alpha HGrunt --
+	elseif key == "i_got_something_for_you" then
+		self:StopAllCommonSpeechSounds()
+		self:PlaySoundSystem("GeneralSpeech", "vj_hlr/hla_npc/hgrunt/gr_loadtalk.wav")
 	end
+	
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
