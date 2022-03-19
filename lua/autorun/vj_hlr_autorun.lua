@@ -115,9 +115,11 @@ if VJExists == true then
 		VJ.AddNPC("Portal (Xen)","sent_vj_hlr_alientp",vCat)
 		VJ.AddNPC("Portal (Race X)","sent_vj_hlr_alientp_x",vCat)
 		-- Alpha
+		VJ.AddNPC("Alpha Alien Grunt","npc_vj_hlr1a_aliengrunt",vCat)
 		VJ.AddNPC("Alpha Zombie","npc_vj_hlr1a_zombie",vCat)
 		VJ.AddNPC("Alpha Headcrab","npc_vj_hlr1a_headcrab",vCat)
 		VJ.AddNPC("Alpha Bullsquid","npc_vj_hlr1a_bullsquid",vCat)
+		--VJ.AddNPC("Alpha Houndeye","npc_vj_hlr1a_houndeye",vCat)    -- doesn't exist yet
 		-- Opposing Force
 		VJ.AddNPC("Zombie Security Guard","npc_vj_hlrof_zombie_sec",vCat)
 		VJ.AddNPC("Zombie Soldier","npc_vj_hlrof_zombie_soldier",vCat)
@@ -139,6 +141,7 @@ if VJExists == true then
 	
 	-- Unknown
 	VJ.AddNPC("G-Man","npc_vj_hlr1_gman",vCat)
+	--VJ.AddNPC("Poly Robo","npc_vj_hlr1a_techdemorobot",vCat)		-- doesn't exist yet
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Source Engine ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
