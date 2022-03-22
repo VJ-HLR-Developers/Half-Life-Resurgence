@@ -99,6 +99,8 @@ function ENT:CustomOnInitialize()
 		gunner.HasDeathAnimation = false
 		gunner.VJ_NPC_Class = self.VJ_NPC_Class
 		gunner:Spawn()
+		table.insert(self.VJ_AddCertainEntityAsFriendly, gunner) -- In case relation class is changed dynamically!
+		table.insert(gunner.VJ_AddCertainEntityAsFriendly, self) -- In case relation class is changed dynamically!
 		if self.Osprey_IsBlackOps then gunner:SetBodygroup(2, 1) end -- Always give the Black Ops snipers!
 		gunner.Weapon_FiringDistanceFar = self.SightDistance
 		gunner:Fire("SetParentAttachment", i == 1 and "gunner_left" or "gunner_right", 0)
@@ -199,6 +201,13 @@ function ENT:CustomOnThink_AIEnabled()
 			self.Osprey_DropStatus = 2
 		end
 	elseif self.Osprey_DropStatus == 2 then
+		-- Update the relation class tables for all the gunners in case it has changed!
+		if self.Osprey_Gunners[1] then
+			self.Osprey_Gunners[1].VJ_NPC_Class = self.VJ_NPC_Class
+		end
+		if self.Osprey_Gunners[2] then
+			self.Osprey_Gunners[2].VJ_NPC_Class = self.VJ_NPC_Class
+		end
 		self:AA_StopMoving()
 		self.Osprey_DropStatus = 3
 		self.Osprey_DropSoldierStatus = 0 -- Start at 0
@@ -212,6 +221,7 @@ function ENT:CustomOnThink_AIEnabled()
 			soldier:SetOwner(self)
 			soldier.HECU_DeployedByOsprey = true
 			soldier.HECU_Rappelling = true
+			soldier.VJ_NPC_Class = self.VJ_NPC_Class
 			soldier:Spawn()
 			soldier:SetLocalVelocity(Vector(0, 0, math.Rand(-196, -128)))
 			soldier:SetEnemy(ene)

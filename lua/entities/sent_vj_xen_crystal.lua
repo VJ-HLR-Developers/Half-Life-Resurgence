@@ -34,7 +34,7 @@ function ENT:Initialize()
 	self:SetMaxHealth(200)
 	self:SetHealth(200)
 	
-	StartLight1 = ents.Create("light_dynamic")
+	local StartLight1 = ents.Create("light_dynamic")
 	StartLight1:SetKeyValue("brightness", "4")
 	StartLight1:SetKeyValue("distance", "150")
 	StartLight1:SetKeyValue("style", 5)

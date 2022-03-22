@@ -98,6 +98,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 				end
 				bCrab:SetAngles(self:GetAngles())
 				bCrab.BabH_Mother = self
+				bCrab.VJ_NPC_Class = self.VJ_NPC_Class
 				bCrab:Spawn()
 				bCrab:Activate()
 				bCrab:SetOwner(self)

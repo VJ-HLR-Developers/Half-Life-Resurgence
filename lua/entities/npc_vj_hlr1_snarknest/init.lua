@@ -99,7 +99,7 @@ function ENT:CustomOnKilled(dmginfo, hitgroup)
 		end
 	end
 	
-	if math.random(1,1000) == 1 then -- Secret =)
+	if math.random(1, 1000) == 1 then -- Secret =)
 		if self.Nest_SpawnEnt == "npc_vj_hlr1_snark" then
 			self.Nest_SpawnEnt = "npc_vj_hlrof_penguin"
 		elseif self.Nest_SpawnEnt == "npc_vj_hlrof_penguin" then
@@ -114,5 +114,6 @@ function ENT:CustomOnKilled(dmginfo, hitgroup)
 		ent:SetVelocity(self:GetUp()*math.Rand(250,350) + self:GetRight()*math.Rand(-100,100) + self:GetForward()*math.Rand(-100,100))
 		ent:Spawn()
 		ent:Activate()
+		ent.VJ_NPC_Class = self.VJ_NPC_Class
 	end
 end

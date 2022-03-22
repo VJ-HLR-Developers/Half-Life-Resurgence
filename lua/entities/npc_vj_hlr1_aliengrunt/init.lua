@@ -113,6 +113,7 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
+	-- Chance of dropping an actual hornet gun that the play can pick up
 	if math.random(1, 50) == 1 then
 		self:SetBodygroup(1, 1)
 		self.HornetGun = ents.Create("weapon_hornetgun")

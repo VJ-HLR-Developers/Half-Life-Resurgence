@@ -71,7 +71,8 @@ ENT.GW_MeleeNegKnockback = false
 
 local maxEyeHealth = 100
 local maxOrbHealth = 100
-local vecPortal = Vector(0, 0, 100)
+local vecPortalSpawn = Vector(0, 0, 100)
+local colorPortal = Color(153, 6, 159, 255)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:AddFlags(FL_NOTARGET) -- They are going to target the bullseye only, so don't let other NPCs see the actual gene worm!
@@ -89,6 +90,7 @@ function ENT:CustomOnInitialize()
 	self.GW_BE_EyeR:SetNoDraw(true)
 	self.GW_BE_EyeR:DrawShadow(false)
 	self.GW_BE_EyeR.VJ_NPC_Class = self.VJ_NPC_Class
+	table.insert(self.VJ_AddCertainEntityAsFriendly, self.GW_BE_EyeR) -- In case relation class is changed dynamically!
 	self:DeleteOnRemove(self.GW_BE_EyeR)
 	self.GW_BE_EyeL = ents.Create("obj_vj_bullseye")
 	self.GW_BE_EyeL:SetModel("models/hunter/plates/plate.mdl")
@@ -98,6 +100,7 @@ function ENT:CustomOnInitialize()
 	self.GW_BE_EyeL:SetNoDraw(true)
 	self.GW_BE_EyeL:DrawShadow(false)
 	self.GW_BE_EyeL.VJ_NPC_Class = self.VJ_NPC_Class
+	table.insert(self.VJ_AddCertainEntityAsFriendly, self.GW_BE_EyeL) -- In case relation class is changed dynamically!
 	self:DeleteOnRemove(self.GW_BE_EyeL)
 	self.GW_BE_Orb = ents.Create("obj_vj_bullseye")
 	self.GW_BE_Orb:SetModel("models/hunter/plates/plate.mdl")
@@ -107,6 +110,7 @@ function ENT:CustomOnInitialize()
 	self.GW_BE_Orb:SetNoDraw(true)
 	self.GW_BE_Orb:DrawShadow(false)
 	self.GW_BE_Orb.VJ_NPC_Class = self.VJ_NPC_Class
+	table.insert(self.VJ_AddCertainEntityAsFriendly, self.GW_BE_Orb) -- In case relation class is changed dynamically!
 	self.GW_BE_Orb:AddFlags(FL_NOTARGET)
 	self:DeleteOnRemove(self.GW_BE_Orb)
 	
@@ -174,8 +178,8 @@ function ENT:CustomOnInitialize()
 	if GetConVar("ai_disabled"):GetInt() == 0 then
 		self.GW_Portal:ResetSequence("open")
 		local sprParticles = ents.Create("info_particle_system")
-		sprParticles:SetKeyValue("effect_name","vj_hlr_geneworm_sprites")
-		sprParticles:SetPos(self.GW_Portal:GetPos() + self.GW_Portal:OBBCenter() + vecPortal)
+		sprParticles:SetKeyValue("effect_name", "vj_hlr_geneworm_sprites")
+		sprParticles:SetPos(self.GW_Portal:GetPos() + self.GW_Portal:OBBCenter() + vecPortalSpawn)
 		sprParticles:SetAngles(self.GW_Portal:GetAngles())
 		sprParticles:SetParent(self.GW_Portal)
 		sprParticles:Spawn()
@@ -368,9 +372,17 @@ function ENT:GW_EyeHealthCheck()
 					self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain2.wav")
 				end
 			end)*/
+			-- Update the class tables for all the bullseyes in case it changed
+			self.GW_BE_EyeL.VJ_NPC_Class = self.VJ_NPC_Class
+			self.GW_BE_EyeR.VJ_NPC_Class = self.VJ_NPC_Class
+			self.GW_BE_Orb.VJ_NPC_Class = self.VJ_NPC_Class
 			timer.Create("gw_closestomach"..self:EntIndex(), 20, 1, function()
 				if IsValid(self) && self.GW_OrbOpen == true then
 					self:GW_OrbOpenReset()
+					-- Update the class tables for all the bullseyes in case it changed (AGAIN)
+					self.GW_BE_EyeL.VJ_NPC_Class = self.VJ_NPC_Class
+					self.GW_BE_EyeR.VJ_NPC_Class = self.VJ_NPC_Class
+					self.GW_BE_Orb.VJ_NPC_Class = self.VJ_NPC_Class
 				end
 			end)
 		end
@@ -388,7 +400,7 @@ function ENT:GW_EyeHealthCheck()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
-	if self.GW_Fade == 1 or self:GetSequenceName(self:GetSequence()) == "pain_4" then dmginfo:SetDamage(0) end -- If it's fading inthen don't take damage!
+	if self.GW_Fade == 1 or self:GetSequenceName(self:GetSequence()) == "pain_4" then dmginfo:SetDamage(0) end -- If it's fading in, then don't take damage!
 	-- Left eye
 	if hitgroup == 14 && self.GW_EyeHealth.l > 0 then
 		self:SpawnBloodParticles(dmginfo, hitgroup)
@@ -471,6 +483,13 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 		self.GW_Portal.IdleLP:Stop()
 	end
 	self.GW_Fade = 2
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnKilled(dmginfo, hitgroup)
+	-- Screen flash effect for all the players
+	for _,v in pairs(player.GetHumans()) do
+		v:ScreenFade(SCREENFADE.IN, colorPortal, 1, 0)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()

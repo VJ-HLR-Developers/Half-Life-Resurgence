@@ -59,13 +59,12 @@ function ENT:Initialize()
 			local ent = ents.Create("npc_vj_hlrof_shocktrooper")
 			ent:SetPos(self:GetPos())
 			ent:SetAngles(self:GetAngles())
-			if IsValid(owner) then
-				ent.VJ_NPC_Class = owner.VJ_NPC_Class
-				table.insert(owner.VJ_AddCertainEntityAsFriendly, ent)
-			end
 			ent:Spawn()
 			if IsValid(owner) then
-				ent:VJ_DoSetEnemy(owner:GetEnemy(), true)
+				ent.VJ_NPC_Class = owner.VJ_NPC_Class
+				if IsValid(owner:GetEnemy()) then
+					ent:VJ_DoSetEnemy(owner:GetEnemy(), true)
+				end
 			end
 			self:Remove()
 		end

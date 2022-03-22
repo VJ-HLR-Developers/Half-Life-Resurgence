@@ -111,6 +111,7 @@ function ENT:CustomOnInitialize()
 		crystal.Assignee = self
 		crystal:Spawn()
 		crystal:Activate()
+		table.insert(self.VJ_AddCertainEntityAsFriendly, crystal) -- In case relation class is changed dynamically!
 		
 		if i == 1 then
 			self.Nih_Crystal1 = crystal
@@ -242,7 +243,7 @@ end
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	if self.Nih_TeleportingOrb == true && IsValid(self:GetEnemy()) then
 		projectile.Track_Enemy = self:GetEnemy()
-		timer.Simple(10,function() if IsValid(projectile) then projectile:Remove() end end)
+		timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -251,24 +252,35 @@ function ENT:RangeAttackCode_GetShootPos(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Nih_CreateAlly()
+	-- Update the relation class tables for all the crystals in case it has changed!
+	if IsValid(self.Nih_Crystal1) then
+		self.Nih_Crystal1.VJ_NPC_Class = self.VJ_NPC_Class
+	end
+	if IsValid(self.Nih_Crystal2) then
+		self.Nih_Crystal2.VJ_NPC_Class = self.VJ_NPC_Class
+	end
+	if IsValid(self.Nih_Crystal3) then
+		self.Nih_Crystal3.VJ_NPC_Class = self.VJ_NPC_Class
+	end
+	
 	local tr = util.TraceLine({
 		start = self:GetPos(),
 		endpos = self:GetPos() + self:GetForward() * math.Rand(-10000, 10000) + self:GetRight() * math.Rand(-10000, 10000) + self:GetUp() * -1000,
 		filter = self,
 		mask = MASK_ALL,
 	})
-	
 	local spawnpos = tr.HitPos + tr.HitNormal*30 -- 30 WU kichme tours hane
 	local type = VJ_PICK({"npc_vj_hlr1_aliengrunt", "npc_vj_hlr1_alienslave", "npc_vj_hlr1_aliencontroller"})
-	if tr.MatType == MAT_SLOSH then type = VJ_PICK({"npc_vj_hlr1_ichthyosaur", "npc_vj_hlr1_archer"}) spawnpos = spawnpos + Vector(0,0,-100) end
+	if tr.MatType == MAT_SLOSH then type = VJ_PICK({"npc_vj_hlr1_ichthyosaur", "npc_vj_hlr1_archer"}) spawnpos = spawnpos + Vector(0, 0, -100) end
 	local ally = ents.Create(type)
-	if ally:GetClass() == "npc_vj_hlr1_aliencontroller" then spawnpos = spawnpos + Vector(0,0,250) end -- Yete controller e, ere vor kichme partser dzaki
+	if ally:GetClass() == "npc_vj_hlr1_aliencontroller" then spawnpos = spawnpos + Vector(0, 0, 250) end -- Yete controller e, ere vor kichme partser dzaki
 	ally:SetPos(spawnpos)
 	ally:SetAngles(self:GetAngles())
+	ally.VJ_NPC_Class = self.VJ_NPC_Class
 	ally:Spawn()
 	ally:Activate()
 	
-	local effectTeleport = VJ_HLR_Effect_PortalSpawn(spawnpos + Vector(0,0,20))
+	local effectTeleport = VJ_HLR_Effect_PortalSpawn(spawnpos + Vector(0, 0, 20))
 	effectTeleport:Fire("Kill", "", 1)
 	
 	return ally
@@ -654,6 +666,7 @@ end
 local colorGreen = Color(0, 255, 0, 255)
 --
 function ENT:CustomOnKilled(dmginfo, hitgroup)
+	-- Screen flash effect for all the players
 	for _,v in pairs(player.GetHumans()) do
 		v:ScreenFade(SCREENFADE.IN, colorGreen, 1, 0)
 	end

@@ -97,6 +97,7 @@ function ENT:Tor_CreateAlly()
 	local ally = ents.Create("npc_vj_hlr1_aliengrunt")
 	ally:SetPos(spawnPos)
 	ally:SetAngles(self:GetAngles())
+	ally.VJ_NPC_Class = self.VJ_NPC_Class
 	ally:Spawn()
 	ally:Activate()
 	
@@ -157,13 +158,14 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self:MeleeAttackCode()
 	end
 	if key == "attack_slam" then
+		local startPos = self:GetPos() + self:GetForward()*20
 		self.HasMeleeAttackMissSounds = false
 		self.DisableDefaultMeleeAttackCode = true
-		VJ_EmitSound(self, {"vj_hlr/hlsc_npc/tor/tor-staff-discharge.wav"}, 90)
-		effects.BeamRingPoint(self:GetPos() + self:GetForward()*20, 0.3, 2, 600, 36, 0, (self.Tor_Level == 0 and Color(0, 255, 0)) or Color(0, 0, 255), {framerate=20, flags=0})
-		util.ScreenShake(self:GetPos() + self:GetForward()*20, 10, 10, 1, 1000)
-		util.Decal("VJ_HLR_Gargantua_Stomp", self:GetPos() + self:GetForward()*20, self:GetPos() + self:GetForward()*20 + self:GetUp()*-100, self)
-		util.VJ_SphereDamage(self, self, self:GetPos() + self:GetForward()*20, 500, (self.Tor_Level == 0 and 40) or 60, DMG_SONIC, true, true, {DisableVisibilityCheck=true, Force=20})
+		VJ_EmitSound(self, "vj_hlr/hlsc_npc/tor/tor-staff-discharge.wav", 90)
+		effects.BeamRingPoint(startPos, 0.3, 2, 600, 36, 0, (self.Tor_Level == 0 and Color(0, 255, 0)) or Color(0, 0, 255), {framerate=20, flags=0})
+		util.ScreenShake(startPos, 10, 10, 1, 1000)
+		util.Decal("VJ_HLR_Gargantua_Stomp", startPos, startPos + self:GetUp()*-100, self)
+		util.VJ_SphereDamage(self, self, startPos, 500, (self.Tor_Level == 0 and 40) or 60, DMG_SONIC, true, true, {DisableVisibilityCheck=true, Force=20})
 		//self:MeleeAttackCode()
 	end
 	if key == "attack_range" then

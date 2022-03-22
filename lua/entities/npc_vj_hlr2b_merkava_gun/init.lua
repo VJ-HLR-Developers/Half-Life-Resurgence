@@ -55,23 +55,29 @@ local sdFiringGun = {"vj_hlr/hl2_weapon/hmg1/hmg1_7.wav", "vj_hlr/hl2_weapon/hmg
 --
 function ENT:Tank_CustomOnThink_AIEnabled()
 	local ene = self:GetEnemy()
-	if self.Tank_FacingTarget && IsValid(ene) && IsValid(self.Spotter) then
-		local att = self:GetAttachment(1)
-		self:FireBullets({
-			Attacker = self,
-			Damage = 7,
-			Force = 10,
-			Src = att.Pos,
-			Dir = (ene:GetPos() + ene:OBBCenter() - att.Pos):Angle():Forward(),
-			Spread = bulletSpread
-		})
-		VJ_EmitSound(self, sdFiringGun, 100, 100, 1, CHAN_WEAPON)
-		ParticleEffect("vj_rifle_full", att.Pos, att.Ang, self)
-		local shellEffect = EffectData()
-		shellEffect:SetEntity(self)
-		shellEffect:SetOrigin(att.Pos + self:GetRight()*5 + self:GetForward()*-23)
-		shellEffect:SetAngles((att.Pos):Angle())
-		util.Effect("RifleShellEject", shellEffect, true, true)
+	if IsValid(ene) && IsValid(self.Spotter) then
+		-- If our enemy is the spotter, then the class changed!
+		if ene == self.Spotter then
+			self.Spotter.VJ_NPC_Class = self:GetParent().VJ_NPC_Class -- Get from the parent (Chassis) because the gunner's relationship is based from it!
+		end
+		if self.Tank_FacingTarget then
+			local att = self:GetAttachment(1)
+			self:FireBullets({
+				Attacker = self,
+				Damage = 7,
+				Force = 10,
+				Src = att.Pos,
+				Dir = (ene:GetPos() + ene:OBBCenter() - att.Pos):Angle():Forward(),
+				Spread = bulletSpread
+			})
+			VJ_EmitSound(self, sdFiringGun, 100, 100, 1, CHAN_WEAPON)
+			ParticleEffect("vj_rifle_full", att.Pos, att.Ang, self)
+			local shellEffect = EffectData()
+			shellEffect:SetEntity(self)
+			shellEffect:SetOrigin(att.Pos + self:GetRight()*5 + self:GetForward()*-23)
+			shellEffect:SetAngles((att.Pos):Angle())
+			util.Effect("RifleShellEject", shellEffect, true, true)
+		end
 	end
 	return true
 end
