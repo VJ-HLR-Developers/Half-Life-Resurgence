@@ -26,10 +26,6 @@ ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calcula
 ENT.MeleeAttackDistance = 35 -- How close does it have to be until it attacks?
 ENT.MeleeAttackDamageDistance = 125 -- How far does the damage go?
 ENT.HasMeleeAttackKnockBack = true -- If true, it will cause a knockback to its enemy
-ENT.MeleeAttackKnockBack_Forward1 = 50 -- How far it will push you forward | First in math.random
-ENT.MeleeAttackKnockBack_Forward2 = 60 -- How far it will push you forward | Second in math.random
-ENT.MeleeAttackKnockBack_Up1 = 250 -- How far it will push you up | First in math.random
-ENT.MeleeAttackKnockBack_Up2 = 260 -- How far it will push you up | Second in math.random
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1} -- Range Attack Animations
@@ -114,6 +110,10 @@ function ENT:RangeAttackCode_GetShootPos(projectile)
 	else
 		return self:CalculateProjectile("Curve", projectile:GetPos(), ene:GetPos() + ene:OBBCenter(), 1500)
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackKnockbackVelocity(hitEnt)
+	return self:GetForward()*55 + self:GetUp()*255
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()

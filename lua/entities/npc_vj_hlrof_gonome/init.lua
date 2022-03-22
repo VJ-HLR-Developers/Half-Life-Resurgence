@@ -77,6 +77,10 @@ function ENT:RangeAttackCode_GetShootPos(projectile)
 	return self:CalculateProjectile("Curve", self:GetAttachment(self:LookupAttachment(self.RangeUseAttachmentForPosID)).Pos, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackKnockbackVelocity(hitEnt)
+	return self:GetForward()*math.random(-100, -200) + self:GetUp()*20
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
 	if self.PropAP_IsVisible or math.random(1, 2) == 1 then
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
@@ -88,8 +92,6 @@ function ENT:MultipleMeleeAttacks()
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
 		self.MeleeAttackDamage = 14
 		self.HasMeleeAttackKnockBack = true
-		self.MeleeAttackKnockBack_Forward1 = -100
-		self.MeleeAttackKnockBack_Forward2 = -200
 		self.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/gonome/gonome_melee2.wav"}
 		self.SoundTbl_MeleeAttackMiss = {}
 	end

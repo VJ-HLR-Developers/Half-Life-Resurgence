@@ -33,8 +33,6 @@ ENT.MeleeAttackDistance = 250 -- How close does it have to be until it attacks?
 ENT.MeleeAttackDamageDistance = 500 -- How far does the damage go?
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.HasMeleeAttackKnockBack = true -- If true, it will cause a knockback to its enemy
-ENT.MeleeAttackKnockBack_Forward1 = 400 -- How far it will push you forward | First in math.random
-ENT.MeleeAttackKnockBack_Forward2 = 500 -- How far it will push you forward | Second in math.random
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlrof_gw_biotoxin" -- The entity that is spawned when range attacking
@@ -69,6 +67,7 @@ ENT.GW_Fade = 0 -- 0 = No fade | 1 = Fade in | 2 = Fade out
 ENT.GW_EyeHealth = {}
 ENT.GW_OrbOpen = false
 ENT.GW_OrbHealth = 100
+ENT.GW_MeleeNegKnockback = false
 
 local maxEyeHealth = 100
 local maxOrbHealth = 100
@@ -263,25 +262,31 @@ function ENT:GetMeleeAttackDamageOrigin()
 	return self:GetPos() + self:GetForward()*200 -- Override this to use a different position
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackKnockbackVelocity(hitEnt)
+	return self:GetForward()*math.random(400, 500) + self:GetUp()*(self.GW_MeleeNegKnockback and math.random(-100, -150) or math.random(1000, 1200))
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local meleeAngCos = math.cos(math.rad(40))
+--
 function ENT:CustomOnMeleeAttack_BeforeStartTimer()
 	local ene = self:GetEnemy()
 	if !IsValid(ene) then return end
-	local posR = self:GetPos() + self:GetForward()*200 + self:GetRight()*300
-	local posL = self:GetPos() + self:GetForward()*200 + self:GetRight()*-300
+	local myPos = self:GetPos()
+	local enePos = ene:GetPos()
+	local posR = myPos + self:GetForward()*200 + self:GetRight()*300
+	local posL = myPos + self:GetForward()*200 + self:GetRight()*-300
 	if math.random(1, 2) == 1 then
 		self.AnimTbl_MeleeAttack = {ACT_SPECIAL_ATTACK1}
-		self.MeleeAttackKnockBack_Up1 = 1000
-		self.MeleeAttackKnockBack_Up2 = 1200
+		self.GW_MeleeNegKnockback = false
 		self.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/geneworm/geneworm_big_attack_forward.wav"}
 	else
-		self.MeleeAttackKnockBack_Up1 = -100
-		self.MeleeAttackKnockBack_Up2 = -150
+		self.GW_MeleeNegKnockback = true
 		self.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/geneworm/geneworm_attack_mounted_gun.wav", "vj_hlr/hl1_npc/geneworm/geneworm_attack_mounted_rocket.wav"}
-		if self:GetForward():Dot((ene:GetPos() - self:GetPos()):GetNormalized()) > math.cos(math.rad(40)) then
+		if self:GetForward():Dot((enePos - myPos):GetNormalized()) > meleeAngCos then
 			//print("center")
 			self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
 		else
-			if posR:Distance(ene:GetPos()) > posL:Distance(ene:GetPos()) then
+			if posR:Distance(enePos) > posL:Distance(enePos) then
 				//print("left")
 				self.AnimTbl_MeleeAttack = {"melee1"}
 			else

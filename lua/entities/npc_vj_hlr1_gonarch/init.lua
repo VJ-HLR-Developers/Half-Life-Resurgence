@@ -28,17 +28,7 @@ ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1} -- Melee Attack Animations
 ENT.MeleeAttackDistance = 80 -- How close does it have to be until it attacks?
 ENT.MeleeAttackDamageDistance = 200 -- How far does the damage go?
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-	-- ====== Knock Back Variables ====== --
-ENT.HasMeleeAttackKnockBack = true -- If true, it will cause a knockback to its enemy
-ENT.MeleeAttackKnockBack_Forward1 = 100 -- How far it will push you forward | First in math.random
-ENT.MeleeAttackKnockBack_Forward2 = 100 -- How far it will push you forward | Second in math.random
-ENT.MeleeAttackKnockBack_Up1 = 10 -- How far it will push you up | First in math.random
-ENT.MeleeAttackKnockBack_Up2 = 10 -- How far it will push you up | Second in math.random
-ENT.MeleeAttackKnockBack_Right1 = 0 -- How far it will push you right | First in math.random
-ENT.MeleeAttackKnockBack_Right2 = 0 -- How far it will push you right | Second in math.random
-	-- ====== World Shake On Miss Variables ====== --
-ENT.MeleeAttackWorldShakeOnMiss = true -- Should it shake the world when it misses during melee attack?
-ENT.MeleeAttackWorldShakeOnMissRadius = 1000 -- How far the screen shake goes, in world units
+ENT.HasMeleeAttackKnockBack = true -- Should knockback be applied on melee hit? | Use self:MeleeAttackKnockbackVelocity() to edit the velocity
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_gonarchspit" -- The entity that is spawned when range attacking
@@ -80,6 +70,7 @@ ENT.Gonarch_NumBabies = 0
 ENT.Gonarch_BabyLimit = 20
 ENT.Gonarch_NextBirthT = 0
 ENT.Gonarch_NextDeadBirthT = 0
+ENT.Gonarch_ShakeWorldOnMiss = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(100, 100, 200), Vector(-100, -100, 0))
@@ -93,8 +84,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	if key == "Step" then
 		util.ScreenShake(self:GetPos(), 10, 100, 0.4, 2000)
 		self:FootStepSoundCode()
-	end
-	if key == "spawn" then -- Create baby headcrabs
+	elseif key == "spawn" then -- Create baby headcrabs
 		for i = 1,3 do
 			VJ_EmitSound(self, sdBirth, 80)
 			if self.Gonarch_NumBabies < self.Gonarch_BabyLimit then -- Default: 20 babies max
@@ -115,15 +105,13 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 			end
 		end
 		self.Gonarch_NextBirthT = CurTime() + 10
-	end
-	if key == "mattack leftA" or key == "mattack rightA" then -- Hit Ground
-		self.MeleeAttackWorldShakeOnMiss = true
+	elseif key == "mattack leftA" or key == "mattack rightA" then -- Hit Ground
+		self.Gonarch_ShakeWorldOnMiss = true
 		self:MeleeAttackCode()
 	elseif key == "mattack leftB" or key == "mattack rightB" then -- Swipe Air
-		self.MeleeAttackWorldShakeOnMiss = false
+		self.Gonarch_ShakeWorldOnMiss = false
 		self:MeleeAttackCode()
-	end
-	if key == "rattack" then
+	elseif key == "rattack" then
 		self:RangeAttackCode()
 	end
 end
@@ -132,9 +120,11 @@ function ENT:Controller_IntMsg(ply, controlEnt)
 	ply:ChatPrint("JUMP: Spawn baby headcrabs")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local animAlert = {"vjseq_angry1", "vjseq_angry2"}
+--
 function ENT:CustomOnAlert(ent)
-	self.Gonarch_NextBirthT = CurTime() + math.random(3,6)
-	self:VJ_ACT_PLAYACTIVITY({"vjseq_angry1", "vjseq_angry2"}, true, false, true)
+	self.Gonarch_NextBirthT = CurTime() + math.random(3, 6)
+	self:VJ_ACT_PLAYACTIVITY(animAlert, true, false, true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Gonarch_BabyDeath()
@@ -157,6 +147,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(projectile)
 	return self:CalculateProjectile("Curve", self:GetPos() + self:GetUp()*self.RangeAttackPos_Up, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1200)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnMeleeAttack_Miss()
+	if self.Gonarch_ShakeWorldOnMiss then
+		util.ScreenShake(self:GetPos(), 16, 100, 1, 1000)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)

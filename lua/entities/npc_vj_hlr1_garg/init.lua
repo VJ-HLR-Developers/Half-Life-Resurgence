@@ -27,8 +27,6 @@ ENT.MeleeAttackDamage = 30 -- How close does it have to be until it attacks?
 ENT.MeleeAttackDamageType = DMG_CRUSH -- How close does it have to be until it attacks?
 ENT.MeleeAttackDistance = 65 -- How close does it have to be until it attacks?
 ENT.MeleeAttackDamageDistance = 165 -- How far does the damage go?
-ENT.MeleeAttackKnockBack_Forward1 = 500 -- How far it will push you forward | First in math.random
-ENT.MeleeAttackKnockBack_Forward2 = 500 -- How far it will push you forward | Second in math.random
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_garg_stomp" -- The entity that is spawned when range attacking
@@ -76,6 +74,7 @@ ENT.Garg_AttackType = -1
 ENT.Garg_AbleToFlame = false
 ENT.Garg_NextAbleToFlameT = 0
 ENT.Garg_NextStompAttackT = 0
+ENT.Garg_MeleeLargeKnockback = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	if self.Garg_Type == 0 then -- Adult garg
@@ -163,21 +162,24 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackKnockbackVelocity(hitEnt)
+	return self:GetForward()*500 + self:GetUp()*(self.Garg_MeleeLargeKnockback and 300 or 10)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
-	local r = math.random(1,3)
+	local r = math.random(1, 3)
 	if r == 1 then
 		self.AnimTbl_MeleeAttack = {"vjseq_smash"}
 		self.HasMeleeAttackKnockBack = false
+		self.Garg_MeleeLargeKnockback = false
 	elseif r == 2 then
 		self.AnimTbl_MeleeAttack = {"vjseq_attack"}
 		self.HasMeleeAttackKnockBack = true
-		self.MeleeAttackKnockBack_Up1 = 10
-		self.MeleeAttackKnockBack_Up2 = 10
+		self.Garg_MeleeLargeKnockback = false
 	elseif r == 3 then
 		self.AnimTbl_MeleeAttack = {"vjseq_kickcar"}
 		self.HasMeleeAttackKnockBack = true
-		self.MeleeAttackKnockBack_Up1 = 300
-		self.MeleeAttackKnockBack_Up2 = 300
+		self.Garg_MeleeLargeKnockback = true
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
