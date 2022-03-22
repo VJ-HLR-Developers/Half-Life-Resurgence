@@ -33,16 +33,19 @@ ENT.DirectDamageType = DMG_SLASH -- Damage type
 ENT.CollideCodeWithoutRemoving = true -- If RemoveOnHit is set to false, you can still make the projectile deal damage, place a decal, etc.
 ENT.DecalTbl_DeathDecals = {"VJ_HLR_Blood_Yellow"}
 ENT.DecalTbl_OnCollideDecals = {"VJ_HLR_Blood_Yellow"} -- Decals that paint when the projectile collides with something | It picks a random one from this table
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/hornet/ag_buzz1.wav","vj_hlr/hl1_npc/hornet/ag_buzz2.wav","vj_hlr/hl1_npc/hornet/ag_buzz3.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/hornet/ag_hornethit1.wav","vj_hlr/hl1_npc/hornet/ag_hornethit2.wav","vj_hlr/hl1_npc/hornet/ag_hornethit3.wav"}
 
 ENT.IdleSoundPitch = VJ_Set(100, 100)
 
--- Custom
 local defVec = Vector(0, 0, 0)
+local sdIdle = {"vj_hlr/hl1_npc/hornet/ag_buzz1.wav","vj_hlr/hl1_npc/hornet/ag_buzz2.wav","vj_hlr/hl1_npc/hornet/ag_buzz3.wav"}
+local sdCollideAlpha = {"vj_hlr/hla_npc/hornet/ag_buzz1.wav","vj_hlr/hla_npc/hornet/ag_buzz2.wav","vj_hlr/hla_npc/hornet/ag_buzz3.wav"}
 
+-- Custom
 ENT.Track_Enemy = NULL
 ENT.Track_Position = defVec
+ENT.Hornet_Alpha = false
+ENT.Hornet_ChaseSpeed = 600
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
@@ -60,7 +63,13 @@ end
 function ENT:CustomOnInitialize()
 	timer.Simple(5, function() if IsValid(self) then self:Remove() end end)
 	
-	util.SpriteTrail(self, 0, Color(255,math.random(50,200),0,120), true, 6, 0, 1.5, 1/(6 + 0)*0.5, "vj_hl/sprites/laserbeam.vmt")
+	if self.Hornet_Alpha then
+		self.SoundTbl_OnCollide = sdCollideAlpha
+		self.Hornet_ChaseSpeed = 400
+	else
+		self.SoundTbl_Idle = sdIdle
+		util.SpriteTrail(self, 0, Color(255,math.random(50,200),0,120), true, 6, 0, 1.5, 1/(6 + 0)*0.5, "vj_hl/sprites/laserbeam.vmt")
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
@@ -71,13 +80,13 @@ function ENT:CustomOnThink()
 		end
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position + self.Track_Enemy:GetUp()*math.random(-50,50) + self.Track_Enemy:GetRight()*math.random(-50,50), 600))
+			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position + self.Track_Enemy:GetUp()*math.random(-50,50) + self.Track_Enemy:GetRight()*math.random(-50,50), self.Hornet_ChaseSpeed))
 			self:SetAngles(self:GetVelocity():GetNormal():Angle())
 		end
 	else
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self:GetPos() + self:GetForward()*math.random(-80, 80)+ self:GetRight()*math.random(-80, 80) + self:GetUp()*math.random(-80, 80), 300))
+			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self:GetPos() + self:GetForward()*math.random(-80, 80)+ self:GetRight()*math.random(-80, 80) + self:GetUp()*math.random(-80, 80), self.Hornet_ChaseSpeed / 2))
 			self:SetAngles(self:GetVelocity():GetNormal():Angle())
 		end
 	end

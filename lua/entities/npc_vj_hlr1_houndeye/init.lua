@@ -28,7 +28,6 @@ ENT.MeleeAttackDSPSoundType = 34 -- What type of DSP effect? | Search online for
 ENT.MeleeAttackDSPSoundUseDamage = false -- Should it only do the DSP effect if gets damaged x or greater amount
 ENT.DisableDefaultMeleeAttackDamageCode = true -- Disables the default melee attack damage code
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD, ACT_DIEBACKWARD} -- Death Animations
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
@@ -54,11 +53,20 @@ ENT.Houndeye_NextSleepT = 0
 ENT.Houndeye_Sleeping = false
 ENT.Houndeye_LimpWalking = false -- Used for optimization
 ENT.Houndeye_CurIdleAnim = 0 -- 0 = regular | 1 = sleeping | 2 = angry
+ENT.Houndeye_Type = 0
+	-- 0 = Original / Default
+	-- 1 = Alpha
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(20, 20 , 40), Vector(-20, -20, 0))
 	
 	self.Houndeye_NextSleepT = CurTime() + math.Rand(0, 15)
+	
+	if self.Houndeye_Type == 1 then
+		self.AnimTbl_Death = {ACT_DIESIMPLE}
+	else
+		self.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD, ACT_DIEBACKWARD}
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
@@ -130,7 +138,7 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local alertAnims = {"vjseq_madidle1","vjseq_madidle2","vjseq_madidle3"}
+local alertAnims = {"vjseq_madidle1", "vjseq_madidle2", "vjseq_madidle3"}
 --
 function ENT:CustomOnAlert(ent)
 	if self.Houndeye_Sleeping == true then -- Wake up if sleeping and play a special alert animation
@@ -147,13 +155,15 @@ function ENT:CustomOnResetEnemy()
 	self.Houndeye_NextSleepT = CurTime() + math.Rand(15, 45)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local houndeyeClasses = {npc_vj_hlr1_houndeye=true, npc_vj_hlr1a_houndeye=true}
+--
 function ENT:CustomOnMeleeAttack_BeforeChecks()
 	local friNum = 0 -- How many allies exist around the Houndeye
 	local color = Color(188, 220, 255) -- The shock wave color
 	local dmg = 15 -- How much damage should the shock wave do?
 	local myPos = self:GetPos()
 	for _, v in ipairs(ents.FindInSphere(myPos, 400)) do
-		if v != self && v:GetClass() == "npc_vj_hlr1_houndeye" then
+		if v != self && houndeyeClasses[v:GetClass()] then
 			friNum = friNum + 1
 		end
 	end
@@ -173,7 +183,7 @@ function ENT:CustomOnMeleeAttack_BeforeChecks()
 	effects.BeamRingPoint(myPos, 0.3, 2, 400, 16, 0, color, {material="vj_hl/sprites/shockwave", framerate=20, flags=0})
 	effects.BeamRingPoint(myPos, 0.3, 2, 200, 16, 0, color, {material="vj_hl/sprites/shockwave", framerate=20, flags=0})
 	
-	if self.HasSounds == true && GetConVar("vj_npc_sd_meleeattack"):GetInt() == 0 then
+	if self.HasSounds && self.HasMeleeAttackSounds then
 		VJ_EmitSound(self, blastSd, 100, math.random(80, 100))
 	end
 	util.VJ_SphereDamage(self, self, myPos, 400, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
