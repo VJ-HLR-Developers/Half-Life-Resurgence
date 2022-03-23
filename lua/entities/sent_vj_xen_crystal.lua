@@ -16,6 +16,8 @@ ENT.Category		= "VJ Base"
 
 function ENT:Draw() self:DrawModel() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:DrawTranslucent() self:Draw() end
+---------------------------------------------------------------------------------------------------------------------------------------------
 if (!SERVER) then return end
 
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
