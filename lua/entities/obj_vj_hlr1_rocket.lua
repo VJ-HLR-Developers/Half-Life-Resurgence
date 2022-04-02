@@ -13,6 +13,8 @@ ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectiles for my addons"
 ENT.Category		= "Projectiles"
 
+ENT.VJ_IsDetectableDanger = true
+
 if CLIENT then
 	local Name = "Tank Shell"
 	local LangName = "obj_vj_hlr1_rocket"

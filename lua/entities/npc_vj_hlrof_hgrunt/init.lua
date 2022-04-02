@@ -172,6 +172,12 @@ ENT.SoundTbl_OnGrenadeSight = {
 	"vj_hlr/hl1_npc/hgrunt_oppf/retreat.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/takecover.wav"
 }
+ENT.SoundTbl_OnDangerSight = {
+	"vj_hlr/hl1_npc/hgrunt_oppf/cover.wav",
+	"vj_hlr/hl1_npc/hgrunt_oppf/down.wav",
+	"vj_hlr/hl1_npc/hgrunt_oppf/retreat.wav",
+	"vj_hlr/hl1_npc/hgrunt_oppf/takecover.wav"
+}
 ENT.SoundTbl_OnKilledEnemy = {
 	"vj_hlr/hl1_npc/hgrunt_oppf/killer.wav",
 	"vj_hlr/hl1_npc/hgrunt_oppf/oneshot.wav",

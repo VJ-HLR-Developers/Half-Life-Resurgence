@@ -138,9 +138,10 @@ function ENT:CustomRangeAttackCode()
 	timer.Simple(0.65, function() if IsValid(self) && IsValid(spr) then spr:Remove() end end)
 	
 	for i = 0.1, 0.5, 0.1 do
-		timer.Simple(i,function()
+		timer.Simple(i, function()
 			if IsValid(self) && IsValid(self:GetEnemy()) && self.AttackType == VJ_ATTACK_RANGE then
 				local hitpos = self:PitWorm_DoLaserEffects()
+				sound.EmitHint(SOUND_DANGER, hitpos, 100, 1, self)
 				util.VJ_SphereDamage(self, self, hitpos, 30, 10, DMG_SHOCK, true, false, {Force=90})
 				sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitpos, 80)
 			end

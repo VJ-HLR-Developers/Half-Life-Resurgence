@@ -117,6 +117,12 @@ ENT.SoundTbl_OnGrenadeSight = {
 	"vo/ravenholm/monk_danger03.wav",
 	"vo/ravenholm/monk_blocked02.wav",
 }
+ENT.SoundTbl_OnDangerSight = {
+	"vo/ravenholm/monk_danger01.wav",
+	"vo/ravenholm/monk_danger02.wav",
+	"vo/ravenholm/monk_danger03.wav",
+	"vo/ravenholm/monk_blocked02.wav",
+}
 ENT.SoundTbl_OnKilledEnemy = {
 	"vo/ravenholm/madlaugh01.wav",
 	"vo/ravenholm/madlaugh02.wav",

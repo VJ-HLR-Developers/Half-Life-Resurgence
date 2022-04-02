@@ -50,6 +50,7 @@ function ENT:SCI_CustomOnInitialize()
 	self.SoundTbl_Alert = {"vj_hlr/hl1_npc/keller/dk_04_monsters.wav","vj_hlr/hl1_npc/keller/dk_help0.wav","vj_hlr/hl1_npc/keller/dk_help1.wav","vj_hlr/hl1_npc/keller/dk_help2.wav"}
 	self.SoundTbl_BecomeEnemyToPlayer = {"vj_hlr/hl1_npc/keller/dk_screwyou.wav"}
 	self.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/keller/dk_fear0.wav","vj_hlr/hl1_npc/keller/dk_fear1.wav","vj_hlr/hl1_npc/keller/dk_fear2.wav","vj_hlr/hl1_npc/keller/dk_fear3.wav","vj_hlr/hl1_npc/keller/dk_fear4.wav","vj_hlr/hl1_npc/keller/dk_fear5.wav","vj_hlr/hl1_npc/keller/dk_fear6.wav"}
+	self.SoundTbl_OnDangerSight = {"vj_hlr/hl1_npc/keller/dk_fear0.wav","vj_hlr/hl1_npc/keller/dk_fear1.wav","vj_hlr/hl1_npc/keller/dk_fear2.wav","vj_hlr/hl1_npc/keller/dk_fear3.wav","vj_hlr/hl1_npc/keller/dk_fear4.wav","vj_hlr/hl1_npc/keller/dk_fear5.wav","vj_hlr/hl1_npc/keller/dk_fear6.wav"}
 	self.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/keller/dk_condolences.wav"}
 	self.SoundTbl_Pain = {"vj_hlr/hl1_npc/keller/dk_pain1.wav","vj_hlr/hl1_npc/keller/dk_pain2.wav","vj_hlr/hl1_npc/keller/dk_pain3.wav","vj_hlr/hl1_npc/keller/dk_pain4.wav","vj_hlr/hl1_npc/keller/dk_pain5.wav","vj_hlr/hl1_npc/keller/dk_pain6.wav","vj_hlr/hl1_npc/keller/dk_pain7.wav"}
 	self.SoundTbl_DamageByPlayer = {"vj_hlr/hl1_npc/keller/dk_plfear0.wav","vj_hlr/hl1_npc/keller/dk_plfear1.wav","vj_hlr/hl1_npc/keller/dk_plfear3.wav","vj_hlr/hl1_npc/keller/dk_scared0.wav","vj_hlr/hl1_npc/keller/dk_scared1.wav","vj_hlr/hl1_npc/keller/dk_scared2.wav"}

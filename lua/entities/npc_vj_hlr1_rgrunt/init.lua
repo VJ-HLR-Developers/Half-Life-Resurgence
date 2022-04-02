@@ -24,7 +24,7 @@ ENT.GeneralSoundPitch1 = 130
 ENT.GeneralSoundPitch2 = 140
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
-	self:SetBodygroup(1,math.random(0,1))
+	self:SetBodygroup(1, math.random(0, 1))
 	self.SoundTbl_FootStep = {"vj_hlr/hl1_npc/rgrunt/pl_metal1.wav","vj_hlr/hl1_npc/rgrunt/pl_metal2.wav","vj_hlr/hl1_npc/rgrunt/pl_metal3.wav","vj_hlr/hl1_npc/rgrunt/pl_metal4.wav"}
 	self.SoundTbl_Idle = {"vj_hlr/hl1_npc/rgrunt/rb_idle1.wav","vj_hlr/hl1_npc/rgrunt/rb_idle2.wav","vj_hlr/hl1_npc/rgrunt/rb_idle3.wav"}
 	self.SoundTbl_Breath = {"vj_hlr/hl1_npc/rgrunt/rb_engine.wav"}
@@ -37,6 +37,7 @@ function ENT:HECU_CustomOnInitialize()
 	self.SoundTbl_WeaponReload = {"vj_hlr/hl1_npc/rgrunt/rb_cover1.wav","vj_hlr/hl1_npc/rgrunt/rb_cover2.wav"}
 	self.SoundTbl_GrenadeAttack = {"vj_hlr/hl1_npc/rgrunt/rb_deploy1.wav","vj_hlr/hl1_npc/rgrunt/rb_deploy2.wav"}
 	self.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/rgrunt/rb_gren1.wav","vj_hlr/hl1_npc/rgrunt/rb_gren2.wav","vj_hlr/hl1_npc/rgrunt/rb_gren3.wav"}
+	self.SoundTbl_OnDangerSight = {"vj_hlr/hl1_npc/rgrunt/rb_gren2.wav","vj_hlr/hl1_npc/rgrunt/rb_cover1.wav","vj_hlr/hl1_npc/rgrunt/rb_cover2.wav"}
 	self.SoundTbl_OnKilledEnemy = {"vj_hlr/hl1_npc/rgrunt/rb_killed1.wav","vj_hlr/hl1_npc/rgrunt/rb_killed2.wav","vj_hlr/hl1_npc/rgrunt/rb_killed3.wav","vj_hlr/hl1_npc/rgrunt/rb_killed4.wav"}
 	self.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/rgrunt/rb_allydeath1.wav"}
 	self.SoundTbl_Pain = {"vj_hlr/hl1_npc/rgrunt/spark1.wav","vj_hlr/hl1_npc/rgrunt/spark2.wav","vj_hlr/hl1_npc/rgrunt/spark3.wav","vj_hlr/hl1_npc/rgrunt/spark4.wav","vj_hlr/hl1_npc/rgrunt/spark5.wav","vj_hlr/hl1_npc/rgrunt/spark6.wav"}
@@ -77,8 +78,8 @@ function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(4) -- Size
-		rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
-		util.Effect("VJ_HLR_Rico",rico)
+		rico:SetMagnitude(math.random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
+		util.Effect("VJ_HLR_Rico", rico)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

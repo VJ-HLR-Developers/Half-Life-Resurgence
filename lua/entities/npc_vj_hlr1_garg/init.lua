@@ -149,10 +149,16 @@ function ENT:CustomOnThink_AIEnabled()
 			ParticleEffectAttach("vj_hlr_garg_flame", PATTACH_POINT_FOLLOW,self, 2)
 			ParticleEffectAttach("vj_hlr_garg_flame", PATTACH_POINT_FOLLOW,self, 3)
 		end
-		local tr1 = util.TraceLine({start = self:GetAttachment(2).Pos, endpos = self:GetAttachment(2).Pos + self:GetForward()*range, filter = self})
-		local tr2 = util.TraceLine({start = self:GetAttachment(3).Pos, endpos = self:GetAttachment(3).Pos + self:GetForward()*range, filter = self})
-		util.Decal("VJ_HLR_Scorch", tr1.HitPos + tr1.HitNormal, tr1.HitPos - tr1.HitNormal)
-		util.Decal("VJ_HLR_Scorch", tr2.HitPos + tr2.HitNormal, tr2.HitPos - tr2.HitNormal)
+		local startPos1 = self:GetAttachment(2).Pos
+		local startPos2 = self:GetAttachment(3).Pos
+		local tr1 = util.TraceLine({start = startPos1, endpos = startPos1 + self:GetForward()*range, filter = self})
+		local tr2 = util.TraceLine({start = startPos2, endpos = startPos2 + self:GetForward()*range, filter = self})
+		local hitPos1 = tr1.HitPos
+		local hitPos2 = tr2.HitPos
+		sound.EmitHint(SOUND_DANGER, (hitPos1 + startPos1) / 2, 300, 1, self) -- Pos: Midpoint of start and hit pos, same as Vector((hitPos1.x + startPos1.x ) / 2, (hitPos1.y + startPos1.y ) / 2, (hitPos1.z + startPos1.z ) / 2)
+		sound.EmitHint(SOUND_DANGER, (hitPos2 + startPos2) / 2, 300, 1, self)
+		util.Decal("VJ_HLR_Scorch", hitPos1 + tr1.HitNormal, hitPos1 - tr1.HitNormal)
+		util.Decal("VJ_HLR_Scorch", hitPos2 + tr2.HitNormal, hitPos2 - tr2.HitNormal)
 		-- Make it constantly delay the range attack timer by 1 second (Which will also successfully play the flame-end sound)
 		timer.Adjust("timer_range_start"..self:EntIndex(), 1, 0, function()
 			self:RangeAttackCode()

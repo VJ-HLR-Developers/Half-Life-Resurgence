@@ -75,7 +75,9 @@ ENT.SoundTbl_UnFollowPlayer = {
 	"vj_hlr/hl2_npc/ep1/c17/ba_ifyousayso.wav",
 	"vo/streetwar/rubble/ba_seeya.wav",
 }
-ENT.SoundTbl_MoveOutOfPlayersWay = {}
+ENT.SoundTbl_MoveOutOfPlayersWay = {
+	"vo/k_lab/ba_whoops.wav",
+}
 ENT.SoundTbl_MedicBeforeHeal = {}
 ENT.SoundTbl_MedicAfterHeal = {}
 ENT.SoundTbl_MedicReceiveHeal = {}
@@ -122,6 +124,7 @@ ENT.SoundTbl_Suppressing = {
 ENT.SoundTbl_WeaponReload = {
 	"vo/npc/barney/ba_covermegord.wav",
 	"vo/npc/barney/ba_damnit.wav",
+	"vo/k_lab/ba_getitoff01.wav",
 }
 ENT.SoundTbl_BeforeMeleeAttack = {}
 ENT.SoundTbl_MeleeAttack = {}
@@ -136,6 +139,16 @@ ENT.SoundTbl_OnGrenadeSight = {
 	"vo/npc/barney/ba_getoutofway.wav",
 	"vo/npc/barney/ba_grenade01.wav",
 	"vo/npc/barney/ba_grenade02.wav",
+	"vo/npc/barney/ba_lookout.wav",
+	"vo/k_lab/ba_headhumper02.wav",
+	"vo/k_lab/ba_thingaway02.wav",
+}
+ENT.SoundTbl_OnDangerSight = {
+	"vo/npc/barney/ba_damnit.wav",
+	"vo/npc/barney/ba_duck.wav",
+	"vo/npc/barney/ba_getaway.wav",
+	"vo/npc/barney/ba_getdown.wav",
+	"vo/npc/barney/ba_getoutofway.wav",
 	"vo/npc/barney/ba_lookout.wav",
 	"vo/k_lab/ba_headhumper02.wav",
 	"vo/k_lab/ba_thingaway02.wav",

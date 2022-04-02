@@ -139,6 +139,7 @@ function ENT:Security_CustomOnInitialize()
 	self.SoundTbl_BecomeEnemyToPlayer = {"vj_hlr/hl1_npc/barney/ba_uwish.wav","vj_hlr/hl1_npc/barney/ba_tomb.wav","vj_hlr/hl1_npc/barney/ba_somuch.wav","vj_hlr/hl1_npc/barney/ba_mad3.wav","vj_hlr/hl1_npc/barney/ba_iwish.wav","vj_hlr/hl1_npc/barney/ba_endline.wav","vj_hlr/hl1_npc/barney/aintscared.wav"}
 	self.SoundTbl_Suppressing = {"vj_hlr/hl1_npc/barney/c1a4_ba_octo2.wav","vj_hlr/hl1_npc/barney/c1a4_ba_octo4.wav","vj_hlr/hl1_npc/barney/c1a4_ba_octo3.wav","vj_hlr/hl1_npc/barney/ba_generic1.wav","vj_hlr/hl1_npc/barney/ba_bring.wav","vj_hlr/hl1_npc/barney/ba_attacking1.wav"}
 	self.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/barney/standback.wav","vj_hlr/hl1_npc/barney/ba_heeey.wav"}
+	self.SoundTbl_OnDangerSight = {"vj_hlr/hl1_npc/barney/standback.wav","vj_hlr/hl1_npc/barney/ba_heeey.wav"}
 	self.SoundTbl_OnKilledEnemy = {"vj_hlr/hl1_npc/barney/soundsbad.wav","vj_hlr/hl1_npc/barney/ba_seethat.wav","vj_hlr/hl1_npc/barney/ba_kill0.wav","vj_hlr/hl1_npc/barney/ba_gotone.wav","vj_hlr/hl1_npc/barney/ba_firepl.wav","vj_hlr/hl1_npc/barney/ba_buttugly.wav","vj_hlr/hl1_npc/barney/ba_another.wav","vj_hlr/hl1_npc/barney/ba_close.wav"}
 	self.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/barney/die.wav"}
 	self.SoundTbl_Pain = {"vj_hlr/hl1_npc/barney/imhit.wav","vj_hlr/hl1_npc/barney/hitbad.wav","vj_hlr/hl1_npc/barney/c1a2_ba_4zomb.wav","vj_hlr/hl1_npc/barney/ba_pain1.wav","vj_hlr/hl1_npc/barney/ba_pain2.wav","vj_hlr/hl1_npc/barney/ba_pain3.wav"}
@@ -152,7 +153,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(13, 13, 76), Vector(-13, -13, 0))
-	self:SetBodygroup(1,0)
+	self:SetBodygroup(1, 0)
 	self:SetWeaponState(VJ_WEP_STATE_HOLSTERED)
 	
 	if self:GetModel() == "models/vj_hlr/hl1/barney.mdl" then // Already the default
@@ -252,7 +253,7 @@ function ENT:CustomOnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Security_HolsterGun()
-	self:VJ_ACT_PLAYACTIVITY(ACT_DISARM, true, false, true)
+	if self:GetBodygroup(1) != 0 then self:VJ_ACT_PLAYACTIVITY(ACT_DISARM, true, false, true) end
 	self:SetWeaponState(VJ_WEP_STATE_HOLSTERED)
 	timer.Simple(self.Security_Type == 2 and 1 or 1.5, function()
 		if IsValid(self) && self:GetWeaponState() == VJ_WEP_STATE_HOLSTERED then

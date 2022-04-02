@@ -13,6 +13,8 @@ ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectiles for my addons"
 ENT.Category		= "Projectiles"
 
+ENT.VJ_IsDetectableDanger = true
+
 if CLIENT then
 	local Name = "Kingpin Energy Orb"
 	local LangName = "obj_vj_hlr1_kingpin_orb"
