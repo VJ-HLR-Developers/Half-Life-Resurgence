@@ -32,18 +32,24 @@ SWEP.Primary.DistantSound		= {"vj_hlr/hl1_npc/hassault/hw_shoot_distant.wav"}
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 
 -- Custom
-SWEP.HLR_ValidModels = {"models/vj_hlr/hl1/hassault.mdl","models/vj_hlr/hl_hd/hassault.mdl"}
+SWEP.HLR_ValidModels = {"models/vj_hlr/hl1/hassault.mdl", "models/vj_hlr/hl_hd/hassault.mdl", "models/vj_hlr/hla/hassault.mdl"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
-	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
+	timer.Simple(0.1, function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
 		if IsValid(self) && IsValid(self:GetOwner()) then
-			if !VJ_HasValue(self.HLR_ValidModels,self:GetOwner():GetModel()) then
-				if IsValid(self:GetOwner():GetCreator()) then
-					self:GetOwner():GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
+			local owner = self:GetOwner()
+			if !VJ_HasValue(self.HLR_ValidModels,owner:GetModel()) then
+				if IsValid(owner:GetCreator()) then
+					owner:GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
 				end
 				self:Remove()
 			else
 				self.NPC_NextPrimaryFire = false
+				if owner:GetModel() == "models/vj_hlr/hla/hassault.mdl" then
+					self.WorldModel_CustomPositionBone = "unnamed_bone_033"
+					self.WorldModel_CustomPositionAngle = Vector(104, 0, 100)
+					self.WorldModel_CustomPositionOrigin = Vector(27.5, 0, 3)
+				end
 			end
 		end
 	end)

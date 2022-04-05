@@ -89,18 +89,6 @@ ENT.HECU_NextMouthDistance = 0
 
 local defPos = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
-	if math.random(1,3) == 1 && self.HECU_UsingDefaultSounds == true then
-		if ent.IsVJBaseSNPC_Creature == true then -- Alien sounds
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl1_npc/hgrunt/gr_alert9.wav","vj_hlr/hl1_npc/hgrunt/gr_alert10.wav"})
-			return
-		elseif ent.IsVJBaseSNPC_Human == true or ent:IsPlayer() then -- Soldier sounds
-			self:PlaySoundSystem("Alert", {"vj_hlr/hl1_npc/hgrunt/gr_alert2.wav","vj_hlr/hl1_npc/hgrunt/gr_alert5.wav"})
-			return
-		end
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
 	self.HECU_UsingDefaultSounds = true
 	self.SoundTbl_Idle = {"vj_hlr/hl1_npc/hgrunt/gr_alert1.wav","vj_hlr/hl1_npc/hgrunt/gr_idle1.wav","vj_hlr/hl1_npc/hgrunt/gr_idle2.wav","vj_hlr/hl1_npc/hgrunt/gr_idle3.wav"}
@@ -119,6 +107,11 @@ function ENT:HECU_CustomOnInitialize()
 	
 	if self.HECU_Type == 7 then
 		self:SetBodygroup(1, 0)
+		-- Alpha sergeant has a unique alert sound
+		if self:GetModel() == "models/vj_hlr/hla/hassault.mdl" then
+			self.HECU_UsingDefaultSounds = false
+			self.SoundTbl_Alert = {"vj_hlr/hla_npc/hassault/hw_alert.wav"}
+		end
 	else
 		self:SetSkin(math.random(0, 1))
 	
@@ -133,7 +126,7 @@ function ENT:HECU_CustomOnInitialize()
 		if randHead == 2 then
 			self:SetBodygroup(2, 1)
 		else
-			self:SetBodygroup(2,0)
+			self:SetBodygroup(2, 0)
 		end
 	end
 end
@@ -168,15 +161,14 @@ function ENT:CustomOnInitialize()
 		self.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD}
 		self.HECU_CanHurtWalk = false
 		self.HECU_CanUseGuardAnim = false
-	elseif myMDL == "models/vj_hlr/hl1/hassault.mdl" or myMDL == "models/vj_hlr/hl_hd/hassault.mdl" then
+	elseif myMDL == "models/vj_hlr/hl1/hassault.mdl" or myMDL == "models/vj_hlr/hl_hd/hassault.mdl" or myMDL == "models/vj_hlr/hla/hassault.mdl" then
 		self.HECU_Type = 7
 		self.HECU_WepBG = 1
-		if math.random(1, 3) == 1 then
-			self.AnimTbl_Death = {ACT_DIESIMPLE}
-			self.DeathAnimationTime = 0.6
+		-- Alpha version has more death animations
+		if myMDL == "models/vj_hlr/hla/hassault.mdl" then
+			self.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEVIOLENT, ACT_DIEFORWARD}
 		else
 			self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEVIOLENT}
-			self.DeathAnimationTime  = false
 		end
 		self.HECU_CanHurtWalk = false
 		self.HECU_CanUseGuardAnim = false
@@ -248,6 +240,26 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	-- Alpha HGrunt --
 	elseif key == "i_got_something_for_you" then -- Make them play a sound when firing a weapon secondary shot
 		self:PlaySoundSystem("GeneralSpeech", "vj_hlr/hla_npc/hgrunt/gr_loadtalk.wav")
+		
+	-- Alpha Sergeant --
+	elseif key == "holster_gun" then
+		self:SetWeaponState(VJ_WEP_STATE_HOLSTERED)
+		self:SetBodygroup(1, 1)
+	elseif key == "draw_gun" then
+		self:SetWeaponState()
+		self:SetBodygroup(1, 0)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnAlert(ent)
+	if math.random(1,3) == 1 && self.HECU_UsingDefaultSounds == true then
+		if ent.IsVJBaseSNPC_Creature == true then -- Alien sounds
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl1_npc/hgrunt/gr_alert9.wav","vj_hlr/hl1_npc/hgrunt/gr_alert10.wav"})
+			return
+		elseif ent.IsVJBaseSNPC_Human == true or ent:IsPlayer() then -- Soldier sounds
+			self:PlaySoundSystem("Alert", {"vj_hlr/hl1_npc/hgrunt/gr_alert2.wav","vj_hlr/hl1_npc/hgrunt/gr_alert5.wav"})
+			return
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -479,6 +491,7 @@ function ENT:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gasTankExpPos = Vector(0, 0, 90)
+local gasTankExpSd = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
@@ -486,7 +499,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	if self.HECU_GasTankHit == true then
 		util.BlastDamage(self, self, self:GetPos(), 100, 80)
 		util.ScreenShake(self:GetPos(), 100, 200, 1, 500)
-		VJ_EmitSound(self,{"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"},90)
+		VJ_EmitSound(self, gasTankExpSd, 90)
 		
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
@@ -566,6 +579,11 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	-- If we are still rappelling then play the rappel death animation!
 	if self.HECU_Rappelling then
 		self.AnimTbl_Death = {"repel_die"}
+	else
+		-- Make the alpha sergeant fly back when its a heavy damage
+		if self.HECU_Type == 7 && dmginfo:GetDamage() > 30 && self:GetModel() == "models/vj_hlr/hla/hassault.mdl" then
+			self.AnimTbl_Death = {ACT_DIEBACKWARD}
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

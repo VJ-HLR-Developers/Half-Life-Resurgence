@@ -39,6 +39,11 @@ function ENT:HECU_CustomOnThink()
 		VJ_STOPSOUND(self.CurrentBreathSound)
 		self.HasBreathSound = false
 	end
+	
+	-- Reset Alpha Sergeant's gun in case the melee animation gets cut off and draw event is never called!
+	if self:GetWeaponState() == VJ_WEP_STATE_HOLSTERED && self.AttackType != VJ_ATTACK_MELEE then
+		self:SetBodygroup(1, 0)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnWeaponAttack()
