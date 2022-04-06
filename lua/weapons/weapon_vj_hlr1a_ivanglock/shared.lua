@@ -27,7 +27,7 @@ SWEP.WorldModel_CustomPositionBone = "unnamed037" -- The bone it will use as the
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 5 -- Damage
 SWEP.Primary.ClipSize			= 50 -- Max amount of bullets per clip
-SWEP.Primary.Ammo				= "SMG1" -- Ammo type
+SWEP.Primary.Ammo				= "Pistol" -- Ammo type
 SWEP.Primary.Sound				= {"vj_hlr/hla_npc/doctor/pl_gun1.wav","vj_hlr/hla_npc/doctor/pl_gun2.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/hla_npc/doctor/pl_gun_distant.wav"}
 SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"

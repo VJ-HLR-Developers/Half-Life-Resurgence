@@ -29,7 +29,7 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as t
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 30 -- Damage
 SWEP.Primary.ClipSize			= 5 -- Max amount of bullets per clip
-SWEP.Primary.Ammo				= "Shotgun" -- Ammo type
+SWEP.Primary.Ammo				= "SniperRound" -- Ammo type
 SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/sniper/sniper_fire.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/sniper/sniper_fire_distant.wav"}
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"

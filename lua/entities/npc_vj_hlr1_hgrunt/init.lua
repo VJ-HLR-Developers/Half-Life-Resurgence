@@ -107,11 +107,6 @@ function ENT:HECU_CustomOnInitialize()
 	
 	if self.HECU_Type == 7 then
 		self:SetBodygroup(1, 0)
-		-- Alpha sergeant has a unique alert sound
-		if self:GetModel() == "models/vj_hlr/hla/hassault.mdl" then
-			self.HECU_UsingDefaultSounds = false
-			self.SoundTbl_Alert = {"vj_hlr/hla_npc/hassault/hw_alert.wav"}
-		end
 	else
 		self:SetSkin(math.random(0, 1))
 	
