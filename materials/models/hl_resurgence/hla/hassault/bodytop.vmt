@@ -1,4 +1,5 @@
 "vertexlitgeneric"
 {
 	"$basetexture" "models/hl_resurgence/hla/hassault/bodytop"
+	"$nodecal" 1
 }
