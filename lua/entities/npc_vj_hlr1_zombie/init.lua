@@ -32,7 +32,7 @@ ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 --ENT.DeathAnimationTime = 0.8 -- Time until the SNPC spawns its corpse and gets removed
 	-- ====== Flinching Variables ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = {"vjseq_flinch","vjseq_flinchsmall"} -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = {"vjseq_flinch"} -- If it uses normal based animation, use this
 ENT.HitGroupFlinching_Values = {
 	{HitGroup={HITGROUP_LEFTARM}, Animation={ACT_FLINCH_LEFTARM}},
 	{HitGroup={HITGROUP_LEFTLEG}, Animation={ACT_FLINCH_LEFTLEG}},
@@ -86,7 +86,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
 	if dmginfo:GetDamage() > 30 then
+		self.FlinchChance = 8
 		self.AnimTbl_Flinch = {"vjseq_bigflinch"}
+	else
+		self.FlinchChance = 16
+		self.AnimTbl_Flinch = {"vjseq_flinch"}
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

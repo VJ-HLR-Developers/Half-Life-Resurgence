@@ -209,10 +209,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	if self.VJ_IsBeingControlled == true then return end
+	local ene = self:GetEnemy()
 	
-	if IsValid(self:GetEnemy()) then
+	if IsValid(ene) then
 		-- If enemy is (on ground & moving) OR (its an NPC that is moving)
-		if (self:GetEnemy():GetVelocity():Length() > 50 && self:GetEnemy():IsOnGround()) or (self:GetEnemy():IsNPC() && self:GetEnemy():IsMoving()) then
+		if (ene:GetVelocity():Length() > 50 && ene:IsOnGround()) or (ene:IsNPC() && ene:IsMoving()) then
 			self.CanTurnWhileStationary = true
 		else
 			self.CanTurnWhileStationary = false
