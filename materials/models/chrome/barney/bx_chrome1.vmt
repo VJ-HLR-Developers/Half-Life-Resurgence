@@ -4,6 +4,7 @@
 	"$color2" "[0 0.08 0.12]"
 	"$envmapmode" 1
 	"$multipass" 1
+	"$nodecal" 1
 	
 	"VertexLitGeneric_HDR_DX9"
 	{

@@ -1,4 +1,5 @@
 "VertexLitGeneric"
 {
 	"$basetexture" "models/hl_resurgence/hl1/BX_Hlm-Sde1"
+	"$nodecal" 1
 }
