@@ -285,8 +285,10 @@ local vec = Vector(0, 0, 0)
 --
 function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 	-- Make a metal effect when the helmet is hit!
+	self.Bleeds = true
 	if self.Security_Type == 1 then return end -- Only types that do have a helmet
 	if hitgroup == HITGROUP_GEAR && dmginfo:GetDamagePosition() != vec then
+		self.Bleeds = false			-- disable bleeding temporarily when shot at the helmet
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(4) -- Size
