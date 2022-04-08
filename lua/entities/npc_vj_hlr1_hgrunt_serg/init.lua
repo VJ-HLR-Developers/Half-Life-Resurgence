@@ -14,6 +14,7 @@ ENT.AllowWeaponReloading = false -- If false, the SNPC will no longer reload
 ENT.HasShootWhileMoving = false -- Can it shoot while moving?
 ENT.MoveOrHideOnDamageByEnemy = false -- Should the SNPC move or hide when being damaged by an enemy?
 ENT.DisableCallForBackUpOnDamageAnimation = true -- Disables the animation when the CallForBackUpOnDamage function is called
+ENT.HasWeaponBackAway = false -- Should the SNPC back away if the enemy is close?
 
 ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/hassault/hw_spin.wav"}
 
@@ -49,8 +50,10 @@ end
 function ENT:CustomOnWeaponAttack()
 	-- Do the weapon spin up routine
 	if CurTime() > self.Serg_SpinUpT then
-		self.NextWeaponAttackT = CurTime() + 0.9
-		self.NextBreathSoundT = CurTime() + 0.9
+		local setTime = CurTime() + 0.9
+		self.NextChaseTime = setTime -- Make sure it won't chase
+		self.NextWeaponAttackT = setTime -- Make it not shoot for the given time
+		self.NextBreathSoundT = setTime -- For the spinning sound
 		self:VJ_ACT_PLAYACTIVITY(ACT_IDLE_ANGRY, true, 0.9, true)
 		VJ_EmitSound(self, "vj_hlr/hl1_npc/hassault/hw_spinup.wav", 80)
 		self.Serg_SpinUpT = CurTime() + 4

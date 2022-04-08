@@ -66,6 +66,7 @@ if VJExists == true then
 		-- Alpha
 		VJ.AddNPC("Alpha Human Grunt", "npc_vj_hlr1a_hgrunt", vCat)
 		VJ.AddNPC("Alpha Human Sergeant", "npc_vj_hlr1a_hgrunt_serg", vCat)
+		VJ.AddNPC("Alpha Human Sergeant (Melee)", "npc_vj_hlr1a_hgrunt_sergm", vCat)
 
 	-- Black Ops
 	VJ.AddNPC("Black Ops Female Assassin", "npc_vj_hlr1_assassin_female", vCat)
