@@ -27,6 +27,8 @@ function ENT:HECU_CustomOnInitialize()
 	-- Melee version
 	if self.Serg_Type == 1 then
 		self:SetBodygroup(1, 1)
+		self.AnimTbl_IdleStand = {ACT_CROUCH}
+		self.AnimTbl_Walk = {ACT_RUN}
 		self.AnimTbl_Run = {ACT_RUN_PROTECTED}
 	end
 end
