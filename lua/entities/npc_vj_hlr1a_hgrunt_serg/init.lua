@@ -30,6 +30,7 @@ function ENT:HECU_CustomOnInitialize()
 		self.AnimTbl_IdleStand = {ACT_CROUCH}
 		self.AnimTbl_Walk = {ACT_RUN}
 		self.AnimTbl_Run = {ACT_RUN_PROTECTED}
+		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2}
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
