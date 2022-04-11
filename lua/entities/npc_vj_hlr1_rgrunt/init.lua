@@ -50,7 +50,6 @@ function ENT:HECU_CustomOnThink()
 		if changeTo > 3 then
 			changeTo = 1
 		end
-		-- Entity(1):ChatPrint("g")
 		self:SetSkin(changeTo)
 	else
 		self:SetSkin(0)
@@ -66,9 +65,9 @@ function ENT:HECU_CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnPlayCreateSound(sdData, sdFile)
-	if !self.SoundTbl_Breath[sdFile] && !self.SoundTbl_Pain[sdFile] then
-		self.HECU_NextMouthMove = CurTime() + SoundDuration(sdFile)
-	end
+	if VJ_HasValue(self.SoundTbl_Breath, sdFile) or VJ_HasValue(self.SoundTbl_Pain, sdFile) then return end
+
+	self.HECU_NextMouthMove = CurTime() + SoundDuration(sdFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
