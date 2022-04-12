@@ -65,11 +65,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
-	if key == "event_emit step" or key == "step" then
+	if key == "step" then
 		self:FootStepSoundCode()
-	elseif key == "event_mattack right" or key == "event_mattack left" or key == "event_mattack both" or key == "melee" then
+	elseif key == "melee" then
 		self:MeleeAttackCode()
-	elseif key == "ragdoll" or key == "body" then
+	elseif key == "body" then
 		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end

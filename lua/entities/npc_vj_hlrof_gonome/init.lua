@@ -59,13 +59,13 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
-	if key == "event_emit step" then
+	if key == "step" then
 		self:FootStepSoundCode()
-	elseif key == "event_mattack right" or key == "event_mattack left" or key == "event_mattack chest_bite" then
+	elseif key == "melee" or key == "chest_bite" then
 		self:MeleeAttackCode()
-	elseif key == "event_rattack acidthrow" then
+	elseif key == "acidthrow" then
 		self:RangeAttackCode()
-	elseif key == "event_rattack acidtake" then
+	elseif key == "acidtake" then
 		local att = self:GetAttachment(2)
 		ParticleEffect("vj_hl_spit_red_spawn", att.Pos, att.Ang, self)
 	elseif key == "body" then
