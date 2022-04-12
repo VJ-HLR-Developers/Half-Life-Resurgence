@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models/hl_resurgence/hl1/gibs/bleachbones/Rib-X1"
+	"$nodecal" 1
+}
