@@ -71,7 +71,7 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
-	if key == "event_emit step" then
+	if key == "step" then
 		self:FootStepSoundCode()
 	elseif key == "melee_bite" or key == "melee_whip" then
 		self:MeleeAttackCode()

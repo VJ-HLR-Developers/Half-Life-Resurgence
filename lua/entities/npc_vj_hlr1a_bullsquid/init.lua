@@ -42,6 +42,11 @@ function ENT:CustomOnPreInitialize()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
+	projectile:SetNoDraw(false)
+	-- TODO: someone please make it so it plays it's idle anim and angles itself correctly when it gets fired
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
 	function controlEnt:CustomOnKeyPressed(key)
 		if key == KEY_SPACE && !self.VJCE_NPC.Bullsquid_BullSquidding then
