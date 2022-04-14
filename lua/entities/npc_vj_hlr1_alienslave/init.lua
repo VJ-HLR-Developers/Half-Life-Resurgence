@@ -81,7 +81,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
-	if key == "event_emit step" or key == "step" then
+	if key == "step" then
 		self:FootStepSoundCode()
 	elseif key == "right" or key == "left" then
 		self:MeleeAttackCode()

@@ -196,11 +196,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
-	if key == "event_emit step" or key == "step" then
+	if key == "step" then
 		self:FootStepSoundCode()
-	elseif key == "event_mattack" or key == "melee" or key == "machete_melee" then
+	elseif key == "melee" then
 		self:MeleeAttackCode()
-	elseif key == "event_rattack mp5_fire" or key == "event_rattack shotgun_fire" or key == "event_rattack saw_fire" or key == "event_rattack pistol_fire" or key == "shoot" or key == "colt_fire" or key == "fire" then
+	elseif key == "shoot" then
 		local wep = self:GetActiveWeapon()
 		if IsValid(wep) then
 			wep:NPCShoot_Primary()

@@ -213,7 +213,7 @@ ENT.SoundTbl_Death = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
 	if self.HECU_Type == 1 then
-		self:SetBodygroup(1, math.random(0, 7))
+		self:SetBodygroup(1, math.random(0, 9))
 		
 		local randwep = math.random(1, 4)
 		if randwep == 1 or randwep == 2 then

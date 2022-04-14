@@ -1,4 +1,5 @@
 "vertexlitgeneric"
 {
 	"$basetexture" "models/hl_resurgence/hl1/skeleton/SK_Mouth1"
+	"$nodecal" 1
 }
