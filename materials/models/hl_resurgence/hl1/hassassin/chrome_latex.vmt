@@ -1,6 +1,6 @@
 "VertexLitGeneric"
 {
-	"$envmap" "models/chrome/hassassin/chrome_latex"
+	"$envmap" "models/hl_resurgence/hl1/hassassin/chrome_latex"
 	"$color2" "[.09 .09 .09]"
 	"$envmapmode" 1
 	"$multipass" 1

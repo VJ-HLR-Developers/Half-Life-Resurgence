@@ -1,9 +1,10 @@
-"vertexlitgeneric"
+"VertexLitGeneric"
 {
-	"$envmap" "models/hl_resurgence/hl1/hassassin/lens_chrome"
+	"$envmap" "models/hl_resurgence/sven/tor/eye_specular"
 	"$color2" "[.06 .06 .06]"
 	"$envmapmode" 1
 	"$multipass" 1
+	"$additive" 1
 	
 	"VertexLitGeneric_HDR_DX9"
 	{

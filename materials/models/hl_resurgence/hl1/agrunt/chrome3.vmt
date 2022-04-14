@@ -1,9 +1,10 @@
-"vertexlitgeneric"
+"VertexLitGeneric"
 {
-	"$envmap" "models/hl_resurgence/hl1/hassassin/lens_chrome"
+	"$envmap" "models/hl_resurgence/hl1/agrunt/chrome3"
 	"$color2" "[.06 .06 .06]"
 	"$envmapmode" 1
 	"$multipass" 1
+	"$nodecal" 1
 	
 	"VertexLitGeneric_HDR_DX9"
 	{
