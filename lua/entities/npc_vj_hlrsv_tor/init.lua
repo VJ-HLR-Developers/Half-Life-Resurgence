@@ -62,7 +62,6 @@ ENT.SoundTbl_Alert = {"vj_hlr/hlsc_npc/tor/tor-alerted.wav"}
 ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hlsc_npc/tor/tor-attack1.wav","vj_hlr/hlsc_npc/tor/tor-attack2.wav"}
 ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav","vj_hlr/hl1_npc/zombie/claw_strike2.wav","vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_MeleeAttackSlowPlayer = {"vj_player/heartbeat.wav"}
 ENT.SoundTbl_RangeAttack = {"vj_hlr/hlsc_npc/tor/tor-staff-discharge.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hlsc_npc/tor/tor-pain.wav","vj_hlr/hlsc_npc/tor/tor-pain2.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hlsc_npc/tor/tor-die.wav","vj_hlr/hlsc_npc/tor/tor-die2.wav"}
@@ -141,23 +140,19 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
-	end
-	if key == "summon" then
+	elseif key == "summon" then
 		self:Tor_SpawnAlly()
-	end
-	if key == "attack_melee_single" or key == "attack_melee_stab" then
+	elseif key == "melee_single" then
 		self.HasMeleeAttackMissSounds = true
 		self.DisableDefaultMeleeAttackCode = false
 		self.MeleeAttackDamage = (self.Tor_Level == 0 and 20) or 40
 		self:MeleeAttackCode()
-	end
-	if key == "attack_melee" then
+	elseif key == "melee" then
 		self.HasMeleeAttackMissSounds = false
 		self.DisableDefaultMeleeAttackCode = false
 		self.MeleeAttackDamage = (self.Tor_Level == 0 and 3) or 5
 		self:MeleeAttackCode()
-	end
-	if key == "attack_slam" then
+	elseif key == "slam" then
 		local startPos = self:GetPos() + self:GetForward()*20
 		self.HasMeleeAttackMissSounds = false
 		self.DisableDefaultMeleeAttackCode = true
@@ -167,9 +162,10 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		util.Decal("VJ_HLR_Gargantua_Stomp", startPos, startPos + self:GetUp()*-100, self)
 		util.VJ_SphereDamage(self, self, startPos, 500, (self.Tor_Level == 0 and 40) or 60, DMG_SONIC, true, true, {DisableVisibilityCheck=true, Force=20})
 		//self:MeleeAttackCode()
-	end
-	if key == "attack_range" then
+	elseif key == "range" then
 		self:RangeAttackCode()
+	elseif key == "body" then
+		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

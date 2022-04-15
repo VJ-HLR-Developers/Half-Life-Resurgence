@@ -65,6 +65,7 @@ ENT.OnGrenadeSightSoundPitch = VJ_Set(105, 110)
 -- Custom
 ENT.Shocktrooper_BlinkingT = 0
 ENT.Shocktrooper_SpawnedEnt = true
+ENT.Shocktrooper_DroppedRoach = false
 ENT.HECU_UsingHurtWalk = false -- Used for optimizations, makes sure that the animations are only changed once
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
@@ -167,16 +168,29 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
-	self:SetBodygroup(1, 1)
+	self:Shocktrooper_SpawnRoach()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
+	self:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
+	local activeWep = self:GetActiveWeapon()
+	if IsValid(activeWep) then activeWep:Remove() end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Shocktrooper_SpawnRoach()
+	self:SetBodygroup(1,1)
 	self:SetSkin(2)
-	if self.Shocktrooper_SpawnedEnt == true then
-		local roachEnt = ents.Create("npc_vj_hlrof_shockroach")
-		roachEnt:SetPos(self:GetAttachment(self:LookupAttachment("shock_roach")).Pos)//+ self:GetUp()*50)
-		roachEnt:SetAngles(self:GetAngles())
-		roachEnt.SRoach_Life = 15
-		roachEnt:Spawn()
-		roachEnt:Activate()
-		roachEnt.VJ_NPC_Class = self.VJ_NPC_Class
+	if !self.Shocktrooper_DroppedRoach then
+		if self.Shocktrooper_SpawnedEnt == true then
+			local roachEnt = ents.Create("npc_vj_hlrof_shockroach")
+			roachEnt:SetPos(self:GetAttachment(self:LookupAttachment("shock_roach")).Pos)//+ self:GetUp()*50)
+			roachEnt:SetAngles(self:GetAngles())
+			roachEnt.SRoach_Life = 15
+			roachEnt:Spawn()
+			roachEnt:Activate()
+			roachEnt.VJ_NPC_Class = self.VJ_NPC_Class
+		end
+		self.Shocktrooper_DroppedRoach = true
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
