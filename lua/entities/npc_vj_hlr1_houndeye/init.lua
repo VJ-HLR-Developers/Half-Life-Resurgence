@@ -73,7 +73,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
-	if key == "he_hunt" then
+	if key == "he_hunt" then -- step
 		self:FootStepSoundCode()
 	elseif key == "woof" then
 		self:StopAllCommonSpeechSounds()
@@ -91,7 +91,7 @@ end
 function ENT:CustomOnThink()
 	-- Idle animations
 	if self.VJ_IsBeingControlled then
-		self.AnimTbl_IdleStand = {ACT_IDLE, "leaderlook"}
+		self.AnimTbl_IdleStand = {ACT_IDLE, ACT_IDLE_PACKAGE}
 		self.DisableWandering = false
 	else
 		if IsValid(self:GetEnemy()) then
@@ -101,7 +101,8 @@ function ENT:CustomOnThink()
 				self.DisableWandering = true
 			end
 		elseif !self.Houndeye_Sleeping && self.Houndeye_CurIdleAnim != 0 then
-			self.AnimTbl_IdleStand = {ACT_IDLE, "leaderlook"}
+			self.Houndeye_CurIdleAnim = 0
+			self.AnimTbl_IdleStand = {ACT_IDLE, ACT_IDLE_PACKAGE}
 			self.DisableWandering = false
 		end
 	end

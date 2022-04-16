@@ -42,8 +42,8 @@ function ENT:CustomOnPreInitialize()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
-	projectile:SetNoDraw(false)
+function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(projectile)
+	projectile.Spit_AlphaStyle = true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)

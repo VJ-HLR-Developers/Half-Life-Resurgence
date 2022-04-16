@@ -33,6 +33,9 @@ ENT.RadiusDamageType = DMG_ACID -- Damage type
 ENT.DecalTbl_DeathDecals = {"VJ_HLR_Spit_Acid"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/bullchicken/bc_acid1.wav", "vj_hlr/hl1_npc/bullchicken/bc_acid2.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/bullchicken/bc_spithit1.wav", "vj_hlr/hl1_npc/bullchicken/bc_spithit2.wav"}
+
+-- Custom
+ENT.Spit_AlphaStyle = false -- Should it act like HL Alpha toxic spit?
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
@@ -48,27 +51,30 @@ function ENT:CustomOnInitialize()
 	-- ParticleEffectAttach("vj_hl_spit_bullsquid", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 	
 	self.Scale = math.Rand(0.5, 1.15)
-
-	local sprIdle = ents.Create("env_sprite")
-	sprIdle:SetKeyValue("model","vj_hl/sprites/bigspit.vmt")
-	sprIdle:SetKeyValue("rendercolor","255 255 255")
-	sprIdle:SetKeyValue("GlowProxySize","5.0")
-	sprIdle:SetKeyValue("HDRColorScale","1.0")
-	sprIdle:SetKeyValue("renderfx","0")
-	sprIdle:SetKeyValue("rendermode","2")
-	sprIdle:SetKeyValue("renderamt","255")
-	sprIdle:SetKeyValue("disablereceiveshadows","0")
-	sprIdle:SetKeyValue("mindxlevel","0")
-	sprIdle:SetKeyValue("maxdxlevel","0")
-	sprIdle:SetKeyValue("framerate","40.0")
-	sprIdle:SetKeyValue("spawnflags","0")
-	sprIdle:SetKeyValue("scale",tostring(self.Scale))
-	sprIdle:SetPos(self:GetPos())
-	sprIdle:Spawn()
-	sprIdle:SetParent(self)
-	self:DeleteOnRemove(sprIdle)
 	
-	self:SetNoDraw(true)
+	if self.Spit_AlphaStyle then
+		self:SetNoDraw(false)
+	else
+		self:SetNoDraw(true)
+		local sprIdle = ents.Create("env_sprite")
+		sprIdle:SetKeyValue("model","vj_hl/sprites/bigspit.vmt")
+		sprIdle:SetKeyValue("rendercolor","255 255 255")
+		sprIdle:SetKeyValue("GlowProxySize","5.0")
+		sprIdle:SetKeyValue("HDRColorScale","1.0")
+		sprIdle:SetKeyValue("renderfx","0")
+		sprIdle:SetKeyValue("rendermode","2")
+		sprIdle:SetKeyValue("renderamt","255")
+		sprIdle:SetKeyValue("disablereceiveshadows","0")
+		sprIdle:SetKeyValue("mindxlevel","0")
+		sprIdle:SetKeyValue("maxdxlevel","0")
+		sprIdle:SetKeyValue("framerate","40.0")
+		sprIdle:SetKeyValue("spawnflags","0")
+		sprIdle:SetKeyValue("scale",tostring(self.Scale))
+		sprIdle:SetPos(self:GetPos())
+		sprIdle:Spawn()
+		sprIdle:SetParent(self)
+		self:DeleteOnRemove(sprIdle)
+	end
 	self:SetAngles(self:GetVelocity():GetNormal():Angle())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

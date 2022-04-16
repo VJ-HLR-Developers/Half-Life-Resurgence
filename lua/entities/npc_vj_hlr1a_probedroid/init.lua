@@ -110,7 +110,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local anim1 = ACT_ARM
 local anim2 = ACT_RANGE_ATTACK1
-local anim3 = ACT_RANGE_ATTACK2
+//local anim3 = ACT_RANGE_ATTACK2 -- Rapid firing (3-shot burst) range attack animation (Currently unused)
 --
 function ENT:CustomOnRangeAttack_BeforeStartTimer()
 	self.CurrentAttackAnimation = anim1
@@ -118,7 +118,11 @@ function ENT:CustomOnRangeAttack_BeforeStartTimer()
 	local firstAct = self:DecideAnimationLength(self.CurrentAttackAnimation, false)
 	self.CurrentAttackAnimationDuration = firstAct + VJ_GetSequenceDuration(self, anim2)
 	self.PlayingAttackAnimation = true
-	timer.Create("timer_act_playingattack"..self:EntIndex(), self.CurrentAttackAnimationDuration, 1, function() self.PlayingAttackAnimation = false self:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true) VJ_EmitSound(self, "vj_hlr/hla_npc/prdroid/reload.wav", 90, 100) end)
+	timer.Create("timer_act_playingattack"..self:EntIndex(), self.CurrentAttackAnimationDuration, 1, function()
+		self.PlayingAttackAnimation = false
+		self:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true)
+		VJ_EmitSound(self, "vj_hlr/hla_npc/prdroid/reload.wav", 90, 100) -- Reload sound
+	end)
 	timer.Simple(firstAct, function()
 		if IsValid(self) then
 			self:VJ_ACT_PLAYACTIVITY(anim2, false, 0, true)
