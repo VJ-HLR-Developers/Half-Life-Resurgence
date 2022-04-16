@@ -75,18 +75,17 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
+	local phys = self:GetPhysicsObject()
 	if IsValid(self.Track_Enemy) then -- Homing Behavior
 		local pos = self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter()
 		if self:VisibleVec(pos) or self.Track_Position == defVec then
 			self.Track_Position = pos
 		end
-		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
 			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position + self.Track_Enemy:GetUp()*math.random(-50,50) + self.Track_Enemy:GetRight()*math.random(-50,50), self.Hornet_ChaseSpeed))
 			self:SetAngles(self:GetVelocity():GetNormal():Angle())
 		end
 	else
-		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
 			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self:GetPos() + self:GetForward()*math.random(-80, 80)+ self:GetRight()*math.random(-80, 80) + self:GetUp()*math.random(-80, 80), self.Hornet_ChaseSpeed / 2))
 			self:SetAngles(self:GetVelocity():GetNormal():Angle())

@@ -66,7 +66,7 @@ ENT.OnGrenadeSightSoundPitch = VJ_Set(105, 110)
 ENT.Shocktrooper_BlinkingT = 0
 ENT.Shocktrooper_SpawnedEnt = true
 ENT.Shocktrooper_DroppedRoach = false
-ENT.HECU_UsingHurtWalk = false -- Used for optimizations, makes sure that the animations are only changed once
+ENT.Shocktrooper_UsingHurtWalk = false -- Used for optimizations, makes sure that the animations are only changed once
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(20, 20, 90), Vector(-20, -20, 0))
@@ -92,19 +92,19 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	if self:Health() <= (self:GetMaxHealth() / 2.2) then
-		if !self.HECU_UsingHurtWalk then
+		if !self.Shocktrooper_UsingHurtWalk then
 			self.AnimTbl_Walk = {ACT_WALK_HURT}
 			self.AnimTbl_Run = {ACT_RUN_HURT}
 			self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK_HURT}
 			self.AnimTbl_ShootWhileMovingRun = {ACT_RUN_HURT}
-			self.HECU_UsingHurtWalk = true
+			self.Shocktrooper_UsingHurtWalk = true
 		end
-	elseif self.HECU_UsingHurtWalk then
+	elseif self.Shocktrooper_UsingHurtWalk then
 		self.AnimTbl_Walk = {ACT_WALK}
 		self.AnimTbl_Run = {ACT_RUN}
 		self.AnimTbl_ShootWhileMovingWalk = {ACT_WALK}
 		self.AnimTbl_ShootWhileMovingRun = {ACT_RUN}
-		self.HECU_UsingHurtWalk = false
+		self.Shocktrooper_UsingHurtWalk = false
 	end
 	
 	if self.Dead == false && CurTime() > self.Shocktrooper_BlinkingT then

@@ -36,7 +36,7 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/bullchicken/bc_spithit1.wav", "vj_hlr/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
-	//phys:SetMass(1)
+	phys:SetMass(1)
 	phys:SetBuoyancyRatio(0)
 	phys:EnableDrag(false)
 	if IsValid(self:GetOwner()) && self:GetOwner().Bullsquid_BullSquidding == true then
@@ -69,6 +69,7 @@ function ENT:CustomOnInitialize()
 	self:DeleteOnRemove(sprIdle)
 	
 	self:SetNoDraw(true)
+	self:SetAngles(self:GetVelocity():GetNormal():Angle())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects(data, phys)
@@ -90,11 +91,5 @@ function ENT:DeathEffects(data, phys)
 	spr:Fire("Kill","",0.3)
 	timer.Simple(0.3, function() if IsValid(spr) then spr:Remove() end end)
 
-	-- local effectdata = EffectData()
-	-- effectdata:SetOrigin(data.HitPos)
-	-- effectdata:SetScale(1)
-	-- util.Effect("StriderBlood",effectdata)
-	-- util.Effect("StriderBlood",effectdata)
-	-- util.Effect("StriderBlood",effectdata)
-	-- ParticleEffect("vj_hl_spit_bullsquid_impact", data.HitPos, Angle(0,0,0), nil)
+	//ParticleEffect("vj_hl_spit_bullsquid_impact", data.HitPos, Angle(0,0,0), nil)
 end
