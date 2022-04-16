@@ -63,7 +63,6 @@ ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attac
 ENT.SoundTbl_Breath = {"vj_hlr/hla_npc/prdroid/engine.wav"}
 ENT.SoundTbl_MedicAfterHeal = {"vj_hlr/hla_npc/prdroid/shoot_heal.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/hla_npc/prdroid/alert.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/friendly/fr_attack.wav"}
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
 ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hla_npc/prdroid/readytoattack.wav"}
 ENT.SoundTbl_RangeAttack = {"vj_hlr/hla_npc/prdroid/shoot.wav"}
@@ -111,6 +110,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local anim1 = ACT_ARM
 local anim2 = ACT_RANGE_ATTACK1
+local anim3 = ACT_RANGE_ATTACK2
 --
 function ENT:CustomOnRangeAttack_BeforeStartTimer()
 	self.CurrentAttackAnimation = anim1
@@ -118,7 +118,7 @@ function ENT:CustomOnRangeAttack_BeforeStartTimer()
 	local firstAct = self:DecideAnimationLength(self.CurrentAttackAnimation, false)
 	self.CurrentAttackAnimationDuration = firstAct + VJ_GetSequenceDuration(self, anim2)
 	self.PlayingAttackAnimation = true
-	timer.Create("timer_act_playingattack"..self:EntIndex(), self.CurrentAttackAnimationDuration, 1, function() self.PlayingAttackAnimation = false self:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true) end)
+	timer.Create("timer_act_playingattack"..self:EntIndex(), self.CurrentAttackAnimationDuration, 1, function() self.PlayingAttackAnimation = false self:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true) VJ_EmitSound(self, "vj_hlr/hla_npc/prdroid/reload.wav", 90, 100) end)
 	timer.Simple(firstAct, function()
 		if IsValid(self) then
 			self:VJ_ACT_PLAYACTIVITY(anim2, false, 0, true)

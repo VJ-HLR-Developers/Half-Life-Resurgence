@@ -23,6 +23,7 @@ ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.AnimTbl_MeleeAttack = {ACT_RANGE_ATTACK1} -- Melee Attack Animations
 ENT.MeleeAttackDistance = 164 -- How close does it have to be until it attacks?
 ENT.TimeUntilMeleeAttackDamage = 2.35 -- This counted in seconds | This calculates the time until it hits something
+ENT.NextMeleeAttackTime = 2
 ENT.MeleeAttackDamageType = DMG_SONIC -- Type of Damage
 ENT.MeleeAttackDSPSoundType = 34 -- What type of DSP effect? | Search online for the types
 ENT.MeleeAttackDSPSoundUseDamage = false -- Should it only do the DSP effect if gets damaged x or greater amount
@@ -42,7 +43,7 @@ ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/houndeye/he_pain1.wav","vj_hlr/hl1_npc/houn
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/houndeye/he_die1.wav","vj_hlr/hl1_npc/houndeye/he_die2.wav","vj_hlr/hl1_npc/houndeye/he_die3.wav"}
 
 local blastSd = {"vj_hlr/hl1_npc/houndeye/he_blast1.wav","vj_hlr/hl1_npc/houndeye/he_blast2.wav","vj_hlr/hl1_npc/houndeye/he_blast3.wav"}
-local painSd = {"vj_hlr/hl1_npc/houndeye/he_pain1.wav","vj_hlr/hl1_npc/houndeye/he_pain3.wav"}
+local madSd = {"vj_hlr/hl1_npc/houndeye/he_alert1.wav","vj_hlr/hl1_npc/houndeye/he_hunt4.wav"}
 
 ENT.FootStepSoundLevel = 80
 ENT.GeneralSoundPitch1 = 100
@@ -64,6 +65,7 @@ function ENT:CustomOnInitialize()
 	
 	if self.Houndeye_Type == 1 then
 		self.AnimTbl_Death = {ACT_DIESIMPLE}
+		self.NextMeleeAttackTime = 0.5
 	else
 		self.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD, ACT_DIEBACKWARD}
 	end
@@ -73,8 +75,14 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "he_hunt" then
 		self:FootStepSoundCode()
-	elseif key == "placeholder_eye_event_dont_use" then
-		VJ_EmitSound(self, painSd)
+	elseif key == "woof" then
+		self:StopAllCommonSpeechSounds()
+		self:PlaySoundSystem("GeneralSpeech", "vj_hlr/hl1_npc/houndeye/he_pain3.wav")
+	elseif key == "woooof" then
+		self:StopAllCommonSpeechSounds()
+		self:PlaySoundSystem("GeneralSpeech", "vj_hlr/hl1_npc/houndeye/he_pain1.wav")
+	elseif key == "mad" then
+		self:PlaySoundSystem("GeneralSpeech", madSd)
 	elseif key == "body" then
 		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
@@ -84,14 +92,17 @@ function ENT:CustomOnThink()
 	-- Idle animations
 	if self.VJ_IsBeingControlled then
 		self.AnimTbl_IdleStand = {ACT_IDLE, "leaderlook"}
+		self.DisableWandering = false
 	else
 		if IsValid(self:GetEnemy()) then
 			if self.Houndeye_CurIdleAnim != 2 then
 				self.AnimTbl_IdleStand = {ACT_IDLE_ANGRY}
 				self.Houndeye_CurIdleAnim = 2
+				self.DisableWandering = true
 			end
 		elseif !self.Houndeye_Sleeping && self.Houndeye_CurIdleAnim != 0 then
 			self.AnimTbl_IdleStand = {ACT_IDLE, "leaderlook"}
+			self.DisableWandering = false
 		end
 	end
 	

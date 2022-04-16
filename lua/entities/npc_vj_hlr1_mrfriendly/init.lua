@@ -10,7 +10,7 @@ ENT.StartHealth = 230
 ENT.HullType = HULL_MEDIUM
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(-25, 0, 0), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "MDLDEC_Bone23", -- If left empty, the base will attempt to calculate a position for first person
+    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(7, 0, 5), -- The offset for the controller when the camera is in first person
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -59,9 +59,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
-	if key == "event_emit step" or key == "step" then
+	if key == "step" then		-- not even used
 		self:FootStepSoundCode()
-	elseif key == "event_mattack left" or key == "event_mattack right" or key == "attack" then
+	elseif key == "melee" then
 		self:MeleeAttackCode()
 	elseif key == "vomitdmg" then
 		self:RangeAttackCode()
