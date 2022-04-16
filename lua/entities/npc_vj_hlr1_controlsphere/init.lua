@@ -38,12 +38,13 @@ ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near unti
 ENT.NoChaseAfterCertainRange_Type = "Regular" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/sphere/BUTTON.WAV","vj_hlr/hl1_npc/sphere/sp_idle.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/sphere/sp_alert1.wav"}
+ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/sphere/sph_motor1.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/sphere/sph_idle1.wav","vj_hlr/hl1_npc/sphere/sph_idle2.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/sphere/sph_alert1.wav"}
 ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/fx/zap4.wav"}
 ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/hassault/hw_shoot1.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/sphere/sp_pain1.wav","vj_hlr/hl1_npc/sphere/sp_pain2.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/sphere/sp_die.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/sphere/sph_pain1.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/sphere/sph_pain1.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 
