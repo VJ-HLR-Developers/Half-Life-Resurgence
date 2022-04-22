@@ -8,13 +8,15 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/hl1/hassault.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 180
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
-ENT.HasGrenadeAttack = false -- Should the SNPC have a grenade attack?
+--ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
+--ENT.HasGrenadeAttack = false -- Should the SNPC have a grenade attack?
+ENT.TimeUntilGrenadeIsReleased = 1 -- Time until the grenade is released
 ENT.AllowWeaponReloading = false -- If false, the SNPC will no longer reload
 ENT.HasShootWhileMoving = false -- Can it shoot while moving?
 ENT.MoveOrHideOnDamageByEnemy = false -- Should the SNPC move or hide when being damaged by an enemy?
-ENT.DisableCallForBackUpOnDamageAnimation = true -- Disables the animation when the CallForBackUpOnDamage function is called
+--ENT.DisableCallForBackUpOnDamageAnimation = true -- Disables the animation when the CallForBackUpOnDamage function is called
 ENT.HasWeaponBackAway = false -- Should the SNPC back away if the enemy is close?
+ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK_SWING}
 
 ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/hassault/hw_spin.wav"}
 
