@@ -86,6 +86,7 @@ if VJExists == true then
 	VJ.AddNPC("Alien Grunt", "npc_vj_hlr1_aliengrunt", vCat)
 	VJ.AddNPC("Alien Slave", "npc_vj_hlr1_alienslave", vCat)
 	VJ.AddNPC("Bullsquid", "npc_vj_hlr1_bullsquid", vCat)
+	VJ.AddNPC("Bullsquid (Dreamcast)", "npc_vj_hlr1_bullsquid_dc", vCat)
 	VJ.AddNPC("Gargantua", "npc_vj_hlr1_garg", vCat)
 	VJ.AddNPC("Houndeye", "npc_vj_hlr1_houndeye", vCat)
 	VJ.AddNPC("Kingpin", "npc_vj_hlr1_kingpin", vCat)

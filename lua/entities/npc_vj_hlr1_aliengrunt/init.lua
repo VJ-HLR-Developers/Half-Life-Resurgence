@@ -68,6 +68,19 @@ ENT.AGrunt_Type = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(25, 25, 85), Vector(-25, -25, 0))
+
+	-- local glow1 = ents.Create("env_sprite")
+	-- glow1:SetKeyValue("model","vj_hl/sprites/muz7.vmt")
+	-- glow1:SetKeyValue("scale","10")
+	-- glow1:SetKeyValue("rendermode","3")
+	-- glow1:SetKeyValue("rendercolor","255 255 255")
+	-- glow1:SetKeyValue("spawnflags","0.1")
+	-- glow1:SetParent(self)
+	-- glow1:SetOwner(self)
+	-- glow1:Fire("SetParentAttachment","hornet",0)
+	-- glow1:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
+	-- glow1:Spawn()
+	-- self:DeleteOnRemove(glow1)
 	
 	if self.AGrunt_Type == 1 then
 		self.AnimTbl_Death = {ACT_DIESIMPLE}
@@ -92,6 +105,25 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
+	-- ParticleEffect("vj_hl_muz7",self:GetAttachment(self:LookupAttachment("hornet")).Pos, self:GetForward():Angle(), self) -- Unimplemented sprite function, needs fixed
+	
+	local att = self:GetAttachment(self:LookupAttachment("hornet"))
+	local glow1 = ents.Create("env_sprite")
+	glow1:SetKeyValue("model","vj_hl/sprites/muz7.vmt")
+	glow1:SetKeyValue("scale",tostring(math.Rand(0.5,0.65)))
+	glow1:SetKeyValue("rendermode","3")
+	glow1:SetKeyValue("renderfx","14")
+	glow1:SetKeyValue("renderamt","255")
+	glow1:SetKeyValue("rendercolor","255 255 255")
+	glow1:SetKeyValue("spawnflags","0")
+	glow1:SetParent(self)
+	glow1:SetOwner(self)
+	glow1:SetPos(att.Pos +att.Ang:Forward() *15)
+	glow1:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
+	glow1:Spawn()
+	glow1:Fire("Kill","",0.08)
+	self:DeleteOnRemove(glow1)
+
 	if IsValid(self:GetEnemy()) then
 		projectile.Track_Enemy = self:GetEnemy()
 	end
@@ -125,11 +157,11 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
 	-- Chance of dropping an actual hornet gun that the play can pick up
 	if math.random(1, 50) == 1 then
 		self:SetBodygroup(1, 1)
-		self.HornetGun = ents.Create("weapon_hornetgun")
-		self.HornetGun:SetPos(self:GetAttachment(self:LookupAttachment("hornet")).Pos)
-		self.HornetGun:SetAngles(self:GetAngles())
-		self.HornetGun:Spawn()
-		self.HornetGun:Activate()
+		local gun = ents.Create("weapon_hornetgun")
+		gun:SetPos(self:GetAttachment(self:LookupAttachment("hornet")).Pos)
+		gun:SetAngles(self:GetAngles())
+		gun:Spawn()
+		gun:Activate()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
