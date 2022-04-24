@@ -130,9 +130,9 @@ function ENT:CustomOnThink_AIEnabled()
 	-- If the controller (player) not range attacking, then end the timer!
 	if self.VJ_IsBeingControlled && !self.VJ_TheController:KeyDown(IN_ATTACK2) then timer.Adjust("timer_range_start"..self:EntIndex(), 0) return end
 	
-	if IsValid(self:GetEnemy()) && (self.NearestPointToEnemyDistance <= (self.VJ_IsBeingControlled and 999999 or 400) && self.NearestPointToEnemyDistance > self.MeleeAttackDistance) && self.Garg_AbleToFlame == true && self.Garg_NextAbleToFlameT < CurTime() && self.Garg_AttackType == 0 && timer.Exists("timer_range_start"..self:EntIndex()) then
+	if IsValid(self:GetEnemy()) && (self.NearestPointToEnemyDistance <= (self.VJ_IsBeingControlled and 999999 or (self.Garg_Type == 1 and 250) or 400) && self.NearestPointToEnemyDistance > self.MeleeAttackDistance) && self.Garg_AbleToFlame == true && self.Garg_NextAbleToFlameT < CurTime() && self.Garg_AttackType == 0 && timer.Exists("timer_range_start"..self:EntIndex()) then
 	//if IsValid(self:GetEnemy()) && self.Garg_AbleToFlame == true && (self.NearestPointToEnemyDistance <= 400 && self.NearestPointToEnemyDistance > self.MeleeAttackDistance) then
-		local range = (self.Garg_Type == 1 and 300) or 470
+		local range = (self.Garg_Type == 1 and 280) or 460
 		self.Garg_NextAbleToFlameT = CurTime() + 0.2
 		self.DisableChasingEnemy = true
 		self.AnimTbl_IdleStand = {ACT_RANGE_ATTACK1}
@@ -195,7 +195,7 @@ function ENT:Controller_IntMsg(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleRangeAttacks()
-	local range = (self.Garg_Type == 1 and 300) or 400
+	local range = (self.Garg_Type == 1 and 250) or 400
 	if self.VJ_IsBeingControlled then
 		-- If it's being controlled then if the player is crouching then use stomp attack
 		range = self.Garg_Type == 1 and 999999 or (self.VJ_TheController:KeyDown(IN_DUCK) and 1 or 999999)
@@ -203,7 +203,7 @@ function ENT:MultipleRangeAttacks()
 	if self.NearestPointToEnemyDistance <= range then -- Flame attack
 		self.Garg_AttackType = 0
 		self.Garg_AbleToFlame = true
-		self.RangeDistance = 400
+		self.RangeDistance = range
 		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1}
 		self.TimeUntilRangeAttackProjectileRelease = 0.1
 		self.DisableRangeAttackAnimation = true
