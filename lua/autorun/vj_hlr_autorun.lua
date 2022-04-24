@@ -297,7 +297,7 @@ if VJExists == true then
 		"vj_hlr_spore_idle_small_b",
 		"vj_hlr_spore_idle_small_c",
 	})
-	VJ.AddParticle("particles/vj_hl_spit.pcf", {
+	VJ.AddParticle("particles/vj_hlr_spit.pcf", {
 		"vj_hlr_spit_drone",
 		"vj_hlr_spit_drone_impact",
 		"vj_hlr_spit_drone_spawn",
