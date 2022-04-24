@@ -39,8 +39,8 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	ParticleEffect("vj_hl_spit_drone_spawn",self:GetPos(),Angle(0,0,0),nil)
-	ParticleEffectAttach("vj_hl_spit_drone", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	ParticleEffect("vj_hlr_spit_drone_spawn_old",self:GetPos(),Angle(0,0,0),nil)
+	ParticleEffectAttach("vj_hlr_spit_drone", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPhysicsCollide(data, phys)
@@ -58,5 +58,5 @@ function ENT:CustomOnPhysicsCollide(data, phys)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects(data, phys)
-	ParticleEffect("vj_hl_spit_drone_impact",self:GetPos(),Angle(0,0,0),nil)
+	ParticleEffect("vj_hlr_spit_drone_impact",self:GetPos(),Angle(0,0,0),nil)
 end

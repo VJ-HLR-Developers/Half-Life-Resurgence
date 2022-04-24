@@ -88,7 +88,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(projectile)
 	local startPos = projectile:GetPos()
-	ParticleEffect("vj_hl_split_spawn_drone", startPos + projectile:GetForward() *30, self:GetForward():Angle(), projectile)
+	ParticleEffect("vj_hlr_spit_drone_spawn", startPos + projectile:GetForward() *30, self:GetForward():Angle(), projectile)
 	return self:CalculateProjectile("Line", startPos, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 2000)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

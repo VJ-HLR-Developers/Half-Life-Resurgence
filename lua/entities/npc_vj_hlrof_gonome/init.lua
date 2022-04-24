@@ -67,7 +67,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self:RangeAttackCode()
 	elseif key == "acidtake" then
 		local att = self:GetAttachment(2)
-		ParticleEffect("vj_hl_spit_red_spawn", att.Pos, att.Ang, self)
+		ParticleEffect("vj_hlr_spit_red_spawn", att.Pos, att.Ang, self)
 	elseif key == "body" then
 		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end

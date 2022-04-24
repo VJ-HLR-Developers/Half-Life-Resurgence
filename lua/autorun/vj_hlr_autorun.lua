@@ -298,17 +298,22 @@ if VJExists == true then
 		"vj_hlr_spore_idle_small_c",
 	})
 	VJ.AddParticle("particles/vj_hl_spit.pcf", {
-		"vj_hl_spit_bullsquid",
-		"vj_hl_spit_bullsquid_impact",
-		"vj_hl_spit_drone",
-		"vj_hl_spit_drone_impact",
-		"vj_hl_spit_drone_spawn",
-		"vj_hl_spit_gonarch",
-		"vj_hl_spit_gonarch_impact",
-		"vj_hl_spit_spore_spawn",
+		"vj_hlr_spit_drone",
+		"vj_hlr_spit_drone_impact",
+		"vj_hlr_spit_drone_spawn",
+		"vj_hlr_spit_drone_spawn_old",
+		"vj_hlr_spit_gonarch",
+		"vj_hlr_spit_gonarch_impact",
 		"vj_hlr_spit_friendly",
 		"vj_hlr_spit_friendly_b",
 		"vj_hlr_spit_friendly_impact",
+		"vj_hlr_spit_friendly_old",
+		"vj_hlr_spit_friendly_b_old",
+		"vj_hlr_spit_friendly_impact_old",
+		"vj_hlr_spit_stukabat",
+		"vj_hlr_spit_stukabat_impact",
+		"vj_hlr_spit_red_spawn", // Used for gnome
+		"vj_hlr_spit_spawn", // Used for bullsquid
 	})
 	VJ.AddParticle("particles/vj_hlr_torch.pcf", {
 		"vj_hlr_torch",

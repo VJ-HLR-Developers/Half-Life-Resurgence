@@ -47,8 +47,8 @@ function ENT:CustomOnInitialize()
 	if self.Needle_Heal == true then
 		self.DoesDirectDamage = false
 	else
-		ParticleEffect("vj_hl_spit_drone_spawn", self:GetPos(), defAng, nil)
-		ParticleEffectAttach("vj_hl_spit_drone", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+		ParticleEffect("vj_hlr_spit_drone_spawn_old", self:GetPos(), defAng, nil)
+		ParticleEffectAttach("vj_hlr_spit_drone", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -84,5 +84,5 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects(data, phys)
 	if self.Needle_Heal == true then return end
-	ParticleEffect("vj_hl_spit_drone_impact", self:GetPos(), defAng, nil)
+	ParticleEffect("vj_hlr_spit_drone_impact", self:GetPos(), defAng, nil)
 end
