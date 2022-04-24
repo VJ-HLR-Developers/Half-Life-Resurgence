@@ -41,7 +41,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetNoDraw(true)
-	ParticleEffectAttach("vj_hl_spore_idle", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	ParticleEffectAttach("vj_hlr_spore_idle_small", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
@@ -64,5 +64,5 @@ end
 local defAng = Angle(0, 0, 0)
 --
 function ENT:DeathEffects(data, phys)
-	ParticleEffect("vj_hl_spore_splash2", self:GetPos(), defAng)
+	ParticleEffect("vj_hlr_spore_small", self:GetPos(), defAng)
 end

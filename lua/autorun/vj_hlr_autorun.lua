@@ -265,51 +265,75 @@ if VJExists == true then
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Particles ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	VJ.AddParticle("particles/vj_hl_blood.pcf", {
-		"vj_hl_blood_red", 
-		"vj_hl_blood_red_large", 
-		"vj_hl_blood_yellow", 
-		"vj_hl_blood_yellow_large", 
-		"vj_hl_blood_boob_red", 
-		"vj_hl_blood_boob_yellow", 
+	VJ.AddParticle("particles/vj_hlr_blood.pcf", {
+		"vj_hl_blood_red",
+		"vj_hl_blood_red_large",
+		"vj_hl_blood_yellow",
+		"vj_hl_blood_yellow_large",
+		"vj_hl_blood_boob_red",
+		"vj_hl_blood_boob_yellow",
 	})
 	VJ.AddParticle("particles/vj_hlr_garg_flame.pcf", {
-		"vj_hlr_garg_flame", 
-		"vj_hlr_garg_flame_small", 
+		"vj_hlr_garg_flame",
+		"vj_hlr_garg_flame_small",
 	})
-	VJ.AddParticle("particles/vj_hl_shocktrooper.pcf", {
-		"vj_hl_shockroach", 
-		"vj_hl_shockroach_aura", 
-		"vj_hl_shockroach_bright", 
-		"vj_hl_shockroach_trail", 
+	VJ.AddParticle("particles/vj_hlr_shocktrooper.pcf", {
+		"vj_hl_shockroach",
+		"vj_hl_shockroach_aura",
+		"vj_hl_shockroach_bright",
+		"vj_hl_shockroach_trail",
 	})
 	VJ.AddParticle("particles/vj_hl_sporegrenade.pcf", {
-		"vj_hl_spore", 
-		"vj_hl_spore_idle", 
-		"vj_hl_spore_splash1", 
-		"vj_hl_spore_splash2", 
+		"vj_hlr_spore",
+		"vj_hlr_spore_b",
+		"vj_hlr_spore_c",
+		"vj_hlr_spore_small",
+		"vj_hlr_spore_small_b",
+		"vj_hlr_spore_small_c",
+		"vj_hlr_spore_idle",
+		"vj_hlr_spore_idle_b",
+		"vj_hlr_spore_idle_c",
+		"vj_hlr_spore_idle_small",
+		"vj_hlr_spore_idle_small_b",
+		"vj_hlr_spore_idle_small_c",
 	})
 	VJ.AddParticle("particles/vj_hl_gonome.pcf", {
-		"vj_hl_gonome", 
-		"vj_hl_gonome_idle", 
+		"vj_hl_gonome",
+		"vj_hl_gonome_idle",
 	})
 	VJ.AddParticle("particles/vj_hl_spit.pcf", {
-		"vj_hl_spit_bullsquid", 
-		"vj_hl_spit_bullsquid_impact", 
-		"vj_hl_spit_drone", 
-		"vj_hl_spit_drone_impact", 
-		"vj_hl_spit_drone_spawn", 
-		"vj_hl_spit_gonarch", 
-		"vj_hl_spit_gonarch_impact", 
-		"vj_hl_spit_spore_spawn", 
-		"vj_hlr_spit_friendly", 
-		"vj_hlr_spit_friendly_b", 
-		"vj_hlr_spit_friendly_impact", 
+		"vj_hl_spit_bullsquid",
+		"vj_hl_spit_bullsquid_impact",
+		"vj_hl_spit_drone",
+		"vj_hl_spit_drone_impact",
+		"vj_hl_spit_drone_spawn",
+		"vj_hl_spit_gonarch",
+		"vj_hl_spit_gonarch_impact",
+		"vj_hl_spit_spore_spawn",
+		"vj_hlr_spit_friendly",
+		"vj_hlr_spit_friendly_b",
+		"vj_hlr_spit_friendly_impact",
 	})
-	VJ.AddParticle("particles/vj_hl_torch.pcf", {
-		"vj_hl_torch", 
+	VJ.AddParticle("particles/vj_hlr_torch.pcf", {
+		"vj_hl_torch",
 	})
-	VJ.AddParticle("particles/vj_hl_muzzle.pcf", {
+	VJ.AddParticle("particles/vj_hlr_garg_stomp.pcf", {
+		"vj_hlr_garg_stomp",
+	})
+	VJ.AddParticle("particles/vj_hlr_nihilanth.pcf", {
+		"vj_hlr_nihilanth_chargeorb",
+		"vj_hlr_nihilanth_deathorbs",
+		"vj_hlr_nihilanth_deathorbs_white",
+	})
+	VJ.AddParticle("particles/vj_hlr_geneworm.pcf", {
+		"vj_hlr_geneworm_spit",
+		"vj_hlr_geneworm_spit_b",
+	})
+	VJ.AddParticle("particles/electrical_fx.pcf", {
+		"electrical_arc_01", -- Used for the Combine Reager
+	})
+	-- Unused (They don't appear properly in-game)
+	VJ.AddParticle("particles/vj_hlr_muzzle.pcf", {
         "vj_hl_muz1", -- Tau
         "vj_hl_muz2", -- HD pistol
         "vj_hl_muz3", -- HD MP5
@@ -322,22 +346,7 @@ if VJExists == true then
         "vj_hl_muzzle2", -- LD MP5
         "vj_hl_muzzle3", -- LD Shotgun
         "vj_hl_muzzle4", -- HD Pistol 2?
-		"vj_hl_muzzlebigturret", 
-	})
-	VJ.AddParticle("particles/vj_hlr_garg_stomp.pcf", {
-		"vj_hlr_garg_stomp", 
-	})
-	VJ.AddParticle("particles/vj_hlr_nihilanth.pcf", {
-		"vj_hlr_nihilanth_chargeorb", 
-		"vj_hlr_nihilanth_deathorbs", 
-		"vj_hlr_nihilanth_deathorbs_white", 
-	})
-	VJ.AddParticle("particles/vj_hlr_geneworm.pcf", {
-		"vj_hlr_geneworm_spit", 
-		"vj_hlr_geneworm_spit_b", 
-	})
-	VJ.AddParticle("particles/electrical_fx.pcf", {
-		"electrical_arc_01", -- Used for the Combine Reager
+		"vj_hl_muzzlebigturret",
 	})
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Precaches ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -640,7 +649,7 @@ VJ.AddConVar("vj_hlr_autoreplace_random", 0, {FCVAR_ARCHIVE, FCVAR_NOTIFY})
 VJ.AddConVar("vj_hlr_autoreplace_randommix", 0, {FCVAR_ARCHIVE, FCVAR_NOTIFY})
 VJ.AddConVar("vj_hlr_autoreplace_alliedagainstply", 0, {FCVAR_ARCHIVE, FCVAR_NOTIFY})
 
-VJ.AddClientConVar("vj_hlr1_sparkfx", 0, "Create HL1-Style Sparks on Metal Surfaces")	
+VJ.AddClientConVar("vj_hlr1_sparkfx", 0, "Create HL1-Style Sparks on Metal Surfaces")
 VJ.AddClientConVar("vj_hlr2_csniper_laser_usebarrel", 1, "Combine Sniper Laser Follows Gun Barrel")
 
 if CLIENT then
