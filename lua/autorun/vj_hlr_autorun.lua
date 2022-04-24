@@ -266,22 +266,23 @@ if VJExists == true then
 ------ Particles ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	VJ.AddParticle("particles/vj_hlr_blood.pcf", {
-		"vj_hl_blood_red",
-		"vj_hl_blood_red_large",
-		"vj_hl_blood_yellow",
-		"vj_hl_blood_yellow_large",
-		"vj_hl_blood_boob_red",
-		"vj_hl_blood_boob_yellow",
+		"vj_hlr_blood_red",
+		"vj_hlr_blood_red_large",
+		"vj_hlr_blood_yellow",
+		"vj_hlr_blood_yellow_large",
+		"vj_hlr_blood_boob_red",
+		"vj_hlr_blood_boob_yellow",
 	})
 	VJ.AddParticle("particles/vj_hlr_garg_flame.pcf", {
 		"vj_hlr_garg_flame",
 		"vj_hlr_garg_flame_small",
 	})
 	VJ.AddParticle("particles/vj_hlr_shocktrooper.pcf", {
-		"vj_hl_shockroach",
-		"vj_hl_shockroach_aura",
-		"vj_hl_shockroach_bright",
-		"vj_hl_shockroach_trail",
+		"vj_hlr_shockroach_muzzle",
+		"vj_hlr_shockroach",
+		"vj_hlr_shockroach_aura",
+		"vj_hlr_shockroach_bright",
+		"vj_hlr_shockroach_trail",
 	})
 	VJ.AddParticle("particles/vj_hlr_spore.pcf", {
 		"vj_hlr_spore",

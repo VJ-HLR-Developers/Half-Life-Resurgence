@@ -12,7 +12,7 @@ ENT.VJ_IsHugeMonster = false -- Is this a huge monster?
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(15, 0, -15), -- The offset for the controller when the camera is in third person
 }
-ENT.CustomBlood_Particle = {"vj_hl_blood_yellow"}
+ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 
 ENT.MeleeAttackDamage = 20 -- How close does it have to be until it attacks?
 ENT.MeleeAttackDamageType = DMG_SLASH -- How close does it have to be until it attacks?

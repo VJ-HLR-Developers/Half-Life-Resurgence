@@ -30,6 +30,7 @@ SWEP.Primary.Ammo				= "SMG1" -- Ammo type
 SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/shockroach/shock_fire.wav"}
 SWEP.Primary.DisableBulletCode	= true
 SWEP.PrimaryEffects_SpawnShells = false
+SWEP.PrimaryEffects_MuzzleParticles = {"vj_hlr_shockroach_muzzle"}
 
 SWEP.HasDryFireSound			= false -- Should it play a sound when it's out of ammo?
 
@@ -38,9 +39,9 @@ SWEP.HLR_ValidModels = {"models/vj_hlr/opfor/strooper.mdl"}
 SWEP.HLR_NextIdleSoundT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
-	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
+	timer.Simple(0.1, function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
 		if IsValid(self) && IsValid(self:GetOwner()) then
-			if !VJ_HasValue(self.HLR_ValidModels,self:GetOwner():GetModel()) then
+			if !VJ_HasValue(self.HLR_ValidModels, self:GetOwner():GetModel()) then
 				if IsValid(self:GetOwner():GetCreator()) then
 					self:GetOwner():GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
 				end
@@ -54,21 +55,23 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 	if CLIENT then return end
+	local owner = self:GetOwner()
 	
 	local plasma = ents.Create("obj_vj_hlrof_plasma")
 	plasma:SetPos(self:GetNW2Vector("VJ_CurBulletPos"))
-	plasma:SetAngles(self:GetOwner():GetAngles())
-	plasma:SetOwner(self:GetOwner())
+	plasma:SetAngles(owner:GetAngles())
+	plasma:SetOwner(owner)
 	plasma:Spawn()
 	plasma:Activate()
 	
 	local phys = plasma:GetPhysicsObject()
 	if IsValid(phys) then
-		local pos = self:GetOwner():GetPos() + self:GetOwner():OBBCenter() + self:GetOwner():GetForward() * 700
-		if IsValid(self:GetOwner():GetEnemy()) then
-			pos = self:GetOwner():GetEnemy():GetPos() + self:GetOwner():GetEnemy():OBBCenter()
+		local pos = owner:GetPos() + owner:OBBCenter() + owner:GetForward() * 700
+		local ene = owner:GetEnemy()
+		if IsValid(ene) then
+			pos = ene:GetPos() + ene:OBBCenter()
 		end
-		phys:SetVelocity(self:GetOwner():CalculateProjectile("Line", self:GetNW2Vector("VJ_CurBulletPos"), pos, 10000))
+		phys:SetVelocity(owner:CalculateProjectile("Line", self:GetNW2Vector("VJ_CurBulletPos"), pos, 10000))
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -90,14 +93,6 @@ function SWEP:CustomOnNPC_ServerThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttackEffects()
-	if self.PrimaryEffects_MuzzleFlash == true && GetConVar("vj_wep_nomuszzleflash"):GetInt() == 0 then
-		ParticleEffect("vj_hl_shockroach", self:GetNW2Vector("VJ_CurBulletPos"), self:GetNW2Vector("VJ_CurBulletPos"):Angle(), self:GetOwner())
-		timer.Simple(0.05, function() if IsValid(self) && IsValid(self:GetOwner()) then self:GetOwner():StopParticles() end end)
-	end
-	return false
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnRemove()
-	if IsValid(self:GetOwner()) then self:GetOwner():SetBodygroup(1,1) end
+	if IsValid(self:GetOwner()) then self:GetOwner():SetBodygroup(1, 1) end
 end

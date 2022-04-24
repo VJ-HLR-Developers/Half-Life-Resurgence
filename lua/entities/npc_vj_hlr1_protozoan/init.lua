@@ -32,7 +32,7 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnKilled(dmginfo, hitgroup)
-	//ParticleEffect("vj_hl_blood_boob_yellow", self:GetPos() + self:OBBCenter(), self:GetAngles())
+	//ParticleEffect("vj_hlr_blood_boob_yellow", self:GetPos() + self:OBBCenter(), self:GetAngles())
 	local effectPop = EffectData()
 	effectPop:SetOrigin(self:GetPos() + self:OBBCenter())
 	util.Effect("VJ_HLR_Protozoan_Pop", effectPop)

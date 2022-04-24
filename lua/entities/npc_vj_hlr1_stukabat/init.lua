@@ -24,7 +24,7 @@ ENT.IdleAlwaysWander = false -- If set to true, it will make the SNPC always wan
 ENT.CanOpenDoors = false -- Can it open doors?
 
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.CustomBlood_Particle = {"vj_hl_blood_yellow"}
+ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.AnimTbl_Death = {"vjseq_Die_on_ground"}
@@ -316,7 +316,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 					corpse.ExtraCorpsesToRemove = {}
 					self.BloodColor = "Yellow"
 					self.HasBloodParticle = true
-					self.CustomBlood_Particle = {"vj_hl_blood_yellow"}
+					self.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 					self.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"}
 
 					-- undo.ReplaceEntity(self, corpse)
