@@ -42,27 +42,13 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	ParticleEffectAttach("vj_hl_spit_gonarch", PATTACH_ABSORIGIN_FOLLOW, self, 0)
-	
-	self.Sprite1 = ents.Create("env_sprite")
-	self.Sprite1:SetKeyValue("model","vj_hl/sprites/mommaspit.vmt")
-	self.Sprite1:SetKeyValue("scale","4")
-	//self.Sprite1:SetKeyValue("rendercolor","255 128 0")
-	self.Sprite1:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
-	self.Sprite1:SetKeyValue("HDRColorScale","1.0")
-	self.Sprite1:SetKeyValue("renderfx","14")
-	self.Sprite1:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-	self.Sprite1:SetKeyValue("renderamt","255") -- Transparency
-	self.Sprite1:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-	self.Sprite1:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
-	self.Sprite1:SetKeyValue("spawnflags","0")
-	self.Sprite1:SetPos(self:GetPos())
-	self.Sprite1:SetParent(self)
-	self.Sprite1:Spawn()
-	self.Sprite1:Activate()
-	self:DeleteOnRemove(self.Sprite1)
+	self:SetNoDraw(true)
+	self:DrawShadow(false)
+
+	ParticleEffect("vj_hlr_spit_gonarch_spawn", self:GetPos(), Angle(0,0,0), nil)
+	ParticleEffectAttach("vj_hlr_spit_gonarch", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects(data, phys)
-	ParticleEffect("vj_hl_spit_gonarch_impact", data.HitPos, Angle(0,0,0), nil)
+	ParticleEffect("vj_hlr_spit_gonarch_impact", data.HitPos, Angle(0,0,0), nil)
 end
