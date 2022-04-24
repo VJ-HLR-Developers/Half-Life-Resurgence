@@ -215,7 +215,7 @@ if VJExists == true then
 	VJ.AddNPC("Combine Sentry Gun", "npc_vj_hlr2_com_sentry", vCat)
 		-- Beta
 		VJ.AddNPC_HUMAN("Overwatch Soldier (Beta)", "npc_vj_hlr2b_com_soldier", {"weapon_vj_hlr2b_oicw"}, vCat)
-		VJ.AddNPC_HUMAN("Civil Protection Elite", "npc_vj_hlr2_com_civilp_elite", {"weapon_vj_smg1"}, vCat) -- Class name should be changed
+		VJ.AddNPC_HUMAN("Civil Protection Elite", "npc_vj_hlr2b_com_civilp_elite", {"weapon_vj_smg1"}, vCat) -- Class name should be changed
 	
 	-- NPC Weapons
 	VJ.AddNPCWeapon("VJ_Combine_Sniper", "weapon_vj_hlr2_csniper")
