@@ -6,7 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hl1/bullsquid.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.StartHealth = 100
+ENT.StartHealth = 80
 ENT.HullType = HULL_WIDE_SHORT
 ENT.VJC_Data = {
     FirstP_Bone = "Bip01 Spine1", -- If left empty, the base will attempt to calculate a position for first person
@@ -92,7 +92,7 @@ function ENT:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
-	if self.Bullsquid_Type == 1 then return end
+	if self.Bullsquid_Type == 1 then return end -- Alpha doesn't have alert animations!
 	if math.random(1, 3) == 1 then
 		if ent.HLR_Type == "Headcrab" or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast" then
 			self:VJ_ACT_PLAYACTIVITY("seecrab", true, false, true)

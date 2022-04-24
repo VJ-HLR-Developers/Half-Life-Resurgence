@@ -8,15 +8,12 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/hl1/hassault.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 180
 ---------------------------------------------------------------------------------------------------------------------------------------------
---ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
---ENT.HasGrenadeAttack = false -- Should the SNPC have a grenade attack?
+ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK_SWING}
 ENT.TimeUntilGrenadeIsReleased = 1 -- Time until the grenade is released
 ENT.AllowWeaponReloading = false -- If false, the SNPC will no longer reload
 ENT.HasShootWhileMoving = false -- Can it shoot while moving?
 ENT.MoveOrHideOnDamageByEnemy = false -- Should the SNPC move or hide when being damaged by an enemy?
---ENT.DisableCallForBackUpOnDamageAnimation = true -- Disables the animation when the CallForBackUpOnDamage function is called
 ENT.HasWeaponBackAway = false -- Should the SNPC back away if the enemy is close?
-ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK_SWING}
 
 ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/hassault/hw_spin.wav"}
 
@@ -27,6 +24,10 @@ ENT.GeneralSoundPitch2 = 80
 
 -- Custom
 ENT.Serg_SpinUpT = 0
+ENT.Serg_Type = 0
+	-- 0 = Default
+	-- 1 = Alpha
+	-- 2 = Alpha Melee
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnThink()
 	-- Unlimited ammo
@@ -36,7 +37,7 @@ function ENT:HECU_CustomOnThink()
 	end
 	
 	-- For weapon spinning sound
-	if self.DoingWeaponAttack == true then
+	if self.DoingWeaponAttack then
 		self.HasBreathSound = true
 	else
 		VJ_STOPSOUND(self.CurrentBreathSound)

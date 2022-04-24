@@ -6,15 +6,13 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hla/hassault.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2, ACT_MELEE_ATTACK_SWING} -- Melee Attack Animations
-ENT.GeneralSoundPitch1 = 90
-ENT.GeneralSoundPitch2 = 95
+ENT.HasGrenadeAttack = false -- Should the SNPC have a grenade attack?
 
--- Custom
-ENT.Serg_Type = 0
-	-- 0 = Default
-	-- 1 = Melee
+ENT.GeneralSoundPitch1 = 90
+ENT.GeneralSoundPitch2 = 100
+
+ENT.Serg_Type = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
 	self.SoundTbl_Idle = {"vj_hlr/hla_npc/hgrunt/gr_idle1.wav","vj_hlr/hla_npc/hgrunt/gr_idle2.wav","vj_hlr/hla_npc/hgrunt/gr_idle3.wav","vj_hlr/hla_npc/hgrunt/gr_radio1.wav","vj_hlr/hla_npc/hgrunt/gr_radio2.wav","vj_hlr/hla_npc/hgrunt/gr_radio3.wav","vj_hlr/hla_npc/hgrunt/gr_radio4.wav","vj_hlr/hla_npc/hgrunt/gr_radio5.wav","vj_hlr/hla_npc/hgrunt/gr_radio6.wav"}
@@ -25,7 +23,7 @@ function ENT:HECU_CustomOnInitialize()
 	self.SoundTbl_GrenadeAttack = {"vj_hlr/hla_npc/hgrunt/gr_loadtalk.wav"}
 	
 	-- Melee version
-	if self.Serg_Type == 1 then
+	if self.Serg_Type == 2 then
 		self:SetBodygroup(1, 1)
 		self.AnimTbl_IdleStand = {ACT_CROUCH}
 		self.AnimTbl_Walk = {ACT_RUN}

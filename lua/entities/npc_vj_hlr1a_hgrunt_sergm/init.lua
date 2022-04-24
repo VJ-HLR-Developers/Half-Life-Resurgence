@@ -9,4 +9,4 @@ ENT.DisableWeapons = true -- If set to true, it won't be able to use weapons
 ENT.NoWeapon_UseScaredBehavior = false -- Should it use the scared behavior when it sees an enemy and doesn't have a weapon?
 
 -- Custom
-ENT.Serg_Type = 1
+ENT.Serg_Type = 2

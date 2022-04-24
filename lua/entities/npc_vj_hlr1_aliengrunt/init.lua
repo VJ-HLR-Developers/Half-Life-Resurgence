@@ -68,23 +68,10 @@ ENT.AGrunt_Type = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(25, 25, 85), Vector(-25, -25, 0))
-
-	-- local glow1 = ents.Create("env_sprite")
-	-- glow1:SetKeyValue("model","vj_hl/sprites/muz7.vmt")
-	-- glow1:SetKeyValue("scale","10")
-	-- glow1:SetKeyValue("rendermode","3")
-	-- glow1:SetKeyValue("rendercolor","255 255 255")
-	-- glow1:SetKeyValue("spawnflags","0.1")
-	-- glow1:SetParent(self)
-	-- glow1:SetOwner(self)
-	-- glow1:Fire("SetParentAttachment","hornet",0)
-	-- glow1:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
-	-- glow1:Spawn()
-	-- self:DeleteOnRemove(glow1)
 	
-	if self.AGrunt_Type == 1 then
+	if self.AGrunt_Type == 1 then --Alpha
 		self.AnimTbl_Death = {ACT_DIESIMPLE}
-	else
+	else -- Default
 		self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 		self.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}},{HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}},{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}},{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
 	end
@@ -105,25 +92,28 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
-	-- ParticleEffect("vj_hl_muz7",self:GetAttachment(self:LookupAttachment("hornet")).Pos, self:GetForward():Angle(), self) -- Unimplemented sprite function, needs fixed
+	-- Only default Alien Grunt has a muzzle flash!
+	if self.AGrunt_Type == 0 then
+		-- ParticleEffect("vj_hl_muz7",self:GetAttachment(self:LookupAttachment("hornet")).Pos, self:GetForward():Angle(), self) -- Unimplemented sprite function, needs fixed
+		
+		local att = self:GetAttachment(self:LookupAttachment("hornet"))
+		local muzzleFlash = ents.Create("env_sprite")
+		muzzleFlash:SetKeyValue("model", "vj_hl/sprites/muz4.vmt")
+		muzzleFlash:SetKeyValue("scale", tostring(math.Rand(0.5, 0.65)))
+		muzzleFlash:SetKeyValue("rendermode", "3")
+		muzzleFlash:SetKeyValue("renderfx", "14")
+		muzzleFlash:SetKeyValue("renderamt", "255")
+		muzzleFlash:SetKeyValue("rendercolor", "255 255 255")
+		muzzleFlash:SetKeyValue("spawnflags", "0")
+		muzzleFlash:SetParent(self)
+		muzzleFlash:SetOwner(self)
+		muzzleFlash:SetPos(att.Pos + att.Ang:Forward() * 15)
+		muzzleFlash:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
+		muzzleFlash:Spawn()
+		muzzleFlash:Fire("Kill","",0.08)
+		self:DeleteOnRemove(muzzleFlash)
+	end
 	
-	local att = self:GetAttachment(self:LookupAttachment("hornet"))
-	local glow1 = ents.Create("env_sprite")
-	glow1:SetKeyValue("model","vj_hl/sprites/muz7.vmt")
-	glow1:SetKeyValue("scale",tostring(math.Rand(0.5,0.65)))
-	glow1:SetKeyValue("rendermode","3")
-	glow1:SetKeyValue("renderfx","14")
-	glow1:SetKeyValue("renderamt","255")
-	glow1:SetKeyValue("rendercolor","255 255 255")
-	glow1:SetKeyValue("spawnflags","0")
-	glow1:SetParent(self)
-	glow1:SetOwner(self)
-	glow1:SetPos(att.Pos +att.Ang:Forward() *15)
-	glow1:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
-	glow1:Spawn()
-	glow1:Fire("Kill","",0.08)
-	self:DeleteOnRemove(glow1)
-
 	if IsValid(self:GetEnemy()) then
 		projectile.Track_Enemy = self:GetEnemy()
 	end
@@ -140,7 +130,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 			rico:SetOrigin(dmginfo:GetDamagePosition())
 			rico:SetScale(4) -- Size
 			rico:SetMagnitude(2) -- Effect type | 1 = Animated | 2 = Basic
-			util.Effect("VJ_HLR_Rico",rico)
+			util.Effect("VJ_HLR_Rico", rico)
 		end
 	end
 end
@@ -220,6 +210,8 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local extraGibs = {"models/vj_hlr/gibs/agrunt_gib.mdl","models/vj_hlr/gibs/agib1.mdl","models/vj_hlr/gibs/agib2.mdl","models/vj_hlr/gibs/agib3.mdl","models/vj_hlr/gibs/agib4.mdl"}
+--
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
-	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, nil, {ExtraGibs = {"models/vj_hlr/gibs/agrunt_gib.mdl","models/vj_hlr/gibs/agib1.mdl","models/vj_hlr/gibs/agib2.mdl","models/vj_hlr/gibs/agib3.mdl","models/vj_hlr/gibs/agib4.mdl"}})
+	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, nil, {ExtraGibs = extraGibs})
 end

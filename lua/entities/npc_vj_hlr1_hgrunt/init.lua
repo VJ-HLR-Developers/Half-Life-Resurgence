@@ -237,10 +237,10 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self:PlaySoundSystem("GeneralSpeech", "vj_hlr/hla_npc/hgrunt/gr_loadtalk.wav")
 		
 	-- Alpha Sergeant --
-	elseif key == "holster_gun" && self.Serg_Type != 1 then
+	elseif key == "holster_gun" && self.Serg_Type != 2 then
 		self:SetWeaponState(VJ_WEP_STATE_HOLSTERED)
 		self:SetBodygroup(1, 1)
-	elseif key == "draw_gun" && self.Serg_Type != 1 then
+	elseif key == "draw_gun" && self.Serg_Type != 2 then
 		self:SetWeaponState()
 		self:SetBodygroup(1, 0)
 	end
