@@ -86,7 +86,6 @@ if VJExists == true then
 	VJ.AddNPC("Alien Grunt", "npc_vj_hlr1_aliengrunt", vCat)
 	VJ.AddNPC("Alien Slave", "npc_vj_hlr1_alienslave", vCat)
 	VJ.AddNPC("Bullsquid", "npc_vj_hlr1_bullsquid", vCat)
-	VJ.AddNPC("Bullsquid (Dreamcast)", "npc_vj_hlr1_bullsquid_dc", vCat)
 	VJ.AddNPC("Gargantua", "npc_vj_hlr1_garg", vCat)
 	VJ.AddNPC("Houndeye", "npc_vj_hlr1_houndeye", vCat)
 	VJ.AddNPC("Kingpin", "npc_vj_hlr1_kingpin", vCat)
@@ -123,6 +122,8 @@ if VJExists == true then
 		VJ.AddNPC("Alpha Headcrab", "npc_vj_hlr1a_headcrab", vCat)
 		VJ.AddNPC("Alpha Bullsquid", "npc_vj_hlr1a_bullsquid", vCat)
 		VJ.AddNPC("Alpha Houndeye", "npc_vj_hlr1a_houndeye", vCat)
+		-- Dreamcast
+		VJ.AddNPC("Bullsquid (Dreamcast)", "npc_vj_hlrdc_bullsquid", vCat)
 		-- Opposing Force
 		VJ.AddNPC("Zombie Security Guard", "npc_vj_hlrof_zombie_sec", vCat)
 		VJ.AddNPC("Zombie Soldier", "npc_vj_hlrof_zombie_soldier", vCat)
