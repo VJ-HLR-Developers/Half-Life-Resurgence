@@ -283,7 +283,7 @@ if VJExists == true then
 		"vj_hl_shockroach_bright",
 		"vj_hl_shockroach_trail",
 	})
-	VJ.AddParticle("particles/vj_hl_sporegrenade.pcf", {
+	VJ.AddParticle("particles/vj_hlr_spore.pcf", {
 		"vj_hlr_spore",
 		"vj_hlr_spore_b",
 		"vj_hlr_spore_c",
@@ -296,10 +296,6 @@ if VJExists == true then
 		"vj_hlr_spore_idle_small",
 		"vj_hlr_spore_idle_small_b",
 		"vj_hlr_spore_idle_small_c",
-	})
-	VJ.AddParticle("particles/vj_hl_gonome.pcf", {
-		"vj_hl_gonome",
-		"vj_hl_gonome_idle",
 	})
 	VJ.AddParticle("particles/vj_hl_spit.pcf", {
 		"vj_hl_spit_bullsquid",
@@ -315,7 +311,7 @@ if VJExists == true then
 		"vj_hlr_spit_friendly_impact",
 	})
 	VJ.AddParticle("particles/vj_hlr_torch.pcf", {
-		"vj_hl_torch",
+		"vj_hlr_torch",
 	})
 	VJ.AddParticle("particles/vj_hlr_garg_stomp.pcf", {
 		"vj_hlr_garg_stomp",
