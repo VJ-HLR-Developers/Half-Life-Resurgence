@@ -21,6 +21,11 @@ if VJExists == true then
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	local vCat = "HL Resurgence: GoldSrc"
 	VJ.AddCategoryInfo(vCat, {Icon = "vj_hl/icons/hl1.png"})
+
+	-- Players
+	VJ.AddNPC("Gordon Freeman","npc_vj_hlr1_freeman",vCat)
+	VJ.AddNPC("Barney Calhoun","npc_vj_hlrbs_barney",vCat)
+	VJ.AddNPC("Adrian Shepard","npc_vj_hlrof_shepard",vCat)
 	
 	-- Earth
 	VJ.AddNPC("Cockroach", "npc_vj_hlr1_cockroach", vCat)

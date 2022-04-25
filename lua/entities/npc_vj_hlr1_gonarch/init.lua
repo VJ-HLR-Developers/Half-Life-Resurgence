@@ -147,7 +147,7 @@ function ENT:CustomOnThink_AIEnabled()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(projectile)
-	return self:CalculateProjectile("Curve", self:GetPos() + self:GetUp()*self.RangeAttackPos_Up, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1200)
+	return (self:GetEnemy():GetPos() - self:GetPos()) *0.45 + self:GetUp() *600
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_Miss()

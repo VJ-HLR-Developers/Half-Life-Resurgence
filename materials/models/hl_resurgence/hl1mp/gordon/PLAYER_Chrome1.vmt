@@ -1,0 +1,14 @@
+"VertexLitGeneric"
+{
+	"$envmap" "models/hl_resurgence/hl1mp/gordon/PLAYER_Chrome1"
+	"$color2" "[.06 .06 .06]"
+	"$envmapmode" 1
+	"$multipass" 1
+	
+	"VertexLitGeneric_HDR_DX9"
+	{
+		"$envmaptint" "[.15 .15 .15]"
+		"$envmapcontrast" .8
+		"$envmapsaturation" 1.5
+	}
+}
