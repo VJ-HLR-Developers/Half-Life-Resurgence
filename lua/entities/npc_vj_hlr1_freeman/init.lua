@@ -9,7 +9,7 @@ ENT.Model = {"models/vj_hlr/hl1mp/gordon.mdl"}
 ENT.StartHealth = 100
 ENT.HasHealthRegeneration = true
 ENT.HealthRegenerationAmount = 2
-ENT.HealthRegenerationDelay = VJ_Set(0.1,0.1)
+ENT.HealthRegenerationDelay = VJ_Set(0.5,0.5)
 ENT.HullType = HULL_HUMAN
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(0, 0, -15),
@@ -59,7 +59,7 @@ ENT.NextMoveRandomlyWhenShootingTime1 = 0
 ENT.NextMoveRandomlyWhenShootingTime2 = 0.2
 
 ENT.FootStepTimeRun = 0.3
-ENT.FootStepTimeWalk = 0.3
+ENT.FootStepTimeWalk = 0.36
 
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIE_GUTSHOT,ACT_DIE_HEADSHOT,ACT_DIESIMPLE}
@@ -72,7 +72,7 @@ ENT.WeaponsList = {
 	["Close"] = {
 		"weapon_vj_hlr1_ply_hgun",
 		"weapon_vj_hlr1_ply_shotgun",
-		-- "weapon_vj_hlr1_ply_squeak",
+		"weapon_vj_hlr1_ply_squeak",
 	},
 	["Normal"] = {
 		"weapon_vj_hlr1_ply_357",
@@ -353,12 +353,15 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local transDeath = {
 	[HITGROUP_HEAD] = {ACT_DIE_HEADSHOT},
-	[HITGROUP_CHEST] = {ACT_DIEFORWARD,ACT_DIEBACKWARD},
+	--[HITGROUP_CHEST] = {ACT_DIEFORWARD,ACT_DIEBACKWARD},
 	[HITGROUP_STOMACH] = {ACT_DIE_GUTSHOT},
 }
 --
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	self.AnimTbl_Death = transDeath[hitgroup] or {ACT_DIESIMPLE}
+	self.AnimTbl_Death = transDeath[hitgroup] or {ACT_DIESIMPLE,ACT_DIEFORWARD,ACT_DIEBACKWARD}
+	self:DropWeaponOnDeathCode(dmginfo, hitgroup)
+	self:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
+	if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)

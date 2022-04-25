@@ -16,9 +16,10 @@ SWEP.WorldModel_CustomPositionAngle = Vector(0, 180, 0)
 SWEP.WorldModel_CustomPositionOrigin = Vector(1, -6, 2)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 
-SWEP.NPC_NextPrimaryFire = 0.16
+SWEP.NPC_NextPrimaryFire = 0.17
 SWEP.NPC_FiringDistanceScale = 2.5
 SWEP.NPC_BulletSpawnAttachment = "muzzle"
+SWEP.NPC_ReloadSound = {"vj_hlr/fx/null.wav"}
 
 SWEP.Primary.Damage = 1
 SWEP.Primary.ClipSize = 20
