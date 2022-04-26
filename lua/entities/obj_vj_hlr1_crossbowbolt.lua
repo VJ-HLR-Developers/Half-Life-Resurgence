@@ -24,7 +24,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/vj_hlr/hla/pb_dart.mdl"} -- The models it should spawn with | Picks a random one from the table
+ENT.Model = {"models/vj_hlr/hl1/crossbow_bolt.mdl"} -- The models it should spawn with | Picks a random one from the table
 ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
 ENT.DirectDamage = 50 -- How much damage should it do when it hits something
 ENT.DirectDamageType = DMG_SLASH -- Damage type
@@ -43,8 +43,8 @@ function ENT:CustomOnPhysicsCollide(data, phys)
 		self.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/crossbow/xbow_hitbod1.wav","vj_hlr/hl1_weapon/crossbow/xbow_hitbod2.wav"}
 	else
 		local spike = ents.Create("prop_dynamic")
-		spike:SetModel("models/vj_hlr/hla/pb_dart.mdl")
-		spike:SetPos(data.HitPos + data.HitNormal + self:GetForward()*-5)
+		spike:SetModel("models/vj_hlr/hl1/crossbow_bolt.mdl")
+		spike:SetPos(data.HitPos + data.HitNormal + self:GetForward()*-20)
 		spike:SetAngles(self:GetAngles())
 		spike:Activate()
 		spike:Spawn()

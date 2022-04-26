@@ -1,10 +1,10 @@
-"VertexLitGeneric"
+"vertexlitgeneric"
 {
-	"$envmap" "models/hl_resurgence/hl1/weapons/gauss/barrelCHROME"
+	"$envmap" "models/hl_resurgence/hl1/finCHOME"	//valve actually mispelled the texture name
 	"$color2" "[.06 .06 .06]"
 	"$envmapmode" 1
 	"$multipass" 1
-	"$nodecal" 1
+	"$opaque" 1
 	
 	"VertexLitGeneric_HDR_DX9"
 	{
