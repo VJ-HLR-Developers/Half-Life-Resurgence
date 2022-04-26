@@ -25,6 +25,7 @@ ENT.TimeUntilGrenadeIsReleased = 0.87 -- Time until the grenade is released
 ENT.GrenadeAttackAttachment = "anim_attachment_RH" -- The attachment that the grenade will spawn at
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
 ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards the player if it's damaged by a player?
+ENT.AnimTbl_Medic_GiveHealth = {"heal"} -- Animations is plays when giving health to an ally
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 	-- ====== File Path Variables ====== --
@@ -111,6 +112,9 @@ ENT.SoundTbl_AllyDeath = {
 	"vo/ravenholm/monk_mourn06.wav",
 	"vo/ravenholm/monk_mourn07.wav",
 }
+ENT.SoundTbl_MedicBeforeHeal  = {
+	"vo/ravenholm/monk_givehealth01.wav"
+}
 ENT.SoundTbl_OnGrenadeSight = {
 	"vo/ravenholm/monk_danger01.wav",
 	"vo/ravenholm/monk_danger02.wav",
@@ -193,7 +197,6 @@ ENT.GeneralSoundPitch1 = 100
 "vo/ravenholm/monk_death7.wav"
 "vo/ravenholm/monk_followme.wav"
 "vo/ravenholm/monk_giveammo01.wav"
-"vo/ravenholm/monk_givehealth01.wav"
 "vo/ravenholm/monk_quicklybro.wav"
 "vo/ravenholm/pyre_keepeye.wav"
 "vo/ravenholm/shotgun_bettergun.wav"
