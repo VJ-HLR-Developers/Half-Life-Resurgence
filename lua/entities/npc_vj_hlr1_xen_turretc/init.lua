@@ -36,9 +36,9 @@ ENT.DeathCorpseBodyGroup = VJ_Set(0,1) -- #1 = the category of the first bodygro
 ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/xenceiling_turret/bustflesh1.wav","vj_hlr/hl1_npc/xenceiling_turret/bustflesh2.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/fx/bustflesh1.wav","vj_hlr/fx/bustflesh2.wav"}
 
-local SdTbl_GibImpact = {"vj_hlr/hl1_npc/xenceiling_turret/flesh1.wav","vj_hlr/hl1_npc/xenceiling_turret/flesh2.wav","vj_hlr/hl1_npc/xenceiling_turret/flesh3.wav","vj_hlr/hl1_npc/xenceiling_turret/flesh4.wav","vj_hlr/hl1_npc/xenceiling_turret/flesh5.wav","vj_hlr/hl1_npc/xenceiling_turret/flesh6.wav","vj_hlr/hl1_npc/xenceiling_turret/flesh7.wav"}
+local SdTbl_GibImpact = {"vj_hlr/fx/flesh1.wav","vj_hlr/fx/flesh2.wav","vj_hlr/fx/flesh3.wav","vj_hlr/fx/flesh4.wav","vj_hlr/fx/flesh5.wav","vj_hlr/fx/flesh6.wav","vj_hlr/fx/flesh7.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
