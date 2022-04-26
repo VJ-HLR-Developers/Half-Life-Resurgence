@@ -115,6 +115,8 @@ ENT.SoundTbl_AllyDeath = {
 ENT.SoundTbl_MedicBeforeHeal  = {
 	"vo/ravenholm/monk_givehealth01.wav"
 }
+ENT.SoundTbl_MedicAfterHeal = {}
+ENT.SoundTbl_MedicReceiveHeal = {}
 ENT.SoundTbl_OnGrenadeSight = {
 	"vo/ravenholm/monk_danger01.wav",
 	"vo/ravenholm/monk_danger02.wav",
