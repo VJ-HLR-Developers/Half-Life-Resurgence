@@ -13,6 +13,8 @@ ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectiles for my addons"
 ENT.Category		= "VJ Base"
 
+ENT.VJ_IsDetectableDanger = true
+
 if CLIENT then
 	local Name = "40mm Grenade"
 	local LangName = "obj_vj_hlr1_grenade_40mm"
