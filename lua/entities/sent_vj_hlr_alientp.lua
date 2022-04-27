@@ -26,7 +26,7 @@ ENT.HLRSpawner_Type = 0
 ENT.HLRSpawner_ClassType = "CLASS_XEN" -- Type of class the spawner should when triggering the portal
 ENT.HLRSpawner_Distance = 400
 
-local xenEnts = {"npc_vj_hlr1_alienslave","npc_vj_hlr1_aliengrunt","npc_vj_hlr1_bullsquid","npc_vj_hlr1_houndeye"}
+local xenEnts = {"npc_vj_hlr1_alienslave","npc_vj_hlr1_aliengrunt","npc_vj_hlr1_bullsquid","npc_vj_hlr1_houndeye","npc_vj_hlr1_panthereye"}
 local racexEnts = {"npc_vj_hlrof_shocktrooper","npc_vj_hlrof_pitdrone","npc_vj_hlrof_voltigore","npc_vj_hlrof_voltigore_baby"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec45z = Vector(0, 0, 45)
