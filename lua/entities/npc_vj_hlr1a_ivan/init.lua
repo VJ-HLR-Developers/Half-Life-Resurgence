@@ -7,6 +7,10 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hla/doctor.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
 ENT.StartHealth = 100
+ENT.HasHealthRegeneration = true
+ENT.HealthRegenerationAmount = 2
+ENT.HealthRegenerationDelay = VJ_Set(0.5,0.5)
+
 ENT.HullType = HULL_HUMAN
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
