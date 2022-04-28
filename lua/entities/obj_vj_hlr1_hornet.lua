@@ -27,7 +27,9 @@ end
 if !SERVER then return end
 
 ENT.Model = {"models/vj_hlr/hl1/hornet.mdl"} -- The models it should spawn with | Picks a random one from the table
-ENT.MoveCollideType = MOVECOLLIDE_FLY_SLIDE -- Move type | Some examples: MOVECOLLIDE_FLY_BOUNCE, MOVECOLLIDE_FLY_SLIDE
+//ENT.MoveType = MOVETYPE_FLY
+ENT.MoveCollideType = MOVECOLLIDE_FLY_SLIDE
+//ENT.SolidType = SOLID_BBOX
 ENT.RemoveOnHit = false -- Should it remove itself when it touches something? | It will run the hit sound, place a decal, etc.
 ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
 ENT.DirectDamage = 4 -- How much damage should it do when it hits something
@@ -43,11 +45,16 @@ local defVec = Vector(0, 0, 0)
 local sdIdle = {"vj_hlr/hl1_npc/hornet/ag_buzz1.wav","vj_hlr/hl1_npc/hornet/ag_buzz2.wav","vj_hlr/hl1_npc/hornet/ag_buzz3.wav"}
 local sdCollideAlpha = {"vj_hlr/hla_npc/hornet/ag_buzz1.wav","vj_hlr/hla_npc/hornet/ag_buzz2.wav","vj_hlr/hla_npc/hornet/ag_buzz3.wav"}
 
+local HORNET_TYPE_RED = 0
+local HORNET_TYPE_ORANGE = 1
+local HORNET_TYPE_ALPHA = 2
+
 -- Custom
 ENT.Track_Enemy = NULL
 ENT.Track_Position = defVec
 ENT.Hornet_Alpha = false
 ENT.Hornet_ChaseSpeed = 600
+ENT.Hornet_Type = HORNET_TYPE_RED
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:Wake()
@@ -62,15 +69,21 @@ function ENT:CustomOnInitializeBeforePhys()
 	//construct.SetPhysProp(self:GetOwner(), self, 0, self:GetPhysicsObject(), {GravityToggle = false, Material = "metal_bouncy"})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local colorRed = Color(179, 39, 14)
+local colorOrange = Color(255, 128, 0)
+--
 function ENT:CustomOnInitialize()
 	timer.Simple(5, function() if IsValid(self) then self:Remove() end end)
 	
 	if self.Hornet_Alpha then
 		self.SoundTbl_OnCollide = sdCollideAlpha
+		self.Hornet_Type = HORNET_TYPE_ALPHA
 		self.Hornet_ChaseSpeed = 400
 	else
 		self.SoundTbl_Idle = sdIdle
-		util.SpriteTrail(self, 0, Color(255,math.random(50,200),0,120), true, 6, 0, 1.5, 1/(6 + 0)*0.5, "vj_hl/sprites/laserbeam.vmt")
+		self.Hornet_Type = math.random(1, 5) <= 2 and HORNET_TYPE_RED or HORNET_TYPE_ORANGE
+		self.Hornet_ChaseSpeed = (self.Hornet_Type == HORNET_TYPE_RED and 600) or 800
+		util.SpriteTrail(self, 0, (self.Hornet_Type == HORNET_TYPE_RED and colorRed) or colorOrange, true, 6, 0, 1.5, 1 / (6 * 0.5), "vj_hl/sprites/laserbeam.vmt")
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

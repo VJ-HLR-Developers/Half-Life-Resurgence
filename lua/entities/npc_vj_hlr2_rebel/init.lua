@@ -301,7 +301,7 @@ function ENT:CustomOnPlayerSight(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnEntityRelationshipCheck(ent, entFri, entDist)
-	-- Tell the player to reload their weapon
+	-- Tell the player to reload their weapon or give the player a ammo
 	if entFri == true && ent:IsPlayer() && CurTime() > self.Human_NextPlyReloadSd && !IsValid(self:GetEnemy()) && entDist <= 200 then
 		self.Human_NextPlyReloadSd = CurTime() + math.Rand(10, 60)
 		local wep = ent:GetActiveWeapon()
@@ -313,7 +313,7 @@ function ENT:CustomOnEntityRelationshipCheck(ent, entFri, entDist)
 					if entDist > 100 then
 						self.Human_NextPlyReloadSd = 0
 					else
-						self:FaceCertainPosition(ent:GetPos(), 2)
+						self:FaceCertainEntity(ent, false, self:DecideAnimationLength("heal", false))
 						self:VJ_ACT_PLAYACTIVITY("heal", true, false, true, 0, {OnFinish=function(interrupted, anim)
 							if !interrupted then
 								ent:GiveAmmo(20, ammoType)

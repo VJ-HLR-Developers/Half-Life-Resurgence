@@ -28,5 +28,6 @@ function ENT:CustomOnInitialize()
 	//local ang = self:GetAngles()
 	//self:SetAngles(Angle(ang.x, ang.y, 180))
 	self:DrawShadow(false)
-	self:SetCollisionBounds(Vector(25, 25, 0), Vector(-25, -25, -50)) // -50
+	self:SetCollisionBounds(Vector(25, 25, 0), Vector(-25, -25, -50))
+	self:AddFlags(FL_NOTARGET) -- Starts retracted, so make it no target
 end

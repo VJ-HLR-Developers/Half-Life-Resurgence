@@ -8,7 +8,6 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/hl1/bullsquid_dreamcast.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 90
 
-ENT.MeleeAttackDistance = 35
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
 	if math.random(1, 2) == 1 then

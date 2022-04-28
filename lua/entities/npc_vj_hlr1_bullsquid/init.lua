@@ -33,7 +33,7 @@ ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_toxicspit" -- The entity that is spa
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 1.5 -- How much time until it can use a range attack?
 ENT.RangeDistance = 784 -- This is how far away it can shoot
-ENT.RangeToMeleeDistance = 250 -- How close does it have to be until it uses melee?
+ENT.RangeToMeleeDistance = 256 -- How close does it have to be until it uses melee?
 ENT.RangeUseAttachmentForPos = false -- Should the projectile spawn on a attachment?
 ENT.RangeAttackPos_Up = 20 -- Up/Down spawning position for range attack
 ENT.RangeAttackPos_Forward = 0 -- Forward/ Backward spawning position for range attack
@@ -86,8 +86,8 @@ function ENT:CustomOnThink()
 	if self.Bullsquid_Type == 1 then return end
 	if self.Dead == false && CurTime() > self.Bullsquid_BlinkingT then
 		self:SetSkin(1)
-		timer.Simple(0.3,function() if IsValid(self) then self:SetSkin(0) end end)
-		self.Bullsquid_BlinkingT = CurTime() + math.Rand(2,3.5)
+		timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(0) end end)
+		self.Bullsquid_BlinkingT = CurTime() + math.Rand(2, 3.5)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

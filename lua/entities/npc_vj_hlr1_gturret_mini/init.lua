@@ -24,6 +24,7 @@ ENT.Sentry_SubType = 0
 function ENT:CustomOnInitialize()
 	self:DrawShadow(false)
 	self:SetCollisionBounds(Vector(15, 15, 40), Vector(-15, -15, 0))
+	self:AddFlags(FL_NOTARGET) -- Starts retracted, so make it no target
 	
 	self.NextAnyAttackTime_Range = 0.03
 end

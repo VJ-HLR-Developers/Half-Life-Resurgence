@@ -57,7 +57,7 @@ function ENT:CustomOnWeaponAttack()
 		self.NextChaseTime = setTime -- Make sure it won't chase
 		self.NextWeaponAttackT = setTime -- Make it not shoot for the given time
 		self.NextBreathSoundT = setTime -- For the spinning sound
-		self:VJ_ACT_PLAYACTIVITY(ACT_IDLE_ANGRY, true, 0.9, true)
+		self:VJ_ACT_PLAYACTIVITY(ACT_ARM, true, 0.9, true)
 		VJ_EmitSound(self, "vj_hlr/hl1_npc/hassault/hw_spinup.wav", 80)
 		self.Serg_SpinUpT = CurTime() + 4
 	end

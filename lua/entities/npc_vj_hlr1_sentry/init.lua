@@ -94,11 +94,11 @@ end
 function ENT:CustomOnThink()
 	local parameter = self:GetPoseParameter("aim_yaw")
 	if parameter != self.Sentry_CurrentParameter then
-		self.sentry_turningsd = CreateSound(self, "vj_hlr/hl1_npc/turret/motor_loop.wav") 
+		self.sentry_turningsd = CreateSound(self, "vj_hlr/hl1_npc/turret/motor_loop.wav")
 		self.sentry_turningsd:SetSoundLevel(70)
 		self.sentry_turningsd:PlayEx(1,100)
 		if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
-			self.sentry_turningsd2 = CreateSound(self, "vj_hlr/hl1_npc/turret/tu_active2.wav") 
+			self.sentry_turningsd2 = CreateSound(self, "vj_hlr/hl1_npc/turret/tu_active2.wav")
 			self.sentry_turningsd2:SetSoundLevel(70)
 			self.sentry_turningsd2:PlayEx(1,100)
 		end
@@ -145,6 +145,9 @@ function ENT:CustomOnThink_AIEnabled()
 		end
 	else
 		if ((self.Sentry_ControllerStatus == 0) or (!self.VJ_IsBeingControlled && self.Alerted == false)) && self.Sentry_StandDown == false then
+			if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
+				self:AddFlags(FL_NOTARGET) -- Make it not targetable
+			end
 			self.Sentry_StandDown = true
 			self:VJ_ACT_PLAYACTIVITY("retire", true, 1)
 			VJ_EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_retract.wav"}, 65, self:VJ_DecideSoundPitch(100, 110))
@@ -187,6 +190,9 @@ end
 function ENT:CustomOnAlert(ent)
 	if self.VJ_IsBeingControlled == true then return end
 	self:Sentry_Activate()
+	if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
+		self:RemoveFlags(FL_NOTARGET) -- Other NPCs should now target it!
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Sentry_Activate()

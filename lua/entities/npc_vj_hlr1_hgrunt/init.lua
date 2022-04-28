@@ -247,7 +247,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
-	if math.random(1,3) == 1 && self.HECU_UsingDefaultSounds == true then
+	if math.random(1, 3) == 1 && self.HECU_UsingDefaultSounds == true then
 		if ent.IsVJBaseSNPC_Creature == true then -- Alien sounds
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl1_npc/hgrunt/gr_alert9.wav","vj_hlr/hl1_npc/hgrunt/gr_alert10.wav"})
 			return
@@ -553,9 +553,11 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local sdHeadshot = {"vj_hlr/fx/headshot1.wav","vj_hlr/fx/headshot2.wav","vj_hlr/fx/headshot3.wav"}
+--
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD then
-		VJ_EmitSound(self, {"vj_hlr/fx/headshot1.wav","vj_hlr/fx/headshot2.wav","vj_hlr/fx/headshot3.wav"}, 75, 100)
+		VJ_EmitSound(self, sdHeadshot, 75, 100)
 	elseif self.HECU_Type == 5 then
 		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, 100)
 		VJ_EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 80, 100)
