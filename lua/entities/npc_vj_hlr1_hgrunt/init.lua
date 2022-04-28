@@ -495,7 +495,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		util.BlastDamage(self, self, self:GetPos(), 100, 80)
 		util.ScreenShake(self:GetPos(), 100, 200, 1, 500)
 		VJ_EmitSound(self, gasTankExpSd, 90)
-		
+		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
 		spr:SetKeyValue("GlowProxySize","2.0")

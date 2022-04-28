@@ -67,6 +67,7 @@ function ENT:DeathEffects(data, phys)
 	//timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
 	
 	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 80, 100)
+	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
 	light = ents.Create("light_dynamic")
 	light:SetKeyValue("brightness", "4")
 	light:SetKeyValue("distance", "300")

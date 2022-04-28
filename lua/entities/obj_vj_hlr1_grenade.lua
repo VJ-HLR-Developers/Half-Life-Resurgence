@@ -90,5 +90,6 @@ function ENT:DeathEffects()
 	self:DoDamageCode()
 	self:SetDeathVariablesTrue(nil, nil, false)
 	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 80, 100)
+	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
 	self:Remove()
 end

@@ -63,6 +63,7 @@ function ENT:CustomOnKilled(dmginfo, hitgroup)
 		end
 	elseif self.Nest_SpawnEnt == "npc_vj_hlrof_penguin" then
 		VJ_EmitSound(self, {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}, 90)
+		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
 		util.BlastDamage(self,self,self:GetPos(),80,35)
 		if self.HasGibDeathParticles == true then
 			local effectBlood = EffectData()

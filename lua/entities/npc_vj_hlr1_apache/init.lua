@@ -351,6 +351,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 			
 			util.BlastDamage(self, self, expPos, 300, 100)
 			VJ_EmitSound(self, sdExplosions, 100, 100)
+			VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
 		end
 	
 		self:NextThink(CurTime())
@@ -403,7 +404,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 		timer.Simple(1.19, function() if IsValid(spr) then spr:Remove() end end)
 		util.BlastDamage(self, self, expPos, 600, 200)
 		VJ_EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit.wav", 100, 100)
-		
+		VJ_EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit_dist.wav", 140, 100)
 		-- flags 0 = No fade!
 		effects.BeamRingPoint(self:GetPos(), 0.4, 0, 1500, 32, 0, colorHeliExp, {material="vj_hl/sprites/shockwave", framerate=0, flags=0})
 		
@@ -433,6 +434,7 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	
 	util.BlastDamage(self, self, expPos, 300, 100)
 	VJ_EmitSound(self, sdExplosions, 100, 100)
+	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 100, 100, 100, 1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
