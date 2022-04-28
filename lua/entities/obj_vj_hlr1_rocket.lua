@@ -58,6 +58,7 @@ ENT.DelayedRemove = 6 -- Change this to a number greater than 0 to delay the rem
 ENT.DecalTbl_DeathDecals = {"VJ_HLR_Scorch"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_weapon/rpg/rocket1.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}
+ENT.OnCollideSoundLevel = 100
 
 -- Custom
 ENT.Rocket_AirMissile = false
