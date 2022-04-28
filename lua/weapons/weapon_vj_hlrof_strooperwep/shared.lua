@@ -28,6 +28,7 @@ SWEP.Primary.Damage				= 5 -- Damage
 SWEP.Primary.ClipSize			= 30 -- Max amount of bullets per clip
 SWEP.Primary.Ammo				= "SMG1" -- Ammo type
 SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/shockroach/shock_fire.wav"}
+SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/shockroach/shock_fire_distant.wav"}
 SWEP.Primary.DisableBulletCode	= true
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.PrimaryEffects_MuzzleParticles = {"vj_hlr_shockroach_muzzle"}
