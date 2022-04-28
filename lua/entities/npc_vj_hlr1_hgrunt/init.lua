@@ -301,11 +301,11 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
 		end
 	elseif self.HECU_Type == 5 then -- 5 = Robot Grunt
 		if bgroup == 0 then -- MP5
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1_LOW
 		elseif bgroup == 1 then -- Shotgun
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SHOTGUN
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SHOTGUN_LOW
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN_LOW
 		end
 	elseif self.HECU_Type == 6 then -- 6 = Alpha HGrunt
 		if bgroup == 0 then -- Colt Carbine

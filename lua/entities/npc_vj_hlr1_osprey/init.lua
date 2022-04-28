@@ -215,7 +215,17 @@ function ENT:CustomOnThink_AIEnabled()
 		for i = 1, 4 do
 			local att = self:GetAttachment((i % 2 == 0) && 2 or 1)
 			local startPos = att.Pos + att.Ang:Forward()*100 + self:GetForward()*((i >= 3) && -30 or 60)
-			local soldier = ents.Create(self.Osprey_IsBlackOps and "npc_vj_hlrof_assassin_male" or "npc_vj_hlr1_hgrunt")
+			local randsoldier = math.random(1,4)
+			local picksoldier = "npc_vj_hlr1_hgrunt"
+			local picksoldier_blkops = "npc_vj_hlrof_assassin_male"
+			if randsoldier == 1 then	-- 25% for robot grunts to spawn
+				picksoldier = "npc_vj_hlr1_rgrunt"
+				picksoldier_blkops = "npc_vj_hlrof_assassin_rgrunt"
+			else
+				picksoldier = "npc_vj_hlr1_hgrunt"
+				picksoldier_blkops = "npc_vj_hlrof_assassin_male"
+			end
+			local soldier = ents.Create(self.Osprey_IsBlackOps and picksoldier_blkops or picksoldier)
 			soldier:SetPos(startPos)
 			soldier:SetAngles(att.Ang)
 			soldier:SetOwner(self)
