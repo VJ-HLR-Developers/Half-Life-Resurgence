@@ -78,6 +78,7 @@ function ENT:CustomOnInitialize()
 	
 	self.HeliSD_Rotor = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_rotor4.wav", 120)
 	self.HeliSD_Whine = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_whine1.wav", 70)
+	self.HeliSD_Distant = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_rotor1.wav", 160)
 	
 	if GetConVar("vj_hlr1_osprey_deploysoldiers"):GetInt() == 0 then self.Osprey_DropStatus = -1 end
 	self.Osprey_Gunners = {}
@@ -570,6 +571,7 @@ end
 function ENT:CustomOnRemove()
 	VJ_STOPSOUND(self.HeliSD_Rotor)
 	VJ_STOPSOUND(self.HeliSD_Whine)
+	VJ_STOPSOUND(self.HeliSD_Distant)
 	
 	-- Remove soldiers if Osprey was removed (Not killed)
 	if !self.Dead then

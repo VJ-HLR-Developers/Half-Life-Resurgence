@@ -91,6 +91,7 @@ function ENT:CustomOnInitialize()
 	
 	self.HeliSD_Rotor = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_rotor2.wav", 120)
 	self.HeliSD_Whine = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_whine1.wav", 70)
+	self.HeliSD_Distant = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_rotor1.wav", 160)
 	
 	local tailLight = ents.Create("env_sprite")
 	tailLight:SetKeyValue("model","vj_base/sprites/vj_glow1.vmt")
@@ -193,6 +194,7 @@ function ENT:CustomAttack()
 			AmmoType = "HelicopterGun"
 		})
 		VJ_EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1.wav", 120, 100, 1, CHAN_WEAPON)
+		VJ_EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1_distant.wav", 140, 100, 1, CHAN_WEAPON)
 
 		local muz = ents.Create("env_sprite")
 		muz:SetKeyValue("model","vj_hl/sprites/muzzleflash2.vmt")
@@ -440,4 +442,5 @@ end
 function ENT:CustomOnRemove()
 	VJ_STOPSOUND(self.HeliSD_Rotor)
 	VJ_STOPSOUND(self.HeliSD_Whine)
+	VJ_STOPSOUND(self.HeliSD_Distant)
 end
