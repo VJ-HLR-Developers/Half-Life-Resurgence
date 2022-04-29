@@ -235,6 +235,7 @@ function ENT:CustomRangeAttackCode()
 	self:FireBullets(bullet)
 	
 	VJ_EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_fire1.wav"}, 90, self:VJ_DecideSoundPitch(100, 110))
+	VJ_EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_fire1_distant.wav"}, 140, self:VJ_DecideSoundPitch(100, 110))
 	
 	local muz = ents.Create("env_sprite_oriented")
 	muz:SetKeyValue("model","vj_hl/sprites/muzzleflash3.vmt")
