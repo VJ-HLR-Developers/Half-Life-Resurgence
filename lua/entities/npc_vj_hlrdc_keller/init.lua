@@ -37,6 +37,7 @@ vj_hlr/hl1_npc/keller/wheelchair_walk.wav
 */
 -- Custom
 ENT.Keller_WheelChair = true
+ENT.Keller_CanStandUp = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SCI_CustomOnInitialize()
 	self.SoundTbl_FootStep = {"vj_hlr/hl1_npc/keller/wheelchair_walk.wav"}
@@ -57,6 +58,22 @@ function ENT:SCI_CustomOnInitialize()
 	self.SoundTbl_Death = {"vj_hlr/hl1_npc/keller/dk_die1.wav","vj_hlr/hl1_npc/keller/dk_die2.wav","vj_hlr/hl1_npc/keller/dk_die3.wav","vj_hlr/hl1_npc/keller/dk_die3.wav","vj_hlr/hl1_npc/keller/dk_die4.wav","vj_hlr/hl1_npc/keller/dk_die5.wav","vj_hlr/hl1_npc/keller/dk_die6.wav","vj_hlr/hl1_npc/keller/dk_die7.wav"}
 	
 	self.AnimTbl_Death = {ACT_DIESIMPLE}
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_IntMsg(ply, controlEnt)
+	local randprint = math.random(1,1)
+	if randprint == 1 then
+		ply:ChatPrint("SPACE: ???")
+		self.Keller_CanStandUp = true
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink_AIEnabled()
+	if self.Dead == false && self.Keller_CanStandUp == true && self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP) then
+		self:VJ_ACT_PLAYACTIVITY(ACT_STAND, true, false, true)
+		self.MovementType = VJ_MOVETYPE_STATIONARY
+		self.CanTurnWhileStationary = false
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)

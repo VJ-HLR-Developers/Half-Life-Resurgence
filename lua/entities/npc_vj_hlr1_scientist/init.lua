@@ -217,6 +217,18 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self:SetBodygroup(2,0)
 	elseif key == "body" then
 		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+	// keller
+	elseif key == "mein_fuhrer" then
+		self:StopAllCommonSpeechSounds()
+		self:PlaySoundSystem("GeneralSpeech", "vj_hlr/hl1_npc/keller/dk_furher.wav")
+	elseif key == "step_keller" then
+		VJ_EmitSound(self, "vj_hlr/pl_step"..math.random(1, 4)..".wav", 75, 100)
+	elseif key == "stationary" then
+		self.MovementType = VJ_MOVETYPE_STATIONARY
+		self.CanTurnWhileStationary = false
+	elseif key == "selfKill" then
+		self.HasDeathAnimation = false
+		self:TakeDamage(self:Health(), self, self)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

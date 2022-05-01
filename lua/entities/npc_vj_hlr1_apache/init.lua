@@ -194,7 +194,7 @@ function ENT:CustomAttack()
 			AmmoType = "HelicopterGun"
 		})
 		VJ_EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1.wav", 120, 100, 1, CHAN_WEAPON)
-		VJ_EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1_distant.wav", 140, 100, 1, CHAN_WEAPON)
+		VJ_EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1_distant.wav", 140, 100)
 
 		local muz = ents.Create("env_sprite")
 		muz:SetKeyValue("model","vj_hl/sprites/muzzleflash2.vmt")
