@@ -40,7 +40,10 @@ ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} -- If it uses normal based animation, us
 ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}},{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
 	-- ====== File Path Variables ====== --
 	-- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
+local sdTie = {"vj_hlr/hl1_npc/scientist/weartie.wav","vj_hlr/hl1_npc/scientist/ties.wav"}
+local sdStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
+
+ENT.SoundTbl_FootStep = sdStep
 
 /*
 -- Can't move, unfollow
@@ -147,8 +150,6 @@ ENT.SCI_Type = 0
 ENT.SCI_CurAnims = -1 -- 0 = Regular | 1 = Scared | 2 = Grabbed by barnacle
 ENT.SCI_NextTieAnnoyanceT = 0
 ENT.SCI_ControllerAnim = 0
-	
-local sdTie = {"vj_hlr/hl1_npc/scientist/weartie.wav","vj_hlr/hl1_npc/scientist/ties.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	if self:GetModel() == "models/vj_hlr/hl1/scientist.mdl" then
@@ -218,17 +219,19 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	elseif key == "body" then
 		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	// keller
-	elseif key == "mein_fuhrer" then
+	elseif key == "keller_surprise" then
+		self.SoundTbl_FootStep = sdStep
 		self:StopAllCommonSpeechSounds()
 		self:PlaySoundSystem("GeneralSpeech", "vj_hlr/hl1_npc/keller/dk_furher.wav")
-	elseif key == "step_keller" then
-		VJ_EmitSound(self, "vj_hlr/pl_step"..math.random(1, 4)..".wav", 75, 100)
-	elseif key == "stationary" then
-		self.MovementType = VJ_MOVETYPE_STATIONARY
-		self.CanTurnWhileStationary = false
-	elseif key == "selfKill" then
+	elseif key == "keller_die" then
 		self.HasDeathAnimation = false
-		self:TakeDamage(self:Health(), self, self)
+		self.DeathCorpseApplyForce = false
+		local dmg = DamageInfo()
+		dmg:SetDamage(self:Health())
+		dmg:SetDamageType(bit.band(DMG_GENERIC, DMG_PREVENT_PHYSICS_FORCE))
+		dmg:SetAttacker(self)
+		dmg:SetInflictor(self)
+		self:TakeDamageInfo(dmg)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

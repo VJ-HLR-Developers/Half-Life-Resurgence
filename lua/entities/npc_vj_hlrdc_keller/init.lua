@@ -35,9 +35,9 @@ vj_hlr/hl1_npc/keller/wheelchair_jog.wav
 vj_hlr/hl1_npc/keller/wheelchair_run.wav
 vj_hlr/hl1_npc/keller/wheelchair_walk.wav
 */
+
 -- Custom
 ENT.Keller_WheelChair = true
-ENT.Keller_CanStandUp = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SCI_CustomOnInitialize()
 	self.SoundTbl_FootStep = {"vj_hlr/hl1_npc/keller/wheelchair_walk.wav"}
@@ -60,19 +60,20 @@ function ENT:SCI_CustomOnInitialize()
 	self.AnimTbl_Death = {ACT_DIESIMPLE}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply, controlEnt)
-	local randprint = math.random(1,1)
-	if randprint == 1 then
-		ply:ChatPrint("SPACE: ???")
-		self.Keller_CanStandUp = true
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
-	if self.Dead == false && self.Keller_CanStandUp == true && self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP) then
-		self:VJ_ACT_PLAYACTIVITY(ACT_STAND, true, false, true)
-		self.MovementType = VJ_MOVETYPE_STATIONARY
-		self.CanTurnWhileStationary = false
+function ENT:Controller_Initialize(ply, controlEnt)
+	ply:ChatPrint("JUMP: Stand up")
+	function controlEnt:CustomOnKeyBindPressed(key)
+		if key == IN_JUMP && !self.VJCE_NPC:IsBusy() then
+			self.VJCE_NPC:SetState(VJ_STATE_ONLY_ANIMATION_CONSTANT)
+			self.VJCE_NPC:VJ_ACT_PLAYACTIVITY(ACT_STAND, true, false, false, 0, {
+				-- Already done through event, but also here to make sure it's killed!
+				OnFinish = function(interrupted, anim)
+					if self.VJCE_NPC.Dead then return end
+					self.VJCE_NPC.HasDeathAnimation = false
+					self.VJCE_NPC:TakeDamage(self.VJCE_NPC:Health(), self.VJCE_NPC, self.VJCE_NPC)
+				end
+			})
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
