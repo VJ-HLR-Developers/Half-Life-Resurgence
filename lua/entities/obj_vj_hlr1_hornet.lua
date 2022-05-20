@@ -32,7 +32,7 @@ ENT.MoveCollideType = MOVECOLLIDE_FLY_SLIDE
 //ENT.SolidType = SOLID_BBOX
 ENT.RemoveOnHit = false -- Should it remove itself when it touches something? | It will run the hit sound, place a decal, etc.
 ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 4 -- How much damage should it do when it hits something
+ENT.DirectDamage = 5 -- How much damage should it do when it hits something
 ENT.DirectDamageType = DMG_SLASH -- Damage type
 ENT.CollideCodeWithoutRemoving = true -- If RemoveOnHit is set to false, you can still make the projectile deal damage, place a decal, etc.
 ENT.DecalTbl_DeathDecals = {"VJ_HLR_Blood_Yellow"}
@@ -41,9 +41,10 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/hornet/ag_hornethit1.wav","vj_hlr/hl1_
 
 ENT.IdleSoundPitch = VJ_Set(100, 100)
 
-local defVec = Vector(0, 0, 0)
 local sdIdle = {"vj_hlr/hl1_npc/hornet/ag_buzz1.wav","vj_hlr/hl1_npc/hornet/ag_buzz2.wav","vj_hlr/hl1_npc/hornet/ag_buzz3.wav"}
 local sdCollideAlpha = {"vj_hlr/hla_npc/hornet/ag_buzz1.wav","vj_hlr/hla_npc/hornet/ag_buzz2.wav","vj_hlr/hla_npc/hornet/ag_buzz3.wav"}
+
+local defVec = Vector(0, 0, 0)
 
 local HORNET_TYPE_RED = 0
 local HORNET_TYPE_ORANGE = 1
@@ -89,7 +90,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	local phys = self:GetPhysicsObject()
-	if IsValid(self.Track_Enemy) then -- Homing Behavior
+	-- Homing Behavior
+	if IsValid(self.Track_Enemy) then
 		local pos = self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter()
 		if self:VisibleVec(pos) or self.Track_Position == defVec then
 			self.Track_Position = pos
@@ -98,6 +100,7 @@ function ENT:CustomOnThink()
 			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position + self.Track_Enemy:GetUp()*math.random(-50,50) + self.Track_Enemy:GetRight()*math.random(-50,50), self.Hornet_ChaseSpeed))
 			self:SetAngles(self:GetVelocity():GetNormal():Angle())
 		end
+	-- Not tracking, go in straight line
 	else
 		if IsValid(phys) then
 			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self:GetPos() + self:GetForward()*math.random(-80, 80)+ self:GetRight()*math.random(-80, 80) + self:GetUp()*math.random(-80, 80), self.Hornet_ChaseSpeed / 2))

@@ -19,7 +19,7 @@ ENT.VJ_NPC_Class = {"CLASS_AUTOMATIC_TURRET"}
 ENT.Sentry_MuzzleAttach = "muzzle"
 ENT.Sentry_AlarmAttach = "frame"
 ENT.Sentry_Type = 2
-ENT.Sentry_SubType = 0
+ENT.Sentry_OrientationType = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:DrawShadow(false)

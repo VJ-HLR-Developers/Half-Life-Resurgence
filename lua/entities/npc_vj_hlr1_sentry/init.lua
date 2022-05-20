@@ -48,7 +48,8 @@ ENT.GeneralSoundPitch1 = 100
 ENT.Sentry_MuzzleAttach = "0" -- The bullet attachment
 ENT.Sentry_AlarmAttach = "1" -- Attachment that the alarm sprite spawns
 ENT.Sentry_Type = 0 -- 0 = Regular Ground Sentry | 1 = Big Ceiling/Ground Turret | 2 = Mini Ceiling/Ground Turret
-ENT.Sentry_SubType = 0 -- 0 = Ground | 1 = Ceiling
+ENT.Sentry_OrientationType = 0 -- 0 = Ground | 1 = Ceiling
+ENT.Sentry_GroundType = 0 -- 0 = Regular Ground Sentry | 1 = Decay Ground Sentry
 
 ENT.Sentry_HasLOS = false -- Has line of sight
 ENT.Sentry_StandDown = true
@@ -273,6 +274,8 @@ function ENT:CustomRangeAttackCode()
 	self:DeleteOnRemove(muzzleLight)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vecUp20 = Vector(0, 0, 20)
+--
 function ENT:CustomOnKilled(dmginfo, hitgroup)
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
@@ -289,12 +292,20 @@ function ENT:CustomOnKilled(dmginfo, hitgroup)
 	spr:SetKeyValue("scale","1.5")
 	if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
-		spr:SetPos(self:GetPos() + self:GetUp()*(self.Sentry_SubType == 1 and -30 or 20))
+		spr:SetPos(self:GetPos() + self:GetUp()*(self.Sentry_OrientationType == 1 and -30 or 20))
+	elseif self.Sentry_GroundType == 1 then -- Decay sentry gun
+		local pos = self:GetAttachment(self:LookupAttachment("center")).Pos + vecUp20
+		spr:SetPos(pos)
+		util.BlastDamage(self, self, pos, 50, 30)
+		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 80, 100)
+		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+		self.GibOnDeathDamagesTable = {"All"}
+		self:RunGibOnDeathCode(dmginfo, hitgroup)
 	else
 		spr:SetPos(self:GetPos() + self:GetUp()*60)
 	end
 	spr:Spawn()
-	spr:Fire("Kill","",0.9)
+	spr:Fire("Kill", "", 0.9)
 	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -302,7 +313,7 @@ local gibsCollideSd = {"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	local upPos = self.Sentry_SubType == 1 and -30 or 20
+	local upPos = self.Sentry_OrientationType == 1 and -30 or 20
 	if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p1.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(1,0,upPos)),CollideSound=gibsCollideSd})
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p2.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,1,upPos)),CollideSound=gibsCollideSd})

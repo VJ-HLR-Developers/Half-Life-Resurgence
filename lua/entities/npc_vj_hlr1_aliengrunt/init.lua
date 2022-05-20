@@ -6,7 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hl1/agrunt.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.StartHealth = 140
+ENT.StartHealth = 120
 ENT.HullType = HULL_HUMAN
 ENT.VJC_Data = {
 	FirstP_Bone = "bip01 head", -- If left empty, the base will attempt to calculate a position for first person
@@ -73,7 +73,7 @@ function ENT:CustomOnInitialize()
 		self.AnimTbl_Death = {ACT_DIESIMPLE}
 	else -- Default
 		self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
-		self.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}},{HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}},{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}},{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
+		self.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}}, {HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}}, {HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}}, {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -114,8 +114,9 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 		self:DeleteOnRemove(muzzleFlash)
 	end
 	
-	if IsValid(self:GetEnemy()) then
-		projectile.Track_Enemy = self:GetEnemy()
+	local ene = self:GetEnemy()
+	if IsValid(ene) then
+		projectile.Track_Enemy = ene
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

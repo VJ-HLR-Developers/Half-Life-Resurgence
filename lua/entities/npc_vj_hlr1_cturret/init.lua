@@ -22,7 +22,7 @@ ENT.VJ_NPC_Class = {"CLASS_AUTOMATIC_TURRET"} -- NPCs with the same class with b
 ENT.Sentry_MuzzleAttach = "gun"
 ENT.Sentry_AlarmAttach = "frame"
 ENT.Sentry_Type = 1
-ENT.Sentry_SubType = 1
+ENT.Sentry_OrientationType = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	//local ang = self:GetAngles()
