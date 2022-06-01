@@ -12,10 +12,10 @@ function EFFECT:Init(data)
 	self.EndPos = data:GetOrigin()
 	self.Ent = data:GetEntity()
 	self.Att = data:GetAttachment()
-	if IsValid(self.Ent) then
+	//if IsValid(self.Ent) then
 		//self.StartPos = self.Ent:GetAttachment(self.Ent:LookupAttachment(self.Att)).Pos
 		//self.EndPos = self.Ent:GetAttachment(4).Pos
-	end
+	//end
 	
 	self.HitPos = self.EndPos - self.StartPos
 	self.DieTime = CurTime() + data:GetScale()
@@ -40,8 +40,3 @@ function EFFECT:Render()
 	render.SetMaterial(self.MainMat)
 	render.DrawBeam(self.StartPos, self.EndPos, math.Rand(18,24), math.Rand(0,1), math.Rand(0,1) + ((self.StartPos - self.EndPos):Length() / 128), colorPurple)
 end
-/*--------------------------------------------------
-	*** Copyright (c) 2012-2022 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
---------------------------------------------------*/

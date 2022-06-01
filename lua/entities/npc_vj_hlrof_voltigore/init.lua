@@ -24,7 +24,7 @@ ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.MeleeAttackDamage = 30
 ENT.AnimTbl_MeleeAttack = {"vjseq_mattack2","vjseq_mattack3"} -- Melee Attack Animations
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDistance = 45 -- How close does it have to be until it attacks?
+ENT.MeleeAttackDistance = 35 -- How close does it have to be until it attacks?
 ENT.MeleeAttackDamageDistance = 125 -- How far does the damage go?
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
@@ -45,6 +45,7 @@ ENT.DeathAnimationTime = false -- Time until the SNPC spawns its corpse and gets
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.HasWorldShakeOnMove = true -- Should the world shake when it's moving?
 ENT.WorldShakeOnMoveRadius = 300 -- How far the screen shake goes, in world units
+ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/voltigore/voltigore_footstep1.wav","vj_hlr/hl1_npc/voltigore/voltigore_footstep2.wav","vj_hlr/hl1_npc/voltigore/voltigore_footstep3.wav"}
@@ -53,13 +54,13 @@ ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/voltigore/voltigore_communicate1.wa
 ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/voltigore/voltigore_communicate1.wav","vj_hlr/hl1_npc/voltigore/voltigore_communicate2.wav","vj_hlr/hl1_npc/voltigore/voltigore_communicate3.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/voltigore/voltigore_alert1.wav","vj_hlr/hl1_npc/voltigore/voltigore_alert2.wav","vj_hlr/hl1_npc/voltigore/voltigore_alert3.wav"}
 ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/voltigore/voltigore_attack_melee1.wav","vj_hlr/hl1_npc/voltigore/voltigore_attack_melee2.wav"}
+ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav","vj_hlr/hl1_npc/zombie/claw_strike2.wav","vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
 ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/voltigore/voltigore_attack_shock.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/voltigore/voltigore_pain1.wav","vj_hlr/hl1_npc/voltigore/voltigore_pain2.wav","vj_hlr/hl1_npc/voltigore/voltigore_pain3.wav","vj_hlr/hl1_npc/voltigore/voltigore_pain4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/voltigore/voltigore_die1.wav","vj_hlr/hl1_npc/voltigore/voltigore_die2.wav","vj_hlr/hl1_npc/voltigore/voltigore_die3.wav"}
 
 local extraMoveSd = {"vj_hlr/hl1_npc/voltigore/voltigore_run_grunt1.wav","vj_hlr/hl1_npc/voltigore/voltigore_run_grunt2.wav"}
-
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(60, 60, 95), Vector(-60, -60, 0))
@@ -81,26 +82,23 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Volt_DoElecEffect(sp, hp, a, t)
-	local elec = EffectData()
-	elec:SetStart(sp)
-	elec:SetOrigin(hp)
-	elec:SetEntity(self)
-	elec:SetAttachment(a)
-	elec:SetScale(0.989990234375 + t)
-	util.Effect("VJ_HLR_Electric_Charge_Purple", elec)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
+local elecTime = 0.989990234375
+--
 function ENT:CustomOnRangeAttack_AfterStartTimer()
 	local endPos = self:GetAttachment(self:LookupAttachment("3")).Pos
-	local randt = 0.989990234375
-	for i = 1, 3 do
+	for att = 1, 3 do
 		local tr = util.TraceLine({
-			start = self:GetAttachment(i).Pos,
+			start = self:GetAttachment(att).Pos,
 			endpos = endPos,
 			filter = self
 		})
-		self:Volt_DoElecEffect(tr.StartPos, tr.HitPos, i, randt)
+		local elec = EffectData()
+		elec:SetStart(tr.StartPos)
+		elec:SetOrigin(tr.HitPos)
+		elec:SetEntity(self)
+		elec:SetAttachment(att)
+		elec:SetScale(elecTime)
+		util.Effect("VJ_HLR_Electric_Charge_Purple", elec)
 	end
 	
 	local spr = ents.Create("env_sprite")
@@ -117,11 +115,12 @@ function ENT:CustomOnRangeAttack_AfterStartTimer()
 	spr:Spawn()
 	spr:Activate()
 	self:DeleteOnRemove(spr)
-	timer.Simple(randt, function() if IsValid(self) && IsValid(spr) then spr:Remove() end end)
+	timer.Simple(elecTime, function() if IsValid(self) && IsValid(spr) then spr:Remove() end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(projectile)
-	return self:CalculateProjectile("Line", projectile:GetPos(), self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 1500)
+	local ene = self:GetEnemy()
+	return self:CalculateProjectile("Line", projectile:GetPos(), ene:GetPos() + ene:OBBCenter(), 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
@@ -154,6 +153,9 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		util.Effect("StriderBlood",effectdata)
 	end
 	
+	util.VJ_SphereDamage(self, self, self:GetPos(), 120, 50, DMG_SONIC, false, true)
+	util.ScreenShake(self:GetPos(), 5, 5, 1, 1000)
+	
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/voltigore_gib1.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,30))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/voltigore_gib2.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,30))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/voltigore_gib3.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,30))})
@@ -178,6 +180,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 90, 100) -- No far away sound for this!
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

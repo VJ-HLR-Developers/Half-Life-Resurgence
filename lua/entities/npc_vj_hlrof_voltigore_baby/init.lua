@@ -6,7 +6,7 @@ include('shared.lua')
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/opfor/baby_voltigore.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.StartHealth = 80
+ENT.StartHealth = 60
 ENT.HullType = HULL_MEDIUM
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(25, 0, -15), -- The offset for the controller when the camera is in third person
@@ -70,26 +70,23 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Volt_DoElecEffect(sp, hp, a, t)
-	local elec = EffectData()
-	elec:SetStart(sp)
-	elec:SetOrigin(hp)
-	elec:SetEntity(self)
-	elec:SetAttachment(a)
-	elec:SetScale(0.989990234375 + t)
-	util.Effect("VJ_HLR_Electric_Charge_Purple", elec)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
+local elecTime = 0.989990234375
+--
 function ENT:CustomOnRangeAttack_AfterStartTimer()
 	local endPos = self:GetAttachment(self:LookupAttachment("3")).Pos
-	local randt = 0.989990234375
-	for i = 1, 3 do
+	for att = 1, 3 do
 		local tr = util.TraceLine({
-			start = self:GetAttachment(i).Pos,
+			start = self:GetAttachment(att).Pos,
 			endpos = endPos,
 			filter = self
 		})
-		self:Volt_DoElecEffect(tr.StartPos, tr.HitPos, i, randt)
+		local elec = EffectData()
+		elec:SetStart(tr.StartPos)
+		elec:SetOrigin(tr.HitPos)
+		elec:SetEntity(self)
+		elec:SetAttachment(att)
+		elec:SetScale(elecTime)
+		util.Effect("VJ_HLR_Electric_Charge_Purple", elec)
 	end
 	
 	local spr = ents.Create("env_sprite")
@@ -106,7 +103,7 @@ function ENT:CustomOnRangeAttack_AfterStartTimer()
 	spr:Spawn()
 	spr:Activate()
 	self:DeleteOnRemove(spr)
-	timer.Simple(randt, function() if IsValid(self) && IsValid(spr) then spr:Remove() end end)
+	timer.Simple(elecTime, function() if IsValid(self) && IsValid(spr) then spr:Remove() end end)
 	
 	-- Chance of hurting itself!
 	if math.random(1, 150) == 1 then

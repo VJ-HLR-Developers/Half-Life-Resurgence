@@ -113,6 +113,7 @@ function ENT:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
+	if self.Dead == true then return end
 	local eneValid = IsValid(self:GetEnemy())
 	-- Make it not reset its pose parameters while its transitioning from Alert to Idle
 	if self.Alerted && !eneValid then
@@ -314,6 +315,7 @@ local gibsCollideSd = {"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	local upPos = self.Sentry_OrientationType == 1 and -30 or 20
+	local attPos = self.Sentry_GroundType == 1 and self:GetAttachment(self:LookupAttachment("center")).Pos or nil -- Decay sentry gun
 	if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p1.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(1,0,upPos)),CollideSound=gibsCollideSd})
 		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p2.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,1,upPos)),CollideSound=gibsCollideSd})
@@ -329,25 +331,25 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p11.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(6,0,upPos)),CollideSound=gibsCollideSd})
 		end
 	else
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p1_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(1,0,20)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p2_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,1,20)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p3_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(2,0,20)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p4_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,2,20)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p5_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(3,0,20)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p6_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,3,20)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p7_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(4,0,20)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p8_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,4,20)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p9_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(5,0,20)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p10_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,5,20)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p11_g.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(6,0,20)),CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p1_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(1,0,20)),CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p2_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(0,1,20)),CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p3_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(2,0,20)),CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p4_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(0,2,20)),CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p5_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(3,0,20)),CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p6_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(0,3,20)),CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p7_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(4,0,20)),CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p8_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(0,4,20)),CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p9_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(5,0,20)),CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p10_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(0,5,20)),CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p11_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(6,0,20)),CollideSound=gibsCollideSd})
 	end
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_cog1.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(1,0,upPos)),CollideSound=gibsCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_cog2.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,1,upPos)),CollideSound=gibsCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_rib.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(2,0,upPos)),CollideSound=gibsCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_screw.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,2,upPos)),CollideSound=gibsCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_screw.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(3,0,upPos)),CollideSound=gibsCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_screw.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,3,upPos)),CollideSound=gibsCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_spring.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(4,0,upPos)),CollideSound=""}) -- Shad ge sharji, ere vor tsayn chi hane
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_cog1.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(1,0,upPos)),CollideSound=gibsCollideSd})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_cog2.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(0,1,upPos)),CollideSound=gibsCollideSd})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_rib.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(2,0,upPos)),CollideSound=gibsCollideSd})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_screw.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(0,2,upPos)),CollideSound=gibsCollideSd})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_screw.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(3,0,upPos)),CollideSound=gibsCollideSd})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_screw.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(0,3,upPos)),CollideSound=gibsCollideSd})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_spring.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(4,0,upPos)),CollideSound=""}) -- Shad ge sharji, ere vor tsayn chi hane
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

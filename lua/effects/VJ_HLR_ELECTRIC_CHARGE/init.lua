@@ -18,7 +18,6 @@ function EFFECT:Init(data)
 	self.DieTime = CurTime() + data:GetScale()
 	self:SetRenderBoundsWS(self.StartPos, self.EndPos)
 	
-	local hitPosNormal = self.HitPos:GetNormalized()
 	util.Decal("VJ_HLR_Scorch_Small", self.EndPos + data:GetNormal(), self.EndPos - data:GetNormal())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
