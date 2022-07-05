@@ -84,7 +84,7 @@ local spawnPos = Vector(0, 0, 400)
 --
 function ENT:CustomOnInitialize()
 	self:SetNW2Int("Heli_SmokeLevel", 0)
-	self.ConstantlyFaceEnemyDistance = self.SightDistance
+	self.ConstantlyFaceEnemyDistance = self:GetMaxLookDistance()
 	
 	self:SetCollisionBounds(Vector(150, 150, 180), Vector(-150, -150, 0))
 	self:SetPos(self:GetPos() + spawnPos)

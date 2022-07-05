@@ -100,12 +100,12 @@ function ENT:CustomOnThink_AIEnabled()
 		VJ_EmitSound(self, scanSd, 85)
 		timer.Simple(0.5, function()
 			if IsValid(self) then
-				local orgDist = self.SightDistance
+				local orgDist = self:GetMaxLookDistance()
 				self.FindEnemy_CanSeeThroughWalls = true
-				self.SightDistance = 450
+				self:SetSightDistance(450)
 				self:DoEntityRelationshipCheck()
 				self.FindEnemy_CanSeeThroughWalls = false
-				self.SightDistance = orgDist
+				self:SetSightDistance(orgDist)
 			end
 		end)
 		self.KingPin_NextScanT = CurTime() + self.NextProcessTime + 5
