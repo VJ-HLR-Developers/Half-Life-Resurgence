@@ -83,6 +83,7 @@ ENT.Heli_SmokeStatus = 0 -- 0 = No smoke | 1 = Tail smoke | 2 = Tail & Rotor smo
 local spawnPos = Vector(0, 0, 400)
 --
 function ENT:CustomOnInitialize()
+	self:VJTags_Add(VJ_TAG_VEHICLE, VJ_TAG_AIRCRAFT)
 	self:SetNW2Int("Heli_SmokeLevel", 0)
 	self.ConstantlyFaceEnemyDistance = self:GetMaxLookDistance()
 	

@@ -70,6 +70,7 @@ ENT.Heli_SmokeStatus = 0 -- 0 = No smoke | 1 = Left tail smoke | 2 = Left & Righ
 local spawnPos = Vector(0, 0, 400)
 --
 function ENT:CustomOnInitialize()
+	self:VJTags_Add(VJ_TAG_VEHICLE, VJ_TAG_AIRCRAFT)
 	self:SetNW2Int("Heli_SmokeLevel", 0)
 	//self.ConstantlyFaceEnemyDistance = self.SightDistance -- Osprey does NOT face the enemy!
 	

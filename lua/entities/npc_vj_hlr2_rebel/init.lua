@@ -201,6 +201,8 @@ function ENT:CustomOnPreInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+	self:VJTags_Add(VJ_TAG_CIVILIAN)
+	
 	self.Human_NextPlyReloadSd = CurTime()
 	if self.Human_Gender == 1 then
 		self:HLR_ApplyFemaleSounds()
@@ -347,7 +349,9 @@ end
 function ENT:CustomOnAlert(ent)
 	if math.random(1, 2) == 1 && ent:IsNPC() then
 		//print(ent:Classify())
-		if ent.HLR_Type == "Headcrab" or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast" then
+		PrintTable(ent.VJTags)
+		print(ent.VJTags[VJ_TAG_HEADCRAB])
+		if ent.VJTags[VJ_TAG_HEADCRAB] or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast" then
 			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/headcrabs01.wav","vo/npc/"..self.Human_SdFolder.."/headcrabs02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head01.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head05.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head07.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head08.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_rollers02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_rollers03.wav"})
 			return
 		elseif ent:GetClass() == "npc_rollermine" then
@@ -358,7 +362,7 @@ function ENT:CustomOnAlert(ent)
 			if self.Human_Gender == 0 then table.insert(tbl2, "vj_hlr/hl2_npc/ep2/outland_12/reb1_lastwave06.wav") table.insert(tbl2, "vj_hlr/hl2_npc/ep2/outland_12/reb1_lastwave07.wav") end
 			self:PlaySoundSystem("Alert", tbl2)
 			return
-		elseif ent.HLR_Type == "Police" or ent:Classify() == CLASS_METROPOLICE then
+		elseif ent.VJTags[VJ_TAG_POLICE] or ent:Classify() == CLASS_METROPOLICE then
 			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/civilprotection01.wav","vo/npc/"..self.Human_SdFolder.."/civilprotection02.wav","vo/npc/"..self.Human_SdFolder.."/cps01.wav","vo/npc/"..self.Human_SdFolder.."/cps02.wav"})
 			return
 		elseif ent:GetClass() == "npc_strider" or ent:GetClass() == "npc_vj_hlr2_com_strider" then
@@ -366,7 +370,7 @@ function ENT:CustomOnAlert(ent)
 			if self.Human_Gender == 0 then table.insert(tbl2, "vj_hlr/hl2b_npc/citizen/strider.wav") table.insert(tbl2, "vj_hlr/hl2b_npc/citizen/turret.wav") end
 			self:PlaySoundSystem("Alert", tbl2)
 			return
-		elseif self.Human_Gender == 0 && (ent:Classify() == CLASS_MACHINE or ent.HLR_Type == "Turret" or ent:GetClass() == "npc_turret_floor") then
+		elseif self.Human_Gender == 0 && (ent:Classify() == CLASS_MACHINE or ent.VJTags[VJ_TAG_TURRET] or ent:GetClass() == "npc_turret_floor") then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2b_npc/citizen/turret.wav","vj_hlr/hl2b_npc/citizen/turrets.wav"})
 			return
 		elseif ent:Classify() == CLASS_SCANNER then

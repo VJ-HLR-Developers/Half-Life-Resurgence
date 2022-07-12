@@ -57,6 +57,8 @@ ENT.Turret_ControllerStatus = 0 -- Current status of the controller, 0 = Idle | 
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(13, 13, 63), Vector(-13, -13, 0))
 	
+	self:VJTags_Add(VJ_TAG_TURRET)
+	
 	self.Turret_Sprite = ents.Create("env_sprite")
 	self.Turret_Sprite:SetKeyValue("model","vj_base/sprites/vj_glow1.vmt")
 	self.Turret_Sprite:SetKeyValue("scale","0.1")

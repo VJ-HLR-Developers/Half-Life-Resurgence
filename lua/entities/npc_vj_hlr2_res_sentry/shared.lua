@@ -7,8 +7,6 @@ ENT.Purpose 		= "Spawn it and fight with it!"
 ENT.Instructions 	= "Click on the spawnicon to spawn it."
 ENT.Category		= "Half-Life Resurgence"
 
-ENT.HLR_Type = "Turret"
-
 if CLIENT then
 	local matLaser = Material("vj_hl/sprites/hl2/turret_laser_fade")
 	local laserColor = Color(255, 0, 0)

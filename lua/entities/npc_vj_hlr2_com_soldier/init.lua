@@ -194,7 +194,7 @@ function ENT:CustomOnAlert(ent)
 					end
 				end
 				self:PlaySoundSystem("Alert", sdCombine_Alert_Creatures)
-			elseif ent:Classify() == CLASS_PLAYER_ALLY or ent.HLR_Type == "Citizen" then
+			elseif ent:Classify() == CLASS_PLAYER_ALLY or ent.VJTags[VJ_TAG_CIVILIAN] then
 				self:PlaySoundSystem("Alert", sdCombine_Alert_Citizens)
 			end
 		end

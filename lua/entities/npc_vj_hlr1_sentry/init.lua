@@ -60,6 +60,7 @@ ENT.Sentry_ControllerStatus = 0 -- Current status of the controller, 0 = Idle | 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(13, 13, 60), Vector(-13, -13, 0))
+	self:VJTags_Add(VJ_TAG_TURRET)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)

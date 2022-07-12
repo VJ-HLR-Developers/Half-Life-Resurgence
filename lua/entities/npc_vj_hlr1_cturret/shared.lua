@@ -5,6 +5,4 @@ ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Purpose 		= "Spawn it and fight with it!"
 ENT.Instructions 	= "Click on the spawnicon to spawn it."
-ENT.Category		= "Hazardous Environment Combat Unit"
-
-ENT.HLR_Type = "Turret"
+ENT.Category		= "Half-Life Resurgence"
