@@ -50,10 +50,6 @@ ENT.RadiusDamage = 100 -- How much damage should it deal? Remember this is a rad
 ENT.RadiusDamageUseRealisticRadius = true -- Should the damage decrease the farther away the enemy is from the position that the projectile hit?
 ENT.RadiusDamageType = DMG_BLAST -- Damage type
 ENT.RadiusDamageForce = 90 -- Put the force amount it should apply | false = Don't apply any force
-ENT.ShakeWorldOnDeath = true -- Should the world shake when the projectile hits something?
-ENT.ShakeWorldOnDeathAmplitude = 16 -- How much the screen will shake | From 1 to 16, 1 = really low 16 = really high
-ENT.ShakeWorldOnDeathRadius = 3000 -- How far the screen shake goes, in world units
-ENT.ShakeWorldOnDeathFrequency = 200 -- The frequency
 ENT.DelayedRemove = 6 -- Change this to a number greater than 0 to delay the removal of the entity
 ENT.DecalTbl_DeathDecals = {"VJ_HLR_Scorch"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_weapon/rpg/rocket1.wav"}
@@ -142,6 +138,7 @@ end
 local vecZ80 = Vector(0, 0, 80)
 --
 function ENT:DeathEffects(data, phys)
+	util.ScreenShake(data.HitPos, 16, 200, 1, 3000)
 	if IsValid(self.StartGlow1) then self.StartGlow1:Remove() end
 	
 	self:SetNW2Bool("VJ_Dead", true)

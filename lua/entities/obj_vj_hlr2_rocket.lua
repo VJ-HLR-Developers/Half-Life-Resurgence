@@ -49,10 +49,6 @@ ENT.RadiusDamage = 150 -- How much damage should it deal? Remember this is a rad
 ENT.RadiusDamageUseRealisticRadius = true -- Should the damage decrease the farther away the enemy is from the position that the projectile hit?
 ENT.RadiusDamageType = DMG_BLAST -- Damage type
 ENT.RadiusDamageForce = 90 -- Put the force amount it should apply | false = Don't apply any force
-ENT.ShakeWorldOnDeath = true -- Should the world shake when the projectile hits something?
-ENT.ShakeWorldOnDeathAmplitude = 16 -- How much the screen will shake | From 1 to 16, 1 = really low 16 = really high
-ENT.ShakeWorldOnDeathRadius = 3000 -- How far the screen shake goes, in world units
-ENT.ShakeWorldOnDeathFrequency = 200 -- The frequency
 ENT.DecalTbl_DeathDecals = {"Scorch"}
 ENT.SoundTbl_Idle = {"weapons/rpg/rocket1.wav"}
 ENT.SoundTbl_OnCollide = {"ambient/explosions/explode_8.wav"}
@@ -85,6 +81,8 @@ function ENT:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects(data, phys)
+	util.ScreenShake(data.HitPos, 16, 200, 1, 3000)
+	
 	local effectdata = EffectData()
 	effectdata:SetOrigin(data.HitPos)
 	util.Effect("HelicopterMegaBomb", effectdata)

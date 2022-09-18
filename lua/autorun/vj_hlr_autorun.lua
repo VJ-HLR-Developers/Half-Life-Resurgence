@@ -434,9 +434,6 @@ if VJExists == true then
 	local defGibs_Red = {"models/vj_hlr/gibs/flesh1.mdl", "models/vj_hlr/gibs/flesh2.mdl", "models/vj_hlr/gibs/flesh3.mdl", "models/vj_hlr/gibs/flesh4.mdl", "models/vj_hlr/gibs/hgib_b_bone.mdl", "models/vj_hlr/gibs/hgib_b_gib.mdl", "models/vj_hlr/gibs/hgib_guts.mdl", "models/vj_hlr/gibs/hgib_hmeat.mdl", "models/vj_hlr/gibs/hgib_lung.mdl", "models/vj_hlr/gibs/hgib_skull.mdl", "models/vj_hlr/gibs/hgib_legbone.mdl"}
 	function VJ_HLR_ApplyCorpseEffects(ent, corpse, gibTbl, extraOptions)
 		extraOptions = extraOptions or {} -- CollideSound, ExpSound, Gibbable, CanBleed, ExtraGibs
-		local entHP = ent:GetMaxHealth() + 100
-		corpse:SetMaxHealth(entHP)
-		corpse:SetHealth(entHP)
 		corpse.HLR_Corpse = true
 		corpse.HLR_Corpse_Type = ent.BloodColor
 		if ent.HasBloodParticle then corpse.HLR_Corpse_Particle = ent.CustomBlood_Particle end
