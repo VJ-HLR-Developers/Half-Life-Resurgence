@@ -16,6 +16,7 @@ if VJExists == true then
 	include('autorun/vj_controls.lua')
 	
 	VJBASE_HLR_VERSION = "1.1.0"
+	VJBASE_HLR_HD_INSTALLED = file.Exists("lua/autorun/vj_hlr_hd_autorun.lua","GAME")
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ GoldSrc Engine ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -623,6 +624,7 @@ if VJExists == true then
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Convars & Menu ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+VJ.AddConVar("vj_hlr_hd", 0, {FCVAR_ARCHIVE})
 -- GoldSrc
 VJ.AddConVar("vj_hlr1_corpse_effects", 1, {FCVAR_ARCHIVE})
 VJ.AddConVar("vj_hlr1_corpse_gibbable", 1, {FCVAR_ARCHIVE})
@@ -630,7 +632,6 @@ VJ.AddConVar("vj_hlr1_gonarch_babylimit", 20, {FCVAR_ARCHIVE})
 VJ.AddConVar("vj_hlr1_bradley_deploygrunts", 1, {FCVAR_ARCHIVE})
 VJ.AddConVar("vj_hlr1_osprey_deploysoldiers", 1, {FCVAR_ARCHIVE})
 VJ.AddConVar("vj_hlr1_assassin_cloaks", 1, {FCVAR_ARCHIVE})
-VJ.AddConVar("vj_hlr1_hd", 0, {FCVAR_ARCHIVE})
 -- Source
 VJ.AddConVar("vj_hlr2_merkava_gunner", 1, {FCVAR_ARCHIVE})
 VJ.AddConVar("vj_hlr2_custom_skins", 1, {FCVAR_ARCHIVE})
@@ -655,9 +656,9 @@ if CLIENT then
 				return
 			end
 			Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
-			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_osprey_deploysoldiers 1\nvj_hlr2_merkava_gunner 1\nvj_hlr1_assassin_cloaks 1\nvj_hlr1_corpse_effects 1\nvj_hlr1_corpse_gibbable 1\nvj_hlr2_custom_skins 1\nvj_hlr1_hd 0"})
+			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_osprey_deploysoldiers 1\nvj_hlr2_merkava_gunner 1\nvj_hlr1_assassin_cloaks 1\nvj_hlr1_corpse_effects 1\nvj_hlr1_corpse_gibbable 1\nvj_hlr2_custom_skins 1\nvj_hlr_hd 0"})
+			Panel:AddControl("Checkbox", {Label = "Enable HD models (if available)", Command = "vj_hlr_hd"})
 			Panel:AddControl( "Label", {Text = "GoldSrc Engine:"})
-			Panel:AddControl("Checkbox", {Label = "Enable HD models (if available)", Command = "vj_hlr1_hd"})		-- disagreements resolved
 			Panel:AddControl("Checkbox", {Label = "Corpses Create Effects & Decals", Command = "vj_hlr1_corpse_effects"})
 			Panel:AddControl("Checkbox", {Label = "Corpses Can Be Dismembered", Command = "vj_hlr1_corpse_gibbable"})
 			Panel:AddControl("Checkbox", {Label = "M2A3 Bradley Deploys Human Grunts", Command = "vj_hlr1_bradley_deploygrunts"})

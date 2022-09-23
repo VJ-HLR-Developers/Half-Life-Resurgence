@@ -66,16 +66,14 @@ ENT.RangeAttackPitch = VJ_Set(130, 160)
 
 -- CustomBlood_Decal
 ENT.Vort_RunAway = false
-
--- HD
-local HDExists = file.Exists("lua/autorun/vj_hlr_hd_autorun.lua","GAME")
-ENT.CanUseHD = true -- used to make sure reskinned variants (Disco Vortigaunt from Crack-Life and etc.) running on the same base don't get replaced with HL1 HD variants
-
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPreInitialize()
+	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJBASE_HLR_HD_INSTALLED && self:GetClass() == "npc_vj_hlr1_alienslave" then
+		self.Model = "models/vj_hlr/hl_hd/islave.mdl"
+	end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	if HDExists == true && GetConVar("vj_hlr1_hd"):GetInt() == 1 && self.CanUseHD then
-		self:SetModel("models/vj_hlr/hl_hd/islave.mdl")
-	end
 	self:SetCollisionBounds(Vector(20, 20, 65), Vector(-20, -20, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
