@@ -75,12 +75,22 @@ ENT.Garg_AbleToFlame = false
 ENT.Garg_NextAbleToFlameT = 0
 ENT.Garg_NextStompAttackT = 0
 ENT.Garg_MeleeLargeKnockback = false
+
+-- HD
+local HDExists = file.Exists("lua/autorun/vj_hlr_hd_autorun.lua","GAME")
+ENT.CanUseHD = true
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	if self.Garg_Type == 0 then -- Adult garg
 		self:SetCollisionBounds(Vector(70,70,210), Vector(-70,-70,0))
+		if HDExists == true && GetConVar("vj_hlr1_hd"):GetInt() == 1 && self.CanUseHD then
+			self:SetModel("models/vj_hlr/hl_hd/garg.mdl")
+		end
 	elseif self.Garg_Type == 1 then -- Baby garg
 		self:SetCollisionBounds(Vector(32,32,105), Vector(-32,-32,0))
+		if HDExists == true && GetConVar("vj_hlr1_hd"):GetInt() == 1 && self.CanUseHD then
+			self:SetModel("models/vj_hlr/hl_hd/babygarg.mdl")
+		end
 	end
 	
 	local glow1 = ents.Create("env_sprite")

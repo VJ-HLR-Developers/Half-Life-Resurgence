@@ -65,8 +65,16 @@ ENT.FootStepPitch = VJ_Set(70, 70)
 ENT.AGrunt_Type = 0
 	-- 0 = Original / Default
 	-- 1 = Alpha
+
+-- HD
+local HDExists = file.Exists("lua/autorun/vj_hlr_hd_autorun.lua","GAME")
+ENT.CanUseHD = true -- used to make sure reskinned variants (Disco Vortigaunt from Crack-Life and etc.) running on the same base don't get replaced with HL1 HD variants
+
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+	if HDExists == true && GetConVar("vj_hlr1_hd"):GetInt() == 1 && self.CanUseHD then
+		self:SetModel("models/vj_hlr/hl_hd/agrunt.mdl")
+	end
 	self:SetCollisionBounds(Vector(25, 25, 85), Vector(-25, -25, 0))
 	
 	if self.AGrunt_Type == 1 then --Alpha

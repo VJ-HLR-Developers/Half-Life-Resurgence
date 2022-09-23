@@ -81,7 +81,7 @@ if VJExists == true then
 	VJ.AddNPC("Headcrab (Baby)", "npc_vj_hlr1_headcrab_baby", vCat)
 	VJ.AddNPC("Zombie", "npc_vj_hlr1_zombie", vCat)
 	VJ.AddNPC("Flocking Floater", "npc_vj_hlr1_floater", vCat)
-	//VJ.AddNPC("Stukabat", "npc_vj_hlr1_stukabat", vCat)
+	VJ.AddNPC("Stukabat", "npc_vj_hlr1_stukabat", vCat)
 	VJ.AddNPC("Alien Controller", "npc_vj_hlr1_aliencontroller", vCat)
 	VJ.AddNPC("Alien Grunt", "npc_vj_hlr1_aliengrunt", vCat)
 	VJ.AddNPC("Alien Slave", "npc_vj_hlr1_alienslave", vCat)
@@ -656,8 +656,8 @@ if CLIENT then
 			end
 			Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
 			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_osprey_deploysoldiers 1\nvj_hlr2_merkava_gunner 1\nvj_hlr1_assassin_cloaks 1\nvj_hlr1_corpse_effects 1\nvj_hlr1_corpse_gibbable 1\nvj_hlr2_custom_skins 1\nvj_hlr1_hd 0"})
-			--Panel:AddControl("Checkbox", {Label = "Enable HD models (if available)", Command = "vj_hlr1_hd"})				-- internal disagreements
 			Panel:AddControl( "Label", {Text = "GoldSrc Engine:"})
+			Panel:AddControl("Checkbox", {Label = "Enable HD models (if available)", Command = "vj_hlr1_hd"})		-- disagreements resolved
 			Panel:AddControl("Checkbox", {Label = "Corpses Create Effects & Decals", Command = "vj_hlr1_corpse_effects"})
 			Panel:AddControl("Checkbox", {Label = "Corpses Can Be Dismembered", Command = "vj_hlr1_corpse_gibbable"})
 			Panel:AddControl("Checkbox", {Label = "M2A3 Bradley Deploys Human Grunts", Command = "vj_hlr1_bradley_deploygrunts"})
