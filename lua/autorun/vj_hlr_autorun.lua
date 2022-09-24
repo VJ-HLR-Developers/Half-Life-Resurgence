@@ -657,7 +657,8 @@ if CLIENT then
 			end
 			Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
 			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_osprey_deploysoldiers 1\nvj_hlr2_merkava_gunner 1\nvj_hlr1_assassin_cloaks 1\nvj_hlr1_corpse_effects 1\nvj_hlr1_corpse_gibbable 1\nvj_hlr2_custom_skins 1\nvj_hlr_hd 0"})
-			Panel:AddControl("Checkbox", {Label = "Enable HD models (if available)", Command = "vj_hlr_hd"})
+			Panel:AddControl("Checkbox", {Label = "Enable HD Models (if available)", Command = "vj_hlr_hd"})
+			Panel:ControlHelp("Base HLR requires the HD extension to be installed!")
 			Panel:AddControl( "Label", {Text = "GoldSrc Engine:"})
 			Panel:AddControl("Checkbox", {Label = "Corpses Create Effects & Decals", Command = "vj_hlr1_corpse_effects"})
 			Panel:AddControl("Checkbox", {Label = "Corpses Can Be Dismembered", Command = "vj_hlr1_corpse_gibbable"})
