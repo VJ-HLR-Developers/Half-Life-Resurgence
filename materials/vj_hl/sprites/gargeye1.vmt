@@ -1,6 +1,10 @@
-"Sprite"
+"UnlitGeneric"
 {
-    "$spriteorientation" "vp_parallel_oriented"
-    "$spriteorigin" "[ 0.50 0.50 ]"
-    "$basetexture" "vj_hl/sprites/gargeye1"
+	"$basetexture" "vj_hl/sprites/gargeye1_original"
+
+	"$additive"	1
+	"$vertexcolor"	1
+	"$vertexalpha"	1
+
+	"$surfaceprop"	"no_decal"
 }
