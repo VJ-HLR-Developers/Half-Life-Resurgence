@@ -43,6 +43,7 @@ ENT.GMAN_NextMouthDistance = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:AddFlags(FL_NOTARGET)
+	self:SetCollisionBounds(Vector(16,16,70),Vector(-16,-16,-0.7)) --0.1 fixes the bad lighting on the model
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
