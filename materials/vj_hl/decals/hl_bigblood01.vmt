@@ -6,4 +6,6 @@
 	"$decal" 1
 	"$Size"		"256 256"
 	"$decalscale" 	0.50
+	
+	"$modelmaterial" "vj_hl/decals/hl_bigblood01_model"
 }

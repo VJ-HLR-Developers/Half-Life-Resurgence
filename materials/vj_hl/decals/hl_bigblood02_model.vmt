@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "vj_hl/decals/hl_bigblood02"
+	"$translucent" "1"
+}

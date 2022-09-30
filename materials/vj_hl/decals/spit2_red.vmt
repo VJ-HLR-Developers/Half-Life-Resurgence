@@ -5,4 +5,6 @@
 	"$basetexture" "vj_hl/decals/spit2_red"
 	"$decal" 1
 	"$decalscale" 	0.70
+	
+	"$modelmaterial" "vj_hl/decals/spit2_red_model"
 }
