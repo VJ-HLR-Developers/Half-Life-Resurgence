@@ -147,7 +147,7 @@ function ENT:CustomOnInitialize()
 	elseif myMDL == "models/vj_hlr/opfor/massn.mdl" then
 		self.HECU_Type = 4
 		self.HECU_WepBG = 2
-	elseif myMDL == "models/vj_hlr/hl1/rgrunt.mdl" or myMDL == "models/vj_hlr/hl1/rgrunt_black.mdl" then
+	elseif myMDL == "models/vj_hlr/hl1/rgrunt.mdl" or myMDL == "models/vj_hlr/hl1/rgrunt_black.mdl" or myMDL == "models/vj_hlr/hl_hd/rgrunt.mdl" then
 		self.HECU_Type = 5
 		self.HECU_WepBG = 1
 	elseif myMDL == "models/vj_hlr/hla/hgrunt.mdl" then
@@ -403,8 +403,14 @@ function ENT:CustomOnThink()
 		elseif self.HECU_Type == 5 then -- 5 = Robot Grunt
 			if bgroup == 0 then -- MP5
 				self:DoChangeWeapon("weapon_vj_hlr1_mp5")
+				if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJBASE_HLR_HD_INSTALLED then
+					self:DoChangeWeapon("weapon_vj_hlr1_m4_hd")
+				end
 			elseif bgroup == 1 then -- Shotgun
 				self:DoChangeWeapon("weapon_vj_hlr1_spas12")
+				if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJBASE_HLR_HD_INSTALLED then
+					self:DoChangeWeapon("weapon_vj_hlr1_spas12_hd")
+				end
 			elseif IsValid(self:GetActiveWeapon()) then
 				self:GetActiveWeapon():Remove()
 			end

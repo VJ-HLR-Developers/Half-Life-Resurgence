@@ -23,6 +23,12 @@ ENT.BreathSoundLevel = 50
 ENT.GeneralSoundPitch1 = 130
 ENT.GeneralSoundPitch2 = 140
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPreInitialize()
+	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJBASE_HLR_HD_INSTALLED && self:GetClass() == "npc_vj_hlr1_rgrunt" then
+		self.Model = "models/vj_hlr/hl_hd/rgrunt.mdl"
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
 	self:SetBodygroup(1, math.random(0, 1))
 	self.SoundTbl_FootStep = {"vj_hlr/hl1_npc/rgrunt/pl_metal1.wav","vj_hlr/hl1_npc/rgrunt/pl_metal2.wav","vj_hlr/hl1_npc/rgrunt/pl_metal3.wav","vj_hlr/hl1_npc/rgrunt/pl_metal4.wav"}
