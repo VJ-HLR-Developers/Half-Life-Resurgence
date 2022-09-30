@@ -1,9 +1,9 @@
 "LightmappedGeneric"
 {
-	"$basetexture" 	"vj_hl/decals/mommablob"
-
+	"$basetexture" "vj_hl/decals/mommablob"
+	"$decal" "1"
 	"$translucent" 	"1"
-
-	"$decal" 		"1"
 	"$decalscale" 	"1.25"
+
+	"$modelmaterial" "vj_hl/decals/mommablob_model"
 }
