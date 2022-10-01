@@ -70,11 +70,14 @@ function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 	-- Create the rocket entity
 	local owner = self:GetOwner()
 	local proj = ents.Create("obj_vj_hlr2_rocket")
-	local ply_Ang = owner:GetAimVector():Angle()
-	local ply_Pos = owner:GetShootPos() + ply_Ang:Forward()*-20 + ply_Ang:Up()*-9 + ply_Ang:Right()*10
-	local targAng = owner:IsNPC() && IsValid(owner:GetEnemy()) && (owner:GetEnemy():GetPos() - self:GetNW2Vector("VJ_CurBulletPos")):Angle() or owner:GetAngles()
-	if owner:IsPlayer() then proj:SetPos(ply_Pos) else proj:SetPos(self:GetNW2Vector("VJ_CurBulletPos")) end
-	if owner:IsPlayer() then proj:SetAngles(ply_Ang) else proj:SetAngles(targAng) end
+	if owner:IsPlayer() then
+		local plyAng = owner:GetAimVector():Angle()
+		proj:SetPos(owner:GetShootPos() + plyAng:Forward()*-20 + plyAng:Up()*-9 + plyAng:Right()*10)
+		proj:SetAngles(plyAng)
+	else
+		proj:SetPos(self:GetNW2Vector("VJ_CurBulletPos"))
+		proj:SetAngles((owner:IsNPC() && IsValid(owner:GetEnemy()) && (owner:GetEnemy():GetPos() - self:GetNW2Vector("VJ_CurBulletPos")):Angle()) or owner:GetAngles())
+	end
 	proj:SetOwner(owner)
 	proj:Activate()
 	proj:Spawn()

@@ -67,34 +67,31 @@ function ENT:CustomOnThink()
 	local owner = self:GetOwner()
 	local phys = self:GetPhysicsObject()
 	local ent = self.Target or owner:IsNPC() && owner:GetEnemy()
-	local pos
+	local pos;
 	local turnSpeed = self.TurnSpeed
 	if owner:IsNPC() && IsValid(ent) && (owner.VJ_ForceRocketFollow or IsValid(owner:GetActiveWeapon())) then
-		pos = (ent:GetPos() +ent:OBBCenter()) +ent:GetVelocity() *0.25
+		pos = (ent:GetPos() + ent:OBBCenter()) + ent:GetVelocity() * 0.25
 	else
 		if owner:IsPlayer() && self.Rocket_Follow then
+			local shootPos = owner:GetShootPos()
 			local tr = util.TraceLine({
-				start = owner:GetShootPos(),
-				endpos = owner:GetShootPos() +owner:GetAimVector() *32768,
-				filter = {owner,self}
+				start = shootPos,
+				endpos = shootPos + owner:GetAimVector() * 32768,
+				filter = {owner, self}
 			})
 			pos = tr.HitPos
 		else
-			pos = self:GetPos() +(self:GetForward() *self.Speed +VectorRand(-1,1))
+			pos = self:GetPos() + (self:GetForward() * self.Speed + VectorRand(-1, 1))
 			turnSpeed = 3
 		end
 	end
-
-	local targetDir = (pos -self:GetPos()):GetNormalized()
 	if IsValid(phys) then
-		local angVel = self:WorldToLocalAngles(targetDir:Angle())
-		angVel.p = math.Clamp(angVel.p *800,-turnSpeed,turnSpeed)
-		angVel.y = math.Clamp(angVel.y *800,-turnSpeed,turnSpeed)
-		angVel.r = math.Clamp(angVel.r *800,-turnSpeed,turnSpeed)
-		
-		local curAngVel = phys:GetAngleVelocity()
-		phys:AddAngleVelocity(Vector(angVel.r,angVel.p,angVel.y) -curAngVel) 
-		phys:SetVelocityInstantaneous(self:GetForward() *self.Speed)
+		local angVel = self:WorldToLocalAngles((pos - self:GetPos()):GetNormalized():Angle())
+		angVel.p = math.Clamp(angVel.p * 800, -turnSpeed, turnSpeed)
+		angVel.y = math.Clamp(angVel.y * 800, -turnSpeed, turnSpeed)
+		angVel.r = math.Clamp(angVel.r * 800, -turnSpeed, turnSpeed)
+		phys:AddAngleVelocity(Vector(angVel.r, angVel.p, angVel.y) - phys:GetAngleVelocity())
+		phys:SetVelocityInstantaneous(self:GetForward() * self.Speed)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
