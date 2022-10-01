@@ -68,12 +68,14 @@ function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 	if IsValid(self.RPG_LastShotEnt) then return true end -- Wait until the last shot has detonated
 	
 	-- Create the rocket entity
+	local owner = self:GetOwner()
 	local proj = ents.Create("obj_vj_hlr2_rocket")
-	local ply_Ang = self:GetOwner():GetAimVector():Angle()
-	local ply_Pos = self:GetOwner():GetShootPos() + ply_Ang:Forward()*-20 + ply_Ang:Up()*-9 + ply_Ang:Right()*10
-	if self:GetOwner():IsPlayer() then proj:SetPos(ply_Pos) else proj:SetPos(self:GetNW2Vector("VJ_CurBulletPos")) end
-	if self:GetOwner():IsPlayer() then proj:SetAngles(ply_Ang) else proj:SetAngles(self:GetOwner():GetAngles()) end
-	proj:SetOwner(self:GetOwner())
+	local ply_Ang = owner:GetAimVector():Angle()
+	local ply_Pos = owner:GetShootPos() + ply_Ang:Forward()*-20 + ply_Ang:Up()*-9 + ply_Ang:Right()*10
+	local targAng = owner:IsNPC() && IsValid(owner:GetEnemy()) && (owner:GetEnemy():GetPos() - self:GetNW2Vector("VJ_CurBulletPos")):Angle() or owner:GetAngles()
+	if owner:IsPlayer() then proj:SetPos(ply_Pos) else proj:SetPos(self:GetNW2Vector("VJ_CurBulletPos")) end
+	if owner:IsPlayer() then proj:SetAngles(ply_Ang) else proj:SetAngles(targAng) end
+	proj:SetOwner(owner)
 	proj:Activate()
 	proj:Spawn()
 	proj.Rocket_Follow = self:GetNWLaser()

@@ -55,28 +55,46 @@ ENT.SoundTbl_OnCollide = {"ambient/explosions/explode_8.wav"}
 
 -- Custom
 ENT.Rocket_Follow = true
+ENT.Speed = 1200
+ENT.TurnSpeed = 40
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-//	ParticleEffectAttach("vj_rpg1_smoke", PATTACH_ABSORIGIN_FOLLOW, self, 0)
-	//ParticleEffectAttach("vj_rpg2_smoke2", PATTACH_ABSORIGIN_FOLLOW, self, 0)
-	
-	self.LastAngle = self:GetAngles()
+	ParticleEffectAttach("vj_rpg1_fulltrail", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	ParticleEffectAttach("vj_rpg2_fulltrail", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	local owner = self:GetOwner()
 	local phys = self:GetPhysicsObject()
-	if IsValid(owner) && IsValid(phys) then
-		local pos = self:GetPos() + self:GetForward()*200
-		if owner:IsNPC() && IsValid(owner:GetEnemy()) && (owner.VJ_ForceRocketFollow or IsValid(owner:GetActiveWeapon())) then
-			pos = owner:GetEnemy():GetPos() + owner:GetEnemy():OBBCenter()
-		elseif (owner:IsPlayer()) && self.Rocket_Follow == true then
-			pos = owner:GetEyeTrace().HitPos
+	local ent = self.Target or owner:IsNPC() && owner:GetEnemy()
+	local pos
+	local turnSpeed = self.TurnSpeed
+	if owner:IsNPC() && IsValid(ent) && (owner.VJ_ForceRocketFollow or IsValid(owner:GetActiveWeapon())) then
+		pos = (ent:GetPos() +ent:OBBCenter()) +ent:GetVelocity() *0.25
+	else
+		if owner:IsPlayer() && self.Rocket_Follow then
+			local tr = util.TraceLine({
+				start = owner:GetShootPos(),
+				endpos = owner:GetShootPos() +owner:GetAimVector() *32768,
+				filter = {owner,self}
+			})
+			pos = tr.HitPos
+		else
+			pos = self:GetPos() +(self:GetForward() *self.Speed +VectorRand(-1,1))
+			turnSpeed = 3
 		end
-		self.LastAngle = LerpAngle(FrameTime()*42, self.LastAngle, (pos - self:GetPos()):Angle())
-		-- self:SetAngles((pos - self:GetPos()):Angle())
-		phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self:GetPos() + self.LastAngle:Forward(), 2000))
-		self:SetAngles(self.LastAngle)
+	end
+
+	local targetDir = (pos -self:GetPos()):GetNormalized()
+	if IsValid(phys) then
+		local angVel = self:WorldToLocalAngles(targetDir:Angle())
+		angVel.p = math.Clamp(angVel.p *800,-turnSpeed,turnSpeed)
+		angVel.y = math.Clamp(angVel.y *800,-turnSpeed,turnSpeed)
+		angVel.r = math.Clamp(angVel.r *800,-turnSpeed,turnSpeed)
+		
+		local curAngVel = phys:GetAngleVelocity()
+		phys:AddAngleVelocity(Vector(angVel.r,angVel.p,angVel.y) -curAngVel) 
+		phys:SetVelocityInstantaneous(self:GetForward() *self.Speed)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
