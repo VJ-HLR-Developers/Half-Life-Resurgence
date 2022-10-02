@@ -22,22 +22,6 @@ if CLIENT then
 	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
 	language.Add("#"..LangName, Name)
 	killicon.Add("#"..LangName,"HUD/killicons/default",Color(255,80,0,255))
-
-	function ENT:Think()
-		if self:IsValid() then
-			self.Emitter = ParticleEmitter(self:GetPos())
-			self.SmokeEffect1 = self.Emitter:Add("particles/flamelet2",self:GetPos() +self:GetForward()*-7)
-			self.SmokeEffect1:SetVelocity(self:GetForward() * math.Rand(0, -50) + Vector(math.Rand(5, -5), math.Rand(5, -5), math.Rand(5, -5)) + self:GetVelocity())
-			self.SmokeEffect1:SetDieTime(0.2)
-			self.SmokeEffect1:SetStartAlpha(100)
-			self.SmokeEffect1:SetEndAlpha(0)
-			self.SmokeEffect1:SetStartSize(10)
-			self.SmokeEffect1:SetEndSize(1)
-			self.SmokeEffect1:SetRoll(math.Rand(-0.2,0.2))
-			self.SmokeEffect1:SetAirResistance(200)
-			self.Emitter:Finish()
-		end
-	end
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
@@ -81,29 +65,33 @@ function ENT:CustomOnThink()
 			})
 			pos = tr.HitPos
 		else
-			pos = self:GetPos() + (self:GetForward() * self.Speed + VectorRand(-1, 1))
-			turnSpeed = 3
+			pos = self:GetPos() + (self:GetForward() * self.Speed + VectorRand(-10, 10))
+			-- turnSpeed = 20
 		end
 	end
 	if IsValid(phys) then
-		local angVel = self:WorldToLocalAngles((pos - self:GetPos()):GetNormalized():Angle())
-		angVel.p = math.Clamp(angVel.p * 800, -turnSpeed, turnSpeed)
-		angVel.y = math.Clamp(angVel.y * 800, -turnSpeed, turnSpeed)
-		angVel.r = math.Clamp(angVel.r * 800, -turnSpeed, turnSpeed)
-		phys:AddAngleVelocity(Vector(angVel.r, angVel.p, angVel.y) - phys:GetAngleVelocity())
-		phys:SetVelocityInstantaneous(self:GetForward() * self.Speed)
+		local dir = (pos - self:GetPos()):GetNormalized()
+		local ang = dir:Angle()
+		self.TargetAngle = LerpAngle(FrameTime() * turnSpeed, self.TargetAngle or ang, ang)
+
+		phys:ApplyForceCenter(self:GetForward() * self.Speed)
+		phys:SetAngles(self.TargetAngle)
 	end
+
+	sound.EmitHint(SOUND_DANGER, self:GetPos() +self:GetVelocity() *2, self.RadiusDamageRadius *2, 1, self)
+
+	self:NextThink(CurTime())
+	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects(data, phys)
 	util.ScreenShake(data.HitPos, 16, 200, 1, 3000)
+	ParticleEffect("vj_explosion2", self:GetPos(), Angle(), nil)
 	
 	local effectdata = EffectData()
 	effectdata:SetOrigin(data.HitPos)
 	util.Effect("HelicopterMegaBomb", effectdata)
-	util.Effect("ThumperDust", effectdata)
 	util.Effect("Explosion", effectdata)
-	util.Effect("VJ_Small_Explosion1", effectdata)
 
 	local lightdyn = ents.Create("light_dynamic")
 	lightdyn:SetKeyValue("brightness", "4")

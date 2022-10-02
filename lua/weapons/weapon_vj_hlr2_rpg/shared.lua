@@ -119,20 +119,22 @@ if CLIENT then
 	end
 
 	function SWEP:CustomOnDrawWorldModel()
-		if IsValid(self:GetOwner()) then
+		local owner = self:GetOwner()
+		if IsValid(owner) then
 			local pos = self:GetPos()
-			local useNWLaser = self:GetOwner():IsPlayer() and self:GetNWLaser() or self:GetOwner():IsNPC() and true
-			if self:GetOwner():IsPlayer() then
-				pos = self:GetOwner():GetEyeTrace().HitPos
+			local useNWLaser = owner:IsPlayer() and self:GetNWLaser() or owner:IsNPC() and true
+			if owner:IsPlayer() then
+				pos = owner:GetEyeTrace().HitPos
 			else
+				local ent = self:GetNWEnemy()
 				local tr = util.TraceLine({
 					start = self:GetAttachment(1).Pos,
 					endpos = self:GetAttachment(1).Pos + self:GetAttachment(1).Ang:Forward()*32000,
-					filter = {self, self:GetOwner()},
+					filter = {self, owner},
 				})
-				pos = (tr.Hit and tr.HitPos) or (ent:GetPos() + ent:OBBCenter())
+				pos = (tr.Hit and tr.HitPos) or (IsValid(ent) && ent:GetPos() + ent:OBBCenter() or self:GetAttachment(1).Pos + self:GetAttachment(1).Ang:Forward()*32000)
 			end
-			local size = (self:GetOwner():IsPlayer() && 5) or 15
+			local size = (owner:IsPlayer() && 5) or 15
 			if useNWLaser then
 				render.SetMaterial(SpriteMaterial)
 				render.DrawSprite(pos, math.random(size - 1, size + 1), math.random(size - 1, size + 1), Color(255,0,0,255))
