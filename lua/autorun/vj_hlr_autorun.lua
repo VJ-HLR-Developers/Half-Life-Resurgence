@@ -646,6 +646,7 @@ VJ.AddConVar("vj_hlr_autoreplace_alliedagainstply", 0, {FCVAR_ARCHIVE, FCVAR_NOT
 
 VJ.AddClientConVar("vj_hlr1_sparkfx", 0, "Create HL1-Style Sparks on Metal Surfaces")
 VJ.AddClientConVar("vj_hlr2_csniper_laser_usebarrel", 1, "Combine Sniper Laser Follows Gun Barrel")
+VJ.AddClientConVar("vj_hlr2_combine_eyeglow", 0, "Create Glow Effects to Combine Eyes")
 
 if CLIENT then
 	hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_HLR", function()
@@ -693,11 +694,13 @@ if CLIENT then
 		end)
 		
 		spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HL Resurgence (Client)", "HL Resurgence (Client)", "", "", function(Panel)
-			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr2_csniper_laser_usebarrel 1\nvj_hlr1_sparkfx 0"})
+			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr2_csniper_laser_usebarrel 1\nvj_hlr1_sparkfx 0\nvj_hlr2_combine_eyeglow 0"})
 			Panel:AddControl("Checkbox", {Label = "Create HL1-Style Sparks on Metal Surfaces", Command = "vj_hlr1_sparkfx"})
 			Panel:ControlHelp("Applies ONLY to HL1 NPCs & weapons!")
 			Panel:AddControl("Checkbox", {Label = "Combine Sniper Laser Follows Gun Barrel", Command = "vj_hlr2_csniper_laser_usebarrel"})
 			Panel:ControlHelp("Unchecked = Laser will pinpoint to the enemy instead")
+			Panel:AddControl("Checkbox", {Label = "Create Glow Effects to Combine Eyes", Command = "vj_hlr2_combine_eyeglow"})
+			Panel:ControlHelp("Requires map restart! | WARNING: Causes performance loss!")
 		end)
 	end)
 end

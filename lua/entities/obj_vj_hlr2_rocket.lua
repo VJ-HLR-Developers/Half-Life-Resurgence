@@ -78,7 +78,8 @@ function ENT:CustomOnThink()
 		phys:SetAngles(self.TargetAngle)
 	end
 
-	sound.EmitHint(SOUND_DANGER, self:GetPos() +self:GetVelocity() *2, self.RadiusDamageRadius *2, 1, self)
+	sound.EmitHint(SOUND_DANGER, self:GetPos() + self:GetAbsVelocity() * 2, 100, 0.2, self)
+	-- Source: CSoundEnt::InsertSound( SOUND_DANGER, tr.endpos, 100, 0.2, this, SOUNDENT_CHANNEL_REPEATED_DANGER );
 
 	self:NextThink(CurTime())
 	return true
