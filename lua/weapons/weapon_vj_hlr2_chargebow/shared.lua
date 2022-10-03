@@ -34,18 +34,10 @@ SWEP.Primary.DistantSound = {}
 SWEP.PrimaryEffects_MuzzleFlash = false
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.Primary.DisableBulletCode = true
-	-- Deployment Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.DelayOnDeploy = 0.4 -- Time until it can shoot again after deploying the weapon
 	-- Reload Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.HasReloadSound = true -- Does it have a reload sound? Remember even if this is set to false, the animation sound will still play!
 SWEP.ReloadSound = "weapons/physcannon/physcannon_pickup.wav" // npc/assassin/ball_zap1.wav
 SWEP.Reload_TimeUntilAmmoIsSet = 1 -- Time until ammo is set to the weapon
-SWEP.Reload_TimeUntilFinished = 1.25 -- How much time until the player can play idle animation, shoot, etc.
-	-- Idle Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.HasIdleAnimation = true -- Does it have a idle animation?
-SWEP.AnimTbl_Idle = {ACT_VM_IDLE}
-SWEP.NextIdle_Deploy = 1.55 -- How much time until it plays the idle animation after the weapon gets deployed
-SWEP.NextIdle_PrimaryAttack = 1 -- How much time until it plays the idle animation after attacking(Primary)
 
 -- Custom
 SWEP.Bow_NumShots = 1
@@ -80,7 +72,6 @@ function SWEP:CustomOnReload()
 	VJ_CreateSound(self, "buttons/button19.wav")
 	self.AnimTbl_Idle = {ACT_VM_IDLE}
 	self.AnimTbl_Draw = {ACT_VM_DRAW}
-	self.NextIdle_Deploy = 1.55
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:SecondaryAttack()
@@ -95,9 +86,6 @@ function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 	if owner:IsPlayer() then
 		self.AnimTbl_Idle = {ACT_VM_FIDGET}
 		self.AnimTbl_Draw = {ACT_VM_DRAW_EMPTY}
-		self.NextIdle_Deploy = 1
-		self.Reloading = true
-		timer.Simple(0.9, function() if IsValid(self) then self.Reloading = false self:DoIdleAnimation() end end)
 	end
 	if CLIENT then return end
 

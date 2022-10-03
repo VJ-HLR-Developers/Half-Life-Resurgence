@@ -29,15 +29,7 @@ SWEP.Primary.Sound = {"vj_hlr/hl2_weapon/alyx_gun/alyx_gun_fire3.wav","vj_hlr/hl
 SWEP.Primary.DistantSound = {"vj_hlr/hl2_weapon/alyx_gun/alyx_gun_fire5.wav","vj_hlr/hl2_weapon/alyx_gun/alyx_gun_fire6.wav"}
 SWEP.PrimaryEffects_ShellAttachment = "1"
 SWEP.PrimaryEffects_ShellType = "VJ_Weapon_PistolShell1"
-	-- Deployment Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.DelayOnDeploy = 0.4 -- Time until it can shoot again after deploying the weapon
 	-- Reload Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.HasReloadSound = true -- Does it have a reload sound? Remember even if this is set to false, the animation sound will still play!
 SWEP.ReloadSound = "weapons/pistol/pistol_reload1.wav"
 SWEP.Reload_TimeUntilAmmoIsSet = 1 -- Time until ammo is set to the weapon
-SWEP.Reload_TimeUntilFinished = 1.4 -- How much time until the player can play idle animation, shoot, etc.
-	-- Idle Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.HasIdleAnimation = true -- Does it have a idle animation?
-SWEP.AnimTbl_Idle = {ACT_VM_IDLE}
-SWEP.NextIdle_Deploy = 0.5 -- How much time until it plays the idle animation after the weapon gets deployed
-SWEP.NextIdle_PrimaryAttack = 0.13 -- How much time until it plays the idle animation after attacking(Primary)
