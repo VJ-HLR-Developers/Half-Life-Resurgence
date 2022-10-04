@@ -89,6 +89,12 @@ ENT.HECU_NextMouthDistance = 0
 
 local defPos = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPreInitialize()
+	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJBASE_HLR_HD_INSTALLED && self:GetClass() == "npc_vj_hlr1_hgrunt" then
+		self.Model = "models/vj_hlr/hl_hd/hgrunt.mdl"
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnInitialize()
 	self.HECU_UsingDefaultSounds = true
 	self.SoundTbl_Idle = {"vj_hlr/hl1_npc/hgrunt/gr_alert1.wav","vj_hlr/hl1_npc/hgrunt/gr_idle1.wav","vj_hlr/hl1_npc/hgrunt/gr_idle2.wav","vj_hlr/hl1_npc/hgrunt/gr_idle3.wav"}
@@ -170,6 +176,9 @@ function ENT:CustomOnInitialize()
 	elseif myMDL == "models/vj_hlr/cracklife/hgrunt.mdl" then
 		self.HECU_Type = 8
 		self.HECU_WepBG = 1
+	elseif myMDL == "models/vj_hlr/hl_hd/hgrunt.mdl" then
+		self.HECU_Type = 9
+		self.HECU_WepBG = 2
 	end
 	
 	self.HECU_NextMouthMove = CurTime()
@@ -262,7 +271,7 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
 	local bgroup = self.HGrunt_LastBodyGroup
 	self.WeaponAnimTranslations[ACT_IDLE] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_repel") or ACT_IDLE
 	self.WeaponAnimTranslations[ACT_IDLE_ANGRY] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_repel") or ACT_IDLE_ANGRY
-	if self.HECU_Type == 0 then-- 0 = HL1 Grunt
+	if self.HECU_Type == 0 or self.HECU_Type == 9 then-- 0 = HL1 Grunt
 		if bgroup == 0 then -- MP5
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1_LOW
@@ -434,6 +443,14 @@ function ENT:CustomOnThink()
 			elseif IsValid(self:GetActiveWeapon()) then
 				self:GetActiveWeapon():Remove()
 			end
+		elseif self.HECU_Type == 9 then -- 0 = HL1 HD Grunt
+			if bgroup == 0 then -- M4
+				self:DoChangeWeapon("weapon_vj_hlr1_m4_hd")
+			elseif bgroup == 1 then -- Shotgun
+				self:DoChangeWeapon("weapon_vj_hlr1_spas12_hd")
+			elseif IsValid(self:GetActiveWeapon()) then
+				self:GetActiveWeapon():Remove()
+			end
 		end
 	end
 	
@@ -601,7 +618,7 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
 	-- Remove the weapon body group
 	if self.HECU_Type == 6 or self.HECU_Type == 7 then
 		self:SetBodygroup(self.HECU_WepBG, 1)
-	elseif self.HECU_Type == 0 or self.HECU_Type == 3 or self.HECU_Type == 4 then
+	elseif self.HECU_Type == 0 or self.HECU_Type == 3 or self.HECU_Type == 4 or self.HECU_Type == 9 then
 		self:SetBodygroup(self.HECU_WepBG, 2)
 	elseif self.HECU_Type == 5 then
 		self:SetBodygroup(self.HECU_WepBG, 2)
