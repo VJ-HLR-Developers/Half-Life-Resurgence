@@ -681,7 +681,15 @@ if CLIENT then
 			end
 			Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
 			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr_autoreplace 0\nvj_hlr_autoreplace_hl1 1\nvj_hlr_autoreplace_hl2 1\nvj_hlr_autoreplace_random 0\nvj_hlr_autoreplace_randommix 0\nvj_hlr_autoreplace_essential 0\nvj_hlr_autoreplace_randommix 0"})
-			Panel:AddControl("Label", {Text = "Half-Life Resurgence Auto Replace script replaces HL1 or HL2 NPCs with the corresponding HLR SNPC!"})
+			Panel:AddControl("Label", {Text = "Auto Replace script replaces HL1 / HL2 NPCs with the corresponding Half-Life Resurgence NPC!"})
+			local vid = vgui.Create("DButton")
+				vid:SetFont("TargetID")
+				vid:SetText("What is Auto Replace?")
+				vid:SetSize(150, 25)
+				vid.DoClick = function()
+					gui.OpenURL("https://www.youtube.com/watch?v=I7_I-HFA_Ks")
+				end
+			Panel:AddPanel(vid)
 			Panel:AddControl("Checkbox", {Label = "Enable Auto Replacement Script", Command = "vj_hlr_autoreplace"})
 			Panel:AddControl("Checkbox", {Label = "Replace HL1 NPCs", Command = "vj_hlr_autoreplace_hl1"})
 			Panel:AddControl("Checkbox", {Label = "Replace HL2 NPCs", Command = "vj_hlr_autoreplace_hl2"})
