@@ -236,7 +236,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				end
 				-- Handle weapon
 				local wep = ent.GetActiveWeapon && ent:GetActiveWeapon() or false -- In case GetActiveWeapon is not in the ent's metatable
-				print(worldName, wep)
+				//print(worldName, wep)
 				if IsValid(wep) then
 					local foundWep = replaceTbl_Weapons[wep:GetClass()]
 					newEnt:Give(VJ_PICK(foundWep))
