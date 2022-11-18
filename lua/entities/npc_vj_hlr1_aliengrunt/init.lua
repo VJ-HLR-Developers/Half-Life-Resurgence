@@ -67,7 +67,7 @@ ENT.AGrunt_Type = 0
 	-- 1 = Alpha
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJBASE_HLR_HD_INSTALLED && self:GetClass() == "npc_vj_hlr1_aliengrunt" then
+	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_HD_INSTALLED && self:GetClass() == "npc_vj_hlr1_aliengrunt" then
 		self.Model = "models/vj_hlr/hl_hd/agrunt.mdl"
 	end
 end

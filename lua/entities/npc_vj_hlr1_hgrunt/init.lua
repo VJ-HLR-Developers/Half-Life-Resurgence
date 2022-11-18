@@ -90,7 +90,7 @@ ENT.HECU_NextMouthDistance = 0
 local defPos = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJBASE_HLR_HD_INSTALLED && self:GetClass() == "npc_vj_hlr1_hgrunt" then
+	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_HD_INSTALLED && self:GetClass() == "npc_vj_hlr1_hgrunt" then
 		self.Model = "models/vj_hlr/hl_hd/hgrunt.mdl"
 	end
 end
@@ -412,12 +412,12 @@ function ENT:CustomOnThink()
 		elseif self.HECU_Type == 5 then -- 5 = Robot Grunt
 			if bgroup == 0 then -- MP5
 				self:DoChangeWeapon("weapon_vj_hlr1_mp5")
-				if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJBASE_HLR_HD_INSTALLED then
+				if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_HD_INSTALLED then
 					self:DoChangeWeapon("weapon_vj_hlr1_m4_hd")
 				end
 			elseif bgroup == 1 then -- Shotgun
 				self:DoChangeWeapon("weapon_vj_hlr1_spas12")
-				if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJBASE_HLR_HD_INSTALLED then
+				if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_HD_INSTALLED then
 					self:DoChangeWeapon("weapon_vj_hlr1_spas12_hd")
 				end
 			elseif IsValid(self:GetActiveWeapon()) then

@@ -24,7 +24,7 @@ ENT.GeneralSoundPitch1 = 130
 ENT.GeneralSoundPitch2 = 140
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJBASE_HLR_HD_INSTALLED && self:GetClass() == "npc_vj_hlr1_rgrunt" then
+	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_HD_INSTALLED && self:GetClass() == "npc_vj_hlr1_rgrunt" then
 		self.Model = "models/vj_hlr/hl_hd/rgrunt.mdl"
 	end
 end

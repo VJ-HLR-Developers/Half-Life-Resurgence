@@ -59,7 +59,7 @@ ENT.Houndeye_Type = 0
 	-- 1 = Alpha
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJBASE_HLR_HD_INSTALLED && self:GetClass() == "npc_vj_hlr1_houndeye" then
+	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_HD_INSTALLED && self:GetClass() == "npc_vj_hlr1_houndeye" then
 		self.Model = "models/vj_hlr/hl_hd/houndeye.mdl"
 	end
 end

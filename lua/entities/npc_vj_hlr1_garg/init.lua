@@ -77,7 +77,7 @@ ENT.Garg_NextStompAttackT = 0
 ENT.Garg_MeleeLargeKnockback = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJBASE_HLR_HD_INSTALLED then
+	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_HD_INSTALLED then
 		if self:GetClass() == "npc_vj_hlr1_garg" then
 			self.Model = "models/vj_hlr/hl_hd/garg.mdl"
 		elseif self:GetClass() == "npc_vj_hlrsv_garg_baby" then
