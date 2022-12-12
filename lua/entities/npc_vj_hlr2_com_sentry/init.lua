@@ -145,7 +145,7 @@ function ENT:CustomOnThink_AIEnabled()
 		local pyaw = self:GetPoseParameter("aim_yaw")
 		
 		-- Make it scan around if the enemy is behind, which is unreachable for it!
-		if eneValid && self.Turret_HasLOS == false && (self.LastEnemySightDiff <= math.cos(math.rad(self.RangeAttackAngleRadius))) then
+		if eneValid && self.Turret_HasLOS == false && (self.EnemyData.SightDiff <= math.cos(math.rad(self.RangeAttackAngleRadius))) then
 			scan = true
 			self.HasPoseParameterLooking = false
 		else

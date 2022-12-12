@@ -276,7 +276,7 @@ function ENT:CustomOnThink_AIEnabled()
 		if self:GetWeaponState() == VJ_WEP_STATE_HOLSTERED then
 			self:Security_UnHolsterGun()
 		end
-	elseif self:GetWeaponState() == VJ_WEP_STATE_READY && (CurTime() - self.LastEnemyTime) > 5 then
+	elseif self:GetWeaponState() == VJ_WEP_STATE_READY && (CurTime() - self.EnemyData.TimeSet) > 5 then
 		self:Security_HolsterGun()
 	end
 end
