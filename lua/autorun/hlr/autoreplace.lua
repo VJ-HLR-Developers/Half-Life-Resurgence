@@ -225,14 +225,12 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				newEnt:SetPos(ent:GetPos() + Vector(0, 0, (class == "monster_barnacle" && -1) or 4))
 				newEnt:SetAngles(ent:GetAngles())
 				if IsValid(ent:GetParent()) then newEnt:SetParent(ent:GetParent()) end
+				if worldName && worldName != "" then newEnt:SetName(worldName) end
 				newEnt:Spawn()
 				newEnt:Activate()
 				-- Handle naming
-				if worldName then
-					newEnt:SetName(worldName)
-					if worldName != "" then -- Scripted NPC
-						newEnt.DisableWandering = true
-					end
+				if worldName && worldName != "" then -- Scripted NPC
+					newEnt.DisableWandering = true
 				end
 				-- Handle weapon
 				local wep = ent.GetActiveWeapon && ent:GetActiveWeapon() or false -- In case GetActiveWeapon is not in the ent's metatable
@@ -248,7 +246,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				end
 				-- Handle key values
 				for key, val in pairs(ent:GetSaveTable()) do
-					//newEnt:SetSaveValue(key, val)
+					//print(ent, newEnt, key, val)
 					key = tostring(key)
 					if key == "health" then
 						newEnt:SetHealth(val)

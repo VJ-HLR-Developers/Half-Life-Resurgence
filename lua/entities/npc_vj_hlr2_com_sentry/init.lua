@@ -290,7 +290,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib2.mdl", {BloodType="",Pos=self:LocalToWorld(Vector(0,0,20)), CollideSound=sdGibCollide})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib3.mdl", {BloodType="",Pos=self:LocalToWorld(Vector(0,0,30)), CollideSound=sdGibCollide})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib4.mdl", {BloodType="",Pos=self:LocalToWorld(Vector(0,0,35)), CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib5.mdl", {BloodType="",Pos=self:LocalToWorld(Vector(0,0,35)), CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib5.mdl", {BloodType="",Pos=self:LocalToWorld(Vector(0,0,37)), CollideSound=sdGibCollide})
 	return true -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -300,6 +300,13 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+	-- Exagerate the damage force to make the turret fall!
+	local phys = corpseEnt:GetPhysicsObject()
+	if IsValid(phys) then
+		local velLength = phys:GetVelocity():Length()
+		phys:SetVelocity(corpseEnt:GetVelocity() * ((velLength < 10 and 25) or ((velLength < 30 and 10) or ((velLength < 100 and 3) or 1))))
+		-- Below 10: x25 | Below 30: x10 | Below 100: x3 | Above 300: No change!
+	end
 	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, corpseEnt, 2)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
