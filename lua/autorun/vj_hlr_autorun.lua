@@ -501,7 +501,7 @@ if VJExists == true then
 					noDamage = true
 				end
 				-- If it's a child corpse piece, then we want to make sure it doesn't cause damage
-				for _, v in pairs(target.ExtraCorpsesToRemove) do
+				for _, v in ipairs(target.ExtraCorpsesToRemove) do
 					if IsValid(v) && v == dmginfo:GetAttacker() then
 						noDamage = true
 						break
@@ -520,7 +520,7 @@ if VJExists == true then
 					-- Spawn gibs
 					local gibMaxs = target:OBBMaxs()
 					local gibMins = target:OBBMins()
-					for _, v in pairs(target.HLR_Corpse_Gibs) do
+					for _, v in ipairs(target.HLR_Corpse_Gibs) do
 						local gib = ents.Create("obj_vj_gib")
 						gib:SetModel(v)
 						gib:SetPos(centerPos + Vector(math.random(gibMins.x, gibMaxs.x), math.random(gibMins.y, gibMaxs.y), 10))

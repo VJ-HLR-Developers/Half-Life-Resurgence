@@ -443,7 +443,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 		end
 		
 		local gibSkin = isBlackOps and 1 or 0
-		for _, v in pairs(heliExpGibs_Main) do
+		for _, v in ipairs(heliExpGibs_Main) do
 			local gib = ents.Create("obj_vj_gib")
 			gib:SetModel(v)
 			gib:SetPos(self:GetPos() + Vector(math.random(-100, 100), math.random(-100, 100), math.random(20, 150)))
@@ -576,7 +576,7 @@ function ENT:CustomOnRemove()
 	
 	-- Remove soldiers if Osprey was removed (Not killed)
 	if !self.Dead then
-		for _, v in pairs(self.Osprey_DroppedSoldiers) do
+		for _, v in ipairs(self.Osprey_DroppedSoldiers) do
 			if IsValid(v) then
 				v:Remove()
 			end

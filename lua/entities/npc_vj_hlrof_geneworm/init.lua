@@ -487,7 +487,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnKilled(dmginfo, hitgroup)
 	-- Screen flash effect for all the players
-	for _,v in pairs(player.GetHumans()) do
+	for _,v in ipairs(player.GetHumans()) do
 		v:ScreenFade(SCREENFADE.IN, colorPortal, 1, 0)
 	end
 end

@@ -329,7 +329,7 @@ hook.Add("Think", "VJ_HLR_AutoReplace_Think", function()
 		gStatePrecriminal = game.GetGlobalState("gordon_precriminal") == 1
 		gStateAntlionFri = game.GetGlobalState("antlion_allied") == 1
 	end
-	for _,v in pairs(ents.GetAll()) do
+	for _,v in ipairs(ents.GetAll()) do
 		if v:IsNPC() then
 			if !gStatePrecriminal && v.VJ_AutoScript_Reset then
 				v.VJ_NPC_Class = v.VJ_AutoScript_OldClass

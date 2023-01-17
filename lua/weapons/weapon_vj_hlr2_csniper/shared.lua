@@ -57,6 +57,8 @@ SWEP.DryFireSoundPitch = VJ_Set(100, 100) -- Dry fire sound pitch 1
 SWEP.ReloadSound = "vj_hlr/hl2_weapon/combinesniper/sniper_reload.wav"
 SWEP.AnimTbl_PrimaryFire = {ACT_VM_SECONDARYATTACK}
 SWEP.AnimTbl_Reload = {ACT_VM_DRAW}
+
+local vec_def = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:SetupDataTables()
 	self:NetworkVar("Bool", 0, "Zoomed")
@@ -86,7 +88,6 @@ function SWEP:SecondaryAttack()
 	self:SetNextSecondaryFire(CurTime() + 0.2)
 	return true
 end
-local vec_def = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnThink()
 	local owner = self:GetOwner()

@@ -24,7 +24,7 @@ if CLIENT then
 							render.SetBlend(1)
 						end
 					cam.End3D()
-					for _, prop in pairs(ents.FindByClass("prop_*")) do
+					for _, prop in ipairs(ents.FindByClass("prop_*")) do
 						if prop:GetNW2Bool("BeingControlledByKingPin") then
 							cam.Start3D(EyePos(),EyeAngles())
 								render.SetBlend(1)
