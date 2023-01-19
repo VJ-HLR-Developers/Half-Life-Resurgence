@@ -220,19 +220,19 @@ if VJExists == true then
 		VJ.AddNPC_HUMAN("Overwatch Soldier (Beta)", "npc_vj_hlr2b_com_soldier", {"weapon_vj_hlr2b_oicw"}, vCat)
 		VJ.AddNPC_HUMAN("Civil Protection Elite", "npc_vj_hlr2b_com_civilp_elite", {"weapon_vj_smg1"}, vCat) -- Class name should be changed
 	
+	vCat = "Half-Life Resurgence"
 	-- NPC Weapons
-	VJ.AddNPCWeapon("VJ_Combine_Sniper", "weapon_vj_hlr2_csniper")
-	VJ.AddNPCWeapon("VJ_Annabelle", "weapon_vj_hlr2_annabelle")
-	VJ.AddNPCWeapon("VJ_Alyx_Gun", "weapon_vj_hlr2_alyxgun")
-	VJ.AddNPCWeapon("VJ_Charge_Bow", "weapon_vj_hlr2_chargebow")
-	VJ.AddNPCWeapon("VJ_Combine_Reager", "weapon_vj_hlr2_reager")
-	VJ.AddNPCWeapon("VJ_StunStick", "weapon_vj_hlr2_stunstick")
-	VJ.AddNPCWeapon("VJ_RPG_Resistance", "weapon_vj_hlr2_rpg")
+	VJ.AddNPCWeapon("VJ_Combine_Sniper", "weapon_vj_hlr2_csniper", vCat)
+	VJ.AddNPCWeapon("VJ_Annabelle", "weapon_vj_hlr2_annabelle", vCat)
+	VJ.AddNPCWeapon("VJ_Alyx_Gun", "weapon_vj_hlr2_alyxgun", vCat)
+	VJ.AddNPCWeapon("VJ_Charge_Bow", "weapon_vj_hlr2_chargebow", vCat)
+	VJ.AddNPCWeapon("VJ_Combine_Reager", "weapon_vj_hlr2_reager", vCat)
+	VJ.AddNPCWeapon("VJ_StunStick", "weapon_vj_hlr2_stunstick", vCat)
+	VJ.AddNPCWeapon("VJ_RPG_Resistance", "weapon_vj_hlr2_rpg", vCat)
 		-- Beta
-		VJ.AddNPCWeapon("VJ_OICW", "weapon_vj_hlr2b_oicw")
+		VJ.AddNPCWeapon("VJ_OICW", "weapon_vj_hlr2b_oicw", vCat)
 	
 	-- Player Weapons
-	vCat = "Half-Life Resurgence"
 	VJ.AddCategoryInfo(vCat, {Icon = "vj_hl/icons/hl2.png"})
 	VJ.AddWeapon("Combine Sniper", "weapon_vj_hlr2_csniper", false, vCat)
 	VJ.AddWeapon("Alyx Gun", "weapon_vj_hlr2_alyxgun", false, vCat)
