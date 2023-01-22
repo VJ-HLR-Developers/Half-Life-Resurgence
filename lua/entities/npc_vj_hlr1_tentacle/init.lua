@@ -208,7 +208,7 @@ function ENT:GetMeleeAttackDamageOrigin()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if self.VJ_IsBeingControlled == true then return end
+	if self.VJ_IsBeingControlled then return end
 	local ene = self:GetEnemy()
 	
 	if IsValid(ene) then

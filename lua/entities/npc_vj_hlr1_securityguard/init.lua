@@ -230,7 +230,7 @@ function ENT:OnPlayCreateSound(sdData, sdFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
-	if self.VJ_IsBeingControlled == true then return end
+	if self.VJ_IsBeingControlled then return end
 	
 	if math.random(1, 2) == 1 then
 		if self.Security_Type == 0 then
@@ -270,7 +270,7 @@ function ENT:Security_UnHolsterGun()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.VJ_IsBeingControlled == true or self.Dead == true or self:BusyWithActivity() then return end
+	if self.VJ_IsBeingControlled or self.Dead or self:BusyWithActivity() then return end
 	
 	if IsValid(self:GetEnemy()) then -- If enemy is seen then make sure gun is NOT holstered
 		if self:GetWeaponState() == VJ_WEP_STATE_HOLSTERED then

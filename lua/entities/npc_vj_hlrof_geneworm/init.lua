@@ -323,7 +323,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 -- Resets everything, including the eye & stomach health, idle animation and NPC state
 function ENT:GW_OrbOpenReset()
-	if self.Dead == true then return end
+	if self.Dead then return end
 	timer.Remove("gw_closestomach"..self:EntIndex())
 	self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain4.wav")
 	self.SoundTbl_Breath = {}

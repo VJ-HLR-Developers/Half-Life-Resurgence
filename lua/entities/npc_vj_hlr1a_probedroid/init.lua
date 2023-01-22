@@ -131,7 +131,7 @@ function ENT:CustomOnRangeAttack_BeforeStartTimer()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(projectile)
-	if self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP) then
+	if self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
 		projectile.Needle_Heal = true
 	end
 end

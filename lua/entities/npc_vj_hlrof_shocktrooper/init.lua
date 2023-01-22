@@ -107,7 +107,7 @@ function ENT:CustomOnThink()
 		self.Shocktrooper_UsingHurtWalk = false
 	end
 	
-	if self.Dead == false && CurTime() > self.Shocktrooper_BlinkingT then
+	if !self.Dead && CurTime() > self.Shocktrooper_BlinkingT then
 		timer.Simple(0.2, function() if IsValid(self) then self:SetSkin(1) end end)
 		timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(2) end end)
 		timer.Simple(0.4, function() if IsValid(self) then self:SetSkin(3) end end)
@@ -207,7 +207,7 @@ ENT.GrenadeAttackVelForward2 = 500 -- Grenade attack velocity up | The second # 
 ENT.GrenadeAttackVelRight1 = -20 -- Grenade attack velocity right | The first # in math.random
 ENT.GrenadeAttackVelRight2 = 20 -- Grenade attack velocity right | The second # in math.random
 function ENT:ThrowGrenadeCode(customEnt,noOwner)
-	if self.Dead == true or self.Flinching == true or self.AttackType == VJ_ATTACK_MELEE or (IsValid(self:GetEnemy()) && !self:Visible(self:GetEnemy())) then return end
+	if self.Dead or self.Flinching == true or self.AttackType == VJ_ATTACK_MELEE or (IsValid(self:GetEnemy()) && !self:Visible(self:GetEnemy())) then return end
 	//if self:VJ_ForwardIsHidingZone(self:NearestPoint(self:GetPos() + self:OBBCenter()),self:GetEnemy():EyePos()) == true then return end
 	noOwner = noOwner or false
 	local getIsCustom = false
@@ -253,7 +253,7 @@ function ENT:ThrowGrenadeCode(customEnt,noOwner)
 	timer.Simple(self.TimeUntilGrenadeIsReleased,function()
 		if getIsCustom == true && !IsValid(customEnt) then return end
 		if IsValid(customEnt) then customEnt.VJ_IsPickedUpDanger = false customEnt:Remove() end
-		if IsValid(self) && self.Dead == false /*&& IsValid(self:GetEnemy())*/ then -- Yete SNPC ter artoon e...
+		if IsValid(self) && !self.Dead /*&& IsValid(self:GetEnemy())*/ then -- Yete SNPC ter artoon e...
 			local gerShootPos = self:GetPos() + self:GetForward()*200
 			if IsValid(self:GetEnemy()) then 
 				gerShootPos = self:GetEnemy():GetPos()

@@ -186,7 +186,7 @@ function ENT:CustomOnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if self.Dead == true then
+	if self.Dead then
 		if self.Nih_LerpAngleDeath == nil then self.Nih_LerpAngleDeath = self:GetAngles() end
 		self.Nih_LerpAngleDeath = LerpAngle(0.25, self.Nih_LerpAngleDeath, self.Nih_LerpAngleDeath + Angle(0,30,0))
 		self:SetAngles(self.Nih_LerpAngleDeath)
@@ -216,8 +216,8 @@ function ENT:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.Dead == true then return end
-	if IsValid(self:GetEnemy()) && CurTime() > self.Nih_NextSpawn && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled == true && self.VJ_TheController:KeyDown(IN_JUMP))) then
+	if self.Dead then return end
+	if IsValid(self:GetEnemy()) && CurTime() > self.Nih_NextSpawn && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self.Nih_NextSpawn = CurTime() + self:Nih_SpawnAlly()
 	end
 end
@@ -680,7 +680,7 @@ function ENT:CustomOnRemove()
 	if IsValid(self.Nih_Crystal3) then self.Nih_Crystal3:Remove() end
 	
 	-- Remove allies if we were removed without being killed
-	if self.Dead == false then
+	if !self.Dead then
 		if IsValid(self.Nih_Ally1) then self.Nih_Ally1:Remove() end
 		if IsValid(self.Nih_Ally2) then self.Nih_Ally2:Remove() end
 		if IsValid(self.Nih_Ally3) then self.Nih_Ally3:Remove() end

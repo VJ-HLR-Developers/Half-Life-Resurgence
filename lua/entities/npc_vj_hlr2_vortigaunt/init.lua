@@ -257,7 +257,7 @@ function ENT:CustomRangeAttackCode()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnSchedule()
-	if self.Dead == false && self.vACT_StopAttacks == false && self.Vort_RunAway == true && self.PlayingAttackAnimation == false then
+	if !self.Dead && self.vACT_StopAttacks == false && self.Vort_RunAway == true && self.PlayingAttackAnimation == false then
 		self.Vort_RunAway = false
 		self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH",function(x) x.RunCode_OnFail = function() self.NextDoAnyAttackT = 0 end end)
 		self.NextDoAnyAttackT = CurTime() + 5

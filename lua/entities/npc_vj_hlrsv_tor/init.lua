@@ -282,7 +282,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
 	-- If the NPC was removed, then remove its children as well, but not when it's killed!
-	if self.Dead == false then
+	if !self.Dead then
 		if IsValid(self.Tor_Ally1) then self.Tor_Ally1:Remove() end
 		if IsValid(self.Tor_Ally2) then self.Tor_Ally2:Remove() end
 		if IsValid(self.Tor_Ally3) then self.Tor_Ally3:Remove() end

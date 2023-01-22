@@ -114,7 +114,7 @@ function ENT:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.Dead == true then return end
+	if self.Dead then return end
 	local eneValid = IsValid(self:GetEnemy())
 	-- Make it not reset its pose parameters while its transitioning from Alert to Idle
 	if self.Alerted && !eneValid then
@@ -191,7 +191,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
-	if self.VJ_IsBeingControlled == true then return end
+	if self.VJ_IsBeingControlled then return end
 	self:Sentry_Activate()
 	if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
 		self:RemoveFlags(FL_NOTARGET) -- Other NPCs should now target it!

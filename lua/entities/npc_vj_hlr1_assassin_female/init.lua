@@ -91,7 +91,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if self.Dead == true then return end
+	if self.Dead then return end
 	
 	-- Unlimited ammo + weapon body group change
 	local activeWep = self:GetActiveWeapon()
@@ -160,7 +160,7 @@ function ENT:OnFireBullet(ent, data)
 	if CurTime() > self.BOA_NextRunT && self.BOA_ShotsSinceRun >= 4 then -- Yete amenan keche chors ankam zenke zargadz e, ere vor vaz e!
 		self.BOA_ShotsSinceRun = 0
 		//timer.Simple(0.8,function() 
-			//if IsValid(self) && !self:IsMoving() && self.Dead == false then
+			//if IsValid(self) && !self:IsMoving() && !self.Dead then
 				self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH")
 			//end
 		//end)

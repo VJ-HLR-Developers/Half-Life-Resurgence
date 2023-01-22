@@ -88,7 +88,7 @@ ENT.IsClimbing = false
 ENT.NextClimbT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if self.CanClimb == true && self.Dead == false && self.IsClimbing == false && CurTime() > self.NextClimbT then
+	if self.CanClimb == true && !self.Dead && self.IsClimbing == false && CurTime() > self.NextClimbT then
 		local anim = false
 		local finalpos = self:GetPos()
 		local tr1 = util.TraceLine({start = self:GetPos() + self:GetUp()*32, endpos = self:GetPos() + self:GetUp()*32 +self:GetForward() *200, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 32

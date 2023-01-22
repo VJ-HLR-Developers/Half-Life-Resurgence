@@ -264,7 +264,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
 	-- If the NPC was removed, then remove its children as well, but not when it's killed!
-	if self.Dead == false then
+	if !self.Dead then
 		for _, v in ipairs(self.Bradley_Grunts) do
 			if IsValid(v) then v:Remove() end
 		end

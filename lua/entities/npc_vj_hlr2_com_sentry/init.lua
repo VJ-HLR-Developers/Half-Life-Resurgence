@@ -212,7 +212,7 @@ function ENT:CustomOn_PoseParameterLookingCode(pitch, yaw, roll)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
-	if self.VJ_IsBeingControlled == true then return end
+	if self.VJ_IsBeingControlled then return end
 	self:Turret_Activate()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

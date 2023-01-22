@@ -66,7 +66,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	-- Blinking system
-	if self.Dead == false && CurTime() > self.Icky_BlinkingT then
+	if !self.Dead && CurTime() > self.Icky_BlinkingT then
 		self:SetSkin(4)
 		timer.Simple(0.2, function() if IsValid(self) then self:SetSkin(3) end end)
 		timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(2) end end)

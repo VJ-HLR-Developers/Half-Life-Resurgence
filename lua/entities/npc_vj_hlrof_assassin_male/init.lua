@@ -22,7 +22,7 @@ function ENT:HECU_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnThink()
-	if self.VJ_IsBeingControlled == true then return end
+	if self.VJ_IsBeingControlled then return end
 	if IsValid(self:GetEnemy()) && self.DoingWeaponAttack_Standing == true && self.VJ_IsBeingControlled == false && CurTime() > self.BOA_NextStrafeT && !self:IsMoving() && self:GetPos():Distance(self:GetEnemy():GetPos()) < 1400 then
 		self:StopMoving()
 		self:VJ_ACT_PLAYACTIVITY({ACT_STRAFE_RIGHT,ACT_STRAFE_LEFT}, true, false, false)
@@ -36,10 +36,10 @@ function ENT:HECU_CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnWeaponAttack()
-	if self.VJ_IsBeingControlled == true then return end
+	if self.VJ_IsBeingControlled then return end
 	if CurTime() > self.BOA_NextRunT then
 		timer.Simple(0.8, function() 
-			if IsValid(self) && !self:IsMoving() && self.Dead == false then
+			if IsValid(self) && !self:IsMoving() && !self.Dead then
 				self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH")
 			end
 		end)

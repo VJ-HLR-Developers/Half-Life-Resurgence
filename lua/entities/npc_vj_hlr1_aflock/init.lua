@@ -35,7 +35,7 @@ function ENT:CustomOnThink()
 		self.Aerial_AnimTbl_Alerted = {ACT_FLY}
 	end
 	
-	if self.VJ_IsBeingControlled == true then return end
+	if self.VJ_IsBeingControlled then return end
 	if IsValid(HLR_AFlock_Leader) then
 		if HLR_AFlock_Leader != self && HLR_AFlock_Leader.AA_CurrentMovePos then
 			self.DisableWandering = true

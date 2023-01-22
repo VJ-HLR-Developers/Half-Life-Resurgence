@@ -125,7 +125,7 @@ function ENT:CustomOnThink()
 	end
 	
 	-- Blinking
-	if self.Dead == false && CurTime() > self.Houndeye_BlinkingT && self.Houndeye_Sleeping == false then
+	if !self.Dead && CurTime() > self.Houndeye_BlinkingT && self.Houndeye_Sleeping == false then
 		self:SetSkin(1)
 		timer.Simple(0.1, function() if IsValid(self) then self:SetSkin(2) end end)
 		timer.Simple(0.2, function() if IsValid(self) then self:SetSkin(1) end end)

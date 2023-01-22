@@ -149,7 +149,7 @@ function ENT:Barnacle_ResetEnt()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	if self.Dead == true then return end
+	if self.Dead then return end
 	local calc = self:Barnacle_CalculateTongue()
 	if calc == true && self.Barnacle_Status != 1 then
 		self.Barnacle_Status = 1

@@ -61,7 +61,7 @@ function ENT:CustomOnThink()
 		self.CT_MoveTypeSwim = true
 	end
 	
-	if self.Dead == false && CurTime() > self.CT_BlinkingT then
+	if !self.Dead && CurTime() > self.CT_BlinkingT then
 		self:SetSkin(1)
 		timer.Simple(0.15,function() if IsValid(self) then self:SetSkin(2) end end)
 		timer.Simple(0.25,function() if IsValid(self) then self:SetSkin(1) end end)

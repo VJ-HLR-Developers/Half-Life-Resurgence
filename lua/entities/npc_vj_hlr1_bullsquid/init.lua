@@ -84,7 +84,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	if self.Bullsquid_Type == 1 then return end
-	if self.Dead == false && CurTime() > self.Bullsquid_BlinkingT then
+	if !self.Dead && CurTime() > self.Bullsquid_BlinkingT then
 		self:SetSkin(1)
 		timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(0) end end)
 		self.Bullsquid_BlinkingT = CurTime() + math.Rand(2, 3.5)

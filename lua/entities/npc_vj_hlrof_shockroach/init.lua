@@ -31,7 +31,7 @@ ENT.SRoach_Life = nil
 function ENT:CustomOnPreInitialize()
 	if self.SRoach_Life != nil then
 		timer.Simple(self.SRoach_Life, function()
-			if IsValid(self) && self.Dead == false then
+			if IsValid(self) && !self.Dead then
 				self:TakeDamage(self:Health() + 1, self, self)
 			end
 		end)

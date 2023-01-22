@@ -67,7 +67,7 @@ function ENT:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
-	if self.VJ_IsBeingControlled == true then return end
+	if self.VJ_IsBeingControlled then return end
 	if math.random(1, 2) == 1 then
 		self:VJ_ACT_PLAYACTIVITY("angry", true, false, true)
 	end

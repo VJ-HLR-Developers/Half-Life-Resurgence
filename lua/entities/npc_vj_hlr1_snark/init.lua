@@ -82,7 +82,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	local ene = self:GetEnemy()
-	if IsValid(ene) && self.VJ_IsBeingControlled == false && self.Dead == false && self:IsOnGround() && self:Visible(ene) && self.LatestEnemyDistance > self.LeapDistance + 10 && CurTime() > self.Snark_NextJumpWalkT then
+	if IsValid(ene) && self.VJ_IsBeingControlled == false && !self.Dead && self:IsOnGround() && self:Visible(ene) && self.LatestEnemyDistance > self.LeapDistance + 10 && CurTime() > self.Snark_NextJumpWalkT then
 		self:VJ_ACT_PLAYACTIVITY(ACT_RUN, false, 0.7, true)
 		self:PlaySoundSystem("Alert")
 		self:SetGroundEntity(NULL)
@@ -95,7 +95,7 @@ function ENT:CustomOnThink_AIEnabled()
 		self.UseTheSameGeneralSoundPitch_PickedNumber = 100
 	end
 	
-	if self.Dead == false && self.Snark_Explodes == true && !self.Snark_Exploded && CurTime() > self.Snark_EnergyTime then
+	if !self.Dead && self.Snark_Explodes == true && !self.Snark_Exploded && CurTime() > self.Snark_EnergyTime then
 		self.Snark_Exploded = true
 		self:SetState(VJ_STATE_FREEZE)
 		self:PlaySoundSystem("Death")
