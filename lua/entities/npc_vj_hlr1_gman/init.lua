@@ -52,11 +52,10 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnIdleDialogue(ent, canAnswer)
-	if ent:IsPlayer() then
+function ENT:CustomOnIdleDialogue(ent, status, statusInfo)
+	-- Only talk to players!
+	if status == "CheckEnt" && !ent:IsPlayer() then
 		return true
-	else
-		return false
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
