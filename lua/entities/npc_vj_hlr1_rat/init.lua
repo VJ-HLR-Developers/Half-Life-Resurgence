@@ -20,6 +20,9 @@ ENT.CustomBlood_Particle = {"vj_hlr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 
+ENT.HasDeathAnimation = true
+ENT.AnimTbl_Death = {ACT_DIESIMPLE}
+
 -- Does it ever actually attack? Who knows!
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.MeleeAttackDamage = 3
