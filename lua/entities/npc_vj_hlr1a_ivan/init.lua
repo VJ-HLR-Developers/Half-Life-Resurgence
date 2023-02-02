@@ -103,23 +103,23 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	self:SetBodygroup(0, 1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local colorRed = VJ_Color2Byte(Color(130, 19, 10))
+--
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibDeathParticles == true then
-		local effectBlood = EffectData()
-		effectBlood:SetOrigin(self:GetPos() + self:OBBCenter())
-		effectBlood:SetColor(VJ_Color2Byte(Color(130,19,10)))
-		effectBlood:SetScale(120)
-		util.Effect("VJ_Blood1",effectBlood)
-		
-		local bloodspray = EffectData()
-		bloodspray:SetOrigin(self:GetPos())
-		bloodspray:SetScale(8)
-		bloodspray:SetFlags(3)
-		bloodspray:SetColor(0)
-		util.Effect("bloodspray",bloodspray)
-		util.Effect("bloodspray",bloodspray)
+		local effectData = EffectData()
+		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
+		effectData:SetColor(colorRed)
+		effectData:SetScale(100)
+		util.Effect("VJ_Blood1", effectData)
+		effectData:SetScale(8)
+		effectData:SetFlags(3)
+		effectData:SetColor(0)
+		util.Effect("bloodspray", effectData)
+		util.Effect("bloodspray", effectData)
 	end
+	
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh1.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,40))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh2.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,1,40))})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh3.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(1,0,40))})

@@ -95,28 +95,21 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local colorYellow = VJ_Color2Byte(Color(255, 221, 35))
+--
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles == true then
-		local effectBlood = EffectData()
-		effectBlood:SetOrigin(self:GetPos() + self:OBBCenter())
-		effectBlood:SetColor(VJ_Color2Byte(Color(255,221,35)))
-		effectBlood:SetScale(120)
-		util.Effect("VJ_Blood1",effectBlood)
-		
-		local bloodspray = EffectData()
-		bloodspray:SetOrigin(self:GetPos() + self:OBBCenter())
-		bloodspray:SetScale(8)
-		bloodspray:SetFlags(3)
-		bloodspray:SetColor(1)
-		util.Effect("bloodspray",bloodspray)
-		util.Effect("bloodspray",bloodspray)
-		
-		local effectdata = EffectData()
-		effectdata:SetOrigin(self:GetPos() + self:OBBCenter())
-		effectdata:SetScale(1)
-		util.Effect("StriderBlood",effectdata)
-		util.Effect("StriderBlood",effectdata)
+	if self.HasGibDeathParticles then
+		local effectData = EffectData()
+		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
+		effectData:SetColor(colorYellow)
+		effectData:SetScale(120)
+		util.Effect("VJ_Blood1", effectData)
+		effectData:SetScale(8)
+		effectData:SetFlags(3)
+		effectData:SetColor(1)
+		util.Effect("bloodspray", effectData)
+		util.Effect("bloodspray", effectData)
 	end
 	
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib1.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,40))})

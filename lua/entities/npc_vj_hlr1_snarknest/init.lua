@@ -37,48 +37,39 @@ function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(15, 15, 18), Vector(-15, -15, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local colorYellow = VJ_Color2Byte(Color(255, 221, 35))
+local colorRed = VJ_Color2Byte(Color(130, 19, 10))
+--
 function ENT:CustomOnKilled(dmginfo, hitgroup)
-	if self.Snark_Type == 0 then
+	if self.Nest_SpawnEnt == "npc_vj_hlr1_snark" then
 		util.VJ_SphereDamage(self, self, self:GetPos(), 50, 15, DMG_ACID, true, true)
-		if self.Nest_SpawnEnt == "npc_vj_hlr1_snark" then
-			local effectBlood = EffectData()
-			effectBlood:SetOrigin(self:GetPos() + self:OBBCenter())
-			effectBlood:SetColor(VJ_Color2Byte(Color(255,221,35)))
-			effectBlood:SetScale(40)
-			util.Effect("VJ_Blood1",effectBlood)
-			
-			local bloodspray = EffectData()
-			bloodspray:SetOrigin(self:GetPos() + self:OBBCenter())
-			bloodspray:SetScale(6)
-			bloodspray:SetFlags(3)
-			bloodspray:SetColor(1)
-			util.Effect("bloodspray",bloodspray)
-			util.Effect("bloodspray",bloodspray)
-			
-			local effectdata = EffectData()
-			effectdata:SetOrigin(self:GetPos() + self:OBBCenter())
-			effectdata:SetScale(0.4)
-			util.Effect("StriderBlood",effectdata)
-			util.Effect("StriderBlood",effectdata)
+		if self.HasGibDeathParticles == true then
+			local effectData = EffectData()
+			effectData:SetOrigin(self:GetPos() + self:OBBCenter())
+			effectData:SetColor(colorYellow)
+			effectData:SetScale(40)
+			util.Effect("VJ_Blood1", effectData)
+			effectData:SetScale(8)
+			effectData:SetFlags(3)
+			effectData:SetColor(1)
+			util.Effect("bloodspray", effectData)
+			util.Effect("bloodspray", effectData)
 		end
 	elseif self.Nest_SpawnEnt == "npc_vj_hlrof_penguin" then
 		VJ_EmitSound(self, {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}, 90)
 		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
 		util.BlastDamage(self,self,self:GetPos(),80,35)
 		if self.HasGibDeathParticles == true then
-			local effectBlood = EffectData()
-			effectBlood:SetOrigin(self:GetPos() + self:OBBCenter())
-			effectBlood:SetColor(VJ_Color2Byte(Color(130,19,10)))
-			effectBlood:SetScale(40)
-			util.Effect("VJ_Blood1",effectBlood)
-			
-			local bloodspray = EffectData()
-			bloodspray:SetOrigin(self:GetPos() + self:OBBCenter())
-			bloodspray:SetScale(6)
-			bloodspray:SetFlags(3)
-			bloodspray:SetColor(0)
-			util.Effect("bloodspray",bloodspray)
-			util.Effect("bloodspray",bloodspray)
+			local effectData = EffectData()
+			effectData:SetOrigin(self:GetPos() + self:OBBCenter())
+			effectData:SetColor(colorRed)
+			effectData:SetScale(120)
+			util.Effect("VJ_Blood1", effectData)
+			effectData:SetScale(8)
+			effectData:SetFlags(3)
+			effectData:SetColor(0)
+			util.Effect("bloodspray", effectData)
+			util.Effect("bloodspray", effectData)
 			
 			local spr = ents.Create("env_sprite")
 			spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
@@ -108,7 +99,7 @@ function ENT:CustomOnKilled(dmginfo, hitgroup)
 		end
 	end
 	
-	for _ = 1, math.random(4,8) do
+	for _ = 1, math.random(4, 8) do
 		local ent = ents.Create(self.Nest_SpawnEnt)
 		ent:SetPos(self:GetPos())
 		ent:SetAngles(self:GetAngles())

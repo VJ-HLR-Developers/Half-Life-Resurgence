@@ -25,9 +25,10 @@ end
 function ENT:CustomOnThink_AIEnabled()
 	if ((self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) or !self.VJ_IsBeingControlled) && IsValid(self:GetEnemy()) && self:Visible(self:GetEnemy()) && self.HECU_NextTurretCheckT < CurTime() && !IsValid(self.HECU_TurretEnt) then
 		-- Make sure not to place it if the front of the NPC is blocked!
+		local myCenterPos = self:GetPos() + self:OBBCenter()
 		local tr = util.TraceLine({
-			start = self:GetPos() + self:OBBCenter(),
-			endpos = self:GetPos() + self:OBBCenter() + self:GetForward()*80,
+			start = myCenterPos,
+			endpos = myCenterPos + self:GetForward()*80,
 			filter = self
 		})
 		if !tr.Hit then
