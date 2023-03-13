@@ -38,7 +38,6 @@ ENT.PoseParameterLooking_InvertYaw = true -- Inverts the yaw poseparameters (Y)
 ENT.Immune_AcidPoisonRadiation = true -- Immune to Acid, Poison and Radiation
 ENT.Immune_Bullet = true -- Immune to bullet type damages
 ENT.Immune_Melee = true -- Immune to melee-type damage | Example: Crowbar, slash damages
-ENT.Immune_Physics = true -- Immune to physics impacts, won't take damage from props
 ENT.GetDamageFromIsHugeMonster = true -- Should it get damaged no matter what by SNPCs that are tagged as VJ_IsHugeMonster?
 ENT.DeathCorpseModel = {"models/vj_hlr/hl1/alien_cannon_bottom.mdl"} -- The corpse model that it will spawn when it dies | Leave empty to use the NPC's model | Put as many models as desired, the base will pick a random one.
 ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
@@ -58,6 +57,7 @@ ENT.Cannon_LockTime = 0
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(45, 45, 65), Vector(-45, -45, 0))
 	self.Cannon_LockTime = CurTime() + 0.3 -- Prevent spawn-killing
+	self:SetImpactEnergyScale(0.001) -- Take minimum physics damage
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)

@@ -20,7 +20,6 @@ ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should 
 ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
-ENT.Immune_Physics = true -- Immune to physics impacts, won't take damage from props
 
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2} -- Melee Attack Animations
@@ -71,6 +70,7 @@ ENT.KingPin_NextPsionicAttackT = 0
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(35, 35, 110),Vector(-35, -35, 0))
 	self:SetNW2Bool("PsionicEffect", false)
+	self:SetImpactEnergyScale(0.01) -- By default take minimum damage
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
@@ -119,6 +119,11 @@ function ENT:KingPin_ResetPsionicAttack()
 	self.AnimTbl_IdleStand = {ACT_IDLE}
 	self:SetState()
 	self:SetNW2Bool("PsionicEffect", false)
+	timer.Simple(1, function() -- Wait little bit before resetting the physics damage scale to make sure no flying objects hit it!
+		if IsValid(self) && !self.GodMode then
+			self:SetImpactEnergyScale(0.01) -- Reset physics damage back to default
+		end
+	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttack()
@@ -136,6 +141,7 @@ function ENT:CustomAttack()
 		end
 		//print(pTbl)
 		if #pTbl > 0 then -- If greater then 1, then we found an object!
+			self:SetImpactEnergyScale(0) -- Take no physics damage
 			self.GodMode = true
 			self:SetNW2Bool("PsionicEffect", true)
 			VJ_EmitSound(self, "vj_hlr/hl1_npc/kingpin/port_suckin1.wav", 80, 140) -- 3.08025
