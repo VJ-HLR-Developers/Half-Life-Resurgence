@@ -9,7 +9,7 @@ ENT.Category		= "Half-Life Resurgence"
 
 if CLIENT then
 	local mat = Material("vj_hl/renderfx/render_kingpin")
-	local mat_npc = Material("vj_hl/renderfx/render_kingpin2")
+	local mat_object = Material("vj_hl/renderfx/render_kingpin2")
 	function ENT:Initialize()
 		local index = self:EntIndex()
 		hook.Add("RenderScreenspaceEffects", "VJ_HLR_Kingpin_Shield"..index, function()
@@ -28,7 +28,7 @@ if CLIENT then
 						if prop:GetNW2Bool("BeingControlledByKingPin") then
 							cam.Start3D(EyePos(),EyeAngles())
 								render.SetBlend(1)
-								render.MaterialOverride(mat_npc)
+								render.MaterialOverride(mat_object)
 								prop:DrawModel()
 								render.MaterialOverride(0)
 								render.SetBlend(1)
