@@ -234,12 +234,8 @@ function ENT:ThrowGrenadeCode(customEnt,noOwner)
 
 	if self.VJ_PlayingSequence == false && self.DisableGrenadeAttackAnimation == false then
 		self.CurrentAttackAnimation = VJ_PICK(self.AnimTbl_GrenadeAttack)
-		self.PlayingAttackAnimation = true
-		timer.Simple(VJ_GetSequenceDuration(self,self.CurrentAttackAnimation) - 0.2,function()
-			if IsValid(self) then
-				self.PlayingAttackAnimation = false
-			end
-		end)
+		self.CurrentAttackAnimationDuration = self:DecideAnimationLength(self.CurrentAttackAnimation, false, 0.2)
+		self.CurAttackAnimTime = CurTime() + self.CurrentAttackAnimationDuration
 		self:VJ_ACT_PLAYACTIVITY(self.CurrentAttackAnimation,self.GrenadeAttackAnimationStopAttacks,self:DecideAnimationLength(self.CurrentAttackAnimation,self.GrenadeAttackAnimationStopAttacksTime),false,self.GrenadeAttackAnimationDelay, {PlayBackRateCalculated=true})
 	end
 

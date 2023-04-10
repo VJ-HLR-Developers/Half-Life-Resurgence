@@ -108,26 +108,18 @@ function ENT:CustomOnMedic_OnHeal(ent)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local anim1 = ACT_ARM
-local anim2 = ACT_RANGE_ATTACK1
-//local anim3 = ACT_RANGE_ATTACK2 -- Rapid firing (3-shot burst) range attack animation (Currently unused)
+--  ACT_RANGE_ATTACK2 -- Rapid firing (3-shot burst) range attack animation | !!! UNUSED !!!
 --
 function ENT:CustomOnRangeAttack_BeforeStartTimer()
-	self.CurrentAttackAnimation = anim1
-	self:VJ_ACT_PLAYACTIVITY(self.CurrentAttackAnimation, false, 0, true)
-	local firstAct = self:DecideAnimationLength(self.CurrentAttackAnimation, false)
-	self.CurrentAttackAnimationDuration = firstAct + VJ_GetSequenceDuration(self, anim2)
-	self.PlayingAttackAnimation = true
-	timer.Create("timer_act_playingattack"..self:EntIndex(), self.CurrentAttackAnimationDuration, 1, function()
-		self.PlayingAttackAnimation = false
-		self:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true)
-		VJ_EmitSound(self, "vj_hlr/hla_npc/prdroid/reload.wav", 90, 100) -- Reload sound
-	end)
-	timer.Simple(firstAct, function()
-		if IsValid(self) then
-			self:VJ_ACT_PLAYACTIVITY(anim2, false, 0, true)
-		end
-	end)
+	self.CurrentAttackAnimation = ACT_ARM
+	local anim1Dur = self:VJ_ACT_PLAYACTIVITY(self.CurrentAttackAnimation, false, 0, true, 0, {OnFinish = function()
+		self:VJ_ACT_PLAYACTIVITY(ACT_RANGE_ATTACK1, false, 0, true, 0, {OnFinish = function()
+			self:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true)
+			VJ_EmitSound(self, "vj_hlr/hla_npc/prdroid/reload.wav", 90, 100) -- Reload sound
+		end})
+	end})
+	self.CurrentAttackAnimationDuration = anim1Dur + VJ_GetSequenceDuration(self, ACT_RANGE_ATTACK1)
+	self.CurAttackAnimTime = CurTime() + self.CurrentAttackAnimationDuration
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(projectile)

@@ -209,7 +209,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
 	-- Houndeye shouldn't have its sonic attack interrupted by a flinch animation!
-	return !self.PlayingAttackAnimation
+	return self.CurAttackAnimTime < CurTime()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
