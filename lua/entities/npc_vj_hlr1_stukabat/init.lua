@@ -313,7 +313,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 					corpse:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
 					corpse.FadeCorpseType = "FadeAndRemove"
 					corpse.IsVJBaseCorpse = true
-					corpse.ExtraCorpsesToRemove = {}
+					corpse.ChildEnts = {}
 					self.BloodColor = "Yellow"
 					self.HasBloodParticle = true
 					self.CustomBlood_Particle = {"vj_hlr_blood_yellow"}

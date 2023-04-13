@@ -501,7 +501,7 @@ if VJExists == true then
 					noDamage = true
 				end
 				-- If it's a child corpse piece, then we want to make sure it doesn't cause damage
-				for _, v in ipairs(target.ExtraCorpsesToRemove) do
+				for _, v in ipairs(target.ChildEnts) do
 					if IsValid(v) && v == dmginfo:GetAttacker() then
 						noDamage = true
 						break
@@ -569,27 +569,16 @@ if VJExists == true then
 						VJ_CreateTestObject(tr.HitPos, Angle(0, 0, 0), Color(94, 255, 0))
 						util.Decal("VJ_HLR_Blood_Red_Large", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, target)*/
 						
-						local effectBlood = EffectData()
-						effectBlood:SetOrigin(centerPos)
-						effectBlood:SetColor(bloodIsYellow and colorYellow or colorRed)
-						effectBlood:SetScale(120)
-						util.Effect("VJ_Blood1", effectBlood)
-						
-						local bloodspray = EffectData()
-						bloodspray:SetOrigin(centerPos)
-						bloodspray:SetScale(8)
-						bloodspray:SetFlags(3)
-						bloodspray:SetColor(bloodIsYellow and 1 or 0)
-						util.Effect("bloodspray", bloodspray)
-						util.Effect("bloodspray", bloodspray)
-						
-						if bloodIsYellow then
-							local effectdata = EffectData()
-							effectdata:SetOrigin(centerPos)
-							effectdata:SetScale(1)
-							util.Effect("StriderBlood", effectdata)
-							util.Effect("StriderBlood", effectdata)
-						end
+						local effectData = EffectData()
+						effectData:SetOrigin(centerPos)
+						effectData:SetColor(bloodIsYellow and colorYellow or colorRed)
+						effectData:SetScale(120)
+						util.Effect("VJ_Blood1", effectData)
+						effectData:SetScale(8)
+						effectData:SetFlags(3)
+						effectData:SetColor(bloodIsYellow and 1 or 0)
+						util.Effect("bloodspray", effectData)
+						util.Effect("bloodspray", effectData)
 					end
 					target:Remove()
 				end
