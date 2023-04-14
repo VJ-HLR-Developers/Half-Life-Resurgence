@@ -43,8 +43,6 @@ ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE} -- Death Animations
 ENT.DeathAnimationTime = false -- Time until the SNPC spawns its corpse and gets removed
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
-ENT.HasWorldShakeOnMove = true -- Should the world shake when it's moving?
-ENT.WorldShakeOnMoveRadius = 300 -- How far the screen shake goes, in world units
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
@@ -70,9 +68,11 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
+		util.ScreenShake(self:GetPos(), 10, 100, 0.4, 300)
 	end
 	if key == "grunting_sounds" then
 		self:FootStepSoundCode(extraMoveSd)
+		util.ScreenShake(self:GetPos(), 10, 100, 0.4, 300)
 	end
 	if key == "single" or key == "both" then
 		self:MeleeAttackCode()

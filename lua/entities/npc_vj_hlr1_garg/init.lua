@@ -38,7 +38,6 @@ ENT.RangeAttackPos_Up = 10 -- Up/Down spawning position for range attack
 ENT.RangeAttackPos_Forward = 50 -- Forward/Backward spawning position for range attack
 ENT.RangeAttackPos_Right = -20 -- Right/Left spawning position for range attack
 
-ENT.HasWorldShakeOnMove = true -- Should the world shake when it's moving?
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
@@ -111,6 +110,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
+		util.ScreenShake(self:GetPos(), 10, 100, 0.4, self.Garg_Type == 1 and 300 or 1000)
 	end
 	if key == "melee" then
 		self:MeleeAttackCode()
