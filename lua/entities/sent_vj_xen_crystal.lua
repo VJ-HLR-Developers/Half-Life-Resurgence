@@ -15,15 +15,15 @@ ENT.Instructions 	= "Don't change anything."
 ENT.Category		= "VJ Base"
 
 function ENT:Draw() self:DrawModel() end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DrawTranslucent() self:Draw() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 if (!SERVER) then return end
 
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
-
--- Custom
 ENT.Assignee = NULL -- Is another entity the owner of this crystal?
+
+local sdHit = {"vj_hlr/fx/glass1.wav", "vj_hlr/fx/glass2.wav", "vj_hlr/fx/glass3"}
+local sdBreak = {"vj_hlr/fx/bustglass1.wav", "vj_hlr/fx/bustglass2.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Initialize()
 	if !IsValid(self.Assignee) then
@@ -36,19 +36,19 @@ function ENT:Initialize()
 	self:SetMaxHealth(200)
 	self:SetHealth(200)
 	
-	local StartLight1 = ents.Create("light_dynamic")
-	StartLight1:SetKeyValue("brightness", "4")
-	StartLight1:SetKeyValue("distance", "150")
-	StartLight1:SetKeyValue("style", 5)
-	StartLight1:SetLocalPos(self:GetPos() + self:GetUp()*30)
-	StartLight1:SetLocalAngles(self:GetAngles())
-	StartLight1:Fire("Color", "255 128 0")
-	StartLight1:SetParent(self)
-	StartLight1:Spawn()
-	StartLight1:Activate()
-	StartLight1:SetParent(self)
-	StartLight1:Fire("TurnOn", "", 0)
-	self:DeleteOnRemove(StartLight1)
+	local dynamicLight = ents.Create("light_dynamic")
+	dynamicLight:SetKeyValue("brightness", "4")
+	dynamicLight:SetKeyValue("distance", "150")
+	dynamicLight:SetKeyValue("style", 5)
+	dynamicLight:SetLocalPos(self:GetPos() + self:GetUp()*30)
+	dynamicLight:SetLocalAngles(self:GetAngles())
+	dynamicLight:Fire("Color", "255 128 0")
+	dynamicLight:SetParent(self)
+	dynamicLight:Spawn()
+	dynamicLight:Activate()
+	dynamicLight:SetParent(self)
+	dynamicLight:Fire("TurnOn", "", 0)
+	self:DeleteOnRemove(dynamicLight)
 	
 	self.IdleSd = CreateSound(self, "vj_hlr/fx/alien_cycletone.wav")
 	self.IdleSd:SetSoundLevel(80)
@@ -76,11 +76,13 @@ function ENT:Think()
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vecZ90 = Vector(0, 0, 90)
+--
 function ENT:OnTakeDamage(dmginfo)
+	local myPos = self:GetPos()
 	self:SetHealth(self:Health() - dmginfo:GetDamage())
-	self:EmitSound(VJ_PICK({"vj_hlr/fx/glass1.wav","vj_hlr/fx/glass2.wav","vj_hlr/fx/glass3"}), 70)
-	if self:Health() <= 0 then
-	
+	self:EmitSound(VJ_PICK(sdHit), 70)
+	if self:Health() <= 0 then -- If health is now less than 0 then explode!
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model","vj_hl/sprites/fexplo1.vmt")
 		spr:SetKeyValue("GlowProxySize","2.0")
@@ -94,13 +96,13 @@ function ENT:OnTakeDamage(dmginfo)
 		spr:SetKeyValue("framerate","15.0")
 		spr:SetKeyValue("spawnflags","0")
 		spr:SetKeyValue("scale","7")
-		spr:SetPos(self:GetPos() + Vector(0,0,90))
+		spr:SetPos(myPos + vecZ90)
 		spr:Spawn()
 		spr:Fire("Kill","",0.9)
 	
-		util.VJ_SphereDamage(self, self, self:GetPos(), 100, 50, DMG_NERVEGAS, true, true)
+		util.VJ_SphereDamage(self, self, myPos, 100, 50, DMG_NERVEGAS, true, true)
 		self:EmitSound("vj_hlr/fx/xtal_down1.wav", 100)
-		self:EmitSound(VJ_PICK({"vj_hlr/fx/bustglass1.wav","vj_hlr/fx/bustglass2.wav"}), 70)
+		self:EmitSound(VJ_PICK(sdBreak), 70)
 		self:Remove()
 	end
 end
