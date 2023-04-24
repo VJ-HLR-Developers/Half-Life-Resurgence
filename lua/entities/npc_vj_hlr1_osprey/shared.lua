@@ -9,7 +9,8 @@ ENT.Category		= "Half-Life Resurgence"
 
 if CLIENT then
 	ENT.Apache_NextSmoke = 0
-	function ENT:CustomOnDraw()
+	function ENT:Draw()
+		self:DrawModel()
 		if IsValid(self) && CurTime() > self.Apache_NextSmoke then
 			local lvl = self:GetNW2Int("Heli_SmokeLevel")
 			self.Apache_NextSmoke = CurTime() + 0.1

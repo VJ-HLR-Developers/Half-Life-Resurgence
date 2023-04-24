@@ -11,12 +11,12 @@ if CLIENT && GetConVar("vj_hlr2_combine_eyeglow"):GetInt() == 1 then
     local mat = Material("sprites/light_glow02_add")
     local vecOrigin = Vector(3.6,6.75,1.7)
     local size = 8
-    local col = Color(118,236,110)
-    function ENT:CustomOnDraw()
+    local col = Color(118, 236, 110)
+    function ENT:Draw()
+		self:DrawModel()
         local bone = self:LookupBone("ValveBiped.Bip01_Head1")
         local pos,ang = self:GetBonePosition(bone)
         local glowOrigin = pos + ang:Forward() * vecOrigin.x + ang:Right() * vecOrigin.y + ang:Up() * vecOrigin.z
-
         render.SetMaterial(mat)
         for i = 1, 2 do
             if i == 2 then
