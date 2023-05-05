@@ -201,7 +201,6 @@ function ENT:CustomOnInitialize()
 		self.Metrocop_HasManhack = true
 		self:SetBodygroup(1, 1)
 	end
-	self:VJTags_Add(VJ_TAG_POLICE)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
@@ -252,7 +251,7 @@ function ENT:CustomOnAlert(ent)
 					end
 				end
 				self:PlaySoundSystem("Alert", sdCop_Alert_Creatures)
-			elseif ent:Classify() == CLASS_PLAYER_ALLY or self.VJTags[VJ_TAG_CIVILIAN] then
+			elseif ent:Classify() == CLASS_PLAYER_ALLY or self.VJTag_ID_Civilian then
 				self:PlaySoundSystem("Alert", sdCop_Alert_Citizens)
 			end
 		end
@@ -319,7 +318,7 @@ function ENT:CustomOnThink_AIEnabled()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAllyDeath(ent)
-	if math.random(1, 3) != 1  && self.VJTags[VJ_TAG_POLICE] then
+	if math.random(1, 3) != 1  && self.VJTag_ID_Police then
 		self:PlaySoundSystem("AllyDeath", sdCop_AllyDeath_Metrocop)
 	end
 end

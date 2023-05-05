@@ -18,10 +18,6 @@ ENT.MeleeAttackDamage = 20 -- How close does it have to be until it attacks?
 ENT.MeleeAttackDamageType = DMG_SLASH -- How close does it have to be until it attacks?
 ENT.MeleeAttackDistance = 35 -- How close does it have to be until it attacks?
 ENT.MeleeAttackDamageDistance = 125 -- How far does the damage go?
-
-ENT.WorldShakeOnMoveAmplitude = 6 -- How much the screen will shake | From 1 to 16, 1 = really low 16 = really high
-ENT.WorldShakeOnMoveRadius = 750 -- How far the screen shake goes, in world units
-ENT.WorldShakeOnMoveDuration = 0.4 -- How long the screen shake will last, in seconds
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/babygarg/gar_step1.wav","vj_hlr/hl1_npc/babygarg/gar_step2.wav"}
@@ -37,8 +33,3 @@ ENT.BreathSoundPitch = VJ_Set(130, 130)
 
 -- Custom
 ENT.Garg_Type = 1
-/*-----------------------------------------------
-	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
------------------------------------------------*/

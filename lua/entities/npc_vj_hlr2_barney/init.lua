@@ -258,10 +258,10 @@ function ENT:CustomOnAlert(ent)
 		elseif ent:GetClass() == "npc_combinedropship" then
 			self:PlaySoundSystem("Alert", sdAlertDropShip)
 			return
-		elseif ent.VJTags[VJ_TAG_HEADCRAB] or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast" then
+		elseif ent.VJTag_ID_Headcrab or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast" then
 			self:PlaySoundSystem("Alert", sdAlertHeadcrab)
 			return
-		elseif ent:Classify() == CLASS_MACHINE or ent.VJTags[VJ_TAG_TURRET] or ent:GetClass() == "npc_turret_floor" then
+		elseif ent:Classify() == CLASS_MACHINE or ent.VJTag_ID_Turret or ent:GetClass() == "npc_turret_floor" then
 			self:PlaySoundSystem("Alert", sdAlertTurret)
 			return
 		end

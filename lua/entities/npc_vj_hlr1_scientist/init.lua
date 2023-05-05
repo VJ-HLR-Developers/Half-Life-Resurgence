@@ -253,7 +253,7 @@ end
 function ENT:CustomOnAlert(ent)
 	if self.VJ_IsBeingControlled then return end
 	if self.SCI_Type != 2 && self.SCI_Type != 3 then
-		if math.random(1, 2) == 1 && (ent.VJTags[VJ_TAG_HEADCRAB] or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast") then
+		if math.random(1, 2) == 1 && (ent.VJTag_ID_Headcrab or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast") then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl1_npc/scientist/seeheadcrab.wav"})
 			self.NextAlertSoundT = CurTime() + math.Rand(self.NextSoundTime_Alert.a, self.NextSoundTime_Alert.b)
 		end

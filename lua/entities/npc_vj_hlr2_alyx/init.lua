@@ -1054,7 +1054,7 @@ function ENT:CustomOnAlert(ent)
 		elseif ent:GetClass() == "npc_antlionguard" then
 			self:PlaySoundSystem("Alert", sdAlertAntlionGuard)
 			return
-		elseif ent.VJTags[VJ_TAG_HEADCRAB] or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast" then
+		elseif ent.VJTag_ID_Headcrab or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast" then
 			self:PlaySoundSystem("Alert", sdAlertHeadcrab)
 			return
 		elseif ent:GetClass() == "npc_vj_hlr1_barnacle" or ent:GetClass() == "monster_barnacle" or ent:Classify() == CLASS_BARNACLE then
@@ -1075,7 +1075,7 @@ function ENT:CustomOnAlert(ent)
 		elseif ent:Classify() == CLASS_PROTOSNIPER then
 			self:PlaySoundSystem("Alert", "vj_hlr/hl2_npc/ep1/c17/al_evac_sniper.wav")
 			return
-		elseif ent:Classify() == CLASS_MACHINE or ent.VJTags[VJ_TAG_TURRET] or ent:GetClass() == "npc_turret_floor" then
+		elseif ent:Classify() == CLASS_MACHINE or ent.VJTag_ID_Turret or ent:GetClass() == "npc_turret_floor" then
 			self:PlaySoundSystem("Alert", "vj_hlr/hl2_npc/ep1/c17/al_turrets.wav")
 			return
 		else

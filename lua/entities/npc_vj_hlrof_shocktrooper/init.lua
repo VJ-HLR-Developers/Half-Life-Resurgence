@@ -241,7 +241,7 @@ function ENT:ThrowGrenadeCode(customEnt,noOwner)
 
 	timer.Simple(self.TimeUntilGrenadeIsReleased,function()
 		if getIsCustom == true && !IsValid(customEnt) then return end
-		if IsValid(customEnt) then customEnt.VJ_IsPickedUpDanger = false customEnt:Remove() end
+		if IsValid(customEnt) then customEnt.VJTag_IsPickedUp = false customEnt:Remove() end
 		if IsValid(self) && !self.Dead /*&& IsValid(self:GetEnemy())*/ then -- Yete SNPC ter artoon e...
 			local gerShootPos = self:GetPos() + self:GetForward()*200
 			if IsValid(self:GetEnemy()) then 

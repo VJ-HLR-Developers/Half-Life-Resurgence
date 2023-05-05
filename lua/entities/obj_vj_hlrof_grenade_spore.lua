@@ -13,7 +13,7 @@ ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectiles for my addons"
 ENT.Category		= "VJ Base"
 
-ENT.VJ_IsDetectableGrenade = true
+ENT.VJTag_ID_Grenade = true
 
 if CLIENT then
 	local Name = "Spore Grenade"

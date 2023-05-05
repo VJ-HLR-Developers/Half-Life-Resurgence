@@ -7,6 +7,9 @@ ENT.Purpose 		= "Spawn it and fight with it!"
 ENT.Instructions 	= "Click on the spawnicon to spawn it."
 ENT.Category		= "Half-Life Resurgence"
 
+ENT.VJTag_ID_Vehicle = true
+ENT.VJTag_ID_Aircraft = true
+
 if CLIENT then
 	ENT.Apache_NextSmoke = 0
 	function ENT:Draw()
