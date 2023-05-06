@@ -9,7 +9,11 @@ ENT.Model = {"models/vj_hlr/hl1/hassassin.mdl"} -- The game will pick a random m
 ENT.StartHealth = 60
 ENT.TurningSpeed = 50 -- How fast it can turn
 ENT.HullType = HULL_HUMAN
-ENT.MaxJumpLegalDistance = VJ_Set(620, 620) -- The max distance the NPC can jump (Usually from one node to another)
+ENT.JumpVars = {
+	MaxRise = 620, -- How high it can jump up ((S -> A) AND (S -> E))
+	MaxDrop = 620, -- How low it can jump down (E -> S)
+	MaxDistance = 620, -- Maximum distance between Start and End
+}
 ENT.VJC_Data = {
 	//FirstP_Bone = "bip01 head", -- If left empty, the base will attempt to calculate a position for first person
 	//FirstP_Offset = Vector(6, 0, 2.5), -- The offset for the controller when the camera is in first person
@@ -42,11 +46,11 @@ ENT.CanCrouchOnWeaponAttack = false -- Can it crouch while shooting?
 ENT.AnimTbl_TakingCover = {ACT_LAND} -- The animation it plays when hiding in a covered position, leave empty to let the base decide
 ENT.AnimTbl_AlertFriendsOnDeath = {ACT_IDLE_ANGRY} -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
 ENT.DropWeaponOnDeathAttachment = "0" -- Which attachment should it use for the weapon's position
-ENT.WaitForEnemyToComeOutTime = VJ_Set(1,2) -- How much time should it wait until it starts chasing the enemy?
+ENT.WaitForEnemyToComeOutTime = VJ_Set(1, 2) -- How much time should it wait until it starts chasing the enemy?
 ENT.HasLostWeaponSightAnimation = true -- Set to true if you would like the SNPC to play a different animation when it has lost sight of the enemy and can't fire at it
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE} -- Death Animations
+ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE} -- Death Animations
 ENT.DeathAnimationTime = false -- Time until the SNPC spawns its corpse and gets removed
 ENT.CombatFaceEnemy = false -- If enemy is exists and is visible
 	-- ====== File Path Variables ====== --
@@ -62,7 +66,7 @@ ENT.BOA_NextJumpT = 0
 ENT.BOA_NextRunT = 0
 ENT.BOA_ShotsSinceRun = 0
 ENT.BOA_OffGround = false
-ENT.BOA_FlyAnimSet = false
+ENT.BOA_ForceJumpShoot = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetRenderMode(RENDERMODE_TRANSALPHA)
@@ -88,6 +92,15 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	elseif key == "body" then
 		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:BusyWithActivity()
+	-- Override base function to not see jumping as a busy activity when it should jump-fire
+	if self:GetNavType() == NAV_JUMP && self.BOA_ForceJumpShoot then
+		self.DoingWeaponAttack_Standing = false -- Make the gun actually shoot
+		return false
+	end
+	return self.BaseClass.BusyWithActivity(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
@@ -118,28 +131,32 @@ function ENT:CustomOnThink()
 			self:RemoveFlags(FL_NOTARGET)
 		end
 	end
-
-	-- Change the firing animation depending if it's on ground or flying
+	
+	-- If not on ground, make it play fly shooting anim if velocity's z is negative (9)falling)
 	if self:IsOnGround() then
-		if self.BOA_FlyAnimSet then
+		if self.BOA_ForceJumpShoot then
 			self.AnimTbl_WeaponAttack = {ACT_RANGE_ATTACK1}
-			self.BOA_FlyAnimSet = false
+			self.BOA_ForceJumpShoot = false
 		end
-	elseif !self.BOA_FlyAnimSet then
-		self.AnimTbl_WeaponAttack = {VJ_SequenceToActivity(self, "fly_attack")}
-		self.BOA_FlyAnimSet = true
+	elseif !self.BOA_ForceJumpShoot && self:GetVelocity().z < 0 then
+		local flyAct = VJ_SequenceToActivity(self, "fly_attack")
+		self:SetIdealActivity(flyAct)
+		self.AnimTbl_WeaponAttack = {flyAct}
+		self.BOA_ForceJumpShoot = true
+		self.BOA_OffGround = true
 	end
 	
-	-- Handle landing animation after jumping
-	if self.BOA_OffGround == true && self:GetVelocity().z == 0 then
+	if self.BOA_OffGround == true && self:GetVelocity().z == 0 then -- Velocity is 0, so we have landed, play land anim
 		self.BOA_OffGround = false
 		self:VJ_ACT_PLAYACTIVITY(ACT_LAND, true, false, false)
+		//self:VJ_PlaySequence("landfromjump", self.AnimationPlaybackRate, true, self:SequenceDuration(self:LookupSequence("landfromjump")), false)
 		//VJ_EmitSound(self,"vj_hlr/hl1_npc/player/pl_jumpland2.wav",80) -- Done through event
 	end
 	
 	-- Jump while attacking
 	if IsValid(self:GetEnemy()) && CurTime() > self.BOA_NextJumpT && self.DoingWeaponAttack_Standing == true && !self:IsMoving() && self.LatestEnemyDistance < 1400 && self.VJ_IsBeingControlled == false then
-		self:StopMoving()
+		self:ForceMoveJump(((self:GetPos() + self:GetRight()*(math.random(1, 2) == 1 and 100 or -100)) - (self:GetPos() + self:OBBCenter())):GetNormal()*200 +self:GetUp()*600)
+		/*self:StopMoving()
 		self:SetGroundEntity(NULL)
 		self:SetLocalVelocity(((self:GetPos() + self:GetRight()*(math.random(1, 2) == 1 and 100 or -100)) - (self:GetPos() + self:OBBCenter())):GetNormal()*200 +self:GetUp()*600)
 		self:VJ_ACT_PLAYACTIVITY(ACT_JUMP, true, false, true, 0, {}, function(vsched)
@@ -147,7 +164,7 @@ function ENT:CustomOnThink()
 			//vsched.RunCode_OnFinish = function()
 				//self:VJ_ACT_PLAYACTIVITY("fly_attack",true,false,false)
 			//end
-		end)
+		end)*/
 		self.BOA_NextRunT = CurTime() + 3
 		self.BOA_NextJumpT = CurTime() + 8
 	end
