@@ -33,7 +33,7 @@ function ENT:Initialize()
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
 	
-	StartGlow1 = ents.Create("env_sprite")
+	local StartGlow1 = ents.Create("env_sprite")
 	StartGlow1:SetKeyValue("model","vj_hl/sprites/tele1.vmt")
 	//StartGlow1:SetKeyValue("rendercolor","255 128 0")
 	StartGlow1:SetKeyValue("GlowProxySize","2.0")

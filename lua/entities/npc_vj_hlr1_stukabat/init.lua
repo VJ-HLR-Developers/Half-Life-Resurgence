@@ -304,7 +304,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 
 			timer.Simple(VJ_GetSequenceDuration(self, self.DeathAnim),function()
 				if IsValid(self) then
-					corpse = ents.Create("prop_ragdoll")
+					local corpse = ents.Create("prop_ragdoll")
 					corpse:SetModel(self:GetModel())
 					corpse:SetPos(self:GetPos())
 					corpse:SetAngles(self:GetAngles())

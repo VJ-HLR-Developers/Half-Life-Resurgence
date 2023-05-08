@@ -228,7 +228,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self.GW_BE_Orb:AddFlags(FL_NOTARGET)
 		-- Shock trooper spawner
 		local at = self:GetAttachment(self:LookupAttachment("orb"))
-		sprite = ents.Create("obj_vj_hlrof_gw_spawner")
+		local sprite = ents.Create("obj_vj_hlrof_gw_spawner")
 		sprite:SetPos(at.Pos)
 		sprite:SetAngles(at.Ang)
 		sprite:SetOwner(self)
