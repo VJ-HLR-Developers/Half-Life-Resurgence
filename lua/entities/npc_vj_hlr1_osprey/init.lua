@@ -414,7 +414,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 	-- Get destroyed when it collides with something
 	function deathCorpse:PhysicsCollide(data, phys)
 		if self.Dead then return end
-		if data.HitEntity.IsVJBase_Gib then return end -- Do NOT explode if its an engine part
+		if data.HitEntity.IsVJBaseCorpse_Gib then return end -- Do NOT explode if its an engine part
 		self.Dead = true
 		
 		-- Create gibs
