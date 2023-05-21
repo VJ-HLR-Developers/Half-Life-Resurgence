@@ -102,10 +102,10 @@ function ENT:CustomOnThink_AIEnabled()
 			if IsValid(self) then
 				local orgDist = self:GetMaxLookDistance()
 				self.FindEnemy_CanSeeThroughWalls = true
-				self:SetSightDistance(450)
+				self:SetMaxLookDistance(450)
 				self:SetupRelationships()
 				self.FindEnemy_CanSeeThroughWalls = false
-				self:SetSightDistance(orgDist)
+				self:SetMaxLookDistance(orgDist)
 			end
 		end)
 		self.KingPin_NextScanT = CurTime() + self.NextProcessTime + 5
