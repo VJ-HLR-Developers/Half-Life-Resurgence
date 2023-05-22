@@ -170,7 +170,7 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnFireBullet(ent, data)
+function ENT:OnFireBullet(data)
 	self.BOA_CloakLevel = 0
 	if self.VJ_IsBeingControlled then return end
 	self.BOA_ShotsSinceRun = self.BOA_ShotsSinceRun + 1

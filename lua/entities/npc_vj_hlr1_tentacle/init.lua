@@ -43,6 +43,9 @@ ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/tentacle/te_alert1.wav","vj_hlr/hl1_npc/te
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/tentacle/te_roar1.wav","vj_hlr/hl1_npc/tentacle/te_roar2.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/tentacle/te_death2.wav"}
 
+local sdBeakStrike ={"vj_hlr/hl1_npc/tentacle/te_strike1.wav", "vj_hlr/hl1_npc/tentacle/te_strike2.wav"}
+local sdChangeLevel = {"vj_hlr/hl1_npc/tentacle/te_swing1.wav","vj_hlr/hl1_npc/tentacle/te_swing2.wav"}
+
 ENT.GeneralSoundPitch1 = 100
 
 -- Custom
@@ -90,10 +93,11 @@ end
 function ENT:CustomOnHandleAnimEvent(ev, evTime, evCycle, evType, evOptions)
 	-- Take care of the regular hit sound (When playing idle animations)
 	if ev == 6 && !self.VJ_IsBeingControlled then
-		self:PlaySoundSystem("MeleeAttack", {"vj_hlr/hl1_npc/tentacle/te_strike1.wav","vj_hlr/hl1_npc/tentacle/te_strike2.wav"}, VJ_EmitSound)
-		if IsValid(self:GetEnemy()) && (self:GetEnemy():GetPos():Distance(self:GetPos() + self:GetForward()*150)) < 200 then
+		self:PlaySoundSystem("MeleeAttack", sdBeakStrike, VJ_EmitSound)
+		local ene = self:GetEnemy()
+		if IsValid(ene) && (ene:GetPos():Distance(self:GetPos() + self:GetForward()*150)) < 200 then
 			self.CanTurnWhileStationary = true
-			self:SetAngles(self:GetFaceAngle((self:GetEnemy():GetPos()-self:GetPos()):Angle()))
+			self:SetAngles(self:GetFaceAngle((ene:GetPos() - self:GetPos()):Angle()))
 		end
 	end
 end
@@ -102,14 +106,15 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "attack" then
 		self:MeleeAttackCode()
-		self:PlaySoundSystem("MeleeAttack", {"vj_hlr/hl1_npc/tentacle/te_strike1.wav","vj_hlr/hl1_npc/tentacle/te_strike2.wav"}, VJ_EmitSound)
-		if IsValid(self:GetEnemy()) then self:SetAngles(self:GetFaceAngle((self:GetEnemy():GetPos()-self:GetPos()):Angle())) end
+		self:PlaySoundSystem("MeleeAttack", sdBeakStrike, VJ_EmitSound)
+		local ene = self:GetEnemy()
+		if IsValid(ene) then self:SetAngles(self:GetFaceAngle((ene:GetPos() - self:GetPos()):Angle())) end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tentacle_DoLevelChange(num)
 	local lvl = self.Tentacle_Level + num
-	VJ_EmitSound(self, {"vj_hlr/hl1_npc/tentacle/te_swing1.wav","vj_hlr/hl1_npc/tentacle/te_swing2.wav"})
+	VJ_EmitSound(self, sdChangeLevel)
 	if lvl == 0 then
 		self.AnimTbl_IdleStand = {ACT_IDLE}
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
