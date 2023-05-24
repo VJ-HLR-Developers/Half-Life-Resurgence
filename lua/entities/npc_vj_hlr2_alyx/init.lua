@@ -995,6 +995,8 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
 			self.WeaponAnimTranslations[ACT_WALK_AIM] = ACT_WALK_AIM_PISTOL
 
 			self.WeaponAnimTranslations[ACT_RUN_AIM] = ACT_RUN_AIM_PISTOL
+		elseif hType == "melee" or hType == "melee2" or hType == "knife" then
+			self.WeaponAnimTranslations[ACT_IDLE_ANGRY] = ACT_IDLE -- Alyx does NOT have a melee attack animation!
 		end
 	end)
 	return false
