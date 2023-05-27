@@ -135,11 +135,20 @@ local replacePreSpawn = {
 		else
 			newEnt.Human_Gender = 0
 		end
+		-- If it's a regular citizen but has a weapon, then make sure to set it to be aggressive!
+		if newEnt:GetClass() == "npc_vj_hlr2_citizen" && IsValid(ent:GetActiveWeapon()) then
+			newEnt.Behavior = VJ_BEHAVIOR_AGGRESSIVE
+		end
 	end,
 	["npc_metropolice"] = function(ent, newEnt)
 		for key, val in pairs(ent:GetKeyValues()) do
-			if key == manhacks && val == 0 then
-				newEnt.Metrocop_CanHaveManhack = false
+			if key == "manhacks" then
+				if val == 0 then -- Has no manhack
+					newEnt.Metrocop_CanHaveManhack = false
+				else -- Force spawn with manhack!
+					newEnt.Metrocop_CanHaveManhack = true
+					newEnt.Metrocop_AlwaysSpawnManhack = true
+				end
 			end
 		end
 	end,
@@ -236,8 +245,10 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				local wep = ent.GetActiveWeapon && ent:GetActiveWeapon() or false -- In case GetActiveWeapon is not in the ent's metatable
 				//print(worldName, wep)
 				if IsValid(wep) then
-					local foundWep = replaceTbl_Weapons[wep:GetClass()]
-					newEnt:Give(VJ_PICK(foundWep))
+					local foundWep = wep.IsVJBaseWeapon and wep:GetClass() or VJ_PICK(replaceTbl_Weapons[wep:GetClass()])
+					if foundWep then
+						newEnt:Give(foundWep)
+					end
 				end
 				-- Handle enemy
 				local ene = ent.GetEnemy && ent:GetEnemy() or false -- In case GetEnemy is not in the ent's metatable

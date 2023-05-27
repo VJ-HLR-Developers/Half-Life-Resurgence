@@ -194,10 +194,11 @@ local sdCop_DeployStunStick = {"weapons/stunstick/spark1.wav","weapons/stunstick
 
 -- Custom
 ENT.Metrocop_CanHaveManhack = true
+ENT.Metrocop_AlwaysSpawnManhack = false -- Always spawn with a manhack, used for auto replace
 ENT.Metrocop_HasManhack = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	if self.Metrocop_CanHaveManhack && math.random(1, 4) == 1 then
+	if self.Metrocop_CanHaveManhack && ((math.random(1, 4) == 1) or self.Metrocop_ForceSpawnManhack) then
 		self.Metrocop_HasManhack = true
 		self:SetBodygroup(1, 1)
 	end
