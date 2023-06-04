@@ -50,7 +50,6 @@ ENT.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIE_GUTSHOT,ACT_DIE_HEAD
 --ENT.DeathAnimationTime = 0.8 -- Time until the SNPC spawns its corpse and gets removed
 ENT.AnimTbl_TakingCover = {ACT_CROUCHIDLE} -- The animation it plays when hiding in a covered position, leave empty to let the base decide
 ENT.AnimTbl_AlertFriendsOnDeath = {"vjseq_idle2"} -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
-ENT.DropWeaponOnDeathAttachment = "rhand" -- Which attachment should it use for the weapon's position
 ENT.HasLostWeaponSightAnimation = true -- Set to true if you would like the SNPC to play a different animation when it has lost sight of the enemy and can't fire at it
 ENT.AnimTbl_WeaponAttackSecondary = {ACT_SPECIAL_ATTACK1} -- Animations played when the SNPC fires a secondary weapon attack
 ENT.AnimTbl_WeaponReload = {ACT_RELOAD_SMG1} -- Animations that play when the SNPC reloads
@@ -606,7 +605,7 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	self:DropWeaponOnDeathCode(dmginfo, hitgroup)
+	self:DoDropWeaponOnDeath(dmginfo, hitgroup)
 	self:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
 	local activeWep = self:GetActiveWeapon()
 	if IsValid(activeWep) then activeWep:Remove() end

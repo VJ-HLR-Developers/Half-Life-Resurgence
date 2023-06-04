@@ -45,7 +45,6 @@ ENT.WeaponSpread = 0.6 -- What's the spread of the weapon? | Closer to 0 = bette
 ENT.CanCrouchOnWeaponAttack = false -- Can it crouch while shooting?
 ENT.AnimTbl_TakingCover = {ACT_LAND} -- The animation it plays when hiding in a covered position, leave empty to let the base decide
 ENT.AnimTbl_AlertFriendsOnDeath = {ACT_IDLE_ANGRY} -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
-ENT.DropWeaponOnDeathAttachment = "0" -- Which attachment should it use for the weapon's position
 ENT.WaitForEnemyToComeOutTime = VJ_Set(1, 2) -- How much time should it wait until it starts chasing the enemy?
 ENT.HasLostWeaponSightAnimation = true -- Set to true if you would like the SNPC to play a different animation when it has lost sight of the enemy and can't fire at it
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
@@ -222,7 +221,7 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	self:DropWeaponOnDeathCode(dmginfo, hitgroup)
+	self:DoDropWeaponOnDeath(dmginfo, hitgroup)
 	self:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
 	if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
 end
