@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+	"$basetexture" 				"models/hl_resurgence/hl2b/combine_elite/pupil_l"
+	"$bumpmap"					"vj_base/flat"
+	"$phongexponenttexture"		"vj_base/exponent"
+
+	"$phong" 					"1"
+	"$phongboost"				"1"
+	"$phongexponent"			"12"
+	"$phongfresnelranges"		"[0.035 0.2 1]"
+}

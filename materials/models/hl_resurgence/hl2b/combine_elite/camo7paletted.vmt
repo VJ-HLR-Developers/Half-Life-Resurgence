@@ -1,0 +1,37 @@
+// "VertexLitGeneric"
+// {
+// 	"$basetexture" 				"models/hl_resurgence/hl2b/combine_elite/camo7paletted"
+// 	"$bumpmap"					"vj_base/flat"
+// 	"$phongexponenttexture"		"vj_base/exponent"
+
+// 	"$phong" 					"1"
+// 	"$phongboost"				"1"
+// 	"$phongexponent"			"12"
+// 	"$phongfresnelranges"		"[0.035 0.2 1]"
+// }
+
+"Refract"
+{
+	"$refracttexture" 			"models/hl_resurgence/hl2b/combine_elite/camo7paletted"
+	"$dudvmap" 					"dev/water_dudv"
+	"$normalmap" 				"dev/water_normal"
+
+	"$halflambert" 				"1"
+	"$nocull" 					"1"
+	"$model" 					"1"
+
+	"$bluramount" 				"1"
+	"$refractamount" 			"0.125"
+	"$refracttint" 				"[1 1 1]"
+	"$reflectentities" 			"1"
+
+	"Proxies"
+	{
+		"TextureScroll"
+		{
+			"texturescrollvar" "$bumptransform"
+			"texturescrollrate" "0.01"
+			"texturescrollangle" "180"
+		}
+	}
+}

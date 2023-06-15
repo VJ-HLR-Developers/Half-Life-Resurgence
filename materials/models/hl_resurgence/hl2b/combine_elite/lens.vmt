@@ -1,0 +1,19 @@
+"VertexLitGeneric"
+{
+	"$basetexture" 				"vgui/white"
+	// "$basetexture" 				"models/hl_resurgence/hl2b/combine_elite/camo7"
+	"$bumpmap"					"vj_base/flat"
+	"$phongexponenttexture"		"vj_base/exponent"
+	"$color2" 					"[1 1 0]"
+
+	// "$alphatest" 				"1"
+	// "$allowalphatocoverage"		"1"
+
+	"$phong" 					"1"
+	"$phongboost"				"1"
+	"$phongexponent"			"12"
+	"$phongfresnelranges"		"[0.035 0.2 1]"
+
+	"$envmap" 					"models/hl_resurgence/hl2b/combine_elite/lensenvmap"
+	"$envmapsphere" 			"1"
+}
