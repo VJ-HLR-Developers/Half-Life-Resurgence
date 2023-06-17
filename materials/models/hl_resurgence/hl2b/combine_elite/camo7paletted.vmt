@@ -17,13 +17,11 @@
 	"$normalmap" 				"dev/water_normal"
 
 	"$halflambert" 				"1"
-	"$nocull" 					"1"
 	"$model" 					"1"
 
 	"$bluramount" 				"1"
 	"$refractamount" 			"0.125"
 	"$refracttint" 				"[1 1 1]"
-	"$reflectentities" 			"1"
 
 	"Proxies"
 	{

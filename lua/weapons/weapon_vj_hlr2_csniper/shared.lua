@@ -34,7 +34,7 @@ SWEP.NPC_ExtraFireSoundPitch = VJ_Set(90,100) -- How much time until the seconda
 ------ Primary Fire Variables ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 95 -- Damage
-SWEP.Primary.Force = 3 -- Force applied on the object the bullet hits
+SWEP.Primary.Force = 1.6 -- Force applied on the object the bullet hits
 SWEP.Primary.ClipSize = 5 -- Max amount of bullets per clip
 SWEP.Primary.Ammo = "SniperRound" -- Ammo type
 SWEP.Primary.TracerType = "AR2Tracer"

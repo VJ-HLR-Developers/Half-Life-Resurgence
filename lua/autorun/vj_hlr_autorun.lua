@@ -194,7 +194,7 @@ if VJExists == true then
 		"weapon_vj_357", 
 		"weapon_vj_glock17", 
 		"weapon_vj_glock17", 
-		"weapon_vj_ssg08", 
+		//"weapon_vj_ssg08", 
 		"weapon_vj_hlr2b_sniper", 
 		"weapon_vj_rpg", 
 		"weapon_vj_hlr2_rpg"}, vCat)
@@ -217,16 +217,16 @@ if VJExists == true then
 	VJ.AddNPC("Combine Sentry Gun", "npc_vj_hlr2_com_sentry", vCat)
 		-- Beta
 		VJ.AddNPC_HUMAN("Overwatch Soldier (Beta)", "npc_vj_hlr2b_com_soldier", {"weapon_vj_hlr2b_oicw"}, vCat)
-		VJ.AddNPC_HUMAN("Overwatch Elite (Beta)", "npc_vj_hlr2b_com_elite", {"weapon_vj_hlr2b_sniper"}, vCat)
+		VJ.AddNPC_HUMAN("Overwatch Sniper Elite (Beta)", "npc_vj_hlr2b_com_elite_sniper", {"weapon_vj_hlr2b_sniper"}, vCat)
 		VJ.AddNPC_HUMAN("Civil Protection Elite", "npc_vj_hlr2b_com_civilp_elite", {"weapon_vj_smg1"}, vCat) -- Class name should be changed
 	
 	vCat = "Half-Life Resurgence"
 	-- NPC Weapons
 	VJ.AddNPCWeapon("VJ_Combine_Sniper", "weapon_vj_hlr2_csniper", vCat)
+	VJ.AddNPCWeapon("VJ_Combine_Reager", "weapon_vj_hlr2_reager", vCat)
 	VJ.AddNPCWeapon("VJ_Annabelle", "weapon_vj_hlr2_annabelle", vCat)
 	VJ.AddNPCWeapon("VJ_Alyx_Gun", "weapon_vj_hlr2_alyxgun", vCat)
 	VJ.AddNPCWeapon("VJ_Charge_Bow", "weapon_vj_hlr2_chargebow", vCat)
-	VJ.AddNPCWeapon("VJ_Combine_Reager", "weapon_vj_hlr2_reager", vCat)
 	VJ.AddNPCWeapon("VJ_StunStick", "weapon_vj_hlr2_stunstick", vCat)
 	VJ.AddNPCWeapon("VJ_RPG_Resistance", "weapon_vj_hlr2_rpg", vCat)
 		-- Beta
