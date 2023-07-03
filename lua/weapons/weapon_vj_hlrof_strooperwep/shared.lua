@@ -79,16 +79,16 @@ function SWEP:CustomBulletSpawnPosition()
 	return self:GetOwner():GetAttachment(self:GetOwner():LookupAttachment("muzzle")).Pos
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnNPC_ServerThink()
-	self:GetOwner():SetBodygroup(1,0)
-	
+function SWEP:CustomOnThink()
+	self:GetOwner():SetBodygroup(1, 0)
+	self:EmitSound("vj_hlr/hl1_npc/shockroach/shock_angry.wav", 70)
 	if CurTime() > self.HLR_NextIdleSoundT then
 		if IsValid(self:GetOwner():GetEnemy()) then
 			self:EmitSound("vj_hlr/hl1_npc/shockroach/shock_angry.wav", 70)
 		else
 			self:EmitSound("vj_hlr/hl1_npc/shockroach/shock_idle" .. math.random(1,3) .. ".wav", 65)
 		end
-		self.HLR_NextIdleSoundT = CurTime() +math.Rand(5,12)
+		self.HLR_NextIdleSoundT = CurTime() + math.Rand(5, 12)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
