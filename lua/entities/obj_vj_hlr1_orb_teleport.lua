@@ -97,6 +97,6 @@ function ENT:CustomOnDoDamage(data, phys, hitEnt)
 		effectTeleport:Fire("Kill", "", 1)
 		owner:DeleteOnRemove(effectTeleport)
 		
-		VJ_EmitSound(hitEnt, "vj_hlr/fx/beamstart" .. math.random(1,2) .. ".wav", 85, 100)
+		VJ.EmitSound(hitEnt, "vj_hlr/fx/beamstart" .. math.random(1,2) .. ".wav", 85, 100)
 	end
 end

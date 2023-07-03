@@ -29,7 +29,7 @@ ENT.GrenadeAttackEntity = "obj_vj_hlr1_grenade" -- The entity that the SNPC thro
 ENT.AnimTbl_GrenadeAttack = {ACT_SPECIAL_ATTACK2} -- Grenade Attack Animations
 ENT.GrenadeAttackAttachment = "lhand" -- The attachment that the grenade will spawn at
 ENT.TimeUntilGrenadeIsReleased = 1.3 -- Time until the grenade is released
-ENT.NextThrowGrenadeTime = VJ_Set(10, 12) -- Time until it can throw a grenade again
+ENT.NextThrowGrenadeTime = VJ.SET(10, 12) -- Time until it can throw a grenade again
 ENT.ThrowGrenadeChance = 3 -- Chance that it will throw the grenade | Set to 1 to throw all the time
 
 ENT.Medic_DisableAnimation = true -- if true, it will disable the animation code
@@ -52,6 +52,7 @@ ENT.AnimTbl_TakingCover = {ACT_CROUCHIDLE} -- The animation it plays when hiding
 ENT.AnimTbl_AlertFriendsOnDeath = {"vjseq_idle2"} -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
 ENT.HasLostWeaponSightAnimation = true -- Set to true if you would like the SNPC to play a different animation when it has lost sight of the enemy and can't fire at it
 ENT.AnimTbl_WeaponAttackSecondary = {ACT_SPECIAL_ATTACK1} -- Animations played when the SNPC fires a secondary weapon attack
+ENT.WeaponAttackSecondaryTimeUntilFire = 0.7
 ENT.AnimTbl_WeaponReload = {ACT_RELOAD_SMG1} -- Animations that play when the SNPC reloads
 ENT.CombatFaceEnemy = false -- If enemy is exists and is visible
 	-- ====== Flinching Code ====== --
@@ -203,7 +204,7 @@ function ENT:OnPlayCreateSound(sdData, sdFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
-	//print(key)
+	print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
 	elseif key == "melee" then
@@ -213,8 +214,13 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		if IsValid(wep) then
 			wep:NPCShoot_Primary()
 		end
+	-- elseif key == "shootgrenade" then -- Event-based secondary attack
+	-- 	local wep = self:GetActiveWeapon()
+	-- 	if IsValid(wep) then
+	-- 		wep:NPC_SecondaryFire()
+	-- 	end
 	elseif key == "body" then
-		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 
 	-- OppF Engineer --
 	elseif key == "deagle_putout" then
@@ -223,7 +229,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self:SetBodygroup(1, 1)
 	elseif key == "torchlight_on" then
 		ParticleEffectAttach("vj_hl_torch", PATTACH_POINT_FOLLOW, self, 5)
-		VJ_EmitSound(self, "vj_hlr/hl1_npc/hgrunt_oppf/torch_light.wav", 80)
+		VJ.EmitSound(self, "vj_hlr/hl1_npc/hgrunt_oppf/torch_light.wav", 80)
 	elseif key == "torch_putout" then
 		self:StopParticles()
 		self:SetBodygroup(1, 2)
@@ -246,7 +252,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		
 	-- Alpha Sergeant --
 	elseif key == "holster_gun" && self.Serg_Type != 2 then
-		self:SetWeaponState(VJ_WEP_STATE_HOLSTERED)
+		self:SetWeaponState(VJ.NPC_WEP_STATE_HOLSTERED)
 		self:SetBodygroup(1, 1)
 	elseif key == "draw_gun" && self.Serg_Type != 2 then
 		self:SetWeaponState()
@@ -268,15 +274,15 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
 	local bgroup = self.HGrunt_LastBodyGroup
-	self.WeaponAnimTranslations[ACT_IDLE] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_repel") or ACT_IDLE
-	self.WeaponAnimTranslations[ACT_IDLE_ANGRY] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_repel") or ACT_IDLE_ANGRY
+	self.WeaponAnimTranslations[ACT_IDLE] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_repel") or ACT_IDLE
+	self.WeaponAnimTranslations[ACT_IDLE_ANGRY] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_repel") or ACT_IDLE_ANGRY
 	if self.HECU_Type == 0 or self.HECU_Type == 9 then-- 0 = HL1 Grunt
 		if bgroup == 0 then -- MP5
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1_LOW
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1_LOW
 		elseif bgroup == 1 then -- Shotgun
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN_LOW
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN_LOW
 		end
 	elseif self.HECU_Type == 1 then -- 1 = OppF Grunt
 		if bgroup == 0 then -- MP5
@@ -301,19 +307,19 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
 		end
 	elseif self.HECU_Type == 4 then -- 4 = Black Ops Assassin
 		if bgroup == 0 then -- MP5
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1_LOW
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1_LOW
 		elseif bgroup == 1 then -- M-40A1
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_AR2
 			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_AR2_LOW
 		end
 	elseif self.HECU_Type == 5 then -- 5 = Robot Grunt
 		if bgroup == 0 then -- MP5
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1_LOW
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1_LOW
 		elseif bgroup == 1 then -- Shotgun
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ_SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN_LOW
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN
+			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN_LOW
 		end
 	elseif self.HECU_Type == 6 then -- 6 = Alpha HGrunt
 		if bgroup == 0 then -- Colt Carbine
@@ -509,7 +515,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gasTankExpPos = Vector(0, 0, 90)
 local gasTankExpSd = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}
-local colorRed = VJ_Color2Byte(Color(130, 19, 10))
+local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
@@ -517,8 +523,8 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	if self.HECU_GasTankHit == true then
 		util.BlastDamage(self, self, self:GetPos(), 100, 80)
 		util.ScreenShake(self:GetPos(), 100, 200, 1, 500)
-		VJ_EmitSound(self, gasTankExpSd, 90)
-		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+		VJ.EmitSound(self, gasTankExpSd, 90)
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
 		spr:SetKeyValue("GlowProxySize","2.0")
@@ -577,12 +583,12 @@ local sdHeadshot = {"vj_hlr/fx/headshot1.wav","vj_hlr/fx/headshot2.wav","vj_hlr/
 --
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD then
-		VJ_EmitSound(self, sdHeadshot, 75, 100)
+		VJ.EmitSound(self, sdHeadshot, 75, 100)
 	elseif self.HECU_Type == 5 then
-		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 100, 100)
-		VJ_EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 80, 100)
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 100, 100)
+		VJ.EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 80, 100)
 	else
-		VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+		VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	end
 	return false
 end

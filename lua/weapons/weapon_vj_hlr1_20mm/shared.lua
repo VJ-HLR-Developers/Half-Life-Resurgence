@@ -36,7 +36,7 @@ function SWEP:CustomOnInitialize()
 	timer.Simple(0.1, function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
 		if IsValid(self) && IsValid(self:GetOwner()) then
 			local owner = self:GetOwner()
-			if !VJ_HasValue(self.HLR_ValidModels,owner:GetModel()) then
+			if !VJ.HasValue(self.HLR_ValidModels,owner:GetModel()) then
 				if IsValid(owner:GetCreator()) then
 					owner:GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
 				end

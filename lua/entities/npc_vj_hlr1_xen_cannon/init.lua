@@ -94,8 +94,8 @@ function ENT:CustomRangeAttackCode()
 		filter = {self} // self.extmdl
 	})
 	local hitPos = tr.HitPos
-	util.VJ_SphereDamage(self, self, hitPos, 30, 40, DMG_ENERGYBEAM, true, false, {Force=90})
-	VJ_EmitSound(self, "vj_hlr/hl1_npc/xencannon/fire.wav", 90, 100)
+	VJ.ApplyRadiusDamage(self, self, hitPos, 30, 40, DMG_ENERGYBEAM, true, false, {Force=90})
+	VJ.EmitSound(self, "vj_hlr/hl1_npc/xencannon/fire.wav", 90, 100)
 	sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitPos, 60)
 	
 	local elec = EffectData()
@@ -180,6 +180,6 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, 100)
+	VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, 100)
 	return false
 end

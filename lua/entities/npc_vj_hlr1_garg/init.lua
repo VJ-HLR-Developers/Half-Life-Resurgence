@@ -62,7 +62,7 @@ ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/garg/gar_pain1.wav","vj_hlr/hl1_npc/garg/ga
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/garg/gar_die1.wav","vj_hlr/hl1_npc/garg/gar_die2.wav"}
 
 ENT.GeneralSoundPitch1 = 100
-ENT.ExtraMeleeSoundPitch = VJ_Set(80, 80)
+ENT.ExtraMeleeSoundPitch = VJ.SET(80, 80)
 
 -- Custom
 ENT.Garg_Type = 0
@@ -126,12 +126,12 @@ function ENT:Garg_ResetFlame()
 	self.AnimTbl_IdleStand = {ACT_IDLE}
 	self.NextIdleStandTime = 0
 	self.DisableChasingEnemy = false
-	VJ_STOPSOUND(self.Garg_FlameSd)
+	VJ.STOPSOUND(self.Garg_FlameSd)
 	self:StopParticles()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if self.Garg_AbleToFlame == false or self.AttackType != VJ_ATTACK_RANGE or !IsValid(self:GetEnemy()) then
+	if self.Garg_AbleToFlame == false or self.AttackType != VJ.ATTACK_TYPE_RANGE or !IsValid(self:GetEnemy()) then
 		self:Garg_ResetFlame()
 	end
 end
@@ -148,9 +148,9 @@ function ENT:CustomOnThink_AIEnabled()
 		self.AnimTbl_IdleStand = {ACT_RANGE_ATTACK1}
 		self.NextIdleStandTime = 0
 		self:StopMoving()
-		util.VJ_SphereDamage(self, self, self:GetPos() + self:OBBCenter() + self:GetForward()*50, range, 3, DMG_BURN, true, true, {UseCone=true, UseConeDegree=30}, function(ent) if !ent:IsOnFire() && (ent:IsPlayer() or ent:IsNPC()) then ent:Ignite(2) end end)
+		VJ.ApplyRadiusDamage(self, self, self:GetPos() + self:OBBCenter() + self:GetForward()*50, range, 3, DMG_BURN, true, true, {UseCone=true, UseConeDegree=30}, function(ent) if !ent:IsOnFire() && (ent:IsPlayer() or ent:IsNPC()) then ent:Ignite(2) end end)
 		-- COSMETICS: Sound, particle and decal
-		self.Garg_FlameSd = VJ_CreateSound(self, "vj_hlr/hl1_npc/garg/gar_flamerun1.wav")
+		self.Garg_FlameSd = VJ.CreateSound(self, "vj_hlr/hl1_npc/garg/gar_flamerun1.wav")
 		self:StopParticles()
 		if self.Garg_Type == 1 then -- Baby Garg
 			ParticleEffectAttach("vj_hlr_garg_flame_small", PATTACH_POINT_FOLLOW,self, 2)
@@ -307,13 +307,13 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 				
 				util.BlastDamage(self,self,self:GetPos(),150,50)
 				util.ScreenShake(self:GetPos(),100,200,1,2500)
-				VJ_EmitSound(self, {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}, 90, 100)
+				VJ.EmitSound(self, {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}, 90, 100)
 			end
 		end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local colorYellow = VJ_Color2Byte(Color(255, 221, 35))
+local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	timer.Simple(3.6,function()
@@ -352,8 +352,8 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 			util.BlastDamage(self,self,self:GetPos(),150,80)
 			util.ScreenShake(self:GetPos(),100,200,1,2500)
 			
-			VJ_EmitSound(self,{"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}, 90, 100)
-			VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+			VJ.EmitSound(self,{"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}, 90, 100)
+			VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 			
 			util.Decal("VJ_HLR_Scorch", self:GetPos(), self:GetPos() + self:GetUp()*-100, self)
 			
@@ -398,5 +398,5 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-	VJ_STOPSOUND(self.Garg_FlameSd)
+	VJ.STOPSOUND(self.Garg_FlameSd)
 end

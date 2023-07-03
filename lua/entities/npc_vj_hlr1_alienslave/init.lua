@@ -62,7 +62,7 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/aslave/slv_die1.wav","vj_hlr/hl1_npc/aslav
 ENT.FootStepSoundLevel = 60
 
 ENT.GeneralSoundPitch1 = 100
-ENT.RangeAttackPitch = VJ_Set(130, 160)
+ENT.RangeAttackPitch = VJ.SET(130, 160)
 
 -- CustomBlood_Decal
 ENT.Vort_RunAway = false
@@ -86,7 +86,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	elseif key == "shoot" then
 		self:RangeAttackCode()
 	elseif key == "body" then
-		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -171,7 +171,7 @@ function ENT:CustomRangeAttackCode()
 	elec:SetAttachment(2)
 	util.Effect("VJ_HLR_Electric",elec)
 	
-	util.VJ_SphereDamage(self, self, hitpos, 30, 20, DMG_SHOCK, true, false, {Force=90})
+	VJ.ApplyRadiusDamage(self, self, hitpos, 30, 20, DMG_SHOCK, true, false, {Force=90})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnSchedule()
@@ -187,7 +187,7 @@ function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
 	self.Vort_RunAway = true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local colorYellow = VJ_Color2Byte(Color(255, 221, 35))
+local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
@@ -219,7 +219,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+	VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

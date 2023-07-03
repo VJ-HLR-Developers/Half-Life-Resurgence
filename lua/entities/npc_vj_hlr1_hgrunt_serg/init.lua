@@ -40,12 +40,12 @@ function ENT:HECU_CustomOnThink()
 	if self.DoingWeaponAttack then
 		self.HasBreathSound = true
 	else
-		VJ_STOPSOUND(self.CurrentBreathSound)
+		VJ.STOPSOUND(self.CurrentBreathSound)
 		self.HasBreathSound = false
 	end
 	
 	-- Reset Alpha Sergeant's gun in case the melee animation gets cut off and draw event is never called!
-	if self:GetWeaponState() == VJ_WEP_STATE_HOLSTERED && self.AttackType != VJ_ATTACK_MELEE then
+	if self:GetWeaponState() == VJ.NPC_WEP_STATE_HOLSTERED && self.AttackType != VJ.ATTACK_TYPE_MELEE then
 		self:SetBodygroup(1, 0)
 	end
 end
@@ -58,7 +58,7 @@ function ENT:CustomOnWeaponAttack()
 		self.NextWeaponAttackT = setTime -- Make it not shoot for the given time
 		self.NextBreathSoundT = setTime -- For the spinning sound
 		self:VJ_ACT_PLAYACTIVITY(ACT_ARM, true, 0.9, true)
-		VJ_EmitSound(self, "vj_hlr/hl1_npc/hassault/hw_spinup.wav", 80)
+		VJ.EmitSound(self, "vj_hlr/hl1_npc/hassault/hw_spinup.wav", 80)
 		self.Serg_SpinUpT = CurTime() + 4
 	end
 end

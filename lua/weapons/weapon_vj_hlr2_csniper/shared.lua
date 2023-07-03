@@ -29,7 +29,7 @@ SWEP.NPC_ReloadSound = {"vj_hlr/hl2_weapon/combinesniper/sniper_reload.wav"} -- 
 SWEP.NPC_ExtraFireSound = {"vj_hlr/hl2_weapon/combinesniper/sniper_reload.wav"} -- Plays an extra sound after it fires (Example: Bolt action sound)
 SWEP.NPC_ExtraFireSoundTime = 0.4 -- How much time until it plays the sound (After Firing)?
 SWEP.NPC_ExtraFireSoundLevel = 70 -- How far does the sound go?
-SWEP.NPC_ExtraFireSoundPitch = VJ_Set(90,100) -- How much time until the secondary fire can be used again?
+SWEP.NPC_ExtraFireSoundPitch = VJ.SET(90,100) -- How much time until the secondary fire can be used again?
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Primary Fire Variables ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ SWEP.PrimaryEffects_DynamicLightColor = Color(0, 31, 225)
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	-- Examples: Under water, out of ammo
 SWEP.DryFireSound = {"vj_hlr/hl2_weapon/combinesniper/sniper_empty.wav"} -- The sound that it plays when the weapon is out of ammo
-SWEP.DryFireSoundPitch = VJ_Set(100, 100) -- Dry fire sound pitch 1
+SWEP.DryFireSoundPitch = VJ.SET(100, 100) -- Dry fire sound pitch 1
 -- Player Stuff ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.ReloadSound = "vj_hlr/hl2_weapon/combinesniper/sniper_reload.wav"
 SWEP.AnimTbl_PrimaryFire = {ACT_VM_SECONDARYATTACK}

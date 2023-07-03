@@ -70,7 +70,7 @@ function ENT:Tank_CustomOnThink_AIEnabled()
 				Dir = (ene:GetPos() + ene:OBBCenter() - att.Pos):Angle():Forward(),
 				Spread = bulletSpread
 			})
-			VJ_EmitSound(self, sdFiringGun, 100, 100, 1, CHAN_WEAPON)
+			VJ.EmitSound(self, sdFiringGun, 100, 100, 1, CHAN_WEAPON)
 			ParticleEffect("vj_rifle_full", att.Pos, att.Ang, self)
 			local shellEffect = EffectData()
 			shellEffect:SetEntity(self)

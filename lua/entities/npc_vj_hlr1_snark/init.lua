@@ -50,7 +50,7 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/squeek/sqk_die1.wav"}
 
 ENT.IdleSoundChance = 1
 
-ENT.NextSoundTime_Idle = VJ_Set(1, 3)
+ENT.NextSoundTime_Idle = VJ.SET(1, 3)
 
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
@@ -115,13 +115,13 @@ function ENT:CustomOnLeapAttack_AfterChecks(hitEnt)
 	self.UseTheSameGeneralSoundPitch_PickedNumber = math.Clamp(self.UseTheSameGeneralSoundPitch_PickedNumber - 5, 100, 255)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local colorYellow = VJ_Color2Byte(Color(255, 221, 35))
-local colorRed = VJ_Color2Byte(Color(130, 19, 10))
+local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
+local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
 function ENT:CustomOnKilled(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_hlr/hl1_npc/squeek/sqk_blast1.wav", 90)
+	VJ.EmitSound(self, "vj_hlr/hl1_npc/squeek/sqk_blast1.wav", 90)
 	if self.Snark_Type == 0 then
-		util.VJ_SphereDamage(self, self, self:GetPos(), 50, 15, DMG_ACID, true, true)
+		VJ.ApplyRadiusDamage(self, self, self:GetPos(), 50, 15, DMG_ACID, true, true)
 		if self.HasGibDeathParticles == true then
 			local effectData = EffectData()
 			effectData:SetOrigin(self:GetPos() + self:OBBCenter())
@@ -135,9 +135,9 @@ function ENT:CustomOnKilled(dmginfo, hitgroup)
 			util.Effect("bloodspray", effectData)
 		end
 	elseif self.Snark_Type == 1 then
-		VJ_EmitSound(self, {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}, 90)
-		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 100)
-		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+		VJ.EmitSound(self, {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}, 90)
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 100)
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
 		util.BlastDamage(self,self,self:GetPos(),80,35)
 		if self.HasGibDeathParticles == true then
 			local effectData = EffectData()

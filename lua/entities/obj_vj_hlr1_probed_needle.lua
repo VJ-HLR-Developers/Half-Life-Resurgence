@@ -29,7 +29,7 @@ ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits somethi
 ENT.DirectDamage = 15 -- How much damage should it do when it hits something
 ENT.DirectDamageType = DMG_POISON -- Damage type
 ENT.DecalTbl_DeathDecals = {"Impact.Concrete"}
-ENT.OnCollideSoundPitch = VJ_Set(100, 100)
+ENT.OnCollideSoundPitch = VJ.SET(100, 100)
 
 local defAng = Angle(0 ,0, 0)
 
@@ -79,7 +79,7 @@ end
 function ENT:CustomOnDoDamage(data, phys, hitEnt)
 	-- Only for attacks
 	if self.Needle_Heal == true then return end
-	VJ_ApplySpeedEffect(hitEnt, 0.2, 5)
+	VJ.ApplySpeedEffect(hitEnt, 0.2, 5)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathEffects(data, phys)

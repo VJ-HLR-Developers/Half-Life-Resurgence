@@ -164,16 +164,16 @@ function ENT:CustomOnPreInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnPlayCreateSound(sdData, sdFile)
-	if VJ_HasValue(self.SoundTbl_Pain, sdFile) or VJ_HasValue(self.DefaultSoundTbl_MeleeAttack, sdFile) or VJ_HasValue(sdCombine_Chatter, sdFile) then return end
-	VJ_EmitSound(self, sdCombine_Radio_On)
-	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ_EmitSound(self, sdCombine_Radio_Off) end end)
+	if VJ.HasValue(self.SoundTbl_Pain, sdFile) or VJ.HasValue(self.DefaultSoundTbl_MeleeAttack, sdFile) or VJ.HasValue(sdCombine_Chatter, sdFile) then return end
+	VJ.EmitSound(self, sdCombine_Radio_On)
+	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self, sdCombine_Radio_Off) end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	-- Random background radio sounds
 	if self.Combine_ChatterT < CurTime() then
 		if math.random(1, 2) == 1 then
-			self.Combine_ChatterSd = VJ_CreateSound(self, sdCombine_Chatter, 50, 90)
+			self.Combine_ChatterSd = VJ.CreateSound(self, sdCombine_Chatter, 50, 90)
 		end
 		self.Combine_ChatterT = CurTime() + math.Rand(20, 40)
 	end
@@ -204,7 +204,7 @@ end
 function ENT:CustomOnGrenadeAttack_OnThrow(grenEnt)
 	-- Custom grenade model and sounds
 	grenEnt.SoundTbl_Idle = {"weapons/grenade/tick1.wav"}
-	grenEnt.IdleSoundPitch = VJ_Set(100, 100)
+	grenEnt.IdleSoundPitch = VJ.SET(100, 100)
 	
 	local redGlow = ents.Create("env_sprite")
 	redGlow:SetKeyValue("model", "vj_base/sprites/vj_glow1.vmt")
@@ -223,7 +223,7 @@ end
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	-- Absorb bullet damage
 	if dmginfo:IsBulletDamage() then
-		if self.HasSounds == true && self.HasImpactSounds == true then VJ_EmitSound(self, "vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav", 70) end
+		if self.HasSounds == true && self.HasImpactSounds == true then VJ.EmitSound(self, "vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav", 70) end
 		if math.random(1, 3) == 1 then
 			dmginfo:ScaleDamage(0.50)
 			local spark = ents.Create("env_spark")
@@ -250,5 +250,5 @@ function ENT:CustomOnDoKilledEnemy(ent, attacker, inflictor)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-	VJ_STOPSOUND(self.Combine_ChatterSd)
+	VJ.STOPSOUND(self.Combine_ChatterSd)
 end

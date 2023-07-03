@@ -35,6 +35,6 @@ end
 function ENT:CustomOnTouch(ent)
 	if ent:IsPlayer() or ent:IsNPC() then
 		self:TakeDamage(self:Health() + 1, ent, ent)
-		VJ_EmitSound(self, "vj_hlr/hl1_npc/roach/rch_smash.wav", 70)
+		VJ.EmitSound(self, "vj_hlr/hl1_npc/roach/rch_smash.wav", 70)
 	end
 end

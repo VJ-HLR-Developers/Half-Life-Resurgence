@@ -187,7 +187,7 @@ end)
 
 hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 	local class = ent:GetClass()
-	local rEnt = VJ_PICK(replaceTbl_Entities[class])
+	local rEnt = VJ.PICK(replaceTbl_Entities[class])
 	if rEnt then
 		-- Make sure the game is loaded
 		if game && game.GetGlobalState then
@@ -214,17 +214,17 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				-- FUN OPTION: Randomized NPC System
 				if GetConVar("vj_hlr_autoreplace_random"):GetInt() == 1 then
 					if GetConVar("vj_hlr_autoreplace_randommix"):GetInt() == 1 then
-						rEnt = VJ_PICK(allHLR) or rEnt
+						rEnt = VJ.PICK(allHLR) or rEnt
 					else
 						if isHL1 then
-							rEnt = VJ_PICK(allHLR1) or rEnt
+							rEnt = VJ.PICK(allHLR1) or rEnt
 						else
-							rEnt = VJ_PICK(allHLR2) or rEnt
+							rEnt = VJ.PICK(allHLR2) or rEnt
 						end
 					end
 				end
 				-- Start the actual final entity --
-				local newClass = VJ_PICK(rEnt)
+				local newClass = VJ.PICK(rEnt)
 				local newEnt = ents.Create(newClass)
 				if !IsValid(newEnt) then MsgN("Entity [" .. newClass .. "] not valid (missing pack?), keeping original entity") return end
 				-- Certain entities need some checks before spawn (Ex: Citizen gender)
@@ -245,7 +245,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				local wep = ent.GetActiveWeapon && ent:GetActiveWeapon() or false -- In case GetActiveWeapon is not in the ent's metatable
 				//print(worldName, wep)
 				if IsValid(wep) then
-					local foundWep = wep.IsVJBaseWeapon and wep:GetClass() or VJ_PICK(replaceTbl_Weapons[wep:GetClass()])
+					local foundWep = wep.IsVJBaseWeapon and wep:GetClass() or VJ.PICK(replaceTbl_Weapons[wep:GetClass()])
 					if foundWep then
 						newEnt:Give(foundWep)
 					end
@@ -265,7 +265,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 						newEnt:SetMaxHealth(val)
 					-- elseif key == "m_bSequenceLoops" && val == true && newEnt:GetInternalVariable("sequence") != -1 then
 						-- newEnt.Old_AnimTbl_IdleStand = newEnt.AnimTbl_IdleStand
-						-- newEnt.AnimTbl_IdleStand = {VJ_SequenceToActivity(newEnt,newEnt:GetInternalVariable("sequence"))}
+						-- newEnt.AnimTbl_IdleStand = {VJ.SequenceToActivity(newEnt,newEnt:GetInternalVariable("sequence"))}
 						-- newEnt:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
 						-- newEnt:VJ_ACT_PLAYACTIVITY(newEnt:GetInternalVariable("sequence"),true,false,false)
 					elseif key == "m_vecLastPosition" then

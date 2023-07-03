@@ -41,7 +41,7 @@ function ENT:CustomOnThink_AIEnabled()
 					self.Combine_TurretEnt:Activate()
 					self.Combine_TurretEnt.VJ_NPC_Class = self.VJ_NPC_Class
 					self.Combine_TurretEnt:SetState(VJ_STATE_FREEZE, 1)
-					VJ_EmitSound(self.Combine_TurretEnt, "npc/roller/blade_cut.wav", 75, 100)
+					VJ.EmitSound(self.Combine_TurretEnt, "npc/roller/blade_cut.wav", 75, 100)
 					if IsValid(self:GetCreator()) then -- If it has a creator, then add it to that player's undo list
 						undo.Create(self:GetName().."'s Turret")
 							undo.AddEntity(self.Combine_TurretEnt)

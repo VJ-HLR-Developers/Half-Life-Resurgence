@@ -40,14 +40,14 @@ end
 function SWEP:CustomOnThink()
 	-- Stop the firing loop sound if we are no longer firing!
 	if CurTime() > self.NextStopFireLoop then
-		VJ_STOPSOUND(self.FireLoop1)
-		if self.FireLoop2:IsPlaying() then self.FireLoop2:Stop() VJ_EmitSound(self, "ambient/levels/citadel/weapon_disintegrate1.wav", 75, 100) end
+		VJ.STOPSOUND(self.FireLoop1)
+		if self.FireLoop2:IsPlaying() then self.FireLoop2:Stop() VJ.EmitSound(self, "ambient/levels/citadel/weapon_disintegrate1.wav", 75, 100) end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnHolster(newWep)
-	VJ_STOPSOUND(self.FireLoop1)
-	VJ_STOPSOUND(self.FireLoop2)
+	VJ.STOPSOUND(self.FireLoop1)
+	VJ.STOPSOUND(self.FireLoop2)
 	return true
 end -- Return false to disallow the weapon from switching
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -64,10 +64,10 @@ function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 	-- Create electrical particle and deal radius shock damage
 	local randPos = (ene:GetPos() + ene:OBBCenter()) + Vector(math.Rand(-10, 10), math.Rand(-10, 10), math.Rand(-10, 10))
 	util.ParticleTracerEx("electrical_arc_01", self:GetAttachment(1).Pos, randPos, false, self:EntIndex(), 1)
-	util.VJ_SphereDamage(self.Owner, self.Owner, randPos, 20, math.random(2,5), DMG_SHOCK, true, true)
+	VJ.ApplyRadiusDamage(self.Owner, self.Owner, randPos, 20, math.random(2,5), DMG_SHOCK, true, true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnRemove()
-	VJ_STOPSOUND(self.FireLoop1)
-	VJ_STOPSOUND(self.FireLoop2)
+	VJ.STOPSOUND(self.FireLoop1)
+	VJ.STOPSOUND(self.FireLoop2)
 end

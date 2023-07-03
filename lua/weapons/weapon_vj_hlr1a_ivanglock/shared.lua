@@ -37,7 +37,7 @@ SWEP.HLR_ValidModels = {"models/vj_hlr/hla/doctor.mdl"}
 function SWEP:CustomOnInitialize()
 	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
 		if IsValid(self) && IsValid(self:GetOwner()) then
-			if !VJ_HasValue(self.HLR_ValidModels,self:GetOwner():GetModel()) then
+			if !VJ.HasValue(self.HLR_ValidModels,self:GetOwner():GetModel()) then
 				if IsValid(self:GetOwner():GetCreator()) then
 					self:GetOwner():GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
 				end

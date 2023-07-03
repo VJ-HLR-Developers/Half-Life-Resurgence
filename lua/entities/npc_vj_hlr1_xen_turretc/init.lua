@@ -32,7 +32,7 @@ ENT.TimeUntilRangeAttackProjectileRelease = 0 -- How much time until the project
 ENT.NextRangeAttackTime = 1.5 -- How much time until it can use a range attack?
 
 ENT.DeathCorpseEntityClass = "prop_vj_animatable" -- The entity class it creates | "UseDefaultBehavior" = Let the base automatically detect the type
-ENT.DeathCorpseBodyGroup = VJ_Set(0,1) -- #1 = the category of the first bodygroup | #2 = the value of the second bodygroup | Set -1 for #1 to let the base decide the corpse's bodygroup
+ENT.DeathCorpseBodyGroup = VJ.SET(0,1) -- #1 = the category of the first bodygroup | #2 = the value of the second bodygroup | Set -1 for #1 to let the base decide the corpse's bodygroup
 ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
@@ -94,8 +94,8 @@ function ENT:CustomRangeAttackCode()
 	elec:SetScale(0.5)
 	util.Effect("VJ_HLR_Electric_Xen_Turretc", elec)
 	
-	util.VJ_SphereDamage(self, self, hitpos, 10, 30, DMG_SHOCK, true, false, {Force=90})
-	VJ_EmitSound(self, "vj_hlr/hl1_npc/xenceiling_turret/beamstart10.wav", 90, 100)
+	VJ.ApplyRadiusDamage(self, self, hitpos, 10, 30, DMG_SHOCK, true, false, {Force=90})
+	VJ.EmitSound(self, "vj_hlr/hl1_npc/xenceiling_turret/beamstart10.wav", 90, 100)
 	//sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitpos, 60)
 	
 	local spr = ents.Create("env_sprite")
@@ -164,6 +164,6 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	//VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+	//VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
 end

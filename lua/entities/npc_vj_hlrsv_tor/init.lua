@@ -44,7 +44,7 @@ ENT.NoChaseAfterCertainRange_FarDistance = 1000 -- How far until it can chase ag
 ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_Type = "OnlyRange" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
 
-ENT.DeathCorpseBodyGroup = VJ_Set(1, 1) -- #1 = the category of the first bodygroup | #2 = the value of the second bodygroup | Set -1 for #1 to let the base decide the corpse's bodygroup
+ENT.DeathCorpseBodyGroup = VJ.SET(1, 1) -- #1 = the category of the first bodygroup | #2 = the value of the second bodygroup | Set -1 for #1 to let the base decide the corpse's bodygroup
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEFORWARD, ACT_DIESIMPLE} -- Death Animations
 ENT.DeathAnimationTime = false -- Time until the SNPC spawns its corpse and gets removed
@@ -131,7 +131,7 @@ function ENT:Tor_StartSpawnAlly()
 		})
 		if !tr.Hit then
 			self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_GROUP, true, false)
-			VJ_EmitSound(self, "vj_hlr/hlsc_npc/tor/tor-summon.wav")
+			VJ.EmitSound(self, "vj_hlr/hlsc_npc/tor/tor-summon.wav")
 			self.Tor_NextSpawnT = CurTime() + 10
 		end
 	end
@@ -157,16 +157,16 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		local startPos = self:GetPos() + self:GetForward()*20
 		self.HasMeleeAttackMissSounds = false
 		self.DisableDefaultMeleeAttackCode = true
-		VJ_EmitSound(self, "vj_hlr/hlsc_npc/tor/tor-staff-discharge.wav", 90)
+		VJ.EmitSound(self, "vj_hlr/hlsc_npc/tor/tor-staff-discharge.wav", 90)
 		effects.BeamRingPoint(startPos, 0.3, 2, 600, 36, 0, (self.Tor_Level == 0 and Color(0, 255, 0)) or Color(0, 0, 255), {framerate=20, flags=0})
 		util.ScreenShake(startPos, 10, 10, 1, 1000)
 		util.Decal("VJ_HLR_Gargantua_Stomp", startPos, startPos + self:GetUp()*-100, self)
-		util.VJ_SphereDamage(self, self, startPos, 500, (self.Tor_Level == 0 and 40) or 60, DMG_SONIC, true, true, {DisableVisibilityCheck=true, Force=20})
+		VJ.ApplyRadiusDamage(self, self, startPos, 500, (self.Tor_Level == 0 and 40) or 60, DMG_SONIC, true, true, {DisableVisibilityCheck=true, Force=20})
 		//self:MeleeAttackCode()
 	elseif key == "range" then
 		self:RangeAttackCode()
 	elseif key == "body" then
-		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -203,16 +203,16 @@ function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
 		timer.Simple(1.2, function()
 			if IsValid(self) && self.Dead != true then
 				self:SetSkin(1)
-				VJ_EmitSound(self, "vj_hlr/hlsc_npc/tor/tor-summon.wav", 80)
+				VJ.EmitSound(self, "vj_hlr/hlsc_npc/tor/tor-summon.wav", 80)
 				effects.BeamRingPoint(self:GetPos() + self:GetForward()*20, 0.3, 2, 600, 60, 0, Color(0,0,255), {framerate=20, flags=0})
 				util.ScreenShake(self:GetPos(), 10, 10, 1, 1000)
-				util.VJ_SphereDamage(self, self, self:GetPos(), 500, 20, DMG_SONIC, true, true, {DisableVisibilityCheck=true, Force=80})
+				VJ.ApplyRadiusDamage(self, self, self:GetPos(), 500, 20, DMG_SONIC, true, true, {DisableVisibilityCheck=true, Force=80})
 			end
 		end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local colorYellow = VJ_Color2Byte(Color(255, 221, 35))
+local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
@@ -254,7 +254,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+	VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

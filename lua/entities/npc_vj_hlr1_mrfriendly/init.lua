@@ -50,8 +50,8 @@ ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/friendly/fr_attack.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/friendly/fr_groan1.wav","vj_hlr/hl1_npc/friendly/fr_groan2.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/friendly/fr_groan1.wav","vj_hlr/hl1_npc/friendly/fr_groan2.wav"}
 
-ENT.PainSoundPitch = VJ_Set(150, 150)
-ENT.DeathSoundPitch = VJ_Set(150, 150)
+ENT.PainSoundPitch = VJ.SET(150, 150)
+ENT.DeathSoundPitch = VJ.SET(150, 150)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(35, 35, 60), Vector(-35, -35, 0))
@@ -66,7 +66,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	elseif key == "vomitdmg" then
 		self:RangeAttackCode()
 	elseif key == "body" then
-		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
@@ -82,7 +82,7 @@ function ENT:CustomRangeAttackCode()
 			self:StopParticles()
 		end
 	end)
-	util.VJ_SphereDamage(self, self, pos, 160, 5, DMG_ACID, true, true, {Force=10, UseCone=true, UseConeDegree=60})
+	VJ.ApplyRadiusDamage(self, self, pos, 160, 5, DMG_ACID, true, true, {Force=10, UseCone=true, UseConeDegree=60})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
@@ -92,7 +92,7 @@ function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local colorYellow = VJ_Color2Byte(Color(255, 221, 35))
+local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
@@ -131,7 +131,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+	VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

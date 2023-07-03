@@ -60,7 +60,7 @@ ENT.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/shocktrooper/st_runfromgrenade.wa
 ENT.SoundTbl_OnDangerSight = {"vj_hlr/hl1_npc/shocktrooper/st_runfromgrenade.wav"}
 ENT.SoundTbl_OnKilledEnemy = {"vj_hlr/hl1_npc/shocktrooper/st_combat1.wav"}
 
-ENT.OnGrenadeSightSoundPitch = VJ_Set(105, 110)
+ENT.OnGrenadeSightSoundPitch = VJ.SET(105, 110)
 
 -- Custom
 ENT.Shocktrooper_BlinkingT = 0
@@ -86,7 +86,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 			wep:NPCShoot_Primary()
 		end
 	elseif key == "body" then
-		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -116,7 +116,7 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local colorYellow = VJ_Color2Byte(Color(255, 221, 35))
+local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
@@ -156,7 +156,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+	VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -200,11 +200,11 @@ ENT.GrenadeAttackVelForward2 = 500 -- Grenade attack velocity up | The second # 
 ENT.GrenadeAttackVelRight1 = -20 -- Grenade attack velocity right | The first # in math.random
 ENT.GrenadeAttackVelRight2 = 20 -- Grenade attack velocity right | The second # in math.random
 function ENT:ThrowGrenadeCode(customEnt,noOwner)
-	if self.Dead or self.Flinching == true or self.AttackType == VJ_ATTACK_MELEE or (IsValid(self:GetEnemy()) && !self:Visible(self:GetEnemy())) then return end
+	if self.Dead or self.Flinching == true or self.AttackType == VJ.ATTACK_TYPE_MELEE or (IsValid(self:GetEnemy()) && !self:Visible(self:GetEnemy())) then return end
 	//if self:VJ_ForwardIsHidingZone(self:NearestPoint(self:GetPos() + self:OBBCenter()),self:GetEnemy():EyePos()) == true then return end
 	noOwner = noOwner or false
 	local getIsCustom = false
-	local gerModel = VJ_PICK(self.GrenadeAttackModel)
+	local gerModel = VJ.PICK(self.GrenadeAttackModel)
 	local gerClass = self.GrenadeAttackEntity
 	local gerFussTime = self.GrenadeAttackFussTime
 
@@ -228,12 +228,12 @@ function ENT:ThrowGrenadeCode(customEnt,noOwner)
 		end
 	end
 
-	self.AttackType = VJ_ATTACK_GRENADE
+	self.AttackType = VJ.ATTACK_TYPE_GRENADE
 	self:CustomOnGrenadeAttack_BeforeStartTimer()
 	self:PlaySoundSystem("GrenadeAttack")
 
 	if self.VJ_PlayingSequence == false && self.DisableGrenadeAttackAnimation == false then
-		self.CurrentAttackAnimation = VJ_PICK(self.AnimTbl_GrenadeAttack)
+		self.CurrentAttackAnimation = VJ.PICK(self.AnimTbl_GrenadeAttack)
 		self.CurrentAttackAnimationDuration = self:DecideAnimationLength(self.CurrentAttackAnimation, false, 0.2)
 		self.CurAttackAnimTime = CurTime() + self.CurrentAttackAnimationDuration
 		self:VJ_ACT_PLAYACTIVITY(self.CurrentAttackAnimation,self.GrenadeAttackAnimationStopAttacks,self:DecideAnimationLength(self.CurrentAttackAnimation,self.GrenadeAttackAnimationStopAttacksTime),false,self.GrenadeAttackAnimationDelay, {PlayBackRateCalculated=true})
@@ -288,8 +288,8 @@ function ENT:ThrowGrenadeCode(customEnt,noOwner)
 			end
 			self:CustomOnGrenadeAttack_OnThrow(gent)
 		end
-		if self.AttackType == VJ_ATTACK_GRENADE then
-			self.AttackType = VJ_ATTACK_NONE
+		if self.AttackType == VJ.ATTACK_TYPE_GRENADE then
+			self.AttackType = VJ.ATTACK_TYPE_NONE
 		end
 	end)
 end

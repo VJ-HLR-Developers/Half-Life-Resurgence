@@ -93,7 +93,7 @@ end
 function ENT:CustomOnHandleAnimEvent(ev, evTime, evCycle, evType, evOptions)
 	-- Take care of the regular hit sound (When playing idle animations)
 	if ev == 6 && !self.VJ_IsBeingControlled then
-		self:PlaySoundSystem("MeleeAttack", sdBeakStrike, VJ_EmitSound)
+		self:PlaySoundSystem("MeleeAttack", sdBeakStrike, VJ.EmitSound)
 		local ene = self:GetEnemy()
 		if IsValid(ene) && (ene:GetPos():Distance(self:GetPos() + self:GetForward()*150)) < 200 then
 			self.CanTurnWhileStationary = true
@@ -106,7 +106,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "attack" then
 		self:MeleeAttackCode()
-		self:PlaySoundSystem("MeleeAttack", sdBeakStrike, VJ_EmitSound)
+		self:PlaySoundSystem("MeleeAttack", sdBeakStrike, VJ.EmitSound)
 		local ene = self:GetEnemy()
 		if IsValid(ene) then self:SetAngles(self:GetFaceAngle((ene:GetPos() - self:GetPos()):Angle())) end
 	end
@@ -114,7 +114,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tentacle_DoLevelChange(num)
 	local lvl = self.Tentacle_Level + num
-	VJ_EmitSound(self, sdChangeLevel)
+	VJ.EmitSound(self, sdChangeLevel)
 	if lvl == 0 then
 		self.AnimTbl_IdleStand = {ACT_IDLE}
 		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
@@ -233,7 +233,7 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local colorYellow = VJ_Color2Byte(Color(255, 221, 35))
+local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
@@ -272,6 +272,6 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+	VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
 end

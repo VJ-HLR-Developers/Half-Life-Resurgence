@@ -76,7 +76,7 @@ end
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
-		VJ_EmitSound(self, "vj_hlr/hl1_weapon/crossbow/xbow_hit1.wav", 60, 140)
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/crossbow/xbow_hit1.wav", 60, 140)
 	elseif key == "attack left" or key == "attack right" then
 		self.MeleeAttackDamage = 15
 		self:MeleeAttackCode()
@@ -86,7 +86,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	elseif key == "range distance" then
 		self:RangeAttackCode()
 	//elseif key == "range psychic_loop" then
-		//VJ_EmitSound(self, "vj_hlr/hl1_npc/kingpin/port_suckout1.wav", 80, 140)
+		//VJ.EmitSound(self, "vj_hlr/hl1_npc/kingpin/port_suckout1.wav", 80, 140)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -97,7 +97,7 @@ end
 function ENT:CustomOnThink_AIEnabled()
 	-- Ability to see through walls
 	if !IsValid(self:GetEnemy()) && CurTime() > self.KingPin_NextScanT then
-		VJ_EmitSound(self, scanSd, 85)
+		VJ.EmitSound(self, scanSd, 85)
 		timer.Simple(0.5, function()
 			if IsValid(self) then
 				local orgDist = self:GetMaxLookDistance()
@@ -131,7 +131,7 @@ function ENT:CustomAttack()
 		//print("SEARCH ----")
 		local pTbl = {} -- Table of props that it found
 		for _, v in ipairs(ents.FindInSphere(self:GetPos(), 600)) do
-			if VJ_IsProp(v) && self:Visible(v) && self:GetEnemy():Visible(v) then
+			if VJ.IsProp(v) && self:Visible(v) && self:GetEnemy():Visible(v) then
 				local phys = v:GetPhysicsObject()
 				if IsValid(phys) && phys:GetMass() <= 2000 && v.BeingControlledByKingPin != true then
 					//print("Prop -", v)
@@ -144,7 +144,7 @@ function ENT:CustomAttack()
 			self:SetImpactEnergyScale(0) -- Take no physics damage
 			self.GodMode = true
 			self:SetNW2Bool("PsionicEffect", true)
-			VJ_EmitSound(self, "vj_hlr/hl1_npc/kingpin/port_suckin1.wav", 80, 140) -- 3.08025
+			VJ.EmitSound(self, "vj_hlr/hl1_npc/kingpin/port_suckin1.wav", 80, 140) -- 3.08025
 			self.KingPin_PsionicAttacking = true
 			self.AnimTbl_IdleStand = {ACT_RANGE_ATTACK2}
 			self:VJ_ACT_PLAYACTIVITY(ACT_RANGE_ATTACK1_LOW, true, false, false)
@@ -166,7 +166,7 @@ function ENT:CustomAttack()
 			-- Used to match sounds up
 			timer.Simple(2.08025, function()
 				if IsValid(self) then
-					VJ_EmitSound(self, "vj_hlr/hl1_npc/kingpin/port_suckout1.wav", 80, 140) -- 2.7180
+					VJ.EmitSound(self, "vj_hlr/hl1_npc/kingpin/port_suckout1.wav", 80, 140) -- 2.7180
 				end
 			end)
 			-- Used to throw the prop and reset
@@ -212,7 +212,7 @@ end
 	if self:HasShield() then
 		local dmg = dmginfo:GetDamage()
 		dmginfo:SetDamage(0)
-		VJ_EmitSound(self,"vj_hlr/hl1_npc/kingpin/port_suckin1.wav",70,200)
+		VJ.EmitSound(self,"vj_hlr/hl1_npc/kingpin/port_suckin1.wav",70,200)
 		self.ShieldHealth = self.ShieldHealth -dmg
 		if self.ShieldHealth <= 0 && !self.IsGeneratingShield then
 			self:SetNW2Bool("shield",false)
@@ -228,7 +228,7 @@ end
 	end
 end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local colorYellow = VJ_Color2Byte(Color(255, 221, 35))
+local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
@@ -267,7 +267,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+	VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

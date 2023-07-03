@@ -38,7 +38,7 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav","vj_hlr/hl1_wea
 -- ENT.RemoveOnHit = false
 -- ENT.CollideCodeWithoutRemoving = true
 
-ENT.StartupSoundPitch = VJ_Set(100, 100)
+ENT.StartupSoundPitch = VJ.SET(100, 100)
 
 -- Custom
 ENT.Stomp_InitialRan = false
@@ -91,7 +91,7 @@ function ENT:CustomOnThink()
 			endpos = myPos + self:GetUp()*-1000,
 			filter = {self, owner}
 		})
-		//VJ_CreateTestObject(tr.HitPos, self:GetAngles(), Color(0,255,0), 5)
+		//VJ.DEBUG_TempEnt(tr.HitPos, self:GetAngles(), Color(0,255,0), 5)
 		self:SetPos(tr.HitPos + Vector(0,0,8))
 		
 		local phys = self:GetPhysicsObject()
@@ -117,7 +117,7 @@ function ENT:CustomOnThink()
 		endpos = self:GetPos() + self:GetForward()*10,
 		filter = self
 	})
-	//VJ_CreateTestObject(trfr.HitPos,self:GetAngles(),Color(0,255,255),5)
+	//VJ.DEBUG_TempEnt(trfr.HitPos,self:GetAngles(),Color(0,255,255),5)
 	//if trfr.HitWorld then self:Remove() return end
 	
 	local tr = util.TraceLine({
@@ -125,7 +125,7 @@ function ENT:CustomOnThink()
 		endpos = self:GetPos() + self:GetUp()*-100,
 		filter = self
 	})
-	//VJ_CreateTestObject(tr.HitPos,self:GetAngles(),Color(0,255,0),5)
+	//VJ.DEBUG_TempEnt(tr.HitPos,self:GetAngles(),Color(0,255,0),5)
 	//self:SetPos(self:GetPos() + Vector(0,0,(tr.HitPos + Vector(0,0,100)).z))
 	//self:SetPos(tr.HitPos)
 	

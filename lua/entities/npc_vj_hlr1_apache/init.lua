@@ -89,9 +89,9 @@ function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(150, 150, 180), Vector(-150, -150, 0))
 	self:SetPos(self:GetPos() + spawnPos)
 	
-	self.HeliSD_Rotor = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_rotor2.wav", 120)
-	self.HeliSD_Whine = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_whine1.wav", 70)
-	self.HeliSD_Distant = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_rotor1.wav", 160)
+	self.HeliSD_Rotor = VJ.CreateSound(self, "vj_hlr/hl1_npc/apache/ap_rotor2.wav", 120)
+	self.HeliSD_Whine = VJ.CreateSound(self, "vj_hlr/hl1_npc/apache/ap_whine1.wav", 70)
+	self.HeliSD_Distant = VJ.CreateSound(self, "vj_hlr/hl1_npc/apache/ap_rotor1.wav", 160)
 	
 	local tailLight = ents.Create("env_sprite")
 	tailLight:SetKeyValue("model","vj_base/sprites/vj_glow1.vmt")
@@ -172,7 +172,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(ent)
 	self.RangeUseAttachmentForPosID = self.RangeUseAttachmentForPosID == "missile_left" and "missile_right" or "missile_left"
-	VJ_CreateSound(ent, "vj_hlr/hl1_weapon/rpg/rocketfire1.wav", 100)
+	VJ.CreateSound(ent, "vj_hlr/hl1_weapon/rpg/rocketfire1.wav", 100)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local bulletSpread = Vector(0.03490, 0.03490, 0.03490)
@@ -193,8 +193,8 @@ function ENT:CustomAttack()
 			Damage = self:VJ_GetDifficultyValue(8),
 			AmmoType = "HelicopterGun"
 		})
-		VJ_EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1.wav", 120, 100, 1, CHAN_WEAPON)
-		VJ_EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1_distant.wav", 140, 100)
+		VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1.wav", 120, 100, 1, CHAN_WEAPON)
+		VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1_distant.wav", 140, 100)
 
 		local muz = ents.Create("env_sprite")
 		muz:SetKeyValue("model","vj_hl/sprites/muzzleflash2.vmt")
@@ -352,8 +352,8 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 			timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 			
 			util.BlastDamage(self, self, expPos, 300, 100)
-			VJ_EmitSound(self, sdExplosions, 100, 100)
-			VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+			VJ.EmitSound(self, sdExplosions, 100, 100)
+			VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
 		end
 	
 		self:NextThink(CurTime())
@@ -369,7 +369,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 		local gibTbl = self:GetModel() == "models/vj_hlr/hl1/apache_blkops.mdl" and heliExpGibs_Gray or heliExpGibs_Green
 		for _ = 1, 50 do
 			local gib = ents.Create("obj_vj_gib")
-			gib:SetModel(VJ_PICK(gibTbl))
+			gib:SetModel(VJ.PICK(gibTbl))
 			gib:SetPos(self:GetPos() + Vector(math.random(-100, 100), math.random(-100, 100), math.random(20, 150)))
 			gib:SetAngles(Angle(math.Rand(-180, 180), math.Rand(-180, 180), math.Rand(-180, 180)))
 			gib.Collide_Decal = ""
@@ -405,8 +405,8 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 		spr:Fire("Kill", "", 1.19)
 		timer.Simple(1.19, function() if IsValid(spr) then spr:Remove() end end)
 		util.BlastDamage(self, self, expPos, 600, 200)
-		VJ_EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit.wav", 100, 100)
-		VJ_EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit_dist.wav", 140, 100)
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit.wav", 100, 100)
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit_dist.wav", 140, 100)
 		-- flags 0 = No fade!
 		effects.BeamRingPoint(self:GetPos(), 0.4, 0, 1500, 32, 0, colorHeliExp, {material="vj_hl/sprites/shockwave", framerate=0, flags=0})
 		
@@ -435,12 +435,12 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 	
 	util.BlastDamage(self, self, expPos, 300, 100)
-	VJ_EmitSound(self, sdExplosions, 100, 100)
-	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 100, 100, 100, 1)
+	VJ.EmitSound(self, sdExplosions, 100, 100)
+	VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 100, 100, 100, 1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-	VJ_STOPSOUND(self.HeliSD_Rotor)
-	VJ_STOPSOUND(self.HeliSD_Whine)
-	VJ_STOPSOUND(self.HeliSD_Distant)
+	VJ.STOPSOUND(self.HeliSD_Rotor)
+	VJ.STOPSOUND(self.HeliSD_Whine)
+	VJ.STOPSOUND(self.HeliSD_Distant)
 end

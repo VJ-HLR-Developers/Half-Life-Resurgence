@@ -302,7 +302,7 @@ function ENT:CustomOnMeleeAttack_BeforeStartTimer()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRangeAttack_BeforeStartTimer()
-	self:PlaySoundSystem("BeforeMeleeAttack", "vj_hlr/hl1_npc/geneworm/geneworm_beam_attack.wav", VJ_EmitSound)
+	self:PlaySoundSystem("BeforeMeleeAttack", "vj_hlr/hl1_npc/geneworm/geneworm_beam_attack.wav", VJ.EmitSound)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(projectile)
@@ -327,7 +327,7 @@ function ENT:GW_OrbOpenReset()
 	timer.Remove("gw_closestomach"..self:EntIndex())
 	self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain4.wav")
 	self.SoundTbl_Breath = {}
-	VJ_STOPSOUND(self.CurrentBreathSound)
+	VJ.STOPSOUND(self.CurrentBreathSound)
 	self.GW_OrbOpen = false
 	self.GW_EyeHealth = {r=maxEyeHealth, l=maxEyeHealth}
 	self.GW_OrbHealth = maxOrbHealth
@@ -366,7 +366,7 @@ function ENT:GW_EyeHealthCheck()
 			self:VJ_ACT_PLAYACTIVITY("pain_1", true, false)
 			self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain1.wav")
 			self.SoundTbl_Breath = {"vj_hlr/hl1_npc/geneworm/geneworm_final_pain2.wav"}
-			/*timer.Simple(VJ_GetSequenceDuration(self, "pain_1"),function()
+			/*timer.Simple(VJ.AnimDuration(self, "pain_1"),function()
 				if IsValid(self) then
 					self:VJ_ACT_PLAYACTIVITY("pain_2", true, false)
 					self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain2.wav")
@@ -427,11 +427,11 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 		if self.GW_OrbHealth <= 0 then
 			timer.Remove("gw_closestomach"..self:EntIndex())
 			self.SoundTbl_Breath = {}
-			VJ_STOPSOUND(self.CurrentBreathSound)
+			VJ.STOPSOUND(self.CurrentBreathSound)
 			self.PainSoundT = 0 -- Otherwise it won't play the sound because it played another pain sound right before this!
 			self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain3.wav")
 			self:VJ_ACT_PLAYACTIVITY("pain_3", true, false)
-			timer.Simple(VJ_GetSequenceDuration(self, "pain_3"),function()
+			timer.Simple(VJ.AnimDuration(self, "pain_3"),function()
 				if IsValid(self) then
 					self:GW_OrbOpenReset()
 				end

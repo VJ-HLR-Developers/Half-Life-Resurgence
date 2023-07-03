@@ -19,7 +19,7 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
-ENT.AlertedToIdleTime = VJ_Set(16, 16) -- How much time until it calms down after the enemy has been killed/disappeared | Sets self.Alerted to false after the timer expires
+ENT.AlertedToIdleTime = VJ.SET(16, 16) -- How much time until it calms down after the enemy has been killed/disappeared | Sets self.Alerted to false after the timer expires
 ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
@@ -104,9 +104,9 @@ function ENT:CustomOnThink()
 			self.sentry_turningsd2:PlayEx(1,100)
 		end
 	else
-		VJ_STOPSOUND(self.sentry_turningsd)
+		VJ.STOPSOUND(self.sentry_turningsd)
 		if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
-			VJ_STOPSOUND(self.sentry_turningsd2)
+			VJ.STOPSOUND(self.sentry_turningsd2)
 		end
 	end
 	self.Sentry_CurrentParameter = parameter
@@ -139,7 +139,7 @@ function ENT:CustomOnThink_AIEnabled()
 			glow:Fire("Kill", "", 0.1)
 			self:DeleteOnRemove(glow)
 			self.Sentry_NextAlarmT = CurTime() + 1
-			VJ_EmitSound(self, "vj_hlr/hl1_npc/turret/tu_ping.wav", 75, 100)
+			VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_ping.wav", 75, 100)
 		end
 		
 		if !eneValid then -- Look around randomly when the enemy is not found
@@ -152,10 +152,10 @@ function ENT:CustomOnThink_AIEnabled()
 			end
 			self.Sentry_StandDown = true
 			self:VJ_ACT_PLAYACTIVITY("retire", true, 1)
-			VJ_EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_retract.wav"}, 65, self:VJ_DecideSoundPitch(100, 110))
+			VJ.EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_retract.wav"}, 65, self:VJ_DecideSoundPitch(100, 110))
 			if self.Sentry_Type == 1 then
 				self.Sentry_SpunUp = false
-				VJ_EmitSound(self, "vj_hlr/hl1_npc/turret/tu_spindown.wav", 80, 100)
+				VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_spindown.wav", 80, 100)
 			end
 		end
 		if self.Sentry_StandDown == true then
@@ -208,7 +208,7 @@ function ENT:Sentry_Activate()
 		timer.Simple(1, function()
 			if IsValid(self) && IsValid(self:GetEnemy()) then
 				self.HasPoseParameterLooking = true
-				VJ_EmitSound(self, "vj_hlr/hl1_npc/turret/tu_spinup.wav", 80, 100)
+				VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_spinup.wav", 80, 100)
 				timer.Simple(1, function()
 					if IsValid(self) && IsValid(self:GetEnemy()) then
 						self.Sentry_SpunUp = true
@@ -219,7 +219,7 @@ function ENT:Sentry_Activate()
 	else
 		self.Sentry_SpunUp = true
 	end
-	VJ_EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_alert.wav"}, 75, 100)
+	VJ.EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_alert.wav"}, 75, 100)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
@@ -236,8 +236,8 @@ function ENT:CustomRangeAttackCode()
 	bullet.AmmoType = "SMG1"
 	self:FireBullets(bullet)
 	
-	VJ_EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_fire1.wav"}, 90, self:VJ_DecideSoundPitch(100, 110))
-	VJ_EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_fire1_distant.wav"}, 140, self:VJ_DecideSoundPitch(100, 110))
+	VJ.EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_fire1.wav"}, 90, self:VJ_DecideSoundPitch(100, 110))
+	VJ.EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_fire1_distant.wav"}, 140, self:VJ_DecideSoundPitch(100, 110))
 	
 	local muz = ents.Create("env_sprite_oriented")
 	muz:SetKeyValue("model","vj_hl/sprites/muzzleflash3.vmt")
@@ -298,8 +298,8 @@ function ENT:CustomOnKilled(dmginfo, hitgroup)
 		local pos = self:GetAttachment(self:LookupAttachment("center")).Pos + vecUp20
 		spr:SetPos(pos)
 		util.BlastDamage(self, self, pos, 50, 30)
-		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 80, 100)
-		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 80, 100)
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
 		self.GibOnDeathDamagesTable = {"All"}
 		self:RunGibOnDeathCode(dmginfo, hitgroup)
 	else
@@ -354,8 +354,8 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 100, 100)
-	VJ_EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 80, 100)
+	VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 100, 100)
+	VJ.EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 80, 100)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -373,8 +373,8 @@ function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-	VJ_STOPSOUND(self.sentry_turningsd)
+	VJ.STOPSOUND(self.sentry_turningsd)
 	if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
-		VJ_STOPSOUND(self.sentry_turningsd2)
+		VJ.STOPSOUND(self.sentry_turningsd2)
 	end
 end

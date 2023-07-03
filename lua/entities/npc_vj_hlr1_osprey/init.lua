@@ -76,9 +76,9 @@ function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(300, 300, 250), Vector(-300, -300, 0))
 	self:SetPos(self:GetPos() + spawnPos)
 	
-	self.HeliSD_Rotor = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_rotor4.wav", 120)
-	self.HeliSD_Whine = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_whine1.wav", 70)
-	self.HeliSD_Distant = VJ_CreateSound(self, "vj_hlr/hl1_npc/apache/ap_rotor1.wav", 160)
+	self.HeliSD_Rotor = VJ.CreateSound(self, "vj_hlr/hl1_npc/apache/ap_rotor4.wav", 120)
+	self.HeliSD_Whine = VJ.CreateSound(self, "vj_hlr/hl1_npc/apache/ap_whine1.wav", 70)
+	self.HeliSD_Distant = VJ.CreateSound(self, "vj_hlr/hl1_npc/apache/ap_rotor1.wav", 160)
 	
 	if GetConVar("vj_hlr1_osprey_deploysoldiers"):GetInt() == 0 then self.Osprey_DropStatus = -1 end
 	self.Osprey_Gunners = {}
@@ -403,8 +403,8 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 			timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 			
 			util.BlastDamage(self, self, expPos, 300, 100)
-			VJ_EmitSound(self, sdExplosions, 100, 100)
-			VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+			VJ.EmitSound(self, sdExplosions, 100, 100)
+			VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
 		end
 	
 		self:NextThink(CurTime())
@@ -422,7 +422,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 		local gibTbl = isBlackOps and heliExpGibs_Gray or heliExpGibs_Green
 		for _ = 1, 30 do
 			local gib = ents.Create("obj_vj_gib")
-			gib:SetModel(VJ_PICK(gibTbl))
+			gib:SetModel(VJ.PICK(gibTbl))
 			gib:SetPos(self:GetPos() + Vector(math.random(-100, 100), math.random(-100, 100), math.random(20, 150)))
 			gib:SetAngles(Angle(math.Rand(-180, 180), math.Rand(-180, 180), math.Rand(-180, 180)))
 			gib.Collide_Decal = ""
@@ -480,8 +480,8 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 		spr:Fire("Kill", "", 1.19)
 		timer.Simple(1.19, function() if IsValid(spr) then spr:Remove() end end)
 		util.BlastDamage(self, self, expPos, 600, 200)
-		VJ_EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit.wav", 100, 100)
-		VJ_EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit_dist.wav", 140, 100)
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit.wav", 100, 100)
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit_dist.wav", 140, 100)
 		
 		-- flags 0 = No fade!
 		effects.BeamRingPoint(self:GetPos(), 0.4, 0, 1500, 32, 0, colorHeliExp, {material="vj_hl/sprites/shockwave", framerate=0, flags=0})
@@ -510,7 +510,7 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	spr:Fire("Kill", "", 0.9)
 	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 	util.BlastDamage(self, self, expPos, 300, 100)
-	VJ_EmitSound(self, sdExplosions, 100, 100)
+	VJ.EmitSound(self, sdExplosions, 100, 100)
 	
 	expPos = self:GetAttachment(self:LookupAttachment("engine_right")).Pos
 	local spr2 = ents.Create("env_sprite")
@@ -531,7 +531,7 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	spr2:Fire("Kill", "", 0.9)
 	timer.Simple(0.9, function() if IsValid(spr2) then spr2:Remove() end end)
 	util.BlastDamage(self, self, expPos, 300, 100)
-	VJ_EmitSound(self, sdExplosions, 100, 100)
+	VJ.EmitSound(self, sdExplosions, 100, 100)
 	
 	
 	-- Engine gibs (Right side)
@@ -568,9 +568,9 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-	VJ_STOPSOUND(self.HeliSD_Rotor)
-	VJ_STOPSOUND(self.HeliSD_Whine)
-	VJ_STOPSOUND(self.HeliSD_Distant)
+	VJ.STOPSOUND(self.HeliSD_Rotor)
+	VJ.STOPSOUND(self.HeliSD_Whine)
+	VJ.STOPSOUND(self.HeliSD_Distant)
 	
 	-- Remove soldiers if Osprey was removed (Not killed)
 	if !self.Dead then

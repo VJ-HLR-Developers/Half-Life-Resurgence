@@ -154,7 +154,7 @@ end
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(13, 13, 76), Vector(-13, -13, 0))
 	self:SetBodygroup(1, 0)
-	self:SetWeaponState(VJ_WEP_STATE_HOLSTERED)
+	self:SetWeaponState(VJ.NPC_WEP_STATE_HOLSTERED)
 	
 	if self:GetModel() == "models/vj_hlr/hl1/barney.mdl" then // Already the default
 		self.Security_Type = 0
@@ -169,9 +169,9 @@ end
 function ENT:Controller_Initialize(ply, controlEnt)
 	function controlEnt:CustomOnKeyPressed(key)
 		if key == KEY_SPACE && self.VJCE_NPC:GetActivity() != ACT_DISARM && self.VJCE_NPC:GetActivity() != ACT_ARM then
-			if self.VJCE_NPC:GetWeaponState() == VJ_WEP_STATE_HOLSTERED then
+			if self.VJCE_NPC:GetWeaponState() == VJ.NPC_WEP_STATE_HOLSTERED then
 				self.VJCE_NPC:Security_UnHolsterGun()
-			elseif self.VJCE_NPC:GetWeaponState() == VJ_WEP_STATE_READY then
+			elseif self.VJCE_NPC:GetWeaponState() == VJ.NPC_WEP_STATE_READY then
 				self.VJCE_NPC:Security_HolsterGun()
 			end
 		end
@@ -192,7 +192,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 			wep:NPCShoot_Primary()
 		end
 	elseif key == "body" then
-		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -211,7 +211,7 @@ function ENT:CustomOnThink()
 		end
 		
 		-- For guarding
-		if self.IsGuard == true && self:GetWeaponState() == VJ_WEP_STATE_HOLSTERED && !IsValid(self:GetEnemy()) then
+		if self.IsGuard == true && self:GetWeaponState() == VJ.NPC_WEP_STATE_HOLSTERED && !IsValid(self:GetEnemy()) then
 			if self.Security_SwitchedIdle == false then
 				self.Security_SwitchedIdle = true
 				self.AnimTbl_IdleStand = {ACT_GET_DOWN_STAND, ACT_GET_UP_STAND}
@@ -247,16 +247,16 @@ function ENT:CustomOnAlert(ent)
 		end
 	end
 	
-	if self:GetWeaponState() == VJ_WEP_STATE_HOLSTERED then
+	if self:GetWeaponState() == VJ.NPC_WEP_STATE_HOLSTERED then
 		self:Security_UnHolsterGun()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Security_HolsterGun()
 	if self:GetBodygroup(1) != 0 then self:VJ_ACT_PLAYACTIVITY(ACT_DISARM, true, false, true) end
-	self:SetWeaponState(VJ_WEP_STATE_HOLSTERED)
+	self:SetWeaponState(VJ.NPC_WEP_STATE_HOLSTERED)
 	timer.Simple(self.Security_Type == 2 and 1 or 1.5, function()
-		if IsValid(self) && self:GetWeaponState() == VJ_WEP_STATE_HOLSTERED then
+		if IsValid(self) && self:GetWeaponState() == VJ.NPC_WEP_STATE_HOLSTERED then
 			self:SetBodygroup(1, 0)
 		end
 	end)
@@ -273,10 +273,10 @@ function ENT:CustomOnThink_AIEnabled()
 	if self.VJ_IsBeingControlled or self.Dead or self:BusyWithActivity() then return end
 	
 	if IsValid(self:GetEnemy()) then -- If enemy is seen then make sure gun is NOT holstered
-		if self:GetWeaponState() == VJ_WEP_STATE_HOLSTERED then
+		if self:GetWeaponState() == VJ.NPC_WEP_STATE_HOLSTERED then
 			self:Security_UnHolsterGun()
 		end
-	elseif self:GetWeaponState() == VJ_WEP_STATE_READY && (CurTime() - self.EnemyData.TimeSet) > 5 then
+	elseif self:GetWeaponState() == VJ.NPC_WEP_STATE_READY && (CurTime() - self.EnemyData.TimeSet) > 5 then
 		self:Security_HolsterGun()
 	end
 end
@@ -297,7 +297,7 @@ function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local colorRed = VJ_Color2Byte(Color(130, 19, 10))
+local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
@@ -329,7 +329,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+	VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

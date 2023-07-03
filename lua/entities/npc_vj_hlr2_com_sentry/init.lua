@@ -20,7 +20,7 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_COMBINE"} -- NPCs with the same class with be allied to each other
-ENT.AlertedToIdleTime = VJ_Set(5, 5) -- How much time until it calms down after the enemy has been killed/disappeared | Sets self.Alerted to false after the timer expires
+ENT.AlertedToIdleTime = VJ.SET(5, 5) -- How much time until it calms down after the enemy has been killed/disappeared | Sets self.Alerted to false after the timer expires
 ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
@@ -114,7 +114,7 @@ function ENT:CustomOnThink()
 		self.turret_turningsd:SetSoundLevel(60)
 		self.turret_turningsd:PlayEx(1, 100)
 	else
-		VJ_STOPSOUND(self.turret_turningsd)
+		VJ.STOPSOUND(self.turret_turningsd)
 	end
 	self.Turret_CurrentParameter = parameter
 end
@@ -154,7 +154,7 @@ function ENT:CustomOnThink_AIEnabled()
 		if !eneValid or scan == true then
 			-- Playing a beeping noise
 			if self.Turret_NextScanBeepT < CurTime() then
-				VJ_EmitSound(self, "npc/turret_floor/ping.wav", 75, 100)
+				VJ.EmitSound(self, "npc/turret_floor/ping.wav", 75, 100)
 				self.Turret_NextScanBeepT = CurTime() + 1
 			end
 			-- LEFT TO RIGHT
@@ -185,7 +185,7 @@ function ENT:CustomOnThink_AIEnabled()
 			end
 			self.Turret_StandDown = true
 			self:VJ_ACT_PLAYACTIVITY({"retire"}, true, 1)
-			VJ_EmitSound(self, "npc/turret_floor/retract.wav", 70, 100)
+			VJ.EmitSound(self, "npc/turret_floor/retract.wav", 70, 100)
 		end
 		if self.Turret_StandDown == true then
 			if self:GetPoseParameter("aim_yaw") == 0 then -- Hide the green light once it fully rests
@@ -203,7 +203,7 @@ function ENT:CustomOn_PoseParameterLookingCode(pitch, yaw, roll)
 	else
 		-- If it just got LOS, then play the gun "activate" sound
 		if self.Turret_HasLOS == false && IsValid(self:GetEnemy()) then
-			VJ_EmitSound(self, "npc/turret_floor/active.wav", 70, 100)
+			VJ.EmitSound(self, "npc/turret_floor/active.wav", 70, 100)
 		end
 		self.Turret_HasLOS = true
 	end
@@ -225,9 +225,9 @@ function ENT:Turret_Activate()
 	end)
 	//self.NextResetEnemyT = CurTime() + 1 -- Make sure it doesn't reset the enemy right away
 	self:VJ_ACT_PLAYACTIVITY({"deploy"}, true, false)
-	VJ_EmitSound(self, "npc/turret_floor/deploy.wav", 70, 100)
-	self.turret_alertsd = VJ_CreateSound(self, "npc/turret_floor/alarm.wav", 75, 100)
-	timer.Simple(0.8, function() VJ_STOPSOUND(self.turret_alertsd) end)
+	VJ.EmitSound(self, "npc/turret_floor/deploy.wav", 70, 100)
+	self.turret_alertsd = VJ.CreateSound(self, "npc/turret_floor/alarm.wav", 75, 100)
+	timer.Simple(0.8, function() VJ.STOPSOUND(self.turret_alertsd) end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttackCheck_RangeAttack()
@@ -252,7 +252,7 @@ function ENT:CustomRangeAttackCode()
 	bullet.AmmoType = "AR2"
 	self:FireBullets(bullet)
 	
-	VJ_EmitSound(self, sdFiring, 90, self:VJ_DecideSoundPitch(100, 110))
+	VJ.EmitSound(self, sdFiring, 90, self:VJ_DecideSoundPitch(100, 110))
 	
 	-- Effects & Light
 	//ParticleEffect("vj_rifle_full_blue", startpos, self:GetAngles(), self)
@@ -293,7 +293,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_hlr/hl2_npc/turret/detonate.wav", 90, 100)
+	VJ.EmitSound(self, "vj_hlr/hl2_npc/turret/detonate.wav", 90, 100)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -309,6 +309,6 @@ function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-	VJ_STOPSOUND(self.turret_turningsd)
-	VJ_STOPSOUND(self.turret_alertsd)
+	VJ.STOPSOUND(self.turret_turningsd)
+	VJ.STOPSOUND(self.turret_alertsd)
 end

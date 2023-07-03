@@ -29,7 +29,7 @@ ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/h
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/babygarg/gar_pain1.wav","vj_hlr/hl1_npc/babygarg/gar_pain2.wav","vj_hlr/hl1_npc/babygarg/gar_pain3.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/babygarg/gar_die1.wav","vj_hlr/hl1_npc/babygarg/gar_die2.wav"}
 
-ENT.BreathSoundPitch = VJ_Set(130, 130)
+ENT.BreathSoundPitch = VJ.SET(130, 130)
 
 -- Custom
 ENT.Garg_Type = 1

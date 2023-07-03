@@ -124,12 +124,12 @@ function ENT:RangeAttackCode_GetShootPos(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-	if self.AttackType == VJ_ATTACK_RANGE then
+	if self.AttackType == VJ.ATTACK_TYPE_RANGE then
 		self.GibOnDeathDamagesTable = {"All"}
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local colorYellow = VJ_Color2Byte(Color(255, 221, 35))
+local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
@@ -146,7 +146,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 	end
 	
-	util.VJ_SphereDamage(self, self, self:GetPos(), 120, 50, DMG_SONIC, false, true)
+	VJ.ApplyRadiusDamage(self, self, self:GetPos(), 120, 50, DMG_SONIC, false, true)
 	util.ScreenShake(self:GetPos(), 5, 5, 1, 1000)
 	
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/voltigore_gib1.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,30))})
@@ -172,8 +172,8 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
-	VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 90, 100) -- No far away sound for this!
+	VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+	VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 90, 100) -- No far away sound for this!
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

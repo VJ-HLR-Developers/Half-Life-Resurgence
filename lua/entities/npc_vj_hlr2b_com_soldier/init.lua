@@ -19,6 +19,7 @@ ENT.HasGrenadeAttack = true -- Should the SNPC have a grenade attack?
 ENT.GrenadeAttackModel = "models/weapons/w_npcnade.mdl" -- The model for the grenade entity
 ENT.GrenadeAttackAttachment = "righthand" -- The attachment that the grenade will spawn at | false = Custom position
 ENT.AnimTbl_WeaponAttackSecondary = {"vjseq_shoot_ar2grenade"}
+ENT.WeaponAttackSecondaryTimeUntilFire = 0.55
 	-- ====== Flinching Variables ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = {"vjges_flinch_gesture"} -- If it uses normal based animation, use this
@@ -99,8 +100,8 @@ function ENT:CustomOnThink()
 				finalpos = tr1.HitPos +self:GetForward() *25
 			end
 			if anim != false then
-			-- VJ_CreateTestObject(tr1.StartPos,self:GetAngles(),Color(0,0,255))
-			-- VJ_CreateTestObject(finalpos,self:GetAngles(),Color(0,255,0))
+			-- VJ.DEBUG_TempEnt(tr1.StartPos,self:GetAngles(),Color(0,0,255))
+			-- VJ.DEBUG_TempEnt(finalpos,self:GetAngles(),Color(0,255,0))
 				self:SetGroundEntity(NULL)
 				self.IsClimbing = true
 				timer.Simple(1.21,function()
@@ -143,19 +144,19 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnPlayCreateSound(sdData, sdFile)
-	if VJ_HasValue(self.SoundTbl_Death,sdFile) then
-		VJ_EmitSound(self,"vj_hlr/hl2b_npc/combine_soldier/click_terminated.wav")
+	if VJ.HasValue(self.SoundTbl_Death,sdFile) then
+		VJ.EmitSound(self,"vj_hlr/hl2b_npc/combine_soldier/click_terminated.wav")
 		return
 	end
-	if VJ_HasValue(self.DefaultSoundTbl_MeleeAttack,sdFile) then return end
-	VJ_EmitSound(self,"vj_hlr/hl2b_npc/combine_soldier/clik.wav")
-	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ_EmitSound(self,"vj_hlr/hl2b_npc/combine_soldier/click_off.wav") end end)
+	if VJ.HasValue(self.DefaultSoundTbl_MeleeAttack,sdFile) then return end
+	VJ.EmitSound(self,"vj_hlr/hl2b_npc/combine_soldier/clik.wav")
+	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self,"vj_hlr/hl2b_npc/combine_soldier/click_off.wav") end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnGrenadeAttack_OnThrow(grenEnt)
 	-- Custom grenade model and sounds
 	grenEnt.SoundTbl_Idle = {"weapons/grenade/tick1.wav"}
-	grenEnt.IdleSoundPitch = VJ_Set(100, 100)
+	grenEnt.IdleSoundPitch = VJ.SET(100, 100)
 	
 	local redGlow = ents.Create("env_sprite")
 	redGlow:SetKeyValue("model", "vj_base/sprites/vj_glow1.vmt")
@@ -174,7 +175,7 @@ end
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	-- Absorb bullet damage
 	if dmginfo:IsBulletDamage() then
-		if self.HasSounds == true && self.HasImpactSounds == true then VJ_EmitSound(self, "vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav", 70) end
+		if self.HasSounds == true && self.HasImpactSounds == true then VJ.EmitSound(self, "vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav", 70) end
 		if math.random(1, 3) == 1 then
 			dmginfo:ScaleDamage(0.50)
 			local spark = ents.Create("env_spark")

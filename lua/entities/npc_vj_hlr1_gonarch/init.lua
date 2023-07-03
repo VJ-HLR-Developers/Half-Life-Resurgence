@@ -86,7 +86,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self:FootStepSoundCode()
 	elseif key == "spawn" then -- Create baby headcrabs
 		for i = 1,3 do
-			VJ_EmitSound(self, sdBirth, 80)
+			VJ.EmitSound(self, sdBirth, 80)
 			if self.Gonarch_NumBabies < self.Gonarch_BabyLimit then -- Default: 20 babies max
 				local bCrab = ents.Create("npc_vj_hlr1_headcrab_baby")
 				if i == 1 then
@@ -156,7 +156,7 @@ function ENT:CustomOnMeleeAttack_Miss()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local colorYellow = VJ_Color2Byte(Color(255, 221, 35))
+local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
@@ -189,7 +189,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+	VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

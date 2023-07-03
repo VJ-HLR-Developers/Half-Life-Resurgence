@@ -52,7 +52,7 @@ function SWEP:CustomOnInitialize()
 			if self:GetOwner():GetModel() == "models/vj_hlr/hla/barney.mdl" then
 				self.WorldModel_CustomPositionBone = "unnamed033"
 			end
-			if !VJ_HasValue(self.HLR_ValidModels,self:GetOwner():GetModel()) then
+			if !VJ.HasValue(self.HLR_ValidModels,self:GetOwner():GetModel()) then
 				if IsValid(self:GetOwner():GetCreator()) then
 					self:GetOwner():GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
 				end

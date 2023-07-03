@@ -86,7 +86,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:SecondaryAttack()
 	-- Toggle whether to laser track or not (Only for players)
-	VJ_EmitSound(self, (self:GetNWLaser() and "buttons/button16.wav") or "buttons/button17.wav")
+	VJ.EmitSound(self, (self:GetNWLaser() and "buttons/button16.wav") or "buttons/button17.wav")
 	self:SetNWLaser(!self:GetNWLaser())
 	
 	local owner = self:GetOwner()

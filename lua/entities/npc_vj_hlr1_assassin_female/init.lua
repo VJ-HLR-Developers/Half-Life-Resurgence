@@ -45,7 +45,7 @@ ENT.WeaponSpread = 0.6 -- What's the spread of the weapon? | Closer to 0 = bette
 ENT.CanCrouchOnWeaponAttack = false -- Can it crouch while shooting?
 ENT.AnimTbl_TakingCover = {ACT_LAND} -- The animation it plays when hiding in a covered position, leave empty to let the base decide
 ENT.AnimTbl_AlertFriendsOnDeath = {ACT_IDLE_ANGRY} -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
-ENT.WaitForEnemyToComeOutTime = VJ_Set(1, 2) -- How much time should it wait until it starts chasing the enemy?
+ENT.WaitForEnemyToComeOutTime = VJ.SET(1, 2) -- How much time should it wait until it starts chasing the enemy?
 ENT.HasLostWeaponSightAnimation = true -- Set to true if you would like the SNPC to play a different animation when it has lost sight of the enemy and can't fire at it
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
@@ -87,9 +87,9 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 			wep:NPCShoot_Primary()
 		end
 	elseif key == "land" then
-		VJ_EmitSound(self, "vj_hlr/hl1_npc/player/pl_jumpland2.wav", 70)
+		VJ.EmitSound(self, "vj_hlr/hl1_npc/player/pl_jumpland2.wav", 70)
 	elseif key == "body" then
-		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -138,7 +138,7 @@ function ENT:CustomOnThink()
 			self.BOA_ForceJumpShoot = false
 		end
 	elseif !self.BOA_ForceJumpShoot && self:GetVelocity().z < 0 then
-		local flyAct = VJ_SequenceToActivity(self, "fly_attack")
+		local flyAct = VJ.SequenceToActivity(self, "fly_attack")
 		self:SetIdealActivity(flyAct)
 		self.AnimTbl_WeaponAttack = {flyAct}
 		self.BOA_ForceJumpShoot = true
@@ -149,7 +149,7 @@ function ENT:CustomOnThink()
 		self.BOA_OffGround = false
 		self:VJ_ACT_PLAYACTIVITY(ACT_LAND, true, false, false)
 		//self:VJ_PlaySequence("landfromjump", self.AnimationPlaybackRate, true, self:SequenceDuration(self:LookupSequence("landfromjump")), false)
-		//VJ_EmitSound(self,"vj_hlr/hl1_npc/player/pl_jumpland2.wav",80) -- Done through event
+		//VJ.EmitSound(self,"vj_hlr/hl1_npc/player/pl_jumpland2.wav",80) -- Done through event
 	end
 	
 	-- Jump while attacking
@@ -185,7 +185,7 @@ function ENT:OnFireBullet(data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local colorRed = VJ_Color2Byte(Color(130, 19, 10))
+local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
@@ -216,7 +216,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+	VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

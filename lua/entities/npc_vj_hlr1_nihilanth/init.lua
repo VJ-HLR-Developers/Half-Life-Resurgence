@@ -51,7 +51,7 @@ ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/x/x_shoot1.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/x/x_pain1.wav","vj_hlr/hl1_npc/x/x_pain2.wav","vj_hlr/hl1_npc/x/x_pain3.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/x/x_die1.wav"}
 
-ENT.NextSoundTime_Idle = VJ_Set(14, 20)
+ENT.NextSoundTime_Idle = VJ.SET(14, 20)
 
 ENT.GeneralSoundPitch1 = 100
 
@@ -211,7 +211,7 @@ function ENT:CustomOnThink()
 	
 	if self.Nih_CrystalsDestroyed == false && !IsValid(self.Nih_Crystal1) && !IsValid(self.Nih_Crystal2) && !IsValid(self.Nih_Crystal3) then
 		self.Nih_CrystalsDestroyed = true
-		VJ_EmitSound(self, "vj_hlr/hl1_npc/nihilanth/nil_done.wav", 120)
+		VJ.EmitSound(self, "vj_hlr/hl1_npc/nihilanth/nil_done.wav", 120)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -270,8 +270,8 @@ function ENT:Nih_CreateAlly()
 		mask = MASK_ALL,
 	})
 	local spawnpos = tr.HitPos + tr.HitNormal*30 -- 30 WU kichme tours hane
-	local type = VJ_PICK({"npc_vj_hlr1_aliengrunt", "npc_vj_hlr1_alienslave", "npc_vj_hlr1_aliencontroller"})
-	if tr.MatType == MAT_SLOSH then type = VJ_PICK({"npc_vj_hlr1_ichthyosaur", "npc_vj_hlr1_archer"}) spawnpos = spawnpos + Vector(0, 0, -100) end
+	local type = VJ.PICK({"npc_vj_hlr1_aliengrunt", "npc_vj_hlr1_alienslave", "npc_vj_hlr1_aliencontroller"})
+	if tr.MatType == MAT_SLOSH then type = VJ.PICK({"npc_vj_hlr1_ichthyosaur", "npc_vj_hlr1_archer"}) spawnpos = spawnpos + Vector(0, 0, -100) end
 	local ally = ents.Create(type)
 	if ally:GetClass() == "npc_vj_hlr1_aliencontroller" then spawnpos = spawnpos + Vector(0, 0, 250) end -- Yete controller e, ere vor kichme partser dzaki
 	ally:SetPos(spawnpos)
@@ -374,7 +374,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 			endpos = self:GetPos() + self:GetRight()*math.Rand(10000,20000) + self:GetUp()*20000,
 			filter = self
 		})
-		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "0")
 		
 		tr = util.TraceLine({
@@ -382,7 +382,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 			endpos = self:GetPos() + self:GetRight()*-math.Rand(10000,20000) + self:GetUp()*20000,
 			filter = self
 		})
-		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "0")
 		
 		-- Poren var --------------------------
@@ -391,7 +391,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 			endpos = self:GetPos() + self:GetRight()*math.Rand(10000,20000) + self:GetUp()*-20000,
 			filter = self
 		})
-		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "1")
 		
 		tr = util.TraceLine({
@@ -399,7 +399,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 			endpos = self:GetPos() + self:GetRight()*-math.Rand(10000,20000) + self:GetUp()*-20000,
 			filter = self
 		})
-		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "1")
 		
 		-- Tsakh --------------------------
@@ -408,7 +408,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 			endpos = self:GetPos() + self:GetRight()*math.Rand(10000,20000) + self:GetUp()*20000,
 			filter = self
 		})
-		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "3")
 		
 		tr = util.TraceLine({
@@ -416,7 +416,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 			endpos = self:GetPos() + self:GetRight()*math.Rand(10000,20000) + self:GetUp()*-20000 + self:GetForward()*-math.Rand(20000,20000),
 			filter = self
 		})
-		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "3")
 		
 		tr = util.TraceLine({
@@ -424,7 +424,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 			endpos = self:GetPos() + self:GetRight()*math.Rand(10000,20000) + self:GetUp()*-20000 + self:GetForward()*math.Rand(20000,20000),
 			filter = self
 		})
-		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "3")
 		
 		tr = util.TraceLine({
@@ -432,7 +432,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 			endpos = self:GetPos() + self:GetRight()*math.Rand(100,20000) + self:GetUp()*20000 + self:GetForward()*math.Rand(-10000,10000),
 			filter = self
 		})
-		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "3")
 		
 		-- Ach --------------------------
@@ -441,7 +441,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 			endpos = self:GetPos() + self:GetRight()*-math.Rand(10000,20000) + self:GetUp()*20000,
 			filter = self
 		})
-		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "2")
 		
 		tr = util.TraceLine({
@@ -449,7 +449,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 			endpos = self:GetPos() + self:GetRight()*-math.Rand(10000,20000) + self:GetUp()*-20000 + self:GetForward()*-math.Rand(20000,20000),
 			filter = self
 		})
-		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "2")
 		
 		tr = util.TraceLine({
@@ -457,7 +457,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 			endpos = self:GetPos() + self:GetRight()*-math.Rand(10000,20000) + self:GetUp()*-200 + self:GetForward()*math.Rand(20000,20000),
 			filter = self
 		})
-		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "2")
 		
 		tr = util.TraceLine({
@@ -465,7 +465,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 			endpos = self:GetPos() + self:GetRight()*-math.Rand(100,20000) + self:GetUp()*20000 + self:GetForward()*math.Rand(-10000,10000),
 			filter = self
 		})
-		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
+		VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 12, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, "2")
 	end
 	DoBlueElectric()
@@ -484,7 +484,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 			endpos = self:GetPos() + self:GetRight()*math.Rand(20000,20000) + self:GetUp()*-20000,
 			filter = self
 		})
-		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
+		VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
 		
 		tr = util.TraceLine({
@@ -492,7 +492,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 			endpos = self:GetPos() + self:GetRight()*math.Rand(20000,20000) + self:GetUp()*-20000 + self:GetForward()*-math.Rand(20000,20000),
 			filter = self
 		})
-		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
+		VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
 		
 		tr = util.TraceLine({
@@ -500,7 +500,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 			endpos = self:GetPos() + self:GetRight()*math.Rand(20000,20000) + self:GetUp()*-20000 + self:GetForward()*math.Rand(20000,20000),
 			filter = self
 		})
-		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
+		VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
 		
 		tr = util.TraceLine({
@@ -508,7 +508,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 			endpos = self:GetPos() + self:GetRight()*math.Rand(100,20000) + self:GetUp()*20000 + self:GetForward()*math.Rand(-10000,10000),
 			filter = self
 		})
-		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
+		VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
 		
 		-- Ach --------------------------
@@ -517,7 +517,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 			endpos = self:GetPos() + self:GetRight()*-math.Rand(20000,20000) + self:GetUp()*-20000,
 			filter = self
 		})
-		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
+		VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
 		
 		tr = util.TraceLine({
@@ -525,7 +525,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 			endpos = self:GetPos() + self:GetRight()*-math.Rand(20000,20000) + self:GetUp()*-20000 + self:GetForward()*-math.Rand(20000,20000),
 			filter = self
 		})
-		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
+		VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
 		
 		tr = util.TraceLine({
@@ -533,7 +533,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 			endpos = self:GetPos() + self:GetRight()*-math.Rand(20000,20000) + self:GetUp()*-200 + self:GetForward()*math.Rand(20000,20000),
 			filter = self
 		})
-		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
+		VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
 		
 		tr = util.TraceLine({
@@ -541,7 +541,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 			endpos = self:GetPos() + self:GetRight()*-math.Rand(100,20000) + self:GetUp()*20000 + self:GetForward()*math.Rand(-10000,10000),
 			filter = self
 		})
-		util.VJ_SphereDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
+		VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 20, DMG_ALWAYSGIB, false, true)
 		self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
 	end
 	
@@ -596,7 +596,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	timer.Simple(14, function() -- Jermag louys ere
 		if IsValid(self) then
 			ParticleEffect("vj_hlr_nihilanth_deathorbs_white", self:GetAttachment(self:LookupAttachment("0")).Pos, self:GetAngles())
-			VJ_EmitSound(self, "vj_hlr/hl1_npc/x/nih_die2.wav", 120)
+			VJ.EmitSound(self, "vj_hlr/hl1_npc/x/nih_die2.wav", 120)
 			
 			timer.Simple(1, function()
 				if IsValid(self) then

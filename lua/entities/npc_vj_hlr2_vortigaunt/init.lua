@@ -90,7 +90,7 @@ ENT.SoundTbl_Death = {}
 ENT.FootStepSoundLevel = 60
 
 ENT.GeneralSoundPitch1 = 100
-ENT.RangeAttackPitch = VJ_Set(130, 160)
+ENT.RangeAttackPitch = VJ.SET(130, 160)
 
 --[[ UNUSED
 -- Complementing the player
@@ -253,7 +253,7 @@ function ENT:CustomRangeAttackCode()
 	elec:SetAttachment(2)
 	util.Effect("VJ_HLR_Electric",elec)
 	
-	util.VJ_SphereDamage(self, self, hitpos, 30, 20, DMG_SHOCK, true, false, {Force=90})
+	VJ.ApplyRadiusDamage(self, self, hitpos, 30, 20, DMG_SHOCK, true, false, {Force=90})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnSchedule()

@@ -128,7 +128,7 @@ function ENT:ChangeMode(mode)
 				self.HasRangeAttack = false
 			end
 		end)
-		VJ_CreateSound(self,"vj_hlr/hl1_npc/stukabat/stkb_deploy" .. math.random(1,2) .. ".wav")
+		VJ.CreateSound(self,"vj_hlr/hl1_npc/stukabat/stkb_deploy" .. math.random(1,2) .. ".wav")
 	end
 	self.Stuka_Mode = mode
 	-- self.Stuka_ModeChangeT = CurTime() + 4 -- Debug
@@ -138,11 +138,11 @@ end
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	-- print(key)
 	if key == "wing" then
-		VJ_EmitSound(self,"vj_hlr/hl1_npc/stukabat/stkb_wings" .. math.random(1, 3) .. ".wav", 70)
+		VJ.EmitSound(self,"vj_hlr/hl1_npc/stukabat/stkb_wings" .. math.random(1, 3) .. ".wav", 70)
 	elseif key == "body" then
-		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	elseif key == "attack" then
-		VJ_CreateSound(self, "vj_hlr/hl1_npc/stukabat/stkb_fire"..math.random(1, 2)..".wav", 75, 100)
+		VJ.CreateSound(self, "vj_hlr/hl1_npc/stukabat/stkb_fire"..math.random(1, 2)..".wav", 75, 100)
 	elseif key == "melee" then
 		self:MeleeAttackCode()
 	elseif key == "dropbomb" then
@@ -164,7 +164,7 @@ function ENT:HandleModeChanging(mode,pos,cont)
 		else
 			local landType = self.Stuka_LandingType
 			-- util.ParticleTracerEx("Weapon_Combine_Ion_Cannon_Beam", self:GetPos(), self.Stuka_LandingPos, false, self:EntIndex(), 0)//vortigaunt_beam
-			-- VJ_CreateTestObject(self.Stuka_LandingPos, self:GetAngles(), Color(212,0,255), 5)
+			-- VJ.DEBUG_TempEnt(self.Stuka_LandingPos, self:GetAngles(), Color(212,0,255), 5)
 			self:AA_MoveTo(self.Stuka_LandingPos,true,"Calm",{FaceDest=true,FaceDestTarget=false,IgnoreGround=true})
 			local tr = util.TraceLine({start = pos,endpos = pos +Vector(0,0,(landType == 1 && -35 or 75)),filter = self})
 			if tr.Hit /*&& tr.HitPos:Distance(pos) <= 35*/ then
@@ -277,7 +277,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 		end
 		deathCorpse:Spawn()
 		deathCorpse:Activate()
-		deathCorpse.DeathAnim = VJ_PICK({"Death_fall_simple","Death_fall_violent"})
+		deathCorpse.DeathAnim = VJ.PICK({"Death_fall_simple","Death_fall_violent"})
 		undo.ReplaceEntity(self, deathCorpse)
 		cleanup.ReplaceEntity(self, deathCorpse)
 		function deathCorpse:Think()
@@ -302,7 +302,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 			local tr = util.TraceLine({start=self:GetPos(),endpos=self:GetPos() +Vector(0,0,-15),filter=self})
 			self:SetPos(tr.Hit && tr.HitPos or self:GetPos() +Vector(0,0,-8)) -- The collision box is too big, so we move it down a bit
 
-			timer.Simple(VJ_GetSequenceDuration(self, self.DeathAnim),function()
+			timer.Simple(VJ.AnimDuration(self, self.DeathAnim),function()
 				if IsValid(self) then
 					local corpse = ents.Create("prop_ragdoll")
 					corpse:SetModel(self:GetModel())
@@ -338,14 +338,14 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 					self:Remove()
 				end
 			end)
-			VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+			VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 		end
 
 		self:Remove()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local colorYellow = VJ_Color2Byte(Color(255, 221, 35))
+local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
@@ -371,7 +371,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+	VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

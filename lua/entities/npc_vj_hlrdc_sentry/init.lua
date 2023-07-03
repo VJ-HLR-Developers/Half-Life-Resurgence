@@ -35,7 +35,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 				effectSpark:SetOrigin(self:GetAttachment(attSensor).Pos)
 				effectSpark:SetScale(6)
 				util.Effect("VJ_HLR_Spark", effectSpark)
-				VJ_EmitSound(self, "ambient/energy/zap"..math.random(5, 9)..".wav", 70, 100)
+				VJ.EmitSound(self, "ambient/energy/zap"..math.random(5, 9)..".wav", 70, 100)
 			end
 		end)
 	end

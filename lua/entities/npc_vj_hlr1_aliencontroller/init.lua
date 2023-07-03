@@ -73,7 +73,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		if IsValid(self.Glow2) then self.Glow2:Remove() end
 		self.AlienC_HomingAttack = false
 		self:RangeAttackCode()
-	elseif key == "sprite" && self.AttackType == VJ_ATTACK_RANGE && self.AlienC_HomingAttack == false then
+	elseif key == "sprite" && self.AttackType == VJ.ATTACK_TYPE_RANGE && self.AlienC_HomingAttack == false then
 		if IsValid(self.Glow1) then self.Glow1:Remove() end
 		if IsValid(self.Glow2) then self.Glow2:Remove() end
 		self.Glow1 = ents.Create("env_sprite")
@@ -147,7 +147,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local colorYellow = VJ_Color2Byte(Color(255, 221, 35))
+local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
@@ -178,7 +178,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+	VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

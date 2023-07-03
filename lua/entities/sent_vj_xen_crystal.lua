@@ -81,7 +81,7 @@ local vecZ90 = Vector(0, 0, 90)
 function ENT:OnTakeDamage(dmginfo)
 	local myPos = self:GetPos()
 	self:SetHealth(self:Health() - dmginfo:GetDamage())
-	self:EmitSound(VJ_PICK(sdHit), 70)
+	self:EmitSound(VJ.PICK(sdHit), 70)
 	if self:Health() <= 0 then -- If health is now less than 0 then explode!
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model","vj_hl/sprites/fexplo1.vmt")
@@ -100,13 +100,13 @@ function ENT:OnTakeDamage(dmginfo)
 		spr:Spawn()
 		spr:Fire("Kill","",0.9)
 	
-		util.VJ_SphereDamage(self, self, myPos, 100, 50, DMG_NERVEGAS, true, true)
+		VJ.ApplyRadiusDamage(self, self, myPos, 100, 50, DMG_NERVEGAS, true, true)
 		self:EmitSound("vj_hlr/fx/xtal_down1.wav", 100)
-		self:EmitSound(VJ_PICK(sdBreak), 70)
+		self:EmitSound(VJ.PICK(sdBreak), 70)
 		self:Remove()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRemove()
-	VJ_STOPSOUND(self.IdleSd)
+	VJ.STOPSOUND(self.IdleSd)
 end

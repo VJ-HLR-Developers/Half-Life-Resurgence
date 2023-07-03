@@ -9,7 +9,7 @@ ENT.Model = {"models/barney.mdl"} -- The game will pick a random model from the 
 ENT.StartHealth = 100
 ENT.HasHealthRegeneration = true -- Can the SNPC regenerate its health?
 ENT.HealthRegenerationAmount = 1 -- How much should the health increase after every delay?
-ENT.HealthRegenerationDelay = VJ_Set(0.35,0.35) -- How much time until the health increases
+ENT.HealthRegenerationDelay = VJ.SET(0.35,0.35) -- How much time until the health increases
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other

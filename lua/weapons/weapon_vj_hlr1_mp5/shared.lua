@@ -55,7 +55,7 @@ function SWEP:CustomOnInitialize()
 				self.WorldModel_CustomPositionAngle = Vector(100,180,90)
 				self.WorldModel_CustomPositionOrigin = Vector(5.6,-4,-2)
 			end
-			if !VJ_HasValue(self.HLR_ValidModels,self:GetOwner():GetModel()) then
+			if !VJ.HasValue(self.HLR_ValidModels,self:GetOwner():GetModel()) then
 				if IsValid(self:GetOwner():GetCreator()) then
 					self:GetOwner():GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
 				end
@@ -66,8 +66,6 @@ function SWEP:CustomOnInitialize()
 		end
 	end)
 end
-//SWEP.NPC_SecondaryFireChance = 1 -- Chance that the secondary fire is used | 1 = always
-//SWEP.NPC_SecondaryFireNext = VJ_Set(3,3) -- How much time until the secondary fire can be used again?
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnDrawWorldModel() -- This is client only!
 	if IsValid(self:GetOwner()) then

@@ -211,13 +211,13 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	elseif key == "tie" /*&& !self:BusyWithActivity()*/ then
 		self:StopAllCommonSpeechSounds()
 		self:PlaySoundSystem("GeneralSpeech", sdTie)
-		//VJ_EmitSound(self, {"vj_hlr/hl1_npc/scientist/weartie.wav","vj_hlr/hl1_npc/scientist/ties.wav"}, 80, 100)
+		//VJ.EmitSound(self, {"vj_hlr/hl1_npc/scientist/weartie.wav","vj_hlr/hl1_npc/scientist/ties.wav"}, 80, 100)
 	elseif key == "draw" then
 		self:SetBodygroup(2,1)
 	elseif key == "holster" then
 		self:SetBodygroup(2,0)
 	elseif key == "body" then
-		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	// keller
 	elseif key == "keller_surprise" then
 		self.SoundTbl_FootStep = sdStep
@@ -341,7 +341,7 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	self:SetBodygroup(2, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local colorRed = VJ_Color2Byte(Color(130, 19, 10))
+local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
@@ -408,10 +408,10 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 100, 100)
+	VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 100, 100)
 	if self.SCI_Type == 2 then
-		VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, 100)
-		VJ_EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 65, 100)
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, 100)
+		VJ.EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 65, 100)
 	end
 	return false
 end

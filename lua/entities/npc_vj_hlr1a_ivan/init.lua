@@ -9,7 +9,7 @@ ENT.Model = {"models/vj_hlr/hla/doctor.mdl"} -- The game will pick a random mode
 ENT.StartHealth = 100
 ENT.HasHealthRegeneration = true
 ENT.HealthRegenerationAmount = 2
-ENT.HealthRegenerationDelay = VJ_Set(0.5,0.5)
+ENT.HealthRegenerationDelay = VJ.SET(0.5,0.5)
 
 ENT.HullType = HULL_HUMAN
 ENT.VJC_Data = {
@@ -79,7 +79,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 			wep:NPCShoot_Primary()
 		end
 	elseif key == "body" then
-		VJ_EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -103,7 +103,7 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	self:SetBodygroup(0, 1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local colorRed = VJ_Color2Byte(Color(130, 19, 10))
+local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
@@ -135,7 +135,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ_EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+	VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -49,7 +49,7 @@ ENT.IsMedicSNPC = true -- Is this SNPC a medic? Does it heal other friendly frie
 ENT.AnimTbl_Medic_GiveHealth = {ACT_ARM} -- Animations is plays when giving health to an ally
 ENT.Medic_CheckDistance = 1000 -- How far does it check for allies that are hurt? | World units
 ENT.Medic_HealDistance = 600 -- How close does it have to be until it stops moving and heals its ally?
-ENT.Medic_NextHealTime = VJ_Set(5, 8) -- How much time until it can give health to an ally again
+ENT.Medic_NextHealTime = VJ.SET(5, 8) -- How much time until it can give health to an ally again
 ENT.Medic_SpawnPropOnHeal = false -- Should it spawn a prop, such as small health vial at a attachment when healing an ally?
 ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
 
@@ -115,10 +115,10 @@ function ENT:CustomOnRangeAttack_BeforeStartTimer()
 	local anim1Dur = self:VJ_ACT_PLAYACTIVITY(self.CurrentAttackAnimation, false, 0, true, 0, {OnFinish = function()
 		self:VJ_ACT_PLAYACTIVITY(ACT_RANGE_ATTACK1, false, 0, true, 0, {OnFinish = function()
 			self:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true)
-			VJ_EmitSound(self, "vj_hlr/hla_npc/prdroid/reload.wav", 90, 100) -- Reload sound
+			VJ.EmitSound(self, "vj_hlr/hla_npc/prdroid/reload.wav", 90, 100) -- Reload sound
 		end})
 	end})
-	self.CurrentAttackAnimationDuration = anim1Dur + VJ_GetSequenceDuration(self, ACT_RANGE_ATTACK1)
+	self.CurrentAttackAnimationDuration = anim1Dur + VJ.AnimDuration(self, ACT_RANGE_ATTACK1)
 	self.CurAttackAnimTime = CurTime() + self.CurrentAttackAnimationDuration
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -153,8 +153,8 @@ end
 local collideSds = {"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}
 --
 function ENT:CustomOnKilled(dmginfo, hitgroup)
-	util.VJ_SphereDamage(self, self, self:GetPos(), 75, 25, DMG_BLAST, false, true)
-	VJ_EmitSound(self, "vj_hlr/hla_npc/prdroid/explode.wav", 90, 100)
+	VJ.ApplyRadiusDamage(self, self, self:GetPos(), 75, 25, DMG_BLAST, false, true)
+	VJ.EmitSound(self, "vj_hlr/hla_npc/prdroid/explode.wav", 90, 100)
 	local applyForce = self.HasDeathAnimation and false or true
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_cap.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("sphere01")),CollideSound=collideSds,Vel_ApplyDmgForce=applyForce})
 	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/pb_armpiece.mdl",{BloodDecal="",Ang=self:GetAngles(),Pos=self:GetBonePosition(self:LookupBone("unnamed011")),CollideSound=collideSds,Vel_ApplyDmgForce=applyForce})

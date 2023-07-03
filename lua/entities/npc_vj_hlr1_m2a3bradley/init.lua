@@ -146,9 +146,9 @@ function ENT:Tank_CustomOnPriorToKilled(dmginfo, hitgroup)
 	for i=0,1,0.5 do
 		timer.Simple(i, function()
 			if IsValid(self) then
-				VJ_EmitSound(self, self.SoundTbl_Death, 100)
-				VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 100)
-				VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+				VJ.EmitSound(self, self.SoundTbl_Death, 100)
+				VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 100)
+				VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
 				util.BlastDamage(self, self, self:GetPos(), 200, 40)
 				util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
 				
@@ -175,10 +175,10 @@ function ENT:Tank_CustomOnPriorToKilled(dmginfo, hitgroup)
 	
 	timer.Simple(1.5, function()
 		if IsValid(self) then
-			VJ_EmitSound(self, self.SoundTbl_Death, 100)
+			VJ.EmitSound(self, self.SoundTbl_Death, 100)
 			util.BlastDamage(self, self, self:GetPos(), 200, 40)
 			util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
-			VJ_EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+			VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
 			local spr = ents.Create("env_sprite")
 			spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
 			spr:SetKeyValue("GlowProxySize","2.0")

@@ -230,9 +230,9 @@ end
 end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnPlayCreateSound(sdData, sdFile)
-	if VJ_HasValue(self.SoundTbl_Pain, sdFile) or VJ_HasValue(self.DefaultSoundTbl_MeleeAttack, sdFile) then return end
-	VJ_EmitSound(self, "npc/metropolice/vo/on"..math.random(1, 2)..".wav")
-	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ_EmitSound(self, "npc/metropolice/vo/off"..math.random(1, 4)..".wav") end end)
+	if VJ.HasValue(self.SoundTbl_Pain, sdFile) or VJ.HasValue(self.DefaultSoundTbl_MeleeAttack, sdFile) then return end
+	VJ.EmitSound(self, "npc/metropolice/vo/on"..math.random(1, 2)..".wav")
+	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self, "npc/metropolice/vo/off"..math.random(1, 4)..".wav") end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
@@ -264,7 +264,7 @@ function ENT:CustomOnDoChangeWeapon(newWeapon, oldWeapon, invSwitch)
 	if newWeapon:GetClass() == "weapon_vj_hlr2_stunstick" then
 		timer.Simple(0.4, function()
 			if IsValid(self) then
-				VJ_EmitSound(self, sdCop_DeployStunStick)
+				VJ.EmitSound(self, sdCop_DeployStunStick)
 				local edata = EffectData()
 				edata:SetOrigin(newWeapon:GetAttachment(1).Pos)
 				util.Effect("StunstickImpact", edata)

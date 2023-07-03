@@ -67,7 +67,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnReload()
 	self.Bow_NumShots = 1
-	VJ_CreateSound(self, "buttons/button19.wav")
+	VJ.CreateSound(self, "buttons/button19.wav")
 	self.AnimTbl_Idle = {ACT_VM_IDLE}
 	self.AnimTbl_Draw = {ACT_VM_DRAW}
 end
