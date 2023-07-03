@@ -81,7 +81,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnThink()
 	self:GetOwner():SetBodygroup(1, 0)
-	self:EmitSound("vj_hlr/hl1_npc/shockroach/shock_angry.wav", 70)
+	
 	if CurTime() > self.HLR_NextIdleSoundT then
 		if IsValid(self:GetOwner():GetEnemy()) then
 			self:EmitSound("vj_hlr/hl1_npc/shockroach/shock_angry.wav", 70)
