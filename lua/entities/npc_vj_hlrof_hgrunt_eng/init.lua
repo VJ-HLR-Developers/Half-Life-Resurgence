@@ -18,7 +18,7 @@ ENT.HECU_TurretPlacing = false
 ENT.HECU_NextTurretCheckT = 0
 ENT.HECU_GasTankHit = false -- Signals the code to preform an explosion
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply, controlEnt)
+function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("CTRL: Deploy Sentry Gun")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

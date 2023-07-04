@@ -77,7 +77,7 @@ function ENT:CustomOnInitialize()
 	self:SetPos(self:GetPos() + spawnPos)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply, controlEnt)
+function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("Hold-SPACE: Fires healing needle while range attacking")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

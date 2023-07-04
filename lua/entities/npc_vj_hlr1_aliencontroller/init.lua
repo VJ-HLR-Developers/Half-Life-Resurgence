@@ -116,7 +116,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply, controlEnt)
+function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("Right Mouse + CTRL: Fire single homing orb")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

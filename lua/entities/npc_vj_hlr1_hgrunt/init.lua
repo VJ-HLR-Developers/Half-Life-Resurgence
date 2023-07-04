@@ -204,7 +204,7 @@ function ENT:OnPlayCreateSound(sdData, sdFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
-	print(key)
+	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
 	elseif key == "melee" then
@@ -637,7 +637,7 @@ function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, nil, {ExtraGibs = self.HECU_Type != 4 and {"models/vj_hlr/gibs/gib_hgrunt.mdl"} or nil})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDropWeapon_AfterWeaponSpawned(dmginfo, hitgroup, wepEnt)
+function ENT:CustomOnDropWeapon(dmginfo, hitgroup, wepEnt)
 	wepEnt.WorldModel_Invisible = false
 	wepEnt:SetNW2Bool("VJ_WorldModel_Invisible", false)
 end

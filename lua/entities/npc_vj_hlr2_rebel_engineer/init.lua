@@ -12,7 +12,7 @@ ENT.Human_TurretEnt = NULL
 ENT.Human_TurretPlacing = false
 ENT.Human_NextTurretCheckT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply, controlEnt)
+function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("CTRL: Deploy Sentry Gun")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

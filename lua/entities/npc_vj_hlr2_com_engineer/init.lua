@@ -15,7 +15,7 @@ function ENT:CustomOnInitialize()
 	self:SetMaterial("models/hl_resurgence/hl2/engineer/combinesoldiersheet")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply, controlEnt)
+function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("CTRL: Deploy Sentry Gun")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

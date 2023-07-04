@@ -205,15 +205,13 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
+	ply:ChatPrint("SPACE: Deploy Manhack (if available)")
+	
 	function controlEnt:CustomOnKeyPressed(key)
 		if key == KEY_SPACE && self.VJCE_NPC.Metrocop_HasManhack then
 			self.VJCE_NPC:Metrocop_DeployManhack()
 		end
 	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply, controlEnt)
-	ply:ChatPrint("SPACE: Deploy Manhack (if available)")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 /*function ENT:CustomOnAcceptInput(key, activator, caller, data)

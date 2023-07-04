@@ -167,6 +167,8 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
+	ply:ChatPrint("SPACE: Holster / Unholster gun")
+	
 	function controlEnt:CustomOnKeyPressed(key)
 		if key == KEY_SPACE && self.VJCE_NPC:GetActivity() != ACT_DISARM && self.VJCE_NPC:GetActivity() != ACT_ARM then
 			if self.VJCE_NPC:GetWeaponState() == VJ.NPC_WEP_STATE_HOLSTERED then
@@ -176,10 +178,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
 			end
 		end
 	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply, controlEnt)
-	ply:ChatPrint("SPACE: Holster / Unholster gun")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
@@ -347,7 +345,7 @@ function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 	VJ_HLR_ApplyCorpseEffects(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDropWeapon_AfterWeaponSpawned(dmginfo, hitgroup, wepEnt)
+function ENT:CustomOnDropWeapon(dmginfo, hitgroup, wepEnt)
 	wepEnt.WorldModel_Invisible = false
 	wepEnt:SetNW2Bool("VJ_WorldModel_Invisible", false)
 end

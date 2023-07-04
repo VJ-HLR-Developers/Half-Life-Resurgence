@@ -59,6 +59,8 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
+	ply:ChatPrint("RELOAD: Reload all the spikes")
+	
 	function controlEnt:CustomOnKeyBindPressed(key)
 		if key == IN_RELOAD && self.VJCE_NPC:GetBodygroup(1) != 1 then
 			self.VJCE_NPC:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true, 0, {OnFinish=function(interrupted2, anim2)
@@ -67,10 +69,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
 			end})
 		end
 	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply, controlEnt)
-	ply:ChatPrint("RELOAD: Reload all the spikes")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)

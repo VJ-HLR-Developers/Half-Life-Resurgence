@@ -149,7 +149,7 @@ function ENT:CustomOnInitialize()
 	self:DeleteOnRemove(sideLight2)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply, controlEnt)
+function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("JUMP: Deploy soldiers, can redeploy after all die & cool down expires!")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

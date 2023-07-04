@@ -50,7 +50,7 @@ function ENT:CustomInitialize_CustomTank()
 	self.Bradley_Grunts = {}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply, controlEnt)
+function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("JUMP: Deploy human grunt squad (1 time)")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

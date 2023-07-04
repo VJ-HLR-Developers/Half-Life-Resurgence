@@ -195,13 +195,11 @@ function ENT:SCI_CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
-	self.SCI_ControllerAnim = 0
-	self.SCI_NextTieAnnoyanceT = 0
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply, controlEnt)
 	ply:ChatPrint("RELOAD: Toggle scared animations")
 	ply:ChatPrint("LMOUSE: Play tie annoyance (if not scared & possible)")
+	
+	self.SCI_ControllerAnim = 0
+	self.SCI_NextTieAnnoyanceT = 0
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)

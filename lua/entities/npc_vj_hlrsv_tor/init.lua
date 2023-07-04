@@ -78,15 +78,13 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
+	ply:ChatPrint("SPACE: Spawn an Alien Grunt")
+	
 	function controlEnt:CustomOnKeyPressed(key)
 		if key == KEY_SPACE then
 			self.VJCE_NPC:Tor_StartSpawnAlly()
 		end
 	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply, controlEnt)
-	ply:ChatPrint("SPACE: Spawn an Alien Grunt")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vezZ20 = Vector(0, 0, 20)

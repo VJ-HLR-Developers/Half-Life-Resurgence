@@ -60,6 +60,8 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
+	ply:ChatPrint("SPACE: Cycle through height levels")
+	
 	self.CanTurnWhileStationary = true
 	controlEnt.LastTentacleLevel = self.Tentacle_Level
 	
@@ -84,10 +86,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	function controlEnt:CustomOnStopControlling()
 		self.CanTurnWhileStationary = false
 	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply, controlEnt)
-	ply:ChatPrint("SPACE: Cycle through height levels")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnHandleAnimEvent(ev, evTime, evCycle, evType, evOptions)

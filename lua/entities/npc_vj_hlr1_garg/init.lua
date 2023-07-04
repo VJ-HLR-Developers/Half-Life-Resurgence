@@ -199,7 +199,7 @@ function ENT:MultipleMeleeAttacks()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply, controlEnt)
+function ENT:Controller_Initialize(ply, controlEnt)
 	if self.Garg_Type == 1 then return end
 	ply:ChatPrint("Right Mouse + CTRL: Preform Stomp attack")
 end

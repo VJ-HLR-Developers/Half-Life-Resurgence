@@ -77,6 +77,8 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
+	ply:ChatPrint("SPACE: Activate / Deactivate")
+	
 	self.Turret_ControllerStatus = 0
 	self.HasPoseParameterLooking = false -- Initially, we are going to start as idle, we do NOT want the turret turning!
 	self.NextAlertSoundT = CurTime() + 1 -- So it doesn't play the alert sound as soon as it enters the NPC!
@@ -100,10 +102,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
 			self.VJCE_NPC.HasPoseParameterLooking = true
 		end
 	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply, controlEnt)
-	ply:ChatPrint("SPACE: Activate / Deactivate")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()

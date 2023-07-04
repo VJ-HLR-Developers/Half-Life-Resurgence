@@ -132,7 +132,7 @@ function ENT:CustomOnInitialize()
 	self:DeleteOnRemove(sideLight2)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_IntMsg(ply, controlEnt)
+function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("MOUSE1: Fire chain gun")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

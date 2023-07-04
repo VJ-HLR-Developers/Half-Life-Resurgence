@@ -234,7 +234,7 @@ function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 	VJ_HLR_ApplyCorpseEffects(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDropWeapon_AfterWeaponSpawned(dmginfo, hitgroup, wepEnt)
+function ENT:CustomOnDropWeapon(dmginfo, hitgroup, wepEnt)
 	wepEnt.WorldModel_Invisible = false
 	wepEnt:SetNW2Bool("VJ_WorldModel_Invisible", false)
 end
