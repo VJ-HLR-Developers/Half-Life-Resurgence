@@ -83,7 +83,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 		end
 	end
 	
-	function controlEnt:CustomOnStopControlling()
+	function controlEnt:CustomOnStopControlling(keyPressed)
 		self.CanTurnWhileStationary = false
 	end
 end

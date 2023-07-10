@@ -19,7 +19,7 @@ if !SERVER then return end
 ENT.XenPlant_Retracted = false
 ENT.XenPlant_NextDeployT = 0
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Initialize()
 	self:SetModel("models/vj_hlr/hl1/light.mdl")
 	self:SetCollisionBounds(Vector(8, 8, 22), Vector(-8, -8, 0))
 	self:SetMoveType(MOVETYPE_NONE)

@@ -20,7 +20,7 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
-ENT.FriendsWithAllPlayerAllies = true -- Should this SNPC be friends with all other player allies that are running on VJ Base?
+ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other player allies?
 ENT.ConstantlyFaceEnemy = true -- Should it face the enemy constantly?
 
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?

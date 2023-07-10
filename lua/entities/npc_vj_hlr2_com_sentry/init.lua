@@ -97,7 +97,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 		end
 	end
 	
-	function controlEnt:CustomOnStopControlling()
+	function controlEnt:CustomOnStopControlling(keyPressed)
 		if IsValid(self.VJCE_NPC) then
 			self.VJCE_NPC.HasPoseParameterLooking = true
 		end

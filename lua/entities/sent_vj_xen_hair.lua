@@ -16,7 +16,7 @@ ENT.Category		= "VJ Base"
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-function ENT:CustomOnInitialize()
+function ENT:Initialize()
 	self:SetModel("models/vj_hlr/hl1/hair.mdl")
 	self:SetMoveType(MOVETYPE_NONE)
 	self:SetSolid(SOLID_NONE)

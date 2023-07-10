@@ -16,7 +16,7 @@ ENT.Category		= "VJ Base"
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-function ENT:CustomOnInitialize()
+function ENT:Initialize()
 	self:SetModel("models/vj_hlr/hl1/fungus.mdl")
 	self:SetCollisionBounds(Vector(40, 40, 120), Vector(-40, -40, 0))
 	self:SetMoveType(MOVETYPE_NONE)
