@@ -339,8 +339,9 @@ function ENT:CustomOnDoChangeWeapon(newWeapon, oldWeapon, invSwitch)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoKilledEnemy(ent, attacker, inflictor)
-	if math.random(1, 3) == 1 && !self:IsBusy() then
-		self:VJ_ACT_PLAYACTIVITY("vjseq_cheer1", false, false, false, 0, {vTbl_SequenceInterruptible=true})
+	-- Only males have cheering animation!
+	if self.Human_Gender == 0 && !self:IsBusy() && math.random(1, 3) == 1 then
+		self:VJ_ACT_PLAYACTIVITY("vjseq_cheer1", false, false, false, 0, {SequenceInterruptible=true})
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

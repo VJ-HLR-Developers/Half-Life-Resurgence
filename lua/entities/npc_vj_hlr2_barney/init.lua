@@ -237,10 +237,6 @@ local sdAlertTurret = {"vo/npc/barney/ba_turret.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoKilledEnemy(ent, attacker, inflictor)
-	self:VJ_ACT_PLAYACTIVITY("vjseq_cheer1", false, false, false, 0, {vTbl_SequenceInterruptible=true})
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
 	if math.random(1, 2) == 1 && ent:IsNPC() then
 		if ent.IsVJBaseSNPC_Human == true then
