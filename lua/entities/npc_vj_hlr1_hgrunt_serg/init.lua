@@ -30,12 +30,6 @@ ENT.Serg_Type = 0
 	-- 2 = Alpha Melee
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_CustomOnThink()
-	-- Unlimited ammo
-	local curWeapon = self:GetActiveWeapon()
-	if IsValid(curWeapon) then
-		curWeapon:SetClip1(999)
-	end
-	
 	-- For weapon spinning sound
 	if self.DoingWeaponAttack then
 		self.HasBreathSound = true

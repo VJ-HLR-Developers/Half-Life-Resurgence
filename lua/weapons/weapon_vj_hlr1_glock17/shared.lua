@@ -63,6 +63,9 @@ function SWEP:CustomOnInitialize()
 					self.Primary.Sound = {"vj_hlr/hl1_npc/barney/ba_attack2.wav"}
 					self.WorldModel_CustomPositionAngle = Vector(0,192,-90)
 					self.WorldModel_CustomPositionOrigin = Vector(-1.5,-7,-1)
+					if self:GetOwner():GetModel() == "models/vj_hlr/hla/barney.mdl" then
+						self.Primary.TakeAmmo = 0 -- Alpha Security Guard can't reload, so give it unlimited ammo!
+					end
 				end
 			end
 		end

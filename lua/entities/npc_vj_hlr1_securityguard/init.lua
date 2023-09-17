@@ -218,8 +218,6 @@ function ENT:CustomOnThink()
 			self.Security_SwitchedIdle = false
 			self.AnimTbl_IdleStand = {ACT_IDLE}
 		end
-	elseif IsValid(self:GetActiveWeapon()) then -- Alpha Security Guard can't reload!
-		self:GetActiveWeapon():SetClip1(999)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

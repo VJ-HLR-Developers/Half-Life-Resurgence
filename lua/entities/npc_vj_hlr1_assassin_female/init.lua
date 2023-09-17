@@ -109,7 +109,6 @@ function ENT:CustomOnThink()
 	local activeWep = self:GetActiveWeapon()
 	local bGroup = self:GetBodygroup(1)
 	if IsValid(activeWep) then
-		activeWep:SetClip1(999)
 		if bGroup == 1 then
 			self:GetActiveWeapon():Remove()
 		end

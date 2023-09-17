@@ -24,6 +24,7 @@ SWEP.WorldModel_CustomPositionBone = "sides01" -- The bone it will use as the ma
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 5 -- Damage
 SWEP.Primary.ClipSize = 17 -- Max amount of bullets per clip
+SWEP.Primary.TakeAmmo = 0 -- How much ammo should it take from the clip after each shot? | 0 = Unlimited clip
 SWEP.Primary.Ammo = "Pistol" -- Ammo type
 SWEP.Primary.Sound = {"vj_hlr/hl1_weapon/glock/glock_silenced1.wav","vj_hlr/hl1_weapon/glock/glock_silenced2.wav"}
 SWEP.Primary.DistantSound = {"vj_hlr/hl1_weapon/glock/glock_silenced_distant2.wav"}

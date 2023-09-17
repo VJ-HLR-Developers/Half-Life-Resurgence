@@ -23,12 +23,13 @@ SWEP.WorldModel_CustomPositionAngle = Vector(0, 0, 0)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-1, 3.3, -0.7)
 SWEP.WorldModel_CustomPositionBone = "unnamed037" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 5 -- Damage
-SWEP.Primary.ClipSize			= 50 -- Max amount of bullets per clip
-SWEP.Primary.Ammo				= "Pistol" -- Ammo type
-SWEP.Primary.Sound				= {"vj_hlr/hla_npc/doctor/pl_gun1.wav","vj_hlr/hla_npc/doctor/pl_gun2.wav"}
-SWEP.Primary.DistantSound		= {"vj_hlr/hla_npc/doctor/pl_gun_distant2.wav"}
-SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"
+SWEP.Primary.Damage = 5 -- Damage
+SWEP.Primary.ClipSize = 17 -- Max amount of bullets per clip
+SWEP.Primary.TakeAmmo = 0 -- How much ammo should it take from the clip after each shot? | 0 = Unlimited clip
+SWEP.Primary.Ammo = "Pistol" -- Ammo type
+SWEP.Primary.Sound = {"vj_hlr/hla_npc/doctor/pl_gun1.wav","vj_hlr/hla_npc/doctor/pl_gun2.wav"}
+SWEP.Primary.DistantSound = {"vj_hlr/hla_npc/doctor/pl_gun_distant2.wav"}
+SWEP.PrimaryEffects_ShellType = "VJ_Weapon_PistolShell1"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 
 -- Custom
