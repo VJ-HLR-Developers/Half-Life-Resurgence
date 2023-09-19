@@ -232,7 +232,7 @@ function ENT:ThrowGrenadeCode(customEnt,noOwner)
 	self:CustomOnGrenadeAttack_BeforeStartTimer()
 	self:PlaySoundSystem("GrenadeAttack")
 
-	if self.VJ_PlayingSequence == false && self.DisableGrenadeAttackAnimation == false then
+	if self.DisableGrenadeAttackAnimation == false then
 		self.CurrentAttackAnimation = VJ.PICK(self.AnimTbl_GrenadeAttack)
 		self.CurrentAttackAnimationDuration = self:DecideAnimationLength(self.CurrentAttackAnimation, false, 0.2)
 		self.CurAttackAnimTime = CurTime() + self.CurrentAttackAnimationDuration
