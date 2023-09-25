@@ -76,7 +76,7 @@ function ENT:CustomOnPhysicsCollide(data, phys)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoDamage(data, phys, hitEnt)
+function ENT:CustomOnDoDamage_Direct(data, phys, hitEnt)
 	-- Only for attacks
 	if self.Needle_Heal == true then return end
 	VJ.ApplySpeedEffect(hitEnt, 0.2, 5)
