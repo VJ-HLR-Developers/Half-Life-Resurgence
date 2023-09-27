@@ -84,9 +84,43 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
 	self:SetBodygroup(0, 1)
 	self:SetPos(self:GetPos() + self:GetUp()*5)
 end
+
+local lastSoundTime = 0
+local soundList = {
+"vj_hlr/hl1_npc/keller/dk_help0.wav","vj_hlr/hl1_npc/keller/dk_help1.wav","vj_hlr/hl1_npc/keller/dk_help2.wav","vj_hlr/hl1_npc/keller/dk_fear0.wav","vj_hlr/hl1_npc/keller/dk_fear1.wav","vj_hlr/hl1_npc/keller/dk_fear2.wav","vj_hlr/hl1_npc/keller/dk_fear3.wav","vj_hlr/hl1_npc/keller/dk_fear4.wav","vj_hlr/hl1_npc/keller/dk_fear5.wav","vj_hlr/hl1_npc/keller/dk_fear6.wav"
+}
+
+hook.Add("EntityFireBullets", "BulletFiredHook2", function(ent, data)
+    if ent:IsPlayer() or ent:IsNPC() then
+        self.AnimTbl_Walk = {ACT_WALK_SCARED}
+        self.AnimTbl_Run = {ACT_RUN_SCARED}
+        self.AnimTbl_IdleStand = {ACT_CROUCHIDLE}
+        local currentTime = CurTime()
+        if currentTime - lastSoundTime >= 0.5 then
+            timer.Create("SoundTimer", 0.5, 1, function()
+                local randomSound = soundList[math.random(1, #soundList)]
+                self:PlaySoundSystem("GeneralSpeech", randomSound)
+                lastSoundTime = CurTime()
+            end)
+        end
+
+        timer.Simple(5, function()
+            if IsValid(self) then
+                self.AnimTbl_Walk = {ACT_WALK}
+                self.AnimTbl_Run = {ACT_RUN}
+                self.AnimTbl_IdleStand = {ACT_IDLE}
+            end
+        end)
+    end
+end)
+
+function ENT:CustomOnRemove()
+hook.Remove( "EntityFireBullets", "BulletFiredHook2" )
+ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 	VJ_HLR_ApplyCorpseEffects(self, corpseEnt)
+	hook.Remove( "EntityFireBullets", "BulletFiredHook2" )
 	if self.Keller_WheelChair == true then
 		self:CreateExtraDeathCorpse("prop_physics", "models/vj_hlr/decay/wheelchair.mdl")
 	end

@@ -312,6 +312,36 @@ function ENT:CustomOnThink()
 		end
 	end
 	
+	
+local lastSoundTime = 0
+local soundList = {
+"vj_hlr/hl1_npc/scientist/scream01.wav","vj_hlr/hl1_npc/scientist/scream02.wav","vj_hlr/hl1_npc/scientist/scream03.wav","vj_hlr/hl1_npc/scientist/scream04.wav","vj_hlr/hl1_npc/scientist/scream05.wav","vj_hlr/hl1_npc/scientist/scream06.wav","vj_hlr/hl1_npc/scientist/scream07.wav","vj_hlr/hl1_npc/scientist/scream08.wav","vj_hlr/hl1_npc/scientist/scream09.wav","vj_hlr/hl1_npc/scientist/scream10.wav","vj_hlr/hl1_npc/scientist/scream11.wav","vj_hlr/hl1_npc/scientist/scream12.wav","vj_hlr/hl1_npc/scientist/scream13.wav","vj_hlr/hl1_npc/scientist/scream14.wav","vj_hlr/hl1_npc/scientist/scream15.wav","vj_hlr/hl1_npc/scientist/scream16.wav","vj_hlr/hl1_npc/scientist/scream17.wav","vj_hlr/hl1_npc/scientist/scream18.wav","vj_hlr/hl1_npc/scientist/scream19.wav","vj_hlr/hl1_npc/scientist/scream20.wav","vj_hlr/hl1_npc/scientist/scream22.wav","vj_hlr/hl1_npc/scientist/scream23.wav","vj_hlr/hl1_npc/scientist/scream24.wav","vj_hlr/hl1_npc/scientist/scream25.wav","vj_hlr/hl1_npc/scientist/sci_fear8.wav","vj_hlr/hl1_npc/scientist/sci_fear7.wav","vj_hlr/hl1_npc/scientist/sci_fear15.wav","vj_hlr/hl1_npc/scientist/sci_fear2.wav","vj_hlr/hl1_npc/scientist/sci_fear3.wav","vj_hlr/hl1_npc/scientist/sci_fear4.wav","vj_hlr/hl1_npc/scientist/sci_fear5.wav","vj_hlr/hl1_npc/scientist/sci_fear11.wav","vj_hlr/hl1_npc/scientist/sci_fear12.wav","vj_hlr/hl1_npc/scientist/sci_fear13.wav","vj_hlr/hl1_npc/scientist/sci_fear1.wav","vj_hlr/hl1_npc/scientist/rescueus.wav","vj_hlr/hl1_npc/scientist/nooo.wav","vj_hlr/hl1_npc/scientist/noplease.wav","vj_hlr/hl1_npc/scientist/madness.wav","vj_hlr/hl1_npc/scientist/gottogetout.wav","vj_hlr/hl1_npc/scientist/getoutofhere.wav","vj_hlr/hl1_npc/scientist/getoutalive.wav","vj_hlr/hl1_npc/scientist/evergetout.wav","vj_hlr/hl1_npc/scientist/dontwantdie.wav","vj_hlr/hl1_npc/scientist/b01_sci01_whereami.wav","vj_hlr/hl1_npc/scientist/cantbeworse.wav","vj_hlr/hl1_npc/scientist/canttakemore.wav"
+}
+
+hook.Add("EntityFireBullets", "BulletFiredHook", function(ent, data)
+    if ent:IsPlayer() or ent:IsNPC() then
+        self.AnimTbl_Walk = {ACT_WALK_SCARED}
+        self.AnimTbl_Run = {ACT_RUN_SCARED}
+        self.AnimTbl_IdleStand = {ACT_CROUCHIDLE}
+        local currentTime = CurTime()
+        if currentTime - lastSoundTime >= 0.5 then
+            timer.Create("SoundTimer", 0.5, 1, function()
+                local randomSound = soundList[math.random(1, #soundList)]
+                self:PlaySoundSystem("GeneralSpeech", randomSound)
+                lastSoundTime = CurTime()
+            end)
+        end
+
+        timer.Simple(5, function()
+            if IsValid(self) then
+                self.AnimTbl_Walk = {ACT_WALK}
+                self.AnimTbl_Run = {ACT_RUN}
+                self.AnimTbl_IdleStand = {ACT_IDLE}
+            end
+        end)
+    end
+end)
+	
 	-- Is the wheel chair gone? Then kill Dr. Keller!
 	if self.SCI_Type == 2 && self:GetBodygroup(0) == 1 then
 		self.HasDeathAnimation = false
@@ -338,6 +368,10 @@ end
 function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	self:SetBodygroup(2, 0)
 end
+
+function ENT:CustomOnRemove()
+hook.Remove( "EntityFireBullets", "BulletFiredHook" )
+ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
@@ -425,4 +459,5 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 	VJ_HLR_ApplyCorpseEffects(self, corpseEnt)
+	hook.Remove( "EntityFireBullets", "BulletFiredHook" )
 end

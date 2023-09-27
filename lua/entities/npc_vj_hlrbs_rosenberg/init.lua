@@ -85,3 +85,40 @@ function ENT:SCI_CustomOnInitialize()
 
 	self:SetBodygroup(1, 5)
 end
+
+local lastSoundTime = 0
+local soundList = {
+"vj_hlr/hl1_npc/rosenberg/ro_plfear1.wav","vj_hlr/hl1_npc/rosenberg/ro_plfear2.wav","vj_hlr/hl1_npc/rosenberg/ro_plfear3.wav","vj_hlr/hl1_npc/rosenberg/ro_plfear4.wav","vj_hlr/hl1_npc/rosenberg/ro_fear0.wav","vj_hlr/hl1_npc/rosenberg/ro_fear1.wav","vj_hlr/hl1_npc/rosenberg/ro_fear2.wav","vj_hlr/hl1_npc/rosenberg/ro_fear3.wav","vj_hlr/hl1_npc/rosenberg/ro_fear4.wav","vj_hlr/hl1_npc/rosenberg/ro_fear5.wav"
+}
+
+hook.Add("EntityFireBullets", "BulletFiredHook3", function(ent, data)
+    if ent:IsPlayer() or ent:IsNPC() then
+        self.AnimTbl_Walk = {ACT_WALK_SCARED}
+        self.AnimTbl_Run = {ACT_RUN_SCARED}
+        self.AnimTbl_IdleStand = {ACT_CROUCHIDLE}
+        local currentTime = CurTime()
+        if currentTime - lastSoundTime >= 0.5 then
+            timer.Create("SoundTimer", 0.5, 1, function()
+                local randomSound = soundList[math.random(1, #soundList)]
+                self:PlaySoundSystem("GeneralSpeech", randomSound)
+                lastSoundTime = CurTime()
+            end)
+        end
+
+        timer.Simple(5, function()
+            if IsValid(self) then
+                self.AnimTbl_Walk = {ACT_WALK}
+                self.AnimTbl_Run = {ACT_RUN}
+                self.AnimTbl_IdleStand = {ACT_IDLE}
+            end
+        end)
+    end
+end)
+
+function ENT:CustomOnRemove()
+hook.Remove( "EntityFireBullets", "BulletFiredHook3" )
+ end
+ 
+ function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+	hook.Remove( "EntityFireBullets", "BulletFiredHook3" )
+end
