@@ -24,11 +24,11 @@ ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1} -- Melee Attack Animations
 ENT.MeleeAttackDamage = 10
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 
-ENT.HasGrenadeAttack = true -- Should the SNPC have a grenade attack?
-ENT.GrenadeAttackEntity = "obj_vj_hlr1_grenade" -- The entity that the SNPC throws | Half Life 2 Grenade: "npc_grenade_frag"
+ENT.HasGrenadeAttack = true -- Should the NPC have a grenade attack?
+ENT.GrenadeAttackEntity = "obj_vj_hlr1_grenade" -- Entities that it can spawn when throwing a grenade | If set as a table, it picks a random entity | VJ: "obj_vj_grenade" | HL2: "npc_grenade_frag"
 ENT.AnimTbl_GrenadeAttack = {ACT_SPECIAL_ATTACK2} -- Grenade Attack Animations
 ENT.GrenadeAttackAttachment = "lhand" -- The attachment that the grenade will spawn at
-ENT.TimeUntilGrenadeIsReleased = 1.3 -- Time until the grenade is released
+ENT.TimeUntilGrenadeIsReleased = false -- Time until the grenade is released
 ENT.NextThrowGrenadeTime = VJ.SET(10, 12) -- Time until it can throw a grenade again
 ENT.ThrowGrenadeChance = 3 -- Chance that it will throw the grenade | Set to 1 to throw all the time
 
@@ -209,6 +209,8 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		self:FootStepSoundCode()
 	elseif key == "melee" then
 		self:MeleeAttackCode()
+	elseif key == "throwgrenade" then
+		timer.Adjust("timer_grenade_start"..self:EntIndex(), 0)
 	elseif key == "shoot" then
 		local wep = self:GetActiveWeapon()
 		if IsValid(wep) then

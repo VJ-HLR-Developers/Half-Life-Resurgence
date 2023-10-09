@@ -46,7 +46,7 @@ ENT.BringFriendsOnDeath = false -- Should the SNPC's friends come to its positio
 ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_rocket" -- The entity that is spawned when range attacking
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_rocket" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
 ENT.RangeDistance = combatDistance -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
 ENT.RangeAttackAngleRadius = 100 -- What is the attack angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC

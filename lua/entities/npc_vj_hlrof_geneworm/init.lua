@@ -35,7 +35,7 @@ ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calcula
 ENT.HasMeleeAttackKnockBack = true -- If true, it will cause a knockback to its enemy
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlrof_gw_biotoxin" -- The entity that is spawned when range attacking
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlrof_gw_biotoxin" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
 ENT.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1} -- Range Attack Animations
 ENT.RangeDistance = 8000 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 500 -- How close does it have to be until it uses melee?

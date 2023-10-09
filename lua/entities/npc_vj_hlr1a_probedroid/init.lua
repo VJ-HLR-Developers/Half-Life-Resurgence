@@ -30,7 +30,7 @@ ENT.MeleeAttackDamageDistance = 80 -- How far does the damage go?
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_probed_needle" -- The entity that is spawned when range attacking
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_probed_needle" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
 ENT.RangeDistance = 1500 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 60 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the needle code is ran?
@@ -111,15 +111,15 @@ end
 --  ACT_RANGE_ATTACK2 -- Rapid firing (3-shot burst) range attack animation | !!! UNUSED !!!
 --
 function ENT:CustomOnRangeAttack_BeforeStartTimer()
-	self.CurrentAttackAnimation = ACT_ARM
-	local anim1Dur = self:VJ_ACT_PLAYACTIVITY(self.CurrentAttackAnimation, false, 0, true, 0, {OnFinish = function()
+	local anim, animDur = self:VJ_ACT_PLAYACTIVITY(ACT_ARM, false, 0, true, 0, {OnFinish = function()
 		self:VJ_ACT_PLAYACTIVITY(ACT_RANGE_ATTACK1, false, 0, true, 0, {OnFinish = function()
 			self:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true)
 			VJ.EmitSound(self, "vj_hlr/hla_npc/prdroid/reload.wav", 90, 100) -- Reload sound
 		end})
 	end})
-	self.CurrentAttackAnimationDuration = anim1Dur + VJ.AnimDuration(self, ACT_RANGE_ATTACK1)
-	self.CurAttackAnimTime = CurTime() + self.CurrentAttackAnimationDuration
+	self.CurrentAttackAnimation = anim
+	self.CurrentAttackAnimationDuration = animDur + VJ.AnimDuration(self, ACT_RANGE_ATTACK1)
+	self.CurrentAttackAnimationTime = CurTime() + self.CurrentAttackAnimationDuration
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(projectile)

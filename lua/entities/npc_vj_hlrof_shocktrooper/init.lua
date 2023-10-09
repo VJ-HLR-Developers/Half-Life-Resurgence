@@ -23,8 +23,8 @@ ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.MeleeAttackDamage = 10
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 
-ENT.HasGrenadeAttack = true -- Should the SNPC have a grenade attack?
-ENT.GrenadeAttackEntity = "obj_vj_hlrof_grenade_spore" -- The entity that the SNPC throws | Half Life 2 Grenade: "npc_grenade_frag"
+ENT.HasGrenadeAttack = true -- Should the NPC have a grenade attack?
+ENT.GrenadeAttackEntity = "obj_vj_hlrof_grenade_spore" -- Entities that it can spawn when throwing a grenade | If set as a table, it picks a random entity | VJ: "obj_vj_grenade" | HL2: "npc_grenade_frag"
 ENT.AnimTbl_GrenadeAttack = {ACT_SPECIAL_ATTACK2} -- Grenade Attack Animations
 ENT.GrenadeAttackAttachment = "eyes" -- The attachment that the grenade will spawn at
 ENT.TimeUntilGrenadeIsReleased = 1.5 -- Time until the grenade is released
@@ -116,6 +116,13 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnGrenadeAttack(status, grenade, customEnt, landDir, landingPos)
+	-- Make Shock Trooper's grenade more arched than the usual grenade throws
+	if status == "Throw" then
+		return (landingPos - grenade:GetPos()) + (self:GetUp() * math.random(450, 500) + self:GetForward() * math.Rand(-100, -250) + self:GetRight()*math.Rand(-20, 20))
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
@@ -191,105 +198,4 @@ local gibs = {"models/vj_hlr/gibs/strooper_gib1.mdl", "models/vj_hlr/gibs/stroop
 --
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, nil, {ExtraGibs = gibs})
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-ENT.GrenadeAttackVelUp1 = 200 -- Grenade attack velocity up | The first # in math.random
-ENT.GrenadeAttackVelUp2 = 200 -- Grenade attack velocity up | The second # in math.random
-ENT.GrenadeAttackVelForward1 = 500 -- Grenade attack velocity up | The first # in math.random
-ENT.GrenadeAttackVelForward2 = 500 -- Grenade attack velocity up | The second # in math.random
-ENT.GrenadeAttackVelRight1 = -20 -- Grenade attack velocity right | The first # in math.random
-ENT.GrenadeAttackVelRight2 = 20 -- Grenade attack velocity right | The second # in math.random
-function ENT:ThrowGrenadeCode(customEnt,noOwner)
-	if self.Dead or self.Flinching == true or self.AttackType == VJ.ATTACK_TYPE_MELEE or (IsValid(self:GetEnemy()) && !self:Visible(self:GetEnemy())) then return end
-	//if self:VJ_ForwardIsHidingZone(self:NearestPoint(self:GetPos() + self:OBBCenter()),self:GetEnemy():EyePos()) == true then return end
-	noOwner = noOwner or false
-	local getIsCustom = false
-	local gerModel = VJ.PICK(self.GrenadeAttackModel)
-	local gerClass = self.GrenadeAttackEntity
-	local gerFussTime = self.GrenadeAttackFussTime
-
-	if IsValid(customEnt) then -- Custom nernagner gamal nernagner vor yete bidi nede
-		getIsCustom = true
-		gerModel = customEnt:GetModel()
-		gerClass = customEnt:GetClass()
-		customEnt:SetMoveType(MOVETYPE_NONE)
-		customEnt:SetParent(self)
-		customEnt:Fire("SetParentAttachment",self.GrenadeAttackAttachment)
-		//customEnt:SetPos(self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Pos)
-		customEnt:SetAngles(self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Ang)
-		if gerClass == "obj_vj_grenade" then
-			gerFussTime = math.abs(customEnt.FussTime - customEnt.TimeSinceSpawn)
-		elseif gerClass == "obj_handgrenade" or gerClass == "obj_spore" then
-			gerFussTime = 1
-		elseif gerClass == "npc_grenade_frag" or gerClass == "doom3_grenade" or gerClass == "fas2_thrown_m67" or gerClass == "cw_grenade_thrown" or gerClass == "cw_flash_thrown" or gerClass == "cw_smoke_thrown" then
-			gerFussTime = 1.5
-		elseif gerClass == "obj_cpt_grenade" then
-			gerFussTime = 2
-		end
-	end
-
-	self.AttackType = VJ.ATTACK_TYPE_GRENADE
-	self:CustomOnGrenadeAttack_BeforeStartTimer()
-	self:PlaySoundSystem("GrenadeAttack")
-
-	if self.DisableGrenadeAttackAnimation == false then
-		self.CurrentAttackAnimation = VJ.PICK(self.AnimTbl_GrenadeAttack)
-		self.CurrentAttackAnimationDuration = self:DecideAnimationLength(self.CurrentAttackAnimation, false, 0.2)
-		self.CurAttackAnimTime = CurTime() + self.CurrentAttackAnimationDuration
-		self:VJ_ACT_PLAYACTIVITY(self.CurrentAttackAnimation,self.GrenadeAttackAnimationStopAttacks,self:DecideAnimationLength(self.CurrentAttackAnimation,self.GrenadeAttackAnimationStopAttacksTime),false,self.GrenadeAttackAnimationDelay, {PlayBackRateCalculated=true})
-	end
-
-	timer.Simple(self.TimeUntilGrenadeIsReleased,function()
-		if getIsCustom == true && !IsValid(customEnt) then return end
-		if IsValid(customEnt) then customEnt.VJTag_IsPickedUp = false customEnt:Remove() end
-		if IsValid(self) && !self.Dead /*&& IsValid(self:GetEnemy())*/ then -- Yete SNPC ter artoon e...
-			local gerShootPos = self:GetPos() + self:GetForward()*200
-			if IsValid(self:GetEnemy()) then 
-				gerShootPos = self:GetEnemy():GetPos()
-			else -- Yete teshnami chooni, nede amenan lav goghme
-				local iamarmo = self:VJ_CheckAllFourSides()
-				if iamarmo.Forward then gerShootPos = self:GetPos() + self:GetForward()*200; self:FaceCertainPosition(gerShootPos)
-					elseif iamarmo.Right then gerShootPos = self:GetPos() + self:GetRight()*200; self:FaceCertainPosition(gerShootPos)
-					elseif iamarmo.Left then gerShootPos = self:GetPos() + self:GetRight()*-200; self:FaceCertainPosition(gerShootPos)
-					elseif iamarmo.Backward then gerShootPos = self:GetPos() + self:GetForward()*-200; self:FaceCertainPosition(gerShootPos)
-				end
-			end
-			local gent = ents.Create(gerClass)
-			local getShootVel = (gerShootPos - self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Pos) + (self:GetUp()*math.random(450,500) + self:GetForward()*math.Rand(-100,-250) + self:GetRight()*math.Rand(self.GrenadeAttackVelRight1,self.GrenadeAttackVelRight2))
-			if IsValid(customEnt) then
-				getShootVel = (gerShootPos - self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Pos) + (self:GetUp()*math.random(self.GrenadeAttackVelUp1,self.GrenadeAttackVelUp2) + self:GetForward()*math.Rand(self.GrenadeAttackVelForward1,self.GrenadeAttackVelForward2) + self:GetRight()*math.Rand(self.GrenadeAttackVelRight1,self.GrenadeAttackVelRight2))
-			end
-			if noOwner == false then gent:SetOwner(self) end
-			gent:SetPos(self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Pos)
-			gent:SetAngles(self:GetAttachment(self:LookupAttachment(self.GrenadeAttackAttachment)).Ang)
-			if gerModel then gent:SetModel(Model(gerModel)) end
-			if gerClass == "obj_vj_grenade" then
-				gent.FussTime = gerFussTime
-			elseif gerClass == "obj_cpt_grenade" then
-				gent:SetTimer(gerFussTime)
-			elseif gerClass == "obj_spore" then
-				gent:SetGrenade(true)
-			elseif gerClass == "ent_hl1_grenade" then
-				gent:ShootTimed(customEnt, getShootVel, gerFussTime)
-			elseif gerClass == "doom3_grenade" or gerClass == "obj_handgrenade" then
-				gent:SetExplodeDelay(gerFussTime)
-			elseif gerClass == "cw_grenade_thrown" or gerClass == "cw_flash_thrown" or gerClass == "cw_smoke_thrown" then
-				gent:SetOwner(self)
-				gent:Fuse(gerFussTime)
-			end
-			gent:Spawn()
-			gent:Activate()
-			if gerClass == "npc_grenade_frag" then gent:Input("SetTimer",self:GetOwner(),self:GetOwner(),gerFussTime) end
-			local phys = gent:GetPhysicsObject()
-			if IsValid(phys) then
-				phys:Wake()
-				phys:AddAngleVelocity(Vector(math.Rand(500,500),math.Rand(500,500),math.Rand(500,500)))
-				phys:SetVelocity(getShootVel)
-			end
-			self:CustomOnGrenadeAttack_OnThrow(gent)
-		end
-		if self.AttackType == VJ.ATTACK_TYPE_GRENADE then
-			self.AttackType = VJ.ATTACK_TYPE_NONE
-		end
-	end)
 end

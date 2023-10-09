@@ -9,7 +9,7 @@ ENT.StartHealth = 40
 ENT.HullType = HULL_HUMAN
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE
 ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
-ENT.HasGrenadeAttack = false -- Should the SNPC have a grenade attack?
+ENT.HasGrenadeAttack = false -- Should the NPC have a grenade attack?
 ENT.HasItemDropsOnDeath = false -- Should it drop items on death?
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()

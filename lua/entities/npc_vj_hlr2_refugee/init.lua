@@ -7,7 +7,7 @@ include('shared.lua')
 -----------------------------------------------*/
 ENT.StartHealth = 40
 ENT.HullType = HULL_HUMAN
-ENT.HasGrenadeAttack = false -- Should the SNPC have a grenade attack?
+ENT.HasGrenadeAttack = false -- Should the NPC have a grenade attack?
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
 	if self.Human_Gender == 0 or (self.Human_Gender == nil && math.random(1, 2) == 1) then

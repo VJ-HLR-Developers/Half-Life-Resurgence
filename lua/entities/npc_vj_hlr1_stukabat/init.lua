@@ -33,7 +33,7 @@ ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
 
 ENT.HasRangeAttack = false -- Should the SNPC have a range attack?
 ENT.AnimTbl_RangeAttack = {"vjseq_Attack_bomb"} -- Range Attack Animations
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_stukabomb" -- The entity that is spawned when range attacking
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_stukabomb" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
 ENT.RangeDistance = 1500 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?

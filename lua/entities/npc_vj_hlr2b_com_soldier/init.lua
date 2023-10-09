@@ -15,8 +15,8 @@ ENT.CustomBlood_Particle = {"blood_impact_red_01_mist"}
 ENT.MeleeAttackDamage = 10
 ENT.FootStepTimeRun = 0.25 -- Next foot step sound when it is running
 ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
-ENT.HasGrenadeAttack = true -- Should the SNPC have a grenade attack?
-ENT.GrenadeAttackModel = "models/weapons/w_npcnade.mdl" -- The model for the grenade entity
+ENT.HasGrenadeAttack = true -- Should the NPC have a grenade attack?
+ENT.GrenadeAttackModel = "models/weapons/w_npcnade.mdl" -- Overrides the model of the grenade | Can be nil, string, and table | Does NOT apply to picked up grenades and forced grenade attacks with custom entity
 ENT.GrenadeAttackAttachment = "righthand" -- The attachment that the grenade will spawn at | false = Custom position
 ENT.AnimTbl_WeaponAttackSecondary = {"vjseq_shoot_ar2grenade"}
 ENT.WeaponAttackSecondaryTimeUntilFire = 0.55
@@ -153,23 +153,27 @@ function ENT:OnPlayCreateSound(sdData, sdFile)
 	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self,"vj_hlr/hl2b_npc/combine_soldier/click_off.wav") end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnGrenadeAttack_OnThrow(grenEnt)
-	-- Custom grenade model and sounds
-	grenEnt.SoundTbl_Idle = {"weapons/grenade/tick1.wav"}
-	grenEnt.IdleSoundPitch = VJ.SET(100, 100)
+function ENT:CustomOnGrenadeAttack(status, grenade, customEnt, landDir, landingPos)
+	if status == "Throw" then
+		-- Custom grenade model and sounds
+		grenade.SoundTbl_Idle = {"weapons/grenade/tick1.wav"}
+		grenade.IdleSoundPitch = VJ.SET(100, 100)
+		
+		local redGlow = ents.Create("env_sprite")
+		redGlow:SetKeyValue("model", "vj_base/sprites/vj_glow1.vmt")
+		redGlow:SetKeyValue("scale", "0.07")
+		redGlow:SetKeyValue("rendermode", "5")
+		redGlow:SetKeyValue("rendercolor", "150 0 0")
+		redGlow:SetKeyValue("spawnflags", "1") -- If animated
+		redGlow:SetParent(grenade)
+		redGlow:Fire("SetParentAttachment", "fuse", 0)
+		redGlow:Spawn()
+		redGlow:Activate()
+		grenade:DeleteOnRemove(redGlow)
+		util.SpriteTrail(grenade, 1, Color(200,0,0), true, 15, 15, 0.35, 1/(6+6)*0.5, "VJ_Base/sprites/vj_trial1.vmt")
 	
-	local redGlow = ents.Create("env_sprite")
-	redGlow:SetKeyValue("model", "vj_base/sprites/vj_glow1.vmt")
-	redGlow:SetKeyValue("scale", "0.07")
-	redGlow:SetKeyValue("rendermode", "5")
-	redGlow:SetKeyValue("rendercolor", "150 0 0")
-	redGlow:SetKeyValue("spawnflags", "1") -- If animated
-	redGlow:SetParent(grenEnt)
-	redGlow:Fire("SetParentAttachment", "fuse", 0)
-	redGlow:Spawn()
-	redGlow:Activate()
-	grenEnt:DeleteOnRemove(redGlow)
-	util.SpriteTrail(grenEnt, 1, Color(200,0,0), true, 15, 15, 0.35, 1/(6+6)*0.5, "VJ_Base/sprites/vj_trial1.vmt")
+		return (landingPos - grenade:GetPos()) + (self:GetUp()*200 + self:GetForward()*500 + self:GetRight()*math.Rand(-20, 20))
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
