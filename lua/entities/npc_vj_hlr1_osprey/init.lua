@@ -247,6 +247,7 @@ function ENT:CustomOnThink_AIEnabled()
 			rope:SetStart(ropeStart)
 			rope:SetOrigin(tr.HitPos)
 			rope:SetEntity(soldier)
+			rope:SetAttachment(4)
 			util.Effect("VJ_HLR_Rope", rope)
 			
 			self.Osprey_DroppedSoldiers[i] = soldier
