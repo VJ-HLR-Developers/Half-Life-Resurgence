@@ -153,7 +153,7 @@ function ENT:OnPlayCreateSound(sdData, sdFile)
 	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self,"vj_hlr/hl2b_npc/combine_soldier/click_off.wav") end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnGrenadeAttack(status, grenade, customEnt, landDir, landingPos)
+function ENT:OnGrenadeAttack(status, grenade, customEnt, landDir, landingPos)
 	if status == "Throw" then
 		-- Custom grenade model and sounds
 		grenade.SoundTbl_Idle = {"weapons/grenade/tick1.wav"}
