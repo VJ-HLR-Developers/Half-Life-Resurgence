@@ -27,7 +27,7 @@ SWEP.Primary.ClipSize			= 7 -- Max amount of bullets per clip
 SWEP.Primary.Ammo				= "357" -- Ammo type
 SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/deagle/desert_eagle_fire.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/deagle/desert_eagle_fire_distant_final.wav"}
-SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"
+SWEP.PrimaryEffects_ShellType 	= "ShellEject"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 
 -- Custom

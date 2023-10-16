@@ -26,7 +26,7 @@ SWEP.Primary.Automatic = true
 SWEP.Primary.Sound = {"vj_hlr/hl2_weapon/alyx_gun/alyx_gun_fire3.wav","vj_hlr/hl2_weapon/alyx_gun/alyx_gun_fire4.wav"}
 SWEP.Primary.DistantSound = {"vj_hlr/hl2_weapon/alyx_gun/alyx_gun_fire5.wav","vj_hlr/hl2_weapon/alyx_gun/alyx_gun_fire6.wav"}
 SWEP.PrimaryEffects_ShellAttachment = "1"
-SWEP.PrimaryEffects_ShellType = "VJ_Weapon_PistolShell1"
+SWEP.PrimaryEffects_ShellType = "ShellEject"
 	-- Reload Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.HasReloadSound = true -- Does it have a reload sound? Remember even if this is set to false, the animation sound will still play!
 SWEP.ReloadSound = "weapons/pistol/pistol_reload1.wav"

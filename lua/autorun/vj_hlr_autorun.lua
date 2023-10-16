@@ -707,19 +707,21 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Replacement Script ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- If enabled during startup, then just run it!
-if GetConVar("vj_hlr_autoreplace"):GetInt() == 1 then
-	include("hlr/autoreplace.lua")
-end
--- Detect changes to the convar...
-cvars.AddChangeCallback("vj_hlr_autoreplace", function(convar_name, value_old, value_new)
-    if value_new == "1" then
+if SERVER then
+	-- If enabled during startup, then just run it!
+	if GetConVar("vj_hlr_autoreplace"):GetInt() == 1 then
 		include("autorun/hlr/autoreplace.lua")
-	else
-		hook.Remove("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate")
-		hook.Remove("Think", "VJ_HLR_AutoReplace_Think")
 	end
-end)
+	-- Detect changes to the convar...
+	cvars.AddChangeCallback("vj_hlr_autoreplace", function(convar_name, value_old, value_new)
+		if value_new == "1" then
+			include("autorun/hlr/autoreplace.lua")
+		else
+			hook.Remove("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate")
+			hook.Remove("Think", "VJ_HLR_AutoReplace_Think")
+		end
+	end)
+end
 -- !!!!!! DON'T TOUCH ANYTHING BELOW THIS !!!!!! -------------------------------------------------------------------------------------------------------------------------
 	AddCSLuaFile()
 	VJ.AddAddonProperty(AddonName, AddonType)

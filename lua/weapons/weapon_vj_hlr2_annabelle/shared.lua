@@ -22,4 +22,4 @@ SWEP.Primary.DistantSound = {"vj_hlr/hl2_weapon/annabelle/shotgun_fire6_distant.
 SWEP.Primary.DistantSoundVolume	= 0.7 -- Distant sound volume
 SWEP.PrimaryEffects_MuzzleAttachment = "0"
 SWEP.PrimaryEffects_ShellAttachment = "1"
-SWEP.PrimaryEffects_ShellType = "VJ_Weapon_ShotgunShell1"
+SWEP.PrimaryEffects_ShellType = "ShotgunShellEject"

@@ -27,7 +27,7 @@ SWEP.Primary.ClipSize			= 17 -- Max amount of bullets per clip
 SWEP.Primary.Ammo				= "Pistol" -- Ammo type
 SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/glock/glock_regular.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/glock/glock_distant2.wav"}
-SWEP.PrimaryEffects_ShellType 	= "VJ_Weapon_PistolShell1"
+SWEP.PrimaryEffects_ShellType 	= "ShellEject"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 
 -- Custom

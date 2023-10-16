@@ -29,7 +29,7 @@ SWEP.Primary.TakeAmmo = 0 -- How much ammo should it take from the clip after ea
 SWEP.Primary.Ammo = "Pistol" -- Ammo type
 SWEP.Primary.Sound = {"vj_hlr/hla_npc/doctor/pl_gun1.wav","vj_hlr/hla_npc/doctor/pl_gun2.wav"}
 SWEP.Primary.DistantSound = {"vj_hlr/hla_npc/doctor/pl_gun_distant2.wav"}
-SWEP.PrimaryEffects_ShellType = "VJ_Weapon_PistolShell1"
+SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 
 -- Custom
