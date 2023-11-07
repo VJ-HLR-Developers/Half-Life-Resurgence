@@ -19,9 +19,15 @@
 			"sinemin"	0.5
 			"sinemax"	1
 		}
+		"EfxEmissive"
+		{
+			"index" 		5
+			"color" 		$emissiveBlendTint
+			"brightness" 	0.2
+			"emissivetexture" $emissiveBlendBaseTexture
+		}
 		"IsNPC"
 		{
-			"scale" "1"
 			"resultvar" "$emissiveBlendEnabled"
 		}
 	}

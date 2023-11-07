@@ -62,6 +62,7 @@ ENT.Stuka_LandingType = 0 -- 0 = None, 1 = Normal, 2 = Ceiling
 ENT.Stuka_LandingPos = nil
 ENT.Stuka_FlyAnimation = ACT_FLY
 ENT.Stuka_ModeChangeT = 0
+ENT.Stuka_AerialAnimationType = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(23, 23, 40), Vector(-23, -23, 0))
@@ -70,9 +71,7 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:ChangeMode(mode)
-	if self.Dead then return end
-	if self:Health() <= 0 then return end
-	if CurTime() < self.Stuka_ModeChangeT then return end
+	if self.Dead or self:Health() <= 0 or self:IsBusy() or CurTime() < self.Stuka_ModeChangeT then return end
 	local lastMode = self.Stuka_Mode
 	if mode == 0 then -- Ground
 		self.Stuka_LandingType = 0
@@ -151,7 +150,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HandleModeChanging(mode,pos,cont)
-	if mode == 1 && CurTime() > self.Stuka_ModeChangeT && (IsValid(cont) && cont:KeyDown(IN_JUMP) or true) then
+	if mode == 1 && CurTime() > self.Stuka_ModeChangeT && (!IsValid(cont) or IsValid(cont) && cont:KeyDown(IN_JUMP)) then
 		if self.Stuka_LandingType == 0 && self.Stuka_LandingPos == nil then
 			if !self.Stuka_LandingPos then
 				local ceiling = math.random(1,10) == 1
@@ -189,14 +188,28 @@ function ENT:CustomOnThink()
 		self.Stuka_FlyAnimation = pos.z <= waypoint.z && ACT_FLY or ACT_GLIDE
 	end
 	if IsValid(ene) then
-		self.Aerial_AnimTbl_Calm = self.LatestEnemyDistance <= self.RangeDistance && ACT_HOVER or self.Stuka_FlyAnimation
+		if self.LatestEnemyDistance <= self.RangeDistance && self.Stuka_AerialAnimationType != 1 then
+			self.Stuka_AerialAnimationType = 1
+			self.Aerial_AnimTbl_Calm = ACT_HOVER
+		else
+			if pos.z <= waypoint.z then
+				self.Stuka_AerialAnimationType = 0
+				self.Aerial_AnimTbl_Calm = ACT_FLY
+			else
+				self.Stuka_AerialAnimationType = 2
+				self.Aerial_AnimTbl_Calm = ACT_GLIDE
+			end
+		end
 		if IsValid(cont) then
 			self:HandleModeChanging(mode, pos, cont)
 		elseif mode != 1 && !IsValid(cont) then
 			self:ChangeMode(1)
 		end
 	else
-		self.Aerial_AnimTbl_Calm = self.Stuka_FlyAnimation
+		if self.Stuka_AerialAnimationType != 0 then
+			self.Stuka_AerialAnimationType = 0
+			self.Aerial_AnimTbl_Calm = self.Stuka_FlyAnimation
+		end
 		self:HandleModeChanging(mode, pos, cont)
 	end
 end
@@ -253,6 +266,7 @@ function ENT:CustomOnTakeDamage_OnBleed(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
+	if !dmginfo:IsBulletDamage() then return end
 	local mode = self.Stuka_Mode
 	self.HasDeathAnimation = mode == 0
 

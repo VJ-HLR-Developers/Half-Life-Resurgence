@@ -8,4 +8,19 @@
     $emissiveBlendTint "[1 1 1]"
     $emissiveBlendStrength 1
     $emissiveBlendScrollVector "[0 0]"
+
+	"Proxies"
+	{
+		"EfxEmissive"
+		{
+			"index" 		1
+			"color" 		$emissiveBlendTint
+			"brightness" 	0.4
+			"emissivetexture" $emissiveBlendBaseTexture
+		}
+		"IsNPC"
+		{
+			"resultvar" "$emissiveBlendEnabled"
+		}
+	}
 }

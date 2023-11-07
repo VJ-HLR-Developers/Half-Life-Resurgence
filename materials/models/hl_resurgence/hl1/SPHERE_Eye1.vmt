@@ -1,4 +1,19 @@
 "VertexLitGeneric"
 {
 	"$basetexture" "models/hl_resurgence/hl1/SPHERE_Eye1"
+
+	"$selfillum" "1"
+	"$selfillummask" "models/hl_resurgence/hl1/SPHERE_Eye1_g"
+	"$selfillumtint" "[1 1 1]"
+
+	"Proxies"
+	{
+		"EfxEmissive"
+		{
+			"index" 		3
+			"color" 		$selfillumtint
+			"brightness" 	0.3
+			"emissivetexture" $selfillummask
+		}
+	}
 }

@@ -1,4 +1,27 @@
 "VertexLitGeneric"
 {
 	"$baseTexture" "models\hl_resurgence\sven\tor\TorSkin"
+
+	$emissiveBlendEnabled 1
+    $emissiveBlendTexture    "dev/null"
+    $emissiveBlendBaseTexture    "models\hl_resurgence\sven\tor\TorSkin_G"
+    $emissiveBlendFlowTexture    "dev/null"
+    $emissiveBlendTint "[1 1 1]"
+    $emissiveBlendStrength 1
+    $emissiveBlendScrollVector "[0 0]"
+
+	"Proxies"
+	{
+		"EfxEmissive"
+		{
+			"index" 		1
+			"color" 		$emissiveBlendTint
+			"brightness" 	0.3
+			"emissivetexture" $emissiveBlendBaseTexture
+		}
+		"IsNPC"
+		{
+			"resultvar" "$emissiveBlendEnabled"
+		}
+	}
 }

@@ -1,4 +1,19 @@
 "VertexLitGeneric"
 {
 	"$basetexture" "models/hl_resurgence/hl1/STUKA_Head1"
+
+	"$selfillum" "1"
+	"$selfillummask" "models/hl_resurgence/hl1/STUKA_Head1_g"
+	"$selfillumtint" "[1 1 1]"
+
+	"Proxies"
+	{
+		"EfxEmissive"
+		{
+			"index" 		3
+			"color" 		$selfillumtint
+			"brightness" 	0.3
+			"emissivetexture" $selfillummask
+		}
+	}
 }

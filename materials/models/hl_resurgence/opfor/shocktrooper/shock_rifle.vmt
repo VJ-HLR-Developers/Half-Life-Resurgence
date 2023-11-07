@@ -19,9 +19,15 @@
 			"sinemin"	0.3
 			"sinemax"	1
 		}
+		// "EfxEmissive" // Proxy doesn't work on models that get parented
+		// {
+		// 	"index" 		1
+		// 	"color" 		$emissiveBlendTint
+		// 	"brightness" 	0.5
+		// 	"emissivetexture" $emissiveBlendBaseTexture
+		// }
 		"IsNPC"
 		{
-			"scale" "1"
 			"resultvar" "$emissiveBlendEnabled"
 		}
 	}

@@ -1,4 +1,27 @@
 "VertexLitGeneric"
 {
 	"$basetexture" "models/hl_resurgence/hl1/babygarg/GARG_Face1"
+
+	$emissiveBlendEnabled 1
+    $emissiveBlendTexture    "dev/null"
+    $emissiveBlendBaseTexture    "models\hl_resurgence\hl1\GARG_Face1_g"
+    $emissiveBlendFlowTexture    "dev/null"
+    $emissiveBlendTint "[1 0.4 0.4]"
+    $emissiveBlendStrength 1
+    $emissiveBlendScrollVector "[0 0]"
+
+	"Proxies"
+	{
+		"EfxEmissive"
+		{
+			"index" 		4
+			"color" 		$emissiveBlendTint
+			"brightness" 	0.3
+			"emissivetexture" $emissiveBlendBaseTexture
+		}
+		"IsNPC"
+		{
+			"resultvar" "$emissiveBlendEnabled"
+		}
+	}
 }

@@ -22,5 +22,12 @@
 			"sinemin"	1
 			"sinemax"	3
 		}
+		"EfxEmissive"
+		{
+			"index" 		1
+			"color" 		$selfillumtint
+			"brightness" 	0.15
+			"emissivetexture" $emissiveBlendBaseTexture
+		}
 	}
 }
