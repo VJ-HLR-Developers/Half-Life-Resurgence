@@ -45,29 +45,25 @@ function ENT:CustomOnInitialize()
 		enttbl = racexEnts
 		self.HLRSpawner_ClassType = "CLASS_RACE_X"
 	end
-	self.EntitiesToSpawn = {{Entities = enttbl}}
+	self.EntitiesToSpawn = {{
+		Entities = enttbl,
+		SpawnPosition = {vUp=-20} -- Make the NPC spawn little bit down otherwise it tends to get stuck in ceilings
+	}}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HLR_ActivateSpawner(eneEnt)
-	self:SetAngles(Angle(self:GetAngles().x, ((eneEnt:GetPos()) - self:GetPos()):Angle().y, self:GetAngles().z)) -- Make sure it spawns the entity facing the enemy
-	local effectTeleport = VJ_HLR_Effect_PortalSpawn(self:GetPos())
-	effectTeleport:Fire("Kill", "", 1)
-	
-	local dynLight = ents.Create("light_dynamic")
-	dynLight:SetKeyValue("brightness", "2")
-	dynLight:SetKeyValue("distance", "200")
-	dynLight:SetPos(self:GetPos())
-	dynLight:SetLocalAngles(self:GetAngles())
-	dynLight:Fire("Color","33 255 0")
-	dynLight:Spawn()
-	dynLight:Activate()
-	dynLight:Fire("TurnOn","",0)
-	dynLight:Fire("Kill", "", 0.3)
-	
+	local myPos = self:GetPos()
 	self.VJBaseSpawnerDisabled = false
-	for k, v in ipairs(self.EntitiesToSpawn) do
-		self:SpawnAnEntity(k, v, true)
-	end
+	
+	self:SetAngles(Angle(self:GetAngles().x, ((eneEnt:GetPos()) - myPos):Angle().y, self:GetAngles().z)) -- Make sure it spawns the entity facing the enemy
+	VJ.HLR_Effect_Portal(myPos, nil, self.HLRSpawner_Type == 1 and "189 2 186" or nil, function()
+		-- onSpawn
+		if IsValid(self) then
+			for k, v in ipairs(self.EntitiesToSpawn) do
+				self:SpawnAnEntity(k, v, true)
+			end
+		end
+	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink() // !self.Dead && 

@@ -43,29 +43,28 @@ ENT.Boid_Type = 0
 	-- 0 = Original / Default
 	-- 1 = AFlock
 ENT.Boid_FollowOffsetPos = 0
-
-HLR_Boid_Leader = NULL
-HLR_AFlock_Leader = NULL
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(18, 18, 10), Vector(-18, -18, 0))
 	self.Boid_FollowOffsetPos = Vector(math.random(-50, 50), math.random(-120, 120), math.random(-150, 150))
-	if !IsValid(HLR_Boid_Leader) then
-		HLR_Boid_Leader = self
+	local leader = VJ.HLR_NPC_Boid_Leader
+	if !IsValid(leader) then
+		leader = self
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	if self.VJ_IsBeingControlled then return end
-	if IsValid(HLR_Boid_Leader) then
-		if HLR_Boid_Leader != self && HLR_Boid_Leader.AA_CurrentMovePos then
+	local leader = VJ.HLR_NPC_Boid_Leader
+	if IsValid(leader) then
+		if leader != self && leader.AA_CurrentMovePos then
 			self.DisableWandering = true
-			self:AA_MoveTo(HLR_Boid_Leader, true, "Calm", {AddPos=self.Boid_FollowOffsetPos, IgnoreGround=true}) -- Medzavorin haladz e (Kharen deghme)
+			self:AA_MoveTo(leader, true, "Calm", {AddPos=self.Boid_FollowOffsetPos, IgnoreGround=true}) -- Medzavorin haladz e (Kharen deghme)
 		end
 	else
 		self.IsGuard = false
 		self.DisableWandering = false
-		HLR_Boid_Leader = self
+		leader = self
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -100,5 +99,5 @@ end
 local gibs = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl"}
 --
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
-	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, gibs)
+	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, gibs)
 end

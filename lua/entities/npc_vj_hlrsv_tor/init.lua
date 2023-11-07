@@ -87,35 +87,30 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vezZ20 = Vector(0, 0, 20)
+local vecZ20 = Vector(0, 0, 20)
 --
-function ENT:Tor_CreateAlly()
-	local spawnPos = self:GetPos() + self:GetForward() * 100 + self:GetUp() * 5
-	local ally = ents.Create("npc_vj_hlr1_aliengrunt")
-	ally:SetPos(spawnPos)
-	ally:SetAngles(self:GetAngles())
-	ally.VJ_NPC_Class = self.VJ_NPC_Class
-	ally:Spawn()
-	ally:Activate()
-	
-	local effectTeleport = VJ_HLR_Effect_PortalSpawn(spawnPos + vezZ20)
-	effectTeleport:Fire("Kill", "", 1)
-	self:DeleteOnRemove(effectTeleport)
-	return ally
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tor_SpawnAlly()
-	-- Can have a total of 4, only 1 can be spawned at a time with a delay until another one is spawned
-	if !IsValid(self.Tor_Ally1) then
-		self.Tor_Ally1 = self:Tor_CreateAlly()
-		return
-	elseif !IsValid(self.Tor_Ally2) then
-		self.Tor_Ally2 = self:Tor_CreateAlly()
-		return
-	elseif !IsValid(self.Tor_Ally3) then
-		self.Tor_Ally3 = self:Tor_CreateAlly()
-		return
-	end
+	-- Can have a total of 3, only 1 can be spawned at a time with a delay until another one is spawned
+	local spawnPos = self:GetPos() + self:GetForward() * 100 + self:GetUp() * 5
+	local effectTeleport = VJ.HLR_Effect_Portal(spawnPos + vecZ20, nil, nil, function()
+		-- onSpawn
+		if IsValid(self) then
+			local ally = ents.Create("npc_vj_hlr1_aliengrunt")
+			ally:SetPos(spawnPos)
+			ally:SetAngles(self:GetAngles())
+			ally.VJ_NPC_Class = self.VJ_NPC_Class
+			ally:Spawn()
+			ally:Activate()
+			if !IsValid(self.Tor_Ally1) then
+				self.Tor_Ally1 = ally
+			elseif !IsValid(self.Tor_Ally2) then
+				self.Tor_Ally2 = ally
+			elseif !IsValid(self.Tor_Ally3) then
+				self.Tor_Ally3 = ally
+			end
+		end
+	end)
+	self:DeleteOnRemove(effectTeleport)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tor_StartSpawnAlly()
@@ -269,7 +264,7 @@ function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 	self:CreateExtraDeathCorpse("prop_physics", "models/vj_hlr/sven/tor_staff.mdl", {Pos=at.Pos, Ang=at.Ang}, function(x)
 		x:SetSkin(self:GetSkin())
 	end)
-	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, nil, {ExtraGibs = gibs})
+	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, nil, {ExtraGibs = gibs})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()

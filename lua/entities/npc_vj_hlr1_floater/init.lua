@@ -58,14 +58,13 @@ ENT.GeneralSoundPitch1 = 100
 
 -- Custom
 ENT.Floater_FollowOffsetPos = 0
-
-HLR_Floater_Leader = NULL
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(10,10,50), Vector(-10,-10,0))
 	self.Floater_FollowOffsetPos = Vector(math.random(-50, 50), math.random(-120, 120), math.random(-150, 150))
-	if !IsValid(HLR_Floater_Leader) then -- Yete ourish medzavor chiga, ere vor irzenike medzavor ene
-		HLR_Floater_Leader = self
+	local leader = VJ.HLR_NPC_Floater_Leader
+	if !IsValid(leader) then -- Yete ourish medzavor chiga, ere vor irzenike medzavor ene
+		leader = self
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -78,16 +77,17 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	if self.VJ_IsBeingControlled then return end
+	local leader = VJ.HLR_NPC_Floater_Leader
 	if !IsValid(self:GetEnemy()) then
-		if IsValid(HLR_Floater_Leader) then
-			if HLR_Floater_Leader != self && HLR_Floater_Leader.AA_CurrentMovePos then
+		if IsValid(leader) then
+			if leader != self && leader.AA_CurrentMovePos then
 				self.DisableWandering = true
-				self:AA_MoveTo(HLR_Floater_Leader, true, "Calm", {AddPos=self.Floater_FollowOffsetPos, IgnoreGround=true}) -- Medzavorin haladz e (Kharen deghme)
+				self:AA_MoveTo(leader, true, "Calm", {AddPos=self.Floater_FollowOffsetPos, IgnoreGround=true}) -- Medzavorin haladz e (Kharen deghme)
 			end
 		else
 			self.IsGuard = false
 			self.DisableWandering = false
-			HLR_Floater_Leader = self
+			leader = self
 		end
 	end
 end
@@ -129,5 +129,5 @@ end
 local gibs = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 --
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
-	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, gibs)
+	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, gibs)
 end

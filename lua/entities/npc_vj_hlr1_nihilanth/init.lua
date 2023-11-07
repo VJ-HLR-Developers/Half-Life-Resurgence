@@ -217,13 +217,14 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	if self.Dead then return end
-	if IsValid(self:GetEnemy()) && CurTime() > self.Nih_NextSpawn && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
-		self.Nih_NextSpawn = CurTime() + self:Nih_SpawnAlly()
+	if IsValid(self:GetEnemy()) && CurTime() > self.Nih_NextSpawn && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) && (!IsValid(self.Nih_Ally1) or !IsValid(self.Nih_Ally2) or !IsValid(self.Nih_Ally3) or !IsValid(self.Nih_Ally4) or !IsValid(self.Nih_Ally5)) then
+		self:Nih_SpawnAlly()
+		self.Nih_NextSpawn = CurTime() + 15
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleRangeAttacks()
-	if math.random(1,3) == 1 then
+	if math.random(1, 3) == 1 then
 		if self.Nih_BrainOpen == true then
 			self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2_LOW}
 		else
@@ -251,7 +252,14 @@ function ENT:RangeAttackCode_GetShootPos(projectile)
 	return self:CalculateProjectile("Line", projectile:GetPos(), self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 700)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Nih_CreateAlly()
+local regTroops = {"npc_vj_hlr1_aliengrunt", "npc_vj_hlr1_alienslave", "npc_vj_hlr1_aliencontroller"}
+local aquaticTroops = {"npc_vj_hlr1_ichthyosaur", "npc_vj_hlr1_archer"}
+local vecNZ100 = Vector(0, 0, -100)
+local vecZ250 = Vector(0, 0, 250)
+local vecZ20 = Vector(0, 0, 20)
+--
+function ENT:Nih_SpawnAlly()
+	-- Can have a total of 5, only 1 can be spawned at a time with a delay until another one is spawned
 	-- Update the relation class tables for all the crystals in case it has changed!
 	if IsValid(self.Nih_Crystal1) then
 		self.Nih_Crystal1.VJ_NPC_Class = self.VJ_NPC_Class
@@ -263,48 +271,44 @@ function ENT:Nih_CreateAlly()
 		self.Nih_Crystal3.VJ_NPC_Class = self.VJ_NPC_Class
 	end
 	
+	local myPos = self:GetPos()
 	local tr = util.TraceLine({
-		start = self:GetPos(),
-		endpos = self:GetPos() + self:GetForward() * math.Rand(-10000, 10000) + self:GetRight() * math.Rand(-10000, 10000) + self:GetUp() * -1000,
+		start = myPos,
+		endpos = myPos + self:GetForward() * math.Rand(-10000, 10000) + self:GetRight() * math.Rand(-10000, 10000) + self:GetUp() * -1000,
 		filter = self,
 		mask = MASK_ALL,
 	})
-	local spawnpos = tr.HitPos + tr.HitNormal*30 -- 30 WU kichme tours hane
-	local type = VJ.PICK({"npc_vj_hlr1_aliengrunt", "npc_vj_hlr1_alienslave", "npc_vj_hlr1_aliencontroller"})
-	if tr.MatType == MAT_SLOSH then type = VJ.PICK({"npc_vj_hlr1_ichthyosaur", "npc_vj_hlr1_archer"}) spawnpos = spawnpos + Vector(0, 0, -100) end
-	local ally = ents.Create(type)
-	if ally:GetClass() == "npc_vj_hlr1_aliencontroller" then spawnpos = spawnpos + Vector(0, 0, 250) end -- Yete controller e, ere vor kichme partser dzaki
-	ally:SetPos(spawnpos)
-	ally:SetAngles(self:GetAngles())
-	ally.VJ_NPC_Class = self.VJ_NPC_Class
-	ally:Spawn()
-	ally:Activate()
-	
-	local effectTeleport = VJ_HLR_Effect_PortalSpawn(spawnpos + Vector(0, 0, 20))
-	effectTeleport:Fire("Kill", "", 1)
-	
-	return ally
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Nih_SpawnAlly()
-	-- Can have a total of 4, only 1 can be spawned at a time with a delay until another one is spawned
-	if !IsValid(self.Nih_Ally1) then
-		self.Nih_Ally1 = self:Nih_CreateAlly()
-		return 15
-	elseif !IsValid(self.Nih_Ally2) then
-		self.Nih_Ally2 = self:Nih_CreateAlly()
-		return 15
-	elseif !IsValid(self.Nih_Ally3) then
-		self.Nih_Ally3 = self:Nih_CreateAlly()
-		return 15
-	elseif !IsValid(self.Nih_Ally4) then
-		self.Nih_Ally4 = self:Nih_CreateAlly()
-		return 15
-	elseif !IsValid(self.Nih_Ally5) then
-		self.Nih_Ally5 = self:Nih_CreateAlly()
-		return 15
-	end
-	return 8
+	local spawnPos = tr.HitPos + tr.HitNormal*30 -- 30 WU kichme tours hane
+	VJ.HLR_Effect_Portal(spawnPos + vecZ20, nil, nil, function()
+		-- onSpawn
+		if IsValid(self) then
+			local troops;
+			if tr.MatType == MAT_SLOSH then -- If the hit pos is in water then spawn an aquatic NPC instead
+				troops = VJ.PICK(aquaticTroops)
+				spawnPos = spawnPos + vecNZ100
+			else
+				troops = VJ.PICK(regTroops)
+			end
+			local ally = ents.Create(troops)
+			if ally:GetClass() == "npc_vj_hlr1_aliencontroller" then spawnPos = spawnPos + vecZ250 end -- Yete controller e, ere vor kichme partser dzaki
+			ally:SetPos(spawnPos)
+			ally:SetAngles(self:GetAngles())
+			ally.VJ_NPC_Class = self.VJ_NPC_Class
+			ally:Spawn()
+			ally:Activate()
+			if !IsValid(self.Nih_Ally1) then
+				self.Nih_Ally1 = ally
+			elseif !IsValid(self.Nih_Ally2) then
+				self.Nih_Ally2 = ally
+			elseif !IsValid(self.Nih_Ally3) then
+				self.Nih_Ally3 = ally
+			elseif !IsValid(self.Nih_Ally4) then
+				self.Nih_Ally4 = ally
+			elseif !IsValid(self.Nih_Ally5) then
+				self.Nih_Ally5 = ally
+			end
+		end
+	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
@@ -322,27 +326,28 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 		end
 	end
 	
-	if hitgroup != 2 then
+	-- Scale the damage if we aren't hitting inside the brain!
+	if hitgroup != HITGROUP_CHEST then
 		dmginfo:ScaleDamage(0.4)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Nih_DoElecEffect_Blue(sp,hp,a)
+function ENT:Nih_DoElecEffect_Blue(sp, hp, a)
 	local elec = EffectData()
 	elec:SetStart(sp)
 	elec:SetOrigin(hp)
 	elec:SetEntity(self)
 	elec:SetAttachment(self:LookupAttachment(a))
-	util.Effect("VJ_HLR_Electric_Nihilanth_Blue",elec)
+	util.Effect("VJ_HLR_Electric_Nihilanth_Blue", elec)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Nih_DoElecEffect_Green(sp,hp)
+function ENT:Nih_DoElecEffect_Green(sp, hp)
 	local elec = EffectData()
 	elec:SetStart(sp)
 	elec:SetOrigin(hp)
 	elec:SetEntity(self)
 	elec:SetAttachment(self:LookupAttachment("0"))
-	util.Effect("VJ_HLR_Electric_Nihilanth_Green",elec)
+	util.Effect("VJ_HLR_Electric_Nihilanth_Green", elec)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)

@@ -19,8 +19,9 @@ function ENT:CustomOnInitialize()
 	self.Boid_Type = 1
 	self:SetCollisionBounds(Vector(18, 18, 10), Vector(-18, -18, 0))
 	self.Boid_FollowOffsetPos = Vector(math.random(-50, 50), math.random(-120, 120), math.random(-150, 150))
-	if !IsValid(HLR_AFlock_Leader) then
-		HLR_AFlock_Leader = self
+	local leader = VJ.HLR_NPC_AFlock_Leader
+	if !IsValid(leader) then
+		leader = self
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -36,14 +37,15 @@ function ENT:CustomOnThink()
 	end
 	
 	if self.VJ_IsBeingControlled then return end
-	if IsValid(HLR_AFlock_Leader) then
-		if HLR_AFlock_Leader != self && HLR_AFlock_Leader.AA_CurrentMovePos then
+	local leader = VJ.HLR_NPC_AFlock_Leader
+	if IsValid(leader) then
+		if leader != self && leader.AA_CurrentMovePos then
 			self.DisableWandering = true
-			self:AA_MoveTo(HLR_AFlock_Leader, true, "Calm", {AddPos=self.Boid_FollowOffsetPos, IgnoreGround=true}) -- Medzavorin haladz e (Kharen deghme)
+			self:AA_MoveTo(leader, true, "Calm", {AddPos=self.Boid_FollowOffsetPos, IgnoreGround=true}) -- Medzavorin haladz e (Kharen deghme)
 		end
 	else
 		self.IsGuard = false
 		self.DisableWandering = false
-		HLR_AFlock_Leader = self
+		leader = self
 	end
 end

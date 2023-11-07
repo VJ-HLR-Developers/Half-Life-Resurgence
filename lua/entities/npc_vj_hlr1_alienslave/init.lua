@@ -68,7 +68,7 @@ ENT.RangeAttackPitch = VJ.SET(130, 160)
 ENT.Vort_RunAway = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_HD_INSTALLED && self:GetClass() == "npc_vj_hlr1_alienslave" then
+	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "npc_vj_hlr1_alienslave" then
 		self.Model = "models/vj_hlr/hl_hd/islave.mdl"
 	end
 end
@@ -232,5 +232,5 @@ end
 local extraGibs = {"models/vj_hlr/gibs/islavegib.mdl"}
 --
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
-	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, nil, {ExtraGibs = extraGibs})
+	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, nil, {ExtraGibs = extraGibs})
 end

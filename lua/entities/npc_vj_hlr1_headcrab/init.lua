@@ -115,5 +115,5 @@ local gibs1 = {"models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib7.mdl", "
 local gibs2 = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 --
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
-	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, self:GetModel() == "models/vj_hlr/hl1/headcrab_baby.mdl" and gibs1 or gibs2)
+	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, self:GetModel() == "models/vj_hlr/hl1/headcrab_baby.mdl" and gibs1 or gibs2)
 end

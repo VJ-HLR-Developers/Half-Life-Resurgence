@@ -474,7 +474,7 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 		/*for i = 1, math.random(12, 20) do
 			timer.Simple(i * math.Rand(0.5, 1), function()
 				if IsValid(self) then
-					VJ_HLR_Effect_Explosion(self:GetAttachment(2).Pos + Vector(math.Rand(-100, 100), math.Rand(-100, 100), math.Rand(-100, 100)), 2, math.Rand(2.5, 5), "50 255 50")
+					VJ.HLR_Effect_Explosion(self:GetAttachment(2).Pos + Vector(math.Rand(-100, 100), math.Rand(-100, 100), math.Rand(-100, 100)), 2, math.Rand(2.5, 5), "50 255 50")
 				end
 			end)
 		end*/

@@ -90,7 +90,7 @@ ENT.HECU_NextMouthDistance = 0
 local defPos = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_HD_INSTALLED && self:GetClass() == "npc_vj_hlr1_hgrunt" then
+	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "npc_vj_hlr1_hgrunt" then
 		self.Model = "models/vj_hlr/hl_hd/hgrunt.mdl"
 	end
 end
@@ -419,12 +419,12 @@ function ENT:CustomOnThink()
 		elseif self.HECU_Type == 5 then -- 5 = Robot Grunt
 			if bgroup == 0 then -- MP5
 				self:DoChangeWeapon("weapon_vj_hlr1_mp5")
-				if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_HD_INSTALLED && self:GetClass() == "npc_vj_hlr1_rgrunt" then
+				if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "npc_vj_hlr1_rgrunt" then
 					self:DoChangeWeapon("weapon_vj_hlr1_m4_hd")
 				end
 			elseif bgroup == 1 then -- Shotgun
 				self:DoChangeWeapon("weapon_vj_hlr1_spas12")
-				if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_HD_INSTALLED && self:GetClass() == "npc_vj_hlr1_rgrunt" then
+				if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "npc_vj_hlr1_rgrunt" then
 					self:DoChangeWeapon("weapon_vj_hlr1_spas12_hd")
 				end
 			elseif IsValid(self:GetActiveWeapon()) then
@@ -636,7 +636,7 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
-	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, nil, {ExtraGibs = self.HECU_Type != 4 and {"models/vj_hlr/gibs/gib_hgrunt.mdl"} or nil})
+	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, nil, {ExtraGibs = self.HECU_Type != 4 and {"models/vj_hlr/gibs/gib_hgrunt.mdl"} or nil})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDropWeapon(dmginfo, hitgroup, wepEnt)

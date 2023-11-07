@@ -153,8 +153,8 @@ function ENT:HandleModeChanging(mode,pos,cont)
 	if mode == 1 && CurTime() > self.Stuka_ModeChangeT && (!IsValid(cont) or IsValid(cont) && cont:KeyDown(IN_JUMP)) then
 		if self.Stuka_LandingType == 0 && self.Stuka_LandingPos == nil then
 			if !self.Stuka_LandingPos then
-				local ceiling = math.random(1,10) == 1
-				local pos = self:GetLandingPos(ceiling)
+				local ceiling = math.random(1, 10) == 1
+				pos = self:GetLandingPos(ceiling)
 				if pos then
 					self.Stuka_LandingPos = pos
 					self.Stuka_LandingType = ceiling && 2 or 1
@@ -347,7 +347,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 						end
 					end
 
-					VJ_HLR_ApplyCorpseEffects(self, corpse, {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"})
+					VJ.HLR_ApplyCorpseSystem(self, corpse, {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"})
 
 					self:Remove()
 				end
@@ -392,5 +392,5 @@ end
 local gibs = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 --
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
-	VJ_HLR_ApplyCorpseEffects(self, corpseEnt, gibs)
+	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, gibs)
 end

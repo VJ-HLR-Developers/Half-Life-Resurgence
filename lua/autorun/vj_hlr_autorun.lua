@@ -16,7 +16,10 @@ if VJExists == true then
 	if !VJ then VJ = {} end -- If VJ isn't initialized, initialize it!
 	
 	VJ.HLR_VERSION = "1.1.1"
-	VJ.HLR_HD_INSTALLED = file.Exists("lua/autorun/vj_hlr_hd_autorun.lua","GAME")
+	VJ.HLR_INSTALLED_HD = file.Exists("lua/autorun/vj_hlr_hd_autorun.lua", "GAME")
+	VJ.HLR_NPC_Boid_Leader = NULL
+	VJ.HLR_NPC_AFlock_Leader = NULL
+	VJ.HLR_NPC_Floater_Leader = NULL
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ GoldSrc Engine ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -384,48 +387,86 @@ if VJExists == true then
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Functions & Hooks ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	function VJ_HLR_Effect_PortalSpawn(pos, size, color)
+	function VJ.HLR_Effect_Portal(pos, size, color, onSpawn)
+		-- Helpful page: https://developer.valvesoftware.com/wiki/Alien_Teleport_Effect_(HL1)
 		size = size or 1.5
-		color = color or "77 210 130" -- TODO: Not implemented yet!
-		local ent = ents.Create("env_sprite")
-		ent:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
-		ent:SetKeyValue("GlowProxySize", "2.0")
-		ent:SetKeyValue("HDRColorScale", "1.0")
-		ent:SetKeyValue("rendercolor", color)
-		ent:SetKeyValue("renderfx", "14")
-		ent:SetKeyValue("rendermode", "3")
-		ent:SetKeyValue("renderamt", "255")
-		ent:SetKeyValue("disablereceiveshadows", "0")
-		ent:SetKeyValue("mindxlevel", "0")
-		ent:SetKeyValue("maxdxlevel", "0")
-		ent:SetKeyValue("framerate", "10.0")
-		ent:SetKeyValue("spawnflags", "0")
-		ent:SetKeyValue("scale", ""..size)
-		ent:SetPos(pos)
-		ent:Spawn()
 		
-		sound.Play("vj_hlr/fx/beamstart"..math.random(1, 2)..".wav", pos, 85)
-		return ent
+		-- Main gas sprite
+		local spr = ents.Create("env_sprite")
+		spr:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
+		spr:SetKeyValue("scale", ""..size)
+		spr:SetKeyValue("rendercolor", color or "77 210 130")
+		spr:SetKeyValue("rendermode", "5") -- 5 = Additive render mode
+		spr:SetKeyValue("renderamt", "255")
+		spr:SetKeyValue("framerate", "10.0")
+		spr:SetKeyValue("spawnflags", "2") -- 2 (SF_SPRITE_ONCE) = Makes it animate / display only once
+		spr:SetPos(pos)
+		spr:Spawn()
+		spr:Fire("Kill", "", 1)
+		
+		-- Portal sprite
+		local sprPortal = ents.Create("env_sprite")
+		sprPortal:SetKeyValue("model", "vj_hl/sprites/XFlare1.vmt")
+		sprPortal:SetKeyValue("scale", ""..(size - 0.5)) -- Make this little bit smaller than the other one!
+		sprPortal:SetKeyValue("rendercolor", color or "184 250 214")
+		sprPortal:SetKeyValue("rendermode", "5") -- 5 = Additive render mode
+		sprPortal:SetKeyValue("renderamt", "255")
+		sprPortal:SetKeyValue("framerate", "10.0")
+		sprPortal:SetKeyValue("spawnflags", "2") -- 2 (SF_SPRITE_ONCE) = Makes it animate / display only once
+		sprPortal:SetPos(pos)
+		sprPortal:Spawn()
+		sprPortal:Fire("Kill", "", 1)
+		
+		-- Beam effects
+		local beam = ents.Create("env_beam")
+		beam:SetName("hlr_beam_" .. beam:EntIndex())
+		beam:SetKeyValue("LightningStart", beam:GetName()) -- Start location (Needs to be an entity name!)
+		beam:SetKeyValue("texture", "vj_hl/sprites/lgtning.vmt")
+		beam:SetKeyValue("rendercolor", color or "197 243 169")
+		beam:SetKeyValue("renderamt", "150")
+		beam:SetKeyValue("radius", "600") -- How far a bolt can go
+		beam:SetKeyValue("BoltWidth", "10") -- Thickness of each bolt
+		beam:SetKeyValue("NoiseAmplitude", "15") -- Amplitude in each bolt, larger number will increase its width
+		beam:SetKeyValue("StrikeTime", "-.5")
+		beam:SetKeyValue("spawnflags", "5") -- 1 (Start On) + 4 (Random Strike)
+		beam:SetKeyValue("life", "0.5")
+		beam:SetPos(pos)
+		beam:SetParent(spr)
+		beam:Spawn()
+		beam:Activate()
+		beam:Fire("TurnOn", "", 0)
+		
+		-- Dynamic light
+		local dynLight = ents.Create("light_dynamic")
+		dynLight:SetKeyValue("brightness", "2")
+		dynLight:SetKeyValue("distance", "200")
+		dynLight:SetKeyValue("_light", color and color.."150" or "77 210 130 150")
+		dynLight:SetKeyValue("style", "1") -- 1 = Flicker A (mmnmmommommnonmmonqnmmo)
+		dynLight:SetPos(pos)
+		dynLight:SetParent(spr)
+		dynLight:Spawn()
+		dynLight:Activate()
+		dynLight:Fire("TurnOn", "", 0)
+		//dynLight:Fire("Kill", "", 1)
+		
+		sound.Play("vj_hlr/fx/beamstart2.wav", pos, 85)
+		timer.Simple(0.5, function()
+			sound.Play("vj_hlr/fx/beamstart4.wav", pos, 85) -- Play the spawn sound
+			if onSpawn then onSpawn() end
+		end)
+		return spr
 	end
-	
-	function VJ_HLR_Effect_Explosion(pos, type, size, color)
-		size = size or 1
-		color = color or "255 255 255"
+	---------------------------------------------------------------------------------------------------------------------------------------------
+	function VJ.HLR_Effect_Explosion(pos, type, size, color)
 		type = type or 1
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model", type == 1 && "vj_hl/sprites/zerogxplode.vmt" or "vj_hl/sprites/fexplo1.vmt")
-		spr:SetKeyValue("GlowProxySize", "2.0")
-		spr:SetKeyValue("HDRColorScale", "1.0")
-		spr:SetKeyValue("rendercolor", color)
-		spr:SetKeyValue("renderfx", "14")
+		spr:SetKeyValue("scale", ""..(size or 1))
+		spr:SetKeyValue("rendercolor", color or "255 255 255")
 		spr:SetKeyValue("rendermode", "5")
 		spr:SetKeyValue("renderamt", "255")
-		spr:SetKeyValue("disablereceiveshadows", "0")
-		spr:SetKeyValue("mindxlevel", "0")
-		spr:SetKeyValue("maxdxlevel", "0")
 		spr:SetKeyValue("framerate", "15.0")
-		spr:SetKeyValue("spawnflags", "0")
-		spr:SetKeyValue("scale", ""..size)
+		spr:SetKeyValue("spawnflags", "2") -- 2 (SF_SPRITE_ONCE) = Makes it animate / display only once
 		spr:SetPos(pos)
 		spr:Spawn()
 		spr:Fire("Kill", "", 0.9)
@@ -433,10 +474,10 @@ if VJExists == true then
 		sound.Play("vj_hlr/hl1_weapon/explosion/explode"..math.random(1, 3)..".wav", pos, 150)
 		return spr
 	end
-	
+	---------------------------------------------------------------------------------------------------------------------------------------------
 	local defGibs_Yellow = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib6.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 	local defGibs_Red = {"models/vj_hlr/gibs/flesh1.mdl", "models/vj_hlr/gibs/flesh2.mdl", "models/vj_hlr/gibs/flesh3.mdl", "models/vj_hlr/gibs/flesh4.mdl", "models/vj_hlr/gibs/hgib_b_bone.mdl", "models/vj_hlr/gibs/hgib_b_gib.mdl", "models/vj_hlr/gibs/hgib_guts.mdl", "models/vj_hlr/gibs/hgib_hmeat.mdl", "models/vj_hlr/gibs/hgib_lung.mdl", "models/vj_hlr/gibs/hgib_skull.mdl", "models/vj_hlr/gibs/hgib_legbone.mdl"}
-	function VJ_HLR_ApplyCorpseEffects(ent, corpse, gibTbl, extraOptions)
+	function VJ.HLR_ApplyCorpseSystem(ent, corpse, gibTbl, extraOptions)
 		extraOptions = extraOptions or {} -- CollideSound, ExpSound, Gibbable, CanBleed, ExtraGibs
 		corpse.HLR_Corpse = true
 		corpse.HLR_Corpse_Type = ent.BloodColor

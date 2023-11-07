@@ -82,6 +82,8 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local colorGreen = Color(0, 255, 0, 255)
+--
 function ENT:CustomOnDoDamage_Direct(data, phys, hitEnt)
 	local owner = self:GetOwner()
 	if IsValid(owner) && (hitEnt:IsNPC() or hitEnt:IsPlayer()) && hitEnt.VJ_IsHugeMonster != true && !hitEnt.Dead && hitEnt:GetClass() != "sent_vj_xen_crystal" then
@@ -91,12 +93,17 @@ function ENT:CustomOnDoDamage_Direct(data, phys, hitEnt)
 			filter = owner,
 		})
 		local pos = tr.HitPos + tr.HitNormal * hitEnt:OBBMaxs()
-		hitEnt:SetPos(pos)
 		
-		local effectTeleport = VJ_HLR_Effect_PortalSpawn(pos)
-		effectTeleport:Fire("Kill", "", 1)
-		owner:DeleteOnRemove(effectTeleport)
+		if hitEnt:IsPlayer() then
+			hitEnt:ScreenFade(SCREENFADE.IN, colorGreen, 2, 1)
+		end
 		
-		VJ.EmitSound(hitEnt, "vj_hlr/fx/beamstart" .. math.random(1,2) .. ".wav", 85, 100)
+		VJ.HLR_Effect_Portal(self:GetPos())
+		VJ.HLR_Effect_Portal(pos, nil, nil, function()
+			-- onSpawn
+			if IsValid(hitEnt) then
+				hitEnt:SetPos(pos)
+			end
+		end)
 	end
 end
