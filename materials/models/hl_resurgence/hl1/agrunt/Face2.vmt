@@ -1,4 +1,27 @@
 "VertexLitGeneric"
 {
 	"$baseTexture" "models\hl_resurgence\hl1\agrunt\Face2"
+
+	$emissiveBlendEnabled 1
+    $emissiveBlendTexture    "dev/null"
+    $emissiveBlendBaseTexture    "models/hl_resurgence/hl1/agrunt/Face2_g"
+    $emissiveBlendFlowTexture    "dev/null"
+	$emissiveBlendTint "[1 1 1]"
+    $emissiveBlendStrength 1
+    $emissiveBlendScrollVector "[0 0]"
+
+	"Proxies"
+	{
+		"EfxEmissive"
+		{
+			"index" 		3
+			"color" 		$emissiveBlendTint
+			"brightness" 	0.4
+			"emissivetexture" $emissiveBlendBaseTexture
+		}
+		"IsNPC"
+		{
+			"resultvar" "$emissiveBlendEnabled"
+		}
+	}
 }

@@ -1,4 +1,27 @@
 "VertexLitGeneric"
 {
 	"$basetexture" "models/hl_resurgence/hl1/controller/Head-face1"
+
+	$emissiveBlendEnabled 1
+    $emissiveBlendTexture    "dev/null"
+    $emissiveBlendBaseTexture    "models/hl_resurgence/hl1/controller/Head-face1_g"
+    $emissiveBlendFlowTexture    "dev/null"
+	$emissiveBlendTint "[1 1 1]"
+    $emissiveBlendStrength 1
+    $emissiveBlendScrollVector "[0 0]"
+
+	"Proxies"
+	{
+		"EfxEmissive"
+		{
+			"index" 		15
+			"color" 		$emissiveBlendTint
+			"brightness" 	0.5
+			"emissivetexture" $emissiveBlendBaseTexture
+		}
+		"IsNPC"
+		{
+			"resultvar" "$emissiveBlendEnabled"
+		}
+	}
 }
