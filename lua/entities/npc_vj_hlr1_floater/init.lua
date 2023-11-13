@@ -64,7 +64,7 @@ function ENT:CustomOnInitialize()
 	self.Floater_FollowOffsetPos = Vector(math.random(-50, 50), math.random(-120, 120), math.random(-150, 150))
 	local leader = VJ.HLR_NPC_Floater_Leader
 	if !IsValid(leader) then -- Yete ourish medzavor chiga, ere vor irzenike medzavor ene
-		leader = self
+		VJ.HLR_NPC_Floater_Leader = self
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -87,7 +87,7 @@ function ENT:CustomOnThink()
 		else
 			self.IsGuard = false
 			self.DisableWandering = false
-			leader = self
+			VJ.HLR_NPC_Floater_Leader = self
 		end
 	end
 end

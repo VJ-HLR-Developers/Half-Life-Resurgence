@@ -103,7 +103,7 @@ function ENT:CustomOnThink_AIEnabled()
 				local orgDist = self:GetMaxLookDistance()
 				self.FindEnemy_CanSeeThroughWalls = true
 				self:SetMaxLookDistance(450)
-				self:SetupRelationships()
+				self:MaintainRelationships()
 				self.FindEnemy_CanSeeThroughWalls = false
 				self:SetMaxLookDistance(orgDist)
 			end

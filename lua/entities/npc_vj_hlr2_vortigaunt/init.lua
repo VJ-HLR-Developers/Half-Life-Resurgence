@@ -256,14 +256,6 @@ function ENT:CustomRangeAttackCode()
 	VJ.ApplyRadiusDamage(self, self, hitpos, 30, 20, DMG_SHOCK, true, false, {Force=90})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnSchedule()
-	if !self.Dead && self.vACT_StopAttacks == false && self.Vort_RunAway == true && self.PlayingAttackAnimation == false then
-		self.Vort_RunAway = false
-		self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH",function(x) x.RunCode_OnFail = function() self.NextDoAnyAttackT = 0 end end)
-		self.NextDoAnyAttackT = CurTime() + 5
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
 	if (self.NextDoAnyAttackT + 2) > CurTime() then return end
 	self.Vort_RunAway = true

@@ -38,7 +38,7 @@ end
 function ENT:CustomOnWeaponAttack()
 	if self.VJ_IsBeingControlled then return end
 	if CurTime() > self.BOA_NextRunT then
-		timer.Simple(0.8, function() 
+		timer.Simple(0.8, function()
 			if IsValid(self) && !self:IsMoving() && !self.Dead then
 				self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH")
 			end

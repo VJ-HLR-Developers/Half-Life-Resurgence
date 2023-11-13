@@ -21,7 +21,7 @@ function ENT:CustomOnInitialize()
 	self.Boid_FollowOffsetPos = Vector(math.random(-50, 50), math.random(-120, 120), math.random(-150, 150))
 	local leader = VJ.HLR_NPC_AFlock_Leader
 	if !IsValid(leader) then
-		leader = self
+		VJ.HLR_NPC_AFlock_Leader = self
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -46,6 +46,6 @@ function ENT:CustomOnThink()
 	else
 		self.IsGuard = false
 		self.DisableWandering = false
-		leader = self
+		VJ.HLR_NPC_AFlock_Leader = self
 	end
 end
