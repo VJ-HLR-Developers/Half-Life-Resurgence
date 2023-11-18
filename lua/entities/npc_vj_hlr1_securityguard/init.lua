@@ -35,7 +35,7 @@ ENT.HasLostWeaponSightAnimation = true -- Set to true if you would like the SNPC
 ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards the player if it's damaged by a player?
 ENT.HasItemDropsOnDeath = false -- Should it drop items on death?
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
-ENT.CombatFaceEnemy = false -- If enemy is exists and is visible
+ENT.CanTurnWhileMoving = false -- If enemy is exists and is visible
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} -- If it uses normal based animation, use this

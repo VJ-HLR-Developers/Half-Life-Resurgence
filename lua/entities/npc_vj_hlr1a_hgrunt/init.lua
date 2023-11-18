@@ -14,7 +14,7 @@ ENT.VJC_Data = {
 ENT.HasGrenadeAttack = false
 ENT.WeaponAttackSecondaryTimeUntilFire = 1.2
 ENT.MoveRandomlyWhenShooting = true -- Should it move randomly when shooting?
-ENT.CombatFaceEnemy = true -- If enemy is exists and is visible
+ENT.CanTurnWhileMoving = true -- If enemy is exists and is visible
 
 -- Custom
 ENT.AHGR_NextStrafeT = 0

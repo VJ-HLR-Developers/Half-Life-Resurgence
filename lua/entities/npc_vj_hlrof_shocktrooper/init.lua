@@ -8,7 +8,7 @@ include('shared.lua')
 ENT.Model = {"models/vj_hlr/opfor/strooper.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 150
 ENT.HullType = HULL_HUMAN
-ENT.CombatFaceEnemy = false
+ENT.CanTurnWhileMoving = false
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(15, 0, -15), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person

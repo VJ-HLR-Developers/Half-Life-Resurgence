@@ -978,10 +978,9 @@ local sdAlertHuman = {"vj_hlr/hl2_npc/ep1/c17/al_evac_ontous01.wav","vj_hlr/hl2_
 ]]--
 
 ENT.GeneralSoundPitch1 = 100
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
-	self.Human_NextPlyReloadSd = CurTime()
-end
+
+-- Custom
+ENT.Human_NextPlyReloadSd = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
 	timer.Simple(0.1, function() -- Make sure the base functions have ran!
@@ -1019,12 +1018,12 @@ function ENT:CustomOnMaintainRelationships(ent, entFri, entDist)
 					if entDist > 100 then
 						self.Human_NextPlyReloadSd = 0
 					else
-						self:FaceCertainEntity(ent, false, self:DecideAnimationLength("heal", false))
-						self:VJ_ACT_PLAYACTIVITY("heal", true, false, true, 0, {OnFinish=function(interrupted, anim)
+						local _, animTime = self:VJ_ACT_PLAYACTIVITY("heal", true, false, false, 0, {OnFinish=function(interrupted, anim)
 							if !interrupted then
 								ent:GiveAmmo(20, ammoType)
 							end
 						end})
+						self:SetTurnTarget(ent, animTime)
 						self:PlaySoundSystem("GeneralSpeech", "vj_hlr/hl2_npc/ep1/npc/alyx/al_takeammo.wav")
 					end
 				-- Reload Freeman

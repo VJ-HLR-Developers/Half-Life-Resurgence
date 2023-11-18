@@ -54,7 +54,7 @@ ENT.HasLostWeaponSightAnimation = true -- Set to true if you would like the SNPC
 ENT.AnimTbl_WeaponAttackSecondary = {ACT_SPECIAL_ATTACK1} -- Animations played when the SNPC fires a secondary weapon attack
 ENT.WeaponAttackSecondaryTimeUntilFire = 0.7
 ENT.AnimTbl_WeaponReload = {ACT_RELOAD_SMG1} -- Animations that play when the SNPC reloads
-ENT.CombatFaceEnemy = false -- If enemy is exists and is visible
+ENT.CanTurnWhileMoving = false -- If enemy is exists and is visible
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} -- If it uses normal based animation, use this

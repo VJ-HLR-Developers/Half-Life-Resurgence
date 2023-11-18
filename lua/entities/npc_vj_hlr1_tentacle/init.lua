@@ -57,6 +57,7 @@ ENT.Tentacle_Level = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(20, 20, 160), Vector(-20, -20, 0))
+	self:SetSurroundingBounds(Vector(-300, -300, 0), Vector(300, 300, 750))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)

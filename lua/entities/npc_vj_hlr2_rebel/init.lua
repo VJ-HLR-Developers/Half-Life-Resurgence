@@ -38,6 +38,7 @@ ENT.Human_Type = 0 -- 0 = Rebel | 1 = Engineer
 ENT.Human_Gender = nil -- 0 = Male | 1 = Female
 ENT.Human_SdFolder = "male01"
 ENT.Human_Driver = false
+ENT.Human_NextPlyReloadSd = 0
 -- MALE
 local sdGiveAmmo_M = {
 	"vo/npc/male01/ammo01.wav",
@@ -201,7 +202,6 @@ function ENT:CustomOnPreInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self.Human_NextPlyReloadSd = CurTime()
 	if self.Human_Gender == 1 then
 		self:HLR_ApplyFemaleSounds()
 		self.Human_SdFolder = "female01"
@@ -313,12 +313,12 @@ function ENT:CustomOnMaintainRelationships(ent, entFri, entDist)
 					if entDist > 100 then
 						self.Human_NextPlyReloadSd = 0
 					else
-						self:FaceCertainEntity(ent, false, self:DecideAnimationLength("heal", false))
-						self:VJ_ACT_PLAYACTIVITY("heal", true, false, true, 0, {OnFinish=function(interrupted, anim)
+						local _, animTime = self:VJ_ACT_PLAYACTIVITY("heal", true, false, false, 0, {OnFinish=function(interrupted, anim)
 							if !interrupted then
 								ent:GiveAmmo(20, ammoType)
 							end
 						end})
+						self:SetTurnTarget(ent, animTime)
 						self:PlaySoundSystem("GeneralSpeech", (self.Human_Gender == 1 and sdGiveAmmo_F) or sdGiveAmmo_M)
 					end
 				-- Reload Freeman

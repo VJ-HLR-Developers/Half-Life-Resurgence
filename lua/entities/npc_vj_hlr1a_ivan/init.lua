@@ -42,6 +42,7 @@ ENT.AnimTbl_ShootWhileMovingRun = {ACT_RUN} -- Animations it will play when shoo
 ENT.AnimTbl_ShootWhileMovingWalk = {ACT_WALK} -- Animations it will play when shooting while walking | NOTE: Weapon may translate the animation that they see fit!
 ENT.HasLostWeaponSightAnimation = true -- Set to true if you would like the SNPC to play a different animation when it has lost sight of the enemy and can't fire at it
 ENT.AllowWeaponReloading = false -- If false, the SNPC will no longer reload
+ENT.CanTurnWhileMoving = false -- If enemy is exists and is visible
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
