@@ -46,31 +46,35 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetNoDraw(true)
-	self.StartGlow1 = ents.Create("env_sprite")
-	self.StartGlow1:SetKeyValue("model","vj_hl/sprites/xspark4.vmt")
-	//self.StartGlow1:SetKeyValue("rendercolor","255 128 0")
-	self.StartGlow1:SetKeyValue("GlowProxySize","2.0")
-	self.StartGlow1:SetKeyValue("HDRColorScale","1.0")
-	self.StartGlow1:SetKeyValue("renderfx","14")
-	self.StartGlow1:SetKeyValue("rendermode","3")
-	self.StartGlow1:SetKeyValue("renderamt","255")
-	self.StartGlow1:SetKeyValue("disablereceiveshadows","0")
-	self.StartGlow1:SetKeyValue("mindxlevel","0")
-	self.StartGlow1:SetKeyValue("maxdxlevel","0")
-	self.StartGlow1:SetKeyValue("framerate","10.0")
-	self.StartGlow1:SetKeyValue("spawnflags","0")
-	self.StartGlow1:SetKeyValue("scale","1")
-	self.StartGlow1:SetPos(self:GetPos())
-	self.StartGlow1:Spawn()
-	self.StartGlow1:SetParent(self)
-	self:DeleteOnRemove(self.StartGlow1)
+	local sprite = ents.Create("env_sprite")
+	sprite:SetKeyValue("model","vj_hl/sprites/xspark4.vmt")
+	//sprite:SetKeyValue("rendercolor","255 128 0")
+	sprite:SetKeyValue("GlowProxySize","2.0")
+	sprite:SetKeyValue("HDRColorScale","1.0")
+	sprite:SetKeyValue("renderfx","14")
+	sprite:SetKeyValue("rendermode","3")
+	sprite:SetKeyValue("renderamt","255")
+	sprite:SetKeyValue("disablereceiveshadows","0")
+	sprite:SetKeyValue("mindxlevel","0")
+	sprite:SetKeyValue("maxdxlevel","0")
+	sprite:SetKeyValue("framerate","10.0")
+	sprite:SetKeyValue("spawnflags","0")
+	sprite:SetKeyValue("scale","1")
+	sprite:SetPos(self:GetPos())
+	sprite:Spawn()
+	sprite:SetParent(self)
+	self:DeleteOnRemove(sprite)
+	self.GlowSprite = sprite
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	if IsValid(self.Track_Enemy) then -- Homing Behavior
+	local trackedEnt = self.Track_Enemy
+	if IsValid(trackedEnt) then -- Homing Behavior
 		self.DirectDamage = 25
-		self.StartGlow1:SetKeyValue("scale","1.5")
-		local pos = self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter()
+		if IsValid(self.GlowSprite) then
+			self.GlowSprite:SetKeyValue("scale", "1.5")
+		end
+		local pos = trackedEnt:GetPos() + trackedEnt:OBBCenter()
 		if self:VisibleVec(pos) or self.Track_Position == defVec then
 			self.Track_Position = pos
 		end

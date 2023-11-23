@@ -55,22 +55,18 @@ end
 function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 	if CLIENT then return end
 	local owner = self:GetOwner()
+	local projectile = ents.Create("obj_vj_hlrof_plasma")
+	local spawnPos = self:GetNW2Vector("VJ_CurBulletPos")
+	projectile:SetPos(spawnPos)
+	projectile:SetAngles(owner:GetAngles())
+	projectile:SetOwner(owner)
+	projectile:Activate()
+	projectile:Spawn()
 	
-	local plasma = ents.Create("obj_vj_hlrof_plasma")
-	plasma:SetPos(self:GetNW2Vector("VJ_CurBulletPos"))
-	plasma:SetAngles(owner:GetAngles())
-	plasma:SetOwner(owner)
-	plasma:Spawn()
-	plasma:Activate()
-	
-	local phys = plasma:GetPhysicsObject()
+	local phys = projectile:GetPhysicsObject()
 	if IsValid(phys) then
-		local pos = owner:GetPos() + owner:OBBCenter() + owner:GetForward() * 700
-		local ene = owner:GetEnemy()
-		if IsValid(ene) then
-			pos = ene:GetPos() + ene:OBBCenter()
-		end
-		phys:SetVelocity(owner:CalculateProjectile("Line", self:GetNW2Vector("VJ_CurBulletPos"), pos, 10000))
+		phys:SetVelocity(owner:CalculateProjectile("Line", spawnPos, owner:GetAimPosition(owner:GetEnemy(), spawnPos, 1, 10000), 10000))
+		projectile:SetAngles(projectile:GetVelocity():GetNormal():Angle())
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -80,13 +76,15 @@ function SWEP:CustomBulletSpawnPosition()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnThink()
-	self:GetOwner():SetBodygroup(1, 0)
+	local owner = self:GetOwner()
+	owner:SetBodygroup(1, 0)
 	
+	-- Play shock roach idle sounds
 	if CurTime() > self.HLR_NextIdleSoundT then
-		if IsValid(self:GetOwner():GetEnemy()) then
+		if IsValid(owner:GetEnemy()) then
 			self:EmitSound("vj_hlr/hl1_npc/shockroach/shock_angry.wav", 70)
 		else
-			self:EmitSound("vj_hlr/hl1_npc/shockroach/shock_idle" .. math.random(1,3) .. ".wav", 65)
+			self:EmitSound("vj_hlr/hl1_npc/shockroach/shock_idle" .. math.random(1, 3) .. ".wav", 65)
 		end
 		self.HLR_NextIdleSoundT = CurTime() + math.Rand(5, 12)
 	end

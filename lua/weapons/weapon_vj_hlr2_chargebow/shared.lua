@@ -89,27 +89,29 @@ function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 
 	-- Projectile
 	for i = 1, self.Bow_NumShots do
-		local proj = ents.Create("obj_vj_hlr2_chargebolt")
+		local projectile = ents.Create("obj_vj_hlr2_chargebolt")
+		local spawnPos = self:GetNW2Vector("VJ_CurBulletPos")
 		if owner:IsPlayer() then
-			local ply_Ang = owner:GetAimVector():Angle()
-			proj:SetPos(owner:GetShootPos() + ply_Ang:Forward()*-33 + ply_Ang:Up()*-5 + ply_Ang:Right()*1)
-			proj:SetAngles(ply_Ang)
+			local plyAng = owner:GetAimVector():Angle()
+			projectile:SetPos(owner:GetShootPos() + plyAng:Forward()*-33 + plyAng:Up()*-5 + plyAng:Right())
+			projectile:SetAngles(plyAng)
 		else
-			proj:SetPos(self:GetNW2Vector("VJ_CurBulletPos"))
-			proj:SetAngles(owner:GetAngles())
+			projectile:SetPos(spawnPos)
+			projectile:SetAngles(owner:GetAngles())
 		end
-		proj:SetOwner(owner)
-		proj:Activate()
-		proj:Spawn()
-		proj.DirectDamage = proj.DirectDamage / self.Bow_NumShots
+		projectile:SetOwner(owner)
+		projectile:Activate()
+		projectile:Spawn()
+		projectile.DirectDamage = projectile.DirectDamage / self.Bow_NumShots -- Decrease the damage per bolt depending on the number of bolts being fired
 
-		local phys = proj:GetPhysicsObject()
+		local phys = projectile:GetPhysicsObject()
 		if phys:IsValid() then
 			if owner:IsPlayer() then
 				phys:SetVelocity(owner:GetAimVector() * 3000 + Vector(i == 2 && -75 or i == 3 && 75 or 0, 0, 0))
 			else
-				phys:SetVelocity(owner:CalculateProjectile("Line", self:GetNW2Vector("VJ_CurBulletPos"), owner:GetEnemy():GetPos() + owner:GetEnemy():OBBCenter(), 3000))
+				phys:SetVelocity(owner:CalculateProjectile("Line", spawnPos, owner:GetAimPosition(owner:GetEnemy(), spawnPos, 1, 3000), 3000))
 			end
+			projectile:SetAngles(projectile:GetVelocity():GetNormal():Angle())
 		end
 	end
 end

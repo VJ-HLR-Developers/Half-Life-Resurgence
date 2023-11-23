@@ -90,14 +90,15 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	local phys = self:GetPhysicsObject()
+	local trackedEnt = self.Track_Enemy
 	-- Homing Behavior
-	if IsValid(self.Track_Enemy) then
-		local pos = self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter()
+	if IsValid(trackedEnt) then
+		local pos = trackedEnt:GetPos() + trackedEnt:OBBCenter()
 		if self:VisibleVec(pos) or self.Track_Position == defVec then
 			self.Track_Position = pos
 		end
 		if IsValid(phys) then
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position + self.Track_Enemy:GetUp()*math.random(-50,50) + self.Track_Enemy:GetRight()*math.random(-50,50), self.Hornet_ChaseSpeed))
+			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position + trackedEnt:GetUp()*math.random(-50,50) + trackedEnt:GetRight()*math.random(-50,50), self.Hornet_ChaseSpeed))
 			self:SetAngles(self:GetVelocity():GetNormal():Angle())
 		end
 	-- Not tracking, go in straight line

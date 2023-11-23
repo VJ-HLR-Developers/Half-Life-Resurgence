@@ -88,12 +88,16 @@ function ENT:CustomOnInitialize()
 	-- Used by helicopters
 	if self.Rocket_HelicopterMissile then
 		timer.Simple(0.5, function()
-			if IsValid(self) && IsValid(self:GetOwner()) then
-				local phys = self:GetPhysicsObject()
-				local ene = self:GetOwner():GetEnemy()
-				if IsValid(phys) && IsValid(ene) then
-					phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), ene:GetPos() + ene:OBBCenter(), 2000))
-					self:SetAngles(self:GetVelocity():GetNormal():Angle())
+			if IsValid(self) then
+				local owner = self:GetOwner()
+				if IsValid(owner) then
+					local phys = self:GetPhysicsObject()
+					local ene = self:GetOwner():GetEnemy()
+					if IsValid(phys) && IsValid(ene) then
+						local myPos = self:GetPos()
+						phys:SetVelocity(self:CalculateProjectile("Line", myPos, owner:GetAimPosition(ene, myPos, 1, 2000), 2000))
+						self:SetAngles(self:GetVelocity():GetNormal():Angle())
+					end
 				end
 			end
 		end)
@@ -101,12 +105,12 @@ function ENT:CustomOnInitialize()
 	elseif self.Rocket_AirMissile then
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
-			-- Go forward
+			-- 1. Go forward
 			phys:SetVelocity(self:GetForward()*200)
 			self:SetAngles(self:GetVelocity():GetNormal():Angle())
 			timer.Simple(0.5, function()
 				if IsValid(self) then
-					-- Go up
+					-- 2. Go up
 					local tr = util.TraceLine({
 						start = self:GetPos(),
 						endpos = self:GetPos() + self:GetUp()*math.random(2000, 2800),
@@ -118,13 +122,17 @@ function ENT:CustomOnInitialize()
 						phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), hitPos, 800))
 						self:SetAngles(self:GetVelocity():GetNormal():Angle())
 						timer.Simple(self:GetPos():Distance(hitPos) / self:GetVelocity():Length(), function()
-							if IsValid(self) && IsValid(self:GetOwner()) then
-								-- Finally, go to the enemy!
-								phys = self:GetPhysicsObject()
-								local ene = self:GetOwner():GetEnemy()
-								if IsValid(phys) && IsValid(ene) then
-									phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), ene:GetPos() + ene:OBBCenter(), 5000))
-									self:SetAngles(self:GetVelocity():GetNormal():Angle())
+							if IsValid(self) then
+								local owner = self:GetOwner()
+								if IsValid(owner) then
+									-- 3. Go to the enemy (Final move)
+									phys = self:GetPhysicsObject()
+									local ene = owner:GetEnemy()
+									if IsValid(phys) && IsValid(ene) then
+										local myPos = self:GetPos()
+										phys:SetVelocity(self:CalculateProjectile("Line", myPos, owner:GetAimPosition(ene, myPos, 1, 5000), 5000))
+										self:SetAngles(self:GetVelocity():GetNormal():Angle())
+									end
 								end
 							end
 						end)

@@ -92,7 +92,8 @@ function ENT:CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(projectile)
-	return self:CalculateProjectile("Line", self:GetPos() + self:GetUp()*10, self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(), 2000)
+	local projPos = projectile:GetPos()
+	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 2000), 2000)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gibPos = Vector(0, 0, 5)

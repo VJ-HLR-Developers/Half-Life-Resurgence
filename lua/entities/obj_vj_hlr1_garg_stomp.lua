@@ -97,6 +97,7 @@ function ENT:CustomOnThink()
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
 			local res = self:CalculateProjectile("Line", myPos, owner:GetEnemy():GetPos() + owner:GetEnemy():OBBCenter(), 100)
+			// self:CalculateProjectile("Line", myPos, owner:GetAimPosition(owner:GetEnemy(), myPos, 1, 100), 100) -- Predictive, garg's stomp shouldn't have this though!
 			res.z = 0
 			phys:SetVelocity(res)
 		end

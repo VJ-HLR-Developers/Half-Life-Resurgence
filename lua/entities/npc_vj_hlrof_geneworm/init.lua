@@ -306,12 +306,13 @@ function ENT:CustomOnRangeAttack_BeforeStartTimer()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(projectile)
-	local enePos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter()
-	local attachPos = self:GetAttachment(1).Pos
-	local vel = self:CalculateProjectile("Line", self:GetAttachment(1).Pos, enePos, 2000)
-	projectile.Track_Enemy = self:GetEnemy()
-	projectile.Track_OrgPosition = enePos
-	projectile.Track_TrackTime = CurTime() + (enePos:Distance(attachPos) / vel:Length()) -- Stops chasing the enemy after this time
+	local ene = self:GetEnemy()
+	local projPos = projectile:GetPos()
+	local aimPos = self:GetAimPosition(ene, projPos, 1, 2000)
+	local vel = self:CalculateProjectile("Line", projPos, aimPos, 2000)
+	projectile.Track_Enemy = ene
+	projectile.Track_OrgPosition = aimPos
+	projectile.Track_TrackTime = CurTime() + (aimPos:Distance(projPos) / vel:Length()) -- Stops chasing the enemy after this time
 	return vel
 end
 /*
