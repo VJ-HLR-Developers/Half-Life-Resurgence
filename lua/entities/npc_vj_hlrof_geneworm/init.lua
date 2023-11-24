@@ -334,8 +334,8 @@ function ENT:GW_OrbOpenReset()
 	self.GW_OrbHealth = maxOrbHealth
 	self:SetSkin(0)
 	self.AnimTbl_IdleStand = {ACT_IDLE}
-	self:VJ_ACT_PLAYACTIVITY("pain_4", true, false, false, 0, {}, function(vsched)
-		vsched.RunCode_OnFinish = function() -- Just a backup in case event fails
+	self:VJ_ACT_PLAYACTIVITY("pain_4", true, false, false, 0, {}, function(sched)
+		sched.RunCode_OnFinish = function() -- Just a backup in case event fails
 			self.GW_OrbSprite:Fire("HideSprite")
 			self.GW_BE_Orb:AddFlags(FL_NOTARGET)
 			self.GW_EyeLightL:Fire("TurnOn")

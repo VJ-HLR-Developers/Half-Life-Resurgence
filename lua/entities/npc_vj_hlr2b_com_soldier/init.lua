@@ -109,8 +109,8 @@ function ENT:CustomOnThink()
 						self:SetPos(finalpos)
 					end
 				end)
-				self:VJ_ACT_PLAYACTIVITY(anim,true,false,true,0,{},function(vsched)
-					vsched.RunCode_OnFinish = function()
+				self:VJ_ACT_PLAYACTIVITY(anim,true,false,true,0,{},function(sched)
+					sched.RunCode_OnFinish = function()
 						self.IsClimbing = false
 					end
 				end)

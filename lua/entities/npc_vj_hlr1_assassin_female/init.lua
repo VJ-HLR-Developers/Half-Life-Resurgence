@@ -157,9 +157,9 @@ function ENT:CustomOnThink()
 		/*self:StopMoving()
 		self:SetGroundEntity(NULL)
 		self:SetLocalVelocity(((self:GetPos() + self:GetRight()*(math.random(1, 2) == 1 and 100 or -100)) - (self:GetPos() + self:OBBCenter())):GetNormal()*200 +self:GetUp()*600)
-		self:VJ_ACT_PLAYACTIVITY(ACT_JUMP, true, false, true, 0, {}, function(vsched)
+		self:VJ_ACT_PLAYACTIVITY(ACT_JUMP, true, false, true, 0, {}, function(sched)
 			self.BOA_OffGround = true
-			//vsched.RunCode_OnFinish = function()
+			//sched.RunCode_OnFinish = function()
 				//self:VJ_ACT_PLAYACTIVITY("fly_attack",true,false,false)
 			//end
 		end)*/
