@@ -982,9 +982,9 @@ ENT.GeneralSoundPitch1 = 100
 -- Custom
 ENT.Human_NextPlyReloadSd = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
+function ENT:CustomOnSetupWeaponHoldTypeAnims(wepHoldType)
 	timer.Simple(0.1, function() -- Make sure the base functions have ran!
-		if IsValid(self) && hType == "pistol" or hType == "revolver" then
+		if IsValid(self) && wepHoldType == "pistol" or wepHoldType == "revolver" then
 			self.WeaponAnimTranslations[ACT_IDLE] = {ACT_IDLE_STIMULATED} -- This animation set is used more often in HL2, not to mention there are multiple idle animations tied to this so it gives more variety + this syncs up with the rest of Alyx's animations better
 			self.WeaponAnimTranslations[ACT_WALK] = {ACT_WALK_STIMULATED}
 			self.WeaponAnimTranslations[ACT_RUN] = {ACT_RUN_STIMULATED}
@@ -994,7 +994,7 @@ function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
 			self.WeaponAnimTranslations[ACT_WALK_AIM] = ACT_WALK_AIM_PISTOL
 
 			self.WeaponAnimTranslations[ACT_RUN_AIM] = ACT_RUN_AIM_PISTOL
-		elseif hType == "melee" or hType == "melee2" or hType == "knife" then
+		elseif wepHoldType == "melee" or wepHoldType == "melee2" or wepHoldType == "knife" then
 			self.WeaponAnimTranslations[ACT_IDLE_ANGRY] = ACT_IDLE -- Alyx does NOT have a melee weapon angry animation!
 		end
 	end)

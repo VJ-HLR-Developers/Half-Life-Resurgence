@@ -274,7 +274,7 @@ function ENT:CustomOnAlert(ent)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
+function ENT:CustomOnSetupWeaponHoldTypeAnims(wepHoldType)
 	local bgroup = self.HGrunt_LastBodyGroup
 	self.WeaponAnimTranslations[ACT_IDLE] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_repel") or ACT_IDLE
 	self.WeaponAnimTranslations[ACT_IDLE_ANGRY] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_repel") or ACT_IDLE_ANGRY

@@ -215,8 +215,8 @@ ENT.GeneralSoundPitch1 = 100
 "vo/ravenholm/yard_traps.wav"
 ]]--
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
-	if hType == "crossbow" or hType == "shotgun" then
+function ENT:CustomOnSetupWeaponHoldTypeAnims(wepHoldType)
+	if wepHoldType == "crossbow" or wepHoldType == "shotgun" then
 		self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_RANGE_ATTACK_SHOTGUN
 		self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK_SHOTGUN
 		self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] 				= ACT_RANGE_ATTACK_SMG1_LOW

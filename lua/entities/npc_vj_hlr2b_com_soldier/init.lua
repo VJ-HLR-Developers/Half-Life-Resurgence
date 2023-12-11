@@ -120,7 +120,7 @@ function ENT:CustomOnThink()
 	end
 end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnSetupWeaponHoldTypeAnims(hType)
+function ENT:CustomOnSetupWeaponHoldTypeAnims(wepHoldType)
 	//self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 				= ACT_RANGE_ATTACK1 -- No need to translate
 	self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK_AR2
 	//self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] 			= ACT_RANGE_ATTACK1_LOW -- No need to translate

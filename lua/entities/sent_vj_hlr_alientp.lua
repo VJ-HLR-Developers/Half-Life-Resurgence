@@ -67,7 +67,7 @@ function ENT:HLR_ActivateSpawner(eneEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink() // !self.Dead && 
-	if self.VJBaseSpawnerDisabled && GetConVar("ai_disabled"):GetInt() == 0 then
+	if self.VJBaseSpawnerDisabled && VJ_CVAR_AI_ENABLED then
 		for _, v in ipairs(ents.FindInSphere(self:GetPos(), self.HLRSpawner_Distance)) do
 			if (v:IsNPC() or (v:IsPlayer() && !VJ_CVAR_IGNOREPLAYERS)) && !v:IsFlagSet(FL_NOTARGET) && self:Visible(v) && (!v.VJ_NPC_Class or !VJ.HasValue(v.VJ_NPC_Class, self.HLRSpawner_ClassType)) then
 				self:HLR_ActivateSpawner(v)

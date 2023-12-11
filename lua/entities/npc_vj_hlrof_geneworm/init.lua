@@ -175,7 +175,7 @@ function ENT:CustomOnInitialize()
 	self.GW_Portal.IdleLP:SetSoundLevel(100)
 
 	-- Fade in on spawn (Only if AI is enabled!)
-	if GetConVar("ai_disabled"):GetInt() == 0 then
+	if VJ_CVAR_AI_ENABLED then
 		self.GW_Portal:ResetSequence("open")
 		local sprParticles = ents.Create("info_particle_system")
 		sprParticles:SetKeyValue("effect_name", "vj_hlr_geneworm_sprites")
