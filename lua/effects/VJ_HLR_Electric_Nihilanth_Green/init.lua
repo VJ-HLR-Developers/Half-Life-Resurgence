@@ -1,5 +1,5 @@
 /*--------------------------------------------------
-	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
@@ -41,8 +41,3 @@ function EFFECT:Render()
 	render.SetMaterial(self.MainMat)
 	render.DrawBeam(self.StartPos, self.EndPos, math.Rand(200,200), math.Rand(0,1), ((self.StartPos - self.EndPos):Length() / 20000), Color(255,255,255,255))
 end
-/*--------------------------------------------------
-	*** Copyright (c) 2012-2023 by DrVrej, All rights reserved. ***
-	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
-	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
---------------------------------------------------*/
