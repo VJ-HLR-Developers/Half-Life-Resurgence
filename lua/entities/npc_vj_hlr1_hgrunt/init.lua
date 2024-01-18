@@ -274,72 +274,72 @@ function ENT:CustomOnAlert(ent)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnSetupWeaponHoldTypeAnims(wepHoldType)
+function ENT:SetAnimationTranslations(wepHoldType)
 	local bgroup = self.HGrunt_LastBodyGroup
-	self.WeaponAnimTranslations[ACT_IDLE] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_repel") or ACT_IDLE
-	self.WeaponAnimTranslations[ACT_IDLE_ANGRY] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_repel") or ACT_IDLE_ANGRY
+	self.AnimationTranslations[ACT_IDLE] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_repel") or ACT_IDLE
+	self.AnimationTranslations[ACT_IDLE_ANGRY] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_repel") or ACT_IDLE_ANGRY
 	if self.HECU_Type == 0 or self.HECU_Type == 9 then-- 0 = HL1 Grunt
 		if bgroup == 0 then -- MP5
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1_LOW
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1_LOW
 		elseif bgroup == 1 then -- Shotgun
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN_LOW
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN_LOW
 		end
 	elseif self.HECU_Type == 1 then -- 1 = OppF Grunt
 		if bgroup == 0 then -- MP5
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
 		elseif bgroup == 1 then -- Shotgun
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SHOTGUN
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SHOTGUN_LOW
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SHOTGUN
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SHOTGUN_LOW
 		elseif bgroup == 2 then -- SAW
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_AR2
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_AR2_LOW
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_AR2
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_AR2_LOW
 		end
 	elseif self.HECU_Type == 2 then -- 2 = OppF Medic
 		if bgroup == 0 or bgroup == 1 then -- Desert Eagle or Glock 17
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_PISTOL
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_PISTOL_LOW
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_PISTOL
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_PISTOL_LOW
 		end
 	elseif self.HECU_Type == 3 then -- 3 = OppF Engineer
 		if bgroup == 0 then -- Desert Eagle
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_PISTOL
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_PISTOL_LOW
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_PISTOL
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_PISTOL_LOW
 		end
 	elseif self.HECU_Type == 4 then -- 4 = Black Ops Assassin
 		if bgroup == 0 then -- MP5
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1_LOW
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1_LOW
 		elseif bgroup == 1 then -- M-40A1
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_AR2
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_AR2_LOW
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_AR2
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_AR2_LOW
 		end
 	elseif self.HECU_Type == 5 then -- 5 = Robot Grunt
 		if bgroup == 0 then -- MP5
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1_LOW
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1_LOW
 		elseif bgroup == 1 then -- Shotgun
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN_LOW
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN_LOW
 		end
 	elseif self.HECU_Type == 6 then -- 6 = Alpha HGrunt
 		if bgroup == 0 then -- Colt Carbine
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1
 		end
 	elseif self.HECU_Type == 7 then -- 7 = Human Sergeant
 		if bgroup == 0 then -- 20mm Cannon
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_AR2
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_AR2
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_AR2
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_AR2
 		end
 	elseif self.HECU_Type == 8 then -- 8 = Soviet Grunt (Crack-Life Resurgence)
 		if bgroup == 0 then -- MP5
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
 		elseif bgroup == 1 then -- Shotgun
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SHOTGUN
-			self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SHOTGUN_LOW
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SHOTGUN
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SHOTGUN_LOW
 		end
 	end
 	return true
@@ -353,7 +353,7 @@ function ENT:HECU_StopRappelling()
 	self:SetVelocity(defPos)
 	self:SetState()
 	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-	self:CustomOnSetupWeaponHoldTypeAnims()
+	self:SetAnimationTranslations()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 -- Used for custom HECU soldiers
