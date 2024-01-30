@@ -6,7 +6,7 @@
 AddCSLuaFile()
 
 ENT.Type 			= "anim"
-ENT.Base 			= "base_gmodentity"
+ENT.Base 			= "base_anim"
 ENT.PrintName		= "Gene Worm Spawner"
 ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
