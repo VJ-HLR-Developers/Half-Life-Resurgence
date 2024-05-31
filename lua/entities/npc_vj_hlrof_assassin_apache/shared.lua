@@ -1,4 +1,4 @@
-ENT.Base 			= "npc_vj_hlr1_apache"
+ENT.Base 			= "npc_vj_creature_base"
 ENT.Type 			= "ai"
 ENT.PrintName 		= "Black Ops AH-64 Apache"
 ENT.Author 			= "DrVrej"

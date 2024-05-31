@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/sentry.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/sentry.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 100
 ENT.HullType = HULL_HUMAN
 ENT.SightDistance = 1300 -- How far it can see
@@ -34,13 +34,13 @@ ENT.NextRangeAttackTime = 0 -- How much time until it can use a range attack?
 ENT.NextAnyAttackTime_Range = 0.01 -- How much time until it can use any attack again? | Counted in Seconds
 
 ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
-ENT.PoseParameterLooking_InvertPitch = true -- Inverts the pitch poseparameters (X)
-ENT.PoseParameterLooking_InvertYaw = true -- Inverts the yaw poseparameters (Y)
+ENT.PoseParameterLooking_InvertPitch = true -- Inverts the pitch pose parameters (X)
+ENT.PoseParameterLooking_InvertYaw = true -- Inverts the yaw pose parameters (Y)
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/turret/tu_deploy.wav"}
-ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav","ambient/energy/spark2.wav","ambient/energy/spark3.wav","ambient/energy/spark4.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/turret/tu_die.wav","vj_hlr/hl1_npc/turret/tu_die2.wav","vj_hlr/hl1_npc/turret/tu_die2.wav"}
+ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav", "ambient/energy/spark2.wav", "ambient/energy/spark3.wav", "ambient/energy/spark4.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/turret/tu_die.wav", "vj_hlr/hl1_npc/turret/tu_die2.wav", "vj_hlr/hl1_npc/turret/tu_die2.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 
@@ -50,16 +50,19 @@ ENT.Sentry_AlarmAttach = "1" -- Attachment that the alarm sprite spawns
 ENT.Sentry_Type = 0 -- 0 = Regular Ground Sentry | 1 = Big Ceiling/Ground Turret | 2 = Mini Ceiling/Ground Turret
 ENT.Sentry_OrientationType = 0 -- 0 = Ground | 1 = Ceiling
 ENT.Sentry_GroundType = 0 -- 0 = Regular Ground Sentry | 1 = Decay Ground Sentry
+ENT.Sentry_DeployedAnim = "spin" -- Animation to play when it's deployed, idle angry basically | This is auto translated it to an activity on initialize!
+-- Regular = ACT_SPIN | Decay = ACT_IDLE_RELAXED | Big & Mini ceiling/ground = ACT_IDLE_ANGRY
 
 ENT.Sentry_HasLOS = false -- Has line of sight
 ENT.Sentry_StandDown = true
 ENT.Sentry_SpunUp = false
-ENT.Sentry_CurrentParameter = 0
+ENT.Sentry_CurrentYawParameter = 0
 ENT.Sentry_NextAlarmT = 0
 ENT.Sentry_ControllerStatus = 0 -- Current status of the controller, 0 = Idle | 1 = Alerted
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(13, 13, 60), Vector(-13, -13, 0))
+	self.Sentry_DeployedAnim = VJ.SequenceToActivity(self, self.Sentry_DeployedAnim)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
@@ -71,58 +74,62 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	
 	function controlEnt:CustomOnKeyPressed(key)
 		if key == KEY_SPACE then
-			if self.VJCE_NPC.Sentry_ControllerStatus == 0 then
-				self.VJCE_NPC.Sentry_ControllerStatus = 1
-				self.VJCE_NPC.HasPoseParameterLooking = true
-				self.VJCE_NPC:PlaySoundSystem("Alert")
-				self.VJCE_NPC:Sentry_Activate()
-			elseif self.VJCE_NPC.Sentry_SpunUp then -- Do NOT become idle if we are playing an activate routine!
-				self.VJCE_NPC.Sentry_ControllerStatus = 0
-				self.VJCE_NPC.HasPoseParameterLooking = false
+			local npc = self.VJCE_NPC
+			if npc.Sentry_ControllerStatus == 0 then
+				npc.Sentry_ControllerStatus = 1
+				npc.HasPoseParameterLooking = true
+				npc:PlaySoundSystem("Alert")
+				npc:Sentry_Activate()
+			elseif npc.Sentry_SpunUp then -- Do NOT become idle if we are playing an activate routine!
+				npc.Sentry_ControllerStatus = 0
+				npc.HasPoseParameterLooking = false
 			end
 		end
 	end
 	
 	function controlEnt:CustomOnStopControlling(keyPressed)
-		if IsValid(self.VJCE_NPC) then
-			self.VJCE_NPC.HasPoseParameterLooking = true
+		local npc = self.VJCE_NPC
+		if IsValid(npc) then
+			npc.HasPoseParameterLooking = true
 		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:TranslateActivity(act)
+	if act == ACT_IDLE && !self.Sentry_StandDown then
+		return self.Sentry_DeployedAnim
+	end
+	return self.BaseClass.TranslateActivity(self, act)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	local parameter = self:GetPoseParameter("aim_yaw")
-	if parameter != self.Sentry_CurrentParameter then
-		self.sentry_turningsd = CreateSound(self, "vj_hlr/hl1_npc/turret/motor_loop.wav")
-		self.sentry_turningsd:SetSoundLevel(70)
-		self.sentry_turningsd:PlayEx(1,100)
+	if parameter != self.Sentry_CurrentYawParameter then
+		self.CurrentSentryTurnSound = CreateSound(self, "vj_hlr/hl1_npc/turret/motor_loop_.wav")
+		self.CurrentSentryTurnSound:SetSoundLevel(70)
+		self.CurrentSentryTurnSound:PlayEx(1, 100)
 		if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
-			self.sentry_turningsd2 = CreateSound(self, "vj_hlr/hl1_npc/turret/tu_active2.wav")
-			self.sentry_turningsd2:SetSoundLevel(70)
-			self.sentry_turningsd2:PlayEx(1,100)
+			self.CurrentSentryTurnSound2 = CreateSound(self, "vj_hlr/hl1_npc/turret/tu_active2.wav")
+			self.CurrentSentryTurnSound2:SetSoundLevel(70)
+			self.CurrentSentryTurnSound2:PlayEx(1, 100)
 		end
 	else
-		VJ.STOPSOUND(self.sentry_turningsd)
+		VJ.STOPSOUND(self.CurrentSentryTurnSound)
 		if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
-			VJ.STOPSOUND(self.sentry_turningsd2)
+			VJ.STOPSOUND(self.CurrentSentryTurnSound2)
 		end
 	end
-	self.Sentry_CurrentParameter = parameter
+	self.Sentry_CurrentYawParameter = parameter
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	if self.Dead then return end
 	local eneValid = IsValid(self:GetEnemy())
-	-- Make it not reset its pose parameters while its transitioning from Alert to Idle
-	if self.Alerted && !eneValid then
-		self.PoseParameterLooking_CanReset = false
-	else
-		self.PoseParameterLooking_CanReset = true
-	end
-	if (self.Sentry_ControllerStatus == 1) or (!self.VJ_IsBeingControlled && (eneValid or self.Alerted == true)) then
+	-- Don't reset pose parameters while its transitioning from Alert to Idle
+	self.PoseParameterLooking_CanReset = (!self.Alerted && eneValid)
+	
+	if (self.Sentry_ControllerStatus == 1) or (!self.VJ_IsBeingControlled && (eneValid or self.Alerted)) then
 		self.Sentry_StandDown = false
-		self.AnimTbl_IdleStand = {"spin"}
-		
 		if CurTime() > self.Sentry_NextAlarmT && self.Sentry_Type != 2 then
 			local glow = ents.Create("env_sprite")
 			glow:SetKeyValue("model","vj_base/sprites/vj_glow1.vmt")
@@ -139,9 +146,8 @@ function ENT:CustomOnThink_AIEnabled()
 			self.Sentry_NextAlarmT = CurTime() + 1
 			VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_ping.wav", 75, 100)
 		end
-		
 		if !eneValid then -- Look around randomly when the enemy is not found
-			self:SetPoseParameter("aim_yaw", self:GetPoseParameter("aim_yaw") + 4)
+			self:SetPoseParameter("aim_yaw", self.Sentry_CurrentYawParameter + 4)
 		end
 	else
 		if ((self.Sentry_ControllerStatus == 0) or (!self.VJ_IsBeingControlled && self.Alerted == false)) && self.Sentry_StandDown == false then
@@ -150,25 +156,18 @@ function ENT:CustomOnThink_AIEnabled()
 			end
 			self.Sentry_StandDown = true
 			self:VJ_ACT_PLAYACTIVITY("retire", true, 1)
-			VJ.EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_retract.wav"}, 65, self:VJ_DecideSoundPitch(100, 110))
+			VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_retract.wav", 65, math.random(100, 110))
 			if self.Sentry_Type == 1 then
 				self.Sentry_SpunUp = false
 				VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_spindown.wav", 80, 100)
 			end
-		end
-		if self.Sentry_StandDown == true then
-			self.AnimTbl_IdleStand = {"idle_off"}
 		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOn_PoseParameterLookingCode(pitch, yaw, roll)
 	-- Compare the difference between the current position of the pose parameter and the position it's suppose to go to
-	if (math.abs(math.AngleDifference(self:GetPoseParameter("aim_yaw"), math.ApproachAngle(self:GetPoseParameter("aim_yaw"), yaw, self.PoseParameterLooking_TurningSpeed))) >= 10) or (math.abs(math.AngleDifference(self:GetPoseParameter("aim_pitch"), math.ApproachAngle(self:GetPoseParameter("aim_pitch"), pitch, self.PoseParameterLooking_TurningSpeed))) >= 10) then
-		self.Sentry_HasLOS = false
-	else
-		self.Sentry_HasLOS = true
-	end
+	self.Sentry_HasLOS = !((math.abs(math.AngleDifference(self.Sentry_CurrentYawParameter, math.ApproachAngle(self.Sentry_CurrentYawParameter, yaw, self.PoseParameterLooking_TurningSpeed))) >= 10) or (math.abs(math.AngleDifference(self:GetPoseParameter("aim_pitch"), math.ApproachAngle(self:GetPoseParameter("aim_pitch"), pitch, self.PoseParameterLooking_TurningSpeed))) >= 10))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttackCheck_RangeAttack()
@@ -221,28 +220,28 @@ function ENT:Sentry_Activate()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
-	local gunPos = self:GetAttachment(self:LookupAttachment(self.Sentry_MuzzleAttach)).Pos
-	local bullet = {}
-	bullet.Num = 1
-	bullet.Src = gunPos
-	bullet.Dir = (self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter()) - gunPos
-	bullet.Spread = Vector(math.random(-15,15), math.random(-15,15), math.random(-15,15))
-	bullet.Tracer = 1
-	bullet.TracerName = "VJ_HLR_Tracer"
-	bullet.Force = 5
-	bullet.Damage = (self.Sentry_Type == 1 and 7) or 3
-	bullet.AmmoType = "SMG1"
-	self:FireBullets(bullet)
+	local attPos = self:GetAttachment(self:LookupAttachment(self.Sentry_MuzzleAttach)).Pos
+	self:FireBullets({
+		Num = 1,
+		Src = attPos,
+		Dir = (self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter()) - attPos,
+		Spread = Vector(math.random(-15, 15), math.random(-15, 15), math.random(-15, 15)),
+		Tracer = 1,
+		TracerName = "VJ_HLR_Tracer",
+		Force = 5,
+		Damage = (self.Sentry_Type == 1 and 7) or 3,
+		AmmoType = "SMG1"
+	})
 	
-	VJ.EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_fire1.wav"}, 90, self:VJ_DecideSoundPitch(100, 110))
-	VJ.EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_fire1_distant.wav"}, 140, self:VJ_DecideSoundPitch(100, 110))
+	VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1.wav", 90, math.random(100, 110))
+	VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1_distant.wav", 140, math.random(100, 110))
 	
 	local muz = ents.Create("env_sprite_oriented")
-	muz:SetKeyValue("model","vj_hl/sprites/muzzleflash3.vmt")
+	muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash3.vmt")
 	if self.Sentry_Type == 1 then
-		muz:SetKeyValue("scale",""..math.Rand(0.8, 1))
+		muz:SetKeyValue("scale", ""..math.Rand(0.8, 1))
 	else
-		muz:SetKeyValue("scale",""..math.Rand(0.3, 0.5))
+		muz:SetKeyValue("scale", ""..math.Rand(0.3, 0.5))
 	end
 	muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
 	muz:SetKeyValue("HDRColorScale","1.0")
@@ -257,25 +256,26 @@ function ENT:CustomRangeAttackCode()
 	muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
 	muz:Spawn()
 	muz:Activate()
-	muz:Fire("Kill","",0.08)
+	muz:Fire("Kill", "", 0.08)
 	
 	local muzzleLight = ents.Create("light_dynamic")
 	muzzleLight:SetKeyValue("brightness", "4")
 	muzzleLight:SetKeyValue("distance", "120")
-	muzzleLight:SetPos(gunPos)
+	muzzleLight:SetPos(attPos)
 	muzzleLight:SetLocalAngles(self:GetAngles())
 	muzzleLight:Fire("Color", "255 150 60")
 	muzzleLight:SetParent(self)
 	muzzleLight:Spawn()
 	muzzleLight:Activate()
-	muzzleLight:Fire("TurnOn","",0)
-	muzzleLight:Fire("Kill","",0.07)
+	muzzleLight:Fire("TurnOn")
+	muzzleLight:Fire("Kill", "", 0.07)
 	self:DeleteOnRemove(muzzleLight)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vecUp20 = Vector(0, 0, 20)
 --
 function ENT:CustomOnKilled(dmginfo, hitgroup)
+	-- Explosion sprite
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
 	spr:SetKeyValue("GlowProxySize","2.0")
@@ -296,58 +296,64 @@ function ENT:CustomOnKilled(dmginfo, hitgroup)
 		local pos = self:GetAttachment(self:LookupAttachment("center")).Pos + vecUp20
 		spr:SetPos(pos)
 		util.BlastDamage(self, self, pos, 50, 30)
-		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 80, 100)
-		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1, 3)..".wav", 80, 100)
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
 		self.GibOnDeathDamagesTable = {"All"}
-		self:RunGibOnDeathCode(dmginfo, hitgroup)
+		self:RunGibOnDeathCode(DamageInfo(), hitgroup) -- Do NOT use "dmginfo", it will be corrupted by now because GMod can only have 1!
 	else
 		spr:SetPos(self:GetPos() + self:GetUp()*60)
 	end
 	spr:Spawn()
 	spr:Fire("Kill", "", 0.9)
-	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+	timer.Simple(0.9, function()
+		if IsValid(spr) then
+			spr:Remove()
+		end
+	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local gibsCollideSd = {"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}
+local gibsCollideSd = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	local upPos = self.Sentry_OrientationType == 1 and -30 or 20
 	local attPos = self.Sentry_GroundType == 1 and self:GetAttachment(self:LookupAttachment("center")).Pos or nil -- Decay sentry gun
-	if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p1.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(1,0,upPos)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p2.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,1,upPos)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p3.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(2,0,upPos)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p4.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,2,upPos)),CollideSound=gibsCollideSd})
-		if self.Sentry_Type == 1 then
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p5.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(3,0,upPos)),CollideSound=gibsCollideSd})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p6.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,3,upPos)),CollideSound=gibsCollideSd})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p7.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(4,0,upPos)),CollideSound=gibsCollideSd})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p8.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,4,upPos)),CollideSound=gibsCollideSd})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p9.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(5,0,upPos)),CollideSound=gibsCollideSd})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p10.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,5,upPos)),CollideSound=gibsCollideSd})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p11.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(6,0,upPos)),CollideSound=gibsCollideSd})
+	if self.Sentry_Type == 1 or self.Sentry_Type == 2 then -- Big Ceiling/Ground Turret and Mini Ceiling/Ground Turret
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p1.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(1,0,upPos)), CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p2.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0,1,upPos)), CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p3.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(2,0,upPos)), CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p4.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0,2,upPos)), CollideSound=gibsCollideSd})
+		if self.Sentry_Type == 1 then -- Big Ceiling/Ground Turret
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p5.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(3,0,upPos)), CollideSound=gibsCollideSd})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p6.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0,3,upPos)), CollideSound=gibsCollideSd})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p7.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(4,0,upPos)), CollideSound=gibsCollideSd})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p8.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0,4,upPos)), CollideSound=gibsCollideSd})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p9.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(5,0,upPos)), CollideSound=gibsCollideSd})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p10.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0,5,upPos)), CollideSound=gibsCollideSd})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p11.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(6,0,upPos)), CollideSound=gibsCollideSd})
 		end
-	else
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p1_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(1,0,20)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p2_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(0,1,20)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p3_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(2,0,20)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p4_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(0,2,20)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p5_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(3,0,20)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p6_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(0,3,20)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p7_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(4,0,20)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p8_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(0,4,20)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p9_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(5,0,20)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p10_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(0,5,20)),CollideSound=gibsCollideSd})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p11_g.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(6,0,20)),CollideSound=gibsCollideSd})
+	else -- All other turrets
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p1_g.mdl", {BloodDecal="", Pos=attPos or self:LocalToWorld(Vector(1,0,20)), CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p2_g.mdl", {BloodDecal="", Pos=attPos or self:LocalToWorld(Vector(0,1,20)), CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p3_g.mdl", {BloodDecal="", Pos=attPos or self:LocalToWorld(Vector(2,0,20)), CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p4_g.mdl", {BloodDecal="", Pos=attPos or self:LocalToWorld(Vector(0,2,20)), CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p5_g.mdl", {BloodDecal="", Pos=attPos or self:LocalToWorld(Vector(3,0,20)), CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p6_g.mdl", {BloodDecal="", Pos=attPos or self:LocalToWorld(Vector(0,3,20)), CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p7_g.mdl", {BloodDecal="", Pos=attPos or self:LocalToWorld(Vector(4,0,20)), CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p8_g.mdl", {BloodDecal="", Pos=attPos or self:LocalToWorld(Vector(0,4,20)), CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p9_g.mdl", {BloodDecal="", Pos=attPos or self:LocalToWorld(Vector(5,0,20)), CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p10_g.mdl", {BloodDecal="", Pos=attPos or self:LocalToWorld(Vector(0,5,20)), CollideSound=gibsCollideSd})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p11_g.mdl", {BloodDecal="", Pos=attPos or self:LocalToWorld(Vector(6,0,20)), CollideSound=gibsCollideSd})
 	end
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_cog1.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(1,0,upPos)),CollideSound=gibsCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_cog2.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(0,1,upPos)),CollideSound=gibsCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_rib.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(2,0,upPos)),CollideSound=gibsCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_screw.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(0,2,upPos)),CollideSound=gibsCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_screw.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(3,0,upPos)),CollideSound=gibsCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_screw.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(0,3,upPos)),CollideSound=gibsCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/rgib_spring.mdl",{BloodDecal="",Pos=attPos or self:LocalToWorld(Vector(4,0,upPos)),CollideSound=""}) -- Shad ge sharji, ere vor tsayn chi hane
+	
+	-- General gibs for all turrets
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_cog1.mdl", {BloodDecal="", Pos=attPos or self:LocalToWorld(Vector(1,0,upPos)), CollideSound=gibsCollideSd})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_cog2.mdl", {BloodDecal="", Pos=attPos or self:LocalToWorld(Vector(0,1,upPos)), CollideSound=gibsCollideSd})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_rib.mdl", {BloodDecal="", Pos=attPos or self:LocalToWorld(Vector(2,0,upPos)), CollideSound=gibsCollideSd})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {BloodDecal="", Pos=attPos or self:LocalToWorld(Vector(0,2,upPos)), CollideSound=gibsCollideSd})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {BloodDecal="", Pos=attPos or self:LocalToWorld(Vector(3,0,upPos)), CollideSound=gibsCollideSd})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {BloodDecal="", Pos=attPos or self:LocalToWorld(Vector(0,3,upPos)), CollideSound=gibsCollideSd})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_spring.mdl", {BloodDecal="", Pos=attPos or self:LocalToWorld(Vector(4,0,upPos)), CollideSound=""}) -- Shad ge sharji, ere vor tsayn chi hane
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -371,8 +377,6 @@ function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-	VJ.STOPSOUND(self.sentry_turningsd)
-	if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
-		VJ.STOPSOUND(self.sentry_turningsd2)
-	end
+	VJ.STOPSOUND(self.CurrentSentryTurnSound)
+	VJ.STOPSOUND(self.CurrentSentryTurnSound2)
 end

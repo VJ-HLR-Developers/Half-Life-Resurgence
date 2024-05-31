@@ -5,15 +5,15 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/archer.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/archer.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 50
 ENT.HullType = HULL_TINY
 ENT.TurningUseAllAxis = true -- If set to true, angles will not be restricted to y-axis, it will change all axes (plural axis)
 ENT.MovementType = VJ_MOVETYPE_AQUATIC -- How does the SNPC move?
 ENT.Aquatic_SwimmingSpeed_Calm = 80 -- The speed it should swim with, when it's wandering, moving slowly, etc. | Basically walking compared to ground SNPCs
 ENT.Aquatic_SwimmingSpeed_Alerted = 350 -- The speed it should swim with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground SNPCs
-ENT.Aquatic_AnimTbl_Calm = {ACT_WALK} -- Animations it plays when it's wandering around while idle
-ENT.Aquatic_AnimTbl_Alerted = {ACT_RUN} -- Animations it plays when it's moving while alerted
+ENT.Aquatic_AnimTbl_Calm = ACT_WALK -- Animations it plays when it's wandering around while idle
+ENT.Aquatic_AnimTbl_Alerted = ACT_RUN -- Animations it plays when it's moving while alerted
 ENT.VJC_Data = {
 	FirstP_Bone = "bip01 neck", -- If left empty, the base will attempt to calculate a position for first person
 	FirstP_Offset = Vector(1, 0, 9), -- The offset for the controller when the camera is in first person
@@ -28,10 +28,10 @@ ENT.HasBloodPool = false -- Does it have a blood pool?
 
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.MeleeAttackDamage = 15
-ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1} -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1 -- Melee Attack Animations
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDistance = 40 -- How close does it have to be until it attacks?
-ENT.MeleeAttackDamageDistance = 50 -- How far does the damage go?
+ENT.MeleeAttackDistance = 40 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.MeleeAttackDamageDistance = 50 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_archerspit" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
@@ -50,10 +50,10 @@ ENT.ConstantlyFaceEnemy = true -- Should it face the enemy constantly?
 ENT.ConstantlyFaceEnemyDistance = 1500 -- How close does it have to be until it starts to face the enemy?
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {ACT_DIESIMPLE} -- Death Animations
+ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- If it uses normal based animation, use this
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/archer/arch_idle1.wav","vj_hlr/hl1_npc/archer/arch_idle2.wav","vj_hlr/hl1_npc/archer/arch_idle3.wav"}

@@ -7,7 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 local combatDistance = 4000 -- When closer then this, it will stop chasing and start firing
 
-ENT.Model = {"models/vj_hlr/hl1/osprey.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/osprey.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.VJ_IsHugeMonster = true
 ENT.StartHealth = 800
 ENT.HullType = HULL_LARGE
@@ -18,8 +18,6 @@ ENT.TurningUseAllAxis = false -- If set to true, angles will not be restricted t
 ENT.MovementType = VJ_MOVETYPE_AERIAL -- How does the SNPC move?
 ENT.Aerial_FlyingSpeed_Alerted = 300 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground SNPCs
 ENT.Aerial_FlyingSpeed_Calm = ENT.Aerial_FlyingSpeed_Alerted -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground SNPCs
-ENT.Aerial_AnimTbl_Calm = {nil} -- Animations it plays when it's wandering around while idle
-ENT.Aerial_AnimTbl_Alerted = {nil} -- Animations it plays when it's moving while alerted
 ENT.AA_GroundLimit = 1200 -- If the NPC's distance from itself to the ground is less than this, it will attempt to move up
 ENT.AA_MinWanderDist = 1000 -- Minimum distance that the NPC should go to when wandering
 ENT.AA_MoveAccelerate = 8 -- The NPC will gradually speed up to the max movement speed as it moves towards its destination | Calculation = FrameTime * x
@@ -32,7 +30,7 @@ ENT.VJC_Data = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
 ENT.FindEnemy_UseSphere = true -- Should the SNPC be able to see all around him? (360) | Objects and walls can still block its sight!
-ENT.CanTurnWhileMoving = false -- If enemy is exists and is visible
+ENT.CanTurnWhileMoving = false -- Can the NPC turn while moving? | EX: GoldSrc NPCs, Facing enemy while running to cover, Facing the player while moving out of the way
 ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it"s between number x and y?
 ENT.NoChaseAfterCertainRange_FarDistance = combatDistance -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_CloseDistance = 0 -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
@@ -151,6 +149,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("JUMP: Deploy soldiers, can redeploy after all die & cool down expires!")
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:TranslateActivity(act)
+	return ACT_IDLE -- We don't want it do anything else!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
@@ -539,12 +541,12 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	-- FIXME: this needs to be implemented better, right now this is a basic idea, often causes osprey to just explode midair, but the shit looks beautiful when everything goes right.
 	local pos = self:GetAttachment(self:LookupAttachment("engine_right")).Pos
 	local gibSkin = self:GetModel() == "models/vj_hlr/hl1/osprey_blkops.mdl" and 1 or 0
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib1.mdl", {BloodDecal="",Pos=pos + Vector(90,0,-100),CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib2.mdl", {BloodDecal="",Pos=pos + Vector(90,0,0),CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib3.mdl", {BloodDecal="",Pos=pos + Vector(95,0,90),CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib9.mdl", {BloodDecal="",Pos=pos + Vector(95,0,93),CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib10.mdl", {BloodDecal="",Pos=pos + Vector(95,0,95),CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib11.mdl", {BloodDecal="",Pos=pos + Vector(95,0,96),CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib1.mdl", {BloodDecal="", Pos=pos + Vector(90,0,-100), CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib2.mdl", {BloodDecal="", Pos=pos + Vector(90,0,0), CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib3.mdl", {BloodDecal="", Pos=pos + Vector(95,0,90), CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib9.mdl", {BloodDecal="", Pos=pos + Vector(95,0,93), CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib10.mdl", {BloodDecal="", Pos=pos + Vector(95,0,95), CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib11.mdl", {BloodDecal="", Pos=pos + Vector(95,0,96), CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
 	
 	-- Make the gunners gib into pieces!
 	-- Also unparent them because Source engine spawns them at a random location...

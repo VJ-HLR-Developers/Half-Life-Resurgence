@@ -1,4 +1,4 @@
-ENT.Base 			= "npc_vj_hlr1_sentry"
+ENT.Base 			= "npc_vj_creature_base"
 ENT.Type 			= "ai"
 ENT.PrintName 		= "Black Mesa Ceiling Turret (Mini)"
 ENT.Author 			= "DrVrej"

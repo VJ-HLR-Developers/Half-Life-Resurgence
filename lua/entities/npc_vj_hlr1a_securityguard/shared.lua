@@ -1,4 +1,4 @@
-ENT.Base 			= "npc_vj_hlr1_securityguard"
+ENT.Base 			= "npc_vj_human_base"
 ENT.Type 			= "ai"
 ENT.PrintName 		= "Alpha Security Guard"
 ENT.Author 			= "DrVrej"

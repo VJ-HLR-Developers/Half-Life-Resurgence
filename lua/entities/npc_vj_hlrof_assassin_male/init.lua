@@ -1,3 +1,4 @@
+include("entities/npc_vj_hlr1_hgrunt/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
@@ -5,9 +6,9 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/opfor/massn.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/opfor/massn.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.VJ_NPC_Class = {"CLASS_BLACKOPS"}
-ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1,ACT_MELEE_ATTACK2,ACT_MELEE_ATTACK_SWING} -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2, ACT_MELEE_ATTACK_SWING}
 ENT.HasPainSounds = false
 ENT.HasDeathSounds = false
 
@@ -21,11 +22,13 @@ function ENT:HECU_CustomOnInitialize()
 	self.BOA_NextStrafeT = CurTime() + 4
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local animStrafing = {ACT_STRAFE_RIGHT, ACT_STRAFE_LEFT}
+--
 function ENT:HECU_CustomOnThink()
 	if self.VJ_IsBeingControlled then return end
 	if IsValid(self:GetEnemy()) && self.DoingWeaponAttack_Standing == true && self.VJ_IsBeingControlled == false && CurTime() > self.BOA_NextStrafeT && !self:IsMoving() && self:GetPos():Distance(self:GetEnemy():GetPos()) < 1400 then
 		self:StopMoving()
-		self:VJ_ACT_PLAYACTIVITY({ACT_STRAFE_RIGHT,ACT_STRAFE_LEFT}, true, false, false)
+		self:VJ_ACT_PLAYACTIVITY(animStrafing, true, false, false)
 		self.BOA_NextRunT = CurTime() + 2
 		//if self:GetBodygroup(2) == 1 then
 			//self.BOA_NextStrafeT = CurTime() + 2

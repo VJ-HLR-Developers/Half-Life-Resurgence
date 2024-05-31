@@ -1,4 +1,4 @@
-ENT.Base 			= "npc_vj_hlr2_com_civilp"
+ENT.Base 			= "npc_vj_human_base"
 ENT.Type 			= "ai"
 ENT.PrintName 		= "Civil Protection Elite"
 ENT.Author 			= "DrVrej"
@@ -9,9 +9,9 @@ ENT.Category		= "Half-Life Resurgence"
 
 if CLIENT && GetConVar("vj_hlr2_combine_eyeglow"):GetInt() == 1 then
     local mat = Material("sprites/light_glow02_add")
-    local vecOrigin = Vector(3.75,7,1.75)
+    local vecOrigin = Vector(3.75, 7, 1.75)
     local size = 8
-    local col = Color(255,213,123)
+    local col = Color(255, 213, 123)
 	function ENT:Draw()
 		self:DrawModel()
         local bone = self:LookupBone("ValveBiped.Bip01_Head1")

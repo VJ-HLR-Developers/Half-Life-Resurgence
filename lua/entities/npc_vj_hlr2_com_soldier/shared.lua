@@ -9,9 +9,9 @@ ENT.Category		= "Half-Life Resurgence"
 
 if CLIENT && GetConVar("vj_hlr2_combine_eyeglow"):GetInt() == 1 then
     local mat = Material("sprites/light_glow02_add")
-    local vecOrigin = Vector(4.5,5,1.75)
+    local vecOrigin = Vector(4.5, 5, 1.75)
     local size = 8
-    local col = Color(123,182,255)
+    local col = Color(123, 182, 255)
 	function ENT:Draw()
 		self:DrawModel()
         local bone = self:LookupBone("ValveBiped.Bip01_Head1")

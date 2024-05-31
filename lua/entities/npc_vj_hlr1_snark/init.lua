@@ -5,10 +5,10 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/snark.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/snark.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 5
 ENT.HullType = HULL_TINY
-ENT.EntitiesToNoCollide = {"npc_vj_hlr1_snark"} -- Entities to not collide with when HasEntitiesToNoCollide is set to true
+ENT.EntitiesToNoCollide = {"npc_vj_hlr1_snark"} -- Set to a table of entity class names for the NPC to not collide with otherwise leave it to false
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
@@ -22,13 +22,13 @@ ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's dam
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
 ENT.HasLeapAttack = true -- Should the SNPC have a leap attack?
-ENT.AnimTbl_LeapAttack = {ACT_JUMP} -- Melee Attack Animations
+ENT.AnimTbl_LeapAttack = ACT_JUMP -- Melee Attack Animations
 ENT.LeapDistance = 200 -- The distance of the leap, for example if it is set to 500, when the SNPC is 500 Unit away, it will jump
 ENT.LeapToMeleeDistance = 0 -- How close does it have to be until it uses melee?
 ENT.TimeUntilLeapAttackDamage = 0.4 -- How much time until it runs the leap damage code?
 ENT.NextLeapAttackTime = 0.4 -- How much time until it can use a leap attack?
 ENT.NextAnyAttackTime_Leap = 0.4 -- How much time until it can use any attack again? | Counted in Seconds
-ENT.LeapAttackExtraTimers = {0.2,0.6} -- Extra leap attack timers | it will run the damage code after the given amount of seconds
+ENT.LeapAttackExtraTimers = {0.2, 0.6} -- Extra leap attack timers | it will run the damage code after the given amount of seconds
 ENT.LeapAttackVelocityForward = 100 -- How much forward force should it apply?
 ENT.LeapAttackVelocityUp = 180 -- How much upward force should it apply?
 ENT.LeapAttackDamage = 10
@@ -37,16 +37,13 @@ ENT.HasDeathRagdoll = false -- If set to false, it will not spawn the regular ra
 ENT.PushProps = false -- Should it push props when trying to move?
 ENT.IdleAlwaysWander = true -- If set to true, it will make the SNPC always wander when idling
 ENT.FindEnemy_UseSphere = true -- Should the SNPC be able to see all around him? (360) | Objects and walls can still block its sight!
-ENT.AnimTbl_IdleStand = {ACT_RUN} -- The idle animation when AI is enabled
-ENT.AnimTbl_Walk = {ACT_RUN} -- Set the walking animations | Put multiple to let the base pick a random animation when it moves
-ENT.AnimTbl_Run = {ACT_RUN} -- Set the running animations | Put multiple to let the base pick a random animation when it moves
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/squeek/sqk_hunt1.wav","vj_hlr/hl1_npc/squeek/sqk_hunt2.wav","vj_hlr/hl1_npc/squeek/sqk_hunt3.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/squeek/sqk_hunt1.wav","vj_hlr/hl1_npc/squeek/sqk_hunt2.wav","vj_hlr/hl1_npc/squeek/sqk_hunt3.wav"}
-ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/squeek/sqk_deploy1.wav"}
-ENT.SoundTbl_LeapAttackDamage = {"vj_hlr/hl1_npc/squeek/sqk_deploy1.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/squeek/sqk_die1.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/squeek/sqk_hunt1.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt2.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt3.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/squeek/sqk_hunt1.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt2.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt3.wav"}
+ENT.SoundTbl_MeleeAttack = "vj_hlr/hl1_npc/squeek/sqk_deploy1.wav"
+ENT.SoundTbl_LeapAttackDamage = "vj_hlr/hl1_npc/squeek/sqk_deploy1.wav"
+ENT.SoundTbl_Death = "vj_hlr/hl1_npc/squeek/sqk_die1.wav"
 
 ENT.IdleSoundChance = 1
 
@@ -55,17 +52,17 @@ ENT.NextSoundTime_Idle = VJ.SET(1, 3)
 ENT.GeneralSoundPitch1 = 100
 ENT.GeneralSoundPitch2 = 100
 
+local SNARK_TYPE_REGULAR = 0 -- Regular Snark
+local SNARK_TYPE_PENGUIN = 1 -- Opposing Forces Penguin
+	
 -- Custom
-ENT.Snark_Explodes = true
 ENT.Snark_Exploded = false
 ENT.Snark_NextJumpWalkT = 0
 ENT.Snark_Type = 0
-	-- 0 = Snark
-	-- 1 = Penguin
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Snark_CustomOnInitialize()
 	self:SetCollisionBounds(Vector(5, 5, 10), Vector(-5, -5, 0))
-	self.Snark_Type = 0
+	self.Snark_Type = SNARK_TYPE_REGULAR
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
@@ -80,28 +77,41 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:TranslateActivity(act)
+	if act != ACT_JUMP then -- Only let ACT_JUMP, otherwise make all animations ACT_RUN
+		return ACT_RUN
+	end
+	return self.BaseClass.TranslateActivity(self, act)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
+	if self.Dead then return end
 	local ene = self:GetEnemy()
-	if IsValid(ene) && self.VJ_IsBeingControlled == false && !self.Dead && self:IsOnGround() && self:Visible(ene) && self.LatestEnemyDistance > self.LeapDistance + 10 && CurTime() > self.Snark_NextJumpWalkT then
+	
+	-- Randomly jump while engaging an enemy
+	if IsValid(ene) && self.VJ_IsBeingControlled == false && self:IsOnGround() && self.EnemyData.IsVisible && self.LatestEnemyDistance > (self.LeapDistance + 10) && CurTime() > self.Snark_NextJumpWalkT then
 		self:VJ_ACT_PLAYACTIVITY(ACT_RUN, false, 0.7, true)
 		self:PlaySoundSystem("Alert")
 		self:SetGroundEntity(NULL)
-		self:SetLocalVelocity((ene:GetPos() - self:GetPos()):GetNormal()*400 + self:GetUp()*300)
+		self:ForceMoveJump((ene:GetPos() - self:GetPos()):GetNormal() * 400 + self:GetUp() * 300)
 		self.Snark_NextJumpWalkT = CurTime() + math.Rand(0.35, 1.8)
 	end
+	
+	-- Change the sound pitch depending on its energy
 	if (self.Snark_EnergyTime - CurTime()) < 6 then
 		self.UseTheSameGeneralSoundPitch_PickedNumber = self.UseTheSameGeneralSoundPitch_PickedNumber + 1
 	else
 		self.UseTheSameGeneralSoundPitch_PickedNumber = 100
 	end
 	
-	if !self.Dead && self.Snark_Explodes == true && !self.Snark_Exploded && CurTime() > self.Snark_EnergyTime then
+	-- No more energy time, explode!
+	if !self.Snark_Exploded && CurTime() > self.Snark_EnergyTime then
 		self.Snark_Exploded = true
 		self:SetState(VJ_STATE_FREEZE)
 		self:PlaySoundSystem("Death")
 		self.HasDeathSounds = false
 		self:SetGroundEntity(NULL)
-		self:SetLocalVelocity(self:GetUp()*300)
+		self:SetLocalVelocity(self:GetUp() * 300)
 		timer.Simple(0.7, function()
 			if IsValid(self) then
 				self:TakeDamage(self:Health(), self, self)
@@ -119,12 +129,14 @@ local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
 function ENT:CustomOnKilled(dmginfo, hitgroup)
+	local myPos = self:GetPos()
 	VJ.EmitSound(self, "vj_hlr/hl1_npc/squeek/sqk_blast1.wav", 90)
-	if self.Snark_Type == 0 then
-		VJ.ApplyRadiusDamage(self, self, self:GetPos(), 50, 15, DMG_ACID, true, true)
+	
+	if self.Snark_Type == SNARK_TYPE_REGULAR then
+		VJ.ApplyRadiusDamage(self, self, myPos, 50, 15, DMG_ACID, true, true)
 		if self.HasGibDeathParticles == true then
 			local effectData = EffectData()
-			effectData:SetOrigin(self:GetPos() + self:OBBCenter())
+			effectData:SetOrigin(myPos + self:OBBCenter())
 			effectData:SetColor(colorYellow)
 			effectData:SetScale(40)
 			util.Effect("VJ_Blood1", effectData)
@@ -134,14 +146,14 @@ function ENT:CustomOnKilled(dmginfo, hitgroup)
 			util.Effect("bloodspray", effectData)
 			util.Effect("bloodspray", effectData)
 		end
-	elseif self.Snark_Type == 1 then
-		VJ.EmitSound(self, {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}, 90)
-		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 100)
-		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
-		util.BlastDamage(self,self,self:GetPos(),80,35)
+	elseif self.Snark_Type == SNARK_TYPE_PENGUIN then
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3, 5)..".wav", 90)
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1, 3)..".wav", 100)
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
+		util.BlastDamage(self, self, myPos, 80, 35)
 		if self.HasGibDeathParticles == true then
 			local effectData = EffectData()
-			effectData:SetOrigin(self:GetPos() + self:OBBCenter())
+			effectData:SetOrigin(myPos + self:OBBCenter())
 			effectData:SetColor(colorRed)
 			effectData:SetScale(40)
 			util.Effect("VJ_Blood1", effectData)
@@ -164,7 +176,7 @@ function ENT:CustomOnKilled(dmginfo, hitgroup)
 			spr:SetKeyValue("framerate","15.0")
 			spr:SetKeyValue("spawnflags","0")
 			spr:SetKeyValue("scale","4")
-			spr:SetPos(self:GetPos() + self:GetUp()*80)
+			spr:SetPos(myPos + self:GetUp() * 80)
 			spr:Spawn()
 			spr:Fire("Kill","",0.9)
 			timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)

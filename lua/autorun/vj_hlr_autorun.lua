@@ -677,9 +677,9 @@ VJ.AddConVar("vj_hlr_autoreplace_random", 0, {FCVAR_ARCHIVE, FCVAR_NOTIFY})
 VJ.AddConVar("vj_hlr_autoreplace_randommix", 0, {FCVAR_ARCHIVE, FCVAR_NOTIFY})
 VJ.AddConVar("vj_hlr_autoreplace_alliedagainstply", 0, {FCVAR_ARCHIVE, FCVAR_NOTIFY})
 
-VJ.AddClientConVar("vj_hlr1_sparkfx", 0, "Create HL1-Style Sparks on Metal Surfaces")
+VJ.AddClientConVar("vj_hlr1_sparkfx", 0, "HL1-Style Sparks On Metal Surfaces")
 VJ.AddClientConVar("vj_hlr2_csniper_laser_usebarrel", 1, "Combine Sniper Laser Follows Gun Barrel")
-VJ.AddClientConVar("vj_hlr2_combine_eyeglow", 0, "Create Glow Effects to Combine Eyes")
+VJ.AddClientConVar("vj_hlr2_combine_eyeglow", 0, "Combine Eye Glow Effects")
 
 if CLIENT then
 	hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_HLR", function()
@@ -692,18 +692,18 @@ if CLIENT then
 			Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
 			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_osprey_deploysoldiers 1\nvj_hlr2_merkava_gunner 1\nvj_hlr1_assassin_cloaks 1\nvj_hlr1_corpse_effects 1\nvj_hlr1_corpse_gibbable 1\nvj_hlr2_custom_skins 1\nvj_hlr_hd 0"})
 			Panel:AddControl("Checkbox", {Label = "Enable HD Models (if available)", Command = "vj_hlr_hd"})
-			Panel:ControlHelp("Base HLR requires the HD extension to be installed!")
+			Panel:ControlHelp("Requires HD extension(s) to be installed!")
 			Panel:AddControl( "Label", {Text = "GoldSrc Engine:"})
 			Panel:AddControl("Checkbox", {Label = "Corpses Create Effects & Decals", Command = "vj_hlr1_corpse_effects"})
 			Panel:AddControl("Checkbox", {Label = "Corpses Can Be Dismembered", Command = "vj_hlr1_corpse_gibbable"})
 			Panel:AddControl("Checkbox", {Label = "M2A3 Bradley Deploys Human Grunts", Command = "vj_hlr1_bradley_deploygrunts"})
 			Panel:AddControl("Checkbox", {Label = "V-22 Osprey Deploys Human Grunts / Assassins", Command = "vj_hlr1_osprey_deploysoldiers"})
-			Panel:AddControl("Checkbox", {Label = "Female Assassin Cloaks During Combat", Command = "vj_hlr1_assassin_cloaks"})
+			Panel:AddControl("Checkbox", {Label = "Can Female Assassin Cloak?", Command = "vj_hlr1_assassin_cloaks"})
 			Panel:AddControl("Slider", {Label = "Gonarch Baby Headcrab Limit", min = 0, max = 100, Command = "vj_hlr1_gonarch_babylimit"})
 			Panel:AddControl( "Label", {Text = "Source Engine:"})
-			Panel:AddControl("Checkbox", {Label = "Merkava Spawns With a Gunner", Command = "vj_hlr2_merkava_gunner"})
-			Panel:AddControl("Checkbox", {Label = "Allow Custom NPC Skins", Command = "vj_hlr2_custom_skins"})
+			Panel:AddControl("Checkbox", {Label = "Custom NPC Skins", Command = "vj_hlr2_custom_skins"})
 			Panel:ControlHelp("Ex: Custom skins for Rebels & Refugees")
+			Panel:AddControl("Checkbox", {Label = "Merkava Spawns With a Gunner", Command = "vj_hlr2_merkava_gunner"})
 		end)
 		
 		spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HL Resurgence (AutoReplace)", "HL Resurgence (AutoReplace)", "", "", function(Panel)
@@ -736,17 +736,19 @@ if CLIENT then
 		
 		spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HL Resurgence (Client)", "HL Resurgence (Client)", "", "", function(Panel)
 			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr2_csniper_laser_usebarrel 1\nvj_hlr1_sparkfx 0\nvj_hlr2_combine_eyeglow 0"})
-			Panel:AddControl("Checkbox", {Label = "Create HL1-Style Sparks on Metal Surfaces", Command = "vj_hlr1_sparkfx"})
+			Panel:AddControl( "Label", {Text = "GoldSrc Engine:"})
+			Panel:AddControl("Checkbox", {Label = "HL1-Style Sparks On Metal Surfaces", Command = "vj_hlr1_sparkfx"})
 			Panel:ControlHelp("Applies ONLY to HL1 NPCs & weapons!")
+			Panel:AddControl( "Label", {Text = "Source Engine:"})
 			Panel:AddControl("Checkbox", {Label = "Combine Sniper Laser Follows Gun Barrel", Command = "vj_hlr2_csniper_laser_usebarrel"})
 			Panel:ControlHelp("Unchecked = Laser will pinpoint to the enemy instead")
-			Panel:AddControl("Checkbox", {Label = "Create Glow Effects to Combine Eyes", Command = "vj_hlr2_combine_eyeglow"})
+			Panel:AddControl("Checkbox", {Label = "Combine Eye Glow Effects", Command = "vj_hlr2_combine_eyeglow"})
 			Panel:ControlHelp("Requires map restart! | WARNING: Causes performance loss!")
 		end)
 	end)
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------- Replacement Script ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------ Auto Replacement Script ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if SERVER then
 	-- If enabled during startup, then just run it!

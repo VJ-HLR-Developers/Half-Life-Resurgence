@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/barnacle.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/barnacle.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.SightDistance = 1024 -- How far it can see
 ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.StartHealth = 30
@@ -27,19 +27,23 @@ ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.MeleeAttackDamage = 80
 ENT.MeleeAttackDamageType = DMG_ALWAYSGIB -- Type of Damage
-ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1} -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1 -- Melee Attack Animations
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.NextAnyAttackTime_Melee = 10 -- How much time until it can use any attack again? | Counted in Seconds
-ENT.MeleeAttackDistance = 30 -- How close does it have to be until it attacks?
-ENT.MeleeAttackDamageDistance = 80 -- How far does the damage go?
-ENT.MeleeAttackAngleRadius = 180 -- What is the attack angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
-ENT.MeleeAttackDamageAngleRadius = 180 -- What is the damage angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
+ENT.MeleeAttackDistance = 30 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.MeleeAttackDamageDistance = 80 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.MeleeAttackAngleRadius = 100 -- What is the attack angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
+ENT.MeleeAttackDamageAngleRadius = 120 -- What is the damage angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
 
-ENT.CallForHelp = false -- Does the SNPC call for help?
+ENT.CanReceiveOrders = false -- Can the NPC receive orders from others? | Ex: Allies calling for help, allies requesting backup on damage, etc.
+ENT.BringFriendsOnDeath = false -- Should the SNPC's friends come to its position before it dies?
+ENT.AlertFriendsOnDeath = true -- Should the SNPCs allies get alerted when it dies? | Its allies will also need to have this variable set to true!
+ENT.CallForBackUpOnDamage = false -- Should the SNPC call for help when damaged? (Only happens if the SNPC hasn't seen a enemy)
+ENT.CallForHelp = false -- Can the NPC request allies for help while in combat?
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- If it uses normal based animation, use this
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {ACT_DIESIMPLE} -- Death Animations
+ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
 ENT.DeathCorpseEntityClass = "prop_vj_animatable" -- The entity class it creates | "UseDefaultBehavior" = Let the base automatically detect the type
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
@@ -53,12 +57,12 @@ ENT.GeneralSoundPitch1 = 100
 ENT.Barnacle_LastHeight = 180
 ENT.Barnacle_CurEnt = NULL
 ENT.Barnacle_CurEntMoveType = MOVETYPE_WALK
-ENT.Barnacle_Status = 0
+ENT.Barnacle_PullingEnt = false
 ENT.Barnacle_NextPullSoundT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(18,18,0),Vector(-18,-18,-50))
-	//self:GetPoseParameters(true) -- tongue_height 0 / 1024
+	self:SetCollisionBounds(Vector(18, 18, 0), Vector(-18, -18, -50))
+	//VJ.GetPoseParameters(self) -- tongue_height 0 / 1024
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
@@ -92,51 +96,50 @@ local velInitial = Vector(0, 0, 2)
 --
 function ENT:Barnacle_CalculateTongue()
 	//print(self.Barnacle_LastHeight)
+	local myPos = self:GetPos()
+	local myUpPos = self:GetUp()
 	local tr = util.TraceLine({
-		start = self:GetPos(),
-		endpos = self:GetPos() + self:GetUp()*-self.Barnacle_LastHeight,
+		start = myPos,
+		endpos = myPos + myUpPos * -self.Barnacle_LastHeight,
 		filter = self
 	})
-	local trent = tr.Entity
-	local trpos = tr.HitPos
-	local height = self:GetPos():Distance(trpos)
+	local trHitEnt = tr.Entity
+	local trHitPos = tr.HitPos
+	local height = myPos:Distance(trHitPos)
 	-- Increase the height by 10 every tick | minimum = 0, maximum = 1024
 	self.Barnacle_LastHeight = math.Clamp(height + 10, 0, 1024)
 
-	if IsValid(trent) && (trent:IsNPC() or trent:IsPlayer()) && self:CheckRelationship(trent) == D_HT && trent.VJ_IsHugeMonster != true then
+	if IsValid(trHitEnt) && (trHitEnt:IsNPC() or trHitEnt:IsPlayer()) && self:CheckRelationship(trHitEnt) == D_HT && trHitEnt.VJ_IsHugeMonster != true then
 		-- If the grabbed enemy is a new enemy then reset the enemy values
-		if self.Barnacle_CurEnt != trent then
+		if self.Barnacle_CurEnt != trHitEnt then
 			self:Barnacle_ResetEnt()
-			self.Barnacle_CurEntMoveType = trent:GetMoveType()
+			self.Barnacle_CurEntMoveType = trHitEnt:GetMoveType()
 		end
-		self.Barnacle_CurEnt = trent
-		trent:AddEFlags(EFL_IS_BEING_LIFTED_BY_BARNACLE)
-		if trent:IsNPC() then
-			trent:StopMoving()
-			trent:SetVelocity(velInitial)
-			trent:SetMoveType(MOVETYPE_FLY)
-		elseif trent:IsPlayer() then
-			trent:SetMoveType(MOVETYPE_NONE)
-			//trent:AddFlags(FL_ATCONTROLS)
+		self.Barnacle_CurEnt = trHitEnt
+		trHitEnt:AddEFlags(EFL_IS_BEING_LIFTED_BY_BARNACLE)
+		if trHitEnt:IsNPC() then
+			trHitEnt:StopMoving()
+			trHitEnt:SetVelocity(velInitial)
+			trHitEnt:SetMoveType(MOVETYPE_FLY)
+		elseif trHitEnt:IsPlayer() then
+			trHitEnt:SetMoveType(MOVETYPE_NONE)
+			//trHitEnt:AddFlags(FL_ATCONTROLS)
 		end
-		trent:SetGroundEntity(NULL)
+		trHitEnt:SetGroundEntity(NULL)
+		-- Make it pull the enemy up
 		if height >= 50 then
-			local setpos = trent:GetPos() + trent:GetUp()*10
-			setpos.x = trpos.x
-			setpos.y = trpos.y
-			trent:SetPos(setpos) -- Set the position for the enemy
-			-- Play the pulling sound
-			if CurTime() > self.Barnacle_NextPullSoundT then
+			trHitEnt:SetPos(Vector(trHitPos.x, trHitPos.y, (trHitEnt:GetPos() + trHitEnt:GetUp() * 5).z)) -- Set the position for the enemy
+			if CurTime() > self.Barnacle_NextPullSoundT then -- Play the pulling sound
 				VJ.EmitSound(self, "vj_hlr/hl1_npc/barnacle/bcl_alert2.wav")
-				self.Barnacle_NextPullSoundT = CurTime() + SoundDuration("vj_hlr/hl1_npc/barnacle/bcl_alert2.wav")
+				self.Barnacle_NextPullSoundT = CurTime() + 2.7950113378685 // Magic number is the sound duration of "bcl_alert2.wav"
 			end
 		end
-		self:SetPoseParameter("tongue_height", self:GetPos():Distance(trpos + self:GetUp()*125))
+		self:SetPoseParameter("tongue_height", myPos:Distance(trHitPos + myUpPos * 125))
 		return true
 	else
 		self:Barnacle_ResetEnt()
 	end
-	self:SetPoseParameter("tongue_height", self:GetPos():Distance(trpos + self:GetUp()*193))
+	self:SetPoseParameter("tongue_height", myPos:Distance(trHitPos + myUpPos * 193))
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -148,35 +151,26 @@ function ENT:Barnacle_ResetEnt()
 	self.Barnacle_CurEnt = NULL
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:TranslateActivity(act)
+	if act == ACT_IDLE then
+		return (self.Barnacle_PullingEnt and ACT_BARNACLE_PULL) or ACT_IDLE
+	end
+	return self.BaseClass.TranslateActivity(self, act)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	if self.Dead then return end
-	local calc = self:Barnacle_CalculateTongue()
-	if calc == true && self.Barnacle_Status != 1 then
-		self.Barnacle_Status = 1
-		self.NextIdleStandTime = 0
-		self.AnimTbl_IdleStand = {ACT_BARNACLE_PULL}
-	elseif calc == false && self.Barnacle_Status != 0 then
-		self.Barnacle_Status = 0
-		self.NextIdleStandTime = 0
-		self.AnimTbl_IdleStand = {ACT_IDLE}
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:GetDynamicOrigin()
-	return self:GetPos() + self:GetUp()*-100 -- Override this to use a different position
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:GetMeleeAttackDamageOrigin()
-	return self:GetPos() + self:GetUp()*-100 -- Override this to use a different position
+	self.Barnacle_PullingEnt = self:Barnacle_CalculateTongue()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt, isProp)
-	if hitEnt.IsVJBaseSNPC_Human then
+	if hitEnt.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
 		self.MeleeAttackDamage = hitEnt:Health() + 10
-	else
+	elseif hitEnt:IsPlayer() then
 		self.MeleeAttackDamage = 80
+	else
+		self.MeleeAttackDamage = 100
 	end
-	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 /*function ENT:CustomAttackCheck_MeleeAttack()
@@ -219,18 +213,18 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 	end
 	
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh1.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,1,-20))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh2.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,2,-20))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh3.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,3,-20))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh4.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,4,-20))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh1.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,5,-20))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh2.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,6,-20))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh3.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,-1,-20))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh4.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,-2,-20))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh1.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,-3,-20))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh2.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,-4,-20))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh3.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,-5,-20))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh4.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,-6,-20))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh1.mdl", {BloodDecal="VJ_HLR_Blood_Red", Pos=self:LocalToWorld(Vector(0,1,-20))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {BloodDecal="VJ_HLR_Blood_Red", Pos=self:LocalToWorld(Vector(0,2,-20))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {BloodDecal="VJ_HLR_Blood_Red", Pos=self:LocalToWorld(Vector(0,3,-20))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh4.mdl", {BloodDecal="VJ_HLR_Blood_Red", Pos=self:LocalToWorld(Vector(0,4,-20))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh1.mdl", {BloodDecal="VJ_HLR_Blood_Red", Pos=self:LocalToWorld(Vector(0,5,-20))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {BloodDecal="VJ_HLR_Blood_Red", Pos=self:LocalToWorld(Vector(0,6,-20))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {BloodDecal="VJ_HLR_Blood_Red", Pos=self:LocalToWorld(Vector(0,-1,-20))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh4.mdl", {BloodDecal="VJ_HLR_Blood_Red", Pos=self:LocalToWorld(Vector(0,-2,-20))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh1.mdl", {BloodDecal="VJ_HLR_Blood_Red", Pos=self:LocalToWorld(Vector(0,-3,-20))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {BloodDecal="VJ_HLR_Blood_Red", Pos=self:LocalToWorld(Vector(0,-4,-20))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {BloodDecal="VJ_HLR_Blood_Red", Pos=self:LocalToWorld(Vector(0,-5,-20))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh4.mdl", {BloodDecal="VJ_HLR_Blood_Red", Pos=self:LocalToWorld(Vector(0,-6,-20))})
 	return true -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

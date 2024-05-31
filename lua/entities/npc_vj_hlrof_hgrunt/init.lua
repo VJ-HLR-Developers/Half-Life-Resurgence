@@ -1,3 +1,4 @@
+include("entities/npc_vj_hlr1_hgrunt/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
@@ -5,7 +6,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/opfor/hgrunt.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/opfor/hgrunt.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
@@ -215,12 +216,12 @@ function ENT:HECU_CustomOnInitialize()
 	if self.HECU_Type == 1 then
 		self:SetBodygroup(1, math.random(0, 9))
 		
-		local randwep = math.random(1, 4)
-		if randwep == 1 or randwep == 2 then
+		local randWep = math.random(1, 4)
+		if randWep == 1 or randWep == 2 then
 			self:SetBodygroup(3, 0)
-		elseif randwep == 3 then
+		elseif randWep == 3 then
 			self:SetBodygroup(3, 1)
-		elseif randwep == 4 then
+		elseif randWep == 4 then
 			self:SetBodygroup(3, 2)
 		end
 		

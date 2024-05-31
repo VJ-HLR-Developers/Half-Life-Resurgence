@@ -7,7 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 local combatDistance = 5000 -- When closer then this, it will stop chasing and start firing
 
-ENT.Model = {"models/vj_hlr/hl1/apache.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/apache.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.VJ_IsHugeMonster = true
 ENT.StartHealth = 400 -- The starting health of the NPC
 ENT.HullType = HULL_LARGE
@@ -17,8 +17,6 @@ ENT.TurningSpeed = 2 -- How fast it can turn
 ENT.MovementType = VJ_MOVETYPE_AERIAL -- How does the SNPC move?
 ENT.Aerial_FlyingSpeed_Alerted = 400 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground SNPCs
 ENT.Aerial_FlyingSpeed_Calm = ENT.Aerial_FlyingSpeed_Alerted -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground SNPCs
-ENT.Aerial_AnimTbl_Calm = {nil} -- Animations it plays when it's wandering around while idle
-ENT.Aerial_AnimTbl_Alerted = {nil} -- Animations it plays when it's moving while alerted
 ENT.AA_GroundLimit = 1200 -- If the NPC's distance from itself to the ground is less than this, it will attempt to move up
 ENT.AA_MinWanderDist = 1000 -- Minimum distance that the NPC should go to when wandering
 ENT.AA_MoveAccelerate = 8 -- The NPC will gradually speed up to the max movement speed as it moves towards its destination | Calculation = FrameTime * x
@@ -31,8 +29,7 @@ ENT.VJC_Data = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
 ENT.FindEnemy_UseSphere = true -- Should the SNPC be able to see all around him? (360) | Objects and walls can still block its sight!
-ENT.AnimTbl_IdleStand = {ACT_FLY} -- The idle animation table when AI is enabled | DEFAULT: {ACT_IDLE}
-ENT.PoseParameterLooking_InvertYaw = true -- Inverts the yaw poseparameters (Y)
+ENT.PoseParameterLooking_InvertYaw = true -- Inverts the yaw pose parameters (Y)
 ENT.ConstantlyFaceEnemy = true -- Should it face the enemy constantly?
 ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it"s between number x and y?
 ENT.NoChaseAfterCertainRange_FarDistance = combatDistance -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
@@ -69,15 +66,15 @@ ENT.GeneralSoundPitch1 = 100
 ENT.DeathSoundLevel = 100
 
 /* https://github.com/ValveSoftware/halflife/blob/master/dlls/apache.cpp
-	EMIT_SOUND_DYN(ENT(pev), CHAN_STATIC, "apache/ap_rotor2.wav", 1.0, 0.3, 0, 110 );
-	firing: tu_fire1.wav, EMIT_SOUND(ENT(pev), CHAN_WEAPON, "turret/tu_fire1.wav", 1, 0.3);
-	death: EMIT_SOUND(ENT(pev), CHAN_STATIC, "weapons/mortarhit.wav", 1.0, 0.3);
+	Rotor sound: EMIT_SOUND_DYN(ENT(pev), CHAN_STATIC, "apache/ap_rotor2.wav", 1.0, 0.3, 0, 110 );
+	Firing sound: tu_fire1.wav, EMIT_SOUND(ENT(pev), CHAN_WEAPON, "turret/tu_fire1.wav", 1, 0.3);
+	Death sound: EMIT_SOUND(ENT(pev), CHAN_STATIC, "weapons/mortarhit.wav", 1.0, 0.3);
 	
 	- Fires 2 rockets (1 on each side) at the same time, Delay: 10 seconds
-	- Chain gun: Continuos fire as long as front is visible
+	- Chain gun: Continuous fire as long as front is visible
 */
 -- Custom
-ENT.Apache_HasLOS = false -- Does the Apache's chain gun have sight on the enemy?
+ENT.Heli_HasLOS = false -- Does the Apache's chain gun have sight on the enemy?
 ENT.Heli_SmokeStatus = 0 -- 0 = No smoke | 1 = Tail smoke | 2 = Tail & Rotor smoke
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local spawnPos = Vector(0, 0, 400)
@@ -132,6 +129,10 @@ function ENT:CustomOnInitialize()
 	self:DeleteOnRemove(sideLight2)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:TranslateActivity(act)
+	return ACT_FLY -- We don't want it do anything else! Ex: "ACT_IDLE" has slower rotating rotors, we don't want that!
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("MOUSE1: Fire chain gun")
 end
@@ -140,9 +141,9 @@ function ENT:CustomOn_PoseParameterLookingCode(pitch, yaw, roll)
 	-- Compare the difference between the current position of the pose parameter and the position it's suppose to go to
 	-- Using 20 for "aim_pitch" to make it a little more forgiving
 	if (math.abs(math.AngleDifference(self:GetPoseParameter("aim_yaw"), math.ApproachAngle(self:GetPoseParameter("aim_yaw"), yaw, self.PoseParameterLooking_TurningSpeed))) >= self.PoseParameterLooking_TurningSpeed) or (math.abs(math.AngleDifference(self:GetPoseParameter("aim_pitch"), math.ApproachAngle(self:GetPoseParameter("aim_pitch"), pitch, 20))) >= 20) then
-		self.Apache_HasLOS = false
+		self.Heli_HasLOS = false
 	else
-		self.Apache_HasLOS = true
+		self.Heli_HasLOS = true
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -180,7 +181,7 @@ local bulletSpread = Vector(0.03490, 0.03490, 0.03490)
 -- Firing Delay: Checked in Half-Life 1 (GoldSrc), there is NO delay as long as the gun is facing the enemy!
 function ENT:CustomAttack()
 	local ene = self:GetEnemy()
-	if self.Apache_HasLOS && self.NearestPointToEnemyDistance <= combatDistance && self:Visible(ene) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK))) then
+	if self.Heli_HasLOS && self.NearestPointToEnemyDistance <= combatDistance && self:Visible(ene) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK))) then
 		local att = self:GetAttachment(1)
 		self:FireBullets({
 			Num = 1,
@@ -194,7 +195,7 @@ function ENT:CustomAttack()
 			AmmoType = "HelicopterGun"
 		})
 		VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1.wav", 120, 100, 1, CHAN_WEAPON)
-		VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1_distant.wav", 140, 100)
+		VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1_distant.wav", 140, 100, 1, bit.band(CHAN_AUTO, CHAN_WEAPON))
 
 		local muz = ents.Create("env_sprite")
 		muz:SetKeyValue("model","vj_hl/sprites/muzzleflash2.vmt")
@@ -234,7 +235,7 @@ function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 	-- If hit in the engine area, then get damage by bullets!
 	if dmginfo:IsBulletDamage() && hitgroup == 2 then
 		dmginfo:ScaleDamage(0.05)
-		self.Immune_Bullet = false -- To counter the dmginfo:IsBulletDamage() function
+		self.Immune_Bullet = false -- To counter the "dmginfo:IsBulletDamage()" function
 	else
 		self.Immune_Bullet = true
 	end
@@ -363,6 +364,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 	-- Get destroyed when it collides with something
 	function deathCorpse:PhysicsCollide(data, phys)
 		if self.Dead then return end
+		local myPos = self:GetPos()
 		self.Dead = true
 		
 		-- Create gibs
@@ -370,7 +372,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 		for _ = 1, 50 do
 			local gib = ents.Create("obj_vj_gib")
 			gib:SetModel(VJ.PICK(gibTbl))
-			gib:SetPos(self:GetPos() + Vector(math.random(-100, 100), math.random(-100, 100), math.random(20, 150)))
+			gib:SetPos(myPos + Vector(math.random(-100, 100), math.random(-100, 100), math.random(20, 150)))
 			gib:SetAngles(Angle(math.Rand(-180, 180), math.Rand(-180, 180), math.Rand(-180, 180)))
 			gib.Collide_Decal = ""
 			gib.CollideSound = sdGibCollide
@@ -386,7 +388,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 			end
 		end
 		
-		local expPos = self:GetPos() + Vector(0,0,math.Rand(150, 150))
+		local expPos = myPos + Vector(0, 0, math.Rand(150, 150))
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model","vj_hl/sprites/fexplo1.vmt")
 		spr:SetKeyValue("GlowProxySize","2.0")
@@ -408,8 +410,7 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 		VJ.EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit.wav", 100, 100)
 		VJ.EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit_dist.wav", 140, 100)
 		-- flags 0 = No fade!
-		effects.BeamRingPoint(self:GetPos(), 0.4, 0, 1500, 32, 0, colorHeliExp, {material="vj_hl/sprites/shockwave", framerate=0, flags=0})
-		
+		effects.BeamRingPoint(myPos, 0.4, 0, 1500, 32, 0, colorHeliExp, {material="vj_hl/sprites/shockwave", framerate=0, flags=0})
 		self:Remove()
 	end
 end

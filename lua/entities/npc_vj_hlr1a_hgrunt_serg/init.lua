@@ -1,3 +1,4 @@
+include("entities/npc_vj_hlr1_hgrunt_serg/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
@@ -5,7 +6,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hla/hassault.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hla/hassault.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2, ACT_MELEE_ATTACK_SWING} -- Melee Attack Animations
 ENT.HasGrenadeAttack = false -- Should the NPC have a grenade attack?
 ENT.VJC_Data = {
@@ -27,22 +28,18 @@ function ENT:HECU_CustomOnInitialize()
 	self.SoundTbl_WeaponReload = {"vj_hlr/hla_npc/hgrunt/gr_cover2.wav"}
 	self.SoundTbl_GrenadeAttack = {"vj_hlr/hla_npc/hgrunt/gr_loadtalk.wav"}
 	
-	-- Melee version
+	-- Melee Alpha Human Grunt Sergeant
 	if self.Serg_Type == 2 then
 		self:SetBodygroup(1, 1)
-		self.AnimTbl_IdleStand = {ACT_CROUCH}
-		self.AnimTbl_Walk = {ACT_RUN}
-		self.AnimTbl_Run = {ACT_RUN_PROTECTED}
-		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2}
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	if dmginfo:GetDamage() > 30 then
 		self.FlinchChance = 8
-		self.AnimTbl_Flinch = {ACT_BIG_FLINCH}
+		self.AnimTbl_Flinch = ACT_BIG_FLINCH
 	else
 		self.FlinchChance = 16
-		self.AnimTbl_Flinch = {ACT_SMALL_FLINCH}
+		self.AnimTbl_Flinch = ACT_SMALL_FLINCH
 	end
 end

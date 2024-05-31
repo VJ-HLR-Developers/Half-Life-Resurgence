@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/islave.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/islave.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 60
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -17,11 +17,11 @@ ENT.HasBloodPool = false -- Does it have a blood pool?
 
 ENT.MeleeAttackDamage = 20
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDistance = 40 -- How close does it have to be until it attacks?
-ENT.MeleeAttackDamageDistance = 70 -- How far does the damage go?
+ENT.MeleeAttackDistance = 40 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.MeleeAttackDamageDistance = 70 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
-ENT.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1} -- Range Attack Animations
+ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1 -- Range Attack Animations
 ENT.RangeDistance = 1020 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 100 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
@@ -33,13 +33,13 @@ ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until i
 ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_Type = "OnlyRange" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {ACT_DIEBACKWARD,ACT_DIEFORWARD,ACT_DIESIMPLE} -- Death Animations
+ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE} -- Death Animations
 ENT.DeathAnimationTime = false -- Time until the SNPC spawns its corpse and gets removed
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH} -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- If it uses normal based animation, use this
 ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}},{HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}},{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}},{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
@@ -120,142 +120,6 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Vort_DoElecEffect(sp,hp,a,t)
-	local elec = EffectData()
-	elec:SetStart(sp)
-	elec:SetOrigin(hp)
-	elec:SetEntity(self)
-	elec:SetAttachment(a)
-	elec:SetScale(t)
-	util.Effect("VJ_HLR_Electric_Charge",elec)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnRangeAttack_AfterStartTimer()
-	-- Tsakh --------------------------
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*20,
-				endpos = self:GetPos() + self:GetRight()*math.Rand(150,500) + self:GetUp()*-200,
-				filter = self
-			})
-			if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 1, randt) end
-		end
-	end)
-	
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*20,
-				endpos = self:GetPos() + self:GetRight()*math.Rand(150,500) + self:GetUp()*-200 + self:GetForward()*-math.Rand(150,500),
-				filter = self
-			})
-			if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 1, randt) end
-		end
-	end)
-	
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*20,
-				endpos = self:GetPos() + self:GetRight()*math.Rand(150,500) + self:GetUp()*-200 + self:GetForward()*math.Rand(150,500),
-				filter = self
-			})
-			if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 1, randt) end
-		end
-	end)
-	
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*20,
-				endpos = self:GetPos() + self:GetRight()*math.Rand(1,150) + self:GetUp()*200 + self:GetForward()*math.Rand(-100,100),
-				filter = self
-			})
-			if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 1, randt) end
-		end
-	end)
-	
-	-- Ach --------------------------
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*-20,
-				endpos = self:GetPos() + self:GetRight()*-math.Rand(150,500) + self:GetUp()*-200,
-				filter = self
-			})
-			if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 2, randt) end
-		end
-	end)
-	
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*-20,
-				endpos = self:GetPos() + self:GetRight()*-math.Rand(150,500) + self:GetUp()*-200 + self:GetForward()*-math.Rand(150,500),
-				filter = self
-			})
-			if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 2, randt) end
-		end
-	end)
-	
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*-20,
-				endpos = self:GetPos() + self:GetRight()*-math.Rand(150,500) + self:GetUp()*-200 + self:GetForward()*math.Rand(150,500),
-				filter = self
-			})
-			if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 2, randt) end
-		end
-	end)
-	
-	local randt = math.Rand(0,0.6)
-	timer.Simple(randt,function()
-		if IsValid(self) then
-			local tr = util.TraceLine({
-				start = self:GetPos() + self:GetUp()*45 + self:GetRight()*-20,
-				endpos = self:GetPos() + self:GetRight()*-math.Rand(1,150) + self:GetUp()*200 + self:GetForward()*math.Rand(-100,100),
-				filter = self
-			})
-			if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, 2, randt) end
-		end
-	end)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode()
-	local startpos = self:GetPos() + self:GetUp()*45 + self:GetForward()*40
-	local tr = util.TraceLine({
-		start = self:GetPos() + self:GetUp()*45 + self:GetForward()*40,
-		endpos = self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter(),
-		filter = self
-	})
-	local hitpos = tr.HitPos
-	
-	local elec = EffectData()
-	elec:SetStart(startpos)
-	elec:SetOrigin(hitpos)
-	elec:SetEntity(self)
-	elec:SetAttachment(1)
-	util.Effect("VJ_HLR_Electric",elec)
-	
-	local elec = EffectData()
-	elec:SetStart(startpos)
-	elec:SetOrigin(hitpos)
-	elec:SetEntity(self)
-	elec:SetAttachment(2)
-	util.Effect("VJ_HLR_Electric",elec)
-	
-	VJ.ApplyRadiusDamage(self, self, hitpos, 30, 20, DMG_SHOCK, true, false, {Force=90})
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
 	if (self.NextDoAnyAttackT + 2) > CurTime() then return end
 	self.Vort_RunAway = true
@@ -263,6 +127,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 	if hitgroup == HITGROUP_HEAD then
-		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
+		self.AnimTbl_Death = ACT_DIE_HEADSHOT
 	end
 end

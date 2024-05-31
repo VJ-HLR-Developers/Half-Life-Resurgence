@@ -1,3 +1,4 @@
+include("entities/npc_vj_hlr2_com_soldier/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
@@ -16,41 +17,55 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
-	ply:ChatPrint("CTRL: Deploy Sentry Gun")
+	ply:ChatPrint("CROUCH (CTRL): Deploy Sentry Gun")
+	
+	function controlEnt:CustomOnKeyBindPressed(key)
+		local npc = self.VJCE_NPC
+		if key == IN_DUCK then
+			npc:Combine_DeployTurret()
+		end
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
-	if ((self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) or !self.VJ_IsBeingControlled) && IsValid(self:GetEnemy()) && self:Visible(self:GetEnemy()) && self.Combine_NextTurretCheckT < CurTime() && self.Combine_TurretPlacing == false && !IsValid(self.Combine_TurretEnt) then
-		-- Make sure not to place it if the front of the NPC is blocked!
+function ENT:Combine_DeployTurret()
+	if self.Combine_NextTurretCheckT < CurTime() && !self.Combine_TurretPlacing && !IsValid(self.Combine_TurretEnt) then
 		local myCenterPos = self:GetPos() + self:OBBCenter()
 		local tr = util.TraceLine({
 			start = myCenterPos,
 			endpos = myCenterPos + self:GetForward()*80,
 			filter = self
 		})
+		-- Make sure not to place it if the front of the NPC is blocked!
 		if !tr.Hit then
 			self.Combine_NextTurretCheckT = CurTime() + 30
 			self.Combine_TurretPlacing = true
 			self:VJ_ACT_PLAYACTIVITY("vjseq_Turret_Drop" ,true, false, false)
 			timer.Simple(0.9, function()
 				if IsValid(self) && !IsValid(self.Combine_TurretEnt) then
-					self.Combine_TurretEnt = ents.Create("npc_vj_hlr2_com_sentry")
-					self.Combine_TurretEnt:SetPos(self:GetPos() + self:GetForward()*50)
-					self.Combine_TurretEnt:SetAngles(self:GetAngles())
-					self.Combine_TurretEnt:Spawn()
-					self.Combine_TurretEnt:Activate()
-					self.Combine_TurretEnt.VJ_NPC_Class = self.VJ_NPC_Class
-					self.Combine_TurretEnt:SetState(VJ_STATE_FREEZE, 1)
-					VJ.EmitSound(self.Combine_TurretEnt, "npc/roller/blade_cut.wav", 75, 100)
+					local turret = ents.Create("npc_vj_hlr2_com_sentry")
+					turret:SetPos(self:GetPos() + self:GetForward()*50)
+					turret:SetAngles(self:GetAngles())
+					turret:Spawn()
+					turret:Activate()
+					turret.VJ_NPC_Class = self.VJ_NPC_Class
+					turret:SetState(VJ_STATE_FREEZE, 1)
+					VJ.EmitSound(turret, "npc/roller/blade_cut.wav", 75, 100)
 					if IsValid(self:GetCreator()) then -- If it has a creator, then add it to that player's undo list
 						undo.Create(self:GetName().."'s Turret")
-							undo.AddEntity(self.Combine_TurretEnt)
+							undo.AddEntity(turret)
 							undo.SetPlayer(self:GetCreator())
 						undo.Finish()
 					end
+					self.Combine_TurretEnt = turret
 					self.Combine_TurretPlacing = false
 				end
 			end)
 		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink_AIEnabled()
+	if !self.VJ_IsBeingControlled && IsValid(self:GetEnemy()) && self.EnemyData.IsVisible then
+		self:Combine_DeployTurret()
 	end
 end

@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/alien_cannon.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/alien_cannon.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 100
 ENT.HullType = HULL_WIDE_SHORT
 ENT.SightDistance = 6000 -- How far it can see
@@ -33,17 +33,17 @@ ENT.TimeUntilRangeAttackProjectileRelease = 0 -- How much time until the project
 ENT.NextRangeAttackTime = 0.5 -- How much time until it can use a range attack?
 
 ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
-ENT.PoseParameterLooking_InvertPitch = true -- Inverts the pitch poseparameters (X)
-ENT.PoseParameterLooking_InvertYaw = true -- Inverts the yaw poseparameters (Y)
+ENT.PoseParameterLooking_InvertPitch = true -- Inverts the pitch pose parameters (X)
+ENT.PoseParameterLooking_InvertYaw = true -- Inverts the yaw pose parameters (Y)
 ENT.Immune_AcidPoisonRadiation = true -- Immune to Acid, Poison and Radiation
 ENT.Immune_Bullet = true -- Immune to bullet type damages
 ENT.Immune_Melee = true -- Immune to melee-type damage | Example: Crowbar, slash damages
 ENT.GetDamageFromIsHugeMonster = true -- Should it get damaged no matter what by SNPCs that are tagged as VJ_IsHugeMonster?
-ENT.DeathCorpseModel = {"models/vj_hlr/hl1/alien_cannon_bottom.mdl"} -- The corpse model that it will spawn when it dies | Leave empty to use the NPC's model | Put as many models as desired, the base will pick a random one.
+ENT.DeathCorpseModel = "models/vj_hlr/hl1/alien_cannon_bottom.mdl" -- Model(s) to spawn as the NPC's corpse | false = Use the NPC's model | Can be a single string or a table of strings
 ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/xencannon/alien_powernode.wav"}
+ENT.SoundTbl_Breath = "vj_hlr/hl1_npc/xencannon/alien_powernode.wav"
 ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav","ambient/energy/spark2.wav","ambient/energy/spark3.wav","ambient/energy/spark4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/xencannon/bustconcrete1.wav","vj_hlr/hl1_npc/xencannon/bustconcrete2.wav"}
 
@@ -105,26 +105,26 @@ function ENT:CustomRangeAttackCode()
 	elec:SetAttachment(1)
 	util.Effect("VJ_HLR_XenCannon_Beam", elec)
 	
-	local spriteGlow = ents.Create("env_sprite")
-	spriteGlow:SetKeyValue("model","vj_hl/sprites/flare3.vmt")
-	spriteGlow:SetKeyValue("rendercolor","0 0 255")
-	spriteGlow:SetKeyValue("GlowProxySize","5.0")
-	spriteGlow:SetKeyValue("HDRColorScale","1.0")
-	spriteGlow:SetKeyValue("renderfx","14")
-	spriteGlow:SetKeyValue("rendermode","3")
-	spriteGlow:SetKeyValue("renderamt","255")
-	spriteGlow:SetKeyValue("disablereceiveshadows","0")
-	spriteGlow:SetKeyValue("mindxlevel","0")
-	spriteGlow:SetKeyValue("maxdxlevel","0")
-	spriteGlow:SetKeyValue("framerate","10.0")
-	spriteGlow:SetKeyValue("spawnflags","0")
-	spriteGlow:SetKeyValue("scale","5")
-	spriteGlow:SetPos(self:GetPos())
-	spriteGlow:Spawn()
-	spriteGlow:SetParent(self)
-	spriteGlow:Fire("SetParentAttachment", "Cannon")
-	self:DeleteOnRemove(spriteGlow)
-	timer.Simple(0.1, function() SafeRemoveEntity(spriteGlow) end)
+	local sprMuzzleFlash = ents.Create("env_sprite")
+	sprMuzzleFlash:SetKeyValue("model","vj_hl/sprites/flare3.vmt")
+	sprMuzzleFlash:SetKeyValue("rendercolor","0 0 255")
+	sprMuzzleFlash:SetKeyValue("GlowProxySize","5.0")
+	sprMuzzleFlash:SetKeyValue("HDRColorScale","1.0")
+	sprMuzzleFlash:SetKeyValue("renderfx","14")
+	sprMuzzleFlash:SetKeyValue("rendermode","3")
+	sprMuzzleFlash:SetKeyValue("renderamt","255")
+	sprMuzzleFlash:SetKeyValue("disablereceiveshadows","0")
+	sprMuzzleFlash:SetKeyValue("mindxlevel","0")
+	sprMuzzleFlash:SetKeyValue("maxdxlevel","0")
+	sprMuzzleFlash:SetKeyValue("framerate","10.0")
+	sprMuzzleFlash:SetKeyValue("spawnflags","0")
+	sprMuzzleFlash:SetKeyValue("scale","6")
+	sprMuzzleFlash:SetPos(self:GetPos())
+	sprMuzzleFlash:Spawn()
+	sprMuzzleFlash:SetParent(self)
+	sprMuzzleFlash:Fire("SetParentAttachment", "Cannon")
+	self:DeleteOnRemove(sprMuzzleFlash)
+	timer.Simple(0.15, function() SafeRemoveEntity(sprMuzzleFlash) end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
@@ -166,16 +166,16 @@ end
 local gibCollideSd = {"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub1.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(1,0,20)),CollideSound=gibCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub2.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,1,20)),CollideSound=gibCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub3.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(2,0,20)),CollideSound=gibCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub4.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,2,20)),CollideSound=gibCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub5.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(3,0,20)),CollideSound=gibCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub1.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,3,20)),CollideSound=gibCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub2.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(4,0,20)),CollideSound=gibCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub3.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,4,20)),CollideSound=gibCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub4.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(5,0,20)),CollideSound=gibCollideSd})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgibs_sub5.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,5,20)),CollideSound=gibCollideSd})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgibs_sub1.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(1, 0, 20)), CollideSound=gibCollideSd})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgibs_sub2.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 1, 20)), CollideSound=gibCollideSd})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgibs_sub3.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(2, 0, 20)), CollideSound=gibCollideSd})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgibs_sub4.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 2, 20)), CollideSound=gibCollideSd})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgibs_sub5.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(3, 0, 20)), CollideSound=gibCollideSd})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgibs_sub1.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 3, 20)), CollideSound=gibCollideSd})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgibs_sub2.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(4, 0, 20)), CollideSound=gibCollideSd})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgibs_sub3.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 4, 20)), CollideSound=gibCollideSd})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgibs_sub4.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(5, 0, 20)), CollideSound=gibCollideSd})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgibs_sub5.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 5, 20)), CollideSound=gibCollideSd})
 	return true, {AllowCorpse=true}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

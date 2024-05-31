@@ -5,15 +5,13 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/chumtoad.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/chumtoad.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 15
 ENT.HullType = HULL_TINY
 ENT.SightDistance = 250 -- How far it can see
 ENT.MovementType = VJ_MOVETYPE_GROUND -- How does the SNPC move?
 ENT.Aquatic_SwimmingSpeed_Calm = 80 -- The speed it should swim with, when it's wandering, moving slowly, etc. | Basically walking compared to ground SNPCs
 ENT.Aquatic_SwimmingSpeed_Alerted = 80 -- The speed it should swim with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground SNPCs
-ENT.Aquatic_AnimTbl_Calm = {ACT_SWIM} -- Animations it plays when it's wandering around while idle
-ENT.Aquatic_AnimTbl_Alerted = {ACT_SWIM} -- Animations it plays when it's moving while alerted
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(15, 0, 10), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bip01 neck", -- If left empty, the base will attempt to calculate a position for first person
@@ -28,7 +26,7 @@ ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's dam
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {ACT_DIESIMPLE} -- Death Animations
+ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_BIG_FLINCH} -- If it uses normal based animation, use this
@@ -48,25 +46,37 @@ function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(9, 9, 15), Vector(-9, -9, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:TranslateActivity(act)
+	if act == ACT_IDLE && self.CT_MoveTypeSwim then
+		return ACT_SWIM
+	end
+	return self.BaseClass.TranslateActivity(self, act)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	if self:WaterLevel() < 2 then
 		if self.CT_MoveTypeSwim then
 			self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
-			self.AnimTbl_IdleStand = {ACT_IDLE}
 			self.CT_MoveTypeSwim = false
 		end
 	elseif !self.CT_MoveTypeSwim then
 		self:DoChangeMovementType(VJ_MOVETYPE_AQUATIC)
-		self.AnimTbl_IdleStand = {ACT_SWIM}
 		self.CT_MoveTypeSwim = true
 	end
 	
 	if !self.Dead && CurTime() > self.CT_BlinkingT then
 		self:SetSkin(1)
-		timer.Simple(0.15,function() if IsValid(self) then self:SetSkin(2) end end)
-		timer.Simple(0.25,function() if IsValid(self) then self:SetSkin(1) end end)
-		timer.Simple(0.4,function() if IsValid(self) then self:SetSkin(0) end end)
-		self.CT_BlinkingT = CurTime() + math.Rand(2,3.5)
+		timer.Simple(0.15, function() if IsValid(self) then self:SetSkin(2) end end)
+		timer.Simple(0.25, function() if IsValid(self) then self:SetSkin(1) end end)
+		timer.Simple(0.4, function() if IsValid(self) then self:SetSkin(0) end end)
+		self.CT_BlinkingT = CurTime() + math.Rand(2, 3.5)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
+	-- Don't play death animation if swimming
+	if self.CT_MoveTypeSwim then
+		self.HasDeathAnimation = false
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -87,12 +97,12 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 	end
 	
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib3.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,5))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib5.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,5))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib7.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,5))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib8.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,5))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib9.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,5))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib10.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,5))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib3.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0,0,5))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib5.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(1,0,5))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib7.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0,1,5))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib8.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(1,1,5))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib9.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0,0,6))})
+	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib10.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0,0,7))})
 	return true -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

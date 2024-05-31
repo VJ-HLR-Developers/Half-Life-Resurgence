@@ -27,7 +27,7 @@ local sdBreak = {"vj_hlr/fx/bustglass1.wav", "vj_hlr/fx/bustglass2.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Initialize()
 	if !IsValid(self.Assignee) then
-		self:SetPos(self:GetPos() + self:GetUp()*-40)
+		self:SetPos(self:GetPos() + self:GetUp() * -40)
 	end
 	
 	self:SetModel("models/vj_hlr/hl1/crystal.mdl")
@@ -40,14 +40,14 @@ function ENT:Initialize()
 	dynamicLight:SetKeyValue("brightness", "4")
 	dynamicLight:SetKeyValue("distance", "150")
 	dynamicLight:SetKeyValue("style", 5)
-	dynamicLight:SetLocalPos(self:GetPos() + self:GetUp()*30)
+	dynamicLight:SetLocalPos(self:GetPos() + self:GetUp() * 30)
 	dynamicLight:SetLocalAngles(self:GetAngles())
 	dynamicLight:Fire("Color", "255 128 0")
 	dynamicLight:SetParent(self)
 	dynamicLight:Spawn()
 	dynamicLight:Activate()
 	dynamicLight:SetParent(self)
-	dynamicLight:Fire("TurnOn", "", 0)
+	dynamicLight:Fire("TurnOn")
 	self:DeleteOnRemove(dynamicLight)
 	
 	self.IdleSd = CreateSound(self, "vj_hlr/fx/alien_cycletone.wav")
@@ -59,7 +59,7 @@ function ENT:Initialize()
 			if IsValid(self) && IsValid(self.Assignee) then
 				local charge = ents.Create("sent_vj_hlr1_orb_crystal_charge")
 				charge:SetAngles(self.Assignee:GetAngles())
-				charge:SetPos(self:GetPos() + self:GetUp()*50)
+				charge:SetPos(self:GetPos() + self:GetUp() * 50)
 				charge.Assignee = self.Assignee
 				charge:Spawn()
 				charge:Activate()
@@ -109,4 +109,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRemove()
 	VJ.STOPSOUND(self.IdleSd)
+	
+	local assignee = self.Assignee
+	if IsValid(assignee) then
+		assignee:Nih_NotifyCrystalChange(self)
+	end
 end

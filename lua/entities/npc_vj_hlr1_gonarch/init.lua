@@ -5,11 +5,11 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/big_mom.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/big_mom.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 2000
 ENT.HullType = HULL_LARGE
 ENT.VJ_IsHugeMonster = true -- Is this a huge monster?
-ENT.EntitiesToNoCollide = {"npc_vj_hlr1_headcrab_baby","npc_vj_hlr1_headcrab","npc_vj_hlr1a_headcrab"} -- Entities to not collide with when HasEntitiesToNoCollide is set to true
+ENT.EntitiesToNoCollide = {"npc_vj_hlr1_headcrab_baby", "npc_vj_hlr1_headcrab", "npc_vj_hlr1a_headcrab"} -- Set to a table of entity class names for the NPC to not collide with otherwise leave it to false
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(-100, 0, -70), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bip01 Neck", -- If left empty, the base will attempt to calculate a position for first person
@@ -24,15 +24,15 @@ ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"} -- NPCs with the same class with be allied t
 
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.MeleeAttackDamage = 60
-ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1} -- Melee Attack Animations
-ENT.MeleeAttackDistance = 80 -- How close does it have to be until it attacks?
-ENT.MeleeAttackDamageDistance = 200 -- How far does the damage go?
+ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1 -- Melee Attack Animations
+ENT.MeleeAttackDistance = 80 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.MeleeAttackDamageDistance = 200 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.HasMeleeAttackKnockBack = true -- Should knockback be applied on melee hit? | Use self:MeleeAttackKnockbackVelocity() to edit the velocity
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_gonarchspit" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
-ENT.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1} -- Range Attack Animations
+ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1 -- Range Attack Animations
 ENT.RangeDistance = 2000 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 500 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
@@ -41,7 +41,7 @@ ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = P
 ENT.RangeAttackPos_Up = 180 -- Up/Down spawning position for range attack
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {"death"} -- Death Animations
+ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 	-- ====== Sound File Paths ====== --
@@ -85,19 +85,20 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 		util.ScreenShake(self:GetPos(), 10, 100, 0.4, 2000)
 		self:FootStepSoundCode()
 	elseif key == "spawn" then -- Create baby headcrabs
-		for i = 1,3 do
+		local spawnPos = self:GetPos() + self:GetUp()*20
+		for i = 1, 3 do
 			VJ.EmitSound(self, sdBirth, 80)
 			if self.Gonarch_NumBabies < self.Gonarch_BabyLimit then -- Default: 20 babies max
 				local bCrab = ents.Create("npc_vj_hlr1_headcrab_baby")
 				if i == 1 then
-					bCrab:SetPos(self:GetPos() + self:GetUp()*20)
+					bCrab:SetPos(spawnPos)
 				elseif i == 2 then
-					bCrab:SetPos(self:GetPos() + self:GetUp()*20 + self:GetRight()*25)
+					bCrab:SetPos(spawnPos + self:GetRight()*25)
 				elseif i == 3 then
-					bCrab:SetPos(self:GetPos() + self:GetUp()*20 + self:GetRight()*-25)
+					bCrab:SetPos(spawnPos + self:GetRight()*-25)
 				end
 				bCrab:SetAngles(self:GetAngles())
-				bCrab.BabH_Mother = self
+				bCrab.BabyH_MotherEnt = self
 				bCrab.VJ_NPC_Class = self.VJ_NPC_Class
 				bCrab:Spawn()
 				bCrab:Activate()
@@ -121,11 +122,9 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("JUMP: Spawn baby headcrabs")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local animAlert = {"vjseq_angry1", "vjseq_angry2"}
---
 function ENT:CustomOnAlert(ent)
 	self.Gonarch_NextBirthT = CurTime() + math.random(3, 6)
-	self:VJ_ACT_PLAYACTIVITY(animAlert, true, false, true)
+	self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1, true, false, true) // {"vjseq_angry1", "vjseq_angry2"}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Gonarch_BabyDeath()
@@ -179,12 +178,12 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		util.Effect("StriderBlood", effectData)
 	end
 	
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_shellgib.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,160)),Ang=self:LocalToWorldAngles(Angle(0,0,180))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_sacgib.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(20,0,60)),Ang=self:LocalToWorldAngles(Angle(-89.999908447266, 179.99996948242, 180))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_leggib.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(55,-70,80)),Ang=Angle(3.1017229557037, -35.476417541504, 91.352874755859)})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_leggib.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(70,55,80)),Ang=Angle(3.6497807502747, 60.498592376709, 93.368896484375)})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_leggib.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(-70,-45,80)),Ang=Angle(3.8801980018616, -128.15255737305, 91.630615234375)})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/big_mom_leggib.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(-45,70,80)),Ang=self:LocalToWorldAngles(Angle(3.8801965713501, -45, 91.630599975586))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_shellgib.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0,0,160)), Ang=self:LocalToWorldAngles(Angle(0,0,180))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_sacgib.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(20,0,60)), Ang=self:LocalToWorldAngles(Angle(-89.999908447266, 179.99996948242, 180))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_leggib.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(55,-70,80)), Ang=Angle(3.1017229557037, -35.476417541504, 91.352874755859)})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_leggib.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(70,55,80)), Ang=Angle(3.6497807502747, 60.498592376709, 93.368896484375)})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_leggib.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(-70,-45,80)), Ang=Angle(3.8801980018616, -128.15255737305, 91.630615234375)})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_leggib.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(-45,70,80)), Ang=self:LocalToWorldAngles(Angle(3.8801965713501, -45, 91.630599975586))})
 	return true -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -51,6 +51,7 @@ local replaceTbl_Entities = {
 	["npc_gman"] = "npc_vj_hlr2_gman",
 	["npc_headcrab"] = "npc_vj_hlr2_headcrab",
 	["npc_headcrab_black"] = "npc_vj_hlr2_headcrab_poison",
+	["npc_headcrab_poison"] = "npc_vj_hlr2_headcrab_poison",
 	["npc_headcrab_fast"] = "npc_vj_hlr2_headcrab_fast",
 	["npc_helicopter"] = "npc_vj_hlr2_com_chopper",
 	["npc_hunter"] = "npc_vj_hlr2_com_hunter",
@@ -347,7 +348,7 @@ hook.Add("Think", "VJ_HLR_AutoReplace_Think", function()
 				v.VJ_AutoScript_Reset = false
 			end
 			if gStateAntlionFri && v.VJ_HLR_Antlion then
-				table.insert(v.VJ_NPC_Class,"CLASS_PLAYER_ALLY")
+				table.insert(v.VJ_NPC_Class, "CLASS_PLAYER_ALLY")
 				v.PlayerFriendly = true
 				v.FriendsWithAllPlayerAllies = true
 			end

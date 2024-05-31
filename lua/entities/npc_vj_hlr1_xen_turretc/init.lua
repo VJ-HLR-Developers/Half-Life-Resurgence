@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/flower.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/flower.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.SightDistance = 512 -- How far it can see
 ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.StartHealth = 160
@@ -32,7 +32,7 @@ ENT.TimeUntilRangeAttackProjectileRelease = 0 -- How much time until the project
 ENT.NextRangeAttackTime = 1.5 -- How much time until it can use a range attack?
 
 ENT.DeathCorpseEntityClass = "prop_vj_animatable" -- The entity class it creates | "UseDefaultBehavior" = Let the base automatically detect the type
-ENT.DeathCorpseBodyGroup = VJ.SET(0,1) -- #1 = the category of the first bodygroup | #2 = the value of the second bodygroup | Set -1 for #1 to let the base decide the corpse's bodygroup
+ENT.DeathCorpseBodyGroup = VJ.SET(0, 1) -- #1 = the category of the first bodygroup | #2 = the value of the second bodygroup | Set -1 for #1 to let the base decide the corpse's bodygroup
 ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
@@ -43,11 +43,11 @@ local SdTbl_GibImpact = {"vj_hlr/fx/flesh1.wav","vj_hlr/fx/flesh2.wav","vj_hlr/f
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(25,25,0), Vector(-25,-25,-162))
+	self:SetCollisionBounds(Vector(25, 25, 0), Vector(-25, -25, -162))
 	self:DrawShadow(false) -- Because the light somehow makes a shadow =/
 	
 	local spotLight = ents.Create("light_dynamic")
-	spotLight:SetPos(self:GetAttachment(1).Pos + Vector(0,0,-5))
+	spotLight:SetPos(self:GetAttachment(1).Pos + Vector(0, 0, -5))
 	spotLight:SetKeyValue("_light", "135 24 194 120")
 	spotLight:SetKeyValue("brightness", "4")
 	spotLight:SetKeyValue("distance", "180")
@@ -78,25 +78,25 @@ function ENT:CustomOnInitialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
-	local startpos = self:GetAttachment(1).Pos
+	local startPos = self:GetAttachment(1).Pos
 	local tr = util.TraceLine({
-		start = startpos,
+		start = startPos,
 		endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(),
 		filter = self
 	})
-	local hitpos = tr.HitPos
+	local hitPos = tr.HitPos
 	local elec = EffectData()
-	elec:SetStart(startpos)
-	elec:SetOrigin(hitpos)
+	elec:SetStart(startPos)
+	elec:SetOrigin(hitPos)
 	elec:SetNormal(tr.HitNormal)
 	elec:SetEntity(self)
 	elec:SetAttachment(1)
 	elec:SetScale(0.5)
 	util.Effect("VJ_HLR_Electric_Xen_Turretc", elec)
 	
-	VJ.ApplyRadiusDamage(self, self, hitpos, 10, 30, DMG_SHOCK, true, false, {Force=90})
+	VJ.ApplyRadiusDamage(self, self, hitPos, 10, 30, DMG_SHOCK, true, false, {Force=90})
 	VJ.EmitSound(self, "vj_hlr/hl1_npc/xenceiling_turret/beamstart10.wav", 90, 100)
-	//sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitpos, 60)
+	//sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitPos, 60)
 	
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model","vj_hl/sprites/xflare1.vmt")
@@ -127,39 +127,43 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vecZ20 = Vector(0, 0, 20)
+local vecZ12 = Vector(0, 0, 12)
+--
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
+	local attPos = self:GetAttachment(1).Pos
 	if self.HasGibDeathParticles == true then
 		local spr = ents.Create("env_sprite")
-		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-		spr:SetKeyValue("rendercolor","115, 30, 164")
-		spr:SetKeyValue("GlowProxySize","5.0")
-		spr:SetKeyValue("HDRColorScale","1.0")
-		spr:SetKeyValue("renderfx","14")
-		spr:SetKeyValue("rendermode","3")
-		spr:SetKeyValue("renderamt","200")
-		spr:SetKeyValue("disablereceiveshadows","0")
-		spr:SetKeyValue("mindxlevel","0")
-		spr:SetKeyValue("maxdxlevel","0")
-		spr:SetKeyValue("framerate","10.0")
-		spr:SetKeyValue("spawnflags","0")
-		spr:SetKeyValue("scale","1")
-		spr:SetPos(self:GetAttachment(1).Pos + Vector(0,0,20))
+		spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
+		spr:SetKeyValue("rendercolor", "115,  30,  164")
+		spr:SetKeyValue("GlowProxySize", "5.0")
+		spr:SetKeyValue("HDRColorScale", "1.0")
+		spr:SetKeyValue("renderfx", "14")
+		spr:SetKeyValue("rendermode", "3")
+		spr:SetKeyValue("renderamt", "200")
+		spr:SetKeyValue("disablereceiveshadows", "0")
+		spr:SetKeyValue("mindxlevel", "0")
+		spr:SetKeyValue("maxdxlevel", "0")
+		spr:SetKeyValue("framerate", "10.0")
+		spr:SetKeyValue("spawnflags", "0")
+		spr:SetKeyValue("scale", "1")
+		spr:SetPos(attPos + vecZ20)
 		spr:Spawn()
 		//spr:SetParent(self)
-		//spr:Fire("SetParentAttachment", "0")
+		//spr:Fire("SetParentAttachment",  "0")
 		//self:DeleteOnRemove(spr)
 		timer.Simple(1.4, function() SafeRemoveEntity(spr) end)
 	end
 	
-	local pos = self:GetAttachment(1).Pos + Vector(0,0,12)
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh1.mdl",{BloodDecal="", Pos=pos + Vector(1,0,0), CollideSound=SdTbl_GibImpact})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh2.mdl",{BloodDecal="", Pos=pos + Vector(2,0,0), CollideSound=SdTbl_GibImpact})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh3.mdl",{BloodDecal="", Pos=pos + Vector(3,0,0), CollideSound=SdTbl_GibImpact})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh4.mdl",{BloodDecal="", Pos=pos + Vector(4,0,0), CollideSound=SdTbl_GibImpact})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh1.mdl",{BloodDecal="", Pos=pos + Vector(5,0,0), CollideSound=SdTbl_GibImpact})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh2.mdl",{BloodDecal="", Pos=pos + Vector(6,0,0), CollideSound=SdTbl_GibImpact})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh3.mdl",{BloodDecal="", Pos=pos + Vector(0,1,0), CollideSound=SdTbl_GibImpact})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh4.mdl",{BloodDecal="", Pos=pos + Vector(0,2,0), CollideSound=SdTbl_GibImpact})
+	local pos = attPos + vecZ12
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh1.mdl", {BloodDecal="",  Pos=pos + Vector(1, 0, 0),  CollideSound=SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {BloodDecal="",  Pos=pos + Vector(2, 0, 0),  CollideSound=SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {BloodDecal="",  Pos=pos + Vector(3, 0, 0),  CollideSound=SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh4.mdl", {BloodDecal="",  Pos=pos + Vector(4, 0, 0),  CollideSound=SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh1.mdl", {BloodDecal="",  Pos=pos + Vector(5, 0, 0),  CollideSound=SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {BloodDecal="",  Pos=pos + Vector(6, 0, 0),  CollideSound=SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {BloodDecal="",  Pos=pos + Vector(0, 1, 0),  CollideSound=SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh4.mdl", {BloodDecal="",  Pos=pos + Vector(0, 2, 0),  CollideSound=SdTbl_GibImpact})
 	return true, {AllowCorpse=true} -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

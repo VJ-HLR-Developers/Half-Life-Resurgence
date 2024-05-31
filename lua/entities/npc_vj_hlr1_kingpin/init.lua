@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/kingpin.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/kingpin.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 1000
 ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.HullType = HULL_LARGE
@@ -23,8 +23,8 @@ ENT.HasBloodPool = false -- Does it have a blood pool?
 
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2} -- Melee Attack Animations
-ENT.MeleeAttackDistance = 60 -- How close does it have to be until it attacks?
-ENT.MeleeAttackDamageDistance = 105 -- How close does it have to be until it attacks?
+ENT.MeleeAttackDistance = 60 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.MeleeAttackDamageDistance = 105 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDamage = 50
 ENT.MeleeAttackBleedEnemy = true
@@ -48,7 +48,7 @@ ENT.FootStepTimeWalk = 2 -- Next foot step sound when it is walking
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = {"vjseq_flinch_small"} -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = "vjseq_flinch_small" -- If it uses normal based animation, use this
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/kingpin/kingpin_seeker_amb.wav"}
@@ -58,6 +58,7 @@ ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/kingpin/kingpin_alert1.wav","vj_hlr/hl1_np
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/kingpin/kingpin_pain1.wav","vj_hlr/hl1_npc/kingpin/kingpin_pain2.wav","vj_hlr/hl1_npc/kingpin/kingpin_pain3.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/kingpin/kingpin_death1.wav","vj_hlr/hl1_npc/kingpin/kingpin_death2.wav"}
+
 local scanSd = {"vj_hlr/hl1_npc/kingpin/kingpin_seeker1.wav", "vj_hlr/hl1_npc/kingpin/kingpin_seeker2.wav", "vj_hlr/hl1_npc/kingpin/kingpin_seeker3.wav"}
 
 ENT.GeneralSoundPitch1 = 100
@@ -70,7 +71,8 @@ ENT.KingPin_NextPsionicAttackT = 0
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(35, 35, 110),Vector(-35, -35, 0))
 	self:SetNW2Bool("PsionicEffect", false)
-	self:SetImpactEnergyScale(0.01) -- By default take minimum damage
+	self:SetImpactEnergyScale(0.01) -- By default take minimum physics damage
+	self.KingPin_NextScanT = CurTime() + math.Rand(1, 5)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
@@ -94,6 +96,13 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("RMouse + CTRL: Preform Psionic Attack")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:TranslateActivity(act)
+	if act == ACT_IDLE && self.KingPin_PsionicAttacking then
+		return ACT_RANGE_ATTACK2
+	end
+	return self.BaseClass.TranslateActivity(self, act)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	-- Ability to see through walls
 	if !IsValid(self:GetEnemy()) && CurTime() > self.KingPin_NextScanT then
@@ -113,10 +122,10 @@ function ENT:CustomOnThink_AIEnabled()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:KingPin_ResetPsionicAttack()
+	self.AttackType = VJ.ATTACK_TYPE_NONE
 	self.GodMode = false
 	self.KingPin_PsionicAttacking = false
 	self.KingPin_NextPsionicAttackT = CurTime() + math.Rand(8, 12)
-	self.AnimTbl_IdleStand = {ACT_IDLE}
 	self:SetState()
 	self:SetNW2Bool("PsionicEffect", false)
 	timer.Simple(1, function() -- Wait little bit before resetting the physics damage scale to make sure no flying objects hit it!
@@ -126,12 +135,12 @@ function ENT:KingPin_ResetPsionicAttack()
 	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomAttack()
-	if CurTime() > self.KingPin_NextPsionicAttackT && !self:IsBusy() && self.KingPin_PsionicAttacking == false && self:Visible(self:GetEnemy()) && ((!self.VJ_IsBeingControlled && self.LatestEnemyDistance <= 1000) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK2) && self.VJ_TheController:KeyDown(IN_DUCK))) then
+function ENT:CustomAttack(ene, eneVisible)
+	if !self.KingPin_PsionicAttacking && CurTime() > self.KingPin_NextPsionicAttackT && ((!self.VJ_IsBeingControlled && eneVisible && self.LatestEnemyDistance <= 1000) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK2) && self.VJ_TheController:KeyDown(IN_DUCK))) && !self:IsBusy() then
 		//print("SEARCH ----")
 		local pTbl = {} -- Table of props that it found
 		for _, v in ipairs(ents.FindInSphere(self:GetPos(), 600)) do
-			if VJ.IsProp(v) && self:Visible(v) && self:GetEnemy():Visible(v) then
+			if VJ.IsProp(v) && self:Visible(v) && ene:Visible(v) then
 				local phys = v:GetPhysicsObject()
 				if IsValid(phys) && phys:GetMass() <= 2000 && v.BeingControlledByKingPin != true then
 					//print("Prop -", v)
@@ -139,15 +148,16 @@ function ENT:CustomAttack()
 				end
 			end
 		end
-		//print(pTbl)
-		if #pTbl > 0 then -- If greater then 1, then we found an object!
+		
+		-- If greater then 1, then we found an object!
+		if #pTbl > 0 then
 			self:SetImpactEnergyScale(0) -- Take no physics damage
+			self.AttackType = VJ.ATTACK_TYPE_CUSTOM
 			self.GodMode = true
 			self:SetNW2Bool("PsionicEffect", true)
 			VJ.EmitSound(self, "vj_hlr/hl1_npc/kingpin/port_suckin1.wav", 80, 140) -- 3.08025
 			self.KingPin_PsionicAttacking = true
-			self.AnimTbl_IdleStand = {ACT_RANGE_ATTACK2}
-			self:VJ_ACT_PLAYACTIVITY(ACT_RANGE_ATTACK1_LOW, true, false, false)
+			self:VJ_ACT_PLAYACTIVITY(ACT_RANGE_ATTACK1_LOW, "LetAttacks", false, false)
 			self:SetState(VJ_STATE_ONLY_ANIMATION)
 			for _, v in ipairs(pTbl) do
 				local phys = v:GetPhysicsObject()
@@ -180,9 +190,9 @@ function ENT:CustomAttack()
 							v:SetNW2Bool("BeingControlledByKingPin", false)
 							phys:EnableGravity(true)
 							phys:EnableDrag(true)
-							if selfValid && IsValid(self:GetEnemy()) then -- We check self here, in case self is removed, we will reset the props at least
+							if selfValid && IsValid(self:GetEnemy()) then -- Only throw props at the enemy if Kingpin has NOT been removed
 								phys:SetVelocity(self:CalculateProjectile("Line", v:GetPos(), self:GetEnemy():GetPos(), 2000))
-								self:VJ_ACT_PLAYACTIVITY(ACT_RANGE_ATTACK2_LOW, true, false, false)
+								self:VJ_ACT_PLAYACTIVITY(ACT_RANGE_ATTACK2_LOW, "LetAttacks", false, false)
 							end
 						end
 					end
@@ -193,14 +203,10 @@ function ENT:CustomAttack()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomAttackCheck_MeleeAttack() return self.KingPin_PsionicAttacking != true end -- Not returning true will not let the melee attack code run!
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomAttackCheck_RangeAttack() return self.KingPin_PsionicAttacking != true end -- Not returning true will not let the range attack code run!
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	if IsValid(self:GetEnemy()) then
 		projectile.Track_Enemy = self:GetEnemy()
-		timer.Simple(20,function() if IsValid(projectile) then projectile:Remove() end end)
+		timer.Simple(20, function() if IsValid(projectile) then projectile:Remove() end end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -210,11 +216,12 @@ function ENT:RangeAttackCode_GetShootPos(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 /*function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
+	-- Unused shield system
 	if self:HasShield() then
 		local dmg = dmginfo:GetDamage()
 		dmginfo:SetDamage(0)
 		VJ.EmitSound(self,"vj_hlr/hl1_npc/kingpin/port_suckin1.wav",70,200)
-		self.ShieldHealth = self.ShieldHealth -dmg
+		self.ShieldHealth = self.ShieldHealth - dmg
 		if self.ShieldHealth <= 0 && !self.IsGeneratingShield then
 			self:SetNW2Bool("shield",false)
 			self.IsGeneratingShield = true
@@ -246,24 +253,24 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 	end
 	
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib1.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(1,0,40))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib2.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(2,0,20))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib3.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(3,0,30))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib4.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(4,0,35))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib1.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(5,0,40))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib2.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(6,0,20))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib3.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(7,0,30))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib4.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(8,0,35))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib1.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(9,0,40))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib2.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,1,20))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib3.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,2,30))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib4.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,3,35))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib5.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,4,50))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib6.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,5,55))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib7.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,6,40))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib8.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,45))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib9.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,25))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib10.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,15))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(1, 0, 40))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(2, 0, 20))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(3, 0, 30))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib4.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(4, 0, 35))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(5, 0, 40))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(6, 0, 20))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(7, 0, 30))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib4.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(8, 0, 35))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(9, 0, 40))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 1, 20))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 2, 30))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib4.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 3, 35))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib5.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 4, 50))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib6.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 5, 55))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib7.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 6, 40))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib8.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 45))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib9.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 25))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib10.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 15))})
 	return true -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

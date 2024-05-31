@@ -5,13 +5,13 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/police.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/police.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 50
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_COMBINE"} -- NPCs with the same class with be allied to each other
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.AnimTbl_MeleeAttack = {"pushplayer"} // ACT_MELEE_ATTACK_SWING
+ENT.AnimTbl_MeleeAttack = "pushplayer" // ACT_MELEE_ATTACK_SWING
 ENT.MeleeAttackDamage = 10
 ENT.FootStepTimeRun = 0.4 -- Next foot step sound when it is running
 ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
@@ -67,7 +67,6 @@ local sdCop_AllyDeath_Metrocop = {"vj_hlr/hl2_npc/metropolice/officerdown.wav","
 
 -- Deployment sounds
 local sdCop_DeployManhack = {"vj_hlr/hl2_npc/metropolice/rogueviscerator.wav","vj_hlr/hl2_npc/metropolice/allunitsvisceratorisactive.wav","npc/metropolice/vo/visceratordeployed.wav","npc/metropolice/vo/visceratorisoc.wav","npc/metropolice/vo/visceratorisoffgrid.wav"}
-local sdCop_DeployStunStick = {"weapons/stunstick/spark1.wav","weapons/stunstick/spark2.wav","weapons/stunstick/spark3.wav"}
 
 /*
 -- Unused MMod sounds:
@@ -196,8 +195,10 @@ local sdCop_DeployStunStick = {"weapons/stunstick/spark1.wav","weapons/stunstick
 ENT.Metrocop_CanHaveManhack = true
 ENT.Metrocop_AlwaysSpawnManhack = false -- Always spawn with a manhack, used for auto replace
 ENT.Metrocop_HasManhack = false
+ENT.Metrocop_Manhack = NULL
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
+	-- Handle manhack inventory
 	if self.Metrocop_CanHaveManhack && ((math.random(1, 4) == 1) or self.Metrocop_ForceSpawnManhack) then
 		self.Metrocop_HasManhack = true
 		self:SetBodygroup(1, 1)
@@ -215,6 +216,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 /*function ENT:CustomOnAcceptInput(key, activator, caller, data)
+	-- Campaign compatibility test
 	if key == "SetPoliceGoal" then
 		print(self, key, activator, caller, data)
 		local policeEnt = ents.FindByName("ai_breakin_cop3goal2")[1]
@@ -226,6 +228,32 @@ end
 		end
 	end
 end*/
+---------------------------------------------------------------------------------------------------------------------------------------------
+local getEventName = util.GetAnimEventNameByID
+--
+function ENT:CustomOnHandleAnimEvent(ev, evTime, evCycle, evType, evOptions)
+	local eventName = getEventName(ev)
+	if eventName == "AE_METROPOLICE_BATON_ON" && IsValid(self:GetActiveWeapon()) then
+		VJ.EmitSound(self, "Weapon_StunStick.Activate")
+		local effectData = EffectData()
+		effectData:SetOrigin(self:GetActiveWeapon():GetAttachment(1).Pos)
+		effectData:SetMagnitude(1.5)
+		effectData:SetScale(0.8)
+		util.Effect("Sparks", effectData)
+	elseif eventName == "AE_METROPOLICE_START_DEPLOY" then
+		self:SetBodygroup(1, 0)
+		local prop = ents.Create("prop_vj_animatable")
+		prop:SetModel("models/manhack.mdl")
+		prop:SetLocalPos(self:GetPos())
+		prop:SetAngles(self:GetAngles())
+		prop:SetParent(self)
+		prop:Spawn()
+		prop:Fire("SetParentAttachment", "anim_attachment_LH", 0)
+		self.Metrocop_ManhackProp = prop
+	elseif eventName == "AE_METROPOLICE_DEPLOY_MANHACK" then
+		self:Metrocop_SpawnManhack()
+	end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnPlayCreateSound(sdData, sdFile)
 	if VJ.HasValue(self.SoundTbl_Pain, sdFile) or VJ.HasValue(self.DefaultSoundTbl_MeleeAttack, sdFile) then return end
@@ -259,54 +287,54 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoChangeWeapon(newWeapon, oldWeapon, invSwitch)
 	//if invSwitch == true then -- Only if it's a inventory switch
+	-- Play the stunstick activation animation
 	if newWeapon:GetClass() == "weapon_vj_hlr2_stunstick" then
-		timer.Simple(0.4, function()
-			if IsValid(self) then
-				VJ.EmitSound(self, sdCop_DeployStunStick)
-				local edata = EffectData()
-				edata:SetOrigin(newWeapon:GetAttachment(1).Pos)
-				util.Effect("StunstickImpact", edata)
-			end
-		end)
 		self:VJ_ACT_PLAYACTIVITY("activatebaton", true, false, true)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vecZ250 = Vector(0, 0, 250)
---
 function ENT:Metrocop_DeployManhack()
 	self.Metrocop_HasManhack = false
 	self:VJ_ACT_PLAYACTIVITY("deploy", true, false, true)
 	self:StopAllCommonSpeechSounds()
 	self:PlaySoundSystem("GeneralSpeech", sdCop_DeployManhack)
-	timer.Simple(0.3, function()
-		if IsValid(self) then
-			self:SetBodygroup(1, 0)
-			self.Metrocop_ManHackProp = ents.Create("prop_vj_animatable")
-			self.Metrocop_ManHackProp:SetModel("models/manhack.mdl")
-			self.Metrocop_ManHackProp:SetLocalPos(self:GetPos())
-			self.Metrocop_ManHackProp:SetAngles(self:GetAngles())
-			self.Metrocop_ManHackProp:SetParent(self)
-			self.Metrocop_ManHackProp:Spawn()
-			self.Metrocop_ManHackProp:Fire("SetParentAttachment", "anim_attachment_LH", 0)
+	
+	-- Backup in case animation cuts out and event is never ran
+	timer.Simple(3, function()
+		if IsValid(self) && !IsValid(self.Metrocop_Manhack) then
+			self:Metrocop_SpawnManhack()
 		end
 	end)
-	timer.Simple(1.1, function()
-		if IsValid(self) then
-			self.Metrocop_ManHackProp:Remove()
-			local ent = ents.Create("npc_manhack")
-			ent:SetPos(self.Metrocop_ManHackProp:GetPos())
-			ent:SetAngles(self.Metrocop_ManHackProp:GetAngles())
-			ent.VJ_NPC_Class = self.VJ_NPC_Class
-			table.insert(self.VJ_AddCertainEntityAsFriendly, ent)
-			ent:Spawn()
-			ent:GetPhysicsObject():AddVelocity(vecZ250)
-			ent:Fire("SetMaxLookDistance", self:GetMaxLookDistance())
-			ent:SetKeyValue("spawnflags", "65536")
-			//ent:SetKeyValue("spawnflags", "256")
-			ent:SetEnemy(self:GetEnemy())
-		end
-	end)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local vecZ250 = Vector(0, 0, 250)
+--
+function ENT:Metrocop_SpawnManhack()
+	local manhack = ents.Create("npc_manhack")
+	if IsValid(self.Metrocop_ManhackProp) then
+		self.Metrocop_ManhackProp:Remove()
+		manhack:SetPos(self.Metrocop_ManhackProp:GetPos())
+		manhack:SetAngles(self.Metrocop_ManhackProp:GetAngles())
+	else
+		local att = self:GetAttachment(self:LookupAttachment("LHand"))
+		manhack:SetPos(att.Pos)
+		manhack:SetAngles(att.Ang)
+	end
+	manhack.VJ_NPC_Class = self.VJ_NPC_Class
+	table.insert(self.VJ_AddCertainEntityAsFriendly, manhack)
+	manhack:Spawn()
+	manhack:GetPhysicsObject():AddVelocity(vecZ250)
+	manhack:Fire("SetMaxLookDistance", self:GetMaxLookDistance())
+	manhack:SetKeyValue("spawnflags", "65536")
+	//manhack:SetKeyValue("spawnflags", "256")
+	manhack:SetEnemy(self:GetEnemy())
+	if IsValid(self:GetCreator()) then -- If it has a creator, then add it to that player's undo list
+		undo.Create(self:GetName().."'s Manhack")
+			undo.AddEntity(manhack)
+			undo.SetPlayer(self:GetCreator())
+		undo.Finish()
+	end
+	self.Metrocop_Manhack = manhack
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
@@ -319,5 +347,12 @@ end
 function ENT:CustomOnAllyDeath(ent)
 	if math.random(1, 3) != 1  && self.VJTag_ID_Police then
 		self:PlaySoundSystem("AllyDeath", sdCop_AllyDeath_Metrocop)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRemove()
+	-- Remove manhack if we were removed without being killed
+	if !self.Dead && IsValid(self.Metrocop_Manhack) then
+		self.Metrocop_Manhack:Remove()
 	end
 end

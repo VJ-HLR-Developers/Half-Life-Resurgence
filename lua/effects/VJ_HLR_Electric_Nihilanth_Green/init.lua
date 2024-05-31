@@ -4,7 +4,7 @@
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
 -- Based off of the GMod lasertracer
-EFFECT.MainMat = Material("vj_hl/beam")
+local matBeam = Material("vj_hl/beam")
 
 function EFFECT:Init(data)
 	self.StartPos = data:GetStart()
@@ -18,14 +18,14 @@ function EFFECT:Init(data)
 	self:SetRenderBoundsWS(self.StartPos, self.EndPos)
 	
 	local hitPosNormal = self.HitPos:GetNormalized()
-	util.Decal("VJ_HLR_Scorch", self.EndPos + hitPosNormal, self.EndPos - hitPosNormal)
-	local effectdata = EffectData()
-	effectdata:SetOrigin(self.EndPos + hitPosNormal*-2)
-	effectdata:SetNormal(hitPosNormal*-3)
-	effectdata:SetMagnitude(0.1)
-	effectdata:SetScale(0.4)
-	effectdata:SetRadius(3)
-	util.Effect("Sparks", effectdata)
+	util.Decal("VJ_HLR_Scorch", self.EndPos + hitPosNormal * -30, self.EndPos - hitPosNormal * -30)
+	local effectData = EffectData()
+	effectData:SetOrigin(self.EndPos + hitPosNormal * -2)
+	effectData:SetNormal(hitPosNormal * -3)
+	effectData:SetMagnitude(0.1)
+	effectData:SetScale(0.4)
+	effectData:SetRadius(3)
+	util.Effect("Sparks", effectData)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function EFFECT:Think()
@@ -38,6 +38,6 @@ function EFFECT:Think()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function EFFECT:Render()
-	render.SetMaterial(self.MainMat)
-	render.DrawBeam(self.StartPos, self.EndPos, math.Rand(200,200), math.Rand(0,1), ((self.StartPos - self.EndPos):Length() / 20000), Color(255,255,255,255))
+	render.SetMaterial(matBeam)
+	render.DrawBeam(self.StartPos, self.EndPos, 200, math.Rand(0, 1), (self.StartPos - self.EndPos):Length() / 20000, Color(255, 255, 255, 255))
 end

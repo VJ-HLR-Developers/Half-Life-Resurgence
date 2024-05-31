@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/opfor/geneworm.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/opfor/geneworm.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 1080
 ENT.SightAngle = 120 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.HullType = HULL_LARGE
@@ -27,16 +27,16 @@ ENT.VJ_NPC_Class = {"CLASS_RACE_X"} -- NPCs with the same class with be allied t
 
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.MeleeAttackDamage = 60
-ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1} -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1 -- Melee Attack Animations
 ENT.MeleeAttackAnimationFaceEnemy = true -- Should it face the enemy while playing the melee attack animation?
-ENT.MeleeAttackDistance = 250 -- How close does it have to be until it attacks?
-ENT.MeleeAttackDamageDistance = 500 -- How far does the damage go?
+ENT.MeleeAttackDistance = 580 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.MeleeAttackDamageDistance = 600 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.HasMeleeAttackKnockBack = true -- If true, it will cause a knockback to its enemy
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlrof_gw_biotoxin" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
-ENT.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1} -- Range Attack Animations
+ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1 -- Range Attack Animations
 ENT.RangeDistance = 8000 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 500 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = 2.1 -- How much time until the projectile code is ran?
@@ -47,12 +47,12 @@ ENT.RangeUseAttachmentForPos = true -- Should the projectile spawn on a attachme
 ENT.RangeUseAttachmentForPosID = "mouth" -- The attachment used on the range attack if RangeUseAttachmentForPos is set to true
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {"death"} -- Death Animations
+ENT.AnimTbl_Death = "death" -- Death Animations
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/geneworm/geneworm_idle1.wav","vj_hlr/hl1_npc/geneworm/geneworm_idle2.wav","vj_hlr/hl1_npc/geneworm/geneworm_idle3.wav","vj_hlr/hl1_npc/geneworm/geneworm_idle4.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/geneworm/geneworm_death.wav"}
+ENT.SoundTbl_Death = "vj_hlr/hl1_npc/geneworm/geneworm_death.wav"
 
 ENT.BreathSoundLevel = 100
 ENT.IdleSoundLevel = 100
@@ -78,7 +78,7 @@ function ENT:CustomOnInitialize()
 	self:AddFlags(FL_NOTARGET) -- They are going to target the bullseye only, so don't let other NPCs see the actual gene worm!
 	self:SetCollisionBounds(Vector(400, 400, 350), Vector(-400, -400, -240))
 	self:SetRenderMode(RENDERMODE_TRANSALPHA)
-	self.GW_EyeHealth = {r=maxEyeHealth, l=maxEyeHealth}
+	self.GW_EyeHealth = {r = maxEyeHealth, l = maxEyeHealth}
 	self.GW_OrbHealth = maxOrbHealth
 	
 	-- Bulleyes for both eyes & the core
@@ -212,6 +212,13 @@ function ENT:CustomOnInitialize()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:TranslateActivity(act)
+	if act == ACT_IDLE && self.GW_OrbOpen then
+		return ACT_IDLE_STIMULATED
+	end
+	return self.BaseClass.TranslateActivity(self, act)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	//print(key)
 	if key == "melee" or key == "shakeworld" then
@@ -258,19 +265,12 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:GetDynamicOrigin()
-	return self:GetPos() + self:GetForward()*200 -- Override this to use a different position
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:GetMeleeAttackDamageOrigin()
-	return self:GetPos() + self:GetForward()*200 -- Override this to use a different position
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MeleeAttackKnockbackVelocity(hitEnt)
 	return self:GetForward()*math.random(400, 500) + self:GetUp()*(self.GW_MeleeNegKnockback and math.random(-100, -150) or math.random(1000, 1200))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local meleeAngCos = math.cos(math.rad(40))
+local sdMeleeReg = {"vj_hlr/hl1_npc/geneworm/geneworm_attack_mounted_gun.wav", "vj_hlr/hl1_npc/geneworm/geneworm_attack_mounted_rocket.wav"}
 --
 function ENT:CustomOnMeleeAttack_BeforeStartTimer()
 	local ene = self:GetEnemy()
@@ -280,15 +280,15 @@ function ENT:CustomOnMeleeAttack_BeforeStartTimer()
 	local posR = myPos + self:GetForward()*200 + self:GetRight()*300
 	local posL = myPos + self:GetForward()*200 + self:GetRight()*-300
 	if math.random(1, 2) == 1 then
-		self.AnimTbl_MeleeAttack = {ACT_SPECIAL_ATTACK1}
+		self.AnimTbl_MeleeAttack = ACT_SPECIAL_ATTACK1
 		self.GW_MeleeNegKnockback = false
-		self.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/geneworm/geneworm_big_attack_forward.wav"}
+		self.SoundTbl_BeforeMeleeAttack = "vj_hlr/hl1_npc/geneworm/geneworm_big_attack_forward.wav"
 	else
 		self.GW_MeleeNegKnockback = true
-		self.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/geneworm/geneworm_attack_mounted_gun.wav", "vj_hlr/hl1_npc/geneworm/geneworm_attack_mounted_rocket.wav"}
+		self.SoundTbl_BeforeMeleeAttack = sdMeleeReg
 		if self:GetForward():Dot((enePos - myPos):GetNormalized()) > meleeAngCos then
 			//print("center")
-			self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
+			self.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
 		else
 			if posR:Distance(enePos) > posL:Distance(enePos) then
 				//print("left")
@@ -327,13 +327,12 @@ function ENT:GW_OrbOpenReset()
 	if self.Dead then return end
 	timer.Remove("gw_closestomach"..self:EntIndex())
 	self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain4.wav")
-	self.SoundTbl_Breath = {}
+	self.SoundTbl_Breath = nil
 	VJ.STOPSOUND(self.CurrentBreathSound)
 	self.GW_OrbOpen = false
 	self.GW_EyeHealth = {r=maxEyeHealth, l=maxEyeHealth}
 	self.GW_OrbHealth = maxOrbHealth
 	self:SetSkin(0)
-	self.AnimTbl_IdleStand = {ACT_IDLE}
 	self:VJ_ACT_PLAYACTIVITY("pain_4", true, false, false, 0, {}, function(sched)
 		sched.RunCode_OnFinish = function() -- Just a backup in case event fails
 			self.GW_OrbSprite:Fire("HideSprite")
@@ -363,10 +362,9 @@ function ENT:GW_EyeHealthCheck()
 			self.GW_BE_Orb:RemoveFlags(FL_NOTARGET)
 			self.GW_OrbOpen = true
 			self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
-			self.AnimTbl_IdleStand = {ACT_IDLE_STIMULATED}
 			self:VJ_ACT_PLAYACTIVITY("pain_1", true, false)
 			self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain1.wav")
-			self.SoundTbl_Breath = {"vj_hlr/hl1_npc/geneworm/geneworm_final_pain2.wav"}
+			self.SoundTbl_Breath = "vj_hlr/hl1_npc/geneworm/geneworm_final_pain2.wav"
 			/*timer.Simple(VJ.AnimDuration(self, "pain_1"),function()
 				if IsValid(self) then
 					self:VJ_ACT_PLAYACTIVITY("pain_2", true, false)
@@ -427,7 +425,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 		self.GW_OrbHealth = self.GW_OrbHealth - dmginfo:GetDamage()
 		if self.GW_OrbHealth <= 0 then
 			timer.Remove("gw_closestomach"..self:EntIndex())
-			self.SoundTbl_Breath = {}
+			self.SoundTbl_Breath = nil
 			VJ.STOPSOUND(self.CurrentBreathSound)
 			self.PainSoundT = 0 -- Otherwise it won't play the sound because it played another pain sound right before this!
 			self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain3.wav")

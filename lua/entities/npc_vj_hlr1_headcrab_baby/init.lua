@@ -1,3 +1,4 @@
+include("entities/npc_vj_hlr1_headcrab/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
@@ -5,9 +6,8 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/headcrab_baby.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/headcrab_baby.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.TurningSpeed = 60 -- How fast it can turn
-ENT.EntitiesToNoCollide = {"npc_vj_hlr1_gonarch"} -- Entities to not collide with when HasEntitiesToNoCollide is set to true
 ENT.StartHealth = 5
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(10, 0, 0), -- The offset for the controller when the camera is in third person
@@ -25,18 +25,16 @@ ENT.GeneralSoundPitch1 = 120
 ENT.GeneralSoundPitch2 = 120
 
 -- Custom
-ENT.BabH_Mother = NULL
+ENT.HeadCrab_IsBaby = true
+ENT.BabyH_MotherEnt = NULL
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(5, 5, 10), Vector(-5, -5, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
-	-- Override the regular headcrab because we don't want it to play an alert animation
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
-	if IsValid(self.BabH_Mother) then
-		self.BabH_Mother:Gonarch_BabyDeath()
+	-- ALERT MY MOM THAT I HAVE DIED ;(
+	if IsValid(self.BabyH_MotherEnt) then
+		self.BabyH_MotherEnt:Gonarch_BabyDeath()
 	end
 end

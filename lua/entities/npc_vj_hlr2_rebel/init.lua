@@ -12,33 +12,41 @@ ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be all
 ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other player allies?
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
-ENT.AnimTbl_MeleeAttack = {"vjseq_MeleeAttack01"} -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = "vjseq_MeleeAttack01" -- Melee Attack Animations
 ENT.TimeUntilMeleeAttackDamage = 0.7 -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDamage = 10
 ENT.FootStepTimeRun = 0.25 -- Next foot step sound when it is running
 ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
 ENT.HasGrenadeAttack = true -- Should the NPC have a grenade attack?
-ENT.AnimTbl_GrenadeAttack = {ACT_RANGE_ATTACK_THROW} -- Grenade Attack Animations
+ENT.AnimTbl_GrenadeAttack = ACT_RANGE_ATTACK_THROW -- Grenade Attack Animations
 ENT.TimeUntilGrenadeIsReleased = 0.87 -- Time until the grenade is released
 ENT.GrenadeAttackAttachment = "anim_attachment_RH" -- The attachment that the grenade will spawn at
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
 ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards the player if it's damaged by a player?
-ENT.AnimTbl_Medic_GiveHealth = {"heal"} -- Animations is plays when giving health to an ally
+ENT.AnimTbl_Medic_GiveHealth = "heal" -- Animations is plays when giving health to an ally
 ENT.WeaponInventory_AntiArmorList = {"weapon_vj_rpg", "weapon_vj_hlr2_rpg"} -- It will randomly be given one of these weapons
 ENT.WeaponInventory_MeleeList = {"weapon_vj_crowbar"} -- It will randomly be given one of these weapons
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = {ACT_FLINCH_PHYSICS} -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = ACT_FLINCH_PHYSICS -- If it uses normal based animation, use this
 	-- ====== File Path Variables ====== --
 	-- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"npc/footsteps/hardboot_generic1.wav","npc/footsteps/hardboot_generic2.wav","npc/footsteps/hardboot_generic3.wav","npc/footsteps/hardboot_generic4.wav","npc/footsteps/hardboot_generic5.wav","npc/footsteps/hardboot_generic6.wav","npc/footsteps/hardboot_generic8.wav"}
 
 -- Custom
-ENT.Human_Type = 0 -- 0 = Rebel | 1 = Engineer
-ENT.Human_Gender = nil -- 0 = Male | 1 = Female
+local HUMAN_GENDER_INVALID = -1
+local HUMAN_GENDER_MALE = 0
+local HUMAN_GENDER_FEMALE = 1
+
+local HUMAN_TYPE_REBEL = 0
+local HUMAN_TYPE_ENGINEER = 1
+
+ENT.Human_Type = HUMAN_TYPE_REBEL
+ENT.Human_Gender = HUMAN_GENDER_INVALID
 ENT.Human_SdFolder = "male01"
 ENT.Human_Driver = false
 ENT.Human_NextPlyReloadSd = 0
+
 -- MALE
 local sdGiveAmmo_M = {
 	"vo/npc/male01/ammo01.wav",
@@ -105,7 +113,6 @@ local sdAllyDeathPly_M = {
 	"vo/npc/male01/gordead_ques16.wav",
 	"vo/npc/male01/gordead_ques17.wav",
 }
--- Specific alert sounds
 
 -- FEMALE
 local sdGiveAmmo_F = {
@@ -173,36 +180,53 @@ local sdAllyDeathPly_F = {
 	"vo/npc/female01/gordead_ques16.wav",
 	"vo/npc/female01/gordead_ques17.wav",
 }
--- Specific alert sounds
+
+local mdlMale = {"models/Humans/Group03/male_01.mdl", "models/Humans/Group03/male_02.mdl", "models/Humans/Group03/male_03.mdl", "models/Humans/Group03/male_04.mdl", "models/Humans/Group03/male_05.mdl", "models/Humans/Group03/male_06.mdl", "models/Humans/Group03/male_07.mdl", "models/Humans/Group03/male_08.mdl", "models/Humans/Group03/male_09.mdl"}
+local mdlMaleMedic = {"models/Humans/Group03m/male_01.mdl", "models/Humans/Group03m/male_02.mdl", "models/Humans/Group03m/male_03.mdl", "models/Humans/Group03m/male_04.mdl", "models/Humans/Group03m/male_05.mdl", "models/Humans/Group03m/male_06.mdl", "models/Humans/Group03m/male_07.mdl", "models/Humans/Group03m/male_08.mdl", "models/Humans/Group03m/male_09.mdl"}
+local mdlFemale = {"models/Humans/Group03/female_01.mdl", "models/Humans/Group03/female_02.mdl", "models/Humans/Group03/female_03.mdl", "models/Humans/Group03/female_04.mdl", "models/Humans/Group03/female_06.mdl", "models/Humans/Group03/female_07.mdl"}
+local mdlFemaleMedic = {"models/Humans/Group03m/female_01.mdl", "models/Humans/Group03m/female_02.mdl", "models/Humans/Group03m/female_03.mdl", "models/Humans/Group03m/female_04.mdl", "models/Humans/Group03m/female_06.mdl", "models/Humans/Group03m/female_07.mdl"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-	if self.Human_Gender == 0 or (self.Human_Gender == nil && math.random(1, 2) == 1) then
-		self.Human_Gender = 0
-		if math.random(1, 5) == 1 && self.Human_Type != 1 && !self.Human_Driver then
-			self.Model = {"models/Humans/Group03m/male_01.mdl","models/Humans/Group03m/male_02.mdl","models/Humans/Group03m/male_03.mdl","models/Humans/Group03m/male_04.mdl","models/Humans/Group03m/male_05.mdl","models/Humans/Group03m/male_06.mdl","models/Humans/Group03m/male_07.mdl","models/Humans/Group03m/male_08.mdl","models/Humans/Group03m/male_09.mdl"}
+	if self.Human_Gender == HUMAN_GENDER_FEMALE or (self.Human_Gender == HUMAN_GENDER_INVALID && math.random(1, 3) == 1) then
+		self.Human_Gender = HUMAN_GENDER_FEMALE
+		if math.random(1, 5) == 1 && self.Human_Type != HUMAN_TYPE_ENGINEER && !self.Human_Driver  then -- Medic variant
+			self.Model = mdlFemaleMedic
 			self.IsMedicSNPC = true
 		else
-			self.Model = {"models/Humans/Group03/male_01.mdl","models/Humans/Group03/male_02.mdl","models/Humans/Group03/male_03.mdl","models/Humans/Group03/male_04.mdl","models/Humans/Group03/male_05.mdl","models/Humans/Group03/male_06.mdl","models/Humans/Group03/male_07.mdl","models/Humans/Group03/male_08.mdl","models/Humans/Group03/male_09.mdl"}
+			self.Model = mdlFemale
 		end
 	else
-		self.Human_Gender = 1
-		if math.random(1, 5) == 1 && self.Human_Type != 1 && !self.Human_Driver  then
-			self.Model = {"models/Humans/Group03m/female_01.mdl","models/Humans/Group03m/female_02.mdl","models/Humans/Group03m/female_03.mdl","models/Humans/Group03m/female_04.mdl","models/Humans/Group03m/female_06.mdl","models/Humans/Group03m/female_07.mdl"}
+		self.Human_Gender = HUMAN_GENDER_MALE
+		if math.random(1, 5) == 1 && self.Human_Type != HUMAN_TYPE_ENGINEER && !self.Human_Driver then -- Medic variant
+			self.Model = mdlMaleMedic
 			self.IsMedicSNPC = true
 		else
-			self.Model = {"models/Humans/Group03/female_01.mdl","models/Humans/Group03/female_02.mdl","models/Humans/Group03/female_03.mdl","models/Humans/Group03/female_04.mdl","models/Humans/Group03/female_06.mdl","models/Humans/Group03/female_07.mdl"}
+			self.Model = mdlMale
 		end
 	end
-	if self.IsMedicSNPC == false && math.random(1, 3) == 1 then
+	
+	-- Anti-armor and melee inventories
+	if !self.IsMedicSNPC && math.random(1, 3) == 1 then
 		self.WeaponInventory_AntiArmor = true
 	end
-	if math.random(1, 3) == 1 or self.Human_Type == 1 then
+	if math.random(1, 3) == 1 or self.Human_Type == HUMAN_TYPE_ENGINEER then
 		self.WeaponInventory_Melee = true
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	if self.Human_Gender == 1 then
+	-- Handle animations when it's spawned as a tank spotter
+	if self.Human_Driver then
+		function self:TranslateActivity(act)
+			if act == ACT_IDLE then
+				return ACT_IDLE_MANNEDGUN
+			end
+			return self.BaseClass.TranslateActivity(self, act)
+		end
+	end
+	
+	-- Handle sounds depending on gender
+	if self.Human_Gender == HUMAN_GENDER_FEMALE then
 		self:HLR_ApplyFemaleSounds()
 		self.Human_SdFolder = "female01"
 	else
@@ -212,7 +236,7 @@ function ENT:CustomOnInitialize()
 	
 	-- Set different clothing --
 	-- For Engineers (Always have custom skin!)
-	if self.Human_Type == 1 then
+	if self.Human_Type == HUMAN_TYPE_ENGINEER then
 		for k, v in ipairs(self:GetMaterials()) do
 			-- Female Engineer
 			if v == "models/humans/female/group03/citizen_sheet" then
@@ -301,7 +325,7 @@ function ENT:CustomOnPlayerSight(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMaintainRelationships(ent, entFri, entDist)
-	-- Tell the player to reload their weapon or give the player a ammo
+	-- Tell the player to reload their weapon OR give them ammo
 	if entFri == true && ent:IsPlayer() && CurTime() > self.Human_NextPlyReloadSd && !IsValid(self:GetEnemy()) && entDist <= 200 then
 		self.Human_NextPlyReloadSd = CurTime() + math.Rand(10, 60)
 		local wep = ent:GetActiveWeapon()
@@ -319,11 +343,11 @@ function ENT:CustomOnMaintainRelationships(ent, entFri, entDist)
 							end
 						end})
 						self:SetTurnTarget(ent, animTime)
-						self:PlaySoundSystem("GeneralSpeech", (self.Human_Gender == 1 and sdGiveAmmo_F) or sdGiveAmmo_M)
+						self:PlaySoundSystem("GeneralSpeech", (self.Human_Gender == HUMAN_GENDER_FEMALE and sdGiveAmmo_F) or sdGiveAmmo_M)
 					end
-				-- Reload Freeman
+				-- Reload Freeman!
 				elseif wep:Clip1() < wep:GetMaxClip1() && ent:GetAmmoCount(ammoType) > 0 then
-					self:PlaySoundSystem("GeneralSpeech", (self.Human_Gender == 1 and sdSuggestReloadPly_F) or sdSuggestReloadPly_M)
+					self:PlaySoundSystem("GeneralSpeech", (self.Human_Gender == HUMAN_GENDER_FEMALE and sdSuggestReloadPly_F) or sdSuggestReloadPly_M)
 				end
 			end
 		end
@@ -334,13 +358,13 @@ function ENT:CustomOnDoChangeWeapon(newWeapon, oldWeapon, invSwitch)
 	if invSwitch == true then -- Only if it's a inventory switch
 		self:VJ_ACT_PLAYACTIVITY(ACT_PICKUP_RACK, true, false, true)
 	end
-	-- Only males can play a sound when taking out an anti-armor weapon
-	if self.Human_Gender == 0 && self.WeaponInventoryStatus == VJ.NPC_WEP_INVENTORY_ANTI_ARMOR && math.random(1, 2) == 1 then self:PlaySoundSystem("GeneralSpeech", "vo/npc/male01/evenodds.wav") end
+	-- Only males have a taking out an anti-armor weapon sound
+	if self.Human_Gender == HUMAN_GENDER_MALE && self.WeaponInventoryStatus == VJ.NPC_WEP_INVENTORY_ANTI_ARMOR && math.random(1, 2) == 1 then self:PlaySoundSystem("GeneralSpeech", "vo/npc/male01/evenodds.wav") end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoKilledEnemy(ent, attacker, inflictor)
 	-- Only males have cheering animation!
-	if self.Human_Gender == 0 && !self:IsBusy() && math.random(1, 3) == 1 then
+	if self.Human_Gender == HUMAN_GENDER_MALE && !self:IsBusy() && math.random(1, 3) == 1 then
 		self:VJ_ACT_PLAYACTIVITY("vjseq_cheer1", false, false, false, 0, {SequenceInterruptible=true})
 	end
 end
@@ -348,7 +372,7 @@ end
 function ENT:CustomOnAlert(ent)
 	if math.random(1, 2) == 1 && ent:IsNPC() then
 		//print(ent:Classify())
-		if ent.VJTag_ID_Headcrab or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast" then
+		if ent.VJTag_ID_Headcrab then
 			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/headcrabs01.wav","vo/npc/"..self.Human_SdFolder.."/headcrabs02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head01.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head05.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head07.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head08.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_rollers02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_rollers03.wav"})
 			return
 		elseif ent:GetClass() == "npc_rollermine" then
@@ -356,7 +380,7 @@ function ENT:CustomOnAlert(ent)
 			return
 		elseif ent:GetClass() == "npc_combinedropship" then
 			local tbl2 = {"vo/coast/barn/"..self.Human_SdFolder.."/crapships.wav","vo/coast/barn/"..self.Human_SdFolder.."/incomingdropship.wav"}
-			if self.Human_Gender == 0 then table.insert(tbl2, "vj_hlr/hl2_npc/ep2/outland_12/reb1_lastwave06.wav") table.insert(tbl2, "vj_hlr/hl2_npc/ep2/outland_12/reb1_lastwave07.wav") end
+			if self.Human_Gender == HUMAN_GENDER_MALE then table.insert(tbl2, "vj_hlr/hl2_npc/ep2/outland_12/reb1_lastwave06.wav") table.insert(tbl2, "vj_hlr/hl2_npc/ep2/outland_12/reb1_lastwave07.wav") end
 			self:PlaySoundSystem("Alert", tbl2)
 			return
 		elseif ent.VJTag_ID_Police or ent:Classify() == CLASS_METROPOLICE then
@@ -364,10 +388,10 @@ function ENT:CustomOnAlert(ent)
 			return
 		elseif ent:GetClass() == "npc_strider" or ent:GetClass() == "npc_vj_hlr2_com_strider" then
 			local tbl2 = {"vo/npc/"..self.Human_SdFolder.."/strider.wav"}
-			if self.Human_Gender == 0 then table.insert(tbl2, "vj_hlr/hl2b_npc/citizen/strider.wav") table.insert(tbl2, "vj_hlr/hl2b_npc/citizen/turret.wav") end
+			if self.Human_Gender == HUMAN_GENDER_MALE then table.insert(tbl2, "vj_hlr/hl2b_npc/citizen/strider.wav") table.insert(tbl2, "vj_hlr/hl2b_npc/citizen/strider02.wav") end
 			self:PlaySoundSystem("Alert", tbl2)
 			return
-		elseif self.Human_Gender == 0 && (ent:Classify() == CLASS_MACHINE or ent.VJTag_ID_Turret or ent:GetClass() == "npc_turret_floor") then
+		elseif self.Human_Gender == HUMAN_GENDER_MALE && (ent:Classify() == CLASS_MACHINE or ent.VJTag_ID_Turret or ent:GetClass() == "npc_turret_floor") then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2b_npc/citizen/turret.wav","vj_hlr/hl2b_npc/citizen/turrets.wav"})
 			return
 		elseif ent:Classify() == CLASS_SCANNER then
@@ -389,7 +413,7 @@ function ENT:CustomOnAlert(ent)
 					return
 				elseif v == "CLASS_ANTLION" or ent:Classify() == CLASS_ANTLION then
 					local tbl2 = {"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions03.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions05.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions07.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions12.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions13.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions15.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_antlions18.wav"}
-					if self.Human_Gender == 0 then table.insert(tbl2, "vj_hlr/hl2_npc/ep2/outland_02/griggs_wegotantlions02.wav") end
+					if self.Human_Gender == HUMAN_GENDER_MALE then table.insert(tbl2, "vj_hlr/hl2_npc/ep2/outland_02/griggs_wegotantlions02.wav") end
 					self:PlaySoundSystem("Alert", tbl2)
 					return
 				end
@@ -407,20 +431,20 @@ function ENT:CustomOnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
-	if self:Health() > 0 && math.random(1,2) == 1 then
+	if self:Health() > 0 && math.random(1, 2) == 1 then
 		if hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTARM then
-			self:PlaySoundSystem("Pain", (self.Human_Gender == 1 and sdPainArm_F) or sdPainArm_M)
+			self:PlaySoundSystem("Pain", (self.Human_Gender == HUMAN_GENDER_FEMALE and sdPainArm_F) or sdPainArm_M)
 		elseif hitgroup == HITGROUP_LEFTLEG or hitgroup == HITGROUP_RIGHTLEG then
-			self:PlaySoundSystem("Pain", (self.Human_Gender == 1 and sdPainLeg_F) or sdPainLeg_M)
+			self:PlaySoundSystem("Pain", (self.Human_Gender == HUMAN_GENDER_FEMALE and sdPainLeg_F) or sdPainLeg_M)
 		elseif hitgroup == HITGROUP_STOMACH then
-			self:PlaySoundSystem("Pain", (self.Human_Gender == 1 and sdPainGut_F) or sdPainGut_M)
+			self:PlaySoundSystem("Pain", (self.Human_Gender == HUMAN_GENDER_FEMALE and sdPainGut_F) or sdPainGut_M)
 		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAllyDeath(ent)
 	if ent:IsPlayer() or ent.VJ_HLR_Freeman then
-		self:PlaySoundSystem("AllyDeath", (self.Human_Gender == 1 and sdAllyDeathPly_F) or sdAllyDeathPly_M)
+		self:PlaySoundSystem("AllyDeath", (self.Human_Gender == HUMAN_GENDER_FEMALE and sdAllyDeathPly_F) or sdAllyDeathPly_M)
 	end
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

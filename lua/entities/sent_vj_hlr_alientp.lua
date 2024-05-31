@@ -25,29 +25,31 @@ ENT.HLRSpawner_Type = 0
 	-- 1 = Race X
 ENT.HLRSpawner_ClassType = "CLASS_XEN" -- Type of class the spawner should when triggering the portal
 ENT.HLRSpawner_Distance = 400
+ENT.HLRSpawner_NextCheckT = 0
 
-local xenEnts = {"npc_vj_hlr1_alienslave","npc_vj_hlr1_aliengrunt","npc_vj_hlr1_bullsquid","npc_vj_hlr1_houndeye","npc_vj_hlr1_panthereye"}
-local racexEnts = {"npc_vj_hlrof_shocktrooper","npc_vj_hlrof_pitdrone","npc_vj_hlrof_voltigore","npc_vj_hlrof_voltigore_baby"}
+local xenEnts = {"npc_vj_hlr1_alienslave", "npc_vj_hlr1_aliengrunt", "npc_vj_hlr1_bullsquid", "npc_vj_hlr1_houndeye", "npc_vj_hlr1_panthereye"}
+local racexEnts = {"npc_vj_hlrof_shocktrooper", "npc_vj_hlrof_pitdrone", "npc_vj_hlrof_voltigore", "npc_vj_hlrof_voltigore_baby"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vec45z = Vector(0, 0, 45)
+local vecZ45 = Vector(0, 0, 45)
+local vecNZ20 = Vector(0, 0, -20)
 --
 function ENT:CustomOnInitialize()
 	timer.Simple(0.02, function()
 		if IsValid(self) then
-			self:SetPos(self:GetPos() + vec45z)
+			self:SetPos(self:GetPos() + vecZ45)
 			if IsValid(self:GetCreator()) && self:GetCreator():IsPlayer() then
 				self:GetCreator():ChatPrint("Portal entity created with activation distance " .. tostring(self.HLRSpawner_Distance) .. " WU.")
 			end
 		end
 	end)
-	local enttbl = xenEnts
+	local entTbl = xenEnts
 	if self.HLRSpawner_Type == 1 then
-		enttbl = racexEnts
+		entTbl = racexEnts
 		self.HLRSpawner_ClassType = "CLASS_RACE_X"
 	end
 	self.EntitiesToSpawn = {{
-		Entities = enttbl,
-		SpawnPosition = {vUp=-20} -- Make the NPC spawn little bit down otherwise it tends to get stuck in ceilings
+		Entities = entTbl,
+		SpawnPosition = vecNZ20 -- Make the NPC spawn little bit down otherwise it tends to get stuck in ceilings
 	}}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -66,13 +68,16 @@ function ENT:HLR_ActivateSpawner(eneEnt)
 	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink() // !self.Dead && 
-	if self.VJBaseSpawnerDisabled && VJ_CVAR_AI_ENABLED then
+function ENT:CustomOnThink()
+	if self.VJBaseSpawnerDisabled && VJ_CVAR_AI_ENABLED && CurTime() > self.HLRSpawner_NextCheckT then
+		print("run")
 		for _, v in ipairs(ents.FindInSphere(self:GetPos(), self.HLRSpawner_Distance)) do
-			if (v:IsNPC() or (v:IsPlayer() && !VJ_CVAR_IGNOREPLAYERS)) && !v:IsFlagSet(FL_NOTARGET) && self:Visible(v) && (!v.VJ_NPC_Class or !VJ.HasValue(v.VJ_NPC_Class, self.HLRSpawner_ClassType)) then
+			if v:IsPlayer() && (v.VJTag_IsControllingNPC or !v:Alive() or VJ_CVAR_IGNOREPLAYERS) then continue end
+			if v.VJTag_IsLiving && !v:IsFlagSet(FL_NOTARGET) && self:Visible(v) && (!v.VJ_NPC_Class or !VJ.HasValue(v.VJ_NPC_Class, self.HLRSpawner_ClassType)) then
 				self:HLR_ActivateSpawner(v)
 				break
 			end
 		end
+		self.HLRSpawner_NextCheckT = CurTime() + 1.5
 	end
 end

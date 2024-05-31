@@ -1,3 +1,4 @@
+include("entities/npc_vj_hlr1_boid/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
@@ -5,7 +6,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/aflock.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/aflock.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.VJC_Data = {
 	FirstP_Bone = "bone12", -- If left empty, the base will attempt to calculate a position for first person
 	FirstP_Offset = Vector(15, 0, 2), -- The offset for the controller when the camera is in first person
@@ -13,29 +14,33 @@ ENT.VJC_Data = {
 }
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = {ACT_BIG_FLINCH} -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = ACT_BIG_FLINCH -- If it uses normal based animation, use this
+
+-- Custom
+ENT.Boid_WoundedAnim = nil
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self.Boid_Type = 1
 	self:SetCollisionBounds(Vector(18, 18, 10), Vector(-18, -18, 0))
 	self.Boid_FollowOffsetPos = Vector(math.random(-50, 50), math.random(-120, 120), math.random(-150, 150))
-	local leader = VJ.HLR_NPC_AFlock_Leader
-	if !IsValid(leader) then
+	self.Boid_WoundedAnim = VJ.SequenceToActivity(self, "wounded")
+	if !IsValid(VJ.HLR_NPC_AFlock_Leader) then
 		VJ.HLR_NPC_AFlock_Leader = self
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
-	if self:Health() <= (self:GetMaxHealth() / 2.2) then
-		self.AnimTbl_IdleStand = {"wounded"}
-		self.Aerial_AnimTbl_Calm = {"wounded"}
-		self.Aerial_AnimTbl_Alerted = {"wounded"}
-	else
-		self.AnimTbl_IdleStand = {ACT_FLY}
-		self.Aerial_AnimTbl_Calm = {ACT_FLY}
-		self.Aerial_AnimTbl_Alerted = {ACT_FLY}
+function ENT:TranslateActivity(act)
+	if act == ACT_IDLE or act == ACT_FLY then
+		if self:Health() <= (self:GetMaxHealth() / 2.2) then
+			return self.Boid_WoundedAnim
+		else
+			return ACT_FLY
+		end
 	end
-	
+	return self.BaseClass.TranslateActivity(self, act)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink()
 	if self.VJ_IsBeingControlled then return end
 	local leader = VJ.HLR_NPC_AFlock_Leader
 	if IsValid(leader) then

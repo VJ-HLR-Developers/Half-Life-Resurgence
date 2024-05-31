@@ -1,4 +1,4 @@
-ENT.Base 			= "npc_vj_hlr2_com_soldier"
+ENT.Base 			= "npc_vj_human_base"
 ENT.Type 			= "ai"
 ENT.PrintName 		= "Overwatch Prison Shotgun Guard"
 ENT.Author 			= "DrVrej"
@@ -9,9 +9,9 @@ ENT.Category		= "Half-Life Resurgence"
 
 if CLIENT && GetConVar("vj_hlr2_combine_eyeglow"):GetInt() == 1 then
     local mat = Material("sprites/light_glow02_add")
-    local vecOrigin = Vector(4.5,5,1.75)
+    local vecOrigin = Vector(4.5, 5, 1.75)
     local size = 8
-    local col = Color(255,0,0)
+    local col = Color(255, 0, 0)
 	function ENT:Draw()
 		self:DrawModel()
         local bone = self:LookupBone("ValveBiped.Bip01_Head1")

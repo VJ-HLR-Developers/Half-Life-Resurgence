@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/garg.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/garg.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 1000
 ENT.HullType = HULL_HUMAN
 ENT.VJ_IsHugeMonster = true -- Is this a huge monster?
@@ -23,16 +23,18 @@ ENT.HasBloodPool = false -- Does it have a blood pool?
 
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDamage = 30 -- How close does it have to be until it attacks?
-ENT.MeleeAttackDamageType = DMG_CRUSH -- How close does it have to be until it attacks?
-ENT.MeleeAttackDistance = 65 -- How close does it have to be until it attacks?
-ENT.MeleeAttackDamageDistance = 165 -- How far does the damage go?
+ENT.MeleeAttackDamage = 30 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.MeleeAttackDamageType = DMG_CRUSH -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.MeleeAttackDistance = 65 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.MeleeAttackDamageDistance = 165 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
+ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK2
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_garg_stomp" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
 ENT.RangeDistance = 2000 -- This is how far away it can shoot
-ENT.RangeToMeleeDistance = 80 -- How close does it have to be until it uses melee?
-ENT.NextRangeAttackTime = 2 -- How much time until it can use a range attack?
+ENT.RangeToMeleeDistance = 120 -- How close does it have to be until it uses melee?
+ENT.NextRangeAttackTime = 10 -- How much time until it can use a range attack?
+ENT.NextRangeAttackTime_DoRand = 13 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
 ENT.RangeAttackPos_Up = 10 -- Up/Down spawning position for range attack
 ENT.RangeAttackPos_Forward = 50 -- Forward/Backward spawning position for range attack
@@ -43,12 +45,12 @@ ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time
 ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.DeathAnimationTime = 3.7 -- Time until the SNPC spawns its corpse and gets removed
-ENT.AnimTbl_Death = {ACT_DIESIMPLE} -- Death Animations
+ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
 	-- ====== Flinching Variables ====== --
 ENT.CanFlinch = 2 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.FlinchDamageTypes = {DMG_BLAST} -- If it uses damage-based flinching, which types of damages should it flinch from?
 ENT.FlinchChance = 2 -- Chance of it flinching from 1 to x | 1 will make it always flinch
-ENT.AnimTbl_Flinch = {ACT_BIG_FLINCH} -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = ACT_BIG_FLINCH -- If it uses normal based animation, use this
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/garg/gar_step1.wav","vj_hlr/hl1_npc/garg/gar_step2.wav"}
@@ -58,8 +60,11 @@ ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/garg/gar_alert1.wav","vj_hlr/hl1_npc/garg/
 ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/garg/gar_attack1.wav","vj_hlr/hl1_npc/garg/gar_attack2.wav","vj_hlr/hl1_npc/garg/gar_attack3.wav"}
 ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav","vj_hlr/hl1_npc/zombie/claw_strike2.wav","vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/garg/gar_stomp1.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/garg/gar_pain1.wav","vj_hlr/hl1_npc/garg/gar_pain2.wav","vj_hlr/hl1_npc/garg/gar_pain3.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/garg/gar_die1.wav","vj_hlr/hl1_npc/garg/gar_die2.wav"}
+
+local sdExplosions = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 ENT.ExtraMeleeSoundPitch = VJ.SET(80, 80)
@@ -69,10 +74,9 @@ ENT.Garg_Type = 0
 	-- 0 = Default Garg
 	-- 1 = Baby Garg
 	-- 2 = Custom (Not immune to bullets)
-ENT.Garg_AttackType = -1
-ENT.Garg_AbleToFlame = false
-ENT.Garg_NextAbleToFlameT = 0
-ENT.Garg_NextStompAttackT = 0
+ENT.Garg_CanFlame = false
+ENT.Garg_FlameLevel = 0 -- 0 = Not started | 1 = Preparing | 2 = Flame active
+ENT.Garg_NextFlameT = 0
 ENT.Garg_MeleeLargeKnockback = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
@@ -83,27 +87,33 @@ function ENT:CustomOnPreInitialize()
 			self.Model = "models/vj_hlr/hl_hd/babygarg.mdl"
 		end
 	end
+	self.TimersToRemove[#self.TimersToRemove + 1] = "garg_flame_reset"
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	if self.Garg_Type == 0 then -- Adult garg
-		self:SetCollisionBounds(Vector(70,70,210), Vector(-70,-70,0))
+		self:SetCollisionBounds(Vector(70, 70, 210),  Vector(-70, -70, 0))
 	elseif self.Garg_Type == 1 then -- Baby garg
-		self:SetCollisionBounds(Vector(32,32,105), Vector(-32,-32,0))
+		self:SetCollisionBounds(Vector(32, 32, 105),  Vector(-32, -32, 0))
 	end
 	
 	local glow1 = ents.Create("env_sprite")
-	glow1:SetKeyValue("model","vj_hl/sprites/gargeye1.vmt")
-	glow1:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
-	glow1:SetKeyValue("renderfx","14")
-	glow1:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-	glow1:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-	glow1:SetKeyValue("spawnflags","0")
+	glow1:SetKeyValue("model", "vj_hl/sprites/gargeye1.vmt")
+	glow1:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
+	glow1:SetKeyValue("renderfx", "14")
+	glow1:SetKeyValue("rendermode", "3") -- Set the render mode to "3" (Glow)
+	glow1:SetKeyValue("disablereceiveshadows", "0") -- Disable receiving shadows
+	glow1:SetKeyValue("spawnflags", "0")
 	glow1:SetParent(self)
-	glow1:Fire("SetParentAttachment","eyes")
+	glow1:Fire("SetParentAttachment", "eyes")
 	glow1:Spawn()
 	glow1:Activate()
 	self:DeleteOnRemove(glow1)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+	if self.Garg_Type == 1 then return end
+	ply:ChatPrint("Right Mouse + CTRL: Preform Stomp attack")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
@@ -121,43 +131,59 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Garg_ResetFlame()
-	self.Garg_AbleToFlame = false
-	self.Garg_AttackType = -1
-	self.AnimTbl_IdleStand = {ACT_IDLE}
-	self.NextIdleStandTime = 0
+	if self.Garg_CanFlame then
+		self:ResetTurnTarget()
+	end
+	if self.Garg_FlameLevel == 2 then
+		VJ.EmitSound(self, "vj_hlr/hl1_npc/garg/gar_flameoff1.wav", 80)
+	end
+	self.Garg_CanFlame = false
+	self.Garg_FlameLevel = 0
 	self.DisableChasingEnemy = false
 	VJ.STOPSOUND(self.Garg_FlameSd)
 	self:StopParticles()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
-	if self.Garg_AbleToFlame == false or self.AttackType != VJ.ATTACK_TYPE_RANGE or !IsValid(self:GetEnemy()) then
-		self:Garg_ResetFlame()
+function ENT:TranslateActivity(act)
+	if act == ACT_IDLE && self.Garg_FlameLevel >= 1 then
+		return ACT_RANGE_ATTACK1
 	end
+	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
-	-- If the controller (player) not range attacking, then end the timer!
-	if self.VJ_IsBeingControlled && !self.VJ_TheController:KeyDown(IN_ATTACK2) then timer.Adjust("timer_range_start"..self:EntIndex(), 0) return end
-	
-	if IsValid(self:GetEnemy()) && (self.NearestPointToEnemyDistance <= (self.VJ_IsBeingControlled and 999999 or (self.Garg_Type == 1 and 250) or 400) && self.NearestPointToEnemyDistance > self.MeleeAttackDistance) && self.Garg_AbleToFlame == true && self.Garg_NextAbleToFlameT < CurTime() && self.Garg_AttackType == 0 && timer.Exists("timer_range_start"..self:EntIndex()) then
-	//if IsValid(self:GetEnemy()) && self.Garg_AbleToFlame == true && (self.NearestPointToEnemyDistance <= 400 && self.NearestPointToEnemyDistance > self.MeleeAttackDistance) then
-		local range = (self.Garg_Type == 1 and 280) or 460
-		self.Garg_NextAbleToFlameT = CurTime() + 0.2
+	if self.Garg_CanFlame && self.Garg_NextFlameT < CurTime() && self.AttackType == VJ.ATTACK_TYPE_NONE then
 		self.DisableChasingEnemy = true
-		self.AnimTbl_IdleStand = {ACT_RANGE_ATTACK1}
-		self.NextIdleStandTime = 0
 		self:StopMoving()
+		
+		-- Startup animation and sound
+		if self.Garg_FlameLevel == 0 then
+			self:VJ_ACT_PLAYACTIVITY("shootflames1", "LetAttacks", false)
+			self.Garg_FlameLevel = 1
+			self.Garg_NextFlameT = CurTime() + 0.8 -- Don't use anim duration because we want it to start playing the flame animation mid way
+			timer.Simple(0.5, function() -- Play flame start sound
+				if IsValid(self) && self.Garg_CanFlame then
+					VJ.EmitSound(self, "vj_hlr/hl1_npc/garg/gar_flameon1.wav", 80)
+				end
+			end)
+			return
+		end
+		
+		self.Garg_FlameLevel = 2
+		self.Garg_NextFlameT = CurTime() + 0.2
+		
+		local range = (self.Garg_Type == 1 and 280) or 460
 		VJ.ApplyRadiusDamage(self, self, self:GetPos() + self:OBBCenter() + self:GetForward()*50, range, 3, DMG_BURN, true, true, {UseCone=true, UseConeDegree=30}, function(ent) if !ent:IsOnFire() && (ent:IsPlayer() or ent:IsNPC()) then ent:Ignite(2) end end)
+		
 		-- COSMETICS: Sound, particle and decal
 		self.Garg_FlameSd = VJ.CreateSound(self, "vj_hlr/hl1_npc/garg/gar_flamerun1.wav")
 		self:StopParticles()
 		if self.Garg_Type == 1 then -- Baby Garg
-			ParticleEffectAttach("vj_hlr_garg_flame_small", PATTACH_POINT_FOLLOW,self, 2)
-			ParticleEffectAttach("vj_hlr_garg_flame_small", PATTACH_POINT_FOLLOW,self, 3)
+			ParticleEffectAttach("vj_hlr_garg_flame_small", PATTACH_POINT_FOLLOW, self, 2)
+			ParticleEffectAttach("vj_hlr_garg_flame_small", PATTACH_POINT_FOLLOW, self, 3)
 		else
-			ParticleEffectAttach("vj_hlr_garg_flame", PATTACH_POINT_FOLLOW,self, 2)
-			ParticleEffectAttach("vj_hlr_garg_flame", PATTACH_POINT_FOLLOW,self, 3)
+			ParticleEffectAttach("vj_hlr_garg_flame", PATTACH_POINT_FOLLOW, self, 2)
+			ParticleEffectAttach("vj_hlr_garg_flame", PATTACH_POINT_FOLLOW, self, 3)
 		end
 		local startPos1 = self:GetAttachment(2).Pos
 		local startPos2 = self:GetAttachment(3).Pos
@@ -169,12 +195,29 @@ function ENT:CustomOnThink_AIEnabled()
 		sound.EmitHint(SOUND_DANGER, (hitPos2 + startPos2) / 2, 300, 1, self)
 		util.Decal("VJ_HLR_Scorch", hitPos1 + tr1.HitNormal, hitPos1 - tr1.HitNormal)
 		util.Decal("VJ_HLR_Scorch", hitPos2 + tr2.HitNormal, hitPos2 - tr2.HitNormal)
-		-- Make it constantly delay the range attack timer by 1 second (Which will also successfully play the flame-end sound)
-		timer.Adjust("timer_range_start"..self:EntIndex(), 1, 0, function()
-			self:RangeAttackCode()
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomAttack(ene, eneVisible)
+	local range = (self.Garg_Type == 1 and 250) or 400
+	if self.VJ_IsBeingControlled then
+		range = 9999999
+		eneVisible = true -- Skip enemy visibility check when being controlled!
+		if !self.VJ_TheController:KeyDown(IN_ATTACK2) then -- Do flame attack only when player is holding down right click
 			self:Garg_ResetFlame()
-			timer.Remove("timer_range_start"..self:EntIndex())
+			return
+		end
+	end
+	if eneVisible && self.AttackType == VJ.ATTACK_TYPE_NONE && self.NearestPointToEnemyDistance <= range && self.NearestPointToEnemyDistance > self.MeleeAttackDistance then
+		self.Garg_CanFlame = true
+		self:SetTurnTarget(ene, -1)
+		//self.NextDoAnyAttackT = 1
+		-- Make it constantly delay the range attack timer by 1 second (Which will also successfully play the flame-end sound)
+		timer.Create("garg_flame_reset"..self:EntIndex(), 1, 0, function()
+			self:Garg_ResetFlame()
 		end)
+	else
+		self:Garg_ResetFlame()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -183,79 +226,44 @@ function ENT:MeleeAttackKnockbackVelocity(hitEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MultipleMeleeAttacks()
-	local r = math.random(1, 3)
-	if r == 1 then
-		self.AnimTbl_MeleeAttack = {"vjseq_smash"}
+	local randMelee = math.random(1, 3)
+	if randMelee == 1 then
+		self.AnimTbl_MeleeAttack = "vjseq_smash"
 		self.HasMeleeAttackKnockBack = false
 		self.Garg_MeleeLargeKnockback = false
-	elseif r == 2 then
-		self.AnimTbl_MeleeAttack = {"vjseq_attack"}
+	elseif randMelee == 2 then
+		self.AnimTbl_MeleeAttack = "vjseq_attack"
 		self.HasMeleeAttackKnockBack = true
 		self.Garg_MeleeLargeKnockback = false
-	elseif r == 3 then
-		self.AnimTbl_MeleeAttack = {"vjseq_kickcar"}
+	elseif randMelee == 3 then
+		self.AnimTbl_MeleeAttack = "vjseq_kickcar"
 		self.HasMeleeAttackKnockBack = true
 		self.Garg_MeleeLargeKnockback = true
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_Initialize(ply, controlEnt)
-	if self.Garg_Type == 1 then return end
-	ply:ChatPrint("Right Mouse + CTRL: Preform Stomp attack")
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:MultipleRangeAttacks()
-	local range = (self.Garg_Type == 1 and 250) or 400
-	if self.VJ_IsBeingControlled then
-		-- If it's being controlled then if the player is crouching then use stomp attack
-		range = self.Garg_Type == 1 and 999999 or (self.VJ_TheController:KeyDown(IN_DUCK) and 1 or 999999)
-	end
-	if self.NearestPointToEnemyDistance <= range then -- Flame attack
-		self.Garg_AttackType = 0
-		self.Garg_AbleToFlame = true
-		self.RangeDistance = range
-		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1}
-		self.TimeUntilRangeAttackProjectileRelease = 0.1
-		self.DisableRangeAttackAnimation = true
-		self.DisableDefaultRangeAttackCode = true
-		self.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/garg/gar_flameon1.wav"}
-		self.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/garg/gar_flameoff1.wav"}
-		self.NextIdleStandTime = 0 -- Reset the idle animation
-	elseif self.Garg_NextStompAttackT < CurTime() && self.Garg_Type != 1 then -- Laser stomp attack
-		self.Garg_AttackType = 1
-		self.Garg_AbleToFlame = false
-		self.RangeDistance = 2000
-		self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2}
-		self.TimeUntilRangeAttackProjectileRelease = false
-		self.DisableRangeAttackAnimation = false
-		self.DisableDefaultRangeAttackCode = false
-		self.SoundTbl_BeforeRangeAttack = {}
-		self.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/garg/gar_stomp1.wav"}
-	else
-		self.Garg_AttackType = -1
-		self.Garg_AbleToFlame = false
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttackCheck_RangeAttack()
-	if self.Garg_AttackType == -1 then return false end -- If it's -1 then don't range attack!
+	if self.VJ_IsBeingControlled then
+		if self.VJ_TheController:KeyDown(IN_DUCK) && self.VJ_TheController:KeyDown(IN_ATTACK2) then
+			return true
+		end
+		return false
+	end
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackCode_GetShootPos(projectile)
-	-- For stomp attack only!
 	local projPos = projectile:GetPos()
 	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 200), 200)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
-	-- For stomp attack only!
-	self.Garg_NextStompAttackT = CurTime() + math.Rand(10,13) -- Set a delay for the next stomp attack
 	util.Decal("VJ_HLR_Gargantua_Stomp", self:GetPos() + self:GetRight()*-20 + self:GetForward()*50, self:GetPos() + self:GetRight()*-20 + self:GetForward()*50 + self:GetUp()*-100, self)
-	if IsValid(self:GetEnemy()) then
-		projectile.Track_Enemy = self:GetEnemy()
+	local ene = self:GetEnemy()
+	if IsValid(ene) then
+		projectile.Track_Enemy = ene
 		projectile:SetAngles(Angle(self:GetAngles().p, 0, 0))
-		timer.Simple(10,function() if IsValid(projectile) then projectile:Remove() end end)
+		timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -267,12 +275,13 @@ function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(5) -- Size
-		rico:SetMagnitude(math.random(1,2)) -- Effect type | 1 = Animated | 2 = Basic
+		rico:SetMagnitude(math.random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
 		util.Effect("VJ_HLR_Rico", rico)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
+	-- Handle bullet damage scaling
 	if dmginfo:IsBulletDamage() == true then
 		if self.Garg_Type == 1 then -- Make babies take half damage for bullets
 			dmginfo:ScaleDamage(0.5)
@@ -289,6 +298,7 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 	for i = 0.3, 3.5, 0.5 do
 		timer.Simple(i, function()
 			if IsValid(self) then
+				local myPos = self:GetPos()
 				local spr = ents.Create("env_sprite")
 				spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
 				spr:SetKeyValue("GlowProxySize","2.0")
@@ -302,26 +312,27 @@ function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
 				spr:SetKeyValue("framerate","15.0")
 				spr:SetKeyValue("spawnflags","0")
 				spr:SetKeyValue("scale", self.Garg_Type == 1 and "3" or "6")
-				spr:SetPos(self:GetPos() + self:GetUp()*(self.Garg_Type == 1 and math.random(60,120) or math.random(120,200)))
+				spr:SetPos(myPos + self:GetUp()*(self.Garg_Type == 1 and math.random(60, 120) or math.random(120, 200)))
 				spr:Spawn()
-				spr:Fire("Kill","",0.9)
-				
-				util.BlastDamage(self,self,self:GetPos(),150,50)
-				util.ScreenShake(self:GetPos(),100,200,1,2500)
-				VJ.EmitSound(self, {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}, 90, 100)
+				spr:Fire("Kill", "", 0.9)
+				util.BlastDamage(self, self, myPos, 150, 50)
+				util.ScreenShake(myPos, 100, 200, 1, 2500)
+				VJ.EmitSound(self, sdExplosions, 90, 100)
 			end
 		end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
+local sdMetalCollision = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
-	timer.Simple(3.6,function()
+	timer.Simple(3.6, function()
 		if IsValid(self) then
+			local myPos = self:GetPos()
 			if self.HasGibDeathParticles == true then
 				local effectData = EffectData()
-				effectData:SetOrigin(self:GetPos() + self:OBBCenter())
+				effectData:SetOrigin(myPos + self:OBBCenter())
 				effectData:SetColor(colorYellow)
 				effectData:SetScale(self.Garg_Type == 1 and 140 or 400)
 				util.Effect("VJ_Blood1", effectData)
@@ -344,54 +355,54 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 				spr:SetKeyValue("framerate","15.0")
 				spr:SetKeyValue("spawnflags","0")
 				spr:SetKeyValue("scale", self.Garg_Type == 1 and "3" or "6")
-				spr:SetPos(self:GetPos() + self:GetUp()*150)
+				spr:SetPos(myPos + self:GetUp()*150)
 				spr:Spawn()
 				spr:Fire("Kill","",0.9)
-				timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
+				timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 			end
 			
-			util.BlastDamage(self,self,self:GetPos(),150,80)
-			util.ScreenShake(self:GetPos(),100,200,1,2500)
+			util.BlastDamage(self,self,myPos,150,80)
+			util.ScreenShake(myPos,100,200,1,2500)
 			
-			VJ.EmitSound(self,{"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}, 90, 100)
+			VJ.EmitSound(self, sdExplosions, 90, 100)
 			VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 			
-			util.Decal("VJ_HLR_Scorch", self:GetPos(), self:GetPos() + self:GetUp()*-100, self)
+			util.Decal("VJ_HLR_Scorch", myPos, myPos + self:GetUp()*-100, self)
+			 
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 1, 40))})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(1, 0, 20))})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 2, 30))})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib4.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(2, 0, 35))})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 3, 100))})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(3, 0, 100))})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 4, 100))})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib4.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(4, 0, 100))})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 5, 100))})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(5, 0, 100))})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 6, 100))})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib4.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(6, 0, 100))})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib5.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 7, 50))})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib6.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(7, 0, 55))})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib7.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 8, 40))})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib8.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(8, 0, 45))})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib9.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 1, 25))})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib10.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(1, 0, 15))})
 			
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib1.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,1,40))})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib2.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(1,0,20))})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib3.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,2,30))})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib4.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(2,0,35))})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib1.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,3,100))})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib2.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(3,0,100))})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib3.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,4,100))})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib4.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(4,0,100))})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib1.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,5,100))})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib2.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(5,0,100))})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib3.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,6,100))})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib4.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(6,0,100))})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib5.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,7,50))})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib6.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(7,0,55))})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib7.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,8,40))})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib8.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(8,0,45))})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib9.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,1,25))})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib10.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(1,0,15))})
-			
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p1.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,40)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p2.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,41)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p3.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,50)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p4.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,42)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p5.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,43)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p6.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,100)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p7.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,101)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p8.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,102)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p9.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,103)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p10.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,104)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-			self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/metalgib_p11.mdl",{BloodDecal="",Pos=self:LocalToWorld(Vector(0,0,105)),CollideSound={"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}})
-			util.BlastDamage(self,self,self:GetPos(),150,20) -- To make the gibs FLY
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p1.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 40)), CollideSound=sdMetalCollision})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p2.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 41)), CollideSound=sdMetalCollision})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p3.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 50)), CollideSound=sdMetalCollision})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p4.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 42)), CollideSound=sdMetalCollision})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p5.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 43)), CollideSound=sdMetalCollision})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p6.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 100)), CollideSound=sdMetalCollision})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p7.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 101)), CollideSound=sdMetalCollision})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p8.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 102)), CollideSound=sdMetalCollision})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p9.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 103)), CollideSound=sdMetalCollision})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p10.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 104)), CollideSound=sdMetalCollision})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p11.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 105)), CollideSound=sdMetalCollision})
+			util.BlastDamage(self, self, myPos, 150, 20) -- To make the gibs FLY
 		end
 	end)
-	return true, {DeathAnim=true}-- Return to true if it gibbed!
+	return true, {DeathAnim = true}-- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)

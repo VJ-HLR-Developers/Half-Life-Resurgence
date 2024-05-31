@@ -4,7 +4,7 @@
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
 -- Based off of the GMod lasertracer
-EFFECT.MainMat = Material("vj_hl/sprites/rope")
+local matRope = Material("vj_hl/sprites/rope")
 
 function EFFECT:Init(data)
 	self.StartPos = data:GetStart()
@@ -17,10 +17,11 @@ function EFFECT:Init(data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function EFFECT:Think()
-	if !IsValid(self.Ent) or self.Dead then return false end
-	self.CurPos = self.Ent:GetAttachment(self.Att).Pos
+	local ent = self.Ent
+	if self.Dead or !IsValid(ent) then return false end
+	self.CurPos = ent:GetAttachment(self.Att).Pos
 	self:SetRenderBoundsWS(self.StartPos, self.CurPos)
-	if CurTime() > self.Wait && self.Ent:GetVelocity():Length() <= 0 then
+	if CurTime() > self.Wait && (ent:GetVelocity():Length() <= 0 && ent:GetSequenceName(ent:GetSequence()) != "repel_die") then -- Do NOT remove the rope if the NPC is playing a death anim!
 		self.Dead = true
 		return false
 	end
@@ -30,6 +31,6 @@ end
 local rColor = Color(255, 255, 255)
 --
 function EFFECT:Render()
-	render.SetMaterial(self.MainMat)
+	render.SetMaterial(matRope)
 	render.DrawBeam(self.StartPos, self.CurPos, 5, 0, 1 + ((self.StartPos - self.CurPos):Length() / 32), rColor)
 end

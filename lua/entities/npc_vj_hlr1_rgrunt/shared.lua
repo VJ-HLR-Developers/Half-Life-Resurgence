@@ -1,4 +1,4 @@
-ENT.Base 			= "npc_vj_hlr1_hgrunt"
+ENT.Base 			= "npc_vj_human_base"
 ENT.Type 			= "ai"
 ENT.PrintName 		= "Robot Grunt"
 ENT.Author 			= "DrVrej"

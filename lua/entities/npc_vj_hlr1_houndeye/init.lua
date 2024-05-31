@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/houndeye.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/houndeye.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 80
 ENT.HullType = HULL_WIDE_SHORT
 ENT.VJC_Data = {
@@ -20,8 +20,8 @@ ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's dam
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.Immune_Sonic = true -- Immune to sonic damage
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
-ENT.AnimTbl_MeleeAttack = {ACT_RANGE_ATTACK1} -- Melee Attack Animations
-ENT.MeleeAttackDistance = 164 -- How close does it have to be until it attacks?
+ENT.AnimTbl_MeleeAttack = ACT_RANGE_ATTACK1 -- Melee Attack Animations
+ENT.MeleeAttackDistance = 164 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.TimeUntilMeleeAttackDamage = 2.35 -- This counted in seconds | This calculates the time until it hits something
 ENT.NextMeleeAttackTime = 2
 ENT.MeleeAttackDamageType = DMG_SONIC -- Type of Damage
@@ -32,7 +32,7 @@ ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = {"vjseq_flinch_small"} -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = "vjseq_flinch_small" -- If it uses normal based animation, use this
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/houndeye/he_hunt1.wav","vj_hlr/hl1_npc/houndeye/he_hunt2.wav","vj_hlr/hl1_npc/houndeye/he_hunt3.wav","vj_hlr/hl1_npc/houndeye/he_hunt4.wav"}
@@ -52,8 +52,6 @@ ENT.GeneralSoundPitch1 = 100
 ENT.Houndeye_BlinkingT = 0
 ENT.Houndeye_NextSleepT = 0
 ENT.Houndeye_Sleeping = false
-ENT.Houndeye_LimpWalking = false -- Used for optimization
-ENT.Houndeye_CurIdleAnim = 0 -- 0 = regular | 1 = sleeping | 2 = angry
 ENT.Houndeye_Type = 0
 	-- 0 = Original / Default
 	-- 1 = Alpha
@@ -70,7 +68,7 @@ function ENT:CustomOnInitialize()
 	self.Houndeye_NextSleepT = CurTime() + math.Rand(0, 15)
 	
 	if self.Houndeye_Type == 1 then
-		self.AnimTbl_Death = {ACT_DIESIMPLE}
+		self.AnimTbl_Death = ACT_DIESIMPLE
 		self.NextMeleeAttackTime = 0.5
 	else
 		self.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD, ACT_DIEBACKWARD}
@@ -94,36 +92,27 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local defIdle = {ACT_IDLE, ACT_IDLE, ACT_IDLE, ACT_IDLE, ACT_IDLE_PACKAGE}
+--
+function ENT:TranslateActivity(act)
+	if act == ACT_IDLE then
+		-- Sleeping
+		if self.Houndeye_Sleeping then
+			return ACT_CROUCHIDLE
+		-- Barking
+		elseif IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled then
+			return ACT_IDLE_ANGRY
+		end
+		-- Default idle
+		return self:ResolveAnimation(defIdle)
+	-- Limp Walking
+	elseif act == ACT_WALK && (self:GetMaxHealth() * 0.35) > self:Health() then
+		return ACT_WALK_HURT
+	end
+	return self.BaseClass.TranslateActivity(self, act)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
-	-- Idle animations
-	if self.VJ_IsBeingControlled then
-		self.AnimTbl_IdleStand = {ACT_IDLE, ACT_IDLE_PACKAGE}
-		self.DisableWandering = false
-	else
-		if IsValid(self:GetEnemy()) then
-			if self.Houndeye_CurIdleAnim != 2 then
-				self.AnimTbl_IdleStand = {ACT_IDLE_ANGRY}
-				self.Houndeye_CurIdleAnim = 2
-				self.DisableWandering = true
-			end
-		elseif !self.Houndeye_Sleeping && self.Houndeye_CurIdleAnim != 0 then
-			self.Houndeye_CurIdleAnim = 0
-			self.AnimTbl_IdleStand = {ACT_IDLE, ACT_IDLE_PACKAGE}
-			self.DisableWandering = false
-		end
-	end
-	
-	-- Limp walking
-	if (self:GetMaxHealth() * 0.35) > self:Health() then
-		if !self.Houndeye_LimpWalking then
-			self.AnimTbl_Walk = {ACT_WALK_HURT}
-			self.Houndeye_LimpWalking = true
-		end
-	elseif self.Houndeye_LimpWalking then
-		self.AnimTbl_Walk = {ACT_WALK}
-		self.Houndeye_LimpWalking = false
-	end
-	
 	-- Blinking
 	if !self.Dead && CurTime() > self.Houndeye_BlinkingT && self.Houndeye_Sleeping == false then
 		self:SetSkin(1)
@@ -139,14 +128,12 @@ function ENT:CustomOnThink_AIEnabled()
 	
 	-- Sleep system
 	if !self.Alerted && !IsValid(self:GetEnemy()) && !self:IsMoving() && CurTime() > self.Houndeye_NextSleepT && !self.Houndeye_Sleeping && !self:IsBusy() then
-		local sleept = math.Rand(15, 30) -- How long it should sleep
+		local sleepTime = math.Rand(15, 30) -- How long it should sleep
 		self.Houndeye_Sleeping = true
-		self.AnimTbl_IdleStand = {ACT_CROUCHIDLE}
-		self.Houndeye_CurIdleAnim = 1
 		self:VJ_ACT_PLAYACTIVITY(ACT_CROUCH, true, false, false)
-		self:SetState(VJ_STATE_ONLY_ANIMATION, sleept)
+		self:SetState(VJ_STATE_ONLY_ANIMATION, sleepTime)
 		timer.Simple(7, function() if IsValid(self) && self.Houndeye_Sleeping == true then self:SetSkin(2) end end) -- Close eyes
-		timer.Simple(sleept, function() -- Reset after sleept seconds
+		timer.Simple(sleepTime, function() -- Reset after sleepTime expires
 			if IsValid(self) && self.Houndeye_Sleeping == true then
 				self.Houndeye_Sleeping = false
 				self:VJ_ACT_PLAYACTIVITY(ACT_STAND, true, false, false)
@@ -164,7 +151,7 @@ function ENT:CustomOnAlert(ent)
 		self.Houndeye_Sleeping = false
 		self:VJ_ACT_PLAYACTIVITY(ACT_HOP, true, false, false)
 		self.Houndeye_NextSleepT = CurTime() + 20
-	elseif math.random(1,2) == 1 then -- Random alert animation
+	elseif math.random(1, 2) == 1 then -- Random alert animation
 		self:VJ_ACT_PLAYACTIVITY(alertAnims, true, false, true)
 	end
 end
@@ -173,7 +160,8 @@ function ENT:CustomOnResetEnemy()
 	self.Houndeye_NextSleepT = CurTime() + math.Rand(15, 45)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local houndeyeClasses = {npc_vj_hlr1_houndeye=true, npc_vj_hlr1a_houndeye=true}
+local houndeyeClasses = {npc_vj_hlr1_houndeye = true, npc_vj_hlr1a_houndeye = true}
+local beamEffectTbl = {material = "vj_hl/sprites/shockwave", framerate = 20, flags = 0}
 --
 function ENT:CustomOnMeleeAttack_BeforeChecks()
 	local friNum = 0 -- How many allies exist around the Houndeye
@@ -198,8 +186,8 @@ function ENT:CustomOnMeleeAttack_BeforeChecks()
 	end
 	
 	-- flags 0 = No fade!
-	effects.BeamRingPoint(myPos, 0.3, 2, 400, 16, 0, color, {material="vj_hl/sprites/shockwave", framerate=20, flags=0})
-	effects.BeamRingPoint(myPos, 0.3, 2, 200, 16, 0, color, {material="vj_hl/sprites/shockwave", framerate=20, flags=0})
+	effects.BeamRingPoint(myPos, 0.3, 2, 400, 16, 0, color, beamEffectTbl)
+	effects.BeamRingPoint(myPos, 0.3, 2, 200, 16, 0, color, beamEffectTbl)
 	
 	if self.HasSounds && self.HasMeleeAttackSounds then
 		VJ.EmitSound(self, blastSd, 100, math.random(80, 100))
@@ -242,16 +230,16 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 	end
 	
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib1.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,40))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib2.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,20))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib3.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,30))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib4.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,35))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib5.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,50))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib6.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,55))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib7.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,40))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib8.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,45))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib9.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,25))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib10.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,15))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 40))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 20))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 30))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib4.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 35))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib5.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 50))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib6.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 55))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib7.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 40))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib8.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 45))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib9.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 25))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib10.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 15))})
 	return true -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

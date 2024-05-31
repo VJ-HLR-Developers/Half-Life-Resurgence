@@ -29,7 +29,7 @@ SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/shockroach/shock_fire.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/shockroach/shock_fire_distant.wav"}
 SWEP.Primary.DisableBulletCode	= true
 SWEP.PrimaryEffects_SpawnShells = false
-SWEP.PrimaryEffects_MuzzleParticles = {"vj_hlr_shockroach_muzzle"}
+SWEP.PrimaryEffects_MuzzleFlash = false
 
 SWEP.HasDryFireSound			= false -- Should it play a sound when it's out of ammo?
 
@@ -62,7 +62,7 @@ function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 	projectile:SetOwner(owner)
 	projectile:Activate()
 	projectile:Spawn()
-	
+	ParticleEffectAttach("vj_hlr_shockroach_muzzle", PATTACH_POINT_FOLLOW, owner, owner:LookupAttachment("muzzle"))
 	local phys = projectile:GetPhysicsObject()
 	if IsValid(phys) then
 		phys:SetVelocity(owner:CalculateProjectile("Line", spawnPos, owner:GetAimPosition(owner:GetEnemy(), spawnPos, 1, 10000), 10000))

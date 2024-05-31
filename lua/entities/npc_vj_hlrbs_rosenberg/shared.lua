@@ -1,4 +1,4 @@
-ENT.Base 			= "npc_vj_hlr1_scientist"
+ENT.Base 			= "npc_vj_human_base"
 ENT.Type 			= "ai"
 ENT.PrintName 		= "Dr. Rosenberg"
 ENT.Author 			= "DrVrej"

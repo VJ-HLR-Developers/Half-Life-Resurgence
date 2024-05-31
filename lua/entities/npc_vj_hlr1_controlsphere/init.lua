@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/sphere.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/sphere.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 60
 ENT.HullType = HULL_TINY
 ENT.MovementType = VJ_MOVETYPE_AERIAL -- How does the SNPC move?
@@ -25,7 +25,7 @@ ENT.ConstantlyFaceEnemy = true -- Should it face the enemy constantly?
 ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
-ENT.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK1} -- Range Attack Animations
+ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1 -- Range Attack Animations
 ENT.RangeDistance = 1020 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
@@ -47,12 +47,9 @@ ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/sphere/sph_pain1.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/sphere/sph_pain1.wav"}
 
 ENT.GeneralSoundPitch1 = 100
-
--- Custom
-ENT.ControlSphere_EneIdle = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
-	self:SetCollisionBounds(Vector(8,8,12), Vector(-8,-8,0))
+	self:SetCollisionBounds(Vector(8, 8, 12), Vector(-8, -8, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAcceptInput(key, activator, caller, data)
@@ -62,25 +59,23 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
-	if IsValid(self:GetEnemy()) then
-		if self.ControlSphere_EneIdle then
-			self.AnimTbl_IdleStand = {ACT_IDLE_ANGRY}
-			self.ControlSphere_EneIdle = true
-		end
-	elseif !self.ControlSphere_EneIdle then
-		self.AnimTbl_IdleStand = {ACT_IDLE}
-		self.ControlSphere_EneIdle = false
+function ENT:TranslateActivity(act)
+	if act == ACT_IDLE && (self:GetNPCState() == NPC_STATE_ALERT or self:GetNPCState() == NPC_STATE_COMBAT) then
+		return ACT_IDLE_ANGRY
 	end
-	
+	return self.BaseClass.TranslateActivity(self, act)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnThink()
+	-- Make it use the bright skin when it's low health
 	self:SetSkin((self:Health() <= (self:GetMaxHealth() / 2.2)) and 1 or 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:ControlSphere_DoElecEffect(sp, hp, np)
+function ENT:CSphere_DoElecEffect(startPos, hitPos, hitNormal)
 	local elec = EffectData()
-	elec:SetStart(sp)
-	elec:SetOrigin(hp)
-	elec:SetNormal(np)
+	elec:SetStart(startPos)
+	elec:SetOrigin(hitPos)
+	elec:SetNormal(hitNormal)
 	elec:SetEntity(self)
 	elec:SetAttachment(1)
 	elec:SetScale(0.8)
@@ -89,13 +84,17 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRangeAttack_AfterStartTimer()
 	local myPos = self:GetPos()
+	local myForward = self:GetForward()
+	local myRight = self:GetRight()
+	local myUp = self:GetUp()
+	
 	-- Tsakh --------------------------
-	local tsakhSpawn = myPos + self:GetUp()*45 + self:GetRight()*20
+	local tsakhSpawn = myPos + myUp*45 + myRight*20
 	local tsakhLocations = {
-		myPos + self:GetRight()*math.Rand(150, 500) + self:GetUp()*-200,
-		myPos + self:GetRight()*math.Rand(150, 500) + self:GetUp()*-200 + self:GetForward()*-math.Rand(150, 500),
-		myPos + self:GetRight()*math.Rand(150, 500) + self:GetUp()*-200 + self:GetForward()*math.Rand(150, 500),
-		myPos + self:GetRight()*math.Rand(1, 150) + self:GetUp()*200 + self:GetForward()*math.Rand(-100, 100),
+		myPos + myRight*math.Rand(150, 500) + myUp*-200,
+		myPos + myRight*math.Rand(150, 500) + myUp*-200 + myForward*-math.Rand(150, 500),
+		myPos + myRight*math.Rand(150, 500) + myUp*-200 + myForward*math.Rand(150, 500),
+		myPos + myRight*math.Rand(1, 150) + myUp*200 + myForward*math.Rand(-100, 100),
 	}
 	for i = 1, 4 do
 		local tr = util.TraceLine({
@@ -103,15 +102,15 @@ function ENT:CustomOnRangeAttack_AfterStartTimer()
 			endpos = tsakhLocations[i],
 			filter = self
 		})
-		if tr.Hit == true then self:ControlSphere_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal) end
+		if tr.Hit == true then self:CSphere_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal) end
 	end
 	-- Ach --------------------------
-	local achSpawn = myPos + self:GetUp()*45 + self:GetRight()*-20
+	local achSpawn = myPos + myUp*45 + myRight*-20
 	local achLocations = {
-		myPos + self:GetRight()*-math.Rand(150, 500) + self:GetUp()*-200,
-		myPos + self:GetRight()*-math.Rand(150, 500) + self:GetUp()*-200 + self:GetForward()*-math.Rand(150, 500),
-		myPos + self:GetRight()*-math.Rand(150, 500) + self:GetUp()*-200 + self:GetForward()*math.Rand(150, 500),
-		myPos + self:GetRight()*-math.Rand(1, 150) + self:GetUp()*200 + self:GetForward()*math.Rand(-100, 100),
+		myPos + myRight*-math.Rand(150, 500) + myUp*-200,
+		myPos + myRight*-math.Rand(150, 500) + myUp*-200 + myForward*-math.Rand(150, 500),
+		myPos + myRight*-math.Rand(150, 500) + myUp*-200 + myForward*math.Rand(150, 500),
+		myPos + myRight*-math.Rand(1, 150) + myUp*200 + myForward*math.Rand(-100, 100),
 	}
 	for i = 1, 4 do
 		local tr = util.TraceLine({
@@ -119,27 +118,27 @@ function ENT:CustomOnRangeAttack_AfterStartTimer()
 			endpos = achLocations[i],
 			filter = self
 		})
-		if tr.Hit == true then self:ControlSphere_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal) end
+		if tr.Hit == true then self:CSphere_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal) end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode()
-	local startpos = self:GetPos() + self:GetForward()*8
+	local startPos = self:GetPos() + self:GetForward()*8
 	local tr = util.TraceLine({
-		start = startpos,
-		endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(),
+		start = startPos,
+		endpos = self:GetAimPosition(self:GetEnemy(), startPos, 0),
 		filter = self
 	})
-	local hitpos = tr.HitPos
+	local hitPos = tr.HitPos
 	
 	local elec = EffectData()
-	elec:SetStart(startpos)
-	elec:SetOrigin(hitpos)
+	elec:SetStart(startPos)
+	elec:SetOrigin(hitPos)
 	elec:SetEntity(self)
 	elec:SetAttachment(1)
 	util.Effect("VJ_HLR_Electric", elec)
 	
-	VJ.ApplyRadiusDamage(self, self, hitpos, 30, 10, DMG_SHOCK, true, false, {Force=90})
+	VJ.ApplyRadiusDamage(self, self, hitPos, 30, 10, DMG_SHOCK, true, false, {Force = 90})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
@@ -150,7 +149,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(4) -- Size
 		rico:SetMagnitude(2) -- Effect type | 1 = Animated | 2 = Basic
-		util.Effect("VJ_HLR_Rico",rico)
+		util.Effect("VJ_HLR_Rico", rico)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -171,11 +170,11 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 	end
 	
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib6.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0, 0, 0))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib7.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0, 0, 0))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib8.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0, 0, 0))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib9.mdl",{BloodType="Yellow",BloodDecal="VJ_HLR_Blood_Yellow",Pos=self:LocalToWorld(Vector(0, 0, 0))})
-	return true -- Return to true if it gibbed!
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib6.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 0))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib7.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(1, 0, 0))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib8.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 1, 0))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib9.mdl", {BloodType="Yellow", BloodDecal="VJ_HLR_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 1))})
+	return true -- Return to true if it gibbed! 
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)

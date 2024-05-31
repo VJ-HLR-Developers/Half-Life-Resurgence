@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/barney.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
+ENT.Model = "models/barney.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
 ENT.StartHealth = 100
 ENT.HasHealthRegeneration = true -- Can the SNPC regenerate its health?
 ENT.HealthRegenerationAmount = 1 -- How much should the health increase after every delay?
@@ -15,12 +15,12 @@ ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
 ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other player allies?
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.AnimTbl_MeleeAttack = {"vjseq_MeleeAttack01"} -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = "vjseq_MeleeAttack01" -- Melee Attack Animations
 ENT.TimeUntilMeleeAttackDamage = 0.7 -- This counted in seconds | This calculates the time until it hits something
 ENT.FootStepTimeRun = 0.25 -- Next foot step sound when it is running
 ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
 ENT.HasGrenadeAttack = true -- Should the NPC have a grenade attack?
-ENT.AnimTbl_GrenadeAttack = {ACT_RANGE_ATTACK_THROW} -- Grenade Attack Animations
+ENT.AnimTbl_GrenadeAttack = ACT_RANGE_ATTACK_THROW -- Grenade Attack Animations
 ENT.TimeUntilGrenadeIsReleased = 0.87 -- Time until the grenade is released
 ENT.GrenadeAttackAttachment = "anim_attachment_RH" -- The attachment that the grenade will spawn at
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
@@ -254,7 +254,7 @@ function ENT:CustomOnAlert(ent)
 		elseif ent:GetClass() == "npc_combinedropship" then
 			self:PlaySoundSystem("Alert", sdAlertDropShip)
 			return
-		elseif ent.VJTag_ID_Headcrab or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast" then
+		elseif ent.VJTag_ID_Headcrab then
 			self:PlaySoundSystem("Alert", sdAlertHeadcrab)
 			return
 		elseif ent:Classify() == CLASS_MACHINE or ent.VJTag_ID_Turret or ent:GetClass() == "npc_turret_floor" then

@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl2b/combine_soldier.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
+ENT.Model = "models/vj_hlr/hl2b/combine_soldier.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
 ENT.StartHealth = 60
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -18,11 +18,11 @@ ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
 ENT.HasGrenadeAttack = true -- Should the NPC have a grenade attack?
 ENT.GrenadeAttackModel = "models/weapons/w_npcnade.mdl" -- Overrides the model of the grenade | Can be nil, string, and table | Does NOT apply to picked up grenades and forced grenade attacks with custom entity
 ENT.GrenadeAttackAttachment = "righthand" -- The attachment that the grenade will spawn at | false = Custom position
-ENT.AnimTbl_WeaponAttackSecondary = {"vjseq_shoot_ar2grenade"}
+ENT.AnimTbl_WeaponAttackSecondary = "vjseq_shoot_ar2grenade"
 ENT.WeaponAttackSecondaryTimeUntilFire = 0.55
 	-- ====== Flinching Variables ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = {"vjges_flinch_gesture"} -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = "vjges_flinch_gesture" -- If it uses normal based animation, use this
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 //ENT.SoundTbl_FootStep = {"npc/combine_soldier/gear1.wav","npc/combine_soldier/gear2.wav","npc/combine_soldier/gear3.wav","npc/combine_soldier/gear4.wav","npc/combine_soldier/gear5.wav","npc/combine_soldier/gear6.wav"}
@@ -120,27 +120,16 @@ function ENT:CustomOnThink()
 	end
 end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnSetupWeaponHoldTypeAnims(wepHoldType)
-	//self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 				= ACT_RANGE_ATTACK1 -- No need to translate
-	self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK_AR2
-	//self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] 			= ACT_RANGE_ATTACK1_LOW -- No need to translate
-	//self.WeaponAnimTranslations[ACT_RELOAD] 						= ACT_RELOAD -- No need to translate
-	//self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= ACT_RELOAD_LOW -- No need to translate
-	self.WeaponAnimTranslations[ACT_COVER_LOW] 						= {ACT_COVER_LOW, "vjseq_crouch_leanwall_idle01"}
+function ENT:SetAnimationTranslations(wepHoldType)
+	-- Most animations don't need translating as they are the same as the default activity name
+	self.AnimationTranslations[ACT_GESTURE_RANGE_ATTACK1] = ACT_GESTURE_RANGE_ATTACK_AR2
+	self.AnimationTranslations[ACT_COVER_LOW] = {ACT_COVER_LOW, "vjseq_crouch_leanwall_idle01"}
 	
-	//self.WeaponAnimTranslations[ACT_IDLE] 						= ACT_IDLE -- No need to translate
-	//self.WeaponAnimTranslations[ACT_IDLE_ANGRY] 					= ACT_IDLE_ANGRY -- No need to translate
+	self.AnimationTranslations[ACT_WALK_CROUCH] = ACT_WALK_CROUCH_RIFLE
+	self.AnimationTranslations[ACT_WALK_CROUCH_AIM] = ACT_WALK_CROUCH_AIM_RIFLE
 	
-	//self.WeaponAnimTranslations[ACT_WALK] 						= ACT_WALK -- No need to translate
-	//self.WeaponAnimTranslations[ACT_WALK_AIM] 						= ACT_WALK_AIM -- No need to translate
-	self.WeaponAnimTranslations[ACT_WALK_CROUCH] 					= ACT_WALK_CROUCH_RIFLE
-	self.WeaponAnimTranslations[ACT_WALK_CROUCH_AIM] 				= ACT_WALK_CROUCH_AIM_RIFLE
-	
-	//self.WeaponAnimTranslations[ACT_RUN] 							= ACT_RUN -- No need to translate
-	//self.WeaponAnimTranslations[ACT_RUN_AIM] 						= ACT_RUN_AIM -- No need to translate
-	self.WeaponAnimTranslations[ACT_RUN_CROUCH] 					= ACT_RUN_CROUCH_RIFLE
-	self.WeaponAnimTranslations[ACT_RUN_CROUCH_AIM] 				= ACT_RUN_CROUCH_AIM_RIFLE
-	return true
+	self.AnimationTranslations[ACT_RUN_CROUCH] = ACT_RUN_CROUCH_RIFLE
+	self.AnimationTranslations[ACT_RUN_CROUCH_AIM] = ACT_RUN_CROUCH_AIM_RIFLE
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnPlayCreateSound(sdData, sdFile)
@@ -155,44 +144,45 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnGrenadeAttack(status, grenade, customEnt, landDir, landingPos)
 	if status == "Throw" then
-		-- Custom grenade model and sounds
-		grenade.SoundTbl_Idle = {"weapons/grenade/tick1.wav"}
-		grenade.IdleSoundPitch = VJ.SET(100, 100)
-		
-		local redGlow = ents.Create("env_sprite")
-		redGlow:SetKeyValue("model", "vj_base/sprites/vj_glow1.vmt")
-		redGlow:SetKeyValue("scale", "0.07")
-		redGlow:SetKeyValue("rendermode", "5")
-		redGlow:SetKeyValue("rendercolor", "150 0 0")
-		redGlow:SetKeyValue("spawnflags", "1") -- If animated
-		redGlow:SetParent(grenade)
-		redGlow:Fire("SetParentAttachment", "fuse", 0)
-		redGlow:Spawn()
-		redGlow:Activate()
-		grenade:DeleteOnRemove(redGlow)
-		util.SpriteTrail(grenade, 1, Color(200,0,0), true, 15, 15, 0.35, 1/(6+6)*0.5, "VJ_Base/sprites/vj_trial1.vmt")
-	
+		if !IsValid(customEnt) then
+			-- Glow and trail are both based on the original: https://github.com/ValveSoftware/source-sdk-2013/blob/master/mp/src/game/server/hl2/grenade_frag.cpp#L158
+			local redGlow = ents.Create("env_sprite")
+			redGlow:SetKeyValue("model", "sprites/redglow1.vmt")
+			redGlow:SetKeyValue("scale", "0.2")
+			redGlow:SetKeyValue("rendermode", "3") -- kRenderGlow
+			redGlow:SetKeyValue("renderfx", "14") -- kRenderFxNoDissipation
+			redGlow:SetKeyValue("renderamt", "200")
+			redGlow:SetKeyValue("rendercolor", "255 255 255")
+			redGlow:SetKeyValue("GlowProxySize", "4.0")
+			redGlow:SetParent(grenade)
+			redGlow:Fire("SetParentAttachment", "fuse")
+			redGlow:Spawn()
+			redGlow:Activate()
+			grenade:DeleteOnRemove(redGlow)
+			local redTrail = util.SpriteTrail(grenade, 1, Color(255, 0, 0), true, 8, 1, 0.5, 0.0555, "sprites/bluelaser1.vmt")
+			redTrail:SetKeyValue("rendermode", "5") -- kRenderTransAdd
+			redTrail:SetKeyValue("renderfx", "0") -- kRenderFxNone
+			grenade.SoundTbl_Idle = "Grenade.Blip"
+			grenade.IdleSoundPitch = VJ.SET(100, 100)
+		end
 		return (landingPos - grenade:GetPos()) + (self:GetUp()*200 + self:GetForward()*500 + self:GetRight()*math.Rand(-20, 20))
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
-	-- Absorb bullet damage
+	-- Absorb bullet damage, play metallic sound, and create sparks
 	if dmginfo:IsBulletDamage() then
-		if self.HasSounds == true && self.HasImpactSounds == true then VJ.EmitSound(self, "vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav", 70) end
+		if self.HasSounds == true && self.HasImpactSounds == true then
+			VJ.EmitSound(self, "vj_impact_metal/bullet_metal/metalsolid"..math.random(1, 10)..".wav", 70)
+		end
 		if math.random(1, 3) == 1 then
 			dmginfo:ScaleDamage(0.50)
-			local spark = ents.Create("env_spark")
-			spark:SetKeyValue("Magnitude","1")
-			spark:SetKeyValue("Spark Trail Length","1")
-			spark:SetPos(dmginfo:GetDamagePosition())
-			spark:SetAngles(self:GetAngles())
-			spark:SetParent(self)
-			spark:Spawn()
-			spark:Activate()
-			spark:Fire("StartSpark", "", 0)
-			spark:Fire("StopSpark", "", 0.001)
-			self:DeleteOnRemove(spark)
+			local effectData = EffectData()
+			effectData:SetOrigin(dmginfo:GetDamagePosition())
+			effectData:SetNormal(dmginfo:GetDamageForce():GetNormalized())
+			effectData:SetMagnitude(3)
+			effectData:SetScale(1)
+			util.Effect("ElectricSpark", effectData)
 		else
 			dmginfo:ScaleDamage(0.80)
 		end

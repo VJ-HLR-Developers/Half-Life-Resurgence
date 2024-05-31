@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/protozoa.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/protozoa.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 5
 ENT.HullType = HULL_TINY
 ENT.TurningSpeed = 1 -- How fast it can turn
@@ -24,8 +24,8 @@ ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE -- The behavior of the SNPC
 ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/protozoan/chirp03.wav","vj_hlr/hl1_npc/protozoan/chirp04.wav","vj_hlr/hl1_npc/protozoan/chirp05.wav","vj_hlr/hl1_npc/protozoan/chirp06.wav","vj_hlr/hl1_npc/protozoan/chirp07.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/protozoan/chirp03.wav","vj_hlr/hl1_npc/protozoan/chirp04.wav","vj_hlr/hl1_npc/protozoan/chirp05.wav","vj_hlr/hl1_npc/protozoan/chirp06.wav","vj_hlr/hl1_npc/protozoan/chirp07.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/protozoan/chirp03.wav", "vj_hlr/hl1_npc/protozoan/chirp04.wav", "vj_hlr/hl1_npc/protozoan/chirp05.wav", "vj_hlr/hl1_npc/protozoan/chirp06.wav", "vj_hlr/hl1_npc/protozoan/chirp07.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/protozoan/chirp03.wav", "vj_hlr/hl1_npc/protozoan/chirp04.wav", "vj_hlr/hl1_npc/protozoan/chirp05.wav", "vj_hlr/hl1_npc/protozoan/chirp06.wav", "vj_hlr/hl1_npc/protozoan/chirp07.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(28, 28, 65), Vector(-28, -28, 0))

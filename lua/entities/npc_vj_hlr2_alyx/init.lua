@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl2/alyx_ep1.mdl","models/vj_hlr/hl2/alyx_ep2.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
+ENT.Model = {"models/vj_hlr/hl2/alyx_ep1.mdl", "models/vj_hlr/hl2/alyx_ep2.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
 ENT.StartHealth = 100
 ENT.HasHealthRegeneration = true -- Can the SNPC regenerate its health?
 ENT.HealthRegenerationAmount = 1 -- How much should the health increase after every delay?
@@ -15,7 +15,7 @@ ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
 ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other player allies?
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.AnimTbl_MeleeAttack = {"vjseq_MeleeAttack01"} -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = "vjseq_MeleeAttack01" -- Melee Attack Animations
 ENT.TimeUntilMeleeAttackDamage = 0.7 -- This counted in seconds | This calculates the time until it hits something
 ENT.HasGrenadeAttack = false -- Should the NPC have a grenade attack?
 /*ENT.AnimTbl_GrenadeAttack = {"vjseq_ThrowItem"} -- Grenade Attack Animations
@@ -28,7 +28,7 @@ ENT.FootStepTimeRun = 0.25 -- Next foot step sound when it is running
 ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = {"vjges_flinch_head"} -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = "vjges_flinch_head" -- If it uses normal based animation, use this
 ENT.HitGroupFlinching_Values = {
 	{HitGroup = {HITGROUP_LEFTARM}, Animation = {"vjges_flinch_leftarm"}},
 	{HitGroup = {HITGROUP_RIGHTARM}, Animation = {"vjges_flinch_rightarm"}},
@@ -982,23 +982,21 @@ ENT.GeneralSoundPitch1 = 100
 -- Custom
 ENT.Human_NextPlyReloadSd = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnSetupWeaponHoldTypeAnims(wepHoldType)
-	timer.Simple(0.1, function() -- Make sure the base functions have ran!
-		if IsValid(self) && wepHoldType == "pistol" or wepHoldType == "revolver" then
-			self.WeaponAnimTranslations[ACT_IDLE] = {ACT_IDLE_STIMULATED} -- This animation set is used more often in HL2, not to mention there are multiple idle animations tied to this so it gives more variety + this syncs up with the rest of Alyx's animations better
-			self.WeaponAnimTranslations[ACT_WALK] = {ACT_WALK_STIMULATED}
-			self.WeaponAnimTranslations[ACT_RUN] = {ACT_RUN_STIMULATED}
+function ENT:SetAnimationTranslations(wepHoldType)
+	self.BaseClass.SetAnimationTranslations(self, wepHoldType)
+	if IsValid(self) && wepHoldType == "pistol" or wepHoldType == "revolver" then
+		self.AnimationTranslations[ACT_IDLE] = ACT_IDLE_STIMULATED -- This animation set is used more often in HL2, not to mention there are multiple idle animations tied to this so it gives more variety + this syncs up with the rest of Alyx's animations better
+		self.AnimationTranslations[ACT_WALK] = ACT_WALK_STIMULATED
+		self.AnimationTranslations[ACT_RUN] = ACT_RUN_STIMULATED
 
-			self.WeaponAnimTranslations[ACT_COVER_LOW] = {ACT_CROUCHIDLE_STIMULATED, ACT_RANGE_AIM_PISTOL_LOW, "vjseq_crouchidlehide", "vjseq_blindfire_low_entry", "vjseq_crouchhide_01"}
+		self.AnimationTranslations[ACT_COVER_LOW] = {ACT_CROUCHIDLE_STIMULATED, ACT_RANGE_AIM_PISTOL_LOW, "vjseq_crouchidlehide", "vjseq_blindfire_low_entry", "vjseq_crouchhide_01"}
 
-			self.WeaponAnimTranslations[ACT_WALK_AIM] = ACT_WALK_AIM_PISTOL
+		self.AnimationTranslations[ACT_WALK_AIM] = ACT_WALK_AIM_PISTOL
 
-			self.WeaponAnimTranslations[ACT_RUN_AIM] = ACT_RUN_AIM_PISTOL
-		elseif wepHoldType == "melee" or wepHoldType == "melee2" or wepHoldType == "knife" then
-			self.WeaponAnimTranslations[ACT_IDLE_ANGRY] = ACT_IDLE -- Alyx does NOT have a melee weapon angry animation!
-		end
-	end)
-	return false
+		self.AnimationTranslations[ACT_RUN_AIM] = ACT_RUN_AIM_PISTOL
+	elseif wepHoldType == "melee" or wepHoldType == "melee2" or wepHoldType == "knife" then
+		self.AnimationTranslations[ACT_IDLE_ANGRY] = ACT_IDLE -- Alyx does NOT have a melee weapon angry animation!
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPlayerSight(ent)
@@ -1006,7 +1004,7 @@ function ENT:CustomOnPlayerSight(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnMaintainRelationships(ent, entFri, entDist)
-	-- Tell the player to reload their weapon or give the player a ammo
+	-- Tell the player to reload their weapon or give the player ammo
 	if entFri == true && ent:IsPlayer() && CurTime() > self.Human_NextPlyReloadSd && !IsValid(self:GetEnemy()) && entDist <= 200 then
 		self.Human_NextPlyReloadSd = CurTime() + math.Rand(10, 60)
 		local wep = ent:GetActiveWeapon()
@@ -1036,7 +1034,7 @@ function ENT:CustomOnMaintainRelationships(ent, entFri, entDist)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnAlert(ent)
-	if math.random(1, 1) == 1 && ent:IsNPC() then
+	if math.random(1, 2) == 1 && ent:IsNPC() then
 		if ent:GetClass() == "npc_breen" then
 			self:PlaySoundSystem("Alert", "vj_hlr/hl2_npc/ep1/citadel/al_advisor_breen01.wav")
 			return
@@ -1055,7 +1053,7 @@ function ENT:CustomOnAlert(ent)
 		elseif ent:GetClass() == "npc_antlionguard" then
 			self:PlaySoundSystem("Alert", sdAlertAntlionGuard)
 			return
-		elseif ent.VJTag_ID_Headcrab or ent:GetClass() == "npc_headcrab" or ent:GetClass() == "npc_headcrab_black" or ent:GetClass() == "npc_headcrab_fast" then
+		elseif ent.VJTag_ID_Headcrab then
 			self:PlaySoundSystem("Alert", sdAlertHeadcrab)
 			return
 		elseif ent:GetClass() == "npc_vj_hlr1_barnacle" or ent:GetClass() == "monster_barnacle" or ent:Classify() == CLASS_BARNACLE then
@@ -1112,7 +1110,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDoKilledEnemy(ent, attacker, inflictor)
 	-- Kills a unknown type (Not Zombie, Antlion or Combine) of creature SNPC
-	if math.random(1,2) == 1 && ent.IsVJBaseSNPC_Creature == true then
+	if math.random(1, 2) == 1 && ent.IsVJBaseSNPC_Creature then
 		for _,v in ipairs(ent.VJ_NPC_Class or {1}) do
 			if v != "CLASS_COMBINE" && v != "CLASS_ZOMBIE" && v != "CLASS_ANTLION" then
 				self:PlaySoundSystem("OnKilledEnemy", sdKilledEnemy)

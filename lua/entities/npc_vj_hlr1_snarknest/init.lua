@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/sqknest.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/sqknest.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 20
 ENT.HullType = HULL_TINY
 ENT.VJC_Data = {
@@ -20,12 +20,11 @@ ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE -- The behavior of the SNPC
-ENT.AnimTbl_Run = {ACT_WALK} -- Set the running animations | Put multiple to let the base pick a random animation when it moves
 ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/squeek/sqk_hunt1.wav","vj_hlr/hl1_npc/squeek/sqk_hunt2.wav","vj_hlr/hl1_npc/squeek/sqk_hunt3.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/squeek/sqk_blast1.wav"}
+ENT.SoundTbl_Death = "vj_hlr/hl1_npc/squeek/sqk_blast1.wav"
 
 ENT.IdleSoundLevel = 65
 ENT.GeneralSoundPitch1 = 50
@@ -37,15 +36,23 @@ function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(15, 15, 18), Vector(-15, -15, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:TranslateActivity(act)
+	if act == ACT_RUN then
+		return ACT_WALK
+	end
+	return self.BaseClass.TranslateActivity(self, act)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
 function ENT:CustomOnKilled(dmginfo, hitgroup)
+	local myPos = self:GetPos()
 	if self.Nest_SpawnEnt == "npc_vj_hlr1_snark" then
-		VJ.ApplyRadiusDamage(self, self, self:GetPos(), 50, 15, DMG_ACID, true, true)
+		VJ.ApplyRadiusDamage(self, self, myPos, 50, 15, DMG_ACID, true, true)
 		if self.HasGibDeathParticles == true then
 			local effectData = EffectData()
-			effectData:SetOrigin(self:GetPos() + self:OBBCenter())
+			effectData:SetOrigin(myPos + self:OBBCenter())
 			effectData:SetColor(colorYellow)
 			effectData:SetScale(40)
 			util.Effect("VJ_Blood1", effectData)
@@ -56,12 +63,13 @@ function ENT:CustomOnKilled(dmginfo, hitgroup)
 			util.Effect("bloodspray", effectData)
 		end
 	elseif self.Nest_SpawnEnt == "npc_vj_hlrof_penguin" then
-		VJ.EmitSound(self, {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}, 90)
-		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
-		util.BlastDamage(self,self,self:GetPos(),80,35)
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3, 5)..".wav", 90)
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1, 3)..".wav", 100)
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
+		util.BlastDamage(self, self, myPos, 80, 35)
 		if self.HasGibDeathParticles == true then
 			local effectData = EffectData()
-			effectData:SetOrigin(self:GetPos() + self:OBBCenter())
+			effectData:SetOrigin(myPos + self:OBBCenter())
 			effectData:SetColor(colorRed)
 			effectData:SetScale(120)
 			util.Effect("VJ_Blood1", effectData)
@@ -84,7 +92,7 @@ function ENT:CustomOnKilled(dmginfo, hitgroup)
 			spr:SetKeyValue("framerate","15.0")
 			spr:SetKeyValue("spawnflags","0")
 			spr:SetKeyValue("scale","4")
-			spr:SetPos(self:GetPos() + self:GetUp()*80)
+			spr:SetPos(myPos + self:GetUp() * 80)
 			spr:Spawn()
 			spr:Fire("Kill","",0.9)
 			timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
@@ -99,11 +107,12 @@ function ENT:CustomOnKilled(dmginfo, hitgroup)
 		end
 	end
 	
+	-- Spawn random amount of children
 	for _ = 1, math.random(4, 8) do
 		local ent = ents.Create(self.Nest_SpawnEnt)
-		ent:SetPos(self:GetPos())
+		ent:SetPos(myPos)
 		ent:SetAngles(self:GetAngles())
-		ent:SetVelocity(self:GetUp()*math.Rand(250,350) + self:GetRight()*math.Rand(-100,100) + self:GetForward()*math.Rand(-100,100))
+		ent:SetVelocity(self:GetUp()*math.Rand(250, 350) + self:GetRight()*math.Rand(-100, 100) + self:GetForward()*math.Rand(-100, 100))
 		ent:Spawn()
 		ent:Activate()
 		ent.VJ_NPC_Class = self.VJ_NPC_Class

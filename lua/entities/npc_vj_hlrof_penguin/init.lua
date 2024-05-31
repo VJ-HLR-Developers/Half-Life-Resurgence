@@ -1,3 +1,4 @@
+include("entities/npc_vj_hlr1_snark/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
@@ -5,8 +6,8 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/opfor/penguin.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.EntitiesToNoCollide = {"npc_vj_hlrof_penguin"} -- Entities to not collide with when HasEntitiesToNoCollide is set to true
+ENT.Model = "models/vj_hlr/opfor/penguin.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.EntitiesToNoCollide = {"npc_vj_hlrof_penguin"} -- Set to a table of entity class names for the NPC to not collide with otherwise leave it to false
 ENT.VJC_Data = {
     FirstP_Bone = "Bone22", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(4, 0, 30), -- The offset for the controller when the camera is in first person

@@ -1,4 +1,4 @@
-ENT.Base 			= "npc_vj_hlr2b_com_soldier"
+ENT.Base 			= "npc_vj_human_base"
 ENT.Type 			= "ai"
 ENT.PrintName 		= "Overwatch Sniper Elite (Beta)"
 ENT.Author 			= "DrVrej"
@@ -8,7 +8,7 @@ ENT.Instructions 	= "Click on the spawnicon to spawn it."
 ENT.Category		= "Half-Life Resurgence"
 
 if CLIENT then
-	-- Do not draw eye glow for this combine unit
+	-- Do not draw eye glow for this combine unit, he's supposed to be camouflaged!
 	function ENT:Draw()
 		self:DrawModel()
     end

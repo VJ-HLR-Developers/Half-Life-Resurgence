@@ -5,12 +5,11 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
--- ENT.Model = {"models/vj_combine/floor_turret.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
-ENT.Model = {"models/combine_turrets/floor_turret.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/combine_turrets/floor_turret.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 200
 ENT.HullType = HULL_HUMAN
 ENT.SightDistance = 2000 -- How far it can see
-ENT.SightAngle = 75 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
+ENT.SightAngle = 60 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
 ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
 ENT.VJC_Data = {
@@ -20,7 +19,7 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_COMBINE"} -- NPCs with the same class with be allied to each other
-ENT.AlertedToIdleTime = VJ.SET(5, 5) -- How much time until it calms down after the enemy has been killed/disappeared | Sets self.Alerted to false after the timer expires
+ENT.AlertedToIdleTime = VJ.SET(0, 0) -- How much time until it calms down after the enemy has been killed/disappeared | Sets self.Alerted to false after the timer expires
 ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
@@ -28,27 +27,38 @@ ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range 
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
 ENT.RangeDistance = 2000 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
-ENT.RangeAttackAngleRadius = 75 -- What is the attack angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
-ENT.TimeUntilRangeAttackProjectileRelease = 0.06 -- How much time until the projectile code is ran?
+ENT.RangeAttackAngleRadius = 60 -- What is the attack angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
+ENT.TimeUntilRangeAttackProjectileRelease = 0.015 -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 0 -- How much time until it can use a range attack?
-ENT.NextAnyAttackTime_Range = 0.01 -- How much time until it can use any attack again? | Counted in Seconds
+ENT.NextAnyAttackTime_Range = 0.04 -- How much time until it can use any attack again? | Counted in Seconds
 
+ENT.CanReceiveOrders = false -- Can the NPC receive orders from others? | Ex: Allies calling for help, allies requesting backup on damage, etc.
 ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
+ENT.TimeUntilEnemyLost = 5 -- Time until it resets its enemy if the enemy is not visible
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav","ambient/energy/spark2.wav","ambient/energy/spark3.wav","ambient/energy/spark4.wav"}
-ENT.SoundTbl_Death = {"npc/turret_floor/die.wav"}
+ENT.SoundTbl_Death = "npc/turret_floor/die.wav"
 
 local sdFiring = {"^npc/turret_floor/shoot1.wav","^npc/turret_floor/shoot2.wav","^npc/turret_floor/shoot3.wav"}
 
+local TURRET_STATUS_UNKNOWN = -1 -- Usually for transitioning from deploying to another status
+local TURRET_STATUS_IDLE = 0 -- Was last detected as idle
+local TURRET_STATUS_DEPLOYING = 1 -- Was last detected attempting to deploy the gun
+local TURRET_STATUS_SEEKING = 2 -- Was last detected seeking / scanning a target
+local TURRET_STATUS_TARGETING = 3 -- Was last detected targeting an active enemy
+
 -- Custom
 ENT.Turret_HasLOS = false -- Has line of sight
+ENT.Turret_Status = TURRET_STATUS_UNKNOWN
 ENT.Turret_StandDown = true
 ENT.Turret_CurrentParameter = 0
 ENT.Turret_ScanDirSide = 0
 ENT.Turret_ScanDirUp = 0
 ENT.Turret_NextScanBeepT = 0
-ENT.Turret_ControllerStatus = 0 -- Current status of the controller, 0 = Idle | 1 = Alerted
+ENT.Turret_ControllerStatus = 0 -- Current status of the controller | 0 = Idle | 1 = Alerted
+ENT.Turret_IdleAnim = ACT_IDLE -- Will be replaced on initialize
+ENT.Turret_IdleAngryAnim = ACT_IDLE -- Will be replaced on initialize
 
 -- Pose Parameters:
 	-- aim_yaw -60 / 60
@@ -57,23 +67,32 @@ ENT.Turret_ControllerStatus = 0 -- Current status of the controller, 0 = Idle | 
 function ENT:CustomOnInitialize()
 	self:SetCollisionBounds(Vector(13, 13, 63), Vector(-13, -13, 0))
 	
-	self.Turret_Sprite = ents.Create("env_sprite")
-	self.Turret_Sprite:SetKeyValue("model","vj_base/sprites/vj_glow1.vmt")
-	self.Turret_Sprite:SetKeyValue("scale","0.1")
-	self.Turret_Sprite:SetKeyValue("rendermode","5")
-	self.Turret_Sprite:SetKeyValue("rendercolor","255 0 0")
-	self.Turret_Sprite:SetKeyValue("spawnflags","1") -- If animated
-	self.Turret_Sprite:SetParent(self)
-	self.Turret_Sprite:Fire("SetParentAttachment", "light")
-	self.Turret_Sprite:Spawn()
-	self.Turret_Sprite:Activate()
-	self.Turret_Sprite:Fire("HideSprite")
-	self:DeleteOnRemove(self.Turret_Sprite)
+	local spr = ents.Create("env_sprite")
+	spr:SetKeyValue("model", "sprites/glow1.vmt")
+	spr:SetKeyValue("scale", "0.4")
+	spr:SetKeyValue("rendermode", "9") -- kRenderWorldGlow
+	spr:SetKeyValue("renderfx", "14") -- kRenderFxNoDissipation
+	spr:SetKeyValue("rendercolor", "255 0 0")
+	spr:SetKeyValue("renderamt", "192")
+	spr:SetParent(self)
+	spr:Fire("SetParentAttachment", "light")
+	spr:Spawn()
+	spr:Activate()
+	spr:Fire("HideSprite")
+	self:DeleteOnRemove(spr)
+	self.Turret_Sprite = spr
 	
 	-- For resistance turrets
 	if self:GetModel() == "models/vj_hlr/hl2/floor_turret.mdl" then
 		self:SetSkin(math.random(1, 3))
 	end
+	
+	self.Turret_IdleAnim = self:GetSequenceActivity(self:LookupSequence("idle"))
+	self.Turret_IdleAngryAnim = self:GetSequenceActivity(self:LookupSequence("idlealert"))
+	self.TurretSD_Turning = CreateSound(self, "npc/turret_wall/turret_loop1.wav")
+	self.TurretSD_Turning:SetSoundLevel(60)
+	self.TurretSD_Alarm = CreateSound(self, "npc/turret_floor/alarm.wav")
+	self.TurretSD_Alarm:SetSoundLevel(75)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
@@ -84,125 +103,148 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	self.NextAlertSoundT = CurTime() + 1 -- So it doesn't play the alert sound as soon as it enters the NPC!
 	
 	function controlEnt:CustomOnKeyPressed(key)
+		local npc = self.VJCE_NPC
 		if key == KEY_SPACE then
-			if self.VJCE_NPC.Turret_ControllerStatus == 0 then
-				self.VJCE_NPC.Turret_ControllerStatus = 1
-				self.VJCE_NPC.HasPoseParameterLooking = true
-				self.VJCE_NPC:PlaySoundSystem("Alert")
-				self.VJCE_NPC:Turret_Activate()
+			if npc.Turret_ControllerStatus == 0 then
+				npc.Turret_ControllerStatus = 1
+				npc.HasPoseParameterLooking = true
+				npc:PlaySoundSystem("Alert")
+				npc:Turret_Activate()
 			else
-				self.VJCE_NPC.Turret_ControllerStatus = 0
-				self.VJCE_NPC.HasPoseParameterLooking = false
+				npc.Turret_ControllerStatus = 0
+				npc.HasPoseParameterLooking = false
 			end
 		end
 	end
 	
 	function controlEnt:CustomOnStopControlling(keyPressed)
-		if IsValid(self.VJCE_NPC) then
-			self.VJCE_NPC.HasPoseParameterLooking = true
+		local npc = self.VJCE_NPC
+		if IsValid(npc) then
+			npc.HasPoseParameterLooking = true
+			npc.Turret_ControllerStatus = 0
 		end
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:TranslateActivity(act)
+	if act == ACT_IDLE then
+		if !self.Turret_StandDown then
+			return self.Turret_IdleAngryAnim
+		else
+			return self.Turret_IdleAnim
+		end
+	end
+	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()
 	-- Turning sound
 	local parameter = self:GetPoseParameter("aim_yaw")
 	if parameter != self.Turret_CurrentParameter then
-		self.turret_turningsd = CreateSound(self, "npc/turret_wall/turret_loop1.wav") 
-		self.turret_turningsd:SetSoundLevel(60)
-		self.turret_turningsd:PlayEx(1, 100)
+		self.TurretSD_Turning:PlayEx(1, 100)
 	else
-		VJ.STOPSOUND(self.turret_turningsd)
+		VJ.STOPSOUND(self.TurretSD_Turning)
 	end
 	self.Turret_CurrentParameter = parameter
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink_AIEnabled()
 	local eneValid = IsValid(self:GetEnemy())
-	-- Make it not reset its pose parameters while its transitioning from Alert to Idle
-	if self.Alerted && !eneValid then
-		self.PoseParameterLooking_CanReset = false
-	else
-		self.PoseParameterLooking_CanReset = true
-	end
-	if (self.Turret_ControllerStatus == 1) or (!self.VJ_IsBeingControlled && (eneValid or self.Alerted == true)) then
-		self.Turret_StandDown = false
-		self.AnimTbl_IdleStand = {"idlealert"}
-		-- Handle the light sprite
-		if self.Turret_HasLOS == true && eneValid then
-			self.Turret_Sprite:Fire("Color","255 0 0") -- Red
-			self.Turret_Sprite:Fire("ShowSprite")
-		elseif self.HasPoseParameterLooking == true then -- So when the alert animation is playing, it won't replace the activating light (green)
-			self.Turret_Sprite:Fire("Color","255 165 0") -- Orange
-			self.Turret_Sprite:Fire("ShowSprite")
-		end
-		
-		local scan = false
-		local pyaw = self:GetPoseParameter("aim_yaw")
-		
-		-- Make it scan around if the enemy is behind, which is unreachable for it!
-		if eneValid && self.Turret_HasLOS == false && (self.EnemyData.SightDiff <= math.cos(math.rad(self.RangeAttackAngleRadius))) then
-			scan = true
-			self.HasPoseParameterLooking = false
-		else
-			self.HasPoseParameterLooking = true
-		end
-		
-		 -- Look around randomly when the enemy is not found
-		if !eneValid or scan == true then
-			-- Playing a beeping noise
-			if self.Turret_NextScanBeepT < CurTime() then
-				VJ.EmitSound(self, "npc/turret_floor/ping.wav", 75, 100)
-				self.Turret_NextScanBeepT = CurTime() + 1
-			end
-			-- LEFT TO RIGHT
-			-- Change the rotation direction when the max number is reached for a direction
-			if pyaw >= 60 then
-				self.Turret_ScanDirSide = 1
-			elseif pyaw <= -60 then
-				self.Turret_ScanDirSide = 0
-			end
-			self:SetPoseParameter("aim_yaw", pyaw + (self.Turret_ScanDirSide == 1 and -8 or 8))
-			-- UP AND DOWN
-			-- Change the rotation direction when the max number is reached for a direction
-			if self:GetPoseParameter("aim_pitch") >= 15 then
-				self.Turret_ScanDirUp = 1
-			elseif self:GetPoseParameter("aim_pitch") <= -15 then
-				self.Turret_ScanDirUp = 0
-			end
-			self:SetPoseParameter("aim_pitch", self:GetPoseParameter("aim_pitch") + (self.Turret_ScanDirUp == 1 and -3 or 3))
-		end
-	else
-		-- Play the retracting sequence and sound
-		if ((self.Turret_ControllerStatus == 0) or (!self.VJ_IsBeingControlled && self.Alerted == false)) && self.Turret_StandDown == false then
-			if self.VJ_IsBeingControlled then
-				self.Turret_Sprite:Fire("HideSprite")
-			else
-				self.Turret_Sprite:Fire("Color","0 150 0") -- Green
+	if self.Turret_Status != TURRET_STATUS_DEPLOYING then
+		-- Alerted behavior
+		if ((self.Turret_ControllerStatus == 1) or (!self.VJ_IsBeingControlled && (eneValid or (self.Alerted && !self.EnemyData.Reset)))) then
+			self.Turret_StandDown = false
+			-- Handle the light sprite
+			if self.Turret_HasLOS && eneValid then
+				self.Turret_Sprite:Fire("Color", "255 0 0") -- Red
+				self.Turret_Sprite:Fire("ShowSprite")
+			elseif self.HasPoseParameterLooking == true then -- So when the alert animation is playing, it won't replace the activating light (green)
+				self.Turret_Sprite:Fire("Color", "255 128 0") -- Orange
 				self.Turret_Sprite:Fire("ShowSprite")
 			end
-			self.Turret_StandDown = true
-			self:VJ_ACT_PLAYACTIVITY({"retire"}, true, 1)
-			VJ.EmitSound(self, "npc/turret_floor/retract.wav", 70, 100)
-		end
-		if self.Turret_StandDown == true then
-			if self:GetPoseParameter("aim_yaw") == 0 then -- Hide the green light once it fully rests
+			
+			local doScan = false
+			
+			-- Make it scan around if the enemy is behind, which is unreachable for it!
+			if eneValid && !self.Turret_HasLOS && (self.EnemyData.SightDiff <= math.cos(math.rad(self.RangeAttackAngleRadius))) then
+				doScan = true
+				self.HasPoseParameterLooking = false
+			else
+				-- If it just started targeting, then play the gun "activate" sound
+				if self.Turret_Status != TURRET_STATUS_TARGETING then
+					VJ.EmitSound(self, "npc/turret_floor/active.wav", 70, 100)
+					self.NextDoAnyAttackT = CurTime() + 0.5
+				end
+				self.Turret_Status = TURRET_STATUS_TARGETING
+				self.HasPoseParameterLooking = true
+			end
+			
+			-- Look around randomly when the enemy is not found or hidden
+			if !eneValid or doScan == true then
+				self.Turret_Status = TURRET_STATUS_SEEKING
+				-- Playing a beeping noise
+				if self.Turret_NextScanBeepT < CurTime() then
+					VJ.EmitSound(self, "npc/turret_floor/ping.wav", 75, 100)
+					self.Turret_NextScanBeepT = CurTime() + 1
+				end
+				-- LEFT TO RIGHT
+				-- Change the rotation direction when the max number is reached for a direction
+				local yaw = self:GetPoseParameter("aim_yaw")
+				if yaw >= 60 then
+					self.Turret_ScanDirSide = 1
+				elseif yaw <= -60 then
+					self.Turret_ScanDirSide = 0
+				end
+				self:SetPoseParameter("aim_yaw", yaw + (self.Turret_ScanDirSide == 1 and -5 or 5))
+				-- UP AND DOWN
+				-- Change the rotation direction when the max number is reached for a direction
+				local pitch = self:GetPoseParameter("aim_pitch")
+				if pitch >= 15 then
+					self.Turret_ScanDirUp = 1
+				elseif pitch <= -15 then
+					self.Turret_ScanDirUp = 0
+				end
+				self:SetPoseParameter("aim_pitch", pitch + (self.Turret_ScanDirUp == 1 and -1 or 1))
+			end
+		else -- Idle behavior
+			self.Turret_Status = TURRET_STATUS_IDLE
+			-- Play the retracting sequence and sound
+			if ((self.Turret_ControllerStatus == 0) or (!self.VJ_IsBeingControlled && !self.Alerted)) && !self.Turret_StandDown then
+				if self.VJ_IsBeingControlled then
+					self.Turret_Sprite:Fire("HideSprite")
+				else
+					self.Turret_Sprite:Fire("Color","0 255 0") -- Green
+					self.Turret_Sprite:Fire("ShowSprite")
+				end
+				self.Turret_StandDown = true
+				self.HasPoseParameterLooking = true
+				self:VJ_ACT_PLAYACTIVITY("retract", true, 1)
+				VJ.EmitSound(self, "npc/turret_floor/retract.wav", 70, 100)
+			end
+			if self.Turret_StandDown && self:GetPoseParameter("aim_yaw") == 0 then -- Hide the green light once it fully rests
 				self.Turret_Sprite:Fire("HideSprite")
 			end
-			self.AnimTbl_IdleStand = {ACT_IDLE}
 		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:DoPoseParameterLooking(resetPoses)
+	-- Alerted with no active enemy, so don't reset its pose parameters (Ex: Transitioning from Alert to Idle)
+	if self:GetNPCState() == NPC_STATE_ALERT then return end
+	return self.BaseClass.DoPoseParameterLooking(self, resetPoses)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOn_PoseParameterLookingCode(pitch, yaw, roll)
+	-- Otherwise "self.Turret_HasLOS" will true all the time when it's deploying, retracting, etc. (Basically whenever its not supposed to aim)
+	if !self.HasPoseParameterLooking or self:GetNPCState() != NPC_STATE_COMBAT then
+		self.Turret_HasLOS = false
+		return
+	end
+	
 	-- Compare the difference between the current position of the pose parameter and the position it's suppose to go to
 	if (math.abs(math.AngleDifference(self:GetPoseParameter("aim_yaw"), math.ApproachAngle(self:GetPoseParameter("aim_yaw"), yaw, self.PoseParameterLooking_TurningSpeed))) >= 10) or (math.abs(math.AngleDifference(self:GetPoseParameter("aim_pitch"), math.ApproachAngle(self:GetPoseParameter("aim_pitch"), pitch, self.PoseParameterLooking_TurningSpeed))) >= 10) then
 		self.Turret_HasLOS = false
 	else
-		-- If it just got LOS, then play the gun "activate" sound
-		if self.Turret_HasLOS == false && IsValid(self:GetEnemy()) then
-			VJ.EmitSound(self, "npc/turret_floor/active.wav", 70, 100)
-		end
 		self.Turret_HasLOS = true
 	end
 end
@@ -213,19 +255,20 @@ function ENT:CustomOnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Turret_Activate()
-	self.Turret_Sprite:Fire("Color","0 150 0") -- Green
+	self.Turret_Sprite:Fire("Color", "0 255 0") -- Green
 	self.Turret_Sprite:Fire("ShowSprite")
 	self.HasPoseParameterLooking = false -- Make it not aim at the enemy right away!
+	self.Turret_Status = TURRET_STATUS_DEPLOYING
 	timer.Simple(0.6, function()
 		if IsValid(self) then
-			self.HasPoseParameterLooking = true
+			self.Turret_Status = TURRET_STATUS_UNKNOWN
 		end
 	end)
 	//self.NextResetEnemyT = CurTime() + 1 -- Make sure it doesn't reset the enemy right away
-	self:VJ_ACT_PLAYACTIVITY({"deploy"}, true, false)
+	self:VJ_ACT_PLAYACTIVITY("deploy", true, false)
 	VJ.EmitSound(self, "npc/turret_floor/deploy.wav", 70, 100)
-	self.turret_alertsd = VJ.CreateSound(self, "npc/turret_floor/alarm.wav", 75, 100)
-	timer.Simple(0.8, function() VJ.STOPSOUND(self.turret_alertsd) end)
+	self.TurretSD_Alarm:PlayEx(1, 100)
+	timer.Simple(0.8, function() VJ.STOPSOUND(self.TurretSD_Alarm) end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttackCheck_RangeAttack()
@@ -233,60 +276,59 @@ function ENT:CustomAttackCheck_RangeAttack()
 	return self.Turret_HasLOS && !self.Turret_StandDown
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local bulletSpread = Vector(0.08716, 0.08716, 0.08716) * 1.25 -- VECTOR_CONE_10DEGREES * WEAPON_PROFICIENCY_VERY_GOOD
+--
 function ENT:CustomRangeAttackCode()
 	self:VJ_ACT_PLAYACTIVITY("vjseq_fire", false)
 	
 	-- Bullet
-	local startpos = self:GetAttachment(self:LookupAttachment("eyes")).Pos
+	local startPos = self:GetAttachment(self:LookupAttachment("eyes")).Pos
 	local bullet = {}
 	bullet.Num = 1
-	bullet.Src = startpos
-	bullet.Dir = (self:GetEnemy():GetPos()+self:GetEnemy():OBBCenter()) - startpos
-	bullet.Spread = Vector(math.random(-15, 15), math.random(-15, 15), math.random(-15, 15))
+	bullet.Src = startPos
+	bullet.Dir = (self:GetAimPosition(self:GetEnemy(), startPos) - startPos):GetNormal()
+	bullet.Spread = bulletSpread
 	bullet.Tracer = 1
 	bullet.TracerName = "AR2Tracer"
 	bullet.Force = 5
-	bullet.Damage = 3
+	bullet.Damage = 2
 	bullet.AmmoType = "AR2"
 	self:FireBullets(bullet)
 	
 	VJ.EmitSound(self, sdFiring, 90, self:VJ_DecideSoundPitch(100, 110))
 	
 	-- Effects & Light
-	//ParticleEffect("vj_rifle_full_blue", startpos, self:GetAngles(), self)
-	local FireLight1 = ents.Create("light_dynamic")
-	FireLight1:SetKeyValue("brightness", "4")
-	FireLight1:SetKeyValue("distance", "120")
-	FireLight1:SetPos(startpos)
-	FireLight1:SetLocalAngles(self:GetAngles())
-	FireLight1:Fire("Color", "0 31 225")
-	FireLight1:SetParent(self)
-	FireLight1:Spawn()
-	FireLight1:Activate()
-	FireLight1:Fire("TurnOn", "", 0)
-	FireLight1:Fire("Kill", "", 0.07)
-	self:DeleteOnRemove(FireLight1)
+	//ParticleEffect("vj_rifle_full_blue", startPos, self:GetAngles(), self)
+	local fireLight = ents.Create("light_dynamic")
+	fireLight:SetKeyValue("brightness", "4")
+	fireLight:SetKeyValue("distance", "120")
+	fireLight:SetPos(startPos)
+	fireLight:SetLocalAngles(self:GetAngles())
+	fireLight:Fire("Color", "0 31 225")
+	fireLight:SetParent(self)
+	fireLight:Spawn()
+	fireLight:Activate()
+	fireLight:Fire("TurnOn", "", 0)
+	fireLight:Fire("Kill", "", 0.07)
+	self:DeleteOnRemove(fireLight)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local defAng = Angle(0, 0, 0)
 --
 function ENT:CustomOnKilled(dmginfo, hitgroup)
-	local startPos = self:GetPos() + self:OBBCenter()
-	ParticleEffect("explosion_turret_break_fire", startPos, defAng, NULL)
-	ParticleEffect("explosion_turret_break_flash", startPos, defAng, NULL)
-	ParticleEffect("explosion_turret_break_pre_smoke Version #2", startPos, defAng, NULL)
-	ParticleEffect("explosion_turret_break_sparks", startPos, defAng, NULL)
+	ParticleEffect("explosion_turret_break", self:WorldSpaceCenter() + self:GetUp()*12, defAng, NULL)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local sdGibCollide = {"physics/metal/metal_box_impact_hard1.wav", "physics/metal/metal_box_impact_hard2.wav", "physics/metal/metal_box_impact_hard3.wav"}
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib1.mdl", {BloodType="",Pos=self:LocalToWorld(Vector(0,0,40)), CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib2.mdl", {BloodType="",Pos=self:LocalToWorld(Vector(0,0,20)), CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib3.mdl", {BloodType="",Pos=self:LocalToWorld(Vector(0,0,30)), CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib4.mdl", {BloodType="",Pos=self:LocalToWorld(Vector(0,0,35)), CollideSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hl2/Floor_turret_gib5.mdl", {BloodType="",Pos=self:LocalToWorld(Vector(0,0,37)), CollideSound=sdGibCollide})
+	util.BlastDamage(self, self, self:WorldSpaceCenter() + self:GetUp()*12, 120, 15)
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hl2/Floor_turret_gib1.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 40)),  CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hl2/Floor_turret_gib2.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 20)),  CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hl2/Floor_turret_gib3.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 30)),  CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hl2/Floor_turret_gib4.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 35)),  CollideSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hl2/Floor_turret_gib5.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 37)),  CollideSound=sdGibCollide})
 	return true -- Return to true if it gibbed!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -296,7 +338,7 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
-	-- Exagerate the damage force to make the turret fall!
+	-- Exaggerate the damage force to make the turret fall!
 	local phys = corpseEnt:GetPhysicsObject()
 	if IsValid(phys) then
 		local velLength = phys:GetVelocity():Length()
@@ -307,6 +349,6 @@ function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-	VJ.STOPSOUND(self.turret_turningsd)
-	VJ.STOPSOUND(self.turret_alertsd)
+	VJ.STOPSOUND(self.TurretSD_Turning)
+	VJ.STOPSOUND(self.TurretSD_Alarm)
 end

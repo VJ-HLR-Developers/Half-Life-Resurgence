@@ -11,7 +11,7 @@ ENT.VJTag_ID_Police = true
 
 if CLIENT && GetConVar("vj_hlr2_combine_eyeglow"):GetInt() == 1 then
     local mat = Material("sprites/light_glow02_add")
-    local vecOrigin = Vector(3.6,6.75,1.7)
+    local vecOrigin = Vector(3.6, 6.75, 1.7)
     local size = 8
     local col = Color(118, 236, 110)
     function ENT:Draw()

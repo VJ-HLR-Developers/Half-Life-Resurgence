@@ -1,3 +1,4 @@
+include("entities/npc_vj_hlr1_scientist/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
@@ -5,7 +6,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/decay/wheelchair_sci.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/decay/wheelchair_sci.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 100
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(10, 0, -20), -- The offset for the controller when the camera is in third person
@@ -14,6 +15,24 @@ ENT.VJC_Data = {
 	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
 }
 ENT.IsMedicSNPC = false -- Is this SNPC a medic? Does it heal other friendly friendly SNPCs, and players(If friendly)
+ENT.AnimTbl_Death = ACT_DIESIMPLE
+
+ENT.SoundTbl_FootStep = "vj_hlr/hl1_npc/keller/wheelchair_walk.wav"
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/keller/dk_idle0.wav","vj_hlr/hl1_npc/keller/dk_idle1.wav","vj_hlr/hl1_npc/keller/dk_idle3.wav","vj_hlr/hl1_npc/keller/dk_idle4.wav","vj_hlr/hl1_npc/keller/dk_04_letssee.wav"}
+ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/keller/dk_01_kleiner.wav","vj_hlr/hl1_npc/keller/dk_hevchair.wav","vj_hlr/hl1_npc/keller/dk_idle2.wav","vj_hlr/hl1_npc/keller/dk_rugurinate.wav"}
+ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/keller/dk_iknowyouare.wav","vj_hlr/hl1_npc/keller/dk_stare0.wav"}
+ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/keller/dk_help0.wav","vj_hlr/hl1_npc/keller/dk_help1.wav","vj_hlr/hl1_npc/keller/dk_help2.wav","vj_hlr/hl1_npc/keller/dk_fear0.wav","vj_hlr/hl1_npc/keller/dk_fear1.wav","vj_hlr/hl1_npc/keller/dk_fear2.wav","vj_hlr/hl1_npc/keller/dk_fear3.wav","vj_hlr/hl1_npc/keller/dk_fear4.wav","vj_hlr/hl1_npc/keller/dk_fear5.wav","vj_hlr/hl1_npc/keller/dk_fear6.wav"}
+ENT.SoundTbl_FollowPlayer = {"vj_hlr/hl1_npc/keller/dk_stare1.wav","vj_hlr/hl1_npc/keller/dk_stare2.wav","vj_hlr/hl1_npc/keller/dk_04_goonway.wav","vj_hlr/hl1_npc/keller/dk_04_onwaythen.wav","vj_hlr/hl1_npc/keller/dk_leads0.wav","vj_hlr/hl1_npc/keller/dk_ok0.wav","vj_hlr/hl1_npc/keller/dk_ok1.wav","vj_hlr/hl1_npc/keller/dk_ok2.wav"}
+ENT.SoundTbl_UnFollowPlayer = {"vj_hlr/hl1_npc/keller/dk_plfear2.wav","vj_hlr/hl1_npc/keller/dk_wait0.wav","vj_hlr/hl1_npc/keller/dk_wait1.wav","vj_hlr/hl1_npc/keller/dk_wait2.wav","vj_hlr/hl1_npc/keller/dk_wait3.wav"}
+ENT.SoundTbl_OnPlayerSight = {"vj_hlr/hl1_npc/keller/dk_hello0.wav","vj_hlr/hl1_npc/keller/dk_hello1.wav","vj_hlr/hl1_npc/keller/dk_hello2.wav","vj_hlr/hl1_npc/keller/dk_hello3.wav","vj_hlr/hl1_npc/keller/dk_hello4.wav","vj_hlr/hl1_npc/keller/dk_01_late.wav","vj_hlr/hl1_npc/keller/dk_newstuff.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/keller/dk_04_monsters.wav","vj_hlr/hl1_npc/keller/dk_help0.wav","vj_hlr/hl1_npc/keller/dk_help1.wav","vj_hlr/hl1_npc/keller/dk_help2.wav"}
+ENT.SoundTbl_BecomeEnemyToPlayer = {"vj_hlr/hl1_npc/keller/dk_screwyou.wav"}
+ENT.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/keller/dk_fear0.wav","vj_hlr/hl1_npc/keller/dk_fear1.wav","vj_hlr/hl1_npc/keller/dk_fear2.wav","vj_hlr/hl1_npc/keller/dk_fear3.wav","vj_hlr/hl1_npc/keller/dk_fear4.wav","vj_hlr/hl1_npc/keller/dk_fear5.wav","vj_hlr/hl1_npc/keller/dk_fear6.wav"}
+ENT.SoundTbl_OnDangerSight = {"vj_hlr/hl1_npc/keller/dk_fear0.wav","vj_hlr/hl1_npc/keller/dk_fear1.wav","vj_hlr/hl1_npc/keller/dk_fear2.wav","vj_hlr/hl1_npc/keller/dk_fear3.wav","vj_hlr/hl1_npc/keller/dk_fear4.wav","vj_hlr/hl1_npc/keller/dk_fear5.wav","vj_hlr/hl1_npc/keller/dk_fear6.wav"}
+ENT.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/keller/dk_condolences.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/keller/dk_pain1.wav","vj_hlr/hl1_npc/keller/dk_pain2.wav","vj_hlr/hl1_npc/keller/dk_pain3.wav","vj_hlr/hl1_npc/keller/dk_pain4.wav","vj_hlr/hl1_npc/keller/dk_pain5.wav","vj_hlr/hl1_npc/keller/dk_pain6.wav","vj_hlr/hl1_npc/keller/dk_pain7.wav"}
+ENT.SoundTbl_DamageByPlayer = {"vj_hlr/hl1_npc/keller/dk_plfear0.wav","vj_hlr/hl1_npc/keller/dk_plfear1.wav","vj_hlr/hl1_npc/keller/dk_plfear3.wav","vj_hlr/hl1_npc/keller/dk_scared0.wav","vj_hlr/hl1_npc/keller/dk_scared1.wav","vj_hlr/hl1_npc/keller/dk_scared2.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/keller/dk_die1.wav","vj_hlr/hl1_npc/keller/dk_die2.wav","vj_hlr/hl1_npc/keller/dk_die3.wav","vj_hlr/hl1_npc/keller/dk_die3.wav","vj_hlr/hl1_npc/keller/dk_die4.wav","vj_hlr/hl1_npc/keller/dk_die5.wav","vj_hlr/hl1_npc/keller/dk_die6.wav","vj_hlr/hl1_npc/keller/dk_die7.wav"}
 
 /*
 -- Can't reach player, unfollow
@@ -36,45 +55,22 @@ vj_hlr/hl1_npc/keller/wheelchair_run.wav
 vj_hlr/hl1_npc/keller/wheelchair_walk.wav
 */
 
+ENT.SCI_Type = 3
+
 -- Custom
 ENT.Keller_WheelChair = true
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:SCI_CustomOnInitialize()
-	self.SoundTbl_FootStep = {"vj_hlr/hl1_npc/keller/wheelchair_walk.wav"}
-	self.SoundTbl_Idle = {"vj_hlr/hl1_npc/keller/dk_idle0.wav","vj_hlr/hl1_npc/keller/dk_idle1.wav","vj_hlr/hl1_npc/keller/dk_idle3.wav","vj_hlr/hl1_npc/keller/dk_idle4.wav","vj_hlr/hl1_npc/keller/dk_04_letssee.wav"}
-	self.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/keller/dk_01_kleiner.wav","vj_hlr/hl1_npc/keller/dk_hevchair.wav","vj_hlr/hl1_npc/keller/dk_idle2.wav","vj_hlr/hl1_npc/keller/dk_rugurinate.wav"}
-	self.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/keller/dk_iknowyouare.wav","vj_hlr/hl1_npc/keller/dk_stare0.wav"}
-	self.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/keller/dk_help0.wav","vj_hlr/hl1_npc/keller/dk_help1.wav","vj_hlr/hl1_npc/keller/dk_help2.wav","vj_hlr/hl1_npc/keller/dk_fear0.wav","vj_hlr/hl1_npc/keller/dk_fear1.wav","vj_hlr/hl1_npc/keller/dk_fear2.wav","vj_hlr/hl1_npc/keller/dk_fear3.wav","vj_hlr/hl1_npc/keller/dk_fear4.wav","vj_hlr/hl1_npc/keller/dk_fear5.wav","vj_hlr/hl1_npc/keller/dk_fear6.wav"}
-	self.SoundTbl_FollowPlayer = {"vj_hlr/hl1_npc/keller/dk_stare1.wav","vj_hlr/hl1_npc/keller/dk_stare2.wav","vj_hlr/hl1_npc/keller/dk_04_goonway.wav","vj_hlr/hl1_npc/keller/dk_04_onwaythen.wav","vj_hlr/hl1_npc/keller/dk_leads0.wav","vj_hlr/hl1_npc/keller/dk_ok0.wav","vj_hlr/hl1_npc/keller/dk_ok1.wav","vj_hlr/hl1_npc/keller/dk_ok2.wav"}
-	self.SoundTbl_UnFollowPlayer = {"vj_hlr/hl1_npc/keller/dk_plfear2.wav","vj_hlr/hl1_npc/keller/dk_wait0.wav","vj_hlr/hl1_npc/keller/dk_wait1.wav","vj_hlr/hl1_npc/keller/dk_wait2.wav","vj_hlr/hl1_npc/keller/dk_wait3.wav"}
-	self.SoundTbl_OnPlayerSight = {"vj_hlr/hl1_npc/keller/dk_hello0.wav","vj_hlr/hl1_npc/keller/dk_hello1.wav","vj_hlr/hl1_npc/keller/dk_hello2.wav","vj_hlr/hl1_npc/keller/dk_hello3.wav","vj_hlr/hl1_npc/keller/dk_hello4.wav","vj_hlr/hl1_npc/keller/dk_01_late.wav","vj_hlr/hl1_npc/keller/dk_newstuff.wav"}
-	self.SoundTbl_Alert = {"vj_hlr/hl1_npc/keller/dk_04_monsters.wav","vj_hlr/hl1_npc/keller/dk_help0.wav","vj_hlr/hl1_npc/keller/dk_help1.wav","vj_hlr/hl1_npc/keller/dk_help2.wav"}
-	self.SoundTbl_BecomeEnemyToPlayer = {"vj_hlr/hl1_npc/keller/dk_screwyou.wav"}
-	self.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/keller/dk_fear0.wav","vj_hlr/hl1_npc/keller/dk_fear1.wav","vj_hlr/hl1_npc/keller/dk_fear2.wav","vj_hlr/hl1_npc/keller/dk_fear3.wav","vj_hlr/hl1_npc/keller/dk_fear4.wav","vj_hlr/hl1_npc/keller/dk_fear5.wav","vj_hlr/hl1_npc/keller/dk_fear6.wav"}
-	self.SoundTbl_OnDangerSight = {"vj_hlr/hl1_npc/keller/dk_fear0.wav","vj_hlr/hl1_npc/keller/dk_fear1.wav","vj_hlr/hl1_npc/keller/dk_fear2.wav","vj_hlr/hl1_npc/keller/dk_fear3.wav","vj_hlr/hl1_npc/keller/dk_fear4.wav","vj_hlr/hl1_npc/keller/dk_fear5.wav","vj_hlr/hl1_npc/keller/dk_fear6.wav"}
-	self.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/keller/dk_condolences.wav"}
-	self.SoundTbl_Pain = {"vj_hlr/hl1_npc/keller/dk_pain1.wav","vj_hlr/hl1_npc/keller/dk_pain2.wav","vj_hlr/hl1_npc/keller/dk_pain3.wav","vj_hlr/hl1_npc/keller/dk_pain4.wav","vj_hlr/hl1_npc/keller/dk_pain5.wav","vj_hlr/hl1_npc/keller/dk_pain6.wav","vj_hlr/hl1_npc/keller/dk_pain7.wav"}
-	self.SoundTbl_DamageByPlayer = {"vj_hlr/hl1_npc/keller/dk_plfear0.wav","vj_hlr/hl1_npc/keller/dk_plfear1.wav","vj_hlr/hl1_npc/keller/dk_plfear3.wav","vj_hlr/hl1_npc/keller/dk_scared0.wav","vj_hlr/hl1_npc/keller/dk_scared1.wav","vj_hlr/hl1_npc/keller/dk_scared2.wav"}
-	self.SoundTbl_Death = {"vj_hlr/hl1_npc/keller/dk_die1.wav","vj_hlr/hl1_npc/keller/dk_die2.wav","vj_hlr/hl1_npc/keller/dk_die3.wav","vj_hlr/hl1_npc/keller/dk_die3.wav","vj_hlr/hl1_npc/keller/dk_die4.wav","vj_hlr/hl1_npc/keller/dk_die5.wav","vj_hlr/hl1_npc/keller/dk_die6.wav","vj_hlr/hl1_npc/keller/dk_die7.wav"}
-	
-	self.AnimTbl_Death = {ACT_DIESIMPLE}
-end
+function ENT:CustomOnInitialize() end -- Here to override the base class
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_Initialize(ply, controlEnt)
-	ply:ChatPrint("JUMP: Stand up")
-	function controlEnt:CustomOnKeyBindPressed(key)
-		if key == IN_JUMP && !self.VJCE_NPC:IsBusy() then
-			self.VJCE_NPC:SetState(VJ_STATE_ONLY_ANIMATION_CONSTANT)
-			self.VJCE_NPC:VJ_ACT_PLAYACTIVITY(ACT_STAND, true, false, false, 0, {
-				-- Already done through event, but also here to make sure it's killed!
-				OnFinish = function(interrupted, anim)
-					if self.VJCE_NPC.Dead then return end
-					self.VJCE_NPC.HasDeathAnimation = false
-					self.VJCE_NPC:TakeDamage(self.VJCE_NPC:Health(), self.VJCE_NPC, self.VJCE_NPC)
-				end
-			})
-		end
+local baseThink = ENT.CustomOnThink
+--
+function ENT:CustomOnThink()
+	-- Is the wheel chair gone? Then kill Dr. Keller!
+	if self:GetBodygroup(0) == 1 then
+		self.HasDeathAnimation = false
+		self:TakeDamage(self:Health(), self, self)
 	end
+	baseThink(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
@@ -82,7 +78,7 @@ function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
 		self.Keller_WheelChair = false
 	end
 	self:SetBodygroup(0, 1)
-	self:SetPos(self:GetPos() + self:GetUp()*5)
+	self:SetPos(self:GetPos() + self:GetUp() * 5)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)

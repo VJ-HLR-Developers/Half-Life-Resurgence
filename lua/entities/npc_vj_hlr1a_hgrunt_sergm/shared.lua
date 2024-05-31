@@ -1,4 +1,4 @@
-ENT.Base 			= "npc_vj_hlr1a_hgrunt_serg"
+ENT.Base 			= "npc_vj_human_base"
 ENT.Type 			= "ai"
 ENT.PrintName 		= "Alpha Human Sergeant (Melee)"
 ENT.Author 			= "DrVrej"

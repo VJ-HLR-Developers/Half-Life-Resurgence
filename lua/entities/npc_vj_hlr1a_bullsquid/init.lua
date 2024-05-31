@@ -1,3 +1,4 @@
+include("entities/npc_vj_hlr1_bullsquid/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
@@ -5,17 +6,18 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hla/bullsquid.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hla/bullsquid.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 180
-ENT.SoundTbl_SoundTrack = {"vj_hlr/hla_npc/squidding.mp3"}
+ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1 -- Melee Attack Animations
+
+ENT.SoundTbl_SoundTrack = "vj_hlr/hla_npc/squidding.mp3"
 
 -- Custom
+ENT.Bullsquid_Type = 1
 ENT.Bullsquid_BullSquidding = false
 ENT.Bullsquid_BullSquiddingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
-	self.Bullsquid_Type = 1
-	
 	-- BullSquidding!
 	if math.random(1, 100) == 1 then
 		self:Bullsquid_ActivateBullSquidding()
@@ -36,19 +38,38 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:TranslateActivity(act)
+	if self.Bullsquid_BullSquidding then
+		if act == ACT_IDLE then
+			return ACT_IDLE_AGITATED
+		elseif act == ACT_WALK or act == ACT_RUN then
+			return ACT_RUN_AGITATED
+		end
+	end
+	return self.BaseClass.TranslateActivity(self, act)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local baseAcceptInput = ENT.CustomOnAcceptInput
+--
+function ENT:CustomOnAcceptInput(key, activator, caller, data)
+	if key == "melee_bite" or key == "melee_whip" then
+		self.MeleeAttackDamage = (self.Bullsquid_BullSquidding == true and 200) or 35
+		self:MeleeAttackCode()
+	else
+		baseAcceptInput(self, key, activator, caller, data)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Bullsquid_ActivateBullSquidding()
+	self:SetMaxLookDistance(30000)
 	self.Bullsquid_BullSquidding = true
 	self.Bullsquid_BullSquiddingT = CurTime()
 	self.VJ_IsHugeMonster = true
-	self:SetMaxLookDistance(30000)
+	self.StartHealth = 1500
 	self.SightAngle = 180
 	self.FindEnemy_UseSphere = true
 	self.FindEnemy_CanSeeThroughWalls = true
-	self.StartHealth = 1500
-	self.AnimTbl_IdleStand = {ACT_IDLE_AGITATED}
-	self.AnimTbl_Run = {ACT_RUN_AGITATED}
-	self.AnimTbl_Walk = {ACT_RUN_AGITATED}
-	self.AnimTbl_RangeAttack = {ACT_RANGE_ATTACK2}
+	self.AnimTbl_RangeAttack = ACT_RANGE_ATTACK2
 	self.DisableRangeAttackAnimation = true
 	self.RangeDistance = 30000
 	self.RangeAttackAngleRadius = 180
@@ -58,11 +79,6 @@ function ENT:Bullsquid_ActivateBullSquidding()
 	self.TimeUntilRangeAttackProjectileRelease = 0
 	self.NoChaseAfterCertainRange = false
 	self.HasSoundTrack = true
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:MultipleMeleeAttacks()
-	self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
-	self.MeleeAttackDamage = (self.Bullsquid_BullSquidding == true and 200) or 35
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnThink()

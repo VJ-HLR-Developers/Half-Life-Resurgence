@@ -1,4 +1,4 @@
-ENT.Base 			= "npc_vj_hlr1_snark"
+ENT.Base 			= "npc_vj_creature_base"
 ENT.Type 			= "ai"
 ENT.PrintName 		= "Penguin"
 ENT.Author 			= "DrVrej"

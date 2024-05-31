@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/combine_soldier.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
+ENT.Model = "models/combine_soldier.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
 ENT.StartHealth = 60
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -185,12 +185,10 @@ function ENT:CustomOnAlert(ent)
 			self:PlaySoundSystem("Alert", sdCombine_Alert_Freeman)
 		elseif ent:IsNPC() then
 			if ent.IsVJBaseSNPC_Creature then
-				if math.random(1, 2) == 1 then
-					for _,v in ipairs(ent.VJ_NPC_Class or {1}) do
-						if v == "CLASS_ZOMBIE" or ent:Classify() == CLASS_ZOMBIE then
-							self:PlaySoundSystem("Alert", sdCombine_Alert_Zombies)
-							return -- Skip the regular creature sounds!
-						end
+				for _,v in ipairs(ent.VJ_NPC_Class or {1}) do
+					if v == "CLASS_ZOMBIE" or ent:Classify() == CLASS_ZOMBIE then
+						self:PlaySoundSystem("Alert", sdCombine_Alert_Zombies)
+						return -- Skip the regular creature sounds!
 					end
 				end
 				self:PlaySoundSystem("Alert", sdCombine_Alert_Creatures)
@@ -203,44 +201,45 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnGrenadeAttack(status, grenade, customEnt, landDir, landingPos)
 	if status == "Throw" then
-		-- Custom grenade model and sounds
-		grenade.SoundTbl_Idle = {"weapons/grenade/tick1.wav"}
-		grenade.IdleSoundPitch = VJ.SET(100, 100)
-		
-		local redGlow = ents.Create("env_sprite")
-		redGlow:SetKeyValue("model", "vj_base/sprites/vj_glow1.vmt")
-		redGlow:SetKeyValue("scale", "0.07")
-		redGlow:SetKeyValue("rendermode", "5")
-		redGlow:SetKeyValue("rendercolor", "150 0 0")
-		redGlow:SetKeyValue("spawnflags", "1") -- If animated
-		redGlow:SetParent(grenade)
-		redGlow:Fire("SetParentAttachment", "fuse", 0)
-		redGlow:Spawn()
-		redGlow:Activate()
-		grenade:DeleteOnRemove(redGlow)
-		util.SpriteTrail(grenade, 1, Color(200,0,0), true, 15, 15, 0.35, 1/(6+6)*0.5, "VJ_Base/sprites/vj_trial1.vmt")
-	
+		if !IsValid(customEnt) then
+			-- Glow and trail are both based on the original: https://github.com/ValveSoftware/source-sdk-2013/blob/master/mp/src/game/server/hl2/grenade_frag.cpp#L158
+			local redGlow = ents.Create("env_sprite")
+			redGlow:SetKeyValue("model", "sprites/redglow1.vmt")
+			redGlow:SetKeyValue("scale", "0.2")
+			redGlow:SetKeyValue("rendermode", "3") -- kRenderGlow
+			redGlow:SetKeyValue("renderfx", "14") -- kRenderFxNoDissipation
+			redGlow:SetKeyValue("renderamt", "200")
+			redGlow:SetKeyValue("rendercolor", "255 255 255")
+			redGlow:SetKeyValue("GlowProxySize", "4.0")
+			redGlow:SetParent(grenade)
+			redGlow:Fire("SetParentAttachment", "fuse")
+			redGlow:Spawn()
+			redGlow:Activate()
+			grenade:DeleteOnRemove(redGlow)
+			local redTrail = util.SpriteTrail(grenade, 1, Color(255, 0, 0), true, 8, 1, 0.5, 0.0555, "sprites/bluelaser1.vmt")
+			redTrail:SetKeyValue("rendermode", "5") -- kRenderTransAdd
+			redTrail:SetKeyValue("renderfx", "0") -- kRenderFxNone
+			grenade.SoundTbl_Idle = "Grenade.Blip"
+			grenade.IdleSoundPitch = VJ.SET(100, 100)
+		end
 		return (landingPos - grenade:GetPos()) + (self:GetUp()*200 + self:GetForward()*500 + self:GetRight()*math.Rand(-20, 20))
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
-	-- Absorb bullet damage
+	-- Absorb bullet damage, play metallic sound, and create sparks
 	if dmginfo:IsBulletDamage() then
-		if self.HasSounds == true && self.HasImpactSounds == true then VJ.EmitSound(self, "vj_impact_metal/bullet_metal/metalsolid"..math.random(1,10)..".wav", 70) end
+		if self.HasSounds == true && self.HasImpactSounds == true then
+			VJ.EmitSound(self, "vj_impact_metal/bullet_metal/metalsolid"..math.random(1, 10)..".wav", 70)
+		end
 		if math.random(1, 3) == 1 then
 			dmginfo:ScaleDamage(0.50)
-			local spark = ents.Create("env_spark")
-			spark:SetKeyValue("Magnitude","1")
-			spark:SetKeyValue("Spark Trail Length","1")
-			spark:SetPos(dmginfo:GetDamagePosition())
-			spark:SetAngles(self:GetAngles())
-			spark:SetParent(self)
-			spark:Spawn()
-			spark:Activate()
-			spark:Fire("StartSpark", "", 0)
-			spark:Fire("StopSpark", "", 0.001)
-			self:DeleteOnRemove(spark)
+			local effectData = EffectData()
+			effectData:SetOrigin(dmginfo:GetDamagePosition())
+			effectData:SetNormal(dmginfo:GetDamageForce():GetNormalized())
+			effectData:SetMagnitude(3)
+			effectData:SetScale(1)
+			util.Effect("ElectricSpark", effectData)
 		else
 			dmginfo:ScaleDamage(0.80)
 		end

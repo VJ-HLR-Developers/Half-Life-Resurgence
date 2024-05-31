@@ -1,3 +1,4 @@
+include("entities/npc_vj_hlr1_bullsquid/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
@@ -5,16 +6,19 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl1/bullsquid_dreamcast.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/bullsquid_dreamcast.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
 ENT.StartHealth = 90
-
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:MultipleMeleeAttacks()
-	if math.random(1, 2) == 1 then
-		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1}
+local baseAcceptInput = ENT.CustomOnAcceptInput
+--
+function ENT:CustomOnAcceptInput(key, activator, caller, data)
+	if key == "melee_whip" then
 		self.MeleeAttackDamage = 38
-	else
-		self.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2}
+		self:MeleeAttackCode()
+	elseif key == "melee_bite" then
 		self.MeleeAttackDamage = 27
+		self:MeleeAttackCode()
+	else
+		baseAcceptInput(self, key, activator, caller, data)
 	end
 end

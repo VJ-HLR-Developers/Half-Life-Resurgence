@@ -1,4 +1,4 @@
-ENT.Base 			= "npc_vj_hlr1_boid"
+ENT.Base 			= "npc_vj_creature_base"
 ENT.Type 			= "ai"
 ENT.PrintName 		= "AFlock"
 ENT.Author 			= "DrVrej"

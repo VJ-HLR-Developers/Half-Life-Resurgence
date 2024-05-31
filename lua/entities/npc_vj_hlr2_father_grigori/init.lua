@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/monk.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
+ENT.Model = "models/monk.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
 ENT.StartHealth = 100
 ENT.HasHealthRegeneration = true -- Can the SNPC regenerate its health?
 ENT.HealthRegenerationAmount = 1 -- How much should the health increase after every delay?
@@ -15,17 +15,17 @@ ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
 ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other player allies?
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.AnimTbl_MeleeAttack = {"vjseq_MeleeAttack01"} -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = {"vjseq_MeleeAttack01", "melee_slice"} -- Melee Attack Animations
 ENT.TimeUntilMeleeAttackDamage = 0.7 -- This counted in seconds | This calculates the time until it hits something
 ENT.FootStepTimeRun = 0.25 -- Next foot step sound when it is running
 ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
 ENT.MoveRandomlyWhenShooting = false -- Should it move randomly when shooting?
-ENT.AnimTbl_GrenadeAttack = {ACT_RANGE_ATTACK_THROW} -- Grenade Attack Animations
+ENT.AnimTbl_GrenadeAttack = ACT_RANGE_ATTACK_THROW -- Grenade Attack Animations
 ENT.TimeUntilGrenadeIsReleased = 0.87 -- Time until the grenade is released
 ENT.GrenadeAttackAttachment = "anim_attachment_RH" -- The attachment that the grenade will spawn at
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
 ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards the player if it's damaged by a player?
-ENT.AnimTbl_Medic_GiveHealth = {"heal"} -- Animations is plays when giving health to an ally
+ENT.AnimTbl_Medic_GiveHealth = "heal" -- Animations is plays when giving health to an ally
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 	-- ====== File Path Variables ====== --
@@ -59,7 +59,7 @@ ENT.SoundTbl_Idle = {
 ENT.SoundTbl_OnPlayerSight = {
 	"vo/ravenholm/grave_follow.wav",
 	"vo/ravenholm/grave_stayclose.wav",
-	--"vo/ravenholm/monk_followme.wav",
+	//"vo/ravenholm/monk_followme.wav",
 	"vo/ravenholm/monk_overhere.wav",
 	"vo/ravenholm/monk_stayclosebro.wav",
 	"vo/ravenholm/pyre_anotherlife.wav",
@@ -215,30 +215,21 @@ ENT.GeneralSoundPitch1 = 100
 "vo/ravenholm/yard_traps.wav"
 ]]--
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnSetupWeaponHoldTypeAnims(wepHoldType)
+function ENT:SetAnimationTranslations(wepHoldType)
+	self.BaseClass.SetAnimationTranslations(self, wepHoldType)
 	if wepHoldType == "crossbow" or wepHoldType == "shotgun" then
-		self.WeaponAnimTranslations[ACT_RANGE_ATTACK1] 					= ACT_RANGE_ATTACK_SHOTGUN
-		self.WeaponAnimTranslations[ACT_GESTURE_RANGE_ATTACK1] 			= ACT_GESTURE_RANGE_ATTACK_SHOTGUN
-		self.WeaponAnimTranslations[ACT_RANGE_ATTACK1_LOW] 				= ACT_RANGE_ATTACK_SMG1_LOW
-		self.WeaponAnimTranslations[ACT_RELOAD] 						= ACT_RELOAD_SMG1
-		self.WeaponAnimTranslations[ACT_RELOAD_LOW] 					= ACT_RELOAD_SMG1_LOW
+		self.AnimationTranslations[ACT_RELOAD] = ACT_RELOAD_SMG1
 		
-		self.WeaponAnimTranslations[ACT_IDLE] 							= ACT_IDLE
-		self.WeaponAnimTranslations[ACT_IDLE_ANGRY] 					= ACT_IDLE_ANGRY
+		self.AnimationTranslations[ACT_IDLE] = ACT_IDLE
+		self.AnimationTranslations[ACT_IDLE_ANGRY] = ACT_IDLE_ANGRY
 		
-		self.WeaponAnimTranslations[ACT_WALK] 							= ACT_WALK_RIFLE
-		self.WeaponAnimTranslations[ACT_WALK_AIM] 						= ACT_WALK_AIM_RIFLE
-		self.WeaponAnimTranslations[ACT_WALK_CROUCH] 					= ACT_WALK_CROUCH_RPG
-		self.WeaponAnimTranslations[ACT_WALK_CROUCH_AIM] 				= ACT_WALK_CROUCH_AIM_RIFLE
+		self.AnimationTranslations[ACT_WALK] = ACT_WALK_RIFLE
+		self.AnimationTranslations[ACT_WALK_AIM] = ACT_WALK_AIM_RIFLE
 		
-		self.WeaponAnimTranslations[ACT_RUN] 							= ACT_RUN_RIFLE
-		self.WeaponAnimTranslations[ACT_RUN_AIM] 						= ACT_RUN_AIM_RIFLE
-		self.WeaponAnimTranslations[ACT_RUN_CROUCH] 					= ACT_RUN_CROUCH_RPG
-		self.WeaponAnimTranslations[ACT_RUN_CROUCH_AIM] 				= ACT_RUN_CROUCH_AIM_RIFLE
-		self.CanCrouchOnWeaponAttack = false
-		return true
+		self.AnimationTranslations[ACT_RUN] = ACT_RUN_RIFLE
+		self.AnimationTranslations[ACT_RUN_AIM] = ACT_RUN_AIM_RIFLE
+		self.CanCrouchOnWeaponAttack = false -- It shouldn't crouch when using a shotgun or crossbow hold types!
 	else
 		self.CanCrouchOnWeaponAttack = true
-		return false
 	end
 end

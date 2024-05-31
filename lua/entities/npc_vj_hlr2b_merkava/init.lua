@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl2b/merkava.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
+ENT.Model = "models/vj_hlr/hl2b/merkava.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
 ENT.StartHealth = 500
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(-40, 0, 20), -- The offset for the controller when the camera is in third person
@@ -16,8 +16,6 @@ ENT.VJC_Data = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
 ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other player allies?
-
-
 
 ENT.Tank_GunnerENT = "npc_vj_hlr2b_merkava_gun"
 ENT.Tank_AngleDiffuseNumber = 0
@@ -57,7 +55,7 @@ function ENT:Tank_CustomOnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetNearDeathSparkPositions()
-	local randPos = math.random(1,5)
+	local randPos = math.random(1, 5)
 	if randPos == 1 then
 		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*15 + self:GetForward()*-16 + self:GetUp()*120)
 	elseif randPos == 2 then

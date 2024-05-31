@@ -5,12 +5,12 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl2b/merkava_turret.mdl"} -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
+ENT.Model = "models/vj_hlr/hl2b/merkava_turret.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
 ENT.StartHealth = 0
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
 ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other player allies?
 
-ENT.Tank_SoundTbl_Turning = {"vehicles/tank_turret_loop1.wav"}
+ENT.Tank_SoundTbl_Turning = "vehicles/tank_turret_loop1.wav"
 
 ENT.Tank_AngleDiffuseNumber = 0
 ENT.Tank_Shell_SpawnPos = Vector(232.1, -0.36, 9.64)
@@ -31,23 +31,24 @@ end
 function ENT:CustomInitialize_CustomTank()
 	if GetConVar("vj_hlr2_merkava_gunner"):GetInt() == 0 then return end
 	local att = self:GetAttachment(3)
-	self.Spotter = ents.Create("npc_vj_hlr2_rebel")
-	self.Spotter:SetPos(att.Pos)
-	self.Spotter:SetAngles(att.Ang)
-	self.Spotter:SetOwner(self)
-	self.Spotter:SetParent(self)
-	self.Spotter.MovementType = VJ_MOVETYPE_STATIONARY
-	self.Spotter.AnimTbl_IdleStand = {ACT_IDLE_MANNEDGUN}
-	self.Spotter.DisableWeapons = true
-	self.Spotter.CanTurnWhileStationary = false
-	self.Spotter.NoWeapon_UseScaredBehavior = false
-	self.Spotter.Medic_CanBeHealed = false
-	self.Spotter.Human_Driver = true
-	self.Spotter.VJ_NPC_Class = self.VJ_NPC_Class
-	self.Spotter:Spawn()
-	self.Spotter:Fire("SetParentAttachment", "gunner")
-	self.Spotter:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
-	self:DeleteOnRemove(self.Spotter)
+	local spotter = ents.Create("npc_vj_hlr2_rebel")
+	spotter:SetPos(att.Pos)
+	spotter:SetAngles(att.Ang)
+	spotter:SetOwner(self)
+	spotter:SetParent(self)
+	spotter.MovementType = VJ_MOVETYPE_STATIONARY
+	spotter.DisableWeapons = true
+	spotter.CanTurnWhileStationary = false
+	spotter.NoWeapon_UseScaredBehavior = false
+	spotter.Medic_CanBeHealed = false
+	spotter.CanReceiveOrders = false
+	spotter.Human_Driver = true
+	spotter.VJ_NPC_Class = self.VJ_NPC_Class
+	spotter:Spawn()
+	spotter:Fire("SetParentAttachment", "gunner")
+	spotter:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+	self:DeleteOnRemove(spotter)
+	self.Spotter = spotter
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local bulletSpread = Vector(0.03490, 0.03490, 0.03490)
