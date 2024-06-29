@@ -27,7 +27,6 @@ end
 if !SERVER then return end
 
 ENT.Model = {"models/spitball_large.mdl"} -- The models it should spawn with | Picks a random one from the table
-ENT.PhysicsInitType = SOLID_VPHYSICS
 ENT.MoveCollideType = MOVETYPE_NONE
 ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
 ENT.DirectDamage = 100 -- How much damage should it do when it hits something
