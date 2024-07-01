@@ -17,8 +17,8 @@ ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 
 ENT.MeleeAttackDamage = 20 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.MeleeAttackDamageType = DMG_SLASH -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDistance = 35 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageDistance = 125 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.MeleeAttackDistance = 70 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.MeleeAttackDamageDistance = 75 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 
 ENT.HasRangeAttack = false -- Should the SNPC have a range attack?
 	-- ====== Sound File Paths ====== --

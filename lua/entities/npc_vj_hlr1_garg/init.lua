@@ -25,7 +25,7 @@ ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDamage = 30 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.MeleeAttackDamageType = DMG_CRUSH -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDistance = 65 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.MeleeAttackDistance = 160 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.MeleeAttackDamageDistance = 165 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 
 ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
@@ -173,7 +173,7 @@ function ENT:CustomOnThink_AIEnabled()
 		self.Garg_NextFlameT = CurTime() + 0.2
 		
 		local range = (self.Garg_Type == 1 and 280) or 460
-		VJ.ApplyRadiusDamage(self, self, self:GetPos() + self:OBBCenter() + self:GetForward()*50, range, 3, DMG_BURN, true, true, {UseCone=true, UseConeDegree=30}, function(ent) if !ent:IsOnFire() && (ent:IsPlayer() or ent:IsNPC()) then ent:Ignite(2) end end)
+		VJ.ApplyRadiusDamage(self, self, self:GetPos() + self:OBBCenter() + self:GetForward()*15, range, 3, DMG_BURN, true, true, {UseCone=true, UseConeDegree=35}, function(ent) if !ent:IsOnFire() && (ent:IsPlayer() or ent:IsNPC()) then ent:Ignite(2) end end)
 		
 		-- COSMETICS: Sound, particle and decal
 		self.Garg_FlameSd = VJ.CreateSound(self, "vj_hlr/hl1_npc/garg/gar_flamerun1.wav")

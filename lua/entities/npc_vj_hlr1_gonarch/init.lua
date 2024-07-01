@@ -25,7 +25,7 @@ ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"} -- NPCs with the same class with be allied t
 ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.MeleeAttackDamage = 60
 ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1 -- Melee Attack Animations
-ENT.MeleeAttackDistance = 80 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.MeleeAttackDistance = 150 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.MeleeAttackDamageDistance = 200 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.HasMeleeAttackKnockBack = true -- Should knockback be applied on melee hit? | Use self:MeleeAttackKnockbackVelocity() to edit the velocity
@@ -93,9 +93,9 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 				if i == 1 then
 					bCrab:SetPos(spawnPos)
 				elseif i == 2 then
-					bCrab:SetPos(spawnPos + self:GetRight()*25)
+					bCrab:SetPos(spawnPos + self:GetRight() * 25)
 				elseif i == 3 then
-					bCrab:SetPos(spawnPos + self:GetRight()*-25)
+					bCrab:SetPos(spawnPos + self:GetRight() * -25)
 				end
 				bCrab:SetAngles(self:GetAngles())
 				bCrab.BabyH_MotherEnt = self

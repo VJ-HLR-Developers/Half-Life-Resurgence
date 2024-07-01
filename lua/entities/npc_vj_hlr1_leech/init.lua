@@ -12,8 +12,8 @@ ENT.TurningUseAllAxis = true -- If set to true, angles will not be restricted to
 ENT.MovementType = VJ_MOVETYPE_AQUATIC -- How does the SNPC move?
 ENT.Aquatic_SwimmingSpeed_Calm = 80 -- The speed it should swim with, when it's wandering, moving slowly, etc. | Basically walking compared to ground SNPCs
 ENT.Aquatic_SwimmingSpeed_Alerted = 200 -- The speed it should swim with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground SNPCs
-ENT.Aquatic_AnimTbl_Calm = "vjseq_swim" -- Animations it plays when it's wandering around while idle
-ENT.Aquatic_AnimTbl_Alerted = "vjseq_swim2" -- Animations it plays when it's moving while alerted
+ENT.Aquatic_AnimTbl_Calm = ACT_SWIM_IDLE -- Animations it plays when it's wandering around while idle
+ENT.Aquatic_AnimTbl_Alerted = ACT_SWIM -- Animations it plays when it's moving while alerted
 ENT.IdleAlwaysWander = true -- If set to true, it will make the SNPC always wander when idling
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(29, 0, 10), -- The offset for the controller when the camera is in third person
@@ -31,8 +31,8 @@ ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
 ENT.MeleeAttackDamage = 1
 ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1 -- Melee Attack Animations
 ENT.TimeUntilMeleeAttackDamage = 0.1 -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDistance = 40 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageDistance = 20 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.MeleeAttackDistance = 5 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.MeleeAttackDamageDistance = 10 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
 	-- Don't use ACT_DIEFORWARD as it's supposed to be played as end of death animation
@@ -57,7 +57,7 @@ function ENT:TranslateActivity(act)
 		else
 			self.HasMeleeAttack = true
 			self.HasDeathAnimation = true
-			return ACT_SWIM
+			return ACT_SWIM_IDLE
 		end
 	end
 	return self.BaseClass.TranslateActivity(self, act)

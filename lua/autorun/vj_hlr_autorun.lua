@@ -11,7 +11,7 @@ local AddonType = "NPC"
 
 local VJExists = file.Exists("lua/autorun/vj_base_autorun.lua", "GAME")
 if VJExists == true then
-	include('autorun/vj_controls.lua')
+	include("autorun/vj_controls.lua")
 	
 	if !VJ then VJ = {} end -- If VJ isn't initialized, initialize it!
 	
