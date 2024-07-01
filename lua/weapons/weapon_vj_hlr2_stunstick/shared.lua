@@ -5,6 +5,7 @@ SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Purpose = "This weapon is made for Players and NPCs"
 SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.MadeForNPCsOnly = true
+SWEP.ReplacementWeapon = "weapon_stunstick"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 1 -- Next time it can use primary fire
 SWEP.NPC_TimeUntilFire = 0.5 -- How much time until the bullet/projectile is fired?

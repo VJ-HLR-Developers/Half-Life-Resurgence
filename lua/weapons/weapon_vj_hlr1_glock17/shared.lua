@@ -11,6 +11,7 @@ SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/glock/glock_reload.wav"} -- Sounds 
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
+SWEP.ReplacementWeapon = {"weapon_hl1_glock", "weapon_glock_hl1"}
 SWEP.WorldModel					= "models/vj_hlr/weapons/w_9mmhandgun.mdl"
 SWEP.HoldType 					= "pistol"
 SWEP.Spawnable					= false
@@ -31,20 +32,21 @@ SWEP.PrimaryEffects_ShellType 	= "ShellEject"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 
 -- Custom
-SWEP.HLR_ValidModels = {"models/vj_hlr/hl1/barney.mdl",
-						"models/vj_hlr/hla/barney.mdl",
-						"models/vj_hlr/opfor/hgrunt.mdl",
-						"models/vj_hlr/hl1/hgrunt.mdl",
-						"models/vj_hlr/opfor/hgrunt_medic.mdl",
-						"models/vj_hlr/opfor/hgrunt_engineer.mdl",
-						"models/vj_hlr/opfor/hgrunt.mdl",
-						"models/vj_hlr/opfor_hd/hgrunt.mdl",
-						"models/vj_hlr/opfor_hd/hgrunt_medic.mdl",
-						"models/vj_hlr/opfor_hd/hgrunt_engineer.mdl",
-						"models/vj_hlr/cracklife/barney.mdl",
-						"models/vj_hlr/cracklife10/unbarney.mdl",
-						"models/vj_hlr/cracklife10/barney.mdl"
-					}
+SWEP.HLR_ValidModels = {
+	"models/vj_hlr/hl1/barney.mdl",
+	"models/vj_hlr/hla/barney.mdl",
+	"models/vj_hlr/opfor/hgrunt.mdl",
+	"models/vj_hlr/hl1/hgrunt.mdl",
+	"models/vj_hlr/opfor/hgrunt_medic.mdl",
+	"models/vj_hlr/opfor/hgrunt_engineer.mdl",
+	"models/vj_hlr/opfor/hgrunt.mdl",
+	"models/vj_hlr/opfor_hd/hgrunt.mdl",
+	"models/vj_hlr/opfor_hd/hgrunt_medic.mdl",
+	"models/vj_hlr/opfor_hd/hgrunt_engineer.mdl",
+	"models/vj_hlr/cracklife/barney.mdl",
+	"models/vj_hlr/cracklife10/unbarney.mdl",
+	"models/vj_hlr/cracklife10/barney.mdl"
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnInitialize()
 	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke

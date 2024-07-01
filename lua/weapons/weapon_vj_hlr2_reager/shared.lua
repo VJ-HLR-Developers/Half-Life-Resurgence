@@ -4,12 +4,10 @@ SWEP.Author = "DrVrej"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Purpose = "This weapon is made for Players and NPCs"
 SWEP.Instructions = "Controls are like a regular weapon."
-
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel = "models/vj_hlr/hl2/weapons/combine_reager.mdl"
 SWEP.HoldType = "ar2"
 SWEP.MadeForNPCsOnly = true
-
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 0.1 -- Next time it can use primary fire
 SWEP.NPC_TimeUntilFire = 0 -- How much time until the bullet/projectile is fired?

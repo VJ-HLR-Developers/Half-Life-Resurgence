@@ -14,6 +14,7 @@ SWEP.NPC_SecondaryFireEnt = "obj_vj_hlr1_grenade_40mm" -- The entity to fire, th
 SWEP.NPC_SecondaryFireSound = {"vj_hlr/hl1_weapon/mp5/glauncher.wav","vj_hlr/hl1_weapon/mp5/glauncher2.wav"} -- The sound it plays when the secondary fire is used
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true -- Is this weapon meant to be for NPCs only?
+SWEP.ReplacementWeapon = {"weapon_hl1_mp5", "weapon_mp5_hl1"}
 SWEP.WorldModel = "models/vj_hlr/weapons/w_9mmar.mdl"
 SWEP.HoldType = "smg"
 SWEP.Spawnable = false
