@@ -44,7 +44,6 @@ ENT.NoChaseAfterCertainRange_FarDistance = 1000 -- How far until it can chase ag
 ENT.NoChaseAfterCertainRange_CloseDistance = 250 -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_Type = "OnlyRange" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
 
-ENT.DeathCorpseBodyGroup = VJ.SET(1, 1) -- #1 = the category of the first bodygroup | #2 = the value of the second bodygroup | Set -1 for #1 to let the base decide the corpse's bodygroup
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEFORWARD, ACT_DIESIMPLE} -- Death Animations
 ENT.DeathAnimationTime = false -- Time until the SNPC spawns its corpse and gets removed
@@ -261,6 +260,7 @@ end
 local gibs = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib6.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl", "models/vj_hlr/gibs/islavegib.mdl"}
 --
 function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+	corpseEnt:SetBodygroup(1, 1)
 	local att = self:GetAttachment(self:LookupAttachment("0")) //self:GetBonePosition(self:LookupBone("Dummy01"))
 	self:CreateExtraDeathCorpse("prop_physics", "models/vj_hlr/sven/tor_staff.mdl", {Pos=att.Pos, Ang=att.Ang}, function(x)
 		x:SetSkin(self:GetSkin())

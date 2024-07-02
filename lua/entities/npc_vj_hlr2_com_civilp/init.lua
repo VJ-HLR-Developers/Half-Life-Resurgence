@@ -18,7 +18,6 @@ ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
 ENT.OnPlayerSightDistance = 500 -- How close should the player be until it runs the code?
 ENT.OnPlayerSightDispositionLevel = 1 -- 0 = Run it every time | 1 = Run it only when friendly to player | 2 = Run it only when enemy to player
-ENT.WeaponInventory_Melee = true -- If true, the NPC will spawn with one of the given weapons (Will only be given the weapon if it already has another!)
 ENT.WeaponInventory_MeleeList = {"weapon_vj_hlr2_stunstick"} -- It will randomly be given one of these weapons
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages

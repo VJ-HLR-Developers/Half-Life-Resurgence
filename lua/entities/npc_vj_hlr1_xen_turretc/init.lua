@@ -32,7 +32,6 @@ ENT.TimeUntilRangeAttackProjectileRelease = 0 -- How much time until the project
 ENT.NextRangeAttackTime = 1.5 -- How much time until it can use a range attack?
 
 ENT.DeathCorpseEntityClass = "prop_vj_animatable" -- The entity class it creates | "UseDefaultBehavior" = Let the base automatically detect the type
-ENT.DeathCorpseBodyGroup = VJ.SET(0, 1) -- #1 = the category of the first bodygroup | #2 = the value of the second bodygroup | Set -1 for #1 to let the base decide the corpse's bodygroup
 ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
@@ -170,4 +169,8 @@ end
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	//VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
 	return false
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+	corpseEnt:SetBodygroup(0, 1)
 end

@@ -24,8 +24,6 @@ ENT.GrenadeAttackAttachment = "anim_attachment_RH" -- The attachment that the gr
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
 ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards the player if it's damaged by a player?
 ENT.AnimTbl_Medic_GiveHealth = "heal" -- Animations is plays when giving health to an ally
-ENT.WeaponInventory_AntiArmorList = {"weapon_vj_rpg", "weapon_vj_hlr2_rpg"} -- It will randomly be given one of these weapons
-ENT.WeaponInventory_MeleeList = {"weapon_vj_crowbar"} -- It will randomly be given one of these weapons
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = ACT_FLINCH_PHYSICS -- If it uses normal based animation, use this
@@ -181,10 +179,15 @@ local sdAllyDeathPly_F = {
 	"vo/npc/female01/gordead_ques17.wav",
 }
 
+-- Models
 local mdlMale = {"models/Humans/Group03/male_01.mdl", "models/Humans/Group03/male_02.mdl", "models/Humans/Group03/male_03.mdl", "models/Humans/Group03/male_04.mdl", "models/Humans/Group03/male_05.mdl", "models/Humans/Group03/male_06.mdl", "models/Humans/Group03/male_07.mdl", "models/Humans/Group03/male_08.mdl", "models/Humans/Group03/male_09.mdl"}
 local mdlMaleMedic = {"models/Humans/Group03m/male_01.mdl", "models/Humans/Group03m/male_02.mdl", "models/Humans/Group03m/male_03.mdl", "models/Humans/Group03m/male_04.mdl", "models/Humans/Group03m/male_05.mdl", "models/Humans/Group03m/male_06.mdl", "models/Humans/Group03m/male_07.mdl", "models/Humans/Group03m/male_08.mdl", "models/Humans/Group03m/male_09.mdl"}
 local mdlFemale = {"models/Humans/Group03/female_01.mdl", "models/Humans/Group03/female_02.mdl", "models/Humans/Group03/female_03.mdl", "models/Humans/Group03/female_04.mdl", "models/Humans/Group03/female_06.mdl", "models/Humans/Group03/female_07.mdl"}
 local mdlFemaleMedic = {"models/Humans/Group03m/female_01.mdl", "models/Humans/Group03m/female_02.mdl", "models/Humans/Group03m/female_03.mdl", "models/Humans/Group03m/female_04.mdl", "models/Humans/Group03m/female_06.mdl", "models/Humans/Group03m/female_07.mdl"}
+
+-- Inventories
+local invAntiArmor = {"weapon_vj_rpg", "weapon_vj_hlr2_rpg"}
+local invMelee = {"weapon_vj_crowbar"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnPreInitialize()
 	if self.Human_Gender == HUMAN_GENDER_FEMALE or (self.Human_Gender == HUMAN_GENDER_INVALID && math.random(1, 3) == 1) then
@@ -207,10 +210,10 @@ function ENT:CustomOnPreInitialize()
 	
 	-- Anti-armor and melee inventories
 	if !self.IsMedicSNPC && math.random(1, 3) == 1 then
-		self.WeaponInventory_AntiArmor = true
+		self.WeaponInventory_AntiArmorList = invAntiArmor
 	end
 	if math.random(1, 3) == 1 or self.Human_Type == HUMAN_TYPE_ENGINEER then
-		self.WeaponInventory_Melee = true
+		self.WeaponInventory_MeleeList = invMelee
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
