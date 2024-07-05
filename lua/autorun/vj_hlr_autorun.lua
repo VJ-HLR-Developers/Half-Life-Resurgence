@@ -160,7 +160,7 @@ if VJExists == true then
 	
 	-- Earth + Resistance
 	VJ.AddNPC("Citizen", "npc_vj_hlr2_citizen", spawnCategory)
-	VJ.AddNPC_HUMAN("Refugee", "npc_vj_hlr2_refugee", {"weapon_vj_crowbar", "weapon_vj_357", "weapon_vj_9mmpistol", "weapon_vj_glock17", "weapon_vj_smg1"}, spawnCategory)
+	VJ.AddNPC_HUMAN("Refugee", "npc_vj_hlr2_refugee", {"weapon_vj_crowbar", "weapon_vj_hlr2_pipe", "weapon_vj_357", "weapon_vj_9mmpistol", "weapon_vj_glock17", "weapon_vj_smg1"}, spawnCategory)
 	VJ.AddNPC_HUMAN("Rebel Engineer", "npc_vj_hlr2_rebel_engineer", {"weapon_vj_spas12", "weapon_vj_hlr2_chargebow"}, spawnCategory)
 	VJ.AddNPC_HUMAN("Rebel", "npc_vj_hlr2_rebel", {
 		-- 5 = Very common, 4 = Common, 3 = Uncommon, 2 = Rare, 1 = Very rare
@@ -231,6 +231,7 @@ if VJExists == true then
 	VJ.AddNPCWeapon("VJ_Alyx_Gun", "weapon_vj_hlr2_alyxgun", spawnCategory)
 	VJ.AddNPCWeapon("VJ_Charge_Bow", "weapon_vj_hlr2_chargebow", spawnCategory)
 	VJ.AddNPCWeapon("VJ_StunStick", "weapon_vj_hlr2_stunstick", spawnCategory)
+	VJ.AddNPCWeapon("VJ_MetalPipe", "weapon_vj_hlr2_pipe", spawnCategory)
 	VJ.AddNPCWeapon("VJ_RPG_Resistance", "weapon_vj_hlr2_rpg", spawnCategory)
 		-- Beta
 		VJ.AddNPCWeapon("VJ_OICW", "weapon_vj_hlr2b_oicw", spawnCategory)
