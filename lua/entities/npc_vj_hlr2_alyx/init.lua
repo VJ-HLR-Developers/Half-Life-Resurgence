@@ -1102,7 +1102,7 @@ function ENT:CustomOnAlert(ent)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnCallForHelp(ally)
+function ENT:CustomOnCallForHelp(ally, isFirst)
 	if ally:GetClass() == "npc_vj_hlr2_barney" then
 		self:PlaySoundSystem("CallForHelp", "vj_hlr/hl2_npc/ep1/c17/al_barneyoverhere.wav")
 	end

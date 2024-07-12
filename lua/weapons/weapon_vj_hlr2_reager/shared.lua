@@ -43,11 +43,10 @@ function SWEP:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnHolster(newWep)
+function SWEP:OwnerChanged()
 	VJ.STOPSOUND(self.FireLoop1)
 	VJ.STOPSOUND(self.FireLoop2)
-	return true
-end -- Return false to disallow the weapon from switching
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 	if CLIENT then return end
