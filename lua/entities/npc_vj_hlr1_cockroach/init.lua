@@ -35,7 +35,7 @@ function ENT:CustomOnInitialize()
 	self.HasDeathSounds = math.random(0, 4) == 1 -- 1 in 5 chance to play a death squeak sound | Based on: https://github.com/ValveSoftware/halflife/blob/master/dlls/roach.cpp#L166
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTouch(ent)
+function ENT:OnTouch(ent)
 	if ent:IsPlayer() or ent:IsNPC() then
 		self:TakeDamage(self:Health() + 1, ent, ent)
 		-- Based on:   EMIT_SOUND_DYN(ENT(pev), CHAN_BODY, "roach/rch_smash.wav", 0.7, ATTN_NORM, 0, 80 + RANDOM_LONG(0,39) );
