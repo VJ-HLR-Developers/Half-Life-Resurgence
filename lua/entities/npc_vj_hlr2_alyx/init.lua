@@ -984,7 +984,7 @@ ENT.Human_NextPlyReloadSd = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetAnimationTranslations(wepHoldType)
 	self.BaseClass.SetAnimationTranslations(self, wepHoldType)
-	if IsValid(self) && wepHoldType == "pistol" or wepHoldType == "revolver" then
+	if wepHoldType == "pistol" or wepHoldType == "revolver" then
 		self.AnimationTranslations[ACT_IDLE] = ACT_IDLE_STIMULATED -- This animation set is used more often in HL2, not to mention there are multiple idle animations tied to this so it gives more variety + this syncs up with the rest of Alyx's animations better
 		self.AnimationTranslations[ACT_WALK] = ACT_WALK_STIMULATED
 		self.AnimationTranslations[ACT_RUN] = ACT_RUN_STIMULATED
