@@ -36,8 +36,6 @@ ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_toxicspit" -- Entities that it can s
 ENT.RangeDistance = 1500 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-ENT.RangeAttackPos_Up = 20 -- Up/Down spawning position for range attack
-ENT.RangeAttackPos_Forward = 20 -- Forward/ Backward spawning position for range attack
 ENT.NextRangeAttackTime = 2 -- How much time until it can use a range attack?
 ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
 
@@ -84,7 +82,6 @@ function ENT:CustomOnThink()
 				self:AA_MoveTo(leader, true, "Calm", {AddPos=self.Floater_FollowOffsetPos, IgnoreGround=true}) -- Medzavorin haladz e (Kharen deghme)
 			end
 		else
-			print("test")
 			self.IsGuard = false
 			self.DisableWandering = false
 			VJ.HLR_NPC_Floater_Leader = self
@@ -92,7 +89,11 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
+function ENT:RangeAttackProjSpawnPos(projectile)
+	return self:GetPos() + self:GetUp() * 20 + self:GetForward() * 20
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackProjVelocity(projectile)
 	local projPos = projectile:GetPos()
 	return self:CalculateProjectile("Curve", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 1500), 1500)
 end

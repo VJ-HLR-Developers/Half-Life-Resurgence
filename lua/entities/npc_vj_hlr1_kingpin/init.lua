@@ -36,8 +36,6 @@ ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_kingpin_orb" -- Entities that it can
 ENT.RangeDistance = 3000 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 180 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-ENT.RangeAttackPos_Up = 65
-ENT.RangeAttackPos_Forward = 65
 ENT.NextRangeAttackTime = 6 -- How much time until it can use a range attack?
 ENT.NextRangeAttackTime_DoRand = 8 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
 
@@ -210,7 +208,11 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
+function ENT:RangeAttackProjSpawnPos(projectile)
+	return self:GetPos() + self:GetUp() * 65 + self:GetForward() * 65
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackProjVelocity(projectile)
 	local projPos = projectile:GetPos()
 	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 200), 200)
 end

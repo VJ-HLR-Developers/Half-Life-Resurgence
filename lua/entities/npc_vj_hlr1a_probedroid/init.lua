@@ -34,8 +34,6 @@ ENT.RangeToMeleeDistance = 110 -- How close does it have to be until it uses mel
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the needle code is ran?
 ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
 ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
-ENT.RangeUseAttachmentForPos = true -- Should the needle spawn on a attachment?
-ENT.RangeUseAttachmentForPosID = "0" -- The attachment used on the range attack if RangeUseAttachmentForPos is set to true
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
 
 ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it's between number x and y?
@@ -89,8 +87,6 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
-	print(self.MeleeAttackDistance)
-	print(self.MeleeAttackDamageDistance)
 	if act == ACT_FLY then
 		return ACT_IDLE
 	end
@@ -143,7 +139,11 @@ function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(projectile)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
+function ENT:RangeAttackProjSpawnPos(projectile)
+	return self:GetAttachment(self:LookupAttachment("0")).Pos
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackProjVelocity(projectile)
 	local projPos = projectile:GetPos()
 	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 1500), 1500)
 end

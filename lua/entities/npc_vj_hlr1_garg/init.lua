@@ -36,9 +36,6 @@ ENT.RangeToMeleeDistance = 120 -- How close does it have to be until it uses mel
 ENT.NextRangeAttackTime = 10 -- How much time until it can use a range attack?
 ENT.NextRangeAttackTime_DoRand = 13 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-ENT.RangeAttackPos_Up = 10 -- Up/Down spawning position for range attack
-ENT.RangeAttackPos_Forward = 50 -- Forward/Backward spawning position for range attack
-ENT.RangeAttackPos_Right = -20 -- Right/Left spawning position for range attack
 
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
@@ -252,7 +249,11 @@ function ENT:CustomAttackCheck_RangeAttack()
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
+function ENT:RangeAttackProjSpawnPos(projectile)
+	return self:GetPos() + self:GetUp() * 20 + self:GetForward() * 50 + self:GetRight() * -20
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackProjVelocity(projectile)
 	local projPos = projectile:GetPos()
 	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 200), 200)
 end

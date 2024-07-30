@@ -43,8 +43,6 @@ ENT.TimeUntilRangeAttackProjectileRelease = 2.1 -- How much time until the proje
 ENT.RangeAttackExtraTimers = {2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4, 4.1, 4.2, 4.3} -- Extra range attack timers | it will run the projectile code after the given amount of seconds
 ENT.NextRangeAttackTime = 2 -- How much time until it can use a range attack?
 ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
-ENT.RangeUseAttachmentForPos = true -- Should the projectile spawn on a attachment?
-ENT.RangeUseAttachmentForPosID = "mouth" -- The attachment used on the range attack if RangeUseAttachmentForPos is set to true
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = "death" -- Death Animations
@@ -305,7 +303,11 @@ function ENT:CustomOnRangeAttack_BeforeStartTimer()
 	self:PlaySoundSystem("BeforeMeleeAttack", "vj_hlr/hl1_npc/geneworm/geneworm_beam_attack.wav", VJ.EmitSound)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
+function ENT:RangeAttackProjSpawnPos(projectile)
+	return self:GetAttachment(self:LookupAttachment("mouth")).Pos
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackProjVelocity(projectile)
 	local ene = self:GetEnemy()
 	local projPos = projectile:GetPos()
 	local aimPos = self:GetAimPosition(ene, projPos, 1, 2000)

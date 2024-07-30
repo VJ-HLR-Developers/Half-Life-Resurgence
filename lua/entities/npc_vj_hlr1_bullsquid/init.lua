@@ -35,10 +35,6 @@ ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 1.5 -- How much time until it can use a range attack?
 ENT.RangeDistance = 784 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 256 -- How close does it have to be until it uses melee?
-ENT.RangeUseAttachmentForPos = false -- Should the projectile spawn on a attachment?
-ENT.RangeAttackPos_Up = 20 -- Up/Down spawning position for range attack
-ENT.RangeAttackPos_Forward = 0 -- Forward/ Backward spawning position for range attack
-ENT.RangeAttackPos_Right = 0 -- Right/Left spawning position for range attack
 
 ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it's between number x and y?
 ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
@@ -108,7 +104,7 @@ function ENT:CustomOnAlert(ent)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
+function ENT:RangeAttackProjVelocity(projectile)
 	local projPos = projectile:GetPos()
 	ParticleEffect("vj_hlr_spit_spawn", self:GetPos() + self:OBBCenter() + self:GetForward()*35, self:GetForward():Angle(), projectile)
 	if self.Bullsquid_BullSquidding == true then

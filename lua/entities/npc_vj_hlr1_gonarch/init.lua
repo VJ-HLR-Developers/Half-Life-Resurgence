@@ -38,7 +38,6 @@ ENT.RangeToMeleeDistance = 500 -- How close does it have to be until it uses mel
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 0.1 -- How much time until it can use a range attack?
 ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
-ENT.RangeAttackPos_Up = 180 -- Up/Down spawning position for range attack
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
@@ -145,7 +144,11 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
+function ENT:RangeAttackProjSpawnPos(projectile)
+	return self:GetPos() + self:GetUp() * 180
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackProjVelocity(projectile)
 	return (self:GetEnemy():GetPos() - self:GetPos()) *0.45 + self:GetUp() *600
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

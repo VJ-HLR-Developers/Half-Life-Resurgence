@@ -31,9 +31,6 @@ ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
 ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
-ENT.RangeAttackPos_Up = -140 -- Up/Down spawning position for range attack
-ENT.RangeAttackPos_Forward = 430 -- Forward/Backward spawning position for range attack
-ENT.RangeAttackPos_Right = 0 -- Right/Left spawning position for range attack
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
@@ -70,6 +67,7 @@ ENT.Nih_CrystalsDestroyed = false
 ENT.Nih_BrainOpen = false
 ENT.Nih_LerpAngleDeath = nil
 ENT.Nih_OriginalGravity = 600
+ENT.Nih_RangeAttach = -1
 
 /*
 vj_hl/sprites/flare6.vmt    		Right before nihilanth disappears on death he releases these bubbles
@@ -131,24 +129,23 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	-- Regular attack
 	if key == "elec_orbs" then
 		self.Nih_TeleportingOrb = false
-		self.RangeUseAttachmentForPos = false
+		self.Nih_RangeAttach = -1
 		self:RangeAttackCode()
-		self.RangeUseAttachmentForPos = true
 		for i = 0.1, 0.6, 0.1 do
-			timer.Simple(i, function() if IsValid(self) then self.RangeUseAttachmentForPosID = "2" self:RangeAttackCode() end end)
+			timer.Simple(i, function() if IsValid(self) then self.Nih_RangeAttach = "2" self:RangeAttackCode() end end)
 		end
 		for i = 0.1, 0.6, 0.1 do
-			timer.Simple(i, function() if IsValid(self) then self.RangeUseAttachmentForPosID = "3" self:RangeAttackCode() end end)
+			timer.Simple(i, function() if IsValid(self) then self.Nih_RangeAttach = "3" self:RangeAttackCode() end end)
 		end
 	-- We have been weakened, we should only fire 1 orb!
 	elseif key == "elec_orbs_open" then
 		self.Nih_TeleportingOrb = false
-		self.RangeUseAttachmentForPos = false
+		self.Nih_RangeAttach = -1
 		self:RangeAttackCode()
 	-- Teleport attack
 	elseif key == "tele_orb" then
 		self.Nih_TeleportingOrb = true
-		self.RangeUseAttachmentForPos = false
+		self.Nih_RangeAttach = -1
 		self:RangeAttackCode()
 	end
 end
@@ -199,7 +196,15 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
+function ENT:RangeAttackProjSpawnPos(projectile)
+	if self.Nih_RangeAttach != -1 then
+		return self:GetAttachment(self:LookupAttachment(self.Nih_RangeAttach)).Pos
+	else
+		return self:GetPos() + self:GetUp() * -140 + self:GetForward() * 430
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackProjVelocity(projectile)
 	local projPos = projectile:GetPos()
 	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 700), 700)
 end

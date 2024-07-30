@@ -178,11 +178,9 @@ end
 function ENT:MultipleRangeAttacks()
 	if (math.random(1, 2) == 1 && self.NearestPointToEnemyDistance < 850) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) then
 		self.AnimTbl_RangeAttack = ACT_RANGE_ATTACK2
-		self.RangeAttackPos_Up = 80
 		self.AlienC_HomingAttack = true
 	else
 		self.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-		self.RangeAttackPos_Up = 20
 		self.AlienC_HomingAttack = false
 	end
 end
@@ -195,7 +193,11 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
+function ENT:RangeAttackProjSpawnPos(projectile)
+	return self:GetPos() + self:GetUp() * (self.AlienC_HomingAttack and 80 or 20)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackProjVelocity(projectile)
 	local projPos = projectile:GetPos()
 	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 700), 700)
 end

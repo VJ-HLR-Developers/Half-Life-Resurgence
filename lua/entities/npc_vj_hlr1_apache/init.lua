@@ -51,8 +51,6 @@ ENT.TimeUntilRangeAttackProjectileRelease = 0 -- How much time until the project
 ENT.NextRangeAttackTime = 10 -- How much time until it can use a range attack?
 ENT.RangeAttackReps = 1 -- How many times does it run the projectile code?
 ENT.RangeAttackExtraTimers = {0} -- Extra range attack timers, EX: {1, 1.4} | it will run the projectile code after the given amount of seconds
-ENT.RangeUseAttachmentForPos = true -- Should the projectile spawn on a attachment?
-ENT.RangeUseAttachmentForPosID = "missile_left"
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
 
 ENT.HasDeathRagdoll = false
@@ -76,6 +74,7 @@ ENT.DeathSoundLevel = 100
 -- Custom
 ENT.Heli_HasLOS = false -- Does the Apache's chain gun have sight on the enemy?
 ENT.Heli_SmokeStatus = 0 -- 0 = No smoke | 1 = Tail smoke | 2 = Tail & Rotor smoke
+ENT.Heli_RangeAttach = "missile_left"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local spawnPos = Vector(0, 0, 400)
 --
@@ -162,7 +161,12 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackCode_GetShootPos(projectile)
+function ENT:RangeAttackProjSpawnPos(projectile)
+	self.Heli_RangeAttach = self.Heli_RangeAttach == "missile_left" and "missile_right" or "missile_left"
+	return self:GetAttachment(self:LookupAttachment(self.Heli_RangeAttach)).Pos
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:RangeAttackProjVelocity(projectile)
 	return self:GetForward()*400
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -172,7 +176,6 @@ function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(ent)
-	self.RangeUseAttachmentForPosID = self.RangeUseAttachmentForPosID == "missile_left" and "missile_right" or "missile_left"
 	VJ.CreateSound(ent, "vj_hlr/hl1_weapon/rpg/rocketfire1.wav", 100)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
