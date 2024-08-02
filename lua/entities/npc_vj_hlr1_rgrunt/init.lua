@@ -6,7 +6,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/rgrunt.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/rgrunt.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 200
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
@@ -18,7 +18,7 @@ ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.BloodColor = ""
 ENT.HasBloodParticle = false
 ENT.HasBloodDecal = false
-ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
+ENT.Medic_CanBeHealed = false -- Can this NPC be healed by medics?
 
 ENT.BreathSoundLevel = 50
 ENT.GeneralSoundPitch1 = 130

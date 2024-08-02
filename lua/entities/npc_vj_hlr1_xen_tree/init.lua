@@ -5,11 +5,11 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/tree.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/tree.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.SightDistance = 200 -- How far it can see
 ENT.SightAngle = 60 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.StartHealth = 200
-ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
+ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
 ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
 ENT.HullType = HULL_LARGE
 ENT.VJC_Data = {
@@ -24,13 +24,13 @@ ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 
-ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
+ENT.HasMeleeAttack = true -- Can this NPC melee attack?
 ENT.MeleeAttackDamage = 30
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDistance = 70 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackAngleRadius = 50 -- What is the attack angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
+ENT.MeleeAttackAngleRadius = 50 -- What is the attack angle radius? | 100 = In front of the NPC | 180 = All around the NPC
 ENT.MeleeAttackDamageDistance = 110 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageAngleRadius = 50 -- What is the damage angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
+ENT.MeleeAttackDamageAngleRadius = 50 -- What is the damage angle radius? | 100 = In front of the NPC | 180 = All around the NPC
 
 ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
 	-- ====== Sound File Paths ====== --

@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/opfor/baby_voltigore.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/opfor/baby_voltigore.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 60
 ENT.HullType = HULL_MEDIUM
 ENT.VJC_Data = {
@@ -27,7 +27,7 @@ ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calcula
 ENT.MeleeAttackDistance = 40 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.MeleeAttackDamageDistance = 50 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 
-ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
+ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.AnimTbl_RangeAttack = "vjseq_distanceattack" -- Range Attack Animations
 ENT.RangeDistance = 1000 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 100 -- How close does it have to be until it uses melee?
@@ -37,7 +37,7 @@ ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range 
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE} -- Death Animations
-ENT.DeathAnimationTime = false -- Time until the SNPC spawns its corpse and gets removed
+ENT.DeathAnimationTime = false -- Time until the NPC spawns its corpse and gets removed
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play

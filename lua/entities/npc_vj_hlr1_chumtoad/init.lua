@@ -5,13 +5,13 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/chumtoad.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/chumtoad.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 15
 ENT.HullType = HULL_TINY
 ENT.SightDistance = 250 -- How far it can see
-ENT.MovementType = VJ_MOVETYPE_GROUND -- How does the SNPC move?
-ENT.Aquatic_SwimmingSpeed_Calm = 80 -- The speed it should swim with, when it's wandering, moving slowly, etc. | Basically walking compared to ground SNPCs
-ENT.Aquatic_SwimmingSpeed_Alerted = 80 -- The speed it should swim with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground SNPCs
+ENT.MovementType = VJ_MOVETYPE_GROUND -- How the NPC moves around
+ENT.Aquatic_SwimmingSpeed_Calm = 80 -- The speed it should swim with, when it's wandering, moving slowly, etc. | Basically walking compared to ground NPCs
+ENT.Aquatic_SwimmingSpeed_Alerted = 80 -- The speed it should swim with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground NPCs
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(15, 0, 10), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bip01 neck", -- If left empty, the base will attempt to calculate a position for first person
@@ -19,12 +19,12 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.CanOpenDoors = false -- Can it open doors?
-ENT.Behavior = VJ_BEHAVIOR_PASSIVE -- The behavior of the SNPC
+ENT.Behavior = VJ_BEHAVIOR_PASSIVE -- Type of AI behavior to use for this NPC
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
-ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
+ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
 	-- ====== Flinching Code ====== --

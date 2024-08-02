@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/friendly.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/friendly.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 230
 ENT.HullType = HULL_MEDIUM
 ENT.VJC_Data = {
@@ -26,7 +26,7 @@ ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calcula
 ENT.MeleeAttackDistance = 40 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.MeleeAttackDamageDistance = 100 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 
-ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
+ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1 -- Range Attack Animations
 ENT.RangeDistance = 140 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 50 -- How close does it have to be until it uses melee?

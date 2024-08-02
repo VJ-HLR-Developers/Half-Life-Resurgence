@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/panthereye.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/panthereye.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 150
 ENT.HullType = HULL_WIDE_SHORT
 ENT.VJC_Data = {
@@ -19,17 +19,17 @@ ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 
-ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
+ENT.HasMeleeAttack = true -- Can this NPC melee attack?
 ENT.MeleeAttackDamage = 20
 ENT.AnimTbl_MeleeAttack = {"vjseq_attack_main_claw","vjseq_attack_primary","vjseq_attack_simple_claw"} -- Melee Attack Animations
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDistance = 30 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.MeleeAttackDamageDistance = 80 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 
-ENT.HasLeapAttack = true -- Should the SNPC have a leap attack?
+ENT.HasLeapAttack = true -- Can this NPC leap attack?
 ENT.LeapAttackDamage = 35
 ENT.AnimTbl_LeapAttack = "vjseq_crouch_to_jump" -- Melee Attack Animations
-ENT.LeapDistance = 300 -- The distance of the leap, for example if it is set to 500, when the SNPC is 500 Unit away, it will jump
+ENT.LeapDistance = 300 -- The max distance that the NPC can leap from
 ENT.LeapToMeleeDistance = 100 -- How close does it have to be until it uses melee?
 ENT.LeapAttackDamageDistance = 100 -- How far does the damage go?
 ENT.TimeUntilLeapAttackDamage = 1.1 -- How much time until it runs the leap damage code?

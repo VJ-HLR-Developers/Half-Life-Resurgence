@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/sqknest.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/sqknest.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 20
 ENT.HullType = HULL_TINY
 ENT.VJC_Data = {
@@ -19,8 +19,8 @@ ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should 
 ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
-ENT.Behavior = VJ_BEHAVIOR_PASSIVE -- The behavior of the SNPC
-ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
+ENT.Behavior = VJ_BEHAVIOR_PASSIVE -- Type of AI behavior to use for this NPC
+ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/squeek/sqk_hunt1.wav","vj_hlr/hl1_npc/squeek/sqk_hunt2.wav","vj_hlr/hl1_npc/squeek/sqk_hunt3.wav"}

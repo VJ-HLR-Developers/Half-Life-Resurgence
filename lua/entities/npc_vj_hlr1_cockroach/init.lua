@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/roach.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/roach.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 1
 ENT.TurningSpeed = 120
 ENT.HullType = HULL_TINY
@@ -16,12 +16,12 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.CanOpenDoors = false -- Can it open doors?
-ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE -- The behavior of the SNPC
+ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE -- Type of AI behavior to use for this NPC
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
-ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
+ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.FootStepTimeRun = 3 -- Next foot step sound when it is running
 ENT.FootStepTimeWalk = 3 -- Next foot step sound when it is walking
 ENT.HasImpactSounds = false

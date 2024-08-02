@@ -5,12 +5,12 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/opfor/geneworm.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/opfor/geneworm.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 1080
 ENT.SightAngle = 120 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.HullType = HULL_LARGE
 ENT.VJ_IsHugeMonster = true -- Is this a huge monster?
-ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
+ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
 ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(0, 0, -150), -- The offset for the controller when the camera is in third person
@@ -25,7 +25,7 @@ ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's dam
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"} -- NPCs with the same class with be allied to each other
 
-ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
+ENT.HasMeleeAttack = true -- Can this NPC melee attack?
 ENT.MeleeAttackDamage = 60
 ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1 -- Melee Attack Animations
 ENT.MeleeAttackAnimationFaceEnemy = true -- Should it face the enemy while playing the melee attack animation?
@@ -34,7 +34,7 @@ ENT.MeleeAttackDamageDistance = 600 -- How far does the damage go | false = Let 
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.HasMeleeAttackKnockBack = true -- If true, it will cause a knockback to its enemy
 
-ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
+ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlrof_gw_biotoxin" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1 -- Range Attack Animations
 ENT.RangeDistance = 8000 -- This is how far away it can shoot

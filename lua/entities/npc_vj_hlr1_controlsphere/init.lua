@@ -5,12 +5,12 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/sphere.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/sphere.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 60
 ENT.HullType = HULL_TINY
-ENT.MovementType = VJ_MOVETYPE_AERIAL -- How does the SNPC move?
-ENT.Aerial_FlyingSpeed_Calm = 50 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground SNPCs
-ENT.Aerial_FlyingSpeed_Alerted = 80 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground SNPCs
+ENT.MovementType = VJ_MOVETYPE_AERIAL -- How the NPC moves around
+ENT.Aerial_FlyingSpeed_Calm = 50 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground NPCs
+ENT.Aerial_FlyingSpeed_Alerted = 80 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground NPCs
 ENT.VJC_Data = {
     FirstP_Bone = "Bone02", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(5, 0, 7), -- The offset for the controller when the camera is in first person
@@ -22,9 +22,9 @@ ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.ConstantlyFaceEnemy = true -- Should it face the enemy constantly?
-ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
+ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 
-ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
+ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1 -- Range Attack Animations
 ENT.RangeDistance = 1020 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
@@ -32,7 +32,7 @@ ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the pro
 ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
 ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
 
-ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it's between number x and y?
+ENT.NoChaseAfterCertainRange = true -- Should the NPC stop chasing when the enemy is within the given far and close distances?
 ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_Type = "Regular" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack

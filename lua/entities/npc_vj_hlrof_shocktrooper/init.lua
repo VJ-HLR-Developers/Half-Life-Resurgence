@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/opfor/strooper.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/opfor/strooper.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 150
 ENT.HullType = HULL_HUMAN
 ENT.CanTurnWhileMoving = false
@@ -28,19 +28,19 @@ ENT.GrenadeAttackEntity = "obj_vj_hlrof_grenade_spore" -- Entities that it can s
 ENT.AnimTbl_GrenadeAttack = ACT_SPECIAL_ATTACK2 -- Grenade Attack Animations
 ENT.GrenadeAttackAttachment = "eyes" -- The attachment that the grenade will spawn at
 ENT.TimeUntilGrenadeIsReleased = 1.5 -- Time until the grenade is released
-ENT.ThrowGrenadeChance = 1
+ENT.GrenadeAttackChance = 1 -- 1 in x chance that it will throw a grenade when all the requirements are met | 1 = Throw it every time
 
 ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
 ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
-ENT.MoveRandomlyWhenShooting = false -- Should it move randomly when shooting?
-ENT.AnimTbl_WeaponAttackCrouch = ACT_RANGE_ATTACK2 -- Animation played when the SNPC does weapon attack while crouching | For VJ Weapons
+ENT.MoveRandomlyWhenShooting = false -- Should it move randomly while shooting a weapon?
+ENT.AnimTbl_WeaponAttackCrouch = ACT_RANGE_ATTACK2 -- Animation(s) to play while firing a weapon in crouched position
 ENT.AnimTbl_CallForHelp = ACT_SIGNAL2 -- Call For Help Animations
 ENT.CallForBackUpOnDamageAnimation = ACT_SIGNAL1 -- Animations played when it calls for help on damage
 ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE -- The animation it plays when hiding in a covered position, leave empty to let the base decide
 ENT.AnimTbl_AlertFriendsOnDeath = ACT_IDLE_ANGRY -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE} -- Death Animations
-ENT.DeathAnimationTime = false -- Time until the SNPC spawns its corpse and gets removed
+ENT.DeathAnimationTime = false -- Time until the NPC spawns its corpse and gets removed
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages

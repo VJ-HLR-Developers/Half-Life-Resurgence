@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/gman.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/gman.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 999999
 ENT.HullType = HULL_HUMAN
 ENT.VJC_Data = {
@@ -23,8 +23,8 @@ ENT.BloodColor = "Red" -- The blood type, this will determine what it should use
 ENT.CustomBlood_Particle = {"vj_hlr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
-ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
-ENT.MoveOutOfFriendlyPlayersWay = false -- Should the SNPC move out of the way when a friendly player comes close to it?
+ENT.HasMeleeAttack = false -- Can this NPC melee attack?
+ENT.MoveOutOfFriendlyPlayersWay = false -- Should the NPC move and give space to friendly players?
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 	-- ====== File Path Variables ====== --

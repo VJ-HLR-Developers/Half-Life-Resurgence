@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/barney.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/barney.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 90
 ENT.HullType = HULL_HUMAN
 ENT.VJC_Data = {
@@ -20,10 +20,10 @@ ENT.BloodColor = "Red" -- The blood type, this will determine what it should use
 ENT.CustomBlood_Particle = {"vj_hlr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
-ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
+ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
 ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
-ENT.MoveRandomlyWhenShooting = false -- Should it move randomly when shooting?
+ENT.MoveRandomlyWhenShooting = false -- Should it move randomly while shooting a weapon?
 ENT.HasCallForHelpAnimation = false -- if true, it will play the call for help animation
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?

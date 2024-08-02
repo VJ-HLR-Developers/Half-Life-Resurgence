@@ -6,17 +6,17 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/hassault.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/hassault.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 180
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK_SWING}
 ENT.TimeUntilGrenadeIsReleased = 1 -- Time until the grenade is released
 ENT.AllowWeaponReloading = false -- If false, the SNPC will no longer reload
-ENT.HasShootWhileMoving = false -- Can it shoot while moving?
-ENT.MoveOrHideOnDamageByEnemy = false -- Should the SNPC move or hide when being damaged by an enemy?
-ENT.HasWeaponBackAway = false -- Should the SNPC back away if the enemy is close?
+ENT.Weapon_ShootWhileMoving = false -- Can it shoot its weapon while moving?
+ENT.MoveOrHideOnDamageByEnemy = false -- Should the NPC move or hide when being damaged by an enemy?
+ENT.Weapon_RetreatDistance = 0 -- If enemy is within this distance, it will retreat back | 0 = Never back away
 
-ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/hassault/hw_spin.wav"}
+ENT.SoundTbl_Breath = "vj_hlr/hl1_npc/hassault/hw_spin.wav"
 
 ENT.BreathSoundLevel = 80
 

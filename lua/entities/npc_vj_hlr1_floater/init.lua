@@ -5,12 +5,12 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/floater.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/floater.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 45
 ENT.HullType = HULL_TINY
-ENT.MovementType = VJ_MOVETYPE_AERIAL -- How does the SNPC move?
-ENT.Aerial_FlyingSpeed_Calm = 100 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground SNPCs
-ENT.Aerial_FlyingSpeed_Alerted = 180 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground SNPCs
+ENT.MovementType = VJ_MOVETYPE_AERIAL -- How the NPC moves around
+ENT.Aerial_FlyingSpeed_Calm = 100 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground NPCs
+ENT.Aerial_FlyingSpeed_Alerted = 180 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground NPCs
 ENT.Aerial_AnimTbl_Calm = ACT_WALK -- Animations it plays when it's wandering around while idle
 ENT.Aerial_AnimTbl_Alerted = ACT_RUN -- Animations it plays when it's moving while alerted
 ENT.VJC_Data = {
@@ -20,17 +20,17 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.ConstantlyFaceEnemy = true -- Should it face the enemy constantly?
-ENT.IdleAlwaysWander = true -- If set to true, it will make the SNPC always wander when idling
+ENT.IdleAlwaysWander = true -- Should the NPC constantly wander while idiling?
 ENT.CanOpenDoors = false -- Can it open doors?
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
-ENT.Behavior = VJ_BEHAVIOR_NEUTRAL -- The behavior of the SNPC
+ENT.Behavior = VJ_BEHAVIOR_NEUTRAL -- Type of AI behavior to use for this NPC
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
-ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
+ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 
-ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
+ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.AnimTbl_RangeAttack = "vjseq_attack" -- Range Attack Animations
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_toxicspit" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
 ENT.RangeDistance = 1500 -- This is how far away it can shoot
@@ -39,7 +39,7 @@ ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the pro
 ENT.NextRangeAttackTime = 2 -- How much time until it can use a range attack?
 ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
 
-ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it's between number x and y?
+ENT.NoChaseAfterCertainRange = true -- Should the NPC stop chasing when the enemy is within the given far and close distances?
 ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_Type = "Regular" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack

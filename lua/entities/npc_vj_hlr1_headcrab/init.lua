@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/headcrab.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/headcrab.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 10
 ENT.HullType = HULL_TINY
 ENT.EntitiesToNoCollide = {"npc_vj_hlr1_gonarch"} -- Set to a table of entity class names for the NPC to not collide with otherwise leave it to false
@@ -20,12 +20,12 @@ ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"} -- NPCs with the same class with be allied to each other
-ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
+ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 
-ENT.HasLeapAttack = true -- Should the SNPC have a leap attack?
+ENT.HasLeapAttack = true -- Can this NPC leap attack?
 ENT.LeapAttackDamage = 10
 ENT.AnimTbl_LeapAttack = ACT_RANGE_ATTACK1 -- Melee Attack Animations
-ENT.LeapDistance = 256 -- The distance of the leap, for example if it is set to 500, when the SNPC is 500 Unit away, it will jump
+ENT.LeapDistance = 256 -- The max distance that the NPC can leap from
 ENT.LeapToMeleeDistance = 1 -- How close does it have to be until it uses melee?
 ENT.LeapAttackDamageDistance = 50 -- How far does the damage go?
 ENT.TimeUntilLeapAttackDamage = 0.4 -- How much time until it runs the leap damage code?
@@ -39,7 +39,7 @@ ENT.LeapAttackVelocityUp = 200 -- How much upward force should it apply?
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
-ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it's between number x and y?
+ENT.NoChaseAfterCertainRange = true -- Should the NPC stop chasing when the enemy is within the given far and close distances?
 ENT.NoChaseAfterCertainRange_FarDistance = 200 -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_CloseDistance = 0 -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 	-- ====== Flinching Variables ====== --

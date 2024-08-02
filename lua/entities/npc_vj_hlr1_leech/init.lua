@@ -5,16 +5,16 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/leech.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/leech.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 15
 ENT.HullType = HULL_TINY
 ENT.TurningUseAllAxis = true -- If set to true, angles will not be restricted to y-axis, it will change all axes (plural axis)
-ENT.MovementType = VJ_MOVETYPE_AQUATIC -- How does the SNPC move?
-ENT.Aquatic_SwimmingSpeed_Calm = 80 -- The speed it should swim with, when it's wandering, moving slowly, etc. | Basically walking compared to ground SNPCs
-ENT.Aquatic_SwimmingSpeed_Alerted = 200 -- The speed it should swim with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground SNPCs
+ENT.MovementType = VJ_MOVETYPE_AQUATIC -- How the NPC moves around
+ENT.Aquatic_SwimmingSpeed_Calm = 80 -- The speed it should swim with, when it's wandering, moving slowly, etc. | Basically walking compared to ground NPCs
+ENT.Aquatic_SwimmingSpeed_Alerted = 200 -- The speed it should swim with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground NPCs
 ENT.Aquatic_AnimTbl_Calm = ACT_SWIM_IDLE -- Animations it plays when it's wandering around while idle
 ENT.Aquatic_AnimTbl_Alerted = ACT_SWIM -- Animations it plays when it's moving while alerted
-ENT.IdleAlwaysWander = true -- If set to true, it will make the SNPC always wander when idling
+ENT.IdleAlwaysWander = true -- Should the NPC constantly wander while idiling?
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(29, 0, 10), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bone01", -- If left empty, the base will attempt to calculate a position for first person
@@ -27,7 +27,7 @@ ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should 
 ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
-ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
+ENT.HasMeleeAttack = true -- Can this NPC melee attack?
 ENT.MeleeAttackDamage = 1
 ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1 -- Melee Attack Animations
 ENT.TimeUntilMeleeAttackDamage = 0.1 -- This counted in seconds | This calculates the time until it hits something

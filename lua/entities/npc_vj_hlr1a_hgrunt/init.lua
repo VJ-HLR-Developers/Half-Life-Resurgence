@@ -6,7 +6,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hla/hgrunt.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hla/hgrunt.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "unnamed022", -- If left empty, the base will attempt to calculate a position for first person
@@ -14,7 +14,7 @@ ENT.VJC_Data = {
 }
 ENT.HasGrenadeAttack = false
 ENT.WeaponAttackSecondaryTimeUntilFire = 1.2
-ENT.MoveRandomlyWhenShooting = true -- Should it move randomly when shooting?
+ENT.MoveRandomlyWhenShooting = true -- Should it move randomly while shooting a weapon?
 ENT.CanTurnWhileMoving = true -- Can the NPC turn while moving? | EX: GoldSrc NPCs, Facing enemy while running to cover, Facing the player while moving out of the way
 
 -- Custom

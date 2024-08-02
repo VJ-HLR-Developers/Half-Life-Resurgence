@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/snark.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/snark.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 5
 ENT.HullType = HULL_TINY
 ENT.EntitiesToNoCollide = {"npc_vj_hlr1_snark"} -- Set to a table of entity class names for the NPC to not collide with otherwise leave it to false
@@ -20,10 +20,10 @@ ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should 
 ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
-ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
-ENT.HasLeapAttack = true -- Should the SNPC have a leap attack?
+ENT.HasMeleeAttack = false -- Can this NPC melee attack?
+ENT.HasLeapAttack = true -- Can this NPC leap attack?
 ENT.AnimTbl_LeapAttack = ACT_JUMP -- Melee Attack Animations
-ENT.LeapDistance = 200 -- The distance of the leap, for example if it is set to 500, when the SNPC is 500 Unit away, it will jump
+ENT.LeapDistance = 200 -- The max distance that the NPC can leap from
 ENT.LeapToMeleeDistance = 0 -- How close does it have to be until it uses melee?
 ENT.TimeUntilLeapAttackDamage = 0.4 -- How much time until it runs the leap damage code?
 ENT.NextLeapAttackTime = 0.4 -- How much time until it can use a leap attack?
@@ -33,10 +33,10 @@ ENT.LeapAttackVelocityForward = 100 -- How much forward force should it apply?
 ENT.LeapAttackVelocityUp = 180 -- How much upward force should it apply?
 ENT.LeapAttackDamage = 10
 ENT.LeapAttackDamageDistance = 100 -- How far does the damage go?
-ENT.HasDeathRagdoll = false -- If set to false, it will not spawn the regular ragdoll of the SNPC
+ENT.HasDeathRagdoll = false -- Should the NPC spawn a corpse when it dies?
 ENT.PushProps = false -- Should it push props when trying to move?
-ENT.IdleAlwaysWander = true -- If set to true, it will make the SNPC always wander when idling
-ENT.FindEnemy_UseSphere = true -- Should the SNPC be able to see all around him? (360) | Objects and walls can still block its sight!
+ENT.IdleAlwaysWander = true -- Should the NPC constantly wander while idiling?
+ENT.FindEnemy_UseSphere = true -- Should the NPC see all around? (360 degrees) | Objects and walls can still block its sight!
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/squeek/sqk_hunt1.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt2.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt3.wav"}

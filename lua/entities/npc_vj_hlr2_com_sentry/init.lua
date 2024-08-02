@@ -5,12 +5,12 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/combine_turrets/floor_turret.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/combine_turrets/floor_turret.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 200
 ENT.HullType = HULL_HUMAN
 ENT.SightDistance = 2000 -- How far it can see
 ENT.SightAngle = 60 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
-ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
+ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
 ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
 ENT.VJC_Data = {
     FirstP_Bone = "barrel", -- If left empty, the base will attempt to calculate a position for first person
@@ -20,20 +20,20 @@ ENT.VJC_Data = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_COMBINE"} -- NPCs with the same class with be allied to each other
 ENT.AlertedToIdleTime = VJ.SET(0, 0) -- How much time until it calms down after the enemy has been killed/disappeared | Sets self.Alerted to false after the timer expires
-ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
+ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 
-ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
+ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
 ENT.RangeDistance = 2000 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
-ENT.RangeAttackAngleRadius = 60 -- What is the attack angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
+ENT.RangeAttackAngleRadius = 60 -- What is the attack angle radius? | 100 = In front of the NPC | 180 = All around the NPC
 ENT.TimeUntilRangeAttackProjectileRelease = 0.015 -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 0 -- How much time until it can use a range attack?
 ENT.NextAnyAttackTime_Range = 0.04 -- How much time until it can use any attack again? | Counted in Seconds
 
 ENT.CanReceiveOrders = false -- Can the NPC receive orders from others? | Ex: Allies calling for help, allies requesting backup on damage, etc.
-ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
+ENT.Medic_CanBeHealed = false -- Can this NPC be healed by medics?
 ENT.TimeUntilEnemyLost = 5 -- Time until it resets its enemy if the enemy is not visible
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play

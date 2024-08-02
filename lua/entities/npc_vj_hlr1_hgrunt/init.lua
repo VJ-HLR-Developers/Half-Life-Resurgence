@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/hgrunt.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/hgrunt.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 90
 ENT.HullType = HULL_HUMAN
 ENT.VJC_Data = {
@@ -19,7 +19,7 @@ ENT.CustomBlood_Particle = {"vj_hlr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
-ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
+ENT.HasMeleeAttack = true -- Can this NPC melee attack?
 ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1 -- Melee Attack Animations
 ENT.MeleeAttackDamage = 10
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
@@ -30,24 +30,24 @@ ENT.AnimTbl_GrenadeAttack = ACT_SPECIAL_ATTACK2 -- Grenade Attack Animations
 ENT.GrenadeAttackAttachment = "lhand" -- The attachment that the grenade will spawn at
 ENT.TimeUntilGrenadeIsReleased = false -- Time until the grenade is released
 ENT.NextThrowGrenadeTime = VJ.SET(10, 12) -- Time until it can throw a grenade again
-ENT.ThrowGrenadeChance = 3 -- Chance that it will throw the grenade | Set to 1 to throw all the time
+ENT.GrenadeAttackChance = 3 -- 1 in x chance that it will throw a grenade when all the requirements are met | 1 = Throw it every time
 
 ENT.Medic_DisableAnimation = true -- if true, it will disable the animation code
 ENT.Medic_SpawnPropOnHeal = false -- Should it spawn a prop, such as small health vial at a attachment when healing an ally?
 ENT.Medic_TimeUntilHeal = 4 -- Time until the ally receives health | Set to false to let the base decide the time
 ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
 ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
-ENT.MoveRandomlyWhenShooting = false -- Should it move randomly when shooting?
+ENT.MoveRandomlyWhenShooting = false -- Should it move randomly while shooting a weapon?
 //ENT.PoseParameterLooking_InvertPitch = true -- Inverts the pitch pose parameters (X)
 //ENT.PoseParameterLooking_Names = {pitch={"XR"},yaw={},roll={"ZR"}} -- Custom pose parameters to use, can put as many as needed
 ENT.CallForBackUpOnDamageAnimation = ACT_SIGNAL3 -- Animations played when it calls for help on damage
 ENT.AnimTbl_CallForHelp = ACT_SIGNAL1 -- Call For Help Animations
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE} -- Death Animations
-//ENT.DeathAnimationTime = 0.8 -- Time until the SNPC spawns its corpse and gets removed
+//ENT.DeathAnimationTime = 0.8 -- Time until the NPC spawns its corpse and gets removed
 ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE -- The animation it plays when hiding in a covered position, leave empty to let the base decide
 ENT.AnimTbl_AlertFriendsOnDeath = "vjseq_idle2" -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
-ENT.AnimTbl_WeaponAttackSecondary = ACT_SPECIAL_ATTACK1 -- Animations played when the SNPC fires a secondary weapon attack
+ENT.AnimTbl_WeaponAttackSecondary = ACT_SPECIAL_ATTACK1 -- Animation(s) to play while firing the weapon's secondary attack
 ENT.WeaponAttackSecondaryTimeUntilFire = 0.7
 ENT.AnimTbl_WeaponReload = ACT_RELOAD_SMG1 -- Animations that play when the SNPC reloads
 ENT.CanTurnWhileMoving = false -- Can the NPC turn while moving? | EX: GoldSrc NPCs, Facing enemy while running to cover, Facing the player while moving out of the way

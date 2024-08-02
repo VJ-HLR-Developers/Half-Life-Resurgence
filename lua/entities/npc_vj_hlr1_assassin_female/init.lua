@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/hassassin.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/hassassin.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 60
 ENT.TurningSpeed = 50 -- How fast it can turn
 ENT.HullType = HULL_HUMAN
@@ -26,7 +26,7 @@ ENT.CustomBlood_Particle = {"vj_hlr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.VJ_NPC_Class = {"CLASS_BLACKOPS"} -- NPCs with the same class with be allied to each other
-ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
+ENT.HasMeleeAttack = true -- Can this NPC melee attack?
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2} -- Melee Attack Animations
 ENT.MeleeAttackDamage = 15
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
@@ -40,7 +40,7 @@ ENT.TimeUntilGrenadeIsReleased = 0.4 -- Time until the grenade is released
 ENT.AllowWeaponReloading = false -- If false, the SNPC will no longer reload
 ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
 ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
-ENT.MoveRandomlyWhenShooting = false -- Should it move randomly when shooting?
+ENT.MoveRandomlyWhenShooting = false -- Should it move randomly while shooting a weapon?
 ENT.WeaponSpread = 0.6 -- What's the spread of the weapon? | Closer to 0 = better accuracy, Farther than 1 = worse accuracy
 ENT.CanCrouchOnWeaponAttack = false -- Can it crouch while shooting?
 ENT.AnimTbl_TakingCover = ACT_LAND -- The animation it plays when hiding in a covered position, leave empty to let the base decide
@@ -49,7 +49,7 @@ ENT.WaitForEnemyToComeOutTime = VJ.SET(1, 2) -- How much time should it wait unt
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE} -- Death Animations
-ENT.DeathAnimationTime = false -- Time until the SNPC spawns its corpse and gets removed
+ENT.DeathAnimationTime = false -- Time until the NPC spawns its corpse and gets removed
 ENT.CanTurnWhileMoving = false -- Can the NPC turn while moving? | EX: GoldSrc NPCs, Facing enemy while running to cover, Facing the player while moving out of the way
 	-- ====== File Path Variables ====== --
 	-- Leave blank if you don't want any sounds to play

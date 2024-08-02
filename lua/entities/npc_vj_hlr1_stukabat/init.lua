@@ -5,12 +5,12 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/stukabat.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/stukabat.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 40
 ENT.HullType = HULL_WIDE_SHORT
-ENT.MovementType = VJ_MOVETYPE_GROUND -- How does the SNPC move?
-ENT.Aerial_FlyingSpeed_Calm = 325 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground SNPCs
-ENT.Aerial_FlyingSpeed_Alerted = 150 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground SNPCs
+ENT.MovementType = VJ_MOVETYPE_GROUND -- How the NPC moves around
+ENT.Aerial_FlyingSpeed_Calm = 325 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground NPCs
+ENT.Aerial_FlyingSpeed_Alerted = 150 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground NPCs
 ENT.Aerial_AnimTbl_Calm = ACT_FLY -- Animations it plays when it's wandering around while idle
 ENT.Aerial_AnimTbl_Alerted = ACT_FLY -- Animations it plays when it's moving while alerted
 ENT.VJC_Data = {
@@ -20,7 +20,7 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
-ENT.IdleAlwaysWander = false -- If set to true, it will make the SNPC always wander when idling
+ENT.IdleAlwaysWander = false -- Should the NPC constantly wander while idiling?
 ENT.CanOpenDoors = false -- Can it open doors?
 
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
@@ -29,9 +29,9 @@ ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's dam
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.AnimTbl_Death = {"vjseq_Die_on_ground"}
 
-ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
+ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 
-ENT.HasRangeAttack = false -- Should the SNPC have a range attack?
+ENT.HasRangeAttack = false -- Can this NPC range attack?
 ENT.AnimTbl_RangeAttack = {"vjseq_Attack_bomb"} -- Range Attack Animations
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_stukabomb" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
 ENT.RangeDistance = 1500 -- This is how far away it can shoot
@@ -40,7 +40,7 @@ ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the pro
 ENT.NextRangeAttackTime = 2 -- How much time until it can use a range attack?
 ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
 
-ENT.NoChaseAfterCertainRange = false -- Should the SNPC not be able to chase when it's between number x and y?
+ENT.NoChaseAfterCertainRange = false -- Should the NPC stop chasing when the enemy is within the given far and close distances?
 ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_Type = "Regular" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack

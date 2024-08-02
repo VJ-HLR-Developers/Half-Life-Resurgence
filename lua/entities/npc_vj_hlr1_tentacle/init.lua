@@ -5,12 +5,12 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/tentacle.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/tentacle.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.SightDistance = 800 -- How far it can see
 ENT.VJ_IsHugeMonster = true -- Is this a huge monster?
 ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.StartHealth = 1000
-ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
+ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
 ENT.HullType = HULL_LARGE
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
@@ -24,13 +24,13 @@ ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow_large"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 
-ENT.HasMeleeAttack = true -- Should the SNPC have a melee attack?
+ENT.HasMeleeAttack = true -- Can this NPC melee attack?
 ENT.MeleeAttackDamage = 80
 ENT.MeleeAttackDamageType = DMG_ALWAYSGIB -- Type of Damage
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDistance = 300 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.MeleeAttackDamageDistance = 380 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageAngleRadius = 10 -- What is the damage angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
+ENT.MeleeAttackDamageAngleRadius = 10 -- What is the damage angle radius? | 100 = In front of the NPC | 180 = All around the NPC
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations

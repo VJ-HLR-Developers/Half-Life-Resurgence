@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/nihilanth.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/nihilanth.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 3000
 ENT.HullType = HULL_LARGE
 ENT.VJ_IsHugeMonster = true -- Is this a huge monster?
@@ -23,9 +23,9 @@ ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow_large"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
-ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
+ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 
-ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
+ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.RangeDistance = 20000 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
@@ -34,7 +34,7 @@ ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = P
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
-ENT.DeathAnimationTime = 16 -- Time until the SNPC spawns its corpse and gets removed
+ENT.DeathAnimationTime = 16 -- Time until the NPC spawns its corpse and gets removed
 ENT.IdleSounds_PlayOnAttacks = true -- It will be able to continue and play idle sounds when it performs an attack
 ENT.HasSoundTrack = true
 	-- ====== File Path Variables ====== --

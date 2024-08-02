@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hla/doctor.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
+ENT.Model = "models/vj_hlr/hla/doctor.mdl" -- Model(s) to spawn with | Picks a random one if it's a table 
 ENT.StartHealth = 100
 ENT.HasHealthRegeneration = true
 ENT.HealthRegenerationAmount = 2
@@ -25,12 +25,12 @@ ENT.CustomBlood_Particle = {"vj_hlr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damaged
 ENT.HasOnPlayerSight = true
 ENT.HasBloodPool = false -- Does it have a blood pool?
-ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
+ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.HasGrenadeAttack = false
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
 ENT.Weapon_NoSpawnMenu = true -- Not affected by weapons selected from weapon list
---ENT.DeathAnimationTime = 2.15 -- Time until the SNPC spawns its corpse and gets removed
+--ENT.DeathAnimationTime = 2.15 -- Time until the NPC spawns its corpse and gets removed
 ENT.DisableFootStepSoundTimer = true
 ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards the player if it's damaged by a player?
 ENT.HasItemDropsOnDeath = false -- Should it drop items on death?

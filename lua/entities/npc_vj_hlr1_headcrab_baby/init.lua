@@ -6,7 +6,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/headcrab_baby.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/headcrab_baby.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.TurningSpeed = 60 -- How fast it can turn
 ENT.StartHealth = 5
 ENT.VJC_Data = {
@@ -14,7 +14,7 @@ ENT.VJC_Data = {
     FirstP_Bone = "Bip01 Neck", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(0, 0, 4), -- The offset for the controller when the camera is in first person
 }
-ENT.LeapDistance = 180 -- The distance of the leap, for example if it is set to 500, when the SNPC is 500 Unit away, it will jump
+ENT.LeapDistance = 180 -- The max distance that the NPC can leap from
 ENT.NoChaseAfterCertainRange_FarDistance = 150 -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.LeapAttackVelocityForward = 40 -- How much forward force should it apply?
 ENT.LeapAttackVelocityUp = 150 -- How much upward force should it apply?

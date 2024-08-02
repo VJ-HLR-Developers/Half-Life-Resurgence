@@ -5,11 +5,11 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/opfor/pit_worm_up.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/opfor/pit_worm_up.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 2000
 ENT.VJ_IsHugeMonster = true -- Is this a huge monster?
 ENT.HullType = HULL_LARGE
-ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
+ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
 ENT.CanTurnWhileStationary = true -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(15, 0, -50), -- The offset for the controller when the camera is in third person
@@ -29,7 +29,7 @@ ENT.MeleeAttackDamageDistance = 320 -- How far does the damage go | false = Let 
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2} -- Melee Attack Animations
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 
-ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
+ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1 -- Range Attack Animations
 ENT.RangeDistance = 4000 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 250 -- How close does it have to be until it uses melee?
@@ -37,7 +37,7 @@ ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the pro
 ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
 ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
 
-ENT.HasDeathRagdoll = false -- If set to false, it will not spawn the regular ragdoll of the SNPC
+ENT.HasDeathRagdoll = false -- Should the NPC spawn a corpse when it dies?
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
 	-- ====== Flinching Code ====== --

@@ -6,7 +6,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/decay/sentry.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/decay/sentry.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(10, 0, -20), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Dummy04", -- If left empty, the base will attempt to calculate a position for first person
@@ -14,7 +14,7 @@ ENT.VJC_Data = {
 }
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
-ENT.DeathAnimationTime = 5 -- Time until the SNPC spawns its corpse and gets removed
+ENT.DeathAnimationTime = 5 -- Time until the NPC spawns its corpse and gets removed
 
 -- Custom
 ENT.Sentry_GroundType = 1

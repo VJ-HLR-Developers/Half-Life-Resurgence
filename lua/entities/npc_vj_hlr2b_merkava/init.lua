@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl2b/merkava.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
+ENT.Model = "models/vj_hlr/hl2b/merkava.mdl" -- Model(s) to spawn with | Picks a random one if it's a table 
 ENT.StartHealth = 500
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(-40, 0, 20), -- The offset for the controller when the camera is in third person

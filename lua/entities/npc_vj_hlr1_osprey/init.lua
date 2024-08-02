@@ -7,7 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 local combatDistance = 4000 -- When closer then this, it will stop chasing and start firing
 
-ENT.Model = "models/vj_hlr/hl1/osprey.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/osprey.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.VJ_IsHugeMonster = true
 ENT.StartHealth = 800
 ENT.HullType = HULL_LARGE
@@ -15,9 +15,9 @@ ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all
 ENT.TurningSpeed = 2 -- How fast it can turn
 ENT.TurningUseAllAxis = false -- If set to true, angles will not be restricted to y-axis, it will change all axes (plural axis)
 	-- ====== Movement Variables ====== --
-ENT.MovementType = VJ_MOVETYPE_AERIAL -- How does the SNPC move?
-ENT.Aerial_FlyingSpeed_Alerted = 300 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground SNPCs
-ENT.Aerial_FlyingSpeed_Calm = ENT.Aerial_FlyingSpeed_Alerted -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground SNPCs
+ENT.MovementType = VJ_MOVETYPE_AERIAL -- How the NPC moves around
+ENT.Aerial_FlyingSpeed_Alerted = 300 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground NPCs
+ENT.Aerial_FlyingSpeed_Calm = ENT.Aerial_FlyingSpeed_Alerted -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground NPCs
 ENT.AA_GroundLimit = 1200 -- If the NPC's distance from itself to the ground is less than this, it will attempt to move up
 ENT.AA_MinWanderDist = 1000 -- Minimum distance that the NPC should go to when wandering
 ENT.AA_MoveAccelerate = 8 -- The NPC will gradually speed up to the max movement speed as it moves towards its destination | Calculation = FrameTime * x
@@ -29,7 +29,7 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
-ENT.FindEnemy_UseSphere = true -- Should the SNPC be able to see all around him? (360) | Objects and walls can still block its sight!
+ENT.FindEnemy_UseSphere = true -- Should the NPC see all around? (360 degrees) | Objects and walls can still block its sight!
 ENT.CanTurnWhileMoving = false -- Can the NPC turn while moving? | EX: GoldSrc NPCs, Facing enemy while running to cover, Facing the player while moving out of the way
 ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it"s between number x and y?
 ENT.NoChaseAfterCertainRange_FarDistance = combatDistance -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
@@ -39,10 +39,10 @@ ENT.Immune_AcidPoisonRadiation = true -- Immune to Acid, Poison and Radiation
 ENT.Immune_Bullet = true -- Immune to bullet type damages
 ENT.Immune_Fire = true -- Immune to fire-type damages
 ENT.ImmuneDamagesTable = {DMG_PHYSGUN}
-ENT.BringFriendsOnDeath = false -- Should the SNPC's friends come to its position before it dies?
-ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
+ENT.BringFriendsOnDeath = false -- Should the NPC's allies come to its position while it's dying?
+ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.HasDeathRagdoll = false
-ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
+ENT.Medic_CanBeHealed = false -- Can this NPC be healed by medics?
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Death = {"vj_hlr/hl1_weapon/mortar/mortarhit.wav"}

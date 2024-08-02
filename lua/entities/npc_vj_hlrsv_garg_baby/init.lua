@@ -6,7 +6,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/sven/babygarg.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/sven/babygarg.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 500
 ENT.HullType = HULL_HUMAN
 ENT.VJ_IsHugeMonster = false -- Is this a huge monster?
@@ -20,7 +20,7 @@ ENT.MeleeAttackDamageType = DMG_SLASH -- How close an enemy has to be to trigger
 ENT.MeleeAttackDistance = 70 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.MeleeAttackDamageDistance = 75 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 
-ENT.HasRangeAttack = false -- Should the SNPC have a range attack?
+ENT.HasRangeAttack = false -- Can this NPC range attack?
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/babygarg/gar_step1.wav","vj_hlr/hl1_npc/babygarg/gar_step2.wav"}

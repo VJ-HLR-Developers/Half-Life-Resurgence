@@ -5,9 +5,9 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/barney.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want 
+ENT.Model = "models/barney.mdl" -- Model(s) to spawn with | Picks a random one if it's a table 
 ENT.StartHealth = 100
-ENT.HasHealthRegeneration = true -- Can the SNPC regenerate its health?
+ENT.HasHealthRegeneration = true -- Can the NPC regenerate its health?
 ENT.HealthRegenerationAmount = 1 -- How much should the health increase after every delay?
 ENT.HealthRegenerationDelay = VJ.SET(0.35,0.35) -- How much time until the health increases
 ENT.HullType = HULL_HUMAN

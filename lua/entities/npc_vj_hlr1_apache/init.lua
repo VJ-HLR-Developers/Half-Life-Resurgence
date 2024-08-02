@@ -7,16 +7,16 @@ include("shared.lua")
 -----------------------------------------------*/
 local combatDistance = 5000 -- When closer then this, it will stop chasing and start firing
 
-ENT.Model = "models/vj_hlr/hl1/apache.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/apache.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.VJ_IsHugeMonster = true
 ENT.StartHealth = 400 -- The starting health of the NPC
 ENT.HullType = HULL_LARGE
 ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.TurningSpeed = 2 -- How fast it can turn
 	-- ====== Movement Variables ====== --
-ENT.MovementType = VJ_MOVETYPE_AERIAL -- How does the SNPC move?
-ENT.Aerial_FlyingSpeed_Alerted = 400 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground SNPCs
-ENT.Aerial_FlyingSpeed_Calm = ENT.Aerial_FlyingSpeed_Alerted -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground SNPCs
+ENT.MovementType = VJ_MOVETYPE_AERIAL -- How the NPC moves around
+ENT.Aerial_FlyingSpeed_Alerted = 400 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground NPCs
+ENT.Aerial_FlyingSpeed_Calm = ENT.Aerial_FlyingSpeed_Alerted -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground NPCs
 ENT.AA_GroundLimit = 1200 -- If the NPC's distance from itself to the ground is less than this, it will attempt to move up
 ENT.AA_MinWanderDist = 1000 -- Minimum distance that the NPC should go to when wandering
 ENT.AA_MoveAccelerate = 8 -- The NPC will gradually speed up to the max movement speed as it moves towards its destination | Calculation = FrameTime * x
@@ -28,7 +28,7 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
-ENT.FindEnemy_UseSphere = true -- Should the SNPC be able to see all around him? (360) | Objects and walls can still block its sight!
+ENT.FindEnemy_UseSphere = true -- Should the NPC see all around? (360 degrees) | Objects and walls can still block its sight!
 ENT.PoseParameterLooking_InvertYaw = true -- Inverts the yaw pose parameters (Y)
 ENT.ConstantlyFaceEnemy = true -- Should it face the enemy constantly?
 ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it"s between number x and y?
@@ -39,14 +39,14 @@ ENT.Immune_AcidPoisonRadiation = true -- Immune to Acid, Poison and Radiation
 ENT.Immune_Bullet = true -- Immune to bullet type damages
 ENT.Immune_Fire = true -- Immune to fire-type damages
 ENT.ImmuneDamagesTable = {DMG_PHYSGUN}
-ENT.BringFriendsOnDeath = false -- Should the SNPC's friends come to its position before it dies?
-ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
+ENT.BringFriendsOnDeath = false -- Should the NPC's allies come to its position while it's dying?
+ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 
-ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
+ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_rocket" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
 ENT.RangeDistance = combatDistance -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
-ENT.RangeAttackAngleRadius = 100 -- What is the attack angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
+ENT.RangeAttackAngleRadius = 100 -- What is the attack angle radius? | 100 = In front of the NPC | 180 = All around the NPC
 ENT.TimeUntilRangeAttackProjectileRelease = 0 -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 10 -- How much time until it can use a range attack?
 ENT.RangeAttackReps = 1 -- How many times does it run the projectile code?
@@ -54,7 +54,7 @@ ENT.RangeAttackExtraTimers = {0} -- Extra range attack timers, EX: {1, 1.4} | it
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
 
 ENT.HasDeathRagdoll = false
-ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!\
+ENT.Medic_CanBeHealed = false -- Can this NPC be healed by medics?\
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play
 ENT.SoundTbl_Death = {"vj_hlr/hl1_weapon/mortar/mortarhit.wav"}

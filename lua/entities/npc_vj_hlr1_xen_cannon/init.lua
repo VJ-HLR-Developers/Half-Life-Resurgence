@@ -5,12 +5,12 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/alien_cannon.mdl" -- The game will pick a random model from the table when the SNPC is spawned | Add as many as you want
+ENT.Model = "models/vj_hlr/hl1/alien_cannon.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 100
 ENT.HullType = HULL_WIDE_SHORT
 ENT.SightDistance = 6000 -- How far it can see
 ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
-ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How does the SNPC move?
+ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
 ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
 ENT.PoseParameterLooking_TurningSpeed = 5
 ENT.VJC_Data = {
@@ -21,24 +21,24 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
-ENT.HasMeleeAttack = false -- Should the SNPC have a melee attack?
+ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 
-ENT.HasRangeAttack = true -- Should the SNPC have a range attack?
+ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
 ENT.RangeDistance = 6000 -- This is how far away it can shoot
 ENT.RangeToMeleeDistance = 150 -- How close does it have to be until it uses melee?
-ENT.RangeAttackAngleRadius = 180 -- What is the attack angle radius? | 100 = In front of the SNPC | 180 = All around the SNPC
+ENT.RangeAttackAngleRadius = 180 -- What is the attack angle radius? | 100 = In front of the NPC | 180 = All around the NPC
 ENT.TimeUntilRangeAttackProjectileRelease = 0 -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 0.5 -- How much time until it can use a range attack?
 
-ENT.Medic_CanBeHealed = false -- If set to false, this SNPC can't be healed!
+ENT.Medic_CanBeHealed = false -- Can this NPC be healed by medics?
 ENT.PoseParameterLooking_InvertPitch = true -- Inverts the pitch pose parameters (X)
 ENT.PoseParameterLooking_InvertYaw = true -- Inverts the yaw pose parameters (Y)
 ENT.Immune_AcidPoisonRadiation = true -- Immune to Acid, Poison and Radiation
 ENT.Immune_Bullet = true -- Immune to bullet type damages
 ENT.Immune_Melee = true -- Immune to melee-type damage | Example: Crowbar, slash damages
-ENT.GetDamageFromIsHugeMonster = true -- Should it get damaged no matter what by SNPCs that are tagged as VJ_IsHugeMonster?
+ENT.GetDamageFromIsHugeMonster = true -- Should it skip immunity checks and hurt by all damage types if the attacker is tagged with "VJ_IsHugeMonster"?
 ENT.DeathCorpseModel = "models/vj_hlr/hl1/alien_cannon_bottom.mdl" -- Model(s) to spawn as the NPC's corpse | false = Use the NPC's model | Can be a single string or a table of strings
 ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
 	-- ====== Sound File Paths ====== --
