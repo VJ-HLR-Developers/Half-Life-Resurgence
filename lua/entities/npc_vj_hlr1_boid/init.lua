@@ -20,7 +20,7 @@ ENT.VJC_Data = {
 	FirstP_Offset = Vector(10, 0, 0), -- The offset for the controller when the camera is in first person
 	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
 }
-ENT.IdleAlwaysWander = true -- Should the NPC constantly wander while idiling?
+ENT.IdleAlwaysWander = true -- Should the NPC constantly wander while idling?
 ENT.CanOpenDoors = false -- Can it open doors?
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE -- Type of AI behavior to use for this NPC
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)

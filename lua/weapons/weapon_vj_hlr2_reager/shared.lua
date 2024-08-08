@@ -9,10 +9,9 @@ SWEP.WorldModel = "models/vj_hlr/hl2/weapons/combine_reager.mdl"
 SWEP.HoldType = "ar2"
 SWEP.MadeForNPCsOnly = true
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire = 0.1 -- Next time it can use primary fire
-SWEP.NPC_TimeUntilFire = 0 -- How much time until the bullet/projectile is fired?
+SWEP.NPC_NextPrimaryFire = 0.1 -- RPM of the weapon in seconds | Calculation: 60 / RPM
 SWEP.NPC_FiringDistanceScale = 0.15 -- Changes how far the NPC can fire | 1 = No change, x < 1 = closer, x > 1 = farther
-SWEP.NPC_ReloadSound = {"weapons/physgun_off.wav"}
+SWEP.NPC_ReloadSound = "weapons/physgun_off.wav"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.ClipSize = 200 -- Max amount of bullets per clip
 SWEP.Primary.Ammo = "CrossbowBolt" -- Ammo type

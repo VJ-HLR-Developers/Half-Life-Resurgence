@@ -7,7 +7,7 @@ SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.MadeForNPCsOnly = true
 SWEP.ReplacementWeapon = "weapon_stunstick"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire = 1 -- Next time it can use primary fire
+SWEP.NPC_NextPrimaryFire = 1 -- RPM of the weapon in seconds | Calculation: 60 / RPM
 SWEP.NPC_TimeUntilFire = 0.5 -- How much time until the bullet/projectile is fired?
 SWEP.NPC_BeforeFireSound = {"weapons/stunstick/stunstick_swing1.wav","weapons/stunstick/stunstick_swing2.wav"} -- Plays a sound before the firing code is ran, usually in the beginning of the animation
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------

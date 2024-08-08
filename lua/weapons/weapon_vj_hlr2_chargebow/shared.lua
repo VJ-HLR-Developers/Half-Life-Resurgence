@@ -16,18 +16,18 @@ SWEP.UseHands = true
 
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire = 3 -- Next time it can use primary fire
+SWEP.NPC_NextPrimaryFire = 3 -- RPM of the weapon in seconds | Calculation: 60 / RPM
 SWEP.NPC_TimeUntilFire = 0.4 -- How much time until the bullet/projectile is fired?
 SWEP.NPC_StandingOnly = true -- If true, the weapon can only be fired if the NPC is standing still
 SWEP.NPC_FiringDistanceScale = 0.5 -- Changes how far the NPC can fire | 1 = No change, x < 1 = closer, x > 1 = farther
-SWEP.NPC_ReloadSound = {"weapons/physcannon/physcannon_pickup.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
+SWEP.NPC_ReloadSound = "weapons/physcannon/physcannon_pickup.wav" -- Sounds it plays when the base detects the SNPC playing a reload animation
 SWEP.NPC_BulletSpawnAttachment = "muzzle" -- The attachment that the bullet spawns on, leave empty for base to decide!
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.ClipSize = 1 -- Max amount of bullets per clip
 SWEP.Primary.Delay = 1.25 -- Time until it can shoot again
 SWEP.Primary.Ammo = "XBowBolt" -- Ammo type
 SWEP.Primary.Automatic = true
-SWEP.Primary.Sound = {"vj_hlr/hl2_weapon/chargebow/chargebow_1.wav","vj_hlr/hl2_weapon/chargebow/chargebow_2.wav","vj_hlr/hl2_weapon/chargebow/chargebow_3.wav"}
+SWEP.Primary.Sound = {"vj_hlr/hl2_weapon/chargebow/chargebow_1.wav", "vj_hlr/hl2_weapon/chargebow/chargebow_2.wav", "vj_hlr/hl2_weapon/chargebow/chargebow_3.wav"}
 SWEP.Primary.DistantSound = {}
 SWEP.PrimaryEffects_MuzzleFlash = false
 SWEP.PrimaryEffects_SpawnShells = false
@@ -90,7 +90,7 @@ function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 	-- Projectile
 	for i = 1, self.Bow_NumShots do
 		local projectile = ents.Create("obj_vj_hlr2_chargebolt")
-		local spawnPos = self:GetNW2Vector("VJ_CurBulletPos")
+		local spawnPos = self:GetBulletPos()
 		if owner:IsPlayer() then
 			local plyAng = owner:GetAimVector():Angle()
 			projectile:SetPos(owner:GetShootPos() + plyAng:Forward()*-33 + plyAng:Up()*-5 + plyAng:Right())

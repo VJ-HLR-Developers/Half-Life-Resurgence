@@ -35,7 +35,7 @@ ENT.LeapAttackDamage = 10
 ENT.LeapAttackDamageDistance = 100 -- How far does the damage go?
 ENT.HasDeathRagdoll = false -- Should the NPC spawn a corpse when it dies?
 ENT.PushProps = false -- Should it push props when trying to move?
-ENT.IdleAlwaysWander = true -- Should the NPC constantly wander while idiling?
+ENT.IdleAlwaysWander = true -- Should the NPC constantly wander while idling?
 ENT.FindEnemy_UseSphere = true -- Should the NPC see all around? (360 degrees) | Objects and walls can still block its sight!
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play

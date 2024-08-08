@@ -20,7 +20,7 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
-ENT.IdleAlwaysWander = false -- Should the NPC constantly wander while idiling?
+ENT.IdleAlwaysWander = false -- Should the NPC constantly wander while idling?
 ENT.CanOpenDoors = false -- Can it open doors?
 
 ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)

@@ -18,7 +18,7 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in first person
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.IdleAlwaysWander = true -- Should the NPC constantly wander while idiling?
+ENT.IdleAlwaysWander = true -- Should the NPC constantly wander while idling?
 ENT.CanOpenDoors = false -- Can it open doors?
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE -- Type of AI behavior to use for this NPC
 ENT.HasMeleeAttack = false -- Can this NPC melee attack?

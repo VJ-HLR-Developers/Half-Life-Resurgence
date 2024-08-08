@@ -6,7 +6,7 @@ SWEP.Purpose					= "This weapon is made for Players and NPCs"
 SWEP.Instructions				= "Controls are like a regular weapon."
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= false -- Next time it can use primary fire
+SWEP.NPC_NextPrimaryFire 		= false -- RPM of the weapon in seconds | Calculation: 60 / RPM
 SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/shockroach/shock_recharge.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 	if CLIENT then return end
 	local owner = self:GetOwner()
 	local projectile = ents.Create("obj_vj_hlrof_plasma")
-	local spawnPos = self:GetNW2Vector("VJ_CurBulletPos")
+	local spawnPos = self:GetBulletPos()
 	projectile:SetPos(spawnPos)
 	projectile:SetAngles(owner:GetAngles())
 	projectile:SetOwner(owner)
