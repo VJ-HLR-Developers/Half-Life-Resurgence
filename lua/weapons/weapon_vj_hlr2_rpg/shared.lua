@@ -16,7 +16,7 @@ SWEP.UseHands = true
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 5 -- RPM of the weapon in seconds | Calculation: 60 / RPM
 SWEP.NPC_TimeUntilFire = 0.8 -- How much time until the bullet/projectile is fired?
-SWEP.NPC_ReloadSound = "vj_weapons/reload_rpg.wav"
+SWEP.NPC_ReloadSound = "vj_base/weapons/reload_rpg.wav"
 SWEP.NPC_BulletSpawnAttachment = "missile" -- The attachment that the bullet spawns on, leave empty for base to decide!
 SWEP.NPC_FiringDistanceScale = 2.5 -- Changes how far the NPC can fire | 1 = No change, x < 1 = closer, x > 1 = farther
 SWEP.NPC_StandingOnly = true -- If true, the weapon can only be fired if the NPC is standing still
@@ -26,13 +26,13 @@ SWEP.Primary.Recoil = 0.6 -- How much recoil does the player get?
 SWEP.Primary.Delay = 0.3 -- Time until it can shoot again
 SWEP.Primary.Ammo = "RPG_Round" -- Ammo type
 SWEP.Primary.Sound = "weapons/rpg/rocketfire1.wav"
-SWEP.Primary.DistantSound = "vj_weapons/rpg/rpg_fire_far.wav"
+SWEP.Primary.DistantSound = "vj_base/weapons/rpg/rpg1_single_dist.wav"
 SWEP.Primary.DisableBulletCode = true -- The bullet won't spawn, this can be used when creating a projectile-based weapon
 SWEP.PrimaryEffects_SpawnShells = false
 	-- Reload Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.HasReloadSound = true -- Does it have a reload sound? Remember even if this is set to false, the animation sound will still play!
 SWEP.Reload_TimeUntilAmmoIsSet = 0.8 -- Time until ammo is set to the weapon
-SWEP.ReloadSound = "vj_weapons/reload_rpg.wav"
+SWEP.ReloadSound = "vj_base/weapons/reload_rpg.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:SetupDataTables()
 	self:NetworkVar("Bool", 0, "NWLaser")

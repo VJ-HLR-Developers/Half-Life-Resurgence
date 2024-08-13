@@ -150,7 +150,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+	VJ.EmitSound(self, "vj_base/gib/splat.wav", 90, 100)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

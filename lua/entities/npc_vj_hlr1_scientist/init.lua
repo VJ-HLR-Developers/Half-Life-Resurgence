@@ -404,7 +404,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 100, 100)
+	VJ.EmitSound(self, "vj_base/gib/splat.wav", 100, 100)
 	if self.SCI_Type == SCI_TYPE_KELLER then
 		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, 100)
 		VJ.EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 65, 100)

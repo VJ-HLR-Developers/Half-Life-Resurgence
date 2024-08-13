@@ -599,7 +599,7 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 100, 100)
 		VJ.EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 80, 100)
 	else
-		VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+		VJ.EmitSound(self, "vj_base/gib/splat.wav", 90, 100)
 	end
 	return false
 end

@@ -366,7 +366,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 			util.ScreenShake(myPos,100,200,1,2500)
 			
 			VJ.EmitSound(self, sdExplosions, 90, 100)
-			VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+			VJ.EmitSound(self, "vj_base/gib/splat.wav", 90, 100)
 			
 			util.Decal("VJ_HLR_Scorch", myPos, myPos + self:GetUp()*-100, self)
 			 

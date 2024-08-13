@@ -498,7 +498,7 @@ if VJExists == true then
 		end
 		corpse.HLR_Corpse_Gibs = gibTbl
 		corpse.HLR_Corpse_CollideSound = extraOptions.CollideSound or "Default"
-		corpse.HLR_Corpse_ExpSound = extraOptions.ExpSound or "vj_gib/default_gib_splat.wav"
+		corpse.HLR_Corpse_ExpSound = extraOptions.ExpSound or "vj_base/gib/splat.wav"
 		corpse.HLR_Corpse_StartT = CurTime() + 1
 	end
 	

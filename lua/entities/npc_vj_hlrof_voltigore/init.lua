@@ -175,7 +175,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ.EmitSound(self, "vj_gib/default_gib_splat.wav", 90, 100)
+	VJ.EmitSound(self, "vj_base/gib/splat.wav", 90, 100)
 	VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1, 3)..".wav", 90, 100) -- No far away sound for this!
 	return false
 end
