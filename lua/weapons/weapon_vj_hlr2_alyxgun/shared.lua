@@ -23,8 +23,7 @@ SWEP.Primary.ClipSize = 30 -- Max amount of bullets per clip
 SWEP.Primary.Delay = 0.1 -- Time until it can shoot again
 SWEP.Primary.Ammo = "Pistol" -- Ammo type
 SWEP.Primary.Automatic = true
-SWEP.Primary.Sound = {"vj_hlr/hl2_weapon/alyx_gun/alyx_gun_fire3.wav", "vj_hlr/hl2_weapon/alyx_gun/alyx_gun_fire4.wav"}
-SWEP.Primary.DistantSound = {"vj_hlr/hl2_weapon/alyx_gun/alyx_gun_fire5.wav", "vj_hlr/hl2_weapon/alyx_gun/alyx_gun_fire6.wav"}
+SWEP.Primary.Sound = "VJ.HLR_Weapon_AlyxGun.Single"
 SWEP.PrimaryEffects_ShellAttachment = "1"
 SWEP.PrimaryEffects_ShellType = "ShellEject"
 	-- Reload Settings ---------------------------------------------------------------------------------------------------------------------------------------------
