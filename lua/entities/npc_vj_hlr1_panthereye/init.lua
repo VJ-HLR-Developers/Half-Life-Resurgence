@@ -37,8 +37,6 @@ ENT.TimeUntilLeapAttackVelocity = 0.9 -- How much time until it runs the velocit
 ENT.NextLeapAttackTime = 3 -- How much time until it can use a leap attack?
 ENT.NextLeapAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
 ENT.LeapAttackExtraTimers = {1.3} -- Extra leap attack timers | it will run the damage code after the given amount of seconds
-ENT.LeapAttackVelocityForward = 800 -- How much forward force should it apply?
-ENT.LeapAttackVelocityUp = 200 -- How much upward force should it apply?
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
@@ -74,6 +72,11 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	elseif key == "body" then
 		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:GetLeapAttackVelocity()
+	local ene = self:GetEnemy()
+	return VJ.CalculateTrajectory(self, ene, "Curve", self:GetPos() + self:OBBCenter(), ene:GetPos() + ene:OBBCenter(), 10) + self:GetForward() * 500 + self:GetUp() * 100
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)

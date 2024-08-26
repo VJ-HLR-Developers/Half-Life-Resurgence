@@ -16,8 +16,6 @@ ENT.VJC_Data = {
 }
 ENT.LeapDistance = 180 -- The max distance that the NPC can leap from
 ENT.NoChaseAfterCertainRange_FarDistance = 150 -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
-ENT.LeapAttackVelocityForward = 40 -- How much forward force should it apply?
-ENT.LeapAttackVelocityUp = 150 -- How much upward force should it apply?
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.LeapAttackDamage = 5
 

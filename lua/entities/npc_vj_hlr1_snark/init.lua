@@ -29,8 +29,6 @@ ENT.TimeUntilLeapAttackDamage = 0.4 -- How much time until it runs the leap dama
 ENT.NextLeapAttackTime = 0.4 -- How much time until it can use a leap attack?
 ENT.NextAnyAttackTime_Leap = 0.4 -- How much time until it can use any attack again? | Counted in Seconds
 ENT.LeapAttackExtraTimers = {0.2, 0.6} -- Extra leap attack timers | it will run the damage code after the given amount of seconds
-ENT.LeapAttackVelocityForward = 100 -- How much forward force should it apply?
-ENT.LeapAttackVelocityUp = 180 -- How much upward force should it apply?
 ENT.LeapAttackDamage = 10
 ENT.LeapAttackDamageDistance = 100 -- How far does the damage go?
 ENT.HasDeathRagdoll = false -- Should the NPC spawn a corpse when it dies?
@@ -118,6 +116,11 @@ function ENT:CustomOnThink_AIEnabled()
 			end
 		end)
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:GetLeapAttackVelocity()
+	local ene = self:GetEnemy()
+	return VJ.CalculateTrajectory(self, ene, "Curve", self:GetPos() + self:OBBCenter(), ene:GetPos() + ene:OBBCenter(), 10) + self:GetForward() * 150 + self:GetUp() * 20
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnLeapAttack_AfterChecks(hitEnt)

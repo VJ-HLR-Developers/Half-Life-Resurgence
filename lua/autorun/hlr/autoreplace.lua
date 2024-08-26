@@ -264,11 +264,6 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 						newEnt:SetHealth(val)
 					elseif key == "max_health" then
 						newEnt:SetMaxHealth(val)
-					-- elseif key == "m_bSequenceLoops" && val == true && newEnt:GetInternalVariable("sequence") != -1 then
-						-- newEnt.Old_AnimTbl_IdleStand = newEnt.AnimTbl_IdleStand
-						-- newEnt.AnimTbl_IdleStand = {VJ.SequenceToActivity(newEnt,newEnt:GetInternalVariable("sequence"))}
-						-- newEnt:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
-						-- newEnt:VJ_ACT_PLAYACTIVITY(newEnt:GetInternalVariable("sequence"),true,false,false)
 					elseif key == "m_vecLastPosition" then
 						if val != defPos then
 							newEnt:SetLastPosition(val)

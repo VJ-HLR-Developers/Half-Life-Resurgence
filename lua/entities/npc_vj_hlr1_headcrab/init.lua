@@ -34,8 +34,6 @@ ENT.NextLeapAttackTime = 1 -- How much time until it can use a leap attack?
 ENT.LeapAttackExtraTimers = {0.6, 0.8, 1, 1.2, 1.4} -- Extra leap attack timers | it will run the damage code after the given amount of seconds
 ENT.NextAnyAttackTime_Leap = 3 -- How much time until it can use any attack again? | Counted in Seconds
 ENT.StopLeapAttackAfterFirstHit = true -- Should it stop the leap attack from running rest of timers when it hits an enemy?
-ENT.LeapAttackVelocityForward = 70 -- How much forward force should it apply?
-ENT.LeapAttackVelocityUp = 200 -- How much upward force should it apply?
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
@@ -86,9 +84,8 @@ function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
 	return self:IsOnGround() -- If it's not on ground, then don't play flinch so it won't cut off leap attacks mid air!
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnLeapAttackVelocityCode()
-	self:SetVelocity(((self:GetEnemy():EyePos()) - (self:GetPos() + self:OBBCenter())):GetNormal()*400 + self:GetForward()*self.LeapAttackVelocityForward + self:GetUp()*self.LeapAttackVelocityUp)
-	return true
+function ENT:GetLeapAttackVelocity()
+	return VJ.CalculateTrajectory(self, NULL, "Curve", self:GetPos() + self:OBBCenter(), self:GetEnemy():EyePos(), 1) + self:GetForward() * 80 - self:GetUp() * 30
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
