@@ -58,7 +58,12 @@ function SWEP:CustomOnPrimaryAttack_BeforeShoot()
 	self.FireLoop2:Play()
 	
 	-- Create electrical particle and deal radius shock damage
-	local randPos = (ene:GetPos() + ene:OBBCenter()) + Vector(math.Rand(-10, 10), math.Rand(-10, 10), math.Rand(-10, 10))
+	local targetPos = ene:GetPos() + ene:OBBCenter()
+	if targetPos:Distance(self:GetAttachment(1).Pos) > 300 then
+		local dir = (targetPos - self:GetAttachment(1).Pos):GetNormalized()
+		targetPos = self:GetAttachment(1).Pos + dir * 300
+	end
+	local randPos = targetPos + Vector(math.Rand(-10, 10), math.Rand(-10, 10), math.Rand(-10, 10))
 	util.ParticleTracerEx("electrical_arc_01", self:GetAttachment(1).Pos, randPos, false, self:EntIndex(), 1)
 	VJ.ApplyRadiusDamage(self.Owner, self.Owner, randPos, 20, math.random(2,5), DMG_SHOCK, true, true)
 end
