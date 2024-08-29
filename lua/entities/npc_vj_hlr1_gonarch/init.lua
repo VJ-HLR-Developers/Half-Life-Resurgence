@@ -8,7 +8,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl1/big_mom.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 2000
 ENT.HullType = HULL_LARGE
-ENT.VJ_IsHugeMonster = true -- Is this a huge monster?
+ENT.VJTag_ID_Boss = true -- Is this a huge monster?
 ENT.EntitiesToNoCollide = {"npc_vj_hlr1_headcrab_baby", "npc_vj_hlr1_headcrab", "npc_vj_hlr1a_headcrab"} -- Set to a table of entity class names for the NPC to not collide with otherwise leave it to false
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(-100, 0, -70), -- The offset for the controller when the camera is in third person

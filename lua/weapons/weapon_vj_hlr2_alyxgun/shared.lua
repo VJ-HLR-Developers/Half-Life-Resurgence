@@ -6,6 +6,7 @@ SWEP.Purpose = "This weapon is made for Players and NPCs"
 SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.Spawnable = true
 SWEP.Category = "Half-Life Resurgence"
+	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.ViewModel = "models/vj_hlr/hl2/weapons/c_alyxgun.mdl"
 SWEP.WorldModel = "models/weapons/w_alyx_gun.mdl"
 SWEP.HoldType = "pistol"
@@ -13,6 +14,7 @@ SWEP.Slot = 1 -- Which weapon slot you want your SWEP to be in? (1 2 3 4 5 6)
 SWEP.SlotPos = 1 -- Which part of that slot do you want the SWEP to be in? (1 2 3 4 5 6)
 SWEP.SwayScale = 4 -- Default is 1, The scale of the viewmodel sway
 SWEP.UseHands = true
+//SWEP.ReplacementWeapon = "weapon_rtbr_alyxgun"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 0.95 -- RPM of the weapon in seconds | Calculation: 60 / RPM
 SWEP.NPC_TimeUntilFireExtraTimers = {0.08, 0.16, 0.24, 0.32, 0.4}

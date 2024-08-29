@@ -8,7 +8,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl1/nihilanth.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 3000
 ENT.HullType = HULL_LARGE
-ENT.VJ_IsHugeMonster = true -- Is this a huge monster?
+ENT.VJTag_ID_Boss = true -- Is this a huge monster?
 ENT.SightDistance = 20000 -- How far it can see
 ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.MovementType = VJ_MOVETYPE_STATIONARY

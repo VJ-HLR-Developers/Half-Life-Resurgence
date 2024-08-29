@@ -35,7 +35,7 @@ ENT.DisableFootStepSoundTimer = true
 ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards the player if it's damaged by a player?
 ENT.HasItemDropsOnDeath = false -- Should it drop items on death?
 ENT.MoveRandomlyWhenShooting = false
-ENT.AllowWeaponReloading = false -- If false, the SNPC will no longer reload
+ENT.Weapon_CanReload = false -- If false, the SNPC will no longer reload
 ENT.CanTurnWhileMoving = false -- Can the NPC turn while moving? | EX: GoldSrc NPCs, Facing enemy while running to cover, Facing the player while moving out of the way
 	-- ====== Sound File Paths ====== --
 -- Leave blank if you don't want any sounds to play

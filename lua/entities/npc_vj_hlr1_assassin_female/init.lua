@@ -37,11 +37,11 @@ ENT.AnimTbl_GrenadeAttack = ACT_RANGE_ATTACK2 -- Grenade Attack Animations
 ENT.GrenadeAttackAttachment = "grenadehand" -- The attachment that the grenade will spawn at
 ENT.TimeUntilGrenadeIsReleased = 0.4 -- Time until the grenade is released
 
-ENT.AllowWeaponReloading = false -- If false, the SNPC will no longer reload
+ENT.Weapon_CanReload = false -- If false, the SNPC will no longer reload
 ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
 ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
 ENT.MoveRandomlyWhenShooting = false -- Should it move randomly while shooting a weapon?
-ENT.WeaponSpread = 0.6 -- What's the spread of the weapon? | Closer to 0 = better accuracy, Farther than 1 = worse accuracy
+ENT.Weapon_Accuracy = 0.6 -- What's the spread of the weapon? | Closer to 0 = better accuracy, Farther than 1 = worse accuracy
 ENT.CanCrouchOnWeaponAttack = false -- Can it crouch while shooting?
 ENT.AnimTbl_TakingCover = ACT_LAND -- The animation it plays when hiding in a covered position, leave empty to let the base decide
 ENT.AnimTbl_AlertFriendsOnDeath = ACT_IDLE_ANGRY -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true

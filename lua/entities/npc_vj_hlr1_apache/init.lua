@@ -8,7 +8,7 @@ include("shared.lua")
 local combatDistance = 5000 -- When closer then this, it will stop chasing and start firing
 
 ENT.Model = "models/vj_hlr/hl1/apache.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
-ENT.VJ_IsHugeMonster = true
+ENT.VJTag_ID_Boss = true
 ENT.StartHealth = 400 -- The starting health of the NPC
 ENT.HullType = HULL_LARGE
 ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians

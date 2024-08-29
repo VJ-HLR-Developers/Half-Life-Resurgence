@@ -64,7 +64,7 @@ function ENT:Bullsquid_ActivateBullSquidding()
 	self:SetMaxLookDistance(30000)
 	self.Bullsquid_BullSquidding = true
 	self.Bullsquid_BullSquiddingT = CurTime()
-	self.VJ_IsHugeMonster = true
+	self.VJTag_ID_Boss = true
 	self.StartHealth = 1500
 	self.SightAngle = 180
 	self.FindEnemy_UseSphere = true

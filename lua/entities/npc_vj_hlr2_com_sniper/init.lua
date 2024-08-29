@@ -7,7 +7,7 @@ include("shared.lua")
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.StartHealth = 80
-ENT.WeaponSpread = 0.5
+ENT.Weapon_Accuracy = 0.5
 ENT.Weapon_FiringDistanceFar = 10000
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnInitialize()

@@ -8,5 +8,5 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl2b/combine_elite.mdl" -- Model(s) to spawn with | Picks a random one if it's a table 
 ENT.StartHealth = 80
-ENT.WeaponSpread = 0.5
+ENT.Weapon_Accuracy = 0.5
 ENT.Weapon_FiringDistanceFar = 10000

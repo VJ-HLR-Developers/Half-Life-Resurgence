@@ -8,7 +8,7 @@ SWEP.Instructions = "Controls are like a regular weapon."
 SWEP.WorldModel = "models/weapons/w_annabelle.mdl"
 SWEP.HoldType = "shotgun"
 SWEP.MadeForNPCsOnly = true -- Is this weapon meant to be for NPCs only?
-SWEP.ReplacementWeapon = "weapon_annabelle"
+SWEP.ReplacementWeapon = {"weapon_rtbr_annabelle", "weapon_annabelle"}
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 0.9 -- RPM of the weapon in seconds | Calculation: 60 / RPM
 SWEP.NPC_CustomSpread = 0.2 -- This is added on top of the custom spread that's set inside the SNPC! | Starting from 1: Closer to 0 = better accuracy, Farther than 1 = worse accuracy

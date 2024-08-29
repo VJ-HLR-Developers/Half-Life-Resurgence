@@ -11,7 +11,7 @@ ENT.StartHealth = 180
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK_SWING}
 ENT.TimeUntilGrenadeIsReleased = 1 -- Time until the grenade is released
-ENT.AllowWeaponReloading = false -- If false, the SNPC will no longer reload
+ENT.Weapon_CanReload = false -- If false, the SNPC will no longer reload
 ENT.Weapon_ShootWhileMoving = false -- Can it shoot its weapon while moving?
 ENT.MoveOrHideOnDamageByEnemy = false -- Should the NPC move away or hide behind cover when being damaged while fighting an enemy?
 ENT.Weapon_RetreatDistance = 0 -- If enemy is within this distance, it will retreat back | 0 = Never back away
