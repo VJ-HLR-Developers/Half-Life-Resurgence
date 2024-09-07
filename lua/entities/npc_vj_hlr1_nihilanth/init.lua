@@ -37,8 +37,7 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
 ENT.DeathAnimationTime = 16 -- Time until the NPC spawns its corpse and gets removed
 ENT.IdleSounds_PlayOnAttacks = true -- It will be able to continue and play idle sounds when it performs an attack
 ENT.HasSoundTrack = true
-	-- ====== File Path Variables ====== --
-	-- Leave blank if you don't want any sounds to play
+	-- ====== Sound Paths ====== --
 ENT.SoundTbl_SoundTrack = {"vj_hlr/hl1_npc/nihilanth/Prospero03.mp3"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/x/x_laugh1.wav","vj_hlr/hl1_npc/x/x_laugh2.wav"}
 ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/nihilanth/nil_man_notman.wav","vj_hlr/hl1_npc/nihilanth/nil_win.wav","vj_hlr/hl1_npc/nihilanth/nil_slaves.wav","vj_hlr/hl1_npc/nihilanth/nil_thelast.wav","vj_hlr/hl1_npc/nihilanth/nil_thetruth.wav","vj_hlr/hl1_npc/nihilanth/nil_thieves.wav","vj_hlr/hl1_npc/nihilanth/nil_last.wav","vj_hlr/hl1_npc/nihilanth/nil_die.wav","vj_hlr/hl1_npc/nihilanth/nil_alone.wav","vj_hlr/hl1_npc/nihilanth/nil_deceive.wav","vj_hlr/hl1_npc/nihilanth/nil_now_die.wav","vj_hlr/hl1_npc/x/x_laugh1.wav","vj_hlr/hl1_npc/x/x_laugh2.wav"}

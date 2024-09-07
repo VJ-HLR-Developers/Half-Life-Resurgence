@@ -38,8 +38,7 @@ ENT.CanTurnWhileMoving = false -- Can the NPC turn while moving? | EX: GoldSrc N
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- If it uses normal based animation, use this
 ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}},{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
-	-- ====== File Path Variables ====== --
-	-- Leave blank if you don't want any sounds to play
+	-- ====== Sound Paths ====== --
 local sdTie = {"vj_hlr/hl1_npc/scientist/weartie.wav","vj_hlr/hl1_npc/scientist/ties.wav"}
 local sdStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
 
@@ -232,7 +231,6 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	if key == "step" or key == "wheelchair" then
 		self:FootStepSoundCode()
 	elseif key == "tie" /*&& !self:BusyWithActivity()*/ then
-		self:StopAllCommonSpeechSounds()
 		self:PlaySoundSystem("GeneralSpeech", sdTie)
 		//VJ.EmitSound(self, {"vj_hlr/hl1_npc/scientist/weartie.wav","vj_hlr/hl1_npc/scientist/ties.wav"}, 80, 100)
 	elseif key == "draw" then
@@ -244,7 +242,6 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	// keller
 	elseif key == "keller_surprise" then
 		self.SoundTbl_FootStep = sdStep
-		self:StopAllCommonSpeechSounds()
 		self:PlaySoundSystem("GeneralSpeech", "vj_hlr/hl1_npc/keller/dk_furher.wav")
 	elseif key == "keller_die" then
 		self.HasDeathAnimation = false

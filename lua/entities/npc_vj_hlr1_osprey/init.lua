@@ -43,8 +43,7 @@ ENT.BringFriendsOnDeath = false -- Should the NPC's allies come to its position 
 ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.HasDeathRagdoll = false
 ENT.Medic_CanBeHealed = false -- Can this NPC be healed by medics?
-	-- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Death = {"vj_hlr/hl1_weapon/mortar/mortarhit.wav"}
 
 local sdExplosions = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}

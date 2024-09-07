@@ -44,8 +44,7 @@ ENT.NoChaseAfterCertainRange = false -- Should the NPC stop chasing when the ene
 ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_Type = "Regular" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
-	-- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/stukabat/stkb_idletpick1.wav","vj_hlr/hl1_npc/stukabat/stkb_idletpick2.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/stukabat/stkb_deploy1.wav","vj_hlr/hl1_npc/stukabat/stkb_deploy2.wav"}
 ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/stukabat/stkb_fire1.wav"}

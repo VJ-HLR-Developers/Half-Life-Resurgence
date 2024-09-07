@@ -43,8 +43,7 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_BIG_FLINCH} -- If it uses normal based animation, use this
-	-- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/pitworm/pit_worm_idle1.wav","vj_hlr/hl1_npc/pitworm/pit_worm_idle2.wav","vj_hlr/hl1_npc/pitworm/pit_worm_idle3.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/pitworm/pit_worm_alert(scream).wav","vj_hlr/hl1_npc/pitworm/pit_worm_alert.wav"}
 ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/pitworm/pit_worm_attack_swipe1.wav","vj_hlr/hl1_npc/pitworm/pit_worm_attack_swipe2.wav","vj_hlr/hl1_npc/pitworm/pit_worm_attack_swipe3.wav"}

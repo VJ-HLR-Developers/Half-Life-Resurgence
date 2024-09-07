@@ -33,8 +33,7 @@ ENT.NextRangeAttackTime = 1.5 -- How much time until it can use a range attack?
 
 ENT.DeathCorpseEntityClass = "prop_vj_animatable" -- The entity class it creates | "UseDefaultBehavior" = Let the base automatically detect the type
 ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
-	-- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Death = {"vj_hlr/fx/bustflesh1.wav","vj_hlr/fx/bustflesh2.wav"}
 
 local SdTbl_GibImpact = {"vj_hlr/fx/flesh1.wav","vj_hlr/fx/flesh2.wav","vj_hlr/fx/flesh3.wav","vj_hlr/fx/flesh4.wav","vj_hlr/fx/flesh5.wav","vj_hlr/fx/flesh6.wav","vj_hlr/fx/flesh7.wav"}

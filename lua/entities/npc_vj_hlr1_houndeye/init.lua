@@ -33,8 +33,7 @@ ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = "vjseq_flinch_small" -- If it uses normal based animation, use this
-	-- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/houndeye/he_hunt1.wav","vj_hlr/hl1_npc/houndeye/he_hunt2.wav","vj_hlr/hl1_npc/houndeye/he_hunt3.wav","vj_hlr/hl1_npc/houndeye/he_hunt4.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/houndeye/he_idle1.wav","vj_hlr/hl1_npc/houndeye/he_idle2.wav","vj_hlr/hl1_npc/houndeye/he_idle3.wav","vj_hlr/hl1_npc/houndeye/he_idle4.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/houndeye/he_alert1.wav","vj_hlr/hl1_npc/houndeye/he_alert2.wav","vj_hlr/hl1_npc/houndeye/he_alert3.wav"}
@@ -80,10 +79,8 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	if key == "he_hunt" then -- step
 		self:FootStepSoundCode()
 	elseif key == "woof" then
-		self:StopAllCommonSpeechSounds()
 		self:PlaySoundSystem("GeneralSpeech", "vj_hlr/hl1_npc/houndeye/he_pain3.wav")
 	elseif key == "woooof" then
-		self:StopAllCommonSpeechSounds()
 		self:PlaySoundSystem("GeneralSpeech", "vj_hlr/hl1_npc/houndeye/he_pain1.wav")
 	elseif key == "mad" then
 		self:PlaySoundSystem("GeneralSpeech", madSd)

@@ -47,8 +47,7 @@ ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attac
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = "vjseq_flinch_small" -- If it uses normal based animation, use this
-	-- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/kingpin/kingpin_seeker_amb.wav"}
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/kingpin/kingpin_move.wav", "vj_hlr/hl1_npc/kingpin/kingpin_moveslow.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/kingpin/kingpin_idle1.wav","vj_hlr/hl1_npc/kingpin/kingpin_idle2.wav","vj_hlr/hl1_npc/kingpin/kingpin_idle3.wav",}

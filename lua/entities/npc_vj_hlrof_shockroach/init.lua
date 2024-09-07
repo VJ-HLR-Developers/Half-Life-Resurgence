@@ -17,8 +17,7 @@ ENT.VJC_Data = {
 }
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"} -- NPCs with the same class with be allied to each other
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
-	-- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = "vj_hlr/hl1_npc/shockroach/shock_walk.wav"
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/shockroach/shock_idle1.wav", "vj_hlr/hl1_npc/shockroach/shock_idle2.wav", "vj_hlr/hl1_npc/shockroach/shock_idle3.wav"}
 ENT.SoundTbl_Alert = "vj_hlr/hl1_npc/shockroach/shock_angry.wav"

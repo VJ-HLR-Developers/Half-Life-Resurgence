@@ -21,8 +21,7 @@ ENT.MeleeAttackDistance = 70 -- How close an enemy has to be to trigger a melee 
 ENT.MeleeAttackDamageDistance = 75 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 
 ENT.HasRangeAttack = false -- Can this NPC range attack?
-	-- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/babygarg/gar_step1.wav","vj_hlr/hl1_npc/babygarg/gar_step2.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/babygarg/gar_breathe1.wav","vj_hlr/hl1_npc/babygarg/gar_breathe2.wav","vj_hlr/hl1_npc/babygarg/gar_breathe3.wav","vj_hlr/hl1_npc/babygarg/gar_idle1.wav","vj_hlr/hl1_npc/babygarg/gar_idle2.wav","vj_hlr/hl1_npc/babygarg/gar_idle3.wav","vj_hlr/hl1_npc/babygarg/gar_idle4.wav","vj_hlr/hl1_npc/babygarg/gar_idle5.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/babygarg/gar_alert1.wav","vj_hlr/hl1_npc/babygarg/gar_alert2.wav","vj_hlr/hl1_npc/babygarg/gar_alert3.wav"}

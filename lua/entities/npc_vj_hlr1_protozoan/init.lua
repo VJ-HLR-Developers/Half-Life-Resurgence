@@ -22,8 +22,7 @@ ENT.IdleAlwaysWander = true -- Should the NPC constantly wander while idling?
 ENT.CanOpenDoors = false -- Can it open doors?
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE -- Type of AI behavior to use for this NPC
 ENT.HasMeleeAttack = false -- Can this NPC melee attack?
-	-- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/protozoan/chirp03.wav", "vj_hlr/hl1_npc/protozoan/chirp04.wav", "vj_hlr/hl1_npc/protozoan/chirp05.wav", "vj_hlr/hl1_npc/protozoan/chirp06.wav", "vj_hlr/hl1_npc/protozoan/chirp07.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/protozoan/chirp03.wav", "vj_hlr/hl1_npc/protozoan/chirp04.wav", "vj_hlr/hl1_npc/protozoan/chirp05.wav", "vj_hlr/hl1_npc/protozoan/chirp06.wav", "vj_hlr/hl1_npc/protozoan/chirp07.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -36,8 +36,7 @@ ENT.NextAnyAttackTime_Range = 0.01 -- How much time until it can use any attack 
 ENT.Medic_CanBeHealed = false -- Can this NPC be healed by medics?
 ENT.PoseParameterLooking_InvertPitch = true -- Inverts the pitch pose parameters (X)
 ENT.PoseParameterLooking_InvertYaw = true -- Inverts the yaw pose parameters (Y)
-	-- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/turret/tu_deploy.wav"}
 ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav", "ambient/energy/spark2.wav", "ambient/energy/spark3.wav", "ambient/energy/spark4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/turret/tu_die.wav", "vj_hlr/hl1_npc/turret/tu_die2.wav", "vj_hlr/hl1_npc/turret/tu_die2.wav"}

@@ -54,8 +54,7 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
 ENT.DeathAnimationTime = 0.6 -- Time until the NPC spawns its corpse and gets removed
 ENT.HasDeathRagdoll = false -- Should the NPC spawn a corpse when it dies?
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
-	-- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Breath = "vj_hlr/hla_npc/prdroid/engine.wav"
 ENT.SoundTbl_MedicAfterHeal = "vj_hlr/hla_npc/prdroid/shoot_heal.wav"
 ENT.SoundTbl_Alert = "vj_hlr/hla_npc/prdroid/alert.wav"

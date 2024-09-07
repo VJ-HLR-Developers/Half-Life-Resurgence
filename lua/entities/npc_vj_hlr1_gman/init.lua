@@ -27,8 +27,7 @@ ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.MoveOutOfFriendlyPlayersWay = false -- Should the NPC move and give space to friendly players?
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
-	-- ====== File Path Variables ====== --
-	-- Leave blank if you don't want any sounds to play
+	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
 ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/gman/gman_nasty.wav","vj_hlr/hl1_npc/gman/gman_choose1.wav","vj_hlr/hl1_npc/gman/gman_choose2.wav","vj_hlr/hl1_npc/gman/gman_otherwise.wav"}
 ENT.SoundTbl_FollowPlayer = {"vj_hlr/hl1_npc/gman/gman_potential.wav","vj_hlr/hl1_npc/gman/gman_wise.wav"}

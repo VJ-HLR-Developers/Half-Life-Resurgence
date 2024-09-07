@@ -35,8 +35,7 @@ ENT.NextAnyAttackTime_Range = 0.04 -- How much time until it can use any attack 
 ENT.CanReceiveOrders = false -- Can the NPC receive orders from others? | Ex: Allies calling for help, allies requesting backup on damage, etc.
 ENT.Medic_CanBeHealed = false -- Can this NPC be healed by medics?
 ENT.TimeUntilEnemyLost = 5 -- Time until it resets its enemy if the enemy is not visible
-	-- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav","ambient/energy/spark2.wav","ambient/energy/spark3.wav","ambient/energy/spark4.wav"}
 ENT.SoundTbl_Death = "npc/turret_floor/die.wav"
 

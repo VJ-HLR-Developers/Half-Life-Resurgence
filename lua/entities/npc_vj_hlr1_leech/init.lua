@@ -38,8 +38,7 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
 	-- Don't use ACT_DIEFORWARD as it's supposed to be played as end of death animation
 ENT.PushProps = false -- Should it push props when trying to move?
 ENT.AttackProps = false -- Should it attack props when trying to move?
-	-- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/leech/leech_alert1.wav","vj_hlr/hl1_npc/leech/leech_alert2.wav"}
 //ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/leech/leech_alert1.wav","vj_hlr/hl1_npc/leech/leech_alert2.wav"}
 ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/leech/leech_bite1.wav","vj_hlr/hl1_npc/leech/leech_bite2.wav","vj_hlr/hl1_npc/leech/leech_bite3.wav"}

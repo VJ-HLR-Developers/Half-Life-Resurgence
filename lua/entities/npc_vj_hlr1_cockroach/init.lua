@@ -25,8 +25,7 @@ ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.FootStepTimeRun = 3 -- Next foot step sound when it is running
 ENT.FootStepTimeWalk = 3 -- Next foot step sound when it is walking
 ENT.HasImpactSounds = false
-	-- ====== Sound File Paths ====== --
--- Leave blank if you don't want any sounds to play
+	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/roach/rch_walk.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/roach/rch_die.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
