@@ -275,7 +275,7 @@ function ENT:CustomOnAlert(ent)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoChangeWeapon(newWeapon, oldWeapon, invSwitch)
+function ENT:OnChangeWeapon(newWeapon, oldWeapon, invSwitch)
 	//if invSwitch == true then -- Only if it's a inventory switch
 	-- Play the stunstick activation animation
 	if newWeapon:GetClass() == "weapon_vj_hlr2_stunstick" then
@@ -333,7 +333,7 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAllyDeath(ent)
+function ENT:OnAllyKilled(ent)
 	if math.random(1, 3) != 1  && self.VJTag_ID_Police then
 		self:PlaySoundSystem("AllyDeath", sdCop_AllyDeath_Metrocop)
 	end

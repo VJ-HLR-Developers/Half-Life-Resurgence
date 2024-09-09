@@ -356,7 +356,7 @@ function ENT:OnMaintainRelationships(ent, entFri, entDist)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoChangeWeapon(newWeapon, oldWeapon, invSwitch)
+function ENT:OnChangeWeapon(newWeapon, oldWeapon, invSwitch)
 	if invSwitch == true then -- Only if it's a inventory switch
 		self:VJ_ACT_PLAYACTIVITY(ACT_PICKUP_RACK, true, false, true)
 	end
@@ -444,7 +444,7 @@ function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAllyDeath(ent)
+function ENT:OnAllyKilled(ent)
 	if ent:IsPlayer() or ent.VJ_HLR_Freeman then
 		self:PlaySoundSystem("AllyDeath", (self.Human_Gender == HUMAN_GENDER_FEMALE and sdAllyDeathPly_F) or sdAllyDeathPly_M)
 	end

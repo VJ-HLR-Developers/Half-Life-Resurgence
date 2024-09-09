@@ -1119,7 +1119,7 @@ function ENT:CustomOnDoKilledEnemy(ent, attacker, inflictor)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAllyDeath(ent)
+function ENT:OnAllyKilled(ent)
 	if ent:IsPlayer() or ent.VJ_HLR_Freeman then
 		self:PlaySoundSystem("AllyDeath", sdAllyDeath)
 	end
