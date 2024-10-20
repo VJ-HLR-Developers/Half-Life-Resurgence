@@ -17,18 +17,14 @@ function ENT:TranslateActivity(act)
 	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	-- Overwrite it to do nothing
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
 	-- Overwrite it to do nothing
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
-	-- Overwrite it to do nothing
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
+function ENT:OnAlert(ent)
 	-- Overwrite it to do nothing
 end

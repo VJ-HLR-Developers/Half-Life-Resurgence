@@ -63,7 +63,7 @@ ENT.Rocket_HelicopterMissile = false
 local vecZ20 = Vector(0, 0, 40)
 local colorTrail = Color(224, 224, 255, 255)
 --
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self.StartGlow1 = ents.Create("env_sprite")
 	self.StartGlow1:SetKeyValue("model","vj_hl/sprites/animglow01.vmt")
 	self.StartGlow1:SetKeyValue("rendercolor","224 224 255")

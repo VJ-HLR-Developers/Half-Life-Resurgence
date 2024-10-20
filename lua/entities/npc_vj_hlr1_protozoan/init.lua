@@ -26,13 +26,15 @@ ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/protozoan/chirp03.wav", "vj_hlr/hl1_npc/protozoan/chirp04.wav", "vj_hlr/hl1_npc/protozoan/chirp05.wav", "vj_hlr/hl1_npc/protozoan/chirp06.wav", "vj_hlr/hl1_npc/protozoan/chirp07.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/protozoan/chirp03.wav", "vj_hlr/hl1_npc/protozoan/chirp04.wav", "vj_hlr/hl1_npc/protozoan/chirp05.wav", "vj_hlr/hl1_npc/protozoan/chirp06.wav", "vj_hlr/hl1_npc/protozoan/chirp07.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(28, 28, 65), Vector(-28, -28, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnKilled(dmginfo, hitgroup)
-	//ParticleEffect("vj_hlr_blood_boob_yellow", self:GetPos() + self:OBBCenter(), self:GetAngles())
-	local effectPop = EffectData()
-	effectPop:SetOrigin(self:GetPos() + self:OBBCenter())
-	util.Effect("VJ_HLR_Protozoan_Pop", effectPop)
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Finish" then
+		//ParticleEffect("vj_hlr_blood_boob_yellow", self:GetPos() + self:OBBCenter(), self:GetAngles())
+		local effectPop = EffectData()
+		effectPop:SetOrigin(self:GetPos() + self:OBBCenter())
+		util.Effect("VJ_HLR_Protozoan_Pop", effectPop)
+	end
 end

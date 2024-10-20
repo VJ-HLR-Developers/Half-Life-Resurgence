@@ -33,7 +33,7 @@ local racexEnts = {"npc_vj_hlrof_shocktrooper", "npc_vj_hlrof_pitdrone", "npc_vj
 local vecZ45 = Vector(0, 0, 45)
 local vecNZ20 = Vector(0, 0, -20)
 --
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	timer.Simple(0.02, function()
 		if IsValid(self) then
 			self:SetPos(self:GetPos() + vecZ45)
@@ -68,7 +68,7 @@ function ENT:HLR_ActivateSpawner(eneEnt)
 	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	if self.VJBaseSpawnerDisabled && VJ_CVAR_AI_ENABLED && CurTime() > self.HLRSpawner_NextCheckT then
 		print("run")
 		for _, v in ipairs(ents.FindInSphere(self:GetPos(), self.HLRSpawner_Distance)) do

@@ -29,7 +29,7 @@ ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calcula
 
 ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_probed_needle" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
-ENT.RangeDistance = 1500 -- This is how far away it can shoot
+ENT.RangeDistance = 1500 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 110 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the needle code is ran?
 ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
@@ -50,9 +50,9 @@ ENT.Medic_SpawnPropOnHeal = false -- Should it spawn a prop, such as small healt
 ENT.Medic_CanBeHealed = false -- Can this NPC be healed by medics?
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
-ENT.DeathAnimationTime = 0.6 -- Time until the NPC spawns its corpse and gets removed
-ENT.HasDeathRagdoll = false -- Should the NPC spawn a corpse when it dies?
+ENT.AnimTbl_Death = ACT_DIESIMPLE
+ENT.DeathAnimationTime = 0.6 -- How long should the death animation play?
+ENT.HasDeathCorpse = false -- Should a corpse spawn when it's killed?
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Breath = "vj_hlr/hla_npc/prdroid/engine.wav"
@@ -67,7 +67,7 @@ ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local spawnPos = Vector(0, 0, 80)
 --
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(35, 35, 15), Vector(-35, -35, -50))
 	self:SetPos(self:GetPos() + spawnPos)
 end
@@ -76,7 +76,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("Hold-SPACE: Fires healing needle while range attacking")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "melee" then
 		self:MeleeAttackCode()
@@ -92,30 +92,30 @@ function ENT:TranslateActivity(act)
 	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMedic_BeforeHeal()
-	VJ.EmitSound(self, "vj_hlr/hla_npc/prdroid/readytoattack.wav", 90, 100) -- Preparing sound same as range attack
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMedic_OnHeal(ent)
-	self:VJ_ACT_PLAYACTIVITY(ACT_RANGE_ATTACK1, true, 0, true, 0, {OnFinish = function()
-		self:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true)
-		VJ.EmitSound(self, "vj_hlr/hla_npc/prdroid/reload.wav", 90, 100) -- Reload sound
-	end})
-	local attPos = self:GetAttachment(self:LookupAttachment("0")).Pos
-	local needle = ents.Create("obj_vj_hlr1_probed_needle")
-	needle:SetPos(attPos)
-	needle:SetAngles((ent:GetPos() - needle:GetPos()):Angle())
-	needle:SetOwner(self)
-	needle:SetPhysicsAttacker(self)
-	needle.Needle_Heal = true
-	needle:Spawn()
-	needle:Activate()
-	local phys = needle:GetPhysicsObject()
-	if IsValid(phys) then
-		phys:Wake()
-		phys:SetVelocity(self:CalculateProjectile("Line", attPos, self:GetAimPosition(ent, attPos, 1, 1500), 1500))
+function ENT:OnMedicBehavior(status, statusData)
+	if status == "BeforeHeal" then
+		VJ.EmitSound(self, "vj_hlr/hla_npc/prdroid/readytoattack.wav", 90, 100) -- Preparing sound same as range attack
+	elseif status == "OnHeal" then
+		self:VJ_ACT_PLAYACTIVITY(ACT_RANGE_ATTACK1, true, 0, true, 0, {OnFinish = function()
+			self:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true)
+			VJ.EmitSound(self, "vj_hlr/hla_npc/prdroid/reload.wav", 90, 100) -- Reload sound
+		end})
+		local attPos = self:GetAttachment(self:LookupAttachment("0")).Pos
+		local needle = ents.Create("obj_vj_hlr1_probed_needle")
+		needle:SetPos(attPos)
+		needle:SetAngles((statusData:GetPos() - needle:GetPos()):Angle())
+		needle:SetOwner(self)
+		needle:SetPhysicsAttacker(self)
+		needle.Needle_Heal = true
+		needle:Spawn()
+		needle:Activate()
+		local phys = needle:GetPhysicsObject()
+		if IsValid(phys) then
+			phys:Wake()
+			phys:SetVelocity(self:CalculateProjectile("Line", attPos, self:GetAimPosition(statusData, attPos, 1, 1500), 1500))
+		end
+		return false
 	end
-	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 --  ACT_RANGE_ATTACK2 -- Rapid firing (3-shot burst) range attack animation | !!! UNUSED !!!
@@ -149,8 +149,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
 --
-function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
-	if dmginfo:GetDamagePosition() != vec then
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+	if status == "Initial" && dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(5) -- Size
@@ -159,46 +159,44 @@ function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
-	if dmginfo:IsDamageType(DMG_BLAST) then
-		self.HasDeathAnimation = false
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 local collideSds = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
 --
-function ENT:CustomOnKilled(dmginfo, hitgroup)
-	VJ.ApplyRadiusDamage(self, self, self:GetPos(), 75, 25, DMG_BLAST, false, true)
-	VJ.EmitSound(self, "vj_hlr/hla_npc/prdroid/explode.wav", 90, 100)
-	local applyForce = self.HasDeathAnimation and false or true
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_cap.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("sphere01")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_armpiece.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed011")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_armpiece.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed007")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_claw.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed012")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_claw.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed008")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_dshooter.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed005")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_tail.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed014")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_upperarm.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed011")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_upperarm.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed007")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_body.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed003")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_forearm.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed011")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_forearm.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed007")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Initial" && dmginfo:IsDamageType(DMG_BLAST) then
+		self.HasDeathAnimation = false
+	elseif status == "Finish" then
+		VJ.ApplyRadiusDamage(self, self, self:GetPos(), 75, 25, DMG_BLAST, false, true)
+		VJ.EmitSound(self, "vj_hlr/hla_npc/prdroid/explode.wav", 90, 100)
+		local applyForce = self.HasDeathAnimation and false or true
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_cap.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("sphere01")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_armpiece.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed011")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_armpiece.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed007")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_claw.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed012")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_claw.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed008")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_dshooter.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed005")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_tail.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed014")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_upperarm.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed011")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_upperarm.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed007")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_body.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed003")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_forearm.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed011")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_forearm.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed007")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
 
-	local spr = ents.Create("env_sprite")
-	spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
-	spr:SetKeyValue("GlowProxySize", "2.0")
-	spr:SetKeyValue("HDRColorScale", "1.0")
-	spr:SetKeyValue("renderfx", "14")
-	spr:SetKeyValue("rendermode", "5")
-	spr:SetKeyValue("renderamt", "255")
-	spr:SetKeyValue("disablereceiveshadows", "0")
-	spr:SetKeyValue("mindxlevel", "0")
-	spr:SetKeyValue("maxdxlevel", "0")
-	spr:SetKeyValue("framerate", "15.0")
-	spr:SetKeyValue("spawnflags", "0")
-	spr:SetKeyValue("scale", "2")
-	spr:SetPos(self:GetPos())
-	spr:Spawn()
-	spr:Fire("Kill", "", 0.9)
-	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+		local spr = ents.Create("env_sprite")
+		spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
+		spr:SetKeyValue("GlowProxySize", "2.0")
+		spr:SetKeyValue("HDRColorScale", "1.0")
+		spr:SetKeyValue("renderfx", "14")
+		spr:SetKeyValue("rendermode", "5")
+		spr:SetKeyValue("renderamt", "255")
+		spr:SetKeyValue("disablereceiveshadows", "0")
+		spr:SetKeyValue("mindxlevel", "0")
+		spr:SetKeyValue("maxdxlevel", "0")
+		spr:SetKeyValue("framerate", "15.0")
+		spr:SetKeyValue("spawnflags", "0")
+		spr:SetKeyValue("scale", "2")
+		spr:SetPos(self:GetPos())
+		spr:Spawn()
+		spr:Fire("Kill", "", 0.9)
+		timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+	end
 end

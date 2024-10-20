@@ -27,29 +27,29 @@ ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damage
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.VJ_NPC_Class = {"CLASS_BLACKOPS"} -- NPCs with the same class with be allied to each other
 ENT.HasMeleeAttack = true -- Can this NPC melee attack?
-ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2} -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2}
 ENT.MeleeAttackDamage = 15
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 
 ENT.HasGrenadeAttack = true -- Should the NPC have a grenade attack?
 ENT.GrenadeAttackEntity = "obj_vj_hlr1_grenade" -- Entities that it can spawn when throwing a grenade | If set as a table, it picks a random entity | VJ: "obj_vj_grenade" | HL2: "npc_grenade_frag"
-ENT.AnimTbl_GrenadeAttack = ACT_RANGE_ATTACK2 -- Grenade Attack Animations
+ENT.AnimTbl_GrenadeAttack = ACT_RANGE_ATTACK2
 ENT.GrenadeAttackAttachment = "grenadehand" -- The attachment that the grenade will spawn at
 ENT.TimeUntilGrenadeIsReleased = 0.4 -- Time until the grenade is released
 
 ENT.Weapon_CanReload = false -- If false, the SNPC will no longer reload
 ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
 ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
-ENT.MoveRandomlyWhenShooting = false -- Should it move randomly while shooting a weapon?
-ENT.Weapon_Accuracy = 0.6 -- What's the spread of the weapon? | Closer to 0 = better accuracy, Farther than 1 = worse accuracy
+ENT.Weapon_StrafeWhileFiring = false -- Should it move randomly while firing a weapon?
+ENT.Weapon_Accuracy = 0.6 -- NPC's accuracy with weapons, affects bullet spread! | x < 1 = Better accuracy | x > 1 = Worse accuracy
 ENT.CanCrouchOnWeaponAttack = false -- Can it crouch while shooting?
 ENT.AnimTbl_TakingCover = ACT_LAND -- The animation it plays when hiding in a covered position, leave empty to let the base decide
 ENT.AnimTbl_AlertFriendsOnDeath = ACT_IDLE_ANGRY -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
-ENT.WaitForEnemyToComeOutTime = VJ.SET(1, 2) -- How much time should it wait until it starts chasing the enemy?
+ENT.Weapon_WaitOnOcclusionTime = VJ.SET(1, 2) -- How long should it wait before it starts to pursue?
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE} -- Death Animations
-ENT.DeathAnimationTime = false -- Time until the NPC spawns its corpse and gets removed
+ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
+ENT.DeathAnimationTime = false -- How long should the death animation play?
 ENT.CanTurnWhileMoving = false -- Can the NPC turn while moving? | EX: GoldSrc NPCs, Facing enemy while running to cover, Facing the player while moving out of the way
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav", "vj_hlr/pl_step2.wav", "vj_hlr/pl_step3.wav", "vj_hlr/pl_step4.wav"}
@@ -65,7 +65,7 @@ ENT.BOA_ShotsSinceRun = 0
 ENT.BOA_OffGround = false
 ENT.BOA_ForceJumpShoot = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetRenderMode(RENDERMODE_TRANSALPHA)
 	
 	if GetConVar("vj_hlr1_assassin_cloaks"):GetInt() == 0 then
@@ -73,7 +73,7 @@ function ENT:CustomOnInitialize()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
@@ -100,12 +100,12 @@ function ENT:BusyWithActivity()
 	return self.BaseClass.BusyWithActivity(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
 	-- Stay under 1.4 to make sure that it will do jump behavior rather then run behavior most of the time | 1.2 = Always jump behavior
 	self.BOA_NextJumpT = CurTime() + math.Rand(0.8, 1.4)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	if self.Dead then return end
 	local curTime = CurTime()
 	
@@ -194,7 +194,7 @@ local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles == true then
+	if self.HasGibOnDeathEffects == true then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorRed)
@@ -225,21 +225,21 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	self:DoDropWeaponOnDeath(dmginfo, hitgroup)
-	self:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
-	if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "DeathAnim" then
+		self:DeathWeaponDrop(dmginfo, hitgroup)
+		self:SetBodygroup(1, 1)
+		if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
+	elseif status == "Finish" then
+		self:SetBodygroup(1, 1)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
-	self:SetBodygroup(1, 1)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDropWeapon(dmginfo, hitgroup, wepEnt)
+function ENT:OnDeathWeaponDrop(dmginfo, hitgroup, wepEnt)
 	wepEnt.WorldModel_Invisible = false
 	wepEnt:SetNW2Bool("VJ_WorldModel_Invisible", false)
 end

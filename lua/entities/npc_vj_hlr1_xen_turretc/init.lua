@@ -25,7 +25,7 @@ ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
-ENT.RangeDistance = 512 -- This is how far away it can shoot
+ENT.RangeDistance = 512 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
 ENT.RangeAttackAngleRadius = 180 -- What is the attack angle radius? | 100 = In front of the NPC | 180 = All around the NPC
 ENT.TimeUntilRangeAttackProjectileRelease = 0 -- How much time until the projectile code is ran?
@@ -40,7 +40,7 @@ local SdTbl_GibImpact = {"vj_hlr/fx/flesh1.wav","vj_hlr/fx/flesh2.wav","vj_hlr/f
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(25, 25, 0), Vector(-25, -25, -162))
 	self:DrawShadow(false) -- Because the light somehow makes a shadow =/
 	
@@ -118,9 +118,9 @@ function ENT:CustomRangeAttackCode()
 	timer.Simple(0.2, function() SafeRemoveEntity(spr) end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
+function ENT:OnDamaged(dmginfo, hitgroup, status)
 	-- Take damage only if the bottom part is hit or it's a blast damage!
-	if hitgroup == 3 && !dmginfo:IsDamageType(DMG_BLAST) then
+	if status == "PreDamage" && hitgroup == 3 && !dmginfo:IsDamageType(DMG_BLAST) then
 		dmginfo:SetDamage(0)
 	end
 end
@@ -130,7 +130,7 @@ local vecZ12 = Vector(0, 0, 12)
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	local attPos = self:GetAttachment(1).Pos
-	if self.HasGibDeathParticles == true then
+	if self.HasGibOnDeathEffects == true then
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 		spr:SetKeyValue("rendercolor", "115,  30,  164")
@@ -170,6 +170,6 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	corpseEnt:SetBodygroup(0, 1)
 end

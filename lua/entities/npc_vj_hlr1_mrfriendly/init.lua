@@ -20,27 +20,27 @@ ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 
-ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1 -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
 ENT.MeleeAttackDamage = 25
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDistance = 40 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.MeleeAttackDamageDistance = 100 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 
 ENT.HasRangeAttack = true -- Can this NPC range attack?
-ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1 -- Range Attack Animations
-ENT.RangeDistance = 140 -- This is how far away it can shoot
+ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
+ENT.RangeDistance = 140 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 50 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
 ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- The regular flinch animations to play
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/friendly/fr_groan1.wav","vj_hlr/hl1_npc/friendly/fr_groan2.wav"}
 ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/friendly/fr_attack.wav"}
@@ -52,11 +52,11 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/friendly/fr_groan1.wav","vj_hlr/hl1_npc/fr
 ENT.PainSoundPitch = VJ.SET(150, 150)
 ENT.DeathSoundPitch = VJ.SET(150, 150)
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(35, 35, 60), Vector(-35, -35, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then		-- not even used
 		self:FootStepSoundCode()
@@ -97,7 +97,7 @@ local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles then
+	if self.HasGibOnDeathEffects then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorYellow)
@@ -138,6 +138,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gibs = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl"}
 --
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, nil, {ExtraGibs = gibs})
 end

@@ -14,13 +14,13 @@ ENT.VJC_Data = {
 }
 ENT.HasGrenadeAttack = false
 ENT.WeaponAttackSecondaryTimeUntilFire = 1.2
-ENT.MoveRandomlyWhenShooting = true -- Should it move randomly while shooting a weapon?
+ENT.Weapon_StrafeWhileFiring = true -- Should it move randomly while firing a weapon?
 ENT.CanTurnWhileMoving = true -- Can the NPC turn while moving? | EX: GoldSrc NPCs, Facing enemy while running to cover, Facing the player while moving out of the way
 
 -- Custom
 ENT.AHGR_NextStrafeT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:HECU_CustomOnInitialize()
+function ENT:HECU_OnInit()
 	local randSkin = math.random(0, 3)
 	if randSkin == 1 then
 		self:SetSkin(1)
@@ -40,7 +40,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local strafeAnims = {ACT_STRAFE_RIGHT, ACT_STRAFE_LEFT}
 --
-function ENT:CustomOnMoveRandomlyWhenShooting()
+function ENT:OnWeaponStrafeWhileFiring()
 	self:VJ_ACT_PLAYACTIVITY(strafeAnims, true, false, false)
 	return false
 end

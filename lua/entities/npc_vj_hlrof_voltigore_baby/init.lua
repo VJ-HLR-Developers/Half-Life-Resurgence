@@ -22,22 +22,22 @@ ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's dam
 ENT.HasBloodPool = false -- Does it have a blood pool?
 
 ENT.MeleeAttackDamage = 15
-ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1 -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDistance = 40 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.MeleeAttackDamageDistance = 50 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 
 ENT.HasRangeAttack = true -- Can this NPC range attack?
-ENT.AnimTbl_RangeAttack = "vjseq_distanceattack" -- Range Attack Animations
-ENT.RangeDistance = 1000 -- This is how far away it can shoot
+ENT.AnimTbl_RangeAttack = "vjseq_distanceattack"
+ENT.RangeDistance = 1000 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 100 -- How close does it have to be until it uses melee?
 ENT.NextRangeAttackTime = 15 -- How much time until it can use a range attack?
 ENT.NextRangeAttackTime_DoRand = 20 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
 ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE} -- Death Animations
-ENT.DeathAnimationTime = false -- Time until the NPC spawns its corpse and gets removed
+ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
+ENT.DeathAnimationTime = false -- How long should the death animation play?
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/voltigore/voltigore_footstep1.wav","vj_hlr/hl1_npc/voltigore/voltigore_footstep2.wav","vj_hlr/hl1_npc/voltigore/voltigore_footstep3.wav"}
@@ -55,11 +55,11 @@ ENT.FootStepPitch = VJ.SET(130, 130)
 ENT.GeneralSoundPitch1 = 120
 ENT.GeneralSoundPitch2 = 125
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(20, 20, 40), Vector(-20, -20, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
@@ -123,7 +123,7 @@ local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles then
+	if self.HasGibOnDeathEffects then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorYellow)
@@ -154,6 +154,6 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt)
 end

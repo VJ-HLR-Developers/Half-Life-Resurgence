@@ -8,7 +8,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl1/big_mom.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 2000
 ENT.HullType = HULL_LARGE
-ENT.VJTag_ID_Boss = true -- Is this a huge monster?
+ENT.VJTag_ID_Boss = true
 ENT.EntitiesToNoCollide = {"npc_vj_hlr1_headcrab_baby", "npc_vj_hlr1_headcrab", "npc_vj_hlr1a_headcrab"} -- Set to a table of entity class names for the NPC to not collide with otherwise leave it to false
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(-100, 0, -70), -- The offset for the controller when the camera is in third person
@@ -24,7 +24,7 @@ ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"} -- NPCs with the same class with be allied t
 
 ENT.HasMeleeAttack = true -- Can this NPC melee attack?
 ENT.MeleeAttackDamage = 60
-ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1 -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
 ENT.MeleeAttackDistance = 150 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.MeleeAttackDamageDistance = 200 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
@@ -32,15 +32,15 @@ ENT.HasMeleeAttackKnockBack = true -- Should knockback be applied on melee hit? 
 
 ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_gonarchspit" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
-ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1 -- Range Attack Animations
-ENT.RangeDistance = 2000 -- This is how far away it can shoot
+ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
+ENT.RangeDistance = 2000 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 500 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 0.1 -- How much time until it can use a range attack?
 ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 	-- ====== Sound Paths ====== --
@@ -70,14 +70,14 @@ ENT.Gonarch_NextBirthT = 0
 ENT.Gonarch_NextDeadBirthT = 0
 ENT.Gonarch_ShakeWorldOnMiss = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(100, 100, 200), Vector(-100, -100, 0))
 	self.Gonarch_NextBirthT = CurTime() + 3
 	self.Gonarch_NumBabies = 0
 	self.Gonarch_BabyLimit = GetConVar("vj_hlr1_gonarch_babylimit"):GetInt()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "Step" then
 		util.ScreenShake(self:GetPos(), 10, 100, 0.4, 2000)
@@ -120,7 +120,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("JUMP: Spawn baby headcrabs")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
 	self.Gonarch_NextBirthT = CurTime() + math.random(3, 6)
 	self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1, true, false, true) // {"vjseq_angry1", "vjseq_angry2"}
 end
@@ -135,7 +135,7 @@ function ENT:Gonarch_BabyDeath()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
 	-- Create baby headcrabs
 	if !self.Dead && IsValid(self:GetEnemy()) && self.CurrentAttackAnimationTime < CurTime() && CurTime() > self.Gonarch_NextBirthT && self.Gonarch_NumBabies < self.Gonarch_BabyLimit && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self:VJ_ACT_PLAYACTIVITY(ACT_SPECIAL_ATTACK1, true, false, true)
@@ -161,7 +161,7 @@ local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles then
+	if self.HasGibOnDeathEffects then
 		local myCenterPos = self:GetPos() + self:OBBCenter()
 		local effectData = EffectData()
 		effectData:SetOrigin(myCenterPos)
@@ -194,6 +194,6 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, nil, {Gibbable=false})
 end

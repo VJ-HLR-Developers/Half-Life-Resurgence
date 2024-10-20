@@ -23,7 +23,7 @@ ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
 ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
-ENT.MoveRandomlyWhenShooting = false -- Should it move randomly while shooting a weapon?
+ENT.Weapon_StrafeWhileFiring = false -- Should it move randomly while firing a weapon?
 ENT.HasCallForHelpAnimation = false -- if true, it will play the call for help animation
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
@@ -36,7 +36,7 @@ ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Examp
 ENT.CanTurnWhileMoving = false -- Can the NPC turn while moving? | EX: GoldSrc NPCs, Facing enemy while running to cover, Facing the player while moving out of the way
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- The regular flinch animations to play
 ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}},{HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}},{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}},{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
@@ -122,7 +122,7 @@ ENT.Security_NextMouthMove = 0
 ENT.Security_NextMouthDistance = 0
 ENT.Security_Type = SECURITY_TYPE_REGULAR
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(13, 13, 76), Vector(-13, -13, 0))
 	self:SetBodygroup(1, 0)
 	self:SetWeaponState(VJ.NPC_WEP_STATE_HOLSTERED)
@@ -166,7 +166,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
@@ -193,7 +193,7 @@ function ENT:TranslateActivity(act) -- Not ran for SECURITY_TYPE_ALPHA
 	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	if self.Security_Type != SECURITY_TYPE_ALPHA then -- If it's regular or Otis...
 		-- Mouth movement
 		if CurTime() < self.Security_NextMouthMove then
@@ -213,7 +213,7 @@ function ENT:OnPlayCreateSound(sdData, sdFile)
 	self.Security_NextMouthMove = CurTime() + SoundDuration(sdFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
 	if self.VJ_IsBeingControlled then return end
 	
 	if math.random(1, 2) == 1 then
@@ -251,7 +251,7 @@ function ENT:Security_UnHolsterGun()
 	timer.Simple(0.55, function() if IsValid(self) then self:SetBodygroup(1, 1) end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
 	if self.VJ_IsBeingControlled or self.Dead or self:BusyWithActivity() then return end
 	-- Unholster the weapon if we are alerted and have NOT unholstered the weapon
 	if self:GetNPCState() == NPC_STATE_ALERT or self:GetNPCState() == NPC_STATE_COMBAT then
@@ -266,17 +266,19 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
 --
-function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
-	-- Make a metal effect when the helmet is hit!
-	self.Bleeds = true
-	if self.Security_Type == SECURITY_TYPE_OTIS then return end -- Only types that do have a helmet
-	if hitgroup == HITGROUP_GEAR && dmginfo:GetDamagePosition() != vec then
-		self.Bleeds = false			-- disable bleeding temporarily when shot at the helmet
-		local rico = EffectData()
-		rico:SetOrigin(dmginfo:GetDamagePosition())
-		rico:SetScale(4) -- Size
-		rico:SetMagnitude(math.random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
-		util.Effect("VJ_HLR_Rico", rico)
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+	if status == "Initial" then
+		-- Make a metal effect when the helmet is hit!
+		self.Bleeds = true
+		if self.Security_Type == SECURITY_TYPE_OTIS then return end -- Only types that do have a helmet
+		if hitgroup == HITGROUP_GEAR && dmginfo:GetDamagePosition() != vec then
+			self.Bleeds = false			-- disable bleeding temporarily when shot at the helmet
+			local rico = EffectData()
+			rico:SetOrigin(dmginfo:GetDamagePosition())
+			rico:SetScale(4) -- Size
+			rico:SetMagnitude(math.random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
+			util.Effect("VJ_HLR_Rico", rico)
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -284,7 +286,7 @@ local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles == true then
+	if self.HasGibOnDeathEffects == true then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorRed)
@@ -316,21 +318,21 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	self:DoDropWeaponOnDeath(dmginfo, hitgroup)
-	self:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
-	if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "DeathAnim" then
+		self:DeathWeaponDrop(dmginfo, hitgroup)
+		self:SetBodygroup(1, 2)
+		if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
+	elseif status == "Finish" then
+		self:SetBodygroup(1, 2)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
-	self:SetBodygroup(1, 2)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDropWeapon(dmginfo, hitgroup, wepEnt)
+function ENT:OnDeathWeaponDrop(dmginfo, hitgroup, wepEnt)
 	wepEnt.WorldModel_Invisible = false
 	wepEnt:SetNW2Bool("VJ_WorldModel_Invisible", false)
 end

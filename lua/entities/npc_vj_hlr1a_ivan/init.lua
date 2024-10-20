@@ -28,13 +28,13 @@ ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.HasGrenadeAttack = false
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.Weapon_NoSpawnMenu = true -- Not affected by weapons selected from weapon list
---ENT.DeathAnimationTime = 2.15 -- Time until the NPC spawns its corpse and gets removed
+--ENT.DeathAnimationTime = 2.15 -- How long should the death animation play?
 ENT.DisableFootStepSoundTimer = true
 ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards the player if it's damaged by a player?
 ENT.HasItemDropsOnDeath = false -- Should it drop items on death?
-ENT.MoveRandomlyWhenShooting = false
+ENT.Weapon_StrafeWhileFiring = false
 ENT.Weapon_CanReload = false -- If false, the SNPC will no longer reload
 ENT.CanTurnWhileMoving = false -- Can the NPC turn while moving? | EX: GoldSrc NPCs, Facing enemy while running to cover, Facing the player while moving out of the way
 	-- ====== Sound Paths ====== --
@@ -59,11 +59,11 @@ ENT.SoundTbl_Death = {"vj_hlr/hla_npc/doctor/pl_pain2.wav","vj_hlr/hla_npc/docto
 -- Custom
 ENT.Ivan_LastBodyGroup = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetSkin(math.random(0, 3))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
@@ -82,7 +82,7 @@ function ENT:SetAnimationTranslations(wepHoldType)
 	self.AnimationTranslations[ACT_IDLE_ANGRY] = ACT_COMBAT_IDLE
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	local bodyGroup = self:GetBodygroup(0)
 	if self.Ivan_LastBodyGroup != bodyGroup then
 		self.Ivan_LastBodyGroup = bodyGroup
@@ -94,15 +94,11 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
-	self:SetBodygroup(0, 1)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles == true then
+	if self.HasGibOnDeathEffects == true then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorRed)
@@ -134,16 +130,20 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	self:DoDropWeaponOnDeath(dmginfo, hitgroup)
-	if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Initial" then
+		self:SetBodygroup(0, 1)
+	elseif status == "DeathAnim" then
+		self:DeathWeaponDrop(dmginfo, hitgroup)
+		if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDropWeapon(dmginfo, hitgroup, wepEnt)
+function ENT:OnDeathWeaponDrop(dmginfo, hitgroup, wepEnt)
 	wepEnt.WorldModel_Invisible = false
 	wepEnt:SetNW2Bool("VJ_WorldModel_Invisible", false)
 end

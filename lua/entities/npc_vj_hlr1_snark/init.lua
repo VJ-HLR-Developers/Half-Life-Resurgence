@@ -22,7 +22,7 @@ ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's dam
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.HasLeapAttack = true -- Can this NPC leap attack?
-ENT.AnimTbl_LeapAttack = ACT_JUMP -- Melee Attack Animations
+ENT.AnimTbl_LeapAttack = ACT_JUMP
 ENT.LeapDistance = 200 -- The max distance that the NPC can leap from
 ENT.LeapToMeleeDistance = 0 -- How close does it have to be until it uses melee?
 ENT.TimeUntilLeapAttackDamage = 0.4 -- How much time until it runs the leap damage code?
@@ -31,7 +31,7 @@ ENT.NextAnyAttackTime_Leap = 0.4 -- How much time until it can use any attack ag
 ENT.LeapAttackExtraTimers = {0.2, 0.6} -- Extra leap attack timers | it will run the damage code after the given amount of seconds
 ENT.LeapAttackDamage = 10
 ENT.LeapAttackDamageDistance = 100 -- How far does the damage go?
-ENT.HasDeathRagdoll = false -- Should the NPC spawn a corpse when it dies?
+ENT.HasDeathCorpse = false -- Should a corpse spawn when it's killed?
 ENT.PushProps = false -- Should it push props when trying to move?
 ENT.IdleAlwaysWander = true -- Should the NPC constantly wander while idling?
 ENT.FindEnemy_UseSphere = true -- Should the NPC see all around? (360 degrees) | Objects and walls can still block its sight!
@@ -62,14 +62,14 @@ function ENT:Snark_CustomOnInitialize()
 	self.Snark_Type = SNARK_TYPE_REGULAR
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:Snark_CustomOnInitialize()
 	self.Snark_EnergyTime = CurTime() + math.Rand(18, 22)
 	self.NextIdleSoundT_RegularChange = 0
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
-	function controlEnt:CustomOnThink(key)
+	function controlEnt:OnThink(key)
 		self.VJCE_Player:ChatPrint(math.max(0, self.VJCE_NPC.Snark_EnergyTime - CurTime()) .. " seconds left! Eat to gain more!")
 	end
 end
@@ -81,7 +81,7 @@ function ENT:TranslateActivity(act)
 	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
 	if self.Dead then return end
 	local ene = self:GetEnemy()
 	
@@ -130,58 +130,60 @@ end
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
-function ENT:CustomOnKilled(dmginfo, hitgroup)
-	local myPos = self:GetPos()
-	VJ.EmitSound(self, "vj_hlr/hl1_npc/squeek/sqk_blast1.wav", 90)
-	
-	if self.Snark_Type == SNARK_TYPE_REGULAR then
-		VJ.ApplyRadiusDamage(self, self, myPos, 50, 15, DMG_ACID, true, true)
-		if self.HasGibDeathParticles == true then
-			local effectData = EffectData()
-			effectData:SetOrigin(myPos + self:OBBCenter())
-			effectData:SetColor(colorYellow)
-			effectData:SetScale(40)
-			util.Effect("VJ_Blood1", effectData)
-			effectData:SetScale(8)
-			effectData:SetFlags(3)
-			effectData:SetColor(1)
-			util.Effect("bloodspray", effectData)
-			util.Effect("bloodspray", effectData)
-		end
-	elseif self.Snark_Type == SNARK_TYPE_PENGUIN then
-		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3, 5)..".wav", 90)
-		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1, 3)..".wav", 100)
-		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
-		util.BlastDamage(self, self, myPos, 80, 35)
-		if self.HasGibDeathParticles == true then
-			local effectData = EffectData()
-			effectData:SetOrigin(myPos + self:OBBCenter())
-			effectData:SetColor(colorRed)
-			effectData:SetScale(40)
-			util.Effect("VJ_Blood1", effectData)
-			effectData:SetScale(8)
-			effectData:SetFlags(3)
-			effectData:SetColor(0)
-			util.Effect("bloodspray", effectData)
-			util.Effect("bloodspray", effectData)
-			
-			local spr = ents.Create("env_sprite")
-			spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-			spr:SetKeyValue("GlowProxySize","2.0")
-			spr:SetKeyValue("HDRColorScale","1.0")
-			spr:SetKeyValue("renderfx","14")
-			spr:SetKeyValue("rendermode","5")
-			spr:SetKeyValue("renderamt","255")
-			spr:SetKeyValue("disablereceiveshadows","0")
-			spr:SetKeyValue("mindxlevel","0")
-			spr:SetKeyValue("maxdxlevel","0")
-			spr:SetKeyValue("framerate","15.0")
-			spr:SetKeyValue("spawnflags","0")
-			spr:SetKeyValue("scale","4")
-			spr:SetPos(myPos + self:GetUp() * 80)
-			spr:Spawn()
-			spr:Fire("Kill","",0.9)
-			timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Finish" then
+		local myPos = self:GetPos()
+		VJ.EmitSound(self, "vj_hlr/hl1_npc/squeek/sqk_blast1.wav", 90)
+		
+		if self.Snark_Type == SNARK_TYPE_REGULAR then
+			VJ.ApplyRadiusDamage(self, self, myPos, 50, 15, DMG_ACID, true, true)
+			if self.HasGibOnDeathEffects == true then
+				local effectData = EffectData()
+				effectData:SetOrigin(myPos + self:OBBCenter())
+				effectData:SetColor(colorYellow)
+				effectData:SetScale(40)
+				util.Effect("VJ_Blood1", effectData)
+				effectData:SetScale(8)
+				effectData:SetFlags(3)
+				effectData:SetColor(1)
+				util.Effect("bloodspray", effectData)
+				util.Effect("bloodspray", effectData)
+			end
+		elseif self.Snark_Type == SNARK_TYPE_PENGUIN then
+			VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3, 5)..".wav", 90)
+			VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1, 3)..".wav", 100)
+			VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
+			util.BlastDamage(self, self, myPos, 80, 35)
+			if self.HasGibOnDeathEffects == true then
+				local effectData = EffectData()
+				effectData:SetOrigin(myPos + self:OBBCenter())
+				effectData:SetColor(colorRed)
+				effectData:SetScale(40)
+				util.Effect("VJ_Blood1", effectData)
+				effectData:SetScale(8)
+				effectData:SetFlags(3)
+				effectData:SetColor(0)
+				util.Effect("bloodspray", effectData)
+				util.Effect("bloodspray", effectData)
+				
+				local spr = ents.Create("env_sprite")
+				spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+				spr:SetKeyValue("GlowProxySize","2.0")
+				spr:SetKeyValue("HDRColorScale","1.0")
+				spr:SetKeyValue("renderfx","14")
+				spr:SetKeyValue("rendermode","5")
+				spr:SetKeyValue("renderamt","255")
+				spr:SetKeyValue("disablereceiveshadows","0")
+				spr:SetKeyValue("mindxlevel","0")
+				spr:SetKeyValue("maxdxlevel","0")
+				spr:SetKeyValue("framerate","15.0")
+				spr:SetKeyValue("spawnflags","0")
+				spr:SetKeyValue("scale","4")
+				spr:SetPos(myPos + self:GetUp() * 80)
+				spr:Spawn()
+				spr:Fire("Kill","",0.9)
+				timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
+			end
 		end
 	end
 end

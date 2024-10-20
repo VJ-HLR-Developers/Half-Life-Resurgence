@@ -20,7 +20,7 @@ SWEP.NPC_BulletSpawnAttachment = "missile" -- The attachment that the bullet spa
 SWEP.NPC_FiringDistanceScale = 2.5 -- Changes how far the NPC can fire | 1 = No change, x < 1 = closer, x > 1 = farther
 SWEP.NPC_StandingOnly = true -- If true, the weapon can only be fired if the NPC is standing still
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.ClipSize = 1 -- Max amount of bullets per clip
+SWEP.Primary.ClipSize = 1 -- Max amount of rounds per clip
 SWEP.Primary.Recoil = 0.6 -- How much recoil does the player get?
 SWEP.Primary.Delay = 0.3 -- Time until it can shoot again
 SWEP.Primary.Ammo = "RPG_Round" -- Ammo type
@@ -38,12 +38,12 @@ function SWEP:SetupDataTables()
 	self:NetworkVar("Entity", 0, "NWEnemy")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnInitialize()
+function SWEP:Init()
 	self:SetNWLaser(true)
 	self.RPG_LastShotEnt = NULL
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnThink()
+function SWEP:OnThink()
 	-- If the owner is an NPC then set the rocket to follow its enemy
 	if IsValid(self:GetOwner()) && self:GetOwner():IsNPC() then
 		//self:SetNWEnemy(IsValid(self:GetOwner():GetEnemy()) && self:GetOwner():GetEnemy() or NULL)

@@ -31,12 +31,12 @@ ENT.Medic_DisableAnimation = true -- if true, it will disable the animation code
 ENT.Medic_TimeUntilHeal = 4 -- Time until the ally receives health | Set to false to let the base decide the time
 ENT.Medic_SpawnPropOnHeal = false -- Should it spawn a prop, such as small health vial at a attachment when healing an ally?
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE} -- Death Animations
-ENT.DeathAnimationTime = false -- Time until the NPC spawns its corpse and gets removed
+ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
+ENT.DeathAnimationTime = false -- How long should the death animation play?
 ENT.CanTurnWhileMoving = false -- Can the NPC turn while moving? | EX: GoldSrc NPCs, Facing enemy while running to cover, Facing the player while moving out of the way
 	-- ====== Flinching Variables ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- The regular flinch animations to play
 ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}},{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
 	-- ====== Sound Paths ====== --
 local sdTie = {"vj_hlr/hl1_npc/scientist/weartie.wav","vj_hlr/hl1_npc/scientist/ties.wav"}
@@ -153,7 +153,7 @@ ENT.SCI_Type = SCI_TYPE_REGULAR
 ENT.SCI_NextTieAnnoyanceT = 0
 ENT.SCI_ControllerAnim = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize() -- This function runs for: SCI_TYPE_REGULAR, SCI_TYPE_CLEANSUIT, SCI_TYPE_ROSENBERG
+function ENT:Init() -- This function runs for: SCI_TYPE_REGULAR, SCI_TYPE_CLEANSUIT, SCI_TYPE_ROSENBERG
 	ACT_FEAR_DISPLAY = util.GetActivityIDByName("ACT_FEAR_DISPLAY")
 	if self.SCI_Type == SCI_TYPE_ROSENBERG then
 		self:SetBodygroup(1, 5)
@@ -226,7 +226,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" or key == "wheelchair" then
 		self:FootStepSoundCode()
@@ -284,22 +284,22 @@ function ENT:VJ_TASK_IDLE_STAND()
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMedic_BeforeHeal()
-	-- Healing routine
-	self:VJ_ACT_PLAYACTIVITY(ACT_ARM, true, false, false, 0, {OnFinish=function(interrupted, anim)
-		if interrupted then return end
-		self:VJ_ACT_PLAYACTIVITY(ACT_MELEE_ATTACK1, true, false, false, 0, {OnFinish=function(interrupted2, anim2)
-			if interrupted2 then return end
-			self:VJ_ACT_PLAYACTIVITY(ACT_DISARM, true, false)
+function ENT:OnMedicBehavior(status, statusData)
+	if status == "BeforeHeal" then
+		-- Healing animation (3)
+		self:VJ_ACT_PLAYACTIVITY(ACT_ARM, true, false, false, 0, {OnFinish=function(interrupted, anim)
+			if interrupted then return end
+			self:VJ_ACT_PLAYACTIVITY(ACT_MELEE_ATTACK1, true, false, false, 0, {OnFinish=function(interrupted2, anim2)
+				if interrupted2 then return end
+				self:VJ_ACT_PLAYACTIVITY(ACT_DISARM, true, false)
+			end})
 		end})
-	end})
+	elseif status == "OnReset" then
+		timer.Simple(1.5, function() if IsValid(self) then self:SetBodygroup(2, 0) end end)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMedic_OnReset()
-	timer.Simple(1.5, function() if IsValid(self) then self:SetBodygroup(2, 0) end end)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
 	if self.VJ_IsBeingControlled then return end
 	if self.SCI_Type != SCI_TYPE_KELLER && self.SCI_Type != SCI_TYPE_ALPHA then
 		if self.SCI_Type != SCI_TYPE_ROSENBERG && math.random(1, 2) == 1 && ent.VJTag_ID_Headcrab then
@@ -311,7 +311,7 @@ function ENT:CustomOnAlert(ent)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	-- Mouth animation when talking
 	if CurTime() < self.SCI_NextMouthMove then
 		if self.SCI_NextMouthDistance == 0 then
@@ -329,16 +329,12 @@ function ENT:OnPlayCreateSound(sdData, sdFile)
 	self.SCI_NextMouthMove = CurTime() + SoundDuration(sdFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
-	self:SetBodygroup(2, 0)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 local sdMetalCollide = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles == true then
+	if self.HasGibOnDeathEffects == true then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorRed)
@@ -409,15 +405,19 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	if self.SCI_Type == SCI_TYPE_ALPHA then return end
-	if hitgroup == HITGROUP_HEAD then
-		self.AnimTbl_Death = ACT_DIE_HEADSHOT
-	elseif hitgroup == HITGROUP_STOMACH && self.SCI_Type != SCI_TYPE_KELLER then
-		self.AnimTbl_Death = ACT_DIE_GUTSHOT
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Initial" then
+		self:SetBodygroup(2, 0)
+	elseif status == "DeathAnim" then
+		if self.SCI_Type == SCI_TYPE_ALPHA then return end
+		if hitgroup == HITGROUP_HEAD then
+			self.AnimTbl_Death = ACT_DIE_HEADSHOT
+		elseif hitgroup == HITGROUP_STOMACH && self.SCI_Type != SCI_TYPE_KELLER then
+			self.AnimTbl_Death = ACT_DIE_GUTSHOT
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt)
 end

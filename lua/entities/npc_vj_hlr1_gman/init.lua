@@ -40,25 +40,25 @@ ENT.GeneralSoundPitch1 = 100
 ENT.GMAN_NextMouthMove = 0
 ENT.GMAN_NextMouthDistance = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:AddFlags(FL_NOTARGET)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnIdleDialogue(ent, status, statusInfo)
+function ENT:OnIdleDialogue(ent, status, statusData)
 	-- Only talk to players!
 	if status == "CheckEnt" && !ent:IsPlayer() then
 		return true
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	if CurTime() < self.GMAN_NextMouthMove then
 		if self.GMAN_NextMouthDistance == 0 then
 			self.GMAN_NextMouthDistance = math.random(10, 70)
@@ -77,8 +77,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
 --
-function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
-	if dmginfo:GetDamagePosition() != vec then
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+	if status == "Initial" && dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(5) -- Size

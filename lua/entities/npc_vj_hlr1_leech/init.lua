@@ -29,12 +29,12 @@ ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's dam
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.HasMeleeAttack = true -- Can this NPC melee attack?
 ENT.MeleeAttackDamage = 1
-ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1 -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
 ENT.TimeUntilMeleeAttackDamage = 0.1 -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDistance = 5 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.MeleeAttackDamageDistance = 10 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 	-- Don't use ACT_DIEFORWARD as it's supposed to be played as end of death animation
 ENT.PushProps = false -- Should it push props when trying to move?
 ENT.AttackProps = false -- Should it attack props when trying to move?
@@ -43,7 +43,7 @@ ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/leech/leech_alert1.wav","vj_hlr/hl1_npc/lee
 //ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/leech/leech_alert1.wav","vj_hlr/hl1_npc/leech/leech_alert2.wav"}
 ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/leech/leech_bite1.wav","vj_hlr/hl1_npc/leech/leech_bite2.wav","vj_hlr/hl1_npc/leech/leech_bite3.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(4, 4, 3), Vector(-4, -4, -2))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

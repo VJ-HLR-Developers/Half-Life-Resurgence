@@ -46,9 +46,9 @@ vj_hlr/hl1_npc/otis/of6a3_ot01.wav
 
 ENT.Security_Type = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local baseInit = ENT.CustomOnInitialize
+local baseInit = ENT.Init
 --
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	baseInit(self)
 	self:Give("weapon_vj_hlrof_desert_eagle")
 	self:SetBodygroup(2, math.random(0, 2))

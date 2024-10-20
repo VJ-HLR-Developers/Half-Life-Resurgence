@@ -9,6 +9,6 @@ include("shared.lua")
 ENT.Model = "models/combine_soldier.mdl"
 ENT.StartHealth = 60
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetSkin(1)
 end

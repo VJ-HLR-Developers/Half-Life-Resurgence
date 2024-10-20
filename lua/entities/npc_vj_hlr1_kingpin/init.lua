@@ -22,7 +22,7 @@ ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's dam
 ENT.HasBloodPool = false -- Does it have a blood pool?
 
 ENT.HasMeleeAttack = true -- Can this NPC melee attack?
-ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2} -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2}
 ENT.MeleeAttackDistance = 60 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.MeleeAttackDamageDistance = 105 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
@@ -33,20 +33,20 @@ ENT.MeleeAttackBleedEnemyDamage = 3 -- How much damage will the enemy get on eve
 
 ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_kingpin_orb" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
-ENT.RangeDistance = 3000 -- This is how far away it can shoot
+ENT.RangeDistance = 3000 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 180 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 6 -- How much time until it can use a range attack?
 ENT.NextRangeAttackTime_DoRand = 8 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD, ACT_DIEBACKWARD} -- Death Animations
+ENT.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD, ACT_DIEBACKWARD}
 ENT.FootStepTimeRun = 2-- Next foot step sound when it is running
 ENT.FootStepTimeWalk = 2 -- Next foot step sound when it is walking
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = "vjseq_flinch_small" -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = "vjseq_flinch_small" -- The regular flinch animations to play
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/kingpin/kingpin_seeker_amb.wav"}
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/kingpin/kingpin_move.wav", "vj_hlr/hl1_npc/kingpin/kingpin_moveslow.wav"}
@@ -65,14 +65,14 @@ ENT.KingPin_NextScanT = 0
 ENT.KingPin_PsionicAttacking = false
 ENT.KingPin_NextPsionicAttackT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(35, 35, 110),Vector(-35, -35, 0))
 	self:SetNW2Bool("PsionicEffect", false)
 	self:SetImpactEnergyScale(0.01) -- By default take minimum physics damage
 	self.KingPin_NextScanT = CurTime() + math.Rand(1, 5)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		VJ.EmitSound(self, "vj_hlr/hl1_weapon/crossbow/xbow_hit1.wav", 60, 140)
@@ -100,7 +100,7 @@ function ENT:TranslateActivity(act)
 	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
 	-- Ability to see through walls
 	if !IsValid(self:GetEnemy()) && CurTime() > self.KingPin_NextScanT then
 		VJ.EmitSound(self, scanSd, 85)
@@ -216,32 +216,11 @@ function ENT:RangeAttackProjVelocity(projectile)
 	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 200), 200)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-/*function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
-	-- Unused shield system
-	if self:HasShield() then
-		local dmg = dmginfo:GetDamage()
-		dmginfo:SetDamage(0)
-		VJ.EmitSound(self,"vj_hlr/hl1_npc/kingpin/port_suckin1.wav",70,200)
-		self.ShieldHealth = self.ShieldHealth - dmg
-		if self.ShieldHealth <= 0 && !self.IsGeneratingShield then
-			self:SetNW2Bool("shield",false)
-			self.IsGeneratingShield = true
-			timer.Simple(15,function()
-				if IsValid(self) then
-					self:SetNW2Bool("shield",true)
-					self.IsGeneratingShield = false
-					self.ShieldHealth = 250
-				end
-			end)
-		end
-	end
-end*/
----------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles then
+	if self.HasGibOnDeathEffects then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorYellow)
@@ -282,6 +261,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gibs = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl"}
 --
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, nil, {ExtraGibs = gibs})
 end

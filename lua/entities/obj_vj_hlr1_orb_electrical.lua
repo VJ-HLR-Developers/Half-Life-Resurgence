@@ -45,7 +45,7 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:EnableGravity(false)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetNoDraw(true)
 	
 	self.StartGlow1 = ents.Create("env_sprite")
@@ -68,7 +68,7 @@ function ENT:CustomOnInitialize()
 	self:DeleteOnRemove(self.StartGlow1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	if IsValid(self.Track_Enemy) then -- Homing Behavior
 		local pos = self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter()
 		if self:VisibleVec(pos) or self.Track_Position == defVec then

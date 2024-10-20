@@ -82,7 +82,7 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro5.wav","vj_hlr/hl1_wea
 
 util.AddNetworkString("vj_hlr_svencoop_glow")
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetNoDraw(true)
 	ParticleEffectAttach("vj_hlr_shockroach",PATTACH_ABSORIGIN_FOLLOW,self,0)
 	self.StartLight1 = ents.Create("light_dynamic")

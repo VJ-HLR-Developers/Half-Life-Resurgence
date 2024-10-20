@@ -26,13 +26,13 @@ ENT.GeneralSoundPitch2 = 120
 ENT.HeadCrab_IsBaby = true
 ENT.BabyH_MotherEnt = NULL
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(5, 5, 10), Vector(-5, -5, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
+function ENT:OnDeath(dmginfo, hitgroup, status)
 	-- ALERT MY MOM THAT I HAVE DIED ;(
-	if IsValid(self.BabyH_MotherEnt) then
+	if status == "Initial" && IsValid(self.BabyH_MotherEnt) then
 		self.BabyH_MotherEnt:Gonarch_BabyDeath()
 	end
 end

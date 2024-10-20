@@ -38,7 +38,7 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:SetBuoyancyRatio(0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	ParticleEffect("vj_hlr_spit_drone_spawn_old",self:GetPos(),Angle(0,0,0),nil)
 	ParticleEffectAttach("vj_hlr_spit_drone", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end

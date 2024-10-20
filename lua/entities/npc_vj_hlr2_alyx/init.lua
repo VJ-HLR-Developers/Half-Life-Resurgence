@@ -15,10 +15,10 @@ ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
 ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other player allies?
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.AnimTbl_MeleeAttack = "vjseq_MeleeAttack01" -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = "vjseq_MeleeAttack01"
 ENT.TimeUntilMeleeAttackDamage = 0.7 -- This counted in seconds | This calculates the time until it hits something
 ENT.HasGrenadeAttack = false -- Should the NPC have a grenade attack?
-/*ENT.AnimTbl_GrenadeAttack = {"vjseq_ThrowItem"} -- Grenade Attack Animations
+/*ENT.AnimTbl_GrenadeAttack = {"vjseq_ThrowItem"}
 ENT.TimeUntilGrenadeIsReleased = 1.1 -- Time until the grenade is released
 ENT.GrenadeAttackModel = "models/weapons/w_npcnade.mdl" -- Overrides the model of the grenade | Can be nil, string, and table | Does NOT apply to picked up grenades and forced grenade attacks with custom entity
 ENT.GrenadeAttackAttachment = "anim_attachment_LH" -- The attachment that the grenade will spawn at*/
@@ -28,7 +28,7 @@ ENT.FootStepTimeRun = 0.25 -- Next foot step sound when it is running
 ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = "vjges_flinch_head" -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = "vjges_flinch_head" -- The regular flinch animations to play
 ENT.HitGroupFlinching_Values = {
 	{HitGroup = {HITGROUP_LEFTARM}, Animation = {"vjges_flinch_leftarm"}},
 	{HitGroup = {HITGROUP_RIGHTARM}, Animation = {"vjges_flinch_rightarm"}},
@@ -998,7 +998,7 @@ function ENT:SetAnimationTranslations(wepHoldType)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPlayerSight(ent)
+function ENT:OnPlayerSight(ent)
 	self.Human_NextPlyReloadSd = CurTime() + math.Rand(5, 20)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -1032,7 +1032,7 @@ function ENT:OnMaintainRelationships(ent, entFri, entDist)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
 	if math.random(1, 2) == 1 && ent:IsNPC() then
 		if ent:GetClass() == "npc_breen" then
 			self:PlaySoundSystem("Alert", "vj_hlr/hl2_npc/ep1/citadel/al_advisor_breen01.wav")
@@ -1101,15 +1101,15 @@ function ENT:CustomOnAlert(ent)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnCallForHelp(ally, isFirst)
+function ENT:OnCallForHelp(ally, isFirst)
 	if ally:GetClass() == "npc_vj_hlr2_barney" then
 		self:PlaySoundSystem("CallForHelp", "vj_hlr/hl2_npc/ep1/c17/al_barneyoverhere.wav")
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoKilledEnemy(ent, attacker, inflictor)
+function ENT:OnKilledEnemy(ent, inflictor, wasLast)
 	-- Kills a unknown type (Not Zombie, Antlion or Combine) of creature SNPC
-	if math.random(1, 2) == 1 && ent.IsVJBaseSNPC_Creature then
+	if wasLast && math.random(1, 2) == 1 && ent.IsVJBaseSNPC_Creature then
 		for _,v in ipairs(ent.VJ_NPC_Class or {1}) do
 			if v != "CLASS_COMBINE" && v != "CLASS_ZOMBIE" && v != "CLASS_ANTLION" then
 				self:PlaySoundSystem("OnKilledEnemy", sdKilledEnemy)

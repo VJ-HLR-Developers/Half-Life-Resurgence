@@ -12,7 +12,7 @@ ENT.Combine_TurretEnt = NULL
 ENT.Combine_TurretPlacing = false
 ENT.Combine_NextTurretCheckT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetMaterial("models/hl_resurgence/hl2/engineer/combinesoldiersheet")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -64,7 +64,7 @@ function ENT:Combine_DeployTurret()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
 	if !self.VJ_IsBeingControlled && IsValid(self:GetEnemy()) && self.EnemyData.IsVisible then
 		self:Combine_DeployTurret()
 	end

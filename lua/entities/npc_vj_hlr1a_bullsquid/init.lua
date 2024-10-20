@@ -8,7 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hla/bullsquid.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 180
-ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1 -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
 
 ENT.SoundTbl_SoundTrack = "vj_hlr/hla_npc/squidding.mp3"
 
@@ -17,7 +17,7 @@ ENT.Bullsquid_Type = 1
 ENT.Bullsquid_BullSquidding = false
 ENT.Bullsquid_BullSquiddingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
 	-- BullSquidding!
 	if math.random(1, 100) == 1 then
 		self:Bullsquid_ActivateBullSquidding()
@@ -49,9 +49,9 @@ function ENT:TranslateActivity(act)
 	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local baseAcceptInput = ENT.CustomOnAcceptInput
+local baseAcceptInput = ENT.OnInput
 --
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	if key == "melee_bite" or key == "melee_whip" then
 		self.MeleeAttackDamage = (self.Bullsquid_BullSquidding == true and 200) or 35
 		self:MeleeAttackCode()
@@ -81,7 +81,7 @@ function ENT:Bullsquid_ActivateBullSquidding()
 	self.HasSoundTrack = true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	if self.Bullsquid_BullSquidding == true then
 		PrintMessage(HUD_PRINTCENTER, "YOU HAVE BEEN BULLSQUIDDING FOR "..math.Round(CurTime() - self.Bullsquid_BullSquiddingT, 2).." SECONDS")
 	end

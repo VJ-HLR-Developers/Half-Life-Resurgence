@@ -13,31 +13,36 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(0, 0, 6), -- The offset for the controller when the camera is in first person
 }
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
-ENT.DeathAnimationTime = 5 -- Time until the NPC spawns its corpse and gets removed
+ENT.AnimTbl_Death = ACT_DIESIMPLE
+ENT.DeathAnimationTime = 5 -- How long should the death animation play?
 
 -- Custom
 ENT.Sentry_GroundType = 1
 ENT.Sentry_MuzzleAttach = "muzzle"
 ENT.Sentry_AlarmAttach = "sensor"
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	-- Behavior: Smoke and spark for 5 seconds and then blow up (Based on original HL Decay)
-	local attCenter = self:LookupAttachment("center")
-	local attSensor = self:LookupAttachment("sensor")
-	sound.EmitHint(SOUND_DANGER, self:GetPos(), 120, self.DeathAnimationTime, self)
-	for i = 0.1, 5, 0.5 do
-		timer.Simple(i, function()
-			if IsValid(self) then
-				local effectData = EffectData()
-				effectData:SetOrigin(self:GetAttachment(attCenter).Pos)
-				effectData:SetScale(15)
-				util.Effect("VJ_HLR_Smoke", effectData)
-				effectData:SetOrigin(self:GetAttachment(attSensor).Pos)
-				effectData:SetScale(6)
-				util.Effect("VJ_HLR_Spark", effectData)
-				VJ.EmitSound(self, "ambient/energy/zap"..math.random(5, 9)..".wav", 70, 100)
-			end
-		end)
+local parentDeathFunc = ENT.OnDeath
+--
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	parentDeathFunc(self, dmginfo, hitgroup, status)
+	if status == "DeathAnim" then
+		-- Behavior: Smoke and spark for 5 seconds and then blow up (Based on original HL Decay)
+		local attCenter = self:LookupAttachment("center")
+		local attSensor = self:LookupAttachment("sensor")
+		sound.EmitHint(SOUND_DANGER, self:GetPos(), 120, self.DeathAnimationTime, self)
+		for i = 0.1, 5, 0.5 do
+			timer.Simple(i, function()
+				if IsValid(self) then
+					local effectData = EffectData()
+					effectData:SetOrigin(self:GetAttachment(attCenter).Pos)
+					effectData:SetScale(15)
+					util.Effect("VJ_HLR_Smoke", effectData)
+					effectData:SetOrigin(self:GetAttachment(attSensor).Pos)
+					effectData:SetScale(6)
+					util.Effect("VJ_HLR_Spark", effectData)
+					VJ.EmitSound(self, "ambient/energy/zap"..math.random(5, 9)..".wav", 70, 100)
+				end
+			end)
+		end
 	end
 end

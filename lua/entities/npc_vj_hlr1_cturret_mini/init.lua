@@ -25,9 +25,9 @@ ENT.Sentry_AlarmAttach = "frame"
 ENT.Sentry_Type = 2
 ENT.Sentry_OrientationType = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local baseInit = ENT.CustomOnInitialize
+local baseInit = ENT.Init
 --
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	baseInit(self)
 	//local ang = self:GetAngles()
 	//self:SetAngles(Angle(ang.x, ang.y, 180))

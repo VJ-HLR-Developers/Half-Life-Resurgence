@@ -24,7 +24,7 @@ ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 
 ENT.HasLeapAttack = true -- Can this NPC leap attack?
 ENT.LeapAttackDamage = 10
-ENT.AnimTbl_LeapAttack = ACT_RANGE_ATTACK1 -- Melee Attack Animations
+ENT.AnimTbl_LeapAttack = ACT_RANGE_ATTACK1
 ENT.LeapDistance = 256 -- The max distance that the NPC can leap from
 ENT.LeapToMeleeDistance = 1 -- How close does it have to be until it uses melee?
 ENT.LeapAttackDamageDistance = 50 -- How far does the damage go?
@@ -36,14 +36,14 @@ ENT.NextAnyAttackTime_Leap = 3 -- How much time until it can use any attack agai
 ENT.StopLeapAttackAfterFirstHit = true -- Should it stop the leap attack from running rest of timers when it hits an enemy?
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.NoChaseAfterCertainRange = true -- Should the NPC stop chasing when the enemy is within the given far and close distances?
 ENT.NoChaseAfterCertainRange_FarDistance = 200 -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_CloseDistance = 0 -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 	-- ====== Flinching Variables ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.FlinchChance = 3 -- Chance of it flinching from 1 to x | 1 will make it always flinch
-ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- The regular flinch animations to play
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/headcrab/hc_idle1.wav","vj_hlr/hl1_npc/headcrab/hc_idle2.wav","vj_hlr/hl1_npc/headcrab/hc_idle3.wav","vj_hlr/hl1_npc/headcrab/hc_idle4.wav","vj_hlr/hl1_npc/headcrab/hc_idle5.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/headcrab/hc_alert1.wav","vj_hlr/hl1_npc/headcrab/hc_alert2.wav"}
@@ -57,11 +57,11 @@ ENT.GeneralSoundPitch1 = 100
 -- Custom
 ENT.HeadCrab_IsBaby = false -- Is it a baby headcrab?
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(10, 10, 18), Vector(-10, -10, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	-- When in deep water, drown by slowly taking damage
 	if self:WaterLevel() > 2 then
 		self:SetHealth(self:Health() - 1)
@@ -72,15 +72,17 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
 	if self.VJ_IsBeingControlled or self.HeadCrab_IsBaby then return end
 	if math.random(1, 2) == 1 then
 		self:VJ_ACT_PLAYACTIVITY("angry", true, false, true)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
-	return self:IsOnGround() -- If it's not on ground, then don't play flinch so it won't cut off leap attacks mid air!
+function ENT:OnFlinch(dmginfo, hitgroup, status)
+	if status == "PriorExecution" then
+		return self:IsOnGround() -- If it's not on ground, then don't play flinch so it won't cut off leap attacks mid air!
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetLeapAttackVelocity()
@@ -92,7 +94,7 @@ local gibs_regular_extra = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles then
+	if self.HasGibOnDeathEffects then
 		local myCenterPos = self:GetPos() + self:OBBCenter()
 		local effectData = EffectData()
 		effectData:SetOrigin(myCenterPos)
@@ -125,6 +127,6 @@ end
 local gibs_baby = {"models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 local gibs_regular = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 --
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, self.HeadCrab_IsBaby and gibs_baby or gibs_regular)
 end

@@ -26,7 +26,7 @@ ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
-ENT.RangeDistance = 6000 -- This is how far away it can shoot
+ENT.RangeDistance = 6000 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 150 -- How close does it have to be until it uses melee?
 ENT.RangeAttackAngleRadius = 180 -- What is the attack angle radius? | 100 = In front of the NPC | 180 = All around the NPC
 ENT.TimeUntilRangeAttackProjectileRelease = 0 -- How much time until the projectile code is ran?
@@ -53,13 +53,13 @@ ENT.DeathSoundLevel = 90
 ENT.Cannon_HasLOS = false
 ENT.Cannon_LockTime = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(45, 45, 65), Vector(-45, -45, 0))
 	self.Cannon_LockTime = CurTime() + 0.3 -- Prevent spawn-killing
 	self:SetImpactEnergyScale(0.001) -- Take minimum physics damage
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "shoot" then
 		self:RangeAttackCode()
@@ -68,7 +68,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local threshold = 3
 --
-function ENT:CustomOn_PoseParameterLookingCode(pitch, yaw, roll)
+function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
 	local poseYaw = self:GetPoseParameter("aim_yaw")
 	local posePitch = self:GetPoseParameter("aim_pitch")
 	-- Compare the difference between the current position of the pose parameter and the position it's suppose to go to
@@ -128,8 +128,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
 --
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
-	if dmginfo:GetDamagePosition() != vec then
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+	if status == "PreDamage" && dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(4) -- Size
@@ -138,27 +138,29 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnKilled(dmginfo, hitgroup)
-	local spr = ents.Create("env_sprite")
-	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-	spr:SetKeyValue("GlowProxySize","2.0")
-	spr:SetKeyValue("HDRColorScale","1.0")
-	spr:SetKeyValue("renderfx","14")
-	spr:SetKeyValue("rendermode","5")
-	spr:SetKeyValue("renderamt","255")
-	spr:SetKeyValue("disablereceiveshadows","0")
-	spr:SetKeyValue("mindxlevel","0")
-	spr:SetKeyValue("maxdxlevel","0")
-	spr:SetKeyValue("framerate","15.0")
-	spr:SetKeyValue("spawnflags","0")
-	spr:SetKeyValue("scale","3")
-	spr:SetPos(self:GetPos() + self:GetUp()*20)
-	spr:Spawn()
-	spr:Fire("Kill", "", 0.9)
-	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Finish" then
+		local spr = ents.Create("env_sprite")
+		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+		spr:SetKeyValue("GlowProxySize","2.0")
+		spr:SetKeyValue("HDRColorScale","1.0")
+		spr:SetKeyValue("renderfx","14")
+		spr:SetKeyValue("rendermode","5")
+		spr:SetKeyValue("renderamt","255")
+		spr:SetKeyValue("disablereceiveshadows","0")
+		spr:SetKeyValue("mindxlevel","0")
+		spr:SetKeyValue("maxdxlevel","0")
+		spr:SetKeyValue("framerate","15.0")
+		spr:SetKeyValue("spawnflags","0")
+		spr:SetKeyValue("scale","3")
+		spr:SetPos(self:GetPos() + self:GetUp()*20)
+		spr:Spawn()
+		spr:Fire("Kill", "", 0.9)
+		timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_ABSORIGIN_FOLLOW, corpseEnt, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -21,14 +21,14 @@ ENT.HasBloodPool = false -- Does it have a blood pool?
 
 ENT.HasMeleeAttack = true -- Can this NPC melee attack?
 ENT.MeleeAttackDamage = 20
-ENT.AnimTbl_MeleeAttack = {"vjseq_attack_main_claw","vjseq_attack_primary","vjseq_attack_simple_claw"} -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = {"vjseq_attack_main_claw","vjseq_attack_primary","vjseq_attack_simple_claw"}
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDistance = 30 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.MeleeAttackDamageDistance = 80 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 
 ENT.HasLeapAttack = true -- Can this NPC leap attack?
 ENT.LeapAttackDamage = 35
-ENT.AnimTbl_LeapAttack = "vjseq_crouch_to_jump" -- Melee Attack Animations
+ENT.AnimTbl_LeapAttack = "vjseq_crouch_to_jump"
 ENT.LeapDistance = 300 -- The max distance that the NPC can leap from
 ENT.LeapToMeleeDistance = 100 -- How close does it have to be until it uses melee?
 ENT.LeapAttackDamageDistance = 100 -- How far does the damage go?
@@ -39,11 +39,11 @@ ENT.NextLeapAttackTime_DoRand = 4 -- False = Don't use random time | Number = Pi
 ENT.LeapAttackExtraTimers = {1.3} -- Extra leap attack timers | it will run the damage code after the given amount of seconds
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_FLINCH_PHYSICS} -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_FLINCH_PHYSICS} -- The regular flinch animations to play
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/aslave/vort_foot1.wav","vj_hlr/hl1_npc/aslave/vort_foot2.wav","vj_hlr/hl1_npc/aslave/vort_foot3.wav","vj_hlr/hl1_npc/aslave/vort_foot4.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/panther/p_idle1.wav","vj_hlr/hl1_npc/panther/p_idle2.wav","vj_hlr/hl1_npc/panther/p_idle3.wav"}
@@ -57,12 +57,12 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/panther/p_die1.wav","vj_hlr/hl1_npc/panthe
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(25, 25, 55), Vector(-25, -25, 0))
 	self:SetSkin(math.random(0, 1))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
@@ -78,18 +78,20 @@ function ENT:GetLeapAttackVelocity()
 	return VJ.CalculateTrajectory(self, ene, "Curve", self:GetPos() + self:OBBCenter(), ene:GetPos() + ene:OBBCenter(), 10) + self:GetForward() * 500 + self:GetUp() * 100
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
-	if dmginfo:GetDamage() > 30 then
-		self.FlinchChance = 8
-		self.AnimTbl_Flinch = ACT_BIG_FLINCH
-	else
-		self.FlinchChance = 16
-		self.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_FLINCH_PHYSICS}
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+	if status == "PreDamage" then
+		if dmginfo:GetDamage() > 30 then
+			self.FlinchChance = 8
+			self.AnimTbl_Flinch = ACT_BIG_FLINCH
+		else
+			self.FlinchChance = 16
+			self.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_FLINCH_PHYSICS}
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	if dmginfo:GetDamage() > 30 then
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "DeathAnim" && dmginfo:GetDamage() > 30 then
 		self.AnimTbl_Death = ACT_DIEVIOLENT
 	end
 end
@@ -98,7 +100,7 @@ local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles then
+	if self.HasGibOnDeathEffects then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorYellow)
@@ -129,6 +131,6 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt)
 end

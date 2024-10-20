@@ -20,6 +20,6 @@ ENT.SoundTbl_Death = {"vj_hlr/hla_npc/barney/ba_die1.wav","vj_hlr/hla_npc/barney
 	
 ENT.SCI_Type = 2
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetBodygroup(0, math.random(0, 4))
 end

@@ -23,7 +23,7 @@ SWEP.NPC_FiringDistanceScale = 0.5 -- Changes how far the NPC can fire | 1 = No 
 SWEP.NPC_ReloadSound = "weapons/physcannon/physcannon_pickup.wav" -- Sounds it plays when the base detects the SNPC playing a reload animation
 SWEP.NPC_BulletSpawnAttachment = "muzzle" -- The attachment that the bullet spawns on, leave empty for base to decide!
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.ClipSize = 1 -- Max amount of bullets per clip
+SWEP.Primary.ClipSize = 1 -- Max amount of rounds per clip
 SWEP.Primary.Delay = 1.25 -- Time until it can shoot again
 SWEP.Primary.Ammo = "XBowBolt" -- Ammo type
 SWEP.Primary.Automatic = true

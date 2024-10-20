@@ -24,7 +24,7 @@ SWEP.WorldModel_CustomPositionOrigin = Vector(0.3, 0.6, -2.35)
 SWEP.WorldModel_CustomPositionBone = "sides01" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 5 -- Damage
-SWEP.Primary.ClipSize = 17 -- Max amount of bullets per clip
+SWEP.Primary.ClipSize = 17 -- Max amount of rounds per clip
 SWEP.Primary.TakeAmmo = 0 -- How much ammo should it take from the clip after each shot? | 0 = Unlimited clip
 SWEP.Primary.Ammo = "Pistol" -- Ammo type
 SWEP.Primary.Sound = {"vj_hlr/hl1_weapon/glock/glock_silenced1.wav","vj_hlr/hl1_weapon/glock/glock_silenced2.wav"}
@@ -35,7 +35,7 @@ SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 -- Custom
 SWEP.HLR_ValidModels = {"models/vj_hlr/hl1/hassassin.mdl","models/vj_hlr/cracklife/hassassin.mdl"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnInitialize()
+function SWEP:Init()
 	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
 		if IsValid(self) && IsValid(self:GetOwner()) then
 			if !VJ.HasValue(self.HLR_ValidModels,self:GetOwner():GetModel()) then

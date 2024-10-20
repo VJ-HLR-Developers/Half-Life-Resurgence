@@ -14,12 +14,12 @@ ENT.VJC_Data = {
 }
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_BIG_FLINCH -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = ACT_BIG_FLINCH -- The regular flinch animations to play
 
 -- Custom
 ENT.Boid_WoundedAnim = nil
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self.Boid_Type = 1
 	self:SetCollisionBounds(Vector(18, 18, 10), Vector(-18, -18, 0))
 	self.Boid_FollowOffsetPos = Vector(math.random(-50, 50), math.random(-120, 120), math.random(-150, 150))
@@ -40,7 +40,7 @@ function ENT:TranslateActivity(act)
 	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	if self.VJ_IsBeingControlled then return end
 	local leader = VJ.HLR_NPC_AFlock_Leader
 	if IsValid(leader) then

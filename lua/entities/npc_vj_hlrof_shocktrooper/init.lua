@@ -25,26 +25,26 @@ ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calcula
 
 ENT.HasGrenadeAttack = true -- Should the NPC have a grenade attack?
 ENT.GrenadeAttackEntity = "obj_vj_hlrof_grenade_spore" -- Entities that it can spawn when throwing a grenade | If set as a table, it picks a random entity | VJ: "obj_vj_grenade" | HL2: "npc_grenade_frag"
-ENT.AnimTbl_GrenadeAttack = ACT_SPECIAL_ATTACK2 -- Grenade Attack Animations
+ENT.AnimTbl_GrenadeAttack = ACT_SPECIAL_ATTACK2
 ENT.GrenadeAttackAttachment = "eyes" -- The attachment that the grenade will spawn at
 ENT.TimeUntilGrenadeIsReleased = 1.5 -- Time until the grenade is released
 ENT.GrenadeAttackChance = 1 -- 1 in x chance that it will throw a grenade when all the requirements are met | 1 = Throw it every time
 
 ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
 ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
-ENT.MoveRandomlyWhenShooting = false -- Should it move randomly while shooting a weapon?
+ENT.Weapon_StrafeWhileFiring = false -- Should it move randomly while firing a weapon?
 ENT.AnimTbl_WeaponAttackCrouch = ACT_RANGE_ATTACK2 -- Animation(s) to play while firing a weapon in crouched position
-ENT.AnimTbl_CallForHelp = ACT_SIGNAL2 -- Call For Help Animations
+ENT.AnimTbl_CallForHelp = ACT_SIGNAL2
 ENT.CallForBackUpOnDamageAnimation = ACT_SIGNAL1 -- Animations played when it calls for help on damage
 ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE -- The animation it plays when hiding in a covered position, leave empty to let the base decide
 ENT.AnimTbl_AlertFriendsOnDeath = ACT_IDLE_ANGRY -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE} -- Death Animations
-ENT.DeathAnimationTime = false -- Time until the NPC spawns its corpse and gets removed
+ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE}
+ENT.DeathAnimationTime = false -- How long should the death animation play?
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- The regular flinch animations to play
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/player/boots1.wav","vj_hlr/hl1_npc/player/boots2.wav","vj_hlr/hl1_npc/player/boots3.wav","vj_hlr/hl1_npc/player/boots4.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/shocktrooper/st_idle.wav"}
@@ -64,13 +64,13 @@ ENT.Shocktrooper_BlinkingT = 0
 ENT.Shocktrooper_SpawnRoach = true
 ENT.Shocktrooper_DroppedRoach = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(20, 20, 90), Vector(-20, -20, 0))
 	self:SetBodygroup(1,0)
 	self:Give("weapon_vj_hlrof_strooperwep")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
@@ -98,7 +98,7 @@ function ENT:TranslateActivity(act)
 	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	if !self.Dead && CurTime() > self.Shocktrooper_BlinkingT then
 		timer.Simple(0.2, function() if IsValid(self) then self:SetSkin(1) end end)
 		timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(2) end end)
@@ -120,7 +120,7 @@ local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	self.Shocktrooper_SpawnRoach = false
-	if self.HasGibDeathParticles then
+	if self.HasGibOnDeathEffects then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorYellow)
@@ -159,14 +159,15 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
-	self:Shocktrooper_CreateRoach()
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	self:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
-	local activeWep = self:GetActiveWeapon()
-	if IsValid(activeWep) then activeWep:Remove() end
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "DeathAnim" then
+		self:OnDeath(dmginfo, hitgroup, "Finish")
+		local activeWep = self:GetActiveWeapon()
+		if IsValid(activeWep) then activeWep:Remove() end
+	elseif status == "Finish" then
+		::shocktrooper_death::
+		self:Shocktrooper_CreateRoach()
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Shocktrooper_CreateRoach()
@@ -188,6 +189,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gibs = {"models/vj_hlr/gibs/strooper_gib1.mdl", "models/vj_hlr/gibs/strooper_gib2.mdl", "models/vj_hlr/gibs/strooper_gib3.mdl", "models/vj_hlr/gibs/strooper_gib4.mdl", "models/vj_hlr/gibs/strooper_gib5.mdl", "models/vj_hlr/gibs/strooper_gib6.mdl", "models/vj_hlr/gibs/strooper_gib7.mdl", "models/vj_hlr/gibs/strooper_gib8.mdl", "models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib6.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 --
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, nil, {ExtraGibs = gibs})
 end

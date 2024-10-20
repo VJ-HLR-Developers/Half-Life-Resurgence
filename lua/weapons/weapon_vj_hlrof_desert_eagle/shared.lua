@@ -23,7 +23,7 @@ SWEP.WorldModel_CustomPositionOrigin = Vector(0.5, -0.5, -35)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 15 -- Damage
-SWEP.Primary.ClipSize			= 7 -- Max amount of bullets per clip
+SWEP.Primary.ClipSize			= 7 -- Max amount of rounds per clip
 SWEP.Primary.Ammo				= "357" -- Ammo type
 SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/deagle/desert_eagle_fire.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/deagle/desert_eagle_fire_distant_final.wav"}
@@ -33,7 +33,7 @@ SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 -- Custom
 SWEP.HLR_ValidModels = {"models/vj_hlr/opfor/otis.mdl","models/vj_hlr/opfor/hgrunt.mdl","models/vj_hlr/hl1/hgrunt.mdl","models/vj_hlr/opfor/hgrunt_medic.mdl","models/vj_hlr/opfor/hgrunt_engineer.mdl","models/vj_hlr/opfor_hd/hgrunt.mdl","models/vj_hlr/opfor_hd/hgrunt_medic.mdl","models/vj_hlr/opfor_hd/hgrunt_engineer.mdl"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnInitialize()
+function SWEP:Init()
 	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
 		if IsValid(self) && IsValid(self:GetOwner()) then
 			if !VJ.HasValue(self.HLR_ValidModels,self:GetOwner():GetModel()) then

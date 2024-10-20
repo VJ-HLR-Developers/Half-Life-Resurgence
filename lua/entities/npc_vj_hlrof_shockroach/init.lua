@@ -29,7 +29,7 @@ ENT.SoundTbl_Death = "vj_hlr/hl1_npc/shockroach/shock_die.wav"
 -- Custom --
 ENT.SRoach_Life = nil
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
 	if self.SRoach_Life != nil then
 		timer.Simple(self.SRoach_Life, function()
 			if IsValid(self) && !self.Dead then
@@ -39,13 +39,13 @@ function ENT:CustomOnPreInitialize()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	if key == "step" then
 		self:FootStepSoundCode()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
 	if self.VJ_IsBeingControlled then return end
 	self:VJ_ACT_PLAYACTIVITY("angry", true, false, true) -- Shockroach always plays alert animation
 end

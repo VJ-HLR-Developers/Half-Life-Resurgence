@@ -16,7 +16,7 @@ SWEP.NPC_BulletSpawnAttachment = "0" -- The attachment that the bullet spawns on
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 60 -- Damage
 //SWEP.Primary.Force = 2 -- Force applied on the object the bullet hits
-SWEP.Primary.ClipSize = 2 -- Max amount of bullets per clip
+SWEP.Primary.ClipSize = 2 -- Max amount of rounds per clip
 SWEP.Primary.Ammo = "Buckshot" -- Ammo type
 SWEP.Primary.Sound = "VJ.HLR_Weapon_Annabelle.Single"
 SWEP.PrimaryEffects_MuzzleAttachment = "0"

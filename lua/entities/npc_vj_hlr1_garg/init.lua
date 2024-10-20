@@ -8,7 +8,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl1/garg.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 1000
 ENT.HullType = HULL_HUMAN
-ENT.VJTag_ID_Boss = true -- Is this a huge monster?
+ENT.VJTag_ID_Boss = true
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(-50, 0, -45), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
@@ -31,7 +31,7 @@ ENT.MeleeAttackDamageDistance = 165 -- How far does the damage go | false = Let 
 ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK2
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_garg_stomp" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
-ENT.RangeDistance = 2000 -- This is how far away it can shoot
+ENT.RangeDistance = 2000 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 120 -- How close does it have to be until it uses melee?
 ENT.NextRangeAttackTime = 10 -- How much time until it can use a range attack?
 ENT.NextRangeAttackTime_DoRand = 13 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
@@ -41,13 +41,13 @@ ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attac
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.DeathAnimationTime = 3.7 -- Time until the NPC spawns its corpse and gets removed
-ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
+ENT.DeathAnimationTime = 3.7 -- How long should the death animation play?
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 	-- ====== Flinching Variables ====== --
 ENT.CanFlinch = 2 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.FlinchDamageTypes = {DMG_BLAST} -- If it uses damage-based flinching, which types of damages should it flinch from?
 ENT.FlinchChance = 2 -- Chance of it flinching from 1 to x | 1 will make it always flinch
-ENT.AnimTbl_Flinch = ACT_BIG_FLINCH -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = ACT_BIG_FLINCH -- The regular flinch animations to play
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/garg/gar_step1.wav","vj_hlr/hl1_npc/garg/gar_step2.wav"}
 ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/garg/gar_breathe1.wav","vj_hlr/hl1_npc/garg/gar_breathe2.wav","vj_hlr/hl1_npc/garg/gar_breathe3.wav"}
@@ -75,7 +75,7 @@ ENT.Garg_FlameLevel = 0 -- 0 = Not started | 1 = Preparing | 2 = Flame active
 ENT.Garg_NextFlameT = 0
 ENT.Garg_MeleeLargeKnockback = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
 	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD then
 		if self:GetClass() == "npc_vj_hlr1_garg" then
 			self.Model = "models/vj_hlr/hl_hd/garg.mdl"
@@ -86,7 +86,7 @@ function ENT:CustomOnPreInitialize()
 	self.TimersToRemove[#self.TimersToRemove + 1] = "garg_flame_reset"
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	if self.Garg_Type == 0 then -- Adult garg
 		self:SetCollisionBounds(Vector(70, 70, 210),  Vector(-70, -70, 0))
 	elseif self.Garg_Type == 1 then -- Baby garg
@@ -112,7 +112,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("Right Mouse + CTRL: Preform Stomp attack")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
@@ -147,7 +147,7 @@ function ENT:TranslateActivity(act)
 	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
 	if self.Garg_CanFlame && self.Garg_NextFlameT < CurTime() && self.AttackType == VJ.ATTACK_TYPE_NONE then
 		self.DisableChasingEnemy = true
 		self:StopMoving()
@@ -269,20 +269,17 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
 --
-function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
+function ENT:OnDamaged(dmginfo, hitgroup, status)
 	-- Make a metal ricochet effect
-	if dmginfo:GetDamagePosition() != vec then
+	if status == "Initial" && dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(5) -- Size
 		rico:SetMagnitude(math.random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
 		util.Effect("VJ_HLR_Rico", rico)
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
+	
 	-- Handle bullet damage scaling
-	if dmginfo:IsBulletDamage() == true then
+	elseif status == "PreDamage" && dmginfo:IsBulletDamage() then
 		if self.Garg_Type == 1 then -- Make babies take half damage for bullets
 			dmginfo:ScaleDamage(0.5)
 		elseif self.Garg_Type == 2 then -- Custom Gargantua
@@ -293,33 +290,35 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
-	-- Death sequence (With explosions)
-	for i = 0.3, 3.5, 0.5 do
-		timer.Simple(i, function()
-			if IsValid(self) then
-				local myPos = self:GetPos()
-				local spr = ents.Create("env_sprite")
-				spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-				spr:SetKeyValue("GlowProxySize","2.0")
-				spr:SetKeyValue("HDRColorScale","1.0")
-				spr:SetKeyValue("renderfx","14")
-				spr:SetKeyValue("rendermode","5")
-				spr:SetKeyValue("renderamt","255")
-				spr:SetKeyValue("disablereceiveshadows","0")
-				spr:SetKeyValue("mindxlevel","0")
-				spr:SetKeyValue("maxdxlevel","0")
-				spr:SetKeyValue("framerate","15.0")
-				spr:SetKeyValue("spawnflags","0")
-				spr:SetKeyValue("scale", self.Garg_Type == 1 and "3" or "6")
-				spr:SetPos(myPos + self:GetUp()*(self.Garg_Type == 1 and math.random(60, 120) or math.random(120, 200)))
-				spr:Spawn()
-				spr:Fire("Kill", "", 0.9)
-				util.BlastDamage(self, self, myPos, 150, 50)
-				util.ScreenShake(myPos, 100, 200, 1, 2500)
-				VJ.EmitSound(self, sdExplosions, 90, 100)
-			end
-		end)
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Initial" then
+		-- Death sequence (With explosions)
+		for i = 0.3, 3.5, 0.5 do
+			timer.Simple(i, function()
+				if IsValid(self) then
+					local myPos = self:GetPos()
+					local spr = ents.Create("env_sprite")
+					spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+					spr:SetKeyValue("GlowProxySize","2.0")
+					spr:SetKeyValue("HDRColorScale","1.0")
+					spr:SetKeyValue("renderfx","14")
+					spr:SetKeyValue("rendermode","5")
+					spr:SetKeyValue("renderamt","255")
+					spr:SetKeyValue("disablereceiveshadows","0")
+					spr:SetKeyValue("mindxlevel","0")
+					spr:SetKeyValue("maxdxlevel","0")
+					spr:SetKeyValue("framerate","15.0")
+					spr:SetKeyValue("spawnflags","0")
+					spr:SetKeyValue("scale", self.Garg_Type == 1 and "3" or "6")
+					spr:SetPos(myPos + self:GetUp()*(self.Garg_Type == 1 and math.random(60, 120) or math.random(120, 200)))
+					spr:Spawn()
+					spr:Fire("Kill", "", 0.9)
+					util.BlastDamage(self, self, myPos, 150, 50)
+					util.ScreenShake(myPos, 100, 200, 1, 2500)
+					VJ.EmitSound(self, sdExplosions, 90, 100)
+				end
+			end)
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -330,7 +329,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	timer.Simple(3.6, function()
 		if IsValid(self) then
 			local myPos = self:GetPos()
-			if self.HasGibDeathParticles == true then
+			if self.HasGibOnDeathEffects == true then
 				local effectData = EffectData()
 				effectData:SetOrigin(myPos + self:OBBCenter())
 				effectData:SetColor(colorYellow)

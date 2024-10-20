@@ -10,6 +10,6 @@ ENT.StartHealth = 80
 ENT.Weapon_Accuracy = 0.5
 ENT.Weapon_FiringDistanceFar = 10000
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetMaterial("models/hl_resurgence/hl2/sniper/combinesoldiersheet")
 end

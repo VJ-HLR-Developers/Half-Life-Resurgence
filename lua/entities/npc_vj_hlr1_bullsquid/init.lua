@@ -22,18 +22,18 @@ ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.Immune_AcidPoisonRadiation = true -- Makes the SNPC not get damage from Acid, poison, radiation
 
 ENT.HasMeleeAttack = true -- Can this NPC melee attack?
-ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2} -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2}
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDistance = 35 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.MeleeAttackDamageDistance = 125 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.HasMeleeAttackKnockBack = true -- If true, it will cause a knockback to its enemy
 
 ENT.HasRangeAttack = true -- Can this NPC range attack?
-ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1 -- Range Attack Animations
+ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_toxicspit" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 1.5 -- How much time until it can use a range attack?
-ENT.RangeDistance = 784 -- This is how far away it can shoot
+ENT.RangeDistance = 784 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 256 -- How close does it have to be until it uses melee?
 
 ENT.NoChaseAfterCertainRange = true -- Should the NPC stop chasing when the enemy is within the given far and close distances?
@@ -41,7 +41,7 @@ ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until i
 ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_Type = "OnlyRange" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD} -- Death Animations
+ENT.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD}
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
@@ -58,7 +58,7 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/bullchicken/bc_die1.wav","vj_hlr/hl1_npc/b
 ENT.Bullsquid_Type = 0 -- 0 = Retail Half-Life 1 | Alpha Half-Life 1
 ENT.Bullsquid_BlinkingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	if self.Bullsquid_Type == 1 then
 		self:SetCollisionBounds(Vector(35, 35 , 60), Vector(-35, -35, 0))
 	else
@@ -66,7 +66,7 @@ function ENT:CustomOnInitialize()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
@@ -83,7 +83,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	if self.Bullsquid_Type == 1 then return end
 	if !self.Dead && CurTime() > self.Bullsquid_BlinkingT then
 		self:SetSkin(1)
@@ -92,7 +92,7 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
 	if self.Bullsquid_Type == 1 then return end -- Alpha doesn't have alert animations!
 	if math.random(1, 3) == 1 then
 		if ent.VJTag_ID_Headcrab then
@@ -117,14 +117,16 @@ function ENT:MeleeAttackKnockbackVelocity(hitEnt)
 	return self:GetForward() * 55 + self:GetUp() * 255
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	if self.Bullsquid_Type != 0 then return end
-	if dmginfo:GetDamage() > 35 then
-		self.AnimTbl_Death = ACT_DIEBACKWARD
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "DeathAnim" then
+		if self.Bullsquid_Type != 0 then return end
+		if dmginfo:GetDamage() > 35 then
+			self.AnimTbl_Death = ACT_DIEBACKWARD
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	corpseEnt:SetSkin(1)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt)
 end
@@ -133,7 +135,7 @@ local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles then
+	if self.HasGibOnDeathEffects then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorYellow)

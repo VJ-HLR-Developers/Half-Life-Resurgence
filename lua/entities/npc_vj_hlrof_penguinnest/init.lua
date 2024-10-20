@@ -20,6 +20,6 @@ ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damage
 
 ENT.Nest_SpawnEnt = "npc_vj_hlrof_penguin"
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(15, 15, 60), Vector(-15, -15, 0))
 end

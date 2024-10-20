@@ -46,7 +46,7 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:SetBuoyancyRatio(0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:PhysicsInitSphere(4, "gmod_bouncy")
 	self:SetModel("models/vj_hlr/weapons/spore.mdl")
 	ParticleEffectAttach("vj_hlr_spore_idle", PATTACH_ABSORIGIN_FOLLOW, self, 0)

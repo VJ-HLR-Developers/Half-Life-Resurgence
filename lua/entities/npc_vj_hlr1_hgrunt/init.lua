@@ -20,13 +20,13 @@ ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damage
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
 ENT.HasMeleeAttack = true -- Can this NPC melee attack?
-ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1 -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
 ENT.MeleeAttackDamage = 10
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 
 ENT.HasGrenadeAttack = true -- Should the NPC have a grenade attack?
 ENT.GrenadeAttackEntity = "obj_vj_hlr1_grenade" -- Entities that it can spawn when throwing a grenade | If set as a table, it picks a random entity | VJ: "obj_vj_grenade" | HL2: "npc_grenade_frag"
-ENT.AnimTbl_GrenadeAttack = ACT_SPECIAL_ATTACK2 -- Grenade Attack Animations
+ENT.AnimTbl_GrenadeAttack = ACT_SPECIAL_ATTACK2
 ENT.GrenadeAttackAttachment = "lhand" -- The attachment that the grenade will spawn at
 ENT.TimeUntilGrenadeIsReleased = false -- Time until the grenade is released
 ENT.NextThrowGrenadeTime = VJ.SET(10, 12) -- Time until it can throw a grenade again
@@ -37,14 +37,14 @@ ENT.Medic_SpawnPropOnHeal = false -- Should it spawn a prop, such as small healt
 ENT.Medic_TimeUntilHeal = 4 -- Time until the ally receives health | Set to false to let the base decide the time
 ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
 ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
-ENT.MoveRandomlyWhenShooting = false -- Should it move randomly while shooting a weapon?
+ENT.Weapon_StrafeWhileFiring = false -- Should it move randomly while firing a weapon?
 //ENT.PoseParameterLooking_InvertPitch = true -- Inverts the pitch pose parameters (X)
 //ENT.PoseParameterLooking_Names = {pitch={"XR"},yaw={},roll={"ZR"}} -- Custom pose parameters to use, can put as many as needed
 ENT.CallForBackUpOnDamageAnimation = ACT_SIGNAL3 -- Animations played when it calls for help on damage
-ENT.AnimTbl_CallForHelp = ACT_SIGNAL1 -- Call For Help Animations
+ENT.AnimTbl_CallForHelp = ACT_SIGNAL1
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE} -- Death Animations
-//ENT.DeathAnimationTime = 0.8 -- Time until the NPC spawns its corpse and gets removed
+ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE}
+//ENT.DeathAnimationTime = 0.8 -- How long should the death animation play?
 ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE -- The animation it plays when hiding in a covered position, leave empty to let the base decide
 ENT.AnimTbl_AlertFriendsOnDeath = "vjseq_idle2" -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
 ENT.AnimTbl_WeaponAttackSecondary = ACT_SPECIAL_ATTACK1 -- Animation(s) to play while firing the weapon's secondary attack
@@ -54,7 +54,7 @@ ENT.CanTurnWhileMoving = false -- Can the NPC turn while moving? | EX: GoldSrc N
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- The regular flinch animations to play
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/hgrunt/gr_die1.wav","vj_hlr/hl1_npc/hgrunt/gr_die2.wav","vj_hlr/hl1_npc/hgrunt/gr_die3.wav"}
@@ -84,13 +84,13 @@ ENT.HECU_NextMouthDistance = 0
 
 local defPos = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
 	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "npc_vj_hlr1_hgrunt" then
 		self.Model = "models/vj_hlr/hl_hd/hgrunt.mdl"
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:HECU_CustomOnInitialize()
+function ENT:HECU_OnInit()
 	self.HECU_UsingDefaultSounds = true
 	self.SoundTbl_Idle = {"vj_hlr/hl1_npc/hgrunt/gr_alert1.wav", "vj_hlr/hl1_npc/hgrunt/gr_idle1.wav", "vj_hlr/hl1_npc/hgrunt/gr_idle2.wav", "vj_hlr/hl1_npc/hgrunt/gr_idle3.wav"}
 	self.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/hgrunt/gr_question1.wav", "vj_hlr/hl1_npc/hgrunt/gr_question2.wav", "vj_hlr/hl1_npc/hgrunt/gr_question3.wav", "vj_hlr/hl1_npc/hgrunt/gr_question4.wav", "vj_hlr/hl1_npc/hgrunt/gr_question5.wav", "vj_hlr/hl1_npc/hgrunt/gr_question6.wav", "vj_hlr/hl1_npc/hgrunt/gr_question7.wav", "vj_hlr/hl1_npc/hgrunt/gr_question8.wav", "vj_hlr/hl1_npc/hgrunt/gr_question9.wav", "vj_hlr/hl1_npc/hgrunt/gr_question10.wav", "vj_hlr/hl1_npc/hgrunt/gr_question11.wav", "vj_hlr/hl1_npc/hgrunt/gr_question12.wav", "vj_hlr/hl1_npc/hgrunt/gr_check1.wav", "vj_hlr/hl1_npc/hgrunt/gr_check2.wav", "vj_hlr/hl1_npc/hgrunt/gr_check3.wav", "vj_hlr/hl1_npc/hgrunt/gr_check4.wav", "vj_hlr/hl1_npc/hgrunt/gr_check5.wav", "vj_hlr/hl1_npc/hgrunt/gr_check6.wav", "vj_hlr/hl1_npc/hgrunt/gr_check7.wav", "vj_hlr/hl1_npc/hgrunt/gr_check8.wav", }
@@ -127,7 +127,7 @@ function ENT:HECU_CustomOnInitialize()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(15, 15, 78), Vector(-15, -15, 0))
 	
 	local myMDL = self:GetModel()
@@ -178,7 +178,7 @@ function ENT:CustomOnInitialize()
 	
 	self.HECU_NextMouthMove = CurTime()
 	
-	self:HECU_CustomOnInitialize()
+	self:HECU_OnInit()
 	
 	if self.HECU_Rappelling then
 		self:SetGroundEntity(NULL)
@@ -198,7 +198,7 @@ function ENT:OnPlayCreateSound(sdData, sdFile)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
@@ -260,7 +260,7 @@ end
 local sdAlertAlien = {"vj_hlr/hl1_npc/hgrunt/gr_alert9.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert10.wav"}
 local sdAlertSoldier = {"vj_hlr/hl1_npc/hgrunt/gr_alert2.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert5.wav"}
 --
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
 	if math.random(1, 3) == 1 && self.HECU_UsingDefaultSounds == true then
 		if ent.IsVJBaseSNPC_Creature == true then -- Alien sounds
 			self:PlaySoundSystem("Alert", sdAlertAlien)
@@ -382,9 +382,9 @@ function ENT:HECU_StopRappelling()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 -- Used for custom HECU soldiers
-function ENT:HECU_CustomOnThink() end
+function ENT:HECU_OnThink() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	-- Mouth movement
 	if CurTime() < self.HECU_NextMouthMove then
 		if self.HECU_NextMouthDistance == 0 then
@@ -507,7 +507,7 @@ function ENT:CustomOnThink()
 			return
 		end
 	end
-	self:HECU_CustomOnThink()
+	self:HECU_OnThink()
 	
 	-- For guarding
 	/*if self.HECU_CanUseGuardAnim then
@@ -558,7 +558,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		self.HasDeathAnimation = false
 		return true, {DeathAnim=false, AllowCorpse=true}
 	else
-		if self.HasGibDeathParticles == true then
+		if self.HasGibOnDeathEffects == true then
 			local effectData = EffectData()
 			effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 			effectData:SetColor(colorRed)
@@ -603,51 +603,72 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
-	-- Regular Human Grunt head gib
-	if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then
-		self:SetBodygroup(1,4)
-		self.GibOnDeathDamagesTable = {"All"}
-	end
-	-- If we are still rappelling then play the rappel death animation!
-	if self.HECU_Rappelling then
-		self.AnimTbl_Death = "repel_die"
-	else
-		-- Make the alpha sergeant fly back when its a heavy damage
-		if self.HECU_Type == 7 && dmginfo:GetDamage() > 30 && self:GetModel() == "models/vj_hlr/hla/hassault.mdl" then
-			self.AnimTbl_Death = ACT_DIEBACKWARD
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Initial" then
+		-- Regular Human Grunt head gib
+		if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then
+			self:SetBodygroup(1, 4)
+			self.GibOnDeathDamagesTable = {"All"}
+		end
+		
+		if self.HECU_Type == 5 then
+			local spr = ents.Create("env_sprite")
+			spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+			spr:SetKeyValue("GlowProxySize","2.0")
+			spr:SetKeyValue("HDRColorScale","1.0")
+			spr:SetKeyValue("renderfx","14")
+			spr:SetKeyValue("rendermode","5")
+			spr:SetKeyValue("renderamt","255")
+			spr:SetKeyValue("disablereceiveshadows","0")
+			spr:SetKeyValue("mindxlevel","0")
+			spr:SetKeyValue("maxdxlevel","0")
+			spr:SetKeyValue("framerate","20.0")
+			spr:SetKeyValue("spawnflags","0")
+			spr:SetKeyValue("scale","1.5")
+			spr:SetPos(self:GetPos() + self:GetUp()*60)
+			spr:Spawn()
+			spr:Fire("Kill","",0.7)
+			timer.Simple(0.7, function() if IsValid(spr) then spr:Remove() end end)
+		end
+		
+		-- If we are still rappelling then play the rappel death animation!
+		if self.HECU_Rappelling then
+			self.AnimTbl_Death = "repel_die"
+		else
+			-- Make the alpha sergeant fly back when its a heavy damage
+			if self.HECU_Type == 7 && dmginfo:GetDamage() > 30 && self:GetModel() == "models/vj_hlr/hla/hassault.mdl" then
+				self.AnimTbl_Death = ACT_DIEBACKWARD
+			end
+		end
+	elseif status == "DeathAnim" then
+		self:DeathWeaponDrop(dmginfo, hitgroup)
+		self:OnDeath(dmginfo, hitgroup, "Finish")
+		local activeWep = self:GetActiveWeapon()
+		if IsValid(activeWep) then activeWep:Remove() end
+	elseif status == "Finish" then
+		-- Remove the weapon body groups and other objects
+		if self.HECU_Type == 6 or self.HECU_Type == 7 then
+			self:SetBodygroup(self.HECU_WepBG, 1)
+		elseif self.HECU_Type == 0 or self.HECU_Type == 3 or self.HECU_Type == 4 or self.HECU_Type == 9 then
+			self:SetBodygroup(self.HECU_WepBG, 2)
+		elseif self.HECU_Type == 5 then
+			self:SetBodygroup(self.HECU_WepBG, 2)
+			self:SetSkin(4)
+		elseif self.HECU_Type == 1 or self.HECU_Type == 2 then
+			self:SetBodygroup(self.HECU_WepBG, 3)
+		elseif self.HECU_Type == 8 then
+			self:SetBodygroup(self.HECU_WepBG, 2)
+		elseif self.HECU_Type == 2 then
+			self:SetBodygroup(2, 3)
 		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	self:DoDropWeaponOnDeath(dmginfo, hitgroup)
-	self:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
-	local activeWep = self:GetActiveWeapon()
-	if IsValid(activeWep) then activeWep:Remove() end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
-	-- Remove the weapon body group
-	if self.HECU_Type == 6 or self.HECU_Type == 7 then
-		self:SetBodygroup(self.HECU_WepBG, 1)
-	elseif self.HECU_Type == 0 or self.HECU_Type == 3 or self.HECU_Type == 4 or self.HECU_Type == 9 then
-		self:SetBodygroup(self.HECU_WepBG, 2)
-	elseif self.HECU_Type == 5 then
-		self:SetBodygroup(self.HECU_WepBG, 2)
-		self:SetSkin(4)
-	elseif self.HECU_Type == 1 or self.HECU_Type == 2 then
-		self:SetBodygroup(self.HECU_WepBG, 3)
-	elseif self.HECU_Type == 8 then
-		self:SetBodygroup(self.HECU_WepBG, 2)
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, nil, {ExtraGibs = self.HECU_Type != 4 and {"models/vj_hlr/gibs/gib_hgrunt.mdl"} or nil})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDropWeapon(dmginfo, hitgroup, wepEnt)
+function ENT:OnDeathWeaponDrop(dmginfo, hitgroup, wepEnt)
 	wepEnt.WorldModel_Invisible = false
 	wepEnt:SetNW2Bool("VJ_WorldModel_Invisible", false)
 end

@@ -20,7 +20,7 @@ ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's dam
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.Immune_Sonic = true -- Immune to sonic damage
 ENT.HasMeleeAttack = true -- Can this NPC melee attack?
-ENT.AnimTbl_MeleeAttack = ACT_RANGE_ATTACK1 -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = ACT_RANGE_ATTACK1
 ENT.MeleeAttackDistance = 164 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.TimeUntilMeleeAttackDamage = 2.35 -- This counted in seconds | This calculates the time until it hits something
 ENT.NextMeleeAttackTime = 2
@@ -32,7 +32,7 @@ ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = "vjseq_flinch_small" -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = "vjseq_flinch_small" -- The regular flinch animations to play
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/houndeye/he_hunt1.wav","vj_hlr/hl1_npc/houndeye/he_hunt2.wav","vj_hlr/hl1_npc/houndeye/he_hunt3.wav","vj_hlr/hl1_npc/houndeye/he_hunt4.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/houndeye/he_idle1.wav","vj_hlr/hl1_npc/houndeye/he_idle2.wav","vj_hlr/hl1_npc/houndeye/he_idle3.wav","vj_hlr/hl1_npc/houndeye/he_idle4.wav"}
@@ -55,13 +55,13 @@ ENT.Houndeye_Type = 0
 	-- 0 = Original / Default
 	-- 1 = Alpha
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
 	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "npc_vj_hlr1_houndeye" then
 		self.Model = "models/vj_hlr/hl_hd/houndeye.mdl"
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(20, 20 , 40), Vector(-20, -20, 0))
 	
 	self.Houndeye_NextSleepT = CurTime() + math.Rand(0, 15)
@@ -74,7 +74,7 @@ function ENT:CustomOnInitialize()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "he_hunt" then -- step
 		self:FootStepSoundCode()
@@ -109,7 +109,7 @@ function ENT:TranslateActivity(act)
 	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	-- Blinking
 	if !self.Dead && CurTime() > self.Houndeye_BlinkingT && self.Houndeye_Sleeping == false then
 		self:SetSkin(1)
@@ -120,7 +120,7 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
 	if self.VJ_IsBeingControlled then return end
 	
 	-- Sleep system
@@ -142,7 +142,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local alertAnims = {"vjseq_madidle1", "vjseq_madidle2", "vjseq_madidle3"}
 --
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
 	if self.Houndeye_Sleeping == true then -- Wake up if sleeping and play a special alert animation
 		if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end
 		self.Houndeye_Sleeping = false
@@ -192,29 +192,35 @@ function ENT:CustomOnMeleeAttack_BeforeChecks()
 	VJ.ApplyRadiusDamage(self, self, myPos, 400, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
-	-- Houndeye shouldn't have its sonic attack interrupted by a flinch animation!
-	return self.CurrentAttackAnimationTime < CurTime()
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
-	self.Houndeye_NextSleepT = CurTime() + math.Rand(15, 45)
-	if self.Houndeye_Sleeping == true then -- Wake up if sleeping and play a special alert animation
-		if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end
-		self.Houndeye_Sleeping = false
-		self:VJ_ACT_PLAYACTIVITY(ACT_HOP, true, false, false)
+function ENT:OnFlinch(dmginfo, hitgroup, status)
+	if status == "PriorExecution" then
+		-- Houndeye shouldn't have its sonic attack interrupted by a flinch animation!
+		return self.CurrentAttackAnimationTime < CurTime()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
-	self:SetSkin(math.random(1, 2))
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+	if status == "PostDamage" && self.Houndeye_Type != 1 then
+		self.Houndeye_NextSleepT = CurTime() + math.Rand(15, 45)
+		if self.Houndeye_Sleeping == true then -- Wake up if sleeping and play a special alert animation
+			if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end
+			self.Houndeye_Sleeping = false
+			self:VJ_ACT_PLAYACTIVITY(ACT_HOP, true, false, false)
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Initial" then
+		self:SetSkin(math.random(1, 2))
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles then
+	if self.HasGibOnDeathEffects then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorYellow)
@@ -245,6 +251,6 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt)
 end

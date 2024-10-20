@@ -9,7 +9,7 @@ ENT.Model = "models/vj_hlr/opfor/geneworm.mdl" -- Model(s) to spawn with | Picks
 ENT.StartHealth = 1080
 ENT.SightAngle = 120 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.HullType = HULL_LARGE
-ENT.VJTag_ID_Boss = true -- Is this a huge monster?
+ENT.VJTag_ID_Boss = true
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
 ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
 ENT.VJC_Data = {
@@ -27,7 +27,7 @@ ENT.VJ_NPC_Class = {"CLASS_RACE_X"} -- NPCs with the same class with be allied t
 
 ENT.HasMeleeAttack = true -- Can this NPC melee attack?
 ENT.MeleeAttackDamage = 60
-ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1 -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
 ENT.MeleeAttackAnimationFaceEnemy = true -- Should it face the enemy while playing the melee attack animation?
 ENT.MeleeAttackDistance = 580 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.MeleeAttackDamageDistance = 600 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
@@ -36,8 +36,8 @@ ENT.HasMeleeAttackKnockBack = true -- If true, it will cause a knockback to its 
 
 ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlrof_gw_biotoxin" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
-ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1 -- Range Attack Animations
-ENT.RangeDistance = 8000 -- This is how far away it can shoot
+ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
+ENT.RangeDistance = 8000 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 500 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = 2.1 -- How much time until the projectile code is ran?
 ENT.RangeAttackExtraTimers = {2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4, 4.1, 4.2, 4.3} -- Extra range attack timers | it will run the projectile code after the given amount of seconds
@@ -45,7 +45,7 @@ ENT.NextRangeAttackTime = 2 -- How much time until it can use a range attack?
 ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = "death" -- Death Animations
+ENT.AnimTbl_Death = "death"
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/geneworm/geneworm_idle1.wav","vj_hlr/hl1_npc/geneworm/geneworm_idle2.wav","vj_hlr/hl1_npc/geneworm/geneworm_idle3.wav","vj_hlr/hl1_npc/geneworm/geneworm_idle4.wav"}
@@ -71,7 +71,7 @@ local maxOrbHealth = 100
 local vecPortalSpawn = Vector(0, 0, 100)
 local colorPortal = Color(153, 6, 159, 255)
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:AddFlags(FL_NOTARGET) -- They are going to target the bullseye only, so don't let other NPCs see the actual gene worm!
 	self:SetCollisionBounds(Vector(400, 400, 350), Vector(-400, -400, -240))
 	self:SetRenderMode(RENDERMODE_TRANSALPHA)
@@ -216,7 +216,7 @@ function ENT:TranslateActivity(act)
 	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "melee" or key == "shakeworld" then
 		self:MeleeAttackCode()
@@ -248,7 +248,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	local a = self:GetColor().a
 	-- Fade in animation (On Spawn)
 	if self.GW_Fade == 1 && a < 255 then
@@ -399,46 +399,48 @@ function ENT:GW_EyeHealthCheck()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
-	if self.GW_Fade == 1 or self:GetSequenceName(self:GetSequence()) == "pain_4" then dmginfo:SetDamage(0) end -- If it's fading in, then don't take damage!
-	-- Left eye
-	if hitgroup == 14 && self.GW_EyeHealth.l > 0 then
-		self:SpawnBloodParticles(dmginfo, hitgroup)
-		self.GW_EyeHealth.l = self.GW_EyeHealth.l - dmginfo:GetDamage()
-		//print("Left hit!", self.GW_EyeHealth.l)
-		if self.GW_EyeHealth.l <= 0 then
-			self:VJ_ACT_PLAYACTIVITY(ACT_SMALL_FLINCH, true, false)
-			self:GW_EyeHealthCheck()
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+	if status == "PreDamage" then
+		if self.GW_Fade == 1 or self:GetSequenceName(self:GetSequence()) == "pain_4" then dmginfo:SetDamage(0) end -- If it's fading in, then don't take damage!
+		-- Left eye
+		if hitgroup == 14 && self.GW_EyeHealth.l > 0 then
+			self:SpawnBloodParticles(dmginfo, hitgroup)
+			self.GW_EyeHealth.l = self.GW_EyeHealth.l - dmginfo:GetDamage()
+			//print("Left hit!", self.GW_EyeHealth.l)
+			if self.GW_EyeHealth.l <= 0 then
+				self:VJ_ACT_PLAYACTIVITY(ACT_SMALL_FLINCH, true, false)
+				self:GW_EyeHealthCheck()
+			end
+			dmginfo:SetDamage(0)
+		-- Right eye
+		elseif hitgroup == 15 && self.GW_EyeHealth.r > 0 then
+			self:SpawnBloodParticles(dmginfo, hitgroup)
+			self.GW_EyeHealth.r = self.GW_EyeHealth.r - dmginfo:GetDamage()
+			//print("Right hit!", self.GW_EyeHealth.r)
+			if self.GW_EyeHealth.r <= 0 then
+				self:VJ_ACT_PLAYACTIVITY(ACT_BIG_FLINCH, true, false)
+				self:GW_EyeHealthCheck()
+			end
+			dmginfo:SetDamage(0)
+		-- Stomach Orb
+		elseif hitgroup == 69 && self.GW_OrbOpen == true && self.GW_OrbHealth > 0 then
+			self.GW_OrbHealth = self.GW_OrbHealth - dmginfo:GetDamage()
+			if self.GW_OrbHealth <= 0 then
+				timer.Remove("gw_closestomach"..self:EntIndex())
+				self.SoundTbl_Breath = nil
+				VJ.STOPSOUND(self.CurrentBreathSound)
+				self.PainSoundT = 0 -- Otherwise it won't play the sound because it played another pain sound right before this!
+				self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain3.wav")
+				self:VJ_ACT_PLAYACTIVITY("pain_3", true, false)
+				timer.Simple(VJ.AnimDuration(self, "pain_3"),function()
+					if IsValid(self) then
+						self:GW_OrbOpenReset()
+					end
+				end)
+			end
+		else
+			dmginfo:SetDamage(0)
 		end
-		dmginfo:SetDamage(0)
-	 -- Right eye
-	elseif hitgroup == 15 && self.GW_EyeHealth.r > 0 then
-		self:SpawnBloodParticles(dmginfo, hitgroup)
-		self.GW_EyeHealth.r = self.GW_EyeHealth.r - dmginfo:GetDamage()
-		//print("Right hit!", self.GW_EyeHealth.r)
-		if self.GW_EyeHealth.r <= 0 then
-			self:VJ_ACT_PLAYACTIVITY(ACT_BIG_FLINCH, true, false)
-			self:GW_EyeHealthCheck()
-		end
-		dmginfo:SetDamage(0)
-	-- Stomach Orb
-	elseif hitgroup == 69 && self.GW_OrbOpen == true && self.GW_OrbHealth > 0 then
-		self.GW_OrbHealth = self.GW_OrbHealth - dmginfo:GetDamage()
-		if self.GW_OrbHealth <= 0 then
-			timer.Remove("gw_closestomach"..self:EntIndex())
-			self.SoundTbl_Breath = nil
-			VJ.STOPSOUND(self.CurrentBreathSound)
-			self.PainSoundT = 0 -- Otherwise it won't play the sound because it played another pain sound right before this!
-			self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain3.wav")
-			self:VJ_ACT_PLAYACTIVITY("pain_3", true, false)
-			timer.Simple(VJ.AnimDuration(self, "pain_3"),function()
-				if IsValid(self) then
-					self:GW_OrbOpenReset()
-				end
-			end)
-		end
-	else
-		dmginfo:SetDamage(0)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -455,40 +457,40 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local deathParticlePos = Vector(0, 0, -25)
 --
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	self:GW_CleanUp()
-	if IsValid(self.GW_Portal) then
-		self.GW_Portal:ResetSequence("close")
-		local sprParticles = ents.Create("info_particle_system")
-		sprParticles:SetKeyValue("effect_name","vj_hlr_geneworm_sprites_death")
-		sprParticles:SetPos(self.GW_Portal:GetPos() + self.GW_Portal:OBBCenter() + deathParticlePos)
-		sprParticles:SetAngles(self.GW_Portal:GetAngles())
-		sprParticles:SetParent(self.GW_Portal)
-		sprParticles:Spawn()
-		sprParticles:Activate()
-		sprParticles:Fire("Start", "", 0)
-		sprParticles:Fire("Kill", "", 18)
-		self:DeleteOnRemove(sprParticles)
-		
-		-- Not Gene Worm effects
-		/*for i = 1, math.random(12, 20) do
-			timer.Simple(i * math.Rand(0.5, 1), function()
-				if IsValid(self) then
-					VJ.HLR_Effect_Explosion(self:GetAttachment(2).Pos + Vector(math.Rand(-100, 100), math.Rand(-100, 100), math.Rand(-100, 100)), 2, math.Rand(2.5, 5), "50 255 50")
-				end
-			end)
-		end*/
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "DeathAnim" then
+		self:GW_CleanUp()
+		if IsValid(self.GW_Portal) then
+			self.GW_Portal:ResetSequence("close")
+			local sprParticles = ents.Create("info_particle_system")
+			sprParticles:SetKeyValue("effect_name","vj_hlr_geneworm_sprites_death")
+			sprParticles:SetPos(self.GW_Portal:GetPos() + self.GW_Portal:OBBCenter() + deathParticlePos)
+			sprParticles:SetAngles(self.GW_Portal:GetAngles())
+			sprParticles:SetParent(self.GW_Portal)
+			sprParticles:Spawn()
+			sprParticles:Activate()
+			sprParticles:Fire("Start", "", 0)
+			sprParticles:Fire("Kill", "", 18)
+			self:DeleteOnRemove(sprParticles)
+			
+			-- Not Gene Worm effects
+			/*for i = 1, math.random(12, 20) do
+				timer.Simple(i * math.Rand(0.5, 1), function()
+					if IsValid(self) then
+						VJ.HLR_Effect_Explosion(self:GetAttachment(2).Pos + Vector(math.Rand(-100, 100), math.Rand(-100, 100), math.Rand(-100, 100)), 2, math.Rand(2.5, 5), "50 255 50")
+					end
+				end)
+			end*/
 
-		self.GW_Portal.MoveLP:Play()
-		self.GW_Portal.IdleLP:Stop()
-	end
-	self.GW_Fade = 2
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnKilled(dmginfo, hitgroup)
-	-- Screen flash effect for all the players
-	for _,v in ipairs(player.GetHumans()) do
-		v:ScreenFade(SCREENFADE.IN, colorPortal, 1, 0)
+			self.GW_Portal.MoveLP:Play()
+			self.GW_Portal.IdleLP:Stop()
+		end
+		self.GW_Fade = 2
+	elseif status == "Finish" then
+		-- Screen flash effect for all the players
+		for _,v in ipairs(player.GetHumans()) do
+			v:ScreenFade(SCREENFADE.IN, colorPortal, 1, 0)
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

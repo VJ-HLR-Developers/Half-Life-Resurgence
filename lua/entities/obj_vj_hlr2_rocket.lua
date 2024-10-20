@@ -42,12 +42,12 @@ ENT.Rocket_Follow = true
 ENT.Speed = 1200
 ENT.TurnSpeed = 40
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	ParticleEffectAttach("vj_rpg1_fulltrail", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 	ParticleEffectAttach("vj_rpg2_fulltrail", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	local owner = self:GetOwner()
 	local phys = self:GetPhysicsObject()
 	local ent = self.Target or owner:IsNPC() && owner:GetEnemy()

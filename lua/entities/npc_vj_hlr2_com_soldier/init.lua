@@ -158,7 +158,7 @@ npc/combine_soldier/vo/viscon.wav
 -- Custom
 ENT.Combine_ChatterT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
 	self.Combine_ChatterT = CurTime() + math.Rand(1, 30)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -168,7 +168,7 @@ function ENT:OnPlayCreateSound(sdData, sdFile)
 	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self, sdCombine_Radio_Off) end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
 	-- Random background radio sounds
 	if self.Combine_ChatterT < CurTime() then
 		if math.random(1, 2) == 1 then
@@ -178,7 +178,7 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
 	if math.random(1, 2) == 1 then
 		if ent:IsPlayer() or ent.VJ_HLR_Freeman then
 			self:PlaySoundSystem("Alert", sdCombine_Alert_Freeman)
@@ -225,9 +225,9 @@ function ENT:OnGrenadeAttack(status, grenade, customEnt, landDir, landingPos)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
+function ENT:OnDamaged(dmginfo, hitgroup, status)
 	-- Absorb bullet damage, play metallic sound, and create sparks
-	if dmginfo:IsBulletDamage() then
+	if status == "PreDamage" && dmginfo:IsBulletDamage() then
 		if self.HasSounds == true && self.HasImpactSounds == true then
 			VJ.EmitSound(self, "vj_base/impact/armor"..math.random(1, 10)..".wav", 70)
 		end
@@ -245,9 +245,9 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoKilledEnemy(ent, attacker, inflictor)
-	if (ent:IsPlayer() or ent.VJ_HLR_Freeman) && math.random(1, 2) == 1 then
-		self:PlaySoundSystem("Alert", sdCombine_KilledEnemy_Freeman)
+function ENT:OnKilledEnemy(ent, inflictor, wasLast)
+	if wasLast && (ent:IsPlayer() or ent.VJ_HLR_Freeman) && math.random(1, 2) == 1 then
+		self:PlaySoundSystem("OnKilledEnemy", sdCombine_KilledEnemy_Freeman)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

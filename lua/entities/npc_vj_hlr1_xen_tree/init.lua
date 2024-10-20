@@ -39,12 +39,12 @@ ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/h
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(25, 25, 190), Vector(-25, -25, 0))
 	self:AddFlags(FL_NOTARGET)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "melee" then
 		self:MeleeAttackCode()
@@ -62,12 +62,14 @@ function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt)
 	self:SetHealth(math.Clamp(self:Health() + ((self.MeleeAttackDamage > hitEnt:Health() and hitEnt:Health()) or self.MeleeAttackDamage), self:Health(), self:GetMaxHealth()*6))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
-	if self.vACT_StopAttacks == false then
-		self:VJ_ACT_PLAYACTIVITY(ACT_MELEE_ATTACK1, "LetAttacks", false)
-	end
-	if !dmginfo:IsDamageType(DMG_BLAST) then
-		dmginfo:SetDamage(0)
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+	if status == "Initial" then
+		if self.vACT_StopAttacks == false then
+			self:VJ_ACT_PLAYACTIVITY(ACT_MELEE_ATTACK1, "LetAttacks", false)
+		end
+		if !dmginfo:IsDamageType(DMG_BLAST) then
+			dmginfo:SetDamage(0)
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -75,7 +77,7 @@ local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles then
+	if self.HasGibOnDeathEffects then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorYellow)

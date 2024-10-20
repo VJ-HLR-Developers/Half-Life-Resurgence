@@ -39,12 +39,12 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:SetBuoyancyRatio(0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetNoDraw(true)
 	ParticleEffectAttach("vj_hlr_spore_idle_small", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	if self:WaterLevel() == 3 then
 		local myPos = self:GetPos()
 		effects.BubbleTrail(myPos, myPos + self:GetForward()*400, 6, -500, 100)

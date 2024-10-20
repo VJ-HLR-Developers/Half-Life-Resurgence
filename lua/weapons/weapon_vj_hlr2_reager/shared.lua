@@ -13,7 +13,7 @@ SWEP.NPC_NextPrimaryFire = 0.1 -- RPM of the weapon in seconds | Calculation: 60
 SWEP.NPC_FiringDistanceScale = 0.15 -- Changes how far the NPC can fire | 1 = No change, x < 1 = closer, x > 1 = farther
 SWEP.NPC_ReloadSound = "weapons/physgun_off.wav"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.ClipSize = 200 -- Max amount of bullets per clip
+SWEP.Primary.ClipSize = 200 -- Max amount of rounds per clip
 SWEP.Primary.Ammo = "CrossbowBolt" -- Ammo type
 SWEP.Primary.Sound = {}
 SWEP.Primary.DisableBulletCode	= true -- The bullet won't spawn, this can be used when creating a projectile-based weapon
@@ -25,7 +25,7 @@ SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? 
 SWEP.WorldModel_CustomPositionAngle = Vector(-10, 0, 180)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-1, 15, 0.5)
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnInitialize()
+function SWEP:Init()
 	-- Initialize the firing loop sounds that will be used later
 	self.NextStopFireLoop = CurTime()
 	self.FireLoop1 = CreateSound(self, "ambient/levels/citadel/zapper_loop2.wav")
@@ -34,7 +34,7 @@ function SWEP:CustomOnInitialize()
 	self.FireLoop2:SetSoundLevel(70)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnThink()
+function SWEP:OnThink()
 	-- Stop the firing loop sound if we are no longer firing!
 	if CurTime() > self.NextStopFireLoop then
 		VJ.STOPSOUND(self.FireLoop1)

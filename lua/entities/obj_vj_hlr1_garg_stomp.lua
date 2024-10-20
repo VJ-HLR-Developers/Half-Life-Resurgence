@@ -51,7 +51,7 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:EnableGravity(false)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetNoDraw(true)
 
 	-- self.StartGlow1 = ents.Create("env_sprite")
@@ -79,7 +79,7 @@ function ENT:CustomOnInitialize()
 	-- ParticleEffectAttach("vj_hlr_garg_stomp_2", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	local owner = self:GetOwner()
 	if !self.Stomp_InitialRan && IsValid(owner) then 
 		self.Stomp_InitialRan = true

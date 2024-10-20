@@ -25,7 +25,7 @@ ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
-ENT.RangeDistance = 1300 -- This is how far away it can shoot
+ENT.RangeDistance = 1300 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
 ENT.RangeAttackAngleRadius = 180 -- What is the attack angle radius? | 100 = In front of the NPC | 180 = All around the NPC
 ENT.TimeUntilRangeAttackProjectileRelease = 0.06 -- How much time until the projectile code is ran?
@@ -59,7 +59,7 @@ ENT.Sentry_CurrentYawParameter = 0
 ENT.Sentry_NextAlarmT = 0
 ENT.Sentry_ControllerStatus = 0 -- Current status of the controller, 0 = Idle | 1 = Alerted
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(13, 13, 60), Vector(-13, -13, 0))
 	self.Sentry_DeployedAnim = VJ.SequenceToActivity(self, self.Sentry_DeployedAnim)
 end
@@ -101,7 +101,7 @@ function ENT:TranslateActivity(act)
 	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	local parameter = self:GetPoseParameter("aim_yaw")
 	if parameter != self.Sentry_CurrentYawParameter then
 		self.CurrentSentryTurnSound = CreateSound(self, "vj_hlr/hl1_npc/turret/motor_loop_.wav")
@@ -121,7 +121,7 @@ function ENT:CustomOnThink()
 	self.Sentry_CurrentYawParameter = parameter
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
 	if self.Dead then return end
 	local eneValid = IsValid(self:GetEnemy())
 	-- Don't reset pose parameters while its transitioning from Alert to Idle
@@ -164,7 +164,7 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOn_PoseParameterLookingCode(pitch, yaw, roll)
+function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
 	-- Compare the difference between the current position of the pose parameter and the position it's suppose to go to
 	self.Sentry_HasLOS = !((math.abs(math.AngleDifference(self.Sentry_CurrentYawParameter, math.ApproachAngle(self.Sentry_CurrentYawParameter, yaw, self.PoseParameterLooking_TurningSpeed))) >= 10) or (math.abs(math.AngleDifference(self:GetPoseParameter("aim_pitch"), math.ApproachAngle(self:GetPoseParameter("aim_pitch"), pitch, self.PoseParameterLooking_TurningSpeed))) >= 10))
 end
@@ -175,8 +175,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
 --
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
-	if dmginfo:GetDamagePosition() != vec then
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+	if status == "PreDamage" && dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(4) -- Size
@@ -185,7 +185,7 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
 	if self.VJ_IsBeingControlled then return end
 	self:Sentry_Activate()
 	if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
@@ -273,42 +273,45 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vecUp20 = Vector(0, 0, 20)
 --
-function ENT:CustomOnKilled(dmginfo, hitgroup)
-	-- Explosion sprite
-	local spr = ents.Create("env_sprite")
-	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-	spr:SetKeyValue("GlowProxySize","2.0")
-	spr:SetKeyValue("HDRColorScale","1.0")
-	spr:SetKeyValue("renderfx","14")
-	spr:SetKeyValue("rendermode","5")
-	spr:SetKeyValue("renderamt","255")
-	spr:SetKeyValue("disablereceiveshadows","0")
-	spr:SetKeyValue("mindxlevel","0")
-	spr:SetKeyValue("maxdxlevel","0")
-	spr:SetKeyValue("framerate","15.0")
-	spr:SetKeyValue("spawnflags","0")
-	spr:SetKeyValue("scale","1.5")
-	if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
-		self.DeathCorpseEntityClass = "prop_vj_animatable"
-		spr:SetPos(self:GetPos() + self:GetUp()*(self.Sentry_OrientationType == 1 and -30 or 20))
-	elseif self.Sentry_GroundType == 1 then -- Decay sentry gun
-		local pos = self:GetAttachment(self:LookupAttachment("center")).Pos + vecUp20
-		spr:SetPos(pos)
-		util.BlastDamage(self, self, pos, 50, 30)
-		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1, 3)..".wav", 80, 100)
-		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
-		self.GibOnDeathDamagesTable = {"All"}
-		self:RunGibOnDeathCode(DamageInfo(), hitgroup) -- Do NOT use "dmginfo", it will be corrupted by now because GMod can only have 1!
-	else
-		spr:SetPos(self:GetPos() + self:GetUp()*60)
-	end
-	spr:Spawn()
-	spr:Fire("Kill", "", 0.9)
-	timer.Simple(0.9, function()
-		if IsValid(spr) then
-			spr:Remove()
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	print('TEST')
+	if status == "Finish" then
+		-- Explosion sprite
+		local spr = ents.Create("env_sprite")
+		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+		spr:SetKeyValue("GlowProxySize","2.0")
+		spr:SetKeyValue("HDRColorScale","1.0")
+		spr:SetKeyValue("renderfx","14")
+		spr:SetKeyValue("rendermode","5")
+		spr:SetKeyValue("renderamt","255")
+		spr:SetKeyValue("disablereceiveshadows","0")
+		spr:SetKeyValue("mindxlevel","0")
+		spr:SetKeyValue("maxdxlevel","0")
+		spr:SetKeyValue("framerate","15.0")
+		spr:SetKeyValue("spawnflags","0")
+		spr:SetKeyValue("scale","1.5")
+		if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
+			self.DeathCorpseEntityClass = "prop_vj_animatable"
+			spr:SetPos(self:GetPos() + self:GetUp()*(self.Sentry_OrientationType == 1 and -30 or 20))
+		elseif self.Sentry_GroundType == 1 then -- Decay sentry gun
+			local pos = self:GetAttachment(self:LookupAttachment("center")).Pos + vecUp20
+			spr:SetPos(pos)
+			util.BlastDamage(self, self, pos, 50, 30)
+			VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1, 3)..".wav", 80, 100)
+			VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
+			self.GibOnDeathDamagesTable = {"All"}
+			self:DoGibOnDeath(DamageInfo(), hitgroup) -- Do NOT use "dmginfo", it will be corrupted by now because GMod can only have 1!
+		else
+			spr:SetPos(self:GetPos() + self:GetUp()*60)
 		end
-	end)
+		spr:Spawn()
+		spr:Fire("Kill", "", 0.9)
+		timer.Simple(0.9, function()
+			if IsValid(spr) then
+				spr:Remove()
+			end
+		end)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gibsCollideSd = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
@@ -364,7 +367,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gibs = {"models/vj_hlr/gibs/metalgib_p1_g.mdl", "models/vj_hlr/gibs/metalgib_p2_g.mdl", "models/vj_hlr/gibs/metalgib_p3_g.mdl", "models/vj_hlr/gibs/metalgib_p4_g.mdl", "models/vj_hlr/gibs/metalgib_p5_g.mdl", "models/vj_hlr/gibs/metalgib_p6_g.mdl", "models/vj_hlr/gibs/metalgib_p7_g.mdl", "models/vj_hlr/gibs/metalgib_p8_g.mdl", "models/vj_hlr/gibs/metalgib_p9_g.mdl", "models/vj_hlr/gibs/metalgib_p10_g.mdl", "models/vj_hlr/gibs/metalgib_p11_g.mdl", "models/vj_hlr/gibs/rgib_cog1.mdl", "models/vj_hlr/gibs/rgib_cog2.mdl", "models/vj_hlr/gibs/rgib_rib.mdl", "models/vj_hlr/gibs/rgib_screw.mdl", "models/vj_hlr/gibs/rgib_screw.mdl", "models/vj_hlr/gibs/rgib_screw.mdl"}
 --
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, corpseEnt, self.Sentry_Type == 2 and 1 or 2)
 	if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
 		corpseEnt:DrawShadow(false)

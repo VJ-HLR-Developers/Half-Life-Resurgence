@@ -9,7 +9,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/sven/babygarg.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 500
 ENT.HullType = HULL_HUMAN
-ENT.VJTag_ID_Boss = false -- Is this a huge monster?
+ENT.VJTag_ID_Boss = false
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(15, 0, -15), -- The offset for the controller when the camera is in third person
 }

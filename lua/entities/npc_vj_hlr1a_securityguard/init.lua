@@ -22,9 +22,9 @@ ENT.SoundTbl_Death = {"vj_hlr/hla_npc/barney/ba_die1.wav","vj_hlr/hla_npc/barney
 
 ENT.Security_Type = 2
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local baseInit = ENT.CustomOnInitialize
+local baseInit = ENT.Init
 --
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	baseInit(self)
 	self:Give("weapon_vj_hlr1_glock17")
 end

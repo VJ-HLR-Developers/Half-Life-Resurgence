@@ -31,9 +31,9 @@ ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 
 ENT.HasRangeAttack = true -- Can this NPC range attack?
-ENT.AnimTbl_RangeAttack = "vjseq_attack" -- Range Attack Animations
+ENT.AnimTbl_RangeAttack = "vjseq_attack"
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_toxicspit" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
-ENT.RangeDistance = 1500 -- This is how far away it can shoot
+ENT.RangeDistance = 1500 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 2 -- How much time until it can use a range attack?
@@ -56,7 +56,7 @@ ENT.GeneralSoundPitch1 = 100
 -- Custom
 ENT.Floater_FollowOffsetPos = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(10, 10, 50), Vector(-10, -10, 0))
 	self.Floater_FollowOffsetPos = Vector(math.random(-50, 50), math.random(-120, 120), math.random(-150, 150))
 	if !IsValid(VJ.HLR_NPC_Floater_Leader) then -- Yete ourish medzavor chiga, ere vor irzenike medzavor ene
@@ -64,14 +64,14 @@ function ENT:CustomOnInitialize()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "shoot" then
 		self:RangeAttackCode()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	if self.VJ_IsBeingControlled then return end
 	local leader = VJ.HLR_NPC_Floater_Leader
 	if !IsValid(self:GetEnemy()) then
@@ -101,7 +101,7 @@ local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles then
+	if self.HasGibOnDeathEffects then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorYellow)
@@ -129,6 +129,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gibs = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 --
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, gibs)
 end

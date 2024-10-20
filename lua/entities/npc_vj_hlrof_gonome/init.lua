@@ -26,8 +26,8 @@ ENT.MeleeAttackDamageDistance = 80 -- How far does the damage go | false = Let t
 
 ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_gonomegut" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
-ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1 -- Range Attack Animations
-ENT.RangeDistance = 784 -- This is how far away it can shoot
+ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
+ENT.RangeDistance = 784 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 200 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 6 -- How much time until it can use a range attack?
@@ -36,10 +36,10 @@ ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attac
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
-//ENT.DeathAnimationTime = 2.2 -- Time until the NPC spawns its corpse and gets removed
+//ENT.DeathAnimationTime = 2.2 -- How long should the death animation play?
 	-- ====== Flinching Variables ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- The regular flinch animations to play
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/gonome/gonome_idle1.wav","vj_hlr/hl1_npc/gonome/gonome_idle2.wav","vj_hlr/hl1_npc/gonome/gonome_idle3.wav"}
@@ -51,17 +51,17 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/gonome/gonome_death2.wav","vj_hlr/hl1_npc/
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
 	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "npc_vj_hlrof_gonome" then
 		self.Model = "models/vj_hlr/opfor_hd/gonome.mdl"
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(20, 20, 85), Vector(-20, -20, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
@@ -108,8 +108,9 @@ function ENT:MultipleMeleeAttacks()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
-	if hitgroup != HITGROUP_HEAD && dmginfo:IsBulletDamage() then -- Only scale damage deal to the host, headcrab takes full damage
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+	-- Only scale damage deal to the host, headcrab takes full damage
+	if status == "PreDamage" && hitgroup != HITGROUP_HEAD && dmginfo:IsBulletDamage() then
 		dmginfo:ScaleDamage(0.15)
 	end
 end
@@ -118,7 +119,7 @@ local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles then
+	if self.HasGibOnDeathEffects then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorYellow)
@@ -153,14 +154,14 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	if hitgroup == HITGROUP_HEAD then
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "DeathAnim" && hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = ACT_DIE_HEADSHOT
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gibs = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl"}
 --
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, nil, {ExtraGibs = gibs})
 end

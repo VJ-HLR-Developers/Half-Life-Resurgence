@@ -35,7 +35,7 @@ SWEP.NPC_ExtraFireSoundPitch = VJ.SET(90,100) -- How much time until the seconda
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 95 -- Damage
 SWEP.Primary.Force = 1.6 -- Force applied on the object the bullet hits
-SWEP.Primary.ClipSize = 5 -- Max amount of bullets per clip
+SWEP.Primary.ClipSize = 5 -- Max amount of rounds per clip
 SWEP.Primary.Ammo = "SniperRound" -- Ammo type
 SWEP.Primary.TracerType = "AR2Tracer"
 SWEP.Primary.Delay = 1
@@ -87,7 +87,7 @@ function SWEP:SecondaryAttack()
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnThink()
+function SWEP:OnThink()
 	local owner = self:GetOwner()
 	if IsValid(owner) then
 		if owner:IsNPC() then

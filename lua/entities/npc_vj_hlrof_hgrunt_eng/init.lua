@@ -23,7 +23,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("CTRL: Deploy Sentry Gun")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
 	if ((self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) or !self.VJ_IsBeingControlled) && IsValid(self:GetEnemy()) && self:Visible(self:GetEnemy()) && self.HECU_NextTurretCheckT < CurTime() && !IsValid(self.HECU_TurretEnt) then
 		-- Make sure not to place it if the front of the NPC is blocked!
 		local myCenterPos = self:GetPos() + self:OBBCenter()
@@ -66,9 +66,9 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
+function ENT:OnDamaged(dmginfo, hitgroup, status)
 	-- Instant kill when hit in the gas tank!
-	if hitgroup == HITGROUP_GEAR then
+	if status == "PreDamage" && hitgroup == HITGROUP_GEAR then
 		self.HECU_GasTankHit = true -- Signals the code to preform an explosion
 		dmginfo:SetDamage(self:Health())
 		dmginfo:SetDamageType(DMG_BLAST)

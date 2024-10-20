@@ -212,7 +212,7 @@ ENT.SoundTbl_Death = {
 	"vj_hlr/hl1_npc/hgrunt_oppf/death6.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:HECU_CustomOnInitialize()
+function ENT:HECU_OnInit()
 	if self.HECU_Type == 1 then
 		self:SetBodygroup(1, math.random(0, 9))
 		

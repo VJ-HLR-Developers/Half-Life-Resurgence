@@ -24,13 +24,13 @@ ENT.BreathSoundLevel = 50
 ENT.GeneralSoundPitch1 = 130
 ENT.GeneralSoundPitch2 = 140
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
 	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "npc_vj_hlr1_rgrunt" then
 		self.Model = "models/vj_hlr/hl_hd/rgrunt.mdl"
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:HECU_CustomOnInitialize()
+function ENT:HECU_OnInit()
 	self:SetBodygroup(1, math.random(0, 1))
 	self.SoundTbl_FootStep = {"vj_hlr/hl1_npc/rgrunt/pl_metal1.wav","vj_hlr/hl1_npc/rgrunt/pl_metal2.wav","vj_hlr/hl1_npc/rgrunt/pl_metal3.wav","vj_hlr/hl1_npc/rgrunt/pl_metal4.wav"}
 	self.SoundTbl_Idle = {"vj_hlr/hl1_npc/rgrunt/rb_idle1.wav","vj_hlr/hl1_npc/rgrunt/rb_idle2.wav","vj_hlr/hl1_npc/rgrunt/rb_idle3.wav"}
@@ -51,7 +51,7 @@ function ENT:HECU_CustomOnInitialize()
 	self.SoundTbl_Death = {"vj_hlr/hl1_npc/rgrunt/rb_die1.wav","vj_hlr/hl1_npc/rgrunt/rb_die2.wav","vj_hlr/hl1_npc/rgrunt/rb_die3.wav"}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:HECU_CustomOnThink()
+function ENT:HECU_OnThink()
 	if self.HECU_NextMouthMove > CurTime() then
 		local changeTo = self:GetSkin() + 1
 		if changeTo > 3 then
@@ -78,8 +78,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
 --
-function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
-	if dmginfo:GetDamagePosition() != vec then
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+	if status == "Initial" && dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(4) -- Size
@@ -88,31 +88,11 @@ function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
-	local spr = ents.Create("env_sprite")
-	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-	spr:SetKeyValue("GlowProxySize","2.0")
-	spr:SetKeyValue("HDRColorScale","1.0")
-	spr:SetKeyValue("renderfx","14")
-	spr:SetKeyValue("rendermode","5")
-	spr:SetKeyValue("renderamt","255")
-	spr:SetKeyValue("disablereceiveshadows","0")
-	spr:SetKeyValue("mindxlevel","0")
-	spr:SetKeyValue("maxdxlevel","0")
-	spr:SetKeyValue("framerate","20.0")
-	spr:SetKeyValue("spawnflags","0")
-	spr:SetKeyValue("scale","1.5")
-	spr:SetPos(self:GetPos() + self:GetUp()*60)
-	spr:Spawn()
-	spr:Fire("Kill","",0.7)
-	timer.Simple(0.7, function() if IsValid(spr) then spr:Remove() end end)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 local gibsCollideSd = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles == true then
+	if self.HasGibOnDeathEffects == true then
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
 		spr:SetKeyValue("GlowProxySize","2.0")
@@ -154,7 +134,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gibs = {"models/vj_hlr/gibs/metalgib_p1_g.mdl", "models/vj_hlr/gibs/metalgib_p2_g.mdl", "models/vj_hlr/gibs/metalgib_p3_g.mdl", "models/vj_hlr/gibs/metalgib_p4_g.mdl", "models/vj_hlr/gibs/metalgib_p5_g.mdl", "models/vj_hlr/gibs/metalgib_p6_g.mdl", "models/vj_hlr/gibs/metalgib_p7_g.mdl", "models/vj_hlr/gibs/metalgib_p8_g.mdl", "models/vj_hlr/gibs/metalgib_p9_g.mdl", "models/vj_hlr/gibs/metalgib_p10_g.mdl", "models/vj_hlr/gibs/metalgib_p11_g.mdl", "models/vj_hlr/gibs/rgib_cog1.mdl", "models/vj_hlr/gibs/rgib_cog2.mdl", "models/vj_hlr/gibs/rgib_rib.mdl", "models/vj_hlr/gibs/rgib_screw.mdl", "models/vj_hlr/gibs/rgib_screw.mdl", "models/vj_hlr/gibs/rgib_screw.mdl"}
 --
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, corpseEnt, 5)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, gibs, {CollideSound = gibsCollideSd, ExpSound = {"vj_hlr/hl1_npc/rgrunt/rb_gib.wav"}})
 end

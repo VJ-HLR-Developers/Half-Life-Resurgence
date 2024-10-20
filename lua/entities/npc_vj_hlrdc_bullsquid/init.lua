@@ -9,9 +9,9 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl1/bullsquid_dreamcast.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 90
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local baseAcceptInput = ENT.CustomOnAcceptInput
+local baseAcceptInput = ENT.OnInput
 --
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	if key == "melee_whip" then
 		self.MeleeAttackDamage = 38
 		self:MeleeAttackCode()

@@ -71,7 +71,7 @@ function ENT:StartMoveEffects()
 	net.Broadcast()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Tank_CustomOnThink()
+function ENT:Tank_OnThink()
 	-- If moving then close the door
 	if self.Tank_Status == 0 && self.Bradley_DoorOpen then
 		self.Bradley_DoorOpen = false
@@ -121,8 +121,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
 --
-function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
-	if dmginfo:GetDamagePosition() != vec then
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+	if status == "Initial" && dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(5) -- Size
@@ -148,7 +148,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local expPos = Vector(0, 0, 150)
 --
-function ENT:Tank_CustomOnPriorToKilled(dmginfo, hitgroup)
+function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 	self.Bradley_DmgForce = dmginfo:GetDamageForce()
 	for i=0,1,0.5 do
 		timer.Simple(i, function()

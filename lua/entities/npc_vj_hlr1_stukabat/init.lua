@@ -32,9 +32,9 @@ ENT.AnimTbl_Death = {"vjseq_Die_on_ground"}
 ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 
 ENT.HasRangeAttack = false -- Can this NPC range attack?
-ENT.AnimTbl_RangeAttack = {"vjseq_Attack_bomb"} -- Range Attack Animations
+ENT.AnimTbl_RangeAttack = {"vjseq_Attack_bomb"}
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_stukabomb" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
-ENT.RangeDistance = 1500 -- This is how far away it can shoot
+ENT.RangeDistance = 1500 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 2 -- How much time until it can use a range attack?
@@ -61,7 +61,7 @@ ENT.Stuka_FlyAnimation = ACT_FLY
 ENT.Stuka_ModeChangeT = 0
 ENT.Stuka_AerialAnimationType = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(23, 23, 40), Vector(-23, -23, 0))
 
 	self.Stuka_ModeChangeT = CurTime() + math.Rand(3, 6)
@@ -131,7 +131,7 @@ function ENT:ChangeMode(mode)
 	self.Stuka_ModeChangeT = CurTime() + (IsValid(self.VJ_TheController) && 4 or math.Rand(15,35))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	-- print(key)
 	if key == "wing" then
 		VJ.EmitSound(self,"vj_hlr/hl1_npc/stukabat/stkb_wings" .. math.random(1, 3) .. ".wav", 70)
@@ -175,7 +175,7 @@ function ENT:HandleModeChanging(mode,pos,cont)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	local cont = self.VJ_TheController
 	local ene = self:GetEnemy()
 	local pos = self:GetPos()
@@ -251,7 +251,7 @@ function ENT:RangeAttackProjVelocity(projectile)
 	return self:CalculateProjectile("Curve", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 1500), 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
 	if IsValid(self.VJ_TheController) then return end
 	if self.Stuka_Mode != 1 then
 		self.Stuka_ModeChangeT = CurTime()
@@ -259,7 +259,7 @@ function ENT:CustomOnAlert(ent)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_OnBleed(dmginfo, hitgroup)
+function ENT:OnBleed(dmginfo, hitgroup)
 	if IsValid(self.VJ_TheController) then return end
 	if self.Stuka_Mode != 1 then
 		self.Stuka_ModeChangeT = CurTime()
@@ -267,97 +267,99 @@ function ENT:CustomOnTakeDamage_OnBleed(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-	if !dmginfo:IsBulletDamage() then return end
-	local mode = self.Stuka_Mode
-	self.HasDeathAnimation = mode == 0
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Initial" then
+		if !dmginfo:IsBulletDamage() then return end
+		local mode = self.Stuka_Mode
+		self.HasDeathAnimation = mode == 0
 
-	if mode == 1 then
-		self.HasDeathRagdoll = false
-		local deathCorpse = ents.Create("prop_vj_animatable")
-		deathCorpse:SetModel(self:GetModel())
-		deathCorpse:SetPos(self:GetPos())
-		deathCorpse:SetAngles(self:GetAngles())
-		function deathCorpse:Initialize()
-			self:PhysicsInit(SOLID_VPHYSICS)
-			self:SetMoveType(MOVETYPE_VPHYSICS)
-			self:SetMoveCollide(MOVECOLLIDE_FLY_SLIDE)
-			self:SetCollisionGroup(COLLISION_GROUP_NONE)
-			self:SetSolid(SOLID_CUSTOM)
-			local phys = self:GetPhysicsObject()
-			if IsValid(phys) then
-				phys:Wake()
-				phys:EnableGravity(true)
-				phys:SetBuoyancyRatio(0)
+		if mode == 1 then
+			self.HasDeathCorpse = false
+			local deathCorpse = ents.Create("prop_vj_animatable")
+			deathCorpse:SetModel(self:GetModel())
+			deathCorpse:SetPos(self:GetPos())
+			deathCorpse:SetAngles(self:GetAngles())
+			function deathCorpse:Initialize()
+				self:PhysicsInit(SOLID_VPHYSICS)
+				self:SetMoveType(MOVETYPE_VPHYSICS)
+				self:SetMoveCollide(MOVECOLLIDE_FLY_SLIDE)
+				self:SetCollisionGroup(COLLISION_GROUP_NONE)
+				self:SetSolid(SOLID_CUSTOM)
+				local phys = self:GetPhysicsObject()
+				if IsValid(phys) then
+					phys:Wake()
+					phys:EnableGravity(true)
+					phys:SetBuoyancyRatio(0)
+				end
 			end
-		end
-		deathCorpse:Spawn()
-		deathCorpse:Activate()
-		deathCorpse.DeathAnim = VJ.PICK({"Death_fall_simple","Death_fall_violent"})
-		undo.ReplaceEntity(self, deathCorpse)
-		cleanup.ReplaceEntity(self, deathCorpse)
-		function deathCorpse:Think()
-			if !self.Dead then
-				self:ResetSequence("fall_cycler")
+			deathCorpse:Spawn()
+			deathCorpse:Activate()
+			deathCorpse.DeathAnim = VJ.PICK({"Death_fall_simple","Death_fall_violent"})
+			undo.ReplaceEntity(self, deathCorpse)
+			cleanup.ReplaceEntity(self, deathCorpse)
+			function deathCorpse:Think()
+				if !self.Dead then
+					self:ResetSequence("fall_cycler")
+				end
+			
+				self:NextThink(CurTime())
+				return true
 			end
-		
-			self:NextThink(CurTime())
-			return true
-		end
 
-		function deathCorpse:PhysicsCollide(data, phys)
-			if self.Dead then return end
-			self.Dead = true
+			function deathCorpse:PhysicsCollide(data, phys)
+				if self.Dead then return end
+				self.Dead = true
 
-			self:PhysicsInit(SOLID_NONE)
-			self:SetMoveType(MOVETYPE_NONE)
-			self:SetCollisionGroup(COLLISION_GROUP_NONE)
-			self:SetSolid(SOLID_NONE)
-			self:ResetSequence(self.DeathAnim)
+				self:PhysicsInit(SOLID_NONE)
+				self:SetMoveType(MOVETYPE_NONE)
+				self:SetCollisionGroup(COLLISION_GROUP_NONE)
+				self:SetSolid(SOLID_NONE)
+				self:ResetSequence(self.DeathAnim)
 
-			local tr = util.TraceLine({start=self:GetPos(),endpos=self:GetPos() +Vector(0,0,-15),filter=self})
-			self:SetPos(tr.Hit && tr.HitPos or self:GetPos() +Vector(0,0,-8)) -- The collision box is too big, so we move it down a bit
+				local tr = util.TraceLine({start=self:GetPos(),endpos=self:GetPos() +Vector(0,0,-15),filter=self})
+				self:SetPos(tr.Hit && tr.HitPos or self:GetPos() +Vector(0,0,-8)) -- The collision box is too big, so we move it down a bit
 
-			timer.Simple(VJ.AnimDuration(self, self.DeathAnim),function()
-				if IsValid(self) then
-					local corpse = ents.Create("prop_ragdoll")
-					corpse:SetModel(self:GetModel())
-					corpse:SetPos(self:GetPos())
-					corpse:SetAngles(self:GetAngles())
-					corpse:Spawn()
-					corpse:Activate()
-					corpse:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
-					corpse.FadeCorpseType = "FadeAndRemove"
-					corpse.IsVJBaseCorpse = true
-					corpse.ChildEnts = {}
-					self.BloodColor = "Yellow"
-					self.HasBloodParticle = true
-					self.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
-					self.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"}
+				timer.Simple(VJ.AnimDuration(self, self.DeathAnim),function()
+					if IsValid(self) then
+						local corpse = ents.Create("prop_ragdoll")
+						corpse:SetModel(self:GetModel())
+						corpse:SetPos(self:GetPos())
+						corpse:SetAngles(self:GetAngles())
+						corpse:Spawn()
+						corpse:Activate()
+						corpse:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
+						corpse.FadeCorpseType = "FadeAndRemove"
+						corpse.IsVJBaseCorpse = true
+						corpse.ChildEnts = {}
+						self.BloodColor = "Yellow"
+						self.HasBloodParticle = true
+						self.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
+						self.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"}
 
-					-- undo.ReplaceEntity(self, corpse)
-					-- cleanup.ReplaceEntity(self, corpse)
+						-- undo.ReplaceEntity(self, corpse)
+						-- cleanup.ReplaceEntity(self, corpse)
 
-					for boneLimit = 0, corpse:GetPhysicsObjectCount() - 1 do
-						local childphys = corpse:GetPhysicsObjectNum(boneLimit)
-						if IsValid(childphys) then
-							local childphys_bonepos, childphys_boneang = self:GetBonePosition(corpse:TranslatePhysBoneToBone(boneLimit))
-							if (childphys_bonepos) then
-								childphys:SetAngles(childphys_boneang)
-								childphys:SetPos(childphys_bonepos)
+						for boneLimit = 0, corpse:GetPhysicsObjectCount() - 1 do
+							local childphys = corpse:GetPhysicsObjectNum(boneLimit)
+							if IsValid(childphys) then
+								local childphys_bonepos, childphys_boneang = self:GetBonePosition(corpse:TranslatePhysBoneToBone(boneLimit))
+								if (childphys_bonepos) then
+									childphys:SetAngles(childphys_boneang)
+									childphys:SetPos(childphys_bonepos)
+								end
 							end
 						end
+
+						VJ.HLR_ApplyCorpseSystem(self, corpse, {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"})
+
+						self:Remove()
 					end
+				end)
+				VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+			end
 
-					VJ.HLR_ApplyCorpseSystem(self, corpse, {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"})
-
-					self:Remove()
-				end
-			end)
-			VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+			self:Remove()
 		end
-
-		self:Remove()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -365,7 +367,7 @@ local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles then
+	if self.HasGibOnDeathEffects then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorYellow)
@@ -393,6 +395,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gibs = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 --
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, gibs)
 end

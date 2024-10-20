@@ -73,7 +73,7 @@ end
 local colorRed = Color(179, 39, 14)
 local colorOrange = Color(255, 128, 0)
 --
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	timer.Simple(5, function() if IsValid(self) then self:Remove() end end)
 	
 	if self.Hornet_Alpha then
@@ -88,7 +88,7 @@ function ENT:CustomOnInitialize()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	local phys = self:GetPhysicsObject()
 	local trackedEnt = self.Track_Enemy
 	-- Homing Behavior

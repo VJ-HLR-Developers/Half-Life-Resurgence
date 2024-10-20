@@ -44,7 +44,7 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:EnableGravity(false)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetNoDraw(true)
 	local sprite = ents.Create("env_sprite")
 	sprite:SetKeyValue("model","vj_hl/sprites/xspark4.vmt")
@@ -67,7 +67,7 @@ function ENT:CustomOnInitialize()
 	self.GlowSprite = sprite
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	local trackedEnt = self.Track_Enemy
 	if IsValid(trackedEnt) then -- Homing Behavior
 		self.DirectDamage = 25

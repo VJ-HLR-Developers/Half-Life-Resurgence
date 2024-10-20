@@ -29,7 +29,7 @@ ENT.HasImpactSounds = false
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/roach/rch_walk.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/roach/rch_die.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(2, 2, 2), Vector(-2, -2, 0))
 	self.HasDeathSounds = math.random(0, 4) == 1 -- 1 in 5 chance to play a death squeak sound | Based on: https://github.com/ValveSoftware/halflife/blob/master/dlls/roach.cpp#L166
 end

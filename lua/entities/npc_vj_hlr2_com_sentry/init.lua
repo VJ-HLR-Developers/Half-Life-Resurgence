@@ -25,7 +25,7 @@ ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
-ENT.RangeDistance = 2000 -- This is how far away it can shoot
+ENT.RangeDistance = 2000 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
 ENT.RangeAttackAngleRadius = 60 -- What is the attack angle radius? | 100 = In front of the NPC | 180 = All around the NPC
 ENT.TimeUntilRangeAttackProjectileRelease = 0.015 -- How much time until the projectile code is ran?
@@ -63,7 +63,7 @@ ENT.Turret_IdleAngryAnim = ACT_IDLE -- Will be replaced on initialize
 	-- aim_yaw -60 / 60
 	-- aim_pitch -15 / 15
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(13, 13, 63), Vector(-13, -13, 0))
 	
 	local spr = ents.Create("env_sprite")
@@ -136,7 +136,7 @@ function ENT:TranslateActivity(act)
 	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	-- Turning sound
 	local parameter = self:GetPoseParameter("aim_yaw")
 	if parameter != self.Turret_CurrentParameter then
@@ -147,7 +147,7 @@ function ENT:CustomOnThink()
 	self.Turret_CurrentParameter = parameter
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
 	local eneValid = IsValid(self:GetEnemy())
 	if self.Turret_Status != TURRET_STATUS_DEPLOYING then
 		-- Alerted behavior
@@ -227,13 +227,13 @@ function ENT:CustomOnThink_AIEnabled()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DoPoseParameterLooking(resetPoses)
+function ENT:UpdatePoseParamTracking(resetPoses)
 	-- Alerted with no active enemy, so don't reset its pose parameters (Ex: Transitioning from Alert to Idle)
 	if self:GetNPCState() == NPC_STATE_ALERT then return end
-	return self.BaseClass.DoPoseParameterLooking(self, resetPoses)
+	return self.BaseClass.UpdatePoseParamTracking(self, resetPoses)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOn_PoseParameterLookingCode(pitch, yaw, roll)
+function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
 	-- Otherwise "self.Turret_HasLOS" will true all the time when it's deploying, retracting, etc. (Basically whenever its not supposed to aim)
 	if !self.HasPoseParameterLooking or self:GetNPCState() != NPC_STATE_COMBAT then
 		self.Turret_HasLOS = false
@@ -248,7 +248,7 @@ function ENT:CustomOn_PoseParameterLookingCode(pitch, yaw, roll)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
 	if self.VJ_IsBeingControlled then return end
 	self:Turret_Activate()
 end
@@ -314,8 +314,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local defAng = Angle(0, 0, 0)
 --
-function ENT:CustomOnKilled(dmginfo, hitgroup)
-	ParticleEffect("explosion_turret_break", self:WorldSpaceCenter() + self:GetUp()*12, defAng, NULL)
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Finish" then
+		ParticleEffect("explosion_turret_break", self:WorldSpaceCenter() + self:GetUp()*12, defAng, NULL)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local sdGibCollide = {"physics/metal/metal_box_impact_hard1.wav", "physics/metal/metal_box_impact_hard2.wav", "physics/metal/metal_box_impact_hard3.wav"}
@@ -336,7 +338,7 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	-- Exaggerate the damage force to make the turret fall!
 	local phys = corpseEnt:GetPhysicsObject()
 	if IsValid(phys) then

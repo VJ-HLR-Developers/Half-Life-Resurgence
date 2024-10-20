@@ -46,7 +46,7 @@ function ENT:StartMoveEffects()
 	net.Broadcast()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Tank_CustomOnThink()
+function ENT:Tank_OnThink()
 	-- Keep the skin of the gunner the same!
 	if IsValid(self.Gunner) then
 		self.Gunner:SetSkin(self:GetSkin())

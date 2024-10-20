@@ -7,7 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/tentacle.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.SightDistance = 800 -- How far it can see
-ENT.VJTag_ID_Boss = true -- Is this a huge monster?
+ENT.VJTag_ID_Boss = true
 ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.StartHealth = 1000
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
@@ -33,7 +33,7 @@ ENT.MeleeAttackDamageDistance = 380 -- How far does the damage go | false = Let 
 ENT.MeleeAttackDamageAngleRadius = 10 -- What is the damage angle radius? | 100 = In front of the NPC | 180 = All around the NPC
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.IdleSounds_PlayOnAttacks = true -- It will be able to continue and play idle sounds when it performs an attack
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Breath = "vj_hlr/hl1_npc/tentacle/te_flies1.wav"
@@ -54,7 +54,7 @@ ENT.Tentacle_Level = 0
 	-- 2 = High Level
 	-- 3 = Extreme Level
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(20, 20, 160), Vector(-20, -20, 0))
 	self:SetSurroundingBounds(Vector(-300, -300, 0), Vector(300, 300, 750))
 end
@@ -103,7 +103,7 @@ function ENT:TranslateActivity(act)
 	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnHandleAnimEvent(ev, evTime, evCycle, evType, evOptions)
+function ENT:OnAnimEvent(ev, evTime, evCycle, evType, evOptions)
 	-- Take care of the regular hit sound (When playing idle animations)
 	if ev == 6 && !self.VJ_IsBeingControlled then
 		self:PlaySoundSystem("MeleeAttack", sdBeakStrike, VJ.EmitSound)
@@ -115,7 +115,7 @@ function ENT:CustomOnHandleAnimEvent(ev, evTime, evCycle, evType, evOptions)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "attack" then
 		self:MeleeAttackCode()
@@ -201,7 +201,7 @@ function ENT:Tentacle_CalculateLevel(eneDist)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	if self.VJ_IsBeingControlled then return end
 	local ene = self:GetEnemy()
 	if IsValid(ene) then
@@ -225,7 +225,7 @@ local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles then
+	if self.HasGibOnDeathEffects then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorYellow)

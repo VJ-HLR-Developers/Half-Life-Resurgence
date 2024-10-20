@@ -16,7 +16,7 @@ ENT.VJC_Data = {
 -- Custom
 ENT.AGrunt_Type = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
 	self.SoundTbl_Idle = {"vj_hlr/hla_npc/agrunt/ag_idle1.wav","vj_hlr/hla_npc/agrunt/ag_idle2.wav","vj_hlr/hla_npc/agrunt/ag_idle3.wav","vj_hlr/hla_npc/agrunt/ag_idle4.wav","vj_hlr/hla_npc/agrunt/ag_idle5.wav","vj_hlr/hla_npc/agrunt/ag_idle6.wav","vj_hlr/hla_npc/agrunt/ag_idle7.wav"}
 	self.SoundTbl_Alert = {"vj_hlr/hla_npc/agrunt/ag_alert1.wav","vj_hlr/hla_npc/agrunt/ag_alert2.wav","vj_hlr/hla_npc/agrunt/ag_alert3.wav"}
 	self.SoundTbl_MeleeAttackExtra = {"vj_hlr/hla_npc/agrunt/ag_attack1.wav"}
@@ -29,14 +29,4 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(projectile)
 	projectile.Hornet_Alpha = true
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	if hitgroup == HITGROUP_HEAD then
-		self.AnimTbl_Death = ACT_DIEFORWARD
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
-	-- Overwrite it to do nothing
 end

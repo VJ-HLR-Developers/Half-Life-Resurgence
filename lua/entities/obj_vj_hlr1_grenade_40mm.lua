@@ -38,7 +38,7 @@ ENT.DecalTbl_DeathDecals = {"VJ_HLR_Scorch"} -- Decals that paint when the proje
 ENT.SoundTbl_OnRemove = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}
 ENT.OnRemoveSoundLevel = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
 	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "obj_vj_hlr1_grenade_40mm" then
 		self.Model = "models/vj_hlr/weapons/grenade_hd.mdl"
 	end

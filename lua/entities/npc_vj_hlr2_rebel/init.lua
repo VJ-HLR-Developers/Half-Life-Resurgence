@@ -12,13 +12,13 @@ ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be all
 ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other player allies?
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.HasMeleeAttack = true -- Can this NPC melee attack?
-ENT.AnimTbl_MeleeAttack = "vjseq_MeleeAttack01" -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = "vjseq_MeleeAttack01"
 ENT.TimeUntilMeleeAttackDamage = 0.7 -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDamage = 10
 ENT.FootStepTimeRun = 0.25 -- Next foot step sound when it is running
 ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
 ENT.HasGrenadeAttack = true -- Should the NPC have a grenade attack?
-ENT.AnimTbl_GrenadeAttack = ACT_RANGE_ATTACK_THROW -- Grenade Attack Animations
+ENT.AnimTbl_GrenadeAttack = ACT_RANGE_ATTACK_THROW
 ENT.TimeUntilGrenadeIsReleased = 0.87 -- Time until the grenade is released
 ENT.GrenadeAttackAttachment = "anim_attachment_RH" -- The attachment that the grenade will spawn at
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
@@ -26,7 +26,7 @@ ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards 
 ENT.AnimTbl_Medic_GiveHealth = "heal" -- Animations is plays when giving health to an ally
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_FLINCH_PHYSICS -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = ACT_FLINCH_PHYSICS -- The regular flinch animations to play
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"npc/footsteps/hardboot_generic1.wav","npc/footsteps/hardboot_generic2.wav","npc/footsteps/hardboot_generic3.wav","npc/footsteps/hardboot_generic4.wav","npc/footsteps/hardboot_generic5.wav","npc/footsteps/hardboot_generic6.wav","npc/footsteps/hardboot_generic8.wav"}
 
@@ -188,7 +188,7 @@ local mdlFemaleMedic = {"models/Humans/Group03m/female_01.mdl", "models/Humans/G
 local invAntiArmor = {"weapon_vj_rpg", "weapon_vj_hlr2_rpg"}
 local invMelee = {"weapon_vj_crowbar"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
 	if self.Human_Gender == HUMAN_GENDER_FEMALE or (self.Human_Gender == HUMAN_GENDER_INVALID && math.random(1, 3) == 1) then
 		self.Human_Gender = HUMAN_GENDER_FEMALE
 		if math.random(1, 5) == 1 && self.Human_Type != HUMAN_TYPE_ENGINEER && !self.Human_Driver  then -- Medic variant
@@ -216,7 +216,7 @@ function ENT:CustomOnPreInitialize()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	-- Handle animations when it's spawned as a tank spotter
 	if self.Human_Driver then
 		function self:TranslateActivity(act)
@@ -309,7 +309,7 @@ function ENT:CustomOnInitialize()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-/*function ENT:CustomOnThink_AIEnabled()
+/*function ENT:OnThinkActive()
 	if IsValid(self:GetEnemy()) && self:GetEnemy():Classify() == CLASS_COMBINE_GUNSHIP then -- to do
 		"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_gunship01.wav",
 		"vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_gunship02.wav",
@@ -322,7 +322,7 @@ end
 	end
 end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPlayerSight(ent)
+function ENT:OnPlayerSight(ent)
 	self.Human_NextPlyReloadSd = CurTime() + math.Rand(5, 40)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -356,7 +356,7 @@ function ENT:OnMaintainRelationships(ent, entFri, entDist)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnChangeWeapon(newWeapon, oldWeapon, invSwitch)
+function ENT:OnWeaponChange(newWeapon, oldWeapon, invSwitch)
 	if invSwitch == true then -- Only if it's a inventory switch
 		self:VJ_ACT_PLAYACTIVITY(ACT_PICKUP_RACK, true, false, true)
 	end
@@ -364,14 +364,14 @@ function ENT:OnChangeWeapon(newWeapon, oldWeapon, invSwitch)
 	if self.Human_Gender == HUMAN_GENDER_MALE && self.WeaponInventoryStatus == VJ.NPC_WEP_INVENTORY_ANTI_ARMOR && math.random(1, 2) == 1 then self:PlaySoundSystem("GeneralSpeech", "vo/npc/male01/evenodds.wav") end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoKilledEnemy(ent, attacker, inflictor)
-	-- Only males have cheering animation!
-	if self.Human_Gender == HUMAN_GENDER_MALE && !self:IsBusy() && math.random(1, 3) == 1 then
-		self:VJ_ACT_PLAYACTIVITY("vjseq_cheer1", false, false, false, 0, {SequenceInterruptible=true})
+function ENT:OnKilledEnemy(ent, inflictor, wasLast)
+	-- NOTE: Only males have cheering animation!
+	if wasLast && self.Human_Gender == HUMAN_GENDER_MALE && !self:IsBusy() && math.random(1, 3) == 1 then
+		self:VJ_ACT_PLAYACTIVITY("vjseq_cheer1", "LetAttacks", false, false, 0)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
 	if math.random(1, 2) == 1 && ent:IsNPC() then
 		//print(ent:Classify())
 		if ent.VJTag_ID_Headcrab then
@@ -432,8 +432,8 @@ function ENT:CustomOnAlert(ent)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
-	if self:Health() > 0 && math.random(1, 2) == 1 then
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+	if status == "PostDamage" && self:Health() > 0 && math.random(1, 2) == 1 then
 		if hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTARM then
 			self:PlaySoundSystem("Pain", (self.Human_Gender == HUMAN_GENDER_FEMALE and sdPainArm_F) or sdPainArm_M)
 		elseif hitgroup == HITGROUP_LEFTLEG or hitgroup == HITGROUP_RIGHTLEG then

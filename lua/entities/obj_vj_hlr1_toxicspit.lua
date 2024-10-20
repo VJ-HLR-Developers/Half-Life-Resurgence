@@ -47,7 +47,7 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	-- ParticleEffectAttach("vj_hl_spit_bullsquid", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 	
 	self.Scale = math.Rand(0.5, 1.15)

@@ -9,6 +9,6 @@ include("shared.lua")
 ENT.Model = "models/combine_soldier_prisonguard.mdl" -- Model(s) to spawn with | Picks a random one if it's a table 
 ENT.StartHealth = 75
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetSkin(1)
 end

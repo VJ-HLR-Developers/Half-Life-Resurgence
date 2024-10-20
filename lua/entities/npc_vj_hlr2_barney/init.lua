@@ -15,12 +15,12 @@ ENT.HullType = HULL_HUMAN
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
 ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other player allies?
 ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.AnimTbl_MeleeAttack = "vjseq_MeleeAttack01" -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = "vjseq_MeleeAttack01"
 ENT.TimeUntilMeleeAttackDamage = 0.7 -- This counted in seconds | This calculates the time until it hits something
 ENT.FootStepTimeRun = 0.25 -- Next foot step sound when it is running
 ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
 ENT.HasGrenadeAttack = true -- Should the NPC have a grenade attack?
-ENT.AnimTbl_GrenadeAttack = ACT_RANGE_ATTACK_THROW -- Grenade Attack Animations
+ENT.AnimTbl_GrenadeAttack = ACT_RANGE_ATTACK_THROW
 ENT.TimeUntilGrenadeIsReleased = 0.87 -- Time until the grenade is released
 ENT.GrenadeAttackAttachment = "anim_attachment_RH" -- The attachment that the grenade will spawn at
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
@@ -236,7 +236,7 @@ local sdAlertTurret = {"vo/npc/barney/ba_turret.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
 	if math.random(1, 2) == 1 && ent:IsNPC() then
 		if ent.IsVJBaseSNPC_Human == true then
 			self:PlaySoundSystem("Alert", sdAlertHuman)

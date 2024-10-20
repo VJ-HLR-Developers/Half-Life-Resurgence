@@ -45,13 +45,13 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:EnableGravity(false)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetNoDraw(true)
 	
 	ParticleEffectAttach("vj_hlr_geneworm_spit", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	if CurTime() > self.Track_TrackTime then return end
 	local ene = self.Track_Enemy
 	if IsValid(ene) then

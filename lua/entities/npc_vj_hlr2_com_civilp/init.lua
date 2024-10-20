@@ -187,7 +187,7 @@ ENT.Metrocop_AlwaysSpawnManhack = false -- Always spawn with a manhack, used for
 ENT.Metrocop_HasManhack = false
 ENT.Metrocop_Manhack = NULL
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	-- Handle manhack inventory
 	if self.Metrocop_CanHaveManhack && ((math.random(1, 4) == 1) or self.Metrocop_ForceSpawnManhack) then
 		self.Metrocop_HasManhack = true
@@ -205,7 +205,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-/*function ENT:CustomOnAcceptInput(key, activator, caller, data)
+/*function ENT:OnInput(key, activator, caller, data)
 	-- Campaign compatibility test
 	if key == "SetPoliceGoal" then
 		print(self, key, activator, caller, data)
@@ -221,7 +221,7 @@ end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local getEventName = util.GetAnimEventNameByID
 --
-function ENT:CustomOnHandleAnimEvent(ev, evTime, evCycle, evType, evOptions)
+function ENT:OnAnimEvent(ev, evTime, evCycle, evType, evOptions)
 	local eventName = getEventName(ev)
 	if eventName == "AE_METROPOLICE_BATON_ON" && IsValid(self:GetActiveWeapon()) then
 		VJ.EmitSound(self, "Weapon_StunStick.Activate")
@@ -251,7 +251,7 @@ function ENT:OnPlayCreateSound(sdData, sdFile)
 	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self, "npc/metropolice/vo/off"..math.random(1, 4)..".wav") end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
 	if math.random(1, 2) == 1 then
 		if ent:IsPlayer() then
 			self:PlaySoundSystem("Alert", ent:InVehicle() and sdCop_Alert_Freeman_InVehicle or sdCop_Alert_Freeman)
@@ -275,7 +275,7 @@ function ENT:CustomOnAlert(ent)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnChangeWeapon(newWeapon, oldWeapon, invSwitch)
+function ENT:OnWeaponChange(newWeapon, oldWeapon, invSwitch)
 	//if invSwitch == true then -- Only if it's a inventory switch
 	-- Play the stunstick activation animation
 	if newWeapon:GetClass() == "weapon_vj_hlr2_stunstick" then
@@ -326,7 +326,7 @@ function ENT:Metrocop_SpawnManhack()
 	self.Metrocop_Manhack = manhack
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
 	if self.VJ_IsBeingControlled then return end
 	if self.Metrocop_HasManhack && IsValid(self:GetEnemy()) && self.LatestEnemyDistance <= 1000 && self.LatestEnemyDistance > 300 then
 		self:Metrocop_DeployManhack()

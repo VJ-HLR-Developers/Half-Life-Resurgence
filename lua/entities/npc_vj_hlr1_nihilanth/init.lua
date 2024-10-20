@@ -8,7 +8,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl1/nihilanth.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 3000
 ENT.HullType = HULL_LARGE
-ENT.VJTag_ID_Boss = true -- Is this a huge monster?
+ENT.VJTag_ID_Boss = true
 ENT.SightDistance = 20000 -- How far it can see
 ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
@@ -26,15 +26,15 @@ ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to e
 ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 
 ENT.HasRangeAttack = true -- Can this NPC range attack?
-ENT.RangeDistance = 20000 -- This is how far away it can shoot
+ENT.RangeDistance = 20000 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
 ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
-ENT.DeathAnimationTime = 16 -- Time until the NPC spawns its corpse and gets removed
+ENT.AnimTbl_Death = ACT_DIESIMPLE
+ENT.DeathAnimationTime = 16 -- How long should the death animation play?
 ENT.IdleSounds_PlayOnAttacks = true -- It will be able to continue and play idle sounds when it performs an attack
 ENT.HasSoundTrack = true
 	-- ====== Sound Paths ====== --
@@ -74,7 +74,7 @@ vj_hl/sprites/nhth1.vmt     		Purple electric projectiles
 vj_hl/sprites/muzzleflash3.vmt		Orb ring around his head that displays his health sorta
 */
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	-- Allow only 1 Nihilanth at a time
 	local entsAll = ents.GetAll()
 	for x = 1, #entsAll do
@@ -123,7 +123,7 @@ function ENT:CustomOnInitialize()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	-- Regular attack
 	if key == "elec_orbs" then
@@ -157,7 +157,7 @@ function ENT:TranslateActivity(act)
 	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
 	if math.random(1, 2) == 1 && ent:IsPlayer() then
 		self.SoundTbl_Alert = "vj_hlr/hl1_npc/nihilanth/nil_freeman.wav"
 	else
@@ -167,7 +167,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local angY30 = Angle(0, 30, 0)
 --
-function ENT:CustomOnThink_AIEnabled()
+function ENT:OnThinkActive()
 	if self.Dead then -- Make it rotate around as it's dying
 		if self.Nih_LerpAngleDeath == nil then self.Nih_LerpAngleDeath = self:GetAngles() end
 		self.Nih_LerpAngleDeath = LerpAngle(0.25, self.Nih_LerpAngleDeath, self.Nih_LerpAngleDeath + angY30)
@@ -284,28 +284,30 @@ function ENT:Nih_SpawnAlly()
 	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
-	if !self.Nih_CrystalsDestroyed then dmginfo:SetDamage(0) return end
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+	if status == "PreDamage" then
+		if !self.Nih_CrystalsDestroyed then dmginfo:SetDamage(0) return end
 	
-	if !self.Nih_BrainOpen then
-		local num = #self.Nih_Charges
-		if num > 0 then
-			dmginfo:SetDamage(0)
-			local charge = self.Nih_Charges[num]
-			charge:Remove()
-			table.remove(self.Nih_Charges, num)
-			-- Check if any charges remain, if num is 1 then it was the last one!
-			if num <= 1 then
-				self.Nih_BrainOpen = true
-				self:VJ_ACT_PLAYACTIVITY("vjseq_transition_to_hurt", true, false)
+		if !self.Nih_BrainOpen then
+			local num = #self.Nih_Charges
+			if num > 0 then
+				dmginfo:SetDamage(0)
+				local charge = self.Nih_Charges[num]
+				charge:Remove()
+				table.remove(self.Nih_Charges, num)
+				-- Check if any charges remain, if num is 1 then it was the last one!
+				if num <= 1 then
+					self.Nih_BrainOpen = true
+					self:VJ_ACT_PLAYACTIVITY("vjseq_transition_to_hurt", true, false)
+				end
+				return
 			end
-			return
 		end
-	end
-	
-	-- Scale the damage if we aren't hitting inside the brain!
-	if hitgroup != HITGROUP_CHEST then
-		dmginfo:ScaleDamage(0.4)
+		
+		-- Scale the damage if we aren't hitting inside the brain!
+		if hitgroup != HITGROUP_CHEST then
+			dmginfo:ScaleDamage(0.4)
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -328,120 +330,146 @@ function ENT:Nih_DoElecEffect_Green(startPos, hitPos)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local dmgBeamType = bit.bor(DMG_SHOCK, DMG_ENERGYBEAM, DMG_ALWAYSGIB)
+local colorGreen = Color(0, 255, 0, 255)
 --
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	util.ScreenShake(self:GetPos(), 16, 5, 16, 30000)
-	ParticleEffectAttach("vj_hlr_nihilanth_deathorbs", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("0")) -- Bezdig ganach louyser
-	
-	-- Initial regular size green explosion
-	local spr1 = ents.Create("env_sprite")
-	spr1:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
-	spr1:SetKeyValue("rendercolor", "100 255 0")
-	spr1:SetKeyValue("GlowProxySize", "2.0")
-	spr1:SetKeyValue("HDRColorScale", "1.0")
-	spr1:SetKeyValue("renderfx", "14")
-	spr1:SetKeyValue("rendermode", "5")
-	spr1:SetKeyValue("renderamt", "255")
-	spr1:SetKeyValue("disablereceiveshadows", "0")
-	spr1:SetKeyValue("mindxlevel", "0")
-	spr1:SetKeyValue("maxdxlevel", "0")
-	spr1:SetKeyValue("framerate", "15.0")
-	spr1:SetKeyValue("spawnflags", "0")
-	spr1:SetKeyValue("scale", "10")
-	spr1:SetPos(self:GetAttachment(self:LookupAttachment("0")).Pos)
-	spr1:Spawn()
-	spr1:Fire("Kill", "", 0.9)
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "DeathAnim" then
+		util.ScreenShake(self:GetPos(), 16, 5, 16, 30000)
+		ParticleEffectAttach("vj_hlr_nihilanth_deathorbs", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("0")) -- Bezdig ganach louyser
+		
+		-- Initial regular size green explosion
+		local spr1 = ents.Create("env_sprite")
+		spr1:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
+		spr1:SetKeyValue("rendercolor", "100 255 0")
+		spr1:SetKeyValue("GlowProxySize", "2.0")
+		spr1:SetKeyValue("HDRColorScale", "1.0")
+		spr1:SetKeyValue("renderfx", "14")
+		spr1:SetKeyValue("rendermode", "5")
+		spr1:SetKeyValue("renderamt", "255")
+		spr1:SetKeyValue("disablereceiveshadows", "0")
+		spr1:SetKeyValue("mindxlevel", "0")
+		spr1:SetKeyValue("maxdxlevel", "0")
+		spr1:SetKeyValue("framerate", "15.0")
+		spr1:SetKeyValue("spawnflags", "0")
+		spr1:SetKeyValue("scale", "10")
+		spr1:SetPos(self:GetAttachment(self:LookupAttachment("0")).Pos)
+		spr1:Spawn()
+		spr1:Fire("Kill", "", 0.9)
 
-	-- Create blue beams
-	for t = 0, 15.5, 0.5 do
-		timer.Simple(t, function()
-			if IsValid(self) then
-				local myPos = self:GetPos()
-				local myForward = self:GetForward()
-				local myRight = self:GetRight()
-				local myUp = self:GetUp()
-				local attach0 = self:LookupAttachment("0")
-				local attach1 = self:LookupAttachment("1")
-				local attach2 = self:LookupAttachment("2")
-				local attach3 = self:LookupAttachment("3")
-				local beams = {
-					-- Keloukhen ver --------------------------
-					{attach = attach0,
-						endPos = myPos + myRight * math.Rand(10000, 20000) + myUp * 20000},
-					{attach = attach0,
-						endPos = myPos + myRight * -math.Rand(10000, 20000) + myUp * 20000},
-					-- Poren var --------------------------
-					{attach = attach1,
-						endPos = myPos + myRight * math.Rand(10000, 20000) + myUp * -20000},
-					{attach = attach1,
-						endPos = myPos + myRight * -math.Rand(10000, 20000) + myUp * -20000},
-					-- Tsakh --------------------------
-					{attach = attach3,
-						endPos = myPos + myRight * math.Rand(10000, 20000) + myUp * 20000},
-					{attach = attach3,
-						endPos = myPos + myRight * math.Rand(10000, 20000) + myUp * -20000 + myForward * -math.Rand(20000, 20000)},
-					{attach = attach3,
-						endPos = myPos + myRight * math.Rand(10000, 20000) + myUp * -20000 + myForward * math.Rand(20000, 20000)},
-					{attach = attach3,
-						endPos = myPos + myRight * math.Rand(100, 20000) + myUp * 20000 + myForward * math.Rand(-10000, 10000)},
-					-- Ach --------------------------
-					{attach = attach2,
-						endPos = myPos + myRight * -math.Rand(10000, 20000) + myUp * 20000},
-					{attach = attach2,
-						endPos = myPos + myRight * -math.Rand(10000, 20000) + myUp * -20000 + myForward * -math.Rand(20000, 20000)},
-					{attach = attach2,
-						endPos = myPos + myRight * -math.Rand(10000, 20000) + myUp * -200 + myForward * math.Rand(20000, 20000)},
-					{attach = attach2,
-						endPos = myPos + myRight * -math.Rand(100, 20000) + myUp * 20000 + myForward * math.Rand(-10000, 10000)},
-				}
-				for i = 1, 12 do
-					local iBeam = beams[i]
-					local tr = util.TraceLine({
-						start = self:GetAttachment(iBeam.attach).Pos,
-						endpos = iBeam.endPos,
-						filter = self
-					})
-					VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 80, dmgBeamType, false, true)
-					self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, iBeam.attach)
+		-- Create blue beams
+		for t = 0, 15.5, 0.5 do
+			timer.Simple(t, function()
+				if IsValid(self) then
+					local myPos = self:GetPos()
+					local myForward = self:GetForward()
+					local myRight = self:GetRight()
+					local myUp = self:GetUp()
+					local attach0 = self:LookupAttachment("0")
+					local attach1 = self:LookupAttachment("1")
+					local attach2 = self:LookupAttachment("2")
+					local attach3 = self:LookupAttachment("3")
+					local beams = {
+						-- Keloukhen ver --------------------------
+						{attach = attach0,
+							endPos = myPos + myRight * math.Rand(10000, 20000) + myUp * 20000},
+						{attach = attach0,
+							endPos = myPos + myRight * -math.Rand(10000, 20000) + myUp * 20000},
+						-- Poren var --------------------------
+						{attach = attach1,
+							endPos = myPos + myRight * math.Rand(10000, 20000) + myUp * -20000},
+						{attach = attach1,
+							endPos = myPos + myRight * -math.Rand(10000, 20000) + myUp * -20000},
+						-- Tsakh --------------------------
+						{attach = attach3,
+							endPos = myPos + myRight * math.Rand(10000, 20000) + myUp * 20000},
+						{attach = attach3,
+							endPos = myPos + myRight * math.Rand(10000, 20000) + myUp * -20000 + myForward * -math.Rand(20000, 20000)},
+						{attach = attach3,
+							endPos = myPos + myRight * math.Rand(10000, 20000) + myUp * -20000 + myForward * math.Rand(20000, 20000)},
+						{attach = attach3,
+							endPos = myPos + myRight * math.Rand(100, 20000) + myUp * 20000 + myForward * math.Rand(-10000, 10000)},
+						-- Ach --------------------------
+						{attach = attach2,
+							endPos = myPos + myRight * -math.Rand(10000, 20000) + myUp * 20000},
+						{attach = attach2,
+							endPos = myPos + myRight * -math.Rand(10000, 20000) + myUp * -20000 + myForward * -math.Rand(20000, 20000)},
+						{attach = attach2,
+							endPos = myPos + myRight * -math.Rand(10000, 20000) + myUp * -200 + myForward * math.Rand(20000, 20000)},
+						{attach = attach2,
+							endPos = myPos + myRight * -math.Rand(100, 20000) + myUp * 20000 + myForward * math.Rand(-10000, 10000)},
+					}
+					for i = 1, 12 do
+						local iBeam = beams[i]
+						local tr = util.TraceLine({
+							start = self:GetAttachment(iBeam.attach).Pos,
+							endpos = iBeam.endPos,
+							filter = self
+						})
+						VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 80, dmgBeamType, false, true)
+						self:Nih_DoElecEffect_Blue(tr.StartPos, tr.HitPos, iBeam.attach)
+					end
 				end
-			end
-		end)
-	end
-	
-	-- Create green beams and explosions
-	for t = 10, 16, 0.5 do
-		timer.Simple(t, function()
-			if IsValid(self) then
-				local myPos = self:GetPos()
-				local myForward = self:GetForward()
-				local myRight = self:GetRight()
-				local myUp = self:GetUp()
-				local attachPos = self:GetAttachment(self:LookupAttachment("0")).Pos
-				
-				-- Green beams
-				local beams = {
-					-- Tsakh --------------------------
-					myPos + myRight * math.Rand(20000, 20000) + myUp * -20000,
-					myPos + myRight * math.Rand(20000, 20000) + myUp * -20000 + myForward * -math.Rand(20000, 20000),
-					myPos + myRight * math.Rand(20000, 20000) + myUp * -20000 + myForward * math.Rand(20000, 20000),
-					myPos + myRight * math.Rand(100, 20000) + myUp * 20000 + myForward * math.Rand(-10000, 10000),
-					-- Ach --------------------------
-					myPos + myRight * -math.Rand(20000, 20000) + myUp * -20000,
-					myPos + myRight * -math.Rand(20000, 20000) + myUp * -20000 + myForward * -math.Rand(20000, 20000),
-					myPos + myRight * -math.Rand(20000, 20000) + myUp * -200 + myForward * math.Rand(20000, 20000),
-					myPos + myRight * -math.Rand(100, 20000) + myUp * 20000 + myForward * math.Rand(-10000, 10000),
-				}
-				for i = 1, 8 do
-					local tr = util.TraceLine({
-						start = attachPos,
-						endpos = beams[i],
-						filter = self
-					})
-					VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 100, dmgBeamType, false, true)
-					self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
+			end)
+		end
+		
+		-- Create green beams and explosions
+		for t = 10, 16, 0.5 do
+			timer.Simple(t, function()
+				if IsValid(self) then
+					local myPos = self:GetPos()
+					local myForward = self:GetForward()
+					local myRight = self:GetRight()
+					local myUp = self:GetUp()
+					local attachPos = self:GetAttachment(self:LookupAttachment("0")).Pos
+					
+					-- Green beams
+					local beams = {
+						-- Tsakh --------------------------
+						myPos + myRight * math.Rand(20000, 20000) + myUp * -20000,
+						myPos + myRight * math.Rand(20000, 20000) + myUp * -20000 + myForward * -math.Rand(20000, 20000),
+						myPos + myRight * math.Rand(20000, 20000) + myUp * -20000 + myForward * math.Rand(20000, 20000),
+						myPos + myRight * math.Rand(100, 20000) + myUp * 20000 + myForward * math.Rand(-10000, 10000),
+						-- Ach --------------------------
+						myPos + myRight * -math.Rand(20000, 20000) + myUp * -20000,
+						myPos + myRight * -math.Rand(20000, 20000) + myUp * -20000 + myForward * -math.Rand(20000, 20000),
+						myPos + myRight * -math.Rand(20000, 20000) + myUp * -200 + myForward * math.Rand(20000, 20000),
+						myPos + myRight * -math.Rand(100, 20000) + myUp * 20000 + myForward * math.Rand(-10000, 10000),
+					}
+					for i = 1, 8 do
+						local tr = util.TraceLine({
+							start = attachPos,
+							endpos = beams[i],
+							filter = self
+						})
+						VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 100, dmgBeamType, false, true)
+						self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
+					end
+					
+					-- Green explosion
+					local spr = ents.Create("env_sprite")
+					spr:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
+					spr:SetKeyValue("rendercolor", "100 255 0")
+					spr:SetKeyValue("GlowProxySize", "2.0")
+					spr:SetKeyValue("HDRColorScale", "1.0")
+					spr:SetKeyValue("renderfx", "14")
+					spr:SetKeyValue("rendermode", "5")
+					spr:SetKeyValue("renderamt", "255")
+					spr:SetKeyValue("disablereceiveshadows", "0")
+					spr:SetKeyValue("mindxlevel", "0")
+					spr:SetKeyValue("maxdxlevel", "0")
+					spr:SetKeyValue("framerate", "15.0")
+					spr:SetKeyValue("spawnflags", "0")
+					spr:SetKeyValue("scale", "20")
+					spr:SetPos(attachPos + myForward * math.random(-200, 200) + myRight * math.random(-200, 200))
+					spr:Spawn()
+					spr:Fire("Kill", "", 0.9)
 				end
-				
-				-- Green explosion
+			end)
+		end
+		
+		-- Large green explosion
+		timer.Simple(10, function()
+			if IsValid(self) then
 				local spr = ents.Create("env_sprite")
 				spr:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
 				spr:SetKeyValue("rendercolor", "100 255 0")
@@ -456,113 +484,86 @@ function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
 				spr:SetKeyValue("framerate", "15.0")
 				spr:SetKeyValue("spawnflags", "0")
 				spr:SetKeyValue("scale", "20")
-				spr:SetPos(attachPos + myForward * math.random(-200, 200) + myRight * math.random(-200, 200))
+				spr:SetPos(self:GetAttachment(self:LookupAttachment("0")).Pos)
 				spr:Spawn()
 				spr:Fire("Kill", "", 0.9)
 			end
 		end)
-	end
-	
-	-- Large green explosion
-	timer.Simple(10, function()
-		if IsValid(self) then
-			local spr = ents.Create("env_sprite")
-			spr:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
-			spr:SetKeyValue("rendercolor", "100 255 0")
-			spr:SetKeyValue("GlowProxySize", "2.0")
-			spr:SetKeyValue("HDRColorScale", "1.0")
-			spr:SetKeyValue("renderfx", "14")
-			spr:SetKeyValue("rendermode", "5")
-			spr:SetKeyValue("renderamt", "255")
-			spr:SetKeyValue("disablereceiveshadows", "0")
-			spr:SetKeyValue("mindxlevel", "0")
-			spr:SetKeyValue("maxdxlevel", "0")
-			spr:SetKeyValue("framerate", "15.0")
-			spr:SetKeyValue("spawnflags", "0")
-			spr:SetKeyValue("scale", "20")
-			spr:SetPos(self:GetAttachment(self:LookupAttachment("0")).Pos)
-			spr:Spawn()
-			spr:Fire("Kill", "", 0.9)
+		
+		-- Ending scene: White orbs + green explosions
+		timer.Simple(14, function()
+			if IsValid(self) then
+				ParticleEffect("vj_hlr_nihilanth_deathorbs_white", self:GetAttachment(self:LookupAttachment("0")).Pos, self:GetAngles())
+				VJ.EmitSound(self, "vj_hlr/hl1_npc/x/nih_die2.wav", 120)
+				
+				timer.Simple(1, function()
+					if IsValid(self) then
+						local spr = ents.Create("env_sprite")
+						spr:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
+						spr:SetKeyValue("rendercolor", "100 255 0")
+						spr:SetKeyValue("GlowProxySize", "2.0")
+						spr:SetKeyValue("HDRColorScale", "1.0")
+						spr:SetKeyValue("renderfx", "14")
+						spr:SetKeyValue("rendermode", "5")
+						spr:SetKeyValue("renderamt", "255")
+						spr:SetKeyValue("disablereceiveshadows", "0")
+						spr:SetKeyValue("mindxlevel", "0")
+						spr:SetKeyValue("maxdxlevel", "0")
+						spr:SetKeyValue("framerate", "15.0")
+						spr:SetKeyValue("spawnflags", "0")
+						spr:SetKeyValue("scale", "20")
+						spr:SetPos(self:GetAttachment(self:LookupAttachment("1")).Pos)
+						spr:Spawn()
+						spr:Fire("Kill", "", 0.9)
+					end
+				end)
+				
+				timer.Simple(1.5, function()
+					if IsValid(self) then
+						local spr = ents.Create("env_sprite")
+						spr:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
+						spr:SetKeyValue("rendercolor", "100 255 0")
+						spr:SetKeyValue("GlowProxySize", "2.0")
+						spr:SetKeyValue("HDRColorScale", "1.0")
+						spr:SetKeyValue("renderfx", "14")
+						spr:SetKeyValue("rendermode", "5")
+						spr:SetKeyValue("renderamt", "255")
+						spr:SetKeyValue("disablereceiveshadows", "0")
+						spr:SetKeyValue("mindxlevel", "0")
+						spr:SetKeyValue("maxdxlevel", "0")
+						spr:SetKeyValue("framerate", "15.0")
+						spr:SetKeyValue("spawnflags", "0")
+						spr:SetKeyValue("scale", "20")
+						spr:SetPos(self:GetAttachment(self:LookupAttachment("1")).Pos + self:GetUp() * 100 + self:GetRight() * 300)
+						spr:Spawn()
+						spr:Fire("Kill", "", 0.9)
+						
+						spr = ents.Create("env_sprite")
+						spr:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
+						spr:SetKeyValue("rendercolor", "100 255 0")
+						spr:SetKeyValue("GlowProxySize", "2.0")
+						spr:SetKeyValue("HDRColorScale", "1.0")
+						spr:SetKeyValue("renderfx", "14")
+						spr:SetKeyValue("rendermode", "5")
+						spr:SetKeyValue("renderamt", "255")
+						spr:SetKeyValue("disablereceiveshadows", "0")
+						spr:SetKeyValue("mindxlevel", "0")
+						spr:SetKeyValue("maxdxlevel", "0")
+						spr:SetKeyValue("framerate", "15.0")
+						spr:SetKeyValue("spawnflags", "0")
+						spr:SetKeyValue("scale", "20")
+						spr:SetPos(self:GetAttachment(self:LookupAttachment("1")).Pos + self:GetUp() * 100 + self:GetRight() * -300)
+						spr:Spawn()
+						spr:Fire("Kill", "", 0.9)
+					end
+				end)
+			end
+		end)
+	elseif status == "Finish" then
+		-- Screen flash effect for all the players
+		for _,v in ipairs(player.GetHumans()) do
+			v:ScreenFade(SCREENFADE.IN, colorGreen, 1, 0)
 		end
-	end)
-	
-	-- Ending scene: White orbs + green explosions
-	timer.Simple(14, function()
-		if IsValid(self) then
-			ParticleEffect("vj_hlr_nihilanth_deathorbs_white", self:GetAttachment(self:LookupAttachment("0")).Pos, self:GetAngles())
-			VJ.EmitSound(self, "vj_hlr/hl1_npc/x/nih_die2.wav", 120)
-			
-			timer.Simple(1, function()
-				if IsValid(self) then
-					local spr = ents.Create("env_sprite")
-					spr:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
-					spr:SetKeyValue("rendercolor", "100 255 0")
-					spr:SetKeyValue("GlowProxySize", "2.0")
-					spr:SetKeyValue("HDRColorScale", "1.0")
-					spr:SetKeyValue("renderfx", "14")
-					spr:SetKeyValue("rendermode", "5")
-					spr:SetKeyValue("renderamt", "255")
-					spr:SetKeyValue("disablereceiveshadows", "0")
-					spr:SetKeyValue("mindxlevel", "0")
-					spr:SetKeyValue("maxdxlevel", "0")
-					spr:SetKeyValue("framerate", "15.0")
-					spr:SetKeyValue("spawnflags", "0")
-					spr:SetKeyValue("scale", "20")
-					spr:SetPos(self:GetAttachment(self:LookupAttachment("1")).Pos)
-					spr:Spawn()
-					spr:Fire("Kill", "", 0.9)
-				end
-			end)
-			
-			timer.Simple(1.5, function()
-				if IsValid(self) then
-					local spr = ents.Create("env_sprite")
-					spr:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
-					spr:SetKeyValue("rendercolor", "100 255 0")
-					spr:SetKeyValue("GlowProxySize", "2.0")
-					spr:SetKeyValue("HDRColorScale", "1.0")
-					spr:SetKeyValue("renderfx", "14")
-					spr:SetKeyValue("rendermode", "5")
-					spr:SetKeyValue("renderamt", "255")
-					spr:SetKeyValue("disablereceiveshadows", "0")
-					spr:SetKeyValue("mindxlevel", "0")
-					spr:SetKeyValue("maxdxlevel", "0")
-					spr:SetKeyValue("framerate", "15.0")
-					spr:SetKeyValue("spawnflags", "0")
-					spr:SetKeyValue("scale", "20")
-					spr:SetPos(self:GetAttachment(self:LookupAttachment("1")).Pos + self:GetUp() * 100 + self:GetRight() * 300)
-					spr:Spawn()
-					spr:Fire("Kill", "", 0.9)
-					
-					spr = ents.Create("env_sprite")
-					spr:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
-					spr:SetKeyValue("rendercolor", "100 255 0")
-					spr:SetKeyValue("GlowProxySize", "2.0")
-					spr:SetKeyValue("HDRColorScale", "1.0")
-					spr:SetKeyValue("renderfx", "14")
-					spr:SetKeyValue("rendermode", "5")
-					spr:SetKeyValue("renderamt", "255")
-					spr:SetKeyValue("disablereceiveshadows", "0")
-					spr:SetKeyValue("mindxlevel", "0")
-					spr:SetKeyValue("maxdxlevel", "0")
-					spr:SetKeyValue("framerate", "15.0")
-					spr:SetKeyValue("spawnflags", "0")
-					spr:SetKeyValue("scale", "20")
-					spr:SetPos(self:GetAttachment(self:LookupAttachment("1")).Pos + self:GetUp() * 100 + self:GetRight() * -300)
-					spr:Spawn()
-					spr:Fire("Kill", "", 0.9)
-				end
-			end)
-		end
-	end)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-local colorGreen = Color(0, 255, 0, 255)
---
-function ENT:CustomOnKilled(dmginfo, hitgroup)
-	-- Screen flash effect for all the players
-	for _,v in ipairs(player.GetHumans()) do
-		v:ScreenFade(SCREENFADE.IN, colorGreen, 1, 0)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

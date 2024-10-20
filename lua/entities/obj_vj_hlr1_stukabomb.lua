@@ -40,7 +40,7 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:EnableDrag(false)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	ParticleEffectAttach("vj_hlr_spit_stukabat",PATTACH_ABSORIGIN_FOLLOW,self,0)
 
 	self:SetNoDraw(true)

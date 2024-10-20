@@ -26,10 +26,10 @@ ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's dam
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_BIG_FLINCH} -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_BIG_FLINCH} -- The regular flinch animations to play
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/chumtoad/toad_hunt1.wav","vj_hlr/hl1_npc/chumtoad/toad_hunt2.wav","vj_hlr/hl1_npc/chumtoad/toad_hunt3.wav","vj_hlr/hl1_npc/chumtoad/toad_deploy1.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/chumtoad/toad_idle1.wav"}
@@ -41,7 +41,7 @@ ENT.GeneralSoundPitch1 = 100
 ENT.CT_BlinkingT = 0
 ENT.CT_MoveTypeSwim = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(9, 9, 15), Vector(-9, -9, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -52,7 +52,7 @@ function ENT:TranslateActivity(act)
 	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	if self:WaterLevel() < 2 then
 		if self.CT_MoveTypeSwim then
 			self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
@@ -72,9 +72,9 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
+function ENT:OnDeath(dmginfo, hitgroup, status)
 	-- Don't play death animation if swimming
-	if self.CT_MoveTypeSwim then
+	if status == "Initial" && self.CT_MoveTypeSwim then
 		self.HasDeathAnimation = false
 	end
 end
@@ -83,7 +83,7 @@ local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles then
+	if self.HasGibOnDeathEffects then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorYellow)
@@ -112,7 +112,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gibs = {"models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 --
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	corpseEnt:SetSkin(2)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, gibs)
 end

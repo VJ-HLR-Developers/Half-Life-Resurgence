@@ -12,7 +12,7 @@ ENT.StartHealth = 180
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK_SWING}
 ENT.TimeUntilGrenadeIsReleased = 1 -- Time until the grenade is released
 ENT.Weapon_CanReload = false -- If false, the SNPC will no longer reload
-ENT.Weapon_ShootWhileMoving = false -- Can it shoot its weapon while moving?
+ENT.Weapon_CanFireWhileMoving = false -- Can it fire its weapon while it's moving?
 ENT.MoveOrHideOnDamageByEnemy = false -- Should the NPC move away or hide behind cover when being damaged while fighting an enemy?
 ENT.Weapon_RetreatDistance = 0 -- If enemy is within this distance, it will retreat back | 0 = Never back away
 
@@ -30,7 +30,7 @@ ENT.Serg_Type = 0
 	-- 1 = Alpha
 	-- 2 = Alpha Melee
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:HECU_CustomOnThink()
+function ENT:HECU_OnThink()
 	-- For weapon spinning sound
 	if self.DoingWeaponAttack then
 		self.HasBreathSound = true
@@ -45,7 +45,7 @@ function ENT:HECU_CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnWeaponAttack()
+function ENT:OnWeaponAttack()
 	-- Do the weapon spin up routine
 	if CurTime() > self.Serg_SpinUpT then
 		local setTime = CurTime() + 0.9

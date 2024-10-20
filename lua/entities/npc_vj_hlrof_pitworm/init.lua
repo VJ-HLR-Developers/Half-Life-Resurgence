@@ -7,7 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/opfor/pit_worm_up.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 2000
-ENT.VJTag_ID_Boss = true -- Is this a huge monster?
+ENT.VJTag_ID_Boss = true
 ENT.HullType = HULL_LARGE
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
 ENT.CanTurnWhileStationary = true -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
@@ -26,23 +26,23 @@ ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.MeleeAttackDamage = 30
 ENT.MeleeAttackDistance = 300 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.MeleeAttackDamageDistance = 320 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2} -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2}
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 
 ENT.HasRangeAttack = true -- Can this NPC range attack?
-ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1 -- Range Attack Animations
-ENT.RangeDistance = 4000 -- This is how far away it can shoot
+ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
+ENT.RangeDistance = 4000 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 250 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
 ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
 
-ENT.HasDeathRagdoll = false -- Should the NPC spawn a corpse when it dies?
+ENT.HasDeathCorpse = false -- Should a corpse spawn when it's killed?
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
+ENT.AnimTbl_Death = ACT_DIESIMPLE
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_BIG_FLINCH} -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_BIG_FLINCH} -- The regular flinch animations to play
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/pitworm/pit_worm_idle1.wav","vj_hlr/hl1_npc/pitworm/pit_worm_idle2.wav","vj_hlr/hl1_npc/pitworm/pit_worm_idle3.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/pitworm/pit_worm_alert(scream).wav","vj_hlr/hl1_npc/pitworm/pit_worm_alert.wav"}
@@ -60,11 +60,11 @@ ENT.DeathSoundLevel = 90
 -- Custom
 ENT.PitWorm_BlinkingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(100, 100, 390), Vector(-100, -100, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "melee" then
 		self:MeleeAttackCode()
@@ -75,7 +75,7 @@ function ENT:CustomOnAcceptInput(key, activator, caller, data)
 end
 // ACT_SPECIAL_ATTACK1, ACT_SPECIAL_ATTACK2
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	-- Handle blinking
 	if !self.Dead && CurTime() > self.PitWorm_BlinkingT then
 		self:SetSkin(1)
@@ -88,7 +88,7 @@ function ENT:CustomOnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAlert(ent)
+function ENT:OnAlert(ent)
 	self:VJ_ACT_PLAYACTIVITY(ACT_ARM, true, false, true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -26,7 +26,7 @@ ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 
 ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_energyorb" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
-ENT.RangeDistance = 2048 -- This is how far away it can shoot
+ENT.RangeDistance = 2048 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
@@ -37,11 +37,11 @@ ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until i
 ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_Type = "Regular" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = ACT_DIESIMPLE -- Death Animations
-ENT.DeathAnimationTime = 1.2 -- Time until the NPC spawns its corpse and gets removed
+ENT.AnimTbl_Death = ACT_DIESIMPLE
+ENT.DeathAnimationTime = 1.2 -- How long should the death animation play?
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_BIG_FLINCH -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = ACT_BIG_FLINCH -- The regular flinch animations to play
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/controller/con_idle1.wav","vj_hlr/hl1_npc/controller/con_idle2.wav","vj_hlr/hl1_npc/controller/con_idle3.wav","vj_hlr/hl1_npc/controller/con_idle4.wav","vj_hlr/hl1_npc/controller/con_idle5.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/controller/con_alert1.wav","vj_hlr/hl1_npc/controller/con_alert2.wav","vj_hlr/hl1_npc/controller/con_alert3.wav"}
@@ -60,7 +60,7 @@ ENT.AlienC_FlyAnim_Left  = 0
 ENT.AlienC_FlyAnim_Up  = 0
 ENT.AlienC_FlyAnim_Down  = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(20, 20, 70), Vector(-20, -20, -10))
 	
 	local zapSpr1 = ents.Create("env_sprite")
@@ -107,7 +107,7 @@ function ENT:CustomOnInitialize()
 	self.AlienC_FlyAnim_Down  = self:GetSequenceActivity(self:LookupSequence("down"))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "rangeattack" or key == "rangeattack_close" then
 		if IsValid(self.ZapSpr1) then
@@ -201,15 +201,17 @@ function ENT:RangeAttackProjVelocity(projectile)
 	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 700), 700)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "DeathAnim" then
+		self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles then
+	if self.HasGibOnDeathEffects then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorYellow)
@@ -240,6 +242,6 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt)
 end

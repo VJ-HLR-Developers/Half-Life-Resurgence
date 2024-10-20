@@ -22,15 +22,15 @@ ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's dam
 ENT.HasBloodPool = false -- Does it have a blood pool?
 
 ENT.MeleeAttackDamage = 30
-ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1 -- Melee Attack Animations
+ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDistance = 100 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.MeleeAttackDamageDistance = 125 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 
 ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlrof_voltigore_energy" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
-ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1 -- Range Attack Animations
-ENT.RangeDistance = 2000 -- This is how far away it can shoot
+ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
+ENT.RangeDistance = 2000 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 100 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
@@ -38,8 +38,8 @@ ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = P
 //ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE} -- Death Animations
-ENT.DeathAnimationTime = false -- Time until the NPC spawns its corpse and gets removed
+ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
+ENT.DeathAnimationTime = false -- How long should the death animation play?
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 	-- ====== Sound Paths ====== --
@@ -57,11 +57,11 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/voltigore/voltigore_die1.wav","vj_hlr/hl1_
 
 local extraMoveSd = {"vj_hlr/hl1_npc/voltigore/voltigore_run_grunt1.wav","vj_hlr/hl1_npc/voltigore/voltigore_run_grunt2.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(60, 60, 95), Vector(-60, -60, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
@@ -124,8 +124,9 @@ function ENT:RangeAttackProjVelocity(projectile)
 	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 1500), 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-	if self.AttackType == VJ.ATTACK_TYPE_RANGE then -- Make it explode all the time if it was middle of range attacking!
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	-- Make it explode all the time if it was middle of range attacking!
+	if status == "Initial" && self.AttackType == VJ.ATTACK_TYPE_RANGE then
 		self.GibOnDeathDamagesTable = {"All"}
 	end
 end
@@ -135,7 +136,7 @@ local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	local myPos = self:GetPos()
-	if self.HasGibDeathParticles then
+	if self.HasGibOnDeathEffects then
 		local effectData = EffectData()
 		effectData:SetOrigin(myPos + self:OBBCenter())
 		effectData:SetColor(colorYellow)
@@ -181,6 +182,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gibs = {"models/vj_hlr/gibs/voltigore_gib1.mdl", "models/vj_hlr/gibs/voltigore_gib2.mdl", "models/vj_hlr/gibs/voltigore_gib3.mdl", "models/vj_hlr/gibs/voltigore_gib4.mdl", "models/vj_hlr/gibs/voltigore_gib5.mdl", "models/vj_hlr/gibs/voltigore_gib6.mdl", "models/vj_hlr/gibs/voltigore_gib7.mdl", "models/vj_hlr/gibs/voltigore_gib8.mdl", "models/vj_hlr/gibs/voltigore_gib9.mdl", "models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib6.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 --
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, nil, {ExtraGibs = gibs})
 end

@@ -22,7 +22,7 @@ ENT.AnimTbl_WeaponAttackSecondary = "vjseq_shoot_ar2grenade"
 ENT.WeaponAttackSecondaryTimeUntilFire = 0.55
 	-- ====== Flinching Variables ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = "vjges_flinch_gesture" -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = "vjges_flinch_gesture" -- The regular flinch animations to play
 	-- ====== Sound Paths ====== --
 //ENT.SoundTbl_FootStep = {"npc/combine_soldier/gear1.wav","npc/combine_soldier/gear2.wav","npc/combine_soldier/gear3.wav","npc/combine_soldier/gear4.wav","npc/combine_soldier/gear5.wav","npc/combine_soldier/gear6.wav"}
 ENT.SoundTbl_CombatIdle = {
@@ -87,7 +87,7 @@ ENT.CanClimb = true
 ENT.IsClimbing = false
 ENT.NextClimbT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	if self.CanClimb == true && !self.Dead && self.IsClimbing == false && CurTime() > self.NextClimbT then
 		local anim = false
 		local finalpos = self:GetPos()
@@ -168,9 +168,9 @@ function ENT:OnGrenadeAttack(status, grenade, customEnt, landDir, landingPos)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
+function ENT:OnDamaged(dmginfo, hitgroup, status)
 	-- Absorb bullet damage, play metallic sound, and create sparks
-	if dmginfo:IsBulletDamage() then
+	if status == "PreDamage" && dmginfo:IsBulletDamage() then
 		if self.HasSounds == true && self.HasImpactSounds == true then
 			VJ.EmitSound(self, "vj_base/impact/armor"..math.random(1, 10)..".wav", 70)
 		end

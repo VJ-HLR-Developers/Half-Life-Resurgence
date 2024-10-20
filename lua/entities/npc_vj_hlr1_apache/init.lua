@@ -44,7 +44,7 @@ ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 
 ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_rocket" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
-ENT.RangeDistance = combatDistance -- This is how far away it can shoot
+ENT.RangeDistance = combatDistance -- How far can it range attack?
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
 ENT.RangeAttackAngleRadius = 100 -- What is the attack angle radius? | 100 = In front of the NPC | 180 = All around the NPC
 ENT.TimeUntilRangeAttackProjectileRelease = 0 -- How much time until the projectile code is ran?
@@ -53,7 +53,7 @@ ENT.RangeAttackReps = 1 -- How many times does it run the projectile code?
 ENT.RangeAttackExtraTimers = {0} -- Extra range attack timers, EX: {1, 1.4} | it will run the projectile code after the given amount of seconds
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
 
-ENT.HasDeathRagdoll = false
+ENT.HasDeathCorpse = false
 ENT.Medic_CanBeHealed = false -- Can this NPC be healed by medics?\
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Death = {"vj_hlr/hl1_weapon/mortar/mortarhit.wav"}
@@ -77,7 +77,7 @@ ENT.Heli_RangeAttach = "missile_left"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local spawnPos = Vector(0, 0, 400)
 --
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetNW2Int("Heli_SmokeLevel", 0)
 	self.ConstantlyFaceEnemyDistance = self:GetMaxLookDistance()
 	
@@ -135,7 +135,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("MOUSE1: Fire chain gun")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOn_PoseParameterLookingCode(pitch, yaw, roll)
+function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
 	-- Compare the difference between the current position of the pose parameter and the position it's suppose to go to
 	-- Using 20 for "aim_pitch" to make it a little more forgiving
 	if (math.abs(math.AngleDifference(self:GetPoseParameter("aim_yaw"), math.ApproachAngle(self:GetPoseParameter("aim_yaw"), yaw, self.PoseParameterLooking_TurningSpeed))) >= self.PoseParameterLooking_TurningSpeed) or (math.abs(math.AngleDifference(self:GetPoseParameter("aim_pitch"), math.ApproachAngle(self:GetPoseParameter("aim_pitch"), pitch, 20))) >= 20) then
@@ -145,7 +145,7 @@ function ENT:CustomOn_PoseParameterLookingCode(pitch, yaw, roll)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	-- Flying tilt (X & Y)
 	local velNorm = self:GetVelocity():GetNormal()
 	local speed = FrameTime()*4
@@ -233,40 +233,40 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
 --
-function ENT:CustomOnTakeDamage_BeforeImmuneChecks(dmginfo, hitgroup)
-	-- If hit in the engine area, then get damage by bullets!
-	if dmginfo:IsBulletDamage() && hitgroup == 2 then
-		dmginfo:ScaleDamage(0.05)
-		self.Immune_Bullet = false -- To counter the "dmginfo:IsBulletDamage()" function
-	else
-		self.Immune_Bullet = true
-	end
-	
-	if dmginfo:GetDamagePosition() != vec then
-		local rico = EffectData()
-		rico:SetOrigin(dmginfo:GetDamagePosition())
-		rico:SetScale(4) -- Size
-		rico:SetMagnitude(math.random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
-		util.Effect("VJ_HLR_Rico", rico)
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnTakeDamage_AfterDamage(dmginfo, hitgroup)
-	if self.Heli_SmokeStatus == 2 then return end
-	local maxHP = self:GetMaxHealth()
-	local hp = self:Health()
-	if hp <= (maxHP * 0.25) then
-		-- Only set the tail smoke if we haven't set it already
-		if self.Heli_SmokeStatus == 0 then
-			self:SetNW2Int("Heli_SmokeLevel", 1)
-			self.Heli_SmokeStatus = 1
-			//ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("rotor_tail"))
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+	if status == "Initial" then
+		-- If hit in the engine area, then get damage by bullets!
+		if dmginfo:IsBulletDamage() && hitgroup == 2 then
+			dmginfo:ScaleDamage(0.05)
+			self.Immune_Bullet = false -- To counter the "dmginfo:IsBulletDamage()" function
+		else
+			self.Immune_Bullet = true
 		end
-		-- If even lower, then make the rotor smoke too
-		if hp <= (maxHP * 0.15) then
-			self:SetNW2Int("Heli_SmokeLevel", 2)
-			self.Heli_SmokeStatus = 2
-			//ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("rotor"))
+		
+		if dmginfo:GetDamagePosition() != vec then
+			local rico = EffectData()
+			rico:SetOrigin(dmginfo:GetDamagePosition())
+			rico:SetScale(4) -- Size
+			rico:SetMagnitude(math.random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
+			util.Effect("VJ_HLR_Rico", rico)
+		end
+	elseif status == "PostDamage" then
+		if self.Heli_SmokeStatus == 2 then return end
+		local maxHP = self:GetMaxHealth()
+		local hp = self:Health()
+		if hp <= (maxHP * 0.25) then
+			-- Only set the tail smoke if we haven't set it already
+			if self.Heli_SmokeStatus == 0 then
+				self:SetNW2Int("Heli_SmokeLevel", 1)
+				self.Heli_SmokeStatus = 1
+				//ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("rotor_tail"))
+			end
+			-- If even lower, then make the rotor smoke too
+			if hp <= (maxHP * 0.15) then
+				self:SetNW2Int("Heli_SmokeLevel", 2)
+				self.Heli_SmokeStatus = 2
+				//ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("rotor"))
+			end
 		end
 	end
 end
@@ -304,40 +304,119 @@ local heliExpGibs_Gray = { -- For Black Ops
 	"models/vj_hlr/gibs/rgib_screw.mdl"
 }
 --
-function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
-	-- Spawn a animated model of the helicopter that explodes constantly and gets destroyed when it collides with something
-	-- Based on source code
-	local deathCorpse = ents.Create("prop_vj_animatable")
-	deathCorpse:SetModel(self:GetModel())
-	deathCorpse:SetPos(self:GetPos())
-	deathCorpse:SetAngles(self:GetAngles())
-	function deathCorpse:Initialize()
-		self:PhysicsInit(SOLID_VPHYSICS)
-		self:SetMoveType(MOVETYPE_VPHYSICS)
-		self:SetMoveCollide(MOVECOLLIDE_FLY_BOUNCE)
-		self:SetCollisionGroup(COLLISION_GROUP_NONE)
-		self:SetSolid(SOLID_CUSTOM)
-		local phys = self:GetPhysicsObject()
-		if IsValid(phys) then
-			phys:Wake()
-			phys:EnableGravity(true)
-			phys:SetBuoyancyRatio(0)
-			phys:SetVelocity(self:GetVelocity())
-			phys:AddAngleVelocity(Vector(math.Rand(-20, 20), math.Rand(-20, 20), 200))
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Initial" then
+		local expPos = self:GetAttachment(self:LookupAttachment("rotor")).Pos
+		local expSpr = ents.Create("env_sprite")
+		expSpr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+		expSpr:SetKeyValue("GlowProxySize","2.0")
+		expSpr:SetKeyValue("HDRColorScale","1.0")
+		expSpr:SetKeyValue("renderfx","14")
+		expSpr:SetKeyValue("rendermode","5")
+		expSpr:SetKeyValue("renderamt","255")
+		expSpr:SetKeyValue("disablereceiveshadows","0")
+		expSpr:SetKeyValue("mindxlevel","0")
+		expSpr:SetKeyValue("maxdxlevel","0")
+		expSpr:SetKeyValue("framerate","15.0")
+		expSpr:SetKeyValue("spawnflags","0")
+		expSpr:SetKeyValue("scale","5")
+		expSpr:SetPos(expPos)
+		expSpr:Spawn()
+		expSpr:Fire("Kill", "", 0.9)
+		timer.Simple(0.9, function() if IsValid(expSpr) then expSpr:Remove() end end)
+		
+		util.BlastDamage(self, self, expPos, 300, 100)
+		VJ.EmitSound(self, sdExplosions, 100, 100)
+		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 100, 100, 100, 1)
+		
+		-- Spawn a animated model of the helicopter that explodes constantly and gets destroyed when it collides with something
+		-- Based on source code
+		local deathCorpse = ents.Create("prop_vj_animatable")
+		deathCorpse:SetModel(self:GetModel())
+		deathCorpse:SetPos(self:GetPos())
+		deathCorpse:SetAngles(self:GetAngles())
+		function deathCorpse:Initialize()
+			self:PhysicsInit(SOLID_VPHYSICS)
+			self:SetMoveType(MOVETYPE_VPHYSICS)
+			self:SetMoveCollide(MOVECOLLIDE_FLY_BOUNCE)
+			self:SetCollisionGroup(COLLISION_GROUP_NONE)
+			self:SetSolid(SOLID_CUSTOM)
+			local phys = self:GetPhysicsObject()
+			if IsValid(phys) then
+				phys:Wake()
+				phys:EnableGravity(true)
+				phys:SetBuoyancyRatio(0)
+				phys:SetVelocity(self:GetVelocity())
+				phys:AddAngleVelocity(Vector(math.Rand(-20, 20), math.Rand(-20, 20), 200))
+			end
 		end
-	end
-	deathCorpse.NextExpT = 0
-	deathCorpse:Spawn()
-	deathCorpse:Activate()
-	
-	-- Explode as it goes down
-	function deathCorpse:Think()
-		self:ResetSequence("idle_move")
-		if CurTime() > self.NextExpT then
-			self.NextExpT = CurTime() + 0.2
-			local expPos = self:GetPos() + Vector(math.Rand(-150, 150), math.Rand(-150, 150), math.Rand(-150, -50))
+		deathCorpse.NextExpT = 0
+		deathCorpse:Spawn()
+		deathCorpse:Activate()
+		
+		-- Explode as it goes down
+		function deathCorpse:Think()
+			self:ResetSequence("idle_move")
+			if CurTime() > self.NextExpT then
+				self.NextExpT = CurTime() + 0.2
+				local expPos2 = self:GetPos() + Vector(math.Rand(-150, 150), math.Rand(-150, 150), math.Rand(-150, -50))
+				local spr = ents.Create("env_sprite")
+				spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+				spr:SetKeyValue("GlowProxySize","2.0")
+				spr:SetKeyValue("HDRColorScale","1.0")
+				spr:SetKeyValue("renderfx","14")
+				spr:SetKeyValue("rendermode","5")
+				spr:SetKeyValue("renderamt","255")
+				spr:SetKeyValue("disablereceiveshadows","0")
+				spr:SetKeyValue("mindxlevel","0")
+				spr:SetKeyValue("maxdxlevel","0")
+				spr:SetKeyValue("framerate","15.0")
+				spr:SetKeyValue("spawnflags","0")
+				spr:SetKeyValue("scale","5")
+				spr:SetPos(expPos2)
+				spr:Spawn()
+				spr:Fire("Kill", "", 0.9)
+				timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+				
+				util.BlastDamage(self, self, expPos2, 300, 100)
+				VJ.EmitSound(self, sdExplosions, 100, 100)
+				VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+			end
+		
+			self:NextThink(CurTime())
+			return true
+		end
+		
+		-- Get destroyed when it collides with something
+		function deathCorpse:PhysicsCollide(data, phys)
+			if self.Dead then return end
+			local myPos = self:GetPos()
+			self.Dead = true
+			
+			-- Create gibs
+			local gibTbl = self:GetModel() == "models/vj_hlr/hl1/apache_blkops.mdl" and heliExpGibs_Gray or heliExpGibs_Green
+			for _ = 1, 50 do
+				local gib = ents.Create("obj_vj_gib")
+				gib:SetModel(VJ.PICK(gibTbl))
+				gib:SetPos(myPos + Vector(math.random(-100, 100), math.random(-100, 100), math.random(20, 150)))
+				gib:SetAngles(Angle(math.Rand(-180, 180), math.Rand(-180, 180), math.Rand(-180, 180)))
+				gib.Collide_Decal = ""
+				gib.CollideSound = sdGibCollide
+				gib:Spawn()
+				gib:Activate()
+				local myPhys = gib:GetPhysicsObject()
+				if IsValid(myPhys) then
+					myPhys:AddVelocity(Vector(math.Rand(-300, 300), math.Rand(-300, 300), math.Rand(150, 250)))
+					myPhys:AddAngleVelocity(Vector(math.Rand(-200, 200), math.Rand(-200, 200), math.Rand(-200, 200)))
+				end
+				if GetConVar("vj_npc_fadegibs"):GetInt() == 1 then
+					timer.Simple(GetConVar("vj_npc_fadegibstime"):GetInt(), function() SafeRemoveEntity(gib) end)
+				end
+			end
+			
+			local expPos2 = myPos + Vector(0, 0, math.Rand(150, 150))
 			local spr = ents.Create("env_sprite")
-			spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+			spr:SetKeyValue("model","vj_hl/sprites/fexplo1.vmt")
 			spr:SetKeyValue("GlowProxySize","2.0")
 			spr:SetKeyValue("HDRColorScale","1.0")
 			spr:SetKeyValue("renderfx","14")
@@ -348,98 +427,19 @@ function ENT:CustomOnInitialKilled(dmginfo, hitgroup)
 			spr:SetKeyValue("maxdxlevel","0")
 			spr:SetKeyValue("framerate","15.0")
 			spr:SetKeyValue("spawnflags","0")
-			spr:SetKeyValue("scale","5")
-			spr:SetPos(expPos)
+			spr:SetKeyValue("scale","15")
+			spr:SetPos(expPos2)
 			spr:Spawn()
-			spr:Fire("Kill", "", 0.9)
-			timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
-			
-			util.BlastDamage(self, self, expPos, 300, 100)
-			VJ.EmitSound(self, sdExplosions, 100, 100)
-			VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+			spr:Fire("Kill", "", 1.19)
+			timer.Simple(1.19, function() if IsValid(spr) then spr:Remove() end end)
+			util.BlastDamage(self, self, expPos2, 600, 200)
+			VJ.EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit.wav", 100, 100)
+			VJ.EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit_dist.wav", 140, 100)
+			-- flags 0 = No fade!
+			effects.BeamRingPoint(myPos, 0.4, 0, 1500, 32, 0, colorHeliExp, {material="vj_hl/sprites/shockwave", framerate=0, flags=0})
+			self:Remove()
 		end
-	
-		self:NextThink(CurTime())
-		return true
 	end
-	
-	-- Get destroyed when it collides with something
-	function deathCorpse:PhysicsCollide(data, phys)
-		if self.Dead then return end
-		local myPos = self:GetPos()
-		self.Dead = true
-		
-		-- Create gibs
-		local gibTbl = self:GetModel() == "models/vj_hlr/hl1/apache_blkops.mdl" and heliExpGibs_Gray or heliExpGibs_Green
-		for _ = 1, 50 do
-			local gib = ents.Create("obj_vj_gib")
-			gib:SetModel(VJ.PICK(gibTbl))
-			gib:SetPos(myPos + Vector(math.random(-100, 100), math.random(-100, 100), math.random(20, 150)))
-			gib:SetAngles(Angle(math.Rand(-180, 180), math.Rand(-180, 180), math.Rand(-180, 180)))
-			gib.Collide_Decal = ""
-			gib.CollideSound = sdGibCollide
-			gib:Spawn()
-			gib:Activate()
-			local myPhys = gib:GetPhysicsObject()
-			if IsValid(myPhys) then
-				myPhys:AddVelocity(Vector(math.Rand(-300, 300), math.Rand(-300, 300), math.Rand(150, 250)))
-				myPhys:AddAngleVelocity(Vector(math.Rand(-200, 200), math.Rand(-200, 200), math.Rand(-200, 200)))
-			end
-			if GetConVar("vj_npc_fadegibs"):GetInt() == 1 then
-				timer.Simple(GetConVar("vj_npc_fadegibstime"):GetInt(), function() SafeRemoveEntity(gib) end)
-			end
-		end
-		
-		local expPos = myPos + Vector(0, 0, math.Rand(150, 150))
-		local spr = ents.Create("env_sprite")
-		spr:SetKeyValue("model","vj_hl/sprites/fexplo1.vmt")
-		spr:SetKeyValue("GlowProxySize","2.0")
-		spr:SetKeyValue("HDRColorScale","1.0")
-		spr:SetKeyValue("renderfx","14")
-		spr:SetKeyValue("rendermode","5")
-		spr:SetKeyValue("renderamt","255")
-		spr:SetKeyValue("disablereceiveshadows","0")
-		spr:SetKeyValue("mindxlevel","0")
-		spr:SetKeyValue("maxdxlevel","0")
-		spr:SetKeyValue("framerate","15.0")
-		spr:SetKeyValue("spawnflags","0")
-		spr:SetKeyValue("scale","15")
-		spr:SetPos(expPos)
-		spr:Spawn()
-		spr:Fire("Kill", "", 1.19)
-		timer.Simple(1.19, function() if IsValid(spr) then spr:Remove() end end)
-		util.BlastDamage(self, self, expPos, 600, 200)
-		VJ.EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit.wav", 100, 100)
-		VJ.EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit_dist.wav", 140, 100)
-		-- flags 0 = No fade!
-		effects.BeamRingPoint(myPos, 0.4, 0, 1500, 32, 0, colorHeliExp, {material="vj_hl/sprites/shockwave", framerate=0, flags=0})
-		self:Remove()
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPriorToKilled(dmginfo, hitgroup)
-	local expPos = self:GetAttachment(self:LookupAttachment("rotor")).Pos
-	local spr = ents.Create("env_sprite")
-	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-	spr:SetKeyValue("GlowProxySize","2.0")
-	spr:SetKeyValue("HDRColorScale","1.0")
-	spr:SetKeyValue("renderfx","14")
-	spr:SetKeyValue("rendermode","5")
-	spr:SetKeyValue("renderamt","255")
-	spr:SetKeyValue("disablereceiveshadows","0")
-	spr:SetKeyValue("mindxlevel","0")
-	spr:SetKeyValue("maxdxlevel","0")
-	spr:SetKeyValue("framerate","15.0")
-	spr:SetKeyValue("spawnflags","0")
-	spr:SetKeyValue("scale","5")
-	spr:SetPos(expPos)
-	spr:Spawn()
-	spr:Fire("Kill", "", 0.9)
-	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
-	
-	util.BlastDamage(self, self, expPos, 300, 100)
-	VJ.EmitSound(self, sdExplosions, 100, 100)
-	VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 100, 100, 100, 1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()

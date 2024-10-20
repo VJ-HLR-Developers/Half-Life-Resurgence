@@ -30,18 +30,18 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.FlinchChance = 4 -- Chance of it flinching from 1 to x | 1 will make it always flinch
-ENT.AnimTbl_Flinch = ACT_BIG_FLINCH -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = ACT_BIG_FLINCH -- The regular flinch animations to play
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/rat/rat_idle1.wav","vj_hlr/hl1_npc/rat/rat_idle2.wav","vj_hlr/hl1_npc/rat/rat_idle3.wav","vj_hlr/hl1_npc/rat/rat_idle4.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/rat/rat_fear.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/rat/rat_fear.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/rat/rat_die1.wav","vj_hlr/hl1_npc/rat/rat_die2.wav","vj_hlr/hl1_npc/rat/rat_die3.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(10, 10, 10), Vector(-10, -10, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	if key == "attack" then
 		self:MeleeAttackCode()
 	end
@@ -51,7 +51,7 @@ local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles == true then
+	if self.HasGibOnDeathEffects == true then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorRed)
@@ -70,6 +70,6 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, gibs)
 end

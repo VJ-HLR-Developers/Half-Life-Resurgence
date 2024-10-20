@@ -23,7 +23,7 @@ SWEP.WorldModel_CustomPositionOrigin = Vector(20, 3, -2.5)
 SWEP.WorldModel_CustomPositionBone = "Bone58" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 5 -- Damage
-SWEP.Primary.ClipSize			= 30 -- Max amount of bullets per clip
+SWEP.Primary.ClipSize			= 30 -- Max amount of rounds per clip
 SWEP.Primary.Ammo				= "SMG1" -- Ammo type
 SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/shockroach/shock_fire.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/shockroach/shock_fire_distant.wav"}
@@ -37,7 +37,7 @@ SWEP.HasDryFireSound			= false -- Should it play a sound when it's out of ammo?
 SWEP.HLR_ValidModels = {"models/vj_hlr/opfor/strooper.mdl"}
 SWEP.HLR_NextIdleSoundT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnInitialize()
+function SWEP:Init()
 	timer.Simple(0.1, function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
 		if IsValid(self) && IsValid(self:GetOwner()) then
 			if !VJ.HasValue(self.HLR_ValidModels, self:GetOwner():GetModel()) then
@@ -75,7 +75,7 @@ function SWEP:CustomBulletSpawnPosition()
 	return self:GetOwner():GetAttachment(self:GetOwner():LookupAttachment("muzzle")).Pos
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnThink()
+function SWEP:OnThink()
 	local owner = self:GetOwner()
 	owner:SetBodygroup(1, 0)
 	

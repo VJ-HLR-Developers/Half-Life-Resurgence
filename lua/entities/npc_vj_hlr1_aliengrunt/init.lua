@@ -27,8 +27,8 @@ ENT.MeleeAttackDamageDistance = 70 -- How far does the damage go | false = Let t
 
 ENT.HasRangeAttack = true -- Can this NPC range attack?
 ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_hornet" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
-ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1 -- Range Attack Animations
-ENT.RangeDistance = 1100 -- This is how far away it can shoot
+ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
+ENT.RangeDistance = 1100 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 200 -- How close does it have to be until it uses melee?
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 0 -- How much time until it can use a range attack?
@@ -42,7 +42,7 @@ ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- The regular flinch animations to play
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/player/pl_ladder1.wav","vj_hlr/hl1_npc/player/pl_ladder2.wav","vj_hlr/hl1_npc/player/pl_ladder3.wav","vj_hlr/hl1_npc/player/pl_ladder4.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/agrunt/ag_idle1.wav","vj_hlr/hl1_npc/agrunt/ag_idle2.wav","vj_hlr/hl1_npc/agrunt/ag_idle3.wav","vj_hlr/hl1_npc/agrunt/ag_idle4.wav","vj_hlr/hl1_npc/agrunt/ag_idle5.wav"}
@@ -63,13 +63,13 @@ ENT.AGrunt_Type = 0
 	-- 0 = Original / Default
 	-- 1 = Alpha
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPreInitialize()
+function ENT:PreInit()
 	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "npc_vj_hlr1_aliengrunt" then
 		self.Model = "models/vj_hlr/hl_hd/agrunt.mdl"
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetCollisionBounds(Vector(25, 25, 85), Vector(-25, -25, 0))
 	
 	if self.AGrunt_Type == 1 then --Alpha
@@ -80,7 +80,7 @@ function ENT:CustomOnInitialize()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "event_emit Step" then
 		self:FootStepSoundCode()
@@ -129,8 +129,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
 --
-function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
-	if hitgroup == HITGROUP_GEAR then
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+	if status == "PreDamage" && hitgroup == HITGROUP_GEAR then
 		dmginfo:SetDamage(0)
 		if dmginfo:GetDamagePosition() != vec then
 			local rico = EffectData()
@@ -142,23 +142,13 @@ function ENT:CustomOnTakeDamage_BeforeDamage(dmginfo, hitgroup)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
-	if dmginfo:GetDamage() > 30 then
-		self.AnimTbl_Flinch = ACT_BIG_FLINCH
-	else
-		self.AnimTbl_Flinch = ACT_SMALL_FLINCH
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
-	-- Chance of dropping an actual hornet gun that the play can pick up
-	if math.random(1, 50) == 1 then
-		self:SetBodygroup(1, 1)
-		local gun = ents.Create("weapon_hornetgun")
-		gun:SetPos(self:GetAttachment(self:LookupAttachment("hornet")).Pos)
-		gun:SetAngles(self:GetAngles())
-		gun:Spawn()
-		gun:Activate()
+function ENT:OnFlinch(dmginfo, hitgroup, status)
+	if status == "PriorExecution" then
+		if dmginfo:GetDamage() > 30 then
+			self.AnimTbl_Flinch = ACT_BIG_FLINCH
+		else
+			self.AnimTbl_Flinch = ACT_SMALL_FLINCH
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -166,7 +156,7 @@ local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles then
+	if self.HasGibOnDeathEffects then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorYellow)
@@ -202,16 +192,32 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	if hitgroup == HITGROUP_HEAD then
-		self.AnimTbl_Death = {ACT_DIE_HEADSHOT}
-	elseif hitgroup == HITGROUP_STOMACH then
-		self.AnimTbl_Death = {ACT_DIE_GUTSHOT}
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "DeathAnim" then
+		if self.AGrunt_Type == 1 then -- Alpha
+			if hitgroup == HITGROUP_HEAD then
+				self.AnimTbl_Death = ACT_DIEFORWARD
+			end
+		else
+			if hitgroup == HITGROUP_HEAD then
+				self.AnimTbl_Death = ACT_DIE_HEADSHOT
+			elseif hitgroup == HITGROUP_STOMACH then
+				self.AnimTbl_Death = ACT_DIE_GUTSHOT
+			end
+		end
+	-- Chance of dropping an actual hornet gun that the player can pick up
+	elseif status == "Finish" && self.AGrunt_Type == 0 && math.random(1, 50) == 1 then
+		self:SetBodygroup(1, 1)
+		local gun = ents.Create("weapon_hornetgun")
+		gun:SetPos(self:GetAttachment(self:LookupAttachment("hornet")).Pos)
+		gun:SetAngles(self:GetAngles())
+		gun:Spawn()
+		gun:Activate()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local extraGibs = {"models/vj_hlr/gibs/agrunt_gib.mdl","models/vj_hlr/gibs/agib1.mdl","models/vj_hlr/gibs/agib2.mdl","models/vj_hlr/gibs/agib3.mdl","models/vj_hlr/gibs/agib4.mdl"}
 --
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, nil, {ExtraGibs = extraGibs})
 end

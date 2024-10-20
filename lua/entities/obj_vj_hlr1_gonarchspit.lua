@@ -41,7 +41,7 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:EnableDrag(false)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetNoDraw(true)
 	self:DrawShadow(false)
 

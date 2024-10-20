@@ -43,7 +43,7 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:SetBuoyancyRatio(0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	if self.Needle_Heal == true then
 		self.DoesDirectDamage = false
 	else

@@ -49,7 +49,7 @@ function ENT:CustomPhysicsObjectOnInitialize(phys)
 	phys:EnableGravity(false)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	self:SetNoDraw(true)
 	
 	self.StartGlow1 = ents.Create("env_sprite")
@@ -72,7 +72,7 @@ function ENT:CustomOnInitialize()
 	util.SpriteTrail(self, 0, Color(255,127,223,180), true, 50, 0, 1.5, 1/(6 + 0)*0.5, "vj_hl/sprites/laserbeam.vmt")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	if IsValid(self:GetOwner()) then
 		self.Track_Enemy = self:GetOwner():GetEnemy()
 	end

@@ -23,9 +23,9 @@ ENT.Sentry_AlarmAttach = "frame"
 ENT.Sentry_Type = 2
 ENT.Sentry_OrientationType = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local baseInit = ENT.CustomOnInitialize
+local baseInit = ENT.Init
 --
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	baseInit(self)
 	self:DrawShadow(false)
 	self:SetCollisionBounds(Vector(15, 15, 40), Vector(-15, -15, 0))

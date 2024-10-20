@@ -32,7 +32,7 @@ ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 	-- ====== Flinching Variables ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_FLINCH_PHYSICS -- If it uses normal based animation, use this
+ENT.AnimTbl_Flinch = ACT_FLINCH_PHYSICS -- The regular flinch animations to play
 ENT.HitGroupFlinching_Values = {
 	{HitGroup={HITGROUP_LEFTARM}, Animation={ACT_FLINCH_LEFTARM}},
 	{HitGroup={HITGROUP_LEFTLEG}, Animation={ACT_FLINCH_LEFTLEG}},
@@ -56,13 +56,13 @@ ENT.Zombie_Type = 0
 	-- 0 = Default / Not Categorized
 	-- 1 = Default Zombie Scientist
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize()
+function ENT:Init()
 	if self:GetModel() == "models/vj_hlr/hl1/zombie.mdl" then
 		self.Zombie_Type = 1
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnAcceptInput(key, activator, caller, data)
+function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:FootStepSoundCode()
@@ -81,13 +81,15 @@ function ENT:TranslateActivity(act)
 	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnFlinch_BeforeFlinch(dmginfo, hitgroup)
-	if dmginfo:GetDamage() > 30 then
-		self.FlinchChance = 8
-		self.AnimTbl_Flinch = ACT_BIG_FLINCH
-	else
-		self.FlinchChance = 16
-		self.AnimTbl_Flinch = ACT_FLINCH_PHYSICS
+function ENT:OnFlinch(dmginfo, hitgroup, status)
+	if status == "PriorExecution" then
+		if dmginfo:GetDamage() > 30 then
+			self.FlinchChance = 8
+			self.AnimTbl_Flinch = ACT_BIG_FLINCH
+		else
+			self.FlinchChance = 16
+			self.AnimTbl_Flinch = ACT_FLINCH_PHYSICS
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -95,7 +97,7 @@ local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibDeathParticles then
+	if self.HasGibOnDeathEffects then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorYellow)
@@ -129,16 +131,21 @@ function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomDeathAnimationCode(dmginfo, hitgroup)
-	if hitgroup == HITGROUP_HEAD then
-		self.AnimTbl_Death = {ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT}
-	else
-		self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
+local animDeathHead = {ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT}
+local animDeathDef = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
+--
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "DeathAnim" then
+		if hitgroup == HITGROUP_HEAD then
+			self.AnimTbl_Death = animDeathHead
+		else
+			self.AnimTbl_Death = animDeathDef
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local extraGibs = {"models/vj_hlr/gibs/zombiegib.mdl"}
 --
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, nil, {ExtraGibs = self.Zombie_Type == 1 and extraGibs or nil})
 end

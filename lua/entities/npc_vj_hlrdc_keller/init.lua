@@ -60,11 +60,11 @@ ENT.SCI_Type = 3
 -- Custom
 ENT.Keller_WheelChair = true
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitialize() end -- Here to override the base class
+function ENT:Init() end -- Here to override the base class
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local baseThink = ENT.CustomOnThink
+local baseThink = ENT.OnThink
 --
-function ENT:CustomOnThink()
+function ENT:OnThink()
 	-- Is the wheel chair gone? Then kill Dr. Keller!
 	if self:GetBodygroup(0) == 1 then
 		self.HasDeathAnimation = false
@@ -73,15 +73,20 @@ function ENT:CustomOnThink()
 	baseThink(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_BeforeCorpseSpawned(dmginfo, hitgroup)
-	if self:GetBodygroup(0) == 1 then
-		self.Keller_WheelChair = false
+local parentDeathFunc = ENT.OnDeath
+--
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	parentDeathFunc(self, dmginfo, hitgroup, status)
+	if status == "Finish" then
+		if self:GetBodygroup(0) == 1 then
+			self.Keller_WheelChair = false
+		end
+		self:SetBodygroup(0, 1)
+		self:SetPos(self:GetPos() + self:GetUp() * 5)
 	end
-	self:SetBodygroup(0, 1)
-	self:SetPos(self:GetPos() + self:GetUp() * 5)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt)
 	if self.Keller_WheelChair == true then
 		self:CreateExtraDeathCorpse("prop_physics", "models/vj_hlr/decay/wheelchair.mdl")
