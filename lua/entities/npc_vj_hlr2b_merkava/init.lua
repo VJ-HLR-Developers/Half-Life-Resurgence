@@ -26,7 +26,7 @@ ENT.Tank_DeathSoldierModels = {"models/Humans/Group03m/male_01.mdl","models/Huma
 util.AddNetworkString("vj_hlr1_merkava_spawneffects")
 util.AddNetworkString("vj_hlr1_merkava_moveeffects")
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomInitialize_CustomTank()
+function ENT:Tank_Init()
 	self:SetSkin(math.random(0, 1))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -51,7 +51,6 @@ function ENT:Tank_OnThink()
 	if IsValid(self.Gunner) then
 		self.Gunner:SetSkin(self:GetSkin())
 	end
-	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetNearDeathSparkPositions()

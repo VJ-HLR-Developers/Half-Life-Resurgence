@@ -39,7 +39,7 @@ function ENT:StartShootEffects()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Tank_CustomOnReloadShell()
+function ENT:Tank_OnPrepareShell()
 	if CurTime() > self.Bradley_NextMissileAtkT && math.random(1, 5) == 1 then
 		self.Bradley_DoingMissileAtk = true
 		self.Tank_Shell_NextFireTime = 3
@@ -73,68 +73,66 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vecZ40 = Vector(0, 0, 40)
 --
-function ENT:Tank_CustomOnShellFire_BeforeShellCreate()
-	if self.Bradley_DoingMissileAtk then return true end
-	
-	local ene = self:GetEnemy()
-	local pos = self:LocalToWorld(vecBullet)
-	self:FireBullets({
-		Damage = 1,
-		Force = 100,
-		HullSize = 10,
-		Dir = (ene:GetPos() + ene:OBBCenter()) -  pos,
-		Src = pos,
-		Spread = Vector(math.Rand(-50, 50), math.Rand(-50, 50), 0),
-		TracerName = "VJ_HLR_Tracer_Large",
-		Callback = function(attack, tr, dmginfo)
-			local hitPos = tr.HitPos
-			util.Decal("VJ_HLR_Scorch_Small", hitPos + tr.HitNormal, hitPos - tr.HitNormal)
-			VJ.ApplyRadiusDamage(self, self, hitPos, 50, 30, DMG_BLAST, true, true, {Force=100})
-			
-			sound.Play("vj_hlr/hl1_weapon/explosion/explode"..math.random(3, 5)..".wav", hitPos, 70, 100, 1)
-			sound.Play("vj_hlr/hl1_weapon/explosion/debris"..math.random(1, 3)..".wav", hitPos, 70, 100, 1)
-	
-			local spr = ents.Create("env_sprite")
-			spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-			spr:SetKeyValue("GlowProxySize","2.0")
-			spr:SetKeyValue("HDRColorScale","1.0")
-			spr:SetKeyValue("renderfx","14")
-			spr:SetKeyValue("rendermode","5")
-			spr:SetKeyValue("renderamt","255")
-			spr:SetKeyValue("disablereceiveshadows","0")
-			spr:SetKeyValue("mindxlevel","0")
-			spr:SetKeyValue("maxdxlevel","0")
-			spr:SetKeyValue("framerate","15.0")
-			spr:SetKeyValue("spawnflags","0")
-			spr:SetKeyValue("scale","1.5")
-			spr:SetPos(hitPos + vecZ40)
-			spr:Spawn()
-			spr:Fire("Kill","",0.9)
-			timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
-			
-			local expLight = ents.Create("light_dynamic")
-			expLight:SetKeyValue("brightness", "4")
-			expLight:SetKeyValue("distance", "300")
-			expLight:SetLocalPos(hitPos)
-			expLight:SetLocalAngles(self:GetAngles())
-			expLight:Fire("Color", "255 150 0")
-			expLight:SetParent(self)
-			expLight:Spawn()
-			expLight:Activate()
-			expLight:Fire("TurnOn", "", 0)
-			expLight:Fire("Kill", "", 0.1)
-			self:DeleteOnRemove(expLight)
-		end
-	})
-	return false
-end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Tank_CustomOnShellFire_BeforeShellSpawn(shell, spawnPos)
-	-- Only ran when its a missile attack, so no need to check if its bullet attacking
-	shell.Rocket_AirMissile = true
-	self.Bradley_NextMissileAtkT = CurTime() + math.Rand(12, 25)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Tank_ShellFireVelocity(shell, spawnPos, calculatedVel)
-	return -- Done in the projectile instead
+function ENT:Tank_OnFireShell(status, statusData)
+	if status == "Initial" then
+		if self.Bradley_DoingMissileAtk then return end -- Missile lets the base code execute!
+	
+		local ene = self:GetEnemy()
+		local pos = self:LocalToWorld(vecBullet)
+		self:FireBullets({
+			Damage = 1,
+			Force = 100,
+			HullSize = 10,
+			Dir = (ene:GetPos() + ene:OBBCenter()) -  pos,
+			Src = pos,
+			Spread = Vector(math.Rand(-50, 50), math.Rand(-50, 50), 0),
+			TracerName = "VJ_HLR_Tracer_Large",
+			Callback = function(attack, tr, dmginfo)
+				local hitPos = tr.HitPos
+				util.Decal("VJ_HLR_Scorch_Small", hitPos + tr.HitNormal, hitPos - tr.HitNormal)
+				VJ.ApplyRadiusDamage(self, self, hitPos, 50, 30, DMG_BLAST, true, true, {Force=100})
+				
+				sound.Play("vj_hlr/hl1_weapon/explosion/explode"..math.random(3, 5)..".wav", hitPos, 70, 100, 1)
+				sound.Play("vj_hlr/hl1_weapon/explosion/debris"..math.random(1, 3)..".wav", hitPos, 70, 100, 1)
+		
+				local spr = ents.Create("env_sprite")
+				spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+				spr:SetKeyValue("GlowProxySize","2.0")
+				spr:SetKeyValue("HDRColorScale","1.0")
+				spr:SetKeyValue("renderfx","14")
+				spr:SetKeyValue("rendermode","5")
+				spr:SetKeyValue("renderamt","255")
+				spr:SetKeyValue("disablereceiveshadows","0")
+				spr:SetKeyValue("mindxlevel","0")
+				spr:SetKeyValue("maxdxlevel","0")
+				spr:SetKeyValue("framerate","15.0")
+				spr:SetKeyValue("spawnflags","0")
+				spr:SetKeyValue("scale","1.5")
+				spr:SetPos(hitPos + vecZ40)
+				spr:Spawn()
+				spr:Fire("Kill","",0.9)
+				timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+				
+				local expLight = ents.Create("light_dynamic")
+				expLight:SetKeyValue("brightness", "4")
+				expLight:SetKeyValue("distance", "300")
+				expLight:SetLocalPos(hitPos)
+				expLight:SetLocalAngles(self:GetAngles())
+				expLight:Fire("Color", "255 150 0")
+				expLight:SetParent(self)
+				expLight:Spawn()
+				expLight:Activate()
+				expLight:Fire("TurnOn", "", 0)
+				expLight:Fire("Kill", "", 0.1)
+				self:DeleteOnRemove(expLight)
+			end
+		})
+		return true
+	elseif status == "OnCreate" then
+		statusData.Rocket_AirMissile = true
+		self.Bradley_NextMissileAtkT = CurTime() + math.Rand(12, 25)
+	elseif status == "OnSpawn" then
+		return true -- Done in the projectile instead
+	end
 end

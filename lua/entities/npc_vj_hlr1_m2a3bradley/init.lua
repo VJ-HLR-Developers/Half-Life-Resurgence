@@ -45,7 +45,7 @@ ENT.Bradley_DmgForce = 0
 ENT.Bradley_DoorOpen = false
 ENT.Bradley_HasSpawnedSoldiers = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomInitialize_CustomTank()
+function ENT:Tank_Init()
 	self:SetSkin(math.random(0, 1))
 	self.Bradley_Grunts = {}
 end
@@ -116,7 +116,6 @@ function ENT:Tank_OnThink()
 	if IsValid(self.Gunner) then
 		self.Gunner:SetSkin(self:GetSkin())
 	end
-	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
@@ -205,68 +204,65 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 			timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
 		end
 	end)
-	return false
+	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local metalCollideSD = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
 --
-function ENT:Tank_CustomOnDeath_AfterCorpseSpawned(dmginfo, hitgroup, corpseEnt)
-	self:CreateExtraDeathCorpse("prop_physics", "models/vj_hlr/hl1/apc_door.mdl", {Pos=corpseEnt:GetPos() + corpseEnt:GetUp()*30 + corpseEnt:GetForward()*-130, Vel=self.Bradley_DmgForce / 55}, function(extraent) extraent:SetSkin(corpseEnt:GetSkin()) extraent:SetCollisionGroup(0) end)
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p1.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 90)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p2.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 91)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p3.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 92)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p4.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 93)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p5.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 94)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p6.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 95)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p7.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 96)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p8.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 97)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p9.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 98)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p10.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 99)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p11.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 100)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p1.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 101)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p2.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 102)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p3.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 103)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p4.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 104)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p5.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 105)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p6.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 106)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p7.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 107)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p8.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 108)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p9.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 109)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p10.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(1, 0, 90)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p11.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(1, 1, 90)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_cog1.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 1, 80)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_cog2.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 2, 80)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_rib.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 3, 80)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 4, 80)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 5, 80)), CollideSound=metalCollideSD})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 6, 80)), CollideSound=metalCollideSD})
-	return true
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Tank_CustomOnDeath_AfterDeathSoldierSpawned(dmginfo, hitgroup, soldierCorpse)
-	soldierCorpse:SetSkin(math.random(0, 1))
-	soldierCorpse:SetBodygroup(2, 2)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Tank_CustomOnDeath_AfterCorpseSpawned_Effects(dmginfo, hitgroup, corpseEnt)
-	local spr = ents.Create("env_sprite")
-	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-	spr:SetKeyValue("GlowProxySize","2.0")
-	spr:SetKeyValue("HDRColorScale","1.0")
-	spr:SetKeyValue("renderfx","14")
-	spr:SetKeyValue("rendermode","5")
-	spr:SetKeyValue("renderamt","255")
-	spr:SetKeyValue("disablereceiveshadows","0")
-	spr:SetKeyValue("mindxlevel","0")
-	spr:SetKeyValue("maxdxlevel","0")
-	spr:SetKeyValue("framerate","15.0")
-	spr:SetKeyValue("spawnflags","0")
-	spr:SetKeyValue("scale","4")
-	spr:SetPos(self:GetPos() + expPos)
-	spr:Spawn()
-	spr:Fire("Kill","",0.9)
-	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
-	return false
+function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpseEnt, status, statusData)
+	if status == "Override" then
+		self:CreateExtraDeathCorpse("prop_physics", "models/vj_hlr/hl1/apc_door.mdl", {Pos=corpseEnt:GetPos() + corpseEnt:GetUp()*30 + corpseEnt:GetForward()*-130, Vel=self.Bradley_DmgForce / 55}, function(extraent) extraent:SetSkin(corpseEnt:GetSkin()) extraent:SetCollisionGroup(0) end)
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p1.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 90)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p2.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 91)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p3.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 92)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p4.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 93)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p5.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 94)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p6.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 95)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p7.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 96)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p8.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 97)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p9.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 98)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p10.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 99)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p11.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 100)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p1.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 101)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p2.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 102)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p3.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 103)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p4.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 104)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p5.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 105)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p6.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 106)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p7.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 107)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p8.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 108)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p9.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 109)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p10.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(1, 0, 90)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p11.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(1, 1, 90)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_cog1.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 1, 80)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_cog2.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 2, 80)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_rib.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 3, 80)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 4, 80)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 5, 80)), CollideSound=metalCollideSD})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 6, 80)), CollideSound=metalCollideSD})
+	elseif status == "Soldier" then
+		statusData:SetSkin(math.random(0, 1))
+		statusData:SetBodygroup(2, 2)
+	elseif status == "Effects" then
+		local spr = ents.Create("env_sprite")
+		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
+		spr:SetKeyValue("GlowProxySize","2.0")
+		spr:SetKeyValue("HDRColorScale","1.0")
+		spr:SetKeyValue("renderfx","14")
+		spr:SetKeyValue("rendermode","5")
+		spr:SetKeyValue("renderamt","255")
+		spr:SetKeyValue("disablereceiveshadows","0")
+		spr:SetKeyValue("mindxlevel","0")
+		spr:SetKeyValue("maxdxlevel","0")
+		spr:SetKeyValue("framerate","15.0")
+		spr:SetKeyValue("spawnflags","0")
+		spr:SetKeyValue("scale","4")
+		spr:SetPos(self:GetPos() + expPos)
+		spr:Spawn()
+		spr:Fire("Kill","",0.9)
+		timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+		return true
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()

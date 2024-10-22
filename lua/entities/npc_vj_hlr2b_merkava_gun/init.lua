@@ -28,7 +28,7 @@ function ENT:StartShootEffects()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomInitialize_CustomTank()
+function ENT:Tank_Init()
 	if GetConVar("vj_hlr2_merkava_gunner"):GetInt() == 0 then return end
 	local att = self:GetAttachment(3)
 	local spotter = ents.Create("npc_vj_hlr2_rebel")
@@ -54,7 +54,7 @@ end
 local bulletSpread = Vector(0.03490, 0.03490, 0.03490)
 local sdFiringGun = {"vj_hlr/hl2_weapon/hmg1/hmg1_7.wav", "vj_hlr/hl2_weapon/hmg1/hmg1_8.wav", "vj_hlr/hl2_weapon/hmg1/hmg1_9.wav"}
 --
-function ENT:Tank_CustomOnThink_AIEnabled()
+function ENT:Tank_OnThinkActive()
 	local ene = self:GetEnemy()
 	if IsValid(ene) && IsValid(self.Spotter) then
 		-- If our enemy is the spotter, then the class changed!
