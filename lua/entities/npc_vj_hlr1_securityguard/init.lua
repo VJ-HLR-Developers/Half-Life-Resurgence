@@ -31,7 +31,7 @@ ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_H
 ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE -- The animation it plays when hiding in a covered position, leave empty to let the base decide
 ENT.AnimTbl_AlertFriendsOnDeath = "vjseq_idle2" -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
 ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards the player if it's damaged by a player?
-ENT.HasItemDropsOnDeath = false -- Should it drop items on death?
+ENT.DropDeathLoot = false -- Should it drop loot on death?
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
 ENT.CanTurnWhileMoving = false -- Can the NPC turn while moving? | EX: GoldSrc NPCs, Facing enemy while running to cover, Facing the player while moving out of the way
 	-- ====== Flinching Code ====== --
@@ -154,7 +154,7 @@ end
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("SPACE: Holster / Unholster gun")
 	
-	function controlEnt:CustomOnKeyPressed(key)
+	function controlEnt:OnKeyPressed(key)
 		local npc = self.VJCE_NPC
 		if key == KEY_SPACE && npc:GetActivity() != ACT_DISARM && npc:GetActivity() != ACT_ARM then
 			if npc:GetWeaponState() == VJ.NPC_WEP_STATE_HOLSTERED then

@@ -49,7 +49,7 @@ local posOrgPly = Vector(0, -2, 1.5)
 local posAngNPC = Vector(-100, 30, 180)
 local posOrgNPC = Vector(-3, -3, -12)
 --
-function SWEP:CustomOnDrawWorldModel() -- This is client only!
+function SWEP:OnDrawWorldModel() -- This is client only!
 	local owner = self:GetOwner()
 	if IsValid(owner) then
 		if owner:IsPlayer() then
@@ -65,11 +65,13 @@ function SWEP:CustomOnDrawWorldModel() -- This is client only!
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnReload()
-	self.Bow_NumShots = 1
-	VJ.CreateSound(self, "buttons/button19.wav")
-	self.AnimTbl_Idle = {ACT_VM_IDLE}
-	self.AnimTbl_Draw = {ACT_VM_DRAW}
+function SWEP:OnReload(status)
+	if status == "Start" then
+		self.Bow_NumShots = 1
+		VJ.CreateSound(self, "buttons/button19.wav")
+		self.AnimTbl_Idle = ACT_VM_IDLE
+		self.AnimTbl_Draw = ACT_VM_DRAW
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:SecondaryAttack()
@@ -79,39 +81,41 @@ function SWEP:SecondaryAttack()
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttack_BeforeShoot()
-	local owner = self:GetOwner()
-	if owner:IsPlayer() then
-		self.AnimTbl_Idle = {ACT_VM_FIDGET}
-		self.AnimTbl_Draw = {ACT_VM_DRAW_EMPTY}
-	end
-	if CLIENT then return end
-
-	-- Projectile
-	for i = 1, self.Bow_NumShots do
-		local projectile = ents.Create("obj_vj_hlr2_chargebolt")
-		local spawnPos = self:GetBulletPos()
+function SWEP:OnPrimaryAttack(status, statusData)
+	if status == "Initial" then
+		local owner = self:GetOwner()
 		if owner:IsPlayer() then
-			local plyAng = owner:GetAimVector():Angle()
-			projectile:SetPos(owner:GetShootPos() + plyAng:Forward()*-33 + plyAng:Up()*-5 + plyAng:Right())
-			projectile:SetAngles(plyAng)
-		else
-			projectile:SetPos(spawnPos)
-			projectile:SetAngles(owner:GetAngles())
+			self.AnimTbl_Idle = ACT_VM_FIDGET
+			self.AnimTbl_Draw = ACT_VM_DRAW_EMPTY
 		end
-		projectile:SetOwner(owner)
-		projectile:Activate()
-		projectile:Spawn()
-		projectile.DirectDamage = projectile.DirectDamage / self.Bow_NumShots -- Decrease the damage per bolt depending on the number of bolts being fired
-
-		local phys = projectile:GetPhysicsObject()
-		if phys:IsValid() then
+		if CLIENT then return end
+	
+		-- Projectile
+		for i = 1, self.Bow_NumShots do
+			local projectile = ents.Create("obj_vj_hlr2_chargebolt")
+			local spawnPos = self:GetBulletPos()
 			if owner:IsPlayer() then
-				phys:SetVelocity(owner:GetAimVector() * 3000 + Vector(i == 2 && -75 or i == 3 && 75 or 0, 0, 0))
+				local plyAng = owner:GetAimVector():Angle()
+				projectile:SetPos(owner:GetShootPos() + plyAng:Forward()*-33 + plyAng:Up()*-5 + plyAng:Right())
+				projectile:SetAngles(plyAng)
 			else
-				phys:SetVelocity(owner:CalculateProjectile("Line", spawnPos, owner:GetAimPosition(owner:GetEnemy(), spawnPos, 1, 3000), 3000))
+				projectile:SetPos(spawnPos)
+				projectile:SetAngles(owner:GetAngles())
 			end
-			projectile:SetAngles(projectile:GetVelocity():GetNormal():Angle())
+			projectile:SetOwner(owner)
+			projectile:Activate()
+			projectile:Spawn()
+			projectile.DirectDamage = projectile.DirectDamage / self.Bow_NumShots -- Decrease the damage per bolt depending on the number of bolts being fired
+	
+			local phys = projectile:GetPhysicsObject()
+			if phys:IsValid() then
+				if owner:IsPlayer() then
+					phys:SetVelocity(owner:GetAimVector() * 3000 + Vector(i == 2 && -75 or i == 3 && 75 or 0, 0, 0))
+				else
+					phys:SetVelocity(owner:CalculateProjectile("Line", spawnPos, owner:GetAimPosition(owner:GetEnemy(), spawnPos, 1, 3000), 3000))
+				end
+				projectile:SetAngles(projectile:GetVelocity():GetNormal():Angle())
+			end
 		end
 	end
 end

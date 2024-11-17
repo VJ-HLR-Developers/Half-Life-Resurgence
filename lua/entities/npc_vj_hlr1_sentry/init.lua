@@ -71,7 +71,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	self.HasPoseParameterLooking = false -- Initially, we are going to start as idle, we do NOT want the sentry turning!
 	self.NextAlertSoundT = CurTime() + 1 -- So it doesn't play the alert sound as soon as it enters the NPC!
 	
-	function controlEnt:CustomOnKeyPressed(key)
+	function controlEnt:OnKeyPressed(key)
 		if key == KEY_SPACE then
 			local npc = self.VJCE_NPC
 			if npc.Sentry_ControllerStatus == 0 then
@@ -86,7 +86,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 		end
 	end
 	
-	function controlEnt:CustomOnStopControlling(keyPressed)
+	function controlEnt:OnStopControlling(keyPressed)
 		local npc = self.VJCE_NPC
 		if IsValid(npc) then
 			npc.HasPoseParameterLooking = true

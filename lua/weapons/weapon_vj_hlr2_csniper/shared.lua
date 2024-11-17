@@ -71,8 +71,8 @@ function SWEP:Zoom()
 	self:EmitSound("buttons/combine_button7.wav", 65, 100)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttack_AfterShoot()
-	if self:GetOwner():IsPlayer() then
+function SWEP:OnPrimaryAttack(status, statusData)
+	if status == "PostFire" && self:GetOwner():IsPlayer() then
 		timer.Simple(0.5, function()
 			if IsValid(self) then
 				self:EmitSound("vj_hlr/hl2_weapon/combinesniper/sniper_reload.wav", 70, 100)
@@ -141,7 +141,7 @@ if CLIENT then
 		render.DrawSprite(owner:GetEyeTrace().HitPos, math.random(4, 6), math.random(4, 6), laserColor)
 	end
 	---------------------------------------------------------------------------------------------------------------------------------------------
-	function SWEP:CustomOnDrawWorldModel()
+	function SWEP:OnDrawWorldModel()
 		local owner = self:GetOwner()
 		if IsValid(owner) then
 			local attach = self:GetAttachment(self:LookupAttachment("laser"))

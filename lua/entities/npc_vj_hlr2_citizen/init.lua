@@ -11,7 +11,7 @@ ENT.HullType = HULL_HUMAN
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE
 ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
 ENT.HasGrenadeAttack = false -- Should the NPC have a grenade attack?
-ENT.HasItemDropsOnDeath = false -- Should it drop items on death?
+ENT.DropDeathLoot = false -- Should it drop loot on death?
 
 local mdlMale = {"models/Humans/Group01/male_01.mdl", "models/Humans/Group01/male_02.mdl", "models/Humans/Group01/male_03.mdl", "models/Humans/Group01/male_04.mdl", "models/Humans/Group01/male_05.mdl", "models/Humans/Group01/male_06.mdl", "models/Humans/Group01/male_07.mdl", "models/Humans/Group01/male_08.mdl", "models/Humans/Group01/male_09.mdl"}
 local mdlFemale = {"models/Humans/Group01/female_01.mdl", "models/Humans/Group01/female_02.mdl", "models/Humans/Group01/female_03.mdl", "models/Humans/Group01/female_04.mdl", "models/Humans/Group01/female_06.mdl", "models/Humans/Group01/female_07.mdl"}

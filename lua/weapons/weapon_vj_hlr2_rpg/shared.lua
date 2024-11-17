@@ -52,36 +52,38 @@ function SWEP:OnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttack_BeforeShoot()
-	if CLIENT then return end
-	if IsValid(self.RPG_LastShotEnt) then return true end -- Wait until the last shot has detonated
-	
-	-- Create the rocket entity
-	local owner = self:GetOwner()
-	local proj = ents.Create("obj_vj_hlr2_rocket")
-	if owner:IsPlayer() then
-		local plyAng = owner:GetAimVector():Angle()
-		proj:SetPos(owner:GetShootPos() + plyAng:Forward()*-20 + plyAng:Up()*-9 + plyAng:Right()*10)
-		proj:SetAngles(plyAng)
-	else
-		local spawnPos = self:GetBulletPos()
-		proj:SetPos(spawnPos)
-		proj:SetAngles((owner:IsNPC() && IsValid(owner:GetEnemy()) && (owner:GetEnemy():GetPos() - spawnPos):Angle()) or owner:GetAngles())
+function SWEP:OnPrimaryAttack(status, statusData)
+	if status == "Initial" then
+		if CLIENT then return end
+		if IsValid(self.RPG_LastShotEnt) then return true end -- Wait until the last shot has detonated
+		
+		-- Create the rocket entity
+		local owner = self:GetOwner()
+		local proj = ents.Create("obj_vj_hlr2_rocket")
+		if owner:IsPlayer() then
+			local plyAng = owner:GetAimVector():Angle()
+			proj:SetPos(owner:GetShootPos() + plyAng:Forward()*-20 + plyAng:Up()*-9 + plyAng:Right()*10)
+			proj:SetAngles(plyAng)
+		else
+			local spawnPos = self:GetBulletPos()
+			proj:SetPos(spawnPos)
+			proj:SetAngles((owner:IsNPC() && IsValid(owner:GetEnemy()) && (owner:GetEnemy():GetPos() - spawnPos):Angle()) or owner:GetAngles())
+		end
+		proj:SetOwner(owner)
+		proj:Activate()
+		proj:Spawn()
+		proj.Rocket_Follow = self:GetNWLaser()
+		self.RPG_LastShotEnt = proj
 	end
-	proj:SetOwner(owner)
-	proj:Activate()
-	proj:Spawn()
-	proj.Rocket_Follow = self:GetNWLaser()
-	self.RPG_LastShotEnt = proj
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttackEffects()
+function SWEP:PrimaryAttackEffects(owner)
 	-- Smoke back effects
 	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, self, 2)
 	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, self, 2)
 	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, self, 2)
 	timer.Simple(4, function() if IsValid(self) then self:StopParticles() end end)
-	return true
+	self.BaseClass.PrimaryAttackEffects(self, owner)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:SecondaryAttack()
@@ -108,7 +110,7 @@ if CLIENT then
 		end
 	end
 
-	function SWEP:CustomOnDrawWorldModel()
+	function SWEP:OnDrawWorldModel()
 		local owner = self:GetOwner()
 		if IsValid(owner) then
 			local pos = self:GetPos()

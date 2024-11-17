@@ -31,7 +31,7 @@ end
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("SPACE: Transform into a BullSquidding! (Irreversible!)")
 	
-	function controlEnt:CustomOnKeyPressed(key)
+	function controlEnt:OnKeyPressed(key)
 		if key == KEY_SPACE && !self.VJCE_NPC.Bullsquid_BullSquidding then
 			self.VJCE_NPC:Bullsquid_ActivateBullSquidding()
 		end

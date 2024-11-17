@@ -52,25 +52,27 @@ function SWEP:Init()
 	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttack_BeforeShoot()
-	if CLIENT then return end
-	local owner = self:GetOwner()
-	local projectile = ents.Create("obj_vj_hlrof_plasma")
-	local spawnPos = self:GetBulletPos()
-	projectile:SetPos(spawnPos)
-	projectile:SetAngles(owner:GetAngles())
-	projectile:SetOwner(owner)
-	projectile:Activate()
-	projectile:Spawn()
-	ParticleEffectAttach("vj_hlr_shockroach_muzzle", PATTACH_POINT_FOLLOW, owner, owner:LookupAttachment("muzzle"))
-	local phys = projectile:GetPhysicsObject()
-	if IsValid(phys) then
-		phys:SetVelocity(owner:CalculateProjectile("Line", spawnPos, owner:GetAimPosition(owner:GetEnemy(), spawnPos, 1, 10000), 10000))
-		projectile:SetAngles(projectile:GetVelocity():GetNormal():Angle())
+function SWEP:OnPrimaryAttack(status, statusData)
+	if status == "Initial" then
+		if CLIENT then return end
+		local owner = self:GetOwner()
+		local projectile = ents.Create("obj_vj_hlrof_plasma")
+		local spawnPos = self:GetBulletPos()
+		projectile:SetPos(spawnPos)
+		projectile:SetAngles(owner:GetAngles())
+		projectile:SetOwner(owner)
+		projectile:Activate()
+		projectile:Spawn()
+		ParticleEffectAttach("vj_hlr_shockroach_muzzle", PATTACH_POINT_FOLLOW, owner, owner:LookupAttachment("muzzle"))
+		local phys = projectile:GetPhysicsObject()
+		if IsValid(phys) then
+			phys:SetVelocity(owner:CalculateProjectile("Line", spawnPos, owner:GetAimPosition(owner:GetEnemy(), spawnPos, 1, 10000), 10000))
+			projectile:SetAngles(projectile:GetVelocity():GetNormal():Angle())
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomBulletSpawnPosition()
+function SWEP:OnGetBulletPos()
 	-- Return a position to override the bullet spawn position
 	return self:GetOwner():GetAttachment(self:GetOwner():LookupAttachment("muzzle")).Pos
 end

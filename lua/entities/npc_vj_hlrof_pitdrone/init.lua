@@ -62,7 +62,7 @@ end
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("RELOAD: Reload all the spikes")
 	
-	function controlEnt:CustomOnKeyBindPressed(key)
+	function controlEnt:OnKeyBindPressed(key)
 		local npc = self.VJCE_NPC
 		if key == IN_RELOAD && npc:GetBodygroup(1) != 1 then
 			npc:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true, 0, {OnFinish=function(interrupted2, anim2)

@@ -62,7 +62,7 @@ function ENT:HLR_ActivateSpawner(eneEnt)
 		-- onSpawn
 		if IsValid(self) then
 			for k, v in ipairs(self.EntitiesToSpawn) do
-				self:SpawnAnEntity(k, v, true)
+				self:SpawnEntity(k, v, true)
 			end
 		end
 	end)

@@ -22,7 +22,7 @@ ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damage
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE -- Doesn't attack anything
 ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards the player if it's damaged by a player?
-ENT.HasItemDropsOnDeath = false -- Should it drop items on death?
+ENT.DropDeathLoot = false -- Should it drop loot on death?
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
 ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
@@ -197,7 +197,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	self.SCI_ControllerAnim = 0
 	self.SCI_NextTieAnnoyanceT = 0
 	
-	function controlEnt:CustomOnKeyBindPressed(key)
+	function controlEnt:OnKeyBindPressed(key)
 		local npc = self.VJCE_NPC
 		-- Toggle behavior setting (Idle / Alert)
 		if key == IN_RELOAD then

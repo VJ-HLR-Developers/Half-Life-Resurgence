@@ -29,6 +29,7 @@ SWEP.Primary.Ammo = "AR2" -- Ammo type
 SWEP.Primary.Sound = {"vj_hlr/hl1_npc/hassault/hw_shoot1.wav","vj_hlr/hl1_npc/hassault/hw_shoot2.wav","vj_hlr/hl1_npc/hassault/hw_shoot3.wav"}
 SWEP.Primary.DistantSound = {"vj_hlr/hl1_npc/hassault/hw_shoot_distant2.wav"}
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
+SWEP.PrimaryEffects_MuzzleFlash = false
 
 -- Custom
 SWEP.HLR_ValidModels = {"models/vj_hlr/hl1/hassault.mdl", "models/vj_hlr/hl_hd/hassault.mdl", "models/vj_hlr/hla/hassault.mdl"}
@@ -54,7 +55,7 @@ function SWEP:Init()
 	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnDrawWorldModel() -- This is client only!
+function SWEP:OnDrawWorldModel() -- This is client only!
 	if IsValid(self:GetOwner()) then
 		self.WorldModel_Invisible = true
 		return false
@@ -64,8 +65,7 @@ function SWEP:CustomOnDrawWorldModel() -- This is client only!
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttackEffects()
-	self.PrimaryEffects_MuzzleFlash = false
+function SWEP:PrimaryAttackEffects(owner)
 	local muz = ents.Create("env_sprite")
 	muz:SetKeyValue("model","vj_hl/sprites/muzzleflash3.vmt")
 	muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
@@ -83,5 +83,5 @@ function SWEP:CustomOnPrimaryAttackEffects()
 	muz:Spawn()
 	muz:Activate()
 	muz:Fire("Kill","",0.08)
-	return true
+	self.BaseClass.PrimaryAttackEffects(self, owner)
 end

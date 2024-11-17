@@ -65,7 +65,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	self.CanTurnWhileStationary = true
 	controlEnt.LastTentacleLevel = self.Tentacle_Level
 	
-	function controlEnt:CustomOnKeyPressed(key)
+	function controlEnt:OnKeyPressed(key)
 		if key == KEY_SPACE then
 			local npc = self.VJCE_NPC
 			local curLvl = npc.Tentacle_Level
@@ -84,7 +84,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 		end
 	end
 	
-	function controlEnt:CustomOnStopControlling(keyPressed)
+	function controlEnt:OnStopControlling(keyPressed)
 		self.CanTurnWhileStationary = false
 	end
 end

@@ -76,7 +76,7 @@ end
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("SPACE: Spawn an Alien Grunt")
 	
-	function controlEnt:CustomOnKeyPressed(key)
+	function controlEnt:OnKeyPressed(key)
 		if key == KEY_SPACE then
 			self.VJCE_NPC:Tor_StartSpawnAlly()
 		end

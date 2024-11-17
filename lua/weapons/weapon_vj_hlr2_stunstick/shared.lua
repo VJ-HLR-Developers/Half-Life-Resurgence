@@ -19,8 +19,10 @@ SWEP.IsMeleeWeapon = true -- Should this weapon be a melee weapon?
 SWEP.Primary.Sound = {"weapons/stunstick/spark1.wav","weapons/stunstick/spark2.wav","weapons/stunstick/spark3.wav"}
 SWEP.MeleeWeaponSound_Hit = {"weapons/stunstick/stunstick_fleshhit1.wav","weapons/stunstick/stunstick_fleshhit2.wav"} -- Sound it plays when it hits something
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:CustomOnPrimaryAttack_MeleeHit(ent)
-	local effectData = EffectData()
-	effectData:SetOrigin(self:GetAttachment(1).Pos)
-	util.Effect("StunstickImpact", effectData)
+function SWEP:OnPrimaryAttack(status, statusData)
+	if status == "MeleeHit" then
+		local effectData = EffectData()
+		effectData:SetOrigin(self:GetAttachment(1).Pos)
+		util.Effect("StunstickImpact", effectData)
+	end
 end
