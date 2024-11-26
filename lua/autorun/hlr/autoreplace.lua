@@ -15,14 +15,14 @@ local replaceTbl_Entities = {
 	["monster_gargantua"] = "npc_vj_hlr1_garg",
 	["monster_human_assassin"] = "npc_vj_hlr1_assassin_female",
 	["monster_babycrab"] = "npc_vj_hlr1_headcrab_baby",
-	-- ["monster_human_grunt"] = {"npc_vj_hlr1_hgrunt","npc_vj_hlrof_hgrunt","npc_vj_hlrof_hgrunt_med","npc_vj_hlrof_hgrunt_eng"},
+	-- ["monster_human_grunt"] = {"npc_vj_hlr1_hgrunt", "npc_vj_hlrof_hgrunt", "npc_vj_hlrof_hgrunt_med", "npc_vj_hlrof_hgrunt_eng"},
 	["monster_human_grunt"] = "npc_vj_hlr1_hgrunt",
 	["monster_cockroach"] = "npc_vj_hlr1_cockroach",
 	["monster_houndeye"] = "npc_vj_hlr1_houndeye",
 	["monster_scientist"] = "npc_vj_hlr1_scientist",
 	["monster_sitting_scientist"] = "npc_vj_hlr1_scientist",
 	["monster_snark"] = "npc_vj_hlr1_snark",
-	["monster_zombie"] = {"npc_vj_hlr1_zombie","npc_vj_hlr1_zombie","npc_vj_hlr1_zombie","npc_vj_hlrof_zombie_sec","npc_vj_hlrof_zombie_sec","npc_vj_hlrof_zombie_soldier"},
+	["monster_zombie"] = {"npc_vj_hlr1_zombie", "npc_vj_hlr1_zombie", "npc_vj_hlr1_zombie", "npc_vj_hlrof_zombie_sec", "npc_vj_hlrof_zombie_sec", "npc_vj_hlrof_zombie_soldier"},
 	["monster_headcrab"] = "npc_vj_hlr1_headcrab",
 	["monster_alien_controller"] = "npc_vj_hlr1_aliencontroller",
 	["monster_barney"] = "npc_vj_hlr1_securityguard",
@@ -291,7 +291,6 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				if gStatePrecriminal == true then -- Toggles friendly-AI for the intro of Half-Life 2
 					//newEnt.DisableWandering = true
 					newEnt.DisableFindEnemy = true
-					newEnt.DisableMakingSelfEnemyToNPCs = true
 					newEnt.FriendsWithAllPlayerAllies = true
 					newEnt.FollowPlayer = false
 					newEnt.Behavior = VJ_BEHAVIOR_PASSIVE
@@ -315,12 +314,9 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				-- Set the starting animation AND velocity
 				local vel = ent:GetVelocity()
 				timer.Simple(0.01, function()
-					if IsValid(newEnt) then
-						//newEnt:VJ_ACT_PLAYACTIVITY(spawnAnim, true, false, false)
-						if vel:Length() > 0 then
-							newEnt:SetGroundEntity(NULL)
-							newEnt:SetVelocity(vel)
-						end
+					if IsValid(newEnt) && vel:Length() > 0 then
+						newEnt:SetGroundEntity(NULL)
+						newEnt:SetVelocity(vel)
 					end
 				end)
 				undo.ReplaceEntity(ent, newEnt)

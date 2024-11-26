@@ -8,7 +8,8 @@ ENT.Instructions 	= "Click on the spawnicon to spawn it."
 ENT.Category		= "Half-Life Resurgence"
 
 if CLIENT then
-	local matLaser = Material("vj_hl/sprites/hl2/turret_laser_fade")
+	-- https://github.com/ValveSoftware/source-sdk-2013/blob/master/mp/src/game/server/hl2/npc_turret_floor.cpp#L1566
+	local matLaser = Material("vj_hl/sprites/hl2/turret_laser_fade") // effects/laser1.vmt
 	local laserColor = Color(255, 0, 0)
 	--
     function ENT:Initialize()
@@ -20,9 +21,8 @@ if CLIENT then
                 hook.Remove("PreDrawEffects", hookName)
                 return
             end
-			
 			render.SetMaterial(matLaser)
-			render.DrawBeam(self:GetAttachment(attStart).Pos, self:GetAttachment(attEnd).Pos, 2, 0, 0.98, laserColor)
+			render.DrawBeam(self:GetAttachment(attStart).Pos, self:GetAttachment(attEnd).Pos, 0.6, 0, 0.98, laserColor)
 			-- Good, but will take serious performance and is unnecessary for a tiny detail
 			/*local tr = util.TraceLine({
 				start = attStart.Pos,

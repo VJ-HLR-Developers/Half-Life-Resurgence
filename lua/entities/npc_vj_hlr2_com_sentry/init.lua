@@ -263,7 +263,6 @@ function ENT:Turret_Activate()
 			self.Turret_Status = TURRET_STATUS_UNKNOWN
 		end
 	end)
-	//self.NextResetEnemyT = CurTime() + 1 -- Make sure it doesn't reset the enemy right away
 	self:VJ_ACT_PLAYACTIVITY("deploy", true, false)
 	VJ.EmitSound(self, "npc/turret_floor/deploy.wav", 70, 100)
 	self.TurretSD_Alarm:PlayEx(1, 100)

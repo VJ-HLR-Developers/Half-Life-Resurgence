@@ -198,7 +198,6 @@ function ENT:Sentry_Activate()
 		self.HasPoseParameterLooking = false
 	end
 	self.Sentry_NextAlarmT = CurTime() + 3 -- Make sure the Alarm light doesn't play right away
-	//self.NextResetEnemyT = CurTime() + 1 -- Make sure it doesn't reset the enemy right away
 	self:VJ_ACT_PLAYACTIVITY("deploy", true, false)
 	if self.Sentry_Type == 1 then -- If it's a big turret then do a spin up action
 		timer.Simple(1, function()

@@ -96,7 +96,7 @@ function ENT:Tank_OnThink()
 						hGrunt:SetAngles(Angle(0, self:GetAngles().y + 180, 0))
 						hGrunt.VJ_NPC_Class = self.VJ_NPC_Class
 						hGrunt:Spawn()
-						hGrunt:VJ_DoSetEnemy(ene, true)
+						hGrunt:ForceSetEnemy(ene, true)
 						hGrunt:SetState(VJ_STATE_FREEZE)
 						timer.Simple(0.2, function()
 							if IsValid(hGrunt) then
