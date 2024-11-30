@@ -1002,9 +1002,9 @@ function ENT:OnPlayerSight(ent)
 	self.Human_NextPlyReloadSd = CurTime() + math.Rand(5, 20)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnMaintainRelationships(ent, entFri, entDist)
+function ENT:OnMaintainRelationships(ent, calculatedDisp, entDist)
 	-- Tell the player to reload their weapon or give the player ammo
-	if entFri == true && ent:IsPlayer() && CurTime() > self.Human_NextPlyReloadSd && !IsValid(self:GetEnemy()) && entDist <= 200 then
+	if calculatedDisp == D_LI && ent:IsPlayer() && CurTime() > self.Human_NextPlyReloadSd && !IsValid(self:GetEnemy()) && entDist <= 200 then
 		self.Human_NextPlyReloadSd = CurTime() + math.Rand(10, 60)
 		local wep = ent:GetActiveWeapon()
 		if IsValid(wep) && math.random(1, 3) == 1 then
