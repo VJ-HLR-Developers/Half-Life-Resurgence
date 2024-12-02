@@ -46,7 +46,6 @@ ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE}
 //ENT.DeathAnimationTime = 0.8 -- How long should the death animation play?
 ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE -- The animation it plays when hiding in a covered position, leave empty to let the base decide
-ENT.AnimTbl_AlertFriendsOnDeath = "vjseq_idle2" -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
 ENT.AnimTbl_WeaponAttackSecondary = ACT_SPECIAL_ATTACK1 -- Animation(s) to play while firing the weapon's secondary attack
 ENT.WeaponAttackSecondaryTimeUntilFire = 0.7
 ENT.AnimTbl_WeaponReload = ACT_RELOAD_SMG1 -- Animations that play when the SNPC reloads

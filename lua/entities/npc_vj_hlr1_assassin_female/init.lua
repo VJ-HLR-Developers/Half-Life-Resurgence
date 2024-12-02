@@ -44,7 +44,6 @@ ENT.Weapon_StrafeWhileFiring = false -- Should it move randomly while firing a w
 ENT.Weapon_Accuracy = 0.6 -- NPC's accuracy with weapons, affects bullet spread! | x < 1 = Better accuracy | x > 1 = Worse accuracy
 ENT.CanCrouchOnWeaponAttack = false -- Can it crouch while shooting?
 ENT.AnimTbl_TakingCover = ACT_LAND -- The animation it plays when hiding in a covered position, leave empty to let the base decide
-ENT.AnimTbl_AlertFriendsOnDeath = ACT_IDLE_ANGRY -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
 ENT.Weapon_WaitOnOcclusionTime = VJ.SET(1, 2) -- How long should it wait before it starts to pursue?
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?

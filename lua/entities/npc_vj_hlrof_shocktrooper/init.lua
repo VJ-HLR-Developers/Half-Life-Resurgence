@@ -37,7 +37,6 @@ ENT.AnimTbl_WeaponAttackCrouch = ACT_RANGE_ATTACK2 -- Animation(s) to play while
 ENT.AnimTbl_CallForHelp = ACT_SIGNAL2
 ENT.CallForBackUpOnDamageAnimation = ACT_SIGNAL1 -- Animations played when it calls for help on damage
 ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE -- The animation it plays when hiding in a covered position, leave empty to let the base decide
-ENT.AnimTbl_AlertFriendsOnDeath = ACT_IDLE_ANGRY -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE}
 ENT.DeathAnimationTime = false -- How long should the death animation play?

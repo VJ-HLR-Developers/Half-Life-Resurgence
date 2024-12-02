@@ -29,7 +29,6 @@ ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE}
 ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE -- The animation it plays when hiding in a covered position, leave empty to let the base decide
-ENT.AnimTbl_AlertFriendsOnDeath = "vjseq_idle2" -- Animations it plays when an ally dies that also has AlertFriendsOnDeath set to true
 ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards the player if it's damaged by a player?
 ENT.DropDeathLoot = false -- Should it drop loot on death?
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
