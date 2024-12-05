@@ -9,7 +9,7 @@ ENT.Model = "models/combine_turrets/floor_turret.mdl" -- Model(s) to spawn with 
 ENT.StartHealth = 200
 ENT.HullType = HULL_HUMAN
 ENT.SightDistance = 2000 -- How far it can see
-ENT.SightAngle = 60 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
+ENT.SightAngle = 132.84
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
 ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
 ENT.VJC_Data = {
@@ -27,7 +27,7 @@ ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range 
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
 ENT.RangeDistance = 2000 -- How far can it range attack?
 ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
-ENT.RangeAttackAngleRadius = 60 -- What is the attack angle radius? | 100 = In front of the NPC | 180 = All around the NPC
+ENT.RangeAttackAngleRadius = 132.84 -- What is the attack angle radius? | 100 = In front of the NPC | 180 = All around the NPC
 ENT.TimeUntilRangeAttackProjectileRelease = 0.015 -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 0 -- How much time until it can use a range attack?
 ENT.NextAnyAttackTime_Range = 0.04 -- How much time until it can use any attack again? | Counted in Seconds
@@ -165,7 +165,7 @@ function ENT:OnThinkActive()
 			local doScan = false
 			
 			-- Make it scan around if the enemy is behind, which is unreachable for it!
-			if eneValid && !self.Turret_HasLOS && (self.EnemyData.SightDiff <= math.cos(math.rad(self.RangeAttackAngleRadius))) then
+			if eneValid && !self.Turret_HasLOS && (math.abs(self.EnemyData.LastVisibleTime - CurTime()) >= 1) then
 				doScan = true
 				self.HasPoseParameterLooking = false
 			else

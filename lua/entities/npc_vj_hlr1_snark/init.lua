@@ -7,6 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/snark.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 5
+ENT.SightAngle = 180
 ENT.HullType = HULL_TINY
 ENT.EntitiesToNoCollide = {"npc_vj_hlr1_snark"} -- Set to a table of entity class names for the NPC to not collide with otherwise leave it to false
 ENT.VJC_Data = {
@@ -34,7 +35,6 @@ ENT.LeapAttackDamageDistance = 100 -- How far does the damage go?
 ENT.HasDeathCorpse = false -- Should a corpse spawn when it's killed?
 ENT.PushProps = false -- Should it push props when trying to move?
 ENT.IdleAlwaysWander = true -- Should the NPC constantly wander while idling?
-ENT.FindEnemy_UseSphere = true -- Should the NPC see all around? (360 degrees) | Objects and walls can still block its sight!
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/squeek/sqk_hunt1.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt2.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt3.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/squeek/sqk_hunt1.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt2.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt3.wav"}

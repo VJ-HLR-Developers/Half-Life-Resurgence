@@ -7,6 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/protozoa.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 5
+ENT.SightAngle = 360
 ENT.HullType = HULL_TINY
 ENT.TurningSpeed = 1 -- How fast it can turn
 ENT.MovementType = VJ_MOVETYPE_AERIAL -- How the NPC moves around

@@ -7,7 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/kingpin.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 1000
-ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
+ENT.SightAngle = 360
 ENT.HullType = HULL_LARGE
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(-15, 0, -45), -- The offset for the controller when the camera is in third person

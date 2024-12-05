@@ -7,6 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/archer.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 50
+ENT.SightAngle = 250
 ENT.HullType = HULL_TINY
 ENT.TurningUseAllAxis = true -- If set to true, angles will not be restricted to y-axis, it will change all axes (plural axis)
 ENT.MovementType = VJ_MOVETYPE_AQUATIC -- How the NPC moves around

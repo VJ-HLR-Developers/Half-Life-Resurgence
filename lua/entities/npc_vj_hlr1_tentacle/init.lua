@@ -5,11 +5,11 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/tentacle.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
-ENT.SightDistance = 800 -- How far it can see
 ENT.VJTag_ID_Boss = true
-ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
+ENT.Model = "models/vj_hlr/hl1/tentacle.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 1000
+ENT.SightDistance = 800 -- How far it can see
+ENT.SightAngle = 360
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
 ENT.HullType = HULL_LARGE
 ENT.VJC_Data = {

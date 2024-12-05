@@ -6,9 +6,9 @@ include("shared.lua")
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/tree.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
-ENT.SightDistance = 200 -- How far it can see
-ENT.SightAngle = 60 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
 ENT.StartHealth = 200
+ENT.SightDistance = 200 -- How far it can see
+ENT.SightAngle = 100
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
 ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
 ENT.HullType = HULL_LARGE

@@ -7,7 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/opfor/geneworm.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 1080
-ENT.SightAngle = 120 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
+ENT.SightAngle = 360
 ENT.HullType = HULL_LARGE
 ENT.VJTag_ID_Boss = true
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around

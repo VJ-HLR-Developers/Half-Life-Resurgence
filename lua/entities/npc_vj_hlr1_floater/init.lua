@@ -7,6 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/floater.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 45
+ENT.SightAngle = 120
 ENT.HullType = HULL_TINY
 ENT.MovementType = VJ_MOVETYPE_AERIAL -- How the NPC moves around
 ENT.Aerial_FlyingSpeed_Calm = 100 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground NPCs

@@ -11,7 +11,7 @@ ENT.Model = "models/vj_hlr/hl1/apache.mdl" -- Model(s) to spawn with | Picks a r
 ENT.VJTag_ID_Boss = true
 ENT.StartHealth = 400 -- The starting health of the NPC
 ENT.HullType = HULL_LARGE
-ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
+ENT.SightAngle = 360
 ENT.TurningSpeed = 2 -- How fast it can turn
 	-- ====== Movement Variables ====== --
 ENT.MovementType = VJ_MOVETYPE_AERIAL -- How the NPC moves around
@@ -28,7 +28,6 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
-ENT.FindEnemy_UseSphere = true -- Should the NPC see all around? (360 degrees) | Objects and walls can still block its sight!
 ENT.PoseParameterLooking_InvertYaw = true -- Inverts the yaw pose parameters (Y)
 ENT.ConstantlyFaceEnemy = true -- Should it face the enemy constantly?
 ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it"s between number x and y?

@@ -62,12 +62,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Bullsquid_ActivateBullSquidding()
 	self:SetMaxLookDistance(30000)
+	self:SetFOV(360)
 	self.Bullsquid_BullSquidding = true
 	self.Bullsquid_BullSquiddingT = CurTime()
 	self.VJTag_ID_Boss = true
 	self.StartHealth = 1500
-	self.SightAngle = 180
-	self.FindEnemy_UseSphere = true
 	self.FindEnemy_CanSeeThroughWalls = true
 	self.AnimTbl_RangeAttack = ACT_RANGE_ATTACK2
 	self.DisableRangeAttackAnimation = true

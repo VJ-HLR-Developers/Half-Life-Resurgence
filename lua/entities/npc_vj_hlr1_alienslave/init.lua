@@ -7,6 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/islave.mdl"-- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 60
+ENT.SightAngle = 220
 ENT.HullType = HULL_HUMAN
 ENT.VJC_Data = {
 	FirstP_Bone = "bip01 head", -- If left empty, the base will attempt to calculate a position for first person

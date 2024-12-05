@@ -7,6 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/headcrab.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 10
+ENT.SightAngle = 120
 ENT.HullType = HULL_TINY
 ENT.EntitiesToNoCollide = {"npc_vj_hlr1_gonarch"} -- Set to a table of entity class names for the NPC to not collide with otherwise leave it to false
 ENT.VJC_Data = {

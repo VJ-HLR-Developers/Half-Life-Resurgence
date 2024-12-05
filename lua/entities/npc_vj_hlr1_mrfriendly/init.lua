@@ -7,6 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/friendly.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 230
+ENT.SightAngle = 120
 ENT.HullType = HULL_MEDIUM
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(-25, 0, 0), -- The offset for the controller when the camera is in third person

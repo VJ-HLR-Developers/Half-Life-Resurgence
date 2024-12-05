@@ -7,6 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/sven/tor.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 3000
+ENT.SightAngle = 220
 ENT.HullType = HULL_HUMAN
 ENT.VJTag_ID_Boss = true
 ENT.VJC_Data = {

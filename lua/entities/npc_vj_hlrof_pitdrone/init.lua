@@ -7,6 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/opfor/pit_drone.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 80
+ENT.SightAngle = 230
 ENT.HullType = HULL_HUMAN
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(15, 0, 0), -- The offset for the controller when the camera is in third person

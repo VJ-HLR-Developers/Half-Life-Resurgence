@@ -11,7 +11,7 @@ ENT.Model = "models/vj_hlr/hl1/osprey.mdl" -- Model(s) to spawn with | Picks a r
 ENT.VJTag_ID_Boss = true
 ENT.StartHealth = 800
 ENT.HullType = HULL_LARGE
-ENT.SightAngle = 180 -- The sight angle | Example: 180 would make the it see all around it | Measured in degrees and then converted to radians
+ENT.SightAngle = 360
 ENT.TurningSpeed = 2 -- How fast it can turn
 ENT.TurningUseAllAxis = false -- If set to true, angles will not be restricted to y-axis, it will change all axes (plural axis)
 	-- ====== Movement Variables ====== --
@@ -29,7 +29,6 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
-ENT.FindEnemy_UseSphere = true -- Should the NPC see all around? (360 degrees) | Objects and walls can still block its sight!
 ENT.CanTurnWhileMoving = false -- Can the NPC turn while moving? | EX: GoldSrc NPCs, Facing enemy while running to cover, Facing the player while moving out of the way
 ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it"s between number x and y?
 ENT.NoChaseAfterCertainRange_FarDistance = combatDistance -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
