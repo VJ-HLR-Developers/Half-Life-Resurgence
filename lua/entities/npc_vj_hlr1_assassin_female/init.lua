@@ -155,7 +155,6 @@ function ENT:OnThink()
 	if self.BOA_OffGround == true && self:GetVelocity().z == 0 then -- Velocity is 0, so we have landed, play land anim
 		self.BOA_OffGround = false
 		self:VJ_ACT_PLAYACTIVITY(ACT_LAND, true, false, false)
-		//self:VJ_PlaySequence("landfromjump", self.AnimationPlaybackRate, true, self:SequenceDuration(self:LookupSequence("landfromjump")), false)
 		//VJ.EmitSound(self,"vj_hlr/hl1_npc/player/pl_jumpland2.wav",80) -- Done through event now
 	end
 	

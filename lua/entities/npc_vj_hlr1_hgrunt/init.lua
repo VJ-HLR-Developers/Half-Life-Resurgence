@@ -224,7 +224,7 @@ function ENT:OnInput(key, activator, caller, data)
 	elseif key == "torch_pull" then
 		self:SetBodygroup(1, 1)
 	elseif key == "torchlight_on" then
-		ParticleEffectAttach("vj_hl_torch", PATTACH_POINT_FOLLOW, self, 5)
+		ParticleEffectAttach("vj_hlr_torch", PATTACH_POINT_FOLLOW, self, 5)
 		VJ.EmitSound(self, "vj_hlr/hl1_npc/hgrunt_oppf/torch_light.wav", 80)
 	elseif key == "torch_putout" then
 		self:StopParticles()
