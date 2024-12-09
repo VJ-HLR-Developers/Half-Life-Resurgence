@@ -187,7 +187,7 @@ function ENT:Init()
 		self.HasGrenadeAttack = false
 		self.CanUseSecondaryOnWeaponAttack = false
 		self.Weapon_CanReload = false
-		timer.Simple(0.1, function() if IsValid(self) then self:VJ_ACT_PLAYACTIVITY("repel_jump", true, false, false) end end)
+		timer.Simple(0.1, function() if IsValid(self) then self:PlayAnim("repel_jump", true, false, false) end end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -490,7 +490,7 @@ function ENT:OnThink()
 		-- If it's on ground then stop rappelling!
 		if self:IsOnGround() then
 			self:HECU_StopRappelling()
-			self:VJ_ACT_PLAYACTIVITY("repel_land", true, false, false)
+			self:PlayAnim("repel_land", true, false, false)
 			-- Let the Osprey know I landed!
 			if self.HECU_DeployedByOsprey then
 				local owner = self:GetOwner()

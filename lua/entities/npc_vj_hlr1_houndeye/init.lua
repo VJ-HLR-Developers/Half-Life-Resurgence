@@ -128,13 +128,13 @@ function ENT:OnThinkActive()
 	if !self.Alerted && !IsValid(self:GetEnemy()) && !self:IsMoving() && CurTime() > self.Houndeye_NextSleepT && !self.Houndeye_Sleeping && !self:IsBusy() then
 		local sleepTime = math.Rand(15, 30) -- How long it should sleep
 		self.Houndeye_Sleeping = true
-		self:VJ_ACT_PLAYACTIVITY(ACT_CROUCH, true, false, false)
+		self:PlayAnim(ACT_CROUCH, true, false, false)
 		self:SetState(VJ_STATE_ONLY_ANIMATION, sleepTime)
 		timer.Simple(7, function() if IsValid(self) && self.Houndeye_Sleeping == true then self:SetSkin(2) end end) -- Close eyes
 		timer.Simple(sleepTime, function() -- Reset after sleepTime expires
 			if IsValid(self) && self.Houndeye_Sleeping == true then
 				self.Houndeye_Sleeping = false
-				self:VJ_ACT_PLAYACTIVITY(ACT_STAND, true, false, false)
+				self:PlayAnim(ACT_STAND, true, false, false)
 				self.Houndeye_NextSleepT = CurTime() + math.Rand(15, 45)
 			end
 		end)
@@ -147,10 +147,10 @@ function ENT:OnAlert(ent)
 	if self.Houndeye_Sleeping == true then -- Wake up if sleeping and play a special alert animation
 		if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end
 		self.Houndeye_Sleeping = false
-		self:VJ_ACT_PLAYACTIVITY(ACT_HOP, true, false, false)
+		self:PlayAnim(ACT_HOP, true, false, false)
 		self.Houndeye_NextSleepT = CurTime() + 20
 	elseif math.random(1, 2) == 1 then -- Random alert animation
-		self:VJ_ACT_PLAYACTIVITY(alertAnims, true, false, true)
+		self:PlayAnim(alertAnims, true, false, true)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -206,7 +206,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		if self.Houndeye_Sleeping == true then -- Wake up if sleeping and play a special alert animation
 			if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end
 			self.Houndeye_Sleeping = false
-			self:VJ_ACT_PLAYACTIVITY(ACT_HOP, true, false, false)
+			self:PlayAnim(ACT_HOP, true, false, false)
 		end
 	end
 end

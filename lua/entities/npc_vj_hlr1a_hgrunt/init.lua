@@ -41,6 +41,6 @@ end
 local strafeAnims = {ACT_STRAFE_RIGHT, ACT_STRAFE_LEFT}
 --
 function ENT:OnWeaponStrafeWhileFiring()
-	self:VJ_ACT_PLAYACTIVITY(strafeAnims, true, false, false)
+	self:PlayAnim(strafeAnims, true, false, false)
 	return false
 end

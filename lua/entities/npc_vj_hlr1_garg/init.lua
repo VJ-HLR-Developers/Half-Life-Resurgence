@@ -155,7 +155,7 @@ function ENT:OnThinkActive()
 		
 		-- Startup animation and sound
 		if self.Garg_FlameLevel == 0 then
-			self:VJ_ACT_PLAYACTIVITY("shootflames1", "LetAttacks", false)
+			self:PlayAnim("shootflames1", "LetAttacks", false)
 			self.Garg_FlameLevel = 1
 			self.Garg_NextFlameT = CurTime() + 0.8 -- Don't use anim duration because we want it to start playing the flame animation mid way
 			timer.Simple(0.5, function() -- Play flame start sound

@@ -339,7 +339,7 @@ function ENT:OnMaintainRelationships(ent, calculatedDisp, entDist)
 					if entDist > 100 then
 						self.Human_NextPlyReloadSd = 0
 					else
-						local _, animTime = self:VJ_ACT_PLAYACTIVITY("heal", true, false, false, 0, {OnFinish=function(interrupted, anim)
+						local _, animTime = self:PlayAnim("heal", true, false, false, 0, {OnFinish=function(interrupted, anim)
 							if !interrupted then
 								ent:GiveAmmo(20, ammoType)
 							end
@@ -358,7 +358,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponChange(newWeapon, oldWeapon, invSwitch)
 	if invSwitch == true then -- Only if it's a inventory switch
-		self:VJ_ACT_PLAYACTIVITY(ACT_PICKUP_RACK, true, false, true)
+		self:PlayAnim(ACT_PICKUP_RACK, true, false, true)
 	end
 	-- Only males have a taking out an anti-armor weapon sound
 	if self.Human_Gender == HUMAN_GENDER_MALE && self.WeaponInventoryStatus == VJ.NPC_WEP_INVENTORY_ANTI_ARMOR && math.random(1, 2) == 1 then self:PlaySoundSystem("GeneralSpeech", "vo/npc/male01/evenodds.wav") end
@@ -367,7 +367,7 @@ end
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
 	-- NOTE: Only males have cheering animation!
 	if wasLast && self.Human_Gender == HUMAN_GENDER_MALE && !self:IsBusy() && math.random(1, 3) == 1 then
-		self:VJ_ACT_PLAYACTIVITY("vjseq_cheer1", "LetAttacks", false, false, 0)
+		self:PlayAnim("vjseq_cheer1", "LetAttacks", false, false, 0)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

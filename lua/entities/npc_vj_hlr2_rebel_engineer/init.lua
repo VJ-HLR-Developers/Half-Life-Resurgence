@@ -27,7 +27,7 @@ function ENT:OnThinkActive()
 		})
 		if !tr.Hit then
 			self.Human_NextTurretCheckT = CurTime() + 30
-			self:VJ_ACT_PLAYACTIVITY("vjseq_pickup" ,true, false, false)
+			self:PlayAnim("vjseq_pickup" ,true, false, false)
 			timer.Simple(0.45, function()
 				if IsValid(self) && !IsValid(self.Human_TurretEnt) then
 					local turret = ents.Create("npc_vj_hlr2_res_sentry")

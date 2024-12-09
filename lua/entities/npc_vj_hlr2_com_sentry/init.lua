@@ -217,7 +217,7 @@ function ENT:OnThinkActive()
 				end
 				self.Turret_StandDown = true
 				self.HasPoseParameterLooking = true
-				self:VJ_ACT_PLAYACTIVITY("retract", true, 1)
+				self:PlayAnim("retract", true, 1)
 				VJ.EmitSound(self, "npc/turret_floor/retract.wav", 70, 100)
 			end
 			if self.Turret_StandDown && self:GetPoseParameter("aim_yaw") == 0 then -- Hide the green light once it fully rests
@@ -263,7 +263,7 @@ function ENT:Turret_Activate()
 			self.Turret_Status = TURRET_STATUS_UNKNOWN
 		end
 	end)
-	self:VJ_ACT_PLAYACTIVITY("deploy", true, false)
+	self:PlayAnim("deploy", true, false)
 	VJ.EmitSound(self, "npc/turret_floor/deploy.wav", 70, 100)
 	self.TurretSD_Alarm:PlayEx(1, 100)
 	timer.Simple(0.8, function() VJ.STOPSOUND(self.TurretSD_Alarm) end)
@@ -277,7 +277,7 @@ end
 local bulletSpread = Vector(0.08716, 0.08716, 0.08716) * 1.25 -- VECTOR_CONE_10DEGREES * WEAPON_PROFICIENCY_VERY_GOOD
 --
 function ENT:CustomRangeAttackCode()
-	self:VJ_ACT_PLAYACTIVITY("vjseq_fire", false)
+	self:PlayAnim("vjseq_fire", false)
 	
 	-- Bullet
 	local startPos = self:GetAttachment(self:LookupAttachment("eyes")).Pos

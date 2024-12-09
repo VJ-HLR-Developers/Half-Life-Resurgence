@@ -122,7 +122,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
 	self.Gonarch_NextBirthT = CurTime() + math.random(3, 6)
-	self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1, true, false, true) // {"vjseq_angry1", "vjseq_angry2"}
+	self:PlayAnim(ACT_SIGNAL1, true, false, true) // {"vjseq_angry1", "vjseq_angry2"}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Gonarch_BabyDeath()
@@ -138,7 +138,7 @@ end
 function ENT:OnThinkActive()
 	-- Create baby headcrabs
 	if !self.Dead && IsValid(self:GetEnemy()) && self.CurrentAttackAnimationTime < CurTime() && CurTime() > self.Gonarch_NextBirthT && self.Gonarch_NumBabies < self.Gonarch_BabyLimit && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
-		self:VJ_ACT_PLAYACTIVITY(ACT_SPECIAL_ATTACK1, true, false, true)
+		self:PlayAnim(ACT_SPECIAL_ATTACK1, true, false, true)
 		self.Gonarch_NextBirthT = CurTime() + 15
 	end
 end

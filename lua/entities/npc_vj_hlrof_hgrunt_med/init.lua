@@ -27,10 +27,10 @@ end
 function ENT:OnMedicBehavior(status, statusData)
 	if status == "BeforeHeal" then
 		self.HECUMedic_HealBG = self:GetBodygroup(3)
-		self:VJ_ACT_PLAYACTIVITY("pull_needle", true, false, false, 0, {OnFinish=function(interrupted, anim)
+		self:PlayAnim("pull_needle", true, false, false, 0, {OnFinish=function(interrupted, anim)
 			if interrupted then return end
-			self:VJ_ACT_PLAYACTIVITY("give_shot", true, false, false, 0, {OnFinish=function(interrupted2, anim2)
-				self:VJ_ACT_PLAYACTIVITY("store_needle", true, false)
+			self:PlayAnim("give_shot", true, false, false, 0, {OnFinish=function(interrupted2, anim2)
+				self:PlayAnim("store_needle", true, false)
 			end})
 		end})
 	end

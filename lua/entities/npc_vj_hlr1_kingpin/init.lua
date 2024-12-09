@@ -154,7 +154,7 @@ function ENT:CustomAttack(ene, eneVisible)
 			self:SetNW2Bool("PsionicEffect", true)
 			VJ.EmitSound(self, "vj_hlr/hl1_npc/kingpin/port_suckin1.wav", 80, 140) -- 3.08025
 			self.KingPin_PsionicAttacking = true
-			self:VJ_ACT_PLAYACTIVITY(ACT_RANGE_ATTACK1_LOW, "LetAttacks", false, false)
+			self:PlayAnim(ACT_RANGE_ATTACK1_LOW, "LetAttacks", false, false)
 			self:SetState(VJ_STATE_ONLY_ANIMATION)
 			for _, v in ipairs(pTbl) do
 				local phys = v:GetPhysicsObject()
@@ -189,7 +189,7 @@ function ENT:CustomAttack(ene, eneVisible)
 							phys:EnableDrag(true)
 							if selfValid && IsValid(self:GetEnemy()) then -- Only throw props at the enemy if Kingpin has NOT been removed
 								phys:SetVelocity(self:CalculateProjectile("Line", v:GetPos(), self:GetEnemy():GetPos(), 2000))
-								self:VJ_ACT_PLAYACTIVITY(ACT_RANGE_ATTACK2_LOW, "LetAttacks", false, false)
+								self:PlayAnim(ACT_RANGE_ATTACK2_LOW, "LetAttacks", false, false)
 							end
 						end
 					end

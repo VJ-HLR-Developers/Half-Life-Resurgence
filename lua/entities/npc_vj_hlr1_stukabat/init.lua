@@ -75,7 +75,7 @@ function ENT:ChangeMode(mode)
 		self.Stuka_LandingType = 0
 		self.Stuka_LandingPos = nil
 		self.AnimTbl_IdleStand = {ACT_IDLE}
-		self:VJ_ACT_PLAYACTIVITY(ACT_LAND,true,false,false)
+		self:PlayAnim(ACT_LAND,true,false,false)
 		timer.Simple(self:DecideAnimationLength(ACT_LAND, false),function()
 			if IsValid(self) then
 				self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
@@ -92,7 +92,7 @@ function ENT:ChangeMode(mode)
 		self.Stuka_LandingType = 0
 		self.Stuka_LandingPos = nil
 		self.AnimTbl_IdleStand = {ACT_HOVER}
-		self:VJ_ACT_PLAYACTIVITY(lastMode == 2 && ACT_SPRINT or ACT_LEAP,true,false,false)
+		self:PlayAnim(lastMode == 2 && ACT_SPRINT or ACT_LEAP,true,false,false)
 		timer.Simple(self:DecideAnimationLength(lastMode == 2 && ACT_SPRINT or ACT_LEAP, false),function()
 			if IsValid(self) then
 				self:DoChangeMovementType(VJ_MOVETYPE_AERIAL)
@@ -112,7 +112,7 @@ function ENT:ChangeMode(mode)
 		self.Stuka_LandingType = 0
 		self.Stuka_LandingPos = nil
 		self.AnimTbl_IdleStand = {ACT_CROUCHIDLE}
-		self:VJ_ACT_PLAYACTIVITY(ACT_CROUCH,true,false,false)
+		self:PlayAnim(ACT_CROUCH,true,false,false)
 		self:SetMaxYawSpeed(0)
 		self.TurningSpeed = 0
 		timer.Simple(self:DecideAnimationLength(ACT_CROUCH, false),function()

@@ -39,7 +39,7 @@ function ENT:Combine_DeployTurret()
 		if !tr.Hit then
 			self.Combine_NextTurretCheckT = CurTime() + 30
 			self.Combine_TurretPlacing = true
-			self:VJ_ACT_PLAYACTIVITY("vjseq_Turret_Drop" ,true, false, false)
+			self:PlayAnim("vjseq_Turret_Drop" ,true, false, false)
 			timer.Simple(0.9, function()
 				if IsValid(self) && !IsValid(self.Combine_TurretEnt) then
 					local turret = ents.Create("npc_vj_hlr2_com_sentry")

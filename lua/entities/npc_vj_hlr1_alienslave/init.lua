@@ -183,7 +183,7 @@ function ENT:SelectSchedule()
 	-- Hide after being attacked
 	if !self.Dead && self.Vort_RunAway && !self:IsBusy() && !self.VJ_IsBeingControlled then
 		self.Vort_RunAway = false
-		self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH", function(x) x.RunCode_OnFail = function() self.NextDoAnyAttackT = 0 end end)
+		self:SCHEDULE_COVER_ENEMY("TASK_RUN_PATH", function(x) x.RunCode_OnFail = function() self.NextDoAnyAttackT = 0 end end)
 		self.NextDoAnyAttackT = CurTime() + 5
 	end
 end

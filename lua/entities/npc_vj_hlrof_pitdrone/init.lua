@@ -66,7 +66,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	function controlEnt:OnKeyBindPressed(key)
 		local npc = self.VJCE_NPC
 		if key == IN_RELOAD && npc:GetBodygroup(1) != 1 then
-			npc:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true, 0, {OnFinish=function(interrupted2, anim2)
+			npc:PlayAnim(ACT_RELOAD, true, false, true, 0, {OnFinish=function(interrupted2, anim2)
 				npc.HasRangeAttack = true
 				npc:SetBodygroup(1, 1)
 			end})
@@ -105,13 +105,13 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 		self.HasRangeAttack = false
 		if !self.VJ_IsBeingControlled then
 			-- Run from the enemy, then play the reload animation and set the body group
-			self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH")
+			self:SCHEDULE_COVER_ENEMY("TASK_RUN_PATH")
 			timer.Simple(0.1, function()
 				if IsValid(self) then
 					self.TakingCoverT = CurTime() + self:GetPathTimeToGoal()
 					timer.Simple(self:GetPathTimeToGoal(), function()
 						if IsValid(self) then
-							self:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true, 0, {OnFinish=function(interrupted2, anim2)
+							self:PlayAnim(ACT_RELOAD, true, false, true, 0, {OnFinish=function(interrupted2, anim2)
 								self.HasRangeAttack = true
 								self:SetBodygroup(1, 1)
 							end})

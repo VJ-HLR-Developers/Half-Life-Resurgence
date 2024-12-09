@@ -233,7 +233,7 @@ function ENT:OnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Security_HolsterGun()
-	if self:GetBodygroup(1) != 0 then self:VJ_ACT_PLAYACTIVITY(ACT_DISARM, true, false, true) end
+	if self:GetBodygroup(1) != 0 then self:PlayAnim(ACT_DISARM, true, false, true) end
 	self:SetWeaponState(VJ.NPC_WEP_STATE_HOLSTERED)
 	timer.Simple(self.Security_Type == SECURITY_TYPE_ALPHA and 1 or 1.5, function()
 		-- Set the holster bodygroup if we have NOT been interrupted
@@ -245,7 +245,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Security_UnHolsterGun()
 	self:StopMoving()
-	self:VJ_ACT_PLAYACTIVITY(ACT_ARM, true, false, true)
+	self:PlayAnim(ACT_ARM, true, false, true)
 	self:SetWeaponState()
 	timer.Simple(0.55, function() if IsValid(self) then self:SetBodygroup(1, 1) end end)
 end

@@ -65,7 +65,7 @@ end
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "Initial" then
 		if self.vACT_StopAttacks == false then
-			self:VJ_ACT_PLAYACTIVITY(ACT_MELEE_ATTACK1, "LetAttacks", false)
+			self:PlayAnim(ACT_MELEE_ATTACK1, "LetAttacks", false)
 		end
 		if !dmginfo:IsDamageType(DMG_BLAST) then
 			dmginfo:SetDamage(0)

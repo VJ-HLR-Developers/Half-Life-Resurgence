@@ -1015,7 +1015,7 @@ function ENT:OnMaintainRelationships(ent, calculatedDisp, entDist)
 					if entDist > 100 then
 						self.Human_NextPlyReloadSd = 0
 					else
-						local _, animTime = self:VJ_ACT_PLAYACTIVITY("heal", true, false, false, 0, {OnFinish=function(interrupted, anim)
+						local _, animTime = self:PlayAnim("heal", true, false, false, 0, {OnFinish=function(interrupted, anim)
 							if !interrupted then
 								ent:GiveAmmo(20, ammoType)
 							end

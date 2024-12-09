@@ -47,5 +47,5 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
 	if self.VJ_IsBeingControlled then return end
-	self:VJ_ACT_PLAYACTIVITY("angry", true, false, true) -- Shockroach always plays alert animation
+	self:PlayAnim("angry", true, false, true) -- Shockroach always plays alert animation
 end

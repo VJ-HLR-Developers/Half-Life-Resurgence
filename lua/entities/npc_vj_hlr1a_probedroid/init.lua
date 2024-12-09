@@ -96,8 +96,8 @@ function ENT:OnMedicBehavior(status, statusData)
 	if status == "BeforeHeal" then
 		VJ.EmitSound(self, "vj_hlr/hla_npc/prdroid/readytoattack.wav", 90, 100) -- Preparing sound same as range attack
 	elseif status == "OnHeal" then
-		self:VJ_ACT_PLAYACTIVITY(ACT_RANGE_ATTACK1, true, 0, true, 0, {OnFinish = function()
-			self:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true)
+		self:PlayAnim(ACT_RANGE_ATTACK1, true, 0, true, 0, {OnFinish = function()
+			self:PlayAnim(ACT_RELOAD, true, false, true)
 			VJ.EmitSound(self, "vj_hlr/hla_npc/prdroid/reload.wav", 90, 100) -- Reload sound
 		end})
 		local attPos = self:GetAttachment(self:LookupAttachment("0")).Pos
@@ -121,9 +121,9 @@ end
 --  ACT_RANGE_ATTACK2 -- Rapid firing (3-shot burst) range attack animation | !!! UNUSED !!!
 --
 function ENT:CustomOnRangeAttack_BeforeStartTimer()
-	local anim, animDur = self:VJ_ACT_PLAYACTIVITY(ACT_ARM, false, 0, true, 0, {OnFinish = function()
-		self:VJ_ACT_PLAYACTIVITY(ACT_RANGE_ATTACK1, false, 0, true, 0, {OnFinish = function()
-			self:VJ_ACT_PLAYACTIVITY(ACT_RELOAD, true, false, true)
+	local anim, animDur = self:PlayAnim(ACT_ARM, false, 0, true, 0, {OnFinish = function()
+		self:PlayAnim(ACT_RANGE_ATTACK1, false, 0, true, 0, {OnFinish = function()
+			self:PlayAnim(ACT_RELOAD, true, false, true)
 			VJ.EmitSound(self, "vj_hlr/hla_npc/prdroid/reload.wav", 90, 100) -- Reload sound
 		end})
 	end})

@@ -96,9 +96,9 @@ function ENT:OnAlert(ent)
 	if self.Bullsquid_Type == 1 then return end -- Alpha doesn't have alert animations!
 	if math.random(1, 3) == 1 then
 		if ent.VJTag_ID_Headcrab then
-			self:VJ_ACT_PLAYACTIVITY("seecrab", true, false, true)
+			self:PlayAnim("seecrab", true, false, true)
 		else
-			self:VJ_ACT_PLAYACTIVITY(ACT_HOP, true, false, true)
+			self:PlayAnim(ACT_HOP, true, false, true)
 		end
 	end
 end

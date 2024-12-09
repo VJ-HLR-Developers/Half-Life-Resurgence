@@ -76,7 +76,7 @@ end
 function ENT:OnAlert(ent)
 	if self.VJ_IsBeingControlled or self.HeadCrab_IsBaby then return end
 	if math.random(1, 2) == 1 then
-		self:VJ_ACT_PLAYACTIVITY("angry", true, false, true)
+		self:PlayAnim("angry", true, false, true)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

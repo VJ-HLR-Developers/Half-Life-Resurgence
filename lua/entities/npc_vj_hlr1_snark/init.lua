@@ -87,7 +87,7 @@ function ENT:OnThinkActive()
 	
 	-- Randomly jump while engaging an enemy
 	if IsValid(ene) && self.VJ_IsBeingControlled == false && self:IsOnGround() && self.EnemyData.IsVisible && self.LatestEnemyDistance > (self.LeapDistance + 10) && CurTime() > self.Snark_NextJumpWalkT then
-		self:VJ_ACT_PLAYACTIVITY(ACT_RUN, false, 0.7, true)
+		self:PlayAnim(ACT_RUN, false, 0.7, true)
 		self:PlaySoundSystem("Alert")
 		self:SetGroundEntity(NULL)
 		self:ForceMoveJump((ene:GetPos() - self:GetPos()):GetNormal() * 400 + self:GetUp() * 300)

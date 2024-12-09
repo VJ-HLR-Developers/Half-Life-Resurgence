@@ -120,7 +120,7 @@ function ENT:Tor_StartSpawnAlly()
 			filter = self
 		})
 		if !tr.Hit then
-			self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_GROUP, true, false)
+			self:PlayAnim(ACT_SIGNAL_GROUP, true, false)
 			VJ.EmitSound(self, "vj_hlr/hlsc_npc/tor/tor-summon.wav")
 			self.Tor_NextSpawnT = CurTime() + 10
 		end
@@ -170,7 +170,7 @@ function ENT:OnThinkActive()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-	self:VJ_ACT_PLAYACTIVITY(ACT_DEPLOY, true, false, true) -- Angry animation
+	self:PlayAnim(ACT_DEPLOY, true, false, true) -- Angry animation
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(projectile)
@@ -194,7 +194,7 @@ end
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "PostDamage" && self.Tor_Level == 0 && (self:Health() < (self:GetMaxHealth() * 0.5)) then
 		self.Tor_Level = 1
-		self:VJ_ACT_PLAYACTIVITY(ACT_VICTORY_DANCE, true, false)
+		self:PlayAnim(ACT_VICTORY_DANCE, true, false)
 		timer.Simple(1.2, function()
 			if IsValid(self) && self.Dead != true then
 				self:SetSkin(1)

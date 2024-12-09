@@ -89,7 +89,7 @@ function ENT:OnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-	self:VJ_ACT_PLAYACTIVITY(ACT_ARM, true, false, true)
+	self:PlayAnim(ACT_ARM, true, false, true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRangeAttack_AfterStartTimer()

@@ -298,7 +298,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 				-- Check if any charges remain, if num is 1 then it was the last one!
 				if num <= 1 then
 					self.Nih_BrainOpen = true
-					self:VJ_ACT_PLAYACTIVITY("vjseq_transition_to_hurt", true, false)
+					self:PlayAnim("vjseq_transition_to_hurt", true, false)
 				end
 				return
 			end

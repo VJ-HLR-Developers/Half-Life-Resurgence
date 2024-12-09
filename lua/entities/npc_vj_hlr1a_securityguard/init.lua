@@ -38,10 +38,10 @@ function ENT:Security_UnHolsterGun()
 	self:StopMoving()
 	self:SetWeaponState()
 	if math.random(1, 2) == 1 then
-		self:VJ_ACT_PLAYACTIVITY(ACT_ARM, true, false, true)
+		self:PlayAnim(ACT_ARM, true, false, true)
 		timer.Simple(0.3, function() if IsValid(self) then self:SetBodygroup(1, 1) end end)
 	else
-		self:VJ_ACT_PLAYACTIVITY("drawslow", true, false, true)
+		self:PlayAnim("drawslow", true, false, true)
 		timer.Simple(0.85, function() if IsValid(self) then self:SetBodygroup(1, 1) end end)
 	end
 end

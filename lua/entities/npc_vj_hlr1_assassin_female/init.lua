@@ -154,7 +154,7 @@ function ENT:OnThink()
 	
 	if self.BOA_OffGround == true && self:GetVelocity().z == 0 then -- Velocity is 0, so we have landed, play land anim
 		self.BOA_OffGround = false
-		self:VJ_ACT_PLAYACTIVITY(ACT_LAND, true, false, false)
+		self:PlayAnim(ACT_LAND, true, false, false)
 		//VJ.EmitSound(self,"vj_hlr/hl1_npc/player/pl_jumpland2.wav",80) -- Done through event now
 	end
 	
@@ -164,10 +164,10 @@ function ENT:OnThink()
 		/*self:StopMoving()
 		self:SetGroundEntity(NULL)
 		self:SetLocalVelocity(((self:GetPos() + self:GetRight()*(math.random(1, 2) == 1 and 100 or -100)) - (self:GetPos() + self:OBBCenter())):GetNormal()*200 +self:GetUp()*600)
-		self:VJ_ACT_PLAYACTIVITY(ACT_JUMP, true, false, true, 0, {}, function(sched)
+		self:PlayAnim(ACT_JUMP, true, false, true, 0, {}, function(sched)
 			self.BOA_OffGround = true
 			//sched.RunCode_OnFinish = function()
-				//self:VJ_ACT_PLAYACTIVITY("fly_attack",true,false,false)
+				//self:PlayAnim("fly_attack",true,false,false)
 			//end
 		end)*/
 		self.BOA_NextRunT = curTime + math.Rand(2, 4)
@@ -181,7 +181,7 @@ function ENT:OnFireBullet(data)
 	local curTime = CurTime()
 	self.BOA_ShotsSinceRun = self.BOA_ShotsSinceRun + 1
 	if self:GetNavType() != NAV_JUMP && curTime > self.BOA_NextRunT && self.BOA_ShotsSinceRun >= 4 then -- Yete amenan keche chors ankam zenke zargadz e, ere vor vaz e!
-		self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH")
+		self:SCHEDULE_COVER_ENEMY("TASK_RUN_PATH")
 		self.BOA_ShotsSinceRun = 0
 		self.BOA_NextJumpT = curTime + math.Rand(2, 4)
 		self.BOA_NextRunT = curTime + math.Rand(4, 6)

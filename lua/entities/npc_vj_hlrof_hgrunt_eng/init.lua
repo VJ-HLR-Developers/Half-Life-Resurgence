@@ -34,7 +34,7 @@ function ENT:OnThinkActive()
 		})
 		if !tr.Hit then
 			self.HECU_NextTurretCheckT = CurTime() + math.Rand(25, 35)
-			self:VJ_ACT_PLAYACTIVITY("pull_torch_wgun", true, false, false, 0, {OnFinish=function(interrupted, anim)
+			self:PlayAnim("pull_torch_wgun", true, false, false, 0, {OnFinish=function(interrupted, anim)
 				if interrupted then -- If interrupted, put torch away and try again very soon!
 					self.HECU_NextTurretCheckT = CurTime() + math.Rand(5, 10)
 					self:StopParticles()
@@ -58,8 +58,8 @@ function ENT:OnThinkActive()
 						end
 					end
 				end)
-				self:VJ_ACT_PLAYACTIVITY("open_floor_grate", true, false, false, 0, {OnFinish=function(interrupted2, anim2)
-					self:VJ_ACT_PLAYACTIVITY("store_torch", true, false)
+				self:PlayAnim("open_floor_grate", true, false, false, 0, {OnFinish=function(interrupted2, anim2)
+					self:PlayAnim("store_torch", true, false)
 				end})
 			end})
 		end

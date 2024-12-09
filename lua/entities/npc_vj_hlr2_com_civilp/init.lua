@@ -279,13 +279,13 @@ function ENT:OnWeaponChange(newWeapon, oldWeapon, invSwitch)
 	//if invSwitch == true then -- Only if it's a inventory switch
 	-- Play the stunstick activation animation
 	if newWeapon:GetClass() == "weapon_vj_hlr2_stunstick" then
-		self:VJ_ACT_PLAYACTIVITY("activatebaton", true, false, true)
+		self:PlayAnim("activatebaton", true, false, true)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Metrocop_DeployManhack()
 	self.Metrocop_HasManhack = false
-	self:VJ_ACT_PLAYACTIVITY("deploy", true, false, true)
+	self:PlayAnim("deploy", true, false, true)
 	self:PlaySoundSystem("GeneralSpeech", sdCop_DeployManhack)
 	
 	-- Backup in case animation cuts out and event is never ran

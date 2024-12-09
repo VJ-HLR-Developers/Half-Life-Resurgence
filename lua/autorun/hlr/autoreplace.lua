@@ -267,7 +267,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 					elseif key == "m_vecLastPosition" then
 						if val != defPos then
 							newEnt:SetLastPosition(val)
-							newEnt:VJ_TASK_GOTO_LASTPOS("TASK_WALK_PATH")
+							newEnt:SCHEDULE_GOTO_POSITION("TASK_WALK_PATH")
 						end
 					elseif key == "m_bShouldPatrol" && val == false then
 						newEnt.DisableWandering = true

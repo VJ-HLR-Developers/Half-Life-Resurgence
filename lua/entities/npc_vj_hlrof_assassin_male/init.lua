@@ -28,7 +28,7 @@ function ENT:HECU_OnThink()
 	if self.VJ_IsBeingControlled then return end
 	if IsValid(self:GetEnemy()) && self.DoingWeaponAttack_Standing == true && self.VJ_IsBeingControlled == false && CurTime() > self.BOA_NextStrafeT && !self:IsMoving() && self:GetPos():Distance(self:GetEnemy():GetPos()) < 1400 then
 		self:StopMoving()
-		self:VJ_ACT_PLAYACTIVITY(animStrafing, true, false, false)
+		self:PlayAnim(animStrafing, true, false, false)
 		self.BOA_NextRunT = CurTime() + 2
 		//if self:GetBodygroup(2) == 1 then
 			//self.BOA_NextStrafeT = CurTime() + 2
@@ -43,7 +43,7 @@ function ENT:OnWeaponAttack()
 	if CurTime() > self.BOA_NextRunT then
 		timer.Simple(0.8, function()
 			if IsValid(self) && !self:IsMoving() && !self.Dead then
-				self:VJ_TASK_COVER_FROM_ENEMY("TASK_RUN_PATH")
+				self:SCHEDULE_COVER_ENEMY("TASK_RUN_PATH")
 			end
 		end)
 		//if self:GetBodygroup(2) == 1 then

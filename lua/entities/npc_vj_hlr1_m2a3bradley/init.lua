@@ -75,13 +75,13 @@ function ENT:Tank_OnThink()
 	-- If moving then close the door
 	if self.Tank_Status == 0 && self.Bradley_DoorOpen then
 		self.Bradley_DoorOpen = false
-		self:VJ_ACT_PLAYACTIVITY(ACT_SPECIAL_ATTACK2, true, false, false)
+		self:PlayAnim(ACT_SPECIAL_ATTACK2, true, false, false)
 	end
 	
 	-- Deploy soldiers
 	if self.Tank_Status == 1 && !self.Bradley_HasSpawnedSoldiers && !self.Bradley_DoorOpen && IsValid(self:GetEnemy()) && GetConVar("vj_hlr1_bradley_deploygrunts"):GetInt() == 1 && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self.Bradley_DoorOpen = true
-		self:VJ_ACT_PLAYACTIVITY(ACT_SPECIAL_ATTACK1, true, false, false)
+		self:PlayAnim(ACT_SPECIAL_ATTACK1, true, false, false)
 		self.Bradley_HasSpawnedSoldiers = true
 		timer.Simple(0.5, function()
 			if IsValid(self) then
@@ -102,7 +102,7 @@ function ENT:Tank_OnThink()
 							if IsValid(hGrunt) then
 								hGrunt:SetState(VJ_STATE_NONE)
 								hGrunt:SetLastPosition(hGrunt:GetPos() + hGrunt:GetForward()*150 + hGrunt:GetRight()*opSide)
-								hGrunt:VJ_TASK_GOTO_LASTPOS("TASK_RUN_PATH")
+								hGrunt:SCHEDULE_GOTO_POSITION("TASK_RUN_PATH")
 							end
 						end)
 						self.Bradley_Grunts[#self.Bradley_Grunts + 1] = hGrunt -- Register the grunt

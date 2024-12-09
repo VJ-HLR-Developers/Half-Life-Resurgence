@@ -199,7 +199,7 @@ function ENT:Init()
 		timer.Simple(0.01, function()
 			if IsValid(self) then
 				self:PlaySoundSystem("Alert", "vj_hlr/hl1_npc/geneworm/geneworm_entry.wav")
-				self:VJ_ACT_PLAYACTIVITY(ACT_ARM, true, false)
+				self:PlayAnim(ACT_ARM, true, false)
 			end
 		end)
 	else
@@ -334,7 +334,7 @@ function ENT:GW_OrbOpenReset()
 	self.GW_EyeHealth = {r=maxEyeHealth, l=maxEyeHealth}
 	self.GW_OrbHealth = maxOrbHealth
 	self:SetSkin(0)
-	self:VJ_ACT_PLAYACTIVITY("pain_4", true, false, false, 0, {}, function(sched)
+	self:PlayAnim("pain_4", true, false, false, 0, {}, function(sched)
 		sched.RunCode_OnFinish = function() -- Just a backup in case event fails
 			self.GW_OrbSprite:Fire("HideSprite")
 			self.GW_BE_Orb:AddFlags(FL_NOTARGET)
@@ -363,12 +363,12 @@ function ENT:GW_EyeHealthCheck()
 			self.GW_BE_Orb:RemoveFlags(FL_NOTARGET)
 			self.GW_OrbOpen = true
 			self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
-			self:VJ_ACT_PLAYACTIVITY("pain_1", true, false)
+			self:PlayAnim("pain_1", true, false)
 			self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain1.wav")
 			self.SoundTbl_Breath = "vj_hlr/hl1_npc/geneworm/geneworm_final_pain2.wav"
 			/*timer.Simple(VJ.AnimDuration(self, "pain_1"),function()
 				if IsValid(self) then
-					self:VJ_ACT_PLAYACTIVITY("pain_2", true, false)
+					self:PlayAnim("pain_2", true, false)
 					self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain2.wav")
 				end
 			end)*/
@@ -408,7 +408,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 			self.GW_EyeHealth.l = self.GW_EyeHealth.l - dmginfo:GetDamage()
 			//print("Left hit!", self.GW_EyeHealth.l)
 			if self.GW_EyeHealth.l <= 0 then
-				self:VJ_ACT_PLAYACTIVITY(ACT_SMALL_FLINCH, true, false)
+				self:PlayAnim(ACT_SMALL_FLINCH, true, false)
 				self:GW_EyeHealthCheck()
 			end
 			dmginfo:SetDamage(0)
@@ -418,7 +418,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 			self.GW_EyeHealth.r = self.GW_EyeHealth.r - dmginfo:GetDamage()
 			//print("Right hit!", self.GW_EyeHealth.r)
 			if self.GW_EyeHealth.r <= 0 then
-				self:VJ_ACT_PLAYACTIVITY(ACT_BIG_FLINCH, true, false)
+				self:PlayAnim(ACT_BIG_FLINCH, true, false)
 				self:GW_EyeHealthCheck()
 			end
 			dmginfo:SetDamage(0)
@@ -431,7 +431,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 				VJ.STOPSOUND(self.CurrentBreathSound)
 				self.PainSoundT = 0 -- Otherwise it won't play the sound because it played another pain sound right before this!
 				self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain3.wav")
-				self:VJ_ACT_PLAYACTIVITY("pain_3", true, false)
+				self:PlayAnim("pain_3", true, false)
 				timer.Simple(VJ.AnimDuration(self, "pain_3"),function()
 					if IsValid(self) then
 						self:GW_OrbOpenReset()

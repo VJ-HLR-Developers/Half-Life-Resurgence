@@ -209,12 +209,12 @@ function ENT:Controller_Initialize(ply, controlEnt)
 				self.VJCE_Player:ChatPrint("Calming down...")
 			end
 		elseif key == IN_ATTACK && npc.SCI_Type == SCI_TYPE_REGULAR && CurTime() > npc.SCI_NextTieAnnoyanceT then
-			npc:VJ_ACT_PLAYACTIVITY(ACT_VM_IDLE_1, true, false)
+			npc:PlayAnim(ACT_VM_IDLE_1, true, false)
 			npc.SCI_NextTieAnnoyanceT = CurTime() + 4
 		-- Keller standing up from the wheelchair
 		elseif key == IN_JUMP && npc.SCI_Type == SCI_TYPE_KELLER && !npc:IsBusy() then
 			npc:SetState(VJ_STATE_ONLY_ANIMATION_CONSTANT)
-			npc:VJ_ACT_PLAYACTIVITY(ACT_STAND, true, false, false, 0, {
+			npc:PlayAnim(ACT_STAND, true, false, false, 0, {
 				-- Already done through event, but also here to make sure it's killed!
 				OnFinish = function(interrupted, anim)
 					if npc.Dead then return end
@@ -272,12 +272,12 @@ function ENT:TranslateActivity(act)
 	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:VJ_TASK_IDLE_STAND()
-	if !self.BaseClass.VJ_TASK_IDLE_STAND(self) then return end
+function ENT:SCHEDULE_IDLE_STAND()
+	if !self.BaseClass.SCHEDULE_IDLE_STAND(self) then return end
 	-- Tie annoyance
 	if self.SCI_Type == SCI_TYPE_REGULAR && CurTime() > self.SCI_NextTieAnnoyanceT && self:GetNPCState() <= NPC_STATE_IDLE then
 		if math.random(1, 8) == 1 then
-			self:VJ_ACT_PLAYACTIVITY(ACT_VM_IDLE_1, true, false)
+			self:PlayAnim(ACT_VM_IDLE_1, true, false)
 		end
 		self.SCI_NextTieAnnoyanceT = CurTime() + math.Rand(25, 100)
 	end
@@ -287,11 +287,11 @@ end
 function ENT:OnMedicBehavior(status, statusData)
 	if status == "BeforeHeal" then
 		-- Healing animation (3)
-		self:VJ_ACT_PLAYACTIVITY(ACT_ARM, true, false, false, 0, {OnFinish=function(interrupted, anim)
+		self:PlayAnim(ACT_ARM, true, false, false, 0, {OnFinish=function(interrupted, anim)
 			if interrupted then return end
-			self:VJ_ACT_PLAYACTIVITY(ACT_MELEE_ATTACK1, true, false, false, 0, {OnFinish=function(interrupted2, anim2)
+			self:PlayAnim(ACT_MELEE_ATTACK1, true, false, false, 0, {OnFinish=function(interrupted2, anim2)
 				if interrupted2 then return end
-				self:VJ_ACT_PLAYACTIVITY(ACT_DISARM, true, false)
+				self:PlayAnim(ACT_DISARM, true, false)
 			end})
 		end})
 	elseif status == "OnReset" then
@@ -306,7 +306,7 @@ function ENT:OnAlert(ent)
 			self:PlaySoundSystem("Alert", "vj_hlr/hl1_npc/scientist/seeheadcrab.wav")
 		end
 		if math.random(1, 2) == 1 && ent:GetPos():Distance(self:GetPos()) >= 300 then
-			self:VJ_ACT_PLAYACTIVITY(ACT_FEAR_DISPLAY, true, false, true)
+			self:PlayAnim(ACT_FEAR_DISPLAY, true, false, true)
 		end
 	end
 end

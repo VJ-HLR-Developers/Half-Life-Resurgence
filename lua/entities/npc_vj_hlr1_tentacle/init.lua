@@ -165,36 +165,36 @@ function ENT:Tentacle_CalculateLevel(eneDist)
 	//print("dist: "..eneDist)
 	if eneDist >= 570 then
 		if self.Tentacle_Level != 3 then
-			self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL3, true, false, false)
+			self:PlayAnim(ACT_SIGNAL3, true, false, false)
 			self:Tentacle_DoLevelChange(1)
 		end
 	elseif eneDist >= 430 then
 		if self.Tentacle_Level != 2 then
 			if self.Tentacle_Level > 2 then
-				self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_HALT, true, false, false)
+				self:PlayAnim(ACT_SIGNAL_HALT, true, false, false)
 				self:Tentacle_DoLevelChange(-1)
 			else
-				self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL2, true, false, false)
+				self:PlayAnim(ACT_SIGNAL2, true, false, false)
 				self:Tentacle_DoLevelChange(1)
 			end
 		end
 	elseif eneDist >= 170 then
 		if self.Tentacle_Level != 1 then
 			if self.Tentacle_Level > 1 then
-				self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_FORWARD, true, false, false)
+				self:PlayAnim(ACT_SIGNAL_FORWARD, true, false, false)
 				self:Tentacle_DoLevelChange(-1)
 			else
-				self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1, true, false, false)
+				self:PlayAnim(ACT_SIGNAL1, true, false, false)
 				self:Tentacle_DoLevelChange(1)
 			end
 		end
 	else
 		if self.Tentacle_Level != 0 then
 			if self.Tentacle_Level > 0 then
-				self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL_ADVANCE, true, false, false)
+				self:PlayAnim(ACT_SIGNAL_ADVANCE, true, false, false)
 				self:Tentacle_DoLevelChange(-1)
 			else
-				self:VJ_ACT_PLAYACTIVITY(ACT_SIGNAL1, true, false, false)
+				self:PlayAnim(ACT_SIGNAL1, true, false, false)
 				self:Tentacle_DoLevelChange(1)
 			end
 		end

@@ -154,7 +154,7 @@ function ENT:OnThinkActive()
 				self:AddFlags(FL_NOTARGET) -- Make it not targetable
 			end
 			self.Sentry_StandDown = true
-			self:VJ_ACT_PLAYACTIVITY("retire", true, 1)
+			self:PlayAnim("retire", true, 1)
 			VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_retract.wav", 65, math.random(100, 110))
 			if self.Sentry_Type == 1 then
 				self.Sentry_SpunUp = false
@@ -198,7 +198,7 @@ function ENT:Sentry_Activate()
 		self.HasPoseParameterLooking = false
 	end
 	self.Sentry_NextAlarmT = CurTime() + 3 -- Make sure the Alarm light doesn't play right away
-	self:VJ_ACT_PLAYACTIVITY("deploy", true, false)
+	self:PlayAnim("deploy", true, false)
 	if self.Sentry_Type == 1 then -- If it's a big turret then do a spin up action
 		timer.Simple(1, function()
 			if IsValid(self) && IsValid(self:GetEnemy()) then
