@@ -14,7 +14,7 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(3, 0, 3.3), -- The offset for the controller when the camera is in first person
 	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
 }
-ENT.IsMedicSNPC = false -- Is this NPC a medic? It will heal friendly players and NPCs
+ENT.IsMedic = false -- Is this NPC a medic? It will heal friendly players and NPCs
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 
 ENT.SoundTbl_FootStep = "vj_hlr/hl1_npc/keller/wheelchair_walk.wav"

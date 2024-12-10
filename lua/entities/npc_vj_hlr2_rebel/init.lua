@@ -193,7 +193,7 @@ function ENT:PreInit()
 		self.Human_Gender = HUMAN_GENDER_FEMALE
 		if math.random(1, 5) == 1 && self.Human_Type != HUMAN_TYPE_ENGINEER && !self.Human_Driver  then -- Medic variant
 			self.Model = mdlFemaleMedic
-			self.IsMedicSNPC = true
+			self.IsMedic = true
 		else
 			self.Model = mdlFemale
 		end
@@ -201,14 +201,14 @@ function ENT:PreInit()
 		self.Human_Gender = HUMAN_GENDER_MALE
 		if math.random(1, 5) == 1 && self.Human_Type != HUMAN_TYPE_ENGINEER && !self.Human_Driver then -- Medic variant
 			self.Model = mdlMaleMedic
-			self.IsMedicSNPC = true
+			self.IsMedic = true
 		else
 			self.Model = mdlMale
 		end
 	end
 	
 	-- Anti-armor and melee inventories
-	if !self.IsMedicSNPC && math.random(1, 3) == 1 then
+	if !self.IsMedic && math.random(1, 3) == 1 then
 		self.WeaponInventory_AntiArmorList = invAntiArmor
 	end
 	if math.random(1, 3) == 1 or self.Human_Type == HUMAN_TYPE_ENGINEER then
@@ -335,7 +335,7 @@ function ENT:OnMaintainRelationships(ent, calculatedDisp, entDist)
 			local ammoType = wep:GetPrimaryAmmoType()
 			if wep:GetPrimaryAmmoType() > -1 then
 				-- Give ammo to player
-				if !self.IsMedicSNPC && ent:GetAmmoCount(ammoType) <= 255 && IsValid(self:GetActiveWeapon()) && !self:IsBusy() then
+				if !self.IsMedic && ent:GetAmmoCount(ammoType) <= 255 && IsValid(self:GetActiveWeapon()) && !self:IsBusy() then
 					if entDist > 100 then
 						self.Human_NextPlyReloadSd = 0
 					else

@@ -326,23 +326,27 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 	end
 end)
 
+HLR_NextStateThink = 0
 hook.Add("Think", "VJ_HLR_AutoReplace_Think", function()
 	-- Make sure the game is loaded
-	if game && game.GetGlobalState then
-		gStatePrecriminal = game.GetGlobalState("gordon_precriminal") == 1
-		gStateAntlionFri = game.GetGlobalState("antlion_allied") == 1
-	end
-	for _,v in ipairs(ents.GetAll()) do
-		if v:IsNPC() then
-			if !gStatePrecriminal && v.VJ_AutoScript_Reset then
-				v.VJ_NPC_Class = v.VJ_AutoScript_OldClass
-				v.VJ_AutoScript_Reset = false
-			end
-			if gStateAntlionFri && v.VJ_HLR_Antlion then
-				table.insert(v.VJ_NPC_Class, "CLASS_PLAYER_ALLY")
-				v.PlayerFriendly = true
-				v.FriendsWithAllPlayerAllies = true
+	if HLR_NextStateThink < CurTime() then
+		if game && game.GetGlobalState then
+			gStatePrecriminal = game.GetGlobalState("gordon_precriminal") == 1
+			gStateAntlionFri = game.GetGlobalState("antlion_allied") == 1
+		end
+		for _,v in ipairs(ents.GetAll()) do
+			if v:IsNPC() then
+				if !gStatePrecriminal && v.VJ_AutoScript_Reset then
+					v.VJ_NPC_Class = v.VJ_AutoScript_OldClass
+					v.VJ_AutoScript_Reset = false
+				end
+				if gStateAntlionFri && v.VJ_HLR_Antlion then
+					table.insert(v.VJ_NPC_Class, "CLASS_PLAYER_ALLY")
+					v.PlayerFriendly = true
+					v.FriendsWithAllPlayerAllies = true
+				end
 			end
 		end
+		HLR_NextStateThink = CurTime() + 2
 	end
 end)

@@ -172,7 +172,7 @@ function ENT:OnThinkActive()
 		if self.Nih_LerpAngleDeath == nil then self.Nih_LerpAngleDeath = self:GetAngles() end
 		self.Nih_LerpAngleDeath = LerpAngle(0.25, self.Nih_LerpAngleDeath, self.Nih_LerpAngleDeath + angY30)
 		self:SetAngles(self.Nih_LerpAngleDeath)
-	elseif IsValid(self:GetEnemy()) && CurTime() > self.Nih_NextSpawn && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) && (!IsValid(self.Nih_Ally1) or !IsValid(self.Nih_Ally2) or !IsValid(self.Nih_Ally3) or !IsValid(self.Nih_Ally4) or !IsValid(self.Nih_Ally5)) then
+	elseif IsValid(self:GetEnemy()) && CurTime() > self.Nih_NextSpawn && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) && (!IsValid(self.Nih_Ally1) or !IsValid(self.Nih_Ally2) or !IsValid(self.Nih_Ally3) or !IsValid(self.Nih_Ally4) or !IsValid(self.Nih_Ally5)) then
 		self:Nih_SpawnAlly()
 		self.Nih_NextSpawn = CurTime() + 15
 	end

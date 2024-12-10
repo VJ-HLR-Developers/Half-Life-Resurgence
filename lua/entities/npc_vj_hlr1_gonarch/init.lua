@@ -137,7 +137,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
 	-- Create baby headcrabs
-	if !self.Dead && IsValid(self:GetEnemy()) && self.CurrentAttackAnimationTime < CurTime() && CurTime() > self.Gonarch_NextBirthT && self.Gonarch_NumBabies < self.Gonarch_BabyLimit && ((self.VJ_IsBeingControlled == false) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+	if !self.Dead && IsValid(self:GetEnemy()) && self.CurrentAttackAnimationTime < CurTime() && CurTime() > self.Gonarch_NextBirthT && self.Gonarch_NumBabies < self.Gonarch_BabyLimit && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self:PlayAnim(ACT_SPECIAL_ATTACK1, true, false, true)
 		self.Gonarch_NextBirthT = CurTime() + 15
 	end

@@ -41,7 +41,7 @@ ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until i
 ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
 ENT.NoChaseAfterCertainRange_Type = "OnlyRange" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
 
-ENT.IsMedicSNPC = true -- Is this NPC a medic? It will heal friendly players and NPCs
+ENT.IsMedic = true -- Is this NPC a medic? It will heal friendly players and NPCs
 ENT.AnimTbl_Medic_GiveHealth = ACT_ARM -- Animations is plays when giving health to an ally
 ENT.Medic_CheckDistance = 1000 -- How far does it check for allies that are hurt? | World units
 ENT.Medic_HealDistance = 600 -- How close does it have to be until it stops moving and heals its ally?

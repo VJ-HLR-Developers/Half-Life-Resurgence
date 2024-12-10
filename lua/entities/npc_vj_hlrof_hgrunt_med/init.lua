@@ -12,7 +12,7 @@ ENT.VJC_Data = {
     FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(5, 0, 1), -- The offset for the controller when the camera is in first person
 }
-ENT.IsMedicSNPC = true -- Is this NPC a medic? It will heal friendly players and NPCs
+ENT.IsMedic = true -- Is this NPC a medic? It will heal friendly players and NPCs
 
 -- Custom
 ENT.HECUMedic_HealBG = 0
