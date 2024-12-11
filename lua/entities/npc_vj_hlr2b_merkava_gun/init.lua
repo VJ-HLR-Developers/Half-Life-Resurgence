@@ -56,22 +56,23 @@ local sdFiringGun = {"vj_hlr/hl2_weapon/hmg1/hmg1_7.wav", "vj_hlr/hl2_weapon/hmg
 --
 function ENT:Tank_OnThinkActive()
 	local ene = self:GetEnemy()
-	if IsValid(ene) && IsValid(self.Spotter) then
+	local spotter = self.Spotter
+	if IsValid(ene) && IsValid(spotter) then
 		-- If our enemy is the spotter, then the class changed!
-		if ene == self.Spotter then
-			self.Spotter.VJ_NPC_Class = self:GetParent().VJ_NPC_Class -- Get from the parent (Chassis) because the gunner's relationship is based from it!
+		if ene == spotter then
+			spotter.VJ_NPC_Class = self:GetParent().VJ_NPC_Class -- Get from the parent (Chassis) because the gunner's relationship is based from it!
 		end
 		if self.Tank_FacingTarget then
 			local att = self:GetAttachment(1)
-			self:FireBullets({
-				Attacker = self,
+			spotter:FireBullets({
+				Attacker = spotter,
 				Damage = 7,
 				Force = 10,
 				Src = att.Pos,
 				Dir = (ene:GetPos() + ene:OBBCenter() - att.Pos):Angle():Forward(),
 				Spread = bulletSpread
 			})
-			VJ.EmitSound(self, sdFiringGun, 100, 100, 1, CHAN_WEAPON)
+			VJ.EmitSound(spotter, sdFiringGun, 100, 100, 1, CHAN_WEAPON)
 			ParticleEffect("vj_rifle_full", att.Pos, att.Ang, self)
 			local shellEffect = EffectData()
 			shellEffect:SetEntity(self)
