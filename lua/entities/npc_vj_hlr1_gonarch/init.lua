@@ -129,7 +129,7 @@ function ENT:Gonarch_BabyDeath()
 	-- Play a sound when one of the babies dies!
 	self.Gonarch_NumBabies = self.Gonarch_NumBabies - 1
 	if CurTime() > self.Gonarch_NextDeadBirthT then
-		self.AllyDeathSoundT = 0
+		self.NextAllyDeathSoundT = 0
 		self:PlaySoundSystem("AllyDeath", sdBabyDeath)
 		self.Gonarch_NextDeadBirthT = CurTime() + 10
 	end

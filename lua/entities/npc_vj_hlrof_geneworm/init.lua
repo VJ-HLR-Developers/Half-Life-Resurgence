@@ -429,7 +429,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 				timer.Remove("gw_closestomach"..self:EntIndex())
 				self.SoundTbl_Breath = nil
 				VJ.STOPSOUND(self.CurrentBreathSound)
-				self.PainSoundT = 0 -- Otherwise it won't play the sound because it played another pain sound right before this!
+				self.NextPainSoundT = 0 -- Otherwise it won't play the sound because it played another pain sound right before this!
 				self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain3.wav")
 				self:PlayAnim("pain_3", true, false)
 				timer.Simple(VJ.AnimDuration(self, "pain_3"),function()
