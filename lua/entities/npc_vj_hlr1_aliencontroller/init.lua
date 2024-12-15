@@ -54,6 +54,8 @@ ENT.GeneralSoundPitch1 = 100
 
 -- Custom
 ENT.AlienC_HomingAttack = false -- false = Regular, true = Homing
+ENT.AlienC_NumFired = 0 -- Used to make sure range attack sound only plays once
+
 ENT.AlienC_FlyAnim_Forward  = 0
 ENT.AlienC_FlyAnim_Backward  = 0
 ENT.AlienC_FlyAnim_Right  = 0
@@ -119,7 +121,7 @@ function ENT:OnInput(key, activator, caller, data)
 		end
 		self.AlienC_HomingAttack = key == "rangeattack_close"
 		self:RangeAttackCode()
-	elseif key == "sprite" && self.AttackType == VJ.ATTACK_TYPE_RANGE && self.AlienC_HomingAttack == false then
+	elseif key == "sprite" && !self.AlienC_HomingAttack && self.AttackType == VJ.ATTACK_TYPE_RANGE then
 		if IsValid(self.ZapSpr1) then
 			self.ZapSpr1:SetNoDraw(false)
 		end
@@ -185,11 +187,21 @@ function ENT:MultipleRangeAttacks()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRangeAttack_BeforeStartTimer(seed)
+	self.AlienC_NumFired = 0
+	self.HasRangeAttackSound = true
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	local ene = self:GetEnemy()
 	if self.AlienC_HomingAttack && IsValid(ene) then
 		projectile.Track_Enemy = ene
 		timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
+	end
+	
+	if self.AlienC_NumFired < 1 then
+		self.AlienC_NumFired = self.AlienC_NumFired + 1
+		self.HasRangeAttackSound = false
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
