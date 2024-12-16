@@ -8,17 +8,17 @@ SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire 		= false -- RPM of the weapon in seconds | Calculation: 60 / RPM
 SWEP.NPC_CustomSpread	 		= 2.5 -- This is added on top of the custom spread that's set inside the SNPC! | Starting from 1: Closer to 0 = better accuracy, Farther than 1 = worse accuracy
-SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/shotgun/shotgun_reload.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
-SWEP.NPC_ExtraFireSound			= {"vj_hlr/hl1_weapon/shotgun/scock1.wav"} -- Plays an extra sound after it fires (Example: Bolt action sound)
+SWEP.NPC_ReloadSound			= "vj_hlr/hl1_weapon/shotgun/shotgun_reload.wav" -- Sounds it plays when the base detects the SNPC playing a reload animation
+SWEP.NPC_ExtraFireSound			= "vj_hlr/hl1_weapon/shotgun/scock1.wav" -- Plays an extra sound after it fires (Example: Bolt action sound)
 SWEP.NPC_ExtraFireSoundTime		= 0.2 -- How much time until it plays the sound (After Firing)?
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
+SWEP.MadeForNPCsOnly = true -- Is this weapon meant to be for NPCs only?
 SWEP.ReplacementWeapon = {"weapon_hl1_shotgun", "weapon_shotgun_hl1"}
-SWEP.WorldModel					= "models/vj_hlr/weapons/w_shotgun.mdl"
-SWEP.HoldType 					= "shotgun"
-SWEP.Spawnable					= false
-SWEP.AdminSpawnable				= false
+SWEP.WorldModel = "models/vj_hlr/weapons/w_shotgun.mdl"
+SWEP.HoldType = "shotgun"
+SWEP.Spawnable = false
+SWEP.AdminSpawnable = false
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch

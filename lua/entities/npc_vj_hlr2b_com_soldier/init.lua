@@ -132,11 +132,11 @@ function ENT:SetAnimationTranslations(wepHoldType)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnPlayCreateSound(sdData, sdFile)
-	if VJ.HasValue(self.SoundTbl_Death,sdFile) then
+	if VJ.HasValue(self.SoundTbl_Death, sdFile) then
 		VJ.EmitSound(self,"vj_hlr/hl2b_npc/combine_soldier/click_terminated.wav")
 		return
 	end
-	if VJ.HasValue(self.DefaultSoundTbl_MeleeAttack,sdFile) then return end
+	if VJ.HasValue(self.DefaultSoundTbl_MeleeAttack, sdFile) then return end
 	VJ.EmitSound(self,"vj_hlr/hl2b_npc/combine_soldier/clik.wav")
 	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self,"vj_hlr/hl2b_npc/combine_soldier/click_off.wav") end end)
 end

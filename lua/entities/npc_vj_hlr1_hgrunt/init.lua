@@ -192,9 +192,8 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnPlayCreateSound(sdData, sdFile)
-	if !self.SoundTbl_Breath[sdFile] then
-		self.HECU_NextMouthMove = CurTime() + SoundDuration(sdFile)
-	end
+	if VJ.HasValue(self.SoundTbl_Breath, sdFile) then return end
+	self.HECU_NextMouthMove = CurTime() + SoundDuration(sdFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)

@@ -53,7 +53,7 @@ ENT.RangeAttackExtraTimers = {0} -- Extra range attack timers, EX: {1, 1.4} | it
 ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
 
 ENT.HasDeathCorpse = false
-ENT.Medic_CanBeHealed = false -- Can this NPC be healed by medics?\
+ENT.Medic_CanBeHealed = false -- Can this NPC be healed by medics?
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Death = {"vj_hlr/hl1_weapon/mortar/mortarhit.wav"}
 local sdExplosions = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
