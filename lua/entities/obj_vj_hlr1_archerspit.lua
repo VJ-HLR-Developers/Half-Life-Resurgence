@@ -24,20 +24,13 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/vj_hlr/opfor/pitdrone_spike.mdl"} -- The models it should spawn with | Picks a random one from the table
-ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 20 -- How much damage should it do when it hits something
-ENT.DirectDamageType = DMG_ACID -- Damage type
-ENT.DecalTbl_DeathDecals = {"VJ_HLR_Spit_Acid"}
+ENT.Model = "models/vj_hlr/opfor/pitdrone_spike.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
+ENT.DirectDamage = 20
+ENT.DirectDamageType = DMG_ACID
+ENT.CollisionDecals = "VJ_HLR_Spit_Acid"
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/bullchicken/bc_acid1.wav", "vj_hlr/hl1_npc/bullchicken/bc_acid2.wav"}
-ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/bullchicken/bc_spithit3.wav"}
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomPhysicsObjectOnInitialize(phys)
-	phys:SetMass(1)
-	phys:EnableGravity(false)
-	phys:EnableDrag(false)
-	phys:SetBuoyancyRatio(0)
-end
+ENT.SoundTbl_OnCollide = "vj_hlr/hl1_npc/bullchicken/bc_spithit3.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetNoDraw(true)
@@ -63,6 +56,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local defAng = Angle(0, 0, 0)
 --
-function ENT:DeathEffects(data, phys)
+function ENT:OnDestroy(data, phys)
 	ParticleEffect("vj_hlr_spore_small", self:GetPos(), defAng)
 end

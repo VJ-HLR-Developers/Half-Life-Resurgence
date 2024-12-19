@@ -24,10 +24,10 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/vj_hlr/weapons/w_grenade.mdl"} -- The models it should spawn with | Picks a random one from the table
-ENT.DecalTbl_DeathDecals = {"VJ_HLR_Scorch"}
-ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/grenade/grenade_hit1.wav","vj_hlr/hl1_weapon/grenade/grenade_hit2.wav","vj_hlr/hl1_weapon/grenade/grenade_hit3.wav"}
-ENT.SoundTbl_OnRemove = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}
+ENT.Model = "models/vj_hlr/weapons/w_grenade.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.CollisionDecals = "VJ_HLR_Scorch"
+ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/grenade/grenade_hit1.wav", "vj_hlr/hl1_weapon/grenade/grenade_hit2.wav", "vj_hlr/hl1_weapon/grenade/grenade_hit3.wav"}
+ENT.SoundTbl_OnRemove = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
 ENT.OnRemoveSoundLevel = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
@@ -36,13 +36,13 @@ function ENT:PreInit()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPhysicsCollide(data, phys)
+function ENT:OnCollision(data, phys)
 	local getVel = phys:GetVelocity()
 	local curVelSpeed = getVel:Length()
 	phys:SetVelocity(getVel * 0.5)
 	
 	if curVelSpeed > 100 then -- If the grenade is going faster than 100, then play the touch sound
-		self:OnCollideSoundCode()
+		self:PlaySound("OnCollide")
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ local vezZ90 = Vector(0, 0, 90)
 local vecZ4 = Vector(0, 0, 4)
 local vezZ100 = Vector(0, 0, 100)
 --
-function ENT:DeathEffects()
+function ENT:OnDestroy()
 	local selfPos = self:GetPos()
 	
 	local spr = ents.Create("env_sprite")
@@ -90,11 +90,9 @@ function ENT:DeathEffects()
 		endpos = self:GetPos() - vezZ100,
 		filter = self
 	})
-	util.Decal(VJ.PICK(self.DecalTbl_DeathDecals), tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
+	util.Decal(VJ.PICK(self.CollisionDecals), tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
 	
-	self:DoDamageCode()
-	self:SetDeathVariablesTrue(nil, nil, false)
+	self:DealDamage()
 	VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 80, 100)
 	VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
-	self:Remove()
 end

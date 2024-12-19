@@ -24,23 +24,17 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/vj_hlr/hl1/crossbow_bolt.mdl"} -- The models it should spawn with | Picks a random one from the table
-ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 50 -- How much damage should it do when it hits something
-ENT.DirectDamageType = DMG_SLASH -- Damage type
-ENT.DecalTbl_DeathDecals = {"Impact.Concrete"}
-ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/crossbow/xbow_hit1.wav"}
+ENT.Model = "models/vj_hlr/hl1/crossbow_bolt.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
+ENT.DirectDamage = 50
+ENT.DirectDamageType = DMG_SLASH
+ENT.CollisionDecals = "Impact.Concrete"
+ENT.SoundTbl_OnCollide = "vj_hlr/hl1_weapon/crossbow/xbow_hit1.wav"
+local sdOnCollideEnt = {"vj_hlr/hl1_weapon/crossbow/xbow_hitbod1.wav", "vj_hlr/hl1_weapon/crossbow/xbow_hitbod2.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomPhysicsObjectOnInitialize(phys)
-	phys:SetMass(1)
-	phys:EnableGravity(false)
-	phys:EnableDrag(false)
-	phys:SetBuoyancyRatio(0)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPhysicsCollide(data, phys)
+function ENT:OnCollision(data, phys)
 	if IsValid(data.HitEntity) then
-		self.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/crossbow/xbow_hitbod1.wav","vj_hlr/hl1_weapon/crossbow/xbow_hitbod2.wav"}
+		self.SoundTbl_OnCollide = sdOnCollideEnt
 	else
 		local spike = ents.Create("prop_dynamic")
 		spike:SetModel("models/vj_hlr/hl1/crossbow_bolt.mdl")

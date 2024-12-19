@@ -73,14 +73,14 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/weapons/w_missile_launch.mdl"} -- The models it should spawn with | Picks a random one from the table
-ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 10 -- How much damage should it do when it hits something
-ENT.DirectDamageType = DMG_SHOCK -- Damage type
-ENT.DecalTbl_DeathDecals = {"VJ_HLR_Scorch_Small"}
+ENT.Model = {"models/weapons/w_missile_launch.mdl"} -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
+ENT.DirectDamage = 10
+ENT.DirectDamageType = DMG_SHOCK
+ENT.CollisionDecals = {"VJ_HLR_Scorch_Small"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro5.wav","vj_hlr/hl1_weapon/gauss/electro6.wav"}
 
-util.AddNetworkString("vj_hlr_svencoop_glow")
+//util.AddNetworkString("vj_hlr_svencoop_glow")
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetNoDraw(true)
@@ -98,15 +98,15 @@ function ENT:Init()
 	self:DeleteOnRemove(self.StartLight1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoDamage(data, phys, hitEnt)
-	-- local ply = player.GetAll()[1]
-    -- net.Start("vj_hlr_svencoop_glow")
-		-- net.WriteEntity(self)
-		-- net.WriteEntity(hitEnt)
-    -- net.Send(ply)
-end
+//function ENT:OnDealDamage(data, phys, hitEnts)
+//	local ply = player.GetAll()[1]
+//    net.Start("vj_hlr_svencoop_glow")
+//		net.WriteEntity(self)
+//		net.WriteEntity(hitEnts)
+//    net.Send(ply)
+//end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DeathEffects(data, phys)
+function ENT:OnDestroy(data, phys)
 	local effectdata = EffectData()
 	effectdata:SetOrigin(data.HitPos)
 	util.Effect("StunstickImpact", effectdata)

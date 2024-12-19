@@ -24,26 +24,23 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = "models/vj_hlr/hla/spit.mdl" -- The models it should spawn with | Picks a random one from the table
-ENT.DoesRadiusDamage = true -- Should it do a blast damage when it hits something?
-ENT.RadiusDamageRadius = 70 -- How far the damage go? The farther away it's from its enemy, the less damage it will do | Counted in world units
-ENT.RadiusDamage = 15 -- How much damage should it deal? Remember this is a radius damage, therefore it will do less damage the farther away the entity is from its enemy
-ENT.RadiusDamageUseRealisticRadius = true -- Should the damage decrease the farther away the enemy is from the position that the projectile hit?
-ENT.RadiusDamageType = DMG_ACID -- Damage type
-ENT.DecalTbl_DeathDecals = {"VJ_HLR_Spit_Acid"}
+ENT.Model = "models/vj_hlr/hla/spit.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.ProjectileType = VJ.PROJ_TYPE_GRAVITY
+ENT.DoesRadiusDamage = true -- Should it deal radius damage when it collides with something?
+ENT.RadiusDamageRadius = 70
+ENT.RadiusDamage = 15
+ENT.RadiusDamageUseRealisticRadius = true -- Should the damage decrease the farther away the hit entity is from the radius origin?
+ENT.RadiusDamageType = DMG_ACID
+ENT.CollisionDecals = "VJ_HLR_Spit_Acid"
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/bullchicken/bc_acid1.wav", "vj_hlr/hl1_npc/bullchicken/bc_acid2.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/bullchicken/bc_spithit1.wav", "vj_hlr/hl1_npc/bullchicken/bc_spithit2.wav"}
 
 -- Custom
 ENT.Spit_AlphaStyle = false -- Should it act like HL Alpha toxic spit?
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomPhysicsObjectOnInitialize(phys)
-	phys:Wake()
-	phys:SetMass(1)
-	phys:SetBuoyancyRatio(0)
-	phys:EnableDrag(false)
-	if IsValid(self:GetOwner()) && self:GetOwner().Bullsquid_BullSquidding == true then
-		phys:EnableGravity(false)
+function ENT:PreInit()
+	if IsValid(self:GetOwner()) && self:GetOwner().Bullsquid_BullSquidding then
+		self.ProjectileType = VJ.PROJ_TYPE_LINEAR
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -78,7 +75,7 @@ function ENT:Init()
 	self:SetAngles(self:GetVelocity():GetNormal():Angle())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DeathEffects(data, phys)
+function ENT:OnDestroy(data, phys)
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model","vj_hl/sprites/bigspit_impact.vmt")
 	spr:SetKeyValue("GlowProxySize","2.0")

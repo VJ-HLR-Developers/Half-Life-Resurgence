@@ -24,20 +24,14 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/spitball_medium.mdl"} -- The models it should spawn with | Picks a random one from the table
-ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 20 -- How much damage should it do when it hits something
-ENT.DirectDamageType = DMG_ACID -- Damage type
-ENT.DecalTbl_DeathDecals = {"VJ_HLR_Spit_Red"}
+ENT.Model = "models/spitball_medium.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.ProjectileType = VJ.PROJ_TYPE_GRAVITY
+ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
+ENT.DirectDamage = 20
+ENT.DirectDamageType = DMG_ACID
+ENT.CollisionDecals = "VJ_HLR_Spit_Red"
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/bullchicken/bc_acid1.wav", "vj_hlr/hl1_npc/bullchicken/bc_acid2.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/bullchicken/bc_spithit1.wav", "vj_hlr/hl1_npc/bullchicken/bc_spithit2.wav"}
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomPhysicsObjectOnInitialize(phys)
-	phys:Wake()
-	phys:EnableGravity(true)
-	phys:EnableDrag(false)
-	phys:SetBuoyancyRatio(0)
-end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetNoDraw(true)
@@ -63,10 +57,10 @@ function ENT:Init()
 	idleSprite:SetParent(self)
 	self:DeleteOnRemove(idleSprite)
 
-	-- ParticleEffectAttach("vj_hl_gonome_idle", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	//ParticleEffectAttach("vj_hl_gonome_idle", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DeathEffects(data, phys)
+function ENT:OnDestroy(data, phys)
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model","vj_hl/sprites/bigspit_red_impact.vmt")
 	spr:SetKeyValue("GlowProxySize","1.0")
@@ -85,5 +79,5 @@ function ENT:DeathEffects(data, phys)
 	spr:Fire("Kill","",0.3)
 	timer.Simple(0.3, function() if IsValid(spr) then spr:Remove() end end)
 
-	-- ParticleEffect("vj_hl_gonome",self:GetPos(),Angle(0,0,0),nil)
+	//ParticleEffect("vj_hl_gonome",self:GetPos(),Angle(0,0,0))
 end

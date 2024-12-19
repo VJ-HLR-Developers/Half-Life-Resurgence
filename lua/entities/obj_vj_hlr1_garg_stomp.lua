@@ -26,16 +26,14 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/spitball_large.mdl"} -- The models it should spawn with | Picks a random one from the table
+ENT.Model = "models/spitball_large.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.MoveCollideType = MOVETYPE_NONE
-ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 100 -- How much damage should it do when it hits something
-ENT.DirectDamageType = DMG_DISSOLVE -- Damage type'
-ENT.DecalTbl_DeathDecals = {"VJ_HLR_Scorch_Small"} -- Decals that paint when the projectile dies | It picks a random one from this table
-ENT.SoundTbl_Startup = {"vj_hlr/hl1_weapon/tripmine/mine_charge.wav"}
-ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav","vj_hlr/hl1_weapon/gauss/electro5.wav","vj_hlr/hl1_weapon/gauss/electro6.wav"}
--- ENT.RemoveOnHit = false
--- ENT.CollideCodeWithoutRemoving = true
+ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
+ENT.DirectDamage = 100
+ENT.DirectDamageType = DMG_DISSOLVE
+ENT.CollisionDecals = "VJ_HLR_Scorch_Small" -- Decals that paint when the projectile dies | It picks a random one from this table
+ENT.SoundTbl_Startup = "vj_hlr/hl1_weapon/tripmine/mine_charge.wav"
+ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav", "vj_hlr/hl1_weapon/gauss/electro5.wav", "vj_hlr/hl1_weapon/gauss/electro6.wav"}
 
 ENT.StartupSoundPitch = VJ.SET(100, 100)
 
@@ -43,40 +41,32 @@ ENT.StartupSoundPitch = VJ.SET(100, 100)
 ENT.Stomp_InitialRan = false
 ENT.Stomp_SpeedMultiplier = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomPhysicsObjectOnInitialize(phys)
-	//phys:Wake()
-	phys:SetMass(1)
-	phys:SetBuoyancyRatio(0)
-	phys:EnableDrag(false)
-	phys:EnableGravity(false)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetNoDraw(true)
 
-	-- self.StartGlow1 = ents.Create("env_sprite")
-	-- self.StartGlow1:SetKeyValue("model","vj_hl/sprites/gwave1.vmt")
-	-- self.StartGlow1:SetKeyValue("rendercolor","224 224 255")
-	-- self.StartGlow1:SetKeyValue("GlowProxySize","5.0")
-	-- self.StartGlow1:SetKeyValue("HDRColorScale","1.0")
-	-- self.StartGlow1:SetKeyValue("renderfx","14")
-	-- self.StartGlow1:SetKeyValue("rendermode","3")
-	-- self.StartGlow1:SetKeyValue("renderamt","255")
-	-- self.StartGlow1:SetKeyValue("disablereceiveshadows","0")
-	-- self.StartGlow1:SetKeyValue("mindxlevel","0")
-	-- self.StartGlow1:SetKeyValue("maxdxlevel","0")
-	-- self.StartGlow1:SetKeyValue("framerate","40.0")
-	-- self.StartGlow1:SetKeyValue("spawnflags","0")
-	-- self.StartGlow1:SetKeyValue("scale","1")
-	-- self.StartGlow1:SetPos(self:GetPos())
-	-- self.StartGlow1:Spawn()
-	-- self.StartGlow1:SetParent(self)
-	-- self:DeleteOnRemove(self.StartGlow1)
+	//local sprite = ents.Create("env_sprite")
+	//sprite:SetKeyValue("model","vj_hl/sprites/gwave1.vmt")
+	//sprite:SetKeyValue("rendercolor","224 224 255")
+	//sprite:SetKeyValue("GlowProxySize","5.0")
+	//sprite:SetKeyValue("HDRColorScale","1.0")
+	//sprite:SetKeyValue("renderfx","14")
+	//sprite:SetKeyValue("rendermode","3")
+	//sprite:SetKeyValue("renderamt","255")
+	//sprite:SetKeyValue("disablereceiveshadows","0")
+	//sprite:SetKeyValue("mindxlevel","0")
+	//sprite:SetKeyValue("maxdxlevel","0")
+	//sprite:SetKeyValue("framerate","40.0")
+	//sprite:SetKeyValue("spawnflags","0")
+	//sprite:SetKeyValue("scale","1")
+	//sprite:SetPos(self:GetPos())
+	//sprite:Spawn()
+	//sprite:SetParent(self)
+	//self:DeleteOnRemove(sprite)
 	
 	//util.SpriteTrail(self, 0, Color(255,0,0), true, 20, 1, 2, 1 / (20 + 1) * 0.5, "vj_hl/sprites/xbeam3.vmt")
 	
 	ParticleEffectAttach("vj_hlr_garg_stomp", PATTACH_ABSORIGIN_FOLLOW, self, 0)
-	-- ParticleEffectAttach("vj_hlr_garg_stomp_2", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	//ParticleEffectAttach("vj_hlr_garg_stomp_2", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
@@ -138,6 +128,6 @@ function ENT:OnThink()
 			res.z = 0
 			phys:SetVelocity(res)
 		end
-		end
+	end
 */
 end

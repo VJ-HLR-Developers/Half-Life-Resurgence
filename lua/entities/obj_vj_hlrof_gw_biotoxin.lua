@@ -24,11 +24,11 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/spitball_large.mdl"} -- The models it should spawn with | Picks a random one from the table
-ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 20 -- How much damage should it do when it hits something
-ENT.DirectDamageType = DMG_ACID -- Damage type
-ENT.DelayedRemove = 1.5 -- Change this to a number greater than 0 to delay the removal of the entity
+ENT.Model = "models/spitball_large.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
+ENT.DirectDamage = 20
+ENT.DirectDamageType = DMG_ACID
+ENT.RemoveDelay = 1.5 -- Setting this greater than 0 will delay the entity's removal | Useful for lingering trail effects
 ENT.SoundTbl_OnCollide = {}
 ENT.SoundTbl_Idle = {}
 
@@ -37,17 +37,8 @@ ENT.Track_Enemy = NULL
 ENT.Track_TrackTime = 0
 ENT.Track_OrgPosition = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomPhysicsObjectOnInitialize(phys)
-	phys:Wake()
-	phys:SetMass(1)
-	phys:SetBuoyancyRatio(0)
-	phys:EnableDrag(false)
-	phys:EnableGravity(false)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetNoDraw(true)
-	
 	ParticleEffectAttach("vj_hlr_geneworm_spit", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

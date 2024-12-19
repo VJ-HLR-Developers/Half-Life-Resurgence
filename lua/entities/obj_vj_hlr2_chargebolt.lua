@@ -24,29 +24,22 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/crossbow_bolt.mdl"} -- The models it should spawn with | Picks a random one from the table
-ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 65 -- How much damage should it do when it hits something
-ENT.DirectDamageType = bit.bor(DMG_SLASH, DMG_DISSOLVE, DMG_SHOCK) -- Damage type
-ENT.DecalTbl_DeathDecals = {"Impact.Concrete"}
+ENT.Model = {"models/crossbow_bolt.mdl"} -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
+ENT.DirectDamage = 65
+ENT.DirectDamageType = bit.bor(DMG_SLASH, DMG_DISSOLVE, DMG_SHOCK)
+ENT.CollisionDecals = {"Impact.Concrete"}
 ENT.SoundTbl_Idle = {"ambient/energy/electric_loop.wav"}
 ENT.SoundTbl_OnCollide = {"ambient/energy/weld1.wav","ambient/energy/weld2.wav"}
 
 ENT.IdleSoundLevel = 60
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnInitializeBeforePhys()
+function ENT:InitPhys()
+	self:SetMaterial("models/hl_resurgence/hl2/weapons/w_chargebow_arrow")
 	self:PhysicsInitSphere(1, "metal_bouncy")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomPhysicsObjectOnInitialize(phys)
-	phys:SetMass(1)
-	phys:EnableGravity(false)
-	phys:EnableDrag(false)
-	phys:SetBuoyancyRatio(0)
-	self:SetMaterial("models/hl_resurgence/hl2/weapons/w_chargebow_arrow")
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPhysicsCollide(data, phys)
+function ENT:OnCollision(data, phys)
 	if !IsValid(data.HitEntity) then
 		local bolt = ents.Create("prop_dynamic")
 		bolt:SetModel("models/crossbow_bolt.mdl")
@@ -63,6 +56,9 @@ function ENT:CustomOnPhysicsCollide(data, phys)
 	util.Effect("StunstickImpact", effectSpark)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoDamage_Direct(data, phys, hitEnt)
-	hitEnt:Ignite(3)
+function ENT:OnDealDamage(data, phys, hitEnts)
+	if !hitEnts then return end
+	for _, ent in ipairs(hitEnts) do
+		ent:Ignite(3)
+	end
 end

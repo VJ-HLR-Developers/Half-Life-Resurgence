@@ -24,40 +24,32 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/spitball_large.mdl"} -- The models it should spawn with | Picks a random one from the table
-ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 25 -- How much damage should it do when it hits something
-ENT.DirectDamageType = DMG_SHOCK -- Damage type
-ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav","vj_hlr/hl1_weapon/gauss/electro5.wav","vj_hlr/hl1_weapon/gauss/electro6.wav"}
-ENT.DecalTbl_DeathDecals = {"VJ_HLR_Scorch"} -- Decals that paint when the projectile dies | It picks a random one from this table
-ENT.DelayedRemove = 1 -- Change this to a number greater than 0 to delay the removal of the entity
+ENT.Model = "models/spitball_large.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
+ENT.DirectDamage = 25
+ENT.DirectDamageType = DMG_SHOCK
+ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav", "vj_hlr/hl1_weapon/gauss/electro5.wav", "vj_hlr/hl1_weapon/gauss/electro6.wav"}
+ENT.CollisionDecals = "VJ_HLR_Scorch" -- Decals that paint when the projectile dies | It picks a random one from this table
+ENT.RemoveDelay = 1 -- Setting this greater than 0 will delay the entity's removal | Useful for lingering trail effects
 
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomPhysicsObjectOnInitialize(phys)
-	phys:Wake()
-	phys:SetMass(1)
-	phys:SetBuoyancyRatio(0)
-	phys:EnableDrag(false)
-	phys:EnableGravity(false)
-end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetNoDraw(true)
 	
-	self.Glow1 = ents.Create("env_sprite")
-	self.Glow1:SetKeyValue("model","vj_hl/sprites/flare3.vmt")
-	self.Glow1:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
-	self.Glow1:SetKeyValue("renderfx","14")
-	self.Glow1:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-	self.Glow1:SetKeyValue("renderamt","255") -- Transparency
-	self.Glow1:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-	self.Glow1:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
-	self.Glow1:SetKeyValue("spawnflags","0")
-	self.Glow1:SetPos(self:GetPos())
-	self.Glow1:SetParent(self)
-	self.Glow1:Spawn()
-	self.Glow1:Activate()
-	self:DeleteOnRemove(self.Glow1)
+	local sprite = ents.Create("env_sprite")
+	sprite:SetKeyValue("model","vj_hl/sprites/flare3.vmt")
+	sprite:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+	sprite:SetKeyValue("renderfx","14")
+	sprite:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
+	sprite:SetKeyValue("renderamt","255") -- Transparency
+	sprite:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+	sprite:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+	sprite:SetKeyValue("spawnflags","0")
+	sprite:SetPos(self:GetPos())
+	sprite:SetParent(self)
+	sprite:Spawn()
+	sprite:Activate()
+	self:DeleteOnRemove(sprite)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Vort_DoElecEffect(sp, hp, hn, a, t)

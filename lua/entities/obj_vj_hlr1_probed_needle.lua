@@ -24,48 +24,42 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/vj_hlr/hla/pb_dart.mdl"} -- The models it should spawn with | Picks a random one from the table
-ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 15 -- How much damage should it do when it hits something
-ENT.DirectDamageType = DMG_POISON -- Damage type
-ENT.DecalTbl_DeathDecals = {"Impact.Concrete"}
+ENT.Model = "models/vj_hlr/hla/pb_dart.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
+ENT.DirectDamage = 15
+ENT.DirectDamageType = DMG_POISON
+ENT.CollisionDecals = "Impact.Concrete"
 ENT.OnCollideSoundPitch = VJ.SET(100, 100)
 
+local sdOnCollideEnt = {"vj_hlr/hl1_weapon/crossbow/xbow_hitbod1.wav", "vj_hlr/hl1_weapon/crossbow/xbow_hitbod2.wav"}
 local defAng = Angle(0 ,0, 0)
 
 -- Custom
 ENT.Needle_Heal = false -- Is this a healing needle?
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomPhysicsObjectOnInitialize(phys)
-	phys:SetMass(1)
-	phys:EnableGravity(false)
-	phys:EnableDrag(false)
-	phys:SetBuoyancyRatio(0)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	if self.Needle_Heal == true then
 		self.DoesDirectDamage = false
 	else
-		ParticleEffect("vj_hlr_spit_drone_spawn_old", self:GetPos(), defAng, nil)
+		ParticleEffect("vj_hlr_spit_drone_spawn_old", self:GetPos(), defAng)
 		ParticleEffectAttach("vj_hlr_spit_drone", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPhysicsCollide(data, phys)
+function ENT:OnCollision(data, phys)
 	local hitEnt = data.HitEntity
 	if IsValid(hitEnt) then
-		self.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/crossbow/xbow_hitbod1.wav", "vj_hlr/hl1_weapon/crossbow/xbow_hitbod2.wav"}
+		self.SoundTbl_OnCollide = sdOnCollideEnt
 		-- Only for healing
 		if self.Needle_Heal == false or !IsValid(self:GetOwner()) then return end
 		if self:GetOwner():Disposition(hitEnt) then
-			self.SoundTbl_OnCollide = {"items/smallmedkit1.wav"}
+			self.SoundTbl_OnCollide = "items/smallmedkit1.wav"
 			hitEnt:RemoveAllDecals()
 			local friHP = hitEnt:Health()
 			hitEnt:SetHealth(math.Clamp(friHP + 40, friHP, hitEnt:GetMaxHealth()))
 		end
 	else
-		self.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/crossbow/xbow_hit1.wav"}
+		self.SoundTbl_OnCollide = "vj_hlr/hl1_weapon/crossbow/xbow_hit1.wav"
 		local spike = ents.Create("prop_dynamic")
 		spike:SetModel("models/vj_hlr/hla/pb_dart.mdl")
 		spike:SetPos(data.HitPos + data.HitNormal + self:GetForward()*-5)
@@ -76,13 +70,15 @@ function ENT:CustomOnPhysicsCollide(data, phys)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnDoDamage_Direct(data, phys, hitEnt)
+function ENT:OnDealDamage(data, phys, hitEnts)
 	-- Only for attacks
-	if self.Needle_Heal == true then return end
-	VJ.ApplySpeedEffect(hitEnt, 0.2, 5)
+	if !hitEnts or self.Needle_Heal then return end
+	for _, ent in ipairs(hitEnts) do
+		VJ.ApplySpeedEffect(ent, 0.2, 5)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DeathEffects(data, phys)
-	if self.Needle_Heal == true then return end
-	ParticleEffect("vj_hlr_spit_drone_impact", self:GetPos(), defAng, nil)
+function ENT:OnDestroy(data, phys)
+	if self.Needle_Heal then return end
+	ParticleEffect("vj_hlr_spit_drone_impact", self:GetPos(), defAng)
 end

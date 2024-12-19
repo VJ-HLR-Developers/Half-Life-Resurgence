@@ -26,13 +26,13 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/spitball_large.mdl"} -- The models it should spawn with | Picks a random one from the table
-ENT.DoesDirectDamage = true -- Should it do a direct damage when it hits something?
-ENT.DirectDamage = 30 -- How much damage should it do when it hits something
-ENT.DirectDamageType = DMG_DISSOLVE -- Damage type
-ENT.DelayedRemove = 1.5 -- Change this to a number greater than 0 to delay the removal of the entity
-ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav","vj_hlr/hl1_weapon/gauss/electro5.wav","vj_hlr/hl1_weapon/gauss/electro6.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/kingpin/kingpin_seeker_amb.wav"}
+ENT.Model = "models/spitball_large.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
+ENT.DirectDamage = 30
+ENT.DirectDamageType = DMG_DISSOLVE
+ENT.RemoveDelay = 1.5 -- Setting this greater than 0 will delay the entity's removal | Useful for lingering trail effects
+ENT.SoundTbl_Idle = "vj_hlr/hl1_npc/kingpin/kingpin_seeker_amb.wav"
+ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav", "vj_hlr/hl1_weapon/gauss/electro5.wav", "vj_hlr/hl1_weapon/gauss/electro6.wav"}
 
 -- Custom
 local defVec = Vector(0, 0, 0)
@@ -41,35 +41,27 @@ ENT.Track_Enemy = NULL
 ENT.Track_Position = defVec
 ENT.Track_OrbSpeed = 200
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomPhysicsObjectOnInitialize(phys)
-	phys:Wake()
-	phys:SetMass(1)
-	phys:SetBuoyancyRatio(0)
-	phys:EnableDrag(false)
-	phys:EnableGravity(false)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetNoDraw(true)
 	
-	self.StartGlow1 = ents.Create("env_sprite")
-	self.StartGlow1:SetKeyValue("model","vj_hl/sprites/nhth1.vmt")
-	self.StartGlow1:SetKeyValue("GlowProxySize","2.0")
-	self.StartGlow1:SetKeyValue("HDRColorScale","1.0")
-	self.StartGlow1:SetKeyValue("renderfx","14")
-	self.StartGlow1:SetKeyValue("rendermode","3")
-	self.StartGlow1:SetKeyValue("renderamt","255")
-	self.StartGlow1:SetKeyValue("disablereceiveshadows","0")
-	self.StartGlow1:SetKeyValue("mindxlevel","0")
-	self.StartGlow1:SetKeyValue("maxdxlevel","0")
-	self.StartGlow1:SetKeyValue("framerate","10.0")
-	self.StartGlow1:SetKeyValue("spawnflags","0")
-	self.StartGlow1:SetKeyValue("scale","1")
-	self.StartGlow1:SetPos(self:GetPos())
-	self.StartGlow1:Spawn()
-	self.StartGlow1:SetParent(self)
-	self:DeleteOnRemove(self.StartGlow1)
-	util.SpriteTrail(self, 0, Color(255,127,223,180), true, 50, 0, 1.5, 1/(6 + 0)*0.5, "vj_hl/sprites/laserbeam.vmt")
+	self.MainSprite = ents.Create("env_sprite")
+	self.MainSprite:SetKeyValue("model","vj_hl/sprites/nhth1.vmt")
+	self.MainSprite:SetKeyValue("GlowProxySize","2.0")
+	self.MainSprite:SetKeyValue("HDRColorScale","1.0")
+	self.MainSprite:SetKeyValue("renderfx","14")
+	self.MainSprite:SetKeyValue("rendermode","3")
+	self.MainSprite:SetKeyValue("renderamt","255")
+	self.MainSprite:SetKeyValue("disablereceiveshadows","0")
+	self.MainSprite:SetKeyValue("mindxlevel","0")
+	self.MainSprite:SetKeyValue("maxdxlevel","0")
+	self.MainSprite:SetKeyValue("framerate","10.0")
+	self.MainSprite:SetKeyValue("spawnflags","0")
+	self.MainSprite:SetKeyValue("scale","1")
+	self.MainSprite:SetPos(self:GetPos())
+	self.MainSprite:Spawn()
+	self.MainSprite:SetParent(self)
+	self:DeleteOnRemove(self.MainSprite)
+	util.SpriteTrail(self, 0, Color(255, 127, 223, 180), true, 50, 0, 1.5, 1/(6 + 0)*0.5, "vj_hl/sprites/laserbeam.vmt")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
@@ -90,6 +82,6 @@ function ENT:OnThink()
 	self.Track_OrbSpeed = math.Clamp(self.Track_OrbSpeed + 10, 200, 2000)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnPhysicsCollide(data, phys)
-	self.StartGlow1:Remove()
+function ENT:OnCollision(data, phys)
+	self.MainSprite:Remove()
 end

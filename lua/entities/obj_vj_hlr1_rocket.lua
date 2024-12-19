@@ -43,15 +43,15 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/vj_hlr/hl1/rpgrocket.mdl"} -- The models it should spawn with | Picks a random one from the table
-ENT.DoesRadiusDamage = true -- Should it do a blast damage when it hits something?
-ENT.RadiusDamageRadius = 150 -- How far the damage go? The farther away it's from its enemy, the less damage it will do | Counted in world units
-ENT.RadiusDamage = 100 -- How much damage should it deal? Remember this is a radius damage, therefore it will do less damage the farther away the entity is from its enemy
-ENT.RadiusDamageUseRealisticRadius = true -- Should the damage decrease the farther away the enemy is from the position that the projectile hit?
-ENT.RadiusDamageType = DMG_BLAST -- Damage type
-ENT.RadiusDamageForce = 90 -- Put the force amount it should apply | false = Don't apply any force
-ENT.DelayedRemove = 6 -- Change this to a number greater than 0 to delay the removal of the entity
-ENT.DecalTbl_DeathDecals = {"VJ_HLR_Scorch"}
+ENT.Model = {"models/vj_hlr/hl1/rpgrocket.mdl"} -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.DoesRadiusDamage = true -- Should it deal radius damage when it collides with something?
+ENT.RadiusDamageRadius = 150
+ENT.RadiusDamage = 100
+ENT.RadiusDamageUseRealisticRadius = true -- Should the damage decrease the farther away the hit entity is from the radius origin?
+ENT.RadiusDamageType = DMG_BLAST
+ENT.RadiusDamageForce = 90 -- Damage force to apply to the hit entity | false = Don't apply any force
+ENT.RemoveDelay = 6 -- Setting this greater than 0 will delay the entity's removal | Useful for lingering trail effects
+ENT.CollisionDecals = {"VJ_HLR_Scorch"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_weapon/rpg/rocket1.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}
 ENT.OnCollideSoundLevel = 100
@@ -145,7 +145,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vecZ80 = Vector(0, 0, 80)
 --
-function ENT:DeathEffects(data, phys)
+function ENT:OnDestroy(data, phys)
 	util.ScreenShake(data.HitPos, 16, 200, 1, 3000)
 	if IsValid(self.StartGlow1) then self.StartGlow1:Remove() end
 	
