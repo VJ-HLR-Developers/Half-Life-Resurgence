@@ -112,7 +112,7 @@ function ENT:OnMedicBehavior(status, statusData)
 		local phys = needle:GetPhysicsObject()
 		if IsValid(phys) then
 			phys:Wake()
-			phys:SetVelocity(self:CalculateProjectile("Line", attPos, self:GetAimPosition(statusData, attPos, 1, 1500), 1500))
+			phys:SetVelocity(VJ.CalculateTrajectory(self, self.Medic_CurrentEntToHeal, "Line", needle:GetPos(), 1, 1500))
 		end
 		return false
 	end
@@ -143,8 +143,7 @@ function ENT:RangeAttackProjSpawnPos(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjVelocity(projectile)
-	local projPos = projectile:GetPos()
-	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 1500), 1500)
+	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projectile:GetPos(), 1, 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
@@ -168,18 +167,19 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		VJ.ApplyRadiusDamage(self, self, self:GetPos(), 75, 25, DMG_BLAST, false, true)
 		VJ.EmitSound(self, "vj_hlr/hla_npc/prdroid/explode.wav", 90, 100)
 		local applyForce = self.HasDeathAnimation and false or true
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_cap.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("sphere01")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_armpiece.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed011")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_armpiece.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed007")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_claw.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed012")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_claw.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed008")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_dshooter.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed005")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_tail.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed014")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_upperarm.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed011")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_upperarm.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed007")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_body.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed003")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_forearm.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed011")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_forearm.mdl", {BloodDecal="", Ang=self:GetAngles(), Pos=self:GetBonePosition(self:LookupBone("unnamed007")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		local myAngs = self:GetAngles()
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_cap.mdl", {BloodDecal="", Ang=myAngs, Pos=self:GetBonePosition(self:LookupBone("sphere01")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_armpiece.mdl", {BloodDecal="", Ang=myAngs, Pos=self:GetBonePosition(self:LookupBone("unnamed011")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_armpiece.mdl", {BloodDecal="", Ang=myAngs, Pos=self:GetBonePosition(self:LookupBone("unnamed007")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_claw.mdl", {BloodDecal="", Ang=myAngs, Pos=self:GetBonePosition(self:LookupBone("unnamed012")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_claw.mdl", {BloodDecal="", Ang=myAngs, Pos=self:GetBonePosition(self:LookupBone("unnamed008")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_dshooter.mdl", {BloodDecal="", Ang=myAngs, Pos=self:GetBonePosition(self:LookupBone("unnamed005")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_tail.mdl", {BloodDecal="", Ang=myAngs, Pos=self:GetBonePosition(self:LookupBone("unnamed014")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_upperarm.mdl", {BloodDecal="", Ang=myAngs, Pos=self:GetBonePosition(self:LookupBone("unnamed011")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_upperarm.mdl", {BloodDecal="", Ang=myAngs, Pos=self:GetBonePosition(self:LookupBone("unnamed007")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_body.mdl", {BloodDecal="", Ang=myAngs, Pos=self:GetBonePosition(self:LookupBone("unnamed003")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_forearm.mdl", {BloodDecal="", Ang=myAngs, Pos=self:GetBonePosition(self:LookupBone("unnamed011")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_forearm.mdl", {BloodDecal="", Ang=myAngs, Pos=self:GetBonePosition(self:LookupBone("unnamed007")), CollideSound=collideSds, Vel_ApplyDmgForce=applyForce})
 
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")

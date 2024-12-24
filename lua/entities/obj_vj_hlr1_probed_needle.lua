@@ -38,7 +38,8 @@ local defAng = Angle(0 ,0, 0)
 ENT.Needle_Heal = false -- Is this a healing needle?
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-	if self.Needle_Heal == true then
+	if self.Needle_Heal then
+		self.CollisionFilter = false
 		self.DoesDirectDamage = false
 	else
 		ParticleEffect("vj_hlr_spit_drone_spawn_old", self:GetPos(), defAng)
