@@ -293,7 +293,7 @@ function ENT:CustomRangeAttackCode()
 	bullet.AmmoType = "AR2"
 	self:FireBullets(bullet)
 	
-	VJ.EmitSound(self, sdFiring, 90, self:VJ_DecideSoundPitch(100, 110))
+	VJ.EmitSound(self, sdFiring, 90, math.random(100, 110))
 	
 	-- Effects & Light
 	//ParticleEffect("vj_rifle_full_blue", startPos, self:GetAngles(), self)

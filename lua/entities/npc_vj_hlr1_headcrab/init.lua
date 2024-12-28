@@ -82,7 +82,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo, hitgroup, status)
 	if status == "PriorExecution" then
-		return self:IsOnGround() -- If it's not on ground, then don't play flinch so it won't cut off leap attacks mid air!
+		return !self:IsOnGround() -- If it's not on ground, then don't play flinch so it won't cut off leap attacks mid air!
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

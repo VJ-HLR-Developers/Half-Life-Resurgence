@@ -31,7 +31,7 @@ ENT.RangeAttackAngleRadius = 180 -- What is the attack angle radius? | 100 = In 
 ENT.TimeUntilRangeAttackProjectileRelease = 0 -- How much time until the projectile code is ran?
 ENT.NextRangeAttackTime = 1.5 -- How much time until it can use a range attack?
 
-ENT.DeathCorpseEntityClass = "prop_vj_animatable" -- The entity class it creates | "UseDefaultBehavior" = Let the base automatically detect the type
+ENT.DeathCorpseEntityClass = "prop_vj_animatable" -- Corpse's class | false = Let the base automatically detect the class
 ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Death = {"vj_hlr/fx/bustflesh1.wav","vj_hlr/fx/bustflesh2.wav"}

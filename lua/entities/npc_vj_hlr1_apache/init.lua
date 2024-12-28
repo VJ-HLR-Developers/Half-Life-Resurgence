@@ -192,7 +192,7 @@ function ENT:CustomAttack()
 			Tracer = 1,
 			TracerName = "VJ_HLR_Tracer",
 			Force = 3,
-			Damage = self:VJ_GetDifficultyValue(8),
+			Damage = self:ScaleByDifficulty(8),
 			AmmoType = "HelicopterGun"
 		})
 		VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1.wav", 120, 100, 1, CHAN_WEAPON)

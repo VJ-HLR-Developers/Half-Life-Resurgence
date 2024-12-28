@@ -273,7 +273,6 @@ end
 local vecUp20 = Vector(0, 0, 20)
 --
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	print('TEST')
 	if status == "Finish" then
 		-- Explosion sprite
 		local spr = ents.Create("env_sprite")
