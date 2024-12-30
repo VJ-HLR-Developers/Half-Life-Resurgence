@@ -263,12 +263,7 @@ if VJExists == true then
 	game.AddDecal("VJ_HLR_Scorch_Small", {"vj_hl/decals/smscorch1", "vj_hl/decals/smscorch2", "vj_hl/decals/smscorch3"})
 	game.AddDecal("VJ_HLR_Gargantua_Stomp", {"vj_hl/decals/gargstomp"})
 	-- Bullet Holes
-	game.AddDecal("VJ_HLR_Bullet_Hole", {"vj_hl/decals/shot1", "vj_hl/decals/shot2", "vj_hl/decals/shot3", "vj_hl/decals/shot4", "vj_hl/decals/shot5"})
-	/*
-	function SWEP:OnPrimaryAttack_BulletCallback(attacker, tr, dmginfo)
-		util.Decal("VJ_HLR_Bullet_Hole", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
-	end
-	*/
+	game.AddDecal("VJ_HLR1_Impact", {"vj_hl/decals/shot1", "vj_hl/decals/shot2", "vj_hl/decals/shot3", "vj_hl/decals/shot4", "vj_hl/decals/shot5"})
 	
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Particles ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -496,6 +491,28 @@ sound.Add({
 
 		sound.Play("vj_hlr/hl1_weapon/explosion/explode"..math.random(1, 3)..".wav", pos, 150)
 		return spr
+	end
+	---------------------------------------------------------------------------------------------------------------------------------------------
+	local excludedMats = {
+		[MAT_ANTLION] = true,
+		[MAT_ALIENFLESH] = true,
+		[MAT_BLOODYFLESH] = true,
+		[MAT_FLESH] = true,
+	}
+	function VJ.HLR_Effect_Impact(tr)
+		if !excludedMats[tr.MatType] then
+			local effectData = EffectData()
+			effectData:SetEntity(tr.Entity)
+			effectData:SetStart(tr.StartPos)
+			effectData:SetOrigin(tr.HitPos)
+			effectData:SetNormal(tr.HitNormal)
+			effectData:SetHitBox(tr.HitBox)
+			effectData:SetSurfaceProp(tr.SurfaceProps)
+			effectData:SetFlags(1)
+			util.Effect("Impact_GMOD", effectData)
+			util.Decal("VJ_HLR1_Impact", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
+			return true
+		end
 	end
 	---------------------------------------------------------------------------------------------------------------------------------------------
 	local defGibs_Yellow = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib6.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}

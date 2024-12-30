@@ -53,6 +53,10 @@ function SWEP:Init()
 	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:DoImpactEffect(tr, damageType)
+	return VJ.HLR_Effect_Impact(tr)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnDrawWorldModel() -- This is client only!
 	if IsValid(self:GetOwner()) then
 		self.WorldModel_Invisible = true

@@ -12,6 +12,8 @@ ENT.Author 			= "Cpt. Hazama"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectile, usually used for NPCs & Weapons"
 ENT.Category		= "Projectiles"
+
+ENT.PhysicsSolidMask = MASK_SHOT
 ---------------------------------------------------------------------------------------------------------------------------------------------
 if CLIENT then
 	local Name = "Charged Bolt"
