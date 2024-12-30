@@ -24,7 +24,7 @@ ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to e
 ENT.IdleAlwaysWander = false -- Should the NPC constantly wander while idling?
 ENT.CanOpenDoors = false -- Can it open doors?
 
-ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
+ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
@@ -332,7 +332,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 						corpse.FadeCorpseType = "FadeAndRemove"
 						corpse.IsVJBaseCorpse = true
 						corpse.ChildEnts = {}
-						self.BloodColor = "Yellow"
+						self.BloodColor = VJ.BLOOD_COLOR_YELLOW
 						self.HasBloodParticle = true
 						self.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 						self.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"}

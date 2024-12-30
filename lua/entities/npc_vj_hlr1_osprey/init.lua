@@ -91,7 +91,7 @@ function ENT:Init()
 		gunner.MovementType = VJ_MOVETYPE_STATIONARY
 		gunner.DisableWeapons = true
 		gunner.CanTurnWhileStationary = false
-		gunner.NoWeapon_UseScaredBehavior = false
+		gunner.Weapon_UnarmedBehavior = false
 		gunner.Medic_CanBeHealed = false
 		gunner.HasDeathAnimation = false
 		gunner.VJ_NPC_Class = self.VJ_NPC_Class

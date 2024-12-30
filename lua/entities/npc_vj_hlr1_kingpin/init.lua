@@ -16,7 +16,7 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
-ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
+ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
@@ -41,8 +41,8 @@ ENT.NextRangeAttackTime_DoRand = 8 -- False = Don't use random time | Number = P
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD, ACT_DIEBACKWARD}
-ENT.FootStepTimeRun = 2-- Next foot step sound when it is running
-ENT.FootStepTimeWalk = 2 -- Next foot step sound when it is walking
+ENT.FootStepTimeRun = 2-- Delay between footstep sounds while it is running | false = Disable while running
+ENT.FootStepTimeWalk = 2 -- Delay between footstep sounds while it is walking | false = Disable while walking
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
@@ -68,7 +68,7 @@ ENT.KingPin_NextPsionicAttackT = 0
 function ENT:Init()
 	self:SetCollisionBounds(Vector(35, 35, 110),Vector(-35, -35, 0))
 	self:SetNW2Bool("PsionicEffect", false)
-	self:SetImpactEnergyScale(0.01) -- By default take minimum physics damage
+	self:SetPhysicsDamageScale(0.01) -- By default take minimum physics damage
 	self.KingPin_NextScanT = CurTime() + math.Rand(1, 5)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -127,7 +127,7 @@ function ENT:KingPin_ResetPsionicAttack()
 	self:SetNW2Bool("PsionicEffect", false)
 	timer.Simple(1, function() -- Wait little bit before resetting the physics damage scale to make sure no flying objects hit it!
 		if IsValid(self) && !self.GodMode then
-			self:SetImpactEnergyScale(0.01) -- Reset physics damage back to default
+			self:SetPhysicsDamageScale(0.01) -- Reset physics damage back to default
 		end
 	end)
 end
@@ -148,7 +148,7 @@ function ENT:CustomAttack(ene, eneVisible)
 		
 		-- If greater then 1, then we found an object!
 		if #pTbl > 0 then
-			self:SetImpactEnergyScale(0) -- Take no physics damage
+			self:SetPhysicsDamageScale(0) -- Take no physics damage
 			self.AttackType = VJ.ATTACK_TYPE_CUSTOM
 			self.GodMode = true
 			self:SetNW2Bool("PsionicEffect", true)

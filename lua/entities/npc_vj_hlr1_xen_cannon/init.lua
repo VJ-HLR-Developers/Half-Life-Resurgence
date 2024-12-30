@@ -56,7 +56,7 @@ ENT.Cannon_LockTime = 0
 function ENT:Init()
 	self:SetCollisionBounds(Vector(45, 45, 65), Vector(-45, -45, 0))
 	self.Cannon_LockTime = CurTime() + 0.3 -- Prevent spawn-killing
-	self:SetImpactEnergyScale(0.001) -- Take minimum physics damage
+	self:SetPhysicsDamageScale(0.001) -- Take minimum physics damage
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)

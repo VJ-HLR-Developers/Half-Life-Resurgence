@@ -10,10 +10,10 @@ ENT.StartHealth = 60
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_COMBINE"} -- NPCs with the same class with be allied to each other
-ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
+ENT.BloodColor = VJ.BLOOD_COLOR_RED -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.MeleeAttackDamage = 10
-ENT.FootStepTimeRun = 0.25 -- Next foot step sound when it is running
-ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
+ENT.FootStepTimeRun = 0.25 -- Delay between footstep sounds while it is running | false = Disable while running
+ENT.FootStepTimeWalk = 0.5 -- Delay between footstep sounds while it is walking | false = Disable while walking
 ENT.HasGrenadeAttack = true -- Should the NPC have a grenade attack?
 ENT.GrenadeAttackModel = "models/weapons/w_npcnade.mdl" -- Overrides the model of the grenade | Can be nil, string, and table | Does NOT apply to picked up grenades and forced grenade attacks with custom entity
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound

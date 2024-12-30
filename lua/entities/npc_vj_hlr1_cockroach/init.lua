@@ -17,13 +17,13 @@ ENT.VJC_Data = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.CanOpenDoors = false -- Can it open doors?
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE -- Type of AI behavior to use for this NPC
-ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
+ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
 ENT.HasMeleeAttack = false -- Can this NPC melee attack?
-ENT.FootStepTimeRun = 3 -- Next foot step sound when it is running
-ENT.FootStepTimeWalk = 3 -- Next foot step sound when it is walking
+ENT.FootStepTimeRun = 3 -- Delay between footstep sounds while it is running | false = Disable while running
+ENT.FootStepTimeWalk = 3 -- Delay between footstep sounds while it is walking | false = Disable while walking
 ENT.HasImpactSounds = false
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/roach/rch_walk.wav"}

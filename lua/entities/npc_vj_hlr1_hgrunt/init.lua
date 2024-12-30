@@ -14,7 +14,7 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(3, 0, 5), -- The offset for the controller when the camera is in first person
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
+ENT.BloodColor = VJ.BLOOD_COLOR_RED -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Particle = {"vj_hlr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
@@ -47,7 +47,7 @@ ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_H
 //ENT.DeathAnimationTime = 0.8 -- How long should the death animation play?
 ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE -- The animation it plays when hiding in a covered position, leave empty to let the base decide
 ENT.AnimTbl_WeaponAttackSecondary = ACT_SPECIAL_ATTACK1 -- Animation(s) to play while firing the weapon's secondary attack
-ENT.WeaponAttackSecondaryTimeUntilFire = 0.7
+ENT.Weapon_SecondaryFireTime = 0.7
 ENT.AnimTbl_WeaponReload = ACT_RELOAD_SMG1 -- Animations that play when the SNPC reloads
 ENT.CanTurnWhileMoving = false -- Can the NPC turn while moving? | EX: GoldSrc NPCs, Facing enemy while running to cover, Facing the player while moving out of the way
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
@@ -185,7 +185,7 @@ function ENT:Init()
 		self:SetNavType(NAV_FLY)
 		self:SetState(VJ_STATE_ONLY_ANIMATION)
 		self.HasGrenadeAttack = false
-		self.CanUseSecondaryOnWeaponAttack = false
+		self.Weapon_CanSecondaryFire = false
 		self.Weapon_CanReload = false
 		timer.Simple(0.1, function() if IsValid(self) then self:PlayAnim("repel_jump", true, false, false) end end)
 	end
@@ -371,7 +371,7 @@ end
 function ENT:HECU_StopRappelling()
 	self.HECU_Rappelling = false
 	self.HasGrenadeAttack = true
-	self.CanUseSecondaryOnWeaponAttack = true
+	self.Weapon_CanSecondaryFire = true
 	self.Weapon_CanReload = true
 	self:SetVelocity(defPos)
 	self:SetState()

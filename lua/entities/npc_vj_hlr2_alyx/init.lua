@@ -14,7 +14,7 @@ ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
 ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other player allies?
-ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
+ENT.BloodColor = VJ.BLOOD_COLOR_RED -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.AnimTbl_MeleeAttack = "vjseq_MeleeAttack01"
 ENT.TimeUntilMeleeAttackDamage = 0.7 -- This counted in seconds | This calculates the time until it hits something
 ENT.HasGrenadeAttack = false -- Should the NPC have a grenade attack?
@@ -24,8 +24,8 @@ ENT.GrenadeAttackModel = "models/weapons/w_npcnade.mdl" -- Overrides the model o
 ENT.GrenadeAttackAttachment = "anim_attachment_LH" -- The attachment that the grenade will spawn at*/
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
 ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards the player if it's damaged by a player?
-ENT.FootStepTimeRun = 0.25 -- Next foot step sound when it is running
-ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
+ENT.FootStepTimeRun = 0.25 -- Delay between footstep sounds while it is running | false = Disable while running
+ENT.FootStepTimeWalk = 0.5 -- Delay between footstep sounds while it is walking | false = Disable while walking
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = "vjges_flinch_head" -- The regular flinch animations to play

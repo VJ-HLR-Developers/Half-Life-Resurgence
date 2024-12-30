@@ -10,16 +10,16 @@ ENT.StartHealth = 60
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_COMBINE"} -- NPCs with the same class with be allied to each other
-ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
+ENT.BloodColor = VJ.BLOOD_COLOR_RED -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Particle = {"blood_impact_red_01_mist"}
 ENT.MeleeAttackDamage = 10
-ENT.FootStepTimeRun = 0.25 -- Next foot step sound when it is running
-ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
+ENT.FootStepTimeRun = 0.25 -- Delay between footstep sounds while it is running | false = Disable while running
+ENT.FootStepTimeWalk = 0.5 -- Delay between footstep sounds while it is walking | false = Disable while walking
 ENT.HasGrenadeAttack = true -- Should the NPC have a grenade attack?
 ENT.GrenadeAttackModel = "models/weapons/w_npcnade.mdl" -- Overrides the model of the grenade | Can be nil, string, and table | Does NOT apply to picked up grenades and forced grenade attacks with custom entity
 ENT.GrenadeAttackAttachment = "righthand" -- The attachment that the grenade will spawn at | false = Custom position
 ENT.AnimTbl_WeaponAttackSecondary = "vjseq_shoot_ar2grenade"
-ENT.WeaponAttackSecondaryTimeUntilFire = 0.55
+ENT.Weapon_SecondaryFireTime = 0.55
 	-- ====== Flinching Variables ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = "vjges_flinch_gesture" -- The regular flinch animations to play

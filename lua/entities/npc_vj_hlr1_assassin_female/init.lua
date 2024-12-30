@@ -10,9 +10,9 @@ ENT.StartHealth = 60
 ENT.TurningSpeed = 50 -- How fast it can turn
 ENT.HullType = HULL_HUMAN
 ENT.JumpVars = {
-	MaxRise = 620, -- How high it can jump up ((S -> A) AND (S -> E))
-	MaxDrop = 620, -- How low it can jump down (E -> S)
-	MaxDistance = 620, -- Maximum distance between Start and End
+	MaxRise = 620,
+	MaxDrop = 620,
+	MaxDistance = 620,
 }
 ENT.VJC_Data = {
 	//FirstP_Bone = "bip01 head", -- If left empty, the base will attempt to calculate a position for first person
@@ -21,7 +21,7 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(-1, 0, -1), -- The offset for the controller when the camera is in first person
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
+ENT.BloodColor = VJ.BLOOD_COLOR_RED -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Particle = {"vj_hlr_blood_red"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
@@ -42,7 +42,7 @@ ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the s
 ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
 ENT.Weapon_StrafeWhileFiring = false -- Should it move randomly while firing a weapon?
 ENT.Weapon_Accuracy = 0.6 -- NPC's accuracy with weapons, affects bullet spread! | x < 1 = Better accuracy | x > 1 = Worse accuracy
-ENT.CanCrouchOnWeaponAttack = false -- Can it crouch while shooting?
+ENT.Weapon_CanCrouchAttack = false -- Can it crouch while shooting?
 ENT.AnimTbl_TakingCover = ACT_LAND -- The animation it plays when hiding in a covered position, leave empty to let the base decide
 ENT.Weapon_WaitOnOcclusionTime = VJ.SET(1, 2) -- How long should it wait before it starts to pursue?
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events

@@ -10,11 +10,11 @@ ENT.StartHealth = 50
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_COMBINE"} -- NPCs with the same class with be allied to each other
-ENT.BloodColor = "Red" -- The blood type, this will determine what it should use (decal, particle, etc.)
+ENT.BloodColor = VJ.BLOOD_COLOR_RED -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.AnimTbl_MeleeAttack = "pushplayer" // ACT_MELEE_ATTACK_SWING
 ENT.MeleeAttackDamage = 10
-ENT.FootStepTimeRun = 0.4 -- Next foot step sound when it is running
-ENT.FootStepTimeWalk = 0.5 -- Next foot step sound when it is walking
+ENT.FootStepTimeRun = 0.4 -- Delay between footstep sounds while it is running | false = Disable while running
+ENT.FootStepTimeWalk = 0.5 -- Delay between footstep sounds while it is walking | false = Disable while walking
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
 ENT.OnPlayerSightDistance = 500 -- How close should the player be until it runs the code?
 ENT.OnPlayerSightDispositionLevel = 1 -- 0 = Run it every time | 1 = Run it only when friendly to player | 2 = Run it only when enemy to player

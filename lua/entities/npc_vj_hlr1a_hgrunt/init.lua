@@ -13,7 +13,7 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(2, 0, 5), -- The offset for the controller when the camera is in first person
 }
 ENT.HasGrenadeAttack = false
-ENT.WeaponAttackSecondaryTimeUntilFire = 1.2
+ENT.Weapon_SecondaryFireTime = 1.2
 ENT.Weapon_StrafeWhileFiring = true -- Should it move randomly while firing a weapon?
 ENT.CanTurnWhileMoving = true -- Can the NPC turn while moving? | EX: GoldSrc NPCs, Facing enemy while running to cover, Facing the player while moving out of the way
 

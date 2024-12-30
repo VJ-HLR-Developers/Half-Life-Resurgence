@@ -39,7 +39,7 @@ function ENT:Tank_Init()
 	spotter.MovementType = VJ_MOVETYPE_STATIONARY
 	spotter.DisableWeapons = true
 	spotter.CanTurnWhileStationary = false
-	spotter.NoWeapon_UseScaredBehavior = false
+	spotter.Weapon_UnarmedBehavior = false
 	spotter.Medic_CanBeHealed = false
 	spotter.CanReceiveOrders = false
 	spotter.Human_Driver = true

@@ -19,7 +19,7 @@ ENT.VJC_Data = {
 	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.BloodColor = "Yellow" -- The blood type, this will determine what it should use (decal, particle, etc.)
+ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
 ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
 ENT.HasBloodPool = false -- Does it have a blood pool?
