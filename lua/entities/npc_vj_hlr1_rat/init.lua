@@ -50,7 +50,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
-function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
+function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibOnDeathEffects == true then
 		local effectData = EffectData()
@@ -61,15 +61,12 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	end
 	
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {BloodType="Red", BloodDecal="VJ_HLR_Blood_Red"})
-	return true -- Return to true if it gibbed!
+	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
+	return true, {AllowSound = false}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gibs = {"models/vj_hlr/gibs/flesh3.mdl"}
 --
-function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ.EmitSound(self, "vj_base/gib/splat.wav", 90, 100)
-	return false
-end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, gibs)

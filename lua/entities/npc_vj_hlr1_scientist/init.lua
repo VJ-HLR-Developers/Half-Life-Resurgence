@@ -332,7 +332,7 @@ end
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 local sdMetalCollide = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
 --
-function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
+function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibOnDeathEffects == true then
 		local effectData = EffectData()
@@ -392,17 +392,11 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(1, 0, 20)), CollideSound=sdMetalCollide})
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p1.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(1, 1, 20)), CollideSound=sdMetalCollide})
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p10.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 0, 21)), CollideSound=sdMetalCollide})
-	end
-	return true
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ.EmitSound(self, "vj_base/gib/splat.wav", 100, 100)
-	if self.SCI_Type == SCI_TYPE_KELLER then
 		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, 100)
 		VJ.EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 65, 100)
 	end
-	return false
+	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
+	return true, {AllowSound = false}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)

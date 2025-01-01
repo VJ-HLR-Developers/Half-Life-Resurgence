@@ -40,7 +40,7 @@ ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the pro
 
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
-ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
+ENT.GibOnDeathFilter = false
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.DeathAnimationTime = 3.7 -- How long should the death animation play?
 ENT.AnimTbl_Death = ACT_DIESIMPLE
@@ -326,7 +326,7 @@ end
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local sdMetalCollision = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
 --
-function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
+function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	timer.Simple(3.6, function()
 		if IsValid(self) then
 			local myPos = self:GetPos()
@@ -402,11 +402,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 			util.BlastDamage(self, self, myPos, 150, 20) -- To make the gibs FLY
 		end
 	end)
-	return true, {DeathAnim = true}-- Return to true if it gibbed!
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	return false
+	return true, {AllowAnim = true, AllowSound = false}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()

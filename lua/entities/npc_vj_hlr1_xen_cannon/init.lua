@@ -40,11 +40,11 @@ ENT.Immune_Bullet = true -- Immune to bullet type damages
 ENT.Immune_Melee = true -- Immune to melee-type damage | Example: Crowbar, slash damages
 ENT.ForceDamageFromBosses = true -- Should the NPC get damaged by bosses regardless if it's not supposed to by skipping immunity checks, etc. | Bosses are attackers tagged with "VJTag_ID_Boss"
 ENT.DeathCorpseModel = "models/vj_hlr/hl1/alien_cannon_bottom.mdl" -- Model(s) to spawn as the NPC's corpse | false = Use the NPC's model | Can be a single string or a table of strings
-ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
+ENT.GibOnDeathFilter = false
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Breath = "vj_hlr/hl1_npc/xencannon/alien_powernode.wav"
-ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav","ambient/energy/spark2.wav","ambient/energy/spark3.wav","ambient/energy/spark4.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/xencannon/bustconcrete1.wav","vj_hlr/hl1_npc/xencannon/bustconcrete2.wav"}
+ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav", "ambient/energy/spark2.wav", "ambient/energy/spark3.wav", "ambient/energy/spark4.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/xencannon/bustconcrete1.wav", "vj_hlr/hl1_npc/xencannon/bustconcrete2.wav"}
 
 ENT.BreathSoundLevel = 70
 ENT.DeathSoundLevel = 90
@@ -166,7 +166,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gibCollideSd = {"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}
 --
-function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
+function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgibs_sub1.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(1, 0, 20)), CollideSound=gibCollideSd})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgibs_sub2.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 1, 20)), CollideSound=gibCollideSd})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgibs_sub3.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(2, 0, 20)), CollideSound=gibCollideSd})
@@ -177,10 +177,6 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgibs_sub3.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 4, 20)), CollideSound=gibCollideSd})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgibs_sub4.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(5, 0, 20)), CollideSound=gibCollideSd})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgibs_sub5.mdl", {BloodDecal="", Pos=self:LocalToWorld(Vector(0, 5, 20)), CollideSound=gibCollideSd})
-	return true, {AllowCorpse=true}
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
 	VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, 100)
-	return false
+	return true, {AllowCorpse = true, AllowSound = false}
 end

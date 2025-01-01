@@ -32,7 +32,7 @@ ENT.TimeUntilRangeAttackProjectileRelease = 0 -- How much time until the project
 ENT.NextRangeAttackTime = 1.5 -- How much time until it can use a range attack?
 
 ENT.DeathCorpseEntityClass = "prop_vj_animatable" -- Corpse's class | false = Let the base automatically detect the class
-ENT.GibOnDeathDamagesTable = {"All"} -- Damages that it gibs from | "UseDefault" = Uses default damage types | "All" = Gib from any damage
+ENT.GibOnDeathFilter = false
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Death = {"vj_hlr/fx/bustflesh1.wav","vj_hlr/fx/bustflesh2.wav"}
 
@@ -128,7 +128,7 @@ end
 local vecZ20 = Vector(0, 0, 20)
 local vecZ12 = Vector(0, 0, 12)
 --
-function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
+function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	local attPos = self:GetAttachment(1).Pos
 	if self.HasGibOnDeathEffects == true then
 		local spr = ents.Create("env_sprite")
@@ -162,12 +162,7 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {BloodDecal="",  Pos=pos + Vector(6, 0, 0),  CollideSound=SdTbl_GibImpact})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {BloodDecal="",  Pos=pos + Vector(0, 1, 0),  CollideSound=SdTbl_GibImpact})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh4.mdl", {BloodDecal="",  Pos=pos + Vector(0, 2, 0),  CollideSound=SdTbl_GibImpact})
-	return true, {AllowCorpse=true} -- Return to true if it gibbed!
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	//VJ.EmitSound(self, "vj_base/gib/splat.wav", 90, 100)
-	return false
+	return true, {AllowCorpse = true, AllowSound = false}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)

@@ -321,7 +321,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local sdGibCollide = {"physics/metal/metal_box_impact_hard1.wav", "physics/metal/metal_box_impact_hard2.wav", "physics/metal/metal_box_impact_hard3.wav"}
 --
-function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
+function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	util.BlastDamage(self, self, self:WorldSpaceCenter() + self:GetUp()*12, 120, 15)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hl2/Floor_turret_gib1.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 40)),  CollideSound=sdGibCollide})
@@ -329,12 +329,8 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hl2/Floor_turret_gib3.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 30)),  CollideSound=sdGibCollide})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hl2/Floor_turret_gib4.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 35)),  CollideSound=sdGibCollide})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hl2/Floor_turret_gib5.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 37)),  CollideSound=sdGibCollide})
-	return true -- Return to true if it gibbed!
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	VJ.EmitSound(self, "vj_hlr/hl2_npc/turret/detonate.wav", 90, 100)
-	return false
+	self:PlaySoundSystem("Gib", "vj_hlr/hl2_npc/turret/detonate.wav")
+	return true, {AllowSound = false}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)

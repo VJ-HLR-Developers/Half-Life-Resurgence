@@ -523,12 +523,14 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gasTankExpPos = Vector(0, 0, 90)
 local gasTankExpSd = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
+local sdHeadshot = {"vj_hlr/fx/headshot1.wav", "vj_hlr/fx/headshot2.wav", "vj_hlr/fx/headshot3.wav"}
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
-function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
+function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
+	
 	-- Handle gas tank for the hgrunt engineer
-	if self.HECU_GasTankHit == true then
+	if self.HECU_GasTankHit then
 		util.BlastDamage(self, self, self:GetPos(), 100, 80)
 		util.ScreenShake(self:GetPos(), 100, 200, 1, 500)
 		VJ.EmitSound(self, gasTankExpSd, 90)
@@ -551,10 +553,12 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		spr:Fire("Kill","",0.9)
 		timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
 	end
+	
 	if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD then
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_skull.mdl",{BloodDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,0,60))})
 		self.HasDeathAnimation = false
-		return true, {DeathAnim=false, AllowCorpse=true}
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_skull.mdl", {BloodDecal="VJ_HLR_Blood_Red", Pos=self:LocalToWorld(Vector(0, 0, 60))})
+		self:PlaySoundSystem("Gib", sdHeadshot)
+		return true, {AllowCorpse = true, AllowSound = false}
 	else
 		if self.HasGibOnDeathEffects == true then
 			local effectData = EffectData()
@@ -579,24 +583,11 @@ function ENT:SetUpGibesOnDeath(dmginfo, hitgroup)
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_lung.mdl", {BloodDecal="VJ_HLR_Blood_Red", Pos=self:LocalToWorld(Vector(0,0,45))})
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_skull.mdl", {BloodDecal="VJ_HLR_Blood_Red", Pos=self:LocalToWorld(Vector(0,0,60))})
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_legbone.mdl", {BloodDecal="VJ_HLR_Blood_Red", Pos=self:LocalToWorld(Vector(0,1,15))})
-		if self.HECU_Type != 4 then -- Not  Black Ops
+		if self.HECU_Type != 4 then -- Not Black Ops
 			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/gib_hgrunt.mdl", {BloodDecal="VJ_HLR_Blood_Red", Pos=self:LocalToWorld(Vector(0,0,15))})
 		end
-		return true
-	end
-	return false
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-local sdHeadshot = {"vj_hlr/fx/headshot1.wav","vj_hlr/fx/headshot2.wav","vj_hlr/fx/headshot3.wav"}
---
-function ENT:CustomGibOnDeathSounds(dmginfo, hitgroup)
-	if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD then
-		VJ.EmitSound(self, sdHeadshot, 75, 100)
-	elseif self.HECU_Type == 5 then
-		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 100, 100)
-		VJ.EmitSound(self, "vj_hlr/hl1_npc/rgrunt/rb_gib.wav", 80, 100)
-	else
-		VJ.EmitSound(self, "vj_base/gib/splat.wav", 90, 100)
+		self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
+		return true, {AllowSound = false}
 	end
 	return false
 end
@@ -606,7 +597,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		-- Regular Human Grunt head gib
 		if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then
 			self:SetBodygroup(1, 4)
-			self.GibOnDeathDamagesTable = {"All"}
+			self.GibOnDeathFilter = false
 		end
 		
 		if self.HECU_Type == 5 then

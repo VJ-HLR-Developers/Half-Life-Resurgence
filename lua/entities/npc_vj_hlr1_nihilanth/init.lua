@@ -252,7 +252,7 @@ function ENT:Nih_SpawnAlly()
 		mask = MASK_ALL,
 	})
 	local spawnPos = tr.HitPos + tr.HitNormal*30 -- 30 WU kichme tours hane
-	VJ.HLR_Effect_Portal(spawnPos + vecZ20, nil, nil, function()
+	VJ.HLR_GoldSrc_Effect_Portal(spawnPos + vecZ20, nil, nil, function()
 		-- onSpawn
 		if IsValid(self) then
 			local troops;

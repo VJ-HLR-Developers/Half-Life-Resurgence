@@ -405,7 +405,7 @@ sound.Add({
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Functions & Hooks ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	function VJ.HLR_Effect_Portal(pos, size, color, onSpawn)
+	function VJ.HLR_GoldSrc_Effect_Portal(pos, size, color, onSpawn)
 		-- Helpful page: https://developer.valvesoftware.com/wiki/Alien_Teleport_Effect_(HL1)
 		size = size or 1.5
 		
@@ -475,7 +475,7 @@ sound.Add({
 		return spr
 	end
 	---------------------------------------------------------------------------------------------------------------------------------------------
-	function VJ.HLR_Effect_Explosion(pos, type, size, color)
+	function VJ.HLR_GoldSrc_Effect_Explosion(pos, type, size, color)
 		type = type or 1
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model", type == 1 && "vj_hl/sprites/zerogxplode.vmt" or "vj_hl/sprites/fexplo1.vmt")
@@ -499,7 +499,7 @@ sound.Add({
 		[MAT_BLOODYFLESH] = true,
 		[MAT_FLESH] = true,
 	}
-	function VJ.HLR_Effect_Impact(tr)
+	function VJ.HLR_GoldSrc_Effect_Impact(tr)
 		if !excludedMats[tr.MatType] then
 			local effectData = EffectData()
 			effectData:SetEntity(tr.Entity)

@@ -37,7 +37,6 @@ ENT.Bleeds = false
 ENT.Immune_AcidPoisonRadiation = true -- Immune to Acid, Poison and Radiation
 ENT.Immune_Bullet = true -- Immune to bullet type damages
 ENT.Immune_Fire = true -- Immune to fire-type damages
-ENT.ImmuneDamagesTable = {DMG_PHYSGUN}
 ENT.BringFriendsOnDeath = false -- Should the NPC's allies come to its position while it's dying?
 ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.HasDeathCorpse = false
@@ -102,6 +101,11 @@ function ENT:Init()
 		gunner.Weapon_FiringDistanceFar = self.SightDistance
 		gunner:Fire("SetParentAttachment", i == 1 and "gunner_left" or "gunner_right", 0)
 		gunner:SetState(VJ_STATE_ONLY_ANIMATION)
+		timer.Simple(0.2, function()
+			if IsValid(self) && IsValid(gunner) && IsValid(gunner:GetActiveWeapon()) then
+				gunner:GetActiveWeapon().NPC_FiringCone = -1
+			end
+		end)
 		self:DeleteOnRemove(gunner)
 		self.Osprey_Gunners[i] = gunner
 	end
@@ -270,6 +274,11 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 			self.Immune_Bullet = false -- To counter the dmginfo:IsBulletDamage() function
 		else
 			self.Immune_Bullet = true
+		end
+		
+		-- If hit by physgun, then don't take damage
+		if dmginfo:IsDamageType(DMG_PHYSGUN) then
+			dmginfo:SetDamage(0)
 		end
 		
 		if dmginfo:GetDamagePosition() != vec then
