@@ -160,7 +160,6 @@ function ENT:HandleModeChanging(mode,pos,cont)
 			end
 		else
 			local landType = self.Stuka_LandingType
-			-- util.ParticleTracerEx("Weapon_Combine_Ion_Cannon_Beam", self:GetPos(), self.Stuka_LandingPos, false, self:EntIndex(), 0)//vortigaunt_beam
 			-- VJ.DEBUG_TempEnt(self.Stuka_LandingPos, self:GetAngles(), Color(212,0,255), 5)
 			self:AA_MoveTo(self.Stuka_LandingPos,true,"Calm",{FaceDest=true,FaceDestTarget=false,IgnoreGround=true})
 			local tr = util.TraceLine({start = pos,endpos = pos +Vector(0,0,(landType == 1 && -35 or 75)),filter = self})

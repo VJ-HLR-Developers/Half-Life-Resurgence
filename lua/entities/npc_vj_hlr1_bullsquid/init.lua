@@ -105,7 +105,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjVelocity(projectile)
 	local projPos = projectile:GetPos()
-	ParticleEffect("vj_hlr_spit_spawn", self:GetPos() + self:OBBCenter() + self:GetForward()*35, self:GetForward():Angle(), projectile)
+	ParticleEffect("vj_hlr_spit_acid_spawn", self:GetPos() + self:OBBCenter() + self:GetForward()*35, self:GetForward():Angle(), projectile)
 	if self.Bullsquid_BullSquidding == true then
 		return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 250000), 250000)
 	else

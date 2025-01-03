@@ -92,8 +92,8 @@ function ENT:OnDealDamage(data, phys, hitEnts)
 				ent:ScreenFade(SCREENFADE.IN, colorGreen, 2, 1)
 			end
 			
-			VJ.HLR_GoldSrc_Effect_Portal(self:GetPos())
-			VJ.HLR_GoldSrc_Effect_Portal(pos, nil, nil, function()
+			VJ.HLR1_Effect_Portal(self:GetPos())
+			VJ.HLR1_Effect_Portal(pos, nil, nil, function()
 				-- onSpawn
 				if IsValid(ent) then
 					ent:SetPos(pos)

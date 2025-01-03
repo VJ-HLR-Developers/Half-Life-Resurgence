@@ -89,7 +89,7 @@ local vecZ20 = Vector(0, 0, 20)
 function ENT:Tor_SpawnAlly()
 	-- Can have a total of 3, only 1 can be spawned at a time with a delay until another one is spawned
 	local spawnPos = self:GetPos() + self:GetForward() * 100 + self:GetUp() * 5
-	local effectTeleport = VJ.HLR_GoldSrc_Effect_Portal(spawnPos + vecZ20, nil, nil, function()
+	local effectTeleport = VJ.HLR1_Effect_Portal(spawnPos + vecZ20, nil, nil, function()
 		-- onSpawn
 		if IsValid(self) then
 			local ally = ents.Create("npc_vj_hlr1_aliengrunt")

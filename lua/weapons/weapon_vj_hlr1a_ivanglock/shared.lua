@@ -53,7 +53,7 @@ function SWEP:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:DoImpactEffect(tr, damageType)
-	return VJ.HLR_GoldSrc_Effect_Impact(tr)
+	return VJ.HLR1_Effect_Impact(tr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnDrawWorldModel() -- This is client only!

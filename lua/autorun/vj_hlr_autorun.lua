@@ -45,6 +45,7 @@ if VJExists == true then
 		VJ.AddNPC("Alpha Scientist", "npc_vj_hlr1a_scientist", spawnCategory)
 		VJ.AddNPC("Ivan the Space Biker", "npc_vj_hlr1a_ivan", spawnCategory)
 		VJ.AddNPC("Probe Droid", "npc_vj_hlr1a_probedroid", spawnCategory)
+		//VJ.AddNPC("Poly Robo", "npc_vj_hlr1a_techdemorobot", spawnCategory) -- Doesn't exist yet
 		
 	-- Black Mesa Weaponry
 	VJ.AddNPC("Black Mesa Ground Turret", "npc_vj_hlr1_gturret", spawnCategory)
@@ -149,8 +150,6 @@ if VJExists == true then
 	
 	-- Unknown
 	VJ.AddNPC("G-Man", "npc_vj_hlr1_gman", spawnCategory)
-		-- Alpha
-		--VJ.AddNPC("Poly Robo", "npc_vj_hlr1a_techdemorobot", spawnCategory)		-- doesn't exist yet
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Source Engine ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -268,7 +267,7 @@ if VJExists == true then
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Particles ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	VJ.AddParticle("particles/vj_hlr_blood.pcf", {
+	VJ.AddParticle("particles/vj_hlr_goldsrc_blood.pcf", {
 		"vj_hlr_blood_red",
 		"vj_hlr_blood_red_large",
 		"vj_hlr_blood_yellow",
@@ -276,18 +275,36 @@ if VJExists == true then
 		"vj_hlr_blood_boob_red",
 		"vj_hlr_blood_boob_yellow",
 	})
-	VJ.AddParticle("particles/vj_hlr_garg_flame.pcf", {
-		"vj_hlr_garg_flame",
-		"vj_hlr_garg_flame_small",
-	})
-	VJ.AddParticle("particles/vj_hlr_shocktrooper.pcf", {
+	VJ.AddParticle("particles/vj_hlr_goldsrc.pcf", {
+		"vj_hlr_spit_red_spawn", -- For Gnome
+		"vj_hlr_spit_acid_spawn", -- For Bullsquid
+		"vj_hlr_torch",
+		-- Drone
+		"vj_hlr_spit_drone",
+		"vj_hlr_spit_drone_impact",
+		"vj_hlr_spit_drone_spawn",
+		"vj_hlr_spit_drone_spawn_old",
+		-- Gonarch
+		"vj_hlr_spit_gonarch",
+		"vj_hlr_spit_gonarch_impact",
+		"vj_hlr_spit_gonarch_spawn",
+		-- Mr. Friendly
+		"vj_hlr_spit_friendly",
+		"vj_hlr_spit_friendly_b",
+		"vj_hlr_spit_friendly_impact",
+		"vj_hlr_spit_friendly_old",
+		"vj_hlr_spit_friendly_b_old",
+		"vj_hlr_spit_friendly_impact_old",
+		-- Stukabat
+		"vj_hlr_spit_stukabat",
+		"vj_hlr_spit_stukabat_impact",
+		-- Shocktrooper
 		"vj_hlr_shockroach_muzzle",
 		"vj_hlr_shockroach",
 		"vj_hlr_shockroach_aura",
 		"vj_hlr_shockroach_bright",
 		"vj_hlr_shockroach_trail",
-	})
-	VJ.AddParticle("particles/vj_hlr_spore.pcf", {
+		-- Spore
 		"vj_hlr_spore",
 		"vj_hlr_spore_b",
 		"vj_hlr_spore_c",
@@ -300,58 +317,20 @@ if VJExists == true then
 		"vj_hlr_spore_idle_small",
 		"vj_hlr_spore_idle_small_b",
 		"vj_hlr_spore_idle_small_c",
-	})
-	VJ.AddParticle("particles/vj_hlr_spit.pcf", {
-		"vj_hlr_spit_drone",
-		"vj_hlr_spit_drone_impact",
-		"vj_hlr_spit_drone_spawn",
-		"vj_hlr_spit_drone_spawn_old",
-		"vj_hlr_spit_gonarch",
-		"vj_hlr_spit_gonarch_impact",
-		"vj_hlr_spit_friendly",
-		"vj_hlr_spit_friendly_b",
-		"vj_hlr_spit_friendly_impact",
-		"vj_hlr_spit_friendly_old",
-		"vj_hlr_spit_friendly_b_old",
-		"vj_hlr_spit_friendly_impact_old",
-		"vj_hlr_spit_stukabat",
-		"vj_hlr_spit_stukabat_impact",
-		"vj_hlr_spit_red_spawn", // Used for gnome
-		"vj_hlr_spit_spawn", // Used for bullsquid
-	})
-	VJ.AddParticle("particles/vj_hlr_torch.pcf", {
-		"vj_hlr_torch",
-	})
-	VJ.AddParticle("particles/vj_hlr_garg_stomp.pcf", {
+		-- Gargantua
+		"vj_hlr_garg_flame",
+		"vj_hlr_garg_flame_small",
 		"vj_hlr_garg_stomp",
-	})
-	VJ.AddParticle("particles/vj_hlr_nihilanth.pcf", {
-		"vj_hlr_nihilanth_chargeorb",
+		-- Nihilanth
 		"vj_hlr_nihilanth_deathorbs",
 		"vj_hlr_nihilanth_deathorbs_white",
-	})
-	VJ.AddParticle("particles/vj_hlr_geneworm.pcf", {
+		-- Gene Worm
 		"vj_hlr_geneworm_spit",
-		"vj_hlr_geneworm_spit_b",
+		"vj_hlr_geneworm_sprites",
+		"vj_hlr_geneworm_sprites_death",
 	})
 	VJ.AddParticle("particles/electrical_fx.pcf", {
 		"electrical_arc_01", -- Used for the Combine Reager
-	})
-	-- Unused (They don't appear properly in-game)
-	VJ.AddParticle("particles/vj_hlr_muzzle.pcf", {
-        "vj_hl_muz1", -- Tau
-        "vj_hl_muz2", -- HD pistol
-        "vj_hl_muz3", -- HD MP5
-        "vj_hl_muz4", -- HD Hornet
-        "vj_hl_muz5", -- LD Hornet 1
-        "vj_hl_muz6", -- LD Hornet 2
-        "vj_hl_muz7", -- HD Hornet 2?
-        "vj_hl_muz8", -- HD Brush turret
-        "vj_hl_muzzle1", -- LD Pistol (Also used by LD brush turret, I'll make another one that's bigger)
-        "vj_hl_muzzle2", -- LD MP5
-        "vj_hl_muzzle3", -- LD Shotgun
-        "vj_hl_muzzle4", -- HD Pistol 2?
-		"vj_hl_muzzlebigturret",
 	})
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Sounds ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -405,7 +384,7 @@ sound.Add({
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Functions & Hooks ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	function VJ.HLR_GoldSrc_Effect_Portal(pos, size, color, onSpawn)
+	function VJ.HLR1_Effect_Portal(pos, size, color, onSpawn)
 		-- Helpful page: https://developer.valvesoftware.com/wiki/Alien_Teleport_Effect_(HL1)
 		size = size or 1.5
 		
@@ -475,7 +454,7 @@ sound.Add({
 		return spr
 	end
 	---------------------------------------------------------------------------------------------------------------------------------------------
-	function VJ.HLR_GoldSrc_Effect_Explosion(pos, type, size, color)
+	function VJ.HLR1_Effect_Explosion(pos, type, size, color)
 		type = type or 1
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model", type == 1 && "vj_hl/sprites/zerogxplode.vmt" or "vj_hl/sprites/fexplo1.vmt")
@@ -499,7 +478,7 @@ sound.Add({
 		[MAT_BLOODYFLESH] = true,
 		[MAT_FLESH] = true,
 	}
-	function VJ.HLR_GoldSrc_Effect_Impact(tr)
+	function VJ.HLR1_Effect_Impact(tr)
 		if !excludedMats[tr.MatType] then
 			local effectData = EffectData()
 			effectData:SetEntity(tr.Entity)

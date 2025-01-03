@@ -43,8 +43,8 @@ ENT.Speed = 1200
 ENT.TurnSpeed = 40
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-	ParticleEffectAttach("vj_rpg1_fulltrail", PATTACH_ABSORIGIN_FOLLOW, self, 0)
-	ParticleEffectAttach("vj_rpg2_fulltrail", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	ParticleEffectAttach("vj_rocket_idle1", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	ParticleEffectAttach("vj_rocket_idle2", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()

@@ -58,7 +58,7 @@ function ENT:HLR_ActivateSpawner(eneEnt)
 	self.VJBaseSpawnerDisabled = false
 	
 	self:SetAngles(Angle(self:GetAngles().x, ((eneEnt:GetPos()) - myPos):Angle().y, self:GetAngles().z)) -- Make sure it spawns the entity facing the enemy
-	VJ.HLR_GoldSrc_Effect_Portal(myPos, nil, self.HLRSpawner_Type == 1 and "189 2 186" or nil, function()
+	VJ.HLR1_Effect_Portal(myPos, nil, self.HLRSpawner_Type == 1 and "189 2 186" or nil, function()
 		-- onSpawn
 		if IsValid(self) then
 			for k, v in ipairs(self.EntitiesToSpawn) do
