@@ -24,7 +24,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = "models/spitball_medium.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_base/projectiles/spit_acid_medium.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.ProjectileType = VJ.PROJ_TYPE_GRAVITY
 ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
 ENT.DirectDamage = 20

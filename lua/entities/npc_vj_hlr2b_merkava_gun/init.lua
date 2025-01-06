@@ -44,6 +44,7 @@ function ENT:Tank_Init()
 	spotter.CanReceiveOrders = false
 	spotter.Human_Driver = true
 	spotter.VJ_NPC_Class = self.VJ_NPC_Class
+	spotter.PhysgunDisabled = true
 	spotter:Spawn()
 	spotter:Fire("SetParentAttachment", "gunner")
 	spotter:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
