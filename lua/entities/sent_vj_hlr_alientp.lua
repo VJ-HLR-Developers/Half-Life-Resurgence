@@ -1,5 +1,5 @@
 /*--------------------------------------------------
-	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
@@ -72,8 +72,8 @@ function ENT:OnThink()
 	if self.VJBaseSpawnerDisabled && VJ_CVAR_AI_ENABLED && CurTime() > self.HLRSpawner_NextCheckT then
 		print("run")
 		for _, v in ipairs(ents.FindInSphere(self:GetPos(), self.HLRSpawner_Distance)) do
-			if v:IsPlayer() && (v.VJTag_IsControllingNPC or !v:Alive() or VJ_CVAR_IGNOREPLAYERS) then continue end
-			if v.VJTag_IsLiving && !v:IsFlagSet(FL_NOTARGET) && self:Visible(v) && (!v.VJ_NPC_Class or !VJ.HasValue(v.VJ_NPC_Class, self.HLRSpawner_ClassType)) then
+			if v:IsPlayer() && (v.VJ_IsControllingNPC or !v:Alive() or VJ_CVAR_IGNOREPLAYERS) then continue end
+			if v.VJ_ID_Living && !v:IsFlagSet(FL_NOTARGET) && self:Visible(v) && (!v.VJ_NPC_Class or !VJ.HasValue(v.VJ_NPC_Class, self.HLRSpawner_ClassType)) then
 				self:HLR_ActivateSpawner(v)
 				break
 			end

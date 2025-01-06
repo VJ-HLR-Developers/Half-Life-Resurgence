@@ -7,4 +7,4 @@ ENT.Purpose 		= "Spawn it and fight with it!"
 ENT.Instructions 	= "Click on the spawnicon to spawn it."
 ENT.Category		= "Half-Life Resurgence"
 
-ENT.VJTag_ID_Civilian = true
+ENT.VJ_ID_Civilian = true

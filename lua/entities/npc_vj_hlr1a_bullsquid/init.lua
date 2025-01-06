@@ -2,7 +2,7 @@ include("entities/npc_vj_hlr1_bullsquid/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -65,7 +65,7 @@ function ENT:Bullsquid_ActivateBullSquidding()
 	self:SetFOV(360)
 	self.Bullsquid_BullSquidding = true
 	self.Bullsquid_BullSquiddingT = CurTime()
-	self.VJTag_ID_Boss = true
+	self.VJ_ID_Boss = true
 	self.StartHealth = 1500
 	self.FindEnemy_CanSeeThroughWalls = true
 	self.AnimTbl_RangeAttack = ACT_RANGE_ATTACK2

@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -302,7 +302,7 @@ end
 function ENT:OnAlert(ent)
 	if self.VJ_IsBeingControlled then return end
 	if self.SCI_Type != SCI_TYPE_KELLER && self.SCI_Type != SCI_TYPE_ALPHA then
-		if self.SCI_Type != SCI_TYPE_ROSENBERG && math.random(1, 2) == 1 && ent.VJTag_ID_Headcrab then
+		if self.SCI_Type != SCI_TYPE_ROSENBERG && math.random(1, 2) == 1 && ent.VJ_ID_Headcrab then
 			self:PlaySoundSystem("Alert", "vj_hlr/hl1_npc/scientist/seeheadcrab.wav")
 		end
 		if math.random(1, 2) == 1 && ent:GetPos():Distance(self:GetPos()) >= 300 then

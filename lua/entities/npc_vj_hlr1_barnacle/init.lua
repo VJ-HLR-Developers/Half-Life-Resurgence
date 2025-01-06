@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -107,7 +107,7 @@ function ENT:Barnacle_CalculateTongue()
 	-- Increase the height by 10 every tick | minimum = 0, maximum = 1024
 	self.Barnacle_LastHeight = math.Clamp(height + 10, 0, 1024)
 
-	if IsValid(trHitEnt) && (trHitEnt:IsNPC() or trHitEnt:IsPlayer()) && self:CheckRelationship(trHitEnt) == D_HT && trHitEnt.VJTag_ID_Boss != true then
+	if IsValid(trHitEnt) && (trHitEnt:IsNPC() or trHitEnt:IsPlayer()) && self:CheckRelationship(trHitEnt) == D_HT && trHitEnt.VJ_ID_Boss != true then
 		-- If the grabbed enemy is a new enemy then reset the enemy values
 		if self.Barnacle_CurEnt != trHitEnt then
 			self:Barnacle_ResetEnt()

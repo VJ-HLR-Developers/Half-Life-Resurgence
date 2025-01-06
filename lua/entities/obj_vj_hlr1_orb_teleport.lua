@@ -1,5 +1,5 @@
 /*--------------------------------------------------
-	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
@@ -13,7 +13,7 @@ ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectile, usually used for NPCs & Weapons"
 ENT.Category		= "Projectiles"
 
-ENT.VJTag_ID_Danger = true
+ENT.VJ_ID_Danger = true
 
 if CLIENT then
 	local Name = "Teleportation Orb"
@@ -80,7 +80,7 @@ function ENT:OnDealDamage(data, phys, hitEnts)
 	if !hitEnts then return end
 	local owner = self:GetOwner()
 	for _, ent in ipairs(hitEnts) do
-		if !ent.VJTag_ID_Boss && !ent.Dead && ent:GetClass() != "sent_vj_xen_crystal" then
+		if !ent.VJ_ID_Boss && !ent.Dead && ent:GetClass() != "sent_vj_xen_crystal" then
 			local tr = util.TraceLine({
 				start = owner:GetPos(),
 				endpos = owner:GetPos() + owner:GetForward() * math.Rand(-10000, 10000) + owner:GetRight() * math.Rand(-10000, 10000) + owner:GetUp() * -3000, //math.Rand(-10000, 10000),

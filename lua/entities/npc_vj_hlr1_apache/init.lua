@@ -1,14 +1,14 @@
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 local combatDistance = 5000 -- When closer then this, it will stop chasing and start firing
 
 ENT.Model = "models/vj_hlr/hl1/apache.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
-ENT.VJTag_ID_Boss = true
+ENT.VJ_ID_Boss = true
 ENT.StartHealth = 400 -- The starting health of the NPC
 ENT.HullType = HULL_LARGE
 ENT.SightAngle = 360

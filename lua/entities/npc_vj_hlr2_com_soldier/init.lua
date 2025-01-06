@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -191,7 +191,7 @@ function ENT:OnAlert(ent)
 					end
 				end
 				self:PlaySoundSystem("Alert", sdCombine_Alert_Creatures)
-			elseif ent:Classify() == CLASS_PLAYER_ALLY or ent.VJTag_ID_Civilian then
+			elseif ent:Classify() == CLASS_PLAYER_ALLY or ent.VJ_ID_Civilian then
 				self:PlaySoundSystem("Alert", sdCombine_Alert_Citizens)
 			end
 		end

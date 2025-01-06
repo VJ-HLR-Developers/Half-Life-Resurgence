@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -9,7 +9,7 @@ ENT.Model = "models/vj_hlr/hl1/garg.mdl" -- Model(s) to spawn with | Picks a ran
 ENT.StartHealth = 1000
 ENT.SightAngle = 203
 ENT.HullType = HULL_HUMAN
-ENT.VJTag_ID_Boss = true
+ENT.VJ_ID_Boss = true
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(-50, 0, -45), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person

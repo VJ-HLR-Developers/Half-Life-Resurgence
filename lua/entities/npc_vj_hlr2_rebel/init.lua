@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -374,7 +374,7 @@ end
 function ENT:OnAlert(ent)
 	if math.random(1, 2) == 1 && ent:IsNPC() then
 		//print(ent:Classify())
-		if ent.VJTag_ID_Headcrab then
+		if ent.VJ_ID_Headcrab then
 			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/headcrabs01.wav","vo/npc/"..self.Human_SdFolder.."/headcrabs02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head01.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head05.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head07.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_head08.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_rollers02.wav","vj_hlr/hl2_npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_rollers03.wav"})
 			return
 		elseif ent:GetClass() == "npc_rollermine" then
@@ -385,7 +385,7 @@ function ENT:OnAlert(ent)
 			if self.Human_Gender == HUMAN_GENDER_MALE then table.insert(tbl2, "vj_hlr/hl2_npc/ep2/outland_12/reb1_lastwave06.wav") table.insert(tbl2, "vj_hlr/hl2_npc/ep2/outland_12/reb1_lastwave07.wav") end
 			self:PlaySoundSystem("Alert", tbl2)
 			return
-		elseif ent.VJTag_ID_Police or ent:Classify() == CLASS_METROPOLICE then
+		elseif ent.VJ_ID_Police or ent:Classify() == CLASS_METROPOLICE then
 			self:PlaySoundSystem("Alert", {"vo/npc/"..self.Human_SdFolder.."/civilprotection01.wav","vo/npc/"..self.Human_SdFolder.."/civilprotection02.wav","vo/npc/"..self.Human_SdFolder.."/cps01.wav","vo/npc/"..self.Human_SdFolder.."/cps02.wav"})
 			return
 		elseif ent:GetClass() == "npc_strider" or ent:GetClass() == "npc_vj_hlr2_com_strider" then
@@ -393,7 +393,7 @@ function ENT:OnAlert(ent)
 			if self.Human_Gender == HUMAN_GENDER_MALE then table.insert(tbl2, "vj_hlr/hl2b_npc/citizen/strider.wav") table.insert(tbl2, "vj_hlr/hl2b_npc/citizen/strider02.wav") end
 			self:PlaySoundSystem("Alert", tbl2)
 			return
-		elseif self.Human_Gender == HUMAN_GENDER_MALE && (ent:Classify() == CLASS_MACHINE or ent.VJTag_ID_Turret or ent:GetClass() == "npc_turret_floor") then
+		elseif self.Human_Gender == HUMAN_GENDER_MALE && (ent:Classify() == CLASS_MACHINE or ent.VJ_ID_Turret or ent:GetClass() == "npc_turret_floor") then
 			self:PlaySoundSystem("Alert", {"vj_hlr/hl2b_npc/citizen/turret.wav","vj_hlr/hl2b_npc/citizen/turrets.wav"})
 			return
 		elseif ent:Classify() == CLASS_SCANNER then

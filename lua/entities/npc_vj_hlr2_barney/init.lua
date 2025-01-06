@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -253,10 +253,10 @@ function ENT:OnAlert(ent)
 		elseif ent:GetClass() == "npc_combinedropship" then
 			self:PlaySoundSystem("Alert", sdAlertDropShip)
 			return
-		elseif ent.VJTag_ID_Headcrab then
+		elseif ent.VJ_ID_Headcrab then
 			self:PlaySoundSystem("Alert", sdAlertHeadcrab)
 			return
-		elseif ent:Classify() == CLASS_MACHINE or ent.VJTag_ID_Turret or ent:GetClass() == "npc_turret_floor" then
+		elseif ent:Classify() == CLASS_MACHINE or ent.VJ_ID_Turret or ent:GetClass() == "npc_turret_floor" then
 			self:PlaySoundSystem("Alert", sdAlertTurret)
 			return
 		end

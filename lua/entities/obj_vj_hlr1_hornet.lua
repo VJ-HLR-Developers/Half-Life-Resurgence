@@ -1,5 +1,5 @@
 /*--------------------------------------------------
-	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
@@ -13,7 +13,7 @@ ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information		= "Projectile, usually used for NPCs & Weapons"
 ENT.Category		= "Projectiles"
 
-ENT.VJTag_ID_Danger = true
+ENT.VJ_ID_Danger = true
 ENT.PhysicsSolidMask = MASK_SHOT
 
 if CLIENT then
@@ -101,7 +101,7 @@ function ENT:OnCollision(data, phys)
 	self:SetAngles(self:GetVelocity():GetNormal():Angle())
 	
 	-- Remove if it's a living being
-	if data.HitEntity.VJTag_IsLiving then
+	if data.HitEntity.VJ_ID_Living then
 		self.CollisionBehavior = VJ.PROJ_COLLISION_REMOVE
 	end
 end

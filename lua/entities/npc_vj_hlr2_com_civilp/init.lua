@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
-	*** Copyright (c) 2012-2024 by DrVrej, All rights reserved. ***
+	*** Copyright (c) 2012-2025 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
@@ -268,7 +268,7 @@ function ENT:OnAlert(ent)
 					end
 				end
 				self:PlaySoundSystem("Alert", sdCop_Alert_Creatures)
-			elseif ent:Classify() == CLASS_PLAYER_ALLY or self.VJTag_ID_Civilian then
+			elseif ent:Classify() == CLASS_PLAYER_ALLY or self.VJ_ID_Civilian then
 				self:PlaySoundSystem("Alert", sdCop_Alert_Citizens)
 			end
 		end
@@ -334,7 +334,7 @@ function ENT:OnThinkActive()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAllyKilled(ent)
-	if math.random(1, 3) != 1  && self.VJTag_ID_Police then
+	if math.random(1, 3) != 1  && self.VJ_ID_Police then
 		self:PlaySoundSystem("AllyDeath", sdCop_AllyDeath_Metrocop)
 	end
 end
