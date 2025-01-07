@@ -403,8 +403,8 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				gib:SetModel(VJ.PICK(gibTbl))
 				gib:SetPos(myPos + Vector(math.random(-100, 100), math.random(-100, 100), math.random(20, 150)))
 				gib:SetAngles(Angle(math.Rand(-180, 180), math.Rand(-180, 180), math.Rand(-180, 180)))
-				gib.Collide_Decal = ""
-				gib.CollideSound = sdGibCollide
+				gib.CollisionDecal = false
+				gib.CollisionSound = sdGibCollide
 				gib:Spawn()
 				gib:Activate()
 				local myPhys = gib:GetPhysicsObject()
@@ -412,8 +412,8 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 					myPhys:AddVelocity(Vector(math.Rand(-300, 300), math.Rand(-300, 300), math.Rand(150, 250)))
 					myPhys:AddAngleVelocity(Vector(math.Rand(-200, 200), math.Rand(-200, 200), math.Rand(-200, 200)))
 				end
-				if GetConVar("vj_npc_fadegibs"):GetInt() == 1 then
-					timer.Simple(GetConVar("vj_npc_fadegibstime"):GetInt(), function() SafeRemoveEntity(gib) end)
+				if GetConVar("vj_npc_gib_fade"):GetInt() == 1 then
+					timer.Simple(GetConVar("vj_npc_gib_fadetime"):GetInt(), function() SafeRemoveEntity(gib) end)
 				end
 			end
 			

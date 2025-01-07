@@ -496,8 +496,9 @@ sound.Add({
 	---------------------------------------------------------------------------------------------------------------------------------------------
 	local defGibs_Yellow = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib6.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 	local defGibs_Red = {"models/vj_hlr/gibs/flesh1.mdl", "models/vj_hlr/gibs/flesh2.mdl", "models/vj_hlr/gibs/flesh3.mdl", "models/vj_hlr/gibs/flesh4.mdl", "models/vj_hlr/gibs/hgib_b_bone.mdl", "models/vj_hlr/gibs/hgib_b_gib.mdl", "models/vj_hlr/gibs/hgib_guts.mdl", "models/vj_hlr/gibs/hgib_hmeat.mdl", "models/vj_hlr/gibs/hgib_lung.mdl", "models/vj_hlr/gibs/hgib_skull.mdl", "models/vj_hlr/gibs/hgib_legbone.mdl"}
+	--
 	function VJ.HLR_ApplyCorpseSystem(ent, corpse, gibTbl, extraOptions)
-		extraOptions = extraOptions or {} -- CollideSound, ExpSound, Gibbable, CanBleed, ExtraGibs
+		extraOptions = extraOptions or {} -- CollisionSound, ExpSound, Gibbable, CanBleed, ExtraGibs
 		corpse.HLR_Corpse = true
 		corpse.HLR_Corpse_Type = ent.BloodColor
 		if ent.HasBloodParticle then corpse.HLR_Corpse_Particle = ent.CustomBlood_Particle end
@@ -515,7 +516,7 @@ sound.Add({
 			gibTbl = table.Add(gibTbl, extraOptions.ExtraGibs)
 		end
 		corpse.HLR_Corpse_Gibs = gibTbl
-		corpse.HLR_Corpse_CollideSound = extraOptions.CollideSound or "Default"
+		corpse.HLR_Corpse_CollideSound = extraOptions.CollisionSound
 		corpse.HLR_Corpse_ExpSound = extraOptions.ExpSound or "vj_base/gib/splat.wav"
 		corpse.HLR_Corpse_StartT = CurTime() + 1
 	end
@@ -587,8 +588,10 @@ sound.Add({
 						gib:SetPos(centerPos + Vector(math.random(gibMins.x, gibMaxs.x), math.random(gibMins.y, gibMaxs.y), 10))
 						gib:SetAngles(Angle(math.Rand(-180, 180), math.Rand(-180, 180), math.Rand(-180, 180)))
 						gib.BloodType = target.HLR_Corpse_Type
-						gib.Collide_Decal = target.HLR_Corpse_Decal
-						gib.CollideSound = target.HLR_Corpse_CollideSound or "Default"
+						gib.CollisionDecal = target.HLR_Corpse_Decal
+						if target.HLR_Corpse_CollideSound != nil then
+							gib.CollisionSound = target.HLR_Corpse_CollideSound
+						end
 						gib:Spawn()
 						gib:Activate()
 						local phys = gib:GetPhysicsObject()
@@ -596,8 +599,8 @@ sound.Add({
 							phys:AddVelocity(Vector(math.Rand(-100, 100), math.Rand(-100, 100), math.Rand(150, 250)) + (dmgForce / 70))
 							phys:AddAngleVelocity(Vector(math.Rand(-200, 200), math.Rand(-200, 200), math.Rand(-200, 200)))
 						end
-						if GetConVar("vj_npc_fadegibs"):GetInt() == 1 then
-							timer.Simple(GetConVar("vj_npc_fadegibstime"):GetInt(), function()
+						if GetConVar("vj_npc_gib_fade"):GetInt() == 1 then
+							timer.Simple(GetConVar("vj_npc_gib_fadetime"):GetInt(), function()
 								SafeRemoveEntity(gib)
 							end)
 						end

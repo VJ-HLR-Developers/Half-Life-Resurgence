@@ -51,7 +51,7 @@ ENT.RadiusDamageUseRealisticRadius = true -- Should the damage decrease the fart
 ENT.RadiusDamageType = DMG_BLAST
 ENT.RadiusDamageForce = 90 -- Damage force to apply to the hit entity | false = Don't apply any force
 ENT.RemoveDelay = 6 -- Setting this greater than 0 will delay the entity's removal | Useful for lingering trail effects
-ENT.CollisionDecals = {"VJ_HLR_Scorch"}
+ENT.CollisionDecal = {"VJ_HLR_Scorch"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_weapon/rpg/rocket1.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}
 ENT.OnCollideSoundLevel = 100

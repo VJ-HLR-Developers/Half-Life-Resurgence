@@ -28,7 +28,7 @@ ENT.Model = "models/vj_hlr/hla/pb_dart.mdl" -- Model(s) to spawn with | Picks a 
 ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
 ENT.DirectDamage = 15
 ENT.DirectDamageType = DMG_POISON
-ENT.CollisionDecals = "Impact.Concrete"
+ENT.CollisionDecal = "Impact.Concrete"
 ENT.OnCollideSoundPitch = VJ.SET(100, 100)
 
 local sdOnCollideEnt = {"vj_hlr/hl1_weapon/crossbow/xbow_hitbod1.wav", "vj_hlr/hl1_weapon/crossbow/xbow_hitbod2.wav"}

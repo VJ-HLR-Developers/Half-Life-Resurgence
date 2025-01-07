@@ -34,7 +34,7 @@ ENT.RadiusDamage = 80
 ENT.RadiusDamageUseRealisticRadius = true -- Should the damage decrease the farther away the hit entity is from the radius origin?
 ENT.RadiusDamageType = DMG_BLAST
 ENT.RadiusDamageForce = 90 -- Damage force to apply to the hit entity | false = Don't apply any force
-ENT.CollisionDecals = "VJ_HLR_Scorch" -- Decals that paint when the projectile dies | It picks a random one from this table
+ENT.CollisionDecal = "VJ_HLR_Scorch" -- Decals that paint when the projectile dies | It picks a random one from this table
 ENT.SoundTbl_OnRemove = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
 ENT.OnRemoveSoundLevel = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------

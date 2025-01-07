@@ -29,7 +29,7 @@ ENT.ProjectileType = VJ.PROJ_TYPE_GRAVITY
 ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
 ENT.DirectDamage = 20
 ENT.DirectDamageType = DMG_ACID
-ENT.CollisionDecals = "VJ_HLR_Spit_Red"
+ENT.CollisionDecal = "VJ_HLR_Spit_Red"
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/bullchicken/bc_acid1.wav", "vj_hlr/hl1_npc/bullchicken/bc_acid2.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/bullchicken/bc_spithit1.wav", "vj_hlr/hl1_npc/bullchicken/bc_spithit2.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -411,12 +411,12 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		-- FIXME: this needs to be implemented better, right now this is a basic idea, often causes osprey to just explode midair, but the shit looks beautiful when everything goes right.
 		local pos = self:GetAttachment(self:LookupAttachment("engine_right")).Pos
 		local gibSkin = self:GetModel() == "models/vj_hlr/hl1/osprey_blkops.mdl" and 1 or 0
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib1.mdl", {BloodDecal="", Pos=pos + Vector(90,0,-100), CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib2.mdl", {BloodDecal="", Pos=pos + Vector(90,0,0), CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib3.mdl", {BloodDecal="", Pos=pos + Vector(95,0,90), CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib9.mdl", {BloodDecal="", Pos=pos + Vector(95,0,93), CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib10.mdl", {BloodDecal="", Pos=pos + Vector(95,0,95), CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib11.mdl", {BloodDecal="", Pos=pos + Vector(95,0,96), CollideSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib1.mdl", {CollisionDecal=false, Pos=pos + Vector(90,0,-100), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib2.mdl", {CollisionDecal=false, Pos=pos + Vector(90,0,0), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib3.mdl", {CollisionDecal=false, Pos=pos + Vector(95,0,90), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib9.mdl", {CollisionDecal=false, Pos=pos + Vector(95,0,93), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib10.mdl", {CollisionDecal=false, Pos=pos + Vector(95,0,95), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib11.mdl", {CollisionDecal=false, Pos=pos + Vector(95,0,96), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
 		
 		-- Make the gunners gib into pieces!
 		-- Also unparent them because Source engine spawns them at a random location...
@@ -511,8 +511,8 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				gib:SetModel(VJ.PICK(gibTbl))
 				gib:SetPos(self:GetPos() + Vector(math.random(-100, 100), math.random(-100, 100), math.random(20, 150)))
 				gib:SetAngles(Angle(math.Rand(-180, 180), math.Rand(-180, 180), math.Rand(-180, 180)))
-				gib.Collide_Decal = ""
-				gib.CollideSound = sdGibCollide
+				gib.CollisionDecal = false
+				gib.CollisionSound = sdGibCollide
 				gib:Spawn()
 				gib:Activate()
 				if !isBlackOps then gib:SetColor(colorYellowOsprey) end
@@ -521,19 +521,19 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 					myPhys:AddVelocity(Vector(math.Rand(-300, 300), math.Rand(-300, 300), math.Rand(150, 250)))
 					myPhys:AddAngleVelocity(Vector(math.Rand(-200, 200), math.Rand(-200, 200), math.Rand(-200, 200)))
 				end
-				if GetConVar("vj_npc_fadegibs"):GetInt() == 1 then
-					timer.Simple(GetConVar("vj_npc_fadegibstime"):GetInt(), function() SafeRemoveEntity(gib) end)
+				if GetConVar("vj_npc_gib_fade"):GetInt() == 1 then
+					timer.Simple(GetConVar("vj_npc_gib_fadetime"):GetInt(), function() SafeRemoveEntity(gib) end)
 				end
 			end
 			
-			local gibSkin = isBlackOps and 1 or 0
+			gibSkin = isBlackOps and 1 or 0
 			for _, v in ipairs(heliExpGibs_Main) do
 				local gib = ents.Create("obj_vj_gib")
 				gib:SetModel(v)
 				gib:SetPos(self:GetPos() + Vector(math.random(-100, 100), math.random(-100, 100), math.random(20, 150)))
 				gib:SetAngles(Angle(math.Rand(-180, 180), math.Rand(-180, 180), math.Rand(-180, 180)))
-				gib.Collide_Decal = ""
-				gib.CollideSound = sdGibCollide
+				gib.CollisionDecal = false
+				gib.CollisionSound = sdGibCollide
 				gib:SetSkin(gibSkin)
 				gib:Spawn()
 				gib:Activate()
@@ -542,8 +542,8 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 					myPhys:AddVelocity(Vector(math.Rand(-300, 300), math.Rand(-300, 300), math.Rand(150, 250)))
 					myPhys:AddAngleVelocity(Vector(math.Rand(-200, 200), math.Rand(-200, 200), math.Rand(-200, 200)))
 				end
-				if GetConVar("vj_npc_fadegibs"):GetInt() == 1 then
-					timer.Simple(GetConVar("vj_npc_fadegibstime"):GetInt(), function() SafeRemoveEntity(gib) end)
+				if GetConVar("vj_npc_gib_fade"):GetInt() == 1 then
+					timer.Simple(GetConVar("vj_npc_gib_fadetime"):GetInt(), function() SafeRemoveEntity(gib) end)
 				end
 			end
 			

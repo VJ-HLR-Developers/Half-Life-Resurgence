@@ -30,7 +30,7 @@ ENT.Model = {"models/crossbow_bolt.mdl"} -- Model(s) to spawn with | Picks a ran
 ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
 ENT.DirectDamage = 65
 ENT.DirectDamageType = bit.bor(DMG_SLASH, DMG_DISSOLVE, DMG_SHOCK)
-ENT.CollisionDecals = {"Impact.Concrete"}
+ENT.CollisionDecal = {"Impact.Concrete"}
 ENT.SoundTbl_Idle = {"ambient/energy/electric_loop.wav"}
 ENT.SoundTbl_OnCollide = {"ambient/energy/weld1.wav","ambient/energy/weld2.wav"}
 

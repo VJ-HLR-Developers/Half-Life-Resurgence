@@ -29,7 +29,7 @@ ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides wit
 ENT.DirectDamage = 25
 ENT.DirectDamageType = DMG_SHOCK
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav", "vj_hlr/hl1_weapon/gauss/electro5.wav", "vj_hlr/hl1_weapon/gauss/electro6.wav"}
-ENT.CollisionDecals = "VJ_HLR_Scorch" -- Decals that paint when the projectile dies | It picks a random one from this table
+ENT.CollisionDecal = "VJ_HLR_Scorch" -- Decals that paint when the projectile dies | It picks a random one from this table
 ENT.RemoveDelay = 1 -- Setting this greater than 0 will delay the entity's removal | Useful for lingering trail effects
 
 ---------------------------------------------------------------------------------------------------------------------------------------------

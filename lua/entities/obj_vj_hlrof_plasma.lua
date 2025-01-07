@@ -79,7 +79,7 @@ ENT.Model = {"models/weapons/w_missile_launch.mdl"} -- Model(s) to spawn with | 
 ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
 ENT.DirectDamage = 10
 ENT.DirectDamageType = DMG_SHOCK
-ENT.CollisionDecals = {"VJ_HLR_Scorch_Small"}
+ENT.CollisionDecal = {"VJ_HLR_Scorch_Small"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro5.wav","vj_hlr/hl1_weapon/gauss/electro6.wav"}
 
 //util.AddNetworkString("vj_hlr_svencoop_glow")

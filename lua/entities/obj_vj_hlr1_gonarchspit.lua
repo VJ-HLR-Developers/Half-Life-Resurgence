@@ -31,7 +31,7 @@ ENT.RadiusDamageRadius = 70
 ENT.RadiusDamage = 15
 ENT.RadiusDamageUseRealisticRadius = true -- Should the damage decrease the farther away the hit entity is from the radius origin?
 ENT.RadiusDamageType = DMG_ACID
-ENT.CollisionDecals = "VJ_HLR_Gonarch_Blob"
+ENT.CollisionDecal = "VJ_HLR_Gonarch_Blob"
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/bullchicken/bc_acid1.wav", "vj_hlr/hl1_npc/bullchicken/bc_acid2.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/bullchicken/bc_spithit1.wav", "vj_hlr/hl1_npc/bullchicken/bc_spithit2.wav"}
 

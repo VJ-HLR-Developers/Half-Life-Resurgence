@@ -30,7 +30,7 @@ ENT.Model = "models/vj_hlr/hl1/crossbow_bolt.mdl" -- Model(s) to spawn with | Pi
 ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
 ENT.DirectDamage = 50
 ENT.DirectDamageType = DMG_SLASH
-ENT.CollisionDecals = "Impact.Concrete"
+ENT.CollisionDecal = "Impact.Concrete"
 ENT.SoundTbl_OnCollide = "vj_hlr/hl1_weapon/crossbow/xbow_hit1.wav"
 local sdOnCollideEnt = {"vj_hlr/hl1_weapon/crossbow/xbow_hitbod1.wav", "vj_hlr/hl1_weapon/crossbow/xbow_hitbod2.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
