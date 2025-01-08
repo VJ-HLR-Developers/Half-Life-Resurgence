@@ -131,7 +131,7 @@ function ENT:OnThinkActive()
 		self.Sentry_StandDown = false
 		if CurTime() > self.Sentry_NextAlarmT && self.Sentry_Type != 2 then
 			local glow = ents.Create("env_sprite")
-			glow:SetKeyValue("model","vj_base/sprites/vj_glow1.vmt")
+			glow:SetKeyValue("model","vj_base/sprites/glow.vmt")
 			glow:SetKeyValue("scale", self.Sentry_Type == 1 and "0.35" or "0.15")
 			glow:SetKeyValue("rendermode","5")
 			glow:SetKeyValue("rendercolor","255 0 0")
