@@ -14,7 +14,7 @@ ENT.GeneralSoundPitch2 = 80
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "PreDamage" && dmginfo:IsBulletDamage() then
-		if self.HasSounds == true && self.HasImpactSounds == true then VJ.EmitSound(self, "vj_base/impact/armor"..math.random(1, 10)..".wav", 70) end
+		if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self, "vj_base/impact/armor"..math.random(1, 10)..".wav", 70) end
 		if math.random(1, 3) == 1 then
 			dmginfo:ScaleDamage(0.50)
 			local spark = ents.Create("env_spark")

@@ -17,8 +17,6 @@ ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other p
 ENT.BloodColor = VJ.BLOOD_COLOR_RED -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.AnimTbl_MeleeAttack = {"vjseq_MeleeAttack01", "melee_slice"}
 ENT.TimeUntilMeleeAttackDamage = 0.7 -- This counted in seconds | This calculates the time until it hits something
-ENT.FootStepTimeRun = 0.25 -- Delay between footstep sounds while it is running | false = Disable while running
-ENT.FootStepTimeWalk = 0.5 -- Delay between footstep sounds while it is walking | false = Disable while walking
 ENT.Weapon_StrafeWhileFiring = false -- Should it move randomly while firing a weapon?
 ENT.AnimTbl_GrenadeAttack = ACT_RANGE_ATTACK_THROW
 ENT.TimeUntilGrenadeIsReleased = 0.87 -- Time until the grenade is released

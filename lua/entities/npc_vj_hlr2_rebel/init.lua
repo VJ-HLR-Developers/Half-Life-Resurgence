@@ -15,8 +15,6 @@ ENT.HasMeleeAttack = true -- Can this NPC melee attack?
 ENT.AnimTbl_MeleeAttack = "vjseq_MeleeAttack01"
 ENT.TimeUntilMeleeAttackDamage = 0.7 -- This counted in seconds | This calculates the time until it hits something
 ENT.MeleeAttackDamage = 10
-ENT.FootStepTimeRun = 0.25 -- Delay between footstep sounds while it is running | false = Disable while running
-ENT.FootStepTimeWalk = 0.5 -- Delay between footstep sounds while it is walking | false = Disable while walking
 ENT.HasGrenadeAttack = true -- Should the NPC have a grenade attack?
 ENT.AnimTbl_GrenadeAttack = ACT_RANGE_ATTACK_THROW
 ENT.TimeUntilGrenadeIsReleased = 0.87 -- Time until the grenade is released

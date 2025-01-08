@@ -13,8 +13,6 @@ ENT.VJ_NPC_Class = {"CLASS_COMBINE"} -- NPCs with the same class with be allied 
 ENT.BloodColor = VJ.BLOOD_COLOR_RED -- The blood type, this will determine what it should use (decal, particle, etc.)
 ENT.CustomBlood_Particle = {"blood_impact_red_01_mist"}
 ENT.MeleeAttackDamage = 10
-ENT.FootStepTimeRun = 0.25 -- Delay between footstep sounds while it is running | false = Disable while running
-ENT.FootStepTimeWalk = 0.5 -- Delay between footstep sounds while it is walking | false = Disable while walking
 ENT.HasGrenadeAttack = true -- Should the NPC have a grenade attack?
 ENT.GrenadeAttackModel = "models/weapons/w_npcnade.mdl" -- Overrides the model of the grenade | Can be nil, string, and table | Does NOT apply to picked up grenades and forced grenade attacks with custom entity
 ENT.GrenadeAttackAttachment = "righthand" -- The attachment that the grenade will spawn at | false = Custom position
@@ -171,7 +169,7 @@ end
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	-- Absorb bullet damage, play metallic sound, and create sparks
 	if status == "PreDamage" && dmginfo:IsBulletDamage() then
-		if self.HasSounds == true && self.HasImpactSounds == true then
+		if self.HasSounds && self.HasImpactSounds then
 			VJ.EmitSound(self, "vj_base/impact/armor"..math.random(1, 10)..".wav", 70)
 		end
 		if math.random(1, 3) == 1 then
