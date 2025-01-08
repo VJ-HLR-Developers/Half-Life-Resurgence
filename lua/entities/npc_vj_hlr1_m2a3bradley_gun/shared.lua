@@ -8,12 +8,7 @@ ENT.Instructions 	= "Click on the spawnicon to spawn it."
 ENT.Category		= "Half-Life Resurgence"
 
 if CLIENT then
-	local Name = "M2A3 Bradley"
-	local LangName = "npc_vj_hlr1_m2a3bradley_gun"
-	language.Add(LangName, Name)
-	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
-	language.Add("#"..LangName, Name)
-	killicon.Add("#"..LangName,"HUD/killicons/default",Color(255,80,0,255))
+	VJ.AddKillIcon("npc_vj_hlr1_m2a3bradley_gun", ENT.PrintName)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 net.Receive("vj_hlr1_m2a3bradleyg_shooteffects", function()

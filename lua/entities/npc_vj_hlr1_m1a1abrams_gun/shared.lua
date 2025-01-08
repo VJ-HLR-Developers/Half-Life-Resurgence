@@ -8,12 +8,7 @@ ENT.Instructions 	= "Click on the spawnicon to spawn it."
 ENT.Category		= "Half-Life Resurgence"
 
 if CLIENT then
-	local Name = "M1A1 Abrams"
-	local LangName = "npc_vj_hlr1_m1a1abrams_gun"
-	language.Add(LangName, Name)
-	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
-	language.Add("#"..LangName, Name)
-	killicon.Add("#"..LangName,"HUD/killicons/default",Color(255,80,0,255))
+	VJ.AddKillIcon("npc_vj_hlr1_m1a1abrams_gun", ENT.PrintName)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(267.83, 1.24, 91.09)

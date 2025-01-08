@@ -14,12 +14,7 @@ ENT.Information		= "Projectile, usually used for NPCs & Weapons"
 ENT.Category		= "Projectiles"
 
 if CLIENT then
-	local Name = "Probe Droid Needle"
-	local LangName = "obj_vj_hlr1_probed_needle"
-	language.Add(LangName, Name)
-	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
-	language.Add("#"..LangName, Name)
-	killicon.Add("#"..LangName,"HUD/killicons/default",Color(255,80,0,255))
+	VJ.AddKillIcon("obj_vj_hlr1_probed_needle", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end

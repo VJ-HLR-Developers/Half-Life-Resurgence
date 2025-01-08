@@ -16,12 +16,7 @@ ENT.Category		= "Projectiles"
 ENT.PhysicsSolidMask = MASK_SHOT
 ---------------------------------------------------------------------------------------------------------------------------------------------
 if CLIENT then
-	local Name = "Charged Bolt"
-	local LangName = "obj_vj_hlr2_chargebolt"
-	language.Add(LangName, Name)
-	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
-	language.Add("#"..LangName, Name)
-	killicon.Add("#"..LangName,"HUD/killicons/default",Color(255,80,0,255))
+	VJ.AddKillIcon("obj_vj_hlr2_chargebolt", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end

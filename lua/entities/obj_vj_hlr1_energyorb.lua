@@ -14,12 +14,7 @@ ENT.Information		= "Projectile, usually used for NPCs & Weapons"
 ENT.Category		= "Projectiles"
 
 if CLIENT then
-	local Name = "Energy Orb"
-	local LangName = "obj_vj_hlr1_energyorb"
-	language.Add(LangName, Name)
-	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
-	language.Add("#"..LangName, Name)
-	killicon.Add("#"..LangName,"HUD/killicons/default",Color(255,80,0,255))
+	VJ.AddKillIcon("obj_vj_hlr1_energyorb", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end

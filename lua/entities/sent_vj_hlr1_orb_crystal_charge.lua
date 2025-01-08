@@ -14,12 +14,7 @@ ENT.Information		= "Projectile, usually used for NPCs & Weapons"
 ENT.Category		= "Projectiles"
 
 if CLIENT then
-	local Name = "Crystal Charge Orb"
-	local LangName = "sent_vj_hlr1_orb_crystal_charge"
-	language.Add(LangName, Name)
-	killicon.Add(LangName,"HUD/killicons/default",Color(255,80,0,255))
-	language.Add("#"..LangName, Name)
-	killicon.Add("#"..LangName,"HUD/killicons/default",Color(255,80,0,255))
+	VJ.AddKillIcon("sent_vj_hlr1_orb_crystal_charge", ENT.PrintName)
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
