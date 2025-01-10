@@ -2,7 +2,7 @@
 {
 	// Original shader: VertexLitMaskedEnvMappedTexture
 	"$baseTexture" "models/hl_resurgence/hl2/weapons/w_chargebow_Arrow"
-       	"$envmapmask" "models\weapons\v_shaketrapAC\v_shake_right_mask"
+       	//"$envmapmask" "models\weapons\v_shaketrapAC\v_shake_right_mask"
 	"$envmap" "env_cubemap"
 	"$envmapsaturation" "[1 1 1]"
 	"$envmapcontrast" 1
