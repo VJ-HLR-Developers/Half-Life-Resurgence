@@ -343,11 +343,11 @@ function ENT:OnMaintainRelationships(ent, calculatedDisp, entDist)
 							end
 						end})
 						self:SetTurnTarget(ent, animTime)
-						self:PlaySoundSystem("GeneralSpeech", (self.Human_Gender == HUMAN_GENDER_FEMALE and sdGiveAmmo_F) or sdGiveAmmo_M)
+						self:PlaySoundSystem("Speech", (self.Human_Gender == HUMAN_GENDER_FEMALE and sdGiveAmmo_F) or sdGiveAmmo_M)
 					end
 				-- Reload Freeman!
 				elseif wep:Clip1() < wep:GetMaxClip1() && ent:GetAmmoCount(ammoType) > 0 then
-					self:PlaySoundSystem("GeneralSpeech", (self.Human_Gender == HUMAN_GENDER_FEMALE and sdSuggestReloadPly_F) or sdSuggestReloadPly_M)
+					self:PlaySoundSystem("Speech", (self.Human_Gender == HUMAN_GENDER_FEMALE and sdSuggestReloadPly_F) or sdSuggestReloadPly_M)
 				end
 			end
 		end
@@ -359,7 +359,7 @@ function ENT:OnWeaponChange(newWeapon, oldWeapon, invSwitch)
 		self:PlayAnim(ACT_PICKUP_RACK, true, false, true)
 	end
 	-- Only males have a taking out an anti-armor weapon sound
-	if self.Human_Gender == HUMAN_GENDER_MALE && self.WeaponInventoryStatus == VJ.NPC_WEP_INVENTORY_ANTI_ARMOR && math.random(1, 2) == 1 then self:PlaySoundSystem("GeneralSpeech", "vo/npc/male01/evenodds.wav") end
+	if self.Human_Gender == HUMAN_GENDER_MALE && self.WeaponInventoryStatus == VJ.NPC_WEP_INVENTORY_ANTI_ARMOR && math.random(1, 2) == 1 then self:PlaySoundSystem("Speech", "vo/npc/male01/evenodds.wav") end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)

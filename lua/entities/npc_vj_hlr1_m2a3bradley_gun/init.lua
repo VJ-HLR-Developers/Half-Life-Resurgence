@@ -14,11 +14,8 @@ ENT.HasDeathCorpse = false -- Should a corpse spawn when it's killed?
 ENT.Tank_SoundTbl_Turning = {"vj_hlr/hl1_npc/tanks/bradley_turret_rot.wav"}
 //ENT.Tank_ReloadShellSoundLevel = 75
 
-ENT.Tank_AngleDiffuseNumber = 0
-ENT.Tank_Shell_EntityToSpawn = "obj_vj_hlr1_rocket" -- The entity that is spawned when the shell is fired
-ENT.Tank_Shell_VelocitySpeed = 3000 -- How fast should the tank shell travel?
-
-util.AddNetworkString("vj_hlr1_m2a3bradleyg_shooteffects")
+ENT.Tank_Shell_Entity = "obj_vj_hlr1_rocket"
+ENT.Tank_Shell_VelocitySpeed = 3000
 
 -- Custom
 ENT.Bradley_DoingMissileAtk = false
@@ -26,18 +23,10 @@ ENT.Bradley_NextMissileAtkT = 0
 
 local vecMissile = Vector(28.65, 57.25, 19.28)
 local vecBullet = Vector(113.9, 2.62, 10.06)
-local sdReloadMissile = {"vj_hlr/hl1_npc/tanks/tow_reload.wav"}
-local sdReloadBullet = {"vj_hlr/hl1_npc/tanks/25mm_reload.wav"}
-local sdFireMissile = {"vj_hlr/hl1_npc/tanks/tow_firing.wav"}
-local sdFireBullet = {"vj_hlr/hl1_npc/tanks/biggun2.wav"}
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:StartShootEffects()
-	if !self.Bradley_DoingMissileAtk then
-		net.Start("vj_hlr1_m2a3bradleyg_shooteffects")
-		net.WriteEntity(self)
-		net.Broadcast()
-	end
-end
+local sdReloadMissile = "vj_hlr/hl1_npc/tanks/tow_reload.wav"
+local sdReloadBullet = "vj_hlr/hl1_npc/tanks/25mm_reload.wav"
+local sdFireMissile = "vj_hlr/hl1_npc/tanks/tow_firing.wav"
+local sdFireBullet = "vj_hlr/hl1_npc/tanks/biggun2.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_OnPrepareShell()
 	if CurTime() > self.Bradley_NextMissileAtkT && math.random(1, 5) == 1 then
@@ -45,7 +34,6 @@ function ENT:Tank_OnPrepareShell()
 		self.Tank_Shell_NextFireTime = 3
 		self.Tank_Shell_TimeUntilFire = 1.5
 		self.Tank_Shell_SpawnPos = vecMissile
-		self.Tank_Shell_DynamicLightPos = vecMissile
 		self.Tank_Shell_MuzzleFlashPos = vecMissile
 		self.Tank_Shell_ParticlePos = vecMissile
 		self.HasReloadShellSound = true
@@ -63,7 +51,6 @@ function ENT:Tank_OnPrepareShell()
 		self.Bradley_DoingMissileAtk = false
 		self.Tank_Shell_NextFireTime = 0
 		self.Tank_Shell_SpawnPos = vecBullet
-		self.Tank_Shell_DynamicLightPos = vecBullet
 		self.Tank_Shell_MuzzleFlashPos = vecBullet
 		self.Tank_Shell_ParticlePos = vecBullet
 		self.Tank_SoundTbl_ReloadShell = sdReloadBullet

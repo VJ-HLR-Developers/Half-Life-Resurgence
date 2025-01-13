@@ -170,7 +170,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 	-- Absorb bullet damage, play metallic sound, and create sparks
 	if status == "PreDamage" && dmginfo:IsBulletDamage() then
 		if self.HasSounds && self.HasImpactSounds then
-			VJ.EmitSound(self, "vj_base/impact/armor"..math.random(1, 10)..".wav", 70)
+			VJ.EmitSound(self, "VJ.Impact.Armor")
 		end
 		if math.random(1, 3) == 1 then
 			dmginfo:ScaleDamage(0.50)

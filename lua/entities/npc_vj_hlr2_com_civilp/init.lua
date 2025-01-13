@@ -286,7 +286,7 @@ end
 function ENT:Metrocop_DeployManhack()
 	self.Metrocop_HasManhack = false
 	self:PlayAnim("deploy", true, false, true)
-	self:PlaySoundSystem("GeneralSpeech", sdCop_DeployManhack)
+	self:PlaySoundSystem("Speech", sdCop_DeployManhack)
 	
 	-- Backup in case animation cuts out and event is never ran
 	timer.Simple(3, function()

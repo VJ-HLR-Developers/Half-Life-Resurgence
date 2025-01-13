@@ -18,7 +18,6 @@ ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be all
 ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other player allies?
 
 ENT.Tank_GunnerENT = "npc_vj_hlr2b_merkava_gun"
-ENT.Tank_AngleDiffuseNumber = 0
 ENT.Tank_CollisionBoundSize = 90
 ENT.Tank_CollisionBoundUp = 100
 ENT.Tank_DeathSoldierModels = {"models/Humans/Group03m/male_01.mdl","models/Humans/Group03m/male_02.mdl","models/Humans/Group03m/male_03.mdl","models/Humans/Group03m/male_04.mdl","models/Humans/Group03m/male_05.mdl","models/Humans/Group03m/male_06.mdl","models/Humans/Group03m/male_07.mdl","models/Humans/Group03m/male_08.mdl","models/Humans/Group03m/male_09.mdl"} -- The corpses it will spawn on death (Example: A soldier) | false = Don't spawn anything

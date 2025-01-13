@@ -12,21 +12,10 @@ ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other p
 
 ENT.Tank_SoundTbl_Turning = "vehicles/tank_turret_loop1.wav"
 
-ENT.Tank_AngleDiffuseNumber = 0
 ENT.Tank_Shell_SpawnPos = Vector(232.1, -0.36, 9.64)
-ENT.Tank_Shell_DynamicLightPos = Vector(232.1, -0.36, 9.64)
 ENT.Tank_Shell_MuzzleFlashPos = Vector(232.1, -0.36, 9.64)
 ENT.Tank_Shell_ParticlePos = Vector(232.1, -0.36, 9.64)
 
-util.AddNetworkString("vj_hlr1_merkavag_shooteffects")
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:StartShootEffects()
-	if !self.Bradley_DoingMissileAtk then
-		net.Start("vj_hlr1_merkavag_shooteffects")
-		net.WriteEntity(self)
-		net.Broadcast()
-	end
-end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_Init()
 	if GetConVar("vj_hlr2_merkava_gunner"):GetInt() == 0 then return end

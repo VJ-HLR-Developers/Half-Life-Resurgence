@@ -243,7 +243,7 @@ function ENT:OnInput(key, activator, caller, data)
 	
 	-- Alpha HGrunt --
 	elseif key == "i_got_something_for_you" then -- Make them play a sound when firing a weapon secondary shot
-		self:PlaySoundSystem("GeneralSpeech", "vj_hlr/hla_npc/hgrunt/gr_loadtalk.wav")
+		self:PlaySoundSystem("Speech", "vj_hlr/hla_npc/hgrunt/gr_loadtalk.wav")
 		
 	-- Alpha Sergeant --
 	elseif key == "holster_gun" && self.Serg_Type != 2 then

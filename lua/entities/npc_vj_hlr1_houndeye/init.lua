@@ -80,11 +80,11 @@ function ENT:OnInput(key, activator, caller, data)
 	if key == "he_hunt" then -- step
 		self:FootStepSoundCode()
 	elseif key == "woof" then
-		self:PlaySoundSystem("GeneralSpeech", "vj_hlr/hl1_npc/houndeye/he_pain3.wav")
+		self:PlaySoundSystem("Speech", "vj_hlr/hl1_npc/houndeye/he_pain3.wav")
 	elseif key == "woooof" then
-		self:PlaySoundSystem("GeneralSpeech", "vj_hlr/hl1_npc/houndeye/he_pain1.wav")
+		self:PlaySoundSystem("Speech", "vj_hlr/hl1_npc/houndeye/he_pain1.wav")
 	elseif key == "mad" then
-		self:PlaySoundSystem("GeneralSpeech", madSd)
+		self:PlaySoundSystem("Speech", madSd)
 	elseif key == "body" then
 		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end

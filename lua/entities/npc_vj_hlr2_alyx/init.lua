@@ -1019,11 +1019,11 @@ function ENT:OnMaintainRelationships(ent, calculatedDisp, entDist)
 							end
 						end})
 						self:SetTurnTarget(ent, animTime)
-						self:PlaySoundSystem("GeneralSpeech", "vj_hlr/hl2_npc/ep1/npc/alyx/al_takeammo.wav")
+						self:PlaySoundSystem("Speech", "vj_hlr/hl2_npc/ep1/npc/alyx/al_takeammo.wav")
 					end
 				-- Reload Freeman
 				elseif wep:Clip1() < wep:GetMaxClip1() && ent:GetAmmoCount(ammoType) > 0 then
-					self:PlaySoundSystem("GeneralSpeech", sdFreemanReload)
+					self:PlaySoundSystem("Speech", sdFreemanReload)
 				end
 			end
 		end

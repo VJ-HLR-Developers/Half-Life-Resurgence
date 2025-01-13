@@ -231,7 +231,7 @@ function ENT:OnInput(key, activator, caller, data)
 	if key == "step" or key == "wheelchair" then
 		self:FootStepSoundCode()
 	elseif key == "tie" /*&& !self:BusyWithActivity()*/ then
-		self:PlaySoundSystem("GeneralSpeech", sdTie)
+		self:PlaySoundSystem("Speech", sdTie)
 		//VJ.EmitSound(self, {"vj_hlr/hl1_npc/scientist/weartie.wav","vj_hlr/hl1_npc/scientist/ties.wav"}, 80, 100)
 	elseif key == "draw" then
 		self:SetBodygroup(2,1)
@@ -242,7 +242,7 @@ function ENT:OnInput(key, activator, caller, data)
 	// keller
 	elseif key == "keller_surprise" then
 		self.SoundTbl_FootStep = sdStep
-		self:PlaySoundSystem("GeneralSpeech", "vj_hlr/hl1_npc/keller/dk_furher.wav")
+		self:PlaySoundSystem("Speech", "vj_hlr/hl1_npc/keller/dk_furher.wav")
 	elseif key == "keller_die" then
 		self.HasDeathAnimation = false
 		self.DeathCorpseApplyForce = false
