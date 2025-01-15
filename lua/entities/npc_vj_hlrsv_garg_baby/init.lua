@@ -13,7 +13,7 @@ ENT.VJ_ID_Boss = false
 ENT.VJC_Data = {
     ThirdP_Offset = Vector(15, 0, -15), -- The offset for the controller when the camera is in third person
 }
-ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
+ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 
 ENT.MeleeAttackDamage = 20 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
 ENT.MeleeAttackDamageType = DMG_SLASH -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds

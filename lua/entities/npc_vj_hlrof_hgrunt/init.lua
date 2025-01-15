@@ -13,7 +13,7 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(5, 0, 1), -- The offset for the controller when the camera is in first person
 }
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
-ENT.BecomeEnemyToPlayer = true -- Should the friendly SNPC become enemy towards the player if it's damaged by a player?
+ENT.BecomeEnemyToPlayer = 2
 
 /*
 Heavy damage:

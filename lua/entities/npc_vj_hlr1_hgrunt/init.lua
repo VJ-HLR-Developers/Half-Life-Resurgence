@@ -14,10 +14,10 @@ ENT.VJC_Data = {
     FirstP_Offset = Vector(3, 0, 5), -- The offset for the controller when the camera is in first person
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.BloodColor = VJ.BLOOD_COLOR_RED -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.CustomBlood_Particle = {"vj_hlr_blood_red"}
-ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damaged
-ENT.HasBloodPool = false -- Does it have a blood pool?
+ENT.BloodColor = VJ.BLOOD_COLOR_RED
+ENT.BloodParticle = {"vj_hlr_blood_red"}
+ENT.BloodDecal = {"VJ_HLR_Blood_Red"}
+ENT.HasBloodPool = false
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
 ENT.HasMeleeAttack = true -- Can this NPC melee attack?
 ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1

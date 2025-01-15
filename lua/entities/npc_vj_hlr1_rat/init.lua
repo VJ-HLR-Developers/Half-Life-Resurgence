@@ -16,10 +16,10 @@ ENT.VJC_Data = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.CanOpenDoors = false -- Can it open doors?
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE -- Doesn't attack anything
-ENT.BloodColor = VJ.BLOOD_COLOR_RED -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.CustomBlood_Particle = {"vj_hlr_blood_red"}
-ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Red"} -- Decals to spawn when it's damaged
-ENT.HasBloodPool = false -- Does it have a blood pool?
+ENT.BloodColor = VJ.BLOOD_COLOR_RED
+ENT.BloodParticle = {"vj_hlr_blood_red"}
+ENT.BloodDecal = {"VJ_HLR_Blood_Red"}
+ENT.HasBloodPool = false
 
 -- Does it ever actually attack? Who knows!
 ENT.HasMeleeAttack = true -- Can this NPC melee attack?

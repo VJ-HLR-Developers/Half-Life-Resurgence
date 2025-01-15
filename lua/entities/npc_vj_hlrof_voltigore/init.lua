@@ -16,10 +16,10 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"} -- NPCs with the same class with be allied to each other
-ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow_large"}
-ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
-ENT.HasBloodPool = false -- Does it have a blood pool?
+ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
+ENT.BloodParticle = {"vj_hlr_blood_yellow_large"}
+ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
+ENT.HasBloodPool = false
 
 ENT.MeleeAttackDamage = 30
 ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1

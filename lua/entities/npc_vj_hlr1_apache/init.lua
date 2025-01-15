@@ -9,7 +9,7 @@ local combatDistance = 5000 -- When closer then this, it will stop chasing and s
 
 ENT.Model = "models/vj_hlr/hl1/apache.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.VJ_ID_Boss = true
-ENT.StartHealth = 400 -- The starting health of the NPC
+ENT.StartHealth = 400
 ENT.HullType = HULL_LARGE
 ENT.SightAngle = 360
 ENT.TurningSpeed = 2 -- How fast it can turn

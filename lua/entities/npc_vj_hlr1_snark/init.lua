@@ -17,10 +17,10 @@ ENT.VJC_Data = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_SNARK"} -- NPCs with the same class with be allied to each other
-ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
-ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
-ENT.HasBloodPool = false -- Does it have a blood pool?
+ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
+ENT.BloodParticle = {"vj_hlr_blood_yellow"}
+ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
+ENT.HasBloodPool = false
 ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.HasLeapAttack = true -- Can this NPC leap attack?
 ENT.AnimTbl_LeapAttack = ACT_JUMP

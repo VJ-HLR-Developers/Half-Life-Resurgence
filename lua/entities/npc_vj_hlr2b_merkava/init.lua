@@ -20,7 +20,7 @@ ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other p
 ENT.Tank_GunnerENT = "npc_vj_hlr2b_merkava_gun"
 ENT.Tank_CollisionBoundSize = 90
 ENT.Tank_CollisionBoundUp = 100
-ENT.Tank_DeathSoldierModels = {"models/Humans/Group03m/male_01.mdl","models/Humans/Group03m/male_02.mdl","models/Humans/Group03m/male_03.mdl","models/Humans/Group03m/male_04.mdl","models/Humans/Group03m/male_05.mdl","models/Humans/Group03m/male_06.mdl","models/Humans/Group03m/male_07.mdl","models/Humans/Group03m/male_08.mdl","models/Humans/Group03m/male_09.mdl"} -- The corpses it will spawn on death (Example: A soldier) | false = Don't spawn anything
+ENT.Tank_DeathDriverCorpse = {"models/Humans/Group03m/male_01.mdl","models/Humans/Group03m/male_02.mdl","models/Humans/Group03m/male_03.mdl","models/Humans/Group03m/male_04.mdl","models/Humans/Group03m/male_05.mdl","models/Humans/Group03m/male_06.mdl","models/Humans/Group03m/male_07.mdl","models/Humans/Group03m/male_08.mdl","models/Humans/Group03m/male_09.mdl"}
 
 util.AddNetworkString("vj_hlr1_merkava_spawneffects")
 util.AddNetworkString("vj_hlr1_merkava_moveeffects")

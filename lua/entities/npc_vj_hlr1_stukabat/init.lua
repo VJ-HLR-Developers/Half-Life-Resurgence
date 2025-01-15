@@ -24,10 +24,10 @@ ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to e
 ENT.IdleAlwaysWander = false -- Should the NPC constantly wander while idling?
 ENT.CanOpenDoors = false -- Can it open doors?
 
-ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW -- The blood type, this will determine what it should use (decal, particle, etc.)
-ENT.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
-ENT.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"} -- Decals to spawn when it's damaged
-ENT.HasBloodPool = false -- Does it have a blood pool?
+ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
+ENT.BloodParticle = {"vj_hlr_blood_yellow"}
+ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
+ENT.HasBloodPool = false
 ENT.AnimTbl_Death = {"vjseq_Die_on_ground"}
 
 ENT.HasMeleeAttack = false -- Can this NPC melee attack?
@@ -333,8 +333,8 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 						corpse.ChildEnts = {}
 						self.BloodColor = VJ.BLOOD_COLOR_YELLOW
 						self.HasBloodParticle = true
-						self.CustomBlood_Particle = {"vj_hlr_blood_yellow"}
-						self.CustomBlood_Decal = {"VJ_HLR_Blood_Yellow"}
+						self.BloodParticle = {"vj_hlr_blood_yellow"}
+						self.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 
 						-- undo.ReplaceEntity(self, corpse)
 						-- cleanup.ReplaceEntity(self, corpse)

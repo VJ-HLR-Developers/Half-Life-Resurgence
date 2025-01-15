@@ -28,14 +28,14 @@ ENT.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/hgrunt/gr_allydeath.wav","vj_hlr/hl1_n
 ENT.SoundTbl_Death = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}
 
 -- Tank Base
-ENT.Tank_SoundTbl_DrivingEngine = {"vj_hlr/hl1_npc/tanks/tankdrive.wav"}
-ENT.Tank_SoundTbl_Track = {"vj_hlr/hl1_npc/tanks/tanktrack.wav"}
+ENT.Tank_SoundTbl_DrivingEngine = "vj_hlr/hl1_npc/tanks/tankdrive.wav"
+ENT.Tank_SoundTbl_Track = "vj_hlr/hl1_npc/tanks/tanktrack.wav"
 
 ENT.Tank_GunnerENT = "npc_vj_hlr1_m2a3bradley_gun"
 ENT.Tank_CollisionBoundSize = 90
 ENT.Tank_CollisionBoundUp = 130
-ENT.Tank_DeathSoldierModels = {"models/vj_hlr/hl1/hGrunt.mdl"} -- The corpses it will spawn on death (Example: A soldier) | false = Don't spawn anything
-ENT.Tank_DeathDecal = {"VJ_HLR_Scorch"} -- The decal that it places on the ground when it dies
+ENT.Tank_DeathDriverCorpse = "models/vj_hlr/hl1/hGrunt.mdl"
+ENT.Tank_DeathDecal = "VJ_HLR_Scorch"
 
 util.AddNetworkString("vj_hlr1_m2a3bradley_moveeffects")
 

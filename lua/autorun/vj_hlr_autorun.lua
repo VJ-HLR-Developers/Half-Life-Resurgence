@@ -501,8 +501,8 @@ sound.Add({
 		extraOptions = extraOptions or {} -- CollisionSound, ExpSound, Gibbable, CanBleed, ExtraGibs
 		corpse.HLR_Corpse = true
 		corpse.HLR_Corpse_Type = ent.BloodColor
-		if ent.HasBloodParticle then corpse.HLR_Corpse_Particle = ent.CustomBlood_Particle end
-		corpse.HLR_Corpse_Decal = ent.HasBloodDecal and VJ.PICK(ent.CustomBlood_Decal) or ""
+		if ent.HasBloodParticle then corpse.HLR_Corpse_Particle = ent.BloodParticle end
+		corpse.HLR_Corpse_Decal = ent.HasBloodDecal and VJ.PICK(ent.BloodDecal) or ""
 		corpse.HLR_Corpse_Gibbable = extraOptions.Gibbable != false
 		if !gibTbl then
 			if corpse.HLR_Corpse_Type == "Yellow" then
