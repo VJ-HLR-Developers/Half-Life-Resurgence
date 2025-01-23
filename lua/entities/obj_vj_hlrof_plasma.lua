@@ -70,29 +70,29 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/weapons/w_missile_launch.mdl"} -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/weapons/w_missile_launch.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
 ENT.DirectDamage = 10
 ENT.DirectDamageType = DMG_SHOCK
-ENT.CollisionDecal = {"VJ_HLR_Scorch_Small"}
-ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro5.wav","vj_hlr/hl1_weapon/gauss/electro6.wav"}
+ENT.CollisionDecal = "VJ_HLR_Scorch_Small"
+ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro5.wav", "vj_hlr/hl1_weapon/gauss/electro6.wav"}
 
 //util.AddNetworkString("vj_hlr_svencoop_glow")
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetNoDraw(true)
-	ParticleEffectAttach("vj_hlr_shockroach",PATTACH_ABSORIGIN_FOLLOW,self,0)
-	self.StartLight1 = ents.Create("light_dynamic")
-	self.StartLight1:SetKeyValue("brightness", "1")
-	self.StartLight1:SetKeyValue("distance", "200")
-	self.StartLight1:SetLocalPos(self:GetPos())
-	self.StartLight1:SetLocalAngles( self:GetAngles() )
-	self.StartLight1:Fire("Color", "128 255 255")
-	self.StartLight1:SetParent(self)
-	self.StartLight1:Spawn()
-	self.StartLight1:Activate()
-	self.StartLight1:Fire("TurnOn", "", 0)
-	self:DeleteOnRemove(self.StartLight1)
+	ParticleEffectAttach("vj_hlr_shockroach", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	
+	local lightDyn = ents.Create("light_dynamic")
+	lightDyn:SetKeyValue("brightness", "1")
+	lightDyn:SetKeyValue("distance", "200")
+	lightDyn:SetLocalPos(self:GetPos())
+	lightDyn:Fire("Color", "128 255 255")
+	lightDyn:SetParent(self)
+	lightDyn:Spawn()
+	lightDyn:Activate()
+	lightDyn:Fire("TurnOn", "", 0)
+	self:DeleteOnRemove(lightDyn)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 //function ENT:OnDealDamage(data, phys, hitEnts)
@@ -104,15 +104,14 @@ end
 //end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDestroy(data, phys)
-	local effectdata = EffectData()
-	effectdata:SetOrigin(data.HitPos)
-	util.Effect("StunstickImpact", effectdata)
+	local effectData = EffectData()
+	effectData:SetOrigin(data.HitPos)
+	util.Effect("StunstickImpact", effectData)
 
 	local expLight = ents.Create("light_dynamic")
 	expLight:SetKeyValue("brightness", "2")
 	expLight:SetKeyValue("distance", "400")
 	expLight:SetLocalPos(data.HitPos)
-	expLight:SetLocalAngles(self:GetAngles())
 	expLight:Fire("Color", "128 255 255")
 	expLight:SetParent(self)
 	expLight:Spawn()
