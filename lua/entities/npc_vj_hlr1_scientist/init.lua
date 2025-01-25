@@ -334,7 +334,7 @@ local sdMetalCollide = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibOnDeathEffects == true then
+	if self.HasGibOnDeathEffects then
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 		effectData:SetColor(colorRed)

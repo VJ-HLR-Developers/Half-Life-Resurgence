@@ -137,7 +137,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		
 		if self.Snark_Type == SNARK_TYPE_REGULAR then
 			VJ.ApplyRadiusDamage(self, self, myPos, 50, 15, DMG_ACID, true, true)
-			if self.HasGibOnDeathEffects == true then
+			if self.HasGibOnDeathEffects then
 				local effectData = EffectData()
 				effectData:SetOrigin(myPos + self:OBBCenter())
 				effectData:SetColor(colorYellow)
@@ -154,7 +154,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1, 3)..".wav", 100)
 			VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
 			util.BlastDamage(self, self, myPos, 80, 35)
-			if self.HasGibOnDeathEffects == true then
+			if self.HasGibOnDeathEffects then
 				local effectData = EffectData()
 				effectData:SetOrigin(myPos + self:OBBCenter())
 				effectData:SetColor(colorRed)

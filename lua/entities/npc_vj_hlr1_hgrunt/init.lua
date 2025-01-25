@@ -560,7 +560,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		self:PlaySoundSystem("Gib", sdHeadshot)
 		return true, {AllowCorpse = true, AllowSound = false}
 	else
-		if self.HasGibOnDeathEffects == true then
+		if self.HasGibOnDeathEffects then
 			local effectData = EffectData()
 			effectData:SetOrigin(self:GetPos() + self:OBBCenter())
 			effectData:SetColor(colorRed)

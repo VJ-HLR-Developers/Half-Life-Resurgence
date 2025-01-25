@@ -130,7 +130,7 @@ local vecZ12 = Vector(0, 0, 12)
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	local attPos = self:GetAttachment(1).Pos
-	if self.HasGibOnDeathEffects == true then
+	if self.HasGibOnDeathEffects then
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 		spr:SetKeyValue("rendercolor", "115,  30,  164")

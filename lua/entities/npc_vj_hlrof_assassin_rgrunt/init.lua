@@ -36,7 +36,7 @@ local gibsCollideSd = {"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	if self.HasGibOnDeathEffects == true then
+	if self.HasGibOnDeathEffects then
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
 		spr:SetKeyValue("GlowProxySize","2.0")

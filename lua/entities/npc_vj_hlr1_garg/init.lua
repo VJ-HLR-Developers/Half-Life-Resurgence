@@ -330,7 +330,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	timer.Simple(3.6, function()
 		if IsValid(self) then
 			local myPos = self:GetPos()
-			if self.HasGibOnDeathEffects == true then
+			if self.HasGibOnDeathEffects then
 				local effectData = EffectData()
 				effectData:SetOrigin(myPos + self:OBBCenter())
 				effectData:SetColor(colorYellow)
