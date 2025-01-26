@@ -34,20 +34,15 @@ SWEP.PrimaryEffects_MuzzleFlash = false
 SWEP.HasDryFireSound			= false -- Should it play a sound when it's out of ammo?
 
 -- Custom
-SWEP.HLR_ValidModels = {"models/vj_hlr/opfor/strooper.mdl"}
 SWEP.HLR_NextIdleSoundT = 0
+local validModels = {
+	["models/vj_hlr/opfor/strooper.mdl"] = true,
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
-	timer.Simple(0.1, function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
-		if IsValid(self) && IsValid(self:GetOwner()) then
-			if !VJ.HasValue(self.HLR_ValidModels, self:GetOwner():GetModel()) then
-				if IsValid(self:GetOwner():GetCreator()) then
-					self:GetOwner():GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
-				end
-				self:Remove()
-			else
-				self.NPC_NextPrimaryFire = false
-			end
+	timer.Simple(0.1, function()
+		if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
+			self.NPC_NextPrimaryFire = false
 		end
 	end)
 end

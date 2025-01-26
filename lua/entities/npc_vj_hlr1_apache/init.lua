@@ -229,6 +229,10 @@ function ENT:CustomAttack()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:DoImpactEffect(tr, damageType)
+	return VJ.HLR1_Effect_Impact(tr)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)

@@ -32,24 +32,20 @@ SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
 
 -- Custom
-SWEP.HLR_ValidModels = {"models/vj_hlr/hl1/hassault.mdl", "models/vj_hlr/hl_hd/hassault.mdl", "models/vj_hlr/hla/hassault.mdl"}
+local validModels = {
+	["models/vj_hlr/hl1/hassault.mdl"] = true,
+	["models/vj_hlr/hl_hd/hassault.mdl"] = true,
+	["models/vj_hlr/hla/hassault.mdl"] = true,
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
-	timer.Simple(0.1, function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
-		if IsValid(self) && IsValid(self:GetOwner()) then
-			local owner = self:GetOwner()
-			if !VJ.HasValue(self.HLR_ValidModels,owner:GetModel()) then
-				if IsValid(owner:GetCreator()) then
-					owner:GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
-				end
-				self:Remove()
-			else
-				self.NPC_NextPrimaryFire = false
-				if owner:GetModel() == "models/vj_hlr/hla/hassault.mdl" then
-					self.WorldModel_CustomPositionBone = "unnamed_bone_033"
-					self.WorldModel_CustomPositionAngle = Vector(104, 0, 100)
-					self.WorldModel_CustomPositionOrigin = Vector(27.5, 0, 3)
-				end
+	timer.Simple(0.1, function()
+		if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
+			self.NPC_NextPrimaryFire = false
+			if self:GetOwner():GetModel() == "models/vj_hlr/hla/hassault.mdl" then
+				self.WorldModel_CustomPositionBone = "unnamed_bone_033"
+				self.WorldModel_CustomPositionAngle = Vector(104, 0, 100)
+				self.WorldModel_CustomPositionOrigin = Vector(27.5, 0, 3)
 			end
 		end
 	end)

@@ -270,6 +270,10 @@ function ENT:CustomRangeAttackCode()
 	self:DeleteOnRemove(muzzleLight)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:DoImpactEffect(tr, damageType)
+	return VJ.HLR1_Effect_Impact(tr)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 local vecUp20 = Vector(0, 0, 20)
 --
 function ENT:OnDeath(dmginfo, hitgroup, status)

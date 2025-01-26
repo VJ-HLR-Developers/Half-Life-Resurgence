@@ -33,42 +33,34 @@ SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
 
 -- Custom
-SWEP.HLR_ValidModels = {
-	"models/vj_hlr/hl1/barney.mdl",
-	"models/vj_hlr/hla/barney.mdl",
-	"models/vj_hlr/opfor/hgrunt.mdl",
-	"models/vj_hlr/hl1/hgrunt.mdl",
-	"models/vj_hlr/opfor/hgrunt_medic.mdl",
-	"models/vj_hlr/opfor/hgrunt_engineer.mdl",
-	"models/vj_hlr/opfor/hgrunt.mdl",
-	"models/vj_hlr/opfor_hd/hgrunt.mdl",
-	"models/vj_hlr/opfor_hd/hgrunt_medic.mdl",
-	"models/vj_hlr/opfor_hd/hgrunt_engineer.mdl",
-	"models/vj_hlr/cracklife/barney.mdl",
-	"models/vj_hlr/cracklife10/unbarney.mdl",
-	"models/vj_hlr/cracklife10/barney.mdl"
+local validModels = {
+	["models/vj_hlr/hl1/barney.mdl"] = true,
+	["models/vj_hlr/hla/barney.mdl"] = true,
+	["models/vj_hlr/opfor/hgrunt.mdl"] = true,
+	["models/vj_hlr/hl1/hgrunt.mdl"] = true,
+	["models/vj_hlr/opfor/hgrunt_medic.mdl"] = true,
+	["models/vj_hlr/opfor/hgrunt_engineer.mdl"] = true,
+	["models/vj_hlr/opfor/hgrunt.mdl"] = true,
+	["models/vj_hlr/opfor_hd/hgrunt.mdl"] = true,
+	["models/vj_hlr/opfor_hd/hgrunt_medic.mdl"] = true,
+	["models/vj_hlr/opfor_hd/hgrunt_engineer.mdl"] = true,
+	["models/vj_hlr/cracklife/barney.mdl"] = true,
+	["models/vj_hlr/cracklife10/unbarney.mdl"] = true,
+	["models/vj_hlr/cracklife10/barney.mdl"] = true,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
-	timer.Simple(0.1,function() -- Minag mikani modelner tske, yete ooresh model-e, serpe as zenke
-		if IsValid(self) && IsValid(self:GetOwner()) then
-			if self:GetOwner():GetModel() == "models/vj_hlr/hla/barney.mdl" then
-				self.WorldModel_CustomPositionBone = "unnamed033"
-			end
-			if !VJ.HasValue(self.HLR_ValidModels,self:GetOwner():GetModel()) then
-				if IsValid(self:GetOwner():GetCreator()) then
-					self:GetOwner():GetCreator():PrintMessage(HUD_PRINTTALK,self.PrintName.." removed! It's made for specific NPCs only!")
-				end
-				self:Remove()
-			else
-				self.NPC_NextPrimaryFire = false
-				if self:GetOwner():GetModel() == "models/vj_hlr/hl1/barney.mdl" or self:GetOwner():GetModel() == "models/vj_hlr/hla/barney.mdl" or self:GetOwner():GetModel() == "models/vj_hlr/cracklife/barney.mdl" then
-					self.Primary.Sound = {"vj_hlr/hl1_npc/barney/ba_attack2.wav"}
-					self.WorldModel_CustomPositionAngle = Vector(0,192,-90)
-					self.WorldModel_CustomPositionOrigin = Vector(-1.5,-7,-1)
-					if self:GetOwner():GetModel() == "models/vj_hlr/hla/barney.mdl" then
-						self.Primary.TakeAmmo = 0 -- Alpha Security Guard can't reload, so give it unlimited ammo!
-					end
+	timer.Simple(0.1, function()
+		if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
+			self.NPC_NextPrimaryFire = false
+			local model = self:GetOwner():GetModel()
+			if model == "models/vj_hlr/hl1/barney.mdl" or model == "models/vj_hlr/hla/barney.mdl" or model == "models/vj_hlr/cracklife/barney.mdl" then
+				self.Primary.Sound = "vj_hlr/hl1_npc/barney/ba_attack2.wav"
+				self.WorldModel_CustomPositionAngle = Vector(0, 192, -90)
+				self.WorldModel_CustomPositionOrigin = Vector(-1.5, -7, -1)
+				if model == "models/vj_hlr/hla/barney.mdl" then
+					self.WorldModel_CustomPositionBone = "unnamed033"
+					self.Primary.TakeAmmo = 0 -- Alpha Security Guard can't reload, so give it unlimited ammo!
 				end
 			end
 		end

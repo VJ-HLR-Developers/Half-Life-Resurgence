@@ -77,7 +77,6 @@ function ENT:Tank_OnFireShell(status, statusData)
 			TracerName = "VJ_HLR_Tracer_Large",
 			Callback = function(attack, tr, dmginfo)
 				local hitPos = tr.HitPos
-				util.Decal("VJ_HLR_Scorch_Small", hitPos + tr.HitNormal, hitPos - tr.HitNormal)
 				VJ.ApplyRadiusDamage(self, self, hitPos, 50, 30, DMG_BLAST, true, true, {Force=100})
 				
 				sound.Play("vj_hlr/hl1_weapon/explosion/explode"..math.random(3, 5)..".wav", hitPos, 70, 100, 1)
@@ -122,4 +121,9 @@ function ENT:Tank_OnFireShell(status, statusData)
 	elseif status == "OnSpawn" then
 		return true -- Done in the projectile instead
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:DoImpactEffect(tr, damageType)
+	util.Decal("VJ_HLR_Scorch_Small", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
+	return true
 end

@@ -494,6 +494,19 @@ sound.Add({
 		end
 	end
 	---------------------------------------------------------------------------------------------------------------------------------------------
+	function VJ.HLR_Weapon_CheckModel(wep, models)
+		local owner = wep:GetOwner()
+		if !models[owner:GetModel()] then
+			local creator = owner:GetCreator()
+			if IsValid(creator) then
+				creator:PrintMessage(HUD_PRINTTALK, wep.PrintName .. " removed! It's made for specific NPCs only!")
+			end
+			wep:Remove()
+			return false
+		end
+		return true -- Valid model
+	end
+	---------------------------------------------------------------------------------------------------------------------------------------------
 	local defGibs_Yellow = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib6.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 	local defGibs_Red = {"models/vj_hlr/gibs/flesh1.mdl", "models/vj_hlr/gibs/flesh2.mdl", "models/vj_hlr/gibs/flesh3.mdl", "models/vj_hlr/gibs/flesh4.mdl", "models/vj_hlr/gibs/hgib_b_bone.mdl", "models/vj_hlr/gibs/hgib_b_gib.mdl", "models/vj_hlr/gibs/hgib_guts.mdl", "models/vj_hlr/gibs/hgib_hmeat.mdl", "models/vj_hlr/gibs/hgib_lung.mdl", "models/vj_hlr/gibs/hgib_skull.mdl", "models/vj_hlr/gibs/hgib_legbone.mdl"}
 	--
