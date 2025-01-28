@@ -22,27 +22,33 @@ ENT.Tank_CollisionBoundSize = 90
 ENT.Tank_CollisionBoundUp = 100
 ENT.Tank_DeathDriverCorpse = {"models/Humans/Group03m/male_01.mdl","models/Humans/Group03m/male_02.mdl","models/Humans/Group03m/male_03.mdl","models/Humans/Group03m/male_04.mdl","models/Humans/Group03m/male_05.mdl","models/Humans/Group03m/male_06.mdl","models/Humans/Group03m/male_07.mdl","models/Humans/Group03m/male_08.mdl","models/Humans/Group03m/male_09.mdl"}
 
-util.AddNetworkString("vj_hlr1_merkava_spawneffects")
-util.AddNetworkString("vj_hlr1_merkava_moveeffects")
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_Init()
 	self:SetSkin(math.random(0, 1))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_GunnerSpawnPosition()
-	return self:GetPos() + self:GetUp()*69
+	return self:GetPos() + self:GetUp() * 69
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:StartSpawnEffects()
-	net.Start("vj_hlr1_merkava_spawneffects")
-	net.WriteEntity(self)
-	net.Broadcast()
+function ENT:UpdateIdleParticles()
+	local effectData = EffectData()
+	effectData:SetScale(2)
+	effectData:SetEntity(self)
+	effectData:SetOrigin(self:GetPos() + self:GetForward() * -130 + self:GetRight() * 25  + self:GetUp() * 45)
+	util.Effect("VJ_VehicleExhaust", effectData, true, true)
+	effectData:SetOrigin(self:GetPos() + self:GetForward() * -130 + self:GetRight() * -28 + self:GetUp() * 45)
+	util.Effect("VJ_VehicleExhaust", effectData, true, true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:StartMoveEffects()
-	net.Start("vj_hlr1_merkava_moveeffects")
-	net.WriteEntity(self)
-	net.Broadcast()
+function ENT:UpdateMoveParticles()
+	local effectData = EffectData()
+	effectData:SetScale(1)
+	effectData:SetEntity(self)
+	effectData:SetOrigin(self:GetPos() + self:GetForward() * -115 + self:GetRight() * 58)
+	util.Effect("VJ_VehicleMove", effectData, true, true)
+	effectData:SetOrigin(self:GetPos() + self:GetForward() * -115 + self:GetRight() * -58)
+	util.Effect("VJ_VehicleMove", effectData, true, true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_OnThink()

@@ -36,8 +36,6 @@ ENT.Tank_CollisionBoundUp = 90
 ENT.Tank_DeathDriverCorpse = "models/vj_hlr/hl1/hgrunt.mdl"
 ENT.Tank_DeathDecal = "VJ_HLR_Scorch"
 
-util.AddNetworkString("vj_hlr1_m1a1abrams_moveeffects")
-
 -- Custom
 ENT.Bradley_DmgForce = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -45,10 +43,14 @@ function ENT:Tank_GunnerSpawnPosition()
 	return self:GetPos() + self:GetUp()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:StartMoveEffects()
-	net.Start("vj_hlr1_m1a1abrams_moveeffects")
-	net.WriteEntity(self)
-	net.Broadcast()
+function ENT:UpdateMoveParticles()
+	local effectData = EffectData()
+	effectData:SetScale(1)
+	effectData:SetEntity(self)
+	effectData:SetOrigin(self:GetPos() + self:GetForward() * -180 + self:GetRight() * 80)
+	util.Effect("VJ_VehicleMove", effectData, true, true)
+	effectData:SetOrigin(self:GetPos() + self:GetForward() * -180 + self:GetRight() * -80)
+	util.Effect("VJ_VehicleMove", effectData, true, true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetNearDeathSparkPositions()

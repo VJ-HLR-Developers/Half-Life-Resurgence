@@ -37,8 +37,6 @@ ENT.Tank_CollisionBoundUp = 130
 ENT.Tank_DeathDriverCorpse = "models/vj_hlr/hl1/hGrunt.mdl"
 ENT.Tank_DeathDecal = "VJ_HLR_Scorch"
 
-util.AddNetworkString("vj_hlr1_m2a3bradley_moveeffects")
-
 -- Custom
 ENT.Bradley_DmgForce = 0
 ENT.Bradley_DoorOpen = false
@@ -64,10 +62,14 @@ function ENT:Tank_GunnerSpawnPosition()
 	return self:GetPos() + self:GetRight()*16 + self:GetForward()*-8 + self:GetUp()*100
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:StartMoveEffects()
-	net.Start("vj_hlr1_m2a3bradley_moveeffects")
-	net.WriteEntity(self)
-	net.Broadcast()
+function ENT:UpdateMoveParticles()
+	local effectData = EffectData()
+	effectData:SetScale(1)
+	effectData:SetEntity(self)
+	effectData:SetOrigin(self:GetPos() + self:GetForward() * -130 + self:GetRight() * 58)
+	util.Effect("VJ_VehicleMove", effectData, true, true)
+	effectData:SetOrigin(self:GetPos() + self:GetForward() * -130 + self:GetRight() * -58)
+	util.Effect("VJ_VehicleMove", effectData, true, true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_OnThink()
