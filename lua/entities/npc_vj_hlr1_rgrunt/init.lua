@@ -71,7 +71,7 @@ function ENT:HECU_OnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnPlayCreateSound(sdData, sdFile)
+function ENT:OnCreateSound(sdData, sdFile)
 	if VJ.HasValue(self.SoundTbl_Breath, sdFile) or VJ.HasValue(self.SoundTbl_Pain, sdFile) then return end
 	self.HECU_NextMouthMove = CurTime() + SoundDuration(sdFile)
 end

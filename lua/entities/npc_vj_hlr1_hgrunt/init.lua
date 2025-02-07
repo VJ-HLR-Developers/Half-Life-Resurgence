@@ -191,7 +191,7 @@ function ENT:Init()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnPlayCreateSound(sdData, sdFile)
+function ENT:OnCreateSound(sdData, sdFile)
 	if VJ.HasValue(self.SoundTbl_Breath, sdFile) then return end
 	self.HECU_NextMouthMove = CurTime() + SoundDuration(sdFile)
 end
@@ -247,7 +247,7 @@ function ENT:OnInput(key, activator, caller, data)
 		
 	-- Alpha Sergeant --
 	elseif key == "holster_gun" && self.Serg_Type != 2 then
-		self:SetWeaponState(VJ.NPC_WEP_STATE_HOLSTERED)
+		self:SetWeaponState(VJ.WEP_STATE_HOLSTERED)
 		self:SetBodygroup(1, 1)
 	elseif key == "draw_gun" && self.Serg_Type != 2 then
 		self:SetWeaponState()

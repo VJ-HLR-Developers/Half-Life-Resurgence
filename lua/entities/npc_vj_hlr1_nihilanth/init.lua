@@ -112,7 +112,7 @@ function ENT:Init()
 		crystal.Assignee = self
 		crystal:Spawn()
 		crystal:Activate()
-		table.insert(self.VJ_AddCertainEntityAsFriendly, crystal) -- In case relation class is changed dynamically!
+		self:SetRelationshipMemory(crystal, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
 		if i == 1 then
 			self.Nih_Crystal1 = crystal
 		elseif i == 2 then

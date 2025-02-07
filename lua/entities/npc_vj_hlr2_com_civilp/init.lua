@@ -245,7 +245,7 @@ function ENT:OnAnimEvent(ev, evTime, evCycle, evType, evOptions)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnPlayCreateSound(sdData, sdFile)
+function ENT:OnCreateSound(sdData, sdFile)
 	if VJ.HasValue(self.SoundTbl_Pain, sdFile) or VJ.HasValue(self.DefaultSoundTbl_MeleeAttack, sdFile) then return end
 	VJ.EmitSound(self, "npc/metropolice/vo/on"..math.random(1, 2)..".wav")
 	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self, "npc/metropolice/vo/off"..math.random(1, 4)..".wav") end end)
@@ -310,7 +310,7 @@ function ENT:Metrocop_SpawnManhack()
 		manhack:SetAngles(att.Ang)
 	end
 	manhack.VJ_NPC_Class = self.VJ_NPC_Class
-	table.insert(self.VJ_AddCertainEntityAsFriendly, manhack)
+	self:SetRelationshipMemory(manhack, VJ.MEM_OVERRIDE_DISPOSITION, D_LI)
 	manhack:Spawn()
 	manhack:GetPhysicsObject():AddVelocity(vecZ250)
 	manhack:Fire("SetMaxLookDistance", self:GetMaxLookDistance())

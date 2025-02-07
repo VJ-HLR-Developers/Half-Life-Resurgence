@@ -124,7 +124,7 @@ ENT.Security_Type = SECURITY_TYPE_REGULAR
 function ENT:Init()
 	self:SetCollisionBounds(Vector(13, 13, 76), Vector(-13, -13, 0))
 	self:SetBodygroup(1, 0)
-	self:SetWeaponState(VJ.NPC_WEP_STATE_HOLSTERED)
+	self:SetWeaponState(VJ.WEP_STATE_HOLSTERED)
 	
 	if self.Security_Type == SECURITY_TYPE_REGULAR then
 		self.SoundTbl_Idle = {"vj_hlr/hl1_npc/barney/whatisthat.wav","vj_hlr/hl1_npc/barney/somethingstinky.wav","vj_hlr/hl1_npc/barney/somethingdied.wav","vj_hlr/hl1_npc/barney/guyresponsible.wav","vj_hlr/hl1_npc/barney/coldone.wav","vj_hlr/hl1_npc/barney/ba_gethev.wav","vj_hlr/hl1_npc/barney/badfeeling.wav","vj_hlr/hl1_npc/barney/bigmess.wav","vj_hlr/hl1_npc/barney/bigplace.wav"}
@@ -156,9 +156,9 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	function controlEnt:OnKeyPressed(key)
 		local npc = self.VJCE_NPC
 		if key == KEY_SPACE && npc:GetActivity() != ACT_DISARM && npc:GetActivity() != ACT_ARM then
-			if npc:GetWeaponState() == VJ.NPC_WEP_STATE_HOLSTERED then
+			if npc:GetWeaponState() == VJ.WEP_STATE_HOLSTERED then
 				npc:Security_UnHolsterGun()
-			elseif npc:GetWeaponState() == VJ.NPC_WEP_STATE_READY then
+			elseif npc:GetWeaponState() == VJ.WEP_STATE_READY then
 				npc:Security_HolsterGun()
 			end
 		end
@@ -186,7 +186,7 @@ function ENT:TranslateActivity(act) -- Not ran for SECURITY_TYPE_ALPHA
 	if self:IsEFlagSet(EFL_IS_BEING_LIFTED_BY_BARNACLE) then
 		return ACT_BARNACLE_PULL
 	-- Guarding
-	elseif act == ACT_IDLE && self.IsGuard && self:GetWeaponState() == VJ.NPC_WEP_STATE_HOLSTERED && self:GetNPCState() <= NPC_STATE_IDLE then
+	elseif act == ACT_IDLE && self.IsGuard && self:GetWeaponState() == VJ.WEP_STATE_HOLSTERED && self:GetNPCState() <= NPC_STATE_IDLE then
 		return self:ResolveAnimation(guardAnims)
 	end
 	return self.BaseClass.TranslateActivity(self, act)
@@ -208,7 +208,7 @@ function ENT:OnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnPlayCreateSound(sdData, sdFile)
+function ENT:OnCreateSound(sdData, sdFile)
 	self.Security_NextMouthMove = CurTime() + SoundDuration(sdFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -227,17 +227,17 @@ function ENT:OnAlert(ent)
 		end
 	end
 	
-	if self:GetWeaponState() == VJ.NPC_WEP_STATE_HOLSTERED then
+	if self:GetWeaponState() == VJ.WEP_STATE_HOLSTERED then
 		self:Security_UnHolsterGun()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Security_HolsterGun()
 	if self:GetBodygroup(1) != 0 then self:PlayAnim(ACT_DISARM, true, false, true) end
-	self:SetWeaponState(VJ.NPC_WEP_STATE_HOLSTERED)
+	self:SetWeaponState(VJ.WEP_STATE_HOLSTERED)
 	timer.Simple(self.Security_Type == SECURITY_TYPE_ALPHA and 1 or 1.5, function()
 		-- Set the holster bodygroup if we have NOT been interrupted
-		if IsValid(self) && self:GetWeaponState() == VJ.NPC_WEP_STATE_HOLSTERED then
+		if IsValid(self) && self:GetWeaponState() == VJ.WEP_STATE_HOLSTERED then
 			self:SetBodygroup(1, 0)
 		end
 	end)
@@ -254,11 +254,11 @@ function ENT:OnThinkActive()
 	if self.VJ_IsBeingControlled or self.Dead or self:BusyWithActivity() then return end
 	-- Unholster the weapon if we are alerted and have NOT unholstered the weapon
 	if self:GetNPCState() == NPC_STATE_ALERT or self:GetNPCState() == NPC_STATE_COMBAT then
-		if self:GetWeaponState() == VJ.NPC_WEP_STATE_HOLSTERED then
+		if self:GetWeaponState() == VJ.WEP_STATE_HOLSTERED then
 			self:Security_UnHolsterGun()
 		end
 	-- Holster the weapon if we are idling and its been a bit since we saw an enemy
-	elseif self:GetWeaponState() == VJ.NPC_WEP_STATE_READY && (CurTime() - self.EnemyData.TimeSet) > 5 then
+	elseif self:GetWeaponState() == VJ.WEP_STATE_READY && (CurTime() - self.EnemyData.TimeSet) > 5 then
 		self:Security_HolsterGun()
 	end
 end

@@ -63,7 +63,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Think()
 	for _, v in ipairs(ents.FindInSphere(self:GetPos(), 80)) do
-		if (v:IsNPC() or v:IsPlayer()) && VJ.IsAlive(v) then
+		if v.VJ_ID_Living && v:Alive() then
 			if self.XenPlant_Retracted == false then
 				self:ResetSequence("Retract")
 				self.FlareSprite:Fire("HideSprite", "", 0.1)

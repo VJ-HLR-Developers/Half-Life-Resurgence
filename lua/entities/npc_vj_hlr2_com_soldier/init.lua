@@ -160,7 +160,7 @@ function ENT:PreInit()
 	self.Combine_ChatterT = CurTime() + math.Rand(1, 30)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnPlayCreateSound(sdData, sdFile)
+function ENT:OnCreateSound(sdData, sdFile)
 	if VJ.HasValue(self.SoundTbl_Pain, sdFile) or VJ.HasValue(self.DefaultSoundTbl_MeleeAttack, sdFile) or VJ.HasValue(sdCombine_Chatter, sdFile) then return end
 	VJ.EmitSound(self, sdCombine_Radio_On)
 	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self, sdCombine_Radio_Off) end end)

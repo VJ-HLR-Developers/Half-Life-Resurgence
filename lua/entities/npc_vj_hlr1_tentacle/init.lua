@@ -110,7 +110,7 @@ function ENT:OnAnimEvent(ev, evTime, evCycle, evType, evOptions)
 		local ene = self:GetEnemy()
 		if IsValid(ene) && (ene:GetPos():Distance(self:GetPos() + self:GetForward()*150)) < 200 then
 			self.CanTurnWhileStationary = true
-			self:SetAngles(self:GetFaceAngle((ene:GetPos() - self:GetPos()):Angle()))
+			self:SetAngles(self:GetTurnAngle((ene:GetPos() - self:GetPos()):Angle()))
 		end
 	end
 end
@@ -121,7 +121,7 @@ function ENT:OnInput(key, activator, caller, data)
 		self:MeleeAttackCode()
 		self:PlaySoundSystem("MeleeAttack", sdBeakStrike, VJ.EmitSound)
 		local ene = self:GetEnemy()
-		if IsValid(ene) then self:SetAngles(self:GetFaceAngle((ene:GetPos() - self:GetPos()):Angle())) end
+		if IsValid(ene) then self:SetAngles(self:GetTurnAngle((ene:GetPos() - self:GetPos()):Angle())) end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -206,7 +206,7 @@ function ENT:OnThink()
 	local ene = self:GetEnemy()
 	if IsValid(ene) then
 		-- If enemy is (on ground & moving) OR (its an NPC that is moving)
-		if (ene:IsNPC() && ene:IsMoving()) or (ene:GetMovementVelocity():Length() > 50 && ene:IsOnGround()) then
+		if (ene:IsNPC() && ene:IsMoving()) or (VJ.GetMoveVelocity(ene):Length() > 50 && ene:IsOnGround()) then
 			self.CanTurnWhileStationary = true
 		else
 			self.CanTurnWhileStationary = false

@@ -359,7 +359,7 @@ function ENT:OnWeaponChange(newWeapon, oldWeapon, invSwitch)
 		self:PlayAnim(ACT_PICKUP_RACK, true, false, true)
 	end
 	-- Only males have a taking out an anti-armor weapon sound
-	if self.Human_Gender == HUMAN_GENDER_MALE && self.WeaponInventoryStatus == VJ.NPC_WEP_INVENTORY_ANTI_ARMOR && math.random(1, 2) == 1 then self:PlaySoundSystem("Speech", "vo/npc/male01/evenodds.wav") end
+	if self.Human_Gender == HUMAN_GENDER_MALE && self.WeaponInventoryStatus == VJ.WEP_INVENTORY_ANTI_ARMOR && math.random(1, 2) == 1 then self:PlaySoundSystem("Speech", "vo/npc/male01/evenodds.wav") end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)

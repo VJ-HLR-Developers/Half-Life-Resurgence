@@ -87,7 +87,7 @@ function ENT:Init()
 	self.GW_BE_EyeR:SetNoDraw(true)
 	self.GW_BE_EyeR:DrawShadow(false)
 	self.GW_BE_EyeR.VJ_NPC_Class = self.VJ_NPC_Class
-	table.insert(self.VJ_AddCertainEntityAsFriendly, self.GW_BE_EyeR) -- In case relation class is changed dynamically!
+	self:SetRelationshipMemory(self.GW_BE_EyeR, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
 	self:DeleteOnRemove(self.GW_BE_EyeR)
 	self.GW_BE_EyeL = ents.Create("obj_vj_bullseye")
 	self.GW_BE_EyeL:SetModel("models/hunter/plates/plate.mdl")
@@ -97,7 +97,7 @@ function ENT:Init()
 	self.GW_BE_EyeL:SetNoDraw(true)
 	self.GW_BE_EyeL:DrawShadow(false)
 	self.GW_BE_EyeL.VJ_NPC_Class = self.VJ_NPC_Class
-	table.insert(self.VJ_AddCertainEntityAsFriendly, self.GW_BE_EyeL) -- In case relation class is changed dynamically!
+	self:SetRelationshipMemory(self.GW_BE_EyeL, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
 	self:DeleteOnRemove(self.GW_BE_EyeL)
 	self.GW_BE_Orb = ents.Create("obj_vj_bullseye")
 	self.GW_BE_Orb:SetModel("models/hunter/plates/plate.mdl")
@@ -107,7 +107,7 @@ function ENT:Init()
 	self.GW_BE_Orb:SetNoDraw(true)
 	self.GW_BE_Orb:DrawShadow(false)
 	self.GW_BE_Orb.VJ_NPC_Class = self.VJ_NPC_Class
-	table.insert(self.VJ_AddCertainEntityAsFriendly, self.GW_BE_Orb) -- In case relation class is changed dynamically!
+	self:SetRelationshipMemory(self.GW_BE_Orb, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
 	self.GW_BE_Orb:AddFlags(FL_NOTARGET)
 	self:DeleteOnRemove(self.GW_BE_Orb)
 	

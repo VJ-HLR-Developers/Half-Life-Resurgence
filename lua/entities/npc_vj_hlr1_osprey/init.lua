@@ -95,8 +95,8 @@ function ENT:Init()
 		gunner.HasDeathAnimation = false
 		gunner.VJ_NPC_Class = self.VJ_NPC_Class
 		gunner:Spawn()
-		table.insert(self.VJ_AddCertainEntityAsFriendly, gunner) -- In case relation class is changed dynamically!
-		table.insert(gunner.VJ_AddCertainEntityAsFriendly, self) -- In case relation class is changed dynamically!
+		self:SetRelationshipMemory(gunner, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
+		gunner:SetRelationshipMemory(self, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
 		if self.Osprey_IsBlackOps then gunner:SetBodygroup(2, 1) end -- Always give the Black Ops snipers!
 		gunner.Weapon_FiringDistanceFar = self.SightDistance
 		gunner:Fire("SetParentAttachment", i == 1 and "gunner_left" or "gunner_right", 0)

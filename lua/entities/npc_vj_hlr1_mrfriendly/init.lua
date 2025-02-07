@@ -91,7 +91,7 @@ function ENT:CustomRangeAttackCode()
 			self:StopParticles()
 		end
 	end)
-	VJ.ApplyRadiusDamage(self, self, pos, 160, 5, DMG_ACID, true, true, {Force=10, UseCone=true, UseConeDegree=60})
+	VJ.ApplyRadiusDamage(self, self, pos, 160, 5, DMG_ACID, true, true, {Force = 10, UseConeDegree = 60})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))

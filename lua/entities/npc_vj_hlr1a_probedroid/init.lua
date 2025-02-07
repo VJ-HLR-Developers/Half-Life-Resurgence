@@ -112,7 +112,7 @@ function ENT:OnMedicBehavior(status, statusData)
 		local phys = needle:GetPhysicsObject()
 		if IsValid(phys) then
 			phys:Wake()
-			phys:SetVelocity(VJ.CalculateTrajectory(self, self.Medic_CurrentEntToHeal, "Line", needle:GetPos(), 1, 1500))
+			phys:SetVelocity(VJ.CalculateTrajectory(self, self.Medic_Target, "Line", needle:GetPos(), 1, 1500))
 		end
 		return false
 	end
@@ -127,9 +127,9 @@ function ENT:CustomOnRangeAttack_BeforeStartTimer()
 			VJ.EmitSound(self, "vj_hlr/hla_npc/prdroid/reload.wav", 90, 100) -- Reload sound
 		end})
 	end})
-	self.CurrentAttackAnimation = anim
-	self.CurrentAttackAnimationDuration = animDur + VJ.AnimDuration(self, ACT_RANGE_ATTACK1)
-	self.CurrentAttackAnimationTime = CurTime() + self.CurrentAttackAnimationDuration
+	self.AttackAnim = anim
+	self.AttackAnimDuration = animDur + VJ.AnimDuration(self, ACT_RANGE_ATTACK1)
+	self.AttackAnimTime = CurTime() + self.AttackAnimDuration
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(projectile)

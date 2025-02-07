@@ -40,7 +40,7 @@ function ENT:HECU_OnThink()
 	end
 	
 	-- Reset Alpha Sergeant's gun in case the melee animation gets cut off and draw event is never called!
-	if self:GetWeaponState() == VJ.NPC_WEP_STATE_HOLSTERED && self.AttackType != VJ.ATTACK_TYPE_MELEE then
+	if self:GetWeaponState() == VJ.WEP_STATE_HOLSTERED && self.AttackType != VJ.ATTACK_TYPE_MELEE then
 		self:SetBodygroup(1, 0)
 	end
 end
