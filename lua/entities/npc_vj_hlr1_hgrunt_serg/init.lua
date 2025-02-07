@@ -32,7 +32,7 @@ ENT.Serg_Type = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_OnThink()
 	-- For weapon spinning sound
-	if self.DoingWeaponAttack then
+	if self.WeaponAttackState && self.WeaponAttackState >= VJ.WEP_ATTACK_STATE_FIRE then
 		self.HasBreathSound = true
 	else
 		VJ.STOPSOUND(self.CurrentBreathSound)

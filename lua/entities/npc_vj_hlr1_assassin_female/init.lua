@@ -93,7 +93,7 @@ end
 function ENT:BusyWithActivity()
 	-- Override base function to not see jumping as a busy activity when it should jump-fire
 	if self:GetNavType() == NAV_JUMP && self.BOA_ForceJumpShoot then
-		self.DoingWeaponAttack_Standing = false -- Make the gun actually shoot
+		self.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE -- Make the gun actually shoot
 		return false
 	end
 	return self.BaseClass.BusyWithActivity(self)
@@ -159,7 +159,7 @@ function ENT:OnThink()
 	end
 	
 	-- Jump while attacking
-	if IsValid(self:GetEnemy()) && curTime > self.BOA_NextJumpT && self.DoingWeaponAttack_Standing == true && !self:IsMoving() && self.LatestEnemyDistance < 1400 && self.VJ_IsBeingControlled == false then
+	if IsValid(self:GetEnemy()) && curTime > self.BOA_NextJumpT && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND && !self:IsMoving() && self.LatestEnemyDistance < 1400 && self.VJ_IsBeingControlled == false then
 		self:ForceMoveJump(((self:GetPos() + self:GetRight()*(math.random(1, 2) == 1 and 100 or -100) + self:GetForward()*(math.random(1, 2) == 1 and 1 or -100)) - (self:GetPos() + self:OBBCenter())):GetNormal()*200 + self:GetUp()*600)
 		/*self:StopMoving()
 		self:SetGroundEntity(NULL)
