@@ -111,7 +111,7 @@ function ENT:Tor_SpawnAlly()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tor_StartSpawnAlly()
-	if !self:BusyWithActivity() && CurTime() > self.Tor_NextSpawnT && (!IsValid(self.Tor_Ally1) or !IsValid(self.Tor_Ally2) or !IsValid(self.Tor_Ally3)) then
+	if !self:IsBusy("Activities") && CurTime() > self.Tor_NextSpawnT && (!IsValid(self.Tor_Ally1) or !IsValid(self.Tor_Ally2) or !IsValid(self.Tor_Ally3)) then
 		-- Make sure not to place it if the front of the NPC is blocked!
 		local myCenterPos = self:GetPos() + self:OBBCenter()
 		local tr = util.TraceLine({

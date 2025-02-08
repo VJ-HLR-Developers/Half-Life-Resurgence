@@ -773,11 +773,6 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/hl2_npc/ep2/male02/reb2_reload05.wav",
 		"vj_hlr/hl2_npc/ep2/male02/reb2_reload07.wav",
 	}
-	self.SoundTbl_BeforeMeleeAttack = {}
-	self.SoundTbl_MeleeAttack = {}
-	self.SoundTbl_MeleeAttackExtra = {}
-	self.SoundTbl_MeleeAttackMiss = {}
-	self.SoundTbl_GrenadeAttack = {}
 	self.SoundTbl_OnGrenadeSight = {
 		"vo/npc/male01/getdown02.wav",
 		"vo/npc/male01/gethellout.wav",
@@ -1289,11 +1284,6 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/npc/female01/coverwhilereload02.wav",
 		"vo/npc/female01/gottareload01.wav",
 	}
-	self.SoundTbl_BeforeMeleeAttack = {}
-	self.SoundTbl_MeleeAttack = {}
-	self.SoundTbl_MeleeAttackExtra = {}
-	self.SoundTbl_MeleeAttackMiss = {}
-	self.SoundTbl_GrenadeAttack = {}
 	self.SoundTbl_OnGrenadeSight = {
 		"vo/npc/female01/getdown02.wav",
 		"vo/npc/female01/gethellout.wav",

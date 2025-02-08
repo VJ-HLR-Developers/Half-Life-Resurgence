@@ -342,7 +342,6 @@ hook.Add("Think", "VJ_HLR_AutoReplace_Think", function()
 				end
 				if gStateAntlionFri && v.VJ_HLR_Antlion then
 					table.insert(v.VJ_NPC_Class, "CLASS_PLAYER_ALLY")
-					v.PlayerFriendly = true
 					v.FriendsWithAllPlayerAllies = true
 				end
 			end

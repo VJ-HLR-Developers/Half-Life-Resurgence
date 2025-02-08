@@ -104,7 +104,7 @@ function ENT:MultipleMeleeAttacks()
 		self.MeleeAttackDamage = 14
 		self.HasMeleeAttackKnockBack = true
 		self.SoundTbl_BeforeMeleeAttack = "vj_hlr/hl1_npc/gonome/gonome_melee2.wav"
-		self.SoundTbl_MeleeAttackMiss = nil
+		self.SoundTbl_MeleeAttackMiss = false
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

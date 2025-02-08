@@ -246,7 +246,7 @@ function ENT:OnAnimEvent(ev, evTime, evCycle, evType, evOptions)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateSound(sdData, sdFile)
-	if VJ.HasValue(self.SoundTbl_Pain, sdFile) or VJ.HasValue(self.DefaultSoundTbl_MeleeAttack, sdFile) then return end
+	if VJ.HasValue(self.SoundTbl_Pain, sdFile) then return end
 	VJ.EmitSound(self, "npc/metropolice/vo/on"..math.random(1, 2)..".wav")
 	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self, "npc/metropolice/vo/off"..math.random(1, 4)..".wav") end end)
 end

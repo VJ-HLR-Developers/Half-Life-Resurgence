@@ -251,7 +251,7 @@ function ENT:Security_UnHolsterGun()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
-	if self.VJ_IsBeingControlled or self.Dead or self:BusyWithActivity() then return end
+	if self.VJ_IsBeingControlled or self.Dead or self:IsBusy("Activities") then return end
 	-- Unholster the weapon if we are alerted and have NOT unholstered the weapon
 	if self:GetNPCState() == NPC_STATE_ALERT or self:GetNPCState() == NPC_STATE_COMBAT then
 		if self:GetWeaponState() == VJ.WEP_STATE_HOLSTERED then

@@ -230,7 +230,7 @@ function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" or key == "wheelchair" then
 		self:FootStepSoundCode()
-	elseif key == "tie" /*&& !self:BusyWithActivity()*/ then
+	elseif key == "tie" /*&& !self:IsBusy("Activities")*/ then
 		self:PlaySoundSystem("Speech", sdTie)
 		//VJ.EmitSound(self, {"vj_hlr/hl1_npc/scientist/weartie.wav","vj_hlr/hl1_npc/scientist/ties.wav"}, 80, 100)
 	elseif key == "draw" then

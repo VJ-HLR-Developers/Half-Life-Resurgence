@@ -90,13 +90,13 @@ function ENT:OnInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:BusyWithActivity()
+function ENT:IsBusy(checkType)
 	-- Override base function to not see jumping as a busy activity when it should jump-fire
-	if self:GetNavType() == NAV_JUMP && self.BOA_ForceJumpShoot then
+	if (!checkType or checkType == "Activities") && self:GetNavType() == NAV_JUMP && self.BOA_ForceJumpShoot then
 		self.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE -- Make the gun actually shoot
 		return false
 	end
-	return self.BaseClass.BusyWithActivity(self)
+	return self.BaseClass.IsBusy(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)

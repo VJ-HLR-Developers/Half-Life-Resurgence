@@ -472,9 +472,6 @@ ENT.SoundTbl_BeforeMeleeAttack = {
 	"vj_hlr/hl2_npc/ep2/outland_07/barn/al_barn_struggle07.wav",
 	"vj_hlr/hl2_npc/ep2/outland_07/barn/al_barn_struggle08.wav",
 }
-ENT.SoundTbl_MeleeAttack = {}
-ENT.SoundTbl_MeleeAttackExtra = {}
-ENT.SoundTbl_MeleeAttackMiss = {}
 ENT.SoundTbl_GrenadeAttack = {
 	"vj_hlr/hl2_npc/ep1/npc/alyx/al_combat_boom01.wav",
 	"vj_hlr/hl2_npc/ep1/npc/alyx/al_combat_boom02.wav",

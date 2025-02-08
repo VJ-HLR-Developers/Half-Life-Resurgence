@@ -123,11 +123,6 @@ ENT.SoundTbl_WeaponReload = {
 	"vo/npc/barney/ba_damnit.wav",
 	"vo/k_lab/ba_getitoff01.wav",
 }
-ENT.SoundTbl_BeforeMeleeAttack = {}
-ENT.SoundTbl_MeleeAttack = {}
-ENT.SoundTbl_MeleeAttackExtra = {}
-ENT.SoundTbl_MeleeAttackMiss = {}
-ENT.SoundTbl_GrenadeAttack = {}
 ENT.SoundTbl_OnGrenadeSight = {
 	"vo/npc/barney/ba_damnit.wav",
 	"vo/npc/barney/ba_duck.wav",

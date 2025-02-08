@@ -203,7 +203,7 @@ function ENT:OnInput(key, activator, caller, data)
 	elseif key == "melee" then
 		self:MeleeAttackCode()
 	elseif key == "throwgrenade" then
-		timer.Adjust("timer_grenade_start"..self:EntIndex(), 0)
+		timer.Adjust("attack_grenade_start" .. self:EntIndex(), 0)
 	elseif key == "shoot" then
 		local wep = self:GetActiveWeapon()
 		if IsValid(wep) then
