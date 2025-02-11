@@ -7,7 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/apc_turret.mdl" -- Model(s) to spawn with | Picks a random one if it's a table 
 ENT.StartHealth = 0
-ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.HasDeathCorpse = false -- Should a corpse spawn when it's killed?
 
 -- Tank Base

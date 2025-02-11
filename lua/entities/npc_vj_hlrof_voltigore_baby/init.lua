@@ -8,14 +8,14 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/opfor/baby_voltigore.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 60
 ENT.HullType = HULL_MEDIUM
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(25, 0, -15), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bone41", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(3, 0, 2), -- The offset for the controller when the camera is in first person
 	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_RACE_X"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
@@ -38,7 +38,7 @@ ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 ENT.DeathAnimationTime = false -- How long should the death animation play?
-ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
+ENT.DisableFootStepSoundTimer = true
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/voltigore/voltigore_footstep1.wav","vj_hlr/hl1_npc/voltigore/voltigore_footstep2.wav","vj_hlr/hl1_npc/voltigore/voltigore_footstep3.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/voltigore/voltigore_idle1.wav","vj_hlr/hl1_npc/voltigore/voltigore_idle2.wav","vj_hlr/hl1_npc/voltigore/voltigore_idle3.wav"}
@@ -62,7 +62,7 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
-		self:FootStepSoundCode()
+		self:PlayFootstepSound()
 	end
 	if key == "single" or key == "both" then
 		self:MeleeAttackCode()

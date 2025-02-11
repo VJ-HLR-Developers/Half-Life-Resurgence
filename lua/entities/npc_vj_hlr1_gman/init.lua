@@ -8,12 +8,12 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl1/gman.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 999999
 ENT.HullType = HULL_HUMAN
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(6, 0, 5), -- The offset for the controller when the camera is in first person
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE -- Doesn't attack anything
 ENT.Passive_RunOnTouch = false -- Should it run away and make a alert sound when something collides with it?
 ENT.Passive_RunOnDamage = false -- Should it run when it's damaged? | This doesn't impact how self.Passive_AlliesRunOnDamage works
@@ -24,9 +24,9 @@ ENT.BloodParticle = {"vj_hlr_blood_red"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Red"}
 ENT.HasBloodPool = false
 ENT.HasMeleeAttack = false -- Can this NPC melee attack?
-ENT.MoveOutOfFriendlyPlayersWay = false -- Should the NPC move and give space to friendly players?
+ENT.YieldToAlliedPlayers = false
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
-ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
+ENT.DisableFootStepSoundTimer = true
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
 ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/gman/gman_nasty.wav","vj_hlr/hl1_npc/gman/gman_choose1.wav","vj_hlr/hl1_npc/gman/gman_choose2.wav","vj_hlr/hl1_npc/gman/gman_otherwise.wav"}
@@ -47,7 +47,7 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
-		self:FootStepSoundCode()
+		self:PlayFootstepSound()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

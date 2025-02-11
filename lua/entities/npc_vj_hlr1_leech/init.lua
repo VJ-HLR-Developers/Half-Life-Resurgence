@@ -15,15 +15,15 @@ ENT.Aquatic_SwimmingSpeed_Calm = 80 -- The speed it should swim with, when it's 
 ENT.Aquatic_SwimmingSpeed_Alerted = 200 -- The speed it should swim with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground NPCs
 ENT.Aquatic_AnimTbl_Calm = ACT_SWIM_IDLE -- Animations it plays when it's wandering around while idle
 ENT.Aquatic_AnimTbl_Alerted = ACT_SWIM -- Animations it plays when it's moving while alerted
-ENT.IdleAlwaysWander = true -- Should the NPC constantly wander while idling?
-ENT.VJC_Data = {
+ENT.IdleAlwaysWander = true
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(29, 0, 10), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bone01", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in first person
 	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
@@ -37,8 +37,7 @@ ENT.MeleeAttackDamageDistance = 10 -- How far does the damage go | false = Let t
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 	-- Don't use ACT_DIEFORWARD as it's supposed to be played as end of death animation
-ENT.PushProps = false -- Should it push props when trying to move?
-ENT.AttackProps = false -- Should it attack props when trying to move?
+ENT.PropInteraction = false
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/leech/leech_alert1.wav","vj_hlr/hl1_npc/leech/leech_alert2.wav"}
 //ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/leech/leech_alert1.wav","vj_hlr/hl1_npc/leech/leech_alert2.wav"}

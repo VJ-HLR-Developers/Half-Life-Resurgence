@@ -8,14 +8,14 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl1/barney.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 90
 ENT.HullType = HULL_HUMAN
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(10, 0, -30), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(4, 0, 0), -- The offset for the controller when the camera is in first person
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
-ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other player allies?
+ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
+ENT.FriendsWithAllPlayerAllies = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_hlr_blood_red"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Red"}
@@ -24,8 +24,8 @@ ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
 ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
 ENT.Weapon_StrafeWhileFiring = false -- Should it move randomly while firing a weapon?
-ENT.HasCallForHelpAnimation = false -- if true, it will play the call for help animation
-ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
+ENT.AnimTbl_CallForHelp = false
+ENT.DisableFootStepSoundTimer = true
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE}
 ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE -- The animation it plays when hiding in a covered position, leave empty to let the base decide
@@ -168,7 +168,7 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
-		self:FootStepSoundCode()
+		self:PlayFootstepSound()
 	elseif key == "shoot" then
 		local wep = self:GetActiveWeapon()
 		if IsValid(wep) then

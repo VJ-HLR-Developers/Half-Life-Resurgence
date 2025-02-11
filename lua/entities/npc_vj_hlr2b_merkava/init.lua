@@ -7,15 +7,15 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl2b/merkava.mdl" -- Model(s) to spawn with | Picks a random one if it's a table 
 ENT.StartHealth = 500
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(-40, 0, 20), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "body", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(0, 0, 70), -- The offset for the controller when the camera is in first person
 	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
-ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other player allies?
+ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
+ENT.FriendsWithAllPlayerAllies = true
 
 ENT.Tank_GunnerENT = "npc_vj_hlr2b_merkava_gun"
 ENT.Tank_CollisionBoundSize = 90

@@ -9,7 +9,7 @@ ENT.Model = "models/vj_hlr/hl1/bigrat.mdl" -- Model(s) to spawn with | Picks a r
 ENT.StartHealth = 10
 ENT.SightAngle = 120
 ENT.HullType = HULL_TINY
-ENT.VJC_Data = {
+ENT.ControllerVars = {
 	FirstP_Bone = "bip01 head", -- If left empty, the base will attempt to calculate a position for first person
 	FirstP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in first person
 }

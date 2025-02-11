@@ -9,12 +9,12 @@ ENT.Model = "models/vj_hlr/hl1/panthereye.mdl" -- Model(s) to spawn with | Picks
 ENT.StartHealth = 150
 ENT.SightAngle = 220
 ENT.HullType = HULL_WIDE_SHORT
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(4, 0, 6), -- The offset for the controller when the camera is in first person
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
@@ -41,7 +41,7 @@ ENT.LeapAttackExtraTimers = {1.3} -- Extra leap attack timers | it will run the 
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = ACT_DIESIMPLE
-ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
+ENT.DisableFootStepSoundTimer = true
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_FLINCH_PHYSICS} -- The regular flinch animations to play
@@ -66,7 +66,7 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
-		self:FootStepSoundCode()
+		self:PlayFootstepSound()
 	elseif key == "attack" then
 		self:MeleeAttackCode()
 	elseif key == "body" then

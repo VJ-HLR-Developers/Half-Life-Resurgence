@@ -7,8 +7,8 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl2b/merkava_turret.mdl" -- Model(s) to spawn with | Picks a random one if it's a table 
 ENT.StartHealth = 0
-ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
-ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other player allies?
+ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
+ENT.FriendsWithAllPlayerAllies = true
 
 ENT.Tank_SoundTbl_Turning = "vehicles/tank_turret_loop1.wav"
 

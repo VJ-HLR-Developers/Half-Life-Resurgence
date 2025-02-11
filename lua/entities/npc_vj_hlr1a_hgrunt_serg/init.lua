@@ -9,7 +9,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hla/hassault.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2, ACT_MELEE_ATTACK_SWING}
 ENT.HasGrenadeAttack = false -- Should the NPC have a grenade attack?
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "unnamed_bone_020", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(3, 0, 5), -- The offset for the controller when the camera is in first person

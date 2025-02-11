@@ -9,13 +9,13 @@ ENT.Model = "models/vj_hlr/opfor/pit_drone.mdl" -- Model(s) to spawn with | Pick
 ENT.StartHealth = 80
 ENT.SightAngle = 230
 ENT.HullType = HULL_HUMAN
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(15, 0, 0), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(7, 0, 0), -- The offset for the controller when the camera is in first person
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_RACE_X"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
@@ -39,7 +39,7 @@ ENT.NextRangeAttackTime_DoRand = 5 -- False = Don't use random time | Number = P
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 ENT.DeathAnimationTime = false -- How long should the death animation play?
-ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
+ENT.DisableFootStepSoundTimer = true
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = ACT_BIG_FLINCH -- The regular flinch animations to play
@@ -77,7 +77,7 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
-		self:FootStepSoundCode()
+		self:PlayFootstepSound()
 	end
 	if key == "single" or key == "both" then
 		self:MeleeAttackCode()

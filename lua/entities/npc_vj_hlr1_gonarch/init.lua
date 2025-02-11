@@ -10,7 +10,7 @@ ENT.StartHealth = 2000
 ENT.HullType = HULL_LARGE
 ENT.VJ_ID_Boss = true
 ENT.EntitiesToNoCollide = {"npc_vj_hlr1_headcrab_baby", "npc_vj_hlr1_headcrab", "npc_vj_hlr1a_headcrab"} -- Set to a table of entity class names for the NPC to not collide with otherwise leave it to false
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(-100, 0, -70), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bip01 Neck", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(0, 0, -5), -- The offset for the controller when the camera is in first person
@@ -20,7 +20,7 @@ ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow_large"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
-ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"}
 
 ENT.HasMeleeAttack = true -- Can this NPC melee attack?
 ENT.MeleeAttackDamage = 60
@@ -41,7 +41,7 @@ ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = P
 
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = ACT_DIESIMPLE
-ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
+ENT.DisableFootStepSoundTimer = true
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/gonarch/gon_step1.wav","vj_hlr/hl1_npc/gonarch/gon_step2.wav","vj_hlr/hl1_npc/gonarch/gon_step3.wav"}
@@ -81,7 +81,7 @@ function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "Step" then
 		util.ScreenShake(self:GetPos(), 10, 100, 0.4, 2000)
-		self:FootStepSoundCode()
+		self:PlayFootstepSound()
 	elseif key == "spawn" then -- Create baby headcrabs
 		local spawnPos = self:GetPos() + self:GetUp()*20
 		for i = 1, 3 do

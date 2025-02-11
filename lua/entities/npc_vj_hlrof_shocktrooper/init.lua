@@ -9,13 +9,13 @@ ENT.Model = "models/vj_hlr/opfor/strooper.mdl" -- Model(s) to spawn with | Picks
 ENT.StartHealth = 150
 ENT.HullType = HULL_HUMAN
 ENT.CanTurnWhileMoving = false
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(15, 0, -15), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(10, 0, 0), -- The offset for the controller when the camera is in first person
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_RACE_X"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
@@ -35,12 +35,12 @@ ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the wea
 ENT.Weapon_StrafeWhileFiring = false -- Should it move randomly while firing a weapon?
 ENT.AnimTbl_WeaponAttackCrouch = ACT_RANGE_ATTACK2 -- Animation(s) to play while firing a weapon in crouched position
 ENT.AnimTbl_CallForHelp = ACT_SIGNAL2
-ENT.CallForBackUpOnDamageAnimation = ACT_SIGNAL1 -- Animations played when it calls for help on damage
-ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE -- The animation it plays when hiding in a covered position, leave empty to let the base decide
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.AnimTbl_CallForBackUpOnDamage = ACT_SIGNAL1
+ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE}
 ENT.DeathAnimationTime = false -- How long should the death animation play?
-ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
+ENT.DisableFootStepSoundTimer = true
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- The regular flinch animations to play
@@ -72,7 +72,7 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
-		self:FootStepSoundCode()
+		self:PlayFootstepSound()
 	elseif key == "attack" then
 		self:MeleeAttackCode()
 	elseif key == "rangeattack" then

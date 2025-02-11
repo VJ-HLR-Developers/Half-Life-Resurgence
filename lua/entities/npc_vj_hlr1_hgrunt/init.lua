@@ -8,7 +8,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl1/hgrunt.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 90
 ENT.HullType = HULL_HUMAN
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(3, 0, 5), -- The offset for the controller when the camera is in first person
@@ -18,7 +18,7 @@ ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_hlr_blood_red"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Red"}
 ENT.HasBloodPool = false
-ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.HasMeleeAttack = true -- Can this NPC melee attack?
 ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
 ENT.MeleeAttackDamage = 10
@@ -32,7 +32,7 @@ ENT.TimeUntilGrenadeIsReleased = false -- Time until the grenade is released
 ENT.NextThrowGrenadeTime = VJ.SET(10, 12) -- Time until it can throw a grenade again
 ENT.GrenadeAttackChance = 3 -- 1 in x chance that it will throw a grenade when all the requirements are met | 1 = Throw it every time
 
-ENT.Medic_DisableAnimation = true -- if true, it will disable the animation code
+ENT.AnimTbl_Medic_GiveHealth = false
 ENT.Medic_SpawnPropOnHeal = false -- Should it spawn a prop, such as small health vial at a attachment when healing an ally?
 ENT.Medic_TimeUntilHeal = 4 -- Time until the ally receives health | Set to false to let the base decide the time
 ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
@@ -40,7 +40,7 @@ ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the wea
 ENT.Weapon_StrafeWhileFiring = false -- Should it move randomly while firing a weapon?
 //ENT.PoseParameterLooking_InvertPitch = true -- Inverts the pitch pose parameters (X)
 //ENT.PoseParameterLooking_Names = {pitch={"XR"},yaw={},roll={"ZR"}} -- Custom pose parameters to use, can put as many as needed
-ENT.CallForBackUpOnDamageAnimation = ACT_SIGNAL3 -- Animations played when it calls for help on damage
+ENT.AnimTbl_CallForBackUpOnDamage = ACT_SIGNAL3
 ENT.AnimTbl_CallForHelp = ACT_SIGNAL1
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE}
@@ -50,7 +50,7 @@ ENT.AnimTbl_WeaponAttackSecondary = ACT_SPECIAL_ATTACK1 -- Animation(s) to play 
 ENT.Weapon_SecondaryFireTime = 0.7
 ENT.AnimTbl_WeaponReload = ACT_RELOAD_SMG1 -- Animations that play when the SNPC reloads
 ENT.CanTurnWhileMoving = false -- Can the NPC turn while moving? | EX: GoldSrc NPCs, Facing enemy while running to cover, Facing the player while moving out of the way
-ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
+ENT.DisableFootStepSoundTimer = true
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- The regular flinch animations to play
@@ -199,7 +199,7 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
-		self:FootStepSoundCode()
+		self:PlayFootstepSound()
 	elseif key == "melee" then
 		self:MeleeAttackCode()
 	elseif key == "throwgrenade" then

@@ -12,7 +12,7 @@ ENT.HullType = HULL_LARGE
 ENT.VJ_ID_Boss = true
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
 ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(0, 0, -150), -- The offset for the controller when the camera is in third person
 	FirstP_Bone = "Bone96", -- If left empty, the base will attempt to calculate a position for first person
 	FirstP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in first person
@@ -23,7 +23,7 @@ ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow_large"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
-ENT.VJ_NPC_Class = {"CLASS_RACE_X"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
 
 ENT.HasMeleeAttack = true -- Can this NPC melee attack?
 ENT.MeleeAttackDamage = 60

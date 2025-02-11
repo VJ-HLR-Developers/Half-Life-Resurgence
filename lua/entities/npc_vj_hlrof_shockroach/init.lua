@@ -9,14 +9,14 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/opfor/shockroach.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 10
 ENT.EntitiesToNoCollide = false -- Set to a table of entity class names for the NPC to not collide with otherwise leave it to false
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(15, 0, 0), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bone07", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in first person
 	//FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
 }
-ENT.VJ_NPC_Class = {"CLASS_RACE_X"} -- NPCs with the same class with be allied to each other
-ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
+ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
+ENT.DisableFootStepSoundTimer = true
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = "vj_hlr/hl1_npc/shockroach/shock_walk.wav"
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/shockroach/shock_idle1.wav", "vj_hlr/hl1_npc/shockroach/shock_idle2.wav", "vj_hlr/hl1_npc/shockroach/shock_idle3.wav"}
@@ -41,7 +41,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
 	if key == "step" then
-		self:FootStepSoundCode()
+		self:PlayFootstepSound()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

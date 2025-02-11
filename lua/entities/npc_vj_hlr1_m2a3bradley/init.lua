@@ -7,14 +7,14 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/apc_body.mdl" -- Model(s) to spawn with | Picks a random one if it's a table 
 ENT.StartHealth = 350
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(-40, 0, 20), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "static_prop", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(0, 0, 40), -- The offset for the controller when the camera is in first person
 	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.DeathCorpseModel = "models/vj_hlr/hl1/apc_body_destroyed.mdl" -- Model(s) to spawn as the NPC's corpse | false = Use the NPC's model | Can be a single string or a table of strings
 
 ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/tanks/bradley_idle.wav"}

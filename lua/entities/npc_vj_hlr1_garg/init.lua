@@ -10,13 +10,13 @@ ENT.StartHealth = 1000
 ENT.SightAngle = 203
 ENT.HullType = HULL_HUMAN
 ENT.VJ_ID_Boss = true
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(-50, 0, -45), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(7, 0, -12), -- The offset for the controller when the camera is in first person
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow_large"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
@@ -39,7 +39,7 @@ ENT.NextRangeAttackTime_DoRand = 13 -- False = Don't use random time | Number = 
 ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
 
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
-ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
+ENT.DisableFootStepSoundTimer = true
 ENT.GibOnDeathFilter = false
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.DeathAnimationTime = 3.7 -- How long should the death animation play?
@@ -116,7 +116,7 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
-		self:FootStepSoundCode()
+		self:PlayFootstepSound()
 		util.ScreenShake(self:GetPos(), 10, 100, 0.4, self.Garg_Type == 1 and 300 or 1000)
 	end
 	if key == "melee" then

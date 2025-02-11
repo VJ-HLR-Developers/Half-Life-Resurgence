@@ -7,7 +7,7 @@ include("shared.lua")
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hla/barney.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(10, 0, -20), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "unnamed038", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(1, 0, 5), -- The offset for the controller when the camera is in first person

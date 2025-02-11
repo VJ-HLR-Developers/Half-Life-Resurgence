@@ -8,7 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hla/headcrab.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 20
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(10, 0, 0), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "unnamed025", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(4, 0, 1), -- The offset for the controller when the camera is in first person

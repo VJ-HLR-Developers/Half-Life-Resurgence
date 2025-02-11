@@ -10,7 +10,7 @@ ENT.Model = "models/vj_hlr/sven/babygarg.mdl" -- Model(s) to spawn with | Picks 
 ENT.StartHealth = 500
 ENT.HullType = HULL_HUMAN
 ENT.VJ_ID_Boss = false
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(15, 0, -15), -- The offset for the controller when the camera is in third person
 }
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}

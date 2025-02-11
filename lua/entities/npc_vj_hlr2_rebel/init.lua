@@ -8,8 +8,8 @@ include("shared.lua")
 ENT.StartHealth = 50
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
-ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other player allies?
+ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
+ENT.FriendsWithAllPlayerAllies = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.HasMeleeAttack = true -- Can this NPC melee attack?
 ENT.AnimTbl_MeleeAttack = "vjseq_MeleeAttack01"
@@ -21,7 +21,7 @@ ENT.TimeUntilGrenadeIsReleased = 0.87 -- Time until the grenade is released
 ENT.GrenadeAttackAttachment = "anim_attachment_RH" -- The attachment that the grenade will spawn at
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
 ENT.BecomeEnemyToPlayer = 2
-ENT.AnimTbl_Medic_GiveHealth = "heal" -- Animations is plays when giving health to an ally
+ENT.AnimTbl_Medic_GiveHealth = "heal"
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = ACT_FLINCH_PHYSICS -- The regular flinch animations to play
@@ -642,7 +642,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/canals/matt_go_nag05.wav",
 		"vo/coast/odessa/male01/stairman_follow03.wav",
 	}
-	self.SoundTbl_MoveOutOfPlayersWay = {
+	self.SoundTbl_YieldToAlliedPlayer = {
 		"vo/npc/male01/excuseme01.wav",
 		"vo/npc/male01/excuseme02.wav",
 		"vo/npc/male01/outofyourway02.wav",
@@ -1186,7 +1186,7 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/canals/airboat_go_nag03.wav",
 		"vo/coast/odessa/female01/stairman_follow03.wav",
 	}
-	self.SoundTbl_MoveOutOfPlayersWay = {
+	self.SoundTbl_YieldToAlliedPlayer = {
 		"vo/npc/female01/excuseme01.wav",
 		"vo/npc/female01/excuseme02.wav",
 		"vo/npc/female01/outofyourway02.wav",

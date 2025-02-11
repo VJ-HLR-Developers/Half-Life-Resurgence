@@ -19,7 +19,7 @@ function ENT:DrawTranslucent() self:Draw() end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 if (!SERVER) then return end
 
-ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.Assignee = NULL -- Is another entity the owner of this crystal?
 
 local sdHit = {"vj_hlr/fx/glass1.wav", "vj_hlr/fx/glass2.wav", "vj_hlr/fx/glass3"}

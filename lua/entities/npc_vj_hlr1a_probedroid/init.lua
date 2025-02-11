@@ -11,15 +11,15 @@ ENT.HullType = HULL_HUMAN
 ENT.MovementType = VJ_MOVETYPE_AERIAL -- How the NPC moves around
 ENT.Aerial_FlyingSpeed_Calm = 100 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground NPCs
 ENT.Aerial_FlyingSpeed_Alerted = 200 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground NPCs
-ENT.VJC_Data = {
+ENT.ControllerVars = {
 	FirstP_Bone = "sphere01", -- If left empty, the base will attempt to calculate a position for first person
 	FirstP_Offset = Vector(15, 0, -3), -- The offset for the controller when the camera is in first person
 	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
-ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other player allies?
-ENT.ConstantlyFaceEnemy = true -- Should it face the enemy constantly?
+ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
+ENT.FriendsWithAllPlayerAllies = true
+ENT.ConstantlyFaceEnemy = true
 
 ENT.HasMeleeAttack = true -- Can this NPC melee attack?
 ENT.MeleeAttackDamage = 20
@@ -42,7 +42,7 @@ ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near unti
 ENT.NoChaseAfterCertainRange_Type = "OnlyRange" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
 
 ENT.IsMedic = true -- Is this NPC a medic? It will heal friendly players and NPCs
-ENT.AnimTbl_Medic_GiveHealth = ACT_ARM -- Animations is plays when giving health to an ally
+ENT.AnimTbl_Medic_GiveHealth = ACT_ARM
 ENT.Medic_CheckDistance = 1000 -- How far does it check for allies that are hurt? | World units
 ENT.Medic_HealDistance = 600 -- How close does it have to be until it stops moving and heals its ally?
 ENT.Medic_NextHealTime = VJ.SET(5, 8) -- How much time until it can give health to an ally again

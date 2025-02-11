@@ -15,12 +15,12 @@ ENT.Aerial_FlyingSpeed_Calm = 130 -- The speed it should fly with, when it's wan
 ENT.Aerial_FlyingSpeed_Alerted = 130 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground NPCs
 ENT.AA_GroundLimit = 400 -- If the NPC's distance from itself to the ground is less than this, it will attempt to move up
 ENT.AA_MinWanderDist = 300 -- Minimum distance that the NPC should go to when wandering
-ENT.VJC_Data = {
+ENT.ControllerVars = {
 	FirstP_Bone = "bone01", -- If left empty, the base will attempt to calculate a position for first person
 	FirstP_Offset = Vector(10, 0, 0), -- The offset for the controller when the camera is in first person
 	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
 }
-ENT.IdleAlwaysWander = true -- Should the NPC constantly wander while idling?
+ENT.IdleAlwaysWander = true
 ENT.CanOpenDoors = false -- Can it open doors?
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE -- Type of AI behavior to use for this NPC
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW

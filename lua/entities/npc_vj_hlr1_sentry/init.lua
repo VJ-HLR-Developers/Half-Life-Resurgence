@@ -12,13 +12,13 @@ ENT.SightDistance = 1300 -- How far it can see
 ENT.SightAngle = 360
 ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
 ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Dummy03", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(0, 0, 4), -- The offset for the controller when the camera is in first person
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.AlertedToIdleTime = VJ.SET(16, 16) -- How much time until it calms down after the enemy has been killed/disappeared | Sets self.Alerted to false after the timer expires
 ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 

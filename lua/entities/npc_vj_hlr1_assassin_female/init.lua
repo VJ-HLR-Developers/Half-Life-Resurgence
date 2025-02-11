@@ -14,7 +14,7 @@ ENT.JumpVars = {
 	MaxDrop = 620,
 	MaxDistance = 620,
 }
-ENT.VJC_Data = {
+ENT.ControllerVars = {
 	//FirstP_Bone = "bip01 head", -- If left empty, the base will attempt to calculate a position for first person
 	//FirstP_Offset = Vector(6, 0, 2.5), -- The offset for the controller when the camera is in first person
 	FirstP_Bone = "bone10", -- If left empty, the base will attempt to calculate a position for first person
@@ -25,7 +25,7 @@ ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_hlr_blood_red"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Red"}
 ENT.HasBloodPool = false
-ENT.VJ_NPC_Class = {"CLASS_BLACKOPS"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_BLACKOPS"}
 ENT.HasMeleeAttack = true -- Can this NPC melee attack?
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2}
 ENT.MeleeAttackDamage = 15
@@ -41,11 +41,11 @@ ENT.Weapon_CanReload = false -- If false, the SNPC will no longer reload
 ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
 ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
 ENT.Weapon_StrafeWhileFiring = false -- Should it move randomly while firing a weapon?
-ENT.Weapon_Accuracy = 0.6 -- NPC's accuracy with weapons, affects bullet spread! | x < 1 = Better accuracy | x > 1 = Worse accuracy
+ENT.Weapon_Accuracy = 0.6
 ENT.Weapon_CanCrouchAttack = false -- Can it crouch while shooting?
 ENT.AnimTbl_TakingCover = ACT_LAND -- The animation it plays when hiding in a covered position, leave empty to let the base decide
 ENT.Weapon_WaitOnOcclusionTime = VJ.SET(1, 2) -- How long should it wait before it starts to pursue?
-ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
+ENT.DisableFootStepSoundTimer = true
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 ENT.DeathAnimationTime = false -- How long should the death animation play?
@@ -75,7 +75,7 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
-		self:FootStepSoundCode()
+		self:PlayFootstepSound()
 	elseif key == "melee" then
 		self:MeleeAttackCode()
 	elseif key == "shooty"  or key == "shoot" then

@@ -9,7 +9,7 @@ ENT.Model = "models/combine_soldier.mdl" -- Model(s) to spawn with | Picks a ran
 ENT.StartHealth = 60
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_COMBINE"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_COMBINE"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.MeleeAttackDamage = 10
 ENT.HasGrenadeAttack = true -- Should the NPC have a grenade attack?

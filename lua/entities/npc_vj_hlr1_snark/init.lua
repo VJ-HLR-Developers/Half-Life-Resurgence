@@ -10,13 +10,13 @@ ENT.StartHealth = 5
 ENT.SightAngle = 180
 ENT.HullType = HULL_TINY
 ENT.EntitiesToNoCollide = {"npc_vj_hlr1_snark"} -- Set to a table of entity class names for the NPC to not collide with otherwise leave it to false
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(1, 0, 0.5), -- The offset for the controller when the camera is in first person
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_SNARK"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_SNARK"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
@@ -33,8 +33,8 @@ ENT.LeapAttackExtraTimers = {0.2, 0.6} -- Extra leap attack timers | it will run
 ENT.LeapAttackDamage = 10
 ENT.LeapAttackDamageDistance = 100 -- How far does the damage go?
 ENT.HasDeathCorpse = false -- Should a corpse spawn when it's killed?
-ENT.PushProps = false -- Should it push props when trying to move?
-ENT.IdleAlwaysWander = true -- Should the NPC constantly wander while idling?
+ENT.PropInteraction = "OnlyDamage"
+ENT.IdleAlwaysWander = true
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/squeek/sqk_hunt1.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt2.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt3.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/squeek/sqk_hunt1.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt2.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt3.wav"}

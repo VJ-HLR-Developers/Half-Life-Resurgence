@@ -8,13 +8,13 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl1/sqknest.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 20
 ENT.HullType = HULL_TINY
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bip01 nECK", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(3, 0, 1), -- The offset for the controller when the camera is in first person
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_SNARK"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_SNARK"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}

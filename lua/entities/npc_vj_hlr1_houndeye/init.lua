@@ -9,12 +9,12 @@ ENT.Model = "models/vj_hlr/hl1/houndeye.mdl" -- Model(s) to spawn with | Picks a
 ENT.StartHealth = 80
 ENT.SightAngle = 120
 ENT.HullType = HULL_WIDE_SHORT
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in first person
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
@@ -30,7 +30,7 @@ ENT.MeleeAttackDSPSoundType = 34 -- What type of DSP effect? | Search online for
 ENT.MeleeAttackDSPSoundUseDamage = false -- Should it only do the DSP effect if gets damaged x or greater amount
 ENT.DisableDefaultMeleeAttackDamageCode = true -- Disables the default melee attack damage code
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
+ENT.DisableFootStepSoundTimer = true
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 ENT.AnimTbl_Flinch = "vjseq_flinch_small" -- The regular flinch animations to play
@@ -78,7 +78,7 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "he_hunt" then -- step
-		self:FootStepSoundCode()
+		self:PlayFootstepSound()
 	elseif key == "woof" then
 		self:PlaySoundSystem("Speech", "vj_hlr/hl1_npc/houndeye/he_pain3.wav")
 	elseif key == "woooof" then

@@ -7,7 +7,7 @@ include("shared.lua")
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hla/agrunt.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
-ENT.VJC_Data = {
+ENT.ControllerVars = {
 	FirstP_Bone = "unnamed034", -- If left empty, the base will attempt to calculate a position for first person
 	FirstP_Offset = Vector(12, 0, 5), -- The offset for the controller when the camera is in first person
 	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view

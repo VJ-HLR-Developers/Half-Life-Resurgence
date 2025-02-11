@@ -8,7 +8,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/opfor/gonome.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 160
 ENT.HullType = HULL_HUMAN
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(1, 0, 4), -- The offset for the controller when the camera is in first person
 }
@@ -17,7 +17,7 @@ ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
-ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"}
 
 ENT.HasMeleeAttack = true -- Can this NPC melee attack?
 ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
@@ -33,7 +33,7 @@ ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the pro
 ENT.NextRangeAttackTime = 6 -- How much time until it can use a range attack?
 
 ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
-ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
+ENT.DisableFootStepSoundTimer = true
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 //ENT.DeathAnimationTime = 2.2 -- How long should the death animation play?
@@ -64,7 +64,7 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
-		self:FootStepSoundCode()
+		self:PlayFootstepSound()
 	elseif key == "melee" or key == "chest_bite" then
 		self:MeleeAttackCode()
 	elseif key == "acidthrow" then

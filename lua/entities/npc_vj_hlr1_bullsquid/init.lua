@@ -8,13 +8,13 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl1/bullsquid.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
 ENT.StartHealth = 80
 ENT.HullType = HULL_WIDE_SHORT
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     FirstP_Bone = "Bip01 Spine1", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(10, 0, 11.5), -- The offset for the controller when the camera is in first person
 	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
@@ -42,7 +42,7 @@ ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near unti
 ENT.NoChaseAfterCertainRange_Type = "OnlyRange" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
 ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
 ENT.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD}
-ENT.DisableFootStepSoundTimer = true -- If set to true, it will disable the time system for the footstep sound code, allowing you to use other ways like model events
+ENT.DisableFootStepSoundTimer = true
 	-- ====== Sound Paths ====== --
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/bullchicken/bc_idle1.wav","vj_hlr/hl1_npc/bullchicken/bc_idle2.wav","vj_hlr/hl1_npc/bullchicken/bc_idle2.wav","vj_hlr/hl1_npc/bullchicken/bc_idle3.wav","vj_hlr/hl1_npc/bullchicken/bc_idle4.wav"}
@@ -69,7 +69,7 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
-		self:FootStepSoundCode()
+		self:PlayFootstepSound()
 	elseif key == "melee_whip" then
 		self.MeleeAttackDamage = 35
 		self:MeleeAttackCode()

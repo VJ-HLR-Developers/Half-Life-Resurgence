@@ -12,8 +12,8 @@ ENT.HealthRegenerationAmount = 1 -- How much should the health increase after ev
 ENT.HealthRegenerationDelay = VJ.SET(0.5, 1) -- How much time until the health increases
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
-ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other player allies?
+ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
+ENT.FriendsWithAllPlayerAllies = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.AnimTbl_MeleeAttack = {"vjseq_MeleeAttack01", "melee_slice"}
 ENT.TimeUntilMeleeAttackDamage = 0.7 -- This counted in seconds | This calculates the time until it hits something
@@ -23,7 +23,7 @@ ENT.TimeUntilGrenadeIsReleased = 0.87 -- Time until the grenade is released
 ENT.GrenadeAttackAttachment = "anim_attachment_RH" -- The attachment that the grenade will spawn at
 ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
 ENT.BecomeEnemyToPlayer = 2
-ENT.AnimTbl_Medic_GiveHealth = "heal" -- Animations is plays when giving health to an ally
+ENT.AnimTbl_Medic_GiveHealth = "heal"
 	-- ====== Flinching Code ====== --
 ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
 	-- ====== Sound Paths ====== --

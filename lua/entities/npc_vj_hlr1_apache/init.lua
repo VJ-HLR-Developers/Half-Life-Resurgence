@@ -21,13 +21,13 @@ ENT.AA_GroundLimit = 1200 -- If the NPC's distance from itself to the ground is 
 ENT.AA_MinWanderDist = 1000 -- Minimum distance that the NPC should go to when wandering
 ENT.AA_MoveAccelerate = 8 -- The NPC will gradually speed up to the max movement speed as it moves towards its destination | Calculation = FrameTime * x
 ENT.AA_MoveDecelerate = 4 -- The NPC will slow down as it approaches its destination | Calculation = MaxSpeed / x
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     FirstP_Bone = "Bone14", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(-50, 0, -40), -- The offset for the controller when the camera is in first person
 	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.PoseParameterLooking_InvertYaw = true -- Inverts the yaw pose parameters (Y)
 ENT.ConstantlyFaceEnemy = true -- Should it face the enemy constantly?
 ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it"s between number x and y?
@@ -77,7 +77,7 @@ local spawnPos = Vector(0, 0, 400)
 --
 function ENT:Init()
 	self:SetNW2Int("Heli_SmokeLevel", 0)
-	self.ConstantlyFaceEnemyDistance = self:GetMaxLookDistance()
+	self.ConstantlyFaceEnemy_MinDistance = self:GetMaxLookDistance()
 	
 	self:SetCollisionBounds(Vector(150, 150, 180), Vector(-150, -150, 0))
 	self:SetPos(self:GetPos() + spawnPos)

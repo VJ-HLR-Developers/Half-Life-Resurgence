@@ -9,13 +9,13 @@ ENT.Model = "models/vj_hlr/hl1/kingpin.mdl" -- Model(s) to spawn with | Picks a 
 ENT.StartHealth = 1000
 ENT.SightAngle = 360
 ENT.HullType = HULL_LARGE
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(-15, 0, -45), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "MDLDEC_Bone23", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(8, 0, 6), -- The offset for the controller when the camera is in first person
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}

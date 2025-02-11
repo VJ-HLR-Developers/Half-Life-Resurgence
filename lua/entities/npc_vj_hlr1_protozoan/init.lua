@@ -13,13 +13,13 @@ ENT.TurningSpeed = 1 -- How fast it can turn
 ENT.MovementType = VJ_MOVETYPE_AERIAL -- How the NPC moves around
 ENT.Aerial_FlyingSpeed_Calm = 100 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground NPCs
 ENT.Aerial_FlyingSpeed_Alerted = 100 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground NPCs
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(-5, 0, -15), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bone03", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in first person
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.IdleAlwaysWander = true -- Should the NPC constantly wander while idling?
+ENT.IdleAlwaysWander = true
 ENT.CanOpenDoors = false -- Can it open doors?
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE -- Type of AI behavior to use for this NPC
 ENT.HasMeleeAttack = false -- Can this NPC melee attack?

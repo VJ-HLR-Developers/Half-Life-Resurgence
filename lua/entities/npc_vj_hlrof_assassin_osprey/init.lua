@@ -7,5 +7,5 @@ include("shared.lua")
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/osprey_blkops.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
-ENT.VJ_NPC_Class = {"CLASS_BLACKOPS"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_BLACKOPS"}
 ENT.Osprey_IsBlackOps = true

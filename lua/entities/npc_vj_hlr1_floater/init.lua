@@ -14,16 +14,16 @@ ENT.Aerial_FlyingSpeed_Calm = 100 -- The speed it should fly with, when it's wan
 ENT.Aerial_FlyingSpeed_Alerted = 180 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground NPCs
 ENT.Aerial_AnimTbl_Calm = ACT_WALK -- Animations it plays when it's wandering around while idle
 ENT.Aerial_AnimTbl_Alerted = ACT_RUN -- Animations it plays when it's moving while alerted
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bone01", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(1, 0, 5), -- The offset for the controller when the camera is in first person
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.ConstantlyFaceEnemy = true -- Should it face the enemy constantly?
-ENT.IdleAlwaysWander = true -- Should the NPC constantly wander while idling?
+ENT.IdleAlwaysWander = true
 ENT.CanOpenDoors = false -- Can it open doors?
-ENT.VJ_NPC_Class = {"CLASS_XEN"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.Behavior = VJ_BEHAVIOR_NEUTRAL -- Type of AI behavior to use for this NPC
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}

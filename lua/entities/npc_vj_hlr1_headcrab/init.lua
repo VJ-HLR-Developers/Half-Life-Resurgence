@@ -10,7 +10,7 @@ ENT.StartHealth = 10
 ENT.SightAngle = 120
 ENT.HullType = HULL_TINY
 ENT.EntitiesToNoCollide = {"npc_vj_hlr1_gonarch"} -- Set to a table of entity class names for the NPC to not collide with otherwise leave it to false
-ENT.VJC_Data = {
+ENT.ControllerVars = {
     ThirdP_Offset = Vector(10, 0, 0), -- The offset for the controller when the camera is in third person
     FirstP_Bone = "Bip01 Neck", -- If left empty, the base will attempt to calculate a position for first person
     FirstP_Offset = Vector(2, 0, 0), -- The offset for the controller when the camera is in first person
@@ -20,7 +20,7 @@ ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
-ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"}
 ENT.HasMeleeAttack = false -- Can this NPC melee attack?
 
 ENT.HasLeapAttack = true -- Can this NPC leap attack?

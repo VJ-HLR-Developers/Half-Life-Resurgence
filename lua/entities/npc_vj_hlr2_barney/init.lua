@@ -12,8 +12,8 @@ ENT.HealthRegenerationAmount = 1 -- How much should the health increase after ev
 ENT.HealthRegenerationDelay = VJ.SET(0.35,0.35) -- How much time until the health increases
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"} -- NPCs with the same class with be allied to each other
-ENT.FriendsWithAllPlayerAllies = true -- Should this NPC be friends with other player allies?
+ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
+ENT.FriendsWithAllPlayerAllies = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.AnimTbl_MeleeAttack = "vjseq_MeleeAttack01"
 ENT.TimeUntilMeleeAttackDamage = 0.7 -- This counted in seconds | This calculates the time until it hits something
@@ -72,7 +72,7 @@ ENT.SoundTbl_UnFollowPlayer = {
 	"vj_hlr/hl2_npc/ep1/c17/ba_ifyousayso.wav",
 	"vo/streetwar/rubble/ba_seeya.wav",
 }
-ENT.SoundTbl_MoveOutOfPlayersWay = {
+ENT.SoundTbl_YieldToAlliedPlayer = {
 	"vo/k_lab/ba_whoops.wav",
 }
 ENT.SoundTbl_MedicBeforeHeal = {}

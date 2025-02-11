@@ -9,7 +9,7 @@ ENT.Model = "models/vj_hlr/hl2b/combine_soldier.mdl" -- Model(s) to spawn with |
 ENT.StartHealth = 60
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_COMBINE"} -- NPCs with the same class with be allied to each other
+ENT.VJ_NPC_Class = {"CLASS_COMBINE"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"blood_impact_red_01_mist"}
 ENT.MeleeAttackDamage = 10
