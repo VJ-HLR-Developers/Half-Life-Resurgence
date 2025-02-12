@@ -38,14 +38,14 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/vj_hlr/hl1/rpgrocket.mdl"} -- Model(s) to spawn with | Picks a random one if it's a table
-ENT.DoesRadiusDamage = true -- Should it deal radius damage when it collides with something?
+ENT.Model = {"models/vj_hlr/hl1/rpgrocket.mdl"}
+ENT.DoesRadiusDamage = true
 ENT.RadiusDamageRadius = 150
 ENT.RadiusDamage = 100
-ENT.RadiusDamageUseRealisticRadius = true -- Should the damage decrease the farther away the hit entity is from the radius origin?
+ENT.RadiusDamageUseRealisticRadius = true
 ENT.RadiusDamageType = DMG_BLAST
-ENT.RadiusDamageForce = 90 -- Damage force to apply to the hit entity | false = Don't apply any force
-ENT.RemoveDelay = 6 -- Setting this greater than 0 will delay the entity's removal | Useful for lingering trail effects
+ENT.RadiusDamageForce = 90
+ENT.RemoveDelay = 6
 ENT.CollisionDecal = {"VJ_HLR_Scorch"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_weapon/rpg/rocket1.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}

@@ -6,11 +6,11 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/rgrunt_black.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(5, 0, 5), -- The offset for the controller when the camera is in first person
+ENT.Model = "models/vj_hlr/hl1/rgrunt_black.mdl"
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(0, 0, -15),
+    FirstP_Bone = "Bip01 Head",
+    FirstP_Offset = Vector(5, 0, 5),
 }
 ENT.VJ_NPC_Class = {"CLASS_BLACKOPS"}
 
@@ -19,40 +19,40 @@ ENT.GeneralSoundPitch2 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_OnInit()
 	self:SetBodygroup(1, math.random(0, 1))
-	self.SoundTbl_FootStep = {"vj_hlr/hl1_npc/rgrunt/pl_metal1.wav","vj_hlr/hl1_npc/rgrunt/pl_metal2.wav","vj_hlr/hl1_npc/rgrunt/pl_metal3.wav","vj_hlr/hl1_npc/rgrunt/pl_metal4.wav"}
+	self.SoundTbl_FootStep = {"vj_hlr/hl1_npc/rgrunt/pl_metal1.wav", "vj_hlr/hl1_npc/rgrunt/pl_metal2.wav", "vj_hlr/hl1_npc/rgrunt/pl_metal3.wav", "vj_hlr/hl1_npc/rgrunt/pl_metal4.wav"}
 	self.SoundTbl_Breath = "vj_hlr/hl1_npc/rgrunt/rb_engine_alt.wav"
 	self.SoundTbl_Alert = "vj_hlr/hl1_npc/rgrunt/rb_cover1.wav"
 	self.SoundTbl_CallForHelp = "vj_hlr/hl1_npc/rgrunt/deeoo.wav"
-	self.SoundTbl_WeaponReload = {"vj_hlr/hl1_npc/rgrunt/rb_cover1.wav","vj_hlr/hl1_npc/rgrunt/rb_cover2.wav"}
-	self.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/rgrunt/rb_cover2.wav","vj_hlr/hl1_npc/rgrunt/deeoo.wav","vj_hlr/hl1_npc/rgrunt/beepboop.wav"}
-	self.SoundTbl_OnDangerSight = {"vj_hlr/hl1_npc/rgrunt/rb_cover2.wav","vj_hlr/hl1_npc/rgrunt/deeoo.wav","vj_hlr/hl1_npc/rgrunt/beepboop.wav"}
+	self.SoundTbl_WeaponReload = {"vj_hlr/hl1_npc/rgrunt/rb_cover1.wav", "vj_hlr/hl1_npc/rgrunt/rb_cover2.wav"}
+	self.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/rgrunt/rb_cover2.wav", "vj_hlr/hl1_npc/rgrunt/deeoo.wav", "vj_hlr/hl1_npc/rgrunt/beepboop.wav"}
+	self.SoundTbl_OnDangerSight = {"vj_hlr/hl1_npc/rgrunt/rb_cover2.wav", "vj_hlr/hl1_npc/rgrunt/deeoo.wav", "vj_hlr/hl1_npc/rgrunt/beepboop.wav"}
 	self.SoundTbl_OnKilledEnemy = "vj_hlr/hl1_npc/rgrunt/doop.wav"
-	self.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/rgrunt/buzwarn.wav","vj_hlr/hl1_npc/rgrunt/rb_allydeath2.wav"}
-	self.SoundTbl_Pain = {"vj_hlr/hl1_npc/rgrunt/spark1.wav","vj_hlr/hl1_npc/rgrunt/spark2.wav","vj_hlr/hl1_npc/rgrunt/spark3.wav","vj_hlr/hl1_npc/rgrunt/spark4.wav","vj_hlr/hl1_npc/rgrunt/spark5.wav","vj_hlr/hl1_npc/rgrunt/spark6.wav"}
-	self.SoundTbl_Death = {"vj_hlr/hl1_npc/rgrunt/rb_die1.wav","vj_hlr/hl1_npc/rgrunt/rb_die2.wav","vj_hlr/hl1_npc/rgrunt/rb_die3.wav"}
+	self.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/rgrunt/buzwarn.wav", "vj_hlr/hl1_npc/rgrunt/rb_allydeath2.wav"}
+	self.SoundTbl_Pain = {"vj_hlr/hl1_npc/rgrunt/spark1.wav", "vj_hlr/hl1_npc/rgrunt/spark2.wav", "vj_hlr/hl1_npc/rgrunt/spark3.wav", "vj_hlr/hl1_npc/rgrunt/spark4.wav", "vj_hlr/hl1_npc/rgrunt/spark5.wav", "vj_hlr/hl1_npc/rgrunt/spark6.wav"}
+	self.SoundTbl_Death = {"vj_hlr/hl1_npc/rgrunt/rb_die1.wav", "vj_hlr/hl1_npc/rgrunt/rb_die2.wav", "vj_hlr/hl1_npc/rgrunt/rb_die3.wav"}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local gibsCollideSd = {"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}
+local gibsCollideSd = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibOnDeathEffects then
 		local spr = ents.Create("env_sprite")
-		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-		spr:SetKeyValue("GlowProxySize","2.0")
-		spr:SetKeyValue("HDRColorScale","1.0")
-		spr:SetKeyValue("renderfx","14")
-		spr:SetKeyValue("rendermode","5")
-		spr:SetKeyValue("renderamt","255")
-		spr:SetKeyValue("disablereceiveshadows","0")
-		spr:SetKeyValue("mindxlevel","0")
-		spr:SetKeyValue("maxdxlevel","0")
-		spr:SetKeyValue("framerate","20.0")
-		spr:SetKeyValue("spawnflags","0")
-		spr:SetKeyValue("scale","2")
+		spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
+		spr:SetKeyValue("GlowProxySize", "2.0")
+		spr:SetKeyValue("HDRColorScale", "1.0")
+		spr:SetKeyValue("renderfx", "14")
+		spr:SetKeyValue("rendermode", "5")
+		spr:SetKeyValue("renderamt", "255")
+		spr:SetKeyValue("disablereceiveshadows", "0")
+		spr:SetKeyValue("mindxlevel", "0")
+		spr:SetKeyValue("maxdxlevel", "0")
+		spr:SetKeyValue("framerate", "20.0")
+		spr:SetKeyValue("spawnflags", "0")
+		spr:SetKeyValue("scale", "2")
 		spr:SetPos(self:GetPos() + self:GetUp()*60)
 		spr:Spawn()
-		spr:Fire("Kill","",0.7)
+		spr:Fire("Kill", "", 0.7)
 		timer.Simple(0.7, function() if IsValid(spr) then spr:Remove() end end)
 	end
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p1.mdl", {CollisionDecal=false, Pos=self:LocalToWorld(Vector(0, 0, 40)), CollisionSound=gibsCollideSd})

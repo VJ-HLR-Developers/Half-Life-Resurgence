@@ -5,39 +5,39 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/sentry.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/sentry.mdl"
 ENT.StartHealth = 100
 ENT.HullType = HULL_HUMAN
-ENT.SightDistance = 1300 -- How far it can see
+ENT.SightDistance = 1300
 ENT.SightAngle = 360
-ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
-ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Dummy03", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(0, 0, 4), -- The offset for the controller when the camera is in first person
+ENT.MovementType = VJ_MOVETYPE_STATIONARY
+ENT.CanTurnWhileStationary = false
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(0, 0, -15),
+    FirstP_Bone = "Dummy03",
+    FirstP_Offset = Vector(0, 0, 4),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
-ENT.AlertedToIdleTime = VJ.SET(16, 16) -- How much time until it calms down after the enemy has been killed/disappeared | Sets self.Alerted to false after the timer expires
-ENT.HasMeleeAttack = false -- Can this NPC melee attack?
+ENT.AlertToIdleDelay = VJ.SET(16, 16)
+ENT.HasMeleeAttack = false
 
-ENT.HasRangeAttack = true -- Can this NPC range attack?
-ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
-ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
-ENT.RangeDistance = 1300 -- How far can it range attack?
-ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
-ENT.RangeAttackAngleRadius = 180 -- What is the attack angle radius? | 100 = In front of the NPC | 180 = All around the NPC
-ENT.TimeUntilRangeAttackProjectileRelease = 0.06 -- How much time until the projectile code is ran?
-ENT.RangeAttackReps = 1 -- How many times does it run the projectile code?
-ENT.NextRangeAttackTime = 0 -- How much time until it can use a range attack?
-ENT.NextAnyAttackTime_Range = 0.01 -- How much time until it can use any attack again? | Counted in Seconds
+ENT.HasRangeAttack = true
+ENT.DisableDefaultRangeAttackCode = true
+ENT.DisableRangeAttackAnimation = true
+ENT.RangeDistance = 1300
+ENT.RangeToMeleeDistance = 1
+ENT.RangeAttackAngleRadius = 180
+ENT.TimeUntilRangeAttackProjectileRelease = 0.06
+ENT.RangeAttackReps = 1
+ENT.NextRangeAttackTime = 0
+ENT.NextAnyAttackTime_Range = 0.01
 
-ENT.Medic_CanBeHealed = false -- Can this NPC be healed by medics?
-ENT.PoseParameterLooking_InvertPitch = true -- Inverts the pitch pose parameters (X)
-ENT.PoseParameterLooking_InvertYaw = true -- Inverts the yaw pose parameters (Y)
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/turret/tu_deploy.wav"}
+ENT.Medic_CanBeHealed = false
+ENT.PoseParameterLooking_InvertPitch = true
+ENT.PoseParameterLooking_InvertYaw = true
+
+ENT.SoundTbl_Alert = "vj_hlr/hl1_npc/turret/tu_deploy.wav"
 ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav", "ambient/energy/spark2.wav", "ambient/energy/spark3.wav", "ambient/energy/spark4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/turret/tu_die.wav", "vj_hlr/hl1_npc/turret/tu_die2.wav", "vj_hlr/hl1_npc/turret/tu_die2.wav"}
 

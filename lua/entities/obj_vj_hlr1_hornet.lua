@@ -22,8 +22,8 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = "models/vj_hlr/hl1/hornet.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
-ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
+ENT.Model = "models/vj_hlr/hl1/hornet.mdl"
+ENT.DoesDirectDamage = true
 ENT.DirectDamage = 5
 ENT.DirectDamageType = DMG_SLASH
 ENT.CollisionBehavior = VJ.PROJ_COLLISION_PERSIST

@@ -5,17 +5,17 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/barnacle.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/barnacle.mdl"
 ENT.StartHealth = 30
 ENT.SightDistance = 1024
 ENT.SightAngle = 360
-ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
-ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
+ENT.MovementType = VJ_MOVETYPE_STATIONARY
+ENT.CanTurnWhileStationary = false
 ENT.HullType = HULL_SMALL_CENTERED
-ENT.ControllerVars = {
-	FirstP_Bone = "bone01", -- If left empty, the base will attempt to calculate a position for first person
-	FirstP_Offset = Vector(0, 0, -44), -- The offset for the controller when the camera is in first person
-	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+ENT.ControllerParameters = {
+	FirstP_Bone = "bone01",
+	FirstP_Offset = Vector(0, 0, -44),
+	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
@@ -24,30 +24,29 @@ ENT.BloodParticle = {"vj_hlr_blood_red"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Red"}
 ENT.HasBloodPool = false
 
-ENT.HasMeleeAttack = true -- Can this NPC melee attack?
+ENT.HasMeleeAttack = true
 ENT.MeleeAttackDamage = 80
-ENT.MeleeAttackDamageType = DMG_ALWAYSGIB -- Type of Damage
+ENT.MeleeAttackDamageType = DMG_ALWAYSGIB
 ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.NextAnyAttackTime_Melee = 10 -- How much time until it can use any attack again? | Counted in Seconds
-ENT.MeleeAttackDistance = 30 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageDistance = 80 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageAngleRadius = 120 -- What is the damage angle radius? | 100 = In front of the NPC | 180 = All around the NPC
+ENT.TimeUntilMeleeAttackDamage = false
+ENT.NextAnyAttackTime_Melee = 10
+ENT.MeleeAttackDistance = 30
+ENT.MeleeAttackDamageDistance = 80
+ENT.MeleeAttackDamageAngleRadius = 120
 
-ENT.CanReceiveOrders = false -- Can the NPC receive orders from others? | Ex: Allies calling for help, allies requesting backup on damage, etc.
-ENT.BringFriendsOnDeath = false -- Should the NPC's allies come to its position while it's dying?
-ENT.AlertFriendsOnDeath = true -- Should the NPC's allies get alerted while it's dying? | Its allies will also need to have this variable set to true!
-ENT.CallForBackUpOnDamage = false -- Should the SNPC call for help when damaged? (Only happens if the SNPC hasn't seen a enemy)
+ENT.CanReceiveOrders = false
+ENT.CallForBackUpOnDamage = false
 ENT.CallForHelp = false
-ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- The regular flinch animations to play
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.DeathAllyResponse = "OnlyAlert"
+ENT.CanFlinch = 1
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
-ENT.DeathCorpseEntityClass = "prop_vj_animatable" -- Corpse's class | false = Let the base automatically detect the class
-	-- ====== Sound Paths ====== --
+ENT.DeathCorpseEntityClass = "prop_vj_animatable"
+
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/barnacle/bcl_tongue1.wav"}
-ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/barnacle/bcl_chew1.wav","vj_hlr/hl1_npc/barnacle/bcl_chew2.wav","vj_hlr/hl1_npc/barnacle/bcl_chew3.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/barnacle/bcl_die1.wav","vj_hlr/hl1_npc/barnacle/bcl_die3.wav"}
+ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/barnacle/bcl_chew1.wav", "vj_hlr/hl1_npc/barnacle/bcl_chew2.wav", "vj_hlr/hl1_npc/barnacle/bcl_chew3.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/barnacle/bcl_die1.wav", "vj_hlr/hl1_npc/barnacle/bcl_die3.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 
@@ -66,20 +65,20 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "melee_attack" then
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	end
 	if key == "death_gibs" then
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh1.mdl",{CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(1,0,-30))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh2.mdl",{CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,2,-30))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh3.mdl",{CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(3,0,-30))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/flesh4.mdl",{CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,4,-30))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_b_bone.mdl",{CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(5,0,-30))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_b_gib.mdl",{CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,6,-30))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_guts.mdl",{CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(-1,0,-30))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_hmeat.mdl",{CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,-2,-30))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_lung.mdl",{CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(-3,0,-30))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_skull.mdl",{CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,-4,-30))})
-		self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/hgib_legbone.mdl",{CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(-5,0,-30))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh1.mdl", {CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(1,0,-30))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,2,-30))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(3,0,-30))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh4.mdl", {CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,4,-30))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_b_bone.mdl", {CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(5,0,-30))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_b_gib.mdl", {CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,6,-30))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_guts.mdl", {CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(-1,0,-30))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_hmeat.mdl", {CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,-2,-30))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_lung.mdl", {CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(-3,0,-30))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_skull.mdl", {CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(0,-4,-30))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_legbone.mdl", {CollisionDecal="VJ_HLR_Blood_Red",Pos=self:LocalToWorld(Vector(-5,0,-30))})
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

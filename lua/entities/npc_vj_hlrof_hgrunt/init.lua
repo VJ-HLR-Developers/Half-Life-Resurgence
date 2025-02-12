@@ -6,13 +6,13 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/opfor/hgrunt.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(5, 0, 1), -- The offset for the controller when the camera is in first person
+ENT.Model = "models/vj_hlr/opfor/hgrunt.mdl"
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(0, 0, -15),
+    FirstP_Bone = "Bip01 Head",
+    FirstP_Offset = Vector(5, 0, 1),
 }
-ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
+ENT.HasOnPlayerSight = true
 ENT.BecomeEnemyToPlayer = 2
 
 /*

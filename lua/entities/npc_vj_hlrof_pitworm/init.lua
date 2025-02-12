@@ -5,16 +5,16 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/opfor/pit_worm_up.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/opfor/pit_worm_up.mdl"
 ENT.StartHealth = 2000
 ENT.VJ_ID_Boss = true
 ENT.HullType = HULL_LARGE
-ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
-ENT.CanTurnWhileStationary = true -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(15, 0, -50), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(7, 0, 0), -- The offset for the controller when the camera is in first person
+ENT.MovementType = VJ_MOVETYPE_STATIONARY
+ENT.CanTurnWhileStationary = true
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(15, 0, -50),
+    FirstP_Bone = "Head",
+    FirstP_Offset = Vector(7, 0, 0),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
@@ -24,31 +24,31 @@ ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
 
 ENT.MeleeAttackDamage = 30
-ENT.MeleeAttackDistance = 300 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageDistance = 320 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.MeleeAttackDistance = 300
+ENT.MeleeAttackDamageDistance = 320
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2}
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
+ENT.TimeUntilMeleeAttackDamage = false
 
-ENT.HasRangeAttack = true -- Can this NPC range attack?
+ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-ENT.RangeDistance = 4000 -- How far can it range attack?
-ENT.RangeToMeleeDistance = 250 -- How close does it have to be until it uses melee?
-ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
-ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
+ENT.RangeDistance = 4000
+ENT.RangeToMeleeDistance = 250
+ENT.TimeUntilRangeAttackProjectileRelease = false
+ENT.NextRangeAttackTime = 3
+ENT.DisableDefaultRangeAttackCode = true
 
-ENT.HasDeathCorpse = false -- Should a corpse spawn when it's killed?
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.HasDeathCorpse = false
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
-	-- ====== Flinching Code ====== --
-ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_BIG_FLINCH} -- The regular flinch animations to play
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/pitworm/pit_worm_idle1.wav","vj_hlr/hl1_npc/pitworm/pit_worm_idle2.wav","vj_hlr/hl1_npc/pitworm/pit_worm_idle3.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/pitworm/pit_worm_alert(scream).wav","vj_hlr/hl1_npc/pitworm/pit_worm_alert.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/pitworm/pit_worm_attack_swipe1.wav","vj_hlr/hl1_npc/pitworm/pit_worm_attack_swipe2.wav","vj_hlr/hl1_npc/pitworm/pit_worm_attack_swipe3.wav"}
+
+ENT.CanFlinch = 1
+ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_BIG_FLINCH}
+
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/pitworm/pit_worm_idle1.wav", "vj_hlr/hl1_npc/pitworm/pit_worm_idle2.wav", "vj_hlr/hl1_npc/pitworm/pit_worm_idle3.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/pitworm/pit_worm_alert(scream).wav", "vj_hlr/hl1_npc/pitworm/pit_worm_alert.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/pitworm/pit_worm_attack_swipe1.wav", "vj_hlr/hl1_npc/pitworm/pit_worm_attack_swipe2.wav", "vj_hlr/hl1_npc/pitworm/pit_worm_attack_swipe3.wav"}
 ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/pitworm/pit_worm_flinch1.wav","vj_hlr/hl1_npc/pitworm/pit_worm_flinch2.wav","vj_hlr/hl1_npc/pitworm/pit_worm_angry1.wav","vj_hlr/hl1_npc/pitworm/pit_worm_angry2.wav","vj_hlr/hl1_npc/pitworm/pit_worm_angry3.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/pitworm/pit_worm_flinch1.wav", "vj_hlr/hl1_npc/pitworm/pit_worm_flinch2.wav", "vj_hlr/hl1_npc/pitworm/pit_worm_angry1.wav", "vj_hlr/hl1_npc/pitworm/pit_worm_angry2.wav", "vj_hlr/hl1_npc/pitworm/pit_worm_angry3.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/pitworm/pit_worm_death.wav"}
 
 ENT.AlertSoundLevel = 90
@@ -67,10 +67,10 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "melee" then
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	end
 	if key == "beam" then
-		self:RangeAttackCode()
+		self:ExecuteRangeAttack()
 	end
 end
 // ACT_SPECIAL_ATTACK1, ACT_SPECIAL_ATTACK2
@@ -97,7 +97,7 @@ function ENT:CustomOnRangeAttack_AfterStartTimer()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PitWorm_DoLaserEffects()
-	local startPos = self:GetPos() + self:GetUp()*250 + self:GetForward()*230
+	local startPos = self:GetPos() + self:GetUp() * 250 + self:GetForward() * 230
 	local tr = util.TraceLine({
 		start = startPos,
 		endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(),
@@ -116,19 +116,19 @@ function ENT:CustomRangeAttackCode()
 	self:PitWorm_DoLaserEffects()
 	
 	local spr = ents.Create("env_sprite")
-	spr:SetKeyValue("model","vj_hl/sprites/flare3.vmt")
-	spr:SetKeyValue("rendercolor","124 252 0")
-	spr:SetKeyValue("GlowProxySize","5.0")
-	spr:SetKeyValue("HDRColorScale","1.0")
-	spr:SetKeyValue("renderfx","14")
-	spr:SetKeyValue("rendermode","3")
-	spr:SetKeyValue("renderamt","255")
-	spr:SetKeyValue("disablereceiveshadows","0")
-	spr:SetKeyValue("mindxlevel","0")
-	spr:SetKeyValue("maxdxlevel","0")
-	spr:SetKeyValue("framerate","10.0")
-	spr:SetKeyValue("spawnflags","0")
-	spr:SetKeyValue("scale","3")
+	spr:SetKeyValue("model", "vj_hl/sprites/flare3.vmt")
+	spr:SetKeyValue("rendercolor", "124 252 0")
+	spr:SetKeyValue("GlowProxySize", "5.0")
+	spr:SetKeyValue("HDRColorScale", "1.0")
+	spr:SetKeyValue("renderfx", "14")
+	spr:SetKeyValue("rendermode", "3")
+	spr:SetKeyValue("renderamt", "255")
+	spr:SetKeyValue("disablereceiveshadows", "0")
+	spr:SetKeyValue("mindxlevel", "0")
+	spr:SetKeyValue("maxdxlevel", "0")
+	spr:SetKeyValue("framerate", "10.0")
+	spr:SetKeyValue("spawnflags", "0")
+	spr:SetKeyValue("scale", "3")
 	spr:SetPos(self:GetPos())
 	spr:Spawn()
 	spr:SetParent(self)

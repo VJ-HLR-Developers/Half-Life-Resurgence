@@ -5,14 +5,14 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/friendly.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/friendly.mdl"
 ENT.StartHealth = 230
 ENT.SightAngle = 120
 ENT.HullType = HULL_MEDIUM
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(-25, 0, 0), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(7, 0, 5), -- The offset for the controller when the camera is in first person
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(-25, 0, 0),
+    FirstP_Bone = "Bip01 Head",
+    FirstP_Offset = Vector(7, 0, 5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
@@ -23,32 +23,32 @@ ENT.HasBloodPool = false
 
 ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
 ENT.MeleeAttackDamage = 25
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDistance = 40 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageDistance = 100 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.TimeUntilMeleeAttackDamage = false
+ENT.MeleeAttackDistance = 40
+ENT.MeleeAttackDamageDistance = 100
 
-ENT.HasRangeAttack = true -- Can this NPC range attack?
+ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-ENT.RangeDistance = 140 -- How far can it range attack?
-ENT.RangeToMeleeDistance = 50 -- How close does it have to be until it uses melee?
-ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
-ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
+ENT.RangeDistance = 140
+ENT.RangeToMeleeDistance = 50
+ENT.TimeUntilRangeAttackProjectileRelease = false
+ENT.NextRangeAttackTime = 3
+ENT.DisableDefaultRangeAttackCode = true
 
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DisableFootStepSoundTimer = true
-ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
-	-- ====== Flinching Code ====== --
-ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- The regular flinch animations to play
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/friendly/fr_groan1.wav","vj_hlr/hl1_npc/friendly/fr_groan2.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/friendly/fr_attack.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/friendly/fr_attack.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/friendly/fr_groan1.wav","vj_hlr/hl1_npc/friendly/fr_groan2.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/friendly/fr_groan1.wav","vj_hlr/hl1_npc/friendly/fr_groan2.wav"}
+ENT.HasExtraMeleeAttackSounds = true
+
+ENT.CanFlinch = 1
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
+
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/friendly/fr_groan1.wav", "vj_hlr/hl1_npc/friendly/fr_groan2.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = "vj_hlr/hl1_npc/friendly/fr_attack.wav"
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_BeforeRangeAttack = "vj_hlr/hl1_npc/friendly/fr_attack.wav"
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/friendly/fr_groan1.wav", "vj_hlr/hl1_npc/friendly/fr_groan2.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/friendly/fr_groan1.wav", "vj_hlr/hl1_npc/friendly/fr_groan2.wav"}
 
 ENT.PainSoundPitch = VJ.SET(150, 150)
 ENT.DeathSoundPitch = VJ.SET(150, 150)
@@ -62,9 +62,9 @@ function ENT:OnInput(key, activator, caller, data)
 	if key == "step" then		-- not even used
 		self:PlayFootstepSound()
 	elseif key == "melee" then
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	elseif key == "vomitdmg" then
-		self:RangeAttackCode()
+		self:ExecuteRangeAttack()
 	elseif key == "body" then
 		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end

@@ -21,13 +21,13 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = {"models/crossbow_bolt.mdl"} -- Model(s) to spawn with | Picks a random one if it's a table
-ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
+ENT.Model = "models/crossbow_bolt.mdl"
+ENT.DoesDirectDamage = true
 ENT.DirectDamage = 65
 ENT.DirectDamageType = bit.bor(DMG_SLASH, DMG_DISSOLVE, DMG_SHOCK)
-ENT.CollisionDecal = {"Impact.Concrete"}
-ENT.SoundTbl_Idle = {"ambient/energy/electric_loop.wav"}
-ENT.SoundTbl_OnCollide = {"ambient/energy/weld1.wav","ambient/energy/weld2.wav"}
+ENT.CollisionDecal = "Impact.Concrete"
+ENT.SoundTbl_Idle = "ambient/energy/electric_loop.wav"
+ENT.SoundTbl_OnCollide = {"ambient/energy/weld1.wav", "ambient/energy/weld2.wav"}
 
 ENT.IdleSoundLevel = 60
 ---------------------------------------------------------------------------------------------------------------------------------------------

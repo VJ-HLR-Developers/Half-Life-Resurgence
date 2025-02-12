@@ -5,29 +5,29 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/monk.mdl" -- Model(s) to spawn with | Picks a random one if it's a table 
+ENT.Model = "models/monk.mdl"
 ENT.StartHealth = 100
-ENT.HasHealthRegeneration = true -- Can the NPC regenerate its health?
-ENT.HealthRegenerationAmount = 1 -- How much should the health increase after every delay?
-ENT.HealthRegenerationDelay = VJ.SET(0.5, 1) -- How much time until the health increases
+ENT.HasHealthRegeneration = true
+ENT.HealthRegenerationAmount = 1
+ENT.HealthRegenerationDelay = VJ.SET(0.5, 1)
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.FriendsWithAllPlayerAllies = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.AnimTbl_MeleeAttack = {"vjseq_MeleeAttack01", "melee_slice"}
-ENT.TimeUntilMeleeAttackDamage = 0.7 -- This counted in seconds | This calculates the time until it hits something
-ENT.Weapon_StrafeWhileFiring = false -- Should it move randomly while firing a weapon?
+ENT.TimeUntilMeleeAttackDamage = 0.7
+ENT.Weapon_StrafeWhileFiring = false
 ENT.AnimTbl_GrenadeAttack = ACT_RANGE_ATTACK_THROW
-ENT.TimeUntilGrenadeIsReleased = 0.87 -- Time until the grenade is released
-ENT.GrenadeAttackAttachment = "anim_attachment_RH" -- The attachment that the grenade will spawn at
-ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
+ENT.TimeUntilGrenadeIsReleased = 0.87
+ENT.GrenadeAttackAttachment = "anim_attachment_RH"
+ENT.HasOnPlayerSight = true
 ENT.BecomeEnemyToPlayer = 2
 ENT.AnimTbl_Medic_GiveHealth = "heal"
-	-- ====== Flinching Code ====== --
-ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_FootStep = {"npc/footsteps/hardboot_generic1.wav","npc/footsteps/hardboot_generic2.wav","npc/footsteps/hardboot_generic3.wav","npc/footsteps/hardboot_generic4.wav","npc/footsteps/hardboot_generic5.wav","npc/footsteps/hardboot_generic6.wav","npc/footsteps/hardboot_generic8.wav"}
+
+ENT.CanFlinch = 1
+
+ENT.SoundTbl_FootStep = {"npc/footsteps/hardboot_generic1.wav", "npc/footsteps/hardboot_generic2.wav", "npc/footsteps/hardboot_generic3.wav", "npc/footsteps/hardboot_generic4.wav", "npc/footsteps/hardboot_generic5.wav", "npc/footsteps/hardboot_generic6.wav", "npc/footsteps/hardboot_generic8.wav"}
 ENT.SoundTbl_Idle = {
 	"vo/ravenholm/firetrap_vigil.wav",
 	"vo/ravenholm/monk_rant01.wav",

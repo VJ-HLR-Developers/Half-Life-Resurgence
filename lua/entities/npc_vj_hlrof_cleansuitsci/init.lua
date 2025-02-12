@@ -6,7 +6,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/opfor/cleansuit_scientist.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
-ENT.IsMedic = false -- Is this NPC a medic? It will heal friendly players and NPCs
+ENT.Model = "models/vj_hlr/opfor/cleansuit_scientist.mdl"
+ENT.IsMedic = false
 
 ENT.SCI_Type = 1

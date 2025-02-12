@@ -5,38 +5,38 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/flower.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/flower.mdl"
 ENT.StartHealth = 160
-ENT.SightDistance = 512 -- How far it can see
+ENT.SightDistance = 512
 ENT.SightAngle = 360
-ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
-ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
+ENT.MovementType = VJ_MOVETYPE_STATIONARY
+ENT.CanTurnWhileStationary = false
 ENT.HullType = HULL_SMALL_CENTERED
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(0, 0, -250), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "joint2", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(0, 0, -60), -- The offset for the controller when the camera is in first person
-	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(0, 0, -250),
+    FirstP_Bone = "joint2",
+    FirstP_Offset = Vector(0, 0, -60),
+	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
-ENT.HasMeleeAttack = false -- Can this NPC melee attack?
+ENT.HasMeleeAttack = false
 
-ENT.HasRangeAttack = true -- Can this NPC range attack?
-ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
-ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
-ENT.RangeDistance = 512 -- How far can it range attack?
-ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
-ENT.RangeAttackAngleRadius = 180 -- What is the attack angle radius? | 100 = In front of the NPC | 180 = All around the NPC
-ENT.TimeUntilRangeAttackProjectileRelease = 0 -- How much time until the projectile code is ran?
-ENT.NextRangeAttackTime = 1.5 -- How much time until it can use a range attack?
+ENT.HasRangeAttack = true
+ENT.DisableDefaultRangeAttackCode = true
+ENT.DisableRangeAttackAnimation = true
+ENT.RangeDistance = 512
+ENT.RangeToMeleeDistance = 1
+ENT.RangeAttackAngleRadius = 180
+ENT.TimeUntilRangeAttackProjectileRelease = 0
+ENT.NextRangeAttackTime = 1.5
 
-ENT.DeathCorpseEntityClass = "prop_vj_animatable" -- Corpse's class | false = Let the base automatically detect the class
+ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.GibOnDeathFilter = false
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_Death = {"vj_hlr/fx/bustflesh1.wav","vj_hlr/fx/bustflesh2.wav"}
 
-local SdTbl_GibImpact = {"vj_hlr/fx/flesh1.wav","vj_hlr/fx/flesh2.wav","vj_hlr/fx/flesh3.wav","vj_hlr/fx/flesh4.wav","vj_hlr/fx/flesh5.wav","vj_hlr/fx/flesh6.wav","vj_hlr/fx/flesh7.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/fx/bustflesh1.wav", "vj_hlr/fx/bustflesh2.wav"}
+
+local SdTbl_GibImpact = {"vj_hlr/fx/flesh1.wav", "vj_hlr/fx/flesh2.wav", "vj_hlr/fx/flesh3.wav", "vj_hlr/fx/flesh4.wav", "vj_hlr/fx/flesh5.wav", "vj_hlr/fx/flesh6.wav", "vj_hlr/fx/flesh7.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -97,19 +97,19 @@ function ENT:CustomRangeAttackCode()
 	//sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitPos, 60)
 	
 	local spr = ents.Create("env_sprite")
-	spr:SetKeyValue("model","vj_hl/sprites/xflare1.vmt")
-	//spr:SetKeyValue("rendercolor","0 0 255")
-	spr:SetKeyValue("GlowProxySize","5.0")
-	spr:SetKeyValue("HDRColorScale","1.0")
-	spr:SetKeyValue("renderfx","14")
-	spr:SetKeyValue("rendermode","3")
-	spr:SetKeyValue("renderamt","255")
-	spr:SetKeyValue("disablereceiveshadows","0")
-	spr:SetKeyValue("mindxlevel","0")
-	spr:SetKeyValue("maxdxlevel","0")
-	spr:SetKeyValue("framerate","60.0")
-	spr:SetKeyValue("spawnflags","0")
-	spr:SetKeyValue("scale","0.8")
+	spr:SetKeyValue("model", "vj_hl/sprites/xflare1.vmt")
+	//spr:SetKeyValue("rendercolor", "0 0 255")
+	spr:SetKeyValue("GlowProxySize", "5.0")
+	spr:SetKeyValue("HDRColorScale", "1.0")
+	spr:SetKeyValue("renderfx", "14")
+	spr:SetKeyValue("rendermode", "3")
+	spr:SetKeyValue("renderamt", "255")
+	spr:SetKeyValue("disablereceiveshadows", "0")
+	spr:SetKeyValue("mindxlevel", "0")
+	spr:SetKeyValue("maxdxlevel", "0")
+	spr:SetKeyValue("framerate", "60.0")
+	spr:SetKeyValue("spawnflags", "0")
+	spr:SetKeyValue("scale", "0.8")
 	spr:SetPos(self:GetPos())
 	spr:Spawn()
 	spr:SetParent(self)

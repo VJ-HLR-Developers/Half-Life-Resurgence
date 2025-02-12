@@ -6,19 +6,19 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/rgrunt.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/rgrunt.mdl"
 ENT.StartHealth = 200
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(5, 0, 5), -- The offset for the controller when the camera is in first person
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(0, 0, -15),
+    FirstP_Bone = "Bip01 Head",
+    FirstP_Offset = Vector(5, 0, 5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.BloodColor = ""
 ENT.HasBloodParticle = false
 ENT.HasBloodDecal = false
-ENT.Medic_CanBeHealed = false -- Can this NPC be healed by medics?
+ENT.Medic_CanBeHealed = false
 
 ENT.BreathSoundLevel = 50
 ENT.GeneralSoundPitch1 = 130

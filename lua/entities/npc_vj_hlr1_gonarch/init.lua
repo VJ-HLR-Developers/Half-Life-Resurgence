@@ -5,15 +5,15 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/big_mom.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/big_mom.mdl"
 ENT.StartHealth = 2000
 ENT.HullType = HULL_LARGE
 ENT.VJ_ID_Boss = true
-ENT.EntitiesToNoCollide = {"npc_vj_hlr1_headcrab_baby", "npc_vj_hlr1_headcrab", "npc_vj_hlr1a_headcrab"} -- Set to a table of entity class names for the NPC to not collide with otherwise leave it to false
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(-100, 0, -70), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 Neck", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(0, 0, -5), -- The offset for the controller when the camera is in first person
+ENT.EntitiesToNoCollide = {"npc_vj_hlr1_headcrab_baby", "npc_vj_hlr1_headcrab", "npc_vj_hlr1a_headcrab"}
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(-100, 0, -70),
+    FirstP_Bone = "Bip01 Neck",
+    FirstP_Offset = Vector(0, 0, -5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
@@ -22,39 +22,39 @@ ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
 ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"}
 
-ENT.HasMeleeAttack = true -- Can this NPC melee attack?
+ENT.HasMeleeAttack = true
 ENT.MeleeAttackDamage = 60
 ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
-ENT.MeleeAttackDistance = 150 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageDistance = 200 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.HasMeleeAttackKnockBack = true -- Should knockback be applied on melee hit? | Use self:MeleeAttackKnockbackVelocity() to edit the velocity
+ENT.MeleeAttackDistance = 150
+ENT.MeleeAttackDamageDistance = 200
+ENT.TimeUntilMeleeAttackDamage = false
+ENT.HasMeleeAttackKnockBack = true
 
-ENT.HasRangeAttack = true -- Can this NPC range attack?
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_gonarchspit" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
+ENT.HasRangeAttack = true
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_gonarchspit"
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-ENT.RangeDistance = 2000 -- How far can it range attack?
-ENT.RangeToMeleeDistance = 500 -- How close does it have to be until it uses melee?
-ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-ENT.NextRangeAttackTime = 0.1 -- How much time until it can use a range attack?
-ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
+ENT.RangeDistance = 2000
+ENT.RangeToMeleeDistance = 500
+ENT.TimeUntilRangeAttackProjectileRelease = false
+ENT.NextRangeAttackTime = 0.1
+ENT.NextRangeAttackTime_DoRand = 4
 
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DisableFootStepSoundTimer = true
-ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/gonarch/gon_step1.wav","vj_hlr/hl1_npc/gonarch/gon_step2.wav","vj_hlr/hl1_npc/gonarch/gon_step3.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/gonarch/gon_sack1.wav","vj_hlr/hl1_npc/gonarch/gon_sack2.wav","vj_hlr/hl1_npc/gonarch/gon_sack3.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/gonarch/gon_alert1.wav","vj_hlr/hl1_npc/gonarch/gon_alert2.wav","vj_hlr/hl1_npc/gonarch/gon_alert3.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/gonarch/gon_attack1.wav","vj_hlr/hl1_npc/gonarch/gon_attack2.wav","vj_hlr/hl1_npc/gonarch/gon_attack3.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/gonarch/gon_attack1.wav","vj_hlr/hl1_npc/gonarch/gon_attack2.wav","vj_hlr/hl1_npc/gonarch/gon_attack3.wav"}
-ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/gonarch/gon_sack1.wav","vj_hlr/hl1_npc/gonarch/gon_sack2.wav","vj_hlr/hl1_npc/gonarch/gon_sack3.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/gonarch/gon_pain2.wav","vj_hlr/hl1_npc/gonarch/gon_pain4.wav","vj_hlr/hl1_npc/gonarch/gon_pain5.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/gonarch/gon_die1.wav"}
+ENT.HasExtraMeleeAttackSounds = true
 
-local sdBirth = {"vj_hlr/hl1_npc/gonarch/gon_birth1.wav","vj_hlr/hl1_npc/gonarch/gon_birth1.wav","vj_hlr/hl1_npc/gonarch/gon_birth1.wav"}
+ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/gonarch/gon_step1.wav", "vj_hlr/hl1_npc/gonarch/gon_step2.wav", "vj_hlr/hl1_npc/gonarch/gon_step3.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/gonarch/gon_sack1.wav", "vj_hlr/hl1_npc/gonarch/gon_sack2.wav", "vj_hlr/hl1_npc/gonarch/gon_sack3.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/gonarch/gon_alert1.wav", "vj_hlr/hl1_npc/gonarch/gon_alert2.wav", "vj_hlr/hl1_npc/gonarch/gon_alert3.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/gonarch/gon_attack1.wav", "vj_hlr/hl1_npc/gonarch/gon_attack2.wav", "vj_hlr/hl1_npc/gonarch/gon_attack3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/gonarch/gon_attack1.wav", "vj_hlr/hl1_npc/gonarch/gon_attack2.wav", "vj_hlr/hl1_npc/gonarch/gon_attack3.wav"}
+ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/gonarch/gon_sack1.wav", "vj_hlr/hl1_npc/gonarch/gon_sack2.wav", "vj_hlr/hl1_npc/gonarch/gon_sack3.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/gonarch/gon_pain2.wav", "vj_hlr/hl1_npc/gonarch/gon_pain4.wav", "vj_hlr/hl1_npc/gonarch/gon_pain5.wav"}
+ENT.SoundTbl_Death = "vj_hlr/hl1_npc/gonarch/gon_die1.wav"
+
+local sdBirth = {"vj_hlr/hl1_npc/gonarch/gon_birth1.wav", "vj_hlr/hl1_npc/gonarch/gon_birth1.wav", "vj_hlr/hl1_npc/gonarch/gon_birth1.wav"}
 local sdBabyDeath = {"vj_hlr/hl1_npc/gonarch/gon_childdie1.wav", "vj_hlr/hl1_npc/gonarch/gon_childdie2.wav", "vj_hlr/hl1_npc/gonarch/gon_childdie3.wav"}
 
 ENT.AllyDeathSoundChance = 1
@@ -107,12 +107,12 @@ function ENT:OnInput(key, activator, caller, data)
 		self.Gonarch_NextBirthT = CurTime() + 10
 	elseif key == "mattack leftA" or key == "mattack rightA" then -- Hit Ground
 		self.Gonarch_ShakeWorldOnMiss = true
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	elseif key == "mattack leftB" or key == "mattack rightB" then -- Swipe Air
 		self.Gonarch_ShakeWorldOnMiss = false
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	elseif key == "rattack" then
-		self:RangeAttackCode()
+		self:ExecuteRangeAttack()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

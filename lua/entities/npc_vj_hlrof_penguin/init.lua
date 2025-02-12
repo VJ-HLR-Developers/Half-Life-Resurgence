@@ -6,11 +6,11 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/opfor/penguin.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
-ENT.EntitiesToNoCollide = {"npc_vj_hlrof_penguin"} -- Set to a table of entity class names for the NPC to not collide with otherwise leave it to false
-ENT.ControllerVars = {
-    FirstP_Bone = "Bone22", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(4, 0, 30), -- The offset for the controller when the camera is in first person
+ENT.Model = "models/vj_hlr/opfor/penguin.mdl"
+ENT.EntitiesToNoCollide = {"npc_vj_hlrof_penguin"}
+ENT.ControllerParameters = {
+    FirstP_Bone = "Bone22",
+    FirstP_Offset = Vector(4, 0, 30),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PENGUIN"}

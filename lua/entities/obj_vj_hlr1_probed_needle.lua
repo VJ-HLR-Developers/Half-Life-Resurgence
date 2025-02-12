@@ -19,8 +19,8 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = "models/vj_hlr/hla/pb_dart.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
-ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
+ENT.Model = "models/vj_hlr/hla/pb_dart.mdl"
+ENT.DoesDirectDamage = true
 ENT.DirectDamage = 15
 ENT.DirectDamageType = DMG_POISON
 ENT.CollisionDecal = "Impact.Concrete"

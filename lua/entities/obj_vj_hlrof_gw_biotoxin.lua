@@ -19,11 +19,11 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = "models/vj_base/projectiles/spit_acid_large.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
-ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
+ENT.Model = "models/vj_base/projectiles/spit_acid_large.mdl"
+ENT.DoesDirectDamage = true
 ENT.DirectDamage = 20
 ENT.DirectDamageType = DMG_ACID
-ENT.RemoveDelay = 1.5 -- Setting this greater than 0 will delay the entity's removal | Useful for lingering trail effects
+ENT.RemoveDelay = 1.5
 ENT.SoundTbl_OnCollide = {}
 ENT.SoundTbl_Idle = {}
 

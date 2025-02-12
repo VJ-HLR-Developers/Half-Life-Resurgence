@@ -5,52 +5,51 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/floater.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/floater.mdl"
 ENT.StartHealth = 45
 ENT.SightAngle = 120
 ENT.HullType = HULL_TINY
-ENT.MovementType = VJ_MOVETYPE_AERIAL -- How the NPC moves around
-ENT.Aerial_FlyingSpeed_Calm = 100 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground NPCs
-ENT.Aerial_FlyingSpeed_Alerted = 180 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground NPCs
-ENT.Aerial_AnimTbl_Calm = ACT_WALK -- Animations it plays when it's wandering around while idle
-ENT.Aerial_AnimTbl_Alerted = ACT_RUN -- Animations it plays when it's moving while alerted
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bone01", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(1, 0, 5), -- The offset for the controller when the camera is in first person
+ENT.MovementType = VJ_MOVETYPE_AERIAL
+ENT.Aerial_FlyingSpeed_Calm = 100
+ENT.Aerial_FlyingSpeed_Alerted = 180
+ENT.Aerial_AnimTbl_Calm = ACT_WALK
+ENT.Aerial_AnimTbl_Alerted = ACT_RUN
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(0, 0, -15),
+    FirstP_Bone = "Bone01",
+    FirstP_Offset = Vector(1, 0, 5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.ConstantlyFaceEnemy = true -- Should it face the enemy constantly?
+ENT.ConstantlyFaceEnemy = true
 ENT.IdleAlwaysWander = true
-ENT.CanOpenDoors = false -- Can it open doors?
+ENT.CanOpenDoors = false
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
-ENT.Behavior = VJ_BEHAVIOR_NEUTRAL -- Type of AI behavior to use for this NPC
+ENT.Behavior = VJ_BEHAVIOR_NEUTRAL
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
-ENT.HasMeleeAttack = false -- Can this NPC melee attack?
+ENT.HasMeleeAttack = false
 
-ENT.HasRangeAttack = true -- Can this NPC range attack?
+ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = "vjseq_attack"
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_toxicspit" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
-ENT.RangeDistance = 1500 -- How far can it range attack?
-ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
-ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-ENT.NextRangeAttackTime = 2 -- How much time until it can use a range attack?
-ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_toxicspit"
+ENT.RangeDistance = 1500
+ENT.RangeToMeleeDistance = 1
+ENT.TimeUntilRangeAttackProjectileRelease = false
+ENT.NextRangeAttackTime = 2
+ENT.NextRangeAttackTime_DoRand = 4
 
-ENT.NoChaseAfterCertainRange = true -- Should the NPC stop chasing when the enemy is within the given far and close distances?
-ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
-ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
-ENT.NoChaseAfterCertainRange_Type = "Regular" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/floater/fl_idle1.wav","vj_hlr/hl1_npc/floater/fl_idle2.wav","vj_hlr/hl1_npc/floater/fl_idle3.wav","vj_hlr/hl1_npc/floater/fl_idle4.wav","vj_hlr/hl1_npc/floater/fl_idle5.wav","vj_hlr/hl1_npc/floater/fl_idle6.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/floater/fl_alert1.wav","vj_hlr/hl1_npc/floater/fl_alert2.wav","vj_hlr/hl1_npc/floater/fl_alert3.wav","vj_hlr/hl1_npc/floater/fl_alert4.wav"}
-ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/floater/fl_attack1.wav","vj_hlr/hl1_npc/floater/fl_attack2.wav","vj_hlr/hl1_npc/floater/fl_attack3.wav"}
-ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/bullchicken/bc_attack2.wav","vj_hlr/hl1_npc/bullchicken/bc_attack3.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/floater/fl_pain1.wav","vj_hlr/hl1_npc/floater/fl_pain2.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/floater/fl_pain1.wav","vj_hlr/hl1_npc/floater/fl_pain2.wav"}
+ENT.LimitChaseDistance = true
+ENT.LimitChaseDistance_Max = "UseRangeDistance"
+ENT.LimitChaseDistance_Min = "UseRangeDistance"
+
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/floater/fl_idle1.wav", "vj_hlr/hl1_npc/floater/fl_idle2.wav", "vj_hlr/hl1_npc/floater/fl_idle3.wav", "vj_hlr/hl1_npc/floater/fl_idle4.wav", "vj_hlr/hl1_npc/floater/fl_idle5.wav", "vj_hlr/hl1_npc/floater/fl_idle6.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/floater/fl_alert1.wav", "vj_hlr/hl1_npc/floater/fl_alert2.wav", "vj_hlr/hl1_npc/floater/fl_alert3.wav", "vj_hlr/hl1_npc/floater/fl_alert4.wav"}
+ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/floater/fl_attack1.wav", "vj_hlr/hl1_npc/floater/fl_attack2.wav", "vj_hlr/hl1_npc/floater/fl_attack3.wav"}
+ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/bullchicken/bc_attack2.wav", "vj_hlr/hl1_npc/bullchicken/bc_attack3.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/floater/fl_pain1.wav", "vj_hlr/hl1_npc/floater/fl_pain2.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/floater/fl_pain1.wav", "vj_hlr/hl1_npc/floater/fl_pain2.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 
@@ -68,7 +67,7 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "shoot" then
-		self:RangeAttackCode()
+		self:ExecuteRangeAttack()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

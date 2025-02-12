@@ -21,12 +21,12 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = "models/vj_base/projectiles/spit_acid_large.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_base/projectiles/spit_acid_large.mdl"
 ENT.MoveCollideType = MOVETYPE_NONE
-ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
+ENT.DoesDirectDamage = true
 ENT.DirectDamage = 100
 ENT.DirectDamageType = DMG_DISSOLVE
-ENT.CollisionDecal = "VJ_HLR_Scorch_Small" -- Decals that paint when the projectile dies | It picks a random one from this table
+ENT.CollisionDecal = "VJ_HLR_Scorch_Small"
 ENT.SoundTbl_Startup = "vj_hlr/hl1_weapon/tripmine/mine_charge.wav"
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav", "vj_hlr/hl1_weapon/gauss/electro5.wav", "vj_hlr/hl1_weapon/gauss/electro6.wav"}
 

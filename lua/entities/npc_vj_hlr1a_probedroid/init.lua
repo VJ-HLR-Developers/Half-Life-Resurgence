@@ -5,56 +5,55 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hla/prdroid.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hla/prdroid.mdl"
 ENT.StartHealth = 100
 ENT.HullType = HULL_HUMAN
-ENT.MovementType = VJ_MOVETYPE_AERIAL -- How the NPC moves around
-ENT.Aerial_FlyingSpeed_Calm = 100 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground NPCs
-ENT.Aerial_FlyingSpeed_Alerted = 200 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground NPCs
-ENT.ControllerVars = {
-	FirstP_Bone = "sphere01", -- If left empty, the base will attempt to calculate a position for first person
-	FirstP_Offset = Vector(15, 0, -3), -- The offset for the controller when the camera is in first person
-	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+ENT.MovementType = VJ_MOVETYPE_AERIAL
+ENT.Aerial_FlyingSpeed_Calm = 100
+ENT.Aerial_FlyingSpeed_Alerted = 200
+ENT.ControllerParameters = {
+	FirstP_Bone = "sphere01",
+	FirstP_Offset = Vector(15, 0, -3),
+	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.FriendsWithAllPlayerAllies = true
 ENT.ConstantlyFaceEnemy = true
 
-ENT.HasMeleeAttack = true -- Can this NPC melee attack?
+ENT.HasMeleeAttack = true
 ENT.MeleeAttackDamage = 20
-ENT.MeleeAttackDistance = 55 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageDistance = 80 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
+ENT.MeleeAttackDistance = 55
+ENT.MeleeAttackDamageDistance = 80
+ENT.TimeUntilMeleeAttackDamage = false
 
-ENT.HasRangeAttack = true -- Can this NPC range attack?
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_probed_needle" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
-ENT.RangeDistance = 1500 -- How far can it range attack?
-ENT.RangeToMeleeDistance = 110 -- How close does it have to be until it uses melee?
-ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the needle code is ran?
-ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
-ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
-ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
+ENT.HasRangeAttack = true
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_probed_needle"
+ENT.RangeDistance = 1500
+ENT.RangeToMeleeDistance = 110
+ENT.TimeUntilRangeAttackProjectileRelease = false
+ENT.NextRangeAttackTime = 3
+ENT.NextRangeAttackTime_DoRand = 4
+ENT.DisableRangeAttackAnimation = true
 
-ENT.NoChaseAfterCertainRange = true -- Should the NPC stop chasing when the enemy is within the given far and close distances?
-ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
-ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
-ENT.NoChaseAfterCertainRange_Type = "OnlyRange" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
+ENT.LimitChaseDistance = "OnlyRange"
+ENT.LimitChaseDistance_Max = "UseRangeDistance"
+ENT.LimitChaseDistance_Min = "UseRangeDistance"
 
-ENT.IsMedic = true -- Is this NPC a medic? It will heal friendly players and NPCs
+ENT.IsMedic = true
 ENT.AnimTbl_Medic_GiveHealth = ACT_ARM
-ENT.Medic_CheckDistance = 1000 -- How far does it check for allies that are hurt? | World units
-ENT.Medic_HealDistance = 600 -- How close does it have to be until it stops moving and heals its ally?
-ENT.Medic_NextHealTime = VJ.SET(5, 8) -- How much time until it can give health to an ally again
-ENT.Medic_SpawnPropOnHeal = false -- Should it spawn a prop, such as small health vial at a attachment when healing an ally?
-ENT.Medic_CanBeHealed = false -- Can this NPC be healed by medics?
+ENT.Medic_CheckDistance = 1000
+ENT.Medic_HealDistance = 600
+ENT.Medic_NextHealTime = VJ.SET(5, 8)
+ENT.Medic_SpawnPropOnHeal = false
+ENT.Medic_CanBeHealed = false
 
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
-ENT.DeathAnimationTime = 0.6 -- How long should the death animation play?
-ENT.HasDeathCorpse = false -- Should a corpse spawn when it's killed?
-ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
-	-- ====== Sound Paths ====== --
+ENT.DeathAnimationTime = 0.6
+ENT.HasDeathCorpse = false
+ENT.HasExtraMeleeAttackSounds = true
+
 ENT.SoundTbl_Breath = "vj_hlr/hla_npc/prdroid/engine.wav"
 ENT.SoundTbl_MedicAfterHeal = "vj_hlr/hla_npc/prdroid/shoot_heal.wav"
 ENT.SoundTbl_Alert = "vj_hlr/hla_npc/prdroid/alert.wav"
@@ -79,9 +78,9 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "melee" then
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	elseif key == "shoot" then
-		self:RangeAttackCode()
+		self:ExecuteRangeAttack()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

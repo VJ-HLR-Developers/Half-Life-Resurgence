@@ -5,14 +5,14 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/opfor/strooper.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/opfor/strooper.mdl"
 ENT.StartHealth = 150
 ENT.HullType = HULL_HUMAN
 ENT.CanTurnWhileMoving = false
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(15, 0, -15), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(10, 0, 0), -- The offset for the controller when the camera is in first person
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(15, 0, -15),
+    FirstP_Bone = "Bip01 Head",
+    FirstP_Offset = Vector(10, 0, 0),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
@@ -21,36 +21,36 @@ ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
 ENT.MeleeAttackDamage = 10
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
+ENT.TimeUntilMeleeAttackDamage = false
 
-ENT.HasGrenadeAttack = true -- Should the NPC have a grenade attack?
-ENT.GrenadeAttackEntity = "obj_vj_hlrof_grenade_spore" -- Entities that it can spawn when throwing a grenade | If set as a table, it picks a random entity | VJ: "obj_vj_grenade" | HL2: "npc_grenade_frag"
+ENT.HasGrenadeAttack = true
+ENT.GrenadeAttackEntity = "obj_vj_hlrof_grenade_spore"
 ENT.AnimTbl_GrenadeAttack = ACT_SPECIAL_ATTACK2
-ENT.GrenadeAttackAttachment = "eyes" -- The attachment that the grenade will spawn at
-ENT.TimeUntilGrenadeIsReleased = 1.5 -- Time until the grenade is released
-ENT.GrenadeAttackChance = 1 -- 1 in x chance that it will throw a grenade when all the requirements are met | 1 = Throw it every time
+ENT.GrenadeAttackAttachment = "eyes"
+ENT.TimeUntilGrenadeIsReleased = 1.5
+ENT.GrenadeAttackChance = 1
 
-ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
-ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
-ENT.Weapon_StrafeWhileFiring = false -- Should it move randomly while firing a weapon?
-ENT.AnimTbl_WeaponAttackCrouch = ACT_RANGE_ATTACK2 -- Animation(s) to play while firing a weapon in crouched position
+ENT.Weapon_NoSpawnMenu = true
+ENT.DisableWeaponFiringGesture = true
+ENT.Weapon_StrafeWhileFiring = false
+ENT.AnimTbl_WeaponAttackCrouch = ACT_RANGE_ATTACK2
 ENT.AnimTbl_CallForHelp = ACT_SIGNAL2
 ENT.AnimTbl_CallForBackUpOnDamage = ACT_SIGNAL1
 ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE}
-ENT.DeathAnimationTime = false -- How long should the death animation play?
+ENT.DeathAnimationTime = false
 ENT.DisableFootStepSoundTimer = true
-	-- ====== Flinching Code ====== --
-ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- The regular flinch animations to play
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/player/boots1.wav","vj_hlr/hl1_npc/player/boots2.wav","vj_hlr/hl1_npc/player/boots3.wav","vj_hlr/hl1_npc/player/boots4.wav"}
+
+ENT.CanFlinch = 1
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
+
+ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/player/boots1.wav", "vj_hlr/hl1_npc/player/boots2.wav", "vj_hlr/hl1_npc/player/boots3.wav", "vj_hlr/hl1_npc/player/boots4.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/shocktrooper/st_idle.wav"}
-ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/shocktrooper/st_question1.wav","vj_hlr/hl1_npc/shocktrooper/st_question2.wav"}
-ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/shocktrooper/st_answer1.wav","vj_hlr/hl1_npc/shocktrooper/st_answer2.wav"}
-ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/shocktrooper/st_combat1.wav","vj_hlr/hl1_npc/shocktrooper/st_combat2.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/shocktrooper/st_alert1.wav","vj_hlr/hl1_npc/shocktrooper/st_alert2.wav","vj_hlr/hl1_npc/shocktrooper/st_alert3.wav","vj_hlr/hl1_npc/shocktrooper/st_alert4.wav"}
+ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/shocktrooper/st_question1.wav", "vj_hlr/hl1_npc/shocktrooper/st_question2.wav"}
+ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/shocktrooper/st_answer1.wav", "vj_hlr/hl1_npc/shocktrooper/st_answer2.wav"}
+ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/shocktrooper/st_combat1.wav", "vj_hlr/hl1_npc/shocktrooper/st_combat2.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/shocktrooper/st_alert1.wav", "vj_hlr/hl1_npc/shocktrooper/st_alert2.wav", "vj_hlr/hl1_npc/shocktrooper/st_alert3.wav", "vj_hlr/hl1_npc/shocktrooper/st_alert4.wav"}
 ENT.SoundTbl_GrenadeAttack = {"vj_hlr/hl1_npc/shocktrooper/st_grenadethrow.wav"}
 ENT.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/shocktrooper/st_runfromgrenade.wav"}
 ENT.SoundTbl_OnDangerSight = {"vj_hlr/hl1_npc/shocktrooper/st_runfromgrenade.wav"}
@@ -74,7 +74,7 @@ function ENT:OnInput(key, activator, caller, data)
 	if key == "step" then
 		self:PlayFootstepSound()
 	elseif key == "attack" then
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	elseif key == "rangeattack" then
 		local wep = self:GetActiveWeapon()
 		if IsValid(wep) then

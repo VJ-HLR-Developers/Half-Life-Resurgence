@@ -5,15 +5,15 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/sven/tor.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/sven/tor.mdl"
 ENT.StartHealth = 3000
 ENT.SightAngle = 220
 ENT.HullType = HULL_HUMAN
 ENT.VJ_ID_Boss = true
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(15, 0, -15), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "TorSkel Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(15, 0, 0), -- The offset for the controller when the camera is in first person
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(15, 0, -15),
+    FirstP_Bone = "TorSkel Head",
+    FirstP_Offset = Vector(15, 0, 0),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
@@ -26,42 +26,41 @@ ENT.HasBloodPool = false
 -- ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK_SWING = Cutting (dozen times)
 -- ACT_RANGE_ATTACK2						 = Sonic attack (This must be inputted twice so it has a fair chance to the other attacks!)
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2, ACT_SPECIAL_ATTACK1, ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK_SWING, ACT_MELEE_ATTACK2, ACT_SPECIAL_ATTACK1, ACT_RANGE_ATTACK2, ACT_RANGE_ATTACK2}
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDistance = 45 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageDistance = 75 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.TimeUntilMeleeAttackDamage = false
+ENT.MeleeAttackDistance = 45
+ENT.MeleeAttackDamageDistance = 75
 
-ENT.HasRangeAttack = true -- Can this NPC range attack?
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_orb_electrical" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
-ENT.RangeDistance = 2000 -- How far can it range attack?
-ENT.RangeToMeleeDistance = 100 -- How close does it have to be until it uses melee?
-ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
-ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
+ENT.HasRangeAttack = true
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_orb_electrical"
+ENT.RangeDistance = 2000
+ENT.RangeToMeleeDistance = 100
+ENT.TimeUntilRangeAttackProjectileRelease = false
+ENT.NextRangeAttackTime = 3
+ENT.NextRangeAttackTime_DoRand = 4
 
-ENT.NoChaseAfterCertainRange = true -- Should the NPC stop chasing when the enemy is within the given far and close distances?
-ENT.NoChaseAfterCertainRange_FarDistance = 1000 -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
-ENT.NoChaseAfterCertainRange_CloseDistance = 250 -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
-ENT.NoChaseAfterCertainRange_Type = "OnlyRange" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
+ENT.LimitChaseDistance = "OnlyRange"
+ENT.LimitChaseDistance_Max = 1000
+ENT.LimitChaseDistance_Min = 250
 
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEFORWARD, ACT_DIESIMPLE}
-ENT.DeathAnimationTime = false -- How long should the death animation play?
+ENT.DeathAnimationTime = false
 ENT.DisableFootStepSoundTimer = true
-ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
-	-- ====== Flinching Code ====== --
-ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- The regular flinch animations to play
+ENT.HasExtraMeleeAttackSounds = true
+
+ENT.CanFlinch = 1
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}}, {HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}}, {HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}}, {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/aslave/vort_foot1.wav","vj_hlr/hl1_npc/aslave/vort_foot2.wav","vj_hlr/hl1_npc/aslave/vort_foot3.wav","vj_hlr/hl1_npc/aslave/vort_foot4.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hlsc_npc/tor/tor-idle.wav","vj_hlr/hlsc_npc/tor/tor-idle2.wav","vj_hlr/hlsc_npc/tor/tor-idle3.wav","vj_hlr/hlsc_npc/tor/tor-test1.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hlsc_npc/tor/tor-alerted.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hlsc_npc/tor/tor-attack1.wav","vj_hlr/hlsc_npc/tor/tor-attack2.wav"}
-ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav","vj_hlr/hl1_npc/zombie/claw_strike2.wav","vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_RangeAttack = {"vj_hlr/hlsc_npc/tor/tor-staff-discharge.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hlsc_npc/tor/tor-pain.wav","vj_hlr/hlsc_npc/tor/tor-pain2.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hlsc_npc/tor/tor-die.wav","vj_hlr/hlsc_npc/tor/tor-die2.wav"}
+
+ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/aslave/vort_foot1.wav", "vj_hlr/hl1_npc/aslave/vort_foot2.wav", "vj_hlr/hl1_npc/aslave/vort_foot3.wav", "vj_hlr/hl1_npc/aslave/vort_foot4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hlsc_npc/tor/tor-idle.wav", "vj_hlr/hlsc_npc/tor/tor-idle2.wav", "vj_hlr/hlsc_npc/tor/tor-idle3.wav", "vj_hlr/hlsc_npc/tor/tor-test1.wav"}
+ENT.SoundTbl_Alert = "vj_hlr/hlsc_npc/tor/tor-alerted.wav"
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hlsc_npc/tor/tor-attack1.wav", "vj_hlr/hlsc_npc/tor/tor-attack2.wav"}
+ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav", "vj_hlr/hl1_npc/zombie/claw_strike2.wav", "vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_RangeAttack = "vj_hlr/hlsc_npc/tor/tor-staff-discharge.wav"
+ENT.SoundTbl_Pain = {"vj_hlr/hlsc_npc/tor/tor-pain.wav", "vj_hlr/hlsc_npc/tor/tor-pain2.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hlsc_npc/tor/tor-die.wav", "vj_hlr/hlsc_npc/tor/tor-die2.wav"}
 
 ENT.IdleSoundLevel = 80
 ENT.AlertSoundLevel = 85
@@ -137,12 +136,12 @@ function ENT:OnInput(key, activator, caller, data)
 		self.HasMeleeAttackMissSounds = true
 		self.DisableDefaultMeleeAttackCode = false
 		self.MeleeAttackDamage = (self.Tor_Level == 0 and 20) or 40
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	elseif key == "melee" then
 		self.HasMeleeAttackMissSounds = false
 		self.DisableDefaultMeleeAttackCode = false
 		self.MeleeAttackDamage = (self.Tor_Level == 0 and 3) or 5
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	elseif key == "slam" then
 		local startPos = self:GetPos() + self:GetForward()*20
 		self.HasMeleeAttackMissSounds = false
@@ -152,9 +151,9 @@ function ENT:OnInput(key, activator, caller, data)
 		util.ScreenShake(startPos, 10, 10, 1, 1000)
 		util.Decal("VJ_HLR_Gargantua_Stomp", startPos, startPos + self:GetUp()*-100, self)
 		VJ.ApplyRadiusDamage(self, self, startPos, 500, (self.Tor_Level == 0 and 40) or 60, DMG_SONIC, true, true, {DisableVisibilityCheck=true, Force=20})
-		//self:MeleeAttackCode()
+		//self:ExecuteMeleeAttack()
 	elseif key == "range" then
-		self:RangeAttackCode()
+		self:ExecuteRangeAttack()
 	elseif key == "body" then
 		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end

@@ -16,8 +16,8 @@ ENT.Category		= "VJ Base Spawners"
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.SingleSpawner = true -- If set to true, it will spawn the entities once then remove itself
-ENT.VJBaseSpawnerDisabled = true -- If set to true, it will stop spawning the entities
+ENT.SingleSpawner = true
+ENT.VJBaseSpawnerDisabled = true
 
 -- Custom
 ENT.HLRSpawner_Type = 0

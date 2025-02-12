@@ -19,8 +19,8 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = "models/vj_base/projectiles/spit_acid_large.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
-ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
+ENT.Model = "models/vj_base/projectiles/spit_acid_large.mdl"
+ENT.DoesDirectDamage = true
 ENT.DirectDamage = 5
 ENT.DirectDamageType = DMG_SHOCK
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav", "vj_hlr/hl1_weapon/gauss/electro5.wav", "vj_hlr/hl1_weapon/gauss/electro6.wav"}

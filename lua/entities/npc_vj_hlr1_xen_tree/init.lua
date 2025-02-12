@@ -5,18 +5,18 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/tree.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/tree.mdl"
 ENT.StartHealth = 200
-ENT.SightDistance = 200 -- How far it can see
+ENT.SightDistance = 200
 ENT.SightAngle = 100
-ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
-ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
+ENT.MovementType = VJ_MOVETYPE_STATIONARY
+ENT.CanTurnWhileStationary = false
 ENT.HullType = HULL_LARGE
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(40, 0, -100), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(15, 0, 15), -- The offset for the controller when the camera is in first person
-	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(40, 0, -100),
+    FirstP_Bone = "",
+    FirstP_Offset = Vector(15, 0, 15),
+	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
@@ -24,16 +24,16 @@ ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
 
-ENT.HasMeleeAttack = true -- Can this NPC melee attack?
+ENT.HasMeleeAttack = true
 ENT.MeleeAttackDamage = 30
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDistance = 70 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackAngleRadius = 50 -- What is the attack angle radius? | 100 = In front of the NPC | 180 = All around the NPC
-ENT.MeleeAttackDamageDistance = 110 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageAngleRadius = 50 -- What is the damage angle radius? | 100 = In front of the NPC | 180 = All around the NPC
+ENT.TimeUntilMeleeAttackDamage = false
+ENT.MeleeAttackDistance = 70
+ENT.MeleeAttackAngleRadius = 50
+ENT.MeleeAttackDamageDistance = 110
+ENT.MeleeAttackDamageAngleRadius = 50
 
 ENT.GibOnDeathFilter = false
-	-- ====== Sound Paths ====== --
+
 ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav", "vj_hlr/hl1_npc/zombie/claw_strike2.wav", "vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
 
@@ -47,7 +47,7 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "melee" then
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

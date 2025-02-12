@@ -5,13 +5,13 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/scientist.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/scientist.mdl"
 ENT.StartHealth = 50
 ENT.HullType = HULL_HUMAN
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(10, 0, -30), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip02 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(5, 0, 5), -- The offset for the controller when the camera is in first person
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(10, 0, -30),
+    FirstP_Bone = "Bip02 Head",
+    FirstP_Offset = Vector(5, 0, 5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
@@ -20,27 +20,27 @@ ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_hlr_blood_red"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Red"}
 ENT.HasBloodPool = false
-ENT.Behavior = VJ_BEHAVIOR_PASSIVE -- Doesn't attack anything
+ENT.Behavior = VJ_BEHAVIOR_PASSIVE
 ENT.BecomeEnemyToPlayer = 2
-ENT.DropDeathLoot = false -- Should it drop loot on death?
-ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
-ENT.HasMeleeAttack = false -- Can this NPC melee attack?
+ENT.DropDeathLoot = false
+ENT.HasOnPlayerSight = true
+ENT.HasMeleeAttack = false
 ENT.DisableFootStepSoundTimer = true
-ENT.IsMedic = true -- Is this NPC a medic? It will heal friendly players and NPCs
+ENT.IsMedic = true
 ENT.AnimTbl_Medic_GiveHealth = false
-ENT.Medic_TimeUntilHeal = 4 -- Time until the ally receives health | Set to false to let the base decide the time
-ENT.Medic_SpawnPropOnHeal = false -- Should it spawn a prop, such as small health vial at a attachment when healing an ally?
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.Medic_TimeUntilHeal = 4
+ENT.Medic_SpawnPropOnHeal = false
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
-ENT.DeathAnimationTime = false -- How long should the death animation play?
-ENT.CanTurnWhileMoving = false -- Can the NPC turn while moving? | EX: GoldSrc NPCs, Facing enemy while running to cover, Facing the player while moving out of the way
-	-- ====== Flinching Variables ====== --
-ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- The regular flinch animations to play
+ENT.DeathAnimationTime = false
+ENT.CanTurnWhileMoving = false
+
+ENT.CanFlinch = 1
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}},{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
-	-- ====== Sound Paths ====== --
+
 local sdTie = {"vj_hlr/hl1_npc/scientist/weartie.wav","vj_hlr/hl1_npc/scientist/ties.wav"}
-local sdStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
+local sdStep = {"vj_hlr/pl_step1.wav", "vj_hlr/pl_step2.wav", "vj_hlr/pl_step3.wav", "vj_hlr/pl_step4.wav"}
 
 ENT.SoundTbl_FootStep = sdStep
 

@@ -19,9 +19,9 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = "models/vj_base/projectiles/spit_acid_medium.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_base/projectiles/spit_acid_medium.mdl"
 ENT.ProjectileType = VJ.PROJ_TYPE_GRAVITY
-ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
+ENT.DoesDirectDamage = true
 ENT.DirectDamage = 20
 ENT.DirectDamageType = DMG_ACID
 ENT.CollisionDecal = "VJ_HLR_Spit_Red"

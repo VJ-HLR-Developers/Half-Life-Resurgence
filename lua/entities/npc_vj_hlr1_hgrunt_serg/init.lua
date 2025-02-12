@@ -6,15 +6,15 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/hassault.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/hassault.mdl"
 ENT.StartHealth = 180
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK_SWING}
-ENT.TimeUntilGrenadeIsReleased = 1 -- Time until the grenade is released
-ENT.Weapon_CanReload = false -- If false, the SNPC will no longer reload
-ENT.Weapon_CanFireWhileMoving = false -- Can it fire its weapon while it's moving?
-ENT.MoveOrHideOnDamageByEnemy = false -- Should the NPC move away or hide behind cover when being damaged while fighting an enemy?
-ENT.Weapon_RetreatDistance = 0 -- If enemy is within this distance, it will retreat back | 0 = Never back away
+ENT.TimeUntilGrenadeIsReleased = 1
+ENT.Weapon_CanReload = false
+ENT.Weapon_CanFireWhileMoving = false
+ENT.MoveOrHideOnDamageByEnemy = false
+ENT.Weapon_RetreatDistance = 0
 
 ENT.SoundTbl_Breath = "vj_hlr/hl1_npc/hassault/hw_spin.wav"
 

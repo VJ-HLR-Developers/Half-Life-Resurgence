@@ -5,41 +5,41 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/combine_turrets/floor_turret.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/combine_turrets/floor_turret.mdl"
 ENT.StartHealth = 200
 ENT.HullType = HULL_HUMAN
-ENT.SightDistance = 2000 -- How far it can see
+ENT.SightDistance = 2000
 ENT.SightAngle = 132.84
-ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
-ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
-ENT.ControllerVars = {
-    FirstP_Bone = "barrel", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(0, 6, 6), -- The offset for the controller when the camera is in first person
-	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+ENT.MovementType = VJ_MOVETYPE_STATIONARY
+ENT.CanTurnWhileStationary = false
+ENT.ControllerParameters = {
+    FirstP_Bone = "barrel",
+    FirstP_Offset = Vector(0, 6, 6),
+	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_COMBINE"}
-ENT.AlertedToIdleTime = VJ.SET(0, 0) -- How much time until it calms down after the enemy has been killed/disappeared | Sets self.Alerted to false after the timer expires
-ENT.HasMeleeAttack = false -- Can this NPC melee attack?
+ENT.AlertToIdleDelay = VJ.SET(0, 0)
+ENT.HasMeleeAttack = false
 
-ENT.HasRangeAttack = true -- Can this NPC range attack?
-ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
-ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
-ENT.RangeDistance = 2000 -- How far can it range attack?
-ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
-ENT.RangeAttackAngleRadius = 132.84 -- What is the attack angle radius? | 100 = In front of the NPC | 180 = All around the NPC
-ENT.TimeUntilRangeAttackProjectileRelease = 0.015 -- How much time until the projectile code is ran?
-ENT.NextRangeAttackTime = 0 -- How much time until it can use a range attack?
-ENT.NextAnyAttackTime_Range = 0.04 -- How much time until it can use any attack again? | Counted in Seconds
+ENT.HasRangeAttack = true
+ENT.DisableDefaultRangeAttackCode = true
+ENT.DisableRangeAttackAnimation = true
+ENT.RangeDistance = 2000
+ENT.RangeToMeleeDistance = 1
+ENT.RangeAttackAngleRadius = 132.84
+ENT.TimeUntilRangeAttackProjectileRelease = 0.015
+ENT.NextRangeAttackTime = 0
+ENT.NextAnyAttackTime_Range = 0.04
 
-ENT.CanReceiveOrders = false -- Can the NPC receive orders from others? | Ex: Allies calling for help, allies requesting backup on damage, etc.
-ENT.Medic_CanBeHealed = false -- Can this NPC be healed by medics?
-ENT.TimeUntilEnemyLost = 5 -- Time until it resets its enemy if the enemy is not visible
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav","ambient/energy/spark2.wav","ambient/energy/spark3.wav","ambient/energy/spark4.wav"}
+ENT.CanReceiveOrders = false
+ENT.Medic_CanBeHealed = false
+ENT.TimeUntilEnemyLost = 5
+
+ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav", "ambient/energy/spark2.wav", "ambient/energy/spark3.wav", "ambient/energy/spark4.wav"}
 ENT.SoundTbl_Death = "npc/turret_floor/die.wav"
 
-local sdFiring = {"^npc/turret_floor/shoot1.wav","^npc/turret_floor/shoot2.wav","^npc/turret_floor/shoot3.wav"}
+local sdFiring = {"^npc/turret_floor/shoot1.wav", "^npc/turret_floor/shoot2.wav", "^npc/turret_floor/shoot3.wav"}
 
 local TURRET_STATUS_UNKNOWN = -1 -- Usually for transitioning from deploying to another status
 local TURRET_STATUS_IDLE = 0 -- Was last detected as idle
@@ -212,7 +212,7 @@ function ENT:OnThinkActive()
 				if self.VJ_IsBeingControlled then
 					self.Turret_Sprite:Fire("HideSprite")
 				else
-					self.Turret_Sprite:Fire("Color","0 255 0") -- Green
+					self.Turret_Sprite:Fire("Color", "0 255 0") -- Green
 					self.Turret_Sprite:Fire("ShowSprite")
 				end
 				self.Turret_StandDown = true

@@ -5,14 +5,14 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/kingpin.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/kingpin.mdl"
 ENT.StartHealth = 1000
 ENT.SightAngle = 360
 ENT.HullType = HULL_LARGE
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(-15, 0, -45), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "MDLDEC_Bone23", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(8, 0, 6), -- The offset for the controller when the camera is in first person
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(-15, 0, -45),
+    FirstP_Bone = "MDLDEC_Bone23",
+    FirstP_Offset = Vector(8, 0, 6),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
@@ -21,40 +21,40 @@ ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
 
-ENT.HasMeleeAttack = true -- Can this NPC melee attack?
+ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2}
-ENT.MeleeAttackDistance = 60 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageDistance = 105 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
+ENT.MeleeAttackDistance = 60
+ENT.MeleeAttackDamageDistance = 105
+ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDamage = 50
 ENT.MeleeAttackBleedEnemy = true
-ENT.MeleeAttackBleedEnemyChance = 1 -- How much chance there is that the enemy will bleed? | 1 = always
-ENT.MeleeAttackBleedEnemyDamage = 3 -- How much damage will the enemy get on every rep?
+ENT.MeleeAttackBleedEnemyChance = 1
+ENT.MeleeAttackBleedEnemyDamage = 3
 
-ENT.HasRangeAttack = true -- Can this NPC range attack?
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_kingpin_orb" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
-ENT.RangeDistance = 3000 -- How far can it range attack?
-ENT.RangeToMeleeDistance = 180 -- How close does it have to be until it uses melee?
-ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-ENT.NextRangeAttackTime = 6 -- How much time until it can use a range attack?
-ENT.NextRangeAttackTime_DoRand = 8 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
+ENT.HasRangeAttack = true
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_kingpin_orb"
+ENT.RangeDistance = 3000
+ENT.RangeToMeleeDistance = 180
+ENT.TimeUntilRangeAttackProjectileRelease = false
+ENT.NextRangeAttackTime = 6
+ENT.NextRangeAttackTime_DoRand = 8
 
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD, ACT_DIEBACKWARD}
-ENT.FootStepTimeRun = 2-- Delay between footstep sounds while it is running | false = Disable while running
-ENT.FootStepTimeWalk = 2 -- Delay between footstep sounds while it is walking | false = Disable while walking
-ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
-	-- ====== Flinching Code ====== --
-ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = "vjseq_flinch_small" -- The regular flinch animations to play
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/kingpin/kingpin_seeker_amb.wav"}
+ENT.FootStepTimeRun = 2
+ENT.FootStepTimeWalk = 2
+ENT.HasExtraMeleeAttackSounds = true
+
+ENT.CanFlinch = 1
+ENT.AnimTbl_Flinch = "vjseq_flinch_small"
+
+ENT.SoundTbl_Breath = "vj_hlr/hl1_npc/kingpin/kingpin_seeker_amb.wav"
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/kingpin/kingpin_move.wav", "vj_hlr/hl1_npc/kingpin/kingpin_moveslow.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/kingpin/kingpin_idle1.wav","vj_hlr/hl1_npc/kingpin/kingpin_idle2.wav","vj_hlr/hl1_npc/kingpin/kingpin_idle3.wav",}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/kingpin/kingpin_alert1.wav","vj_hlr/hl1_npc/kingpin/kingpin_alert2.wav","vj_hlr/hl1_npc/kingpin/kingpin_alert3.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/kingpin/kingpin_pain1.wav","vj_hlr/hl1_npc/kingpin/kingpin_pain2.wav","vj_hlr/hl1_npc/kingpin/kingpin_pain3.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/kingpin/kingpin_death1.wav","vj_hlr/hl1_npc/kingpin/kingpin_death2.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/kingpin/kingpin_idle1.wav", "vj_hlr/hl1_npc/kingpin/kingpin_idle2.wav", "vj_hlr/hl1_npc/kingpin/kingpin_idle3.wav",}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/kingpin/kingpin_alert1.wav", "vj_hlr/hl1_npc/kingpin/kingpin_alert2.wav", "vj_hlr/hl1_npc/kingpin/kingpin_alert3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/kingpin/kingpin_pain1.wav", "vj_hlr/hl1_npc/kingpin/kingpin_pain2.wav", "vj_hlr/hl1_npc/kingpin/kingpin_pain3.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/kingpin/kingpin_death1.wav", "vj_hlr/hl1_npc/kingpin/kingpin_death2.wav"}
 
 local scanSd = {"vj_hlr/hl1_npc/kingpin/kingpin_seeker1.wav", "vj_hlr/hl1_npc/kingpin/kingpin_seeker2.wav", "vj_hlr/hl1_npc/kingpin/kingpin_seeker3.wav"}
 
@@ -78,12 +78,12 @@ function ENT:OnInput(key, activator, caller, data)
 		VJ.EmitSound(self, "vj_hlr/hl1_weapon/crossbow/xbow_hit1.wav", 60, 140)
 	elseif key == "attack left" or key == "attack right" then
 		self.MeleeAttackDamage = 15
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	elseif key == "attack strike" then
 		self.MeleeAttackDamage = 30
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	elseif key == "range distance" then
-		self:RangeAttackCode()
+		self:ExecuteRangeAttack()
 	//elseif key == "range psychic_loop" then
 		//VJ.EmitSound(self, "vj_hlr/hl1_npc/kingpin/port_suckout1.wav", 80, 140)
 	end

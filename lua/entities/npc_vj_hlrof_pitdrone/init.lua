@@ -5,14 +5,14 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/opfor/pit_drone.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/opfor/pit_drone.mdl"
 ENT.StartHealth = 80
 ENT.SightAngle = 230
 ENT.HullType = HULL_HUMAN
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(15, 0, 0), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(7, 0, 0), -- The offset for the controller when the camera is in first person
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(15, 0, 0),
+    FirstP_Bone = "Bip01 Head",
+    FirstP_Offset = Vector(7, 0, 0),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
@@ -23,37 +23,37 @@ ENT.HasBloodPool = false
 
 ENT.MeleeAttackDamage = 15
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2}
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDistance = 40 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageDistance = 70 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.TimeUntilMeleeAttackDamage = false
+ENT.MeleeAttackDistance = 40
+ENT.MeleeAttackDamageDistance = 70
 
-ENT.HasRangeAttack = true -- Can this NPC range attack?
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_pitspike" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
+ENT.HasRangeAttack = true
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_pitspike"
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-ENT.RangeDistance = 1500 -- How far can it range attack?
-ENT.RangeToMeleeDistance = 100 -- How close does it have to be until it uses melee?
-ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-ENT.NextRangeAttackTime = 1 -- How much time until it can use a range attack?
-ENT.NextRangeAttackTime_DoRand = 5 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
+ENT.RangeDistance = 1500
+ENT.RangeToMeleeDistance = 100
+ENT.TimeUntilRangeAttackProjectileRelease = false
+ENT.NextRangeAttackTime = 1
+ENT.NextRangeAttackTime_DoRand = 5
 
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
-ENT.DeathAnimationTime = false -- How long should the death animation play?
+ENT.DeathAnimationTime = false
 ENT.DisableFootStepSoundTimer = true
-	-- ====== Flinching Code ====== --
-ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_BIG_FLINCH -- The regular flinch animations to play
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/player/boots1.wav","vj_hlr/hl1_npc/player/boots2.wav","vj_hlr/hl1_npc/player/boots3.wav","vj_hlr/hl1_npc/player/boots4.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/pitdrone/pit_drone_communicate1.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_communicate2.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_communicate3.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_communicate4.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_idle3.wav"}
-ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/pitdrone/pit_drone_idle1.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_idle2.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_hunt1.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_hunt2.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_hunt3.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/pitdrone/pit_drone_alert1.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_alert2.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_alert3.wav"}
-ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/pitdrone/pit_drone_melee_attack1.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_melee_attack2.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/pitdrone/pit_drone_attack_spike1.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_attack_spike2.wav"}
+
+ENT.CanFlinch = 1
+ENT.AnimTbl_Flinch = ACT_BIG_FLINCH
+
+ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/player/boots1.wav", "vj_hlr/hl1_npc/player/boots2.wav", "vj_hlr/hl1_npc/player/boots3.wav", "vj_hlr/hl1_npc/player/boots4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/pitdrone/pit_drone_communicate1.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_communicate2.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_communicate3.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_communicate4.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_idle3.wav"}
+ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/pitdrone/pit_drone_idle1.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_idle2.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_hunt1.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_hunt2.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_hunt3.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/pitdrone/pit_drone_alert1.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_alert2.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_alert3.wav"}
+ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/pitdrone/pit_drone_melee_attack1.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_melee_attack2.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/pitdrone/pit_drone_attack_spike1.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_attack_spike2.wav"}
 ENT.SoundTbl_OnKilledEnemy = {"vj_hlr/hl1_npc/pitdrone/pit_drone_eat.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/pitdrone/pit_drone_pain1.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_pain2.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_pain3.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_pain4.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/pitdrone/pit_drone_die1.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_die2.wav","vj_hlr/hl1_npc/pitdrone/pit_drone_die3.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/pitdrone/pit_drone_pain1.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_pain2.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_pain3.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_pain4.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/pitdrone/pit_drone_die1.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_die2.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_die3.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(18, 18, 55), Vector(-18, -18, 0))
@@ -80,10 +80,10 @@ function ENT:OnInput(key, activator, caller, data)
 		self:PlayFootstepSound()
 	end
 	if key == "single" or key == "both" then
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	end
 	if key == "shooty" then
-		self:RangeAttackCode()
+		self:ExecuteRangeAttack()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -5,12 +5,12 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/opfor/gonome.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/opfor/gonome.mdl"
 ENT.StartHealth = 160
 ENT.HullType = HULL_HUMAN
-ENT.ControllerVars = {
-    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(1, 0, 4), -- The offset for the controller when the camera is in first person
+ENT.ControllerParameters = {
+    FirstP_Bone = "Bip01 Head",
+    FirstP_Offset = Vector(1, 0, 4),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
@@ -19,35 +19,35 @@ ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
 ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"}
 
-ENT.HasMeleeAttack = true -- Can this NPC melee attack?
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDistance = 50 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageDistance = 80 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.HasMeleeAttack = true
+ENT.TimeUntilMeleeAttackDamage = false
+ENT.MeleeAttackDistance = 50
+ENT.MeleeAttackDamageDistance = 80
 
-ENT.HasRangeAttack = true -- Can this NPC range attack?
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_gonomegut" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
+ENT.HasRangeAttack = true
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_gonomegut"
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-ENT.RangeDistance = 784 -- How far can it range attack?
-ENT.RangeToMeleeDistance = 200 -- How close does it have to be until it uses melee?
-ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-ENT.NextRangeAttackTime = 6 -- How much time until it can use a range attack?
+ENT.RangeDistance = 784
+ENT.RangeToMeleeDistance = 200
+ENT.TimeUntilRangeAttackProjectileRelease = false
+ENT.NextRangeAttackTime = 6
 
-ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
+ENT.HasExtraMeleeAttackSounds = true
 ENT.DisableFootStepSoundTimer = true
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
-//ENT.DeathAnimationTime = 2.2 -- How long should the death animation play?
-	-- ====== Flinching Variables ====== --
-ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- The regular flinch animations to play
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/gonome/gonome_idle1.wav","vj_hlr/hl1_npc/gonome/gonome_idle2.wav","vj_hlr/hl1_npc/gonome/gonome_idle3.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/zombie/zo_alert10.wav","vj_hlr/hl1_npc/zombie/zo_alert20.wav","vj_hlr/hl1_npc/zombie/zo_alert30.wav"}
-ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav","vj_hlr/hl1_npc/zombie/claw_strike2.wav","vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
-ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/gonome/gonome_melee1.wav","vj_hlr/hl1_npc/gonome/gonome_melee2.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/gonome/gonome_pain1.wav","vj_hlr/hl1_npc/gonome/gonome_pain2.wav","vj_hlr/hl1_npc/gonome/gonome_pain3.wav","vj_hlr/hl1_npc/gonome/gonome_pain4.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/gonome/gonome_death2.wav","vj_hlr/hl1_npc/gonome/gonome_death3.wav","vj_hlr/hl1_npc/gonome/gonome_death4.wav"}
+//ENT.DeathAnimationTime = 2.2
+
+ENT.CanFlinch = 1
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
+
+ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav", "vj_hlr/pl_step2.wav", "vj_hlr/pl_step3.wav", "vj_hlr/pl_step4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/gonome/gonome_idle1.wav", "vj_hlr/hl1_npc/gonome/gonome_idle2.wav", "vj_hlr/hl1_npc/gonome/gonome_idle3.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/zombie/zo_alert10.wav", "vj_hlr/hl1_npc/zombie/zo_alert20.wav", "vj_hlr/hl1_npc/zombie/zo_alert30.wav"}
+ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav", "vj_hlr/hl1_npc/zombie/claw_strike2.wav", "vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
+ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/gonome/gonome_melee1.wav", "vj_hlr/hl1_npc/gonome/gonome_melee2.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/gonome/gonome_pain1.wav", "vj_hlr/hl1_npc/gonome/gonome_pain2.wav", "vj_hlr/hl1_npc/gonome/gonome_pain3.wav", "vj_hlr/hl1_npc/gonome/gonome_pain4.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/gonome/gonome_death2.wav", "vj_hlr/hl1_npc/gonome/gonome_death3.wav", "vj_hlr/hl1_npc/gonome/gonome_death4.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -66,9 +66,9 @@ function ENT:OnInput(key, activator, caller, data)
 	if key == "step" then
 		self:PlayFootstepSound()
 	elseif key == "melee" or key == "chest_bite" then
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	elseif key == "acidthrow" then
-		self:RangeAttackCode()
+		self:ExecuteRangeAttack()
 	elseif key == "acidtake" then
 		local att = self:GetAttachment(2)
 		ParticleEffect("vj_hlr_spit_red_spawn", att.Pos, att.Ang, self)
@@ -92,14 +92,14 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local sdClawMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
 --
-function ENT:MultipleMeleeAttacks()
-	if self.PropAP_IsVisible or math.random(1, 2) == 1 then
+function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
+	if self.MeleeAttack_IsPropAttack or math.random(1, 2) == 1 then
 		self.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
 		self.MeleeAttackDamage = 20
 		self.HasMeleeAttackKnockBack = false
 		self.SoundTbl_BeforeMeleeAttack = "vj_hlr/hl1_npc/gonome/gonome_melee1.wav"
 		self.SoundTbl_MeleeAttackMiss = sdClawMiss
-	else
+	else -- Grab and eat!
 		self.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK2
 		self.MeleeAttackDamage = 14
 		self.HasMeleeAttackKnockBack = true

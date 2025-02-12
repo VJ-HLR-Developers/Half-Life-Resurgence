@@ -5,17 +5,17 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/nihilanth.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/nihilanth.mdl"
 ENT.StartHealth = 3000
 ENT.HullType = HULL_LARGE
 ENT.VJ_ID_Boss = true
-ENT.SightDistance = 20000 -- How far it can see
+ENT.SightDistance = 20000
 ENT.SightAngle = 360
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(80, 0, 0), -- The offset for the controller when the camera is in first person
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(0, 0, 0),
+    FirstP_Bone = "Bip01 head",
+    FirstP_Offset = Vector(80, 0, 0),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
@@ -23,29 +23,29 @@ ENT.BloodParticle = {"vj_hlr_blood_yellow_large"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
-ENT.HasMeleeAttack = false -- Can this NPC melee attack?
+ENT.HasMeleeAttack = false
 
-ENT.HasRangeAttack = true -- Can this NPC range attack?
-ENT.RangeDistance = 20000 -- How far can it range attack?
-ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
-ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
-ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
+ENT.HasRangeAttack = true
+ENT.RangeDistance = 20000
+ENT.RangeToMeleeDistance = 1
+ENT.TimeUntilRangeAttackProjectileRelease = false
+ENT.NextRangeAttackTime = 3
+ENT.NextRangeAttackTime_DoRand = 4
 
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
-ENT.DeathAnimationTime = 16 -- How long should the death animation play?
-ENT.IdleSounds_PlayOnAttacks = true -- It will be able to continue and play idle sounds when it performs an attack
+ENT.DeathAnimationTime = 16
+ENT.IdleSounds_PlayOnAttacks = true
 ENT.HasSoundTrack = true
-	-- ====== Sound Paths ====== --
+
 ENT.SoundTbl_SoundTrack = {"vj_hlr/hl1_npc/nihilanth/Prospero03.mp3"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/x/x_laugh1.wav","vj_hlr/hl1_npc/x/x_laugh2.wav"}
-ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/nihilanth/nil_man_notman.wav","vj_hlr/hl1_npc/nihilanth/nil_win.wav","vj_hlr/hl1_npc/nihilanth/nil_slaves.wav","vj_hlr/hl1_npc/nihilanth/nil_thelast.wav","vj_hlr/hl1_npc/nihilanth/nil_thetruth.wav","vj_hlr/hl1_npc/nihilanth/nil_thieves.wav","vj_hlr/hl1_npc/nihilanth/nil_last.wav","vj_hlr/hl1_npc/nihilanth/nil_die.wav","vj_hlr/hl1_npc/nihilanth/nil_alone.wav","vj_hlr/hl1_npc/nihilanth/nil_deceive.wav","vj_hlr/hl1_npc/nihilanth/nil_now_die.wav","vj_hlr/hl1_npc/x/x_laugh1.wav","vj_hlr/hl1_npc/x/x_laugh2.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/nihilanth/nil_comes.wav"}
-ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/x/x_attack1.wav","vj_hlr/hl1_npc/x/x_attack2.wav","vj_hlr/hl1_npc/x/x_attack3.wav"}
-ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/x/x_shoot1.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/x/x_pain1.wav","vj_hlr/hl1_npc/x/x_pain2.wav","vj_hlr/hl1_npc/x/x_pain3.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/x/x_die1.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/x/x_laugh1.wav", "vj_hlr/hl1_npc/x/x_laugh2.wav"}
+ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/nihilanth/nil_man_notman.wav", "vj_hlr/hl1_npc/nihilanth/nil_win.wav", "vj_hlr/hl1_npc/nihilanth/nil_slaves.wav", "vj_hlr/hl1_npc/nihilanth/nil_thelast.wav", "vj_hlr/hl1_npc/nihilanth/nil_thetruth.wav", "vj_hlr/hl1_npc/nihilanth/nil_thieves.wav", "vj_hlr/hl1_npc/nihilanth/nil_last.wav", "vj_hlr/hl1_npc/nihilanth/nil_die.wav", "vj_hlr/hl1_npc/nihilanth/nil_alone.wav", "vj_hlr/hl1_npc/nihilanth/nil_deceive.wav", "vj_hlr/hl1_npc/nihilanth/nil_now_die.wav", "vj_hlr/hl1_npc/x/x_laugh1.wav", "vj_hlr/hl1_npc/x/x_laugh2.wav"}
+ENT.SoundTbl_Alert = "vj_hlr/hl1_npc/nihilanth/nil_comes.wav"
+ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/x/x_attack1.wav", "vj_hlr/hl1_npc/x/x_attack2.wav", "vj_hlr/hl1_npc/x/x_attack3.wav"}
+ENT.SoundTbl_RangeAttack = "vj_hlr/hl1_npc/x/x_shoot1.wav"
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/x/x_pain1.wav", "vj_hlr/hl1_npc/x/x_pain2.wav", "vj_hlr/hl1_npc/x/x_pain3.wav"}
+ENT.SoundTbl_Death = "vj_hlr/hl1_npc/x/x_die1.wav"
 
 ENT.NextSoundTime_Idle = VJ.SET(14, 20)
 
@@ -129,23 +129,23 @@ function ENT:OnInput(key, activator, caller, data)
 	if key == "elec_orbs" then
 		self.Nih_TeleportingOrb = false
 		self.Nih_RangeAttach = -1
-		self:RangeAttackCode()
+		self:ExecuteRangeAttack()
 		for i = 0.1, 0.6, 0.1 do
-			timer.Simple(i, function() if IsValid(self) then self.Nih_RangeAttach = "2" self:RangeAttackCode() end end)
+			timer.Simple(i, function() if IsValid(self) then self.Nih_RangeAttach = "2" self:ExecuteRangeAttack() end end)
 		end
 		for i = 0.1, 0.6, 0.1 do
-			timer.Simple(i, function() if IsValid(self) then self.Nih_RangeAttach = "3" self:RangeAttackCode() end end)
+			timer.Simple(i, function() if IsValid(self) then self.Nih_RangeAttach = "3" self:ExecuteRangeAttack() end end)
 		end
 	-- We have been weakened, we should only fire 1 orb!
 	elseif key == "elec_orbs_open" then
 		self.Nih_TeleportingOrb = false
 		self.Nih_RangeAttach = -1
-		self:RangeAttackCode()
+		self:ExecuteRangeAttack()
 	-- Teleport attack
 	elseif key == "tele_orb" then
 		self.Nih_TeleportingOrb = true
 		self.Nih_RangeAttach = -1
-		self:RangeAttackCode()
+		self:ExecuteRangeAttack()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

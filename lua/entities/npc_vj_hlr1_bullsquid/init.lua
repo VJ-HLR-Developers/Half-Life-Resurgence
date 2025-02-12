@@ -5,13 +5,13 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/bullsquid.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/bullsquid.mdl"
 ENT.StartHealth = 80
 ENT.HullType = HULL_WIDE_SHORT
-ENT.ControllerVars = {
-    FirstP_Bone = "Bip01 Spine1", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(10, 0, 11.5), -- The offset for the controller when the camera is in first person
-	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+ENT.ControllerParameters = {
+    FirstP_Bone = "Bip01 Spine1",
+    FirstP_Offset = Vector(10, 0, 11.5),
+	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
@@ -19,40 +19,39 @@ ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
-ENT.Immune_AcidPoisonRadiation = true -- Makes the SNPC not get damage from Acid, poison, radiation
+ENT.Immune_AcidPoisonRadiation = true
 
-ENT.HasMeleeAttack = true -- Can this NPC melee attack?
+ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2}
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDistance = 35 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageDistance = 125 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.HasMeleeAttackKnockBack = true -- If true, it will cause a knockback to its enemy
+ENT.TimeUntilMeleeAttackDamage = false
+ENT.MeleeAttackDistance = 35
+ENT.MeleeAttackDamageDistance = 125
+ENT.HasMeleeAttackKnockBack = true
 
-ENT.HasRangeAttack = true -- Can this NPC range attack?
+ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_toxicspit" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_toxicspit"
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.NextRangeAttackTime = 1.5 -- How much time until it can use a range attack?
-ENT.RangeDistance = 784 -- How far can it range attack?
-ENT.RangeToMeleeDistance = 256 -- How close does it have to be until it uses melee?
+ENT.NextRangeAttackTime = 1.5
+ENT.RangeDistance = 784
+ENT.RangeToMeleeDistance = 256
 
-ENT.NoChaseAfterCertainRange = true -- Should the NPC stop chasing when the enemy is within the given far and close distances?
-ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
-ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
-ENT.NoChaseAfterCertainRange_Type = "OnlyRange" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.LimitChaseDistance = "OnlyRange"
+ENT.LimitChaseDistance_Max = "UseRangeDistance"
+ENT.LimitChaseDistance_Min = "UseRangeDistance"
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD}
 ENT.DisableFootStepSoundTimer = true
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/bullchicken/bc_idle1.wav","vj_hlr/hl1_npc/bullchicken/bc_idle2.wav","vj_hlr/hl1_npc/bullchicken/bc_idle2.wav","vj_hlr/hl1_npc/bullchicken/bc_idle3.wav","vj_hlr/hl1_npc/bullchicken/bc_idle4.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/bullchicken/bc_idle1.wav","vj_hlr/hl1_npc/bullchicken/bc_idle2.wav","vj_hlr/hl1_npc/bullchicken/bc_idle2.wav","vj_hlr/hl1_npc/bullchicken/bc_idle3.wav","vj_hlr/hl1_npc/bullchicken/bc_idle4.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/bullchicken/bc_attackgrowl.wav","vj_hlr/hl1_npc/bullchicken/bc_attackgrowl2.wav","vj_hlr/hl1_npc/bullchicken/bc_attackgrowl3.wav"}
-ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/bullchicken/bc_bite1.wav","vj_hlr/hl1_npc/bullchicken/bc_bite2.wav","vj_hlr/hl1_npc/bullchicken/bc_bite3.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/bullchicken/bc_attack2.wav","vj_hlr/hl1_npc/bullchicken/bc_attack3.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/bullchicken/bc_pain1.wav","vj_hlr/hl1_npc/bullchicken/bc_pain2.wav","vj_hlr/hl1_npc/bullchicken/bc_pain3.wav","vj_hlr/hl1_npc/bullchicken/bc_pain4.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/bullchicken/bc_die1.wav","vj_hlr/hl1_npc/bullchicken/bc_die2.wav","vj_hlr/hl1_npc/bullchicken/bc_die3.wav"}
+
+ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav", "vj_hlr/pl_step2.wav", "vj_hlr/pl_step3.wav", "vj_hlr/pl_step4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/bullchicken/bc_idle1.wav", "vj_hlr/hl1_npc/bullchicken/bc_idle2.wav", "vj_hlr/hl1_npc/bullchicken/bc_idle2.wav", "vj_hlr/hl1_npc/bullchicken/bc_idle3.wav", "vj_hlr/hl1_npc/bullchicken/bc_idle4.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/bullchicken/bc_idle1.wav", "vj_hlr/hl1_npc/bullchicken/bc_idle2.wav", "vj_hlr/hl1_npc/bullchicken/bc_idle2.wav", "vj_hlr/hl1_npc/bullchicken/bc_idle3.wav", "vj_hlr/hl1_npc/bullchicken/bc_idle4.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/bullchicken/bc_attackgrowl.wav", "vj_hlr/hl1_npc/bullchicken/bc_attackgrowl2.wav", "vj_hlr/hl1_npc/bullchicken/bc_attackgrowl3.wav"}
+ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/bullchicken/bc_bite1.wav", "vj_hlr/hl1_npc/bullchicken/bc_bite2.wav", "vj_hlr/hl1_npc/bullchicken/bc_bite3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/bullchicken/bc_attack2.wav", "vj_hlr/hl1_npc/bullchicken/bc_attack3.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/bullchicken/bc_pain1.wav", "vj_hlr/hl1_npc/bullchicken/bc_pain2.wav", "vj_hlr/hl1_npc/bullchicken/bc_pain3.wav", "vj_hlr/hl1_npc/bullchicken/bc_pain4.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/bullchicken/bc_die1.wav", "vj_hlr/hl1_npc/bullchicken/bc_die2.wav", "vj_hlr/hl1_npc/bullchicken/bc_die3.wav"}
 
 -- Custom
 ENT.Bullsquid_Type = 0 -- 0 = Retail Half-Life 1 | Alpha Half-Life 1
@@ -72,12 +71,12 @@ function ENT:OnInput(key, activator, caller, data)
 		self:PlayFootstepSound()
 	elseif key == "melee_whip" then
 		self.MeleeAttackDamage = 35
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	elseif key == "melee_bite" then
 		self.MeleeAttackDamage = 25
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	elseif key == "rangeattack" then
-		self:RangeAttackCode()
+		self:ExecuteRangeAttack()
 	elseif key == "body" then
 		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end

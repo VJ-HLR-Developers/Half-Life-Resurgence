@@ -5,13 +5,13 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/sqknest.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/sqknest.mdl"
 ENT.StartHealth = 20
 ENT.HullType = HULL_TINY
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 nECK", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(3, 0, 1), -- The offset for the controller when the camera is in first person
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(0, 0, 0),
+    FirstP_Bone = "Bip01 nECK",
+    FirstP_Offset = Vector(3, 0, 1),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_SNARK"}
@@ -19,10 +19,10 @@ ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
-ENT.Behavior = VJ_BEHAVIOR_PASSIVE -- Type of AI behavior to use for this NPC
-ENT.HasMeleeAttack = false -- Can this NPC melee attack?
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/squeek/sqk_hunt1.wav","vj_hlr/hl1_npc/squeek/sqk_hunt2.wav","vj_hlr/hl1_npc/squeek/sqk_hunt3.wav"}
+ENT.Behavior = VJ_BEHAVIOR_PASSIVE
+ENT.HasMeleeAttack = false
+
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/squeek/sqk_hunt1.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt2.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt3.wav"}
 ENT.SoundTbl_Death = "vj_hlr/hl1_npc/squeek/sqk_blast1.wav"
 
 ENT.IdleSoundLevel = 65

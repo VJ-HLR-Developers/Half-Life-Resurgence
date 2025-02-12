@@ -5,34 +5,34 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/gman.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/gman.mdl"
 ENT.StartHealth = 999999
 ENT.HullType = HULL_HUMAN
-ENT.ControllerVars = {
-    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(6, 0, 5), -- The offset for the controller when the camera is in first person
+ENT.ControllerParameters = {
+    FirstP_Bone = "Bip01 Head",
+    FirstP_Offset = Vector(6, 0, 5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
-ENT.Behavior = VJ_BEHAVIOR_PASSIVE -- Doesn't attack anything
+ENT.Behavior = VJ_BEHAVIOR_PASSIVE
 ENT.Passive_RunOnTouch = false -- Should it run away and make a alert sound when something collides with it?
 ENT.Passive_RunOnDamage = false -- Should it run when it's damaged? | This doesn't impact how self.Passive_AlliesRunOnDamage works
 ENT.DisableFindEnemy = true
-ENT.GodMode = true -- Immune to everything
+ENT.GodMode = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_hlr_blood_red"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Red"}
 ENT.HasBloodPool = false
-ENT.HasMeleeAttack = false -- Can this NPC melee attack?
+ENT.HasMeleeAttack = false
 ENT.YieldToAlliedPlayers = false
-ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
+ENT.HasOnPlayerSight = true
 ENT.DisableFootStepSoundTimer = true
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
-ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/gman/gman_nasty.wav","vj_hlr/hl1_npc/gman/gman_choose1.wav","vj_hlr/hl1_npc/gman/gman_choose2.wav","vj_hlr/hl1_npc/gman/gman_otherwise.wav"}
-ENT.SoundTbl_FollowPlayer = {"vj_hlr/hl1_npc/gman/gman_potential.wav","vj_hlr/hl1_npc/gman/gman_wise.wav"}
-ENT.SoundTbl_UnFollowPlayer = {"vj_hlr/hl1_npc/gman/gman_nowork.wav","vj_hlr/hl1_npc/gman/gman_noreg.wav"}
-ENT.SoundTbl_OnPlayerSight = {"vj_hlr/hl1_npc/gman/gman_suit.wav"}
+
+ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav", "vj_hlr/pl_step2.wav", "vj_hlr/pl_step3.wav", "vj_hlr/pl_step4.wav"}
+ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/gman/gman_nasty.wav", "vj_hlr/hl1_npc/gman/gman_choose1.wav", "vj_hlr/hl1_npc/gman/gman_choose2.wav", "vj_hlr/hl1_npc/gman/gman_otherwise.wav"}
+ENT.SoundTbl_FollowPlayer = {"vj_hlr/hl1_npc/gman/gman_potential.wav", "vj_hlr/hl1_npc/gman/gman_wise.wav"}
+ENT.SoundTbl_UnFollowPlayer = {"vj_hlr/hl1_npc/gman/gman_nowork.wav", "vj_hlr/hl1_npc/gman/gman_noreg.wav"}
+ENT.SoundTbl_OnPlayerSight = "vj_hlr/hl1_npc/gman/gman_suit.wav"
 
 ENT.GeneralSoundPitch1 = 100
 

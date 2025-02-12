@@ -5,38 +5,38 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/bigrat.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/bigrat.mdl"
 ENT.StartHealth = 10
 ENT.SightAngle = 120
 ENT.HullType = HULL_TINY
-ENT.ControllerVars = {
-	FirstP_Bone = "bip01 head", -- If left empty, the base will attempt to calculate a position for first person
-	FirstP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in first person
+ENT.ControllerParameters = {
+	FirstP_Bone = "bip01 head",
+	FirstP_Offset = Vector(0, 0, 0),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.CanOpenDoors = false -- Can it open doors?
-ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE -- Doesn't attack anything
+ENT.CanOpenDoors = false
+ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_hlr_blood_red"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Red"}
 ENT.HasBloodPool = false
 
 -- Does it ever actually attack? Who knows!
-ENT.HasMeleeAttack = true -- Can this NPC melee attack?
+ENT.HasMeleeAttack = true
 ENT.MeleeAttackDamage = 3
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
+ENT.TimeUntilMeleeAttackDamage = false
 
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 
-ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.FlinchChance = 4 -- Chance of it flinching from 1 to x | 1 will make it always flinch
-ENT.AnimTbl_Flinch = ACT_BIG_FLINCH -- The regular flinch animations to play
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/rat/rat_idle1.wav","vj_hlr/hl1_npc/rat/rat_idle2.wav","vj_hlr/hl1_npc/rat/rat_idle3.wav","vj_hlr/hl1_npc/rat/rat_idle4.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/rat/rat_fear.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/rat/rat_fear.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/rat/rat_die1.wav","vj_hlr/hl1_npc/rat/rat_die2.wav","vj_hlr/hl1_npc/rat/rat_die3.wav"}
+ENT.CanFlinch = 1
+ENT.FlinchChance = 4
+ENT.AnimTbl_Flinch = ACT_BIG_FLINCH
+
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/rat/rat_idle1.wav", "vj_hlr/hl1_npc/rat/rat_idle2.wav", "vj_hlr/hl1_npc/rat/rat_idle3.wav", "vj_hlr/hl1_npc/rat/rat_idle4.wav"}
+ENT.SoundTbl_Alert = "vj_hlr/hl1_npc/rat/rat_fear.wav"
+ENT.SoundTbl_Pain = "vj_hlr/hl1_npc/rat/rat_fear.wav"
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/rat/rat_die1.wav", "vj_hlr/hl1_npc/rat/rat_die2.wav", "vj_hlr/hl1_npc/rat/rat_die3.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(10, 10, 10), Vector(-10, -10, 0))
@@ -44,7 +44,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
 	if key == "attack" then
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -6,16 +6,16 @@ include("shared.lua")
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.VJ_ID_Boss = true
-ENT.Model = "models/vj_hlr/hl1/tentacle.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/tentacle.mdl"
 ENT.StartHealth = 1000
-ENT.SightDistance = 800 -- How far it can see
+ENT.SightDistance = 800
 ENT.SightAngle = 360
-ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
+ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.HullType = HULL_LARGE
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Dummy04", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(23, 0, 30), -- The offset for the controller when the camera is in first person
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(0, 0, -15),
+    FirstP_Bone = "Dummy04",
+    FirstP_Offset = Vector(23, 0, 30),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
@@ -24,26 +24,26 @@ ENT.BloodParticle = {"vj_hlr_blood_yellow_large"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
 
-ENT.HasMeleeAttack = true -- Can this NPC melee attack?
+ENT.HasMeleeAttack = true
 ENT.MeleeAttackDamage = 80
-ENT.MeleeAttackDamageType = DMG_ALWAYSGIB -- Type of Damage
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDistance = 300 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageDistance = 380 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageAngleRadius = 10 -- What is the damage angle radius? | 100 = In front of the NPC | 180 = All around the NPC
+ENT.MeleeAttackDamageType = DMG_ALWAYSGIB
+ENT.TimeUntilMeleeAttackDamage = false
+ENT.MeleeAttackDistance = 300
+ENT.MeleeAttackDamageDistance = 380
+ENT.MeleeAttackDamageAngleRadius = 10
 
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
-ENT.IdleSounds_PlayOnAttacks = true -- It will be able to continue and play idle sounds when it performs an attack
-	-- ====== Sound Paths ====== --
+ENT.IdleSounds_PlayOnAttacks = true
+
 ENT.SoundTbl_Breath = "vj_hlr/hl1_npc/tentacle/te_flies1.wav"
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/tentacle/te_sing1.wav","vj_hlr/hl1_npc/tentacle/te_sing2.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/tentacle/te_alert1.wav","vj_hlr/hl1_npc/tentacle/te_alert2.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/tentacle/te_roar1.wav","vj_hlr/hl1_npc/tentacle/te_roar2.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/tentacle/te_sing1.wav", "vj_hlr/hl1_npc/tentacle/te_sing2.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/tentacle/te_alert1.wav", "vj_hlr/hl1_npc/tentacle/te_alert2.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/tentacle/te_roar1.wav", "vj_hlr/hl1_npc/tentacle/te_roar2.wav"}
 ENT.SoundTbl_Death = "vj_hlr/hl1_npc/tentacle/te_death2.wav"
 
 local sdBeakStrike ={"vj_hlr/hl1_npc/tentacle/te_strike1.wav", "vj_hlr/hl1_npc/tentacle/te_strike2.wav"}
-local sdChangeLevel = {"vj_hlr/hl1_npc/tentacle/te_swing1.wav","vj_hlr/hl1_npc/tentacle/te_swing2.wav"}
+local sdChangeLevel = {"vj_hlr/hl1_npc/tentacle/te_swing1.wav", "vj_hlr/hl1_npc/tentacle/te_swing2.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 
@@ -118,7 +118,7 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "attack" then
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 		self:PlaySoundSystem("MeleeAttack", sdBeakStrike, VJ.EmitSound)
 		local ene = self:GetEnemy()
 		if IsValid(ene) then self:SetAngles(self:GetTurnAngle((ene:GetPos() - self:GetPos()):Angle())) end

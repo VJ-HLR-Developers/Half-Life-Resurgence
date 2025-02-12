@@ -6,7 +6,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hla/bullsquid.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hla/bullsquid.mdl"
 ENT.StartHealth = 180
 ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
 
@@ -54,7 +54,7 @@ local baseAcceptInput = ENT.OnInput
 function ENT:OnInput(key, activator, caller, data)
 	if key == "melee_bite" or key == "melee_whip" then
 		self.MeleeAttackDamage = (self.Bullsquid_BullSquidding == true and 200) or 35
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	else
 		baseAcceptInput(self, key, activator, caller, data)
 	end
@@ -76,7 +76,7 @@ function ENT:Bullsquid_ActivateBullSquidding()
 	self.RangeAttackAnimationStopMovement = false
 	self.NextRangeAttackTime = 0
 	self.TimeUntilRangeAttackProjectileRelease = 0
-	self.NoChaseAfterCertainRange = false
+	self.LimitChaseDistance = false
 	self.HasSoundTrack = true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

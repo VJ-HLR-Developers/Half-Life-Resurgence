@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl2b/combine_soldier.mdl" -- Model(s) to spawn with | Picks a random one if it's a table 
+ENT.Model = "models/vj_hlr/hl2b/combine_soldier.mdl"
 ENT.StartHealth = 60
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -13,16 +13,16 @@ ENT.VJ_NPC_Class = {"CLASS_COMBINE"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"blood_impact_red_01_mist"}
 ENT.MeleeAttackDamage = 10
-ENT.HasGrenadeAttack = true -- Should the NPC have a grenade attack?
-ENT.GrenadeAttackModel = "models/weapons/w_npcnade.mdl" -- Overrides the model of the grenade | Can be nil, string, and table | Does NOT apply to picked up grenades and forced grenade attacks with custom entity
-ENT.GrenadeAttackAttachment = "righthand" -- The attachment that the grenade will spawn at | false = Custom position
+ENT.HasGrenadeAttack = true
+ENT.GrenadeAttackModel = "models/weapons/w_npcnade.mdl"
+ENT.GrenadeAttackAttachment = "righthand"
 ENT.AnimTbl_WeaponAttackSecondary = "vjseq_shoot_ar2grenade"
 ENT.Weapon_SecondaryFireTime = 0.55
-	-- ====== Flinching Variables ====== --
-ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = "vjges_flinch_gesture" -- The regular flinch animations to play
-	-- ====== Sound Paths ====== --
-//ENT.SoundTbl_FootStep = {"npc/combine_soldier/gear1.wav","npc/combine_soldier/gear2.wav","npc/combine_soldier/gear3.wav","npc/combine_soldier/gear4.wav","npc/combine_soldier/gear5.wav","npc/combine_soldier/gear6.wav"}
+
+ENT.CanFlinch = 1
+ENT.AnimTbl_Flinch = "vjges_flinch_gesture"
+
+//ENT.SoundTbl_FootStep = {"npc/combine_soldier/gear1.wav", "npc/combine_soldier/gear2.wav", "npc/combine_soldier/gear3.wav", "npc/combine_soldier/gear4.wav", "npc/combine_soldier/gear5.wav", "npc/combine_soldier/gear6.wav"}
 ENT.SoundTbl_CombatIdle = {
 	"vj_hlr/hl2b_npc/combine_soldier/go_alert1.wav",
 	"vj_hlr/hl2b_npc/combine_soldier/go_alert2.wav",

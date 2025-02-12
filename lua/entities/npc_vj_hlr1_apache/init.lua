@@ -7,54 +7,53 @@ include("shared.lua")
 -----------------------------------------------*/
 local combatDistance = 5000 -- When closer then this, it will stop chasing and start firing
 
-ENT.Model = "models/vj_hlr/hl1/apache.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/apache.mdl"
 ENT.VJ_ID_Boss = true
 ENT.StartHealth = 400
 ENT.HullType = HULL_LARGE
 ENT.SightAngle = 360
-ENT.TurningSpeed = 2 -- How fast it can turn
-	-- ====== Movement Variables ====== --
-ENT.MovementType = VJ_MOVETYPE_AERIAL -- How the NPC moves around
-ENT.Aerial_FlyingSpeed_Alerted = 400 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground NPCs
-ENT.Aerial_FlyingSpeed_Calm = ENT.Aerial_FlyingSpeed_Alerted -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground NPCs
-ENT.AA_GroundLimit = 1200 -- If the NPC's distance from itself to the ground is less than this, it will attempt to move up
-ENT.AA_MinWanderDist = 1000 -- Minimum distance that the NPC should go to when wandering
-ENT.AA_MoveAccelerate = 8 -- The NPC will gradually speed up to the max movement speed as it moves towards its destination | Calculation = FrameTime * x
-ENT.AA_MoveDecelerate = 4 -- The NPC will slow down as it approaches its destination | Calculation = MaxSpeed / x
-ENT.ControllerVars = {
-    FirstP_Bone = "Bone14", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(-50, 0, -40), -- The offset for the controller when the camera is in first person
-	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+ENT.TurningSpeed = 2
+ENT.MovementType = VJ_MOVETYPE_AERIAL
+ENT.Aerial_FlyingSpeed_Alerted = 400
+ENT.Aerial_FlyingSpeed_Calm = ENT.Aerial_FlyingSpeed_Alerted
+ENT.AA_GroundLimit = 1200
+ENT.AA_MinWanderDist = 1000
+ENT.AA_MoveAccelerate = 8
+ENT.AA_MoveDecelerate = 4
+ENT.ControllerParameters = {
+    FirstP_Bone = "Bone14",
+    FirstP_Offset = Vector(-50, 0, -40),
+	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
-ENT.PoseParameterLooking_InvertYaw = true -- Inverts the yaw pose parameters (Y)
-ENT.ConstantlyFaceEnemy = true -- Should it face the enemy constantly?
-ENT.NoChaseAfterCertainRange = true -- Should the SNPC not be able to chase when it"s between number x and y?
-ENT.NoChaseAfterCertainRange_FarDistance = combatDistance -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
-ENT.NoChaseAfterCertainRange_CloseDistance = 0 -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
+ENT.PoseParameterLooking_InvertYaw = true
+ENT.ConstantlyFaceEnemy = true
+ENT.LimitChaseDistance = true
+ENT.LimitChaseDistance_Max = combatDistance
+ENT.LimitChaseDistance_Min = 0
 ENT.Bleeds = false
-ENT.Immune_AcidPoisonRadiation = true -- Immune to Acid, Poison and Radiation
-ENT.Immune_Bullet = true -- Immune to bullet type damages
-ENT.Immune_Fire = true -- Immune to fire-type damages
-ENT.BringFriendsOnDeath = false -- Should the NPC's allies come to its position while it's dying?
-ENT.HasMeleeAttack = false -- Can this NPC melee attack?
+ENT.Immune_AcidPoisonRadiation = true
+ENT.Immune_Bullet = true
+ENT.Immune_Fire = true
+ENT.HasMeleeAttack = false
 
-ENT.HasRangeAttack = true -- Can this NPC range attack?
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_rocket" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
-ENT.RangeDistance = combatDistance -- How far can it range attack?
-ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
-ENT.RangeAttackAngleRadius = 100 -- What is the attack angle radius? | 100 = In front of the NPC | 180 = All around the NPC
-ENT.TimeUntilRangeAttackProjectileRelease = 0 -- How much time until the projectile code is ran?
-ENT.NextRangeAttackTime = 10 -- How much time until it can use a range attack?
-ENT.RangeAttackReps = 1 -- How many times does it run the projectile code?
-ENT.RangeAttackExtraTimers = {0} -- Extra range attack timers, EX: {1, 1.4} | it will run the projectile code after the given amount of seconds
-ENT.DisableRangeAttackAnimation = true -- if true, it will disable the animation code
+ENT.HasRangeAttack = true
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_rocket"
+ENT.RangeDistance = combatDistance
+ENT.RangeToMeleeDistance = 1
+ENT.RangeAttackAngleRadius = 100
+ENT.TimeUntilRangeAttackProjectileRelease = 0
+ENT.NextRangeAttackTime = 10
+ENT.RangeAttackReps = 1
+ENT.RangeAttackExtraTimers = {0}
+ENT.DisableRangeAttackAnimation = true
 
+ENT.DeathAllyResponse = "OnlyAlert"
 ENT.HasDeathCorpse = false
-ENT.Medic_CanBeHealed = false -- Can this NPC be healed by medics?
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_Death = {"vj_hlr/hl1_weapon/mortar/mortarhit.wav"}
+ENT.Medic_CanBeHealed = false
+
+ENT.SoundTbl_Death = "vj_hlr/hl1_weapon/mortar/mortarhit.wav"
 local sdExplosions = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
 
 ENT.GeneralSoundPitch1 = 100
@@ -87,11 +86,11 @@ function ENT:Init()
 	self.HeliSD_Distant = VJ.CreateSound(self, "vj_hlr/hl1_npc/apache/ap_rotor1.wav", 160)
 	
 	local tailLight = ents.Create("env_sprite")
-	tailLight:SetKeyValue("model","vj_base/sprites/glow.vmt")
+	tailLight:SetKeyValue("model", "vj_base/sprites/glow.vmt")
 	tailLight:SetKeyValue("scale", "0.3")
-	tailLight:SetKeyValue("rendermode","5")
-	tailLight:SetKeyValue("rendercolor","255 191 0")
-	tailLight:SetKeyValue("spawnflags","1") -- If animated
+	tailLight:SetKeyValue("rendermode", "5")
+	tailLight:SetKeyValue("rendercolor", "255 191 0")
+	tailLight:SetKeyValue("spawnflags", "1") -- If animated
 	tailLight:SetParent(self)
 	tailLight:Fire("SetParentAttachment", "light_1")
 	tailLight:Spawn()
@@ -99,12 +98,12 @@ function ENT:Init()
 	self:DeleteOnRemove(tailLight)
 	
 	local sideLight1 = ents.Create("env_sprite")
-	sideLight1:SetKeyValue("model","vj_base/sprites/glow.vmt")
+	sideLight1:SetKeyValue("model", "vj_base/sprites/glow.vmt")
 	sideLight1:SetKeyValue("scale", "0.5")
-	sideLight1:SetKeyValue("rendermode","5")
-	sideLight1:SetKeyValue("renderfx","9")
-	sideLight1:SetKeyValue("rendercolor","255 0 0")
-	sideLight1:SetKeyValue("spawnflags","1") -- If animated
+	sideLight1:SetKeyValue("rendermode", "5")
+	sideLight1:SetKeyValue("renderfx", "9")
+	sideLight1:SetKeyValue("rendercolor", "255 0 0")
+	sideLight1:SetKeyValue("spawnflags", "1") -- If animated
 	sideLight1:SetParent(self)
 	sideLight1:Fire("SetParentAttachment", "light_2")
 	sideLight1:Spawn()
@@ -112,12 +111,12 @@ function ENT:Init()
 	self:DeleteOnRemove(sideLight1)
 	
 	local sideLight2 = ents.Create("env_sprite")
-	sideLight2:SetKeyValue("model","vj_base/sprites/glow.vmt")
+	sideLight2:SetKeyValue("model", "vj_base/sprites/glow.vmt")
 	sideLight2:SetKeyValue("scale", "0.5")
-	sideLight2:SetKeyValue("rendermode","5")
-	sideLight2:SetKeyValue("renderfx","9")
-	sideLight2:SetKeyValue("rendercolor","255 0 0")
-	sideLight2:SetKeyValue("spawnflags","1") -- If animated
+	sideLight2:SetKeyValue("rendermode", "5")
+	sideLight2:SetKeyValue("renderfx", "9")
+	sideLight2:SetKeyValue("rendercolor", "255 0 0")
+	sideLight2:SetKeyValue("spawnflags", "1") -- If animated
 	sideLight2:SetParent(self)
 	sideLight2:Fire("SetParentAttachment", "light_3")
 	sideLight2:Spawn()
@@ -198,29 +197,29 @@ function ENT:CustomAttack()
 		VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1_distant.wav", 140, 100, 1, bit.band(CHAN_AUTO, CHAN_WEAPON))
 
 		local muz = ents.Create("env_sprite")
-		muz:SetKeyValue("model","vj_hl/sprites/muzzleflash2.vmt")
-		muz:SetKeyValue("scale",""..math.Rand(0.3, 0.5))
-		muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
-		muz:SetKeyValue("HDRColorScale","1.0")
-		muz:SetKeyValue("renderfx","14")
-		muz:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-		muz:SetKeyValue("renderamt","255") -- Transparency
-		muz:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-		muz:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
-		muz:SetKeyValue("spawnflags","0")
+		muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash2.vmt")
+		muz:SetKeyValue("scale", ""..math.Rand(0.3, 0.5))
+		muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
+		muz:SetKeyValue("HDRColorScale", "1.0")
+		muz:SetKeyValue("renderfx", "14")
+		muz:SetKeyValue("rendermode", "3") -- Set the render mode to "3" (Glow)
+		muz:SetKeyValue("renderamt", "255") -- Transparency
+		muz:SetKeyValue("disablereceiveshadows", "0") -- Disable receiving shadows
+		muz:SetKeyValue("framerate", "10.0") -- Rate at which the sprite should animate, if at all.
+		muz:SetKeyValue("spawnflags", "0")
 		muz:SetParent(self)
-		muz:Fire("SetParentAttachment","muzzle")
+		muz:Fire("SetParentAttachment", "muzzle")
 		muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
 		muz:Spawn()
 		muz:Activate()
-		muz:Fire("Kill","",0.08)
+		muz:Fire("Kill", "",0.08)
 
 		local flash = ents.Create("light_dynamic")
 		flash:SetKeyValue("brightness", 8)
 		flash:SetKeyValue("distance", 300)
 		flash:SetLocalPos(att.Pos)
 		flash:SetLocalAngles(self:GetAngles())
-		flash:Fire("Color","255 60 9 255")
+		flash:Fire("Color", "255 60 9 255")
 		flash:Spawn()
 		flash:Activate()
 		flash:Fire("TurnOn", "", 0)
@@ -315,18 +314,18 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Initial" then
 		local expPos = self:GetAttachment(self:LookupAttachment("rotor")).Pos
 		local expSpr = ents.Create("env_sprite")
-		expSpr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-		expSpr:SetKeyValue("GlowProxySize","2.0")
-		expSpr:SetKeyValue("HDRColorScale","1.0")
-		expSpr:SetKeyValue("renderfx","14")
-		expSpr:SetKeyValue("rendermode","5")
-		expSpr:SetKeyValue("renderamt","255")
-		expSpr:SetKeyValue("disablereceiveshadows","0")
-		expSpr:SetKeyValue("mindxlevel","0")
-		expSpr:SetKeyValue("maxdxlevel","0")
-		expSpr:SetKeyValue("framerate","15.0")
-		expSpr:SetKeyValue("spawnflags","0")
-		expSpr:SetKeyValue("scale","5")
+		expSpr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
+		expSpr:SetKeyValue("GlowProxySize", "2.0")
+		expSpr:SetKeyValue("HDRColorScale", "1.0")
+		expSpr:SetKeyValue("renderfx", "14")
+		expSpr:SetKeyValue("rendermode", "5")
+		expSpr:SetKeyValue("renderamt", "255")
+		expSpr:SetKeyValue("disablereceiveshadows", "0")
+		expSpr:SetKeyValue("mindxlevel", "0")
+		expSpr:SetKeyValue("maxdxlevel", "0")
+		expSpr:SetKeyValue("framerate", "15.0")
+		expSpr:SetKeyValue("spawnflags", "0")
+		expSpr:SetKeyValue("scale", "5")
 		expSpr:SetPos(expPos)
 		expSpr:Spawn()
 		expSpr:Fire("Kill", "", 0.9)
@@ -368,18 +367,18 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				self.NextExpT = CurTime() + 0.2
 				local expPos2 = self:GetPos() + Vector(math.Rand(-150, 150), math.Rand(-150, 150), math.Rand(-150, -50))
 				local spr = ents.Create("env_sprite")
-				spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-				spr:SetKeyValue("GlowProxySize","2.0")
-				spr:SetKeyValue("HDRColorScale","1.0")
-				spr:SetKeyValue("renderfx","14")
-				spr:SetKeyValue("rendermode","5")
-				spr:SetKeyValue("renderamt","255")
-				spr:SetKeyValue("disablereceiveshadows","0")
-				spr:SetKeyValue("mindxlevel","0")
-				spr:SetKeyValue("maxdxlevel","0")
-				spr:SetKeyValue("framerate","15.0")
-				spr:SetKeyValue("spawnflags","0")
-				spr:SetKeyValue("scale","5")
+				spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
+				spr:SetKeyValue("GlowProxySize", "2.0")
+				spr:SetKeyValue("HDRColorScale", "1.0")
+				spr:SetKeyValue("renderfx", "14")
+				spr:SetKeyValue("rendermode", "5")
+				spr:SetKeyValue("renderamt", "255")
+				spr:SetKeyValue("disablereceiveshadows", "0")
+				spr:SetKeyValue("mindxlevel", "0")
+				spr:SetKeyValue("maxdxlevel", "0")
+				spr:SetKeyValue("framerate", "15.0")
+				spr:SetKeyValue("spawnflags", "0")
+				spr:SetKeyValue("scale", "5")
 				spr:SetPos(expPos2)
 				spr:Spawn()
 				spr:Fire("Kill", "", 0.9)
@@ -423,18 +422,18 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			
 			local expPos2 = myPos + Vector(0, 0, math.Rand(150, 150))
 			local spr = ents.Create("env_sprite")
-			spr:SetKeyValue("model","vj_hl/sprites/fexplo1.vmt")
-			spr:SetKeyValue("GlowProxySize","2.0")
-			spr:SetKeyValue("HDRColorScale","1.0")
-			spr:SetKeyValue("renderfx","14")
-			spr:SetKeyValue("rendermode","5")
-			spr:SetKeyValue("renderamt","255")
-			spr:SetKeyValue("disablereceiveshadows","0")
-			spr:SetKeyValue("mindxlevel","0")
-			spr:SetKeyValue("maxdxlevel","0")
-			spr:SetKeyValue("framerate","15.0")
-			spr:SetKeyValue("spawnflags","0")
-			spr:SetKeyValue("scale","15")
+			spr:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
+			spr:SetKeyValue("GlowProxySize", "2.0")
+			spr:SetKeyValue("HDRColorScale", "1.0")
+			spr:SetKeyValue("renderfx", "14")
+			spr:SetKeyValue("rendermode", "5")
+			spr:SetKeyValue("renderamt", "255")
+			spr:SetKeyValue("disablereceiveshadows", "0")
+			spr:SetKeyValue("mindxlevel", "0")
+			spr:SetKeyValue("maxdxlevel", "0")
+			spr:SetKeyValue("framerate", "15.0")
+			spr:SetKeyValue("spawnflags", "0")
+			spr:SetKeyValue("scale", "15")
 			spr:SetPos(expPos2)
 			spr:Spawn()
 			spr:Fire("Kill", "", 1.19)

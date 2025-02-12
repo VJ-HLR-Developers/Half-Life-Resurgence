@@ -5,17 +5,17 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hla/doctor.mdl" -- Model(s) to spawn with | Picks a random one if it's a table 
+ENT.Model = "models/vj_hlr/hla/doctor.mdl"
 ENT.StartHealth = 100
 ENT.HasHealthRegeneration = true
 ENT.HealthRegenerationAmount = 2
 ENT.HealthRegenerationDelay = VJ.SET(0.5, 0.5)
 ENT.HullType = HULL_HUMAN
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "unnamed021", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(8, 0, 7), -- The offset for the controller when the camera is in first person
-	FirstP_ShrinkBone = true, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(0, 0, -15),
+    FirstP_Bone = "unnamed021",
+    FirstP_Offset = Vector(8, 0, 7),
+	FirstP_ShrinkBone = true,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
@@ -25,36 +25,35 @@ ENT.BloodParticle = {"vj_hlr_blood_red"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Red"}
 ENT.HasOnPlayerSight = true
 ENT.HasBloodPool = false
-ENT.HasMeleeAttack = false -- Can this NPC melee attack?
+ENT.HasMeleeAttack = false
 ENT.HasGrenadeAttack = false
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
-ENT.Weapon_NoSpawnMenu = true -- Not affected by weapons selected from weapon list
---ENT.DeathAnimationTime = 2.15 -- How long should the death animation play?
+ENT.Weapon_NoSpawnMenu = true
 ENT.DisableFootStepSoundTimer = true
 ENT.BecomeEnemyToPlayer = 2
-ENT.DropDeathLoot = false -- Should it drop loot on death?
+ENT.DropDeathLoot = false
 ENT.Weapon_StrafeWhileFiring = false
-ENT.Weapon_CanReload = false -- If false, the SNPC will no longer reload
-ENT.CanTurnWhileMoving = false -- Can the NPC turn while moving? | EX: GoldSrc NPCs, Facing enemy while running to cover, Facing the player while moving out of the way
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hla_npc/doctor/hoot5.wav","vj_hlr/hla_npc/doctor/hoot6.wav"}
-ENT.SoundTbl_IdleDialogue = {"vj_hlr/hla_npc/doctor/hoot1.wav","vj_hlr/hla_npc/doctor/hoot2.wav","vj_hlr/hla_npc/doctor/hoot3.wav","vj_hlr/hla_npc/doctor/hoot5.wav","vj_hlr/hla_npc/doctor/hoot6.wav"}
-ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hla_npc/doctor/hoot1.wav","vj_hlr/hla_npc/doctor/hoot2.wav","vj_hlr/hla_npc/doctor/hoot3.wav","vj_hlr/hla_npc/doctor/hoot5.wav","vj_hlr/hla_npc/doctor/hoot6.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hla_npc/doctor/hoot1.wav","vj_hlr/hla_npc/doctor/hoot2.wav","vj_hlr/hla_npc/doctor/hoot3.wav"}
-ENT.SoundTbl_FollowPlayer = {"vj_hlr/hla_npc/doctor/hoot1.wav"}
-ENT.SoundTbl_MedicReceiveHeal = {"vj_hlr/hla_npc/doctor/hoot3.wav"}
-ENT.SoundTbl_UnFollowPlayer = {"vj_hlr/hla_npc/doctor/hoot3.wav","vj_hlr/hla_npc/doctor/hoot2.wav"}
-ENT.SoundTbl_BecomeEnemyToPlayer = {"vj_hlr/hla_npc/doctor/hoot1.wav","vj_hlr/hla_npc/doctor/hoot2.wav","vj_hlr/hla_npc/doctor/hoot3.wav"}
-ENT.SoundTbl_OnPlayerSight = {"vj_hlr/hla_npc/doctor/hoot1.wav","vj_hlr/hla_npc/doctor/hoot2.wav","vj_hlr/hla_npc/doctor/hoot3.wav","vj_hlr/hla_npc/doctor/hoot4.wav","vj_hlr/hla_npc/doctor/hoot5.wav","vj_hlr/hla_npc/doctor/hoot6.wav"}
-ENT.SoundTbl_CombatIdle = {"vj_hlr/hla_npc/doctor/hoot1.wav","vj_hlr/hla_npc/doctor/hoot2.wav","vj_hlr/hla_npc/doctor/hoot3.wav","vj_hlr/hla_npc/doctor/hoot4.wav"}
-ENT.SoundTbl_OnGrenadeSight = {"vj_hlr/hla_npc/doctor/hoot1.wav","vj_hlr/hla_npc/doctor/hoot2.wav","vj_hlr/hla_npc/doctor/hoot3.wav"}
-ENT.SoundTbl_OnDangerSight = {"vj_hlr/hla_npc/doctor/hoot1.wav","vj_hlr/hla_npc/doctor/hoot2.wav","vj_hlr/hla_npc/doctor/hoot3.wav"}
-ENT.SoundTbl_OnKilledEnemy = {"vj_hlr/hla_npc/doctor/hoot5.wav","vj_hlr/hla_npc/doctor/hoot6.wav"}
-ENT.SoundTbl_AllyDeath = {"vj_hlr/hla_npc/doctor/hoot1.wav","vj_hlr/hla_npc/doctor/hoot2.wav","vj_hlr/hla_npc/doctor/hoot3.wav","vj_hlr/hla_npc/doctor/hoot4.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hla_npc/doctor/pl_pain2.wav","vj_hlr/hla_npc/doctor/pl_pain4.wav","vj_hlr/hla_npc/doctor/pl_pain5.wav","vj_hlr/hla_npc/doctor/pl_pain6.wav","vj_hlr/hla_npc/doctor/pl_pain7.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hla_npc/doctor/pl_pain2.wav","vj_hlr/hla_npc/doctor/pl_pain4.wav","vj_hlr/hla_npc/doctor/pl_pain5.wav","vj_hlr/hla_npc/doctor/pl_pain6.wav","vj_hlr/hla_npc/doctor/pl_pain7.wav"}
+ENT.Weapon_CanReload = false
+ENT.CanTurnWhileMoving = false
+
+ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav", "vj_hlr/pl_step2.wav", "vj_hlr/pl_step3.wav", "vj_hlr/pl_step4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hla_npc/doctor/hoot5.wav", "vj_hlr/hla_npc/doctor/hoot6.wav"}
+ENT.SoundTbl_IdleDialogue = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav", "vj_hlr/hla_npc/doctor/hoot5.wav", "vj_hlr/hla_npc/doctor/hoot6.wav"}
+ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav", "vj_hlr/hla_npc/doctor/hoot5.wav", "vj_hlr/hla_npc/doctor/hoot6.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav"}
+ENT.SoundTbl_FollowPlayer = "vj_hlr/hla_npc/doctor/hoot1.wav"
+ENT.SoundTbl_MedicReceiveHeal = "vj_hlr/hla_npc/doctor/hoot3.wav"
+ENT.SoundTbl_UnFollowPlayer = {"vj_hlr/hla_npc/doctor/hoot3.wav", "vj_hlr/hla_npc/doctor/hoot2.wav"}
+ENT.SoundTbl_BecomeEnemyToPlayer = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav"}
+ENT.SoundTbl_OnPlayerSight = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav", "vj_hlr/hla_npc/doctor/hoot4.wav", "vj_hlr/hla_npc/doctor/hoot5.wav", "vj_hlr/hla_npc/doctor/hoot6.wav"}
+ENT.SoundTbl_CombatIdle = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav", "vj_hlr/hla_npc/doctor/hoot4.wav"}
+ENT.SoundTbl_OnGrenadeSight = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav"}
+ENT.SoundTbl_OnDangerSight = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav"}
+ENT.SoundTbl_OnKilledEnemy = {"vj_hlr/hla_npc/doctor/hoot5.wav", "vj_hlr/hla_npc/doctor/hoot6.wav"}
+ENT.SoundTbl_AllyDeath = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav", "vj_hlr/hla_npc/doctor/hoot4.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hla_npc/doctor/pl_pain2.wav", "vj_hlr/hla_npc/doctor/pl_pain4.wav", "vj_hlr/hla_npc/doctor/pl_pain5.wav", "vj_hlr/hla_npc/doctor/pl_pain6.wav", "vj_hlr/hla_npc/doctor/pl_pain7.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hla_npc/doctor/pl_pain2.wav", "vj_hlr/hla_npc/doctor/pl_pain4.wav", "vj_hlr/hla_npc/doctor/pl_pain5.wav", "vj_hlr/hla_npc/doctor/pl_pain6.wav", "vj_hlr/hla_npc/doctor/pl_pain7.wav"}
 
 -- Custom
 ENT.Ivan_LastBodyGroup = 1

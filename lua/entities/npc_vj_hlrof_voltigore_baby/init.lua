@@ -5,14 +5,14 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/opfor/baby_voltigore.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/opfor/baby_voltigore.mdl"
 ENT.StartHealth = 60
 ENT.HullType = HULL_MEDIUM
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(25, 0, -15), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bone41", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(3, 0, 2), -- The offset for the controller when the camera is in first person
-	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(25, 0, -15),
+    FirstP_Bone = "Bone41",
+    FirstP_Offset = Vector(3, 0, 2),
+	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
@@ -23,32 +23,32 @@ ENT.HasBloodPool = false
 
 ENT.MeleeAttackDamage = 15
 ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDistance = 40 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageDistance = 50 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.TimeUntilMeleeAttackDamage = false
+ENT.MeleeAttackDistance = 40
+ENT.MeleeAttackDamageDistance = 50
 
-ENT.HasRangeAttack = true -- Can this NPC range attack?
+ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = "vjseq_distanceattack"
-ENT.RangeDistance = 1000 -- How far can it range attack?
-ENT.RangeToMeleeDistance = 100 -- How close does it have to be until it uses melee?
-ENT.NextRangeAttackTime = 15 -- How much time until it can use a range attack?
-ENT.NextRangeAttackTime_DoRand = 20 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
-ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
+ENT.RangeDistance = 1000
+ENT.RangeToMeleeDistance = 100
+ENT.NextRangeAttackTime = 15
+ENT.NextRangeAttackTime_DoRand = 20
+ENT.DisableDefaultRangeAttackCode = true
 
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
-ENT.DeathAnimationTime = false -- How long should the death animation play?
+ENT.DeathAnimationTime = false
 ENT.DisableFootStepSoundTimer = true
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/voltigore/voltigore_footstep1.wav","vj_hlr/hl1_npc/voltigore/voltigore_footstep2.wav","vj_hlr/hl1_npc/voltigore/voltigore_footstep3.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/voltigore/voltigore_idle1.wav","vj_hlr/hl1_npc/voltigore/voltigore_idle2.wav","vj_hlr/hl1_npc/voltigore/voltigore_idle3.wav"}
-ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/voltigore/voltigore_communicate1.wav","vj_hlr/hl1_npc/voltigore/voltigore_communicate2.wav","vj_hlr/hl1_npc/voltigore/voltigore_communicate3.wav"}
-ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/voltigore/voltigore_communicate1.wav","vj_hlr/hl1_npc/voltigore/voltigore_communicate2.wav","vj_hlr/hl1_npc/voltigore/voltigore_communicate3.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/voltigore/voltigore_alert1.wav","vj_hlr/hl1_npc/voltigore/voltigore_alert2.wav","vj_hlr/hl1_npc/voltigore/voltigore_alert3.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/voltigore/voltigore_attack_melee1.wav","vj_hlr/hl1_npc/voltigore/voltigore_attack_melee2.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/voltigore/voltigore_pain1.wav","vj_hlr/hl1_npc/voltigore/voltigore_pain2.wav","vj_hlr/hl1_npc/voltigore/voltigore_pain3.wav","vj_hlr/hl1_npc/voltigore/voltigore_pain4.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/voltigore/voltigore_die1.wav","vj_hlr/hl1_npc/voltigore/voltigore_die2.wav","vj_hlr/hl1_npc/voltigore/voltigore_die3.wav"}
+
+ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/voltigore/voltigore_footstep1.wav", "vj_hlr/hl1_npc/voltigore/voltigore_footstep2.wav", "vj_hlr/hl1_npc/voltigore/voltigore_footstep3.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/voltigore/voltigore_idle1.wav", "vj_hlr/hl1_npc/voltigore/voltigore_idle2.wav", "vj_hlr/hl1_npc/voltigore/voltigore_idle3.wav"}
+ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/voltigore/voltigore_communicate1.wav", "vj_hlr/hl1_npc/voltigore/voltigore_communicate2.wav", "vj_hlr/hl1_npc/voltigore/voltigore_communicate3.wav"}
+ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/voltigore/voltigore_communicate1.wav", "vj_hlr/hl1_npc/voltigore/voltigore_communicate2.wav", "vj_hlr/hl1_npc/voltigore/voltigore_communicate3.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/voltigore/voltigore_alert1.wav", "vj_hlr/hl1_npc/voltigore/voltigore_alert2.wav", "vj_hlr/hl1_npc/voltigore/voltigore_alert3.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/voltigore/voltigore_attack_melee1.wav", "vj_hlr/hl1_npc/voltigore/voltigore_attack_melee2.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/voltigore/voltigore_pain1.wav", "vj_hlr/hl1_npc/voltigore/voltigore_pain2.wav", "vj_hlr/hl1_npc/voltigore/voltigore_pain3.wav", "vj_hlr/hl1_npc/voltigore/voltigore_pain4.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/voltigore/voltigore_die1.wav", "vj_hlr/hl1_npc/voltigore/voltigore_die2.wav", "vj_hlr/hl1_npc/voltigore/voltigore_die3.wav"}
 
 ENT.FootStepSoundLevel = 55
 ENT.FootStepPitch = VJ.SET(130, 130)
@@ -65,7 +65,7 @@ function ENT:OnInput(key, activator, caller, data)
 		self:PlayFootstepSound()
 	end
 	if key == "single" or key == "both" then
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -89,16 +89,16 @@ function ENT:CustomOnRangeAttack_AfterStartTimer()
 	end
 	
 	local spr = ents.Create("env_sprite")
-	spr:SetKeyValue("model","vj_hl/sprites/flare3.vmt")
-	spr:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
-	spr:SetKeyValue("renderfx","14")
-	spr:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-	spr:SetKeyValue("renderamt","255") -- Transparency
-	spr:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-	spr:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
-	spr:SetKeyValue("spawnflags","0")
+	spr:SetKeyValue("model", "vj_hl/sprites/flare3.vmt")
+	spr:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
+	spr:SetKeyValue("renderfx", "14")
+	spr:SetKeyValue("rendermode", "3") -- Set the render mode to "3" (Glow)
+	spr:SetKeyValue("renderamt", "255") -- Transparency
+	spr:SetKeyValue("disablereceiveshadows", "0") -- Disable receiving shadows
+	spr:SetKeyValue("framerate", "10.0") -- Rate at which the sprite should animate, if at all.
+	spr:SetKeyValue("spawnflags", "0")
 	spr:SetParent(self)
-	spr:Fire("SetParentAttachment","3")
+	spr:Fire("SetParentAttachment", "3")
 	spr:Spawn()
 	spr:Activate()
 	self:DeleteOnRemove(spr)

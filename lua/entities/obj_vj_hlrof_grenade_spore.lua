@@ -21,15 +21,15 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = "models/vj_hlr/weapons/spore.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/weapons/spore.mdl"
 ENT.ProjectileType = VJ.PROJ_TYPE_PROP
 ENT.CollisionBehavior = VJ.PROJ_COLLISION_NONE
-ENT.DoesRadiusDamage = true -- Should it deal radius damage when it collides with something?
+ENT.DoesRadiusDamage = true
 ENT.RadiusDamageRadius = 150
 ENT.RadiusDamage = 80
-ENT.RadiusDamageUseRealisticRadius = true -- Should the damage decrease the farther away the hit entity is from the radius origin?
+ENT.RadiusDamageUseRealisticRadius = true
 ENT.RadiusDamageType = DMG_RADIATION
-ENT.RadiusDamageForce = 90 -- Damage force to apply to the hit entity | false = Don't apply any force
+ENT.RadiusDamageForce = 90
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/sporelauncher/spore_hit1.wav", "vj_hlr/hl1_weapon/sporelauncher/spore_hit2.wav", "vj_hlr/hl1_weapon/sporelauncher/spore_hit3.wav"}
 
 ---------------------------------------------------------------------------------------------------------------------------------------------

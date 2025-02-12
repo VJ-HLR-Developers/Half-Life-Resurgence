@@ -5,10 +5,10 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/tank_cannon_new.mdl" -- Model(s) to spawn with | Picks a random one if it's a table 
+ENT.Model = "models/vj_hlr/hl1/tank_cannon_new.mdl"
 ENT.StartHealth = 0
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
-ENT.HasDeathCorpse = false -- Should a corpse spawn when it's killed?
+ENT.HasDeathCorpse = false
 
 -- Tank Base
 ENT.Tank_SoundTbl_Turning = "vj_hlr/hl1_npc/tanks/abrams_turret_rot.wav"

@@ -5,15 +5,15 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/snark.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/snark.mdl"
 ENT.StartHealth = 5
 ENT.SightAngle = 180
 ENT.HullType = HULL_TINY
-ENT.EntitiesToNoCollide = {"npc_vj_hlr1_snark"} -- Set to a table of entity class names for the NPC to not collide with otherwise leave it to false
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(1, 0, 0.5), -- The offset for the controller when the camera is in first person
+ENT.EntitiesToNoCollide = {"npc_vj_hlr1_snark"}
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(0, 0, 0),
+    FirstP_Bone = "Bip01 Head",
+    FirstP_Offset = Vector(1, 0, 0.5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_SNARK"}
@@ -21,21 +21,21 @@ ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
-ENT.HasMeleeAttack = false -- Can this NPC melee attack?
-ENT.HasLeapAttack = true -- Can this NPC leap attack?
+ENT.HasMeleeAttack = false
+ENT.HasLeapAttack = true
 ENT.AnimTbl_LeapAttack = ACT_JUMP
-ENT.LeapDistance = 200 -- The max distance that the NPC can leap from
-ENT.LeapToMeleeDistance = 0 -- How close does it have to be until it uses melee?
-ENT.TimeUntilLeapAttackDamage = 0.4 -- How much time until it runs the leap damage code?
-ENT.NextLeapAttackTime = 0.4 -- How much time until it can use a leap attack?
-ENT.NextAnyAttackTime_Leap = 0.4 -- How much time until it can use any attack again? | Counted in Seconds
-ENT.LeapAttackExtraTimers = {0.2, 0.6} -- Extra leap attack timers | it will run the damage code after the given amount of seconds
+ENT.LeapDistance = 200
+ENT.LeapToMeleeDistance = 0
+ENT.TimeUntilLeapAttackDamage = 0.4
+ENT.NextLeapAttackTime = 0.4
+ENT.NextAnyAttackTime_Leap = 0.4
+ENT.LeapAttackExtraTimers = {0.2, 0.6}
 ENT.LeapAttackDamage = 10
-ENT.LeapAttackDamageDistance = 100 -- How far does the damage go?
-ENT.HasDeathCorpse = false -- Should a corpse spawn when it's killed?
+ENT.LeapAttackDamageDistance = 100
+ENT.HasDeathCorpse = false
 ENT.PropInteraction = "OnlyDamage"
 ENT.IdleAlwaysWander = true
-	-- ====== Sound Paths ====== --
+
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/squeek/sqk_hunt1.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt2.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt3.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/squeek/sqk_hunt1.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt2.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt3.wav"}
 ENT.SoundTbl_MeleeAttack = "vj_hlr/hl1_npc/squeek/sqk_deploy1.wav"

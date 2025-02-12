@@ -8,7 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.StartHealth = 40
 ENT.HullType = HULL_HUMAN
-ENT.HasGrenadeAttack = false -- Should the NPC have a grenade attack?
+ENT.HasGrenadeAttack = false
 
 local mdlMale = {"models/Humans/Group02/male_01.mdl", "models/Humans/Group02/male_02.mdl", "models/Humans/Group02/male_03.mdl", "models/Humans/Group02/male_04.mdl", "models/Humans/Group02/male_05.mdl", "models/Humans/Group02/male_06.mdl", "models/Humans/Group02/male_07.mdl", "models/Humans/Group02/male_08.mdl", "models/Humans/Group02/male_09.mdl"}
 local mdlFemale = {"models/Humans/Group02/female_01.mdl", "models/Humans/Group02/female_02.mdl", "models/Humans/Group02/female_03.mdl", "models/Humans/Group02/female_04.mdl", "models/Humans/Group02/female_06.mdl", "models/Humans/Group02/female_07.mdl"}

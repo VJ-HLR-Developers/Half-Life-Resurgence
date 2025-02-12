@@ -9,9 +9,9 @@ ENT.Model = "models/vj_hlr/hl1/islave.mdl"-- Model(s) to spawn with | Picks a ra
 ENT.StartHealth = 60
 ENT.SightAngle = 220
 ENT.HullType = HULL_HUMAN
-ENT.ControllerVars = {
-	FirstP_Bone = "bip01 head", -- If left empty, the base will attempt to calculate a position for first person
-	FirstP_Offset = Vector(5, 0, 0), -- The offset for the controller when the camera is in first person
+ENT.ControllerParameters = {
+	FirstP_Bone = "bip01 head",
+	FirstP_Offset = Vector(5, 0, 0),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
@@ -21,43 +21,42 @@ ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
 
 ENT.MeleeAttackDamage = 20
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDistance = 40 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageDistance = 70 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.TimeUntilMeleeAttackDamage = false
+ENT.MeleeAttackDistance = 40
+ENT.MeleeAttackDamageDistance = 70
 
-ENT.HasRangeAttack = true -- Can this NPC range attack?
+ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-ENT.RangeDistance = 1020 -- How far can it range attack?
-ENT.RangeToMeleeDistance = 100 -- How close does it have to be until it uses melee?
-ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
-ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
+ENT.RangeDistance = 1020
+ENT.RangeToMeleeDistance = 100
+ENT.TimeUntilRangeAttackProjectileRelease = false
+ENT.NextRangeAttackTime = 3
+ENT.DisableDefaultRangeAttackCode = true
 
-ENT.NoChaseAfterCertainRange = true -- Should the NPC stop chasing when the enemy is within the given far and close distances?
-ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
-ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
-ENT.NoChaseAfterCertainRange_Type = "OnlyRange" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.LimitChaseDistance = "OnlyRange"
+ENT.LimitChaseDistance_Max = "UseRangeDistance"
+ENT.LimitChaseDistance_Min = "UseRangeDistance"
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
-ENT.DeathAnimationTime = false -- How long should the death animation play?
+ENT.DeathAnimationTime = false
 ENT.DisableFootStepSoundTimer = true
-ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
-	-- ====== Flinching Code ====== --
-ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- The regular flinch animations to play
+ENT.HasExtraMeleeAttackSounds = true
+
+ENT.CanFlinch = 1
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}},{HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}},{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}},{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/aslave/vort_foot1.wav","vj_hlr/hl1_npc/aslave/vort_foot2.wav","vj_hlr/hl1_npc/aslave/vort_foot3.wav","vj_hlr/hl1_npc/aslave/vort_foot4.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/aslave/slv_idle1.wav","vj_hlr/hl1_npc/aslave/slv_idle2.wav","vj_hlr/hl1_npc/aslave/slv_idle3.wav","vj_hlr/hl1_npc/aslave/slv_idle4.wav","vj_hlr/hl1_npc/aslave/slv_idle5.wav","vj_hlr/hl1_npc/aslave/slv_idle6.wav","vj_hlr/hl1_npc/aslave/slv_idle7.wav","vj_hlr/hl1_npc/aslave/slv_idle8.wav","vj_hlr/hl1_npc/aslave/slv_idle9.wav","vj_hlr/hl1_npc/aslave/slv_idle10.wav"}
-ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/aslave/slv_idle1.wav","vj_hlr/hl1_npc/aslave/slv_idle2.wav","vj_hlr/hl1_npc/aslave/slv_idle3.wav","vj_hlr/hl1_npc/aslave/slv_idle4.wav","vj_hlr/hl1_npc/aslave/slv_idle5.wav","vj_hlr/hl1_npc/aslave/slv_idle6.wav","vj_hlr/hl1_npc/aslave/slv_idle7.wav","vj_hlr/hl1_npc/aslave/slv_idle8.wav","vj_hlr/hl1_npc/aslave/slv_idle9.wav","vj_hlr/hl1_npc/aslave/slv_idle10.wav"}
-ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/aslave/slv_idle1.wav","vj_hlr/hl1_npc/aslave/slv_idle2.wav","vj_hlr/hl1_npc/aslave/slv_idle3.wav","vj_hlr/hl1_npc/aslave/slv_idle4.wav","vj_hlr/hl1_npc/aslave/slv_idle5.wav","vj_hlr/hl1_npc/aslave/slv_idle6.wav","vj_hlr/hl1_npc/aslave/slv_idle7.wav","vj_hlr/hl1_npc/aslave/slv_idle8.wav","vj_hlr/hl1_npc/aslave/slv_idle9.wav","vj_hlr/hl1_npc/aslave/slv_idle10.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/aslave/slv_alert01.wav","vj_hlr/hl1_npc/aslave/slv_alert02.wav","vj_hlr/hl1_npc/aslave/slv_alert03.wav","vj_hlr/hl1_npc/aslave/slv_alert04.wav","vj_hlr/hl1_npc/aslave/slv_alert05.wav","vj_hlr/hl1_npc/aslave/slv_alert06.wav"}
-ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav","vj_hlr/hl1_npc/zombie/claw_strike2.wav","vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
+
+ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/aslave/vort_foot1.wav", "vj_hlr/hl1_npc/aslave/vort_foot2.wav", "vj_hlr/hl1_npc/aslave/vort_foot3.wav", "vj_hlr/hl1_npc/aslave/vort_foot4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/aslave/slv_idle1.wav", "vj_hlr/hl1_npc/aslave/slv_idle2.wav", "vj_hlr/hl1_npc/aslave/slv_idle3.wav", "vj_hlr/hl1_npc/aslave/slv_idle4.wav", "vj_hlr/hl1_npc/aslave/slv_idle5.wav", "vj_hlr/hl1_npc/aslave/slv_idle6.wav", "vj_hlr/hl1_npc/aslave/slv_idle7.wav", "vj_hlr/hl1_npc/aslave/slv_idle8.wav", "vj_hlr/hl1_npc/aslave/slv_idle9.wav", "vj_hlr/hl1_npc/aslave/slv_idle10.wav"}
+ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/aslave/slv_idle1.wav", "vj_hlr/hl1_npc/aslave/slv_idle2.wav", "vj_hlr/hl1_npc/aslave/slv_idle3.wav", "vj_hlr/hl1_npc/aslave/slv_idle4.wav", "vj_hlr/hl1_npc/aslave/slv_idle5.wav", "vj_hlr/hl1_npc/aslave/slv_idle6.wav", "vj_hlr/hl1_npc/aslave/slv_idle7.wav", "vj_hlr/hl1_npc/aslave/slv_idle8.wav", "vj_hlr/hl1_npc/aslave/slv_idle9.wav", "vj_hlr/hl1_npc/aslave/slv_idle10.wav"}
+ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/aslave/slv_idle1.wav", "vj_hlr/hl1_npc/aslave/slv_idle2.wav", "vj_hlr/hl1_npc/aslave/slv_idle3.wav", "vj_hlr/hl1_npc/aslave/slv_idle4.wav", "vj_hlr/hl1_npc/aslave/slv_idle5.wav", "vj_hlr/hl1_npc/aslave/slv_idle6.wav", "vj_hlr/hl1_npc/aslave/slv_idle7.wav", "vj_hlr/hl1_npc/aslave/slv_idle8.wav", "vj_hlr/hl1_npc/aslave/slv_idle9.wav", "vj_hlr/hl1_npc/aslave/slv_idle10.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/aslave/slv_alert01.wav", "vj_hlr/hl1_npc/aslave/slv_alert02.wav", "vj_hlr/hl1_npc/aslave/slv_alert03.wav", "vj_hlr/hl1_npc/aslave/slv_alert04.wav", "vj_hlr/hl1_npc/aslave/slv_alert05.wav", "vj_hlr/hl1_npc/aslave/slv_alert06.wav"}
+ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav", "vj_hlr/hl1_npc/zombie/claw_strike2.wav", "vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
 ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/fx/zap4.wav"}
 ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/hassault/hw_shoot1.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/aslave/slv_pain1.wav","vj_hlr/hl1_npc/aslave/slv_pain2.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/aslave/slv_die1.wav","vj_hlr/hl1_npc/aslave/slv_die2.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/aslave/slv_pain1.wav", "vj_hlr/hl1_npc/aslave/slv_pain2.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/aslave/slv_die1.wav", "vj_hlr/hl1_npc/aslave/slv_die2.wav"}
 
 ENT.FootStepSoundLevel = 60
 
@@ -82,9 +81,9 @@ function ENT:OnInput(key, activator, caller, data)
 	if key == "step" then
 		self:PlayFootstepSound()
 	elseif key == "right" or key == "left" then
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	elseif key == "shoot" then
-		self:RangeAttackCode()
+		self:ExecuteRangeAttack()
 	elseif key == "body" then
 		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end

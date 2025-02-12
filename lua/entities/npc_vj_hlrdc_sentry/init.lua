@@ -6,15 +6,15 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/decay/sentry.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(10, 0, -20), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Dummy04", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(0, 0, 6), -- The offset for the controller when the camera is in first person
+ENT.Model = "models/vj_hlr/decay/sentry.mdl"
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(10, 0, -20),
+    FirstP_Bone = "Dummy04",
+    FirstP_Offset = Vector(0, 0, 6),
 }
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
-ENT.DeathAnimationTime = 5 -- How long should the death animation play?
+ENT.DeathAnimationTime = 5
 
 -- Custom
 ENT.Sentry_GroundType = 1

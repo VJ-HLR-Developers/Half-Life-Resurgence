@@ -35,7 +35,7 @@ SWEP.Primary.DisableBulletCode = true
 	-- Reload Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.HasReloadSound = true -- Does it have a reload sound? Remember even if this is set to false, the animation sound will still play!
 SWEP.ReloadSound = "weapons/physcannon/physcannon_pickup.wav" // npc/assassin/ball_zap1.wav
-SWEP.Reload_TimeUntilAmmoIsSet = 1 -- Time until ammo is set to the weapon
+SWEP.Reload_TimeUntilAmmoIsSet = 1
 
 -- Custom
 SWEP.Bow_NumShots = 1

@@ -6,12 +6,12 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hla/headcrab.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hla/headcrab.mdl"
 ENT.StartHealth = 20
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(10, 0, 0), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "unnamed025", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(4, 0, 1), -- The offset for the controller when the camera is in first person
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(10, 0, 0),
+    FirstP_Bone = "unnamed025",
+    FirstP_Offset = Vector(4, 0, 1),
 }
 ENT.LeapAttackDamage = 100
 ENT.SoundTbl_LeapAttackJump = "vj_hlr/hla_npc/headcrab/hc_attack1.wav"

@@ -70,8 +70,8 @@ end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 
-ENT.Model = "models/weapons/w_missile_launch.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
-ENT.DoesDirectDamage = true -- Should it deal direct damage when it collides with something?
+ENT.Model = "models/weapons/w_missile_launch.mdl"
+ENT.DoesDirectDamage = true
 ENT.DirectDamage = 10
 ENT.DirectDamageType = DMG_SHOCK
 ENT.CollisionDecal = "VJ_HLR_Scorch_Small"

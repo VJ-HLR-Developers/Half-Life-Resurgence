@@ -6,15 +6,15 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/aflock.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
-ENT.ControllerVars = {
-	FirstP_Bone = "bone12", -- If left empty, the base will attempt to calculate a position for first person
-	FirstP_Offset = Vector(15, 0, 2), -- The offset for the controller when the camera is in first person
-	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+ENT.Model = "models/vj_hlr/hl1/aflock.mdl"
+ENT.ControllerParameters = {
+	FirstP_Bone = "bone12",
+	FirstP_Offset = Vector(15, 0, 2),
+	FirstP_ShrinkBone = false,
 }
-	-- ====== Flinching Code ====== --
-ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_BIG_FLINCH -- The regular flinch animations to play
+
+ENT.CanFlinch = 1
+ENT.AnimTbl_Flinch = ACT_BIG_FLINCH
 
 -- Custom
 ENT.Boid_WoundedAnim = nil

@@ -5,34 +5,34 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl2/alyx_ep1.mdl", "models/vj_hlr/hl2/alyx_ep2.mdl"} -- Model(s) to spawn with | Picks a random one if it's a table 
+ENT.Model = {"models/vj_hlr/hl2/alyx_ep1.mdl", "models/vj_hlr/hl2/alyx_ep2.mdl"}
 ENT.StartHealth = 100
-ENT.HasHealthRegeneration = true -- Can the NPC regenerate its health?
-ENT.HealthRegenerationAmount = 1 -- How much should the health increase after every delay?
-ENT.HealthRegenerationDelay = VJ.SET(0.1,0.1) -- How much time until the health increases
+ENT.HasHealthRegeneration = true
+ENT.HealthRegenerationAmount = 1
+ENT.HealthRegenerationDelay = VJ.SET(0.1, 0.1)
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.FriendsWithAllPlayerAllies = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.AnimTbl_MeleeAttack = "vjseq_MeleeAttack01"
-ENT.TimeUntilMeleeAttackDamage = 0.7 -- This counted in seconds | This calculates the time until it hits something
-ENT.HasGrenadeAttack = false -- Should the NPC have a grenade attack?
-/*ENT.AnimTbl_GrenadeAttack = {"vjseq_ThrowItem"}
-ENT.TimeUntilGrenadeIsReleased = 1.1 -- Time until the grenade is released
-ENT.GrenadeAttackModel = "models/weapons/w_npcnade.mdl" -- Overrides the model of the grenade | Can be nil, string, and table | Does NOT apply to picked up grenades and forced grenade attacks with custom entity
-ENT.GrenadeAttackAttachment = "anim_attachment_LH" -- The attachment that the grenade will spawn at*/
-ENT.HasOnPlayerSight = true -- Should do something when it sees the enemy? Example: Play a sound
+ENT.TimeUntilMeleeAttackDamage = 0.7
+ENT.HasGrenadeAttack = false
+/*ENT.AnimTbl_GrenadeAttack = "vjseq_ThrowItem"
+ENT.TimeUntilGrenadeIsReleased = 1.1
+ENT.GrenadeAttackModel = "models/weapons/w_npcnade.mdl"
+ENT.GrenadeAttackAttachment = "anim_attachment_LH"*/
+ENT.HasOnPlayerSight = true
 ENT.BecomeEnemyToPlayer = 2
-	-- ====== Flinching Code ====== --
-ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = "vjges_flinch_head" -- The regular flinch animations to play
+
+ENT.CanFlinch = 1
+ENT.AnimTbl_Flinch = "vjges_flinch_head"
 ENT.HitGroupFlinching_Values = {
 	{HitGroup = {HITGROUP_LEFTARM}, Animation = {"vjges_flinch_leftarm"}},
 	{HitGroup = {HITGROUP_RIGHTARM}, Animation = {"vjges_flinch_rightarm"}},
 }
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_FootStep = {"npc/footsteps/hardboot_generic1.wav","npc/footsteps/hardboot_generic2.wav","npc/footsteps/hardboot_generic3.wav","npc/footsteps/hardboot_generic4.wav","npc/footsteps/hardboot_generic5.wav","npc/footsteps/hardboot_generic6.wav","npc/footsteps/hardboot_generic8.wav"}
+
+ENT.SoundTbl_FootStep = {"npc/footsteps/hardboot_generic1.wav", "npc/footsteps/hardboot_generic2.wav", "npc/footsteps/hardboot_generic3.wav", "npc/footsteps/hardboot_generic4.wav", "npc/footsteps/hardboot_generic5.wav", "npc/footsteps/hardboot_generic6.wav", "npc/footsteps/hardboot_generic8.wav"}
 ENT.SoundTbl_Idle = {
 	"vo/eli_lab/al_hums.wav",
 	"vo/eli_lab/al_hums_b.wav",
@@ -837,22 +837,22 @@ ENT.SoundTbl_Death = {
 	"vj_hlr/hl2_npc/ep1/npc/alyx/al_explo_agh.wav",
 }
 
-local sdFreemanReload = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_playerreload01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerreload02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerreload03.wav","vo/npc/alyx/youreload01.wav","vo/npc/alyx/youreload02.wav"}
-local sdKilledEnemy = {"vj_hlr/hl2_npc/ep1/citadel/al_advisor_wasthatthing.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_gross01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_gross02.wav"}
-local sdAllyDeath = {"vo/k_lab/al_lostgordon.wav","vj_hlr/hl2_npc/ep1/c17/al_lasttrain_gordon.wav","vj_hlr/hl2_npc/ep1/c17/al_lasttrain_ohnogordon.wav","vj_hlr/hl2_npc/ep1/c17/al_train_gordon.wav","vj_hlr/hl2_npc/ep1/c17/al_train_madeit02.wav","vj_hlr/hl2_npc/ep1/c17/al_zombieroom_gordon.wav","vj_hlr/hl2_npc/ep1/citadel/al_advisor_breen02.wav","vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback01.wav","vj_hlr/hl2_npc/ep1/citadel/al_postcore_atwindow_new02.wav","vj_hlr/hl2_npc/ep1/citadel/al_stalk_getemoff11.wav","vj_hlr/hl2_npc/ep1/intro/al_gordon.wav","vj_hlr/hl2_npc/ep1/intro/al_ohgordon.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worried01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worrieder_02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriederer01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriederer02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriedest01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriedest03.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath03.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath04.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerfalls01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_playerfalls03.wav","vj_hlr/hl2_npc/ep2/outland_01/intro/al_rbed_callinggordon04.wav","vj_hlr/hl2_npc/ep2/outland_12a/launch/al_launch_attackstart01.wav","vj_hlr/hl2_npc/ep2/outland_12a/launch/al_launch_ohgord.wav"}
+local sdFreemanReload = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_playerreload01.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_playerreload02.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_playerreload03.wav", "vo/npc/alyx/youreload01.wav", "vo/npc/alyx/youreload02.wav"}
+local sdKilledEnemy = {"vj_hlr/hl2_npc/ep1/citadel/al_advisor_wasthatthing.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_gross01.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_gross02.wav"}
+local sdAllyDeath = {"vo/k_lab/al_lostgordon.wav", "vj_hlr/hl2_npc/ep1/c17/al_lasttrain_gordon.wav", "vj_hlr/hl2_npc/ep1/c17/al_lasttrain_ohnogordon.wav", "vj_hlr/hl2_npc/ep1/c17/al_train_gordon.wav", "vj_hlr/hl2_npc/ep1/c17/al_train_madeit02.wav", "vj_hlr/hl2_npc/ep1/c17/al_zombieroom_gordon.wav", "vj_hlr/hl2_npc/ep1/citadel/al_advisor_breen02.wav", "vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback01.wav", "vj_hlr/hl2_npc/ep1/citadel/al_postcore_atwindow_new02.wav", "vj_hlr/hl2_npc/ep1/citadel/al_stalk_getemoff11.wav", "vj_hlr/hl2_npc/ep1/intro/al_gordon.wav", "vj_hlr/hl2_npc/ep1/intro/al_ohgordon.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worried01.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worrieder_02.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriederer01.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriederer02.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriedest01.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_worriedest03.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath01.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath02.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath03.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_playerdeath04.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_playerfalls01.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_playerfalls03.wav", "vj_hlr/hl2_npc/ep2/outland_01/intro/al_rbed_callinggordon04.wav", "vj_hlr/hl2_npc/ep2/outland_12a/launch/al_launch_attackstart01.wav", "vj_hlr/hl2_npc/ep2/outland_12a/launch/al_launch_ohgord.wav"}
 -- Specific alert sounds
-local sdAlertStrider = {"vj_hlr/hl2_npc/ep2/outland_11/dogfight/al_str_ohshistrid.wav","vj_hlr/hl2_npc/ep1/c17/al_strider_omg.wav","vj_hlr/hl2_npc/ep1/c17/al_evac_nowstrider.wav"}
-local sdAlertDropship = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_dropship.wav","vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback03.wav","vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback05.wav"}
-local sdAlertAntlionGuard = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_aguard.wav","vj_hlr/hl2_npc/ep1/c17/al_antguard.wav"}
-local sdAlertHeadcrab = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_pzcrabs_hatethings01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_pzcrabs_hatethings02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs03.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs04.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs05.wav"}
-local sdAlertBarnacle = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle02.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle03.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle04.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_firstbarnacle.wav"}
-local sdAlertStalker = {"vj_hlr/hl2_npc/ep1/citadel/al_stalker_gasp.wav","vj_hlr/hl2_npc/ep1/citadel/al_stalkers_omg02.wav"}
-local sdAlertScanner = {"vo/eli_lab/al_scanners03.wav","vj_hlr/hl2_npc/ep1/c17/al_rappel_scanners.wav"}
-local sdAlertGunship = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_gunship.wav","vj_hlr/hl2_npc/ep1/c17/al_anothergunship.wav","vj_hlr/hl2_npc/ep1/c17/al_evac_gunship.wav"}
-local sdAlertZombie = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_zombie_itsalive01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_zombie_liveone01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_zombie_liveone02.wav","vj_hlr/hl2_npc/ep1/c17/al_pzombie_ohno.wav","vj_hlr/hl2_npc/ep1/c17/al_hospital_morezombies.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies01.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies02.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies03.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies04.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies05.wav","vj_hlr/hl2_npc/ep1/c17/al_alert_zombies06.wav"}
-local sdAlertAntlion = {"vj_hlr/hl2_npc/ep1/c17/al_antlions_holycrap.wav","vj_hlr/hl2_npc/ep1/c17/al_ant_uncovered01.wav","vj_hlr/hl2_npc/ep1/c17/al_ant_uncovered02.wav","vj_hlr/hl2_npc/ep1/c17/al_antlions_firstsight.wav"}
-local sdAlertCreature = {"vj_hlr/hl2_npc/ep1/citadel/al_advisor_podthings.wav","vj_hlr/hl2_npc/ep1/citadel/al_gravcharge_thing.wav"}
-local sdAlertHuman = {"vj_hlr/hl2_npc/ep1/c17/al_evac_ontous01.wav","vj_hlr/hl2_npc/ep2/outland_07/barn/al_barn_soldiers01.wav","vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_soldiers.wav","vj_hlr/hl2_npc/ep1/citadel/al_bridge_soldiers.wav"}
+local sdAlertStrider = {"vj_hlr/hl2_npc/ep2/outland_11/dogfight/al_str_ohshistrid.wav", "vj_hlr/hl2_npc/ep1/c17/al_strider_omg.wav", "vj_hlr/hl2_npc/ep1/c17/al_evac_nowstrider.wav"}
+local sdAlertDropship = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_dropship.wav", "vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback03.wav", "vj_hlr/hl2_npc/ep1/citadel/al_dropship_getback05.wav"}
+local sdAlertAntlionGuard = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_aguard.wav", "vj_hlr/hl2_npc/ep1/c17/al_antguard.wav"}
+local sdAlertHeadcrab = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_pzcrabs_hatethings01.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_pzcrabs_hatethings02.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs01.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs02.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs03.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs04.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_headcrabs05.wav"}
+local sdAlertBarnacle = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle01.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle02.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle03.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_barnacle04.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_firstbarnacle.wav"}
+local sdAlertStalker = {"vj_hlr/hl2_npc/ep1/citadel/al_stalker_gasp.wav", "vj_hlr/hl2_npc/ep1/citadel/al_stalkers_omg02.wav"}
+local sdAlertScanner = {"vo/eli_lab/al_scanners03.wav", "vj_hlr/hl2_npc/ep1/c17/al_rappel_scanners.wav"}
+local sdAlertGunship = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_gunship.wav", "vj_hlr/hl2_npc/ep1/c17/al_anothergunship.wav", "vj_hlr/hl2_npc/ep1/c17/al_evac_gunship.wav"}
+local sdAlertZombie = {"vj_hlr/hl2_npc/ep1/npc/alyx/al_zombie_itsalive01.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_zombie_liveone01.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_zombie_liveone02.wav", "vj_hlr/hl2_npc/ep1/c17/al_pzombie_ohno.wav", "vj_hlr/hl2_npc/ep1/c17/al_hospital_morezombies.wav", "vj_hlr/hl2_npc/ep1/c17/al_alert_zombies01.wav", "vj_hlr/hl2_npc/ep1/c17/al_alert_zombies02.wav", "vj_hlr/hl2_npc/ep1/c17/al_alert_zombies03.wav", "vj_hlr/hl2_npc/ep1/c17/al_alert_zombies04.wav", "vj_hlr/hl2_npc/ep1/c17/al_alert_zombies05.wav", "vj_hlr/hl2_npc/ep1/c17/al_alert_zombies06.wav"}
+local sdAlertAntlion = {"vj_hlr/hl2_npc/ep1/c17/al_antlions_holycrap.wav", "vj_hlr/hl2_npc/ep1/c17/al_ant_uncovered01.wav", "vj_hlr/hl2_npc/ep1/c17/al_ant_uncovered02.wav", "vj_hlr/hl2_npc/ep1/c17/al_antlions_firstsight.wav"}
+local sdAlertCreature = {"vj_hlr/hl2_npc/ep1/citadel/al_advisor_podthings.wav", "vj_hlr/hl2_npc/ep1/citadel/al_gravcharge_thing.wav"}
+local sdAlertHuman = {"vj_hlr/hl2_npc/ep1/c17/al_evac_ontous01.wav", "vj_hlr/hl2_npc/ep2/outland_07/barn/al_barn_soldiers01.wav", "vj_hlr/hl2_npc/ep1/npc/alyx/al_alert_soldiers.wav", "vj_hlr/hl2_npc/ep1/citadel/al_bridge_soldiers.wav"}
 
 --[[ UNUSED
 

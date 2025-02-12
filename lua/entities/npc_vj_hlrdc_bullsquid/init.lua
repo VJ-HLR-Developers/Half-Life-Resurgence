@@ -6,7 +6,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/bullsquid_dreamcast.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/bullsquid_dreamcast.mdl"
 ENT.StartHealth = 90
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local baseAcceptInput = ENT.OnInput
@@ -14,10 +14,10 @@ local baseAcceptInput = ENT.OnInput
 function ENT:OnInput(key, activator, caller, data)
 	if key == "melee_whip" then
 		self.MeleeAttackDamage = 38
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	elseif key == "melee_bite" then
 		self.MeleeAttackDamage = 27
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	else
 		baseAcceptInput(self, key, activator, caller, data)
 	end

@@ -5,27 +5,27 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/apc_body.mdl" -- Model(s) to spawn with | Picks a random one if it's a table 
+ENT.Model = "models/vj_hlr/hl1/apc_body.mdl"
 ENT.StartHealth = 350
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(-40, 0, 20), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "static_prop", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(0, 0, 40), -- The offset for the controller when the camera is in first person
-	FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(-40, 0, 20),
+    FirstP_Bone = "static_prop",
+    FirstP_Offset = Vector(0, 0, 40),
+	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
-ENT.DeathCorpseModel = "models/vj_hlr/hl1/apc_body_destroyed.mdl" -- Model(s) to spawn as the NPC's corpse | false = Use the NPC's model | Can be a single string or a table of strings
+ENT.DeathCorpseModel = "models/vj_hlr/hl1/apc_body_destroyed.mdl"
 
 ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/tanks/bradley_idle.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/hgrunt/gr_idle1.wav","vj_hlr/hl1_npc/hgrunt/gr_idle2.wav","vj_hlr/hl1_npc/hgrunt/gr_idle3.wav"}
-ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/hgrunt/gr_taunt1.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt2.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt3.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt4.wav","vj_hlr/hl1_npc/hgrunt/gr_taunt5.wav","vj_hlr/hl1_npc/hgrunt/gr_combat1.wav","vj_hlr/hl1_npc/hgrunt/gr_combat2.wav","vj_hlr/hl1_npc/hgrunt/gr_combat3.wav","vj_hlr/hl1_npc/hgrunt/gr_combat4.wav"}
-ENT.SoundTbl_OnReceiveOrder = {"vj_hlr/hl1_npc/hgrunt/gr_answer1.wav","vj_hlr/hl1_npc/hgrunt/gr_answer2.wav","vj_hlr/hl1_npc/hgrunt/gr_answer3.wav","vj_hlr/hl1_npc/hgrunt/gr_answer5.wav","vj_hlr/hl1_npc/hgrunt/gr_answer7.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/hgrunt/gr_idle1.wav", "vj_hlr/hl1_npc/hgrunt/gr_idle2.wav", "vj_hlr/hl1_npc/hgrunt/gr_idle3.wav"}
+ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/hgrunt/gr_taunt1.wav", "vj_hlr/hl1_npc/hgrunt/gr_taunt2.wav", "vj_hlr/hl1_npc/hgrunt/gr_taunt3.wav", "vj_hlr/hl1_npc/hgrunt/gr_taunt4.wav", "vj_hlr/hl1_npc/hgrunt/gr_taunt5.wav", "vj_hlr/hl1_npc/hgrunt/gr_combat1.wav", "vj_hlr/hl1_npc/hgrunt/gr_combat2.wav", "vj_hlr/hl1_npc/hgrunt/gr_combat3.wav", "vj_hlr/hl1_npc/hgrunt/gr_combat4.wav"}
+ENT.SoundTbl_OnReceiveOrder = {"vj_hlr/hl1_npc/hgrunt/gr_answer1.wav", "vj_hlr/hl1_npc/hgrunt/gr_answer2.wav", "vj_hlr/hl1_npc/hgrunt/gr_answer3.wav", "vj_hlr/hl1_npc/hgrunt/gr_answer5.wav", "vj_hlr/hl1_npc/hgrunt/gr_answer7.wav"}
 ENT.SoundTbl_Investigate = {"vj_hlr/hl1_npc/hgrunt/gr_investigate.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/hgrunt/gr_alert1.wav","vj_hlr/hl1_npc/hgrunt/gr_alert2.wav","vj_hlr/hl1_npc/hgrunt/gr_alert3.wav","vj_hlr/hl1_npc/hgrunt/gr_alert4.wav","vj_hlr/hl1_npc/hgrunt/gr_alert5.wav","vj_hlr/hl1_npc/hgrunt/gr_alert6.wav","vj_hlr/hl1_npc/hgrunt/gr_alert7.wav","vj_hlr/hl1_npc/hgrunt/gr_alert8.wav","vj_hlr/hl1_npc/hgrunt/gr_alert9.wav","vj_hlr/hl1_npc/hgrunt/gr_alert10.wav"}
-ENT.SoundTbl_CallForHelp = {"vj_hlr/hl1_npc/hgrunt/gr_taunt6.wav","vj_hlr/hl1_npc/hgrunt/gr_cover2.wav","vj_hlr/hl1_npc/hgrunt/gr_cover3.wav","vj_hlr/hl1_npc/hgrunt/gr_cover4.wav","vj_hlr/hl1_npc/hgrunt/gr_cover7.wav"}
-ENT.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/hgrunt/gr_allydeath.wav","vj_hlr/hl1_npc/hgrunt/gr_cover2.wav","vj_hlr/hl1_npc/hgrunt/gr_cover3.wav","vj_hlr/hl1_npc/hgrunt/gr_cover4.wav","vj_hlr/hl1_npc/hgrunt/gr_cover7.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/hgrunt/gr_alert1.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert2.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert3.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert4.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert5.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert6.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert7.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert8.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert9.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert10.wav"}
+ENT.SoundTbl_CallForHelp = {"vj_hlr/hl1_npc/hgrunt/gr_taunt6.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover2.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover3.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover4.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover7.wav"}
+ENT.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/hgrunt/gr_allydeath.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover2.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover3.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover4.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover7.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
 
 -- Tank Base
 ENT.Tank_SoundTbl_DrivingEngine = "vj_hlr/hl1_npc/tanks/tankdrive.wav"
@@ -160,22 +160,22 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 				util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
 				
 				local spr = ents.Create("env_sprite")
-				spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-				spr:SetKeyValue("GlowProxySize","2.0")
-				spr:SetKeyValue("HDRColorScale","1.0")
-				spr:SetKeyValue("renderfx","14")
-				spr:SetKeyValue("rendermode","5")
-				spr:SetKeyValue("renderamt","255")
-				spr:SetKeyValue("disablereceiveshadows","0")
-				spr:SetKeyValue("mindxlevel","0")
-				spr:SetKeyValue("maxdxlevel","0")
-				spr:SetKeyValue("framerate","15.0")
-				spr:SetKeyValue("spawnflags","0")
-				spr:SetKeyValue("scale","4")
+				spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
+				spr:SetKeyValue("GlowProxySize", "2.0")
+				spr:SetKeyValue("HDRColorScale", "1.0")
+				spr:SetKeyValue("renderfx", "14")
+				spr:SetKeyValue("rendermode", "5")
+				spr:SetKeyValue("renderamt", "255")
+				spr:SetKeyValue("disablereceiveshadows", "0")
+				spr:SetKeyValue("mindxlevel", "0")
+				spr:SetKeyValue("maxdxlevel", "0")
+				spr:SetKeyValue("framerate", "15.0")
+				spr:SetKeyValue("spawnflags", "0")
+				spr:SetKeyValue("scale", "4")
 				spr:SetPos(self:GetPos() + expPos)
 				spr:Spawn()
-				spr:Fire("Kill","",0.9)
-				timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
+				spr:Fire("Kill", "", 0.9)
+				timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 			end
 		end)
 	end
@@ -187,21 +187,21 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 			util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
 			VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
 			local spr = ents.Create("env_sprite")
-			spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-			spr:SetKeyValue("GlowProxySize","2.0")
-			spr:SetKeyValue("HDRColorScale","1.0")
-			spr:SetKeyValue("renderfx","14")
-			spr:SetKeyValue("rendermode","5")
-			spr:SetKeyValue("renderamt","255")
-			spr:SetKeyValue("disablereceiveshadows","0")
-			spr:SetKeyValue("mindxlevel","0")
-			spr:SetKeyValue("maxdxlevel","0")
-			spr:SetKeyValue("framerate","15.0")
-			spr:SetKeyValue("spawnflags","0")
-			spr:SetKeyValue("scale","4")
+			spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
+			spr:SetKeyValue("GlowProxySize", "2.0")
+			spr:SetKeyValue("HDRColorScale", "1.0")
+			spr:SetKeyValue("renderfx", "14")
+			spr:SetKeyValue("rendermode", "5")
+			spr:SetKeyValue("renderamt", "255")
+			spr:SetKeyValue("disablereceiveshadows", "0")
+			spr:SetKeyValue("mindxlevel", "0")
+			spr:SetKeyValue("maxdxlevel", "0")
+			spr:SetKeyValue("framerate", "15.0")
+			spr:SetKeyValue("spawnflags", "0")
+			spr:SetKeyValue("scale", "4")
 			spr:SetPos(self:GetPos() + expPos)
 			spr:Spawn()
-			spr:Fire("Kill","",0.9)
+			spr:Fire("Kill", "", 0.9)
 			timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
 		end
 	end)
@@ -246,21 +246,21 @@ function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpseEnt, status, statusData
 		statusData:SetBodygroup(2, 2)
 	elseif status == "Effects" then
 		local spr = ents.Create("env_sprite")
-		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-		spr:SetKeyValue("GlowProxySize","2.0")
-		spr:SetKeyValue("HDRColorScale","1.0")
-		spr:SetKeyValue("renderfx","14")
-		spr:SetKeyValue("rendermode","5")
-		spr:SetKeyValue("renderamt","255")
-		spr:SetKeyValue("disablereceiveshadows","0")
-		spr:SetKeyValue("mindxlevel","0")
-		spr:SetKeyValue("maxdxlevel","0")
-		spr:SetKeyValue("framerate","15.0")
-		spr:SetKeyValue("spawnflags","0")
-		spr:SetKeyValue("scale","4")
+		spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
+		spr:SetKeyValue("GlowProxySize", "2.0")
+		spr:SetKeyValue("HDRColorScale", "1.0")
+		spr:SetKeyValue("renderfx", "14")
+		spr:SetKeyValue("rendermode", "5")
+		spr:SetKeyValue("renderamt", "255")
+		spr:SetKeyValue("disablereceiveshadows", "0")
+		spr:SetKeyValue("mindxlevel", "0")
+		spr:SetKeyValue("maxdxlevel", "0")
+		spr:SetKeyValue("framerate", "15.0")
+		spr:SetKeyValue("spawnflags", "0")
+		spr:SetKeyValue("scale", "4")
 		spr:SetPos(self:GetPos() + expPos)
 		spr:Spawn()
-		spr:Fire("Kill","",0.9)
+		spr:Fire("Kill", "", 0.9)
 		timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 		return true
 	end

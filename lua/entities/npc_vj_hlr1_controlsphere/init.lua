@@ -5,16 +5,16 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/sphere.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/sphere.mdl"
 ENT.StartHealth = 60
 ENT.SightAngle = 100
 ENT.HullType = HULL_TINY
-ENT.MovementType = VJ_MOVETYPE_AERIAL -- How the NPC moves around
-ENT.Aerial_FlyingSpeed_Calm = 50 -- The speed it should fly with, when it's wandering, moving slowly, etc. | Basically walking compared to ground NPCs
-ENT.Aerial_FlyingSpeed_Alerted = 80 -- The speed it should fly with, when it's chasing an enemy, moving away quickly, etc. | Basically running compared to ground NPCs
-ENT.ControllerVars = {
-    FirstP_Bone = "Bone02", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(5, 0, 7), -- The offset for the controller when the camera is in first person
+ENT.MovementType = VJ_MOVETYPE_AERIAL
+ENT.Aerial_FlyingSpeed_Calm = 50
+ENT.Aerial_FlyingSpeed_Alerted = 80
+ENT.ControllerParameters = {
+    FirstP_Bone = "Bone02",
+    FirstP_Offset = Vector(5, 0, 7),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
@@ -22,29 +22,28 @@ ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
-ENT.ConstantlyFaceEnemy = true -- Should it face the enemy constantly?
-ENT.HasMeleeAttack = false -- Can this NPC melee attack?
+ENT.ConstantlyFaceEnemy = true
+ENT.HasMeleeAttack = false
 
-ENT.HasRangeAttack = true -- Can this NPC range attack?
+ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-ENT.RangeDistance = 1020 -- How far can it range attack?
-ENT.RangeToMeleeDistance = 1 -- How close does it have to be until it uses melee?
-ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
-ENT.NextRangeAttackTime = 3 -- How much time until it can use a range attack?
-ENT.DisableDefaultRangeAttackCode = true -- When true, it won't spawn the range attack entity, allowing you to make your own
+ENT.RangeDistance = 1020
+ENT.RangeToMeleeDistance = 1
+ENT.TimeUntilRangeAttackProjectileRelease = false
+ENT.NextRangeAttackTime = 3
+ENT.DisableDefaultRangeAttackCode = true
 
-ENT.NoChaseAfterCertainRange = true -- Should the NPC stop chasing when the enemy is within the given far and close distances?
-ENT.NoChaseAfterCertainRange_FarDistance = "UseRangeDistance" -- How far until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
-ENT.NoChaseAfterCertainRange_CloseDistance = "UseRangeDistance" -- How near until it can chase again? | "UseRangeDistance" = Use the number provided by the range attack instead
-ENT.NoChaseAfterCertainRange_Type = "Regular" -- "Regular" = Default behavior | "OnlyRange" = Only does it if it's able to range attack
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/sphere/sph_motor1.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/sphere/sph_idle1.wav","vj_hlr/hl1_npc/sphere/sph_idle2.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/sphere/sph_alert1.wav"}
-ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/fx/zap4.wav"}
-ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/hassault/hw_shoot1.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/sphere/sph_pain1.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/sphere/sph_pain1.wav"}
+ENT.LimitChaseDistance = true
+ENT.LimitChaseDistance_Max = "UseRangeDistance"
+ENT.LimitChaseDistance_Min = "UseRangeDistance"
+
+ENT.SoundTbl_Breath = "vj_hlr/hl1_npc/sphere/sph_motor1.wav"
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/sphere/sph_idle1.wav", "vj_hlr/hl1_npc/sphere/sph_idle2.wav"}
+ENT.SoundTbl_Alert = "vj_hlr/hl1_npc/sphere/sph_alert1.wav"
+ENT.SoundTbl_BeforeRangeAttack = "vj_hlr/fx/zap4.wav"
+ENT.SoundTbl_RangeAttack = "vj_hlr/hl1_npc/hassault/hw_shoot1.wav"
+ENT.SoundTbl_Pain = "vj_hlr/hl1_npc/sphere/sph_pain1.wav"
+ENT.SoundTbl_Death = "vj_hlr/hl1_npc/sphere/sph_pain1.wav"
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -55,7 +54,7 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "shoot" then
-		self:RangeAttackCode()
+		self:ExecuteRangeAttack()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

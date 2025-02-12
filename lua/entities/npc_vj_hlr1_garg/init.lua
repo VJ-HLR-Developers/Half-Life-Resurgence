@@ -5,15 +5,15 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/garg.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/garg.mdl"
 ENT.StartHealth = 1000
 ENT.SightAngle = 203
 ENT.HullType = HULL_HUMAN
 ENT.VJ_ID_Boss = true
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(-50, 0, -45), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(7, 0, -12), -- The offset for the controller when the camera is in first person
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(-50, 0, -45),
+    FirstP_Bone = "Bip01 Head",
+    FirstP_Offset = Vector(7, 0, -12),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
@@ -22,44 +22,44 @@ ENT.BloodParticle = {"vj_hlr_blood_yellow_large"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
 
-ENT.HasMeleeAttack = true -- Can this NPC melee attack?
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDamage = 30 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageType = DMG_CRUSH -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDistance = 160 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageDistance = 165 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.HasMeleeAttack = true
+ENT.TimeUntilMeleeAttackDamage = false
+ENT.MeleeAttackDamage = 30
+ENT.MeleeAttackDamageType = DMG_CRUSH
+ENT.MeleeAttackDistance = 160
+ENT.MeleeAttackDamageDistance = 165
 
-ENT.HasRangeAttack = true -- Can this NPC range attack?
+ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK2
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_garg_stomp" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
-ENT.RangeDistance = 2000 -- How far can it range attack?
-ENT.RangeToMeleeDistance = 120 -- How close does it have to be until it uses melee?
-ENT.NextRangeAttackTime = 10 -- How much time until it can use a range attack?
-ENT.NextRangeAttackTime_DoRand = 13 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
-ENT.TimeUntilRangeAttackProjectileRelease = false -- How much time until the projectile code is ran?
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_garg_stomp"
+ENT.RangeDistance = 2000
+ENT.RangeToMeleeDistance = 120
+ENT.NextRangeAttackTime = 10
+ENT.NextRangeAttackTime_DoRand = 13
+ENT.TimeUntilRangeAttackProjectileRelease = false
 
-ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
+ENT.HasExtraMeleeAttackSounds = true
 ENT.DisableFootStepSoundTimer = true
 ENT.GibOnDeathFilter = false
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
-ENT.DeathAnimationTime = 3.7 -- How long should the death animation play?
+ENT.HasDeathAnimation = true
+ENT.DeathAnimationTime = 3.7
 ENT.AnimTbl_Death = ACT_DIESIMPLE
-	-- ====== Flinching Variables ====== --
-ENT.CanFlinch = 2 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.FlinchDamageTypes = {DMG_BLAST} -- If it uses damage-based flinching, which types of damages should it flinch from?
-ENT.FlinchChance = 2 -- Chance of it flinching from 1 to x | 1 will make it always flinch
-ENT.AnimTbl_Flinch = ACT_BIG_FLINCH -- The regular flinch animations to play
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/garg/gar_step1.wav","vj_hlr/hl1_npc/garg/gar_step2.wav"}
-ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/garg/gar_breathe1.wav","vj_hlr/hl1_npc/garg/gar_breathe2.wav","vj_hlr/hl1_npc/garg/gar_breathe3.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/garg/gar_idle1.wav","vj_hlr/hl1_npc/garg/gar_idle2.wav","vj_hlr/hl1_npc/garg/gar_idle3.wav","vj_hlr/hl1_npc/garg/gar_idle4.wav","vj_hlr/hl1_npc/garg/gar_idle5.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/garg/gar_alert1.wav","vj_hlr/hl1_npc/garg/gar_alert2.wav","vj_hlr/hl1_npc/garg/gar_alert3.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/garg/gar_attack1.wav","vj_hlr/hl1_npc/garg/gar_attack2.wav","vj_hlr/hl1_npc/garg/gar_attack3.wav"}
-ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav","vj_hlr/hl1_npc/zombie/claw_strike2.wav","vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav","vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/garg/gar_stomp1.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/garg/gar_pain1.wav","vj_hlr/hl1_npc/garg/gar_pain2.wav","vj_hlr/hl1_npc/garg/gar_pain3.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/garg/gar_die1.wav","vj_hlr/hl1_npc/garg/gar_die2.wav"}
+
+ENT.CanFlinch = 2
+ENT.FlinchDamageTypes = {DMG_BLAST}
+ENT.FlinchChance = 2
+ENT.AnimTbl_Flinch = ACT_BIG_FLINCH
+
+ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/garg/gar_step1.wav", "vj_hlr/hl1_npc/garg/gar_step2.wav"}
+ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/garg/gar_breathe1.wav", "vj_hlr/hl1_npc/garg/gar_breathe2.wav", "vj_hlr/hl1_npc/garg/gar_breathe3.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/garg/gar_idle1.wav", "vj_hlr/hl1_npc/garg/gar_idle2.wav", "vj_hlr/hl1_npc/garg/gar_idle3.wav", "vj_hlr/hl1_npc/garg/gar_idle4.wav", "vj_hlr/hl1_npc/garg/gar_idle5.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/garg/gar_alert1.wav", "vj_hlr/hl1_npc/garg/gar_alert2.wav", "vj_hlr/hl1_npc/garg/gar_alert3.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/garg/gar_attack1.wav", "vj_hlr/hl1_npc/garg/gar_attack2.wav", "vj_hlr/hl1_npc/garg/gar_attack3.wav"}
+ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav", "vj_hlr/hl1_npc/zombie/claw_strike2.wav", "vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_RangeAttack = "vj_hlr/hl1_npc/garg/gar_stomp1.wav"
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/garg/gar_pain1.wav", "vj_hlr/hl1_npc/garg/gar_pain2.wav", "vj_hlr/hl1_npc/garg/gar_pain3.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/garg/gar_die1.wav", "vj_hlr/hl1_npc/garg/gar_die2.wav"}
 
 local sdExplosions = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
 
@@ -120,10 +120,10 @@ function ENT:OnInput(key, activator, caller, data)
 		util.ScreenShake(self:GetPos(), 10, 100, 0.4, self.Garg_Type == 1 and 300 or 1000)
 	end
 	if key == "melee" then
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	end
 	if key == "laser" then
-		self:RangeAttackCode()
+		self:ExecuteRangeAttack()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -222,7 +222,7 @@ function ENT:MeleeAttackKnockbackVelocity(hitEnt)
 	return self:GetForward()*500 + self:GetUp()*(self.Garg_MeleeLargeKnockback and 300 or 10)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:MultipleMeleeAttacks()
+function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
 	local randMelee = math.random(1, 3)
 	if randMelee == 1 then
 		self.AnimTbl_MeleeAttack = "vjseq_smash"
@@ -299,17 +299,17 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				if IsValid(self) then
 					local myPos = self:GetPos()
 					local spr = ents.Create("env_sprite")
-					spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-					spr:SetKeyValue("GlowProxySize","2.0")
-					spr:SetKeyValue("HDRColorScale","1.0")
-					spr:SetKeyValue("renderfx","14")
-					spr:SetKeyValue("rendermode","5")
-					spr:SetKeyValue("renderamt","255")
-					spr:SetKeyValue("disablereceiveshadows","0")
-					spr:SetKeyValue("mindxlevel","0")
-					spr:SetKeyValue("maxdxlevel","0")
-					spr:SetKeyValue("framerate","15.0")
-					spr:SetKeyValue("spawnflags","0")
+					spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
+					spr:SetKeyValue("GlowProxySize", "2.0")
+					spr:SetKeyValue("HDRColorScale", "1.0")
+					spr:SetKeyValue("renderfx", "14")
+					spr:SetKeyValue("rendermode", "5")
+					spr:SetKeyValue("renderamt", "255")
+					spr:SetKeyValue("disablereceiveshadows", "0")
+					spr:SetKeyValue("mindxlevel", "0")
+					spr:SetKeyValue("maxdxlevel", "0")
+					spr:SetKeyValue("framerate", "15.0")
+					spr:SetKeyValue("spawnflags", "0")
 					spr:SetKeyValue("scale", self.Garg_Type == 1 and "3" or "6")
 					spr:SetPos(myPos + self:GetUp()*(self.Garg_Type == 1 and math.random(60, 120) or math.random(120, 200)))
 					spr:Spawn()
@@ -343,21 +343,21 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 				util.Effect("bloodspray", effectData)
 				
 				local spr = ents.Create("env_sprite")
-				spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-				spr:SetKeyValue("GlowProxySize","2.0")
-				spr:SetKeyValue("HDRColorScale","1.0")
-				spr:SetKeyValue("renderfx","14")
-				spr:SetKeyValue("rendermode","5")
-				spr:SetKeyValue("renderamt","255")
-				spr:SetKeyValue("disablereceiveshadows","0")
-				spr:SetKeyValue("mindxlevel","0")
-				spr:SetKeyValue("maxdxlevel","0")
-				spr:SetKeyValue("framerate","15.0")
-				spr:SetKeyValue("spawnflags","0")
+				spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
+				spr:SetKeyValue("GlowProxySize", "2.0")
+				spr:SetKeyValue("HDRColorScale", "1.0")
+				spr:SetKeyValue("renderfx", "14")
+				spr:SetKeyValue("rendermode", "5")
+				spr:SetKeyValue("renderamt", "255")
+				spr:SetKeyValue("disablereceiveshadows", "0")
+				spr:SetKeyValue("mindxlevel", "0")
+				spr:SetKeyValue("maxdxlevel", "0")
+				spr:SetKeyValue("framerate", "15.0")
+				spr:SetKeyValue("spawnflags", "0")
 				spr:SetKeyValue("scale", self.Garg_Type == 1 and "3" or "6")
 				spr:SetPos(myPos + self:GetUp()*150)
 				spr:Spawn()
-				spr:Fire("Kill","",0.9)
+				spr:Fire("Kill", "",0.9)
 				timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 			end
 			

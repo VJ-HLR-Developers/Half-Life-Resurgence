@@ -5,13 +5,13 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/hgrunt.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/hgrunt.mdl"
 ENT.StartHealth = 90
 ENT.HullType = HULL_HUMAN
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(0, 0, -15), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(3, 0, 5), -- The offset for the controller when the camera is in first person
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(0, 0, -15),
+    FirstP_Bone = "Bip01 Head",
+    FirstP_Offset = Vector(3, 0, 5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -19,45 +19,45 @@ ENT.BloodParticle = {"vj_hlr_blood_red"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Red"}
 ENT.HasBloodPool = false
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
-ENT.HasMeleeAttack = true -- Can this NPC melee attack?
+ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
 ENT.MeleeAttackDamage = 10
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
+ENT.TimeUntilMeleeAttackDamage = false
 
-ENT.HasGrenadeAttack = true -- Should the NPC have a grenade attack?
-ENT.GrenadeAttackEntity = "obj_vj_hlr1_grenade" -- Entities that it can spawn when throwing a grenade | If set as a table, it picks a random entity | VJ: "obj_vj_grenade" | HL2: "npc_grenade_frag"
+ENT.HasGrenadeAttack = true
+ENT.GrenadeAttackEntity = "obj_vj_hlr1_grenade"
 ENT.AnimTbl_GrenadeAttack = ACT_SPECIAL_ATTACK2
-ENT.GrenadeAttackAttachment = "lhand" -- The attachment that the grenade will spawn at
-ENT.TimeUntilGrenadeIsReleased = false -- Time until the grenade is released
-ENT.NextThrowGrenadeTime = VJ.SET(10, 12) -- Time until it can throw a grenade again
-ENT.GrenadeAttackChance = 3 -- 1 in x chance that it will throw a grenade when all the requirements are met | 1 = Throw it every time
+ENT.GrenadeAttackAttachment = "lhand"
+ENT.TimeUntilGrenadeIsReleased = false
+ENT.NextThrowGrenadeTime = VJ.SET(10, 12)
+ENT.GrenadeAttackChance = 3
 
 ENT.AnimTbl_Medic_GiveHealth = false
-ENT.Medic_SpawnPropOnHeal = false -- Should it spawn a prop, such as small health vial at a attachment when healing an ally?
-ENT.Medic_TimeUntilHeal = 4 -- Time until the ally receives health | Set to false to let the base decide the time
-ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
-ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
-ENT.Weapon_StrafeWhileFiring = false -- Should it move randomly while firing a weapon?
-//ENT.PoseParameterLooking_InvertPitch = true -- Inverts the pitch pose parameters (X)
-//ENT.PoseParameterLooking_Names = {pitch={"XR"},yaw={},roll={"ZR"}} -- Custom pose parameters to use, can put as many as needed
+ENT.Medic_SpawnPropOnHeal = false
+ENT.Medic_TimeUntilHeal = 4
+ENT.Weapon_NoSpawnMenu = true
+ENT.DisableWeaponFiringGesture = true
+ENT.Weapon_StrafeWhileFiring = false
+//ENT.PoseParameterLooking_InvertPitch = true
+//ENT.PoseParameterLooking_Names = {pitch={"XR"},yaw={},roll={"ZR"}}
 ENT.AnimTbl_CallForBackUpOnDamage = ACT_SIGNAL3
 ENT.AnimTbl_CallForHelp = ACT_SIGNAL1
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE}
-//ENT.DeathAnimationTime = 0.8 -- How long should the death animation play?
-ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE -- The animation it plays when hiding in a covered position, leave empty to let the base decide
-ENT.AnimTbl_WeaponAttackSecondary = ACT_SPECIAL_ATTACK1 -- Animation(s) to play while firing the weapon's secondary attack
+//ENT.DeathAnimationTime = 0.8
+ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE
+ENT.AnimTbl_WeaponAttackSecondary = ACT_SPECIAL_ATTACK1
 ENT.Weapon_SecondaryFireTime = 0.7
-ENT.AnimTbl_WeaponReload = ACT_RELOAD_SMG1 -- Animations that play when the SNPC reloads
-ENT.CanTurnWhileMoving = false -- Can the NPC turn while moving? | EX: GoldSrc NPCs, Facing enemy while running to cover, Facing the player while moving out of the way
+ENT.AnimTbl_WeaponReload = ACT_RELOAD_SMG1
+ENT.CanTurnWhileMoving = false
 ENT.DisableFootStepSoundTimer = true
-	-- ====== Flinching Code ====== --
-ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH -- The regular flinch animations to play
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav","vj_hlr/pl_step2.wav","vj_hlr/pl_step3.wav","vj_hlr/pl_step4.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/hgrunt/gr_die1.wav","vj_hlr/hl1_npc/hgrunt/gr_die2.wav","vj_hlr/hl1_npc/hgrunt/gr_die3.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/hgrunt/gr_pain1.wav","vj_hlr/hl1_npc/hgrunt/gr_pain2.wav","vj_hlr/hl1_npc/hgrunt/gr_pain3.wav","vj_hlr/hl1_npc/hgrunt/gr_pain4.wav","vj_hlr/hl1_npc/hgrunt/gr_pain5.wav"}
+
+ENT.CanFlinch = 1
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
+
+ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav", "vj_hlr/pl_step2.wav", "vj_hlr/pl_step3.wav", "vj_hlr/pl_step4.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/hgrunt/gr_die1.wav", "vj_hlr/hl1_npc/hgrunt/gr_die2.wav", "vj_hlr/hl1_npc/hgrunt/gr_die3.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/hgrunt/gr_pain1.wav", "vj_hlr/hl1_npc/hgrunt/gr_pain2.wav", "vj_hlr/hl1_npc/hgrunt/gr_pain3.wav", "vj_hlr/hl1_npc/hgrunt/gr_pain4.wav", "vj_hlr/hl1_npc/hgrunt/gr_pain5.wav"}
 
 -- Custom
 ENT.HECU_Type = 0
@@ -201,7 +201,7 @@ function ENT:OnInput(key, activator, caller, data)
 	if key == "step" then
 		self:PlayFootstepSound()
 	elseif key == "melee" then
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	elseif key == "throwgrenade" then
 		timer.Adjust("attack_grenade_start" .. self:EntIndex(), 0)
 	elseif key == "shoot" then
@@ -536,21 +536,21 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		VJ.EmitSound(self, gasTankExpSd, 90)
 		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
 		local spr = ents.Create("env_sprite")
-		spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-		spr:SetKeyValue("GlowProxySize","2.0")
-		spr:SetKeyValue("HDRColorScale","1.0")
-		spr:SetKeyValue("renderfx","14")
-		spr:SetKeyValue("rendermode","5")
-		spr:SetKeyValue("renderamt","255")
-		spr:SetKeyValue("disablereceiveshadows","0")
-		spr:SetKeyValue("mindxlevel","0")
-		spr:SetKeyValue("maxdxlevel","0")
-		spr:SetKeyValue("framerate","15.0")
-		spr:SetKeyValue("spawnflags","0")
-		spr:SetKeyValue("scale","4")
+		spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
+		spr:SetKeyValue("GlowProxySize", "2.0")
+		spr:SetKeyValue("HDRColorScale", "1.0")
+		spr:SetKeyValue("renderfx", "14")
+		spr:SetKeyValue("rendermode", "5")
+		spr:SetKeyValue("renderamt", "255")
+		spr:SetKeyValue("disablereceiveshadows", "0")
+		spr:SetKeyValue("mindxlevel", "0")
+		spr:SetKeyValue("maxdxlevel", "0")
+		spr:SetKeyValue("framerate", "15.0")
+		spr:SetKeyValue("spawnflags", "0")
+		spr:SetKeyValue("scale", "4")
 		spr:SetPos(self:GetPos() + gasTankExpPos)
 		spr:Spawn()
-		spr:Fire("Kill","",0.9)
+		spr:Fire("Kill", "",0.9)
 		timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
 	end
 	
@@ -602,21 +602,21 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		
 		if self.HECU_Type == 5 then
 			local spr = ents.Create("env_sprite")
-			spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-			spr:SetKeyValue("GlowProxySize","2.0")
-			spr:SetKeyValue("HDRColorScale","1.0")
-			spr:SetKeyValue("renderfx","14")
-			spr:SetKeyValue("rendermode","5")
-			spr:SetKeyValue("renderamt","255")
-			spr:SetKeyValue("disablereceiveshadows","0")
-			spr:SetKeyValue("mindxlevel","0")
-			spr:SetKeyValue("maxdxlevel","0")
-			spr:SetKeyValue("framerate","20.0")
-			spr:SetKeyValue("spawnflags","0")
-			spr:SetKeyValue("scale","1.5")
-			spr:SetPos(self:GetPos() + self:GetUp()*60)
+			spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
+			spr:SetKeyValue("GlowProxySize", "2.0")
+			spr:SetKeyValue("HDRColorScale", "1.0")
+			spr:SetKeyValue("renderfx", "14")
+			spr:SetKeyValue("rendermode", "5")
+			spr:SetKeyValue("renderamt", "255")
+			spr:SetKeyValue("disablereceiveshadows", "0")
+			spr:SetKeyValue("mindxlevel", "0")
+			spr:SetKeyValue("maxdxlevel", "0")
+			spr:SetKeyValue("framerate", "20.0")
+			spr:SetKeyValue("spawnflags", "0")
+			spr:SetKeyValue("scale", "1.5")
+			spr:SetPos(self:GetPos() + self:GetUp() * 60)
 			spr:Spawn()
-			spr:Fire("Kill","",0.7)
+			spr:Fire("Kill", "", 0.7)
 			timer.Simple(0.7, function() if IsValid(spr) then spr:Remove() end end)
 		end
 		

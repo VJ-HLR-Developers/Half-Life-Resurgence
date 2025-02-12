@@ -5,10 +5,10 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/apc_turret.mdl" -- Model(s) to spawn with | Picks a random one if it's a table 
+ENT.Model = "models/vj_hlr/hl1/apc_turret.mdl"
 ENT.StartHealth = 0
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
-ENT.HasDeathCorpse = false -- Should a corpse spawn when it's killed?
+ENT.HasDeathCorpse = false
 
 -- Tank Base
 ENT.Tank_SoundTbl_Turning = {"vj_hlr/hl1_npc/tanks/bradley_turret_rot.wav"}
@@ -83,21 +83,21 @@ function ENT:Tank_OnFireShell(status, statusData)
 				sound.Play("vj_hlr/hl1_weapon/explosion/debris"..math.random(1, 3)..".wav", hitPos, 70, 100, 1)
 		
 				local spr = ents.Create("env_sprite")
-				spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
-				spr:SetKeyValue("GlowProxySize","2.0")
-				spr:SetKeyValue("HDRColorScale","1.0")
-				spr:SetKeyValue("renderfx","14")
-				spr:SetKeyValue("rendermode","5")
-				spr:SetKeyValue("renderamt","255")
-				spr:SetKeyValue("disablereceiveshadows","0")
-				spr:SetKeyValue("mindxlevel","0")
-				spr:SetKeyValue("maxdxlevel","0")
-				spr:SetKeyValue("framerate","15.0")
-				spr:SetKeyValue("spawnflags","0")
-				spr:SetKeyValue("scale","1.5")
+				spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
+				spr:SetKeyValue("GlowProxySize", "2.0")
+				spr:SetKeyValue("HDRColorScale", "1.0")
+				spr:SetKeyValue("renderfx", "14")
+				spr:SetKeyValue("rendermode", "5")
+				spr:SetKeyValue("renderamt", "255")
+				spr:SetKeyValue("disablereceiveshadows", "0")
+				spr:SetKeyValue("mindxlevel", "0")
+				spr:SetKeyValue("maxdxlevel", "0")
+				spr:SetKeyValue("framerate", "15.0")
+				spr:SetKeyValue("spawnflags", "0")
+				spr:SetKeyValue("scale", "1.5")
 				spr:SetPos(hitPos + vecZ40)
 				spr:Spawn()
-				spr:Fire("Kill","",0.9)
+				spr:Fire("Kill", "", 0.9)
 				timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 				
 				local expLight = ents.Create("light_dynamic")

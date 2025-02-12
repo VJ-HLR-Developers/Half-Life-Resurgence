@@ -6,8 +6,8 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.DisableWeapons = true -- If set to true, it won't be able to use weapons
-ENT.Weapon_UnarmedBehavior = false -- Should it use the fleeing behavior when it's unarmed? | It will run and hide from enemies
+ENT.DisableWeapons = true
+ENT.Weapon_UnarmedBehavior = false
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2}
 
 -- Custom

@@ -5,13 +5,13 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/panthereye.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/panthereye.mdl"
 ENT.StartHealth = 150
 ENT.SightAngle = 220
 ENT.HullType = HULL_WIDE_SHORT
-ENT.ControllerVars = {
-    FirstP_Bone = "Bip01 Head", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(4, 0, 6), -- The offset for the controller when the camera is in first person
+ENT.ControllerParameters = {
+    FirstP_Bone = "Bip01 Head",
+    FirstP_Offset = Vector(4, 0, 6),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
@@ -20,41 +20,41 @@ ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
 
-ENT.HasMeleeAttack = true -- Can this NPC melee attack?
+ENT.HasMeleeAttack = true
 ENT.MeleeAttackDamage = 20
-ENT.AnimTbl_MeleeAttack = {"vjseq_attack_main_claw","vjseq_attack_primary","vjseq_attack_simple_claw"}
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.MeleeAttackDistance = 30 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageDistance = 80 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
+ENT.AnimTbl_MeleeAttack = {"vjseq_attack_main_claw", "vjseq_attack_primary", "vjseq_attack_simple_claw"}
+ENT.TimeUntilMeleeAttackDamage = false
+ENT.MeleeAttackDistance = 30
+ENT.MeleeAttackDamageDistance = 80
 
-ENT.HasLeapAttack = true -- Can this NPC leap attack?
+ENT.HasLeapAttack = true
 ENT.LeapAttackDamage = 35
 ENT.AnimTbl_LeapAttack = "vjseq_crouch_to_jump"
-ENT.LeapDistance = 300 -- The max distance that the NPC can leap from
-ENT.LeapToMeleeDistance = 100 -- How close does it have to be until it uses melee?
-ENT.LeapAttackDamageDistance = 100 -- How far does the damage go?
-ENT.TimeUntilLeapAttackDamage = 1.1 -- How much time until it runs the leap damage code?
-ENT.TimeUntilLeapAttackVelocity = 0.9 -- How much time until it runs the velocity code?
-ENT.NextLeapAttackTime = 3 -- How much time until it can use a leap attack?
-ENT.NextLeapAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
-ENT.LeapAttackExtraTimers = {1.3} -- Extra leap attack timers | it will run the damage code after the given amount of seconds
+ENT.LeapDistance = 300
+ENT.LeapToMeleeDistance = 100
+ENT.LeapAttackDamageDistance = 100
+ENT.TimeUntilLeapAttackDamage = 1.1
+ENT.TimeUntilLeapAttackVelocity = 0.9
+ENT.NextLeapAttackTime = 3
+ENT.NextLeapAttackTime_DoRand = 4
+ENT.LeapAttackExtraTimers = {1.3}
 
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DisableFootStepSoundTimer = true
-	-- ====== Flinching Code ====== --
-ENT.CanFlinch = 1 -- 0 = Don't flinch | 1 = Flinch at any damage | 2 = Flinch only from certain damages
-ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_FLINCH_PHYSICS} -- The regular flinch animations to play
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/aslave/vort_foot1.wav","vj_hlr/hl1_npc/aslave/vort_foot2.wav","vj_hlr/hl1_npc/aslave/vort_foot3.wav","vj_hlr/hl1_npc/aslave/vort_foot4.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/panther/p_idle1.wav","vj_hlr/hl1_npc/panther/p_idle2.wav","vj_hlr/hl1_npc/panther/p_idle3.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/panther/p_alert1.wav","vj_hlr/hl1_npc/panther/p_alert2.wav","vj_hlr/hl1_npc/panther/p_alert3.wav"}
-ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/panther/pclaw_strike1.wav","vj_hlr/hl1_npc/panther/pclaw_strike2.wav","vj_hlr/hl1_npc/panther/pclaw_strike3.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/panther/pclaw_miss1.wav","vj_hlr/hl1_npc/panther/pclaw_miss2.wav"}
-ENT.SoundTbl_LeapAttackDamage = {"vj_hlr/hl1_npc/panther/pclaw_strike1.wav","vj_hlr/hl1_npc/panther/pclaw_strike2.wav","vj_hlr/hl1_npc/panther/pclaw_strike3.wav"}
-ENT.SoundTbl_LeapAttackDamageMiss = {"vj_hlr/hl1_npc/panther/pclaw_miss1.wav","vj_hlr/hl1_npc/panther/pclaw_miss2.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/panther/p_pain1.wav","vj_hlr/hl1_npc/panther/p_pain2.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/panther/p_die1.wav","vj_hlr/hl1_npc/panther/p_die2.wav"}
+
+ENT.CanFlinch = 1
+ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_FLINCH_PHYSICS}
+
+ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/aslave/vort_foot1.wav", "vj_hlr/hl1_npc/aslave/vort_foot2.wav", "vj_hlr/hl1_npc/aslave/vort_foot3.wav", "vj_hlr/hl1_npc/aslave/vort_foot4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/panther/p_idle1.wav", "vj_hlr/hl1_npc/panther/p_idle2.wav", "vj_hlr/hl1_npc/panther/p_idle3.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/panther/p_alert1.wav", "vj_hlr/hl1_npc/panther/p_alert2.wav", "vj_hlr/hl1_npc/panther/p_alert3.wav"}
+ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/panther/pclaw_strike1.wav", "vj_hlr/hl1_npc/panther/pclaw_strike2.wav", "vj_hlr/hl1_npc/panther/pclaw_strike3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/panther/pclaw_miss1.wav", "vj_hlr/hl1_npc/panther/pclaw_miss2.wav"}
+ENT.SoundTbl_LeapAttackDamage = {"vj_hlr/hl1_npc/panther/pclaw_strike1.wav", "vj_hlr/hl1_npc/panther/pclaw_strike2.wav", "vj_hlr/hl1_npc/panther/pclaw_strike3.wav"}
+ENT.SoundTbl_LeapAttackDamageMiss = {"vj_hlr/hl1_npc/panther/pclaw_miss1.wav", "vj_hlr/hl1_npc/panther/pclaw_miss2.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/panther/p_pain1.wav", "vj_hlr/hl1_npc/panther/p_pain2.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/panther/p_die1.wav", "vj_hlr/hl1_npc/panther/p_die2.wav"}
 
 ENT.GeneralSoundPitch1 = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -68,7 +68,7 @@ function ENT:OnInput(key, activator, caller, data)
 	if key == "step" then
 		self:PlayFootstepSound()
 	elseif key == "attack" then
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	elseif key == "body" then
 		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end

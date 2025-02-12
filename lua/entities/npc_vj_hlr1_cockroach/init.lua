@@ -5,27 +5,27 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/roach.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/roach.mdl"
 ENT.StartHealth = 1
 ENT.TurningSpeed = 120
 ENT.HullType = HULL_TINY
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(0, 0, 20), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Dummy01", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(0, 0, 4), -- The offset for the controller when the camera is in first person
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(0, 0, 20),
+    FirstP_Bone = "Dummy01",
+    FirstP_Offset = Vector(0, 0, 4),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.CanOpenDoors = false -- Can it open doors?
-ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE -- Type of AI behavior to use for this NPC
+ENT.CanOpenDoors = false
+ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
-ENT.HasMeleeAttack = false -- Can this NPC melee attack?
-ENT.FootStepTimeRun = 3 -- Delay between footstep sounds while it is running | false = Disable while running
-ENT.FootStepTimeWalk = 3 -- Delay between footstep sounds while it is walking | false = Disable while walking
+ENT.HasMeleeAttack = false
+ENT.FootStepTimeRun = 3
+ENT.FootStepTimeWalk = 3
 ENT.HasImpactSounds = false
-	-- ====== Sound Paths ====== --
+
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/roach/rch_walk.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/roach/rch_die.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------

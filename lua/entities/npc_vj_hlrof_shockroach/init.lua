@@ -6,18 +6,18 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/opfor/shockroach.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/opfor/shockroach.mdl"
 ENT.StartHealth = 10
-ENT.EntitiesToNoCollide = false -- Set to a table of entity class names for the NPC to not collide with otherwise leave it to false
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(15, 0, 0), -- The offset for the controller when the camera is in third person
-    FirstP_Bone = "Bone07", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in first person
-	//FirstP_ShrinkBone = false, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+ENT.EntitiesToNoCollide = false
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(15, 0, 0),
+    FirstP_Bone = "Bone07",
+    FirstP_Offset = Vector(0, 0, 0),
+	//FirstP_ShrinkBone = false,
 }
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
 ENT.DisableFootStepSoundTimer = true
-	-- ====== Sound Paths ====== --
+
 ENT.SoundTbl_FootStep = "vj_hlr/hl1_npc/shockroach/shock_walk.wav"
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/shockroach/shock_idle1.wav", "vj_hlr/hl1_npc/shockroach/shock_idle2.wav", "vj_hlr/hl1_npc/shockroach/shock_idle3.wav"}
 ENT.SoundTbl_Alert = "vj_hlr/hl1_npc/shockroach/shock_angry.wav"

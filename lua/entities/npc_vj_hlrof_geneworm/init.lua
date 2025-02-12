@@ -5,18 +5,18 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/opfor/geneworm.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/opfor/geneworm.mdl"
 ENT.StartHealth = 1080
 ENT.SightAngle = 360
 ENT.HullType = HULL_LARGE
 ENT.VJ_ID_Boss = true
-ENT.MovementType = VJ_MOVETYPE_STATIONARY -- How the NPC moves around
-ENT.CanTurnWhileStationary = false -- If set to true, the SNPC will be able to turn while it's a stationary SNPC
-ENT.ControllerVars = {
-    ThirdP_Offset = Vector(0, 0, -150), -- The offset for the controller when the camera is in third person
-	FirstP_Bone = "Bone96", -- If left empty, the base will attempt to calculate a position for first person
-	FirstP_Offset = Vector(0, 0, 0), -- The offset for the controller when the camera is in first person
-	FirstP_ShrinkBone = true, -- Should the bone shrink? Useful if the bone is obscuring the player's view
+ENT.MovementType = VJ_MOVETYPE_STATIONARY
+ENT.CanTurnWhileStationary = false
+ENT.ControllerParameters = {
+    ThirdP_Offset = Vector(0, 0, -150),
+	FirstP_Bone = "Bone96",
+	FirstP_Offset = Vector(0, 0, 0),
+	FirstP_ShrinkBone = true,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
@@ -25,30 +25,30 @@ ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
 
-ENT.HasMeleeAttack = true -- Can this NPC melee attack?
+ENT.HasMeleeAttack = true
 ENT.MeleeAttackDamage = 60
 ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
-ENT.MeleeAttackAnimationFaceEnemy = true -- Should it face the enemy while playing the melee attack animation?
-ENT.MeleeAttackDistance = 580 -- How close an enemy has to be to trigger a melee attack | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.MeleeAttackDamageDistance = 600 -- How far does the damage go | false = Let the base auto calculate on initialize based on the NPC's collision bounds
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
-ENT.HasMeleeAttackKnockBack = true -- If true, it will cause a knockback to its enemy
+ENT.MeleeAttackAnimationFaceEnemy = true
+ENT.MeleeAttackDistance = 580
+ENT.MeleeAttackDamageDistance = 600
+ENT.TimeUntilMeleeAttackDamage = false
+ENT.HasMeleeAttackKnockBack = true
 
-ENT.HasRangeAttack = true -- Can this NPC range attack?
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlrof_gw_biotoxin" -- Entities that it can spawn when range attacking | If set as a table, it picks a random entity
+ENT.HasRangeAttack = true
+ENT.RangeAttackEntityToSpawn = "obj_vj_hlrof_gw_biotoxin"
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-ENT.RangeDistance = 8000 -- How far can it range attack?
-ENT.RangeToMeleeDistance = 500 -- How close does it have to be until it uses melee?
-ENT.TimeUntilRangeAttackProjectileRelease = 2.1 -- How much time until the projectile code is ran?
-ENT.RangeAttackExtraTimers = {2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4, 4.1, 4.2, 4.3} -- Extra range attack timers | it will run the projectile code after the given amount of seconds
-ENT.NextRangeAttackTime = 2 -- How much time until it can use a range attack?
-ENT.NextRangeAttackTime_DoRand = 4 -- False = Don't use random time | Number = Picks a random number between the regular timer and this timer
+ENT.RangeDistance = 8000
+ENT.RangeToMeleeDistance = 500
+ENT.TimeUntilRangeAttackProjectileRelease = 2.1
+ENT.RangeAttackExtraTimers = {2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4, 4.1, 4.2, 4.3}
+ENT.NextRangeAttackTime = 2
+ENT.NextRangeAttackTime_DoRand = 4
 
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = "death"
-ENT.HasExtraMeleeAttackSounds = true -- Set to true to use the extra melee attack sounds
-	-- ====== Sound Paths ====== --
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/geneworm/geneworm_idle1.wav","vj_hlr/hl1_npc/geneworm/geneworm_idle2.wav","vj_hlr/hl1_npc/geneworm/geneworm_idle3.wav","vj_hlr/hl1_npc/geneworm/geneworm_idle4.wav"}
+ENT.HasExtraMeleeAttackSounds = true
+
+ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/geneworm/geneworm_idle1.wav", "vj_hlr/hl1_npc/geneworm/geneworm_idle2.wav", "vj_hlr/hl1_npc/geneworm/geneworm_idle3.wav", "vj_hlr/hl1_npc/geneworm/geneworm_idle4.wav"}
 ENT.SoundTbl_Death = "vj_hlr/hl1_npc/geneworm/geneworm_death.wav"
 
 ENT.BreathSoundLevel = 100
@@ -135,19 +135,19 @@ function ENT:Init()
 	
 	-- Stomach Orb (core)
 	self.GW_OrbSprite = ents.Create("env_sprite")
-	self.GW_OrbSprite:SetKeyValue("model","vj_hl/sprites/boss_glow.vmt")
-	//self.GW_OrbSprite:SetKeyValue("rendercolor","255 128 0")
-	self.GW_OrbSprite:SetKeyValue("GlowProxySize","2.0")
-	self.GW_OrbSprite:SetKeyValue("HDRColorScale","1.0")
-	self.GW_OrbSprite:SetKeyValue("renderfx","14")
-	self.GW_OrbSprite:SetKeyValue("rendermode","3")
-	self.GW_OrbSprite:SetKeyValue("renderamt","255")
-	self.GW_OrbSprite:SetKeyValue("disablereceiveshadows","0")
-	self.GW_OrbSprite:SetKeyValue("mindxlevel","0")
-	self.GW_OrbSprite:SetKeyValue("maxdxlevel","0")
-	self.GW_OrbSprite:SetKeyValue("framerate","10.0")
-	self.GW_OrbSprite:SetKeyValue("spawnflags","0")
-	self.GW_OrbSprite:SetKeyValue("scale","1.5")
+	self.GW_OrbSprite:SetKeyValue("model", "vj_hl/sprites/boss_glow.vmt")
+	//self.GW_OrbSprite:SetKeyValue("rendercolor", "255 128 0")
+	self.GW_OrbSprite:SetKeyValue("GlowProxySize", "2.0")
+	self.GW_OrbSprite:SetKeyValue("HDRColorScale", "1.0")
+	self.GW_OrbSprite:SetKeyValue("renderfx", "14")
+	self.GW_OrbSprite:SetKeyValue("rendermode", "3")
+	self.GW_OrbSprite:SetKeyValue("renderamt", "255")
+	self.GW_OrbSprite:SetKeyValue("disablereceiveshadows", "0")
+	self.GW_OrbSprite:SetKeyValue("mindxlevel", "0")
+	self.GW_OrbSprite:SetKeyValue("maxdxlevel", "0")
+	self.GW_OrbSprite:SetKeyValue("framerate", "10.0")
+	self.GW_OrbSprite:SetKeyValue("spawnflags", "0")
+	self.GW_OrbSprite:SetKeyValue("scale", "1.5")
 	self.GW_OrbSprite:SetParent(self)
 	self.GW_OrbSprite:Fire("SetParentAttachment", "orb")
 	self.GW_OrbSprite:Fire("HideSprite")
@@ -219,9 +219,9 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "melee" or key == "shakeworld" then
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	//elseif key == "spit_start" then
-		//self:RangeAttackCode()
+		//self:ExecuteRangeAttack()
 	elseif key == "open_botheyes" then
 		self.GW_EyeLightL:Fire("TurnOn")
 		self.GW_EyeLightR:Fire("TurnOn")
@@ -463,7 +463,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		if IsValid(self.GW_Portal) then
 			self.GW_Portal:ResetSequence("close")
 			local sprParticles = ents.Create("info_particle_system")
-			sprParticles:SetKeyValue("effect_name","vj_hlr_geneworm_sprites_death")
+			sprParticles:SetKeyValue("effect_name", "vj_hlr_geneworm_sprites_death")
 			sprParticles:SetPos(self.GW_Portal:GetPos() + self.GW_Portal:OBBCenter() + deathParticlePos)
 			sprParticles:SetAngles(self.GW_Portal:GetAngles())
 			sprParticles:SetParent(self.GW_Portal)

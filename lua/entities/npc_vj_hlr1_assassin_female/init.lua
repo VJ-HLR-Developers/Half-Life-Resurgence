@@ -5,20 +5,20 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/hassassin.mdl" -- Model(s) to spawn with | Picks a random one if it's a table
+ENT.Model = "models/vj_hlr/hl1/hassassin.mdl"
 ENT.StartHealth = 60
-ENT.TurningSpeed = 50 -- How fast it can turn
+ENT.TurningSpeed = 50
 ENT.HullType = HULL_HUMAN
-ENT.JumpVars = {
+ENT.JumpParameters = {
 	MaxRise = 620,
 	MaxDrop = 620,
 	MaxDistance = 620,
 }
-ENT.ControllerVars = {
-	//FirstP_Bone = "bip01 head", -- If left empty, the base will attempt to calculate a position for first person
-	//FirstP_Offset = Vector(6, 0, 2.5), -- The offset for the controller when the camera is in first person
-	FirstP_Bone = "bone10", -- If left empty, the base will attempt to calculate a position for first person
-    FirstP_Offset = Vector(-1, 0, -1), -- The offset for the controller when the camera is in first person
+ENT.ControllerParameters = {
+	//FirstP_Bone = "bip01 head",
+	//FirstP_Offset = Vector(6, 0, 2.5),
+	FirstP_Bone = "bone10",
+    FirstP_Offset = Vector(-1, 0, -1),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -26,31 +26,31 @@ ENT.BloodParticle = {"vj_hlr_blood_red"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Red"}
 ENT.HasBloodPool = false
 ENT.VJ_NPC_Class = {"CLASS_BLACKOPS"}
-ENT.HasMeleeAttack = true -- Can this NPC melee attack?
+ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2}
 ENT.MeleeAttackDamage = 15
-ENT.TimeUntilMeleeAttackDamage = false -- This counted in seconds | This calculates the time until it hits something
+ENT.TimeUntilMeleeAttackDamage = false
 
-ENT.HasGrenadeAttack = true -- Should the NPC have a grenade attack?
-ENT.GrenadeAttackEntity = "obj_vj_hlr1_grenade" -- Entities that it can spawn when throwing a grenade | If set as a table, it picks a random entity | VJ: "obj_vj_grenade" | HL2: "npc_grenade_frag"
+ENT.HasGrenadeAttack = true
+ENT.GrenadeAttackEntity = "obj_vj_hlr1_grenade"
 ENT.AnimTbl_GrenadeAttack = ACT_RANGE_ATTACK2
-ENT.GrenadeAttackAttachment = "grenadehand" -- The attachment that the grenade will spawn at
-ENT.TimeUntilGrenadeIsReleased = 0.4 -- Time until the grenade is released
+ENT.GrenadeAttackAttachment = "grenadehand"
+ENT.TimeUntilGrenadeIsReleased = 0.4
 
-ENT.Weapon_CanReload = false -- If false, the SNPC will no longer reload
-ENT.Weapon_NoSpawnMenu = true -- If set to true, the NPC weapon setting in the spawnmenu will not be applied for this SNPC
-ENT.DisableWeaponFiringGesture = true -- If set to true, it will disable the weapon firing gestures
-ENT.Weapon_StrafeWhileFiring = false -- Should it move randomly while firing a weapon?
+ENT.Weapon_CanReload = false
+ENT.Weapon_NoSpawnMenu = true
+ENT.DisableWeaponFiringGesture = true
+ENT.Weapon_StrafeWhileFiring = false
 ENT.Weapon_Accuracy = 0.6
-ENT.Weapon_CanCrouchAttack = false -- Can it crouch while shooting?
-ENT.AnimTbl_TakingCover = ACT_LAND -- The animation it plays when hiding in a covered position, leave empty to let the base decide
-ENT.Weapon_WaitOnOcclusionTime = VJ.SET(1, 2) -- How long should it wait before it starts to pursue?
+ENT.Weapon_CanCrouchAttack = false
+ENT.AnimTbl_TakingCover = ACT_LAND
+ENT.Weapon_WaitOnOcclusionTime = VJ.SET(1, 2)
 ENT.DisableFootStepSoundTimer = true
-ENT.HasDeathAnimation = true -- Does it play an animation when it dies?
+ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
-ENT.DeathAnimationTime = false -- How long should the death animation play?
-ENT.CanTurnWhileMoving = false -- Can the NPC turn while moving? | EX: GoldSrc NPCs, Facing enemy while running to cover, Facing the player while moving out of the way
-	-- ====== Sound Paths ====== --
+ENT.DeathAnimationTime = false
+ENT.CanTurnWhileMoving = false
+
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav", "vj_hlr/pl_step2.wav", "vj_hlr/pl_step3.wav", "vj_hlr/pl_step4.wav"}
 
 ENT.FootStepSoundLevel = 55
@@ -77,7 +77,7 @@ function ENT:OnInput(key, activator, caller, data)
 	if key == "step" then
 		self:PlayFootstepSound()
 	elseif key == "melee" then
-		self:MeleeAttackCode()
+		self:ExecuteMeleeAttack()
 	elseif key == "shooty"  or key == "shoot" then
 		local wep = self:GetActiveWeapon()
 		if IsValid(wep) then
