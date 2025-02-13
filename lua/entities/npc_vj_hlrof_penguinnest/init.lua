@@ -7,7 +7,7 @@ include("shared.lua")
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/opfor/penguinnest.mdl"
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     FirstP_Bone = "Snow_man",
     FirstP_Offset = Vector(8.5, 2.3, 48),
 	FirstP_ShrinkBone = false,

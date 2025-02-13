@@ -10,7 +10,7 @@ ENT.StartHealth = 1000
 ENT.SightAngle = 203
 ENT.HullType = HULL_HUMAN
 ENT.VJ_ID_Boss = true
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(-50, 0, -45),
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(7, 0, -12),
@@ -45,7 +45,7 @@ ENT.HasDeathAnimation = true
 ENT.DeathAnimationTime = 3.7
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 
-ENT.CanFlinch = 2
+ENT.CanFlinch = "DamageTypes"
 ENT.FlinchDamageTypes = {DMG_BLAST}
 ENT.FlinchChance = 2
 ENT.AnimTbl_Flinch = ACT_BIG_FLINCH

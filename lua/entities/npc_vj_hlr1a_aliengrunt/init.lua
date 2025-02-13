@@ -7,7 +7,7 @@ include("shared.lua")
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hla/agrunt.mdl"
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
 	FirstP_Bone = "unnamed034",
 	FirstP_Offset = Vector(12, 0, 5),
 	FirstP_ShrinkBone = false,

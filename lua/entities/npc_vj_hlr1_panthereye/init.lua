@@ -9,7 +9,7 @@ ENT.Model = "models/vj_hlr/hl1/panthereye.mdl"
 ENT.StartHealth = 150
 ENT.SightAngle = 220
 ENT.HullType = HULL_WIDE_SHORT
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(4, 0, 6),
 }
@@ -43,7 +43,7 @@ ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DisableFootStepSoundTimer = true
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_FLINCH_PHYSICS}
 
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/aslave/vort_foot1.wav", "vj_hlr/hl1_npc/aslave/vort_foot2.wav", "vj_hlr/hl1_npc/aslave/vort_foot3.wav", "vj_hlr/hl1_npc/aslave/vort_foot4.wav"}

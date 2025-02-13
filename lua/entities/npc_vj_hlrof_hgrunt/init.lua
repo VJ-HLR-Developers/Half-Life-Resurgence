@@ -7,7 +7,7 @@ include("shared.lua")
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/opfor/hgrunt.mdl"
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(0, 0, -15),
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(5, 0, 1),

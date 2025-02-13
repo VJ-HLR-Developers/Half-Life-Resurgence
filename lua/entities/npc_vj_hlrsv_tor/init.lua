@@ -10,7 +10,7 @@ ENT.StartHealth = 3000
 ENT.SightAngle = 220
 ENT.HullType = HULL_HUMAN
 ENT.VJ_ID_Boss = true
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(15, 0, -15),
     FirstP_Bone = "TorSkel Head",
     FirstP_Offset = Vector(15, 0, 0),
@@ -48,7 +48,7 @@ ENT.DeathAnimationTime = false
 ENT.DisableFootStepSoundTimer = true
 ENT.HasExtraMeleeAttackSounds = true
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}}, {HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}}, {HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}}, {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
 

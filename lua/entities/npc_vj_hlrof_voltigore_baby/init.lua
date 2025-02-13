@@ -8,7 +8,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/opfor/baby_voltigore.mdl"
 ENT.StartHealth = 60
 ENT.HullType = HULL_MEDIUM
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(25, 0, -15),
     FirstP_Bone = "Bone41",
     FirstP_Offset = Vector(3, 0, 2),

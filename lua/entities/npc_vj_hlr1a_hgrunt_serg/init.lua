@@ -9,7 +9,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hla/hassault.mdl"
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2, ACT_MELEE_ATTACK_SWING}
 ENT.HasGrenadeAttack = false
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(0, 0, -15),
     FirstP_Bone = "unnamed_bone_020",
     FirstP_Offset = Vector(3, 0, 5),

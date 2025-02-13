@@ -10,7 +10,7 @@ ENT.StartHealth = 10
 ENT.SightAngle = 120
 ENT.HullType = HULL_TINY
 ENT.EntitiesToNoCollide = {"npc_vj_hlr1_gonarch"}
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(10, 0, 0),
     FirstP_Bone = "Bip01 Neck",
     FirstP_Offset = Vector(2, 0, 0),
@@ -42,7 +42,7 @@ ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = 200
 ENT.LimitChaseDistance_Min = 0
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.FlinchChance = 3
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 

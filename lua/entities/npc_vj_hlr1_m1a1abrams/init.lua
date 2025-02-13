@@ -7,7 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/tank_body_destroyed.mdl"
 ENT.StartHealth = 500
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(-20, 0, 40),
     FirstP_Bone = "static_prop",
     FirstP_Offset = Vector(00, 0, 130),

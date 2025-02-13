@@ -8,7 +8,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl1/hgrunt.mdl"
 ENT.StartHealth = 90
 ENT.HullType = HULL_HUMAN
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(0, 0, -15),
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(3, 0, 5),
@@ -28,19 +28,19 @@ ENT.HasGrenadeAttack = true
 ENT.GrenadeAttackEntity = "obj_vj_hlr1_grenade"
 ENT.AnimTbl_GrenadeAttack = ACT_SPECIAL_ATTACK2
 ENT.GrenadeAttackAttachment = "lhand"
-ENT.TimeUntilGrenadeIsReleased = false
-ENT.NextThrowGrenadeTime = VJ.SET(10, 12)
+ENT.GrenadeAttackThrowTime = false
+ENT.NextGrenadeAttackTime = VJ.SET(10, 12)
 ENT.GrenadeAttackChance = 3
 
 ENT.AnimTbl_Medic_GiveHealth = false
 ENT.Medic_SpawnPropOnHeal = false
 ENT.Medic_TimeUntilHeal = 4
 ENT.Weapon_NoSpawnMenu = true
-ENT.DisableWeaponFiringGesture = true
 ENT.Weapon_StrafeWhileFiring = false
+ENT.AnimTbl_WeaponAttackGesture = false
 //ENT.PoseParameterLooking_InvertPitch = true
 //ENT.PoseParameterLooking_Names = {pitch={"XR"},yaw={},roll={"ZR"}}
-ENT.AnimTbl_CallForBackUpOnDamage = ACT_SIGNAL3
+ENT.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
 ENT.AnimTbl_CallForHelp = ACT_SIGNAL1
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE}
@@ -52,7 +52,7 @@ ENT.AnimTbl_WeaponReload = ACT_RELOAD_SMG1
 ENT.CanTurnWhileMoving = false
 ENT.DisableFootStepSoundTimer = true
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav", "vj_hlr/pl_step2.wav", "vj_hlr/pl_step3.wav", "vj_hlr/pl_step4.wav"}

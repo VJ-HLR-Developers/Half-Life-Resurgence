@@ -9,7 +9,7 @@ ENT.Model = "models/vj_hlr/hl1/friendly.mdl"
 ENT.StartHealth = 230
 ENT.SightAngle = 120
 ENT.HullType = HULL_MEDIUM
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(-25, 0, 0),
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(7, 0, 5),
@@ -40,7 +40,7 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DisableFootStepSoundTimer = true
 ENT.HasExtraMeleeAttackSounds = true
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/friendly/fr_groan1.wav", "vj_hlr/hl1_npc/friendly/fr_groan2.wav"}

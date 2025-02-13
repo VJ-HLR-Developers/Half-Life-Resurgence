@@ -8,7 +8,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl1/bullsquid.mdl"
 ENT.StartHealth = 80
 ENT.HullType = HULL_WIDE_SHORT
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     FirstP_Bone = "Bip01 Spine1",
     FirstP_Offset = Vector(10, 0, 11.5),
 	FirstP_ShrinkBone = false,
@@ -19,7 +19,7 @@ ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
-ENT.Immune_AcidPoisonRadiation = true
+ENT.Immune_Toxic = true
 
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2}

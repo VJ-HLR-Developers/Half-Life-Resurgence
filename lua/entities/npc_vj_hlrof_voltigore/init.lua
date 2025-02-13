@@ -8,7 +8,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/opfor/voltigore.mdl"
 ENT.StartHealth = 320
 ENT.HullType = HULL_LARGE
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(0, 0, -15),
     FirstP_Bone = "Bone41",
     FirstP_Offset = Vector(10, 0, 0),

@@ -12,7 +12,7 @@ ENT.HullType = HULL_HUMAN
 ENT.MovementType = VJ_MOVETYPE_AERIAL
 ENT.Aerial_FlyingSpeed_Calm = 120
 ENT.Aerial_FlyingSpeed_Alerted = 300
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
 	FirstP_Bone = "bip01 neck",
 	FirstP_Offset = Vector(10, 0, -3),
 }
@@ -40,7 +40,7 @@ ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathAnimationTime = 1.2
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_BIG_FLINCH
 
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/controller/con_idle1.wav", "vj_hlr/hl1_npc/controller/con_idle2.wav", "vj_hlr/hl1_npc/controller/con_idle3.wav", "vj_hlr/hl1_npc/controller/con_idle4.wav", "vj_hlr/hl1_npc/controller/con_idle5.wav"}

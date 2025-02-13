@@ -7,7 +7,7 @@ include("shared.lua")
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hla/houndeye.mdl"
-ENT.CanFlinch = 0
+ENT.CanFlinch = false
 
 -- Custom
 ENT.Houndeye_Type = 1

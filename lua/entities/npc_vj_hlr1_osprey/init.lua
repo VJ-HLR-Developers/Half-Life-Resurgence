@@ -22,7 +22,7 @@ ENT.AA_GroundLimit = 1200
 ENT.AA_MinWanderDist = 1000
 ENT.AA_MoveAccelerate = 8
 ENT.AA_MoveDecelerate = 4
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     FirstP_Bone = "Osprey",
     FirstP_Offset = Vector(365, 0, -80),
 	FirstP_ShrinkBone = false,
@@ -34,13 +34,13 @@ ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = combatDistance
 ENT.LimitChaseDistance_Min = 0
 ENT.Bleeds = false
-ENT.Immune_AcidPoisonRadiation = true
+ENT.Immune_Toxic = true
 ENT.Immune_Bullet = true
 ENT.Immune_Fire = true
 ENT.DeathAllyResponse = "OnlyAlert"
 ENT.HasMeleeAttack = false
 ENT.HasDeathCorpse = false
-ENT.Medic_CanBeHealed = false
+ENT.VJ_ID_Healable = false
 
 ENT.SoundTbl_Death = "vj_hlr/hl1_weapon/mortar/mortarhit.wav"
 
@@ -91,7 +91,7 @@ function ENT:Init()
 		gunner.DisableWeapons = true
 		gunner.CanTurnWhileStationary = false
 		gunner.Weapon_UnarmedBehavior = false
-		gunner.Medic_CanBeHealed = false
+		gunner.VJ_ID_Healable = false
 		gunner.HasDeathAnimation = false
 		gunner.VJ_NPC_Class = self.VJ_NPC_Class
 		gunner:Spawn()

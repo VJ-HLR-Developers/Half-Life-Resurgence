@@ -9,7 +9,7 @@ ENT.Model = "models/vj_hlr/hl1/houndeye.mdl"
 ENT.StartHealth = 80
 ENT.SightAngle = 120
 ENT.HullType = HULL_WIDE_SHORT
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(0, 0, 0),
 }
@@ -20,19 +20,23 @@ ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
 ENT.Immune_Sonic = true
+
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = ACT_RANGE_ATTACK1
 ENT.MeleeAttackDistance = 164
+ENT.MeleeAttackDamageDistance = 400
+ENT.MeleeAttackDamageAngleRadius = 180
 ENT.TimeUntilMeleeAttackDamage = 2.35
 ENT.NextMeleeAttackTime = 2
 ENT.MeleeAttackDamageType = DMG_SONIC
-ENT.MeleeAttackDSPSoundType = 34
-ENT.MeleeAttackDSPSoundUseDamage = false
+ENT.MeleeAttackDSP = 34
+ENT.MeleeAttackDSPLimit = false
 ENT.DisableDefaultMeleeAttackDamageCode = true
+
 ENT.HasDeathAnimation = true
 ENT.DisableFootStepSoundTimer = true
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = "vjseq_flinch_small"
 
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/houndeye/he_hunt1.wav", "vj_hlr/hl1_npc/houndeye/he_hunt2.wav", "vj_hlr/hl1_npc/houndeye/he_hunt3.wav", "vj_hlr/hl1_npc/houndeye/he_hunt4.wav"}

@@ -291,7 +291,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				if gStatePrecriminal == true then -- Toggles friendly-AI for the intro of Half-Life 2
 					//newEnt.DisableWandering = true
 					newEnt.DisableFindEnemy = true
-					newEnt.FriendsWithAllPlayerAllies = true
+					newEnt.AlliedWithPlayerAllies = true
 					newEnt.FollowPlayer = false
 					newEnt.Behavior = VJ_BEHAVIOR_PASSIVE
 					newEnt.VJ_AutoScript_OldClass = newEnt.VJ_NPC_Class
@@ -342,7 +342,7 @@ hook.Add("Think", "VJ_HLR_AutoReplace_Think", function()
 				end
 				if gStateAntlionFri && v.VJ_HLR_Antlion then
 					table.insert(v.VJ_NPC_Class, "CLASS_PLAYER_ALLY")
-					v.FriendsWithAllPlayerAllies = true
+					v.AlliedWithPlayerAllies = true
 				end
 			end
 		end

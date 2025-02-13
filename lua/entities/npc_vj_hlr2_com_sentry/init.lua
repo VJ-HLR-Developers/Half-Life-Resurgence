@@ -12,7 +12,7 @@ ENT.SightDistance = 2000
 ENT.SightAngle = 132.84
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CanTurnWhileStationary = false
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     FirstP_Bone = "barrel",
     FirstP_Offset = Vector(0, 6, 6),
 	FirstP_ShrinkBone = false,
@@ -24,7 +24,7 @@ ENT.HasMeleeAttack = false
 
 ENT.HasRangeAttack = true
 ENT.DisableDefaultRangeAttackCode = true
-ENT.DisableRangeAttackAnimation = true
+ENT.AnimTbl_RangeAttack = false
 ENT.RangeDistance = 2000
 ENT.RangeToMeleeDistance = 1
 ENT.RangeAttackAngleRadius = 132.84
@@ -33,7 +33,7 @@ ENT.NextRangeAttackTime = 0
 ENT.NextAnyAttackTime_Range = 0.04
 
 ENT.CanReceiveOrders = false
-ENT.Medic_CanBeHealed = false
+ENT.VJ_ID_Healable = false
 ENT.TimeUntilEnemyLost = 5
 
 ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav", "ambient/energy/spark2.wav", "ambient/energy/spark3.wav", "ambient/energy/spark4.wav"}

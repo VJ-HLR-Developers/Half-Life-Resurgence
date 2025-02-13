@@ -8,7 +8,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/opfor/gonome.mdl"
 ENT.StartHealth = 160
 ENT.HullType = HULL_HUMAN
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(1, 0, 4),
 }
@@ -38,7 +38,7 @@ ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 //ENT.DeathAnimationTime = 2.2
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav", "vj_hlr/pl_step2.wav", "vj_hlr/pl_step3.wav", "vj_hlr/pl_step4.wav"}

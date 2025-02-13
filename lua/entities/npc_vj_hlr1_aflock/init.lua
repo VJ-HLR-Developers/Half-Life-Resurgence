@@ -7,13 +7,13 @@ include("shared.lua")
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/aflock.mdl"
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
 	FirstP_Bone = "bone12",
 	FirstP_Offset = Vector(15, 0, 2),
 	FirstP_ShrinkBone = false,
 }
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_BIG_FLINCH
 
 -- Custom

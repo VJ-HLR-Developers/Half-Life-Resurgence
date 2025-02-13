@@ -11,7 +11,7 @@ ENT.VJ_ID_Boss = true
 ENT.HullType = HULL_LARGE
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CanTurnWhileStationary = true
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(15, 0, -50),
     FirstP_Bone = "Head",
     FirstP_Offset = Vector(7, 0, 0),
@@ -41,7 +41,7 @@ ENT.HasDeathCorpse = false
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_BIG_FLINCH}
 
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/pitworm/pit_worm_idle1.wav", "vj_hlr/hl1_npc/pitworm/pit_worm_idle2.wav", "vj_hlr/hl1_npc/pitworm/pit_worm_idle3.wav"}

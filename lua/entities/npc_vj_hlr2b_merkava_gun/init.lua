@@ -8,7 +8,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl2b/merkava_turret.mdl"
 ENT.StartHealth = 0
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
-ENT.FriendsWithAllPlayerAllies = true
+ENT.AlliedWithPlayerAllies = true
 
 ENT.Tank_SoundTbl_Turning = "vehicles/tank_turret_loop1.wav"
 
@@ -29,7 +29,7 @@ function ENT:Tank_Init()
 	spotter.DisableWeapons = true
 	spotter.CanTurnWhileStationary = false
 	spotter.Weapon_UnarmedBehavior = false
-	spotter.Medic_CanBeHealed = false
+	spotter.VJ_ID_Healable = false
 	spotter.CanReceiveOrders = false
 	spotter.Human_Driver = true
 	spotter.VJ_NPC_Class = self.VJ_NPC_Class

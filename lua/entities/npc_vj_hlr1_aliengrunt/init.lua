@@ -8,7 +8,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl1/agrunt.mdl"
 ENT.StartHealth = 120
 ENT.HullType = HULL_HUMAN
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
 	FirstP_Bone = "bip01 head",
 	FirstP_Offset = Vector(12, 0, 5),
 	FirstP_ShrinkBone = false,
@@ -40,7 +40,7 @@ ENT.HasDeathAnimation = true
 ENT.DisableFootStepSoundTimer = true
 ENT.HasExtraMeleeAttackSounds = true
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/player/pl_ladder1.wav", "vj_hlr/hl1_npc/player/pl_ladder2.wav", "vj_hlr/hl1_npc/player/pl_ladder3.wav", "vj_hlr/hl1_npc/player/pl_ladder4.wav"}

@@ -9,7 +9,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/opfor/shockroach.mdl"
 ENT.StartHealth = 10
 ENT.EntitiesToNoCollide = false
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(15, 0, 0),
     FirstP_Bone = "Bone07",
     FirstP_Offset = Vector(0, 0, 0),

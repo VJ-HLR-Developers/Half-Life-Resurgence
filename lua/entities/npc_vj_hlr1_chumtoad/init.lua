@@ -12,7 +12,7 @@ ENT.SightDistance = 250
 ENT.MovementType = VJ_MOVETYPE_GROUND
 ENT.Aquatic_SwimmingSpeed_Calm = 80
 ENT.Aquatic_SwimmingSpeed_Alerted = 80
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(15, 0, 10),
     FirstP_Bone = "Bip01 neck",
     FirstP_Offset = Vector(2, 0, 2),
@@ -28,7 +28,7 @@ ENT.HasMeleeAttack = false
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_BIG_FLINCH}
 
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/chumtoad/toad_hunt1.wav", "vj_hlr/hl1_npc/chumtoad/toad_hunt2.wav", "vj_hlr/hl1_npc/chumtoad/toad_hunt3.wav", "vj_hlr/hl1_npc/chumtoad/toad_deploy1.wav"}

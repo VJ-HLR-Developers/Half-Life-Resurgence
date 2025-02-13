@@ -9,7 +9,7 @@ ENT.Model = "models/vj_hlr/opfor/strooper.mdl"
 ENT.StartHealth = 150
 ENT.HullType = HULL_HUMAN
 ENT.CanTurnWhileMoving = false
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(15, 0, -15),
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(10, 0, 0),
@@ -27,22 +27,22 @@ ENT.HasGrenadeAttack = true
 ENT.GrenadeAttackEntity = "obj_vj_hlrof_grenade_spore"
 ENT.AnimTbl_GrenadeAttack = ACT_SPECIAL_ATTACK2
 ENT.GrenadeAttackAttachment = "eyes"
-ENT.TimeUntilGrenadeIsReleased = 1.5
+ENT.GrenadeAttackThrowTime = 1.5
 ENT.GrenadeAttackChance = 1
 
 ENT.Weapon_NoSpawnMenu = true
-ENT.DisableWeaponFiringGesture = true
 ENT.Weapon_StrafeWhileFiring = false
 ENT.AnimTbl_WeaponAttackCrouch = ACT_RANGE_ATTACK2
+ENT.AnimTbl_WeaponAttackGesture = false
 ENT.AnimTbl_CallForHelp = ACT_SIGNAL2
-ENT.AnimTbl_CallForBackUpOnDamage = ACT_SIGNAL1
+ENT.AnimTbl_DamageAllyResponse = ACT_SIGNAL1
 ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE}
 ENT.DeathAnimationTime = false
 ENT.DisableFootStepSoundTimer = true
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/player/boots1.wav", "vj_hlr/hl1_npc/player/boots2.wav", "vj_hlr/hl1_npc/player/boots3.wav", "vj_hlr/hl1_npc/player/boots4.wav"}

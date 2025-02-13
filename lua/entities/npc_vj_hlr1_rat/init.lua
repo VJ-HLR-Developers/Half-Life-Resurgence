@@ -9,7 +9,7 @@ ENT.Model = "models/vj_hlr/hl1/bigrat.mdl"
 ENT.StartHealth = 10
 ENT.SightAngle = 120
 ENT.HullType = HULL_TINY
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
 	FirstP_Bone = "bip01 head",
 	FirstP_Offset = Vector(0, 0, 0),
 }
@@ -29,7 +29,7 @@ ENT.TimeUntilMeleeAttackDamage = false
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.FlinchChance = 4
 ENT.AnimTbl_Flinch = ACT_BIG_FLINCH
 

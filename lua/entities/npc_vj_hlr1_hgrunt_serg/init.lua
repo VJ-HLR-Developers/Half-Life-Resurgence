@@ -10,10 +10,10 @@ ENT.Model = "models/vj_hlr/hl1/hassault.mdl"
 ENT.StartHealth = 180
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK_SWING}
-ENT.TimeUntilGrenadeIsReleased = 1
+ENT.GrenadeAttackThrowTime = 1
 ENT.Weapon_CanReload = false
 ENT.Weapon_CanFireWhileMoving = false
-ENT.MoveOrHideOnDamageByEnemy = false
+ENT.CombatDamageResponse = false
 ENT.Weapon_RetreatDistance = 0
 
 ENT.SoundTbl_Breath = "vj_hlr/hl1_npc/hassault/hw_spin.wav"

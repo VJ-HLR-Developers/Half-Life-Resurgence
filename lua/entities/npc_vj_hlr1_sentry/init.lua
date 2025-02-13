@@ -12,7 +12,7 @@ ENT.SightDistance = 1300
 ENT.SightAngle = 360
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CanTurnWhileStationary = false
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(0, 0, -15),
     FirstP_Bone = "Dummy03",
     FirstP_Offset = Vector(0, 0, 4),
@@ -24,7 +24,7 @@ ENT.HasMeleeAttack = false
 
 ENT.HasRangeAttack = true
 ENT.DisableDefaultRangeAttackCode = true
-ENT.DisableRangeAttackAnimation = true
+ENT.AnimTbl_RangeAttack = false
 ENT.RangeDistance = 1300
 ENT.RangeToMeleeDistance = 1
 ENT.RangeAttackAngleRadius = 180
@@ -33,7 +33,7 @@ ENT.RangeAttackReps = 1
 ENT.NextRangeAttackTime = 0
 ENT.NextAnyAttackTime_Range = 0.01
 
-ENT.Medic_CanBeHealed = false
+ENT.VJ_ID_Healable = false
 ENT.PoseParameterLooking_InvertPitch = true
 ENT.PoseParameterLooking_InvertYaw = true
 

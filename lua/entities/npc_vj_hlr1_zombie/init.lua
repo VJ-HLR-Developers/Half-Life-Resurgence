@@ -8,7 +8,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl1/zombie.mdl"
 ENT.StartHealth = 50
 ENT.HullType = HULL_HUMAN
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(-5, 0, -15),
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(5, 0, 5),
@@ -31,7 +31,7 @@ ENT.HasExtraMeleeAttackSounds = true
 ENT.DisableFootStepSoundTimer = true
 ENT.HasDeathAnimation = true
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_FLINCH_PHYSICS
 ENT.HitGroupFlinching_Values = {
 	{HitGroup={HITGROUP_LEFTARM}, Animation={ACT_FLINCH_LEFTARM}},

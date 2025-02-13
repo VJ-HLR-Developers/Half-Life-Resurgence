@@ -8,7 +8,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl1/gman.mdl"
 ENT.StartHealth = 999999
 ENT.HullType = HULL_HUMAN
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(6, 0, 5),
 }
@@ -16,7 +16,7 @@ ENT.ControllerParameters = {
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE
 ENT.Passive_RunOnTouch = false -- Should it run away and make a alert sound when something collides with it?
-ENT.Passive_RunOnDamage = false -- Should it run when it's damaged? | This doesn't impact how self.Passive_AlliesRunOnDamage works
+ENT.DamageResponse = false
 ENT.DisableFindEnemy = true
 ENT.GodMode = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED

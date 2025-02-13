@@ -8,22 +8,22 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl1/barney.mdl"
 ENT.StartHealth = 90
 ENT.HullType = HULL_HUMAN
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(10, 0, -30),
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(4, 0, 0),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
-ENT.FriendsWithAllPlayerAllies = true
+ENT.AlliedWithPlayerAllies = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_hlr_blood_red"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Red"}
 ENT.HasBloodPool = false
 ENT.HasMeleeAttack = false
 ENT.Weapon_NoSpawnMenu = true
-ENT.DisableWeaponFiringGesture = true
 ENT.Weapon_StrafeWhileFiring = false
+ENT.AnimTbl_WeaponAttackGesture = false
 ENT.AnimTbl_CallForHelp = false
 ENT.DisableFootStepSoundTimer = true
 ENT.HasDeathAnimation = true
@@ -34,7 +34,7 @@ ENT.DropDeathLoot = false
 ENT.HasOnPlayerSight = true
 ENT.CanTurnWhileMoving = false
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}},{HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}},{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}},{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
 

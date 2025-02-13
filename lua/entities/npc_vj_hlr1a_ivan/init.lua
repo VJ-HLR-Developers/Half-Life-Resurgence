@@ -11,7 +11,7 @@ ENT.HasHealthRegeneration = true
 ENT.HealthRegenerationAmount = 2
 ENT.HealthRegenerationDelay = VJ.SET(0.5, 0.5)
 ENT.HullType = HULL_HUMAN
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(0, 0, -15),
     FirstP_Bone = "unnamed021",
     FirstP_Offset = Vector(8, 0, 7),
@@ -19,7 +19,7 @@ ENT.ControllerParameters = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
-ENT.FriendsWithAllPlayerAllies = true
+ENT.AlliedWithPlayerAllies = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_hlr_blood_red"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Red"}

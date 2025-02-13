@@ -8,7 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/opfor/penguin.mdl"
 ENT.EntitiesToNoCollide = {"npc_vj_hlrof_penguin"}
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     FirstP_Bone = "Bone22",
     FirstP_Offset = Vector(4, 0, 30),
 }

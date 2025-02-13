@@ -7,7 +7,7 @@ include("shared.lua")
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/decay/sentry.mdl"
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(10, 0, -20),
     FirstP_Bone = "Dummy04",
     FirstP_Offset = Vector(0, 0, 6),

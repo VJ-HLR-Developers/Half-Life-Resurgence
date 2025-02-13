@@ -12,7 +12,7 @@ ENT.SightAngle = 360
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CanTurnWhileStationary = false
 ENT.HullType = HULL_SMALL_CENTERED
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(0, 0, -250),
     FirstP_Bone = "joint2",
     FirstP_Offset = Vector(0, 0, -60),
@@ -24,7 +24,7 @@ ENT.HasMeleeAttack = false
 
 ENT.HasRangeAttack = true
 ENT.DisableDefaultRangeAttackCode = true
-ENT.DisableRangeAttackAnimation = true
+ENT.AnimTbl_RangeAttack = false
 ENT.RangeDistance = 512
 ENT.RangeToMeleeDistance = 1
 ENT.RangeAttackAngleRadius = 180

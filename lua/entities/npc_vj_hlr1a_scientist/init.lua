@@ -8,7 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hla/scientist.mdl"
 ENT.IsMedic = false
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(10, 0, -20),
     FirstP_Bone = "unnamed021",
     FirstP_Offset = Vector(2, 0, 5),

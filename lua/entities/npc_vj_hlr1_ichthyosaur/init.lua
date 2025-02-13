@@ -15,7 +15,7 @@ ENT.Aquatic_SwimmingSpeed_Calm = 80
 ENT.Aquatic_SwimmingSpeed_Alerted = 500
 ENT.Aquatic_AnimTbl_Calm = ACT_WALK
 ENT.Aquatic_AnimTbl_Alerted = ACT_RUN
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(-25, 0, 0),
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(12, 0, 5),
@@ -37,7 +37,7 @@ ENT.MeleeAttackDamageDistance = 120
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_HOVER, ACT_DIEVIOLENT, ACT_DIESIMPLE}
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_BIG_FLINCH
 
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/ichy/ichy_idle1.wav", "vj_hlr/hl1_npc/ichy/ichy_idle2.wav", "vj_hlr/hl1_npc/ichy/ichy_idle3.wav", "vj_hlr/hl1_npc/ichy/ichy_idle4.wav"}

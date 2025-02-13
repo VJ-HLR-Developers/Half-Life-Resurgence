@@ -8,7 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/rgrunt.mdl"
 ENT.StartHealth = 200
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(0, 0, -15),
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(5, 0, 5),
@@ -18,7 +18,7 @@ ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.BloodColor = ""
 ENT.HasBloodParticle = false
 ENT.HasBloodDecal = false
-ENT.Medic_CanBeHealed = false
+ENT.VJ_ID_Healable = false
 
 ENT.BreathSoundLevel = 50
 ENT.GeneralSoundPitch1 = 130

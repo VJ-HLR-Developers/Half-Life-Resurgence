@@ -8,4 +8,4 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl2/floor_turret.mdl"
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
-ENT.FriendsWithAllPlayerAllies = true
+ENT.AlliedWithPlayerAllies = true

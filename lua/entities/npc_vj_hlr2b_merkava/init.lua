@@ -7,7 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl2b/merkava.mdl"
 ENT.StartHealth = 500
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(-40, 0, 20),
     FirstP_Bone = "body",
     FirstP_Offset = Vector(0, 0, 70),
@@ -15,7 +15,7 @@ ENT.ControllerParameters = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
-ENT.FriendsWithAllPlayerAllies = true
+ENT.AlliedWithPlayerAllies = true
 
 ENT.Tank_GunnerENT = "npc_vj_hlr2b_merkava_gun"
 ENT.Tank_CollisionBoundSize = 90

@@ -8,7 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/gturret_mini.mdl"
 ENT.StartHealth = 50
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(0, 0, 10),
     FirstP_Bone = "Dummy02",
     FirstP_Offset = Vector(0, 0, 0),

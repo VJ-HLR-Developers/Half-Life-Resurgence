@@ -7,7 +7,7 @@ include("shared.lua")
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hla/barney.mdl"
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(10, 0, -20),
     FirstP_Bone = "unnamed038",
     FirstP_Offset = Vector(1, 0, 5),

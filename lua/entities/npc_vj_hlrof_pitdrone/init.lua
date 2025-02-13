@@ -9,7 +9,7 @@ ENT.Model = "models/vj_hlr/opfor/pit_drone.mdl"
 ENT.StartHealth = 80
 ENT.SightAngle = 230
 ENT.HullType = HULL_HUMAN
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(15, 0, 0),
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(7, 0, 0),
@@ -41,7 +41,7 @@ ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 ENT.DeathAnimationTime = false
 ENT.DisableFootStepSoundTimer = true
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_BIG_FLINCH
 
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/player/boots1.wav", "vj_hlr/hl1_npc/player/boots2.wav", "vj_hlr/hl1_npc/player/boots3.wav", "vj_hlr/hl1_npc/player/boots4.wav"}

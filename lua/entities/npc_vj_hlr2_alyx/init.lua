@@ -13,19 +13,19 @@ ENT.HealthRegenerationDelay = VJ.SET(0.1, 0.1)
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
-ENT.FriendsWithAllPlayerAllies = true
+ENT.AlliedWithPlayerAllies = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.AnimTbl_MeleeAttack = "vjseq_MeleeAttack01"
 ENT.TimeUntilMeleeAttackDamage = 0.7
 ENT.HasGrenadeAttack = false
 /*ENT.AnimTbl_GrenadeAttack = "vjseq_ThrowItem"
-ENT.TimeUntilGrenadeIsReleased = 1.1
+ENT.GrenadeAttackThrowTime = 1.1
 ENT.GrenadeAttackModel = "models/weapons/w_npcnade.mdl"
 ENT.GrenadeAttackAttachment = "anim_attachment_LH"*/
 ENT.HasOnPlayerSight = true
 ENT.BecomeEnemyToPlayer = 2
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = "vjges_flinch_head"
 ENT.HitGroupFlinching_Values = {
 	{HitGroup = {HITGROUP_LEFTARM}, Animation = {"vjges_flinch_leftarm"}},

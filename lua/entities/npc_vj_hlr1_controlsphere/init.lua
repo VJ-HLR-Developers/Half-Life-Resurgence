@@ -12,7 +12,7 @@ ENT.HullType = HULL_TINY
 ENT.MovementType = VJ_MOVETYPE_AERIAL
 ENT.Aerial_FlyingSpeed_Calm = 50
 ENT.Aerial_FlyingSpeed_Alerted = 80
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     FirstP_Bone = "Bone02",
     FirstP_Offset = Vector(5, 0, 7),
 }

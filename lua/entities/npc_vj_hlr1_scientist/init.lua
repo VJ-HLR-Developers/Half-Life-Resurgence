@@ -8,14 +8,14 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl1/scientist.mdl"
 ENT.StartHealth = 50
 ENT.HullType = HULL_HUMAN
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(10, 0, -30),
     FirstP_Bone = "Bip02 Head",
     FirstP_Offset = Vector(5, 0, 5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
-ENT.FriendsWithAllPlayerAllies = true
+ENT.AlliedWithPlayerAllies = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_hlr_blood_red"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Red"}
@@ -35,7 +35,7 @@ ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 ENT.DeathAnimationTime = false
 ENT.CanTurnWhileMoving = false
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}},{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
 

@@ -11,14 +11,14 @@ ENT.HullType = HULL_HUMAN
 ENT.MovementType = VJ_MOVETYPE_AERIAL
 ENT.Aerial_FlyingSpeed_Calm = 100
 ENT.Aerial_FlyingSpeed_Alerted = 200
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
 	FirstP_Bone = "sphere01",
 	FirstP_Offset = Vector(15, 0, -3),
 	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
-ENT.FriendsWithAllPlayerAllies = true
+ENT.AlliedWithPlayerAllies = true
 ENT.ConstantlyFaceEnemy = true
 
 ENT.HasMeleeAttack = true
@@ -34,7 +34,7 @@ ENT.RangeToMeleeDistance = 110
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 3
 ENT.NextRangeAttackTime_DoRand = 4
-ENT.DisableRangeAttackAnimation = true
+ENT.AnimTbl_RangeAttack = false
 
 ENT.LimitChaseDistance = "OnlyRange"
 ENT.LimitChaseDistance_Max = "UseRangeDistance"
@@ -46,7 +46,7 @@ ENT.Medic_CheckDistance = 1000
 ENT.Medic_HealDistance = 600
 ENT.Medic_NextHealTime = VJ.SET(5, 8)
 ENT.Medic_SpawnPropOnHeal = false
-ENT.Medic_CanBeHealed = false
+ENT.VJ_ID_Healable = false
 
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE

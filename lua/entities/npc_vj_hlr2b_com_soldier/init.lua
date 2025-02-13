@@ -19,7 +19,7 @@ ENT.GrenadeAttackAttachment = "righthand"
 ENT.AnimTbl_WeaponAttackSecondary = "vjseq_shoot_ar2grenade"
 ENT.Weapon_SecondaryFireTime = 0.55
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = "vjges_flinch_gesture"
 
 //ENT.SoundTbl_FootStep = {"npc/combine_soldier/gear1.wav", "npc/combine_soldier/gear2.wav", "npc/combine_soldier/gear3.wav", "npc/combine_soldier/gear4.wav", "npc/combine_soldier/gear5.wav", "npc/combine_soldier/gear6.wav"}

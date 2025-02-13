@@ -8,7 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hla/headcrab.mdl"
 ENT.StartHealth = 20
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(10, 0, 0),
     FirstP_Bone = "unnamed025",
     FirstP_Offset = Vector(4, 0, 1),

@@ -15,7 +15,7 @@ ENT.Aquatic_SwimmingSpeed_Calm = 80
 ENT.Aquatic_SwimmingSpeed_Alerted = 350
 ENT.Aquatic_AnimTbl_Calm = ACT_WALK
 ENT.Aquatic_AnimTbl_Alerted = ACT_RUN
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
 	FirstP_Bone = "bip01 neck",
 	FirstP_Offset = Vector(1, 0, 9),
 	FirstP_ShrinkBone = false,
@@ -50,7 +50,7 @@ ENT.ConstantlyFaceEnemy_MinDistance = 1500
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/archer/arch_idle1.wav", "vj_hlr/hl1_npc/archer/arch_idle2.wav", "vj_hlr/hl1_npc/archer/arch_idle3.wav"}

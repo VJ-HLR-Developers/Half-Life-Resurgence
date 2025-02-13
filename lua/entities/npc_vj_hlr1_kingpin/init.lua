@@ -9,7 +9,7 @@ ENT.Model = "models/vj_hlr/hl1/kingpin.mdl"
 ENT.StartHealth = 1000
 ENT.SightAngle = 360
 ENT.HullType = HULL_LARGE
-ENT.ControllerParameters = {
+ENT.ControllerParams = {
     ThirdP_Offset = Vector(-15, 0, -45),
     FirstP_Bone = "MDLDEC_Bone23",
     FirstP_Offset = Vector(8, 0, 6),
@@ -45,7 +45,7 @@ ENT.FootStepTimeRun = 2
 ENT.FootStepTimeWalk = 2
 ENT.HasExtraMeleeAttackSounds = true
 
-ENT.CanFlinch = 1
+ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = "vjseq_flinch_small"
 
 ENT.SoundTbl_Breath = "vj_hlr/hl1_npc/kingpin/kingpin_seeker_amb.wav"
