@@ -26,12 +26,11 @@ ENT.ConstantlyFaceEnemy = true
 ENT.HasMeleeAttack = false
 
 ENT.HasRangeAttack = true
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_energyorb"
-ENT.RangeDistance = 2048
-ENT.RangeToMeleeDistance = 1
+ENT.RangeAttackProjectiles = "obj_vj_hlr1_energyorb"
+ENT.RangeAttackMaxDistance = 2048
+ENT.RangeAttackMinDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.NextRangeAttackTime = 3
-ENT.NextRangeAttackTime_DoRand = 4
+ENT.NextRangeAttackTime = VJ.SET(3, 4)
 
 ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = "UseRangeDistance"
@@ -188,7 +187,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRangeAttack_BeforeStartTimer(seed)
 	self.AlienC_NumFired = 0
-	self.HasRangeAttackSound = true
+	self.HasRangeAttackSounds = true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
@@ -200,7 +199,7 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	
 	if self.AlienC_NumFired < 1 then
 		self.AlienC_NumFired = self.AlienC_NumFired + 1
-		self.HasRangeAttackSound = false
+		self.HasRangeAttackSounds = false
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -29,11 +29,11 @@ ENT.HasMeleeAttack = false
 ENT.HasGrenadeAttack = false
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
-ENT.Weapon_NoSpawnMenu = true
+ENT.Weapon_IgnoreSpawnMenu = true
 ENT.DisableFootStepSoundTimer = true
 ENT.BecomeEnemyToPlayer = 2
 ENT.DropDeathLoot = false
-ENT.Weapon_StrafeWhileFiring = false
+ENT.Weapon_Strafe = false
 ENT.Weapon_CanReload = false
 ENT.CanTurnWhileMoving = false
 

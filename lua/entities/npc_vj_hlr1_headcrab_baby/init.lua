@@ -14,7 +14,7 @@ ENT.ControllerParams = {
     FirstP_Bone = "Bip01 Neck",
     FirstP_Offset = Vector(0, 0, 4),
 }
-ENT.LeapDistance = 180
+ENT.LeapAttackMaxDistance = 180
 ENT.LimitChaseDistance_Max = 150
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.LeapAttackDamage = 5

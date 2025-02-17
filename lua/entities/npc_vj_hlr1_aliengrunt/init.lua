@@ -26,10 +26,10 @@ ENT.MeleeAttackDistance = 40
 ENT.MeleeAttackDamageDistance = 70
 
 ENT.HasRangeAttack = true
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_hornet"
+ENT.RangeAttackProjectiles = "obj_vj_hlr1_hornet"
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-ENT.RangeDistance = 1100
-ENT.RangeToMeleeDistance = 200
+ENT.RangeAttackMaxDistance = 1100
+ENT.RangeAttackMinDistance = 200
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 0
 
@@ -55,7 +55,7 @@ ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/agrunt/ag_pain1.wav", "vj_hlr/hl1_npc/agrun
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/agrunt/ag_die1.wav", "vj_hlr/hl1_npc/agrunt/ag_die2.wav", "vj_hlr/hl1_npc/agrunt/ag_die3.wav", "vj_hlr/hl1_npc/agrunt/ag_die4.wav", "vj_hlr/hl1_npc/agrunt/ag_die5.wav"}
 
 ENT.GeneralSoundPitch1 = 100
-ENT.FootStepPitch = VJ.SET(70, 70)
+ENT.FootstepSoundPitch = VJ.SET(70, 70)
 
 -- Custom
 ENT.AGrunt_Type = 0
@@ -75,7 +75,7 @@ function ENT:Init()
 		self.AnimTbl_Death = ACT_DIESIMPLE
 	else -- Default
 		self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
-		self.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}}, {HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}}, {HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}}, {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
+		self.FlinchHitGroupMap = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}}, {HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}}, {HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}}, {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

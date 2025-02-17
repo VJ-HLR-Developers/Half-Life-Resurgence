@@ -49,7 +49,7 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/houndeye/he_die1.wav", "vj_hlr/hl1_npc/hou
 local blastSd = {"vj_hlr/hl1_npc/houndeye/he_blast1.wav", "vj_hlr/hl1_npc/houndeye/he_blast2.wav", "vj_hlr/hl1_npc/houndeye/he_blast3.wav"}
 local madSd = {"vj_hlr/hl1_npc/houndeye/he_alert1.wav", "vj_hlr/hl1_npc/houndeye/he_hunt4.wav"}
 
-ENT.FootStepSoundLevel = 80
+ENT.FootstepSoundLevel = 80
 ENT.GeneralSoundPitch1 = 100
 
 -- Custom

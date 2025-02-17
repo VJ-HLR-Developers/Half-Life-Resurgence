@@ -39,9 +39,9 @@ ENT.Immune_Fire = true
 ENT.HasMeleeAttack = false
 
 ENT.HasRangeAttack = true
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_rocket"
-ENT.RangeDistance = combatDistance
-ENT.RangeToMeleeDistance = 1
+ENT.RangeAttackProjectiles = "obj_vj_hlr1_rocket"
+ENT.RangeAttackMaxDistance = combatDistance
+ENT.RangeAttackMinDistance = 1
 ENT.RangeAttackAngleRadius = 100
 ENT.TimeUntilRangeAttackProjectileRelease = 0
 ENT.NextRangeAttackTime = 10

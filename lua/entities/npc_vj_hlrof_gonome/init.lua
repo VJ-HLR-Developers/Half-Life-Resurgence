@@ -25,10 +25,10 @@ ENT.MeleeAttackDistance = 50
 ENT.MeleeAttackDamageDistance = 80
 
 ENT.HasRangeAttack = true
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_gonomegut"
+ENT.RangeAttackProjectiles = "obj_vj_hlr1_gonomegut"
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-ENT.RangeDistance = 784
-ENT.RangeToMeleeDistance = 200
+ENT.RangeAttackMaxDistance = 784
+ENT.RangeAttackMinDistance = 200
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 6
 

@@ -9,7 +9,7 @@ include("shared.lua")
 ENT.StartHealth = 80
 ENT.SightAngle = 200
 ENT.Weapon_Accuracy = 0.5
-ENT.Weapon_FiringDistanceFar = 10000
+ENT.Weapon_MaxDistance = 10000
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetMaterial("models/hl_resurgence/hl2/sniper/combinesoldiersheet")

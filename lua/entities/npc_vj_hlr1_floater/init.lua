@@ -33,12 +33,11 @@ ENT.HasMeleeAttack = false
 
 ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = "vjseq_attack"
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_toxicspit"
-ENT.RangeDistance = 1500
-ENT.RangeToMeleeDistance = 1
+ENT.RangeAttackProjectiles = "obj_vj_hlr1_toxicspit"
+ENT.RangeAttackMaxDistance = 1500
+ENT.RangeAttackMinDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.NextRangeAttackTime = 2
-ENT.NextRangeAttackTime_DoRand = 4
+ENT.NextRangeAttackTime = VJ.SET(2, 4)
 
 ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = "UseRangeDistance"

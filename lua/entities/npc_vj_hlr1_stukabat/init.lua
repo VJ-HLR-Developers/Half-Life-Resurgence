@@ -34,12 +34,11 @@ ENT.HasMeleeAttack = false
 
 ENT.HasRangeAttack = false
 ENT.AnimTbl_RangeAttack = "vjseq_Attack_bomb"
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_stukabomb"
-ENT.RangeDistance = 1500
-ENT.RangeToMeleeDistance = 1
+ENT.RangeAttackProjectiles = "obj_vj_hlr1_stukabomb"
+ENT.RangeAttackMaxDistance = 1500
+ENT.RangeAttackMinDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.NextRangeAttackTime = 2
-ENT.NextRangeAttackTime_DoRand = 4
+ENT.NextRangeAttackTime = VJ.SET(2, 4)
 
 ENT.LimitChaseDistance = false
 ENT.LimitChaseDistance_Max = "UseRangeDistance"
@@ -184,7 +183,7 @@ function ENT:OnThink()
 		self.Stuka_FlyAnimation = pos.z <= waypoint.z && ACT_FLY or ACT_GLIDE
 	end
 	if IsValid(ene) then
-		if self.LatestEnemyDistance <= self.RangeDistance && self.Stuka_AerialAnimationType != 1 then
+		if self.LatestEnemyDistance <= self.RangeAttackMaxDistance && self.Stuka_AerialAnimationType != 1 then
 			self.Stuka_AerialAnimationType = 1
 			self.Aerial_AnimTbl_Calm = ACT_HOVER
 		else

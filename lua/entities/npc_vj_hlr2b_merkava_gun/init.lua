@@ -26,7 +26,7 @@ function ENT:Tank_Init()
 	spotter:SetOwner(self)
 	spotter:SetParent(self)
 	spotter.MovementType = VJ_MOVETYPE_STATIONARY
-	spotter.DisableWeapons = true
+	spotter.Weapon_Disabled = true
 	spotter.CanTurnWhileStationary = false
 	spotter.Weapon_UnarmedBehavior = false
 	spotter.VJ_ID_Healable = false

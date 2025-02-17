@@ -32,17 +32,16 @@ ENT.MeleeAttackBleedEnemyChance = 1
 ENT.MeleeAttackBleedEnemyDamage = 3
 
 ENT.HasRangeAttack = true
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_kingpin_orb"
-ENT.RangeDistance = 3000
-ENT.RangeToMeleeDistance = 180
+ENT.RangeAttackProjectiles = "obj_vj_hlr1_kingpin_orb"
+ENT.RangeAttackMaxDistance = 3000
+ENT.RangeAttackMinDistance = 180
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.NextRangeAttackTime = 6
-ENT.NextRangeAttackTime_DoRand = 8
+ENT.NextRangeAttackTime = VJ.SET(6, 8)
 
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD, ACT_DIEBACKWARD}
-ENT.FootStepTimeRun = 2
-ENT.FootStepTimeWalk = 2
+ENT.FootstepTimerRun = 2
+ENT.FootstepTimerWalk = 2
 ENT.HasExtraMeleeAttackSounds = true
 
 ENT.CanFlinch = true
@@ -107,10 +106,10 @@ function ENT:OnThinkActive()
 		timer.Simple(0.5, function()
 			if IsValid(self) then
 				local orgDist = self:GetMaxLookDistance()
-				self.FindEnemy_CanSeeThroughWalls = true
+				self.EnemyXRayDetection = true
 				self:SetMaxLookDistance(450)
 				self:MaintainRelationships()
-				self.FindEnemy_CanSeeThroughWalls = false
+				self.EnemyXRayDetection = false
 				self:SetMaxLookDistance(orgDist)
 			end
 		end)

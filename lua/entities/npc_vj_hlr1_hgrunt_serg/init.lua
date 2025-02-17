@@ -12,7 +12,7 @@ ENT.StartHealth = 180
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK_SWING}
 ENT.GrenadeAttackThrowTime = 1
 ENT.Weapon_CanReload = false
-ENT.Weapon_CanFireWhileMoving = false
+ENT.Weapon_CanMoveFire = false
 ENT.CombatDamageResponse = false
 ENT.Weapon_RetreatDistance = 0
 

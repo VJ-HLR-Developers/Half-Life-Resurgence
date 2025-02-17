@@ -38,13 +38,13 @@ ENT.GrenadeAttackAttachment = "grenadehand"
 ENT.GrenadeAttackThrowTime = 0.4
 
 ENT.Weapon_CanReload = false
-ENT.Weapon_NoSpawnMenu = true
-ENT.Weapon_StrafeWhileFiring = false
+ENT.Weapon_IgnoreSpawnMenu = true
+ENT.Weapon_Strafe = false
 ENT.Weapon_Accuracy = 0.6
 ENT.Weapon_CanCrouchAttack = false
 ENT.AnimTbl_WeaponAttackGesture = false
 ENT.AnimTbl_TakingCover = ACT_LAND
-ENT.Weapon_WaitOnOcclusionTime = VJ.SET(1, 2)
+ENT.Weapon_OcclusionDelayTime = VJ.SET(1, 2)
 ENT.DisableFootStepSoundTimer = true
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
@@ -53,7 +53,7 @@ ENT.CanTurnWhileMoving = false
 
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav", "vj_hlr/pl_step2.wav", "vj_hlr/pl_step3.wav", "vj_hlr/pl_step4.wav"}
 
-ENT.FootStepSoundLevel = 55
+ENT.FootstepSoundLevel = 55
 
 -- Custom
 ENT.BOA_CanCloak = true

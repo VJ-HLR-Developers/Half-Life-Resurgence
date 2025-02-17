@@ -67,10 +67,10 @@ function ENT:Bullsquid_ActivateBullSquidding()
 	self.Bullsquid_BullSquiddingT = CurTime()
 	self.VJ_ID_Boss = true
 	self.StartHealth = 1500
-	self.FindEnemy_CanSeeThroughWalls = true
+	self.EnemyXRayDetection = true
 	self.AnimTbl_RangeAttack = ACT_RANGE_ATTACK2
 	self.AnimTbl_RangeAttack = false
-	self.RangeDistance = 30000
+	self.RangeAttackMaxDistance = 30000
 	self.RangeAttackAngleRadius = 180
 	self.RangeAttackAnimationFaceEnemy = false
 	self.RangeAttackAnimationStopMovement = false

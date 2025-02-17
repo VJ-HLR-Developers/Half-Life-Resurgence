@@ -22,8 +22,8 @@ ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Yellow"}
 ENT.HasBloodPool = false
 ENT.HasMeleeAttack = false
-ENT.FootStepTimeRun = 3
-ENT.FootStepTimeWalk = 3
+ENT.FootstepTimerRun = 3
+ENT.FootstepTimerWalk = 3
 ENT.HasImpactSounds = false
 
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/roach/rch_walk.wav"}

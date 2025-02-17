@@ -21,8 +21,8 @@ ENT.BloodParticle = {"vj_hlr_blood_red"}
 ENT.BloodDecal = {"VJ_HLR_Blood_Red"}
 ENT.HasBloodPool = false
 ENT.HasMeleeAttack = false
-ENT.Weapon_NoSpawnMenu = true
-ENT.Weapon_StrafeWhileFiring = false
+ENT.Weapon_IgnoreSpawnMenu = true
+ENT.Weapon_Strafe = false
 ENT.AnimTbl_WeaponAttackGesture = false
 ENT.AnimTbl_CallForHelp = false
 ENT.DisableFootStepSoundTimer = true
@@ -36,7 +36,7 @@ ENT.CanTurnWhileMoving = false
 
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
-ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}},{HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}},{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}},{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
+ENT.FlinchHitGroupMap = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}},{HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}},{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}},{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
 
 ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav", "vj_hlr/pl_step2.wav", "vj_hlr/pl_step3.wav", "vj_hlr/pl_step4.wav"}
 

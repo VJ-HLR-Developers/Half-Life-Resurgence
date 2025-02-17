@@ -27,8 +27,8 @@ ENT.HasMeleeAttack = false
 
 ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-ENT.RangeDistance = 1020
-ENT.RangeToMeleeDistance = 1
+ENT.RangeAttackMaxDistance = 1020
+ENT.RangeAttackMinDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 3
 ENT.DisableDefaultRangeAttackCode = true

@@ -29,10 +29,9 @@ ENT.MeleeAttackDamageDistance = 50
 
 ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = "vjseq_distanceattack"
-ENT.RangeDistance = 1000
-ENT.RangeToMeleeDistance = 100
-ENT.NextRangeAttackTime = 15
-ENT.NextRangeAttackTime_DoRand = 20
+ENT.RangeAttackMaxDistance = 1000
+ENT.RangeAttackMinDistance = 100
+ENT.NextRangeAttackTime = VJ.SET(15, 25)
 ENT.DisableDefaultRangeAttackCode = true
 
 ENT.HasDeathAnimation = true
@@ -50,8 +49,8 @@ ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/voltigore/voltigore_pain1.wav", "vj_hlr/hl1_npc/voltigore/voltigore_pain2.wav", "vj_hlr/hl1_npc/voltigore/voltigore_pain3.wav", "vj_hlr/hl1_npc/voltigore/voltigore_pain4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/voltigore/voltigore_die1.wav", "vj_hlr/hl1_npc/voltigore/voltigore_die2.wav", "vj_hlr/hl1_npc/voltigore/voltigore_die3.wav"}
 
-ENT.FootStepSoundLevel = 55
-ENT.FootStepPitch = VJ.SET(130, 130)
+ENT.FootstepSoundLevel = 55
+ENT.FootstepSoundPitch = VJ.SET(130, 130)
 ENT.GeneralSoundPitch1 = 120
 ENT.GeneralSoundPitch2 = 125
 ---------------------------------------------------------------------------------------------------------------------------------------------

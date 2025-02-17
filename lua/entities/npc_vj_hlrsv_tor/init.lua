@@ -31,12 +31,11 @@ ENT.MeleeAttackDistance = 45
 ENT.MeleeAttackDamageDistance = 75
 
 ENT.HasRangeAttack = true
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_orb_electrical"
-ENT.RangeDistance = 2000
-ENT.RangeToMeleeDistance = 100
+ENT.RangeAttackProjectiles = "obj_vj_hlr1_orb_electrical"
+ENT.RangeAttackMaxDistance = 2000
+ENT.RangeAttackMinDistance = 100
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.NextRangeAttackTime = 3
-ENT.NextRangeAttackTime_DoRand = 4
+ENT.NextRangeAttackTime = VJ.SET(3, 4)
 
 ENT.LimitChaseDistance = "OnlyRange"
 ENT.LimitChaseDistance_Max = 1000
@@ -50,7 +49,7 @@ ENT.HasExtraMeleeAttackSounds = true
 
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
-ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}}, {HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}}, {HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}}, {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
+ENT.FlinchHitGroupMap = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}}, {HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}}, {HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}}, {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
 
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/aslave/vort_foot1.wav", "vj_hlr/hl1_npc/aslave/vort_foot2.wav", "vj_hlr/hl1_npc/aslave/vort_foot3.wav", "vj_hlr/hl1_npc/aslave/vort_foot4.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/hlsc_npc/tor/tor-idle.wav", "vj_hlr/hlsc_npc/tor/tor-idle2.wav", "vj_hlr/hlsc_npc/tor/tor-idle3.wav", "vj_hlr/hlsc_npc/tor/tor-test1.wav"}

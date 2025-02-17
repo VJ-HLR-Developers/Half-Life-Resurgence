@@ -14,7 +14,7 @@ ENT.ControllerParams = {
 }
 ENT.HasGrenadeAttack = false
 ENT.Weapon_SecondaryFireTime = 1.2
-ENT.Weapon_StrafeWhileFiring = true
+ENT.Weapon_Strafe = true
 ENT.CanTurnWhileMoving = true
 
 -- Custom
@@ -40,7 +40,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local strafeAnims = {ACT_STRAFE_RIGHT, ACT_STRAFE_LEFT}
 --
-function ENT:OnWeaponStrafeWhileFiring()
+function ENT:OnWeaponStrafe()
 	self:PlayAnim(strafeAnims, true, false, false)
 	return false
 end

@@ -34,14 +34,13 @@ ENT.TimeUntilMeleeAttackDamage = false
 ENT.HasMeleeAttackKnockBack = true
 
 ENT.HasRangeAttack = true
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlrof_gw_biotoxin"
+ENT.RangeAttackProjectiles = "obj_vj_hlrof_gw_biotoxin"
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-ENT.RangeDistance = 8000
-ENT.RangeToMeleeDistance = 500
+ENT.RangeAttackMaxDistance = 8000
+ENT.RangeAttackMinDistance = 500
 ENT.TimeUntilRangeAttackProjectileRelease = 2.1
 ENT.RangeAttackExtraTimers = {2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4, 4.1, 4.2, 4.3}
-ENT.NextRangeAttackTime = 2
-ENT.NextRangeAttackTime_DoRand = 4
+ENT.NextRangeAttackTime = VJ.SET(2, 4)
 
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = "death"

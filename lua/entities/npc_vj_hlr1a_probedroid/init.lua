@@ -28,12 +28,11 @@ ENT.MeleeAttackDamageDistance = 80
 ENT.TimeUntilMeleeAttackDamage = false
 
 ENT.HasRangeAttack = true
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_probed_needle"
-ENT.RangeDistance = 1500
-ENT.RangeToMeleeDistance = 110
+ENT.RangeAttackProjectiles = "obj_vj_hlr1_probed_needle"
+ENT.RangeAttackMaxDistance = 1500
+ENT.RangeAttackMinDistance = 110
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.NextRangeAttackTime = 3
-ENT.NextRangeAttackTime_DoRand = 4
+ENT.NextRangeAttackTime = VJ.SET(3, 4)
 ENT.AnimTbl_RangeAttack = false
 
 ENT.LimitChaseDistance = "OnlyRange"

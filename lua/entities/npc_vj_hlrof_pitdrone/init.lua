@@ -28,13 +28,12 @@ ENT.MeleeAttackDistance = 40
 ENT.MeleeAttackDamageDistance = 70
 
 ENT.HasRangeAttack = true
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_pitspike"
+ENT.RangeAttackProjectiles = "obj_vj_hlr1_pitspike"
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-ENT.RangeDistance = 1500
-ENT.RangeToMeleeDistance = 100
+ENT.RangeAttackMaxDistance = 1500
+ENT.RangeAttackMinDistance = 100
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.NextRangeAttackTime = 1
-ENT.NextRangeAttackTime_DoRand = 5
+ENT.NextRangeAttackTime = VJ.SET(1, 5)
 
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}

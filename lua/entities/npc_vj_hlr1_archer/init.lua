@@ -35,12 +35,11 @@ ENT.MeleeAttackDistance = 40
 ENT.MeleeAttackDamageDistance = 50
 
 ENT.HasRangeAttack = true
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_archerspit"
-ENT.RangeDistance = 1500
-ENT.RangeToMeleeDistance = 100
+ENT.RangeAttackProjectiles = "obj_vj_hlr1_archerspit"
+ENT.RangeAttackMaxDistance = 1500
+ENT.RangeAttackMinDistance = 100
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.NextRangeAttackTime = 2.5
-ENT.NextRangeAttackTime_DoRand = 3
+ENT.NextRangeAttackTime = VJ.SET(2.5, 3)
 
 ENT.LimitChaseDistance = "OnlyRange"
 ENT.LimitChaseDistance_Max = "UseRangeDistance"

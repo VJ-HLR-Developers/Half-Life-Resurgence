@@ -290,7 +290,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				-- Handle Gordon precriminal game state
 				if gStatePrecriminal == true then -- Toggles friendly-AI for the intro of Half-Life 2
 					//newEnt.DisableWandering = true
-					newEnt.DisableFindEnemy = true
+					newEnt.EnemyDetection = false
 					newEnt.AlliedWithPlayerAllies = true
 					newEnt.FollowPlayer = false
 					newEnt.Behavior = VJ_BEHAVIOR_PASSIVE

@@ -30,11 +30,11 @@ ENT.HasMeleeAttackKnockBack = true
 
 ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_toxicspit"
+ENT.RangeAttackProjectiles = "obj_vj_hlr1_toxicspit"
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 1.5
-ENT.RangeDistance = 784
-ENT.RangeToMeleeDistance = 256
+ENT.RangeAttackMaxDistance = 784
+ENT.RangeAttackMinDistance = 256
 
 ENT.LimitChaseDistance = "OnlyRange"
 ENT.LimitChaseDistance_Max = "UseRangeDistance"

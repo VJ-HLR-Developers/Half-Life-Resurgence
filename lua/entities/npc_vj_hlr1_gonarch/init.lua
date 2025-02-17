@@ -31,13 +31,12 @@ ENT.TimeUntilMeleeAttackDamage = false
 ENT.HasMeleeAttackKnockBack = true
 
 ENT.HasRangeAttack = true
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_gonarchspit"
+ENT.RangeAttackProjectiles = "obj_vj_hlr1_gonarchspit"
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-ENT.RangeDistance = 2000
-ENT.RangeToMeleeDistance = 500
+ENT.RangeAttackMaxDistance = 2000
+ENT.RangeAttackMinDistance = 500
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.NextRangeAttackTime = 0.1
-ENT.NextRangeAttackTime_DoRand = 4
+ENT.NextRangeAttackTime = VJ.SET(0.1, 4)
 
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
@@ -59,7 +58,7 @@ local sdBabyDeath = {"vj_hlr/hl1_npc/gonarch/gon_childdie1.wav", "vj_hlr/hl1_npc
 
 ENT.AllyDeathSoundChance = 1
 
-ENT.FootStepSoundLevel = 80
+ENT.FootstepSoundLevel = 80
 ENT.GeneralSoundPitch1 = 100
 ENT.AllyDeathSoundLevel = 90
 

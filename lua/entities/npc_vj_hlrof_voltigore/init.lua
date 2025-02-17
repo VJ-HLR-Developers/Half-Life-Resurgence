@@ -28,13 +28,12 @@ ENT.MeleeAttackDistance = 100
 ENT.MeleeAttackDamageDistance = 125
 
 ENT.HasRangeAttack = true
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlrof_voltigore_energy"
+ENT.RangeAttackProjectiles = "obj_vj_hlrof_voltigore_energy"
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-ENT.RangeDistance = 2000
-ENT.RangeToMeleeDistance = 100
+ENT.RangeAttackMaxDistance = 2000
+ENT.RangeAttackMinDistance = 100
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.NextRangeAttackTime = 3
-ENT.NextRangeAttackTime_DoRand = 4
+ENT.NextRangeAttackTime = VJ.SET(3, 4)
 
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}

@@ -27,7 +27,7 @@ ENT.BecomeEnemyToPlayer = 2
 
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = "vjges_flinch_head"
-ENT.HitGroupFlinching_Values = {
+ENT.FlinchHitGroupMap = {
 	{HitGroup = {HITGROUP_LEFTARM}, Animation = {"vjges_flinch_leftarm"}},
 	{HitGroup = {HITGROUP_RIGHTARM}, Animation = {"vjges_flinch_rightarm"}},
 }

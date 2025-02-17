@@ -30,8 +30,8 @@ ENT.GrenadeAttackAttachment = "eyes"
 ENT.GrenadeAttackThrowTime = 1.5
 ENT.GrenadeAttackChance = 1
 
-ENT.Weapon_NoSpawnMenu = true
-ENT.Weapon_StrafeWhileFiring = false
+ENT.Weapon_IgnoreSpawnMenu = true
+ENT.Weapon_Strafe = false
 ENT.AnimTbl_WeaponAttackCrouch = ACT_RANGE_ATTACK2
 ENT.AnimTbl_WeaponAttackGesture = false
 ENT.AnimTbl_CallForHelp = ACT_SIGNAL2

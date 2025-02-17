@@ -30,13 +30,12 @@ ENT.MeleeAttackDamageDistance = 80
 ENT.HasLeapAttack = true
 ENT.LeapAttackDamage = 35
 ENT.AnimTbl_LeapAttack = "vjseq_crouch_to_jump"
-ENT.LeapDistance = 300
-ENT.LeapToMeleeDistance = 100
+ENT.LeapAttackMaxDistance = 300
+ENT.LeapAttackMinDistance = 100
 ENT.LeapAttackDamageDistance = 100
 ENT.TimeUntilLeapAttackDamage = 1.1
 ENT.TimeUntilLeapAttackVelocity = 0.9
-ENT.NextLeapAttackTime = 3
-ENT.NextLeapAttackTime_DoRand = 4
+ENT.NextLeapAttackTime = VJ.SET(3, 4)
 ENT.LeapAttackExtraTimers = {1.3}
 
 ENT.HasDeathAnimation = true

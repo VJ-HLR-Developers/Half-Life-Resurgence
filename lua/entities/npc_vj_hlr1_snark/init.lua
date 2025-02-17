@@ -24,8 +24,8 @@ ENT.HasBloodPool = false
 ENT.HasMeleeAttack = false
 ENT.HasLeapAttack = true
 ENT.AnimTbl_LeapAttack = ACT_JUMP
-ENT.LeapDistance = 200
-ENT.LeapToMeleeDistance = 0
+ENT.LeapAttackMaxDistance = 200
+ENT.LeapAttackMinDistance = 0
 ENT.TimeUntilLeapAttackDamage = 0.4
 ENT.NextLeapAttackTime = 0.4
 ENT.NextAnyAttackTime_Leap = 0.4
@@ -86,7 +86,7 @@ function ENT:OnThinkActive()
 	local ene = self:GetEnemy()
 	
 	-- Randomly jump while engaging an enemy
-	if IsValid(ene) && self.VJ_IsBeingControlled == false && self:IsOnGround() && self.EnemyData.IsVisible && self.LatestEnemyDistance > (self.LeapDistance + 10) && CurTime() > self.Snark_NextJumpWalkT then
+	if IsValid(ene) && self.VJ_IsBeingControlled == false && self:IsOnGround() && self.EnemyData.IsVisible && self.LatestEnemyDistance > (self.LeapAttackMaxDistance + 10) && CurTime() > self.Snark_NextJumpWalkT then
 		self:PlayAnim(ACT_RUN, false, 0.7, true)
 		self:PlaySoundSystem("Alert")
 		self:SetGroundEntity(NULL)
@@ -96,9 +96,9 @@ function ENT:OnThinkActive()
 	
 	-- Change the sound pitch depending on its energy
 	if (self.Snark_EnergyTime - CurTime()) < 6 then
-		self.UseTheSameGeneralSoundPitch_PickedNumber = self.UseTheSameGeneralSoundPitch_PickedNumber + 1
+		self.GeneralSoundPitchValue = self.GeneralSoundPitchValue + 1
 	else
-		self.UseTheSameGeneralSoundPitch_PickedNumber = 100
+		self.GeneralSoundPitchValue = 100
 	end
 	
 	-- No more energy time, explode!
@@ -124,7 +124,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnLeapAttack_AfterChecks(hitEnt)
 	self.Snark_EnergyTime = self.Snark_EnergyTime + 0.5
-	self.UseTheSameGeneralSoundPitch_PickedNumber = math.Clamp(self.UseTheSameGeneralSoundPitch_PickedNumber - 5, 100, 255)
+	self.GeneralSoundPitchValue = math.Clamp(self.GeneralSoundPitchValue - 5, 100, 255)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))

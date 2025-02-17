@@ -26,11 +26,10 @@ ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.HasMeleeAttack = false
 
 ENT.HasRangeAttack = true
-ENT.RangeDistance = 20000
-ENT.RangeToMeleeDistance = 1
+ENT.RangeAttackMaxDistance = 20000
+ENT.RangeAttackMinDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.NextRangeAttackTime = 3
-ENT.NextRangeAttackTime_DoRand = 4
+ENT.NextRangeAttackTime = VJ.SET(3, 4)
 
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
@@ -181,10 +180,10 @@ end
 function ENT:MultipleRangeAttacks()
 	if math.random(1, 4) == 1 then
 		self.AnimTbl_RangeAttack = self.Nih_BrainOpen == true and ACT_RANGE_ATTACK2_LOW or ACT_RANGE_ATTACK2
-		self.RangeAttackEntityToSpawn = "obj_vj_hlr1_orb_teleport"
+		self.RangeAttackProjectiles = "obj_vj_hlr1_orb_teleport"
 	else
 		self.AnimTbl_RangeAttack = self.Nih_BrainOpen == true and ACT_RANGE_ATTACK1_LOW or ACT_RANGE_ATTACK1
-		self.RangeAttackEntityToSpawn = "obj_vj_hlr1_orb_electrical"
+		self.RangeAttackProjectiles = "obj_vj_hlr1_orb_electrical"
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -88,7 +88,7 @@ function ENT:Init()
 		gunner:SetOwner(self)
 		gunner:SetParent(self)
 		gunner.MovementType = VJ_MOVETYPE_STATIONARY
-		gunner.DisableWeapons = true
+		gunner.Weapon_Disabled = true
 		gunner.CanTurnWhileStationary = false
 		gunner.Weapon_UnarmedBehavior = false
 		gunner.VJ_ID_Healable = false
@@ -98,7 +98,7 @@ function ENT:Init()
 		self:SetRelationshipMemory(gunner, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
 		gunner:SetRelationshipMemory(self, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
 		if self.Osprey_IsBlackOps then gunner:SetBodygroup(2, 1) end -- Always give the Black Ops snipers!
-		gunner.Weapon_FiringDistanceFar = self.SightDistance
+		gunner.Weapon_MaxDistance = self.SightDistance
 		gunner:Fire("SetParentAttachment", i == 1 and "gunner_left" or "gunner_right", 0)
 		gunner:SetState(VJ_STATE_ONLY_ANIMATION)
 		timer.Simple(0.2, function()

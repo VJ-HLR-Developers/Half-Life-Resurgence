@@ -31,11 +31,10 @@ ENT.MeleeAttackDamageDistance = 165
 
 ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK2
-ENT.RangeAttackEntityToSpawn = "obj_vj_hlr1_garg_stomp"
-ENT.RangeDistance = 2000
-ENT.RangeToMeleeDistance = 120
-ENT.NextRangeAttackTime = 10
-ENT.NextRangeAttackTime_DoRand = 13
+ENT.RangeAttackProjectiles = "obj_vj_hlr1_garg_stomp"
+ENT.RangeAttackMaxDistance = 2000
+ENT.RangeAttackMinDistance = 120
+ENT.NextRangeAttackTime = VJ.SET(10, 13)
 ENT.TimeUntilRangeAttackProjectileRelease = false
 
 ENT.HasExtraMeleeAttackSounds = true

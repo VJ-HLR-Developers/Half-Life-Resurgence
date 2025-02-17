@@ -9,7 +9,7 @@ include("shared.lua")
 ENT.StartHealth = 40
 ENT.HullType = HULL_HUMAN
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE
-ENT.Weapon_NoSpawnMenu = true
+ENT.Weapon_IgnoreSpawnMenu = true
 ENT.HasGrenadeAttack = false
 ENT.DropDeathLoot = false
 

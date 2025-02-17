@@ -27,8 +27,8 @@ ENT.MeleeAttackDamageDistance = 70
 
 ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-ENT.RangeDistance = 1020
-ENT.RangeToMeleeDistance = 100
+ENT.RangeAttackMaxDistance = 1020
+ENT.RangeAttackMinDistance = 100
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 3
 ENT.DisableDefaultRangeAttackCode = true
@@ -44,7 +44,7 @@ ENT.HasExtraMeleeAttackSounds = true
 
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
-ENT.HitGroupFlinching_Values = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}},{HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}},{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}},{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
+ENT.FlinchHitGroupMap = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}},{HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}},{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}},{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
 
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/aslave/vort_foot1.wav", "vj_hlr/hl1_npc/aslave/vort_foot2.wav", "vj_hlr/hl1_npc/aslave/vort_foot3.wav", "vj_hlr/hl1_npc/aslave/vort_foot4.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/aslave/slv_idle1.wav", "vj_hlr/hl1_npc/aslave/slv_idle2.wav", "vj_hlr/hl1_npc/aslave/slv_idle3.wav", "vj_hlr/hl1_npc/aslave/slv_idle4.wav", "vj_hlr/hl1_npc/aslave/slv_idle5.wav", "vj_hlr/hl1_npc/aslave/slv_idle6.wav", "vj_hlr/hl1_npc/aslave/slv_idle7.wav", "vj_hlr/hl1_npc/aslave/slv_idle8.wav", "vj_hlr/hl1_npc/aslave/slv_idle9.wav", "vj_hlr/hl1_npc/aslave/slv_idle10.wav"}
@@ -58,7 +58,7 @@ ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/hassault/hw_shoot1.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/aslave/slv_pain1.wav", "vj_hlr/hl1_npc/aslave/slv_pain2.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/aslave/slv_die1.wav", "vj_hlr/hl1_npc/aslave/slv_die2.wav"}
 
-ENT.FootStepSoundLevel = 60
+ENT.FootstepSoundLevel = 60
 
 ENT.GeneralSoundPitch1 = 100
 ENT.RangeAttackPitch = VJ.SET(130, 160)

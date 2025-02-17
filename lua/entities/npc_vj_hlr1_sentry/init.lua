@@ -19,14 +19,14 @@ ENT.ControllerParams = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
-ENT.AlertToIdleDelay = VJ.SET(16, 16)
+ENT.AlertTimeout = VJ.SET(16, 16)
 ENT.HasMeleeAttack = false
 
 ENT.HasRangeAttack = true
 ENT.DisableDefaultRangeAttackCode = true
 ENT.AnimTbl_RangeAttack = false
-ENT.RangeDistance = 1300
-ENT.RangeToMeleeDistance = 1
+ENT.RangeAttackMaxDistance = 1300
+ENT.RangeAttackMinDistance = 1
 ENT.RangeAttackAngleRadius = 180
 ENT.TimeUntilRangeAttackProjectileRelease = 0.06
 ENT.RangeAttackReps = 1
