@@ -155,7 +155,7 @@ if VJExists == true then
 ------ Source Engine ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	spawnCategory = "HL Resurgence: Source"
-	VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_hl/icons/hl2.png"})
+	VJ.AddCategoryInfo(spawnCategory, {Icon = "games/16/hl2.png"})
 	
 	-- Earth + Resistance
 	VJ.AddNPC("Citizen", "npc_vj_hlr2_citizen", spawnCategory)
@@ -237,7 +237,7 @@ if VJExists == true then
 		VJ.AddNPCWeapon("VJ_SniperRifle", "weapon_vj_hlr2b_sniper", spawnCategory)
 	
 	-- Player Weapons
-	VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_hl/icons/hl2.png"})
+	VJ.AddCategoryInfo(spawnCategory, {Icon = "games/16/hl2.png"})
 	VJ.AddWeapon("Combine Sniper", "weapon_vj_hlr2_csniper", false, spawnCategory)
 	VJ.AddWeapon("Alyx Gun", "weapon_vj_hlr2_alyxgun", false, spawnCategory)
 	VJ.AddWeapon("Charge Bow", "weapon_vj_hlr2_chargebow", false, spawnCategory)

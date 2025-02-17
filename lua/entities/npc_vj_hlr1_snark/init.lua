@@ -65,7 +65,7 @@ end
 function ENT:Init()
 	self:Snark_CustomOnInitialize()
 	self.Snark_EnergyTime = CurTime() + math.Rand(18, 22)
-	self.NextIdleSoundT_RegularChange = 0
+	self.NextIdleSoundT_Reg = 0
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
