@@ -46,7 +46,7 @@ ENT.SoundTbl_Death = "vj_hlr/hl1_weapon/mortar/mortarhit.wav"
 
 local sdExplosions = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 ENT.DeathSoundLevel = 100
 
 /* https://github.com/ValveSoftware/halflife/blob/master/dlls/osprey.cpp

@@ -86,14 +86,14 @@ function ENT:OnInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjSpawnPos(projectile)
+function ENT:RangeAttackProjPos(projectile)
 	return self:GetPos() + self:GetUp() * 40
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjVelocity(projectile)
+function ENT:RangeAttackProjVel(projectile)
 	local projPos = projectile:GetPos()
 	ParticleEffect("vj_hlr_spit_drone_spawn", projPos + projectile:GetForward() * 30, self:GetForward():Angle(), projectile)
-	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 2000), 2000)
+	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projPos, 1, 2000)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)

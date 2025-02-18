@@ -45,7 +45,7 @@ ENT.SoundTbl_RangeAttack = "vj_hlr/hl1_npc/hassault/hw_shoot1.wav"
 ENT.SoundTbl_Pain = "vj_hlr/hl1_npc/sphere/sph_pain1.wav"
 ENT.SoundTbl_Death = "vj_hlr/hl1_npc/sphere/sph_pain1.wav"
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(8, 8, 12), Vector(-8, -8, 0))

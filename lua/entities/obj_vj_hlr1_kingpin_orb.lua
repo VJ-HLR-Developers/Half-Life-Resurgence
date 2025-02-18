@@ -70,8 +70,7 @@ function ENT:OnThink()
 		end
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
-			-- phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter(), 200))
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position, self.Track_OrbSpeed))
+			phys:SetVelocity(VJ.CalculateTrajectory(self, self.Track_Enemy, "Line", self:GetPos(), self.Track_Position, self.Track_OrbSpeed))
 		end
 	end
 	self.Track_OrbSpeed = math.Clamp(self.Track_OrbSpeed + 10, 200, 2000)

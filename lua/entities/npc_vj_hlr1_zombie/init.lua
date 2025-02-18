@@ -49,7 +49,7 @@ ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/zombie/zo_pain1.wav", "vj_hlr/hl1_npc/zombie/zo_pain2.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/zombie/zo_pain1.wav", "vj_hlr/hl1_npc/zombie/zo_pain2.wav"}
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 
 -- Custom
 ENT.Zombie_Type = 0

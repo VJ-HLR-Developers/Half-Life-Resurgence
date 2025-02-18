@@ -50,9 +50,8 @@ ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/voltigore/voltigore_pain1.wav", "vj_hlr/hl1
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/voltigore/voltigore_die1.wav", "vj_hlr/hl1_npc/voltigore/voltigore_die2.wav", "vj_hlr/hl1_npc/voltigore/voltigore_die3.wav"}
 
 ENT.FootstepSoundLevel = 55
-ENT.FootstepSoundPitch = VJ.SET(130, 130)
-ENT.GeneralSoundPitch1 = 120
-ENT.GeneralSoundPitch2 = 125
+ENT.FootstepSoundPitch = 130
+ENT.MainSoundPitch = VJ.SET(120, 125)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(20, 20, 40), Vector(-20, -20, 0))

@@ -87,9 +87,8 @@ function ENT:OnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjVelocity(projectile)
-	local projPos = projectile:GetPos()
-	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 2000), 2000)
+function ENT:RangeAttackProjVel(projectile)
+	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projectile:GetPos(), 1, 2000)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gibPos = Vector(0, 0, 5)

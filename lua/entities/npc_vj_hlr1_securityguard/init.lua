@@ -110,7 +110,7 @@ vj_hlr/hl1_npc/barney/soldier.wav
 vj_hlr/hl1_npc/barney/youneedmedic.wav
 */
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 
 local SECURITY_TYPE_REGULAR = 0 -- Security Guard
 local SECURITY_TYPE_OTIS = 1 -- Otis Laurey

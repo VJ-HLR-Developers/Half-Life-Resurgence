@@ -15,12 +15,10 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 4),
 }
 ENT.LeapAttackMaxDistance = 180
-ENT.LimitChaseDistance_Max = 150
----------------------------------------------------------------------------------------------------------------------------------------------
 ENT.LeapAttackDamage = 5
+ENT.LimitChaseDistance_Max = 150
 
-ENT.GeneralSoundPitch1 = 120
-ENT.GeneralSoundPitch2 = 120
+ENT.MainSoundPitch = 120
 
 -- Custom
 ENT.HeadCrab_IsBaby = true

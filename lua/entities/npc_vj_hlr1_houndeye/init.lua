@@ -50,7 +50,7 @@ local blastSd = {"vj_hlr/hl1_npc/houndeye/he_blast1.wav", "vj_hlr/hl1_npc/hounde
 local madSd = {"vj_hlr/hl1_npc/houndeye/he_alert1.wav", "vj_hlr/hl1_npc/houndeye/he_hunt4.wav"}
 
 ENT.FootstepSoundLevel = 80
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 
 -- Custom
 ENT.Houndeye_BlinkingT = 0

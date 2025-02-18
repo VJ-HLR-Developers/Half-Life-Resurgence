@@ -50,7 +50,7 @@ ENT.SoundTbl_BeforeRangeAttack = "vj_hlr/hl1_npc/stukabat/stkb_fire1.wav"
 ENT.SoundTbl_Pain = "vj_hlr/hl1_npc/stukabat/stkb_flying1.wav"
 ENT.SoundTbl_Death = "vj_hlr/hl1_npc/stukabat/stkb_die1.wav"
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 
 -- Custom
 ENT.Stuka_Mode = 0 -- 0 = Ground, 1 = Air, 2 = Ceiling
@@ -240,13 +240,12 @@ function ENT:AA_StopMoving()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjSpawnPos(projectile)
+function ENT:RangeAttackProjPos(projectile)
 	return self:GetPos() + self:GetUp() * 20 + self:GetForward() * 20
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjVelocity(projectile)
-	local projPos = projectile:GetPos()
-	return self:CalculateProjectile("Curve", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 1500), 1500)
+function ENT:RangeAttackProjVel(projectile)
+	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Curve", projectile:GetPos(), 1, 10)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)

@@ -48,7 +48,7 @@ ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/controller/con_attack1.wav", "vj_hlr
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/controller/con_pain1.wav", "vj_hlr/hl1_npc/controller/con_pain2.wav", "vj_hlr/hl1_npc/controller/con_pain3.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/controller/con_die1.wav", "vj_hlr/hl1_npc/controller/con_die2.wav"}
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 
 -- Custom
 ENT.AlienC_HomingAttack = false -- false = Regular, true = Homing
@@ -203,13 +203,12 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjSpawnPos(projectile)
+function ENT:RangeAttackProjPos(projectile)
 	return self:GetPos() + self:GetUp() * (self.AlienC_HomingAttack and 80 or 20)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjVelocity(projectile)
-	local projPos = projectile:GetPos()
-	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 700), 700)
+function ENT:RangeAttackProjVel(projectile)
+	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projectile:GetPos(), 1, 700)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)

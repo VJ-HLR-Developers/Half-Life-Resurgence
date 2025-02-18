@@ -46,8 +46,7 @@ ENT.IdleSoundChance = 1
 
 ENT.NextSoundTime_Idle = VJ.SET(1, 3)
 
-ENT.GeneralSoundPitch1 = 100
-ENT.GeneralSoundPitch2 = 100
+ENT.MainSoundPitch = 100
 
 local SNARK_TYPE_REGULAR = 0 -- Regular Snark
 local SNARK_TYPE_PENGUIN = 1 -- Opposing Forces Penguin
@@ -96,9 +95,9 @@ function ENT:OnThinkActive()
 	
 	-- Change the sound pitch depending on its energy
 	if (self.Snark_EnergyTime - CurTime()) < 6 then
-		self.GeneralSoundPitchValue = self.GeneralSoundPitchValue + 1
+		self.MainSoundPitchValue = self.MainSoundPitchValue + 1
 	else
-		self.GeneralSoundPitchValue = 100
+		self.MainSoundPitchValue = 100
 	end
 	
 	-- No more energy time, explode!
@@ -124,7 +123,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnLeapAttack_AfterChecks(hitEnt)
 	self.Snark_EnergyTime = self.Snark_EnergyTime + 0.5
-	self.GeneralSoundPitchValue = math.Clamp(self.GeneralSoundPitchValue - 5, 100, 255)
+	self.MainSoundPitchValue = math.Clamp(self.MainSoundPitchValue - 5, 100, 255)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))

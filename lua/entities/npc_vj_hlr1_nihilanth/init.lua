@@ -48,7 +48,7 @@ ENT.SoundTbl_Death = "vj_hlr/hl1_npc/x/x_die1.wav"
 
 ENT.NextSoundTime_Idle = VJ.SET(14, 20)
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 
 ENT.IdleSoundLevel = 120
 ENT.CombatIdleSoundLevel = 120
@@ -194,7 +194,7 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjSpawnPos(projectile)
+function ENT:RangeAttackProjPos(projectile)
 	if self.Nih_RangeAttach != -1 then
 		return self:GetAttachment(self:LookupAttachment(self.Nih_RangeAttach)).Pos
 	else
@@ -202,9 +202,8 @@ function ENT:RangeAttackProjSpawnPos(projectile)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjVelocity(projectile)
-	local projPos = projectile:GetPos()
-	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 700), 700)
+function ENT:RangeAttackProjVel(projectile)
+	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projectile:GetPos(), 1, 700)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Nih_NotifyCrystalChange(crystal)

@@ -55,7 +55,7 @@ ENT.SoundTbl_LeapAttackDamageMiss = {"vj_hlr/hl1_npc/panther/pclaw_miss1.wav", "
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/panther/p_pain1.wav", "vj_hlr/hl1_npc/panther/p_pain2.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/panther/p_die1.wav", "vj_hlr/hl1_npc/panther/p_die2.wav"}
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(25, 25, 55), Vector(-25, -25, 0))

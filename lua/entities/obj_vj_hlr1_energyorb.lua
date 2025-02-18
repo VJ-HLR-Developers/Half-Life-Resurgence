@@ -57,7 +57,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
 	local trackedEnt = self.Track_Enemy
-	if IsValid(trackedEnt) then -- Homing Behavior
+	-- Homing Behavior
+	if IsValid(trackedEnt) then
 		self.DirectDamage = 25
 		if IsValid(self.GlowSprite) then
 			self.GlowSprite:SetKeyValue("scale", "1.5")
@@ -68,7 +69,7 @@ function ENT:OnThink()
 		end
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position, 700))
+			phys:SetVelocity(VJ.CalculateTrajectory(self, trackedEnt, "Line", self:GetPos(), self.Track_Position, 700))
 		end
 	end
 end

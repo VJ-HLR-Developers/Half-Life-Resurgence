@@ -9,8 +9,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl2b/elitepolice.mdl"
 ENT.StartHealth = 60
 
-ENT.GeneralSoundPitch1 = 80
-ENT.GeneralSoundPitch2 = 80
+ENT.MainSoundPitch = 80
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "PreDamage" && dmginfo:IsBulletDamage() then

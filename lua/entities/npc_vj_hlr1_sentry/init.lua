@@ -41,7 +41,7 @@ ENT.SoundTbl_Alert = "vj_hlr/hl1_npc/turret/tu_deploy.wav"
 ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav", "ambient/energy/spark2.wav", "ambient/energy/spark3.wav", "ambient/energy/spark4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/turret/tu_die.wav", "vj_hlr/hl1_npc/turret/tu_die2.wav", "vj_hlr/hl1_npc/turret/tu_die2.wav"}
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 
 -- Custom
 ENT.Sentry_MuzzleAttach = "0" -- The bullet attachment

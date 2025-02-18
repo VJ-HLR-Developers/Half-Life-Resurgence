@@ -70,19 +70,19 @@ function ENT:OnThink()
 	local phys = self:GetPhysicsObject()
 	local trackedEnt = self.Track_Enemy
 	-- Homing Behavior
-	if IsValid(trackedEnt) then
+	if IsValid(trackedEnt) && trackedEnt:Alive() then
 		local pos = trackedEnt:GetPos() + trackedEnt:OBBCenter()
 		if self:VisibleVec(pos) or self.Track_Position == defVec then
 			self.Track_Position = pos
 		end
 		if IsValid(phys) then
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Track_Position + trackedEnt:GetUp()*math.random(-50,50) + trackedEnt:GetRight()*math.random(-50,50), self.Hornet_ChaseSpeed))
+			phys:SetVelocity(VJ.CalculateTrajectory(self, trackedEnt, "Line", self:GetPos(), self.Track_Position + VectorRand(-50, 50), self.Hornet_ChaseSpeed))
 			self:SetAngles(self:GetVelocity():GetNormal():Angle())
 		end
 	-- Not tracking, go in straight line
 	else
 		if IsValid(phys) then
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self:GetPos() + self:GetForward()*math.random(-80, 80)+ self:GetRight()*math.random(-80, 80) + self:GetUp()*math.random(-80, 80), self.Hornet_ChaseSpeed / 2))
+			phys:SetVelocity(VJ.CalculateTrajectory(self, NULL, "Line", self:GetPos(), self.Track_Position + VectorRand(-80, 80), self.Hornet_ChaseSpeed / 2))
 			self:SetAngles(self:GetVelocity():GetNormal():Angle())
 		end
 	end

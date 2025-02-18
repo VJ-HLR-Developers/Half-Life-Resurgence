@@ -62,8 +62,8 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/garg/gar_die1.wav", "vj_hlr/hl1_npc/garg/g
 
 local sdExplosions = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
 
-ENT.GeneralSoundPitch1 = 100
-ENT.ExtraMeleeSoundPitch = VJ.SET(80, 80)
+ENT.MainSoundPitch = 100
+ENT.ExtraMeleeSoundPitch = 80
 
 -- Custom
 ENT.Garg_Type = 0
@@ -248,13 +248,12 @@ function ENT:CustomAttackCheck_RangeAttack()
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjSpawnPos(projectile)
+function ENT:RangeAttackProjPos(projectile)
 	return self:GetPos() + self:GetUp() * 20 + self:GetForward() * 50 + self:GetRight() * -20
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjVelocity(projectile)
-	local projPos = projectile:GetPos()
-	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 200), 200)
+function ENT:RangeAttackProjVel(projectile)
+	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projectile:GetPos(), 1, 200)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)

@@ -971,7 +971,7 @@ local sdAlertHuman = {"vj_hlr/hl2_npc/ep1/c17/al_evac_ontous01.wav", "vj_hlr/hl2
 "vj_hlr/hl2_npc/ep1/npc/alyx/al_dark_attack02.wav", -- get it off get it off
 ]]--
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 
 -- Custom
 ENT.Human_NextPlyReloadSd = 0

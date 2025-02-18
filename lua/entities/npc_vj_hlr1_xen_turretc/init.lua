@@ -38,7 +38,7 @@ ENT.SoundTbl_Death = {"vj_hlr/fx/bustflesh1.wav", "vj_hlr/fx/bustflesh2.wav"}
 
 local SdTbl_GibImpact = {"vj_hlr/fx/flesh1.wav", "vj_hlr/fx/flesh2.wav", "vj_hlr/fx/flesh3.wav", "vj_hlr/fx/flesh4.wav", "vj_hlr/fx/flesh5.wav", "vj_hlr/fx/flesh6.wav", "vj_hlr/fx/flesh7.wav"}
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(25, 25, 0), Vector(-25, -25, -162))

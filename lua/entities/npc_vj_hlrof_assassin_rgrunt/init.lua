@@ -14,8 +14,7 @@ ENT.ControllerParams = {
 }
 ENT.VJ_NPC_Class = {"CLASS_BLACKOPS"}
 
-ENT.GeneralSoundPitch1 = 100
-ENT.GeneralSoundPitch2 = 100
+ENT.MainSoundPitch = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_OnInit()
 	self:SetBodygroup(1, math.random(0, 1))

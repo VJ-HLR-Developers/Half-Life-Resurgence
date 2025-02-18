@@ -21,8 +21,7 @@ ENT.HasBloodDecal = false
 ENT.VJ_ID_Healable = false
 
 ENT.BreathSoundLevel = 50
-ENT.GeneralSoundPitch1 = 130
-ENT.GeneralSoundPitch2 = 140
+ENT.MainSoundPitch = VJ.SET(130, 140)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
 	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "npc_vj_hlr1_rgrunt" then

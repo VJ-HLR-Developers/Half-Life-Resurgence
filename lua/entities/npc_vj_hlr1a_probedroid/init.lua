@@ -61,7 +61,7 @@ ENT.SoundTbl_BeforeRangeAttack = "vj_hlr/hla_npc/prdroid/readytoattack.wav"
 ENT.SoundTbl_RangeAttack = "vj_hlr/hla_npc/prdroid/shoot.wav"
 ENT.SoundTbl_Death = "vj_hlr/hla_npc/prdroid/die.wav"
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local spawnPos = Vector(0, 0, 80)
 --
@@ -136,11 +136,11 @@ function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(projectile)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjSpawnPos(projectile)
+function ENT:RangeAttackProjPos(projectile)
 	return self:GetAttachment(self:LookupAttachment("0")).Pos
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjVelocity(projectile)
+function ENT:RangeAttackProjVel(projectile)
 	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projectile:GetPos(), 1, 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

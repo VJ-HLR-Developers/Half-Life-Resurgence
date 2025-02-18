@@ -112,7 +112,7 @@ function SWEP:OnPrimaryAttack(status, statusData)
 				if owner:IsPlayer() then
 					phys:SetVelocity(owner:GetAimVector() * 3000 + Vector(i == 2 && -75 or i == 3 && 75 or 0, 0, 0))
 				else
-					phys:SetVelocity(owner:CalculateProjectile("Line", spawnPos, owner:GetAimPosition(owner:GetEnemy(), spawnPos, 1, 3000), 3000))
+					phys:SetVelocity(VJ.CalculateTrajectory(owner, owner:GetEnemy(), "Line", spawnPos + Vector(math.Rand(-15, 15), math.Rand(-15, 15), math.Rand(-15, 15)), 1, 3000))
 				end
 				projectile:SetAngles(projectile:GetVelocity():GetNormal():Angle())
 			end

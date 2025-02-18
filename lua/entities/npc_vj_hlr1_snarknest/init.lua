@@ -26,7 +26,7 @@ ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/squeek/sqk_hunt1.wav", "vj_hlr/hl1_npc/sque
 ENT.SoundTbl_Death = "vj_hlr/hl1_npc/squeek/sqk_blast1.wav"
 
 ENT.IdleSoundLevel = 65
-ENT.GeneralSoundPitch1 = 50
+ENT.MainSoundPitch = 50
 
 -- Custom
 ENT.Nest_SpawnEnt = "npc_vj_hlr1_snark"

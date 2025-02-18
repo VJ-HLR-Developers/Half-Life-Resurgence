@@ -20,8 +20,7 @@ ENT.SoundTbl_Breath = "vj_hlr/hl1_npc/hassault/hw_spin.wav"
 
 ENT.BreathSoundLevel = 80
 
-ENT.GeneralSoundPitch1 = 80
-ENT.GeneralSoundPitch2 = 80
+ENT.MainSoundPitch = 80
 
 -- Custom
 ENT.Serg_SpinUpT = 0

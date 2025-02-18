@@ -241,7 +241,7 @@ function ENT:OnInput(key, activator, caller, data)
 			phys:Wake()
 			phys:EnableGravity(false)
 			phys:EnableDrag(false)
-			phys:SetVelocity(self:CalculateProjectile("Line", sprite:GetPos(), at.Pos + self:GetForward()*400, 300))
+			phys:SetVelocity(VJ.CalculateTrajectory(self, NULL, "Line", sprite:GetPos(), at.Pos + self:GetForward() * 400, 300))
 		end
 	end
 end
@@ -300,15 +300,15 @@ function ENT:CustomOnRangeAttack_BeforeStartTimer()
 	self:PlaySoundSystem("BeforeMeleeAttack", "vj_hlr/hl1_npc/geneworm/geneworm_beam_attack.wav", VJ.EmitSound)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjSpawnPos(projectile)
+function ENT:RangeAttackProjPos(projectile)
 	return self:GetAttachment(self:LookupAttachment("mouth")).Pos
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjVelocity(projectile)
+function ENT:RangeAttackProjVel(projectile)
 	local ene = self:GetEnemy()
 	local projPos = projectile:GetPos()
 	local aimPos = self:GetAimPosition(ene, projPos, 1, 2000)
-	local vel = self:CalculateProjectile("Line", projPos, aimPos, 2000)
+	local vel = VJ.CalculateTrajectory(self, ene, "Line", projPos, aimPos, 2000)
 	projectile.Track_Enemy = ene
 	projectile.Track_OrgPosition = aimPos
 	projectile.Track_TrackTime = CurTime() + (aimPos:Distance(projPos) / vel:Length()) -- Stops chasing the enemy after this time

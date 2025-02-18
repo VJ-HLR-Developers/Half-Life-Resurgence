@@ -44,7 +44,7 @@ function ENT:OnThink()
 		if ene:GetPos():Distance(self.Track_OrgPosition) > 500 then return end -- If enemy moves to far from org position, then stop tracking
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), ene:GetPos() + ene:OBBCenter(), 2000))
+			phys:SetVelocity(VJ.CalculateTrajectory(self, ene, "Line", self:GetPos(), 1, 2000))
 		end
 	end
 end

@@ -60,7 +60,7 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/aslave/slv_die1.wav", "vj_hlr/hl1_npc/asla
 
 ENT.FootstepSoundLevel = 60
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 ENT.RangeAttackPitch = VJ.SET(130, 160)
 
 -- Custom

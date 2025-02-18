@@ -61,7 +61,7 @@ function SWEP:OnPrimaryAttack(status, statusData)
 		ParticleEffectAttach("vj_hlr_shockroach_muzzle", PATTACH_POINT_FOLLOW, owner, owner:LookupAttachment("muzzle"))
 		local phys = projectile:GetPhysicsObject()
 		if IsValid(phys) then
-			phys:SetVelocity(owner:CalculateProjectile("Line", spawnPos, owner:GetAimPosition(owner:GetEnemy(), spawnPos, 1, 10000), 10000))
+			phys:SetVelocity(VJ.CalculateTrajectory(owner, owner:GetEnemy(), "Line", spawnPos + Vector(math.Rand(-15, 15), math.Rand(-15, 15), math.Rand(-15, 15)), 1, 10000))
 			projectile:SetAngles(projectile:GetVelocity():GetNormal():Angle())
 		end
 	end

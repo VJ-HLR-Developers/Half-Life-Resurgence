@@ -57,7 +57,7 @@ ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/kingpin/kingpin_death1.wav", "vj_hlr/hl1_n
 
 local scanSd = {"vj_hlr/hl1_npc/kingpin/kingpin_seeker1.wav", "vj_hlr/hl1_npc/kingpin/kingpin_seeker2.wav", "vj_hlr/hl1_npc/kingpin/kingpin_seeker3.wav"}
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 
 -- Custom
 ENT.KingPin_NextScanT = 0
@@ -187,7 +187,7 @@ function ENT:CustomAttack(ene, eneVisible)
 							phys:EnableGravity(true)
 							phys:EnableDrag(true)
 							if selfValid && IsValid(self:GetEnemy()) then -- Only throw props at the enemy if Kingpin has NOT been removed
-								phys:SetVelocity(self:CalculateProjectile("Line", v:GetPos(), self:GetEnemy():GetPos(), 2000))
+								phys:SetVelocity(VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", v:GetPos(), 1, 2000))
 								self:PlayAnim(ACT_RANGE_ATTACK2_LOW, "LetAttacks", false, false)
 							end
 						end
@@ -206,13 +206,12 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjSpawnPos(projectile)
+function ENT:RangeAttackProjPos(projectile)
 	return self:GetPos() + self:GetUp() * 65 + self:GetForward() * 65
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjVelocity(projectile)
-	local projPos = projectile:GetPos()
-	return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 200), 200)
+function ENT:RangeAttackProjVel(projectile)
+	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projectile:GetPos(), 1, 200)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))

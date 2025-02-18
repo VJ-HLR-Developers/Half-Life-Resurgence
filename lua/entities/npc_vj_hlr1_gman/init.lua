@@ -34,7 +34,7 @@ ENT.SoundTbl_FollowPlayer = {"vj_hlr/hl1_npc/gman/gman_potential.wav", "vj_hlr/h
 ENT.SoundTbl_UnFollowPlayer = {"vj_hlr/hl1_npc/gman/gman_nowork.wav", "vj_hlr/hl1_npc/gman/gman_noreg.wav"}
 ENT.SoundTbl_OnPlayerSight = "vj_hlr/hl1_npc/gman/gman_suit.wav"
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 
 -- Custom
 ENT.GMAN_NextMouthMove = 0

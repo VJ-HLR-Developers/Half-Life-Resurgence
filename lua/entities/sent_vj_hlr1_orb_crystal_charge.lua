@@ -59,11 +59,12 @@ function ENT:Initialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Think()
-	if IsValid(self.Assignee) && CurTime() > self.NextMoveT then
+	local assignee = self.Assignee
+	if IsValid(assignee) && CurTime() > self.NextMoveT then
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
-			phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), self.Assignee:GetPos() + self.Assignee:GetUp()*math.Rand(200,250) + self.Assignee:GetRight()*math.Rand(-150,150) + self.Assignee:GetForward()*math.Rand(-150,150), 500))
-			phys:AddAngleVelocity(self:GetPos() + Vector(50, 50, 50)) -- Make it rotate randomly
+			phys:SetVelocity(VJ.CalculateTrajectory(self, assignee, "Line", self:GetPos(), assignee:GetPos() + assignee:GetUp() * math.Rand(200, 250) + assignee:GetRight() * math.Rand(-150, 150) + assignee:GetForward() * math.Rand(-150, 150), 500))
+			phys:AddAngleVelocity(self:GetPos() + Vector(50, 50, 50)) -- Rotate randomly
 		end
 		self.NextMoveT = CurTime() + math.Rand(1, 2)
 	end

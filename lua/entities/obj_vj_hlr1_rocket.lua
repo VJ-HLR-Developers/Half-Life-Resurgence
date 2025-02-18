@@ -77,10 +77,10 @@ function ENT:Init()
 	self.StartGlow1:Spawn()
 	self.StartGlow1:SetParent(self)
 	self:DeleteOnRemove(self.StartGlow1)
-	util.SpriteTrail(self, 0, colorTrail, true, 5, 20, 6, 1/(5+20)*0.5, "vj_hl/sprites/smoke.vmt")
+	util.SpriteTrail(self, 0, colorTrail, true, 5, 20, 6, 1 / (5 + 20) * 0.5, "vj_hl/sprites/smoke.vmt")
 	self:SetNW2Bool("VJ_Dead", false)
 	
-	-- Used by helicopters
+	-- For helicopters
 	if self.Rocket_HelicopterMissile then
 		timer.Simple(0.5, function()
 			if IsValid(self) then
@@ -89,14 +89,13 @@ function ENT:Init()
 					local phys = self:GetPhysicsObject()
 					local ene = self:GetOwner():GetEnemy()
 					if IsValid(phys) && IsValid(ene) then
-						local myPos = self:GetPos()
-						phys:SetVelocity(self:CalculateProjectile("Line", myPos, owner:GetAimPosition(ene, myPos, 1, 2000), 2000))
+						phys:SetVelocity(VJ.CalculateTrajectory(owner, ene, "Line", self:GetPos(), 1, 2000))
 						self:SetAngles(self:GetVelocity():GetNormal():Angle())
 					end
 				end
 			end
 		end)
-	-- Used by the Bradley
+	-- For Bradley
 	elseif self.Rocket_AirMissile then
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
@@ -105,18 +104,19 @@ function ENT:Init()
 			self:SetAngles(self:GetVelocity():GetNormal():Angle())
 			timer.Simple(0.5, function()
 				if IsValid(self) then
+					local myPos = self:GetPos()
 					-- 2. Go up
 					local tr = util.TraceLine({
-						start = self:GetPos(),
-						endpos = self:GetPos() + self:GetUp()*math.random(2000, 2800),
+						start = myPos,
+						endpos = myPos + self:GetUp()*math.random(2000, 2800),
 						filter = self
 					})
 					local hitPos = tr.HitPos - vecZ20
 					phys = self:GetPhysicsObject()
 					if IsValid(phys) then
-						phys:SetVelocity(self:CalculateProjectile("Line", self:GetPos(), hitPos, 800))
+						phys:SetVelocity(VJ.CalculateTrajectory(self, NULL, "Line", myPos, hitPos, 800))
 						self:SetAngles(self:GetVelocity():GetNormal():Angle())
-						timer.Simple(self:GetPos():Distance(hitPos) / self:GetVelocity():Length(), function()
+						timer.Simple(myPos:Distance(hitPos) / self:GetVelocity():Length(), function()
 							if IsValid(self) then
 								local owner = self:GetOwner()
 								if IsValid(owner) then
@@ -124,8 +124,7 @@ function ENT:Init()
 									phys = self:GetPhysicsObject()
 									local ene = owner:GetEnemy()
 									if IsValid(phys) && IsValid(ene) then
-										local myPos = self:GetPos()
-										phys:SetVelocity(self:CalculateProjectile("Line", myPos, owner:GetAimPosition(ene, myPos, 1, 5000), 5000))
+										phys:SetVelocity(VJ.CalculateTrajectory(owner, ene, "Line", self:GetPos(), 1, 50000))
 										self:SetAngles(self:GetVelocity():GetNormal():Angle())
 									end
 								end

@@ -35,7 +35,7 @@ ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/chumtoad/toad_hunt1.wav", "vj_hlr/hl1_npc/c
 ENT.SoundTbl_Alert = "vj_hlr/hl1_npc/chumtoad/toad_idle1.wav"
 ENT.SoundTbl_Death = "vj_hlr/hl1_npc/chumtoad/toad_die1.wav"
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 
 -- Custom
 ENT.CT_BlinkingT = 0

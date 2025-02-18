@@ -45,7 +45,7 @@ ENT.SoundTbl_Death = "vj_hlr/hl1_npc/tentacle/te_death2.wav"
 local sdBeakStrike ={"vj_hlr/hl1_npc/tentacle/te_strike1.wav", "vj_hlr/hl1_npc/tentacle/te_strike2.wav"}
 local sdChangeLevel = {"vj_hlr/hl1_npc/tentacle/te_swing1.wav", "vj_hlr/hl1_npc/tentacle/te_swing2.wav"}
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 
 -- Custom
 ENT.Tentacle_Level = 0

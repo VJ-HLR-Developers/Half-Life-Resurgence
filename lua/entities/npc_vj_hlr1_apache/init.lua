@@ -56,7 +56,7 @@ ENT.VJ_ID_Healable = false
 ENT.SoundTbl_Death = "vj_hlr/hl1_weapon/mortar/mortarhit.wav"
 local sdExplosions = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 ENT.DeathSoundLevel = 100
 
 /* https://github.com/ValveSoftware/halflife/blob/master/dlls/apache.cpp
@@ -157,12 +157,12 @@ function ENT:OnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjSpawnPos(projectile)
+function ENT:RangeAttackProjPos(projectile)
 	self.Heli_RangeAttach = self.Heli_RangeAttach == "missile_left" and "missile_right" or "missile_left"
 	return self:GetAttachment(self:LookupAttachment(self.Heli_RangeAttach)).Pos
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjVelocity(projectile)
+function ENT:RangeAttackProjVel(projectile)
 	return self:GetForward()*400
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

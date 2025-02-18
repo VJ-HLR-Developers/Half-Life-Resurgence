@@ -136,7 +136,7 @@ vj_hlr/hl1_npc/scientist/xena.wav
 vj_hlr/hl1_npc/scientist/scream7.wav (duplicate of scream6)
 */
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 
 local ACT_FEAR_DISPLAY;
 

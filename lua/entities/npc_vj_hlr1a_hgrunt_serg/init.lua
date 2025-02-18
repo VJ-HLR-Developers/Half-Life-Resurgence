@@ -15,8 +15,7 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(3, 0, 5),
 }
 
-ENT.GeneralSoundPitch1 = 90
-ENT.GeneralSoundPitch2 = 100
+ENT.MainSoundPitch = VJ.SET(90, 100)
 
 ENT.Serg_Type = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------

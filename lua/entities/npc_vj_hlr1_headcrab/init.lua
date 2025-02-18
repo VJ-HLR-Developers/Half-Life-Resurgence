@@ -53,7 +53,7 @@ ENT.SoundTbl_LeapAttackDamage = "vj_hlr/hl1_npc/headcrab/hc_headbite.wav"
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/headcrab/hc_pain1.wav", "vj_hlr/hl1_npc/headcrab/hc_pain2.wav", "vj_hlr/hl1_npc/headcrab/hc_pain3.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/headcrab/hc_die1.wav", "vj_hlr/hl1_npc/headcrab/hc_die2.wav"}
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 
 -- Custom
 ENT.HeadCrab_IsBaby = false -- Is it a baby headcrab?

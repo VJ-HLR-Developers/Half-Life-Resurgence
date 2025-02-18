@@ -227,7 +227,7 @@ local sdAlertTurret = "vo/npc/barney/ba_turret.wav"
 
 ]]--
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
 	if math.random(1, 2) == 1 && ent:IsNPC() then

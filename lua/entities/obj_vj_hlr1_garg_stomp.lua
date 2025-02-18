@@ -75,13 +75,11 @@ function ENT:OnThink()
 			endpos = myPos + self:GetUp()*-1000,
 			filter = {self, owner}
 		})
-		//VJ.DEBUG_TempEnt(tr.HitPos, self:GetAngles(), Color(0,255,0), 5)
 		self:SetPos(tr.HitPos + Vector(0,0,8))
 		
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
-			local res = self:CalculateProjectile("Line", myPos, owner:GetEnemy():GetPos() + owner:GetEnemy():OBBCenter(), 100)
-			// self:CalculateProjectile("Line", myPos, owner:GetAimPosition(owner:GetEnemy(), myPos, 1, 100), 100) -- Predictive, garg's stomp shouldn't have this though!
+			local res = VJ.CalculateTrajectory(self, NULL, "Line", myPos, owner:GetEnemy():GetPos() + owner:GetEnemy():OBBCenter(), 100) -- Do NOT predict!
 			res.z = 0
 			phys:SetVelocity(res)
 		end
@@ -93,36 +91,4 @@ function ENT:OnThink()
 		phys:SetVelocity(myVel*(1 + math.Clamp(self.Stomp_SpeedMultiplier, 0, 0.1)))
 	end
 	self.Stomp_SpeedMultiplier = self.Stomp_SpeedMultiplier + 0.01
-	
-/*
-	//self:SetAngles(Angle(0,0,0))
-	//if IsValid(self:GetOwner()) then self:SetAngles(self:GetOwner():GetAngles()) end
-	local trfr = util.TraceLine({
-		start = self:GetPos(),
-		endpos = self:GetPos() + self:GetForward()*10,
-		filter = self
-	})
-	//VJ.DEBUG_TempEnt(trfr.HitPos,self:GetAngles(),Color(0,255,255),5)
-	//if trfr.HitWorld then self:Remove() return end
-	
-	local tr = util.TraceLine({
-		start = self:GetPos(),
-		endpos = self:GetPos() + self:GetUp()*-100,
-		filter = self
-	})
-	//VJ.DEBUG_TempEnt(tr.HitPos,self:GetAngles(),Color(0,255,0),5)
-	//self:SetPos(self:GetPos() + Vector(0,0,(tr.HitPos + Vector(0,0,100)).z))
-	//self:SetPos(tr.HitPos)
-	
-	if self.RanOnce == false then 
-	self.RanOnce = true
-		if IsValid(self:GetOwner()) then self:SetAngles(self:GetOwner():GetAngles()) end
-		local phys = self:GetPhysicsObject()
-		if IsValid(phys) then
-			local res = self:CalculateProjectile("Line", self:GetPos(), self:GetPos() + self:GetForward()*500, 200)
-			res.z = 0
-			phys:SetVelocity(res)
-		end
-	end
-*/
 end

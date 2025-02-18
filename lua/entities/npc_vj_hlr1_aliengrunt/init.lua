@@ -54,8 +54,8 @@ ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/agrunt/ag_attack1.wav", "vj_hl
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/agrunt/ag_pain1.wav", "vj_hlr/hl1_npc/agrunt/ag_pain2.wav", "vj_hlr/hl1_npc/agrunt/ag_pain3.wav", "vj_hlr/hl1_npc/agrunt/ag_pain4.wav", "vj_hlr/hl1_npc/agrunt/ag_pain5.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/agrunt/ag_die1.wav", "vj_hlr/hl1_npc/agrunt/ag_die2.wav", "vj_hlr/hl1_npc/agrunt/ag_die3.wav", "vj_hlr/hl1_npc/agrunt/ag_die4.wav", "vj_hlr/hl1_npc/agrunt/ag_die5.wav"}
 
-ENT.GeneralSoundPitch1 = 100
-ENT.FootstepSoundPitch = VJ.SET(70, 70)
+ENT.MainSoundPitch = 100
+ENT.FootstepSoundPitch = 70
 
 -- Custom
 ENT.AGrunt_Type = 0
@@ -122,7 +122,7 @@ function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjSpawnPos(projectile)
+function ENT:RangeAttackProjPos(projectile)
 	return self:GetAttachment(self:LookupAttachment("hornet")).Pos
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

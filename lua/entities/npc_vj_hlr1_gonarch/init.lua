@@ -59,8 +59,9 @@ local sdBabyDeath = {"vj_hlr/hl1_npc/gonarch/gon_childdie1.wav", "vj_hlr/hl1_npc
 ENT.AllyDeathSoundChance = 1
 
 ENT.FootstepSoundLevel = 80
-ENT.GeneralSoundPitch1 = 100
 ENT.AllyDeathSoundLevel = 90
+
+ENT.MainSoundPitch = 100
 
 -- Custom
 ENT.Gonarch_NumBabies = 0
@@ -142,11 +143,11 @@ function ENT:OnThinkActive()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjSpawnPos(projectile)
+function ENT:RangeAttackProjPos(projectile)
 	return self:GetPos() + self:GetUp() * 180
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjVelocity(projectile)
+function ENT:RangeAttackProjVel(projectile)
 	return (self:GetEnemy():GetPos() - self:GetPos()) *0.45 + self:GetUp() *600
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

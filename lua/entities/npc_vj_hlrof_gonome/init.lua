@@ -49,7 +49,7 @@ ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/gonome/gonome_melee1.wav", "vj
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/gonome/gonome_pain1.wav", "vj_hlr/hl1_npc/gonome/gonome_pain2.wav", "vj_hlr/hl1_npc/gonome/gonome_pain3.wav", "vj_hlr/hl1_npc/gonome/gonome_pain4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/gonome/gonome_death2.wav", "vj_hlr/hl1_npc/gonome/gonome_death3.wav", "vj_hlr/hl1_npc/gonome/gonome_death4.wav"}
 
-ENT.GeneralSoundPitch1 = 100
+ENT.MainSoundPitch = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
 	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "npc_vj_hlrof_gonome" then
@@ -77,13 +77,12 @@ function ENT:OnInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjSpawnPos(projectile)
+function ENT:RangeAttackProjPos(projectile)
 	return self:GetAttachment(self:LookupAttachment("0")).Pos
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjVelocity(projectile)
-	local projPos = projectile:GetPos()
-	return self:CalculateProjectile("Curve", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 1500), 1500)
+function ENT:RangeAttackProjVel(projectile)
+	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Curve", projectile:GetPos(), 1, 10)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MeleeAttackKnockbackVelocity(hitEnt)

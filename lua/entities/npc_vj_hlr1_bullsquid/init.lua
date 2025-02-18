@@ -102,13 +102,13 @@ function ENT:OnAlert(ent)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:RangeAttackProjVelocity(projectile)
+function ENT:RangeAttackProjVel(projectile)
 	local projPos = projectile:GetPos()
-	ParticleEffect("vj_hlr_spit_acid_spawn", self:GetPos() + self:OBBCenter() + self:GetForward()*35, self:GetForward():Angle(), projectile)
+	ParticleEffect("vj_hlr_spit_acid_spawn", self:GetPos() + self:OBBCenter() + self:GetForward() * 35, self:GetForward():Angle(), projectile)
 	if self.Bullsquid_BullSquidding == true then
-		return self:CalculateProjectile("Line", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 250000), 250000)
+		return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projPos, 1, 250000)
 	else
-		return self:CalculateProjectile("Curve", projPos, self:GetAimPosition(self:GetEnemy(), projPos, 1, 1500), 1500)
+		return VJ.CalculateTrajectory(self, self:GetEnemy(), "Curve", projPos, 1, 10)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
