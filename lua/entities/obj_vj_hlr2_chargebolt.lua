@@ -10,7 +10,6 @@ ENT.Base 			= "obj_vj_projectile_base"
 ENT.PrintName		= "Charged Bolt"
 ENT.Author 			= "Cpt. Hazama"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
-ENT.Category		= "Projectiles"
 
 ENT.PhysicsSolidMask = MASK_SHOT
 ---------------------------------------------------------------------------------------------------------------------------------------------

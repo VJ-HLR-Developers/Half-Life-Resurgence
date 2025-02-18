@@ -10,7 +10,6 @@ ENT.Base 			= "obj_vj_grenade"
 ENT.PrintName		= "Grenade"
 ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
-ENT.Category		= "Projectiles"
 
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlr1_grenade", ENT.PrintName, VJ.KILLICON_GRENADE)
