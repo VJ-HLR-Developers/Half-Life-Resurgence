@@ -862,7 +862,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/hl2_npc/ep2/outland_08/chopper/reb1_chop_goodgoing.wav",
 		"vj_hlr/hl2_npc/ep2/outland_11/dogfight/reb1_str_dogcheers01.wav",
 		"vj_hlr/hl2_npc/ep2/outland_11/dogfight/reb1_str_dogcheers02.wav",
-		"vj_hlr/hl2_npc/ep2/outland_11/dogfight/reb1_str_dogcheers03.wav",
+		"vj_hlr/hl2_npc/ep2/outland_11/dogfight/reb1_str_dogcheers04.wav",
 		"vj_hlr/hl2_npc/ep2/outland_12/reb1_striderdown05.wav",
 		"vj_hlr/hl2_npc/ep2/outland_12/reb1_striderdown06.wav",
 		"vj_hlr/hl2_npc/ep2/outland_12/reb1_striderdown07.wav",
