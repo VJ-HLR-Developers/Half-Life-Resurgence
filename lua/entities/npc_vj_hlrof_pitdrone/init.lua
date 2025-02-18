@@ -50,7 +50,7 @@ ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/pitdrone/pit_drone_alert1.wav", "vj_hlr/hl
 ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/pitdrone/pit_drone_melee_attack1.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_melee_attack2.wav"}
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
 ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/pitdrone/pit_drone_attack_spike1.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_attack_spike2.wav"}
-ENT.SoundTbl_OnKilledEnemy = {"vj_hlr/hl1_npc/pitdrone/pit_drone_eat.wav"}
+ENT.SoundTbl_KilledEnemy = {"vj_hlr/hl1_npc/pitdrone/pit_drone_eat.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/pitdrone/pit_drone_pain1.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_pain2.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_pain3.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_pain4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/pitdrone/pit_drone_die1.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_die2.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_die3.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------

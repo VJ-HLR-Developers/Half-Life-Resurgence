@@ -49,17 +49,17 @@ ENT.SoundTbl_GrenadeAttack = {
 	"vj_hlr/hl2b_npc/combine_soldier/throw_grenade2.wav",
 	"vj_hlr/hl2b_npc/combine_soldier/throw_grenade3.wav",
 }
-ENT.SoundTbl_OnGrenadeSight = {
+ENT.SoundTbl_GrenadeSight = {
 	"vj_hlr/hl2b_npc/combine_soldier/spot_grenade1.wav",
 	"vj_hlr/hl2b_npc/combine_soldier/spot_grenade2.wav",
 	"vj_hlr/hl2b_npc/combine_soldier/spot_grenade3.wav",
 }
-ENT.SoundTbl_OnDangerSight = {
+ENT.SoundTbl_DangerSight = {
 	"vj_hlr/hl2b_npc/combine_soldier/spot_grenade1.wav",
 	"vj_hlr/hl2b_npc/combine_soldier/spot_grenade2.wav",
 	"vj_hlr/hl2b_npc/combine_soldier/spot_grenade3.wav",
 }
-ENT.SoundTbl_OnKilledEnemy = {
+ENT.SoundTbl_KilledEnemy = {
 	"vj_hlr/hl2b_npc/combine_soldier/player_dead1.wav",
 	"vj_hlr/hl2b_npc/combine_soldier/player_dead2.wav",
 	"vj_hlr/hl2b_npc/combine_soldier/player_dead3.wav",

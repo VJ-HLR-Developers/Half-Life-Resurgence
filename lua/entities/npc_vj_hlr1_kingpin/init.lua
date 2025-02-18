@@ -40,8 +40,8 @@ ENT.NextRangeAttackTime = VJ.SET(6, 8)
 
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD, ACT_DIEBACKWARD}
-ENT.FootstepTimerRun = 2
-ENT.FootstepTimerWalk = 2
+ENT.FootstepSoundTimerRun = 2
+ENT.FootstepSoundTimerWalk = 2
 ENT.HasExtraMeleeAttackSounds = true
 
 ENT.CanFlinch = true

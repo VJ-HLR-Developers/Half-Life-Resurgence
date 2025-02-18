@@ -23,9 +23,9 @@ function ENT:HECU_OnInit()
 	self.SoundTbl_Alert = "vj_hlr/hl1_npc/rgrunt/rb_cover1.wav"
 	self.SoundTbl_CallForHelp = "vj_hlr/hl1_npc/rgrunt/deeoo.wav"
 	self.SoundTbl_WeaponReload = {"vj_hlr/hl1_npc/rgrunt/rb_cover1.wav", "vj_hlr/hl1_npc/rgrunt/rb_cover2.wav"}
-	self.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/rgrunt/rb_cover2.wav", "vj_hlr/hl1_npc/rgrunt/deeoo.wav", "vj_hlr/hl1_npc/rgrunt/beepboop.wav"}
-	self.SoundTbl_OnDangerSight = {"vj_hlr/hl1_npc/rgrunt/rb_cover2.wav", "vj_hlr/hl1_npc/rgrunt/deeoo.wav", "vj_hlr/hl1_npc/rgrunt/beepboop.wav"}
-	self.SoundTbl_OnKilledEnemy = "vj_hlr/hl1_npc/rgrunt/doop.wav"
+	self.SoundTbl_GrenadeSight = {"vj_hlr/hl1_npc/rgrunt/rb_cover2.wav", "vj_hlr/hl1_npc/rgrunt/deeoo.wav", "vj_hlr/hl1_npc/rgrunt/beepboop.wav"}
+	self.SoundTbl_DangerSight = {"vj_hlr/hl1_npc/rgrunt/rb_cover2.wav", "vj_hlr/hl1_npc/rgrunt/deeoo.wav", "vj_hlr/hl1_npc/rgrunt/beepboop.wav"}
+	self.SoundTbl_KilledEnemy = "vj_hlr/hl1_npc/rgrunt/doop.wav"
 	self.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/rgrunt/buzwarn.wav", "vj_hlr/hl1_npc/rgrunt/rb_allydeath2.wav"}
 	self.SoundTbl_Pain = {"vj_hlr/hl1_npc/rgrunt/spark1.wav", "vj_hlr/hl1_npc/rgrunt/spark2.wav", "vj_hlr/hl1_npc/rgrunt/spark3.wav", "vj_hlr/hl1_npc/rgrunt/spark4.wav", "vj_hlr/hl1_npc/rgrunt/spark5.wav", "vj_hlr/hl1_npc/rgrunt/spark6.wav"}
 	self.SoundTbl_Death = {"vj_hlr/hl1_npc/rgrunt/rb_die1.wav", "vj_hlr/hl1_npc/rgrunt/rb_die2.wav", "vj_hlr/hl1_npc/rgrunt/rb_die3.wav"}

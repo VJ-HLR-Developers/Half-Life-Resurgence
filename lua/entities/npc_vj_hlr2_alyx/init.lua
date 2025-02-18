@@ -131,7 +131,7 @@ ENT.SoundTbl_CombatIdle = {
 	"vj_hlr/hl2_npc/ep2/outland_10/olde-inne/al_ambush_threeatatime02.wav",
 	"vj_hlr/hl2_npc/ep2/outland_10/olde-inne/al_ambush_weresurrounded.wav",
 }
-ENT.SoundTbl_OnReceiveOrder = {
+ENT.SoundTbl_ReceiveOrder = {
 	"vo/eli_lab/al_dadwhatsup.wav",
 	"vo/k_lab/al_whatsgoingon.wav",
 	"vo/novaprospekt/al_holdon.wav",
@@ -237,7 +237,7 @@ ENT.SoundTbl_UnFollowPlayer = {
 	"vj_hlr/hl2_npc/ep2/outland_11a/silo/al_silo_doyouneed01.wav",
 	"vj_hlr/hl2_npc/ep2/outland_11a/silo/al_silo_everythingok.wav",
 }
-ENT.SoundTbl_YieldToAlliedPlayer = {
+ENT.SoundTbl_YieldToPlayer = {
 	"vo/npc/alyx/al_excuse01.wav",
 	"vo/npc/alyx/al_excuse02.wav",
 	"vo/npc/alyx/al_excuse03.wav",
@@ -249,7 +249,7 @@ ENT.SoundTbl_MedicBeforeHeal = {
 	"vj_hlr/hl2_npc/ep2/alyx/al_throwmed03.wav",
 	"vj_hlr/hl2_npc/ep2/outland_07/barn/al_barn_sorry01.wav",
 }
-ENT.SoundTbl_MedicAfterHeal = {}
+ENT.SoundTbl_MedicOnHeal = {}
 ENT.SoundTbl_MedicReceiveHeal = {
 	"vj_hlr/hl2_npc/ep1/c17/al_cit_heythanks.wav",
 	"vj_hlr/hl2_npc/ep1/citadel/al_advisor_findmap01.wav",
@@ -483,7 +483,7 @@ ENT.SoundTbl_GrenadeAttack = {
 	"vj_hlr/hl2_npc/ep2/outland_01/intro/al_rbed_standback.wav",
 	"vj_hlr/hl2_npc/ep2/outland_11/dogfight/al_str_getclear.wav",
 }
-ENT.SoundTbl_OnGrenadeSight = {
+ENT.SoundTbl_GrenadeSight = {
 	"vo/npc/alyx/getback01.wav",
 	"vo/npc/alyx/getback02.wav",
 	"vo/npc/alyx/lookout01.wav",
@@ -555,7 +555,7 @@ ENT.SoundTbl_OnGrenadeSight = {
 	"vj_hlr/hl2_npc/ep2/outland_11/dogfight/al_str_uhoh.wav",
 	"vj_hlr/hl2_npc/ep2/outland_12a/launch/al_launch_dadgetaway02.wav",
 }
-ENT.SoundTbl_OnDangerSight = {
+ENT.SoundTbl_DangerSight = {
 	"vo/npc/alyx/getback01.wav",
 	"vo/npc/alyx/getback02.wav",
 	"vo/npc/alyx/lookout01.wav",
@@ -608,7 +608,7 @@ ENT.SoundTbl_OnDangerSight = {
 	"vj_hlr/hl2_npc/ep2/outland_11/dogfight/al_str_uhoh.wav",
 	"vj_hlr/hl2_npc/ep2/outland_12a/launch/al_launch_dadgetaway02.wav",
 }
-ENT.SoundTbl_OnKilledEnemy = {
+ENT.SoundTbl_KilledEnemy = {
 	"vo/npc/alyx/brutal02.wav",
 	"vo/citadel/al_yes_nr.wav",
 	"vo/eli_lab/al_awesome.wav",
@@ -1107,7 +1107,7 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
 	if wasLast && math.random(1, 2) == 1 && ent.IsVJBaseSNPC_Creature then
 		for _,v in ipairs(ent.VJ_NPC_Class or {1}) do
 			if v != "CLASS_COMBINE" && v != "CLASS_ZOMBIE" && v != "CLASS_ANTLION" then
-				self:PlaySoundSystem("OnKilledEnemy", sdKilledEnemy)
+				self:PlaySoundSystem("KilledEnemy", sdKilledEnemy)
 				return
 			end
 		end

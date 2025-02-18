@@ -34,7 +34,7 @@ ENT.MeleeAttackDamageAngleRadius = 10
 
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
-ENT.IdleSounds_PlayOnAttacks = true
+ENT.IdleSoundsWhileAttacking = true
 
 ENT.SoundTbl_Breath = "vj_hlr/hl1_npc/tentacle/te_flies1.wav"
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/tentacle/te_sing1.wav", "vj_hlr/hl1_npc/tentacle/te_sing2.wav"}

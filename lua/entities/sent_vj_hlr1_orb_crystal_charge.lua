@@ -10,7 +10,6 @@ ENT.Base 			= "base_anim"
 ENT.PrintName		= "Crystal Charge Orb"
 ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
-ENT.Information		= "Projectile, usually used for NPCs & Weapons"
 ENT.Category		= "Projectiles"
 
 if CLIENT then

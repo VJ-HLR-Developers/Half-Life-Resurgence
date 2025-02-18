@@ -2,8 +2,6 @@ SWEP.Base = "weapon_vj_base"
 SWEP.PrintName = "Annabelle"
 SWEP.Author = "DrVrej"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Purpose = "This weapon is made for Players and NPCs"
-SWEP.Instructions = "Controls are like a regular weapon."
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel = "models/weapons/w_annabelle.mdl"
 SWEP.HoldType = "shotgun"

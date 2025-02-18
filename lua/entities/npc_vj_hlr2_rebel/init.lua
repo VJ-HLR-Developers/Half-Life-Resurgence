@@ -594,7 +594,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/hl2_npc/ep2/outland_12/reb1_prepare_battle_03.wav",
 		"vj_hlr/hl2_npc/ep2/outland_12/reb1_prepare_battle_08.wav",
 	}
-	self.SoundTbl_OnReceiveOrder = {
+	self.SoundTbl_ReceiveOrder = {
 		"vo/npc/male01/ok01.wav",
 		"vo/npc/male01/ok02.wav",
 		"vo/npc/male01/squad_approach02.wav",
@@ -642,7 +642,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/canals/matt_go_nag05.wav",
 		"vo/coast/odessa/male01/stairman_follow03.wav",
 	}
-	self.SoundTbl_YieldToAlliedPlayer = {
+	self.SoundTbl_YieldToPlayer = {
 		"vo/npc/male01/excuseme01.wav",
 		"vo/npc/male01/excuseme02.wav",
 		"vo/npc/male01/outofyourway02.wav",
@@ -669,7 +669,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/hl2b_npc/citizen/heretakethis02.wav",
 		"vj_hlr/hl2b_npc/citizen/hereyoucouldusethis.wav",
 	}
-	self.SoundTbl_MedicAfterHeal = {}
+	self.SoundTbl_MedicOnHeal = {}
 	self.SoundTbl_MedicReceiveHeal = {}
 	self.SoundTbl_OnPlayerSight = {
 		"vo/npc/male01/abouttime01.wav",
@@ -773,7 +773,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/hl2_npc/ep2/male02/reb2_reload05.wav",
 		"vj_hlr/hl2_npc/ep2/male02/reb2_reload07.wav",
 	}
-	self.SoundTbl_OnGrenadeSight = {
+	self.SoundTbl_GrenadeSight = {
 		"vo/npc/male01/getdown02.wav",
 		"vo/npc/male01/gethellout.wav",
 		"vo/npc/male01/runforyourlife01.wav",
@@ -802,7 +802,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/hl2b_npc/citizen/strider_run.wav",
 		"vj_hlr/hl2b_npc/citizen/strider_run02.wav",
 	}
-	self.SoundTbl_OnDangerSight = {
+	self.SoundTbl_DangerSight = {
 		"vo/npc/male01/getdown02.wav",
 		"vo/npc/male01/takecover02.wav",
 		"vo/npc/male01/uhoh.wav",
@@ -821,7 +821,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/hl2_npc/ep1/npc/male01/cit_shock10.wav",
 		"vj_hlr/hl2_npc/ep1/npc/male01/cit_shock11.wav",
 	}
-	self.SoundTbl_OnKilledEnemy = {
+	self.SoundTbl_KilledEnemy = {
 		"vo/npc/male01/gotone01.wav",
 		"vo/npc/male01/gotone02.wav",
 		"vo/npc/male01/nice.wav",
@@ -1138,7 +1138,7 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vj_hlr/hl2_npc/ep1/npc/female01/cit_alert_zombie04.wav",
 		"vj_hlr/hl2_npc/ep1/npc/female01/cit_squad_flee02.wav",
 	}
-	self.SoundTbl_OnReceiveOrder = {
+	self.SoundTbl_ReceiveOrder = {
 		"vo/npc/female01/ok01.wav",
 		"vo/npc/female01/ok02.wav",
 		"vo/npc/female01/squad_approach02.wav",
@@ -1186,7 +1186,7 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/canals/airboat_go_nag03.wav",
 		"vo/coast/odessa/female01/stairman_follow03.wav",
 	}
-	self.SoundTbl_YieldToAlliedPlayer = {
+	self.SoundTbl_YieldToPlayer = {
 		"vo/npc/female01/excuseme01.wav",
 		"vo/npc/female01/excuseme02.wav",
 		"vo/npc/female01/outofyourway02.wav",
@@ -1209,7 +1209,7 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/npc/female01/health04.wav",
 		"vo/npc/female01/health05.wav",
 	}
-	self.SoundTbl_MedicAfterHeal = {}
+	self.SoundTbl_MedicOnHeal = {}
 	self.SoundTbl_MedicReceiveHeal = {}
 	self.SoundTbl_OnPlayerSight = {
 		"vo/npc/female01/abouttime01.wav",
@@ -1284,7 +1284,7 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/npc/female01/coverwhilereload02.wav",
 		"vo/npc/female01/gottareload01.wav",
 	}
-	self.SoundTbl_OnGrenadeSight = {
+	self.SoundTbl_GrenadeSight = {
 		"vo/npc/female01/getdown02.wav",
 		"vo/npc/female01/gethellout.wav",
 		"vo/npc/female01/runforyourlife01.wav",
@@ -1302,7 +1302,7 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vj_hlr/hl2_npc/ep1/npc/female01/cit_shock04.wav",
 		"vj_hlr/hl2_npc/ep1/npc/female01/cit_shock05.wav",
 	}
-	self.SoundTbl_OnDangerSight = {
+	self.SoundTbl_DangerSight = {
 		"vo/npc/female01/getdown02.wav",
 		"vo/npc/female01/takecover02.wav",
 		"vo/npc/female01/uhoh.wav",
@@ -1316,7 +1316,7 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vj_hlr/hl2_npc/ep1/npc/female01/cit_shock04.wav",
 		"vj_hlr/hl2_npc/ep1/npc/female01/cit_shock05.wav",
 	}
-	self.SoundTbl_OnKilledEnemy = {
+	self.SoundTbl_KilledEnemy = {
 		"vo/npc/female01/gotone01.wav",
 		"vo/npc/female01/gotone02.wav",
 		"vo/npc/female01/likethat.wav",

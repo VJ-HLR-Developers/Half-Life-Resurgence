@@ -54,7 +54,7 @@ ENT.HasDeathCorpse = false
 ENT.HasExtraMeleeAttackSounds = true
 
 ENT.SoundTbl_Breath = "vj_hlr/hla_npc/prdroid/engine.wav"
-ENT.SoundTbl_MedicAfterHeal = "vj_hlr/hla_npc/prdroid/shoot_heal.wav"
+ENT.SoundTbl_MedicOnHeal = "vj_hlr/hla_npc/prdroid/shoot_heal.wav"
 ENT.SoundTbl_Alert = "vj_hlr/hla_npc/prdroid/alert.wav"
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
 ENT.SoundTbl_BeforeRangeAttack = "vj_hlr/hla_npc/prdroid/readytoattack.wav"

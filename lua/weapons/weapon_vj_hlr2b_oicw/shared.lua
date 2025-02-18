@@ -2,8 +2,6 @@ SWEP.Base = "weapon_vj_base"
 SWEP.PrintName = "OICW"
 SWEP.Author = "DrVrej"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Purpose = "This weapon is made for Players and NPCs"
-SWEP.Instructions = "Controls are like a regular weapon."
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.ViewModel = "models/weapons/c_smg1.mdl"
 SWEP.WorldModel = "models/vj_hlr/hl2b/weapons/w_oicw.mdl"

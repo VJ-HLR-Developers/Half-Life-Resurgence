@@ -10,7 +10,6 @@ ENT.Base 			= "obj_vj_projectile_base"
 ENT.PrintName		= "Gargantua Stomp Shockwave"
 ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
-ENT.Information		= "Projectile, usually used for NPCs & Weapons"
 ENT.Category		= "Projectiles"
 
 ENT.VJ_ID_Danger = true

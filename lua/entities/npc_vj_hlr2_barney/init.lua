@@ -45,7 +45,7 @@ ENT.SoundTbl_CombatIdle = {
 	"vj_hlr/hl2_npc/ep1/c17/ba_comeon01.wav",
 	"vj_hlr/hl2_npc/ep1/c17/ba_herewego.wav",
 }
-ENT.SoundTbl_OnReceiveOrder = {
+ENT.SoundTbl_ReceiveOrder = {
 	"vo/npc/barney/ba_imwithyou.wav",
 }
 ENT.SoundTbl_FollowPlayer = {
@@ -72,11 +72,11 @@ ENT.SoundTbl_UnFollowPlayer = {
 	"vj_hlr/hl2_npc/ep1/c17/ba_ifyousayso.wav",
 	"vo/streetwar/rubble/ba_seeya.wav",
 }
-ENT.SoundTbl_YieldToAlliedPlayer = {
+ENT.SoundTbl_YieldToPlayer = {
 	"vo/k_lab/ba_whoops.wav",
 }
 ENT.SoundTbl_MedicBeforeHeal = {}
-ENT.SoundTbl_MedicAfterHeal = {}
+ENT.SoundTbl_MedicOnHeal = {}
 ENT.SoundTbl_MedicReceiveHeal = {}
 ENT.SoundTbl_OnPlayerSight = {
 	"vo/npc/barney/ba_followme01.wav",
@@ -123,7 +123,7 @@ ENT.SoundTbl_WeaponReload = {
 	"vo/npc/barney/ba_damnit.wav",
 	"vo/k_lab/ba_getitoff01.wav",
 }
-ENT.SoundTbl_OnGrenadeSight = {
+ENT.SoundTbl_GrenadeSight = {
 	"vo/npc/barney/ba_damnit.wav",
 	"vo/npc/barney/ba_duck.wav",
 	"vo/npc/barney/ba_getaway.wav",
@@ -135,7 +135,7 @@ ENT.SoundTbl_OnGrenadeSight = {
 	"vo/k_lab/ba_headhumper02.wav",
 	"vo/k_lab/ba_thingaway02.wav",
 }
-ENT.SoundTbl_OnDangerSight = {
+ENT.SoundTbl_DangerSight = {
 	"vo/npc/barney/ba_damnit.wav",
 	"vo/npc/barney/ba_duck.wav",
 	"vo/npc/barney/ba_getaway.wav",
@@ -145,7 +145,7 @@ ENT.SoundTbl_OnDangerSight = {
 	"vo/k_lab/ba_headhumper02.wav",
 	"vo/k_lab/ba_thingaway02.wav",
 }
-ENT.SoundTbl_OnKilledEnemy = {
+ENT.SoundTbl_KilledEnemy = {
 	"vo/npc/barney/ba_downyougo.wav",
 	"vo/npc/barney/ba_gotone.wav",
 	"vo/npc/barney/ba_laugh01.wav",

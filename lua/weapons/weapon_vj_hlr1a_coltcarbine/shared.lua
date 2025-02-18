@@ -2,8 +2,6 @@ SWEP.Base 						= "weapon_vj_base"
 SWEP.PrintName					= "Colt Carbine"
 SWEP.Author 					= "DrVrej"
 SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Purpose					= "This weapon is made for Players and NPCs"
-SWEP.Instructions				= "Controls are like a regular weapon."
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 0.08 -- RPM of the weapon in seconds | Calculation: 60 / RPM

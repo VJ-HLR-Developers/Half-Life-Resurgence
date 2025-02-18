@@ -34,7 +34,7 @@ ENT.NextRangeAttackTime = VJ.SET(3, 4)
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathAnimationTime = 16
-ENT.IdleSounds_PlayOnAttacks = true
+ENT.IdleSoundsWhileAttacking = true
 ENT.HasSoundTrack = true
 
 ENT.SoundTbl_SoundTrack = {"vj_hlr/hl1_npc/nihilanth/Prospero03.mp3"}

@@ -52,11 +52,11 @@ ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/shocktrooper/st_answer1.wav",
 ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/shocktrooper/st_combat1.wav", "vj_hlr/hl1_npc/shocktrooper/st_combat2.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/shocktrooper/st_alert1.wav", "vj_hlr/hl1_npc/shocktrooper/st_alert2.wav", "vj_hlr/hl1_npc/shocktrooper/st_alert3.wav", "vj_hlr/hl1_npc/shocktrooper/st_alert4.wav"}
 ENT.SoundTbl_GrenadeAttack = {"vj_hlr/hl1_npc/shocktrooper/st_grenadethrow.wav"}
-ENT.SoundTbl_OnGrenadeSight = {"vj_hlr/hl1_npc/shocktrooper/st_runfromgrenade.wav"}
-ENT.SoundTbl_OnDangerSight = {"vj_hlr/hl1_npc/shocktrooper/st_runfromgrenade.wav"}
-ENT.SoundTbl_OnKilledEnemy = {"vj_hlr/hl1_npc/shocktrooper/st_combat1.wav"}
+ENT.SoundTbl_GrenadeSight = {"vj_hlr/hl1_npc/shocktrooper/st_runfromgrenade.wav"}
+ENT.SoundTbl_DangerSight = {"vj_hlr/hl1_npc/shocktrooper/st_runfromgrenade.wav"}
+ENT.SoundTbl_KilledEnemy = {"vj_hlr/hl1_npc/shocktrooper/st_combat1.wav"}
 
-ENT.OnGrenadeSightSoundPitch = VJ.SET(105, 110)
+ENT.DangerSightSoundPitch = VJ.SET(105, 110)
 
 -- Custom
 ENT.Shocktrooper_BlinkingT = 0

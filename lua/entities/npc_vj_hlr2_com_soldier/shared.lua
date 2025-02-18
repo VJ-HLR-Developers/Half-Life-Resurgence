@@ -3,8 +3,6 @@ ENT.Type 			= "ai"
 ENT.PrintName 		= "Overwatch Soldier"
 ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
-ENT.Purpose 		= "Spawn it and fight with it!"
-ENT.Instructions 	= "Click on the spawnicon to spawn it."
 ENT.Category		= "Half-Life Resurgence"
 
 if CLIENT && GetConVar("vj_hlr2_combine_eyeglow"):GetInt() == 1 then
