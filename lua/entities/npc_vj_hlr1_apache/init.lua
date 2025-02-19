@@ -180,7 +180,7 @@ local bulletSpread = Vector(0.03490, 0.03490, 0.03490)
 -- Firing Delay: Checked in Half-Life 1 (GoldSrc), there is NO delay as long as the gun is facing the enemy!
 function ENT:CustomAttack()
 	local ene = self:GetEnemy()
-	if self.Heli_HasLOS && self.NearestPointToEnemyDistance <= combatDistance && self:Visible(ene) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK))) then
+	if self.Heli_HasLOS && self.EnemyData.DistanceNearest <= combatDistance && self:Visible(ene) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK))) then
 		local att = self:GetAttachment(1)
 		self:FireBullets({
 			Num = 1,

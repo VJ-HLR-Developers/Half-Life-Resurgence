@@ -83,9 +83,10 @@ end
 function ENT:OnThinkActive()
 	if self.Dead then return end
 	local ene = self:GetEnemy()
+	local eneData = self.EnemyData
 	
 	-- Randomly jump while engaging an enemy
-	if IsValid(ene) && self.VJ_IsBeingControlled == false && self:IsOnGround() && self.EnemyData.IsVisible && self.LatestEnemyDistance > (self.LeapAttackMaxDistance + 10) && CurTime() > self.Snark_NextJumpWalkT then
+	if IsValid(ene) && !self.VJ_IsBeingControlled && self:IsOnGround() && eneData.Visible && eneData.Distance > (self.LeapAttackMaxDistance + 10) && CurTime() > self.Snark_NextJumpWalkT then
 		self:PlayAnim(ACT_RUN, false, 0.7, true)
 		self:PlaySoundSystem("Alert")
 		self:SetGroundEntity(NULL)

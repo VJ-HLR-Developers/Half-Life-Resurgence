@@ -328,8 +328,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
 	if self.VJ_IsBeingControlled then return end
-	if self.Metrocop_HasManhack && IsValid(self:GetEnemy()) && self.LatestEnemyDistance <= 1000 && self.LatestEnemyDistance > 300 then
-		self:Metrocop_DeployManhack()
+	if self.Metrocop_HasManhack && IsValid(self:GetEnemy()) then
+		local eneData = self.EnemyData
+		if eneData.Distance <= 1000 && eneData.Distance > 300 then
+			self:Metrocop_DeployManhack()
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

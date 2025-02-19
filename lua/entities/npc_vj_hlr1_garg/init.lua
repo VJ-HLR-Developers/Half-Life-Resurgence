@@ -204,7 +204,8 @@ function ENT:CustomAttack(ene, eneVisible)
 			return
 		end
 	end
-	if eneVisible && self.AttackType == VJ.ATTACK_TYPE_NONE && self.NearestPointToEnemyDistance <= range && self.NearestPointToEnemyDistance > self.MeleeAttackDistance then
+	local eneData = self.EnemyData
+	if eneVisible && self.AttackType == VJ.ATTACK_TYPE_NONE && eneData.DistanceNearest <= range && eneData.DistanceNearest > self.MeleeAttackDistance then
 		self.Garg_CanFlame = true
 		self:SetTurnTarget(ene, -1)
 		//self.NextDoAnyAttackT = 1

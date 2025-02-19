@@ -65,7 +65,7 @@ function ENT:Combine_DeployTurret()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
-	if !self.VJ_IsBeingControlled && IsValid(self:GetEnemy()) && self.EnemyData.IsVisible then
+	if !self.VJ_IsBeingControlled && IsValid(self:GetEnemy()) && self.EnemyData.Visible then
 		self:Combine_DeployTurret()
 	end
 end

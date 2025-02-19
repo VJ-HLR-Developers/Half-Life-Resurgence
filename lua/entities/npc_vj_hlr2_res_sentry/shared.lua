@@ -6,7 +6,7 @@ ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Category		= "Half-Life Resurgence"
 
 if CLIENT then
-	-- https://github.com/ValveSoftware/source-sdk-2013/blob/master/mp/src/game/server/hl2/npc_turret_floor.cpp#L1566
+	-- https://github.com/ValveSoftware/source-sdk-2013/blob/master/src/game/server/hl2/npc_turret_floor.cpp#L1566
 	local matLaser = Material("vj_hl/sprites/hl2/turret_laser_fade") // effects/laser1.vmt
 	local laserColor = Color(255, 0, 0)
 	--

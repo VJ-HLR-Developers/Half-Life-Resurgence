@@ -183,7 +183,7 @@ function ENT:OnThink()
 		self.Stuka_FlyAnimation = pos.z <= waypoint.z && ACT_FLY or ACT_GLIDE
 	end
 	if IsValid(ene) then
-		if self.LatestEnemyDistance <= self.RangeAttackMaxDistance && self.Stuka_AerialAnimationType != 1 then
+		if self.EnemyData.Distance <= self.RangeAttackMaxDistance && self.Stuka_AerialAnimationType != 1 then
 			self.Stuka_AerialAnimationType = 1
 			self.Aerial_AnimTbl_Calm = ACT_HOVER
 		else
