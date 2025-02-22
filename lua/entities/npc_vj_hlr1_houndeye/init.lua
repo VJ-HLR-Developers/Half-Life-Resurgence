@@ -198,7 +198,7 @@ function ENT:CustomOnMeleeAttack_BeforeChecks()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo, hitgroup, status)
-	if status == "PriorExecution" then
+	if status == "Init" then
 		-- Houndeye shouldn't have its sonic attack interrupted by a flinch animation!
 		return self.AttackAnimTime > CurTime()
 	end
@@ -216,7 +216,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Initial" then
+	if status == "Init" then
 		self:SetSkin(math.random(1, 2))
 	end
 end

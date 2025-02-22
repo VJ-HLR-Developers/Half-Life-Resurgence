@@ -267,7 +267,7 @@ end
 local vec = Vector(0, 0, 0)
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-	if status == "Initial" then
+	if status == "Init" then
 		-- If hit in the engine area, then get damage by bullets
 		if dmginfo:IsBulletDamage() && (hitgroup == 2 or hitgroup == 3) then
 			dmginfo:ScaleDamage(0.05)
@@ -363,7 +363,7 @@ local heliExpGibs_Main = {
 }
 --
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Initial" then
+	if status == "Init" then
 		local expPos = self:GetAttachment(self:LookupAttachment("engine_left")).Pos
 		local expSpr = ents.Create("env_sprite")
 		expSpr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")

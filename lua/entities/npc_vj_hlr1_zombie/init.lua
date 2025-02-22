@@ -82,7 +82,7 @@ function ENT:TranslateActivity(act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo, hitgroup, status)
-	if status == "PriorExecution" then
+	if status == "Init" then
 		if dmginfo:GetDamage() > 30 then
 			self.FlinchChance = 8
 			self.AnimTbl_Flinch = ACT_BIG_FLINCH

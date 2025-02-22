@@ -80,7 +80,7 @@ function SWEP:SecondaryAttack()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnPrimaryAttack(status, statusData)
-	if status == "Initial" then
+	if status == "Init" then
 		local owner = self:GetOwner()
 		if owner:IsPlayer() then
 			self.AnimTbl_Idle = ACT_VM_FIDGET

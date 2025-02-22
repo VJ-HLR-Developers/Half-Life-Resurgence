@@ -73,9 +73,10 @@ function ENT:OnInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:GetLeapAttackVelocity()
-	local ene = self:GetEnemy()
-	return VJ.CalculateTrajectory(self, ene, "Curve", self:GetPos() + self:OBBCenter(), ene:GetPos() + ene:OBBCenter(), 10) + self:GetForward() * 500 + self:GetUp() * 100
+function ENT:OnLeapAttack(status, enemy)
+	if status == "Jump" then
+		return VJ.CalculateTrajectory(self, enemy, "Curve", self:GetPos() + self:OBBCenter(), enemy:GetPos() + enemy:OBBCenter(), 10) + self:GetForward() * 500 + self:GetUp() * 100
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)

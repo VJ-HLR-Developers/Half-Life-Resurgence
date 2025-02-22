@@ -63,7 +63,7 @@ function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-	if status == "Initial" then
+	if status == "Init" then
 		if self.PauseAttacks == false then
 			self:PlayAnim(ACT_MELEE_ATTACK1, "LetAttacks", false)
 		end

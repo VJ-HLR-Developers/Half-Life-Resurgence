@@ -178,14 +178,14 @@ end
 local bulletSpread = Vector(0.03490, 0.03490, 0.03490)
 --
 -- Firing Delay: Checked in Half-Life 1 (GoldSrc), there is NO delay as long as the gun is facing the enemy!
-function ENT:CustomAttack()
-	local ene = self:GetEnemy()
-	if self.Heli_HasLOS && self.EnemyData.DistanceNearest <= combatDistance && self:Visible(ene) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK))) then
+function ENT:OnThinkAttack(isAttacking, enemy)
+	local eneData = self.EnemyData
+	if self.Heli_HasLOS && eneData.DistanceNearest <= combatDistance && eneData.Visible && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK))) then
 		local att = self:GetAttachment(1)
 		self:FireBullets({
 			Num = 1,
 			Src = att.Pos,
-			Dir = (ene:GetPos() + ene:OBBCenter() - att.Pos):Angle():Forward(),
+			Dir = (enemy:GetPos() + enemy:OBBCenter() - att.Pos):Angle():Forward(),
 			Spread = bulletSpread,
 			Tracer = 1,
 			TracerName = "VJ_HLR_Tracer",
@@ -235,7 +235,7 @@ end
 local vec = Vector(0, 0, 0)
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-	if status == "Initial" then
+	if status == "Init" then
 		-- If hit in the engine area, then get damage by bullets!
 		if dmginfo:IsBulletDamage() && hitgroup == 2 then
 			dmginfo:ScaleDamage(0.05)
@@ -311,7 +311,7 @@ local heliExpGibs_Gray = { -- For Black Ops
 }
 --
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Initial" then
+	if status == "Init" then
 		local expPos = self:GetAttachment(self:LookupAttachment("rotor")).Pos
 		local expSpr = ents.Create("env_sprite")
 		expSpr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")

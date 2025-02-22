@@ -179,7 +179,7 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Initial" then
+	if status == "Init" then
 		self:Barnacle_ResetEnt()
 	elseif status == "Finish" then
 		self:SetPos(self:GetPos() + self:GetUp()*-4)

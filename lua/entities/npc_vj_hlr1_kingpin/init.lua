@@ -131,12 +131,13 @@ function ENT:KingPin_ResetPsionicAttack()
 	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomAttack(ene, eneVisible)
-	if !self.KingPin_PsionicAttacking && CurTime() > self.KingPin_NextPsionicAttackT && ((!self.VJ_IsBeingControlled && eneVisible && self.EnemyData.Distance <= 1000) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK2) && self.VJ_TheController:KeyDown(IN_DUCK))) && !self:IsBusy() then
+function ENT:OnThinkAttack(isAttacking, enemy)
+	local eneData = self.EnemyData
+	if !self.KingPin_PsionicAttacking && CurTime() > self.KingPin_NextPsionicAttackT && ((!self.VJ_IsBeingControlled && eneData.Visible && eneData.Distance <= 1000) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK2) && self.VJ_TheController:KeyDown(IN_DUCK))) && !self:IsBusy() then
 		//print("SEARCH ----")
 		local pTbl = {} -- Table of props that it found
 		for _, v in ipairs(ents.FindInSphere(self:GetPos(), 600)) do
-			if VJ.IsProp(v) && self:Visible(v) && ene:Visible(v) then
+			if VJ.IsProp(v) && self:Visible(v) && enemy:Visible(v) then
 				local phys = v:GetPhysicsObject()
 				if IsValid(phys) && phys:GetMass() <= 2000 && v.BeingControlledByKingPin != true then
 					//print("Prop -", v)

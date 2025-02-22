@@ -46,7 +46,7 @@ function SWEP:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnPrimaryAttack(status, statusData)
-	if status == "Initial" then
+	if status == "Init" then
 		if CLIENT then return end
 		local owner = self:GetOwner()
 		local projectile = ents.Create("obj_vj_hlrof_plasma")

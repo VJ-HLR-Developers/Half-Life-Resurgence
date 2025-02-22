@@ -30,7 +30,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	-- ALERT MY MOM THAT I HAVE DIED ;(
-	if status == "Initial" && IsValid(self.BabyH_MotherEnt) then
+	if status == "Init" && IsValid(self.BabyH_MotherEnt) then
 		self.BabyH_MotherEnt:Gonarch_BabyDeath()
 	end
 end

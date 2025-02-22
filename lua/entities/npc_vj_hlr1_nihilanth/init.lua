@@ -177,7 +177,7 @@ function ENT:OnThinkActive()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:MultipleRangeAttacks()
+function ENT:CustomOnRangeAttack_BeforeStartTimer()
 	if math.random(1, 4) == 1 then
 		self.AnimTbl_RangeAttack = self.Nih_BrainOpen == true and ACT_RANGE_ATTACK2_LOW or ACT_RANGE_ATTACK2
 		self.RangeAttackProjectiles = "obj_vj_hlr1_orb_teleport"

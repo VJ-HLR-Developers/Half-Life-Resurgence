@@ -194,7 +194,9 @@ function ENT:OnThinkActive()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomAttack(ene, eneVisible)
+function ENT:OnThinkAttack(isAttacking, enemy)
+	local eneData = self.EnemyData
+	local eneVisible = eneData.Visible
 	local range = (self.Garg_Type == 1 and 250) or 400
 	if self.VJ_IsBeingControlled then
 		range = 9999999
@@ -204,10 +206,9 @@ function ENT:CustomAttack(ene, eneVisible)
 			return
 		end
 	end
-	local eneData = self.EnemyData
 	if eneVisible && self.AttackType == VJ.ATTACK_TYPE_NONE && eneData.DistanceNearest <= range && eneData.DistanceNearest > self.MeleeAttackDistance then
 		self.Garg_CanFlame = true
-		self:SetTurnTarget(ene, -1)
+		self:SetTurnTarget(enemy, -1)
 		//self.NextDoAnyAttackT = 1
 		-- Make it constantly delay the range attack timer by 1 second (Which will also successfully play the flame-end sound)
 		timer.Create("garg_flame_reset"..self:EntIndex(), 1, 0, function()
@@ -271,7 +272,7 @@ local vec = Vector(0, 0, 0)
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	-- Make a metal ricochet effect
-	if status == "Initial" && dmginfo:GetDamagePosition() != vec then
+	if status == "Init" && dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(5) -- Size
@@ -291,7 +292,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Initial" then
+	if status == "Init" then
 		-- Death sequence (With explosions)
 		for i = 0.3, 3.5, 0.5 do
 			timer.Simple(i, function()

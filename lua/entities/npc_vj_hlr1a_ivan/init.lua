@@ -126,7 +126,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Initial" then
+	if status == "Init" then
 		self:SetBodygroup(0, 1)
 	elseif status == "DeathAnim" then
 		self:DeathWeaponDrop(dmginfo, hitgroup)

@@ -51,7 +51,7 @@ function SWEP:OnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnPrimaryAttack(status, statusData)
-	if status == "Initial" then
+	if status == "Init" then
 		if CLIENT then return end
 		if IsValid(self.RPG_LastShotEnt) then return true end -- Wait until the last shot has detonated
 		

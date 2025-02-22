@@ -46,7 +46,7 @@ function SWEP:OwnerChanged()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnPrimaryAttack(status, statusData)
-	if status == "Initial" then
+	if status == "Init" then
 		if CLIENT then return end
 		local ene = self.Owner:GetEnemy()
 		if !IsValid(ene) then return end

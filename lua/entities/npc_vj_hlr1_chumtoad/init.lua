@@ -74,7 +74,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	-- Don't play death animation if swimming
-	if status == "Initial" && self.CT_MoveTypeSwim then
+	if status == "Init" && self.CT_MoveTypeSwim then
 		self.HasDeathAnimation = false
 	end
 end

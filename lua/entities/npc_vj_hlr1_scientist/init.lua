@@ -400,7 +400,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Initial" then
+	if status == "Init" then
 		self:SetBodygroup(2, 0)
 	elseif status == "DeathAnim" then
 		if self.SCI_Type == SCI_TYPE_ALPHA then return end

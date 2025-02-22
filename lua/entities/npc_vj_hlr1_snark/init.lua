@@ -117,14 +117,17 @@ function ENT:OnThinkActive()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:GetLeapAttackVelocity()
-	local ene = self:GetEnemy()
-	return VJ.CalculateTrajectory(self, ene, "Curve", self:GetPos() + self:OBBCenter(), ene:GetPos() + ene:OBBCenter(), 10) + self:GetForward() * 150 + self:GetUp() * 20
+function ENT:OnLeapAttack(status, enemy)
+	if status == "Jump" then
+		return VJ.CalculateTrajectory(self, enemy, "Curve", self:GetPos() + self:OBBCenter(), enemy:GetPos() + enemy:OBBCenter(), 10) + self:GetForward() * 150 + self:GetUp() * 20
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnLeapAttack_AfterChecks(hitEnt)
-	self.Snark_EnergyTime = self.Snark_EnergyTime + 0.5
-	self.MainSoundPitchValue = math.Clamp(self.MainSoundPitchValue - 5, 100, 255)
+function ENT:OnLeapAttackExecute(status, ent)
+	if status == "Damage" then
+		self.Snark_EnergyTime = self.Snark_EnergyTime + 0.5
+		self.MainSoundPitchValue = math.Clamp(self.MainSoundPitchValue - 5, 100, 255)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))

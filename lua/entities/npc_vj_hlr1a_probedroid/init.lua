@@ -147,7 +147,7 @@ end
 local vec = Vector(0, 0, 0)
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-	if status == "Initial" && dmginfo:GetDamagePosition() != vec then
+	if status == "Init" && dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(5) -- Size
@@ -159,7 +159,7 @@ end
 local collideSds = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
 --
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Initial" && dmginfo:IsDamageType(DMG_BLAST) then
+	if status == "Init" && dmginfo:IsDamageType(DMG_BLAST) then
 		self.HasDeathAnimation = false
 	elseif status == "Finish" then
 		VJ.ApplyRadiusDamage(self, self, self:GetPos(), 75, 25, DMG_BLAST, false, true)

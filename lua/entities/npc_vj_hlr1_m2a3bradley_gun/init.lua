@@ -62,7 +62,7 @@ local vecZ40 = Vector(0, 0, 40)
 --
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_OnFireShell(status, statusData)
-	if status == "Initial" then
+	if status == "Init" then
 		if self.Bradley_DoingMissileAtk then return end -- Missile lets the base code execute!
 	
 		local ene = self:GetEnemy()

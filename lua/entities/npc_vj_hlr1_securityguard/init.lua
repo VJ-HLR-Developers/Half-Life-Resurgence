@@ -266,7 +266,7 @@ end
 local vec = Vector(0, 0, 0)
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-	if status == "Initial" then
+	if status == "Init" then
 		-- Make a metal effect when the helmet is hit!
 		self.Bleeds = true
 		if self.Security_Type == SECURITY_TYPE_OTIS then return end -- Only types that do have a helmet

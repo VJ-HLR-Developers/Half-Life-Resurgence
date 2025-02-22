@@ -265,7 +265,7 @@ function ENT:OnBleed(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Initial" then
+	if status == "Init" then
 		if !dmginfo:IsBulletDamage() then return end
 		local mode = self.Stuka_Mode
 		self.HasDeathAnimation = mode == 0

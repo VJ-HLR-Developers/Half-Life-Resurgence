@@ -175,7 +175,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("Right Mouse + CTRL: Fire a homing orb")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:MultipleRangeAttacks()
+function ENT:CustomOnRangeAttack_BeforeStartTimer(seed)
 	if (math.random(1, 2) == 1 && self.EnemyData.DistanceNearest < 850) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) then
 		self.AnimTbl_RangeAttack = ACT_RANGE_ATTACK2
 		self.AlienC_HomingAttack = true
@@ -183,9 +183,6 @@ function ENT:MultipleRangeAttacks()
 		self.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
 		self.AlienC_HomingAttack = false
 	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnRangeAttack_BeforeStartTimer(seed)
 	self.AlienC_NumFired = 0
 	self.HasRangeAttackSounds = true
 end

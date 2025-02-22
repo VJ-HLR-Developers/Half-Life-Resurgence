@@ -123,7 +123,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	-- Make it explode all the time if it was middle of range attacking!
-	if status == "Initial" && self.AttackType == VJ.ATTACK_TYPE_RANGE then
+	if status == "Init" && self.AttackType == VJ.ATTACK_TYPE_RANGE then
 		self.GibOnDeathFilter = false
 	end
 end
