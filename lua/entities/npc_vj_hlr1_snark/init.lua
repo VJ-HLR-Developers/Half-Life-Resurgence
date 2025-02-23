@@ -124,7 +124,7 @@ function ENT:OnLeapAttack(status, enemy)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnLeapAttackExecute(status, ent)
-	if status == "Damage" then
+	if status == "PreDamage" then
 		self.Snark_EnergyTime = self.Snark_EnergyTime + 0.5
 		self.MainSoundPitchValue = math.Clamp(self.MainSoundPitchValue - 5, 100, 255)
 	end
