@@ -110,7 +110,7 @@ function ENT:OnMedicBehavior(status, statusData)
 		local phys = needle:GetPhysicsObject()
 		if IsValid(phys) then
 			phys:Wake()
-			phys:SetVelocity(VJ.CalculateTrajectory(self, self.Medic_Target, "Line", needle:GetPos(), 1, 1500))
+			phys:SetVelocity(VJ.CalculateTrajectory(self, self.MedicData.Target, "Line", needle:GetPos(), 1, 1500))
 		end
 		return false
 	end

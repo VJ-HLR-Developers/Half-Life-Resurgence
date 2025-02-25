@@ -7,9 +7,11 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/monk.mdl"
 ENT.StartHealth = 100
-ENT.HasHealthRegeneration = true
-ENT.HealthRegenerationAmount = 1
-ENT.HealthRegenerationDelay = VJ.SET(0.5, 1)
+ENT.HealthRegenParams = {
+	Enabled = true,
+	Amount = 1,
+	Delay = VJ.SET(0.5, 1),
+}
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}

@@ -7,9 +7,11 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hla/doctor.mdl"
 ENT.StartHealth = 100
-ENT.HasHealthRegeneration = true
-ENT.HealthRegenerationAmount = 2
-ENT.HealthRegenerationDelay = VJ.SET(0.5, 0.5)
+ENT.HealthRegenParams = {
+	Enabled = true,
+	Amount = 2,
+	Delay = VJ.SET(0.5, 0.5),
+}
 ENT.HullType = HULL_HUMAN
 ENT.ControllerParams = {
     ThirdP_Offset = Vector(0, 0, -15),

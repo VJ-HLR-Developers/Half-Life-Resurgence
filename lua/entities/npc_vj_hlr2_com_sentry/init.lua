@@ -165,7 +165,7 @@ function ENT:OnThinkActive()
 			local doScan = false
 			
 			-- Make it scan around if the enemy is behind, which is unreachable for it!
-			if eneValid && !self.Turret_HasLOS && (math.abs(self.EnemyData.LastVisibleTime - CurTime()) >= 1) then
+			if eneValid && !self.Turret_HasLOS && (math.abs(self.EnemyData.VisibleTime - CurTime()) >= 1) then
 				doScan = true
 				self.HasPoseParameterLooking = false
 			else

@@ -7,9 +7,11 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = {"models/vj_hlr/hl2/alyx_ep1.mdl", "models/vj_hlr/hl2/alyx_ep2.mdl"}
 ENT.StartHealth = 100
-ENT.HasHealthRegeneration = true
-ENT.HealthRegenerationAmount = 1
-ENT.HealthRegenerationDelay = VJ.SET(0.1, 0.1)
+ENT.HealthRegenParams = {
+	Enabled = true,
+	Amount = 1,
+	Delay = VJ.SET(0.1, 0.1),
+}
 ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
