@@ -18,7 +18,7 @@ function EFFECT:Init(data)
 	self:SetRenderBoundsWS(self.StartPos, self.EndPos)
 	
 	local hitPosNormal = self.HitPos:GetNormalized()
-	util.Decal("VJ_HLR_Scorch_Small", self.EndPos + hitPosNormal, self.EndPos - hitPosNormal)
+	util.Decal("VJ_HLR1_Scorch_Small", self.EndPos + hitPosNormal, self.EndPos - hitPosNormal)
 	local effectdata = EffectData()
 	effectdata:SetOrigin(self.EndPos + hitPosNormal*-2)
 	effectdata:SetNormal(hitPosNormal*-3)

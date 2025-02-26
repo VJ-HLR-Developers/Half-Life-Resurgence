@@ -247,23 +247,34 @@ if VJExists == true then
 ------ Decals ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	-- Blood
-	game.AddDecal("VJ_HLR_Blood_Red", {"vj_hl/decals/hl_blood01", "vj_hl/decals/hl_blood02", "vj_hl/decals/hl_blood03", "vj_hl/decals/hl_blood04", "vj_hl/decals/hl_blood05", "vj_hl/decals/hl_blood06", "vj_hl/decals/hl_blood07", "vj_hl/decals/hl_blood08"})
-	game.AddDecal("VJ_HLR_Blood_Red_Large", {"vj_hl/decals/hl_bigblood01", "vj_hl/decals/hl_bigblood02"})
-	game.AddDecal("VJ_HLR_Blood_Yellow", {"vj_hl/decals/hl_yblood01", "vj_hl/decals/hl_yblood02", "vj_hl/decals/hl_yblood03", "vj_hl/decals/hl_yblood04", "vj_hl/decals/hl_yblood05", "vj_hl/decals/hl_yblood06"})
-	game.AddDecal("VJ_HLR_Blood_Yellow_Large", {"vj_hl/decals/hl_bigyblood01", "vj_hl/decals/hl_bigyblood02"})
+	game.AddDecal("VJ_HLR1_Blood_Red", {"vj_hl/decals/hl_blood01", "vj_hl/decals/hl_blood02", "vj_hl/decals/hl_blood03", "vj_hl/decals/hl_blood04", "vj_hl/decals/hl_blood05", "vj_hl/decals/hl_blood06", "vj_hl/decals/hl_blood07", "vj_hl/decals/hl_blood08"})
+	game.AddDecal("VJ_HLR1_Blood_Red_Large", {"vj_hl/decals/hl_bigblood01", "vj_hl/decals/hl_bigblood02"})
+	game.AddDecal("VJ_HLR1_Blood_Yellow", {"vj_hl/decals/hl_yblood01", "vj_hl/decals/hl_yblood02", "vj_hl/decals/hl_yblood03", "vj_hl/decals/hl_yblood04", "vj_hl/decals/hl_yblood05", "vj_hl/decals/hl_yblood06"})
+	game.AddDecal("VJ_HLR1_Blood_Yellow_Large", {"vj_hl/decals/hl_bigyblood01", "vj_hl/decals/hl_bigyblood02"})
 	-- Spits
-	-- game.AddDecal("VJ_HLR_Spit_Acid", {"vj_hl/decals/spit1", "vj_hl/decals/spit2"})
-	game.AddDecal("VJ_HLR_Spit_Red", {"vj_hl/decals/spit1_red", "vj_hl/decals/spit2_red"})
-	game.AddDecal("VJ_HLR_Spit_Acid", {"vj_hl/decals/spit1_green", "vj_hl/decals/spit2_green"})
-	//game.AddDecal("VJ_HLR_Spit_Gonarch", {"vj_hl/decals/gonarch"})
-	game.AddDecal("VJ_HLR_Gonarch_Blob", {"vj_hl/decals/mommablob"})
+	game.AddDecal("VJ_HLR1_Spit_Acid", {"vj_hl/decals/spit1_green", "vj_hl/decals/spit2_green"}) // {"vj_hl/decals/spit1", "vj_hl/decals/spit2"}
+	game.AddDecal("VJ_HLR1_Spit_Red", {"vj_hl/decals/spit1_red", "vj_hl/decals/spit2_red"})
+	game.AddDecal("VJ_HLR1_Spit_Gonarch", {"vj_hl/decals/mommablob"}) // {"vj_hl/decals/gonarch"}
 	-- Scorchs
-	game.AddDecal("VJ_HLR_Scorch", {"vj_hl/decals/scorch1", "vj_hl/decals/scorch2", "vj_hl/decals/scorch3"})
-	game.AddDecal("VJ_HLR_Scorch_Small", {"vj_hl/decals/smscorch1", "vj_hl/decals/smscorch2", "vj_hl/decals/smscorch3"})
-	game.AddDecal("VJ_HLR_Gargantua_Stomp", {"vj_hl/decals/gargstomp"})
+	game.AddDecal("VJ_HLR1_Scorch", {"vj_hl/decals/scorch1", "vj_hl/decals/scorch2", "vj_hl/decals/scorch3"})
+	game.AddDecal("VJ_HLR1_Scorch_Small", {"vj_hl/decals/smscorch1", "vj_hl/decals/smscorch2", "vj_hl/decals/smscorch3"})
+	game.AddDecal("VJ_HLR1_Gargantua_Stomp", {"vj_hl/decals/gargstomp"})
 	-- Bullet Holes
 	game.AddDecal("VJ_HLR1_Impact", {"vj_hl/decals/shot1", "vj_hl/decals/shot2", "vj_hl/decals/shot3", "vj_hl/decals/shot4", "vj_hl/decals/shot5"})
 	
+	
+	-- Add to paint tool
+	list.Add("PaintMaterials", "VJ_HLR1_Blood_Red")
+	list.Add("PaintMaterials", "VJ_HLR1_Blood_Red_Large")
+	list.Add("PaintMaterials", "VJ_HLR1_Blood_Yellow")
+	list.Add("PaintMaterials", "VJ_HLR1_Blood_Yellow_Large")
+	list.Add("PaintMaterials", "VJ_HLR1_Spit_Red")
+	list.Add("PaintMaterials", "VJ_HLR1_Spit_Acid")
+	list.Add("PaintMaterials", "VJ_HLR1_Spit_Gonarch")
+	list.Add("PaintMaterials", "VJ_HLR1_Scorch")
+	list.Add("PaintMaterials", "VJ_HLR1_Scorch_Small")
+	list.Add("PaintMaterials", "VJ_HLR1_Gargantua_Stomp")
+	list.Add("PaintMaterials", "VJ_HLR1_Impact")
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Particles ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -625,7 +636,7 @@ sound.Add({
 					-- Death effects & decals
 					if bloodIsYellow or bloodIsRed then
 						local maxDist = gibMaxs:Length()
-						local splatDecal = bloodIsYellow and "VJ_HLR_Blood_Yellow_Large" or "VJ_HLR_Blood_Red_Large"
+						local splatDecal = bloodIsYellow and "VJ_HLR1_Blood_Yellow_Large" or "VJ_HLR1_Blood_Red_Large"
 						local tr = util.TraceLine({start = centerPos, endpos = centerPos - Vector(0, 0, maxDist), filter = target})
 						util.Decal(splatDecal, tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, target)
 						tr = util.TraceLine({start = centerPos, endpos = centerPos + Vector(0, 0, maxDist), filter = target})
@@ -644,7 +655,7 @@ sound.Add({
 						VJ.DEBUG_TempEnt(dmgPos + dmgPos:GetNormal() * 10)
 						local tr = util.TraceLine({start = dmgPos, endpos = dmgPos + dmgPos:GetNormal() * 10, filter = target})
 						VJ.DEBUG_TempEnt(tr.HitPos, Angle(0, 0, 0), Color(94, 255, 0))
-						util.Decal("VJ_HLR_Blood_Red_Large", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, target)*/
+						util.Decal("VJ_HLR1_Blood_Red_Large", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, target)*/
 						
 						local effectData = EffectData()
 						effectData:SetOrigin(centerPos)

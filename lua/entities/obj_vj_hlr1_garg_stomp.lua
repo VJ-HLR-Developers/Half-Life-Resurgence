@@ -24,7 +24,7 @@ ENT.MoveCollideType = MOVETYPE_NONE
 ENT.DoesDirectDamage = true
 ENT.DirectDamage = 100
 ENT.DirectDamageType = DMG_DISSOLVE
-ENT.CollisionDecal = "VJ_HLR_Scorch_Small"
+ENT.CollisionDecal = "VJ_HLR1_Scorch_Small"
 ENT.SoundTbl_Startup = "vj_hlr/hl1_weapon/tripmine/mine_charge.wav"
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav", "vj_hlr/hl1_weapon/gauss/electro5.wav", "vj_hlr/hl1_weapon/gauss/electro6.wav"}
 

@@ -17,7 +17,7 @@ function EFFECT:Init(data)
 	self.DieTime = CurTime() + data:GetScale()
 	self:SetRenderBoundsWS(self.StartPos, self.EndPos)
 	
-	util.Decal("VJ_HLR_Scorch_Small", self.EndPos + data:GetNormal(), self.EndPos - data:GetNormal())
+	util.Decal("VJ_HLR1_Scorch_Small", self.EndPos + data:GetNormal(), self.EndPos - data:GetNormal())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function EFFECT:Think()

@@ -35,7 +35,7 @@ ENT.Tank_GunnerENT = "npc_vj_hlr1_m2a3bradley_gun"
 ENT.Tank_CollisionBoundSize = 90
 ENT.Tank_CollisionBoundUp = 130
 ENT.Tank_DeathDriverCorpse = "models/vj_hlr/hl1/hGrunt.mdl"
-ENT.Tank_DeathDecal = "VJ_HLR_Scorch"
+ENT.Tank_DeathDecal = "VJ_HLR1_Scorch"
 
 -- Custom
 ENT.Bradley_DmgForce = 0

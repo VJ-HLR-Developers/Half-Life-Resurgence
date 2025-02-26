@@ -25,7 +25,7 @@ ENT.DoesDirectDamage = true
 ENT.DirectDamage = 5
 ENT.DirectDamageType = DMG_SLASH
 ENT.CollisionBehavior = VJ.PROJ_COLLISION_PERSIST
-ENT.CollisionDecal = "VJ_HLR_Blood_Yellow"
+ENT.CollisionDecal = "VJ_HLR1_Blood_Yellow"
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/hornet/ag_hornethit1.wav", "vj_hlr/hl1_npc/hornet/ag_hornethit2.wav", "vj_hlr/hl1_npc/hornet/ag_hornethit3.wav"}
 
 ENT.IdleSoundPitch = VJ.SET(100, 100)

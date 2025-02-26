@@ -16,7 +16,7 @@ ENT.ControllerParams = {
 ENT.VJ_NPC_Class = {"CLASS_PENGUIN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_hlr_blood_red"}
-ENT.BloodDecal = {"VJ_HLR_Blood_Red"}
+ENT.BloodDecal = {"VJ_HLR1_Blood_Red"}
 
 ENT.Nest_SpawnEnt = "npc_vj_hlrof_penguin"
 ---------------------------------------------------------------------------------------------------------------------------------------------

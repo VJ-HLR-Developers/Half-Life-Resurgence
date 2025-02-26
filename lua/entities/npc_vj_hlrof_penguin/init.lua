@@ -16,7 +16,7 @@ ENT.ControllerParams = {
 ENT.VJ_NPC_Class = {"CLASS_PENGUIN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = {"vj_hlr_blood_red"}
-ENT.BloodDecal = {"VJ_HLR_Blood_Red"}
+ENT.BloodDecal = {"VJ_HLR1_Blood_Red"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Snark_CustomOnInitialize()
 	self:SetCollisionBounds(Vector(7, 7, 25), Vector(-7, -7, 0))

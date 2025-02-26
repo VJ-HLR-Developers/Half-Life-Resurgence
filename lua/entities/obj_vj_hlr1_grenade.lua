@@ -18,7 +18,7 @@ end
 if !SERVER then return end
 
 ENT.Model = "models/vj_hlr/weapons/w_grenade.mdl"
-ENT.CollisionDecal = "VJ_HLR_Scorch"
+ENT.CollisionDecal = "VJ_HLR1_Scorch"
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/grenade/grenade_hit1.wav", "vj_hlr/hl1_weapon/grenade/grenade_hit2.wav", "vj_hlr/hl1_weapon/grenade/grenade_hit3.wav"}
 ENT.SoundTbl_OnRemove = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
 ENT.OnRemoveSoundLevel = 100

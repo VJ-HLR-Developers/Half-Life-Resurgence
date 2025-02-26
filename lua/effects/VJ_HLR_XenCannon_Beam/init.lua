@@ -17,7 +17,7 @@ function EFFECT:Init(data)
 	self.DieTime = CurTime() + 0.15
 	self:SetRenderBoundsWS(self.StartPos, self.EndPos)
 	
-	util.Decal("VJ_HLR_Scorch_Small", self.EndPos + self.HitPos:GetNormalized(), self.EndPos - self.HitPos:GetNormalized())
+	util.Decal("VJ_HLR1_Scorch_Small", self.EndPos + self.HitPos:GetNormalized(), self.EndPos - self.HitPos:GetNormalized())
 	local effectdata = EffectData()
 	effectdata:SetOrigin(self.EndPos + self.HitPos:GetNormalized()*-2)
 	effectdata:SetNormal(self.HitPos:GetNormalized()*-3)

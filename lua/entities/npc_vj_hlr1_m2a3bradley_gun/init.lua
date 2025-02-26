@@ -124,6 +124,6 @@ function ENT:Tank_OnFireShell(status, statusData)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DoImpactEffect(tr, damageType)
-	util.Decal("VJ_HLR_Scorch_Small", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
+	util.Decal("VJ_HLR1_Scorch_Small", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
 	return true
 end

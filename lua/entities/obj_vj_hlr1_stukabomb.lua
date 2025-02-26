@@ -24,7 +24,7 @@ ENT.RadiusDamageRadius = 60
 ENT.RadiusDamage = 35
 ENT.RadiusDamageUseRealisticRadius = true
 ENT.RadiusDamageType = DMG_ACID
-//ENT.CollisionDecal = "VJ_HLR_Spit_Acid"
+//ENT.CollisionDecal = "VJ_HLR1_Spit_Acid"
 ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/bullchicken/bc_acid1.wav", "vj_hlr/hl1_npc/bullchicken/bc_acid2.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/bullchicken/bc_spithit1.wav", "vj_hlr/hl1_npc/bullchicken/bc_spithit2.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
