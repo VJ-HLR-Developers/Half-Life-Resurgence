@@ -15,7 +15,7 @@ ENT.Category		= "VJ Base Spawners"
 if !SERVER then return end
 
 ENT.SingleSpawner = true
-ENT.VJBaseSpawnerDisabled = true
+ENT.PauseSpawning = true
 
 -- Custom
 ENT.HLRSpawner_Type = 0
@@ -53,7 +53,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HLR_ActivateSpawner(eneEnt)
 	local myPos = self:GetPos()
-	self.VJBaseSpawnerDisabled = false
+	self.PauseSpawning = false
 	
 	self:SetAngles(Angle(self:GetAngles().x, ((eneEnt:GetPos()) - myPos):Angle().y, self:GetAngles().z)) -- Make sure it spawns the entity facing the enemy
 	VJ.HLR1_Effect_Portal(myPos, nil, self.HLRSpawner_Type == 1 and "189 2 186" or nil, function()
@@ -67,7 +67,7 @@ function ENT:HLR_ActivateSpawner(eneEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
-	if self.VJBaseSpawnerDisabled && VJ_CVAR_AI_ENABLED && CurTime() > self.HLRSpawner_NextCheckT then
+	if self.PauseSpawning && VJ_CVAR_AI_ENABLED && CurTime() > self.HLRSpawner_NextCheckT then
 		for _, v in ipairs(ents.FindInSphere(self:GetPos(), self.HLRSpawner_Distance)) do
 			if v:IsPlayer() && (v.VJ_IsControllingNPC or VJ_CVAR_IGNOREPLAYERS) then continue end
 			if v.VJ_ID_Living && v:Alive() && !v:IsFlagSet(FL_NOTARGET) && self:Visible(v) && (!v.VJ_NPC_Class or !VJ.HasValue(v.VJ_NPC_Class, self.HLRSpawner_ClassType)) then
