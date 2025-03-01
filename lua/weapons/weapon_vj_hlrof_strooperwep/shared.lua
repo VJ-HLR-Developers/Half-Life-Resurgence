@@ -11,8 +11,6 @@ SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: R
 SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
 SWEP.WorldModel					= "models/props_junk/watermelon01_chunk02c.mdl"
 SWEP.HoldType 					= "smg"
-SWEP.Spawnable					= false
-SWEP.AdminSpawnable				= false
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch

@@ -15,8 +15,6 @@ SWEP.MadeForNPCsOnly = true -- Is this weapon meant to be for NPCs only?
 SWEP.ReplacementWeapon = {"weapon_hl1_mp5", "weapon_mp5_hl1"}
 SWEP.WorldModel = "models/vj_hlr/weapons/w_9mmar.mdl"
 SWEP.HoldType = "smg"
-SWEP.Spawnable = false
-SWEP.AdminSpawnable = false
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
