@@ -7,23 +7,23 @@ SWEP.Category = "Half-Life Resurgence"
 SWEP.ViewModel = "models/vj_hlr/hl2/weapons/c_chargebow.mdl"
 SWEP.WorldModel = "models/vj_hlr/hl2/weapons/w_chargebow.mdl"
 SWEP.HoldType = "crossbow"
-SWEP.Slot = 3 -- Which weapon slot you want your SWEP to be in? (1 2 3 4 5 6) 
-SWEP.SlotPos = 3 -- Which part of that slot do you want the SWEP to be in? (1 2 3 4 5 6)
-SWEP.SwayScale = 1 -- Default is 1, The scale of the viewmodel sway
+SWEP.Slot = 3
+SWEP.SlotPos = 3
+SWEP.SwayScale = 1
 SWEP.UseHands = true
 
-SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
+SWEP.WorldModel_UseCustomPosition = true
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire = 3 -- RPM of the weapon in seconds | Calculation: 60 / RPM
-SWEP.NPC_TimeUntilFire = 0.4 -- How much time until the bullet/projectile is fired?
-SWEP.NPC_StandingOnly = true -- If true, the weapon can only be fired if the NPC is standing still
-SWEP.NPC_FiringDistanceScale = 0.5 -- Changes how far the NPC can fire | 1 = No change, x < 1 = closer, x > 1 = farther
-SWEP.NPC_ReloadSound = "weapons/physcannon/physcannon_pickup.wav" -- Sounds it plays when the base detects the SNPC playing a reload animation
-SWEP.NPC_BulletSpawnAttachment = "muzzle" -- The attachment that the bullet spawns on, leave empty for base to decide!
+SWEP.NPC_NextPrimaryFire = 3
+SWEP.NPC_TimeUntilFire = 0.4
+SWEP.NPC_StandingOnly = true
+SWEP.NPC_FiringDistanceScale = 0.5
+SWEP.NPC_ReloadSound = "weapons/physcannon/physcannon_pickup.wav"
+SWEP.NPC_BulletSpawnAttachment = "muzzle"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.ClipSize = 1 -- Max amount of rounds per clip
-SWEP.Primary.Delay = 1.25 -- Time until it can shoot again
-SWEP.Primary.Ammo = "XBowBolt" -- Ammo type
+SWEP.Primary.ClipSize = 1
+SWEP.Primary.Delay = 1.25
+SWEP.Primary.Ammo = "XBowBolt"
 SWEP.Primary.Automatic = true
 SWEP.Primary.Sound = {"vj_hlr/hl2_weapon/chargebow/chargebow_1.wav", "vj_hlr/hl2_weapon/chargebow/chargebow_2.wav", "vj_hlr/hl2_weapon/chargebow/chargebow_3.wav"}
 SWEP.Primary.DistantSound = {}
@@ -31,7 +31,7 @@ SWEP.PrimaryEffects_MuzzleFlash = false
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.Primary.DisableBulletCode = true
 	-- Reload Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.HasReloadSound = true -- Does it have a reload sound? Remember even if this is set to false, the animation sound will still play!
+SWEP.HasReloadSound = true
 SWEP.ReloadSound = "weapons/physcannon/physcannon_pickup.wav" // npc/assassin/ball_zap1.wav
 SWEP.Reload_TimeUntilAmmoIsSet = 1
 

@@ -4,24 +4,24 @@ SWEP.Author 					= "DrVrej"
 SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= false -- RPM of the weapon in seconds | Calculation: 60 / RPM
-SWEP.NPC_CustomSpread	 		= 2 -- This is added on top of the custom spread that's set inside the SNPC! | Starting from 1: Closer to 0 = better accuracy, Farther than 1 = worse accuracy
+SWEP.NPC_NextPrimaryFire 		= false
+SWEP.NPC_CustomSpread	 		= 2
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
+SWEP.MadeForNPCsOnly 			= true
 SWEP.WorldModel					= "models/vj_hlr/weapons/w_minigun.mdl"
 SWEP.HoldType 					= "ar2"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_Invisible = false -- Should the world model be invisible?
-SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
+SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(100, 0, 100)
 SWEP.WorldModel_CustomPositionOrigin = Vector(15, 0.5, -1)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage = 5 -- Damage
-SWEP.Primary.ClipSize = 200 -- Max amount of rounds per clip
-SWEP.Primary.TakeAmmo = 0 -- How much ammo should it take from the clip after each shot? | 0 = Unlimited clip
-SWEP.Primary.Ammo = "AR2" -- Ammo type
+SWEP.Primary.Damage = 5
+SWEP.Primary.ClipSize = 200
+SWEP.Primary.TakeAmmo = 0
+SWEP.Primary.Ammo = "AR2"
 SWEP.Primary.Sound = {"vj_hlr/hl1_npc/hassault/hw_shoot1.wav","vj_hlr/hl1_npc/hassault/hw_shoot2.wav","vj_hlr/hl1_npc/hassault/hw_shoot3.wav"}
 SWEP.Primary.DistantSound = {"vj_hlr/hl1_npc/hassault/hw_shoot_distant2.wav"}
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"

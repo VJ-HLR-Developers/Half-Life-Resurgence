@@ -4,23 +4,23 @@ SWEP.Author 					= "DrVrej"
 SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= false -- RPM of the weapon in seconds | Calculation: 60 / RPM
-SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/shockroach/shock_recharge.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
+SWEP.NPC_NextPrimaryFire 		= false
+SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/shockroach/shock_recharge.wav"}
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
+SWEP.MadeForNPCsOnly 			= true
 SWEP.WorldModel					= "models/props_junk/watermelon01_chunk02c.mdl"
 SWEP.HoldType 					= "smg"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
-SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
+SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(0, 0, 0)
 SWEP.WorldModel_CustomPositionOrigin = Vector(20, 3, -2.5)
 SWEP.WorldModel_CustomPositionBone = "Bone58" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 5 -- Damage
-SWEP.Primary.ClipSize			= 30 -- Max amount of rounds per clip
-SWEP.Primary.Ammo				= "SMG1" -- Ammo type
+SWEP.Primary.Damage				= 5
+SWEP.Primary.ClipSize			= 30
+SWEP.Primary.Ammo				= "SMG1"
 SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/shockroach/shock_fire.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/shockroach/shock_fire_distant.wav"}
 SWEP.Primary.DisableBulletCode	= true

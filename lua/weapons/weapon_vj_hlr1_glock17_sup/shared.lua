@@ -4,25 +4,25 @@ SWEP.Author = "DrVrej"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category = "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire = 0.8 -- RPM of the weapon in seconds | Calculation: 60 / RPM
-SWEP.NPC_ReloadSound = {"vj_hlr/hl1_weapon/glock/glock_reload.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
+SWEP.NPC_NextPrimaryFire = 0.8
+SWEP.NPC_ReloadSound = {"vj_hlr/hl1_weapon/glock/glock_reload.wav"}
 SWEP.NPC_CanBePickedUp = false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly = true -- Is this weapon meant to be for NPCs only?
+SWEP.MadeForNPCsOnly = true
 SWEP.ReplacementWeapon = {"weapon_hl1_glock", "weapon_glock_hl1"}
 SWEP.WorldModel = "models/vj_hlr/weapons/w_glock_silenced.mdl"
 SWEP.HoldType = "pistol"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
-SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
+SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(0, 0, 0)
 SWEP.WorldModel_CustomPositionOrigin = Vector(0.3, 0.6, -2.35)
 SWEP.WorldModel_CustomPositionBone = "sides01" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage = 5 -- Damage
-SWEP.Primary.ClipSize = 17 -- Max amount of rounds per clip
-SWEP.Primary.TakeAmmo = 0 -- How much ammo should it take from the clip after each shot? | 0 = Unlimited clip
-SWEP.Primary.Ammo = "Pistol" -- Ammo type
+SWEP.Primary.Damage = 5
+SWEP.Primary.ClipSize = 17
+SWEP.Primary.TakeAmmo = 0
+SWEP.Primary.Ammo = "Pistol"
 SWEP.Primary.Sound = {"vj_hlr/hl1_weapon/glock/glock_silenced1.wav","vj_hlr/hl1_weapon/glock/glock_silenced2.wav"}
 SWEP.Primary.DistantSound = {"vj_hlr/hl1_weapon/glock/glock_silenced_distant2.wav"}
 SWEP.PrimaryEffects_ShellType = "ShellEject"

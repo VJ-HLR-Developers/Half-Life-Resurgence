@@ -4,23 +4,23 @@ SWEP.Author 					= "DrVrej"
 SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= false -- RPM of the weapon in seconds | Calculation: 60 / RPM
-SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/deagle/desert_eagle_reload.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
+SWEP.NPC_NextPrimaryFire 		= false
+SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/deagle/desert_eagle_reload.wav"}
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
+SWEP.MadeForNPCsOnly 			= true
 SWEP.WorldModel					= "models/vj_hlr/weapons/w_desert_eagle.mdl"
 SWEP.HoldType 					= "pistol"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
-SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
+SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(80, 0, 0)
 SWEP.WorldModel_CustomPositionOrigin = Vector(0.5, -0.5, -35)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 15 -- Damage
-SWEP.Primary.ClipSize			= 7 -- Max amount of rounds per clip
-SWEP.Primary.Ammo				= "357" -- Ammo type
+SWEP.Primary.Damage				= 15
+SWEP.Primary.ClipSize			= 7
+SWEP.Primary.Ammo				= "357"
 SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/deagle/desert_eagle_fire.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/deagle/desert_eagle_fire_distant_final.wav"}
 SWEP.PrimaryEffects_ShellType 	= "ShellEject"

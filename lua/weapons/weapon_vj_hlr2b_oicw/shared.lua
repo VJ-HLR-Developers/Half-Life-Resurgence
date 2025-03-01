@@ -9,12 +9,12 @@ SWEP.HoldType = "ar2"
 SWEP.MadeForNPCsOnly = true
 SWEP.ReplacementWeapon = "weapon_rtbr_oicw"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_HasSecondaryFire = true -- Can the weapon have a secondary fire?
-SWEP.NPC_SecondaryFireSound = "vj_hlr/hl2_weapon/oicw/npc_ar2_altfire.wav" -- The sound it plays when the secondary fire is used
+SWEP.NPC_HasSecondaryFire = true
+SWEP.NPC_SecondaryFireSound = "vj_hlr/hl2_weapon/oicw/npc_ar2_altfire.wav"
 SWEP.NPC_ReloadSound = "vj_hlr/hl2_weapon/oicw/ar2_reload.wav"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage = 8 -- Damage
-SWEP.Primary.ClipSize = 30 -- Max amount of rounds per clip
+SWEP.Primary.Damage = 8
+SWEP.Primary.ClipSize = 30
 SWEP.Primary.Sound = {
 	"vj_hlr/hl2_weapon/oicw/ar2_fire1.wav",
 	"vj_hlr/hl2_weapon/oicw/ar2_fire2.wav",

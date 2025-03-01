@@ -6,28 +6,28 @@ SWEP.Category = "Half-Life Resurgence"
 SWEP.ViewModel = "models/weapons/c_rpg.mdl"
 SWEP.WorldModel = "models/weapons/w_rocket_launcher.mdl"
 SWEP.HoldType = "rpg"
-SWEP.ViewModelFOV = 60 -- Player FOV for the view model
+SWEP.ViewModelFOV = 60
 SWEP.Spawnable = true
-SWEP.Slot = 4 -- Which weapon slot you want your SWEP to be in? (1 2 3 4 5 6) 
-SWEP.SlotPos = 4 -- Which part of that slot do you want the SWEP to be in? (1 2 3 4 5 6)
+SWEP.Slot = 4
+SWEP.SlotPos = 4
 SWEP.UseHands = true
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire = 5 -- RPM of the weapon in seconds | Calculation: 60 / RPM
-SWEP.NPC_TimeUntilFire = 0.8 -- How much time until the bullet/projectile is fired?
-SWEP.NPC_BulletSpawnAttachment = "missile" -- The attachment that the bullet spawns on, leave empty for base to decide!
-SWEP.NPC_FiringDistanceScale = 2.5 -- Changes how far the NPC can fire | 1 = No change, x < 1 = closer, x > 1 = farther
-SWEP.NPC_StandingOnly = true -- If true, the weapon can only be fired if the NPC is standing still
+SWEP.NPC_NextPrimaryFire = 5
+SWEP.NPC_TimeUntilFire = 0.8
+SWEP.NPC_BulletSpawnAttachment = "missile"
+SWEP.NPC_FiringDistanceScale = 2.5
+SWEP.NPC_StandingOnly = true
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.ClipSize = 1 -- Max amount of rounds per clip
-SWEP.Primary.Recoil = 0.6 -- How much recoil does the player get?
-SWEP.Primary.Delay = 0.3 -- Time until it can shoot again
-SWEP.Primary.Ammo = "RPG_Round" -- Ammo type
+SWEP.Primary.ClipSize = 1
+SWEP.Primary.Recoil = 0.6
+SWEP.Primary.Delay = 0.3
+SWEP.Primary.Ammo = "RPG_Round"
 SWEP.Primary.Sound = "weapons/rpg/rocketfire1.wav"
 SWEP.Primary.DistantSound = "vj_base/weapons/rpg/rpg1_single_dist.wav"
-SWEP.Primary.DisableBulletCode = true -- The bullet won't spawn, this can be used when creating a projectile-based weapon
+SWEP.Primary.DisableBulletCode = true
 SWEP.PrimaryEffects_SpawnShells = false
 	-- Reload Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.HasReloadSound = true -- Does it have a reload sound? Remember even if this is set to false, the animation sound will still play!
+SWEP.HasReloadSound = true
 SWEP.Reload_TimeUntilAmmoIsSet = 0.8
 SWEP.ReloadSound = "vj_base/weapons/reload_rpg.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------

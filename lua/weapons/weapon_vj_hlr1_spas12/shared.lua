@@ -4,28 +4,28 @@ SWEP.Author 					= "DrVrej"
 SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= false -- RPM of the weapon in seconds | Calculation: 60 / RPM
-SWEP.NPC_CustomSpread	 		= 2.5 -- This is added on top of the custom spread that's set inside the SNPC! | Starting from 1: Closer to 0 = better accuracy, Farther than 1 = worse accuracy
-SWEP.NPC_ReloadSound			= "vj_hlr/hl1_weapon/shotgun/shotgun_reload.wav" -- Sounds it plays when the base detects the SNPC playing a reload animation
-SWEP.NPC_ExtraFireSound			= "vj_hlr/hl1_weapon/shotgun/scock1.wav" -- Plays an extra sound after it fires (Example: Bolt action sound)
-SWEP.NPC_ExtraFireSoundTime		= 0.2 -- How much time until it plays the sound (After Firing)?
+SWEP.NPC_NextPrimaryFire 		= false
+SWEP.NPC_CustomSpread	 		= 2.5
+SWEP.NPC_ReloadSound			= "vj_hlr/hl1_weapon/shotgun/shotgun_reload.wav"
+SWEP.NPC_ExtraFireSound			= "vj_hlr/hl1_weapon/shotgun/scock1.wav"
+SWEP.NPC_ExtraFireSoundTime		= 0.2
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly = true -- Is this weapon meant to be for NPCs only?
+SWEP.MadeForNPCsOnly = true
 SWEP.ReplacementWeapon = {"weapon_hl1_shotgun", "weapon_shotgun_hl1"}
 SWEP.WorldModel = "models/vj_hlr/weapons/w_shotgun.mdl"
 SWEP.HoldType = "shotgun"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
-SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
+SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(0, 180, 90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(0, -15, 0)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 5 -- Damage
-SWEP.Primary.NumberOfShots		= 5 -- How many shots per attack?
-SWEP.Primary.ClipSize			= 8 -- Max amount of rounds per clip
-SWEP.Primary.Ammo				= "Buckshot" -- Ammo type
+SWEP.Primary.Damage				= 5
+SWEP.Primary.NumberOfShots		= 5
+SWEP.Primary.ClipSize			= 8
+SWEP.Primary.Ammo				= "Buckshot"
 SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/shotgun/sbarrel1.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/shotgun/sbarrel1_distant2.wav"}
 SWEP.PrimaryEffects_ShellType 	= "ShotgunShellEject"

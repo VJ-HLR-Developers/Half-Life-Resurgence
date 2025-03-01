@@ -4,26 +4,26 @@ SWEP.Author 					= "DrVrej"
 SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= 2.5 -- RPM of the weapon in seconds | Calculation: 60 / RPM
-SWEP.NPC_CustomSpread	 		= 2 -- This is added on top of the custom spread that's set inside the SNPC! | Starting from 1: Closer to 0 = better accuracy, Farther than 1 = worse accuracy
-SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/glock/glock_reload.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
+SWEP.NPC_NextPrimaryFire 		= 2.5
+SWEP.NPC_CustomSpread	 		= 2
+SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/glock/glock_reload.wav"}
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
+SWEP.MadeForNPCsOnly 			= true
 SWEP.ReplacementWeapon = {"weapon_hl1_glock", "weapon_glock_hl1"}
 SWEP.WorldModel					= "models/vj_hlr/hla/w_docgun.mdl"
 SWEP.HoldType 					= "pistol"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_Invisible = false -- Should the world model be invisible?
-SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
+SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(0, 0, 0)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-1, 3.3, -0.7)
 SWEP.WorldModel_CustomPositionBone = "unnamed037" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage = 5 -- Damage
-SWEP.Primary.ClipSize = 17 -- Max amount of rounds per clip
-SWEP.Primary.TakeAmmo = 0 -- How much ammo should it take from the clip after each shot? | 0 = Unlimited clip
-SWEP.Primary.Ammo = "Pistol" -- Ammo type
+SWEP.Primary.Damage = 5
+SWEP.Primary.ClipSize = 17
+SWEP.Primary.TakeAmmo = 0
+SWEP.Primary.Ammo = "Pistol"
 SWEP.Primary.Sound = {"vj_hlr/hla_npc/doctor/pl_gun1.wav","vj_hlr/hla_npc/doctor/pl_gun2.wav"}
 SWEP.Primary.DistantSound = {"vj_hlr/hla_npc/doctor/pl_gun_distant2.wav"}
 SWEP.PrimaryEffects_ShellType = "ShellEject"

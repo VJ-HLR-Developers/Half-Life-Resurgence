@@ -4,24 +4,24 @@ SWEP.Author 					= "DrVrej"
 SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= false -- RPM of the weapon in seconds | Calculation: 60 / RPM
-SWEP.NPC_CustomSpread	 		= 2.5 -- This is added on top of the custom spread that's set inside the SNPC! | Starting from 1: Closer to 0 = better accuracy, Farther than 1 = worse accuracy
-SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/saw/saw_reload2.wav"} -- Sounds it plays when the base detects the SNPC playing a reload animation
+SWEP.NPC_NextPrimaryFire 		= false
+SWEP.NPC_CustomSpread	 		= 2.5
+SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/saw/saw_reload2.wav"}
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true -- Is this weapon meant to be for NPCs only?
+SWEP.MadeForNPCsOnly 			= true
 SWEP.WorldModel					= "models/vj_hlr/weapons/w_saw.mdl"
 SWEP.HoldType 					= "ar2"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
-SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
+SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(-10, 94, 2)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-6.5, 0, -2)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 8 -- Damage
-SWEP.Primary.ClipSize			= 50 -- Max amount of rounds per clip
-SWEP.Primary.Ammo				= "SMG1" -- Ammo type
+SWEP.Primary.Damage				= 8
+SWEP.Primary.ClipSize			= 50
+SWEP.Primary.Ammo				= "SMG1"
 SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/saw/saw_fire1.wav","vj_hlr/hl1_weapon/saw/saw_fire2.wav","vj_hlr/hl1_weapon/saw/saw_fire3.wav"}
 SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/saw/saw_distant2.wav"}
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"

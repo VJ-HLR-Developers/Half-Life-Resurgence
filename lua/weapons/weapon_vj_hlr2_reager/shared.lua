@@ -7,19 +7,19 @@ SWEP.WorldModel = "models/vj_hlr/hl2/weapons/combine_reager.mdl"
 SWEP.HoldType = "ar2"
 SWEP.MadeForNPCsOnly = true
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire = 0.1 -- RPM of the weapon in seconds | Calculation: 60 / RPM
-SWEP.NPC_FiringDistanceScale = 0.15 -- Changes how far the NPC can fire | 1 = No change, x < 1 = closer, x > 1 = farther
+SWEP.NPC_NextPrimaryFire = 0.1
+SWEP.NPC_FiringDistanceScale = 0.15
 SWEP.NPC_ReloadSound = "weapons/physgun_off.wav"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.ClipSize = 200 -- Max amount of rounds per clip
-SWEP.Primary.Ammo = "CrossbowBolt" -- Ammo type
+SWEP.Primary.ClipSize = 200
+SWEP.Primary.Ammo = "CrossbowBolt"
 SWEP.Primary.Sound = {}
-SWEP.Primary.DisableBulletCode	= true -- The bullet won't spawn, this can be used when creating a projectile-based weapon
+SWEP.Primary.DisableBulletCode	= true
 SWEP.PrimaryEffects_MuzzleParticles = {"vj_rifle_full_blue"}
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.PrimaryEffects_DynamicLightColor = Color(0, 31, 225)
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
+SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(-10, 0, 180)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-1, 15, 0.5)
 ---------------------------------------------------------------------------------------------------------------------------------------------

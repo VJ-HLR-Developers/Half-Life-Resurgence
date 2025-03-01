@@ -4,26 +4,26 @@ SWEP.Author = "DrVrej"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category = "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire = false -- RPM of the weapon in seconds | Calculation: 60 / RPM
-SWEP.NPC_CustomSpread = 0.2 -- This is added on top of the custom spread that's set inside the SNPC! | Starting from 1: Closer to 0 = better accuracy, Farther than 1 = worse accuracy
-SWEP.NPC_ReloadSound = "vj_hlr/hl1_weapon/sniper/sniper_reload_full.wav" -- Sounds it plays when the base detects the SNPC playing a reload animation
-SWEP.NPC_ExtraFireSound = "vj_hlr/hl1_weapon/sniper/sniper_bolt1.wav" -- Plays an extra sound after it fires (Example: Bolt action sound)
-SWEP.NPC_ExtraFireSoundTime = 0.5 -- How much time until it plays the sound (After Firing)?
+SWEP.NPC_NextPrimaryFire = false
+SWEP.NPC_CustomSpread = 0.2
+SWEP.NPC_ReloadSound = "vj_hlr/hl1_weapon/sniper/sniper_reload_full.wav"
+SWEP.NPC_ExtraFireSound = "vj_hlr/hl1_weapon/sniper/sniper_bolt1.wav"
+SWEP.NPC_ExtraFireSoundTime = 0.5
 SWEP.NPC_CanBePickedUp = false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly = true -- Is this weapon meant to be for NPCs only?
+SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_hlr/weapons/w_m40a1.mdl"
 SWEP.HoldType = "ar2"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
-SWEP.WorldModel_UseCustomPosition = true -- Should the gun use custom position? This can be used to fix guns that are in the crotch
+SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(-80, 0, 92.5)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-10, 0.5, -0.2)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage = 30 -- Damage
-SWEP.Primary.ClipSize = 5 -- Max amount of rounds per clip
-SWEP.Primary.Ammo = "SniperRound" -- Ammo type
+SWEP.Primary.Damage = 30
+SWEP.Primary.ClipSize = 5
+SWEP.Primary.Ammo = "SniperRound"
 SWEP.Primary.Sound = "vj_hlr/hl1_weapon/sniper/sniper_fire.wav"
 SWEP.Primary.DistantSound = "vj_hlr/hl1_weapon/sniper/sniper_fire_distant2.wav"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
