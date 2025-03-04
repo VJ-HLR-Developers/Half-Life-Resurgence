@@ -24,16 +24,26 @@ function ENT:PreInit()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(projectile)
-	projectile.Spit_AlphaStyle = true
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+	if status == "PreProjSpawn" then
+		projectile.Spit_AlphaStyle = true
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("SPACE: Transform into a BullSquidding! (Irreversible!)")
 	
 	function controlEnt:OnKeyPressed(key)
-		if key == KEY_SPACE && !self.VJCE_NPC.Bullsquid_BullSquidding then
-			self.VJCE_NPC:Bullsquid_ActivateBullSquidding()
+		local npc = self.VJCE_NPC
+		if key == KEY_SPACE && !npc.Bullsquid_BullSquidding then
+			npc:Bullsquid_ActivateBullSquidding()
+		end
+	end
+	function controlEnt:OnStopControlling(keyPressed)
+		local npc = self.VJCE_NPC
+		-- Set the bullsquidding behavior again because exiting a controller will reset some variables
+		if IsValid(npc) && npc.Bullsquid_BullSquidding then
+			npc:Bullsquid_ActivateBullSquidding()
 		end
 	end
 end
@@ -53,7 +63,7 @@ local baseAcceptInput = ENT.OnInput
 --
 function ENT:OnInput(key, activator, caller, data)
 	if key == "melee_bite" or key == "melee_whip" then
-		self.MeleeAttackDamage = (self.Bullsquid_BullSquidding == true and 200) or 35
+		self.MeleeAttackDamage = (self.Bullsquid_BullSquidding and 200) or 35
 		self:ExecuteMeleeAttack()
 	else
 		baseAcceptInput(self, key, activator, caller, data)
@@ -68,12 +78,10 @@ function ENT:Bullsquid_ActivateBullSquidding()
 	self.VJ_ID_Boss = true
 	self.StartHealth = 1500
 	self.EnemyXRayDetection = true
-	self.AnimTbl_RangeAttack = ACT_RANGE_ATTACK2
 	self.AnimTbl_RangeAttack = false
 	self.RangeAttackMaxDistance = 30000
 	self.RangeAttackAngleRadius = 180
 	self.RangeAttackAnimationFaceEnemy = false
-	self.RangeAttackAnimationStopMovement = false
 	self.NextRangeAttackTime = 0
 	self.TimeUntilRangeAttackProjectileRelease = 0
 	self.LimitChaseDistance = false

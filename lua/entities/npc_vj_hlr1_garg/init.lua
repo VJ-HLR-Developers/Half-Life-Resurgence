@@ -258,11 +258,10 @@ function ENT:RangeAttackProjVel(projectile)
 	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projectile:GetPos(), 1, 200)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
-	util.Decal("VJ_HLR1_Gargantua_Stomp", self:GetPos() + self:GetRight()*-20 + self:GetForward()*50, self:GetPos() + self:GetRight()*-20 + self:GetForward()*50 + self:GetUp()*-100, self)
-	local ene = self:GetEnemy()
-	if IsValid(ene) then
-		projectile.Track_Enemy = ene
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+	if status == "PostProjSpawn" then
+		util.Decal("VJ_HLR1_Gargantua_Stomp", self:GetPos() + self:GetRight()*-20 + self:GetForward()*50, self:GetPos() + self:GetRight()*-20 + self:GetForward()*50 + self:GetUp()*-100, self)
+		projectile.Track_Enemy = enemy
 		projectile:SetAngles(Angle(self:GetAngles().p, 0, 0))
 		timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
 	end

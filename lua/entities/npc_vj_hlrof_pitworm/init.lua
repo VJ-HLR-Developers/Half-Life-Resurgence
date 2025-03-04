@@ -35,7 +35,6 @@ ENT.RangeAttackMaxDistance = 4000
 ENT.RangeAttackMinDistance = 250
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 3
-ENT.DisableDefaultRangeAttackCode = true
 
 ENT.HasDeathCorpse = false
 ENT.HasDeathAnimation = true
@@ -92,8 +91,10 @@ function ENT:OnAlert(ent)
 	self:PlayAnim(ACT_ARM, true, false, true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnRangeAttack_AfterStartTimer()
-	self.PitWorm_BlinkingT = CurTime() + 2
+function ENT:OnRangeAttack(status, enemy)
+	if status == "PostInit" then
+		self.PitWorm_BlinkingT = CurTime() + 2
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PitWorm_DoLaserEffects()
@@ -112,38 +113,41 @@ function ENT:PitWorm_DoLaserEffects()
 	return tr.HitPos
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode()
-	self:PitWorm_DoLaserEffects()
-	
-	local spr = ents.Create("env_sprite")
-	spr:SetKeyValue("model", "vj_hl/sprites/flare3.vmt")
-	spr:SetKeyValue("rendercolor", "124 252 0")
-	spr:SetKeyValue("GlowProxySize", "5.0")
-	spr:SetKeyValue("HDRColorScale", "1.0")
-	spr:SetKeyValue("renderfx", "14")
-	spr:SetKeyValue("rendermode", "3")
-	spr:SetKeyValue("renderamt", "255")
-	spr:SetKeyValue("disablereceiveshadows", "0")
-	spr:SetKeyValue("mindxlevel", "0")
-	spr:SetKeyValue("maxdxlevel", "0")
-	spr:SetKeyValue("framerate", "10.0")
-	spr:SetKeyValue("spawnflags", "0")
-	spr:SetKeyValue("scale", "3")
-	spr:SetPos(self:GetPos())
-	spr:Spawn()
-	spr:SetParent(self)
-	spr:Fire("SetParentAttachment", "0")
-	self:DeleteOnRemove(spr)
-	timer.Simple(0.65, function() if IsValid(self) && IsValid(spr) then spr:Remove() end end)
-	
-	for i = 0.1, 0.5, 0.1 do
-		timer.Simple(i, function()
-			if IsValid(self) && IsValid(self:GetEnemy()) && self.AttackType == VJ.ATTACK_TYPE_RANGE then
-				local hitpos = self:PitWorm_DoLaserEffects()
-				sound.EmitHint(SOUND_DANGER, hitpos, 100, 1, self)
-				VJ.ApplyRadiusDamage(self, self, hitpos, 30, 10, DMG_SHOCK, true, false, {Force=90})
-				sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitpos, 80)
-			end
-		end)
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+	if status == "Init" then
+		self:PitWorm_DoLaserEffects()
+		
+		local spr = ents.Create("env_sprite")
+		spr:SetKeyValue("model", "vj_hl/sprites/flare3.vmt")
+		spr:SetKeyValue("rendercolor", "124 252 0")
+		spr:SetKeyValue("GlowProxySize", "5.0")
+		spr:SetKeyValue("HDRColorScale", "1.0")
+		spr:SetKeyValue("renderfx", "14")
+		spr:SetKeyValue("rendermode", "3")
+		spr:SetKeyValue("renderamt", "255")
+		spr:SetKeyValue("disablereceiveshadows", "0")
+		spr:SetKeyValue("mindxlevel", "0")
+		spr:SetKeyValue("maxdxlevel", "0")
+		spr:SetKeyValue("framerate", "10.0")
+		spr:SetKeyValue("spawnflags", "0")
+		spr:SetKeyValue("scale", "3")
+		spr:SetPos(self:GetPos())
+		spr:Spawn()
+		spr:SetParent(self)
+		spr:Fire("SetParentAttachment", "0")
+		self:DeleteOnRemove(spr)
+		timer.Simple(0.65, function() if IsValid(self) && IsValid(spr) then spr:Remove() end end)
+		
+		for i = 0.1, 0.5, 0.1 do
+			timer.Simple(i, function()
+				if IsValid(self) && IsValid(self:GetEnemy()) && self.AttackType == VJ.ATTACK_TYPE_RANGE then
+					local hitpos = self:PitWorm_DoLaserEffects()
+					sound.EmitHint(SOUND_DANGER, hitpos, 100, 1, self)
+					VJ.ApplyRadiusDamage(self, self, hitpos, 30, 10, DMG_SHOCK, true, false, {Force=90})
+					sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitpos, 80)
+				end
+			end)
+		end
+		return true
 	end
 end

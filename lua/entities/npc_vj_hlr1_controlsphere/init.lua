@@ -31,7 +31,6 @@ ENT.RangeAttackMaxDistance = 1020
 ENT.RangeAttackMinDistance = 1
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 3
-ENT.DisableDefaultRangeAttackCode = true
 
 ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = "UseRangeDistance"
@@ -81,63 +80,68 @@ function ENT:CSphere_DoElecEffect(startPos, hitPos, hitNormal)
 	util.Effect("VJ_HLR_Electric_Charge", elec)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnRangeAttack_AfterStartTimer()
-	local myPos = self:GetPos()
-	local myForward = self:GetForward()
-	local myRight = self:GetRight()
-	local myUp = self:GetUp()
-	
-	-- Tsakh --------------------------
-	local tsakhSpawn = myPos + myUp*45 + myRight*20
-	local tsakhLocations = {
-		myPos + myRight*math.Rand(150, 500) + myUp*-200,
-		myPos + myRight*math.Rand(150, 500) + myUp*-200 + myForward*-math.Rand(150, 500),
-		myPos + myRight*math.Rand(150, 500) + myUp*-200 + myForward*math.Rand(150, 500),
-		myPos + myRight*math.Rand(1, 150) + myUp*200 + myForward*math.Rand(-100, 100),
-	}
-	for i = 1, 4 do
-		local tr = util.TraceLine({
-			start = tsakhSpawn,
-			endpos = tsakhLocations[i],
-			filter = self
-		})
-		if tr.Hit == true then self:CSphere_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal) end
-	end
-	-- Ach --------------------------
-	local achSpawn = myPos + myUp*45 + myRight*-20
-	local achLocations = {
-		myPos + myRight*-math.Rand(150, 500) + myUp*-200,
-		myPos + myRight*-math.Rand(150, 500) + myUp*-200 + myForward*-math.Rand(150, 500),
-		myPos + myRight*-math.Rand(150, 500) + myUp*-200 + myForward*math.Rand(150, 500),
-		myPos + myRight*-math.Rand(1, 150) + myUp*200 + myForward*math.Rand(-100, 100),
-	}
-	for i = 1, 4 do
-		local tr = util.TraceLine({
-			start = achSpawn,
-			endpos = achLocations[i],
-			filter = self
-		})
-		if tr.Hit == true then self:CSphere_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal) end
+function ENT:OnRangeAttack(status, enemy)
+	if status == "PostInit" then
+		local myPos = self:GetPos()
+		local myForward = self:GetForward()
+		local myRight = self:GetRight()
+		local myUp = self:GetUp()
+		
+		-- Tsakh --------------------------
+		local tsakhSpawn = myPos + myUp*45 + myRight*20
+		local tsakhLocations = {
+			myPos + myRight*math.Rand(150, 500) + myUp*-200,
+			myPos + myRight*math.Rand(150, 500) + myUp*-200 + myForward*-math.Rand(150, 500),
+			myPos + myRight*math.Rand(150, 500) + myUp*-200 + myForward*math.Rand(150, 500),
+			myPos + myRight*math.Rand(1, 150) + myUp*200 + myForward*math.Rand(-100, 100),
+		}
+		for i = 1, 4 do
+			local tr = util.TraceLine({
+				start = tsakhSpawn,
+				endpos = tsakhLocations[i],
+				filter = self
+			})
+			if tr.Hit == true then self:CSphere_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal) end
+		end
+		-- Ach --------------------------
+		local achSpawn = myPos + myUp*45 + myRight*-20
+		local achLocations = {
+			myPos + myRight*-math.Rand(150, 500) + myUp*-200,
+			myPos + myRight*-math.Rand(150, 500) + myUp*-200 + myForward*-math.Rand(150, 500),
+			myPos + myRight*-math.Rand(150, 500) + myUp*-200 + myForward*math.Rand(150, 500),
+			myPos + myRight*-math.Rand(1, 150) + myUp*200 + myForward*math.Rand(-100, 100),
+		}
+		for i = 1, 4 do
+			local tr = util.TraceLine({
+				start = achSpawn,
+				endpos = achLocations[i],
+				filter = self
+			})
+			if tr.Hit == true then self:CSphere_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal) end
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode()
-	local startPos = self:GetPos() + self:GetForward()*8
-	local tr = util.TraceLine({
-		start = startPos,
-		endpos = self:GetAimPosition(self:GetEnemy(), startPos, 0),
-		filter = self
-	})
-	local hitPos = tr.HitPos
-	
-	local elec = EffectData()
-	elec:SetStart(startPos)
-	elec:SetOrigin(hitPos)
-	elec:SetEntity(self)
-	elec:SetAttachment(1)
-	util.Effect("VJ_HLR_Electric", elec)
-	
-	VJ.ApplyRadiusDamage(self, self, hitPos, 30, 10, DMG_SHOCK, true, false, {Force = 90})
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+	if status == "Init" then
+		local startPos = self:GetPos() + self:GetForward()*8
+		local tr = util.TraceLine({
+			start = startPos,
+			endpos = self:GetAimPosition(enemy, startPos, 0),
+			filter = self
+		})
+		local hitPos = tr.HitPos
+		
+		local elec = EffectData()
+		elec:SetStart(startPos)
+		elec:SetOrigin(hitPos)
+		elec:SetEntity(self)
+		elec:SetAttachment(1)
+		util.Effect("VJ_HLR_Electric", elec)
+		
+		VJ.ApplyRadiusDamage(self, self, hitPos, 30, 10, DMG_SHOCK, true, false, {Force = 90})
+		return true
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)

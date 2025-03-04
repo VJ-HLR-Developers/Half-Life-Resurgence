@@ -24,7 +24,6 @@ ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.HasMeleeAttack = false
 
 ENT.HasRangeAttack = true
-ENT.DisableDefaultRangeAttackCode = true
 ENT.AnimTbl_RangeAttack = false
 ENT.RangeAttackMaxDistance = 6000
 ENT.RangeAttackMinDistance = 150
@@ -83,47 +82,48 @@ function ENT:CustomAttackCheck_RangeAttack()
 	if self.Cannon_HasLOS == true && (CurTime() > self.Cannon_LockTime) then return true end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode()
-	//local attach = self:GetAttachment(1)
-	local startPos = self:GetAttachment(1).Pos
-	//local endPos = (self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter()) + attach.Ang:Forward()*20000 - Vector(0, 0, 10)
-	local tr = util.TraceLine({
-		start = startPos,
-		endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter() + VectorRand(-15, 15),
-		filter = {self} // self.extmdl
-	})
-	local hitPos = tr.HitPos
-	VJ.ApplyRadiusDamage(self, self, hitPos, 30, 40, DMG_ENERGYBEAM, true, false, {Force=90})
-	VJ.EmitSound(self, "vj_hlr/hl1_npc/xencannon/fire.wav", 90, 100)
-	sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitPos, 60)
-	
-	local elec = EffectData()
-	elec:SetStart(startPos)
-	elec:SetOrigin(hitPos)
-	elec:SetEntity(self)
-	elec:SetAttachment(1)
-	util.Effect("VJ_HLR_XenCannon_Beam", elec)
-	
-	local sprMuzzleFlash = ents.Create("env_sprite")
-	sprMuzzleFlash:SetKeyValue("model","vj_hl/sprites/flare3.vmt")
-	sprMuzzleFlash:SetKeyValue("rendercolor","0 0 255")
-	sprMuzzleFlash:SetKeyValue("GlowProxySize","5.0")
-	sprMuzzleFlash:SetKeyValue("HDRColorScale","1.0")
-	sprMuzzleFlash:SetKeyValue("renderfx","14")
-	sprMuzzleFlash:SetKeyValue("rendermode","3")
-	sprMuzzleFlash:SetKeyValue("renderamt","255")
-	sprMuzzleFlash:SetKeyValue("disablereceiveshadows","0")
-	sprMuzzleFlash:SetKeyValue("mindxlevel","0")
-	sprMuzzleFlash:SetKeyValue("maxdxlevel","0")
-	sprMuzzleFlash:SetKeyValue("framerate","10.0")
-	sprMuzzleFlash:SetKeyValue("spawnflags","0")
-	sprMuzzleFlash:SetKeyValue("scale","6")
-	sprMuzzleFlash:SetPos(self:GetPos())
-	sprMuzzleFlash:Spawn()
-	sprMuzzleFlash:SetParent(self)
-	sprMuzzleFlash:Fire("SetParentAttachment", "Cannon")
-	self:DeleteOnRemove(sprMuzzleFlash)
-	timer.Simple(0.15, function() SafeRemoveEntity(sprMuzzleFlash) end)
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+	if status == "Init" then
+		local startPos = self:GetAttachment(1).Pos
+		local tr = util.TraceLine({
+			start = startPos,
+			endpos = enemy:GetPos() + enemy:OBBCenter() + VectorRand(-15, 15),
+			filter = {self} // self.extmdl
+		})
+		local hitPos = tr.HitPos
+		VJ.ApplyRadiusDamage(self, self, hitPos, 30, 40, DMG_ENERGYBEAM, true, false, {Force=90})
+		VJ.EmitSound(self, "vj_hlr/hl1_npc/xencannon/fire.wav", 90, 100)
+		sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitPos, 60)
+		
+		local elec = EffectData()
+		elec:SetStart(startPos)
+		elec:SetOrigin(hitPos)
+		elec:SetEntity(self)
+		elec:SetAttachment(1)
+		util.Effect("VJ_HLR_XenCannon_Beam", elec)
+		
+		local sprMuzzleFlash = ents.Create("env_sprite")
+		sprMuzzleFlash:SetKeyValue("model","vj_hl/sprites/flare3.vmt")
+		sprMuzzleFlash:SetKeyValue("rendercolor","0 0 255")
+		sprMuzzleFlash:SetKeyValue("GlowProxySize","5.0")
+		sprMuzzleFlash:SetKeyValue("HDRColorScale","1.0")
+		sprMuzzleFlash:SetKeyValue("renderfx","14")
+		sprMuzzleFlash:SetKeyValue("rendermode","3")
+		sprMuzzleFlash:SetKeyValue("renderamt","255")
+		sprMuzzleFlash:SetKeyValue("disablereceiveshadows","0")
+		sprMuzzleFlash:SetKeyValue("mindxlevel","0")
+		sprMuzzleFlash:SetKeyValue("maxdxlevel","0")
+		sprMuzzleFlash:SetKeyValue("framerate","10.0")
+		sprMuzzleFlash:SetKeyValue("spawnflags","0")
+		sprMuzzleFlash:SetKeyValue("scale","6")
+		sprMuzzleFlash:SetPos(self:GetPos())
+		sprMuzzleFlash:Spawn()
+		sprMuzzleFlash:SetParent(self)
+		sprMuzzleFlash:Fire("SetParentAttachment", "Cannon")
+		self:DeleteOnRemove(sprMuzzleFlash)
+		timer.Simple(0.15, function() SafeRemoveEntity(sprMuzzleFlash) end)
+		return true
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector(0, 0, 0)

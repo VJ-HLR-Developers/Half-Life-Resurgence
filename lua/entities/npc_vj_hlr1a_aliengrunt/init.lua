@@ -27,6 +27,11 @@ function ENT:PreInit()
 	self.SoundTbl_Death = {"vj_hlr/hla_npc/agrunt/ag_die1.wav", "vj_hlr/hla_npc/agrunt/ag_die2.wav", "vj_hlr/hla_npc/agrunt/ag_die3.wav"}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(projectile)
-	projectile.Hornet_Alpha = true
+local orgRangeFunc = ENT.OnRangeAttackExecute
+--
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+	if status == "PreProjSpawn" then
+		projectile.Hornet_Alpha = true
+	end
+	orgRangeFunc(self, status, enemy, projectile)
 end

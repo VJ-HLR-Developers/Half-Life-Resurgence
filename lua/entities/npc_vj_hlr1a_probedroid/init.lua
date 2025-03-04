@@ -118,20 +118,22 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 --  ACT_RANGE_ATTACK2 -- Rapid firing (3-shot burst) range attack animation | !!! UNUSED !!!
 --
-function ENT:CustomOnRangeAttack_BeforeStartTimer()
-	local anim, animDur = self:PlayAnim(ACT_ARM, false, 0, true, 0, {OnFinish = function()
-		self:PlayAnim(ACT_RANGE_ATTACK1, false, 0, true, 0, {OnFinish = function()
-			self:PlayAnim(ACT_RELOAD, true, false, true)
-			VJ.EmitSound(self, "vj_hlr/hla_npc/prdroid/reload.wav", 90, 100) -- Reload sound
+function ENT:OnRangeAttack(status, enemy)
+	if status == "Init" then
+		local anim, animDur = self:PlayAnim(ACT_ARM, false, 0, true, 0, {OnFinish = function()
+			self:PlayAnim(ACT_RANGE_ATTACK1, false, 0, true, 0, {OnFinish = function()
+				self:PlayAnim(ACT_RELOAD, true, false, true)
+				VJ.EmitSound(self, "vj_hlr/hla_npc/prdroid/reload.wav", 90, 100) -- Reload sound
+			end})
 		end})
-	end})
-	self.AttackAnim = anim
-	self.AttackAnimDuration = animDur + VJ.AnimDuration(self, ACT_RANGE_ATTACK1)
-	self.AttackAnimTime = CurTime() + self.AttackAnimDuration
+		self.AttackAnim = anim
+		self.AttackAnimDuration = animDur + VJ.AnimDuration(self, ACT_RANGE_ATTACK1)
+		self.AttackAnimTime = CurTime() + self.AttackAnimDuration
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(projectile)
-	if self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+	if status == "PreProjSpawn" && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
 		projectile.Needle_Heal = true
 	end
 end

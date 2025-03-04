@@ -23,7 +23,6 @@ ENT.AlertTimeout = VJ.SET(16, 16)
 ENT.HasMeleeAttack = false
 
 ENT.HasRangeAttack = true
-ENT.DisableDefaultRangeAttackCode = true
 ENT.AnimTbl_RangeAttack = false
 ENT.RangeAttackMaxDistance = 1300
 ENT.RangeAttackMinDistance = 1
@@ -217,57 +216,60 @@ function ENT:Sentry_Activate()
 	VJ.EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_alert.wav"}, 75, 100)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode()
-	local attPos = self:GetAttachment(self:LookupAttachment(self.Sentry_MuzzleAttach)).Pos
-	self:FireBullets({
-		Num = 1,
-		Src = attPos,
-		Dir = (self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter()) - attPos,
-		Spread = Vector(math.random(-15, 15), math.random(-15, 15), math.random(-15, 15)),
-		Tracer = 1,
-		TracerName = "VJ_HLR_Tracer",
-		Force = 5,
-		Damage = (self.Sentry_Type == 1 and 7) or 3,
-		AmmoType = "SMG1"
-	})
-	
-	VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1.wav", 90, math.random(100, 110))
-	VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1_distant.wav", 140, math.random(100, 110))
-	
-	local muz = ents.Create("env_sprite_oriented")
-	muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash3.vmt")
-	if self.Sentry_Type == 1 then
-		muz:SetKeyValue("scale", ""..math.Rand(0.8, 1))
-	else
-		muz:SetKeyValue("scale", ""..math.Rand(0.3, 0.5))
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+	if status == "Init" then
+		local attPos = self:GetAttachment(self:LookupAttachment(self.Sentry_MuzzleAttach)).Pos
+		self:FireBullets({
+			Num = 1,
+			Src = attPos,
+			Dir = (enemy:GetPos() + enemy:OBBCenter()) - attPos,
+			Spread = Vector(math.random(-15, 15), math.random(-15, 15), math.random(-15, 15)),
+			Tracer = 1,
+			TracerName = "VJ_HLR_Tracer",
+			Force = 5,
+			Damage = (self.Sentry_Type == 1 and 7) or 3,
+			AmmoType = "SMG1"
+		})
+		
+		VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1.wav", 90, math.random(100, 110))
+		VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1_distant.wav", 140, math.random(100, 110))
+		
+		local muz = ents.Create("env_sprite_oriented")
+		muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash3.vmt")
+		if self.Sentry_Type == 1 then
+			muz:SetKeyValue("scale", ""..math.Rand(0.8, 1))
+		else
+			muz:SetKeyValue("scale", ""..math.Rand(0.3, 0.5))
+		end
+		muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
+		muz:SetKeyValue("HDRColorScale","1.0")
+		muz:SetKeyValue("renderfx","14")
+		muz:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
+		muz:SetKeyValue("renderamt","255") -- Transparency
+		muz:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
+		muz:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
+		muz:SetKeyValue("spawnflags","0")
+		muz:SetParent(self)
+		muz:Fire("SetParentAttachment", self.Sentry_MuzzleAttach)
+		muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
+		muz:Spawn()
+		muz:Activate()
+		muz:Fire("Kill", "", 0.08)
+		
+		local muzzleLight = ents.Create("light_dynamic")
+		muzzleLight:SetKeyValue("brightness", "4")
+		muzzleLight:SetKeyValue("distance", "120")
+		muzzleLight:SetPos(attPos)
+		muzzleLight:SetLocalAngles(self:GetAngles())
+		muzzleLight:Fire("Color", "255 150 60")
+		muzzleLight:SetParent(self)
+		muzzleLight:Spawn()
+		muzzleLight:Activate()
+		muzzleLight:Fire("TurnOn")
+		muzzleLight:Fire("Kill", "", 0.07)
+		self:DeleteOnRemove(muzzleLight)
+		return true
 	end
-	muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
-	muz:SetKeyValue("HDRColorScale","1.0")
-	muz:SetKeyValue("renderfx","14")
-	muz:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-	muz:SetKeyValue("renderamt","255") -- Transparency
-	muz:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-	muz:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
-	muz:SetKeyValue("spawnflags","0")
-	muz:SetParent(self)
-	muz:Fire("SetParentAttachment", self.Sentry_MuzzleAttach)
-	muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
-	muz:Spawn()
-	muz:Activate()
-	muz:Fire("Kill", "", 0.08)
-	
-	local muzzleLight = ents.Create("light_dynamic")
-	muzzleLight:SetKeyValue("brightness", "4")
-	muzzleLight:SetKeyValue("distance", "120")
-	muzzleLight:SetPos(attPos)
-	muzzleLight:SetLocalAngles(self:GetAngles())
-	muzzleLight:Fire("Color", "255 150 60")
-	muzzleLight:SetParent(self)
-	muzzleLight:Spawn()
-	muzzleLight:Activate()
-	muzzleLight:Fire("TurnOn")
-	muzzleLight:Fire("Kill", "", 0.07)
-	self:DeleteOnRemove(muzzleLight)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DoImpactEffect(tr, damageType)

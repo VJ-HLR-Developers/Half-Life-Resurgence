@@ -33,7 +33,6 @@ ENT.RangeAttackMaxDistance = 140
 ENT.RangeAttackMinDistance = 50
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 3
-ENT.DisableDefaultRangeAttackCode = true
 
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
@@ -78,20 +77,23 @@ function ENT:TranslateActivity(act)
 	return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode()
-	//ParticleEffectAttach("vj_hlr_spit_friendly_impact", PATTACH_POINT_FOLLOW, self, 1)
-	local pos = self:GetAttachment(1).Pos
-	ParticleEffect("vj_hlr_spit_friendly_impact", pos, self:GetAngles(), self)
-	ParticleEffect("vj_hlr_spit_friendly_impact", pos + self:GetRight()*25, self:GetAngles(), self)
-	ParticleEffect("vj_hlr_spit_friendly_impact", pos + self:GetRight()*-25, self:GetAngles(), self)
-	ParticleEffect("vj_hlr_spit_friendly_impact", pos + self:GetForward()*30, self:GetAngles(), self)
-	ParticleEffect("vj_hlr_spit_friendly_impact", pos + self:GetForward()*60, self:GetAngles(), self)
-	timer.Simple(0.5, function()
-		if IsValid(self) then
-			self:StopParticles()
-		end
-	end)
-	VJ.ApplyRadiusDamage(self, self, pos, 160, 5, DMG_ACID, true, true, {Force = 10, UseConeDegree = 60})
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+	if status == "Init" then
+		//ParticleEffectAttach("vj_hlr_spit_friendly_impact", PATTACH_POINT_FOLLOW, self, 1)
+		local pos = self:GetAttachment(1).Pos
+		ParticleEffect("vj_hlr_spit_friendly_impact", pos, self:GetAngles(), self)
+		ParticleEffect("vj_hlr_spit_friendly_impact", pos + self:GetRight()*25, self:GetAngles(), self)
+		ParticleEffect("vj_hlr_spit_friendly_impact", pos + self:GetRight()*-25, self:GetAngles(), self)
+		ParticleEffect("vj_hlr_spit_friendly_impact", pos + self:GetForward()*30, self:GetAngles(), self)
+		ParticleEffect("vj_hlr_spit_friendly_impact", pos + self:GetForward()*60, self:GetAngles(), self)
+		timer.Simple(0.5, function()
+			if IsValid(self) then
+				self:StopParticles()
+			end
+		end)
+		VJ.ApplyRadiusDamage(self, self, pos, 160, 5, DMG_ACID, true, true, {Force = 10, UseConeDegree = 60})
+		return true
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))

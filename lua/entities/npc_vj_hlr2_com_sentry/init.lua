@@ -23,7 +23,6 @@ ENT.AlertTimeout = VJ.SET(0, 0)
 ENT.HasMeleeAttack = false
 
 ENT.HasRangeAttack = true
-ENT.DisableDefaultRangeAttackCode = true
 ENT.AnimTbl_RangeAttack = false
 ENT.RangeAttackMaxDistance = 2000
 ENT.RangeAttackMinDistance = 1
@@ -276,39 +275,42 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local bulletSpread = Vector(0.08716, 0.08716, 0.08716) * 1.25 -- VECTOR_CONE_10DEGREES * WEAPON_PROFICIENCY_VERY_GOOD
 --
-function ENT:CustomRangeAttackCode()
-	self:PlayAnim("vjseq_fire", false)
-	
-	-- Bullet
-	local startPos = self:GetAttachment(self:LookupAttachment("eyes")).Pos
-	local bullet = {}
-	bullet.Num = 1
-	bullet.Src = startPos
-	bullet.Dir = (self:GetAimPosition(self:GetEnemy(), startPos) - startPos):GetNormal()
-	bullet.Spread = bulletSpread
-	bullet.Tracer = 1
-	bullet.TracerName = "AR2Tracer"
-	bullet.Force = 5
-	bullet.Damage = 2
-	bullet.AmmoType = "AR2"
-	self:FireBullets(bullet)
-	
-	VJ.EmitSound(self, sdFiring, 90, math.random(100, 110))
-	
-	-- Effects & Light
-	//ParticleEffect("vj_rifle_full_blue", startPos, self:GetAngles(), self)
-	local fireLight = ents.Create("light_dynamic")
-	fireLight:SetKeyValue("brightness", "4")
-	fireLight:SetKeyValue("distance", "120")
-	fireLight:SetPos(startPos)
-	fireLight:SetLocalAngles(self:GetAngles())
-	fireLight:Fire("Color", "0 31 225")
-	fireLight:SetParent(self)
-	fireLight:Spawn()
-	fireLight:Activate()
-	fireLight:Fire("TurnOn", "", 0)
-	fireLight:Fire("Kill", "", 0.07)
-	self:DeleteOnRemove(fireLight)
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+	if status == "Init" then
+		self:PlayAnim("vjseq_fire", false)
+		
+		-- Bullet
+		local startPos = self:GetAttachment(self:LookupAttachment("eyes")).Pos
+		local bullet = {}
+		bullet.Num = 1
+		bullet.Src = startPos
+		bullet.Dir = (self:GetAimPosition(enemy, startPos) - startPos):GetNormal()
+		bullet.Spread = bulletSpread
+		bullet.Tracer = 1
+		bullet.TracerName = "AR2Tracer"
+		bullet.Force = 5
+		bullet.Damage = 2
+		bullet.AmmoType = "AR2"
+		self:FireBullets(bullet)
+		
+		VJ.EmitSound(self, sdFiring, 90, math.random(100, 110))
+		
+		-- Effects & Light
+		//ParticleEffect("vj_rifle_full_blue", startPos, self:GetAngles(), self)
+		local fireLight = ents.Create("light_dynamic")
+		fireLight:SetKeyValue("brightness", "4")
+		fireLight:SetKeyValue("distance", "120")
+		fireLight:SetPos(startPos)
+		fireLight:SetLocalAngles(self:GetAngles())
+		fireLight:Fire("Color", "0 31 225")
+		fireLight:SetParent(self)
+		fireLight:Spawn()
+		fireLight:Activate()
+		fireLight:Fire("TurnOn", "", 0)
+		fireLight:Fire("Kill", "", 0.07)
+		self:DeleteOnRemove(fireLight)
+		return true
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local defAng = Angle(0, 0, 0)

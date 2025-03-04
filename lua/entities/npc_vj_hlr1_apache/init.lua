@@ -166,13 +166,13 @@ function ENT:RangeAttackProjVel(projectile)
 	return self:GetForward()*400
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_BeforeProjectileSpawn(projectile)
-	projectile.Model = "models/vj_hlr/hl1/hvr.mdl"
-	projectile.Rocket_HelicopterMissile = true
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_AfterProjectileSpawn(ent)
-	VJ.CreateSound(ent, "vj_hlr/hl1_weapon/rpg/rocketfire1.wav", 100)
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+	if status == "PreProjSpawn" then
+		projectile.Model = "models/vj_hlr/hl1/hvr.mdl"
+		projectile.Rocket_HelicopterMissile = true
+	elseif status == "PostProjSpawn" then
+		VJ.CreateSound(projectile, "vj_hlr/hl1_weapon/rpg/rocketfire1.wav", 100)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local bulletSpread = Vector(0.03490, 0.03490, 0.03490)

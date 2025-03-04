@@ -177,19 +177,21 @@ function ENT:OnThinkActive()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnRangeAttack_BeforeStartTimer()
-	if math.random(1, 4) == 1 then
-		self.AnimTbl_RangeAttack = self.Nih_BrainOpen == true and ACT_RANGE_ATTACK2_LOW or ACT_RANGE_ATTACK2
-		self.RangeAttackProjectiles = "obj_vj_hlr1_orb_teleport"
-	else
-		self.AnimTbl_RangeAttack = self.Nih_BrainOpen == true and ACT_RANGE_ATTACK1_LOW or ACT_RANGE_ATTACK1
-		self.RangeAttackProjectiles = "obj_vj_hlr1_orb_electrical"
+function ENT:OnRangeAttack(status, enemy)
+	if status == "Init" then
+		if math.random(1, 4) == 1 then
+			self.AnimTbl_RangeAttack = self.Nih_BrainOpen == true and ACT_RANGE_ATTACK2_LOW or ACT_RANGE_ATTACK2
+			self.RangeAttackProjectiles = "obj_vj_hlr1_orb_teleport"
+		else
+			self.AnimTbl_RangeAttack = self.Nih_BrainOpen == true and ACT_RANGE_ATTACK1_LOW or ACT_RANGE_ATTACK1
+			self.RangeAttackProjectiles = "obj_vj_hlr1_orb_electrical"
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
-	if self.Nih_TeleportingOrb == true && IsValid(self:GetEnemy()) then
-		projectile.Track_Enemy = self:GetEnemy()
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+	if status == "PostProjSpawn" && self.Nih_TeleportingOrb then
+		projectile.Track_Enemy = enemy
 		timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
 	end
 end

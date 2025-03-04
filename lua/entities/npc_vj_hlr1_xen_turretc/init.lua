@@ -23,7 +23,6 @@ ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.HasMeleeAttack = false
 
 ENT.HasRangeAttack = true
-ENT.DisableDefaultRangeAttackCode = true
 ENT.AnimTbl_RangeAttack = false
 ENT.RangeAttackMaxDistance = 512
 ENT.RangeAttackMinDistance = 1
@@ -75,47 +74,50 @@ function ENT:Init()
 	self:DeleteOnRemove(spotLight)*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode()
-	local startPos = self:GetAttachment(1).Pos
-	local tr = util.TraceLine({
-		start = startPos,
-		endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(),
-		filter = self
-	})
-	local hitPos = tr.HitPos
-	local elec = EffectData()
-	elec:SetStart(startPos)
-	elec:SetOrigin(hitPos)
-	elec:SetNormal(tr.HitNormal)
-	elec:SetEntity(self)
-	elec:SetAttachment(1)
-	elec:SetScale(0.5)
-	util.Effect("VJ_HLR_Electric_Xen_Turretc", elec)
-	
-	VJ.ApplyRadiusDamage(self, self, hitPos, 10, 30, DMG_SHOCK, true, false, {Force=90})
-	VJ.EmitSound(self, "vj_hlr/hl1_npc/xenceiling_turret/beamstart10.wav", 90, 100)
-	//sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitPos, 60)
-	
-	local spr = ents.Create("env_sprite")
-	spr:SetKeyValue("model", "vj_hl/sprites/xflare1.vmt")
-	//spr:SetKeyValue("rendercolor", "0 0 255")
-	spr:SetKeyValue("GlowProxySize", "5.0")
-	spr:SetKeyValue("HDRColorScale", "1.0")
-	spr:SetKeyValue("renderfx", "14")
-	spr:SetKeyValue("rendermode", "3")
-	spr:SetKeyValue("renderamt", "255")
-	spr:SetKeyValue("disablereceiveshadows", "0")
-	spr:SetKeyValue("mindxlevel", "0")
-	spr:SetKeyValue("maxdxlevel", "0")
-	spr:SetKeyValue("framerate", "60.0")
-	spr:SetKeyValue("spawnflags", "0")
-	spr:SetKeyValue("scale", "0.8")
-	spr:SetPos(self:GetPos())
-	spr:Spawn()
-	spr:SetParent(self)
-	spr:Fire("SetParentAttachment", "0")
-	self:DeleteOnRemove(spr)
-	timer.Simple(0.2, function() SafeRemoveEntity(spr) end)
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+	if status == "Init" then
+		local startPos = self:GetAttachment(1).Pos
+		local tr = util.TraceLine({
+			start = startPos,
+			endpos = enemy:GetPos() + enemy:OBBCenter(),
+			filter = self
+		})
+		local hitPos = tr.HitPos
+		local elec = EffectData()
+		elec:SetStart(startPos)
+		elec:SetOrigin(hitPos)
+		elec:SetNormal(tr.HitNormal)
+		elec:SetEntity(self)
+		elec:SetAttachment(1)
+		elec:SetScale(0.5)
+		util.Effect("VJ_HLR_Electric_Xen_Turretc", elec)
+		
+		VJ.ApplyRadiusDamage(self, self, hitPos, 10, 30, DMG_SHOCK, true, false, {Force=90})
+		VJ.EmitSound(self, "vj_hlr/hl1_npc/xenceiling_turret/beamstart10.wav", 90, 100)
+		//sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitPos, 60)
+		
+		local spr = ents.Create("env_sprite")
+		spr:SetKeyValue("model", "vj_hl/sprites/xflare1.vmt")
+		//spr:SetKeyValue("rendercolor", "0 0 255")
+		spr:SetKeyValue("GlowProxySize", "5.0")
+		spr:SetKeyValue("HDRColorScale", "1.0")
+		spr:SetKeyValue("renderfx", "14")
+		spr:SetKeyValue("rendermode", "3")
+		spr:SetKeyValue("renderamt", "255")
+		spr:SetKeyValue("disablereceiveshadows", "0")
+		spr:SetKeyValue("mindxlevel", "0")
+		spr:SetKeyValue("maxdxlevel", "0")
+		spr:SetKeyValue("framerate", "60.0")
+		spr:SetKeyValue("spawnflags", "0")
+		spr:SetKeyValue("scale", "0.8")
+		spr:SetPos(self:GetPos())
+		spr:Spawn()
+		spr:SetParent(self)
+		spr:Fire("SetParentAttachment", "0")
+		self:DeleteOnRemove(spr)
+		timer.Simple(0.2, function() SafeRemoveEntity(spr) end)
+		return true
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)

@@ -96,31 +96,33 @@ function ENT:RangeAttackProjVel(projectile)
 	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projPos, 1, 2000)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
-	-- Behavior: If spikes are empty, go hide and reload
-	local bg = self:GetBodygroup(1)
-	if bg == 0 or bg == 6 then
-		self:SetBodygroup(1, 0)
-		self.HasRangeAttack = false
-		if !self.VJ_IsBeingControlled then
-			-- Run from the enemy, then play the reload animation and set the body group
-			self:SCHEDULE_COVER_ENEMY("TASK_RUN_PATH")
-			timer.Simple(0.1, function()
-				if IsValid(self) then
-					self.TakingCoverT = CurTime() + self:GetPathTimeToGoal()
-					timer.Simple(self:GetPathTimeToGoal(), function()
-						if IsValid(self) then
-							self:PlayAnim(ACT_RELOAD, true, false, true, 0, {OnFinish=function(interrupted2, anim2)
-								self.HasRangeAttack = true
-								self:SetBodygroup(1, 1)
-							end})
-						end
-					end)
-				end
-			end)
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+	if status == "PostProjSpawn" then
+		-- Behavior: If spikes are empty, go hide and reload
+		local bg = self:GetBodygroup(1)
+		if bg == 0 or bg == 6 then
+			self:SetBodygroup(1, 0)
+			self.HasRangeAttack = false
+			if !self.VJ_IsBeingControlled then
+				-- Run from the enemy, then play the reload animation and set the body group
+				self:SCHEDULE_COVER_ENEMY("TASK_RUN_PATH")
+				timer.Simple(0.1, function()
+					if IsValid(self) then
+						self.TakingCoverT = CurTime() + self:GetPathTimeToGoal()
+						timer.Simple(self:GetPathTimeToGoal(), function()
+							if IsValid(self) then
+								self:PlayAnim(ACT_RELOAD, true, false, true, 0, {OnFinish=function(interrupted2, anim2)
+									self.HasRangeAttack = true
+									self:SetBodygroup(1, 1)
+								end})
+							end
+						end)
+					end
+				end)
+			end
+		else
+			self:SetBodygroup(1, bg + 1)
 		end
-	else
-		self:SetBodygroup(1, bg + 1)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -31,7 +31,6 @@ ENT.RangeAttackMaxDistance = 1020
 ENT.RangeAttackMinDistance = 100
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 3
-ENT.DisableDefaultRangeAttackCode = true
 
 ENT.LimitChaseDistance = "OnlyRange"
 ENT.LimitChaseDistance_Max = "UseRangeDistance"
@@ -100,81 +99,86 @@ function ENT:Vort_DoElecEffect(startPos, hitPos, hitNormal, attachment, timeDecr
 	util.Effect("VJ_HLR_Electric_Charge", elec)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnRangeAttack_AfterStartTimer()
-	-- Slowly fade the pitch to be higher like the original game
-	if self.CurrentSpeechSound then
-		self.CurrentSpeechSound:ChangePitch(90 + 90, 1.2)
-	end
-	
-	local myPos = self:GetPos()
-	local myForward = self:GetForward()
-	local myRight = self:GetRight()
-	local myUp = self:GetUp()
-	
-	-- Tsakh --------------------------
-	local tsakhSpawn = myPos + myUp*45 + myRight*20
-	local tsakhLocations = {
-		myPos + myRight*math.Rand(150, 500) + myUp*-200,
-		myPos + myRight*math.Rand(150, 500) + myUp*-200 + myForward*-math.Rand(150, 500),
-		myPos + myRight*math.Rand(150, 500) + myUp*-200 + myForward*math.Rand(150, 500),
-		myPos + myRight*math.Rand(1, 150) + myUp*200 + myForward*math.Rand(-100, 100),
-	}
-	for i = 1, 4 do
-		local randTime = math.Rand(0, 0.6)
-		timer.Simple(randTime, function()
-			if IsValid(self) then
-				local tr = util.TraceLine({
-					start = tsakhSpawn,
-					endpos = tsakhLocations[i],
-					filter = self
-				})
-				if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 1, randTime) end
-			end
-		end)
-	end
-	-- Ach --------------------------
-	local achSpawn = myPos + myUp*45 + myRight*-20
-	local achLocations = {
-		myPos + myRight*-math.Rand(150, 500) + myUp*-200,
-		myPos + myRight*-math.Rand(150, 500) + myUp*-200 + myForward*-math.Rand(150, 500),
-		myPos + myRight*-math.Rand(150, 500) + myUp*-200 + myForward*math.Rand(150, 500),
-		myPos + myRight*-math.Rand(1, 150) + myUp*200 + myForward*math.Rand(-100, 100),
-	}
-	for i = 1, 4 do
-		local randTime = math.Rand(0, 0.6)
-		timer.Simple(randTime, function()
-			if IsValid(self) then
-				local tr = util.TraceLine({
-					start = achSpawn,
-					endpos = achLocations[i],
-					filter = self
-				})
-				if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 2, randTime) end
-			end
-		end)
+function ENT:OnRangeAttack(status, enemy)
+	if status == "PostInit" then
+		-- Slowly fade the pitch to be higher like the original game
+		if self.CurrentSpeechSound then
+			self.CurrentSpeechSound:ChangePitch(90 + 90, 1.2)
+		end
+		
+		local myPos = self:GetPos()
+		local myForward = self:GetForward()
+		local myRight = self:GetRight()
+		local myUp = self:GetUp()
+		
+		-- Tsakh --------------------------
+		local tsakhSpawn = myPos + myUp*45 + myRight*20
+		local tsakhLocations = {
+			myPos + myRight*math.Rand(150, 500) + myUp*-200,
+			myPos + myRight*math.Rand(150, 500) + myUp*-200 + myForward*-math.Rand(150, 500),
+			myPos + myRight*math.Rand(150, 500) + myUp*-200 + myForward*math.Rand(150, 500),
+			myPos + myRight*math.Rand(1, 150) + myUp*200 + myForward*math.Rand(-100, 100),
+		}
+		for i = 1, 4 do
+			local randTime = math.Rand(0, 0.6)
+			timer.Simple(randTime, function()
+				if IsValid(self) then
+					local tr = util.TraceLine({
+						start = tsakhSpawn,
+						endpos = tsakhLocations[i],
+						filter = self
+					})
+					if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 1, randTime) end
+				end
+			end)
+		end
+		-- Ach --------------------------
+		local achSpawn = myPos + myUp*45 + myRight*-20
+		local achLocations = {
+			myPos + myRight*-math.Rand(150, 500) + myUp*-200,
+			myPos + myRight*-math.Rand(150, 500) + myUp*-200 + myForward*-math.Rand(150, 500),
+			myPos + myRight*-math.Rand(150, 500) + myUp*-200 + myForward*math.Rand(150, 500),
+			myPos + myRight*-math.Rand(1, 150) + myUp*200 + myForward*math.Rand(-100, 100),
+		}
+		for i = 1, 4 do
+			local randTime = math.Rand(0, 0.6)
+			timer.Simple(randTime, function()
+				if IsValid(self) then
+					local tr = util.TraceLine({
+						start = achSpawn,
+						endpos = achLocations[i],
+						filter = self
+					})
+					if tr.Hit == true then self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 2, randTime) end
+				end
+			end)
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode()
-	local startPos = self:GetPos() + self:GetUp()*45 + self:GetForward()*40
-	local tr = util.TraceLine({
-		start = startPos,
-		endpos = self:GetAimPosition(self:GetEnemy(), startPos, 0),
-		filter = self
-	})
-	local hitPos = tr.HitPos
-	
-	-- Fire 2 electric beams at the enemy
-	local elec = EffectData()
-	elec:SetStart(startPos)
-	elec:SetOrigin(hitPos)
-	elec:SetEntity(self)
-	elec:SetAttachment(1)
-	util.Effect("VJ_HLR_Electric", elec)
-	elec:SetAttachment(2)
-	util.Effect("VJ_HLR_Electric", elec)
-	
-	VJ.ApplyRadiusDamage(self, self, hitPos, 30, 20, DMG_SHOCK, true, false, {Force = 90})
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+	if status == "Init" then
+		local startPos = self:GetPos() + self:GetUp()*45 + self:GetForward()*40
+		local tr = util.TraceLine({
+			start = startPos,
+			endpos = self:GetAimPosition(enemy, startPos, 0),
+			filter = self
+		})
+		local hitPos = tr.HitPos
+		
+		-- Fire 2 electric beams at the enemy
+		local elec = EffectData()
+		elec:SetStart(startPos)
+		elec:SetOrigin(hitPos)
+		elec:SetEntity(self)
+		elec:SetAttachment(1)
+		util.Effect("VJ_HLR_Electric", elec)
+		elec:SetAttachment(2)
+		util.Effect("VJ_HLR_Electric", elec)
+		
+		VJ.ApplyRadiusDamage(self, self, hitPos, 30, 20, DMG_SHOCK, true, false, {Force = 90})
+		return true
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SelectSchedule()

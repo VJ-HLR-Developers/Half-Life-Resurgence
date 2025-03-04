@@ -175,28 +175,29 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("Right Mouse + CTRL: Fire a homing orb")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnRangeAttack_BeforeStartTimer(seed)
-	if (math.random(1, 2) == 1 && self.EnemyData.DistanceNearest < 850) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) then
-		self.AnimTbl_RangeAttack = ACT_RANGE_ATTACK2
-		self.AlienC_HomingAttack = true
-	else
-		self.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-		self.AlienC_HomingAttack = false
+function ENT:OnRangeAttack(status, enemy)
+	if status == "Init" then
+		if (math.random(1, 2) == 1 && self.EnemyData.DistanceNearest < 850) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) then
+			self.AnimTbl_RangeAttack = ACT_RANGE_ATTACK2
+			self.AlienC_HomingAttack = true
+		else
+			self.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
+			self.AlienC_HomingAttack = false
+		end
+		self.AlienC_NumFired = 0
 	end
-	self.AlienC_NumFired = 0
-	self.HasRangeAttackSounds = true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
-	local ene = self:GetEnemy()
-	if self.AlienC_HomingAttack && IsValid(ene) then
-		projectile.Track_Enemy = ene
-		timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
-	end
-	
-	if self.AlienC_NumFired < 1 then
-		self.AlienC_NumFired = self.AlienC_NumFired + 1
-		self.HasRangeAttackSounds = false
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+	if status == "PostProjSpawn" then
+		if self.AlienC_HomingAttack then
+			projectile.Track_Enemy = enemy
+			timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
+		end
+		
+		if self.AlienC_NumFired < 1 then
+			self.AlienC_NumFired = self.AlienC_NumFired + 1
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -93,32 +93,30 @@ function ENT:OnInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomRangeAttackCode_AfterProjectileSpawn(projectile)
-	-- Only default Alien Grunt has a muzzle flash!
-	if self.AGrunt_Type == 0 then
-		-- ParticleEffect("vj_hl_muz7",self:GetAttachment(self:LookupAttachment("hornet")).Pos, self:GetForward():Angle(), self) -- Unimplemented sprite function, needs fixed
-		
-		local att = self:GetAttachment(self:LookupAttachment("hornet"))
-		local muzzleFlash = ents.Create("env_sprite")
-		muzzleFlash:SetKeyValue("model", "vj_hl/sprites/muz4.vmt")
-		muzzleFlash:SetKeyValue("scale", tostring(math.Rand(0.5, 0.65)))
-		muzzleFlash:SetKeyValue("rendermode", "3")
-		muzzleFlash:SetKeyValue("renderfx", "14")
-		muzzleFlash:SetKeyValue("renderamt", "255")
-		muzzleFlash:SetKeyValue("rendercolor", "255 255 255")
-		muzzleFlash:SetKeyValue("spawnflags", "0")
-		muzzleFlash:SetParent(self)
-		muzzleFlash:SetOwner(self)
-		muzzleFlash:SetPos(att.Pos + att.Ang:Forward() * 15)
-		muzzleFlash:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
-		muzzleFlash:Spawn()
-		muzzleFlash:Fire("Kill", "",0.08)
-		self:DeleteOnRemove(muzzleFlash)
-	end
-	
-	local ene = self:GetEnemy()
-	if IsValid(ene) then
-		projectile.Track_Enemy = ene
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+	if status == "PostProjSpawn" then
+		-- Only default Alien Grunt has a muzzle flash!
+		projectile.Track_Enemy = enemy
+		if self.AGrunt_Type == 0 then
+			//ParticleEffect("vj_hl_muz7",self:GetAttachment(self:LookupAttachment("hornet")).Pos, self:GetForward():Angle(), self) -- Unimplemented sprite function, needs fixed
+			
+			local att = self:GetAttachment(self:LookupAttachment("hornet"))
+			local muzzleFlash = ents.Create("env_sprite")
+			muzzleFlash:SetKeyValue("model", "vj_hl/sprites/muz4.vmt")
+			muzzleFlash:SetKeyValue("scale", tostring(math.Rand(0.5, 0.65)))
+			muzzleFlash:SetKeyValue("rendermode", "3")
+			muzzleFlash:SetKeyValue("renderfx", "14")
+			muzzleFlash:SetKeyValue("renderamt", "255")
+			muzzleFlash:SetKeyValue("rendercolor", "255 255 255")
+			muzzleFlash:SetKeyValue("spawnflags", "0")
+			muzzleFlash:SetParent(self)
+			muzzleFlash:SetOwner(self)
+			muzzleFlash:SetPos(att.Pos + att.Ang:Forward() * 15)
+			muzzleFlash:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
+			muzzleFlash:Spawn()
+			muzzleFlash:Fire("Kill", "",0.08)
+			self:DeleteOnRemove(muzzleFlash)
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

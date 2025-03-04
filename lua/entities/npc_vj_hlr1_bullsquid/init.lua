@@ -24,8 +24,6 @@ ENT.Immune_Toxic = true
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2}
 ENT.TimeUntilMeleeAttackDamage = false
-ENT.MeleeAttackDistance = 35
-ENT.MeleeAttackDamageDistance = 125
 ENT.HasMeleeAttackKnockBack = true
 
 ENT.HasRangeAttack = true
