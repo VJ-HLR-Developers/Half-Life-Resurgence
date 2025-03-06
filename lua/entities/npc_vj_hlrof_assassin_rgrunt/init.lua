@@ -23,7 +23,6 @@ function ENT:HECU_OnInit()
 	self.SoundTbl_Alert = "vj_hlr/hl1_npc/rgrunt/rb_cover1.wav"
 	self.SoundTbl_CallForHelp = "vj_hlr/hl1_npc/rgrunt/deeoo.wav"
 	self.SoundTbl_WeaponReload = {"vj_hlr/hl1_npc/rgrunt/rb_cover1.wav", "vj_hlr/hl1_npc/rgrunt/rb_cover2.wav"}
-	self.SoundTbl_GrenadeSight = {"vj_hlr/hl1_npc/rgrunt/rb_cover2.wav", "vj_hlr/hl1_npc/rgrunt/deeoo.wav", "vj_hlr/hl1_npc/rgrunt/beepboop.wav"}
 	self.SoundTbl_DangerSight = {"vj_hlr/hl1_npc/rgrunt/rb_cover2.wav", "vj_hlr/hl1_npc/rgrunt/deeoo.wav", "vj_hlr/hl1_npc/rgrunt/beepboop.wav"}
 	self.SoundTbl_KilledEnemy = "vj_hlr/hl1_npc/rgrunt/doop.wav"
 	self.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/rgrunt/buzwarn.wav", "vj_hlr/hl1_npc/rgrunt/rb_allydeath2.wav"}

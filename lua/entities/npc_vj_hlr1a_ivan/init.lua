@@ -50,7 +50,6 @@ ENT.SoundTbl_UnFollowPlayer = {"vj_hlr/hla_npc/doctor/hoot3.wav", "vj_hlr/hla_np
 ENT.SoundTbl_BecomeEnemyToPlayer = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav"}
 ENT.SoundTbl_OnPlayerSight = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav", "vj_hlr/hla_npc/doctor/hoot4.wav", "vj_hlr/hla_npc/doctor/hoot5.wav", "vj_hlr/hla_npc/doctor/hoot6.wav"}
 ENT.SoundTbl_CombatIdle = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav", "vj_hlr/hla_npc/doctor/hoot4.wav"}
-ENT.SoundTbl_GrenadeSight = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav"}
 ENT.SoundTbl_DangerSight = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav"}
 ENT.SoundTbl_KilledEnemy = {"vj_hlr/hla_npc/doctor/hoot5.wav", "vj_hlr/hla_npc/doctor/hoot6.wav"}
 ENT.SoundTbl_AllyDeath = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav", "vj_hlr/hla_npc/doctor/hoot4.wav"}

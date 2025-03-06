@@ -697,8 +697,8 @@ sound.Add({
 ------ Entity Tags ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 --[[
-	ent.HLR_Corpse = If true then this is an HLR corpse
-		ent.HLR_Corpse_Type, ent.HLR_Corpse_Particle, ent.HLR_Corpse_Decal
+	ent.HLR_Corpse = Is this an HLR corpse?
+		--> ent.HLR_Corpse_Type, ent.HLR_Corpse_Particle, ent.HLR_Corpse_Decal
 ]]--
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Convars & Menu ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -723,44 +723,21 @@ VJ.AddConVar("vj_hlr_autoreplace_random", 0, {FCVAR_ARCHIVE, FCVAR_NOTIFY})
 VJ.AddConVar("vj_hlr_autoreplace_randommix", 0, {FCVAR_ARCHIVE, FCVAR_NOTIFY})
 VJ.AddConVar("vj_hlr_autoreplace_alliedagainstply", 0, {FCVAR_ARCHIVE, FCVAR_NOTIFY})
 
-VJ.AddClientConVar("vj_hlr1_sparkfx", 0, "HL1-Style Sparks On Metal Surfaces")
+VJ.AddClientConVar("vj_hlr1_sparkfx", 1, "Apply GoldSrc style sparks on metal surfaces for certain NPCs & weapons")
 VJ.AddClientConVar("vj_hlr2_csniper_laser_usebarrel", 1, "Combine Sniper Laser Follows Gun Barrel")
 VJ.AddClientConVar("vj_hlr2_combine_eyeglow", 0, "Combine Eye Glow Effects")
 
 if CLIENT then
 	hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_HLR", function()
-		spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HL Resurgence (Server)", "HL Resurgence (Server)", "", "", function(Panel)
+		spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HLR - AutoReplace", "HLR - AutoReplace", "", "", function(panel)
 			if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
-				Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.not"})
-				Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
+				panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.not"})
+				panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.only"})
 				return
 			end
-			Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
-			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_osprey_deploysoldiers 1\nvj_hlr2_merkava_gunner 1\nvj_hlr1_assassin_cloaks 1\nvj_hlr1_corpse_effects 1\nvj_hlr1_corpse_gibbable 1\nvj_hlr2_custom_skins 1\nvj_hlr_hd 0"})
-			Panel:AddControl("Checkbox", {Label = "Enable HD Models (if available)", Command = "vj_hlr_hd"})
-			Panel:ControlHelp("Requires HD extension(s) to be installed!")
-			Panel:AddControl( "Label", {Text = "GoldSrc Engine:"})
-			Panel:AddControl("Checkbox", {Label = "Corpses Create Effects & Decals", Command = "vj_hlr1_corpse_effects"})
-			Panel:AddControl("Checkbox", {Label = "Corpses Can Be Dismembered", Command = "vj_hlr1_corpse_gibbable"})
-			Panel:AddControl("Checkbox", {Label = "M2A3 Bradley Deploys Human Grunts", Command = "vj_hlr1_bradley_deploygrunts"})
-			Panel:AddControl("Checkbox", {Label = "V-22 Osprey Deploys Human Grunts / Assassins", Command = "vj_hlr1_osprey_deploysoldiers"})
-			Panel:AddControl("Checkbox", {Label = "Can Female Assassin Cloak?", Command = "vj_hlr1_assassin_cloaks"})
-			Panel:AddControl("Slider", {Label = "Gonarch Baby Headcrab Limit", min = 0, max = 100, Command = "vj_hlr1_gonarch_babylimit"})
-			Panel:AddControl( "Label", {Text = "Source Engine:"})
-			Panel:AddControl("Checkbox", {Label = "Custom NPC Skins", Command = "vj_hlr2_custom_skins"})
-			Panel:ControlHelp("Ex: Custom skins for Rebels & Refugees")
-			Panel:AddControl("Checkbox", {Label = "Merkava Spawns With a Gunner", Command = "vj_hlr2_merkava_gunner"})
-		end)
-		
-		spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HL Resurgence (AutoReplace)", "HL Resurgence (AutoReplace)", "", "", function(Panel)
-			if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
-				Panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.not"})
-				Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
-				return
-			end
-			Panel:AddControl( "Label", {Text = "#vjbase.menu.general.admin.only"})
-			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr_autoreplace 0\nvj_hlr_autoreplace_hl1 1\nvj_hlr_autoreplace_hl2 1\nvj_hlr_autoreplace_random 0\nvj_hlr_autoreplace_randommix 0\nvj_hlr_autoreplace_essential 0\nvj_hlr_autoreplace_randommix 0"})
-			Panel:AddControl("Label", {Text = "Auto Replace script replaces HL1 / HL2 NPCs with the corresponding Half-Life Resurgence NPC!"})
+			panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.only"})
+			panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr_autoreplace 0\nvj_hlr_autoreplace_hl1 1\nvj_hlr_autoreplace_hl2 1\nvj_hlr_autoreplace_random 0\nvj_hlr_autoreplace_randommix 0\nvj_hlr_autoreplace_essential 0\nvj_hlr_autoreplace_randommix 0"})
+			panel:AddControl("Label", {Text = "Auto Replace script replaces HL1 / HL2 NPCs with the corresponding Half-Life Resurgence NPC!"})
 			local vid = vgui.Create("DButton")
 				vid:SetFont("TargetID")
 				vid:SetText("What is Auto Replace?")
@@ -768,28 +745,51 @@ if CLIENT then
 				vid.DoClick = function()
 					gui.OpenURL("https://www.youtube.com/watch?v=I7_I-HFA_Ks")
 				end
-			Panel:AddPanel(vid)
-			Panel:AddControl("Checkbox", {Label = "Enable Auto Replacement Script", Command = "vj_hlr_autoreplace"})
-			Panel:AddControl("Checkbox", {Label = "Replace HL1 NPCs", Command = "vj_hlr_autoreplace_hl1"})
-			Panel:AddControl("Checkbox", {Label = "Replace HL2 NPCs", Command = "vj_hlr_autoreplace_hl2"})
-			Panel:AddControl("Checkbox", {Label = "Main Characters Are Invincible?", Command = "vj_hlr_autoreplace_essential"})
-			Panel:AddControl( "Label", {Text = "FUN OPTIONS:"})
-			Panel:AddControl("Checkbox", {Label = "Enable Random Replacements", Command = "vj_hlr_autoreplace_random"})
-			Panel:AddControl("Checkbox", {Label = "Mix GoldSrc and Source in Random Replacements", Command = "vj_hlr_autoreplace_randommix"})
-			Panel:AddControl("Checkbox", {Label = "Make All NPCs Allied Against Players", Command = "vj_hlr_autoreplace_alliedagainstply"})
-			Panel:AddControl("Label", {Text = "WARNINGS: Certain maps may occasionally break or crash! Some parts of the campaign may require the player to remove invisible barriers or physgun important NPCs to their proper location to continue to the next level."})
+			panel:AddPanel(vid)
+			panel:AddControl("Checkbox", {Label = "Enable Auto Replacement Script", Command = "vj_hlr_autoreplace"})
+			panel:AddControl("Checkbox", {Label = "Replace HL1 NPCs", Command = "vj_hlr_autoreplace_hl1"})
+			panel:AddControl("Checkbox", {Label = "Replace HL2 NPCs", Command = "vj_hlr_autoreplace_hl2"})
+			panel:AddControl("Checkbox", {Label = "Main Characters Are Invincible?", Command = "vj_hlr_autoreplace_essential"})
+			panel:AddControl("Label", {Text = "FUN OPTIONS:"})
+			panel:AddControl("Checkbox", {Label = "Enable Random Replacements", Command = "vj_hlr_autoreplace_random"})
+			panel:AddControl("Checkbox", {Label = "Mix GoldSrc and Source in Random Replacements", Command = "vj_hlr_autoreplace_randommix"})
+			panel:AddControl("Checkbox", {Label = "Make All NPCs Allied Against Players", Command = "vj_hlr_autoreplace_alliedagainstply"})
+			panel:AddControl("Label", {Text = "WARNINGS: Certain maps may occasionally break or crash! Some parts of the campaign may require the player to remove invisible barriers or physgun important NPCs to their proper location to continue to the next level."})
 		end)
 		
-		spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HL Resurgence (Client)", "HL Resurgence (Client)", "", "", function(Panel)
-			Panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr2_csniper_laser_usebarrel 1\nvj_hlr1_sparkfx 0\nvj_hlr2_combine_eyeglow 0"})
-			Panel:AddControl( "Label", {Text = "GoldSrc Engine:"})
-			Panel:AddControl("Checkbox", {Label = "HL1-Style Sparks On Metal Surfaces", Command = "vj_hlr1_sparkfx"})
-			Panel:ControlHelp("Applies ONLY to HL1 NPCs & weapons!")
-			Panel:AddControl( "Label", {Text = "Source Engine:"})
-			Panel:AddControl("Checkbox", {Label = "Combine Sniper Laser Follows Gun Barrel", Command = "vj_hlr2_csniper_laser_usebarrel"})
-			Panel:ControlHelp("Unchecked = Laser will pinpoint to the enemy instead")
-			Panel:AddControl("Checkbox", {Label = "Combine Eye Glow Effects", Command = "vj_hlr2_combine_eyeglow"})
-			Panel:ControlHelp("Requires map restart! | WARNING: Causes performance loss!")
+		spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HLR - Server", "HLR - Server", "", "", function(panel)
+			if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
+				panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.not"})
+				panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.only"})
+				return
+			end
+			panel:AddControl("Label", {Text = "#vjbase.menu.general.admin.only"})
+			panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_osprey_deploysoldiers 1\nvj_hlr2_merkava_gunner 1\nvj_hlr1_assassin_cloaks 1\nvj_hlr1_corpse_effects 1\nvj_hlr1_corpse_gibbable 1\nvj_hlr2_custom_skins 1\nvj_hlr_hd 0"})
+			panel:AddControl("Checkbox", {Label = "Enable HD Models (if available)", Command = "vj_hlr_hd"})
+			panel:ControlHelp("Requires HD extension(s) to be installed!")
+			panel:AddControl("Label", {Text = "GoldSrc Engine:"})
+			panel:AddControl("Checkbox", {Label = "Corpses Create Effects & Decals", Command = "vj_hlr1_corpse_effects"})
+			panel:AddControl("Checkbox", {Label = "Corpses Can Be Dismembered", Command = "vj_hlr1_corpse_gibbable"})
+			panel:AddControl("Checkbox", {Label = "M2A3 Bradley Deploys Human Grunts", Command = "vj_hlr1_bradley_deploygrunts"})
+			panel:AddControl("Checkbox", {Label = "V-22 Osprey Deploys Human Grunts / Assassins", Command = "vj_hlr1_osprey_deploysoldiers"})
+			panel:AddControl("Checkbox", {Label = "Can Female Assassin Cloak?", Command = "vj_hlr1_assassin_cloaks"})
+			panel:AddControl("Slider", {Label = "Gonarch Baby Headcrab Limit", min = 0, max = 100, Command = "vj_hlr1_gonarch_babylimit"})
+			panel:AddControl("Label", {Text = "Source Engine:"})
+			panel:AddControl("Checkbox", {Label = "Custom NPC Skins", Command = "vj_hlr2_custom_skins"})
+			panel:ControlHelp("Ex: Custom skins for Rebels & Refugees")
+			panel:AddControl("Checkbox", {Label = "Merkava Spawns With a Gunner", Command = "vj_hlr2_merkava_gunner"})
+		end)
+		
+		spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HLR - Client", "HLR - Client", "", "", function(panel)
+			panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr2_csniper_laser_usebarrel 1\nvj_hlr1_sparkfx 1\nvj_hlr2_combine_eyeglow 0"})
+			panel:AddControl("Label", {Text = "GoldSrc Engine:"})
+			panel:AddControl("Checkbox", {Label = "HL1-Style Sparks On Metal Surfaces", Command = "vj_hlr1_sparkfx"})
+			panel:ControlHelp("Applies ONLY to HL1 NPCs & weapons!")
+			panel:AddControl("Label", {Text = "Source Engine:"})
+			panel:AddControl("Checkbox", {Label = "Combine Sniper Laser Follows Gun Barrel", Command = "vj_hlr2_csniper_laser_usebarrel"})
+			panel:ControlHelp("Unchecked = Laser will pinpoint to the enemy instead")
+			panel:AddControl("Checkbox", {Label = "Combine Eye Glow Effects", Command = "vj_hlr2_combine_eyeglow"})
+			panel:ControlHelp("Requires map restart! | WARNING: Causes performance loss!")
 		end)
 	end)
 end

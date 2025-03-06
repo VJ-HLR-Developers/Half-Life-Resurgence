@@ -46,15 +46,14 @@ ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 
 ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/player/boots1.wav", "vj_hlr/hl1_npc/player/boots2.wav", "vj_hlr/hl1_npc/player/boots3.wav", "vj_hlr/hl1_npc/player/boots4.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/shocktrooper/st_idle.wav"}
+ENT.SoundTbl_Idle = "vj_hlr/hl1_npc/shocktrooper/st_idle.wav"
 ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/shocktrooper/st_question1.wav", "vj_hlr/hl1_npc/shocktrooper/st_question2.wav"}
 ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/shocktrooper/st_answer1.wav", "vj_hlr/hl1_npc/shocktrooper/st_answer2.wav"}
 ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/shocktrooper/st_combat1.wav", "vj_hlr/hl1_npc/shocktrooper/st_combat2.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/shocktrooper/st_alert1.wav", "vj_hlr/hl1_npc/shocktrooper/st_alert2.wav", "vj_hlr/hl1_npc/shocktrooper/st_alert3.wav", "vj_hlr/hl1_npc/shocktrooper/st_alert4.wav"}
-ENT.SoundTbl_GrenadeAttack = {"vj_hlr/hl1_npc/shocktrooper/st_grenadethrow.wav"}
-ENT.SoundTbl_GrenadeSight = {"vj_hlr/hl1_npc/shocktrooper/st_runfromgrenade.wav"}
-ENT.SoundTbl_DangerSight = {"vj_hlr/hl1_npc/shocktrooper/st_runfromgrenade.wav"}
-ENT.SoundTbl_KilledEnemy = {"vj_hlr/hl1_npc/shocktrooper/st_combat1.wav"}
+ENT.SoundTbl_GrenadeAttack = "vj_hlr/hl1_npc/shocktrooper/st_grenadethrow.wav"
+ENT.SoundTbl_DangerSight = "vj_hlr/hl1_npc/shocktrooper/st_runfromgrenade.wav"
+ENT.SoundTbl_KilledEnemy = "vj_hlr/hl1_npc/shocktrooper/st_combat1.wav"
 
 ENT.DangerSightSoundPitch = VJ.SET(105, 110)
 
@@ -160,7 +159,6 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		local activeWep = self:GetActiveWeapon()
 		if IsValid(activeWep) then activeWep:Remove() end
 	elseif status == "Finish" then
-		::shocktrooper_death::
 		self:Shocktrooper_CreateRoach()
 	end
 end
@@ -169,7 +167,7 @@ function ENT:Shocktrooper_CreateRoach()
 	self:SetBodygroup(1, 1)
 	self:SetSkin(2)
 	if !self.Shocktrooper_DroppedRoach then
-		if self.Shocktrooper_SpawnRoach == true then
+		if self.Shocktrooper_SpawnRoach then
 			local roachEnt = ents.Create("npc_vj_hlrof_shockroach")
 			roachEnt:SetPos(self:GetAttachment(self:LookupAttachment("shock_roach")).Pos)
 			roachEnt:SetAngles(self:GetAngles())
