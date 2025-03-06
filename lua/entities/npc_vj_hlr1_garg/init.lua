@@ -223,29 +223,28 @@ function ENT:MeleeAttackKnockbackVelocity(hitEnt)
 	return self:GetForward()*500 + self:GetUp()*(self.Garg_MeleeLargeKnockback and 300 or 10)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
-	local randMelee = math.random(1, 3)
-	if randMelee == 1 then
-		self.AnimTbl_MeleeAttack = "vjseq_smash"
-		self.HasMeleeAttackKnockBack = false
-		self.Garg_MeleeLargeKnockback = false
-	elseif randMelee == 2 then
-		self.AnimTbl_MeleeAttack = "vjseq_attack"
-		self.HasMeleeAttackKnockBack = true
-		self.Garg_MeleeLargeKnockback = false
-	elseif randMelee == 3 then
-		self.AnimTbl_MeleeAttack = "vjseq_kickcar"
-		self.HasMeleeAttackKnockBack = true
-		self.Garg_MeleeLargeKnockback = true
+function ENT:OnMeleeAttack(status, enemy)
+	if status == "Init" then
+		local randMelee = math.random(1, 3)
+		if randMelee == 1 then
+			self.AnimTbl_MeleeAttack = "vjseq_smash"
+			self.HasMeleeAttackKnockBack = false
+			self.Garg_MeleeLargeKnockback = false
+		elseif randMelee == 2 then
+			self.AnimTbl_MeleeAttack = "vjseq_attack"
+			self.HasMeleeAttackKnockBack = true
+			self.Garg_MeleeLargeKnockback = false
+		elseif randMelee == 3 then
+			self.AnimTbl_MeleeAttack = "vjseq_kickcar"
+			self.HasMeleeAttackKnockBack = true
+			self.Garg_MeleeLargeKnockback = true
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomAttackCheck_RangeAttack()
 	if self.VJ_IsBeingControlled then
-		if self.VJ_TheController:KeyDown(IN_DUCK) && self.VJ_TheController:KeyDown(IN_ATTACK2) then
-			return true
-		end
-		return false
+		return self.VJ_TheController:KeyDown(IN_DUCK) && self.VJ_TheController:KeyDown(IN_ATTACK2)
 	end
 	return true
 end
@@ -259,7 +258,7 @@ function ENT:RangeAttackProjVel(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
-	if status == "PostProjSpawn" then
+	if status == "PostSpawn" then
 		util.Decal("VJ_HLR1_Gargantua_Stomp", self:GetPos() + self:GetRight()*-20 + self:GetForward()*50, self:GetPos() + self:GetRight()*-20 + self:GetForward()*50 + self:GetUp()*-100, self)
 		projectile.Track_Enemy = enemy
 		projectile:SetAngles(Angle(self:GetAngles().p, 0, 0))

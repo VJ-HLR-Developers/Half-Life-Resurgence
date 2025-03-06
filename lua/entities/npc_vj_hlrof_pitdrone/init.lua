@@ -97,7 +97,7 @@ function ENT:RangeAttackProjVel(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
-	if status == "PostProjSpawn" then
+	if status == "PostSpawn" then
 		-- Behavior: If spikes are empty, go hide and reload
 		local bg = self:GetBodygroup(1)
 		if bg == 0 or bg == 6 then

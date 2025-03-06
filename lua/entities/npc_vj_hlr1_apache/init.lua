@@ -167,10 +167,10 @@ function ENT:RangeAttackProjVel(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
-	if status == "PreProjSpawn" then
+	if status == "PreSpawn" then
 		projectile.Model = "models/vj_hlr/hl1/hvr.mdl"
 		projectile.Rocket_HelicopterMissile = true
-	elseif status == "PostProjSpawn" then
+	elseif status == "PostSpawn" then
 		VJ.CreateSound(projectile, "vj_hlr/hl1_weapon/rpg/rocketfire1.wav", 100)
 	end
 end

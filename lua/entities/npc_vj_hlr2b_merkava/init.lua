@@ -53,8 +53,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_OnThink()
 	-- Keep the skin of the gunner the same!
-	if IsValid(self.Gunner) then
-		self.Gunner:SetSkin(self:GetSkin())
+	local gun = self.Gunner
+	if IsValid(gun) then
+		gun:SetSkin(self:GetSkin())
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

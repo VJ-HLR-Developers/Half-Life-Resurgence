@@ -267,30 +267,30 @@ end
 local meleeAngCos = math.cos(math.rad(40))
 local sdMeleeReg = {"vj_hlr/hl1_npc/geneworm/geneworm_attack_mounted_gun.wav", "vj_hlr/hl1_npc/geneworm/geneworm_attack_mounted_rocket.wav"}
 --
-function ENT:CustomOnMeleeAttack_BeforeStartTimer()
-	local ene = self:GetEnemy()
-	if !IsValid(ene) then return end
-	local myPos = self:GetPos()
-	local enePos = ene:GetPos()
-	local posR = myPos + self:GetForward()*200 + self:GetRight()*300
-	local posL = myPos + self:GetForward()*200 + self:GetRight()*-300
-	if math.random(1, 2) == 1 then
-		self.AnimTbl_MeleeAttack = ACT_SPECIAL_ATTACK1
-		self.GW_MeleeNegKnockback = false
-		self.SoundTbl_BeforeMeleeAttack = "vj_hlr/hl1_npc/geneworm/geneworm_big_attack_forward.wav"
-	else
-		self.GW_MeleeNegKnockback = true
-		self.SoundTbl_BeforeMeleeAttack = sdMeleeReg
-		if self:GetForward():Dot((enePos - myPos):GetNormalized()) > meleeAngCos then
-			//print("center")
-			self.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
+function ENT:OnMeleeAttack(status, enemy)
+	if status == "Init" then
+		local myPos = self:GetPos()
+		local enePos = enemy:GetPos()
+		local posR = myPos + self:GetForward()*200 + self:GetRight()*300
+		local posL = myPos + self:GetForward()*200 + self:GetRight()*-300
+		if math.random(1, 2) == 1 then
+			self.AnimTbl_MeleeAttack = ACT_SPECIAL_ATTACK1
+			self.GW_MeleeNegKnockback = false
+			self.SoundTbl_BeforeMeleeAttack = "vj_hlr/hl1_npc/geneworm/geneworm_big_attack_forward.wav"
 		else
-			if posR:Distance(enePos) > posL:Distance(enePos) then
-				//print("left")
-				self.AnimTbl_MeleeAttack = {"melee1"}
+			self.GW_MeleeNegKnockback = true
+			self.SoundTbl_BeforeMeleeAttack = sdMeleeReg
+			if self:GetForward():Dot((enePos - myPos):GetNormalized()) > meleeAngCos then
+				//print("center")
+				self.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
 			else
-				//print("right")
-				self.AnimTbl_MeleeAttack = {"melee2"}
+				if posR:Distance(enePos) > posL:Distance(enePos) then
+					//print("left")
+					self.AnimTbl_MeleeAttack = "melee1"
+				else
+					//print("right")
+					self.AnimTbl_MeleeAttack = "melee2"
+				end
 			end
 		end
 	end

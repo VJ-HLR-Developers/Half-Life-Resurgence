@@ -172,7 +172,7 @@ function ENT:OnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
-	if status == "PreProjSpawn" then
+	if status == "PreSpawn" then
 		projectile.Track_Enemy = enemy
 		projectile.Track_SpriteScale = (self.Tor_Level == 0 and 0.6) or 1
 		projectile.DirectDamage = (self.Tor_Level == 0 and 10) or 20

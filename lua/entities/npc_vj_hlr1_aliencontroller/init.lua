@@ -189,7 +189,7 @@ function ENT:OnRangeAttack(status, enemy)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
-	if status == "PostProjSpawn" then
+	if status == "PostSpawn" then
 		if self.AlienC_HomingAttack then
 			projectile.Track_Enemy = enemy
 			timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)

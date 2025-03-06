@@ -190,7 +190,7 @@ function ENT:OnRangeAttack(status, enemy)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
-	if status == "PostProjSpawn" && self.Nih_TeleportingOrb then
+	if status == "PostSpawn" && self.Nih_TeleportingOrb then
 		projectile.Track_Enemy = enemy
 		timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
 	end

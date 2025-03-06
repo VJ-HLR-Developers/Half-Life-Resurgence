@@ -201,7 +201,7 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
-	if status == "PostProjSpawn" then
+	if status == "PostSpawn" then
 		projectile.Track_Enemy = enemy
 		timer.Simple(20, function() if IsValid(projectile) then projectile:Remove() end end)
 	end

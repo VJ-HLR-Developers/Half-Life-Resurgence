@@ -107,9 +107,9 @@ function ENT:OnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnGrenadeAttack(status, grenade, customEnt, landDir, landingPos)
+function ENT:OnGrenadeAttackExecute(status, grenade, overrideEnt, landDir, landingPos)
 	-- Make Shock Trooper's grenade more arched than the usual grenade throws
-	if status == "Throw" then
+	if status == "PostSpawn" && !IsValid(overrideEnt) then
 		return (landingPos - grenade:GetPos()) + (self:GetUp() * math.random(450, 500) + self:GetForward() * math.Rand(-100, -250) + self:GetRight()*math.Rand(-20, 20))
 	end
 end

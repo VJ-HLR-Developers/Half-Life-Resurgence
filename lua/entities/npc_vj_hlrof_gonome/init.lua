@@ -91,19 +91,21 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local sdClawMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
 --
-function ENT:CustomOnMeleeAttack_BeforeStartTimer(seed)
-	if self.MeleeAttack_IsPropAttack or math.random(1, 2) == 1 then
-		self.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
-		self.MeleeAttackDamage = 20
-		self.HasMeleeAttackKnockBack = false
-		self.SoundTbl_BeforeMeleeAttack = "vj_hlr/hl1_npc/gonome/gonome_melee1.wav"
-		self.SoundTbl_MeleeAttackMiss = sdClawMiss
-	else -- Grab and eat!
-		self.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK2
-		self.MeleeAttackDamage = 14
-		self.HasMeleeAttackKnockBack = true
-		self.SoundTbl_BeforeMeleeAttack = "vj_hlr/hl1_npc/gonome/gonome_melee2.wav"
-		self.SoundTbl_MeleeAttackMiss = false
+function ENT:OnMeleeAttack(status, enemy)
+	if status == "Init" then
+		if self.MeleeAttack_IsPropAttack or math.random(1, 2) == 1 then
+			self.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
+			self.MeleeAttackDamage = 20
+			self.HasMeleeAttackKnockBack = false
+			self.SoundTbl_BeforeMeleeAttack = "vj_hlr/hl1_npc/gonome/gonome_melee1.wav"
+			self.SoundTbl_MeleeAttackMiss = sdClawMiss
+		else -- Grab and eat!
+			self.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK2
+			self.MeleeAttackDamage = 14
+			self.HasMeleeAttackKnockBack = true
+			self.SoundTbl_BeforeMeleeAttack = "vj_hlr/hl1_npc/gonome/gonome_melee2.wav"
+			self.SoundTbl_MeleeAttackMiss = false
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

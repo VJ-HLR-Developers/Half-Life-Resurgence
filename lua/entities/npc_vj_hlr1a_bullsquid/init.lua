@@ -25,7 +25,7 @@ function ENT:PreInit()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
-	if status == "PreProjSpawn" then
+	if status == "PreSpawn" then
 		projectile.Spit_AlphaStyle = true
 	end
 end

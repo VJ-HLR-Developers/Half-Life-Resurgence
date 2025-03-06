@@ -94,7 +94,7 @@ function ENT:OnInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
-	if status == "PostProjSpawn" then
+	if status == "PostSpawn" then
 		-- Only default Alien Grunt has a muzzle flash!
 		projectile.Track_Enemy = enemy
 		if self.AGrunt_Type == 0 then

@@ -30,7 +30,7 @@ end
 local orgRangeFunc = ENT.OnRangeAttackExecute
 --
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
-	if status == "PreProjSpawn" then
+	if status == "PreSpawn" then
 		projectile.Hornet_Alpha = true
 	end
 	orgRangeFunc(self, status, enemy, projectile)
