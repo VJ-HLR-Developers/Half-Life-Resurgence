@@ -24,8 +24,8 @@ ENT.DoesDirectDamage = true
 ENT.DirectDamage = 30
 ENT.DirectDamageType = DMG_DISSOLVE
 ENT.RemoveDelay = 1.5
-ENT.SoundTbl_Idle = "vj_hlr/hl1_npc/kingpin/kingpin_seeker_amb.wav"
-ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav", "vj_hlr/hl1_weapon/gauss/electro5.wav", "vj_hlr/hl1_weapon/gauss/electro6.wav"}
+ENT.SoundTbl_Idle = "vj_hlr/gsrc/npc/kingpin/kingpin_seeker_amb.wav"
+ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/wep/gauss/electro4.wav", "vj_hlr/gsrc/wep/gauss/electro5.wav", "vj_hlr/gsrc/wep/gauss/electro6.wav"}
 
 -- Custom
 local defVec = Vector(0, 0, 0)

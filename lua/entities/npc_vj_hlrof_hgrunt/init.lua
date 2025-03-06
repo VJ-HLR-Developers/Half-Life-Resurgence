@@ -17,199 +17,199 @@ ENT.BecomeEnemyToPlayer = 2
 
 /*
 Heavy damage:
-vj_hlr/hl1_npc/hgrunt_oppf/busted.wav
-vj_hlr/hl1_npc/hgrunt_oppf/critical.wav
-vj_hlr/hl1_npc/hgrunt_oppf/hitbad.wav
-vj_hlr/hl1_npc/hgrunt_oppf/makeit.wav
-vj_hlr/hl1_npc/hgrunt_oppf/sdamage.wav
+vj_hlr/gsrc/npc/hgrunt_opf/busted.wav
+vj_hlr/gsrc/npc/hgrunt_opf/critical.wav
+vj_hlr/gsrc/npc/hgrunt_opf/hitbad.wav
+vj_hlr/gsrc/npc/hgrunt_opf/makeit.wav
+vj_hlr/gsrc/npc/hgrunt_opf/sdamage.wav
 
 -- Engineer:
-vj_hlr/hl1_npc/hgrunt_oppf/locksmith.wav
-vj_hlr/hl1_npc/hgrunt_oppf/stand.wav
-vj_hlr/hl1_npc/hgrunt_oppf/thick.wav
+vj_hlr/gsrc/npc/hgrunt_opf/locksmith.wav
+vj_hlr/gsrc/npc/hgrunt_opf/stand.wav
+vj_hlr/gsrc/npc/hgrunt_opf/thick.wav
 
-vj_hlr/hl1_npc/hgrunt_oppf/medic_give_shot.wav
+vj_hlr/gsrc/npc/hgrunt_opf/medic_give_shot.wav
 */
 	-- ====== Sounds ====== --
 ENT.SoundTbl_Idle = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/allclear.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/area.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/babysitting.wav",
-	--"vj_hlr/hl1_npc/hgrunt_oppf/bfeeling.wav",
-	--"vj_hlr/hl1_npc/hgrunt_oppf/charge.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/checkrecon.wav",
-	--"vj_hlr/hl1_npc/hgrunt_oppf/coverup.wav",
-	--"vj_hlr/hl1_npc/hgrunt_oppf/current.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/disney.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/dogs.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/frosty.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/guard.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/lost.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/mission.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/nohostiles.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/nomovement.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/now.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/outof.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/secure.wav",
-	--"vj_hlr/hl1_npc/hgrunt_oppf/seensquad.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/short.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/stayalert.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/zone.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/check.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/allclear.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/area.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/babysitting.wav",
+	--"vj_hlr/gsrc/npc/hgrunt_opf/bfeeling.wav",
+	--"vj_hlr/gsrc/npc/hgrunt_opf/charge.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/checkrecon.wav",
+	--"vj_hlr/gsrc/npc/hgrunt_opf/coverup.wav",
+	--"vj_hlr/gsrc/npc/hgrunt_opf/current.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/disney.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/dogs.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/frosty.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/guard.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/lost.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/mission.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/nohostiles.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/nomovement.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/now.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/outof.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/secure.wav",
+	--"vj_hlr/gsrc/npc/hgrunt_opf/seensquad.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/short.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/stayalert.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/zone.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/check.wav"
 }
 ENT.SoundTbl_CombatIdle = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/ass.wav",
-	--"vj_hlr/hl1_npc/hgrunt_oppf/chicken.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/clear.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/corners.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/flank.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/freaks.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/fubar.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/go.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/marines.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/move.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/moveup.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/recon.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/sweep.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/tag.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/ass.wav",
+	--"vj_hlr/gsrc/npc/hgrunt_opf/chicken.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/clear.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/corners.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/flank.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/freaks.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/fubar.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/go.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/marines.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/move.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/moveup.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/recon.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/sweep.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/tag.wav"
 }
 ENT.SoundTbl_IdleDialogue = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/seensquad.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/current.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/coverup.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/chicken.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/charge.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/bfeeling.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/seensquad.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/current.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/coverup.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/chicken.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/charge.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/bfeeling.wav"
 	
 }
 ENT.SoundTbl_IdleDialogueAnswer = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/yes.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/roger.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/sir.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/no.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/quiet.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/yes.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/roger.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/sir.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/no.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/quiet.wav"
 }
 ENT.SoundTbl_ReceiveOrder = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/moving.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/of6a1_fg02.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/right.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/roger.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/sir.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/siryessir.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/yes.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/moving.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/of6a1_fg02.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/right.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/roger.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/sir.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/siryessir.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/yes.wav"
 }
 ENT.SoundTbl_FollowPlayer = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/clear.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/corporal_01.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/damage.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/gotit.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/notfail.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/six.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/clear.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/corporal_01.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/damage.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/gotit.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/notfail.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/six.wav"
 }
 ENT.SoundTbl_UnFollowPlayer = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/guardduty.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/orders.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/post.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/scout.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/situations.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/guardduty.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/orders.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/post.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/scout.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/situations.wav"
 }
 ENT.SoundTbl_MedicBeforeHeal = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/fwound.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/help.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/hurt.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/medical.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/sting.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/of2a5_fg03.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/fwound.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/help.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/hurt.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/medical.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/sting.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/of2a5_fg03.wav"
 }
 ENT.SoundTbl_MedicReceiveHeal = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/thanks.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/of2a5_fg04.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/thanks.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/of2a5_fg04.wav"
 }
 ENT.SoundTbl_OnPlayerSight = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/hellosir.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/shephard.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/sir_01.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/sore.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/tosee.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/feel.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/check.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/of5a1_fg01.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/of5a3_fg01.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/hellosir.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/shephard.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/sir_01.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/sore.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/tosee.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/feel.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/check.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/of5a1_fg01.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/of5a3_fg01.wav"
 }
 ENT.SoundTbl_Investigate = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/hear.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/hearsome.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/quiet.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/staydown.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/intro_fg17.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/hear.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/hearsome.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/quiet.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/staydown.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/intro_fg17.wav"
 }
 ENT.SoundTbl_Alert = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/bogies.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/hostiles.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/mister.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/bogies.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/hostiles.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/mister.wav"
 }
 ENT.SoundTbl_CallForHelp = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/suppressing.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/backup.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/suppressing.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/backup.wav"
 }
 ENT.SoundTbl_Suppressing = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/covering.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/getsome.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/nothing.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/rapidfire.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/wantsome.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/covering.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/getsome.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/nothing.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/rapidfire.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/wantsome.wav"
 }
 ENT.SoundTbl_GrenadeAttack = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/fire.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/grenade.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/take.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/fire.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/grenade.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/take.wav"
 }
 ENT.SoundTbl_GrenadeSight = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/cover.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/down.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/grenade.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/hellout.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/incoming.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/retreat.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/takecover.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/cover.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/down.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/grenade.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/hellout.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/incoming.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/retreat.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/takecover.wav"
 }
 ENT.SoundTbl_DangerSight = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/cover.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/down.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/retreat.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/takecover.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/cover.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/down.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/retreat.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/takecover.wav"
 }
 ENT.SoundTbl_KilledEnemy = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/killer.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/oneshot.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/sniper.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/talking.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/killer.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/oneshot.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/sniper.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/talking.wav"
 }
 ENT.SoundTbl_Pain = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/gr_pain1.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/gr_pain2.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/gr_pain3.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/gr_pain4.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/gr_pain5.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/gr_pain6.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/imhit.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/medic.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/gr_pain1.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/gr_pain2.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/gr_pain3.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/gr_pain4.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/gr_pain5.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/gr_pain6.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/imhit.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/medic.wav"
 }
 ENT.SoundTbl_DamageByPlayer = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/athority.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/checkfire.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/friendly.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/watchfire.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/watchit.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/of2a6_fg02.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/athority.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/checkfire.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/friendly.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/watchfire.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/watchit.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/of2a6_fg02.wav"
 }
 ENT.SoundTbl_Death = {
-	"vj_hlr/hl1_npc/hgrunt_oppf/death1.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/death2.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/death3.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/death4.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/death5.wav",
-	"vj_hlr/hl1_npc/hgrunt_oppf/death6.wav"
+	"vj_hlr/gsrc/npc/hgrunt_opf/death1.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/death2.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/death3.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/death4.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/death5.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/death6.wav"
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_OnInit()

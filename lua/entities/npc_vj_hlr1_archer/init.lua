@@ -52,13 +52,13 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/archer/arch_idle1.wav", "vj_hlr/hl1_npc/archer/arch_idle2.wav", "vj_hlr/hl1_npc/archer/arch_idle3.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/archer/arch_alert1.wav", "vj_hlr/hl1_npc/archer/arch_alert2.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/archer/arch_attack1.wav", "vj_hlr/hl1_npc/archer/arch_attack2.wav"}
-ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/archer/arch_bite1.wav", "vj_hlr/hl1_npc/archer/arch_bite2.wav"}
-ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/archer/arch_attack1.wav", "vj_hlr/hl1_npc/archer/arch_attack2.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/archer/arch_pain1.wav", "vj_hlr/hl1_npc/archer/arch_pain2.wav", "vj_hlr/hl1_npc/archer/arch_pain3.wav", "vj_hlr/hl1_npc/archer/arch_pain4.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/archer/arch_die1.wav", "vj_hlr/hl1_npc/archer/arch_die2.wav", "vj_hlr/hl1_npc/archer/arch_die3.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/archer/arch_idle1.wav", "vj_hlr/gsrc/npc/archer/arch_idle2.wav", "vj_hlr/gsrc/npc/archer/arch_idle3.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/archer/arch_alert1.wav", "vj_hlr/gsrc/npc/archer/arch_alert2.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/gsrc/npc/archer/arch_attack1.wav", "vj_hlr/gsrc/npc/archer/arch_attack2.wav"}
+ENT.SoundTbl_MeleeAttack = {"vj_hlr/gsrc/npc/archer/arch_bite1.wav", "vj_hlr/gsrc/npc/archer/arch_bite2.wav"}
+ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/gsrc/npc/archer/arch_attack1.wav", "vj_hlr/gsrc/npc/archer/arch_attack2.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/archer/arch_pain1.wav", "vj_hlr/gsrc/npc/archer/arch_pain2.wav", "vj_hlr/gsrc/npc/archer/arch_pain3.wav", "vj_hlr/gsrc/npc/archer/arch_pain4.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/archer/arch_die1.wav", "vj_hlr/gsrc/npc/archer/arch_die2.wav", "vj_hlr/gsrc/npc/archer/arch_die3.wav"}
 
 -- Custom
 ENT.Archer_BlinkingT = 0

@@ -36,14 +36,14 @@ ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.IdleSoundsWhileAttacking = true
 
-ENT.SoundTbl_Breath = "vj_hlr/hl1_npc/tentacle/te_flies1.wav"
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/tentacle/te_sing1.wav", "vj_hlr/hl1_npc/tentacle/te_sing2.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/tentacle/te_alert1.wav", "vj_hlr/hl1_npc/tentacle/te_alert2.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/tentacle/te_roar1.wav", "vj_hlr/hl1_npc/tentacle/te_roar2.wav"}
-ENT.SoundTbl_Death = "vj_hlr/hl1_npc/tentacle/te_death2.wav"
+ENT.SoundTbl_Breath = "vj_hlr/gsrc/npc/tentacle/te_flies1.wav"
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/tentacle/te_sing1.wav", "vj_hlr/gsrc/npc/tentacle/te_sing2.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/tentacle/te_alert1.wav", "vj_hlr/gsrc/npc/tentacle/te_alert2.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/tentacle/te_roar1.wav", "vj_hlr/gsrc/npc/tentacle/te_roar2.wav"}
+ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/tentacle/te_death2.wav"
 
-local sdBeakStrike ={"vj_hlr/hl1_npc/tentacle/te_strike1.wav", "vj_hlr/hl1_npc/tentacle/te_strike2.wav"}
-local sdChangeLevel = {"vj_hlr/hl1_npc/tentacle/te_swing1.wav", "vj_hlr/hl1_npc/tentacle/te_swing2.wav"}
+local sdBeakStrike ={"vj_hlr/gsrc/npc/tentacle/te_strike1.wav", "vj_hlr/gsrc/npc/tentacle/te_strike2.wav"}
+local sdChangeLevel = {"vj_hlr/gsrc/npc/tentacle/te_swing1.wav", "vj_hlr/gsrc/npc/tentacle/te_swing2.wav"}
 
 ENT.MainSoundPitch = 100
 

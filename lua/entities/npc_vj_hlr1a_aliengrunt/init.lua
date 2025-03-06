@@ -17,14 +17,14 @@ ENT.ControllerParams = {
 ENT.AGrunt_Type = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
-	self.SoundTbl_Idle = {"vj_hlr/hla_npc/agrunt/ag_idle1.wav", "vj_hlr/hla_npc/agrunt/ag_idle2.wav", "vj_hlr/hla_npc/agrunt/ag_idle3.wav", "vj_hlr/hla_npc/agrunt/ag_idle4.wav", "vj_hlr/hla_npc/agrunt/ag_idle5.wav", "vj_hlr/hla_npc/agrunt/ag_idle6.wav", "vj_hlr/hla_npc/agrunt/ag_idle7.wav"}
-	self.SoundTbl_Alert = {"vj_hlr/hla_npc/agrunt/ag_alert1.wav", "vj_hlr/hla_npc/agrunt/ag_alert2.wav", "vj_hlr/hla_npc/agrunt/ag_alert3.wav"}
-	self.SoundTbl_MeleeAttackExtra = "vj_hlr/hla_npc/agrunt/ag_attack1.wav"
-	self.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-	self.SoundTbl_BeforeMeleeAttack = {} // "vj_hlr/hla_npc/agrunt/ag_attack2.wav" -- Unused sound in Alpha (Sounds like it's stuttering or machine gun lol)
-	self.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/agrunt/ag_attack1.wav", "vj_hlr/hl1_npc/agrunt/ag_attack2.wav", "vj_hlr/hl1_npc/agrunt/ag_attack3.wav"}
-	self.SoundTbl_Pain = {"vj_hlr/hla_npc/agrunt/ag_pain1.wav", "vj_hlr/hla_npc/agrunt/ag_pain2.wav", "vj_hlr/hla_npc/agrunt/ag_pain3.wav", "vj_hlr/hla_npc/agrunt/ag_pain4.wav", "vj_hlr/hla_npc/agrunt/ag_pain5.wav"}
-	self.SoundTbl_Death = {"vj_hlr/hla_npc/agrunt/ag_die1.wav", "vj_hlr/hla_npc/agrunt/ag_die2.wav", "vj_hlr/hla_npc/agrunt/ag_die3.wav"}
+	self.SoundTbl_Idle = {"vj_hlr/gsrc/npc/agrunt_alpha/ag_idle1.wav", "vj_hlr/gsrc/npc/agrunt_alpha/ag_idle2.wav", "vj_hlr/gsrc/npc/agrunt_alpha/ag_idle3.wav", "vj_hlr/gsrc/npc/agrunt_alpha/ag_idle4.wav", "vj_hlr/gsrc/npc/agrunt_alpha/ag_idle5.wav", "vj_hlr/gsrc/npc/agrunt_alpha/ag_idle6.wav", "vj_hlr/gsrc/npc/agrunt_alpha/ag_idle7.wav"}
+	self.SoundTbl_Alert = {"vj_hlr/gsrc/npc/agrunt_alpha/ag_alert1.wav", "vj_hlr/gsrc/npc/agrunt_alpha/ag_alert2.wav", "vj_hlr/gsrc/npc/agrunt_alpha/ag_alert3.wav"}
+	self.SoundTbl_MeleeAttackExtra = "vj_hlr/gsrc/npc/agrunt_alpha/ag_attack1.wav"
+	self.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
+	self.SoundTbl_BeforeMeleeAttack = {} // "vj_hlr/gsrc/npc/agrunt_alpha/ag_attack2.wav" -- Unused sound in Alpha (Sounds like it's stuttering or machine gun lol)
+	self.SoundTbl_BeforeRangeAttack = {"vj_hlr/gsrc/npc/agrunt/ag_attack1.wav", "vj_hlr/gsrc/npc/agrunt/ag_attack2.wav", "vj_hlr/gsrc/npc/agrunt/ag_attack3.wav"}
+	self.SoundTbl_Pain = {"vj_hlr/gsrc/npc/agrunt_alpha/ag_pain1.wav", "vj_hlr/gsrc/npc/agrunt_alpha/ag_pain2.wav", "vj_hlr/gsrc/npc/agrunt_alpha/ag_pain3.wav", "vj_hlr/gsrc/npc/agrunt_alpha/ag_pain4.wav", "vj_hlr/gsrc/npc/agrunt_alpha/ag_pain5.wav"}
+	self.SoundTbl_Death = {"vj_hlr/gsrc/npc/agrunt_alpha/ag_die1.wav", "vj_hlr/gsrc/npc/agrunt_alpha/ag_die2.wav", "vj_hlr/gsrc/npc/agrunt_alpha/ag_die3.wav"}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local orgRangeFunc = ENT.OnRangeAttackExecute

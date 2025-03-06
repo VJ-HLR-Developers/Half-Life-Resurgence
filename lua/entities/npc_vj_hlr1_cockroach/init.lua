@@ -26,8 +26,8 @@ ENT.FootstepSoundTimerRun = 3
 ENT.FootstepSoundTimerWalk = 3
 ENT.HasImpactSounds = false
 
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/roach/rch_walk.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/roach/rch_die.wav"}
+ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/roach/rch_walk.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/roach/rch_die.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(2, 2, 2), Vector(-2, -2, 0))
@@ -38,6 +38,6 @@ function ENT:OnTouch(ent)
 	if ent:IsPlayer() or ent:IsNPC() then
 		self:TakeDamage(self:Health() + 1, ent, ent)
 		-- Based on:   EMIT_SOUND_DYN(ENT(pev), CHAN_BODY, "roach/rch_smash.wav", 0.7, ATTN_NORM, 0, 80 + RANDOM_LONG(0,39) );
-		VJ.EmitSound(self, "vj_hlr/hl1_npc/roach/rch_smash.wav", 60, 80 + math.random(0, 39))
+		VJ.EmitSound(self, "vj_hlr/gsrc/npc/roach/rch_smash.wav", 60, 80 + math.random(0, 39))
 	end
 end

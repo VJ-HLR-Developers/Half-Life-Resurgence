@@ -51,15 +51,15 @@ ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.FlinchHitGroupMap = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}}, {HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}}, {HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}}, {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
 
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/aslave/vort_foot1.wav", "vj_hlr/hl1_npc/aslave/vort_foot2.wav", "vj_hlr/hl1_npc/aslave/vort_foot3.wav", "vj_hlr/hl1_npc/aslave/vort_foot4.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hlsc_npc/tor/tor-idle.wav", "vj_hlr/hlsc_npc/tor/tor-idle2.wav", "vj_hlr/hlsc_npc/tor/tor-idle3.wav", "vj_hlr/hlsc_npc/tor/tor-test1.wav"}
-ENT.SoundTbl_Alert = "vj_hlr/hlsc_npc/tor/tor-alerted.wav"
-ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hlsc_npc/tor/tor-attack1.wav", "vj_hlr/hlsc_npc/tor/tor-attack2.wav"}
-ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav", "vj_hlr/hl1_npc/zombie/claw_strike2.wav", "vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_RangeAttack = "vj_hlr/hlsc_npc/tor/tor-staff-discharge.wav"
-ENT.SoundTbl_Pain = {"vj_hlr/hlsc_npc/tor/tor-pain.wav", "vj_hlr/hlsc_npc/tor/tor-pain2.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hlsc_npc/tor/tor-die.wav", "vj_hlr/hlsc_npc/tor/tor-die2.wav"}
+ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/aslave/vort_foot1.wav", "vj_hlr/gsrc/npc/aslave/vort_foot2.wav", "vj_hlr/gsrc/npc/aslave/vort_foot3.wav", "vj_hlr/gsrc/npc/aslave/vort_foot4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/tor_sven/tor-idle.wav", "vj_hlr/gsrc/npc/tor_sven/tor-idle2.wav", "vj_hlr/gsrc/npc/tor_sven/tor-idle3.wav", "vj_hlr/gsrc/npc/tor_sven/tor-test1.wav"}
+ENT.SoundTbl_Alert = "vj_hlr/gsrc/npc/tor_sven/tor-alerted.wav"
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/gsrc/npc/tor_sven/tor-attack1.wav", "vj_hlr/gsrc/npc/tor_sven/tor-attack2.wav"}
+ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/gsrc/npc/zombie/claw_strike1.wav", "vj_hlr/gsrc/npc/zombie/claw_strike2.wav", "vj_hlr/gsrc/npc/zombie/claw_strike3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_RangeAttack = "vj_hlr/gsrc/npc/tor_sven/tor-staff-discharge.wav"
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/tor_sven/tor-pain.wav", "vj_hlr/gsrc/npc/tor_sven/tor-pain2.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/tor_sven/tor-die.wav", "vj_hlr/gsrc/npc/tor_sven/tor-die2.wav"}
 
 ENT.IdleSoundLevel = 80
 ENT.AlertSoundLevel = 85
@@ -119,7 +119,7 @@ function ENT:Tor_StartSpawnAlly()
 		})
 		if !tr.Hit then
 			self:PlayAnim(ACT_SIGNAL_GROUP, true, false)
-			VJ.EmitSound(self, "vj_hlr/hlsc_npc/tor/tor-summon.wav")
+			VJ.EmitSound(self, "vj_hlr/gsrc/npc/tor_sven/tor-summon.wav")
 			self.Tor_NextSpawnT = CurTime() + 10
 		end
 	end
@@ -145,7 +145,7 @@ function ENT:OnInput(key, activator, caller, data)
 		local startPos = self:GetPos() + self:GetForward()*20
 		self.HasMeleeAttackMissSounds = false
 		self.DisableDefaultMeleeAttackCode = true
-		VJ.EmitSound(self, "vj_hlr/hlsc_npc/tor/tor-staff-discharge.wav", 90)
+		VJ.EmitSound(self, "vj_hlr/gsrc/npc/tor_sven/tor-staff-discharge.wav", 90)
 		effects.BeamRingPoint(startPos, 0.3, 2, 600, 36, 0, (self.Tor_Level == 0 and Color(0, 255, 0)) or Color(0, 0, 255), {framerate=20, flags=0})
 		util.ScreenShake(startPos, 10, 10, 1, 1000)
 		util.Decal("VJ_HLR1_Gargantua_Stomp", startPos, startPos + self:GetUp()*-100, self)
@@ -154,7 +154,7 @@ function ENT:OnInput(key, activator, caller, data)
 	elseif key == "range" then
 		self:ExecuteRangeAttack()
 	elseif key == "body" then
-		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -195,7 +195,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		timer.Simple(1.2, function()
 			if IsValid(self) && self.Dead != true then
 				self:SetSkin(1)
-				VJ.EmitSound(self, "vj_hlr/hlsc_npc/tor/tor-summon.wav", 80)
+				VJ.EmitSound(self, "vj_hlr/gsrc/npc/tor_sven/tor-summon.wav", 80)
 				effects.BeamRingPoint(self:GetPos() + self:GetForward()*20, 0.3, 2, 600, 60, 0, Color(0,0,255), {framerate=20, flags=0})
 				util.ScreenShake(self:GetPos(), 10, 10, 1, 1000)
 				VJ.ApplyRadiusDamage(self, self, self:GetPos(), 500, 20, DMG_SONIC, true, true, {DisableVisibilityCheck=true, Force=80})

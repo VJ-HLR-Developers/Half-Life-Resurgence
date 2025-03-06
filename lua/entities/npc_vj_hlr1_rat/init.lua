@@ -33,10 +33,10 @@ ENT.CanFlinch = true
 ENT.FlinchChance = 4
 ENT.AnimTbl_Flinch = ACT_BIG_FLINCH
 
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/rat/rat_idle1.wav", "vj_hlr/hl1_npc/rat/rat_idle2.wav", "vj_hlr/hl1_npc/rat/rat_idle3.wav", "vj_hlr/hl1_npc/rat/rat_idle4.wav"}
-ENT.SoundTbl_Alert = "vj_hlr/hl1_npc/rat/rat_fear.wav"
-ENT.SoundTbl_Pain = "vj_hlr/hl1_npc/rat/rat_fear.wav"
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/rat/rat_die1.wav", "vj_hlr/hl1_npc/rat/rat_die2.wav", "vj_hlr/hl1_npc/rat/rat_die3.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/rat/rat_idle1.wav", "vj_hlr/gsrc/npc/rat/rat_idle2.wav", "vj_hlr/gsrc/npc/rat/rat_idle3.wav", "vj_hlr/gsrc/npc/rat/rat_idle4.wav"}
+ENT.SoundTbl_Alert = "vj_hlr/gsrc/npc/rat/rat_fear.wav"
+ENT.SoundTbl_Pain = "vj_hlr/gsrc/npc/rat/rat_fear.wav"
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/rat/rat_die1.wav", "vj_hlr/gsrc/npc/rat/rat_die2.wav", "vj_hlr/gsrc/npc/rat/rat_die3.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(10, 10, 10), Vector(-10, -10, 0))

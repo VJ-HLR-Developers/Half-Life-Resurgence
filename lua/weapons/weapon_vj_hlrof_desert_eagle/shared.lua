@@ -5,7 +5,7 @@ SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire 		= false
-SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/deagle/desert_eagle_reload.wav"}
+SWEP.NPC_ReloadSound			= {"vj_hlr/gsrc/wep/deagle/desert_eagle_reload.wav"}
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true
@@ -21,8 +21,8 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as t
 SWEP.Primary.Damage				= 15
 SWEP.Primary.ClipSize			= 7
 SWEP.Primary.Ammo				= "357"
-SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/deagle/desert_eagle_fire.wav"}
-SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/deagle/desert_eagle_fire_distant_final.wav"}
+SWEP.Primary.Sound				= {"vj_hlr/gsrc/wep/deagle/desert_eagle_fire.wav"}
+SWEP.Primary.DistantSound		= {"vj_hlr/gsrc/wep/deagle/desert_eagle_fire_distant_final.wav"}
 SWEP.PrimaryEffects_ShellType 	= "ShellEject"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false

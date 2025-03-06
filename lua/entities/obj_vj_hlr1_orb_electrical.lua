@@ -21,7 +21,7 @@ ENT.Model = "models/vj_base/projectiles/spit_acid_large.mdl"
 ENT.DoesDirectDamage = true
 ENT.DirectDamage = 30
 ENT.DirectDamageType = DMG_SHOCK
-ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro4.wav", "vj_hlr/hl1_weapon/gauss/electro5.wav", "vj_hlr/hl1_weapon/gauss/electro6.wav"}
+ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/wep/gauss/electro4.wav", "vj_hlr/gsrc/wep/gauss/electro5.wav", "vj_hlr/gsrc/wep/gauss/electro6.wav"}
 
 -- Custom
 local defVec = Vector(0, 0, 0)

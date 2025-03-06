@@ -5,7 +5,7 @@ SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire 		= false
-SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/shockroach/shock_recharge.wav"}
+SWEP.NPC_ReloadSound			= {"vj_hlr/gsrc/wep/shockroach/shock_recharge.wav"}
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true
@@ -21,8 +21,8 @@ SWEP.WorldModel_CustomPositionBone = "Bone58" -- The bone it will use as the mai
 SWEP.Primary.Damage				= 5
 SWEP.Primary.ClipSize			= 30
 SWEP.Primary.Ammo				= "SMG1"
-SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/shockroach/shock_fire.wav"}
-SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/shockroach/shock_fire_distant.wav"}
+SWEP.Primary.Sound				= {"vj_hlr/gsrc/wep/shockroach/shock_fire.wav"}
+SWEP.Primary.DistantSound		= {"vj_hlr/gsrc/wep/shockroach/shock_fire_distant.wav"}
 SWEP.Primary.DisableBulletCode	= true
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.PrimaryEffects_MuzzleFlash = false
@@ -75,9 +75,9 @@ function SWEP:OnThink()
 	-- Play shock roach idle sounds
 	if CurTime() > self.HLR_NextIdleSoundT then
 		if IsValid(owner:GetEnemy()) then
-			self:EmitSound("vj_hlr/hl1_npc/shockroach/shock_angry.wav", 70)
+			self:EmitSound("vj_hlr/gsrc/npc/shockroach/shock_angry.wav", 70)
 		else
-			self:EmitSound("vj_hlr/hl1_npc/shockroach/shock_idle" .. math.random(1, 3) .. ".wav", 65)
+			self:EmitSound("vj_hlr/gsrc/npc/shockroach/shock_idle" .. math.random(1, 3) .. ".wav", 65)
 		end
 		self.HLR_NextIdleSoundT = CurTime() + math.Rand(5, 12)
 	end

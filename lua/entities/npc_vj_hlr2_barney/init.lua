@@ -35,17 +35,17 @@ ENT.SoundTbl_Idle = {
 ENT.SoundTbl_IdleDialogue = {
 	"vo/k_lab/ba_itsworking04.wav",
 	"vo/streetwar/sniper/ba_hearcat.wav",
-	"vj_hlr/hl2_npc/ep1/c17/ba_knowevac.wav",
+	"vj_hlr/src/npc/ep1/c17/ba_knowevac.wav",
 }
 ENT.SoundTbl_IdleDialogueAnswer = {
 	"vo/k_lab/ba_saidlasttime.wav",
-	"vj_hlr/hl2_npc/ep1/c17/ba_deceiving01.wav",
+	"vj_hlr/src/npc/ep1/c17/ba_deceiving01.wav",
 }
 ENT.SoundTbl_CombatIdle = {
 	"vo/npc/barney/ba_goingdown.wav",
 	"vo/streetwar/rubble/ba_damnitall.wav",
-	"vj_hlr/hl2_npc/ep1/c17/ba_comeon01.wav",
-	"vj_hlr/hl2_npc/ep1/c17/ba_herewego.wav",
+	"vj_hlr/src/npc/ep1/c17/ba_comeon01.wav",
+	"vj_hlr/src/npc/ep1/c17/ba_herewego.wav",
 }
 ENT.SoundTbl_ReceiveOrder = {
 	"vo/npc/barney/ba_imwithyou.wav",
@@ -68,10 +68,10 @@ ENT.SoundTbl_UnFollowPlayer = {
 	"vo/trainyard/ba_goodluck01.wav",
 	"vo/trainyard/ba_meetyoulater01.wav",
 	"vo/streetwar/nexus/ba_seeyou.wav",
-	"vj_hlr/hl2_npc/ep1/c17/ba_areyousure.wav",
-	"vj_hlr/hl2_npc/ep1/c17/ba_dontletmedown.wav",
-	"vj_hlr/hl2_npc/ep1/c17/ba_donttakelong.wav",
-	"vj_hlr/hl2_npc/ep1/c17/ba_ifyousayso.wav",
+	"vj_hlr/src/npc/ep1/c17/ba_areyousure.wav",
+	"vj_hlr/src/npc/ep1/c17/ba_dontletmedown.wav",
+	"vj_hlr/src/npc/ep1/c17/ba_donttakelong.wav",
+	"vj_hlr/src/npc/ep1/c17/ba_ifyousayso.wav",
 	"vo/streetwar/rubble/ba_seeya.wav",
 }
 ENT.SoundTbl_YieldToPlayer = {
@@ -89,7 +89,7 @@ ENT.SoundTbl_OnPlayerSight = {
 	"vo/trainyard/ba_heygordon.wav",
 	"vo/trainyard/ba_rememberme.wav",
 	"vo/streetwar/rubble/ba_gordon.wav",
-	"vj_hlr/hl2_npc/ep1/c17/ba_greeting01.wav",
+	"vj_hlr/src/npc/ep1/c17/ba_greeting01.wav",
 }
 ENT.SoundTbl_Investigate = {
 	"vo/npc/barney/ba_danger02.wav",
@@ -115,10 +115,10 @@ ENT.SoundTbl_CallForHelp = {
 	"vo/streetwar/sniper/ba_overhere.wav",
 }
 ENT.SoundTbl_BecomeEnemyToPlayer = {
-	"vj_hlr/hl2_npc/barney/ba_fuckyou.wav"
+	"vj_hlr/src/npc/barney/ba_fuckyou.wav"
 }
 ENT.SoundTbl_Suppressing = {
-	"vj_hlr/hl2_npc/barney/ba_fuckyou.wav",
+	"vj_hlr/src/npc/barney/ba_fuckyou.wav",
 }
 ENT.SoundTbl_WeaponReload = {
 	"vo/npc/barney/ba_covermegord.wav",
@@ -160,10 +160,10 @@ ENT.SoundTbl_KilledEnemy = {
 	"vo/streetwar/nexus/ba_alldown.wav",
 	"vo/streetwar/nexus/ba_done.wav",
 	"vo/streetwar/sniper/ba_onedownonetogo.wav",
-	"vj_hlr/hl2_npc/ep1/c17/ba_hellyeah.wav",
-	"vj_hlr/hl2_npc/ep1/c17/ba_ohyeah01.wav",
-	"vj_hlr/hl2_npc/ep1/c17/ba_woo.wav",
-	"vj_hlr/hl2_npc/ep1/c17/ba_yeah01.wav",
+	"vj_hlr/src/npc/ep1/c17/ba_hellyeah.wav",
+	"vj_hlr/src/npc/ep1/c17/ba_ohyeah01.wav",
+	"vj_hlr/src/npc/ep1/c17/ba_woo.wav",
+	"vj_hlr/src/npc/ep1/c17/ba_yeah01.wav",
 }
 ENT.SoundTbl_AllyDeath = {
 	"vo/k_lab/ba_cantlook.wav",
@@ -201,9 +201,9 @@ ENT.SoundTbl_Death = {
 
 -- Specific alert sounds
 local sdAlertHuman = "vo/npc/barney/ba_soldiers.wav"
-local sdAlertGunship = "vj_hlr/hl2_npc/ep1/c17/ba_wrinkleship.wav"
-local sdAlertAPC = "vj_hlr/hl2_npc/ep1/c17/ba_ohmanapc.wav"
-local sdAlertStrider = {"vj_hlr/hl2_npc/ep1/c17/ba_kiddingstrider.wav", "vj_hlr/hl2_npc/ep1/c17/ba_takedownstrider.wav"}
+local sdAlertGunship = "vj_hlr/src/npc/ep1/c17/ba_wrinkleship.wav"
+local sdAlertAPC = "vj_hlr/src/npc/ep1/c17/ba_ohmanapc.wav"
+local sdAlertStrider = {"vj_hlr/src/npc/ep1/c17/ba_kiddingstrider.wav", "vj_hlr/src/npc/ep1/c17/ba_takedownstrider.wav"}
 local sdAlertDropShip = "vo/streetwar/nexus/ba_uhohdropships.wav"
 local sdAlertHeadcrab = "vo/npc/barney/ba_headhumpers.wav"
 local sdAlertTurret = "vo/npc/barney/ba_turret.wav"
@@ -215,17 +215,17 @@ local sdAlertTurret = "vo/npc/barney/ba_turret.wav"
 "vo/k_lab/ba_sarcastic02.wav",
 "vo/k_lab/ba_sarcastic03.wav",
 "vo/streetwar/sniper/ba_returnhero.wav",
-"vj_hlr/hl2_npc/ep1/c17/ba_asskicking.wav",
-"vj_hlr/hl2_npc/ep1/c17/ba_goodjob.wav",
-"vj_hlr/hl2_npc/ep1/c17/ba_gordoniknow.wav",
-"vj_hlr/hl2_npc/ep1/c17/ba_nicework.wav",
-"vj_hlr/hl2_npc/ep1/c17/ba_tellemdoc.wav",
-"vj_hlr/hl2_npc/ep1/c17/ba_yougothim.wav",
+"vj_hlr/src/npc/ep1/c17/ba_asskicking.wav",
+"vj_hlr/src/npc/ep1/c17/ba_goodjob.wav",
+"vj_hlr/src/npc/ep1/c17/ba_gordoniknow.wav",
+"vj_hlr/src/npc/ep1/c17/ba_nicework.wav",
+"vj_hlr/src/npc/ep1/c17/ba_tellemdoc.wav",
+"vj_hlr/src/npc/ep1/c17/ba_yougothim.wav",
 
 -- Soldier with RPG
-"vj_hlr/hl2_npc/ep1/c17/ba_soldierrpg.wav",
+"vj_hlr/src/npc/ep1/c17/ba_soldierrpg.wav",
 
-"vj_hlr/hl2_npc/ep1/c17/ba_luckydog.wav", -- You lucky dog youuuuuuuuuuuu
+"vj_hlr/src/npc/ep1/c17/ba_luckydog.wav", -- You lucky dog youuuuuuuuuuuu
 
 ]]--
 

@@ -73,7 +73,7 @@ ENT.DoesDirectDamage = true
 ENT.DirectDamage = 10
 ENT.DirectDamageType = DMG_SHOCK
 ENT.CollisionDecal = "VJ_HLR1_Scorch_Small"
-ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/gauss/electro5.wav", "vj_hlr/hl1_weapon/gauss/electro6.wav"}
+ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/wep/gauss/electro5.wav", "vj_hlr/gsrc/wep/gauss/electro6.wav"}
 
 //util.AddNetworkString("vj_hlr_svencoop_glow")
 ---------------------------------------------------------------------------------------------------------------------------------------------

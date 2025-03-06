@@ -49,18 +49,18 @@ ENT.FlinchDamageTypes = {DMG_BLAST}
 ENT.FlinchChance = 2
 ENT.AnimTbl_Flinch = ACT_BIG_FLINCH
 
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/garg/gar_step1.wav", "vj_hlr/hl1_npc/garg/gar_step2.wav"}
-ENT.SoundTbl_Breath = {"vj_hlr/hl1_npc/garg/gar_breathe1.wav", "vj_hlr/hl1_npc/garg/gar_breathe2.wav", "vj_hlr/hl1_npc/garg/gar_breathe3.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/garg/gar_idle1.wav", "vj_hlr/hl1_npc/garg/gar_idle2.wav", "vj_hlr/hl1_npc/garg/gar_idle3.wav", "vj_hlr/hl1_npc/garg/gar_idle4.wav", "vj_hlr/hl1_npc/garg/gar_idle5.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/garg/gar_alert1.wav", "vj_hlr/hl1_npc/garg/gar_alert2.wav", "vj_hlr/hl1_npc/garg/gar_alert3.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/garg/gar_attack1.wav", "vj_hlr/hl1_npc/garg/gar_attack2.wav", "vj_hlr/hl1_npc/garg/gar_attack3.wav"}
-ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav", "vj_hlr/hl1_npc/zombie/claw_strike2.wav", "vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_RangeAttack = "vj_hlr/hl1_npc/garg/gar_stomp1.wav"
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/garg/gar_pain1.wav", "vj_hlr/hl1_npc/garg/gar_pain2.wav", "vj_hlr/hl1_npc/garg/gar_pain3.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/garg/gar_die1.wav", "vj_hlr/hl1_npc/garg/gar_die2.wav"}
+ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/garg/gar_step1.wav", "vj_hlr/gsrc/npc/garg/gar_step2.wav"}
+ENT.SoundTbl_Breath = {"vj_hlr/gsrc/npc/garg/gar_breathe1.wav", "vj_hlr/gsrc/npc/garg/gar_breathe2.wav", "vj_hlr/gsrc/npc/garg/gar_breathe3.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/garg/gar_idle1.wav", "vj_hlr/gsrc/npc/garg/gar_idle2.wav", "vj_hlr/gsrc/npc/garg/gar_idle3.wav", "vj_hlr/gsrc/npc/garg/gar_idle4.wav", "vj_hlr/gsrc/npc/garg/gar_idle5.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/garg/gar_alert1.wav", "vj_hlr/gsrc/npc/garg/gar_alert2.wav", "vj_hlr/gsrc/npc/garg/gar_alert3.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/gsrc/npc/garg/gar_attack1.wav", "vj_hlr/gsrc/npc/garg/gar_attack2.wav", "vj_hlr/gsrc/npc/garg/gar_attack3.wav"}
+ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/gsrc/npc/zombie/claw_strike1.wav", "vj_hlr/gsrc/npc/zombie/claw_strike2.wav", "vj_hlr/gsrc/npc/zombie/claw_strike3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_RangeAttack = "vj_hlr/gsrc/npc/garg/gar_stomp1.wav"
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/garg/gar_pain1.wav", "vj_hlr/gsrc/npc/garg/gar_pain2.wav", "vj_hlr/gsrc/npc/garg/gar_pain3.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/garg/gar_die1.wav", "vj_hlr/gsrc/npc/garg/gar_die2.wav"}
 
-local sdExplosions = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
+local sdExplosions = {"vj_hlr/gsrc/wep/explosion/explode3.wav", "vj_hlr/gsrc/wep/explosion/explode4.wav", "vj_hlr/gsrc/wep/explosion/explode5.wav"}
 
 ENT.MainSoundPitch = 100
 ENT.ExtraMeleeSoundPitch = 80
@@ -131,7 +131,7 @@ function ENT:Garg_ResetFlame()
 		self:ResetTurnTarget()
 	end
 	if self.Garg_FlameLevel == 2 then
-		VJ.EmitSound(self, "vj_hlr/hl1_npc/garg/gar_flameoff1.wav", 80)
+		VJ.EmitSound(self, "vj_hlr/gsrc/npc/garg/gar_flameoff1.wav", 80)
 	end
 	self.Garg_CanFlame = false
 	self.Garg_FlameLevel = 0
@@ -159,7 +159,7 @@ function ENT:OnThinkActive()
 			self.Garg_NextFlameT = CurTime() + 0.8 -- Don't use anim duration because we want it to start playing the flame animation mid way
 			timer.Simple(0.5, function() -- Play flame start sound
 				if IsValid(self) && self.Garg_CanFlame then
-					VJ.EmitSound(self, "vj_hlr/hl1_npc/garg/gar_flameon1.wav", 80)
+					VJ.EmitSound(self, "vj_hlr/gsrc/npc/garg/gar_flameon1.wav", 80)
 				end
 			end)
 			return
@@ -172,7 +172,7 @@ function ENT:OnThinkActive()
 		VJ.ApplyRadiusDamage(self, self, self:GetPos() + self:OBBCenter() + self:GetForward()*15, range, 3, DMG_BURN, true, true, {UseConeDegree = 35}, function(ent) if !ent:IsOnFire() && (ent:IsPlayer() or ent:IsNPC()) then ent:Ignite(2) end end)
 		
 		-- COSMETICS: Sound, particle and decal
-		self.Garg_FlameSd = VJ.CreateSound(self, "vj_hlr/hl1_npc/garg/gar_flamerun1.wav")
+		self.Garg_FlameSd = VJ.CreateSound(self, "vj_hlr/gsrc/npc/garg/gar_flamerun1.wav")
 		self:StopParticles()
 		if self.Garg_Type == 1 then -- Baby Garg
 			ParticleEffectAttach("vj_hlr_garg_flame_small", PATTACH_POINT_FOLLOW, self, 2)
@@ -322,7 +322,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
-local sdMetalCollision = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
+local sdMetalCollision = {"vj_hlr/gsrc/fx/metal1.wav", "vj_hlr/gsrc/fx/metal2.wav", "vj_hlr/gsrc/fx/metal3.wav", "vj_hlr/gsrc/fx/metal4.wav", "vj_hlr/gsrc/fx/metal5.wav"}
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	timer.Simple(3.6, function()

@@ -11,7 +11,7 @@ ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.HasDeathCorpse = false
 
 -- Tank Base
-ENT.Tank_SoundTbl_Turning = {"vj_hlr/hl1_npc/tanks/bradley_turret_rot.wav"}
+ENT.Tank_SoundTbl_Turning = {"vj_hlr/gsrc/npc/tanks/bradley_turret_rot.wav"}
 //ENT.Tank_ReloadShellSoundLevel = 75
 
 ENT.Tank_Shell_Entity = "obj_vj_hlr1_rocket"
@@ -23,10 +23,10 @@ ENT.Bradley_NextMissileAtkT = 0
 
 local vecMissile = Vector(28.65, 57.25, 19.28)
 local vecBullet = Vector(113.9, 2.62, 10.06)
-local sdReloadMissile = "vj_hlr/hl1_npc/tanks/tow_reload.wav"
-local sdReloadBullet = "vj_hlr/hl1_npc/tanks/25mm_reload.wav"
-local sdFireMissile = "vj_hlr/hl1_npc/tanks/tow_firing.wav"
-local sdFireBullet = "vj_hlr/hl1_npc/tanks/biggun2.wav"
+local sdReloadMissile = "vj_hlr/gsrc/npc/tanks/tow_reload.wav"
+local sdReloadBullet = "vj_hlr/gsrc/npc/tanks/25mm_reload.wav"
+local sdFireMissile = "vj_hlr/gsrc/npc/tanks/tow_firing.wav"
+local sdFireBullet = "vj_hlr/gsrc/npc/tanks/biggun2.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_OnPrepareShell()
 	if CurTime() > self.Bradley_NextMissileAtkT && math.random(1, 5) == 1 then
@@ -79,8 +79,8 @@ function ENT:Tank_OnFireShell(status, statusData)
 				local hitPos = tr.HitPos
 				VJ.ApplyRadiusDamage(self, self, hitPos, 50, 30, DMG_BLAST, true, true, {Force=100})
 				
-				sound.Play("vj_hlr/hl1_weapon/explosion/explode"..math.random(3, 5)..".wav", hitPos, 70, 100, 1)
-				sound.Play("vj_hlr/hl1_weapon/explosion/debris"..math.random(1, 3)..".wav", hitPos, 70, 100, 1)
+				sound.Play("vj_hlr/gsrc/wep/explosion/explode"..math.random(3, 5)..".wav", hitPos, 70, 100, 1)
+				sound.Play("vj_hlr/gsrc/wep/explosion/debris"..math.random(1, 3)..".wav", hitPos, 70, 100, 1)
 		
 				local spr = ents.Create("env_sprite")
 				spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")

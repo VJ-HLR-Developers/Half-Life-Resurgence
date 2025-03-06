@@ -41,15 +41,15 @@ ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD}
 ENT.DisableFootStepSoundTimer = true
 
-ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav", "vj_hlr/pl_step2.wav", "vj_hlr/pl_step3.wav", "vj_hlr/pl_step4.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/bullchicken/bc_idle1.wav", "vj_hlr/hl1_npc/bullchicken/bc_idle2.wav", "vj_hlr/hl1_npc/bullchicken/bc_idle2.wav", "vj_hlr/hl1_npc/bullchicken/bc_idle3.wav", "vj_hlr/hl1_npc/bullchicken/bc_idle4.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/bullchicken/bc_idle1.wav", "vj_hlr/hl1_npc/bullchicken/bc_idle2.wav", "vj_hlr/hl1_npc/bullchicken/bc_idle2.wav", "vj_hlr/hl1_npc/bullchicken/bc_idle3.wav", "vj_hlr/hl1_npc/bullchicken/bc_idle4.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/bullchicken/bc_attackgrowl.wav", "vj_hlr/hl1_npc/bullchicken/bc_attackgrowl2.wav", "vj_hlr/hl1_npc/bullchicken/bc_attackgrowl3.wav"}
-ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/bullchicken/bc_bite1.wav", "vj_hlr/hl1_npc/bullchicken/bc_bite2.wav", "vj_hlr/hl1_npc/bullchicken/bc_bite3.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/bullchicken/bc_attack2.wav", "vj_hlr/hl1_npc/bullchicken/bc_attack3.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/bullchicken/bc_pain1.wav", "vj_hlr/hl1_npc/bullchicken/bc_pain2.wav", "vj_hlr/hl1_npc/bullchicken/bc_pain3.wav", "vj_hlr/hl1_npc/bullchicken/bc_pain4.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/bullchicken/bc_die1.wav", "vj_hlr/hl1_npc/bullchicken/bc_die2.wav", "vj_hlr/hl1_npc/bullchicken/bc_die3.wav"}
+ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/pl_step1.wav", "vj_hlr/gsrc/pl_step2.wav", "vj_hlr/gsrc/pl_step3.wav", "vj_hlr/gsrc/pl_step4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/bullchicken/bc_idle1.wav", "vj_hlr/gsrc/npc/bullchicken/bc_idle2.wav", "vj_hlr/gsrc/npc/bullchicken/bc_idle2.wav", "vj_hlr/gsrc/npc/bullchicken/bc_idle3.wav", "vj_hlr/gsrc/npc/bullchicken/bc_idle4.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/bullchicken/bc_idle1.wav", "vj_hlr/gsrc/npc/bullchicken/bc_idle2.wav", "vj_hlr/gsrc/npc/bullchicken/bc_idle2.wav", "vj_hlr/gsrc/npc/bullchicken/bc_idle3.wav", "vj_hlr/gsrc/npc/bullchicken/bc_idle4.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/gsrc/npc/bullchicken/bc_attackgrowl.wav", "vj_hlr/gsrc/npc/bullchicken/bc_attackgrowl2.wav", "vj_hlr/gsrc/npc/bullchicken/bc_attackgrowl3.wav"}
+ENT.SoundTbl_MeleeAttack = {"vj_hlr/gsrc/npc/bullchicken/bc_bite1.wav", "vj_hlr/gsrc/npc/bullchicken/bc_bite2.wav", "vj_hlr/gsrc/npc/bullchicken/bc_bite3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_RangeAttack = {"vj_hlr/gsrc/npc/bullchicken/bc_attack2.wav", "vj_hlr/gsrc/npc/bullchicken/bc_attack3.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/bullchicken/bc_pain1.wav", "vj_hlr/gsrc/npc/bullchicken/bc_pain2.wav", "vj_hlr/gsrc/npc/bullchicken/bc_pain3.wav", "vj_hlr/gsrc/npc/bullchicken/bc_pain4.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/bullchicken/bc_die1.wav", "vj_hlr/gsrc/npc/bullchicken/bc_die2.wav", "vj_hlr/gsrc/npc/bullchicken/bc_die3.wav"}
 
 -- Custom
 ENT.Bullsquid_Type = 0 -- 0 = Retail Half-Life 1 | Alpha Half-Life 1
@@ -76,7 +76,7 @@ function ENT:OnInput(key, activator, caller, data)
 	elseif key == "rangeattack" then
 		self:ExecuteRangeAttack()
 	elseif key == "body" then
-		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

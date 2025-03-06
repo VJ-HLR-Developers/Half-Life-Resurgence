@@ -42,11 +42,11 @@ ENT.DeathAnimationTime = 1.2
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_BIG_FLINCH
 
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/controller/con_idle1.wav", "vj_hlr/hl1_npc/controller/con_idle2.wav", "vj_hlr/hl1_npc/controller/con_idle3.wav", "vj_hlr/hl1_npc/controller/con_idle4.wav", "vj_hlr/hl1_npc/controller/con_idle5.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/controller/con_alert1.wav", "vj_hlr/hl1_npc/controller/con_alert2.wav", "vj_hlr/hl1_npc/controller/con_alert3.wav"}
-ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/controller/con_attack1.wav", "vj_hlr/hl1_npc/controller/con_attack2.wav", "vj_hlr/hl1_npc/controller/con_attack3.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/controller/con_pain1.wav", "vj_hlr/hl1_npc/controller/con_pain2.wav", "vj_hlr/hl1_npc/controller/con_pain3.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/controller/con_die1.wav", "vj_hlr/hl1_npc/controller/con_die2.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/controller/con_idle1.wav", "vj_hlr/gsrc/npc/controller/con_idle2.wav", "vj_hlr/gsrc/npc/controller/con_idle3.wav", "vj_hlr/gsrc/npc/controller/con_idle4.wav", "vj_hlr/gsrc/npc/controller/con_idle5.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/controller/con_alert1.wav", "vj_hlr/gsrc/npc/controller/con_alert2.wav", "vj_hlr/gsrc/npc/controller/con_alert3.wav"}
+ENT.SoundTbl_RangeAttack = {"vj_hlr/gsrc/npc/controller/con_attack1.wav", "vj_hlr/gsrc/npc/controller/con_attack2.wav", "vj_hlr/gsrc/npc/controller/con_attack3.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/controller/con_pain1.wav", "vj_hlr/gsrc/npc/controller/con_pain2.wav", "vj_hlr/gsrc/npc/controller/con_pain3.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/controller/con_die1.wav", "vj_hlr/gsrc/npc/controller/con_die2.wav"}
 
 ENT.MainSoundPitch = 100
 

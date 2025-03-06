@@ -40,13 +40,13 @@ ENT.AnimTbl_Death = {ACT_HOVER, ACT_DIEVIOLENT, ACT_DIESIMPLE}
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_BIG_FLINCH
 
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/ichy/ichy_idle1.wav", "vj_hlr/hl1_npc/ichy/ichy_idle2.wav", "vj_hlr/hl1_npc/ichy/ichy_idle3.wav", "vj_hlr/hl1_npc/ichy/ichy_idle4.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/ichy/ichy_alert1.wav", "vj_hlr/hl1_npc/ichy/ichy_alert2.wav", "vj_hlr/hl1_npc/ichy/ichy_alert3.wav"}
-ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/ichy/ichy_alert1.wav", "vj_hlr/hl1_npc/ichy/ichy_alert2.wav", "vj_hlr/hl1_npc/ichy/ichy_alert3.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/ichy/ichy_attack1.wav", "vj_hlr/hl1_npc/ichy/ichy_attack2.wav"}
-ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/ichy/ichy_bite1.wav", "vj_hlr/hl1_npc/ichy/ichy_bite2.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/ichy/ichy_pain1.wav", "vj_hlr/hl1_npc/ichy/ichy_pain2.wav", "vj_hlr/hl1_npc/ichy/ichy_pain3.wav", "vj_hlr/hl1_npc/ichy/ichy_pain5.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/ichy/ichy_die1.wav", "vj_hlr/hl1_npc/ichy/ichy_die2.wav", "vj_hlr/hl1_npc/ichy/ichy_die3.wav", "vj_hlr/hl1_npc/ichy/ichy_die4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/ichy/ichy_idle1.wav", "vj_hlr/gsrc/npc/ichy/ichy_idle2.wav", "vj_hlr/gsrc/npc/ichy/ichy_idle3.wav", "vj_hlr/gsrc/npc/ichy/ichy_idle4.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/ichy/ichy_alert1.wav", "vj_hlr/gsrc/npc/ichy/ichy_alert2.wav", "vj_hlr/gsrc/npc/ichy/ichy_alert3.wav"}
+ENT.SoundTbl_CombatIdle = {"vj_hlr/gsrc/npc/ichy/ichy_alert1.wav", "vj_hlr/gsrc/npc/ichy/ichy_alert2.wav", "vj_hlr/gsrc/npc/ichy/ichy_alert3.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/gsrc/npc/ichy/ichy_attack1.wav", "vj_hlr/gsrc/npc/ichy/ichy_attack2.wav"}
+ENT.SoundTbl_MeleeAttack = {"vj_hlr/gsrc/npc/ichy/ichy_bite1.wav", "vj_hlr/gsrc/npc/ichy/ichy_bite2.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/ichy/ichy_pain1.wav", "vj_hlr/gsrc/npc/ichy/ichy_pain2.wav", "vj_hlr/gsrc/npc/ichy/ichy_pain3.wav", "vj_hlr/gsrc/npc/ichy/ichy_pain5.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/ichy/ichy_die1.wav", "vj_hlr/gsrc/npc/ichy/ichy_die2.wav", "vj_hlr/gsrc/npc/ichy/ichy_die3.wav", "vj_hlr/gsrc/npc/ichy/ichy_die4.wav"}
 
 ENT.MainSoundPitch = 100
 

@@ -45,17 +45,17 @@ ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.FlinchHitGroupMap = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}},{HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}},{HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}},{HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
 
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/aslave/vort_foot1.wav", "vj_hlr/hl1_npc/aslave/vort_foot2.wav", "vj_hlr/hl1_npc/aslave/vort_foot3.wav", "vj_hlr/hl1_npc/aslave/vort_foot4.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/aslave/slv_idle1.wav", "vj_hlr/hl1_npc/aslave/slv_idle2.wav", "vj_hlr/hl1_npc/aslave/slv_idle3.wav", "vj_hlr/hl1_npc/aslave/slv_idle4.wav", "vj_hlr/hl1_npc/aslave/slv_idle5.wav", "vj_hlr/hl1_npc/aslave/slv_idle6.wav", "vj_hlr/hl1_npc/aslave/slv_idle7.wav", "vj_hlr/hl1_npc/aslave/slv_idle8.wav", "vj_hlr/hl1_npc/aslave/slv_idle9.wav", "vj_hlr/hl1_npc/aslave/slv_idle10.wav"}
-ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/aslave/slv_idle1.wav", "vj_hlr/hl1_npc/aslave/slv_idle2.wav", "vj_hlr/hl1_npc/aslave/slv_idle3.wav", "vj_hlr/hl1_npc/aslave/slv_idle4.wav", "vj_hlr/hl1_npc/aslave/slv_idle5.wav", "vj_hlr/hl1_npc/aslave/slv_idle6.wav", "vj_hlr/hl1_npc/aslave/slv_idle7.wav", "vj_hlr/hl1_npc/aslave/slv_idle8.wav", "vj_hlr/hl1_npc/aslave/slv_idle9.wav", "vj_hlr/hl1_npc/aslave/slv_idle10.wav"}
-ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/aslave/slv_idle1.wav", "vj_hlr/hl1_npc/aslave/slv_idle2.wav", "vj_hlr/hl1_npc/aslave/slv_idle3.wav", "vj_hlr/hl1_npc/aslave/slv_idle4.wav", "vj_hlr/hl1_npc/aslave/slv_idle5.wav", "vj_hlr/hl1_npc/aslave/slv_idle6.wav", "vj_hlr/hl1_npc/aslave/slv_idle7.wav", "vj_hlr/hl1_npc/aslave/slv_idle8.wav", "vj_hlr/hl1_npc/aslave/slv_idle9.wav", "vj_hlr/hl1_npc/aslave/slv_idle10.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/aslave/slv_alert01.wav", "vj_hlr/hl1_npc/aslave/slv_alert02.wav", "vj_hlr/hl1_npc/aslave/slv_alert03.wav", "vj_hlr/hl1_npc/aslave/slv_alert04.wav", "vj_hlr/hl1_npc/aslave/slv_alert05.wav", "vj_hlr/hl1_npc/aslave/slv_alert06.wav"}
-ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav", "vj_hlr/hl1_npc/zombie/claw_strike2.wav", "vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/fx/zap4.wav"}
-ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/hassault/hw_shoot1.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/aslave/slv_pain1.wav", "vj_hlr/hl1_npc/aslave/slv_pain2.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/aslave/slv_die1.wav", "vj_hlr/hl1_npc/aslave/slv_die2.wav"}
+ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/aslave/vort_foot1.wav", "vj_hlr/gsrc/npc/aslave/vort_foot2.wav", "vj_hlr/gsrc/npc/aslave/vort_foot3.wav", "vj_hlr/gsrc/npc/aslave/vort_foot4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/aslave/slv_idle1.wav", "vj_hlr/gsrc/npc/aslave/slv_idle2.wav", "vj_hlr/gsrc/npc/aslave/slv_idle3.wav", "vj_hlr/gsrc/npc/aslave/slv_idle4.wav", "vj_hlr/gsrc/npc/aslave/slv_idle5.wav", "vj_hlr/gsrc/npc/aslave/slv_idle6.wav", "vj_hlr/gsrc/npc/aslave/slv_idle7.wav", "vj_hlr/gsrc/npc/aslave/slv_idle8.wav", "vj_hlr/gsrc/npc/aslave/slv_idle9.wav", "vj_hlr/gsrc/npc/aslave/slv_idle10.wav"}
+ENT.SoundTbl_IdleDialogue = {"vj_hlr/gsrc/npc/aslave/slv_idle1.wav", "vj_hlr/gsrc/npc/aslave/slv_idle2.wav", "vj_hlr/gsrc/npc/aslave/slv_idle3.wav", "vj_hlr/gsrc/npc/aslave/slv_idle4.wav", "vj_hlr/gsrc/npc/aslave/slv_idle5.wav", "vj_hlr/gsrc/npc/aslave/slv_idle6.wav", "vj_hlr/gsrc/npc/aslave/slv_idle7.wav", "vj_hlr/gsrc/npc/aslave/slv_idle8.wav", "vj_hlr/gsrc/npc/aslave/slv_idle9.wav", "vj_hlr/gsrc/npc/aslave/slv_idle10.wav"}
+ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/gsrc/npc/aslave/slv_idle1.wav", "vj_hlr/gsrc/npc/aslave/slv_idle2.wav", "vj_hlr/gsrc/npc/aslave/slv_idle3.wav", "vj_hlr/gsrc/npc/aslave/slv_idle4.wav", "vj_hlr/gsrc/npc/aslave/slv_idle5.wav", "vj_hlr/gsrc/npc/aslave/slv_idle6.wav", "vj_hlr/gsrc/npc/aslave/slv_idle7.wav", "vj_hlr/gsrc/npc/aslave/slv_idle8.wav", "vj_hlr/gsrc/npc/aslave/slv_idle9.wav", "vj_hlr/gsrc/npc/aslave/slv_idle10.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/aslave/slv_alert01.wav", "vj_hlr/gsrc/npc/aslave/slv_alert02.wav", "vj_hlr/gsrc/npc/aslave/slv_alert03.wav", "vj_hlr/gsrc/npc/aslave/slv_alert04.wav", "vj_hlr/gsrc/npc/aslave/slv_alert05.wav", "vj_hlr/gsrc/npc/aslave/slv_alert06.wav"}
+ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/gsrc/npc/zombie/claw_strike1.wav", "vj_hlr/gsrc/npc/zombie/claw_strike2.wav", "vj_hlr/gsrc/npc/zombie/claw_strike3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/gsrc/fx/zap4.wav"}
+ENT.SoundTbl_RangeAttack = {"vj_hlr/gsrc/npc/hassault/hw_shoot1.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/aslave/slv_pain1.wav", "vj_hlr/gsrc/npc/aslave/slv_pain2.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/aslave/slv_die1.wav", "vj_hlr/gsrc/npc/aslave/slv_die2.wav"}
 
 ENT.FootstepSoundLevel = 60
 
@@ -84,7 +84,7 @@ function ENT:OnInput(key, activator, caller, data)
 	elseif key == "shoot" then
 		self:ExecuteRangeAttack()
 	elseif key == "body" then
-		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

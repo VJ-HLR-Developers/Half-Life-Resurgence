@@ -44,11 +44,11 @@ ENT.LimitChaseDistance = false
 ENT.LimitChaseDistance_Max = "UseRangeDistance"
 ENT.LimitChaseDistance_Min = "UseRangeDistance"
 
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/stukabat/stkb_idletpick1.wav", "vj_hlr/hl1_npc/stukabat/stkb_idletpick2.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/stukabat/stkb_deploy1.wav", "vj_hlr/hl1_npc/stukabat/stkb_deploy2.wav"}
-ENT.SoundTbl_BeforeRangeAttack = "vj_hlr/hl1_npc/stukabat/stkb_fire1.wav"
-ENT.SoundTbl_Pain = "vj_hlr/hl1_npc/stukabat/stkb_flying1.wav"
-ENT.SoundTbl_Death = "vj_hlr/hl1_npc/stukabat/stkb_die1.wav"
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/stukabat/stkb_idletpick1.wav", "vj_hlr/gsrc/npc/stukabat/stkb_idletpick2.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/stukabat/stkb_deploy1.wav", "vj_hlr/gsrc/npc/stukabat/stkb_deploy2.wav"}
+ENT.SoundTbl_BeforeRangeAttack = "vj_hlr/gsrc/npc/stukabat/stkb_fire1.wav"
+ENT.SoundTbl_Pain = "vj_hlr/gsrc/npc/stukabat/stkb_flying1.wav"
+ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/stukabat/stkb_die1.wav"
 
 ENT.MainSoundPitch = 100
 
@@ -123,7 +123,7 @@ function ENT:ChangeMode(mode)
 				self.HasRangeAttack = false
 			end
 		end)
-		VJ.CreateSound(self,"vj_hlr/hl1_npc/stukabat/stkb_deploy" .. math.random(1,2) .. ".wav")
+		VJ.CreateSound(self,"vj_hlr/gsrc/npc/stukabat/stkb_deploy" .. math.random(1,2) .. ".wav")
 	end
 	self.Stuka_Mode = mode
 	-- self.Stuka_ModeChangeT = CurTime() + 4 -- Debug
@@ -133,11 +133,11 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	-- print(key)
 	if key == "wing" then
-		VJ.EmitSound(self,"vj_hlr/hl1_npc/stukabat/stkb_wings" .. math.random(1, 3) .. ".wav", 70)
+		VJ.EmitSound(self,"vj_hlr/gsrc/npc/stukabat/stkb_wings" .. math.random(1, 3) .. ".wav", 70)
 	elseif key == "body" then
-		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	elseif key == "attack" then
-		VJ.CreateSound(self, "vj_hlr/hl1_npc/stukabat/stkb_fire"..math.random(1, 2)..".wav", 75, 100)
+		VJ.CreateSound(self, "vj_hlr/gsrc/npc/stukabat/stkb_fire"..math.random(1, 2)..".wav", 75, 100)
 	elseif key == "melee" then
 		self:ExecuteMeleeAttack()
 	elseif key == "dropbomb" then
@@ -352,7 +352,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 						self:Remove()
 					end
 				end)
-				VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+				VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 			end
 
 			self:Remove()

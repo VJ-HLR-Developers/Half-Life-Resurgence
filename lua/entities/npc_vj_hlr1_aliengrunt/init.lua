@@ -43,16 +43,16 @@ ENT.HasExtraMeleeAttackSounds = true
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/player/pl_ladder1.wav", "vj_hlr/hl1_npc/player/pl_ladder2.wav", "vj_hlr/hl1_npc/player/pl_ladder3.wav", "vj_hlr/hl1_npc/player/pl_ladder4.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/agrunt/ag_idle1.wav", "vj_hlr/hl1_npc/agrunt/ag_idle2.wav", "vj_hlr/hl1_npc/agrunt/ag_idle3.wav", "vj_hlr/hl1_npc/agrunt/ag_idle4.wav", "vj_hlr/hl1_npc/agrunt/ag_idle5.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/agrunt/ag_alert1.wav", "vj_hlr/hl1_npc/agrunt/ag_alert2.wav", "vj_hlr/hl1_npc/agrunt/ag_alert3.wav", "vj_hlr/hl1_npc/agrunt/ag_alert4.wav", "vj_hlr/hl1_npc/agrunt/ag_alert5.wav"}
-ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav", "vj_hlr/hl1_npc/zombie/claw_strike2.wav", "vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/agrunt/ag_attack1.wav", "vj_hlr/hl1_npc/agrunt/ag_attack2.wav", "vj_hlr/hl1_npc/agrunt/ag_attack3.wav"}
-ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/agrunt/ag_attack1.wav", "vj_hlr/hl1_npc/agrunt/ag_attack2.wav", "vj_hlr/hl1_npc/agrunt/ag_attack3.wav"}
-//ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/agrunt/ag_fire1.wav", "vj_hlr/hl1_npc/agrunt/ag_fire2.wav", "vj_hlr/hl1_npc/agrunt/ag_fire3.wav"} -- Done by events instead because we need it as EmitSound since it plays too many of them at the same time!
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/agrunt/ag_pain1.wav", "vj_hlr/hl1_npc/agrunt/ag_pain2.wav", "vj_hlr/hl1_npc/agrunt/ag_pain3.wav", "vj_hlr/hl1_npc/agrunt/ag_pain4.wav", "vj_hlr/hl1_npc/agrunt/ag_pain5.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/agrunt/ag_die1.wav", "vj_hlr/hl1_npc/agrunt/ag_die2.wav", "vj_hlr/hl1_npc/agrunt/ag_die3.wav", "vj_hlr/hl1_npc/agrunt/ag_die4.wav", "vj_hlr/hl1_npc/agrunt/ag_die5.wav"}
+ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/player/pl_ladder1.wav", "vj_hlr/gsrc/npc/player/pl_ladder2.wav", "vj_hlr/gsrc/npc/player/pl_ladder3.wav", "vj_hlr/gsrc/npc/player/pl_ladder4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/agrunt/ag_idle1.wav", "vj_hlr/gsrc/npc/agrunt/ag_idle2.wav", "vj_hlr/gsrc/npc/agrunt/ag_idle3.wav", "vj_hlr/gsrc/npc/agrunt/ag_idle4.wav", "vj_hlr/gsrc/npc/agrunt/ag_idle5.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/agrunt/ag_alert1.wav", "vj_hlr/gsrc/npc/agrunt/ag_alert2.wav", "vj_hlr/gsrc/npc/agrunt/ag_alert3.wav", "vj_hlr/gsrc/npc/agrunt/ag_alert4.wav", "vj_hlr/gsrc/npc/agrunt/ag_alert5.wav"}
+ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/gsrc/npc/zombie/claw_strike1.wav", "vj_hlr/gsrc/npc/zombie/claw_strike2.wav", "vj_hlr/gsrc/npc/zombie/claw_strike3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/gsrc/npc/agrunt/ag_attack1.wav", "vj_hlr/gsrc/npc/agrunt/ag_attack2.wav", "vj_hlr/gsrc/npc/agrunt/ag_attack3.wav"}
+ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/gsrc/npc/agrunt/ag_attack1.wav", "vj_hlr/gsrc/npc/agrunt/ag_attack2.wav", "vj_hlr/gsrc/npc/agrunt/ag_attack3.wav"}
+//ENT.SoundTbl_RangeAttack = {"vj_hlr/gsrc/npc/agrunt/ag_fire1.wav", "vj_hlr/gsrc/npc/agrunt/ag_fire2.wav", "vj_hlr/gsrc/npc/agrunt/ag_fire3.wav"} -- Done by events instead because we need it as EmitSound since it plays too many of them at the same time!
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/agrunt/ag_pain1.wav", "vj_hlr/gsrc/npc/agrunt/ag_pain2.wav", "vj_hlr/gsrc/npc/agrunt/ag_pain3.wav", "vj_hlr/gsrc/npc/agrunt/ag_pain4.wav", "vj_hlr/gsrc/npc/agrunt/ag_pain5.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/agrunt/ag_die1.wav", "vj_hlr/gsrc/npc/agrunt/ag_die2.wav", "vj_hlr/gsrc/npc/agrunt/ag_die3.wav", "vj_hlr/gsrc/npc/agrunt/ag_die4.wav", "vj_hlr/gsrc/npc/agrunt/ag_die5.wav"}
 
 ENT.MainSoundPitch = 100
 ENT.FootstepSoundPitch = 70
@@ -87,9 +87,9 @@ function ENT:OnInput(key, activator, caller, data)
 		self:ExecuteMeleeAttack()
 	elseif key == "event_rattack" then
 		self:ExecuteRangeAttack()
-		self:PlaySoundSystem("RangeAttack", "vj_hlr/".. (self.AGrunt_Type == 1 and "hla_npc" or "hl1_npc") .."/agrunt/ag_fire"..math.random(1, 3)..".wav", VJ.EmitSound)
+		self:PlaySoundSystem("RangeAttack", "vj_hlr/gsrc/npc/".. (self.AGrunt_Type == 1 and "agrunt_alpha" or "agrunt") .."/ag_fire"..math.random(1, 3)..".wav", VJ.EmitSound)
 	elseif key == "body" then
-		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

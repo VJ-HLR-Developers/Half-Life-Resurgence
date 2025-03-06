@@ -39,9 +39,9 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 	-- Don't use ACT_DIEFORWARD as it's supposed to be played as end of death animation
 ENT.PropInteraction = false
 
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/leech/leech_alert1.wav", "vj_hlr/hl1_npc/leech/leech_alert2.wav"}
-//ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/leech/leech_alert1.wav", "vj_hlr/hl1_npc/leech/leech_alert2.wav"}
-ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/leech/leech_bite1.wav", "vj_hlr/hl1_npc/leech/leech_bite2.wav", "vj_hlr/hl1_npc/leech/leech_bite3.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/leech/leech_alert1.wav", "vj_hlr/gsrc/npc/leech/leech_alert2.wav"}
+//ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/leech/leech_alert1.wav", "vj_hlr/gsrc/npc/leech/leech_alert2.wav"}
+ENT.SoundTbl_MeleeAttack = {"vj_hlr/gsrc/npc/leech/leech_bite1.wav", "vj_hlr/gsrc/npc/leech/leech_bite2.wav", "vj_hlr/gsrc/npc/leech/leech_bite3.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(4, 4, 3), Vector(-4, -4, -2))

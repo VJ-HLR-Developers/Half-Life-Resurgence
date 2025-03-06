@@ -20,12 +20,12 @@ ENT.MainSoundPitch = VJ.SET(90, 100)
 ENT.Serg_Type = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_OnInit()
-	self.SoundTbl_Idle = {"vj_hlr/hla_npc/hgrunt/gr_idle1.wav", "vj_hlr/hla_npc/hgrunt/gr_idle2.wav", "vj_hlr/hla_npc/hgrunt/gr_idle3.wav", "vj_hlr/hla_npc/hgrunt/gr_radio1.wav", "vj_hlr/hla_npc/hgrunt/gr_radio2.wav", "vj_hlr/hla_npc/hgrunt/gr_radio3.wav", "vj_hlr/hla_npc/hgrunt/gr_radio4.wav", "vj_hlr/hla_npc/hgrunt/gr_radio5.wav", "vj_hlr/hla_npc/hgrunt/gr_radio6.wav"}
-	self.SoundTbl_CombatIdle = {"vj_hlr/hla_npc/hgrunt/gr_radio1.wav", "vj_hlr/hla_npc/hgrunt/gr_radio2.wav", "vj_hlr/hla_npc/hgrunt/gr_radio3.wav", "vj_hlr/hla_npc/hgrunt/gr_radio4.wav", "vj_hlr/hla_npc/hgrunt/gr_radio5.wav", "vj_hlr/hla_npc/hgrunt/gr_radio6.wav"}
-	self.SoundTbl_Alert = "vj_hlr/hla_npc/hassault/hw_alert.wav"
-	self.SoundTbl_CallForHelp = "vj_hlr/hla_npc/hgrunt/gr_squadform.wav"
-	self.SoundTbl_WeaponReload = "vj_hlr/hla_npc/hgrunt/gr_cover2.wav"
-	self.SoundTbl_GrenadeAttack = "vj_hlr/hla_npc/hgrunt/gr_loadtalk.wav"
+	self.SoundTbl_Idle = {"vj_hlr/gsrc/npc/hgrunt_alpha/gr_idle1.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_idle2.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_idle3.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio1.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio2.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio3.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio4.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio5.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio6.wav"}
+	self.SoundTbl_CombatIdle = {"vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio1.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio2.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio3.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio4.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio5.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio6.wav"}
+	self.SoundTbl_Alert = "vj_hlr/gsrc/npc/hassault_alpha/hw_alert.wav"
+	self.SoundTbl_CallForHelp = "vj_hlr/gsrc/npc/hgrunt_alpha/gr_squadform.wav"
+	self.SoundTbl_WeaponReload = "vj_hlr/gsrc/npc/hgrunt_alpha/gr_cover2.wav"
+	self.SoundTbl_GrenadeAttack = "vj_hlr/gsrc/npc/hgrunt_alpha/gr_loadtalk.wav"
 	
 	-- Melee Alpha Human Grunt Sergeant
 	if self.Serg_Type == 2 then

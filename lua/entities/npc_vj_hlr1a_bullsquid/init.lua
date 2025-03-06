@@ -10,7 +10,7 @@ ENT.Model = "models/vj_hlr/hla/bullsquid.mdl"
 ENT.StartHealth = 180
 ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
 
-ENT.SoundTbl_SoundTrack = "vj_hlr/hla_npc/squidding.mp3"
+ENT.SoundTbl_SoundTrack = "vj_hlr/gsrc/squidding.mp3"
 
 -- Custom
 ENT.Bullsquid_Type = 1

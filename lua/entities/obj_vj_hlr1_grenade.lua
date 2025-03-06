@@ -19,8 +19,8 @@ if !SERVER then return end
 
 ENT.Model = "models/vj_hlr/weapons/w_grenade.mdl"
 ENT.CollisionDecal = "VJ_HLR1_Scorch"
-ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/grenade/grenade_hit1.wav", "vj_hlr/hl1_weapon/grenade/grenade_hit2.wav", "vj_hlr/hl1_weapon/grenade/grenade_hit3.wav"}
-ENT.SoundTbl_OnRemove = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
+ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/wep/grenade/grenade_hit1.wav", "vj_hlr/gsrc/wep/grenade/grenade_hit2.wav", "vj_hlr/gsrc/wep/grenade/grenade_hit3.wav"}
+ENT.SoundTbl_OnRemove = {"vj_hlr/gsrc/wep/explosion/explode3.wav", "vj_hlr/gsrc/wep/explosion/explode4.wav", "vj_hlr/gsrc/wep/explosion/explode5.wav"}
 ENT.OnRemoveSoundLevel = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
@@ -86,6 +86,6 @@ function ENT:OnDestroy()
 	util.Decal(VJ.PICK(self.CollisionDecal), tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
 	
 	self:DealDamage()
-	VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 80, 100)
-	VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris"..math.random(1,3)..".wav", 80, 100)
+	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
 end

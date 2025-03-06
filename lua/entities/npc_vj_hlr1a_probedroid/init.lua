@@ -53,13 +53,13 @@ ENT.DeathAnimationTime = 0.6
 ENT.HasDeathCorpse = false
 ENT.HasExtraMeleeAttackSounds = true
 
-ENT.SoundTbl_Breath = "vj_hlr/hla_npc/prdroid/engine.wav"
-ENT.SoundTbl_MedicOnHeal = "vj_hlr/hla_npc/prdroid/shoot_heal.wav"
-ENT.SoundTbl_Alert = "vj_hlr/hla_npc/prdroid/alert.wav"
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_BeforeRangeAttack = "vj_hlr/hla_npc/prdroid/readytoattack.wav"
-ENT.SoundTbl_RangeAttack = "vj_hlr/hla_npc/prdroid/shoot.wav"
-ENT.SoundTbl_Death = "vj_hlr/hla_npc/prdroid/die.wav"
+ENT.SoundTbl_Breath = "vj_hlr/gsrc/npc/prdroid_alpha/engine.wav"
+ENT.SoundTbl_MedicOnHeal = "vj_hlr/gsrc/npc/prdroid_alpha/shoot_heal.wav"
+ENT.SoundTbl_Alert = "vj_hlr/gsrc/npc/prdroid_alpha/alert.wav"
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_BeforeRangeAttack = "vj_hlr/gsrc/npc/prdroid_alpha/readytoattack.wav"
+ENT.SoundTbl_RangeAttack = "vj_hlr/gsrc/npc/prdroid_alpha/shoot.wav"
+ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/prdroid_alpha/die.wav"
 
 ENT.MainSoundPitch = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -92,11 +92,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMedicBehavior(status, statusData)
 	if status == "BeforeHeal" then
-		VJ.EmitSound(self, "vj_hlr/hla_npc/prdroid/readytoattack.wav", 90, 100) -- Preparing sound same as range attack
+		VJ.EmitSound(self, "vj_hlr/gsrc/npc/prdroid_alpha/readytoattack.wav", 90, 100) -- Preparing sound same as range attack
 	elseif status == "OnHeal" then
 		self:PlayAnim(ACT_RANGE_ATTACK1, true, 0, true, 0, {OnFinish = function()
 			self:PlayAnim(ACT_RELOAD, true, false, true)
-			VJ.EmitSound(self, "vj_hlr/hla_npc/prdroid/reload.wav", 90, 100) -- Reload sound
+			VJ.EmitSound(self, "vj_hlr/gsrc/npc/prdroid_alpha/reload.wav", 90, 100) -- Reload sound
 		end})
 		local attPos = self:GetAttachment(self:LookupAttachment("0")).Pos
 		local needle = ents.Create("obj_vj_hlr1_probed_needle")
@@ -123,7 +123,7 @@ function ENT:OnRangeAttack(status, enemy)
 		local anim, animDur = self:PlayAnim(ACT_ARM, false, 0, true, 0, {OnFinish = function()
 			self:PlayAnim(ACT_RANGE_ATTACK1, false, 0, true, 0, {OnFinish = function()
 				self:PlayAnim(ACT_RELOAD, true, false, true)
-				VJ.EmitSound(self, "vj_hlr/hla_npc/prdroid/reload.wav", 90, 100) -- Reload sound
+				VJ.EmitSound(self, "vj_hlr/gsrc/npc/prdroid_alpha/reload.wav", 90, 100) -- Reload sound
 			end})
 		end})
 		self.AttackAnim = anim
@@ -158,14 +158,14 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local collideSds = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
+local collideSds = {"vj_hlr/gsrc/fx/metal1.wav", "vj_hlr/gsrc/fx/metal2.wav", "vj_hlr/gsrc/fx/metal3.wav", "vj_hlr/gsrc/fx/metal4.wav", "vj_hlr/gsrc/fx/metal5.wav"}
 --
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Init" && dmginfo:IsDamageType(DMG_BLAST) then
 		self.HasDeathAnimation = false
 	elseif status == "Finish" then
 		VJ.ApplyRadiusDamage(self, self, self:GetPos(), 75, 25, DMG_BLAST, false, true)
-		VJ.EmitSound(self, "vj_hlr/hla_npc/prdroid/explode.wav", 90, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/npc/prdroid_alpha/explode.wav", 90, 100)
 		local applyForce = self.HasDeathAnimation and false or true
 		local myAngs = self:GetAngles()
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pb_cap.mdl", {CollisionDecal=false, Ang=myAngs, Pos=self:GetBonePosition(self:LookupBone("sphere01")), CollisionSound=collideSds, Vel_ApplyDmgForce=applyForce})

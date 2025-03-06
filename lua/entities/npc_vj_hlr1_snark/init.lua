@@ -36,11 +36,11 @@ ENT.HasDeathCorpse = false
 ENT.PropInteraction = "OnlyDamage"
 ENT.IdleAlwaysWander = true
 
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/squeek/sqk_hunt1.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt2.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt3.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/squeek/sqk_hunt1.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt2.wav", "vj_hlr/hl1_npc/squeek/sqk_hunt3.wav"}
-ENT.SoundTbl_MeleeAttack = "vj_hlr/hl1_npc/squeek/sqk_deploy1.wav"
-ENT.SoundTbl_LeapAttackDamage = "vj_hlr/hl1_npc/squeek/sqk_deploy1.wav"
-ENT.SoundTbl_Death = "vj_hlr/hl1_npc/squeek/sqk_die1.wav"
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/squeek/sqk_hunt1.wav", "vj_hlr/gsrc/npc/squeek/sqk_hunt2.wav", "vj_hlr/gsrc/npc/squeek/sqk_hunt3.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/squeek/sqk_hunt1.wav", "vj_hlr/gsrc/npc/squeek/sqk_hunt2.wav", "vj_hlr/gsrc/npc/squeek/sqk_hunt3.wav"}
+ENT.SoundTbl_MeleeAttack = "vj_hlr/gsrc/npc/squeek/sqk_deploy1.wav"
+ENT.SoundTbl_LeapAttackDamage = "vj_hlr/gsrc/npc/squeek/sqk_deploy1.wav"
+ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/squeek/sqk_die1.wav"
 
 ENT.IdleSoundChance = 1
 
@@ -136,7 +136,7 @@ local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Finish" then
 		local myPos = self:GetPos()
-		VJ.EmitSound(self, "vj_hlr/hl1_npc/squeek/sqk_blast1.wav", 90)
+		VJ.EmitSound(self, "vj_hlr/gsrc/npc/squeek/sqk_blast1.wav", 90)
 		
 		if self.Snark_Type == SNARK_TYPE_REGULAR then
 			VJ.ApplyRadiusDamage(self, self, myPos, 50, 15, DMG_ACID, true, true)
@@ -153,9 +153,9 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				util.Effect("bloodspray", effectData)
 			end
 		elseif self.Snark_Type == SNARK_TYPE_PENGUIN then
-			VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3, 5)..".wav", 90)
-			VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1, 3)..".wav", 100)
-			VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
+			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3, 5)..".wav", 90)
+			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris"..math.random(1, 3)..".wav", 100)
+			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
 			util.BlastDamage(self, self, myPos, 80, 35)
 			if self.HasGibOnDeathEffects then
 				local effectData = EffectData()

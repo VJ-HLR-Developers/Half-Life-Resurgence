@@ -17,41 +17,41 @@ ENT.ControllerParams = {
 ENT.IsMedic = false
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 
-ENT.SoundTbl_FootStep = "vj_hlr/hl1_npc/keller/wheelchair_walk.wav"
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/keller/dk_idle0.wav", "vj_hlr/hl1_npc/keller/dk_idle1.wav", "vj_hlr/hl1_npc/keller/dk_idle3.wav", "vj_hlr/hl1_npc/keller/dk_idle4.wav", "vj_hlr/hl1_npc/keller/dk_04_letssee.wav"}
-ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/keller/dk_01_kleiner.wav", "vj_hlr/hl1_npc/keller/dk_hevchair.wav", "vj_hlr/hl1_npc/keller/dk_idle2.wav", "vj_hlr/hl1_npc/keller/dk_rugurinate.wav"}
-ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/keller/dk_iknowyouare.wav", "vj_hlr/hl1_npc/keller/dk_stare0.wav"}
-ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/keller/dk_help0.wav", "vj_hlr/hl1_npc/keller/dk_help1.wav", "vj_hlr/hl1_npc/keller/dk_help2.wav", "vj_hlr/hl1_npc/keller/dk_fear0.wav", "vj_hlr/hl1_npc/keller/dk_fear1.wav", "vj_hlr/hl1_npc/keller/dk_fear2.wav", "vj_hlr/hl1_npc/keller/dk_fear3.wav", "vj_hlr/hl1_npc/keller/dk_fear4.wav", "vj_hlr/hl1_npc/keller/dk_fear5.wav", "vj_hlr/hl1_npc/keller/dk_fear6.wav"}
-ENT.SoundTbl_FollowPlayer = {"vj_hlr/hl1_npc/keller/dk_stare1.wav", "vj_hlr/hl1_npc/keller/dk_stare2.wav", "vj_hlr/hl1_npc/keller/dk_04_goonway.wav", "vj_hlr/hl1_npc/keller/dk_04_onwaythen.wav", "vj_hlr/hl1_npc/keller/dk_leads0.wav", "vj_hlr/hl1_npc/keller/dk_ok0.wav", "vj_hlr/hl1_npc/keller/dk_ok1.wav", "vj_hlr/hl1_npc/keller/dk_ok2.wav"}
-ENT.SoundTbl_UnFollowPlayer = {"vj_hlr/hl1_npc/keller/dk_plfear2.wav", "vj_hlr/hl1_npc/keller/dk_wait0.wav", "vj_hlr/hl1_npc/keller/dk_wait1.wav", "vj_hlr/hl1_npc/keller/dk_wait2.wav", "vj_hlr/hl1_npc/keller/dk_wait3.wav"}
-ENT.SoundTbl_OnPlayerSight = {"vj_hlr/hl1_npc/keller/dk_hello0.wav", "vj_hlr/hl1_npc/keller/dk_hello1.wav", "vj_hlr/hl1_npc/keller/dk_hello2.wav", "vj_hlr/hl1_npc/keller/dk_hello3.wav", "vj_hlr/hl1_npc/keller/dk_hello4.wav", "vj_hlr/hl1_npc/keller/dk_01_late.wav", "vj_hlr/hl1_npc/keller/dk_newstuff.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/keller/dk_04_monsters.wav", "vj_hlr/hl1_npc/keller/dk_help0.wav", "vj_hlr/hl1_npc/keller/dk_help1.wav", "vj_hlr/hl1_npc/keller/dk_help2.wav"}
-ENT.SoundTbl_BecomeEnemyToPlayer = "vj_hlr/hl1_npc/keller/dk_screwyou.wav"
-ENT.SoundTbl_DangerSight = {"vj_hlr/hl1_npc/keller/dk_fear0.wav", "vj_hlr/hl1_npc/keller/dk_fear1.wav", "vj_hlr/hl1_npc/keller/dk_fear2.wav", "vj_hlr/hl1_npc/keller/dk_fear3.wav", "vj_hlr/hl1_npc/keller/dk_fear4.wav", "vj_hlr/hl1_npc/keller/dk_fear5.wav", "vj_hlr/hl1_npc/keller/dk_fear6.wav"}
-ENT.SoundTbl_AllyDeath = "vj_hlr/hl1_npc/keller/dk_condolences.wav"
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/keller/dk_pain1.wav", "vj_hlr/hl1_npc/keller/dk_pain2.wav", "vj_hlr/hl1_npc/keller/dk_pain3.wav", "vj_hlr/hl1_npc/keller/dk_pain4.wav", "vj_hlr/hl1_npc/keller/dk_pain5.wav", "vj_hlr/hl1_npc/keller/dk_pain6.wav", "vj_hlr/hl1_npc/keller/dk_pain7.wav"}
-ENT.SoundTbl_DamageByPlayer = {"vj_hlr/hl1_npc/keller/dk_plfear0.wav", "vj_hlr/hl1_npc/keller/dk_plfear1.wav", "vj_hlr/hl1_npc/keller/dk_plfear3.wav", "vj_hlr/hl1_npc/keller/dk_scared0.wav", "vj_hlr/hl1_npc/keller/dk_scared1.wav", "vj_hlr/hl1_npc/keller/dk_scared2.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/keller/dk_die1.wav", "vj_hlr/hl1_npc/keller/dk_die2.wav", "vj_hlr/hl1_npc/keller/dk_die3.wav", "vj_hlr/hl1_npc/keller/dk_die3.wav", "vj_hlr/hl1_npc/keller/dk_die4.wav", "vj_hlr/hl1_npc/keller/dk_die5.wav", "vj_hlr/hl1_npc/keller/dk_die6.wav", "vj_hlr/hl1_npc/keller/dk_die7.wav"}
+ENT.SoundTbl_FootStep = "vj_hlr/gsrc/npc/keller/wheelchair_walk.wav"
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/keller/dk_idle0.wav", "vj_hlr/gsrc/npc/keller/dk_idle1.wav", "vj_hlr/gsrc/npc/keller/dk_idle3.wav", "vj_hlr/gsrc/npc/keller/dk_idle4.wav", "vj_hlr/gsrc/npc/keller/dk_04_letssee.wav"}
+ENT.SoundTbl_IdleDialogue = {"vj_hlr/gsrc/npc/keller/dk_01_kleiner.wav", "vj_hlr/gsrc/npc/keller/dk_hevchair.wav", "vj_hlr/gsrc/npc/keller/dk_idle2.wav", "vj_hlr/gsrc/npc/keller/dk_rugurinate.wav"}
+ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/gsrc/npc/keller/dk_iknowyouare.wav", "vj_hlr/gsrc/npc/keller/dk_stare0.wav"}
+ENT.SoundTbl_CombatIdle = {"vj_hlr/gsrc/npc/keller/dk_help0.wav", "vj_hlr/gsrc/npc/keller/dk_help1.wav", "vj_hlr/gsrc/npc/keller/dk_help2.wav", "vj_hlr/gsrc/npc/keller/dk_fear0.wav", "vj_hlr/gsrc/npc/keller/dk_fear1.wav", "vj_hlr/gsrc/npc/keller/dk_fear2.wav", "vj_hlr/gsrc/npc/keller/dk_fear3.wav", "vj_hlr/gsrc/npc/keller/dk_fear4.wav", "vj_hlr/gsrc/npc/keller/dk_fear5.wav", "vj_hlr/gsrc/npc/keller/dk_fear6.wav"}
+ENT.SoundTbl_FollowPlayer = {"vj_hlr/gsrc/npc/keller/dk_stare1.wav", "vj_hlr/gsrc/npc/keller/dk_stare2.wav", "vj_hlr/gsrc/npc/keller/dk_04_goonway.wav", "vj_hlr/gsrc/npc/keller/dk_04_onwaythen.wav", "vj_hlr/gsrc/npc/keller/dk_leads0.wav", "vj_hlr/gsrc/npc/keller/dk_ok0.wav", "vj_hlr/gsrc/npc/keller/dk_ok1.wav", "vj_hlr/gsrc/npc/keller/dk_ok2.wav"}
+ENT.SoundTbl_UnFollowPlayer = {"vj_hlr/gsrc/npc/keller/dk_plfear2.wav", "vj_hlr/gsrc/npc/keller/dk_wait0.wav", "vj_hlr/gsrc/npc/keller/dk_wait1.wav", "vj_hlr/gsrc/npc/keller/dk_wait2.wav", "vj_hlr/gsrc/npc/keller/dk_wait3.wav"}
+ENT.SoundTbl_OnPlayerSight = {"vj_hlr/gsrc/npc/keller/dk_hello0.wav", "vj_hlr/gsrc/npc/keller/dk_hello1.wav", "vj_hlr/gsrc/npc/keller/dk_hello2.wav", "vj_hlr/gsrc/npc/keller/dk_hello3.wav", "vj_hlr/gsrc/npc/keller/dk_hello4.wav", "vj_hlr/gsrc/npc/keller/dk_01_late.wav", "vj_hlr/gsrc/npc/keller/dk_newstuff.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/keller/dk_04_monsters.wav", "vj_hlr/gsrc/npc/keller/dk_help0.wav", "vj_hlr/gsrc/npc/keller/dk_help1.wav", "vj_hlr/gsrc/npc/keller/dk_help2.wav"}
+ENT.SoundTbl_BecomeEnemyToPlayer = "vj_hlr/gsrc/npc/keller/dk_screwyou.wav"
+ENT.SoundTbl_DangerSight = {"vj_hlr/gsrc/npc/keller/dk_fear0.wav", "vj_hlr/gsrc/npc/keller/dk_fear1.wav", "vj_hlr/gsrc/npc/keller/dk_fear2.wav", "vj_hlr/gsrc/npc/keller/dk_fear3.wav", "vj_hlr/gsrc/npc/keller/dk_fear4.wav", "vj_hlr/gsrc/npc/keller/dk_fear5.wav", "vj_hlr/gsrc/npc/keller/dk_fear6.wav"}
+ENT.SoundTbl_AllyDeath = "vj_hlr/gsrc/npc/keller/dk_condolences.wav"
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/keller/dk_pain1.wav", "vj_hlr/gsrc/npc/keller/dk_pain2.wav", "vj_hlr/gsrc/npc/keller/dk_pain3.wav", "vj_hlr/gsrc/npc/keller/dk_pain4.wav", "vj_hlr/gsrc/npc/keller/dk_pain5.wav", "vj_hlr/gsrc/npc/keller/dk_pain6.wav", "vj_hlr/gsrc/npc/keller/dk_pain7.wav"}
+ENT.SoundTbl_DamageByPlayer = {"vj_hlr/gsrc/npc/keller/dk_plfear0.wav", "vj_hlr/gsrc/npc/keller/dk_plfear1.wav", "vj_hlr/gsrc/npc/keller/dk_plfear3.wav", "vj_hlr/gsrc/npc/keller/dk_scared0.wav", "vj_hlr/gsrc/npc/keller/dk_scared1.wav", "vj_hlr/gsrc/npc/keller/dk_scared2.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/keller/dk_die1.wav", "vj_hlr/gsrc/npc/keller/dk_die2.wav", "vj_hlr/gsrc/npc/keller/dk_die3.wav", "vj_hlr/gsrc/npc/keller/dk_die3.wav", "vj_hlr/gsrc/npc/keller/dk_die4.wav", "vj_hlr/gsrc/npc/keller/dk_die5.wav", "vj_hlr/gsrc/npc/keller/dk_die6.wav", "vj_hlr/gsrc/npc/keller/dk_die7.wav"}
 
 /*
 -- Can't reach player, unfollow
-vj_hlr/hl1_npc/keller/dk_stop0.wav
-vj_hlr/hl1_npc/keller/dk_stop1.wav
-vj_hlr/hl1_npc/keller/dk_stop2.wav
+vj_hlr/gsrc/npc/keller/dk_stop0.wav
+vj_hlr/gsrc/npc/keller/dk_stop1.wav
+vj_hlr/gsrc/npc/keller/dk_stop2.wav
 
--- vj_hlr/hl1_npc/keller/dk_01_cascade.wav ---> vj_hlr/hl1_npc/keller/dk_01_gottodeal.wav
--- vj_hlr/hl1_npc/keller/dk_01_needspect.wav ---> vj_hlr/hl1_npc/keller/dk_04_excellent.wav
-vj_hlr/hl1_npc/keller/dk_04_ididit.wav
-vj_hlr/hl1_npc/keller/dk_04_interfere.wav
--- vj_hlr/hl1_npc/keller/dk_04_otherdamp.wav ---> vj_hlr/hl1_npc/keller/dk_12_whenstart.wav
-vj_hlr/hl1_npc/keller/dk_furher.wav
-vj_hlr/hl1_npc/keller/dk_kellerfrog.wav
-vj_hlr/hl1_npc/keller/dk_leads1.wav
-vj_hlr/hl1_npc/keller/dk_leads2.wav
+-- vj_hlr/gsrc/npc/keller/dk_01_cascade.wav ---> vj_hlr/gsrc/npc/keller/dk_01_gottodeal.wav
+-- vj_hlr/gsrc/npc/keller/dk_01_needspect.wav ---> vj_hlr/gsrc/npc/keller/dk_04_excellent.wav
+vj_hlr/gsrc/npc/keller/dk_04_ididit.wav
+vj_hlr/gsrc/npc/keller/dk_04_interfere.wav
+-- vj_hlr/gsrc/npc/keller/dk_04_otherdamp.wav ---> vj_hlr/gsrc/npc/keller/dk_12_whenstart.wav
+vj_hlr/gsrc/npc/keller/dk_furher.wav
+vj_hlr/gsrc/npc/keller/dk_kellerfrog.wav
+vj_hlr/gsrc/npc/keller/dk_leads1.wav
+vj_hlr/gsrc/npc/keller/dk_leads2.wav
 
-vj_hlr/hl1_npc/keller/wheelchair_jog.wav
-vj_hlr/hl1_npc/keller/wheelchair_run.wav
-vj_hlr/hl1_npc/keller/wheelchair_walk.wav
+vj_hlr/gsrc/npc/keller/wheelchair_jog.wav
+vj_hlr/gsrc/npc/keller/wheelchair_run.wav
+vj_hlr/gsrc/npc/keller/wheelchair_walk.wav
 */
 
 ENT.SCI_Type = 3

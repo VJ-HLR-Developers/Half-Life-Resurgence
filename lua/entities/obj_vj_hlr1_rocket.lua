@@ -45,8 +45,8 @@ ENT.RadiusDamageType = DMG_BLAST
 ENT.RadiusDamageForce = 90
 ENT.RemoveDelay = 6
 ENT.CollisionDecal = {"VJ_HLR1_Scorch"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_weapon/rpg/rocket1.wav"}
-ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/explosion/explode3.wav","vj_hlr/hl1_weapon/explosion/explode4.wav","vj_hlr/hl1_weapon/explosion/explode5.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/wep/rpg/rocket1.wav"}
+ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/wep/explosion/explode3.wav","vj_hlr/gsrc/wep/explosion/explode4.wav","vj_hlr/gsrc/wep/explosion/explode5.wav"}
 ENT.OnCollideSoundLevel = 100
 
 -- Custom
@@ -142,8 +142,8 @@ function ENT:OnDestroy(data, phys)
 	if IsValid(self.StartGlow1) then self.StartGlow1:Remove() end
 	
 	self:SetNW2Bool("VJ_Dead", true)
-	VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 80, 100)
-	VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100, 100, 1)
+	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris"..math.random(1,3)..".wav", 80, 100)
+	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100, 100, 1)
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model","vj_hl/sprites/zerogxplode.vmt")
 	spr:SetKeyValue("GlowProxySize","2.0")

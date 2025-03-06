@@ -5,7 +5,7 @@ SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category = "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 0.8
-SWEP.NPC_ReloadSound = {"vj_hlr/hl1_weapon/glock/glock_reload.wav"}
+SWEP.NPC_ReloadSound = {"vj_hlr/gsrc/wep/glock/glock_reload.wav"}
 SWEP.NPC_CanBePickedUp = false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
@@ -22,8 +22,8 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as t
 SWEP.Primary.Damage = 5
 SWEP.Primary.ClipSize = 17
 SWEP.Primary.Ammo = "Pistol"
-SWEP.Primary.Sound = {"vj_hlr/hl1_weapon/glock/glock_regular.wav"}
-SWEP.Primary.DistantSound = {"vj_hlr/hl1_weapon/glock/glock_distant2.wav"}
+SWEP.Primary.Sound = {"vj_hlr/gsrc/wep/glock/glock_regular.wav"}
+SWEP.Primary.DistantSound = {"vj_hlr/gsrc/wep/glock/glock_distant2.wav"}
 SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
@@ -51,7 +51,7 @@ function SWEP:Init()
 			self.NPC_NextPrimaryFire = false
 			local model = self:GetOwner():GetModel()
 			if model == "models/vj_hlr/hl1/barney.mdl" or model == "models/vj_hlr/hla/barney.mdl" or model == "models/vj_hlr/cracklife/barney.mdl" then
-				self.Primary.Sound = "vj_hlr/hl1_npc/barney/ba_attack2.wav"
+				self.Primary.Sound = "vj_hlr/gsrc/npc/barney/ba_attack2.wav"
 				self.WorldModel_CustomPositionAngle = Vector(0, 192, -90)
 				self.WorldModel_CustomPositionOrigin = Vector(-1.5, -7, -1)
 				if model == "models/vj_hlr/hla/barney.mdl" then

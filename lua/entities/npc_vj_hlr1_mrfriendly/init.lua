@@ -42,12 +42,12 @@ ENT.HasExtraMeleeAttackSounds = true
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/friendly/fr_groan1.wav", "vj_hlr/hl1_npc/friendly/fr_groan2.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = "vj_hlr/hl1_npc/friendly/fr_attack.wav"
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_BeforeRangeAttack = "vj_hlr/hl1_npc/friendly/fr_attack.wav"
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/friendly/fr_groan1.wav", "vj_hlr/hl1_npc/friendly/fr_groan2.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/friendly/fr_groan1.wav", "vj_hlr/hl1_npc/friendly/fr_groan2.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/friendly/fr_groan1.wav", "vj_hlr/gsrc/npc/friendly/fr_groan2.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = "vj_hlr/gsrc/npc/friendly/fr_attack.wav"
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_BeforeRangeAttack = "vj_hlr/gsrc/npc/friendly/fr_attack.wav"
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/friendly/fr_groan1.wav", "vj_hlr/gsrc/npc/friendly/fr_groan2.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/friendly/fr_groan1.wav", "vj_hlr/gsrc/npc/friendly/fr_groan2.wav"}
 
 ENT.PainSoundPitch = VJ.SET(150, 150)
 ENT.DeathSoundPitch = VJ.SET(150, 150)
@@ -65,7 +65,7 @@ function ENT:OnInput(key, activator, caller, data)
 	elseif key == "vomitdmg" then
 		self:ExecuteRangeAttack()
 	elseif key == "body" then
-		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

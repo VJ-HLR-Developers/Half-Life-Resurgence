@@ -37,14 +37,14 @@ ENT.DeathAnimationTime = 16
 ENT.IdleSoundsWhileAttacking = true
 ENT.HasSoundTrack = true
 
-ENT.SoundTbl_SoundTrack = {"vj_hlr/hl1_npc/nihilanth/Prospero03.mp3"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/x/x_laugh1.wav", "vj_hlr/hl1_npc/x/x_laugh2.wav"}
-ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/nihilanth/nil_man_notman.wav", "vj_hlr/hl1_npc/nihilanth/nil_win.wav", "vj_hlr/hl1_npc/nihilanth/nil_slaves.wav", "vj_hlr/hl1_npc/nihilanth/nil_thelast.wav", "vj_hlr/hl1_npc/nihilanth/nil_thetruth.wav", "vj_hlr/hl1_npc/nihilanth/nil_thieves.wav", "vj_hlr/hl1_npc/nihilanth/nil_last.wav", "vj_hlr/hl1_npc/nihilanth/nil_die.wav", "vj_hlr/hl1_npc/nihilanth/nil_alone.wav", "vj_hlr/hl1_npc/nihilanth/nil_deceive.wav", "vj_hlr/hl1_npc/nihilanth/nil_now_die.wav", "vj_hlr/hl1_npc/x/x_laugh1.wav", "vj_hlr/hl1_npc/x/x_laugh2.wav"}
-ENT.SoundTbl_Alert = "vj_hlr/hl1_npc/nihilanth/nil_comes.wav"
-ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/x/x_attack1.wav", "vj_hlr/hl1_npc/x/x_attack2.wav", "vj_hlr/hl1_npc/x/x_attack3.wav"}
-ENT.SoundTbl_RangeAttack = "vj_hlr/hl1_npc/x/x_shoot1.wav"
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/x/x_pain1.wav", "vj_hlr/hl1_npc/x/x_pain2.wav", "vj_hlr/hl1_npc/x/x_pain3.wav"}
-ENT.SoundTbl_Death = "vj_hlr/hl1_npc/x/x_die1.wav"
+ENT.SoundTbl_SoundTrack = {"vj_hlr/gsrc/npc/nihilanth/Prospero03.mp3"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/x/x_laugh1.wav", "vj_hlr/gsrc/npc/x/x_laugh2.wav"}
+ENT.SoundTbl_CombatIdle = {"vj_hlr/gsrc/npc/nihilanth/nil_man_notman.wav", "vj_hlr/gsrc/npc/nihilanth/nil_win.wav", "vj_hlr/gsrc/npc/nihilanth/nil_slaves.wav", "vj_hlr/gsrc/npc/nihilanth/nil_thelast.wav", "vj_hlr/gsrc/npc/nihilanth/nil_thetruth.wav", "vj_hlr/gsrc/npc/nihilanth/nil_thieves.wav", "vj_hlr/gsrc/npc/nihilanth/nil_last.wav", "vj_hlr/gsrc/npc/nihilanth/nil_die.wav", "vj_hlr/gsrc/npc/nihilanth/nil_alone.wav", "vj_hlr/gsrc/npc/nihilanth/nil_deceive.wav", "vj_hlr/gsrc/npc/nihilanth/nil_now_die.wav", "vj_hlr/gsrc/npc/x/x_laugh1.wav", "vj_hlr/gsrc/npc/x/x_laugh2.wav"}
+ENT.SoundTbl_Alert = "vj_hlr/gsrc/npc/nihilanth/nil_comes.wav"
+ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/gsrc/npc/x/x_attack1.wav", "vj_hlr/gsrc/npc/x/x_attack2.wav", "vj_hlr/gsrc/npc/x/x_attack3.wav"}
+ENT.SoundTbl_RangeAttack = "vj_hlr/gsrc/npc/x/x_shoot1.wav"
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/x/x_pain1.wav", "vj_hlr/gsrc/npc/x/x_pain2.wav", "vj_hlr/gsrc/npc/x/x_pain3.wav"}
+ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/x/x_die1.wav"
 
 ENT.NextSoundTime_Idle = VJ.SET(14, 20)
 
@@ -158,9 +158,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
 	if math.random(1, 2) == 1 && ent:IsPlayer() then
-		self.SoundTbl_Alert = "vj_hlr/hl1_npc/nihilanth/nil_freeman.wav"
+		self.SoundTbl_Alert = "vj_hlr/gsrc/npc/nihilanth/nil_freeman.wav"
 	else
-		self.SoundTbl_Alert = "vj_hlr/hl1_npc/nihilanth/nil_comes.wav"
+		self.SoundTbl_Alert = "vj_hlr/gsrc/npc/nihilanth/nil_comes.wav"
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -221,7 +221,7 @@ function ENT:Nih_NotifyCrystalChange(crystal)
 	-- Check if all crystals are removed
 	if !self.Dead && self.Nih_CrystalsDestroyed == false && !IsValid(self.Nih_Crystal1) && !IsValid(self.Nih_Crystal2) && !IsValid(self.Nih_Crystal3) then
 		self.Nih_CrystalsDestroyed = true
-		VJ.EmitSound(self, "vj_hlr/hl1_npc/nihilanth/nil_done.wav", 120)
+		VJ.EmitSound(self, "vj_hlr/gsrc/npc/nihilanth/nil_done.wav", 120)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -494,7 +494,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		timer.Simple(14, function()
 			if IsValid(self) then
 				ParticleEffect("vj_hlr_nihilanth_deathorbs_white", self:GetAttachment(self:LookupAttachment("0")).Pos, self:GetAngles())
-				VJ.EmitSound(self, "vj_hlr/hl1_npc/x/nih_die2.wav", 120)
+				VJ.EmitSound(self, "vj_hlr/gsrc/npc/x/nih_die2.wav", 120)
 				
 				timer.Simple(1, function()
 					if IsValid(self) then

@@ -331,7 +331,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hl2/Floor_turret_gib3.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 30)),  CollisionSound=sdGibCollide})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hl2/Floor_turret_gib4.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 35)),  CollisionSound=sdGibCollide})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hl2/Floor_turret_gib5.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 37)),  CollisionSound=sdGibCollide})
-	self:PlaySoundSystem("Gib", "vj_hlr/hl2_npc/turret/detonate.wav")
+	self:PlaySoundSystem("Gib", "vj_hlr/src/npc/turret/detonate.wav")
 	return true, {AllowSound = false}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

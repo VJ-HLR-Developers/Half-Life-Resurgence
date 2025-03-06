@@ -12,7 +12,7 @@ SWEP.NPC_CustomSpread = 0.3
 SWEP.NPC_FiringDistanceScale = 2.5
 SWEP.NPC_StandingOnly = true
 	-- ====== Reload Variables ====== --
-SWEP.NPC_ReloadSound = "vj_hlr/hl2_weapon/sniper_rifle/reload1.wav"
+SWEP.NPC_ReloadSound = "vj_hlr/src/wep/sniper_rifle/reload1.wav"
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_hlr/hl2b/weapons/w_sniper.mdl"
@@ -24,5 +24,5 @@ SWEP.Primary.Damage = 100
 SWEP.Primary.Force = 1.6
 SWEP.Primary.ClipSize = 1
 SWEP.Primary.Ammo = "357"
-SWEP.Primary.Sound = "vj_hlr/hl2_weapon/sniper_rifle/fire1.wav"
+SWEP.Primary.Sound = "vj_hlr/src/wep/sniper_rifle/fire1.wav"
 SWEP.Primary.DistantSound = {"vj_base/weapons/ssg08/ssg08_single_dist1.wav", "vj_base/weapons/ssg08/ssg08_single_dist2.wav", "vj_base/weapons/ssg08/ssg08_single_dist3.wav", "vj_base/weapons/ssg08/ssg08_single_dist4.wav"}

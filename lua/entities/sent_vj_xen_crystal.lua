@@ -20,8 +20,8 @@ if (!SERVER) then return end
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.Assignee = NULL -- Is another entity the owner of this crystal?
 
-local sdHit = {"vj_hlr/fx/glass1.wav", "vj_hlr/fx/glass2.wav", "vj_hlr/fx/glass3"}
-local sdBreak = {"vj_hlr/fx/bustglass1.wav", "vj_hlr/fx/bustglass2.wav"}
+local sdHit = {"vj_hlr/gsrc/fx/glass1.wav", "vj_hlr/gsrc/fx/glass2.wav", "vj_hlr/gsrc/fx/glass3"}
+local sdBreak = {"vj_hlr/gsrc/fx/bustglass1.wav", "vj_hlr/gsrc/fx/bustglass2.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Initialize()
 	if !IsValid(self.Assignee) then
@@ -48,7 +48,7 @@ function ENT:Initialize()
 	dynamicLight:Fire("TurnOn")
 	self:DeleteOnRemove(dynamicLight)
 	
-	self.IdleSd = CreateSound(self, "vj_hlr/fx/alien_cycletone.wav")
+	self.IdleSd = CreateSound(self, "vj_hlr/gsrc/fx/alien_cycletone.wav")
 	self.IdleSd:SetSoundLevel(80)
 	self.IdleSd:Play()
 
@@ -99,7 +99,7 @@ function ENT:OnTakeDamage(dmginfo)
 		spr:Fire("Kill","",0.9)
 	
 		VJ.ApplyRadiusDamage(self, self, myPos, 100, 50, DMG_NERVEGAS, true, true)
-		self:EmitSound("vj_hlr/fx/xtal_down1.wav", 100)
+		self:EmitSound("vj_hlr/gsrc/fx/xtal_down1.wav", 100)
 		self:EmitSound(VJ.PICK(sdBreak), 70)
 		self:Remove()
 	end

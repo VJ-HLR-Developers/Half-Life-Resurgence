@@ -47,15 +47,15 @@ ENT.HasExtraMeleeAttackSounds = true
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = "vjseq_flinch_small"
 
-ENT.SoundTbl_Breath = "vj_hlr/hl1_npc/kingpin/kingpin_seeker_amb.wav"
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/kingpin/kingpin_move.wav", "vj_hlr/hl1_npc/kingpin/kingpin_moveslow.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/kingpin/kingpin_idle1.wav", "vj_hlr/hl1_npc/kingpin/kingpin_idle2.wav", "vj_hlr/hl1_npc/kingpin/kingpin_idle3.wav",}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/kingpin/kingpin_alert1.wav", "vj_hlr/hl1_npc/kingpin/kingpin_alert2.wav", "vj_hlr/hl1_npc/kingpin/kingpin_alert3.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/kingpin/kingpin_pain1.wav", "vj_hlr/hl1_npc/kingpin/kingpin_pain2.wav", "vj_hlr/hl1_npc/kingpin/kingpin_pain3.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/kingpin/kingpin_death1.wav", "vj_hlr/hl1_npc/kingpin/kingpin_death2.wav"}
+ENT.SoundTbl_Breath = "vj_hlr/gsrc/npc/kingpin/kingpin_seeker_amb.wav"
+ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/kingpin/kingpin_move.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_moveslow.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/kingpin/kingpin_idle1.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_idle2.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_idle3.wav",}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/kingpin/kingpin_alert1.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_alert2.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_alert3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/kingpin/kingpin_pain1.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_pain2.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_pain3.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/kingpin/kingpin_death1.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_death2.wav"}
 
-local scanSd = {"vj_hlr/hl1_npc/kingpin/kingpin_seeker1.wav", "vj_hlr/hl1_npc/kingpin/kingpin_seeker2.wav", "vj_hlr/hl1_npc/kingpin/kingpin_seeker3.wav"}
+local scanSd = {"vj_hlr/gsrc/npc/kingpin/kingpin_seeker1.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_seeker2.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_seeker3.wav"}
 
 ENT.MainSoundPitch = 100
 
@@ -74,7 +74,7 @@ end
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
-		VJ.EmitSound(self, "vj_hlr/hl1_weapon/crossbow/xbow_hit1.wav", 60, 140)
+		VJ.EmitSound(self, "vj_hlr/gsrc/wep/crossbow/xbow_hit1.wav", 60, 140)
 	elseif key == "attack left" or key == "attack right" then
 		self.MeleeAttackDamage = 15
 		self:ExecuteMeleeAttack()
@@ -84,7 +84,7 @@ function ENT:OnInput(key, activator, caller, data)
 	elseif key == "range distance" then
 		self:ExecuteRangeAttack()
 	//elseif key == "range psychic_loop" then
-		//VJ.EmitSound(self, "vj_hlr/hl1_npc/kingpin/port_suckout1.wav", 80, 140)
+		//VJ.EmitSound(self, "vj_hlr/gsrc/npc/kingpin/port_suckout1.wav", 80, 140)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -152,7 +152,7 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 			self.AttackType = VJ.ATTACK_TYPE_CUSTOM
 			self.GodMode = true
 			self:SetNW2Bool("PsionicEffect", true)
-			VJ.EmitSound(self, "vj_hlr/hl1_npc/kingpin/port_suckin1.wav", 80, 140) -- 3.08025
+			VJ.EmitSound(self, "vj_hlr/gsrc/npc/kingpin/port_suckin1.wav", 80, 140) -- 3.08025
 			self.KingPin_PsionicAttacking = true
 			self:PlayAnim(ACT_RANGE_ATTACK1_LOW, "LetAttacks", false, false)
 			self:SetState(VJ_STATE_ONLY_ANIMATION)
@@ -173,7 +173,7 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 			-- Used to match sounds up
 			timer.Simple(2.08025, function()
 				if IsValid(self) then
-					VJ.EmitSound(self, "vj_hlr/hl1_npc/kingpin/port_suckout1.wav", 80, 140) -- 2.7180
+					VJ.EmitSound(self, "vj_hlr/gsrc/npc/kingpin/port_suckout1.wav", 80, 140) -- 2.7180
 				end
 			end)
 			-- Used to throw the prop and reset

@@ -33,9 +33,9 @@ ENT.NextRangeAttackTime = 1.5
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.GibOnDeathFilter = false
 
-ENT.SoundTbl_Death = {"vj_hlr/fx/bustflesh1.wav", "vj_hlr/fx/bustflesh2.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/fx/bustflesh1.wav", "vj_hlr/gsrc/fx/bustflesh2.wav"}
 
-local SdTbl_GibImpact = {"vj_hlr/fx/flesh1.wav", "vj_hlr/fx/flesh2.wav", "vj_hlr/fx/flesh3.wav", "vj_hlr/fx/flesh4.wav", "vj_hlr/fx/flesh5.wav", "vj_hlr/fx/flesh6.wav", "vj_hlr/fx/flesh7.wav"}
+local SdTbl_GibImpact = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh4.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 
 ENT.MainSoundPitch = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -93,8 +93,8 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		util.Effect("VJ_HLR_Electric_Xen_Turretc", elec)
 		
 		VJ.ApplyRadiusDamage(self, self, hitPos, 10, 30, DMG_SHOCK, true, false, {Force=90})
-		VJ.EmitSound(self, "vj_hlr/hl1_npc/xenceiling_turret/beamstart10.wav", 90, 100)
-		//sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitPos, 60)
+		VJ.EmitSound(self, "vj_hlr/gsrc/npc/xenceiling_turret/beamstart10.wav", 90, 100)
+		//sound.Play("vj_hlr/gsrc/npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitPos, 60)
 		
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model", "vj_hl/sprites/xflare1.vmt")

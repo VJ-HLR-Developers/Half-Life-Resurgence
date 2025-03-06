@@ -6,8 +6,8 @@ SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire 		= false
 SWEP.NPC_CustomSpread	 		= 2.5
-SWEP.NPC_ReloadSound			= "vj_hlr/hl1_weapon/shotgun/shotgun_reload.wav"
-SWEP.NPC_ExtraFireSound			= "vj_hlr/hl1_weapon/shotgun/scock1.wav"
+SWEP.NPC_ReloadSound			= "vj_hlr/gsrc/wep/shotgun/shotgun_reload.wav"
+SWEP.NPC_ExtraFireSound			= "vj_hlr/gsrc/wep/shotgun/scock1.wav"
 SWEP.NPC_ExtraFireSoundTime		= 0.2
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -26,8 +26,8 @@ SWEP.Primary.Damage				= 5
 SWEP.Primary.NumberOfShots		= 5
 SWEP.Primary.ClipSize			= 8
 SWEP.Primary.Ammo				= "Buckshot"
-SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/shotgun/sbarrel1.wav"}
-SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/shotgun/sbarrel1_distant2.wav"}
+SWEP.Primary.Sound				= {"vj_hlr/gsrc/wep/shotgun/sbarrel1.wav"}
+SWEP.Primary.DistantSound		= {"vj_hlr/gsrc/wep/shotgun/sbarrel1_distant2.wav"}
 SWEP.PrimaryEffects_ShellType 	= "ShotgunShellEject"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false

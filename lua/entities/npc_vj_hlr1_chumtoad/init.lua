@@ -31,9 +31,9 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_BIG_FLINCH}
 
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/chumtoad/toad_hunt1.wav", "vj_hlr/hl1_npc/chumtoad/toad_hunt2.wav", "vj_hlr/hl1_npc/chumtoad/toad_hunt3.wav", "vj_hlr/hl1_npc/chumtoad/toad_deploy1.wav"}
-ENT.SoundTbl_Alert = "vj_hlr/hl1_npc/chumtoad/toad_idle1.wav"
-ENT.SoundTbl_Death = "vj_hlr/hl1_npc/chumtoad/toad_die1.wav"
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/chumtoad/toad_hunt1.wav", "vj_hlr/gsrc/npc/chumtoad/toad_hunt2.wav", "vj_hlr/gsrc/npc/chumtoad/toad_hunt3.wav", "vj_hlr/gsrc/npc/chumtoad/toad_deploy1.wav"}
+ENT.SoundTbl_Alert = "vj_hlr/gsrc/npc/chumtoad/toad_idle1.wav"
+ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/chumtoad/toad_die1.wav"
 
 ENT.MainSoundPitch = 100
 
@@ -102,7 +102,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib8.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(1,1,5))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib9.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0,0,6))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib10.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0,0,7))})
-	self:PlaySoundSystem("Gib", "vj_hlr/hl1_npc/chumtoad/toad_blast1.wav")
+	self:PlaySoundSystem("Gib", "vj_hlr/gsrc/npc/chumtoad/toad_blast1.wav")
 	return true, {AllowSound = false}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

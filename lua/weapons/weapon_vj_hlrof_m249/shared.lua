@@ -6,7 +6,7 @@ SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire 		= false
 SWEP.NPC_CustomSpread	 		= 2.5
-SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/saw/saw_reload2.wav"}
+SWEP.NPC_ReloadSound			= {"vj_hlr/gsrc/wep/saw/saw_reload2.wav"}
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true
@@ -22,8 +22,8 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as t
 SWEP.Primary.Damage				= 8
 SWEP.Primary.ClipSize			= 50
 SWEP.Primary.Ammo				= "SMG1"
-SWEP.Primary.Sound				= {"vj_hlr/hl1_weapon/saw/saw_fire1.wav","vj_hlr/hl1_weapon/saw/saw_fire2.wav","vj_hlr/hl1_weapon/saw/saw_fire3.wav"}
-SWEP.Primary.DistantSound		= {"vj_hlr/hl1_weapon/saw/saw_distant2.wav"}
+SWEP.Primary.Sound				= {"vj_hlr/gsrc/wep/saw/saw_fire1.wav","vj_hlr/gsrc/wep/saw/saw_fire2.wav","vj_hlr/gsrc/wep/saw/saw_fire3.wav"}
+SWEP.Primary.DistantSound		= {"vj_hlr/gsrc/wep/saw/saw_distant2.wav"}
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
 

@@ -44,9 +44,9 @@ ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 
-ENT.SoundTbl_Idle = "vj_hlr/hl1_npc/barnacle/bcl_tongue1.wav"
-ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/barnacle/bcl_chew1.wav", "vj_hlr/hl1_npc/barnacle/bcl_chew2.wav", "vj_hlr/hl1_npc/barnacle/bcl_chew3.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/barnacle/bcl_die1.wav", "vj_hlr/hl1_npc/barnacle/bcl_die3.wav"}
+ENT.SoundTbl_Idle = "vj_hlr/gsrc/npc/barnacle/bcl_tongue1.wav"
+ENT.SoundTbl_MeleeAttack = {"vj_hlr/gsrc/npc/barnacle/bcl_chew1.wav", "vj_hlr/gsrc/npc/barnacle/bcl_chew2.wav", "vj_hlr/gsrc/npc/barnacle/bcl_chew3.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/barnacle/bcl_die1.wav", "vj_hlr/gsrc/npc/barnacle/bcl_die3.wav"}
 
 ENT.MainSoundPitch = 100
 
@@ -127,7 +127,7 @@ function ENT:Barnacle_CalculateTongue()
 		if height >= 50 then
 			trHitEnt:SetPos(Vector(trHitPos.x, trHitPos.y, (trHitEnt:GetPos() + trHitEnt:GetUp() * 5).z)) -- Set the position for the enemy
 			if CurTime() > self.Barnacle_NextPullSoundT then -- Play the pulling sound
-				VJ.EmitSound(self, "vj_hlr/hl1_npc/barnacle/bcl_alert2.wav")
+				VJ.EmitSound(self, "vj_hlr/gsrc/npc/barnacle/bcl_alert2.wav")
 				self.Barnacle_NextPullSoundT = CurTime() + 2.7950113378685 // Magic number is the sound duration of "bcl_alert2.wav"
 			end
 		end
@@ -175,7 +175,7 @@ end
 end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
-	VJ.EmitSound(self, "vj_hlr/hl1_npc/barnacle/bcl_bite3.wav")
+	VJ.EmitSound(self, "vj_hlr/gsrc/npc/barnacle/bcl_bite3.wav")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)

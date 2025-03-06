@@ -16,19 +16,19 @@ ENT.ControllerParams = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 
-ENT.SoundTbl_Breath = "vj_hlr/hl1_npc/tanks/abrams_idle_loop.wav"
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/hgrunt/gr_idle1.wav", "vj_hlr/hl1_npc/hgrunt/gr_idle2.wav", "vj_hlr/hl1_npc/hgrunt/gr_idle3.wav"}
-ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/hgrunt/gr_taunt1.wav", "vj_hlr/hl1_npc/hgrunt/gr_taunt2.wav", "vj_hlr/hl1_npc/hgrunt/gr_taunt3.wav", "vj_hlr/hl1_npc/hgrunt/gr_taunt4.wav", "vj_hlr/hl1_npc/hgrunt/gr_taunt5.wav", "vj_hlr/hl1_npc/hgrunt/gr_combat1.wav", "vj_hlr/hl1_npc/hgrunt/gr_combat2.wav", "vj_hlr/hl1_npc/hgrunt/gr_combat3.wav", "vj_hlr/hl1_npc/hgrunt/gr_combat4.wav"}
-ENT.SoundTbl_ReceiveOrder = {"vj_hlr/hl1_npc/hgrunt/gr_answer1.wav", "vj_hlr/hl1_npc/hgrunt/gr_answer2.wav", "vj_hlr/hl1_npc/hgrunt/gr_answer3.wav", "vj_hlr/hl1_npc/hgrunt/gr_answer5.wav", "vj_hlr/hl1_npc/hgrunt/gr_answer7.wav"}
-ENT.SoundTbl_Investigate = {"vj_hlr/hl1_npc/hgrunt/gr_investigate.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/hgrunt/gr_alert1.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert2.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert3.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert4.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert5.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert6.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert7.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert8.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert9.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert10.wav"}
-ENT.SoundTbl_CallForHelp = {"vj_hlr/hl1_npc/hgrunt/gr_taunt6.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover2.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover3.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover4.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover7.wav"}
-ENT.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/hgrunt/gr_allydeath.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover2.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover3.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover4.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover7.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
+ENT.SoundTbl_Breath = "vj_hlr/gsrc/npc/tanks/abrams_idle_loop.wav"
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/hgrunt/gr_idle1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_idle2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_idle3.wav"}
+ENT.SoundTbl_CombatIdle = {"vj_hlr/gsrc/npc/hgrunt/gr_taunt1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_taunt2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_taunt3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_taunt4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_taunt5.wav", "vj_hlr/gsrc/npc/hgrunt/gr_combat1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_combat2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_combat3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_combat4.wav"}
+ENT.SoundTbl_ReceiveOrder = {"vj_hlr/gsrc/npc/hgrunt/gr_answer1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer5.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer7.wav"}
+ENT.SoundTbl_Investigate = {"vj_hlr/gsrc/npc/hgrunt/gr_investigate.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/hgrunt/gr_alert1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert5.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert6.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert7.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert8.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert9.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert10.wav"}
+ENT.SoundTbl_CallForHelp = {"vj_hlr/gsrc/npc/hgrunt/gr_taunt6.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover7.wav"}
+ENT.SoundTbl_AllyDeath = {"vj_hlr/gsrc/npc/hgrunt/gr_allydeath.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover7.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/wep/explosion/explode3.wav", "vj_hlr/gsrc/wep/explosion/explode4.wav", "vj_hlr/gsrc/wep/explosion/explode5.wav"}
 
 -- Tank Base
-ENT.Tank_SoundTbl_DrivingEngine = "vj_hlr/hl1_npc/tanks/tankdrive.wav"
-ENT.Tank_SoundTbl_Track = "vj_hlr/hl1_npc/tanks/tanktrack.wav"
+ENT.Tank_SoundTbl_DrivingEngine = "vj_hlr/gsrc/npc/tanks/tankdrive.wav"
+ENT.Tank_SoundTbl_Track = "vj_hlr/gsrc/npc/tanks/tanktrack.wav"
 
 ENT.Tank_GunnerENT = "npc_vj_hlr1_m1a1abrams_gun"
 ENT.Tank_CollisionBoundSize = 110
@@ -76,8 +76,8 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 		timer.Simple(i, function()
 			if IsValid(self) then
 				VJ.EmitSound(self, self.SoundTbl_Death, 100)
-				VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 100)
-				VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris"..math.random(1,3)..".wav", 100)
+				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
 				util.BlastDamage(self, self, self:GetPos(), 200, 40)
 				util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
 				
@@ -107,8 +107,8 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 			VJ.EmitSound(self, self.SoundTbl_Death, 100)
 			util.BlastDamage(self, self, self:GetPos(), 200, 40)
 			util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
-			VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1,3)..".wav", 100)
-			VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris"..math.random(1,3)..".wav", 100)
+			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
 			local spr = ents.Create("env_sprite")
 			spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 			spr:SetKeyValue("GlowProxySize", "2.0")
@@ -143,7 +143,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local metalCollideSD = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
+local metalCollideSD = {"vj_hlr/gsrc/fx/metal1.wav", "vj_hlr/gsrc/fx/metal2.wav", "vj_hlr/gsrc/fx/metal3.wav", "vj_hlr/gsrc/fx/metal4.wav", "vj_hlr/gsrc/fx/metal5.wav"}
 --
 function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpseEnt, status, statusData)
 	if status == "Override" then

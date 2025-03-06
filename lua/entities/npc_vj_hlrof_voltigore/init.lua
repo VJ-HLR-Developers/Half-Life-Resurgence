@@ -41,19 +41,19 @@ ENT.DeathAnimationTime = false
 ENT.DisableFootStepSoundTimer = true
 ENT.HasExtraMeleeAttackSounds = true
 
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/voltigore/voltigore_footstep1.wav", "vj_hlr/hl1_npc/voltigore/voltigore_footstep2.wav", "vj_hlr/hl1_npc/voltigore/voltigore_footstep3.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/voltigore/voltigore_idle1.wav", "vj_hlr/hl1_npc/voltigore/voltigore_idle2.wav", "vj_hlr/hl1_npc/voltigore/voltigore_idle3.wav"}
-ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/voltigore/voltigore_communicate1.wav", "vj_hlr/hl1_npc/voltigore/voltigore_communicate2.wav", "vj_hlr/hl1_npc/voltigore/voltigore_communicate3.wav"}
-ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/voltigore/voltigore_communicate1.wav", "vj_hlr/hl1_npc/voltigore/voltigore_communicate2.wav", "vj_hlr/hl1_npc/voltigore/voltigore_communicate3.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/voltigore/voltigore_alert1.wav", "vj_hlr/hl1_npc/voltigore/voltigore_alert2.wav", "vj_hlr/hl1_npc/voltigore/voltigore_alert3.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/voltigore/voltigore_attack_melee1.wav", "vj_hlr/hl1_npc/voltigore/voltigore_attack_melee2.wav"}
-ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav", "vj_hlr/hl1_npc/zombie/claw_strike2.wav", "vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/voltigore/voltigore_attack_shock.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/voltigore/voltigore_pain1.wav", "vj_hlr/hl1_npc/voltigore/voltigore_pain2.wav", "vj_hlr/hl1_npc/voltigore/voltigore_pain3.wav", "vj_hlr/hl1_npc/voltigore/voltigore_pain4.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/voltigore/voltigore_die1.wav", "vj_hlr/hl1_npc/voltigore/voltigore_die2.wav", "vj_hlr/hl1_npc/voltigore/voltigore_die3.wav"}
+ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/voltigore/voltigore_footstep1.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_footstep2.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_footstep3.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/voltigore/voltigore_idle1.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_idle2.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_idle3.wav"}
+ENT.SoundTbl_IdleDialogue = {"vj_hlr/gsrc/npc/voltigore/voltigore_communicate1.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_communicate2.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_communicate3.wav"}
+ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/gsrc/npc/voltigore/voltigore_communicate1.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_communicate2.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_communicate3.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/voltigore/voltigore_alert1.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_alert2.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_alert3.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/gsrc/npc/voltigore/voltigore_attack_melee1.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_attack_melee2.wav"}
+ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/gsrc/npc/zombie/claw_strike1.wav", "vj_hlr/gsrc/npc/zombie/claw_strike2.wav", "vj_hlr/gsrc/npc/zombie/claw_strike3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/gsrc/npc/voltigore/voltigore_attack_shock.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/voltigore/voltigore_pain1.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_pain2.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_pain3.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_pain4.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/voltigore/voltigore_die1.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_die2.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_die3.wav"}
 
-local extraMoveSd = {"vj_hlr/hl1_npc/voltigore/voltigore_run_grunt1.wav", "vj_hlr/hl1_npc/voltigore/voltigore_run_grunt2.wav"}
+local extraMoveSd = {"vj_hlr/gsrc/npc/voltigore/voltigore_run_grunt1.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_run_grunt2.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(60, 60, 95), Vector(-60, -60, 0))
@@ -171,7 +171,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib9.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 25))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib10.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 15))})
 	
-	VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1, 3)..".wav", 90, 100) -- No far away sound for this!
+	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris"..math.random(1, 3)..".wav", 90, 100) -- No far away sound for this!
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end

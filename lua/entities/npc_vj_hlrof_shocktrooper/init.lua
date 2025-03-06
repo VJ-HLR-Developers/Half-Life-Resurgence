@@ -45,15 +45,15 @@ ENT.DisableFootStepSoundTimer = true
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/player/boots1.wav", "vj_hlr/hl1_npc/player/boots2.wav", "vj_hlr/hl1_npc/player/boots3.wav", "vj_hlr/hl1_npc/player/boots4.wav"}
-ENT.SoundTbl_Idle = "vj_hlr/hl1_npc/shocktrooper/st_idle.wav"
-ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/shocktrooper/st_question1.wav", "vj_hlr/hl1_npc/shocktrooper/st_question2.wav"}
-ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/shocktrooper/st_answer1.wav", "vj_hlr/hl1_npc/shocktrooper/st_answer2.wav"}
-ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/shocktrooper/st_combat1.wav", "vj_hlr/hl1_npc/shocktrooper/st_combat2.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/shocktrooper/st_alert1.wav", "vj_hlr/hl1_npc/shocktrooper/st_alert2.wav", "vj_hlr/hl1_npc/shocktrooper/st_alert3.wav", "vj_hlr/hl1_npc/shocktrooper/st_alert4.wav"}
-ENT.SoundTbl_GrenadeAttack = "vj_hlr/hl1_npc/shocktrooper/st_grenadethrow.wav"
-ENT.SoundTbl_DangerSight = "vj_hlr/hl1_npc/shocktrooper/st_runfromgrenade.wav"
-ENT.SoundTbl_KilledEnemy = "vj_hlr/hl1_npc/shocktrooper/st_combat1.wav"
+ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/player/boots1.wav", "vj_hlr/gsrc/npc/player/boots2.wav", "vj_hlr/gsrc/npc/player/boots3.wav", "vj_hlr/gsrc/npc/player/boots4.wav"}
+ENT.SoundTbl_Idle = "vj_hlr/gsrc/npc/shocktrooper/st_idle.wav"
+ENT.SoundTbl_IdleDialogue = {"vj_hlr/gsrc/npc/shocktrooper/st_question1.wav", "vj_hlr/gsrc/npc/shocktrooper/st_question2.wav"}
+ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/gsrc/npc/shocktrooper/st_answer1.wav", "vj_hlr/gsrc/npc/shocktrooper/st_answer2.wav"}
+ENT.SoundTbl_CombatIdle = {"vj_hlr/gsrc/npc/shocktrooper/st_combat1.wav", "vj_hlr/gsrc/npc/shocktrooper/st_combat2.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/shocktrooper/st_alert1.wav", "vj_hlr/gsrc/npc/shocktrooper/st_alert2.wav", "vj_hlr/gsrc/npc/shocktrooper/st_alert3.wav", "vj_hlr/gsrc/npc/shocktrooper/st_alert4.wav"}
+ENT.SoundTbl_GrenadeAttack = "vj_hlr/gsrc/npc/shocktrooper/st_grenadethrow.wav"
+ENT.SoundTbl_DangerSight = "vj_hlr/gsrc/npc/shocktrooper/st_runfromgrenade.wav"
+ENT.SoundTbl_KilledEnemy = "vj_hlr/gsrc/npc/shocktrooper/st_combat1.wav"
 
 ENT.DangerSightSoundPitch = VJ.SET(105, 110)
 
@@ -80,7 +80,7 @@ function ENT:OnInput(key, activator, caller, data)
 			wep:NPCShoot_Primary()
 		end
 	elseif key == "body" then
-		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

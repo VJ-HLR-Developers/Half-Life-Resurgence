@@ -14,4 +14,4 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(4, 0, 1),
 }
 ENT.LeapAttackDamage = 100
-ENT.SoundTbl_LeapAttackJump = "vj_hlr/hla_npc/headcrab/hc_attack1.wav"
+ENT.SoundTbl_LeapAttackJump = "vj_hlr/gsrc/npc/headcrab_alpha/hc_attack1.wav"

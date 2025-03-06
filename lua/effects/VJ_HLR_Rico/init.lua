@@ -10,7 +10,7 @@ function EFFECT:Init(data) // You're welcome @DrVrej for not making the effect n
 	local Emitter = ParticleEmitter(self.Pos)
 	if Emitter == nil then return end
 
-	sound.Play("vj_hlr/fx/ric" .. math.random(1,5) .. ".wav",self.Pos,80,100)
+	sound.Play("vj_hlr/gsrc/fx/ric" .. math.random(1,5) .. ".wav",self.Pos,80,100)
 
 	if GetConVar("vj_hlr1_sparkfx"):GetInt() == 1 then
 		for i = 1,math.random(5,15) do

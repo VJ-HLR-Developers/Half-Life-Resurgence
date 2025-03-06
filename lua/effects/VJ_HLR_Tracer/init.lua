@@ -41,7 +41,7 @@ function EFFECT:Think()
 			endpos = self.EndPos
 		})
 		if tr.Hit && metalMat[tr.MatType] then
-			sound.Play("vj_hlr/fx/ric" .. math.random(1, 5) .. ".wav", self.EndPos, 80, 100)
+			sound.Play("vj_hlr/gsrc/fx/ric" .. math.random(1, 5) .. ".wav", self.EndPos, 80, 100)
 			local Emitter = ParticleEmitter(self.EndPos)
 			if GetConVar("vj_hlr1_sparkfx"):GetInt() == 1 then
 				for _ = 1, math.random(5, 15) do

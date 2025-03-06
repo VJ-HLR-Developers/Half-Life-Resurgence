@@ -46,8 +46,8 @@ ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = "death"
 ENT.HasExtraMeleeAttackSounds = true
 
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/geneworm/geneworm_idle1.wav", "vj_hlr/hl1_npc/geneworm/geneworm_idle2.wav", "vj_hlr/hl1_npc/geneworm/geneworm_idle3.wav", "vj_hlr/hl1_npc/geneworm/geneworm_idle4.wav"}
-ENT.SoundTbl_Death = "vj_hlr/hl1_npc/geneworm/geneworm_death.wav"
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/geneworm/geneworm_idle1.wav", "vj_hlr/gsrc/npc/geneworm/geneworm_idle2.wav", "vj_hlr/gsrc/npc/geneworm/geneworm_idle3.wav", "vj_hlr/gsrc/npc/geneworm/geneworm_idle4.wav"}
+ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/geneworm/geneworm_death.wav"
 
 ENT.BreathSoundLevel = 100
 ENT.IdleSoundLevel = 100
@@ -164,9 +164,9 @@ function ENT:Init()
 	self:DeleteOnRemove(self.GW_Portal)
 	
 	-- Portal ambient sounds
-	self.GW_Portal.MoveLP = CreateSound(self.GW_Portal, "vj_hlr/fx/alien_zonerator.wav")
+	self.GW_Portal.MoveLP = CreateSound(self.GW_Portal, "vj_hlr/gsrc/fx/alien_zonerator.wav")
 	self.GW_Portal.MoveLP:SetSoundLevel(100)
-	self.GW_Portal.IdleLP = CreateSound(self.GW_Portal, "vj_hlr/fx/alien_creeper.wav")
+	self.GW_Portal.IdleLP = CreateSound(self.GW_Portal, "vj_hlr/gsrc/fx/alien_creeper.wav")
 	self.GW_Portal.IdleLP:SetSoundLevel(100)
 
 	-- Fade in on spawn (Only if AI is enabled!)
@@ -196,7 +196,7 @@ function ENT:Init()
 		self.GW_Fade = 1
 		timer.Simple(0.01, function()
 			if IsValid(self) then
-				self:PlaySoundSystem("Alert", "vj_hlr/hl1_npc/geneworm/geneworm_entry.wav")
+				self:PlaySoundSystem("Alert", "vj_hlr/gsrc/npc/geneworm/geneworm_entry.wav")
 				self:PlayAnim(ACT_ARM, true, false)
 			end
 		end)
@@ -265,7 +265,7 @@ function ENT:MeleeAttackKnockbackVelocity(hitEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local meleeAngCos = math.cos(math.rad(40))
-local sdMeleeReg = {"vj_hlr/hl1_npc/geneworm/geneworm_attack_mounted_gun.wav", "vj_hlr/hl1_npc/geneworm/geneworm_attack_mounted_rocket.wav"}
+local sdMeleeReg = {"vj_hlr/gsrc/npc/geneworm/geneworm_attack_mounted_gun.wav", "vj_hlr/gsrc/npc/geneworm/geneworm_attack_mounted_rocket.wav"}
 --
 function ENT:OnMeleeAttack(status, enemy)
 	if status == "Init" then
@@ -276,7 +276,7 @@ function ENT:OnMeleeAttack(status, enemy)
 		if math.random(1, 2) == 1 then
 			self.AnimTbl_MeleeAttack = ACT_SPECIAL_ATTACK1
 			self.GW_MeleeNegKnockback = false
-			self.SoundTbl_BeforeMeleeAttack = "vj_hlr/hl1_npc/geneworm/geneworm_big_attack_forward.wav"
+			self.SoundTbl_BeforeMeleeAttack = "vj_hlr/gsrc/npc/geneworm/geneworm_big_attack_forward.wav"
 		else
 			self.GW_MeleeNegKnockback = true
 			self.SoundTbl_BeforeMeleeAttack = sdMeleeReg
@@ -298,7 +298,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttack(status, enemy)
 	if status == "Init" then
-		self:PlaySoundSystem("BeforeMeleeAttack", "vj_hlr/hl1_npc/geneworm/geneworm_beam_attack.wav", VJ.EmitSound)
+		self:PlaySoundSystem("BeforeMeleeAttack", "vj_hlr/gsrc/npc/geneworm/geneworm_beam_attack.wav", VJ.EmitSound)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -327,7 +327,7 @@ end
 function ENT:GW_OrbOpenReset()
 	if self.Dead then return end
 	timer.Remove("gw_closestomach"..self:EntIndex())
-	self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain4.wav")
+	self:PlaySoundSystem("Pain", "vj_hlr/gsrc/npc/geneworm/geneworm_final_pain4.wav")
 	self.SoundTbl_Breath = nil
 	VJ.STOPSOUND(self.CurrentBreathSound)
 	self.GW_OrbOpen = false
@@ -364,12 +364,12 @@ function ENT:GW_EyeHealthCheck()
 			self.GW_OrbOpen = true
 			self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
 			self:PlayAnim("pain_1", true, false)
-			self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain1.wav")
-			self.SoundTbl_Breath = "vj_hlr/hl1_npc/geneworm/geneworm_final_pain2.wav"
+			self:PlaySoundSystem("Pain", "vj_hlr/gsrc/npc/geneworm/geneworm_final_pain1.wav")
+			self.SoundTbl_Breath = "vj_hlr/gsrc/npc/geneworm/geneworm_final_pain2.wav"
 			/*timer.Simple(VJ.AnimDuration(self, "pain_1"),function()
 				if IsValid(self) then
 					self:PlayAnim("pain_2", true, false)
-					self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain2.wav")
+					self:PlaySoundSystem("Pain", "vj_hlr/gsrc/npc/geneworm/geneworm_final_pain2.wav")
 				end
 			end)*/
 			-- Update the class tables for all the bullseyes in case it changed
@@ -389,12 +389,12 @@ function ENT:GW_EyeHealthCheck()
 	elseif r <= 0 then
 		self.GW_EyeLightR:Fire("TurnOff")
 		self.GW_BE_EyeR:AddFlags(FL_NOTARGET)
-		self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_shot_in_eye.wav")
+		self:PlaySoundSystem("Pain", "vj_hlr/gsrc/npc/geneworm/geneworm_shot_in_eye.wav")
 		self:SetSkin(2)
 	elseif l <= 0 then
 		self.GW_EyeLightL:Fire("TurnOff")
 		self.GW_BE_EyeL:AddFlags(FL_NOTARGET)
-		self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_shot_in_eye.wav")
+		self:PlaySoundSystem("Pain", "vj_hlr/gsrc/npc/geneworm/geneworm_shot_in_eye.wav")
 		self:SetSkin(1)
 	end
 end
@@ -430,7 +430,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 				self.SoundTbl_Breath = nil
 				VJ.STOPSOUND(self.CurrentBreathSound)
 				self.NextPainSoundT = 0 -- Otherwise it won't play the sound because it played another pain sound right before this!
-				self:PlaySoundSystem("Pain", "vj_hlr/hl1_npc/geneworm/geneworm_final_pain3.wav")
+				self:PlaySoundSystem("Pain", "vj_hlr/gsrc/npc/geneworm/geneworm_final_pain3.wav")
 				self:PlayAnim("pain_3", true, false)
 				timer.Simple(VJ.AnimDuration(self, "pain_3"),function()
 					if IsValid(self) then

@@ -36,13 +36,13 @@ ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Max = "UseRangeDistance"
 ENT.LimitChaseDistance_Min = "UseRangeDistance"
 
-ENT.SoundTbl_Breath = "vj_hlr/hl1_npc/sphere/sph_motor1.wav"
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/sphere/sph_idle1.wav", "vj_hlr/hl1_npc/sphere/sph_idle2.wav"}
-ENT.SoundTbl_Alert = "vj_hlr/hl1_npc/sphere/sph_alert1.wav"
-ENT.SoundTbl_BeforeRangeAttack = "vj_hlr/fx/zap4.wav"
-ENT.SoundTbl_RangeAttack = "vj_hlr/hl1_npc/hassault/hw_shoot1.wav"
-ENT.SoundTbl_Pain = "vj_hlr/hl1_npc/sphere/sph_pain1.wav"
-ENT.SoundTbl_Death = "vj_hlr/hl1_npc/sphere/sph_pain1.wav"
+ENT.SoundTbl_Breath = "vj_hlr/gsrc/npc/sphere/sph_motor1.wav"
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/sphere/sph_idle1.wav", "vj_hlr/gsrc/npc/sphere/sph_idle2.wav"}
+ENT.SoundTbl_Alert = "vj_hlr/gsrc/npc/sphere/sph_alert1.wav"
+ENT.SoundTbl_BeforeRangeAttack = "vj_hlr/gsrc/fx/zap4.wav"
+ENT.SoundTbl_RangeAttack = "vj_hlr/gsrc/npc/hassault/hw_shoot1.wav"
+ENT.SoundTbl_Pain = "vj_hlr/gsrc/npc/sphere/sph_pain1.wav"
+ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/sphere/sph_pain1.wav"
 
 ENT.MainSoundPitch = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------

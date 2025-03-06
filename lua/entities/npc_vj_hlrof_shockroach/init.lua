@@ -18,13 +18,13 @@ ENT.ControllerParams = {
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
 ENT.DisableFootStepSoundTimer = true
 
-ENT.SoundTbl_FootStep = "vj_hlr/hl1_npc/shockroach/shock_walk.wav"
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/shockroach/shock_idle1.wav", "vj_hlr/hl1_npc/shockroach/shock_idle2.wav", "vj_hlr/hl1_npc/shockroach/shock_idle3.wav"}
-ENT.SoundTbl_Alert = "vj_hlr/hl1_npc/shockroach/shock_angry.wav"
-ENT.SoundTbl_LeapAttackJump = {"vj_hlr/hl1_npc/shockroach/shock_jump1.wav", "vj_hlr/hl1_npc/shockroach/shock_jump2.wav"}
-ENT.SoundTbl_LeapAttackDamage = "vj_hlr/hl1_npc/shockroach/shock_bite.wav"
-ENT.SoundTbl_Pain = "vj_hlr/hl1_npc/shockroach/shock_flinch.wav"
-ENT.SoundTbl_Death = "vj_hlr/hl1_npc/shockroach/shock_die.wav"
+ENT.SoundTbl_FootStep = "vj_hlr/gsrc/npc/shockroach/shock_walk.wav"
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/shockroach/shock_idle1.wav", "vj_hlr/gsrc/npc/shockroach/shock_idle2.wav", "vj_hlr/gsrc/npc/shockroach/shock_idle3.wav"}
+ENT.SoundTbl_Alert = "vj_hlr/gsrc/npc/shockroach/shock_angry.wav"
+ENT.SoundTbl_LeapAttackJump = {"vj_hlr/gsrc/npc/shockroach/shock_jump1.wav", "vj_hlr/gsrc/npc/shockroach/shock_jump2.wav"}
+ENT.SoundTbl_LeapAttackDamage = "vj_hlr/gsrc/npc/shockroach/shock_bite.wav"
+ENT.SoundTbl_Pain = "vj_hlr/gsrc/npc/shockroach/shock_flinch.wav"
+ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/shockroach/shock_die.wav"
 
 -- Custom --
 ENT.SRoach_Life = nil

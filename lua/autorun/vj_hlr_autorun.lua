@@ -45,7 +45,6 @@ if VJExists == true then
 		VJ.AddNPC("Alpha Scientist", "npc_vj_hlr1a_scientist", spawnCategory)
 		VJ.AddNPC("Ivan the Space Biker", "npc_vj_hlr1a_ivan", spawnCategory)
 		VJ.AddNPC("Probe Droid", "npc_vj_hlr1a_probedroid", spawnCategory)
-		//VJ.AddNPC("Poly Robo", "npc_vj_hlr1a_techdemorobot", spawnCategory) -- Doesn't exist yet
 		
 	-- Black Mesa Weaponry
 	VJ.AddNPC("Black Mesa Ground Turret", "npc_vj_hlr1_gturret", spawnCategory)
@@ -86,7 +85,7 @@ if VJExists == true then
 	VJ.AddNPC("Headcrab (Baby)", "npc_vj_hlr1_headcrab_baby", spawnCategory)
 	VJ.AddNPC("Zombie", "npc_vj_hlr1_zombie", spawnCategory)
 	VJ.AddNPC("Flocking Floater", "npc_vj_hlr1_floater", spawnCategory)
-	VJ.AddNPC("Stukabat", "npc_vj_hlr1_stukabat", spawnCategory)
+	//VJ.AddNPC("Stukabat", "npc_vj_hlr1_stukabat", spawnCategory)
 	VJ.AddNPC("Alien Controller", "npc_vj_hlr1_aliencontroller", spawnCategory)
 	VJ.AddNPC("Alien Grunt", "npc_vj_hlr1_aliengrunt", spawnCategory)
 	VJ.AddNPC("Alien Slave", "npc_vj_hlr1_alienslave", spawnCategory)
@@ -163,42 +162,42 @@ if VJExists == true then
 	VJ.AddNPC_HUMAN("Rebel Engineer", "npc_vj_hlr2_rebel_engineer", {"weapon_vj_spas12", "weapon_vj_hlr2_chargebow"}, spawnCategory)
 	VJ.AddNPC_HUMAN("Rebel", "npc_vj_hlr2_rebel", {
 		-- 5 = Very common, 4 = Common, 3 = Uncommon, 2 = Rare, 1 = Very rare
-		"weapon_vj_smg1", 
-		"weapon_vj_smg1", 
-		"weapon_vj_smg1", 
-		"weapon_vj_smg1", 
-		"weapon_vj_smg1", 
-		"weapon_vj_ar2", 
-		"weapon_vj_ar2", 
-		"weapon_vj_ar2", 
-		"weapon_vj_ar2", 
-		"weapon_vj_spas12", 
-		"weapon_vj_spas12", 
-		"weapon_vj_spas12", 
-		"weapon_vj_ak47", 
-		"weapon_vj_ak47", 
-		"weapon_vj_ak47", 
-		"weapon_vj_m16a1", 
-		"weapon_vj_m16a1", 
-		"weapon_vj_m16a1", 
-		"weapon_vj_k3", 
-		"weapon_vj_k3", 
-		"weapon_vj_k3", 
-		"weapon_vj_crossbow", 
-		"weapon_vj_crossbow", 
-		"weapon_vj_mp40", 
-		"weapon_vj_mp40", 
-		"weapon_vj_hlr2b_oicw", 
-		"weapon_vj_hlr2b_oicw", 
-		"weapon_vj_9mmpistol", 
-		"weapon_vj_9mmpistol", 
-		"weapon_vj_357", 
-		"weapon_vj_357", 
-		"weapon_vj_glock17", 
-		"weapon_vj_glock17", 
-		//"weapon_vj_ssg08", 
-		"weapon_vj_hlr2b_sniper", 
-		"weapon_vj_rpg", 
+		"weapon_vj_smg1",
+		"weapon_vj_smg1",
+		"weapon_vj_smg1",
+		"weapon_vj_smg1",
+		"weapon_vj_smg1",
+		"weapon_vj_ar2",
+		"weapon_vj_ar2",
+		"weapon_vj_ar2",
+		"weapon_vj_ar2",
+		"weapon_vj_spas12",
+		"weapon_vj_spas12",
+		"weapon_vj_spas12",
+		"weapon_vj_ak47",
+		"weapon_vj_ak47",
+		"weapon_vj_ak47",
+		"weapon_vj_m16a1",
+		"weapon_vj_m16a1",
+		"weapon_vj_m16a1",
+		"weapon_vj_k3",
+		"weapon_vj_k3",
+		"weapon_vj_k3",
+		"weapon_vj_crossbow",
+		"weapon_vj_crossbow",
+		"weapon_vj_mp40",
+		"weapon_vj_mp40",
+		"weapon_vj_hlr2b_oicw",
+		"weapon_vj_hlr2b_oicw",
+		"weapon_vj_9mmpistol",
+		"weapon_vj_9mmpistol",
+		"weapon_vj_357",
+		"weapon_vj_357",
+		"weapon_vj_glock17",
+		"weapon_vj_glock17",
+		//"weapon_vj_ssg08",
+		"weapon_vj_hlr2b_sniper",
+		"weapon_vj_rpg",
 		"weapon_vj_hlr2_rpg"}, spawnCategory)
 	VJ.AddNPC_HUMAN("Alyx Vance", "npc_vj_hlr2_alyx", {"weapon_vj_hlr2_alyxgun"}, spawnCategory)
 	VJ.AddNPC_HUMAN("Barney Calhoun", "npc_vj_hlr2_barney", {"weapon_vj_smg1", "weapon_vj_smg1", "weapon_vj_smg1", "weapon_vj_ar2", "weapon_vj_ar2", "weapon_vj_spas12"}, spawnCategory)
@@ -353,7 +352,7 @@ sound.Add({
 	volume = 1.0,
 	level = 140,
 	pitch = {90, 110},
-	sound = {"^vj_hlr/hl2_weapon/alyx_gun/alyx_gun_fire5.wav", "^vj_hlr/hl2_weapon/alyx_gun/alyx_gun_fire6.wav"}
+	sound = {"^vj_hlr/src/wep/alyx_gun/alyx_gun_fire5.wav", "^vj_hlr/src/wep/alyx_gun/alyx_gun_fire6.wav"}
 })
 
 -- Annabelle
@@ -363,7 +362,7 @@ sound.Add({
 	volume = 1.0,
 	level = 140,
 	pitch = {90, 110},
-	sound = "^vj_hlr/hl2_weapon/annabelle/annabelle_single.wav"
+	sound = "^vj_hlr/src/wep/annabelle/annabelle_single.wav"
 })
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Precaches ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -457,9 +456,9 @@ sound.Add({
 		dynLight:Fire("TurnOn", "", 0)
 		//dynLight:Fire("Kill", "", 1)
 		
-		sound.Play("vj_hlr/fx/beamstart2.wav", pos, 85)
+		sound.Play("vj_hlr/gsrc/fx/beamstart2.wav", pos, 85)
 		timer.Simple(0.5, function()
-			sound.Play("vj_hlr/fx/beamstart4.wav", pos, 85) -- Play the spawn sound
+			sound.Play("vj_hlr/gsrc/fx/beamstart4.wav", pos, 85) -- Play the spawn sound
 			if onSpawn then onSpawn() end
 		end)
 		return spr
@@ -479,7 +478,7 @@ sound.Add({
 		spr:Spawn()
 		spr:Fire("Kill", "", 0.9)
 
-		sound.Play("vj_hlr/hl1_weapon/explosion/explode"..math.random(1, 3)..".wav", pos, 150)
+		sound.Play("vj_hlr/gsrc/wep/explosion/explode"..math.random(1, 3)..".wav", pos, 150)
 		return spr
 	end
 	---------------------------------------------------------------------------------------------------------------------------------------------

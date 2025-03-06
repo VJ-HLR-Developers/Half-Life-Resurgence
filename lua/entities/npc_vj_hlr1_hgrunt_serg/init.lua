@@ -16,7 +16,7 @@ ENT.Weapon_CanMoveFire = false
 ENT.CombatDamageResponse = false
 ENT.Weapon_RetreatDistance = 0
 
-ENT.SoundTbl_Breath = "vj_hlr/hl1_npc/hassault/hw_spin.wav"
+ENT.SoundTbl_Breath = "vj_hlr/gsrc/npc/hassault/hw_spin.wav"
 
 ENT.BreathSoundLevel = 80
 
@@ -52,7 +52,7 @@ function ENT:OnWeaponAttack()
 		self.NextWeaponAttackT = setTime -- Make it not shoot for the given time
 		self.NextBreathSoundT = setTime -- For the spinning sound
 		self:PlayAnim(ACT_ARM, true, 0.9, true)
-		VJ.EmitSound(self, "vj_hlr/hl1_npc/hassault/hw_spinup.wav", 80)
+		VJ.EmitSound(self, "vj_hlr/gsrc/npc/hassault/hw_spinup.wav", 80)
 		self.Serg_SpinUpT = CurTime() + 4
 	end
 end

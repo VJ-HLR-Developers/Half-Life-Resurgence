@@ -24,8 +24,8 @@ ENT.CanOpenDoors = false
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE
 ENT.HasMeleeAttack = false
 
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/protozoan/chirp03.wav", "vj_hlr/hl1_npc/protozoan/chirp04.wav", "vj_hlr/hl1_npc/protozoan/chirp05.wav", "vj_hlr/hl1_npc/protozoan/chirp06.wav", "vj_hlr/hl1_npc/protozoan/chirp07.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/protozoan/chirp03.wav", "vj_hlr/hl1_npc/protozoan/chirp04.wav", "vj_hlr/hl1_npc/protozoan/chirp05.wav", "vj_hlr/hl1_npc/protozoan/chirp06.wav", "vj_hlr/hl1_npc/protozoan/chirp07.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/protozoan/chirp03.wav", "vj_hlr/gsrc/npc/protozoan/chirp04.wav", "vj_hlr/gsrc/npc/protozoan/chirp05.wav", "vj_hlr/gsrc/npc/protozoan/chirp06.wav", "vj_hlr/gsrc/npc/protozoan/chirp07.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/protozoan/chirp03.wav", "vj_hlr/gsrc/npc/protozoan/chirp04.wav", "vj_hlr/gsrc/npc/protozoan/chirp05.wav", "vj_hlr/gsrc/npc/protozoan/chirp06.wav", "vj_hlr/gsrc/npc/protozoan/chirp07.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(28, 28, 65), Vector(-28, -28, 0))

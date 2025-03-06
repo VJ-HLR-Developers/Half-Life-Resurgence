@@ -26,12 +26,12 @@ ENT.DirectDamage = 5
 ENT.DirectDamageType = DMG_SLASH
 ENT.CollisionBehavior = VJ.PROJ_COLLISION_PERSIST
 ENT.CollisionDecal = "VJ_HLR1_Blood_Yellow"
-ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_npc/hornet/ag_hornethit1.wav", "vj_hlr/hl1_npc/hornet/ag_hornethit2.wav", "vj_hlr/hl1_npc/hornet/ag_hornethit3.wav"}
+ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/npc/hornet/ag_hornethit1.wav", "vj_hlr/gsrc/npc/hornet/ag_hornethit2.wav", "vj_hlr/gsrc/npc/hornet/ag_hornethit3.wav"}
 
 ENT.IdleSoundPitch = VJ.SET(100, 100)
 
-local sdIdle = {"vj_hlr/hl1_npc/hornet/ag_buzz1.wav", "vj_hlr/hl1_npc/hornet/ag_buzz2.wav", "vj_hlr/hl1_npc/hornet/ag_buzz3.wav"}
-local sdCollideAlpha = {"vj_hlr/hla_npc/hornet/ag_buzz1.wav", "vj_hlr/hla_npc/hornet/ag_buzz2.wav", "vj_hlr/hla_npc/hornet/ag_buzz3.wav"}
+local sdIdle = {"vj_hlr/gsrc/npc/hornet/ag_buzz1.wav", "vj_hlr/gsrc/npc/hornet/ag_buzz2.wav", "vj_hlr/gsrc/npc/hornet/ag_buzz3.wav"}
+local sdCollideAlpha = {"vj_hlr/gsrc/npc/hornet_alpha/ag_buzz1.wav", "vj_hlr/gsrc/npc/hornet_alpha/ag_buzz2.wav", "vj_hlr/gsrc/npc/hornet_alpha/ag_buzz3.wav"}
 
 local defVec = Vector(0, 0, 0)
 

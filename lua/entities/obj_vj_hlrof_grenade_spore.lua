@@ -29,7 +29,7 @@ ENT.RadiusDamage = 80
 ENT.RadiusDamageUseRealisticRadius = true
 ENT.RadiusDamageType = DMG_RADIATION
 ENT.RadiusDamageForce = 90
-ENT.SoundTbl_OnCollide = {"vj_hlr/hl1_weapon/sporelauncher/spore_hit1.wav", "vj_hlr/hl1_weapon/sporelauncher/spore_hit2.wav", "vj_hlr/hl1_weapon/sporelauncher/spore_hit3.wav"}
+ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/wep/sporelauncher/spore_hit1.wav", "vj_hlr/gsrc/wep/sporelauncher/spore_hit2.wav", "vj_hlr/gsrc/wep/sporelauncher/spore_hit3.wav"}
 
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:InitPhys()
@@ -68,7 +68,7 @@ local defAng = Angle(0, 0, 0)
 --
 function ENT:OnDestroy()
 	ParticleEffect("vj_hlr_spore", self:GetPos(), defAng, nil)
-	self:EmitSound("vj_hlr/hl1_weapon/sporelauncher/splauncher_impact.wav", 100, 100)
+	self:EmitSound("vj_hlr/gsrc/wep/sporelauncher/splauncher_impact.wav", 100, 100)
 	//ParticleEffect("vj_hl_spore_splash1", self:GetPos(), defAng, nil)
 	//ParticleEffect("vj_hl_spore_splash2", self:GetPos(), defAng, nil)
 	

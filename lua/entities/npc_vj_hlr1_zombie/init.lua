@@ -40,14 +40,14 @@ ENT.FlinchHitGroupMap = {
 	{HitGroup={HITGROUP_RIGHTLEG}, Animation={ACT_FLINCH_RIGHTLEG}}
 }
 
-ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav", "vj_hlr/pl_step2.wav", "vj_hlr/pl_step3.wav", "vj_hlr/pl_step4.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/zombie/zo_idle1.wav", "vj_hlr/hl1_npc/zombie/zo_idle2.wav", "vj_hlr/hl1_npc/zombie/zo_idle3.wav", "vj_hlr/hl1_npc/zombie/zo_idle4.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/zombie/zo_alert10.wav", "vj_hlr/hl1_npc/zombie/zo_alert20.wav", "vj_hlr/hl1_npc/zombie/zo_alert30.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/zombie/zo_attack1.wav", "vj_hlr/hl1_npc/zombie/zo_attack2.wav"}
-ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav", "vj_hlr/hl1_npc/zombie/claw_strike2.wav", "vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/zombie/zo_pain1.wav", "vj_hlr/hl1_npc/zombie/zo_pain2.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/zombie/zo_pain1.wav", "vj_hlr/hl1_npc/zombie/zo_pain2.wav"}
+ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/pl_step1.wav", "vj_hlr/gsrc/pl_step2.wav", "vj_hlr/gsrc/pl_step3.wav", "vj_hlr/gsrc/pl_step4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/zombie/zo_idle1.wav", "vj_hlr/gsrc/npc/zombie/zo_idle2.wav", "vj_hlr/gsrc/npc/zombie/zo_idle3.wav", "vj_hlr/gsrc/npc/zombie/zo_idle4.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/zombie/zo_alert10.wav", "vj_hlr/gsrc/npc/zombie/zo_alert20.wav", "vj_hlr/gsrc/npc/zombie/zo_alert30.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/gsrc/npc/zombie/zo_attack1.wav", "vj_hlr/gsrc/npc/zombie/zo_attack2.wav"}
+ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/gsrc/npc/zombie/claw_strike1.wav", "vj_hlr/gsrc/npc/zombie/claw_strike2.wav", "vj_hlr/gsrc/npc/zombie/claw_strike3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/zombie/zo_pain1.wav", "vj_hlr/gsrc/npc/zombie/zo_pain2.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/zombie/zo_pain1.wav", "vj_hlr/gsrc/npc/zombie/zo_pain2.wav"}
 
 ENT.MainSoundPitch = 100
 
@@ -70,7 +70,7 @@ function ENT:OnInput(key, activator, caller, data)
 		self.MeleeAttackDamage = self:GetActivity() == ACT_MELEE_ATTACK1 and 10 or 25
 		self:ExecuteMeleeAttack()
 	elseif key == "body" then
-		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

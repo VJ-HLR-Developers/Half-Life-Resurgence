@@ -43,18 +43,18 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DisableFootStepSoundTimer = true
 ENT.HasExtraMeleeAttackSounds = true
 
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/gonarch/gon_step1.wav", "vj_hlr/hl1_npc/gonarch/gon_step2.wav", "vj_hlr/hl1_npc/gonarch/gon_step3.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/gonarch/gon_sack1.wav", "vj_hlr/hl1_npc/gonarch/gon_sack2.wav", "vj_hlr/hl1_npc/gonarch/gon_sack3.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/gonarch/gon_alert1.wav", "vj_hlr/hl1_npc/gonarch/gon_alert2.wav", "vj_hlr/hl1_npc/gonarch/gon_alert3.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/gonarch/gon_attack1.wav", "vj_hlr/hl1_npc/gonarch/gon_attack2.wav", "vj_hlr/hl1_npc/gonarch/gon_attack3.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/gonarch/gon_attack1.wav", "vj_hlr/hl1_npc/gonarch/gon_attack2.wav", "vj_hlr/hl1_npc/gonarch/gon_attack3.wav"}
-ENT.SoundTbl_RangeAttack = {"vj_hlr/hl1_npc/gonarch/gon_sack1.wav", "vj_hlr/hl1_npc/gonarch/gon_sack2.wav", "vj_hlr/hl1_npc/gonarch/gon_sack3.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/gonarch/gon_pain2.wav", "vj_hlr/hl1_npc/gonarch/gon_pain4.wav", "vj_hlr/hl1_npc/gonarch/gon_pain5.wav"}
-ENT.SoundTbl_Death = "vj_hlr/hl1_npc/gonarch/gon_die1.wav"
+ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/gonarch/gon_step1.wav", "vj_hlr/gsrc/npc/gonarch/gon_step2.wav", "vj_hlr/gsrc/npc/gonarch/gon_step3.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/gonarch/gon_sack1.wav", "vj_hlr/gsrc/npc/gonarch/gon_sack2.wav", "vj_hlr/gsrc/npc/gonarch/gon_sack3.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/gonarch/gon_alert1.wav", "vj_hlr/gsrc/npc/gonarch/gon_alert2.wav", "vj_hlr/gsrc/npc/gonarch/gon_alert3.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/gsrc/npc/gonarch/gon_attack1.wav", "vj_hlr/gsrc/npc/gonarch/gon_attack2.wav", "vj_hlr/gsrc/npc/gonarch/gon_attack3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/gsrc/npc/gonarch/gon_attack1.wav", "vj_hlr/gsrc/npc/gonarch/gon_attack2.wav", "vj_hlr/gsrc/npc/gonarch/gon_attack3.wav"}
+ENT.SoundTbl_RangeAttack = {"vj_hlr/gsrc/npc/gonarch/gon_sack1.wav", "vj_hlr/gsrc/npc/gonarch/gon_sack2.wav", "vj_hlr/gsrc/npc/gonarch/gon_sack3.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/gonarch/gon_pain2.wav", "vj_hlr/gsrc/npc/gonarch/gon_pain4.wav", "vj_hlr/gsrc/npc/gonarch/gon_pain5.wav"}
+ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/gonarch/gon_die1.wav"
 
-local sdBirth = {"vj_hlr/hl1_npc/gonarch/gon_birth1.wav", "vj_hlr/hl1_npc/gonarch/gon_birth1.wav", "vj_hlr/hl1_npc/gonarch/gon_birth1.wav"}
-local sdBabyDeath = {"vj_hlr/hl1_npc/gonarch/gon_childdie1.wav", "vj_hlr/hl1_npc/gonarch/gon_childdie2.wav", "vj_hlr/hl1_npc/gonarch/gon_childdie3.wav"}
+local sdBirth = {"vj_hlr/gsrc/npc/gonarch/gon_birth1.wav", "vj_hlr/gsrc/npc/gonarch/gon_birth1.wav", "vj_hlr/gsrc/npc/gonarch/gon_birth1.wav"}
+local sdBabyDeath = {"vj_hlr/gsrc/npc/gonarch/gon_childdie1.wav", "vj_hlr/gsrc/npc/gonarch/gon_childdie2.wav", "vj_hlr/gsrc/npc/gonarch/gon_childdie3.wav"}
 
 ENT.AllyDeathSoundChance = 1
 

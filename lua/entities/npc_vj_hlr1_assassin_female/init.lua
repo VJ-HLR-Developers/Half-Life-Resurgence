@@ -51,7 +51,7 @@ ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 ENT.DeathAnimationTime = false
 ENT.CanTurnWhileMoving = false
 
-ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav", "vj_hlr/pl_step2.wav", "vj_hlr/pl_step3.wav", "vj_hlr/pl_step4.wav"}
+ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/pl_step1.wav", "vj_hlr/gsrc/pl_step2.wav", "vj_hlr/gsrc/pl_step3.wav", "vj_hlr/gsrc/pl_step4.wav"}
 
 ENT.FootstepSoundLevel = 55
 
@@ -84,9 +84,9 @@ function ENT:OnInput(key, activator, caller, data)
 			wep:NPCShoot_Primary()
 		end
 	elseif key == "land" then
-		VJ.EmitSound(self, "vj_hlr/hl1_npc/player/pl_jumpland2.wav", 70)
+		VJ.EmitSound(self, "vj_hlr/gsrc/npc/player/pl_jumpland2.wav", 70)
 	elseif key == "body" then
-		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -134,7 +134,7 @@ function ENT:OnThink()
 		end
 		-- Make it play a sound effect when it first starts cloaking, as seen here: https://github.com/ValveSoftware/halflife/blob/master/dlls/hassassin.cpp#L728
 		if prevClockLvl == 255 && cloakLvl < 255 then
-			VJ.EmitSound(self, "vj_hlr/fx/beamstart1.wav", 75, 100, 0.2, CHAN_BODY)
+			VJ.EmitSound(self, "vj_hlr/gsrc/fx/beamstart1.wav", 75, 100, 0.2, CHAN_BODY)
 		end
 	end
 	
@@ -155,7 +155,7 @@ function ENT:OnThink()
 	if self.BOA_OffGround == true && self:GetVelocity().z == 0 then -- Velocity is 0, so we have landed, play land anim
 		self.BOA_OffGround = false
 		self:PlayAnim(ACT_LAND, true, false, false)
-		//VJ.EmitSound(self,"vj_hlr/hl1_npc/player/pl_jumpland2.wav",80) -- Done through event now
+		//VJ.EmitSound(self,"vj_hlr/gsrc/npc/player/pl_jumpland2.wav",80) -- Done through event now
 	end
 	
 	-- Jump while attacking

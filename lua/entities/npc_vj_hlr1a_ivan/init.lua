@@ -39,22 +39,22 @@ ENT.Weapon_Strafe = false
 ENT.Weapon_CanReload = false
 ENT.CanTurnWhileMoving = false
 
-ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav", "vj_hlr/pl_step2.wav", "vj_hlr/pl_step3.wav", "vj_hlr/pl_step4.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hla_npc/doctor/hoot5.wav", "vj_hlr/hla_npc/doctor/hoot6.wav"}
-ENT.SoundTbl_IdleDialogue = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav", "vj_hlr/hla_npc/doctor/hoot5.wav", "vj_hlr/hla_npc/doctor/hoot6.wav"}
-ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav", "vj_hlr/hla_npc/doctor/hoot5.wav", "vj_hlr/hla_npc/doctor/hoot6.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav"}
-ENT.SoundTbl_FollowPlayer = "vj_hlr/hla_npc/doctor/hoot1.wav"
-ENT.SoundTbl_MedicReceiveHeal = "vj_hlr/hla_npc/doctor/hoot3.wav"
-ENT.SoundTbl_UnFollowPlayer = {"vj_hlr/hla_npc/doctor/hoot3.wav", "vj_hlr/hla_npc/doctor/hoot2.wav"}
-ENT.SoundTbl_BecomeEnemyToPlayer = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav"}
-ENT.SoundTbl_OnPlayerSight = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav", "vj_hlr/hla_npc/doctor/hoot4.wav", "vj_hlr/hla_npc/doctor/hoot5.wav", "vj_hlr/hla_npc/doctor/hoot6.wav"}
-ENT.SoundTbl_CombatIdle = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav", "vj_hlr/hla_npc/doctor/hoot4.wav"}
-ENT.SoundTbl_DangerSight = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav"}
-ENT.SoundTbl_KilledEnemy = {"vj_hlr/hla_npc/doctor/hoot5.wav", "vj_hlr/hla_npc/doctor/hoot6.wav"}
-ENT.SoundTbl_AllyDeath = {"vj_hlr/hla_npc/doctor/hoot1.wav", "vj_hlr/hla_npc/doctor/hoot2.wav", "vj_hlr/hla_npc/doctor/hoot3.wav", "vj_hlr/hla_npc/doctor/hoot4.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hla_npc/doctor/pl_pain2.wav", "vj_hlr/hla_npc/doctor/pl_pain4.wav", "vj_hlr/hla_npc/doctor/pl_pain5.wav", "vj_hlr/hla_npc/doctor/pl_pain6.wav", "vj_hlr/hla_npc/doctor/pl_pain7.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hla_npc/doctor/pl_pain2.wav", "vj_hlr/hla_npc/doctor/pl_pain4.wav", "vj_hlr/hla_npc/doctor/pl_pain5.wav", "vj_hlr/hla_npc/doctor/pl_pain6.wav", "vj_hlr/hla_npc/doctor/pl_pain7.wav"}
+ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/pl_step1.wav", "vj_hlr/gsrc/pl_step2.wav", "vj_hlr/gsrc/pl_step3.wav", "vj_hlr/gsrc/pl_step4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/ivan_alpha/hoot5.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot6.wav"}
+ENT.SoundTbl_IdleDialogue = {"vj_hlr/gsrc/npc/ivan_alpha/hoot1.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot2.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot3.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot5.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot6.wav"}
+ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/gsrc/npc/ivan_alpha/hoot1.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot2.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot3.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot5.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot6.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/ivan_alpha/hoot1.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot2.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot3.wav"}
+ENT.SoundTbl_FollowPlayer = "vj_hlr/gsrc/npc/ivan_alpha/hoot1.wav"
+ENT.SoundTbl_MedicReceiveHeal = "vj_hlr/gsrc/npc/ivan_alpha/hoot3.wav"
+ENT.SoundTbl_UnFollowPlayer = {"vj_hlr/gsrc/npc/ivan_alpha/hoot3.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot2.wav"}
+ENT.SoundTbl_BecomeEnemyToPlayer = {"vj_hlr/gsrc/npc/ivan_alpha/hoot1.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot2.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot3.wav"}
+ENT.SoundTbl_OnPlayerSight = {"vj_hlr/gsrc/npc/ivan_alpha/hoot1.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot2.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot3.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot4.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot5.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot6.wav"}
+ENT.SoundTbl_CombatIdle = {"vj_hlr/gsrc/npc/ivan_alpha/hoot1.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot2.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot3.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot4.wav"}
+ENT.SoundTbl_DangerSight = {"vj_hlr/gsrc/npc/ivan_alpha/hoot1.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot2.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot3.wav"}
+ENT.SoundTbl_KilledEnemy = {"vj_hlr/gsrc/npc/ivan_alpha/hoot5.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot6.wav"}
+ENT.SoundTbl_AllyDeath = {"vj_hlr/gsrc/npc/ivan_alpha/hoot1.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot2.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot3.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot4.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/ivan_alpha/pl_pain2.wav", "vj_hlr/gsrc/npc/ivan_alpha/pl_pain4.wav", "vj_hlr/gsrc/npc/ivan_alpha/pl_pain5.wav", "vj_hlr/gsrc/npc/ivan_alpha/pl_pain6.wav", "vj_hlr/gsrc/npc/ivan_alpha/pl_pain7.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/ivan_alpha/pl_pain2.wav", "vj_hlr/gsrc/npc/ivan_alpha/pl_pain4.wav", "vj_hlr/gsrc/npc/ivan_alpha/pl_pain5.wav", "vj_hlr/gsrc/npc/ivan_alpha/pl_pain6.wav", "vj_hlr/gsrc/npc/ivan_alpha/pl_pain7.wav"}
 
 -- Custom
 ENT.Ivan_LastBodyGroup = 1
@@ -73,7 +73,7 @@ function ENT:OnInput(key, activator, caller, data)
 			wep:NPCShoot_Primary()
 		end
 	elseif key == "body" then
-		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

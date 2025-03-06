@@ -42,7 +42,7 @@ function ENT:Tank_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local bulletSpread = Vector(0.03490, 0.03490, 0.03490)
-local sdFiringGun = {"vj_hlr/hl2_weapon/hmg1/hmg1_7.wav", "vj_hlr/hl2_weapon/hmg1/hmg1_8.wav", "vj_hlr/hl2_weapon/hmg1/hmg1_9.wav"}
+local sdFiringGun = {"vj_hlr/src/wep/hmg1/hmg1_7.wav", "vj_hlr/src/wep/hmg1/hmg1_8.wav", "vj_hlr/src/wep/hmg1/hmg1_9.wav"}
 --
 function ENT:Tank_OnThinkActive()
 	local ene = self:GetEnemy()

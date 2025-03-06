@@ -28,11 +28,11 @@ ENT.YieldToAlliedPlayers = false
 ENT.HasOnPlayerSight = true
 ENT.DisableFootStepSoundTimer = true
 
-ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav", "vj_hlr/pl_step2.wav", "vj_hlr/pl_step3.wav", "vj_hlr/pl_step4.wav"}
-ENT.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/gman/gman_nasty.wav", "vj_hlr/hl1_npc/gman/gman_choose1.wav", "vj_hlr/hl1_npc/gman/gman_choose2.wav", "vj_hlr/hl1_npc/gman/gman_otherwise.wav"}
-ENT.SoundTbl_FollowPlayer = {"vj_hlr/hl1_npc/gman/gman_potential.wav", "vj_hlr/hl1_npc/gman/gman_wise.wav"}
-ENT.SoundTbl_UnFollowPlayer = {"vj_hlr/hl1_npc/gman/gman_nowork.wav", "vj_hlr/hl1_npc/gman/gman_noreg.wav"}
-ENT.SoundTbl_OnPlayerSight = "vj_hlr/hl1_npc/gman/gman_suit.wav"
+ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/pl_step1.wav", "vj_hlr/gsrc/pl_step2.wav", "vj_hlr/gsrc/pl_step3.wav", "vj_hlr/gsrc/pl_step4.wav"}
+ENT.SoundTbl_IdleDialogue = {"vj_hlr/gsrc/npc/gman/gman_nasty.wav", "vj_hlr/gsrc/npc/gman/gman_choose1.wav", "vj_hlr/gsrc/npc/gman/gman_choose2.wav", "vj_hlr/gsrc/npc/gman/gman_otherwise.wav"}
+ENT.SoundTbl_FollowPlayer = {"vj_hlr/gsrc/npc/gman/gman_potential.wav", "vj_hlr/gsrc/npc/gman/gman_wise.wav"}
+ENT.SoundTbl_UnFollowPlayer = {"vj_hlr/gsrc/npc/gman/gman_nowork.wav", "vj_hlr/gsrc/npc/gman/gman_noreg.wav"}
+ENT.SoundTbl_OnPlayerSight = "vj_hlr/gsrc/npc/gman/gman_suit.wav"
 
 ENT.MainSoundPitch = 100
 

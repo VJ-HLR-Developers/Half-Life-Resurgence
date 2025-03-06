@@ -41,13 +41,13 @@ ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 
-ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav", "vj_hlr/pl_step2.wav", "vj_hlr/pl_step3.wav", "vj_hlr/pl_step4.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/gonome/gonome_idle1.wav", "vj_hlr/hl1_npc/gonome/gonome_idle2.wav", "vj_hlr/hl1_npc/gonome/gonome_idle3.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/zombie/zo_alert10.wav", "vj_hlr/hl1_npc/zombie/zo_alert20.wav", "vj_hlr/hl1_npc/zombie/zo_alert30.wav"}
-ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/hl1_npc/zombie/claw_strike1.wav", "vj_hlr/hl1_npc/zombie/claw_strike2.wav", "vj_hlr/hl1_npc/zombie/claw_strike3.wav"}
-ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/gonome/gonome_melee1.wav", "vj_hlr/hl1_npc/gonome/gonome_melee2.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/gonome/gonome_pain1.wav", "vj_hlr/hl1_npc/gonome/gonome_pain2.wav", "vj_hlr/hl1_npc/gonome/gonome_pain3.wav", "vj_hlr/hl1_npc/gonome/gonome_pain4.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/gonome/gonome_death2.wav", "vj_hlr/hl1_npc/gonome/gonome_death3.wav", "vj_hlr/hl1_npc/gonome/gonome_death4.wav"}
+ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/pl_step1.wav", "vj_hlr/gsrc/pl_step2.wav", "vj_hlr/gsrc/pl_step3.wav", "vj_hlr/gsrc/pl_step4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/gonome/gonome_idle1.wav", "vj_hlr/gsrc/npc/gonome/gonome_idle2.wav", "vj_hlr/gsrc/npc/gonome/gonome_idle3.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/zombie/zo_alert10.wav", "vj_hlr/gsrc/npc/zombie/zo_alert20.wav", "vj_hlr/gsrc/npc/zombie/zo_alert30.wav"}
+ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/gsrc/npc/zombie/claw_strike1.wav", "vj_hlr/gsrc/npc/zombie/claw_strike2.wav", "vj_hlr/gsrc/npc/zombie/claw_strike3.wav"}
+ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/gsrc/npc/gonome/gonome_melee1.wav", "vj_hlr/gsrc/npc/gonome/gonome_melee2.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/gonome/gonome_pain1.wav", "vj_hlr/gsrc/npc/gonome/gonome_pain2.wav", "vj_hlr/gsrc/npc/gonome/gonome_pain3.wav", "vj_hlr/gsrc/npc/gonome/gonome_pain4.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/gonome/gonome_death2.wav", "vj_hlr/gsrc/npc/gonome/gonome_death3.wav", "vj_hlr/gsrc/npc/gonome/gonome_death4.wav"}
 
 ENT.MainSoundPitch = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -73,7 +73,7 @@ function ENT:OnInput(key, activator, caller, data)
 		local att = self:GetAttachment(2)
 		ParticleEffect("vj_hlr_spit_red_spawn", att.Pos, att.Ang, self)
 	elseif key == "body" then
-		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -89,7 +89,7 @@ function ENT:MeleeAttackKnockbackVelocity(hitEnt)
 	return self:GetForward()*math.random(-100, -200) + self:GetUp()*20
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local sdClawMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
+local sdClawMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
 --
 function ENT:OnMeleeAttack(status, enemy)
 	if status == "Init" then
@@ -97,13 +97,13 @@ function ENT:OnMeleeAttack(status, enemy)
 			self.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
 			self.MeleeAttackDamage = 20
 			self.HasMeleeAttackKnockBack = false
-			self.SoundTbl_BeforeMeleeAttack = "vj_hlr/hl1_npc/gonome/gonome_melee1.wav"
+			self.SoundTbl_BeforeMeleeAttack = "vj_hlr/gsrc/npc/gonome/gonome_melee1.wav"
 			self.SoundTbl_MeleeAttackMiss = sdClawMiss
 		else -- Grab and eat!
 			self.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK2
 			self.MeleeAttackDamage = 14
 			self.HasMeleeAttackKnockBack = true
-			self.SoundTbl_BeforeMeleeAttack = "vj_hlr/hl1_npc/gonome/gonome_melee2.wav"
+			self.SoundTbl_BeforeMeleeAttack = "vj_hlr/gsrc/npc/gonome/gonome_melee2.wav"
 			self.SoundTbl_MeleeAttackMiss = false
 		end
 	end

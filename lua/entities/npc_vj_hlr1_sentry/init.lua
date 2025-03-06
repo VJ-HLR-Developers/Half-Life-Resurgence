@@ -36,9 +36,9 @@ ENT.VJ_ID_Healable = false
 ENT.PoseParameterLooking_InvertPitch = true
 ENT.PoseParameterLooking_InvertYaw = true
 
-ENT.SoundTbl_Alert = "vj_hlr/hl1_npc/turret/tu_deploy.wav"
+ENT.SoundTbl_Alert = "vj_hlr/gsrc/npc/turret/tu_deploy.wav"
 ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav", "ambient/energy/spark2.wav", "ambient/energy/spark3.wav", "ambient/energy/spark4.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/turret/tu_die.wav", "vj_hlr/hl1_npc/turret/tu_die2.wav", "vj_hlr/hl1_npc/turret/tu_die2.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/turret/tu_die.wav", "vj_hlr/gsrc/npc/turret/tu_die2.wav", "vj_hlr/gsrc/npc/turret/tu_die2.wav"}
 
 ENT.MainSoundPitch = 100
 
@@ -103,11 +103,11 @@ end
 function ENT:OnThink()
 	local parameter = self:GetPoseParameter("aim_yaw")
 	if parameter != self.Sentry_CurrentYawParameter then
-		self.CurrentSentryTurnSound = CreateSound(self, "vj_hlr/hl1_npc/turret/motor_loop_.wav")
+		self.CurrentSentryTurnSound = CreateSound(self, "vj_hlr/gsrc/npc/turret/motor_loop_.wav")
 		self.CurrentSentryTurnSound:SetSoundLevel(70)
 		self.CurrentSentryTurnSound:PlayEx(1, 100)
 		if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
-			self.CurrentSentryTurnSound2 = CreateSound(self, "vj_hlr/hl1_npc/turret/tu_active2.wav")
+			self.CurrentSentryTurnSound2 = CreateSound(self, "vj_hlr/gsrc/npc/turret/tu_active2.wav")
 			self.CurrentSentryTurnSound2:SetSoundLevel(70)
 			self.CurrentSentryTurnSound2:PlayEx(1, 100)
 		end
@@ -142,7 +142,7 @@ function ENT:OnThinkActive()
 			glow:Fire("Kill", "", 0.1)
 			self:DeleteOnRemove(glow)
 			self.Sentry_NextAlarmT = CurTime() + 1
-			VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_ping.wav", 75, 100)
+			VJ.EmitSound(self, "vj_hlr/gsrc/npc/turret/tu_ping.wav", 75, 100)
 		end
 		if !eneValid then -- Look around randomly when the enemy is not found
 			self:SetPoseParameter("aim_yaw", self.Sentry_CurrentYawParameter + 4)
@@ -154,10 +154,10 @@ function ENT:OnThinkActive()
 			end
 			self.Sentry_StandDown = true
 			self:PlayAnim("retire", true, 1)
-			VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_retract.wav", 65, math.random(100, 110))
+			VJ.EmitSound(self, "vj_hlr/gsrc/npc/turret/tu_retract.wav", 65, math.random(100, 110))
 			if self.Sentry_Type == 1 then
 				self.Sentry_SpunUp = false
-				VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_spindown.wav", 80, 100)
+				VJ.EmitSound(self, "vj_hlr/gsrc/npc/turret/tu_spindown.wav", 80, 100)
 			end
 		end
 	end
@@ -202,7 +202,7 @@ function ENT:Sentry_Activate()
 		timer.Simple(1, function()
 			if IsValid(self) && IsValid(self:GetEnemy()) then
 				self.HasPoseParameterLooking = true
-				VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_spinup.wav", 80, 100)
+				VJ.EmitSound(self, "vj_hlr/gsrc/npc/turret/tu_spinup.wav", 80, 100)
 				timer.Simple(1, function()
 					if IsValid(self) && IsValid(self:GetEnemy()) then
 						self.Sentry_SpunUp = true
@@ -213,7 +213,7 @@ function ENT:Sentry_Activate()
 	else
 		self.Sentry_SpunUp = true
 	end
-	VJ.EmitSound(self, {"vj_hlr/hl1_npc/turret/tu_alert.wav"}, 75, 100)
+	VJ.EmitSound(self, {"vj_hlr/gsrc/npc/turret/tu_alert.wav"}, 75, 100)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
@@ -231,8 +231,8 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 			AmmoType = "SMG1"
 		})
 		
-		VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1.wav", 90, math.random(100, 110))
-		VJ.EmitSound(self, "vj_hlr/hl1_npc/turret/tu_fire1_distant.wav", 140, math.random(100, 110))
+		VJ.EmitSound(self, "vj_hlr/gsrc/npc/turret/tu_fire1.wav", 90, math.random(100, 110))
+		VJ.EmitSound(self, "vj_hlr/gsrc/npc/turret/tu_fire1_distant.wav", 140, math.random(100, 110))
 		
 		local muz = ents.Create("env_sprite_oriented")
 		muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash3.vmt")
@@ -301,8 +301,8 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			local pos = self:GetAttachment(self:LookupAttachment("center")).Pos + vecUp20
 			spr:SetPos(pos)
 			util.BlastDamage(self, self, pos, 50, 30)
-			VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris"..math.random(1, 3)..".wav", 80, 100)
-			VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
+			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris"..math.random(1, 3)..".wav", 80, 100)
+			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
 			self.GibOnDeathFilter = false
 			self:GibOnDeath(DamageInfo(), hitgroup) -- dmginfo is corrupt by now, declare a new one
 		else
@@ -318,7 +318,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local gibsCollideSd = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
+local gibsCollideSd = {"vj_hlr/gsrc/fx/metal1.wav", "vj_hlr/gsrc/fx/metal2.wav", "vj_hlr/gsrc/fx/metal3.wav", "vj_hlr/gsrc/fx/metal4.wav", "vj_hlr/gsrc/fx/metal5.wav"}
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
@@ -361,8 +361,8 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal=false, Pos=attPos or self:LocalToWorld(Vector(0,3,upPos)), CollisionSound=gibsCollideSd})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_spring.mdl", {CollisionDecal=false, Pos=attPos or self:LocalToWorld(Vector(4,0,upPos)), CollisionSound=false}) -- Shad ge sharji, ere vor tsayn chi hane
 	
-	VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 100, 100)
-	self:PlaySoundSystem("Gib", "vj_hlr/hl1_npc/rgrunt/rb_gib.wav")
+	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris3.wav", 100, 100)
+	self:PlaySoundSystem("Gib", "vj_hlr/gsrc/npc/rgrunt/rb_gib.wav")
 	return true, {AllowSound = false}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -375,7 +375,7 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 		corpseEnt:ResetSequence("die")
 	end
 	if self.Sentry_Type == 0 then
-		VJ.HLR_ApplyCorpseSystem(self, corpseEnt, gibs, {CollisionSound = gibsCollideSd, ExpSound = {"vj_hlr/hl1_npc/rgrunt/rb_gib.wav"}})
+		VJ.HLR_ApplyCorpseSystem(self, corpseEnt, gibs, {CollisionSound = gibsCollideSd, ExpSound = {"vj_hlr/gsrc/npc/rgrunt/rb_gib.wav"}})
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

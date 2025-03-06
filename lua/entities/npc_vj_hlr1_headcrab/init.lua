@@ -46,12 +46,12 @@ ENT.CanFlinch = true
 ENT.FlinchChance = 3
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/headcrab/hc_idle1.wav", "vj_hlr/hl1_npc/headcrab/hc_idle2.wav", "vj_hlr/hl1_npc/headcrab/hc_idle3.wav", "vj_hlr/hl1_npc/headcrab/hc_idle4.wav", "vj_hlr/hl1_npc/headcrab/hc_idle5.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/headcrab/hc_alert1.wav", "vj_hlr/hl1_npc/headcrab/hc_alert2.wav"}
-ENT.SoundTbl_LeapAttackJump = {"vj_hlr/hl1_npc/headcrab/hc_attack1.wav", "vj_hlr/hl1_npc/headcrab/hc_attack2.wav", "vj_hlr/hl1_npc/headcrab/hc_attack3.wav"}
-ENT.SoundTbl_LeapAttackDamage = "vj_hlr/hl1_npc/headcrab/hc_headbite.wav"
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/headcrab/hc_pain1.wav", "vj_hlr/hl1_npc/headcrab/hc_pain2.wav", "vj_hlr/hl1_npc/headcrab/hc_pain3.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/headcrab/hc_die1.wav", "vj_hlr/hl1_npc/headcrab/hc_die2.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/headcrab/hc_idle1.wav", "vj_hlr/gsrc/npc/headcrab/hc_idle2.wav", "vj_hlr/gsrc/npc/headcrab/hc_idle3.wav", "vj_hlr/gsrc/npc/headcrab/hc_idle4.wav", "vj_hlr/gsrc/npc/headcrab/hc_idle5.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/headcrab/hc_alert1.wav", "vj_hlr/gsrc/npc/headcrab/hc_alert2.wav"}
+ENT.SoundTbl_LeapAttackJump = {"vj_hlr/gsrc/npc/headcrab/hc_attack1.wav", "vj_hlr/gsrc/npc/headcrab/hc_attack2.wav", "vj_hlr/gsrc/npc/headcrab/hc_attack3.wav"}
+ENT.SoundTbl_LeapAttackDamage = "vj_hlr/gsrc/npc/headcrab/hc_headbite.wav"
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/headcrab/hc_pain1.wav", "vj_hlr/gsrc/npc/headcrab/hc_pain2.wav", "vj_hlr/gsrc/npc/headcrab/hc_pain3.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/headcrab/hc_die1.wav", "vj_hlr/gsrc/npc/headcrab/hc_die2.wav"}
 
 ENT.MainSoundPitch = 100
 

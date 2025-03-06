@@ -11,9 +11,9 @@ ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.HasDeathCorpse = false
 
 -- Tank Base
-ENT.Tank_SoundTbl_Turning = "vj_hlr/hl1_npc/tanks/abrams_turret_rot.wav"
-ENT.Tank_SoundTbl_ReloadShell = "vj_hlr/hl1_npc/tanks/tank_reload.wav"
-ENT.Tank_SoundTbl_FireShell = "vj_hlr/hl1_npc/tanks/shoot.wav"
+ENT.Tank_SoundTbl_Turning = "vj_hlr/gsrc/npc/tanks/abrams_turret_rot.wav"
+ENT.Tank_SoundTbl_ReloadShell = "vj_hlr/gsrc/npc/tanks/tank_reload.wav"
+ENT.Tank_SoundTbl_FireShell = "vj_hlr/gsrc/npc/tanks/shoot.wav"
 
 ENT.Tank_Shell_SpawnPos = Vector(221.83, 1.24, 95.09)
 ENT.Tank_Shell_Entity = "obj_vj_hlr1_rocket"

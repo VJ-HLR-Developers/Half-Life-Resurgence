@@ -14,11 +14,11 @@ ENT.ControllerParams = {
 }
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIEVIOLENT, "diecrump", ACT_DIESIMPLE}
 
-ENT.SoundTbl_IdleDialogueAnswer = "vj_hlr/hla_npc/barney/ba_pain1.wav"
-ENT.SoundTbl_Alert = "vj_hlr/hla_npc/barney/ba_attack1.wav"
-ENT.SoundTbl_BecomeEnemyToPlayer = "vj_hlr/hla_npc/barney/ba_attack1.wav"
-ENT.SoundTbl_Pain = "vj_hlr/hla_npc/barney/ba_pain1.wav"
-ENT.SoundTbl_Death = {"vj_hlr/hla_npc/barney/ba_die1.wav", "vj_hlr/hla_npc/barney/ba_die2.wav", "vj_hlr/hla_npc/barney/ba_die3.wav"}
+ENT.SoundTbl_IdleDialogueAnswer = "vj_hlr/gsrc/npc/barney_alpha/ba_pain1.wav"
+ENT.SoundTbl_Alert = "vj_hlr/gsrc/npc/barney_alpha/ba_attack1.wav"
+ENT.SoundTbl_BecomeEnemyToPlayer = "vj_hlr/gsrc/npc/barney_alpha/ba_attack1.wav"
+ENT.SoundTbl_Pain = "vj_hlr/gsrc/npc/barney_alpha/ba_pain1.wav"
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/barney_alpha/ba_die1.wav", "vj_hlr/gsrc/npc/barney_alpha/ba_die2.wav", "vj_hlr/gsrc/npc/barney_alpha/ba_die3.wav"}
 
 ENT.Security_Type = 2
 ---------------------------------------------------------------------------------------------------------------------------------------------

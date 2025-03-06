@@ -41,9 +41,9 @@ ENT.ForceDamageFromBosses = true
 ENT.DeathCorpseModel = "models/vj_hlr/hl1/alien_cannon_bottom.mdl"
 ENT.GibOnDeathFilter = false
 
-ENT.SoundTbl_Breath = "vj_hlr/hl1_npc/xencannon/alien_powernode.wav"
+ENT.SoundTbl_Breath = "vj_hlr/gsrc/npc/xencannon/alien_powernode.wav"
 ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav", "ambient/energy/spark2.wav", "ambient/energy/spark3.wav", "ambient/energy/spark4.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/xencannon/bustconcrete1.wav", "vj_hlr/hl1_npc/xencannon/bustconcrete2.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/xencannon/bustconcrete1.wav", "vj_hlr/gsrc/npc/xencannon/bustconcrete2.wav"}
 
 ENT.BreathSoundLevel = 70
 ENT.DeathSoundLevel = 90
@@ -92,8 +92,8 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		})
 		local hitPos = tr.HitPos
 		VJ.ApplyRadiusDamage(self, self, hitPos, 30, 40, DMG_ENERGYBEAM, true, false, {Force=90})
-		VJ.EmitSound(self, "vj_hlr/hl1_npc/xencannon/fire.wav", 90, 100)
-		sound.Play("vj_hlr/hl1_npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitPos, 60)
+		VJ.EmitSound(self, "vj_hlr/gsrc/npc/xencannon/fire.wav", 90, 100)
+		sound.Play("vj_hlr/gsrc/npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitPos, 60)
 		
 		local elec = EffectData()
 		elec:SetStart(startPos)
@@ -164,7 +164,7 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_ABSORIGIN_FOLLOW, corpseEnt, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local gibCollideSd = {"vj_hlr/fx/metal1.wav","vj_hlr/fx/metal2.wav","vj_hlr/fx/metal3.wav","vj_hlr/fx/metal4.wav","vj_hlr/fx/metal5.wav"}
+local gibCollideSd = {"vj_hlr/gsrc/fx/metal1.wav","vj_hlr/gsrc/fx/metal2.wav","vj_hlr/gsrc/fx/metal3.wav","vj_hlr/gsrc/fx/metal4.wav","vj_hlr/gsrc/fx/metal5.wav"}
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgibs_sub1.mdl", {CollisionDecal=false, Pos=self:LocalToWorld(Vector(1, 0, 20)), CollisionSound=gibCollideSd})
@@ -177,6 +177,6 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgibs_sub3.mdl", {CollisionDecal=false, Pos=self:LocalToWorld(Vector(0, 4, 20)), CollisionSound=gibCollideSd})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgibs_sub4.mdl", {CollisionDecal=false, Pos=self:LocalToWorld(Vector(5, 0, 20)), CollisionSound=gibCollideSd})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgibs_sub5.mdl", {CollisionDecal=false, Pos=self:LocalToWorld(Vector(0, 5, 20)), CollisionSound=gibCollideSd})
-	VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 150, 100)
+	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris3.wav", 150, 100)
 	return true, {AllowCorpse = true, AllowSound = false}
 end

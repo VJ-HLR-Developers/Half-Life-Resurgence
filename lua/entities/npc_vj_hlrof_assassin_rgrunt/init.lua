@@ -18,19 +18,19 @@ ENT.MainSoundPitch = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_OnInit()
 	self:SetBodygroup(1, math.random(0, 1))
-	self.SoundTbl_FootStep = {"vj_hlr/hl1_npc/rgrunt/pl_metal1.wav", "vj_hlr/hl1_npc/rgrunt/pl_metal2.wav", "vj_hlr/hl1_npc/rgrunt/pl_metal3.wav", "vj_hlr/hl1_npc/rgrunt/pl_metal4.wav"}
-	self.SoundTbl_Breath = "vj_hlr/hl1_npc/rgrunt/rb_engine_alt.wav"
-	self.SoundTbl_Alert = "vj_hlr/hl1_npc/rgrunt/rb_cover1.wav"
-	self.SoundTbl_CallForHelp = "vj_hlr/hl1_npc/rgrunt/deeoo.wav"
-	self.SoundTbl_WeaponReload = {"vj_hlr/hl1_npc/rgrunt/rb_cover1.wav", "vj_hlr/hl1_npc/rgrunt/rb_cover2.wav"}
-	self.SoundTbl_DangerSight = {"vj_hlr/hl1_npc/rgrunt/rb_cover2.wav", "vj_hlr/hl1_npc/rgrunt/deeoo.wav", "vj_hlr/hl1_npc/rgrunt/beepboop.wav"}
-	self.SoundTbl_KilledEnemy = "vj_hlr/hl1_npc/rgrunt/doop.wav"
-	self.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/rgrunt/buzwarn.wav", "vj_hlr/hl1_npc/rgrunt/rb_allydeath2.wav"}
-	self.SoundTbl_Pain = {"vj_hlr/hl1_npc/rgrunt/spark1.wav", "vj_hlr/hl1_npc/rgrunt/spark2.wav", "vj_hlr/hl1_npc/rgrunt/spark3.wav", "vj_hlr/hl1_npc/rgrunt/spark4.wav", "vj_hlr/hl1_npc/rgrunt/spark5.wav", "vj_hlr/hl1_npc/rgrunt/spark6.wav"}
-	self.SoundTbl_Death = {"vj_hlr/hl1_npc/rgrunt/rb_die1.wav", "vj_hlr/hl1_npc/rgrunt/rb_die2.wav", "vj_hlr/hl1_npc/rgrunt/rb_die3.wav"}
+	self.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/rgrunt/pl_metal1.wav", "vj_hlr/gsrc/npc/rgrunt/pl_metal2.wav", "vj_hlr/gsrc/npc/rgrunt/pl_metal3.wav", "vj_hlr/gsrc/npc/rgrunt/pl_metal4.wav"}
+	self.SoundTbl_Breath = "vj_hlr/gsrc/npc/rgrunt/rb_engine_alt.wav"
+	self.SoundTbl_Alert = "vj_hlr/gsrc/npc/rgrunt/rb_cover1.wav"
+	self.SoundTbl_CallForHelp = "vj_hlr/gsrc/npc/rgrunt/deeoo.wav"
+	self.SoundTbl_WeaponReload = {"vj_hlr/gsrc/npc/rgrunt/rb_cover1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_cover2.wav"}
+	self.SoundTbl_DangerSight = {"vj_hlr/gsrc/npc/rgrunt/rb_cover2.wav", "vj_hlr/gsrc/npc/rgrunt/deeoo.wav", "vj_hlr/gsrc/npc/rgrunt/beepboop.wav"}
+	self.SoundTbl_KilledEnemy = "vj_hlr/gsrc/npc/rgrunt/doop.wav"
+	self.SoundTbl_AllyDeath = {"vj_hlr/gsrc/npc/rgrunt/buzwarn.wav", "vj_hlr/gsrc/npc/rgrunt/rb_allydeath2.wav"}
+	self.SoundTbl_Pain = {"vj_hlr/gsrc/npc/rgrunt/spark1.wav", "vj_hlr/gsrc/npc/rgrunt/spark2.wav", "vj_hlr/gsrc/npc/rgrunt/spark3.wav", "vj_hlr/gsrc/npc/rgrunt/spark4.wav", "vj_hlr/gsrc/npc/rgrunt/spark5.wav", "vj_hlr/gsrc/npc/rgrunt/spark6.wav"}
+	self.SoundTbl_Death = {"vj_hlr/gsrc/npc/rgrunt/rb_die1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_die2.wav", "vj_hlr/gsrc/npc/rgrunt/rb_die3.wav"}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local gibsCollideSd = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
+local gibsCollideSd = {"vj_hlr/gsrc/fx/metal1.wav", "vj_hlr/gsrc/fx/metal2.wav", "vj_hlr/gsrc/fx/metal3.wav", "vj_hlr/gsrc/fx/metal4.wav", "vj_hlr/gsrc/fx/metal5.wav"}
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
@@ -72,8 +72,8 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal=false, Pos=self:LocalToWorld(Vector(1, 2, 15)), CollisionSound=gibsCollideSd})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_spring.mdl", {CollisionDecal=false, Pos=self:LocalToWorld(Vector(2, 1, 15)), CollisionSound=false}) -- Shad ge sharji, ere vor tsayn chi hane
 	
-	VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/debris3.wav", 100, 100)
-	self:PlaySoundSystem("Gib", "vj_hlr/hl1_npc/rgrunt/rb_gib.wav")
+	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris3.wav", 100, 100)
+	self:PlaySoundSystem("Gib", "vj_hlr/gsrc/npc/rgrunt/rb_gib.wav")
 	return true, {AllowSound = false}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -81,5 +81,5 @@ local gibs = {"models/vj_hlr/gibs/metalgib_p1.mdl", "models/vj_hlr/gibs/metalgib
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, corpseEnt, 5)
-	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, gibs, {CollisionSound = gibsCollideSd, ExpSound = {"vj_hlr/hl1_npc/rgrunt/rb_gib.wav"}})
+	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, gibs, {CollisionSound = gibsCollideSd, ExpSound = {"vj_hlr/gsrc/npc/rgrunt/rb_gib.wav"}})
 end

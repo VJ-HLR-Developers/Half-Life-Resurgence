@@ -39,15 +39,15 @@ ENT.DisableFootStepSoundTimer = true
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = "vjseq_flinch_small"
 
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/houndeye/he_hunt1.wav", "vj_hlr/hl1_npc/houndeye/he_hunt2.wav", "vj_hlr/hl1_npc/houndeye/he_hunt3.wav", "vj_hlr/hl1_npc/houndeye/he_hunt4.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/houndeye/he_idle1.wav", "vj_hlr/hl1_npc/houndeye/he_idle2.wav", "vj_hlr/hl1_npc/houndeye/he_idle3.wav", "vj_hlr/hl1_npc/houndeye/he_idle4.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/houndeye/he_alert1.wav", "vj_hlr/hl1_npc/houndeye/he_alert2.wav", "vj_hlr/hl1_npc/houndeye/he_alert3.wav"}
-ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/hl1_npc/houndeye/he_attack1.wav", "vj_hlr/hl1_npc/houndeye/he_attack2.wav", "vj_hlr/hl1_npc/houndeye/he_attack3.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/houndeye/he_pain1.wav", "vj_hlr/hl1_npc/houndeye/he_pain2.wav", "vj_hlr/hl1_npc/houndeye/he_pain3.wav", "vj_hlr/hl1_npc/houndeye/he_pain4.wav", "vj_hlr/hl1_npc/houndeye/he_pain5.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/houndeye/he_die1.wav", "vj_hlr/hl1_npc/houndeye/he_die2.wav", "vj_hlr/hl1_npc/houndeye/he_die3.wav"}
+ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/houndeye/he_hunt1.wav", "vj_hlr/gsrc/npc/houndeye/he_hunt2.wav", "vj_hlr/gsrc/npc/houndeye/he_hunt3.wav", "vj_hlr/gsrc/npc/houndeye/he_hunt4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/houndeye/he_idle1.wav", "vj_hlr/gsrc/npc/houndeye/he_idle2.wav", "vj_hlr/gsrc/npc/houndeye/he_idle3.wav", "vj_hlr/gsrc/npc/houndeye/he_idle4.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/houndeye/he_alert1.wav", "vj_hlr/gsrc/npc/houndeye/he_alert2.wav", "vj_hlr/gsrc/npc/houndeye/he_alert3.wav"}
+ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/gsrc/npc/houndeye/he_attack1.wav", "vj_hlr/gsrc/npc/houndeye/he_attack2.wav", "vj_hlr/gsrc/npc/houndeye/he_attack3.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/houndeye/he_pain1.wav", "vj_hlr/gsrc/npc/houndeye/he_pain2.wav", "vj_hlr/gsrc/npc/houndeye/he_pain3.wav", "vj_hlr/gsrc/npc/houndeye/he_pain4.wav", "vj_hlr/gsrc/npc/houndeye/he_pain5.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/houndeye/he_die1.wav", "vj_hlr/gsrc/npc/houndeye/he_die2.wav", "vj_hlr/gsrc/npc/houndeye/he_die3.wav"}
 
-local blastSd = {"vj_hlr/hl1_npc/houndeye/he_blast1.wav", "vj_hlr/hl1_npc/houndeye/he_blast2.wav", "vj_hlr/hl1_npc/houndeye/he_blast3.wav"}
-local madSd = {"vj_hlr/hl1_npc/houndeye/he_alert1.wav", "vj_hlr/hl1_npc/houndeye/he_hunt4.wav"}
+local blastSd = {"vj_hlr/gsrc/npc/houndeye/he_blast1.wav", "vj_hlr/gsrc/npc/houndeye/he_blast2.wav", "vj_hlr/gsrc/npc/houndeye/he_blast3.wav"}
+local madSd = {"vj_hlr/gsrc/npc/houndeye/he_alert1.wav", "vj_hlr/gsrc/npc/houndeye/he_hunt4.wav"}
 
 ENT.FootstepSoundLevel = 80
 ENT.MainSoundPitch = 100
@@ -84,13 +84,13 @@ function ENT:OnInput(key, activator, caller, data)
 	if key == "he_hunt" then -- step
 		self:PlayFootstepSound()
 	elseif key == "woof" then
-		self:PlaySoundSystem("Speech", "vj_hlr/hl1_npc/houndeye/he_pain3.wav")
+		self:PlaySoundSystem("Speech", "vj_hlr/gsrc/npc/houndeye/he_pain3.wav")
 	elseif key == "woooof" then
-		self:PlaySoundSystem("Speech", "vj_hlr/hl1_npc/houndeye/he_pain1.wav")
+		self:PlaySoundSystem("Speech", "vj_hlr/gsrc/npc/houndeye/he_pain1.wav")
 	elseif key == "mad" then
 		self:PlaySoundSystem("Speech", madSd)
 	elseif key == "body" then
-		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -22,9 +22,9 @@ SWEP.NPC_CustomSpread = 0.5
 SWEP.NPC_StandingOnly = true
 SWEP.NPC_FiringDistanceScale = 2.5
 	-- ====== Reload Variables ====== --
-SWEP.NPC_ReloadSound = "vj_hlr/hl2_weapon/combinesniper/sniper_reload.wav"
+SWEP.NPC_ReloadSound = "vj_hlr/src/wep/sniper_comb/sniper_reload.wav"
 	-- ====== Extra Firing Sound Variables ====== --
-SWEP.NPC_ExtraFireSound = "vj_hlr/hl2_weapon/combinesniper/sniper_reload.wav"
+SWEP.NPC_ExtraFireSound = "vj_hlr/src/wep/sniper_comb/sniper_reload.wav"
 SWEP.NPC_ExtraFireSoundTime = 0.4
 SWEP.NPC_ExtraFireSoundLevel = 70 -- How far does the sound go?
 SWEP.NPC_ExtraFireSoundPitch = VJ.SET(90,100)
@@ -38,8 +38,8 @@ SWEP.Primary.Ammo = "SniperRound"
 SWEP.Primary.TracerType = "AR2Tracer"
 SWEP.Primary.Delay = 1
 SWEP.Primary.Cone = 1
-SWEP.Primary.Sound = "vj_hlr/hl2_weapon/combinesniper/sniper_fire.wav"
-SWEP.Primary.DistantSound = "vj_hlr/hl2_weapon/combinesniper/sniper_fire_dist.wav"
+SWEP.Primary.Sound = "vj_hlr/src/wep/sniper_comb/sniper_fire.wav"
+SWEP.Primary.DistantSound = "vj_hlr/src/wep/sniper_comb/sniper_fire_dist.wav"
 SWEP.PrimaryEffects_MuzzleParticles = {"vj_rifle_full_blue"}
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.PrimaryEffects_DynamicLightColor = Color(0, 31, 225)
@@ -47,10 +47,10 @@ SWEP.PrimaryEffects_DynamicLightColor = Color(0, 31, 225)
 ------ Dry Fire Variables ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	-- Examples: Under water, out of ammo
-SWEP.DryFireSound = "vj_hlr/hl2_weapon/combinesniper/sniper_empty.wav"
+SWEP.DryFireSound = "vj_hlr/src/wep/sniper_comb/sniper_empty.wav"
 SWEP.DryFireSoundPitch = VJ.SET(100, 100)
 -- Player Stuff ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.ReloadSound = "vj_hlr/hl2_weapon/combinesniper/sniper_reload.wav"
+SWEP.ReloadSound = "vj_hlr/src/wep/sniper_comb/sniper_reload.wav"
 SWEP.AnimTbl_PrimaryFire = ACT_VM_SECONDARYATTACK
 SWEP.AnimTbl_Reload = ACT_VM_DRAW
 
@@ -73,7 +73,7 @@ function SWEP:OnPrimaryAttack(status, statusData)
 	if status == "PostFire" && self:GetOwner():IsPlayer() then
 		timer.Simple(0.5, function()
 			if IsValid(self) then
-				self:EmitSound("vj_hlr/hl2_weapon/combinesniper/sniper_reload.wav", 70, 100)
+				self:EmitSound("vj_hlr/src/wep/sniper_comb/sniper_reload.wav", 70, 100)
 			end
 		end)
 	end

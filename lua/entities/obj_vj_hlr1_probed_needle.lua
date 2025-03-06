@@ -24,7 +24,7 @@ ENT.DirectDamageType = DMG_POISON
 ENT.CollisionDecal = "Impact.Concrete"
 ENT.OnCollideSoundPitch = VJ.SET(100, 100)
 
-local sdOnCollideEnt = {"vj_hlr/hl1_weapon/crossbow/xbow_hitbod1.wav", "vj_hlr/hl1_weapon/crossbow/xbow_hitbod2.wav"}
+local sdOnCollideEnt = {"vj_hlr/gsrc/wep/crossbow/xbow_hitbod1.wav", "vj_hlr/gsrc/wep/crossbow/xbow_hitbod2.wav"}
 local defAng = Angle(0 ,0, 0)
 
 -- Custom
@@ -53,7 +53,7 @@ function ENT:OnCollision(data, phys)
 			hitEnt:SetHealth(math.Clamp(friHP + 40, friHP, hitEnt:GetMaxHealth()))
 		end
 	else
-		self.SoundTbl_OnCollide = "vj_hlr/hl1_weapon/crossbow/xbow_hit1.wav"
+		self.SoundTbl_OnCollide = "vj_hlr/gsrc/wep/crossbow/xbow_hit1.wav"
 		local spike = ents.Create("prop_dynamic")
 		spike:SetModel("models/vj_hlr/hla/pb_dart.mdl")
 		spike:SetPos(data.HitPos + data.HitNormal + self:GetForward()*-5)

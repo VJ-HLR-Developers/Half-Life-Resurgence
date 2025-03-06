@@ -6,7 +6,7 @@ SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire 		= 2.5
 SWEP.NPC_CustomSpread	 		= 2
-SWEP.NPC_ReloadSound			= {"vj_hlr/hl1_weapon/glock/glock_reload.wav"}
+SWEP.NPC_ReloadSound			= {"vj_hlr/gsrc/wep/glock/glock_reload.wav"}
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true
@@ -24,8 +24,8 @@ SWEP.Primary.Damage = 5
 SWEP.Primary.ClipSize = 17
 SWEP.Primary.TakeAmmo = 0
 SWEP.Primary.Ammo = "Pistol"
-SWEP.Primary.Sound = {"vj_hlr/hla_npc/doctor/pl_gun1.wav","vj_hlr/hla_npc/doctor/pl_gun2.wav"}
-SWEP.Primary.DistantSound = {"vj_hlr/hla_npc/doctor/pl_gun_distant2.wav"}
+SWEP.Primary.Sound = {"vj_hlr/gsrc/npc/ivan_alpha/pl_gun1.wav","vj_hlr/gsrc/npc/ivan_alpha/pl_gun2.wav"}
+SWEP.Primary.DistantSound = {"vj_hlr/gsrc/npc/ivan_alpha/pl_gun_distant2.wav"}
 SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false

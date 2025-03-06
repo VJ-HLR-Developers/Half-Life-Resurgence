@@ -55,9 +55,9 @@ ENT.DisableFootStepSoundTimer = true
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 
-ENT.SoundTbl_FootStep = {"vj_hlr/pl_step1.wav", "vj_hlr/pl_step2.wav", "vj_hlr/pl_step3.wav", "vj_hlr/pl_step4.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/hgrunt/gr_die1.wav", "vj_hlr/hl1_npc/hgrunt/gr_die2.wav", "vj_hlr/hl1_npc/hgrunt/gr_die3.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/hgrunt/gr_pain1.wav", "vj_hlr/hl1_npc/hgrunt/gr_pain2.wav", "vj_hlr/hl1_npc/hgrunt/gr_pain3.wav", "vj_hlr/hl1_npc/hgrunt/gr_pain4.wav", "vj_hlr/hl1_npc/hgrunt/gr_pain5.wav"}
+ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/pl_step1.wav", "vj_hlr/gsrc/pl_step2.wav", "vj_hlr/gsrc/pl_step3.wav", "vj_hlr/gsrc/pl_step4.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/hgrunt/gr_die1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_die2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_die3.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/hgrunt/gr_pain1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_pain2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_pain3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_pain4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_pain5.wav"}
 
 -- Custom
 ENT.HECU_Type = 0
@@ -91,19 +91,19 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_OnInit()
 	self.HECU_UsingDefaultSounds = true
-	self.SoundTbl_Idle = {"vj_hlr/hl1_npc/hgrunt/gr_alert1.wav", "vj_hlr/hl1_npc/hgrunt/gr_idle1.wav", "vj_hlr/hl1_npc/hgrunt/gr_idle2.wav", "vj_hlr/hl1_npc/hgrunt/gr_idle3.wav"}
-	self.SoundTbl_IdleDialogue = {"vj_hlr/hl1_npc/hgrunt/gr_question1.wav", "vj_hlr/hl1_npc/hgrunt/gr_question2.wav", "vj_hlr/hl1_npc/hgrunt/gr_question3.wav", "vj_hlr/hl1_npc/hgrunt/gr_question4.wav", "vj_hlr/hl1_npc/hgrunt/gr_question5.wav", "vj_hlr/hl1_npc/hgrunt/gr_question6.wav", "vj_hlr/hl1_npc/hgrunt/gr_question7.wav", "vj_hlr/hl1_npc/hgrunt/gr_question8.wav", "vj_hlr/hl1_npc/hgrunt/gr_question9.wav", "vj_hlr/hl1_npc/hgrunt/gr_question10.wav", "vj_hlr/hl1_npc/hgrunt/gr_question11.wav", "vj_hlr/hl1_npc/hgrunt/gr_question12.wav", "vj_hlr/hl1_npc/hgrunt/gr_check1.wav", "vj_hlr/hl1_npc/hgrunt/gr_check2.wav", "vj_hlr/hl1_npc/hgrunt/gr_check3.wav", "vj_hlr/hl1_npc/hgrunt/gr_check4.wav", "vj_hlr/hl1_npc/hgrunt/gr_check5.wav", "vj_hlr/hl1_npc/hgrunt/gr_check6.wav", "vj_hlr/hl1_npc/hgrunt/gr_check7.wav", "vj_hlr/hl1_npc/hgrunt/gr_check8.wav", }
-	self.SoundTbl_IdleDialogueAnswer = {"vj_hlr/hl1_npc/hgrunt/gr_clear1.wav", "vj_hlr/hl1_npc/hgrunt/gr_clear2.wav", "vj_hlr/hl1_npc/hgrunt/gr_clear3.wav", "vj_hlr/hl1_npc/hgrunt/gr_clear4.wav", "vj_hlr/hl1_npc/hgrunt/gr_clear5.wav", "vj_hlr/hl1_npc/hgrunt/gr_clear6.wav", "vj_hlr/hl1_npc/hgrunt/gr_clear7.wav", "vj_hlr/hl1_npc/hgrunt/gr_clear8.wav", "vj_hlr/hl1_npc/hgrunt/gr_clear9.wav", "vj_hlr/hl1_npc/hgrunt/gr_clear10.wav", "vj_hlr/hl1_npc/hgrunt/gr_clear11.wav", "vj_hlr/hl1_npc/hgrunt/gr_clear12.wav", "vj_hlr/hl1_npc/hgrunt/gr_answer1.wav", "vj_hlr/hl1_npc/hgrunt/gr_answer2.wav", "vj_hlr/hl1_npc/hgrunt/gr_answer3.wav", "vj_hlr/hl1_npc/hgrunt/gr_answer4.wav", "vj_hlr/hl1_npc/hgrunt/gr_answer5.wav", "vj_hlr/hl1_npc/hgrunt/gr_answer6.wav", "vj_hlr/hl1_npc/hgrunt/gr_answer7.wav"}
-	self.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/hgrunt/gr_taunt1.wav", "vj_hlr/hl1_npc/hgrunt/gr_taunt2.wav", "vj_hlr/hl1_npc/hgrunt/gr_taunt3.wav", "vj_hlr/hl1_npc/hgrunt/gr_taunt4.wav", "vj_hlr/hl1_npc/hgrunt/gr_taunt5.wav", "vj_hlr/hl1_npc/hgrunt/gr_combat1.wav", "vj_hlr/hl1_npc/hgrunt/gr_combat2.wav", "vj_hlr/hl1_npc/hgrunt/gr_combat3.wav", "vj_hlr/hl1_npc/hgrunt/gr_combat4.wav"}
-	self.SoundTbl_ReceiveOrder = {"vj_hlr/hl1_npc/hgrunt/gr_answer1.wav", "vj_hlr/hl1_npc/hgrunt/gr_answer2.wav", "vj_hlr/hl1_npc/hgrunt/gr_answer3.wav", "vj_hlr/hl1_npc/hgrunt/gr_answer5.wav", "vj_hlr/hl1_npc/hgrunt/gr_answer7.wav"}
-	self.SoundTbl_Investigate = {"vj_hlr/hl1_npc/hgrunt/gr_investigate.wav"}
-	self.SoundTbl_Alert = {"vj_hlr/hl1_npc/hgrunt/gr_alert3.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert4.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert6.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert7.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert8.wav"}
-	self.SoundTbl_CallForHelp = {"vj_hlr/hl1_npc/hgrunt/gr_taunt6.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover2.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover3.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover4.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover7.wav"}
-	self.SoundTbl_WeaponReload = {"vj_hlr/hl1_npc/hgrunt/gr_cover1.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover2.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover3.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover4.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover5.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover6.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover7.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover8.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover9.wav"}
-	self.SoundTbl_GrenadeAttack = {"vj_hlr/hl1_npc/hgrunt/gr_throw1.wav", "vj_hlr/hl1_npc/hgrunt/gr_throw2.wav", "vj_hlr/hl1_npc/hgrunt/gr_throw3.wav", "vj_hlr/hl1_npc/hgrunt/gr_throw4.wav"}
-	self.SoundTbl_GrenadeSight = {"vj_hlr/hl1_npc/hgrunt/gr_cover1.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover7.wav", "vj_hlr/hl1_npc/hgrunt/gr_grenadealert1.wav", "vj_hlr/hl1_npc/hgrunt/gr_grenadealert2.wav", "vj_hlr/hl1_npc/hgrunt/gr_grenadealert3.wav", "vj_hlr/hl1_npc/hgrunt/gr_grenadealert4.wav", "vj_hlr/hl1_npc/hgrunt/gr_grenadealert5.wav", "vj_hlr/hl1_npc/hgrunt/gr_grenadealert6.wav"}
-	self.SoundTbl_DangerSight = {"vj_hlr/hl1_npc/hgrunt/gr_cover1.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover7.wav", "vj_hlr/hl1_npc/hgrunt/gr_grenadealert2.wav", "vj_hlr/hl1_npc/hgrunt/gr_grenadealert3.wav", "vj_hlr/hl1_npc/hgrunt/gr_grenadealert4.wav", "vj_hlr/hl1_npc/hgrunt/gr_grenadealert5.wav", "vj_hlr/hl1_npc/hgrunt/gr_grenadealert6.wav"}
-	self.SoundTbl_AllyDeath = {"vj_hlr/hl1_npc/hgrunt/gr_allydeath.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover2.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover3.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover4.wav", "vj_hlr/hl1_npc/hgrunt/gr_cover7.wav"}
+	self.SoundTbl_Idle = {"vj_hlr/gsrc/npc/hgrunt/gr_alert1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_idle1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_idle2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_idle3.wav"}
+	self.SoundTbl_IdleDialogue = {"vj_hlr/gsrc/npc/hgrunt/gr_question1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_question2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_question3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_question4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_question5.wav", "vj_hlr/gsrc/npc/hgrunt/gr_question6.wav", "vj_hlr/gsrc/npc/hgrunt/gr_question7.wav", "vj_hlr/gsrc/npc/hgrunt/gr_question8.wav", "vj_hlr/gsrc/npc/hgrunt/gr_question9.wav", "vj_hlr/gsrc/npc/hgrunt/gr_question10.wav", "vj_hlr/gsrc/npc/hgrunt/gr_question11.wav", "vj_hlr/gsrc/npc/hgrunt/gr_question12.wav", "vj_hlr/gsrc/npc/hgrunt/gr_check1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_check2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_check3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_check4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_check5.wav", "vj_hlr/gsrc/npc/hgrunt/gr_check6.wav", "vj_hlr/gsrc/npc/hgrunt/gr_check7.wav", "vj_hlr/gsrc/npc/hgrunt/gr_check8.wav", }
+	self.SoundTbl_IdleDialogueAnswer = {"vj_hlr/gsrc/npc/hgrunt/gr_clear1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_clear2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_clear3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_clear4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_clear5.wav", "vj_hlr/gsrc/npc/hgrunt/gr_clear6.wav", "vj_hlr/gsrc/npc/hgrunt/gr_clear7.wav", "vj_hlr/gsrc/npc/hgrunt/gr_clear8.wav", "vj_hlr/gsrc/npc/hgrunt/gr_clear9.wav", "vj_hlr/gsrc/npc/hgrunt/gr_clear10.wav", "vj_hlr/gsrc/npc/hgrunt/gr_clear11.wav", "vj_hlr/gsrc/npc/hgrunt/gr_clear12.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer5.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer6.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer7.wav"}
+	self.SoundTbl_CombatIdle = {"vj_hlr/gsrc/npc/hgrunt/gr_taunt1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_taunt2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_taunt3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_taunt4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_taunt5.wav", "vj_hlr/gsrc/npc/hgrunt/gr_combat1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_combat2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_combat3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_combat4.wav"}
+	self.SoundTbl_ReceiveOrder = {"vj_hlr/gsrc/npc/hgrunt/gr_answer1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer5.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer7.wav"}
+	self.SoundTbl_Investigate = {"vj_hlr/gsrc/npc/hgrunt/gr_investigate.wav"}
+	self.SoundTbl_Alert = {"vj_hlr/gsrc/npc/hgrunt/gr_alert3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert6.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert7.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert8.wav"}
+	self.SoundTbl_CallForHelp = {"vj_hlr/gsrc/npc/hgrunt/gr_taunt6.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover7.wav"}
+	self.SoundTbl_WeaponReload = {"vj_hlr/gsrc/npc/hgrunt/gr_cover1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover5.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover6.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover7.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover8.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover9.wav"}
+	self.SoundTbl_GrenadeAttack = {"vj_hlr/gsrc/npc/hgrunt/gr_throw1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_throw2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_throw3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_throw4.wav"}
+	self.SoundTbl_GrenadeSight = {"vj_hlr/gsrc/npc/hgrunt/gr_cover1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover7.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert5.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert6.wav"}
+	self.SoundTbl_DangerSight = {"vj_hlr/gsrc/npc/hgrunt/gr_cover1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover7.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert5.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert6.wav"}
+	self.SoundTbl_AllyDeath = {"vj_hlr/gsrc/npc/hgrunt/gr_allydeath.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover7.wav"}
 	
 	if self.HECU_Type == 7 then
 		self:SetBodygroup(1, 0)
@@ -215,7 +215,7 @@ function ENT:OnInput(key, activator, caller, data)
 	-- 		wep:NPC_SecondaryFire()
 	-- 	end
 	elseif key == "body" then
-		VJ.EmitSound(self, "vj_hlr/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 
 	-- OppF Engineer --
 	elseif key == "deagle_putout" then
@@ -224,7 +224,7 @@ function ENT:OnInput(key, activator, caller, data)
 		self:SetBodygroup(1, 1)
 	elseif key == "torchlight_on" then
 		ParticleEffectAttach("vj_hlr_torch", PATTACH_POINT_FOLLOW, self, 5)
-		VJ.EmitSound(self, "vj_hlr/hl1_npc/hgrunt_oppf/torch_light.wav", 80)
+		VJ.EmitSound(self, "vj_hlr/gsrc/npc/hgrunt_opf/torch_light.wav", 80)
 	elseif key == "torch_putout" then
 		self:StopParticles()
 		self:SetBodygroup(1, 2)
@@ -243,7 +243,7 @@ function ENT:OnInput(key, activator, caller, data)
 	
 	-- Alpha HGrunt --
 	elseif key == "i_got_something_for_you" then -- Make them play a sound when firing a weapon secondary shot
-		self:PlaySoundSystem("Speech", "vj_hlr/hla_npc/hgrunt/gr_loadtalk.wav")
+		self:PlaySoundSystem("Speech", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_loadtalk.wav")
 		
 	-- Alpha Sergeant --
 	elseif key == "holster_gun" && self.Serg_Type != 2 then
@@ -255,8 +255,8 @@ function ENT:OnInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local sdAlertAlien = {"vj_hlr/hl1_npc/hgrunt/gr_alert9.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert10.wav"}
-local sdAlertSoldier = {"vj_hlr/hl1_npc/hgrunt/gr_alert2.wav", "vj_hlr/hl1_npc/hgrunt/gr_alert5.wav"}
+local sdAlertAlien = {"vj_hlr/gsrc/npc/hgrunt/gr_alert9.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert10.wav"}
+local sdAlertSoldier = {"vj_hlr/gsrc/npc/hgrunt/gr_alert2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert5.wav"}
 --
 function ENT:OnAlert(ent)
 	if math.random(1, 3) == 1 && self.HECU_UsingDefaultSounds == true then
@@ -522,8 +522,8 @@ function ENT:OnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gasTankExpPos = Vector(0, 0, 90)
-local gasTankExpSd = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
-local sdHeadshot = {"vj_hlr/fx/headshot1.wav", "vj_hlr/fx/headshot2.wav", "vj_hlr/fx/headshot3.wav"}
+local gasTankExpSd = {"vj_hlr/gsrc/wep/explosion/explode3.wav", "vj_hlr/gsrc/wep/explosion/explode4.wav", "vj_hlr/gsrc/wep/explosion/explode5.wav"}
+local sdHeadshot = {"vj_hlr/gsrc/fx/headshot1.wav", "vj_hlr/gsrc/fx/headshot2.wav", "vj_hlr/gsrc/fx/headshot3.wav"}
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
@@ -534,7 +534,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.BlastDamage(self, self, self:GetPos(), 100, 80)
 		util.ScreenShake(self:GetPos(), 100, 200, 1, 500)
 		VJ.EmitSound(self, gasTankExpSd, 90)
-		VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 		spr:SetKeyValue("GlowProxySize", "2.0")

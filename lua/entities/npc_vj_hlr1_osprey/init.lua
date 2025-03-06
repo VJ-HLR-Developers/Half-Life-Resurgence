@@ -42,9 +42,9 @@ ENT.HasMeleeAttack = false
 ENT.HasDeathCorpse = false
 ENT.VJ_ID_Healable = false
 
-ENT.SoundTbl_Death = "vj_hlr/hl1_weapon/mortar/mortarhit.wav"
+ENT.SoundTbl_Death = "vj_hlr/gsrc/wep/mortar/mortarhit.wav"
 
-local sdExplosions = {"vj_hlr/hl1_weapon/explosion/explode3.wav", "vj_hlr/hl1_weapon/explosion/explode4.wav", "vj_hlr/hl1_weapon/explosion/explode5.wav"}
+local sdExplosions = {"vj_hlr/gsrc/wep/explosion/explode3.wav", "vj_hlr/gsrc/wep/explosion/explode4.wav", "vj_hlr/gsrc/wep/explosion/explode5.wav"}
 
 ENT.MainSoundPitch = 100
 ENT.DeathSoundLevel = 100
@@ -71,9 +71,9 @@ function ENT:Init()
 	self:SetCollisionBounds(Vector(300, 300, 250), Vector(-300, -300, 0))
 	self:SetPos(self:GetPos() + spawnPos)
 	
-	self.HeliSD_Rotor = VJ.CreateSound(self, "vj_hlr/hl1_npc/apache/ap_rotor4.wav", 120)
-	self.HeliSD_Whine = VJ.CreateSound(self, "vj_hlr/hl1_npc/apache/ap_whine1.wav", 70)
-	self.HeliSD_Distant = VJ.CreateSound(self, "vj_hlr/hl1_npc/apache/ap_rotor1.wav", 160)
+	self.HeliSD_Rotor = VJ.CreateSound(self, "vj_hlr/gsrc/npc/apache/ap_rotor4.wav", 120)
+	self.HeliSD_Whine = VJ.CreateSound(self, "vj_hlr/gsrc/npc/apache/ap_whine1.wav", 70)
+	self.HeliSD_Distant = VJ.CreateSound(self, "vj_hlr/gsrc/npc/apache/ap_rotor1.wav", 160)
 	
 	if GetConVar("vj_hlr1_osprey_deploysoldiers"):GetInt() == 0 then self.Osprey_DropStatus = -1 end
 	self.Osprey_Gunners = {}
@@ -309,7 +309,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorHeliExp = Color(255, 255, 192, 128)
 local colorYellowOsprey = Color(255, 223, 137)
-local sdGibCollide = {"vj_hlr/fx/metal1.wav", "vj_hlr/fx/metal2.wav", "vj_hlr/fx/metal3.wav", "vj_hlr/fx/metal4.wav", "vj_hlr/fx/metal5.wav"}
+local sdGibCollide = {"vj_hlr/gsrc/fx/metal1.wav", "vj_hlr/gsrc/fx/metal2.wav", "vj_hlr/gsrc/fx/metal3.wav", "vj_hlr/gsrc/fx/metal4.wav", "vj_hlr/gsrc/fx/metal5.wav"}
 local heliExpGibs_Green = { -- For HECU
 	"models/vj_hlr/gibs/metalgib_p1_g.mdl",
 	"models/vj_hlr/gibs/metalgib_p2_g.mdl",
@@ -490,7 +490,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				
 				util.BlastDamage(self, self, expPos2, 300, 100)
 				VJ.EmitSound(self, sdExplosions, 100, 100)
-				VJ.EmitSound(self, "vj_hlr/hl1_weapon/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
 			end
 		
 			self:NextThink(CurTime())
@@ -566,8 +566,8 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			spr:Fire("Kill", "", 1.19)
 			timer.Simple(1.19, function() if IsValid(spr) then spr:Remove() end end)
 			util.BlastDamage(self, self, expPos2, 600, 200)
-			VJ.EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit.wav", 100, 100)
-			VJ.EmitSound(self, "vj_hlr/hl1_weapon/mortar/mortarhit_dist.wav", 140, 100)
+			VJ.EmitSound(self, "vj_hlr/gsrc/wep/mortar/mortarhit.wav", 100, 100)
+			VJ.EmitSound(self, "vj_hlr/gsrc/wep/mortar/mortarhit_dist.wav", 140, 100)
 			
 			-- flags 0 = No fade!
 			effects.BeamRingPoint(self:GetPos(), 0.4, 0, 1500, 32, 0, colorHeliExp, {material="vj_hl/sprites/shockwave", framerate=0, flags=0})

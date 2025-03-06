@@ -43,16 +43,16 @@ ENT.DisableFootStepSoundTimer = true
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_BIG_FLINCH
 
-ENT.SoundTbl_FootStep = {"vj_hlr/hl1_npc/player/boots1.wav", "vj_hlr/hl1_npc/player/boots2.wav", "vj_hlr/hl1_npc/player/boots3.wav", "vj_hlr/hl1_npc/player/boots4.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/pitdrone/pit_drone_communicate1.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_communicate2.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_communicate3.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_communicate4.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_idle3.wav"}
-ENT.SoundTbl_CombatIdle = {"vj_hlr/hl1_npc/pitdrone/pit_drone_idle1.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_idle2.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_hunt1.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_hunt2.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_hunt3.wav"}
-ENT.SoundTbl_Alert = {"vj_hlr/hl1_npc/pitdrone/pit_drone_alert1.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_alert2.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_alert3.wav"}
-ENT.SoundTbl_MeleeAttack = {"vj_hlr/hl1_npc/pitdrone/pit_drone_melee_attack1.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_melee_attack2.wav"}
-ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/hl1_npc/zombie/claw_miss1.wav", "vj_hlr/hl1_npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/hl1_npc/pitdrone/pit_drone_attack_spike1.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_attack_spike2.wav"}
-ENT.SoundTbl_KilledEnemy = {"vj_hlr/hl1_npc/pitdrone/pit_drone_eat.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/pitdrone/pit_drone_pain1.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_pain2.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_pain3.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_pain4.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/pitdrone/pit_drone_die1.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_die2.wav", "vj_hlr/hl1_npc/pitdrone/pit_drone_die3.wav"}
+ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/player/boots1.wav", "vj_hlr/gsrc/npc/player/boots2.wav", "vj_hlr/gsrc/npc/player/boots3.wav", "vj_hlr/gsrc/npc/player/boots4.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/pitdrone/pit_drone_communicate1.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_communicate2.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_communicate3.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_communicate4.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_idle3.wav"}
+ENT.SoundTbl_CombatIdle = {"vj_hlr/gsrc/npc/pitdrone/pit_drone_idle1.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_idle2.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_hunt1.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_hunt2.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_hunt3.wav"}
+ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/pitdrone/pit_drone_alert1.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_alert2.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_alert3.wav"}
+ENT.SoundTbl_MeleeAttack = {"vj_hlr/gsrc/npc/pitdrone/pit_drone_melee_attack1.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_melee_attack2.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
+ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/gsrc/npc/pitdrone/pit_drone_attack_spike1.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_attack_spike2.wav"}
+ENT.SoundTbl_KilledEnemy = {"vj_hlr/gsrc/npc/pitdrone/pit_drone_eat.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/pitdrone/pit_drone_pain1.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_pain2.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_pain3.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_pain4.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/pitdrone/pit_drone_die1.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_die2.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_die3.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(18, 18, 55), Vector(-18, -18, 0))

@@ -29,9 +29,9 @@ ENT.BloodDecal = {"VJ_HLR1_Blood_Yellow"}
 ENT.HasBloodPool = false
 ENT.HasMeleeAttack = false
 
-ENT.SoundTbl_Idle = {"vj_hlr/hl1_npc/boid/boid_idle1.wav", "vj_hlr/hl1_npc/boid/boid_idle2.wav", "vj_hlr/hl1_npc/boid/boid_idle3.wav"}
-ENT.SoundTbl_Pain = {"vj_hlr/hl1_npc/boid/boid_alert1.wav", "vj_hlr/hl1_npc/boid/boid_alert2.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/hl1_npc/boid/boid_alert1.wav", "vj_hlr/hl1_npc/boid/boid_alert2.wav"}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/boid/boid_idle1.wav", "vj_hlr/gsrc/npc/boid/boid_idle2.wav", "vj_hlr/gsrc/npc/boid/boid_idle3.wav"}
+ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/boid/boid_alert1.wav", "vj_hlr/gsrc/npc/boid/boid_alert2.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/boid/boid_alert1.wav", "vj_hlr/gsrc/npc/boid/boid_alert2.wav"}
 
 -- Custom
 ENT.Boid_Type = 0
