@@ -232,8 +232,3 @@ end
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeathWeaponDrop(dmginfo, hitgroup, wepEnt)
-	wepEnt.WorldModel_Invisible = false
-	wepEnt:SetNW2Bool("VJ_WorldModel_Invisible", false)
-end

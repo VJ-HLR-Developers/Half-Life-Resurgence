@@ -13,7 +13,6 @@ SWEP.MadeForNPCsOnly 			= true
 SWEP.WorldModel					= "models/vj_hlr/weapons/w_saw.mdl"
 SWEP.HoldType 					= "ar2"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(-10, 94, 2)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-6.5, 0, -2)
@@ -50,14 +49,8 @@ function SWEP:DoImpactEffect(tr, damageType)
 	return VJ.HLR1_Effect_Impact(tr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:OnDrawWorldModel() -- This is client only!
-	if IsValid(self:GetOwner()) then
-		self.WorldModel_Invisible = true
-		return false
-	else
-		self.WorldModel_Invisible = false
-		return true -- return false to not draw the world model
-	end
+function SWEP:OnDrawWorldModel()
+	return !IsValid(self:GetOwner())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:PrimaryAttackEffects(owner)

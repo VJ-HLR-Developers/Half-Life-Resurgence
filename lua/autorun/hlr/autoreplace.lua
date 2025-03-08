@@ -15,8 +15,7 @@ local replaceTbl_Entities = {
 	["monster_gargantua"] = "npc_vj_hlr1_garg",
 	["monster_human_assassin"] = "npc_vj_hlr1_assassin_female",
 	["monster_babycrab"] = "npc_vj_hlr1_headcrab_baby",
-	-- ["monster_human_grunt"] = {"npc_vj_hlr1_hgrunt", "npc_vj_hlrof_hgrunt", "npc_vj_hlrof_hgrunt_med", "npc_vj_hlrof_hgrunt_eng"},
-	["monster_human_grunt"] = "npc_vj_hlr1_hgrunt",
+	["monster_human_grunt"] = "npc_vj_hlr1_hgrunt", // {"npc_vj_hlr1_hgrunt", "npc_vj_hlrof_hgrunt", "npc_vj_hlrof_hgrunt_med", "npc_vj_hlrof_hgrunt_eng"}
 	["monster_cockroach"] = "npc_vj_hlr1_cockroach",
 	["monster_houndeye"] = "npc_vj_hlr1_houndeye",
 	["monster_scientist"] = "npc_vj_hlr1_scientist",
@@ -238,6 +237,11 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				if worldName && worldName != "" then newEnt:SetName(worldName) end
 				newEnt:Spawn()
 				newEnt:Activate()
+				-- Set the target entity
+				local entTarget = ent.GetTarget && ent:GetTarget()
+				if IsValid(entTarget) then
+					newEnt:SetTarget(entTarget)
+				end
 				-- Handle naming
 				if worldName && worldName != "" then -- Scripted NPC
 					newEnt.DisableWandering = true
@@ -271,13 +275,16 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 						end
 					elseif key == "m_bShouldPatrol" && val == false then
 						newEnt.DisableWandering = true
-					-- Not what I thought it was, actual variable is m_LookDist using the function SetDistLook
-					-- Which both of them can't be accessed in Lua...
-					//elseif key == "m_flDistTooFar" then
-						//newEnt.SightDistance = val
+					//elseif key == "m_vecCommandGoal" && val != defPos then
+					//	timer.Simple(0.15, function()
+					//		if IsValid(newEnt) then
+					//			newEnt:SetLastPosition(val)
+					//			newEnt:SCHEDULE_GOTO_POSITION()
+					//		end
+					//	end)
 					end
 				end
-				//newEnt.SightDistance = 2048 -- Default Source engine sight distance...
+				//newEnt.SightDistance = 2048 -- Default Source engine sight distance
 				-- Handle spawn flags
 				//if ent:HasSpawnFlags(SF_NPC_LONG_RANGE) then
 					//newEnt.SightDistance = 6000
@@ -311,7 +318,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 					newEnt.VJ_NPC_Class = {"CLASS_HALF_LIFE_AGAINST_PLAYERS"}
 				end
 				-- print(ent:GetClass(), ent:GetInternalVariable("GameEndAlly"))
-				-- Set the starting animation AND velocity
+				-- velocity
 				local vel = ent:GetVelocity()
 				timer.Simple(0.01, function()
 					if IsValid(newEnt) && vel:Length() > 0 then

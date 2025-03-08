@@ -657,11 +657,6 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
 	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, nil, {ExtraGibs = self.HECU_Type != 4 and {"models/vj_hlr/gibs/gib_hgrunt.mdl"} or nil})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeathWeaponDrop(dmginfo, hitgroup, wepEnt)
-	wepEnt.WorldModel_Invisible = false
-	wepEnt:SetNW2Bool("VJ_WorldModel_Invisible", false)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
 	-- Make sure to let the Osprey know I have died ='(
 	if self.HECU_DeployedByOsprey then

@@ -5,14 +5,13 @@ SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire 		= false
-SWEP.NPC_ReloadSound			= {"vj_hlr/gsrc/wep/shockroach/shock_recharge.wav"}
+SWEP.NPC_ReloadSound			= "vj_hlr/gsrc/wep/shockroach/shock_recharge.wav"
 SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true
 SWEP.WorldModel					= "models/props_junk/watermelon01_chunk02c.mdl"
 SWEP.HoldType 					= "smg"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_Invisible = true -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(0, 0, 0)
 SWEP.WorldModel_CustomPositionOrigin = Vector(20, 3, -2.5)
@@ -36,6 +35,7 @@ local validModels = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
+	self:SetDrawWorldModel(false)
 	timer.Simple(0.1, function()
 		if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
 			self.NPC_NextPrimaryFire = false

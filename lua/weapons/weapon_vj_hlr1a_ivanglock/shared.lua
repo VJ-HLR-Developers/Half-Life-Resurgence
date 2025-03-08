@@ -14,7 +14,6 @@ SWEP.ReplacementWeapon = {"weapon_hl1_glock", "weapon_glock_hl1"}
 SWEP.WorldModel					= "models/vj_hlr/hla/w_docgun.mdl"
 SWEP.HoldType 					= "pistol"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_Invisible = false -- Should the world model be invisible?
 SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(0, 0, 0)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-1, 3.3, -0.7)
@@ -47,14 +46,8 @@ function SWEP:DoImpactEffect(tr, damageType)
 	return VJ.HLR1_Effect_Impact(tr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:OnDrawWorldModel() -- This is client only!
-	if IsValid(self:GetOwner()) then
-		self.WorldModel_Invisible = false
-		return false
-	else
-		self.WorldModel_Invisible = false
-		return true -- return false to not draw the world model
-	end
+function SWEP:OnDrawWorldModel()
+	return !IsValid(self:GetOwner())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:PrimaryAttackEffects(owner)
