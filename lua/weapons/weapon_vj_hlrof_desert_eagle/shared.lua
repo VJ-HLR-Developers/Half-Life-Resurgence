@@ -6,7 +6,7 @@ SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire 		= false
 SWEP.NPC_ReloadSound			= {"vj_hlr/gsrc/wep/deagle/desert_eagle_reload.wav"}
-SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
+SWEP.NPC_CanBePickedUp			= false
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true
 SWEP.WorldModel					= "models/vj_hlr/weapons/w_desert_eagle.mdl"
@@ -15,7 +15,7 @@ SWEP.HoldType 					= "pistol"
 SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(80, 0, 0)
 SWEP.WorldModel_CustomPositionOrigin = Vector(0.5, -0.5, -35)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
+SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 15
 SWEP.Primary.ClipSize			= 7

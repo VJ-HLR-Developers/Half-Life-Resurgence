@@ -7,7 +7,7 @@ SWEP.Category					= "VJ Base"
 SWEP.NPC_NextPrimaryFire 		= 2.5
 SWEP.NPC_CustomSpread	 		= 2
 SWEP.NPC_ReloadSound			= {"vj_hlr/gsrc/wep/glock/glock_reload.wav"}
-SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
+SWEP.NPC_CanBePickedUp			= false
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true
 SWEP.ReplacementWeapon = {"weapon_hl1_glock", "weapon_glock_hl1"}
@@ -17,7 +17,7 @@ SWEP.HoldType 					= "pistol"
 SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(0, 0, 0)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-1, 3.3, -0.7)
-SWEP.WorldModel_CustomPositionBone = "unnamed037" -- The bone it will use as the main point
+SWEP.WorldModel_CustomPositionBone = "unnamed037"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 5
 SWEP.Primary.ClipSize = 17

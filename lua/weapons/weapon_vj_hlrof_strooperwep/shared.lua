@@ -6,7 +6,7 @@ SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire 		= false
 SWEP.NPC_ReloadSound			= "vj_hlr/gsrc/wep/shockroach/shock_recharge.wav"
-SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
+SWEP.NPC_CanBePickedUp			= false
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true
 SWEP.WorldModel					= "models/props_junk/watermelon01_chunk02c.mdl"
@@ -15,7 +15,7 @@ SWEP.HoldType 					= "smg"
 SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(0, 0, 0)
 SWEP.WorldModel_CustomPositionOrigin = Vector(20, 3, -2.5)
-SWEP.WorldModel_CustomPositionBone = "Bone58" -- The bone it will use as the main point
+SWEP.WorldModel_CustomPositionBone = "Bone58"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 5
 SWEP.Primary.ClipSize			= 30
@@ -26,7 +26,7 @@ SWEP.Primary.DisableBulletCode	= true
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.PrimaryEffects_MuzzleFlash = false
 
-SWEP.HasDryFireSound			= false -- Should it play a sound when it's out of ammo?
+SWEP.HasDryFireSound			= false
 
 -- Custom
 SWEP.HLR_NextIdleSoundT = 0

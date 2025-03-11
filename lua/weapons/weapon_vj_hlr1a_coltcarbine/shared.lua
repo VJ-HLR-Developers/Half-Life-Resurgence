@@ -5,26 +5,26 @@ SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 0.08
-SWEP.NPC_ReloadSound = {"vj_hlr/gsrc/npc/hgrunt_alpha/gr_reload1.wav"}
-SWEP.NPC_CanBePickedUp = false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
+SWEP.NPC_ReloadSound = "vj_hlr/gsrc/npc/hgrunt_alpha/gr_reload1.wav"
+SWEP.NPC_CanBePickedUp = false
 SWEP.NPC_HasSecondaryFire = true
-SWEP.NPC_SecondaryFireEnt = "obj_vj_hlr1_grenade_40mm" -- The entity to fire, this only applies if self:NPC_SecondaryFire() has NOT been overridden!
-SWEP.NPC_SecondaryFireSound = {"vj_hlr/gsrc/npc/hgrunt_alpha/glauncher.wav","vj_hlr/gsrc/npc/hgrunt_alpha/glauncher2.wav"}
+SWEP.NPC_SecondaryFireEnt = "obj_vj_hlr1_grenade_40mm"
+SWEP.NPC_SecondaryFireSound = {"vj_hlr/gsrc/npc/hgrunt_alpha/glauncher.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/glauncher2.wav"}
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true
-SWEP.WorldModel					= "models/vj_hlr/weapons/w_coltcarbine.mdl"
-SWEP.HoldType 					= "smg"
+SWEP.MadeForNPCsOnly = true
+SWEP.WorldModel = "models/vj_hlr/weapons/w_coltcarbine.mdl"
+SWEP.HoldType = "smg"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(176, 180, 180)
 SWEP.WorldModel_CustomPositionOrigin = Vector(0.5, 12.2, 1.9)
-SWEP.WorldModel_CustomPositionBone = "unnamed035" -- The bone it will use as the main point
+SWEP.WorldModel_CustomPositionBone = "unnamed035"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 5
-SWEP.Primary.ClipSize			= 50
-SWEP.Primary.Ammo				= "SMG1"
-SWEP.Primary.Sound				= {"vj_hlr/gsrc/npc/hgrunt_alpha/gr_mgun1.wav","vj_hlr/gsrc/npc/hgrunt_alpha/gr_mgun2.wav","vj_hlr/gsrc/npc/hgrunt_alpha/gr_mgun3.wav"}
-SWEP.Primary.DistantSound		= {"vj_hlr/gsrc/npc/hgrunt_alpha/gr_mgun_distant2.wav"}
+SWEP.Primary.Damage = 5
+SWEP.Primary.ClipSize = 50
+SWEP.Primary.Ammo = "SMG1"
+SWEP.Primary.Sound = {"vj_hlr/gsrc/npc/hgrunt_alpha/gr_mgun1.wav","vj_hlr/gsrc/npc/hgrunt_alpha/gr_mgun2.wav","vj_hlr/gsrc/npc/hgrunt_alpha/gr_mgun3.wav"}
+SWEP.Primary.DistantSound = "vj_hlr/gsrc/npc/hgrunt_alpha/gr_mgun_distant2.wav"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
 

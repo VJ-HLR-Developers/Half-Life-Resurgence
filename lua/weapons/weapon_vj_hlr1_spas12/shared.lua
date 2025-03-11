@@ -9,7 +9,7 @@ SWEP.NPC_CustomSpread	 		= 2.5
 SWEP.NPC_ReloadSound			= "vj_hlr/gsrc/wep/shotgun/shotgun_reload.wav"
 SWEP.NPC_ExtraFireSound			= "vj_hlr/gsrc/wep/shotgun/scock1.wav"
 SWEP.NPC_ExtraFireSoundTime		= 0.2
-SWEP.NPC_CanBePickedUp			= false -- Can this weapon be picked up by NPCs? (Ex: Rebels)
+SWEP.NPC_CanBePickedUp			= false
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
 SWEP.ReplacementWeapon = {"weapon_hl1_shotgun", "weapon_shotgun_hl1"}
@@ -19,7 +19,7 @@ SWEP.HoldType = "shotgun"
 SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(0, 180, 90)
 SWEP.WorldModel_CustomPositionOrigin = Vector(0, -15, 0)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand" -- The bone it will use as the main point
+SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 5
 SWEP.Primary.NumberOfShots		= 5
