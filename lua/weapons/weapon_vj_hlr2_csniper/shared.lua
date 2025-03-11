@@ -57,8 +57,9 @@ SWEP.AnimTbl_Reload = ACT_VM_DRAW
 local vec_def = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:SetupDataTables()
-	self:NetworkVar("Bool", 0, "Zoomed")
-	self:NetworkVar("Float", 0, "ZoomLevel")
+	self:NetworkVar("Bool", "Zoomed")
+	self:NetworkVar("Float", "ZoomLevel")
+	baseclass.Get("weapon_vj_base").SetupDataTables(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Zoom()

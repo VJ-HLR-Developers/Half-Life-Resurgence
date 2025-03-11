@@ -32,8 +32,9 @@ SWEP.Reload_TimeUntilAmmoIsSet = 0.8
 SWEP.ReloadSound = "vj_base/weapons/reload_rpg.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:SetupDataTables()
-	self:NetworkVar("Bool", 0, "NWLaser")
-	self:NetworkVar("Entity", 0, "NWEnemy")
+	self:NetworkVar("Bool", "NWLaser")
+	self:NetworkVar("Entity", "NWEnemy")
+	baseclass.Get("weapon_vj_base").SetupDataTables(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
