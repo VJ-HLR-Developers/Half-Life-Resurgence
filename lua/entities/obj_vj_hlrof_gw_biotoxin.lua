@@ -26,7 +26,7 @@ ENT.SoundTbl_OnCollide = {}
 ENT.SoundTbl_Idle = {}
 
 -- Custom
-ENT.Track_Enemy = NULL
+ENT.Track_Ent = NULL
 ENT.Track_TrackTime = 0
 ENT.Track_OrgPosition = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -37,7 +37,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
 	if CurTime() > self.Track_TrackTime then return end
-	local ene = self.Track_Enemy
+	local ene = self.Track_Ent
 	if IsValid(ene) then
 		if ene:GetPos():Distance(self.Track_OrgPosition) > 500 then return end -- If enemy moves to far from org position, then stop tracking
 		local phys = self:GetPhysicsObject()

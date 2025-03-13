@@ -26,7 +26,7 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/wep/gauss/electro4.wav", "vj_hlr/gsrc/wep
 -- Custom
 local defVec = Vector(0, 0, 0)
 
-ENT.Track_Enemy = NULL
+ENT.Track_Ent = NULL
 ENT.Track_Position = defVec
 ENT.Track_SpriteScale = 1.2
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -34,19 +34,19 @@ function ENT:Init()
 	self:SetNoDraw(true)
 	
 	local sprite = ents.Create("env_sprite")
-	sprite:SetKeyValue("model","vj_hl/sprites/nhth1.vmt")
-	//sprite:SetKeyValue("rendercolor","255 128 0")
-	sprite:SetKeyValue("GlowProxySize","2.0")
-	sprite:SetKeyValue("HDRColorScale","1.0")
-	sprite:SetKeyValue("renderfx","14")
-	sprite:SetKeyValue("rendermode","3")
-	sprite:SetKeyValue("renderamt","255")
-	sprite:SetKeyValue("disablereceiveshadows","0")
-	sprite:SetKeyValue("mindxlevel","0")
-	sprite:SetKeyValue("maxdxlevel","0")
-	sprite:SetKeyValue("framerate","10.0")
-	sprite:SetKeyValue("spawnflags","0")
-	sprite:SetKeyValue("scale",""..self.Track_SpriteScale)
+	sprite:SetKeyValue("model", "vj_hl/sprites/nhth1.vmt")
+	//sprite:SetKeyValue("rendercolor", "255 128 0")
+	sprite:SetKeyValue("GlowProxySize", "2.0")
+	sprite:SetKeyValue("HDRColorScale", "1.0")
+	sprite:SetKeyValue("renderfx", "14")
+	sprite:SetKeyValue("rendermode", "3")
+	sprite:SetKeyValue("renderamt", "255")
+	sprite:SetKeyValue("disablereceiveshadows", "0")
+	sprite:SetKeyValue("mindxlevel", "0")
+	sprite:SetKeyValue("maxdxlevel", "0")
+	sprite:SetKeyValue("framerate", "10.0")
+	sprite:SetKeyValue("spawnflags", "0")
+	sprite:SetKeyValue("scale", ""..self.Track_SpriteScale)
 	sprite:SetPos(self:GetPos())
 	sprite:Spawn()
 	sprite:SetParent(self)
@@ -54,14 +54,14 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
-	if IsValid(self.Track_Enemy) then -- Homing Behavior
-		local pos = self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter()
+	if IsValid(self.Track_Ent) then -- Homing Behavior
+		local pos = self.Track_Ent:GetPos() + self.Track_Ent:OBBCenter()
 		if self:VisibleVec(pos) or self.Track_Position == defVec then
 			self.Track_Position = pos
 		end
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
-			phys:SetVelocity(VJ.CalculateTrajectory(self, self.Track_Enemy, "Line", self:GetPos(), self.Track_Position, 700))
+			phys:SetVelocity(VJ.CalculateTrajectory(self, self.Track_Ent, "Line", self:GetPos(), self.Track_Position, 700))
 		end
 	end
 end

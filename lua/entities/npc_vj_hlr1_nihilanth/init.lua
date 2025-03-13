@@ -191,7 +191,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "PostSpawn" && self.Nih_TeleportingOrb then
-		projectile.Track_Enemy = enemy
+		projectile.Track_Ent = enemy
 		timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
 	end
 end
@@ -561,7 +561,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		end)
 	elseif status == "Finish" then
 		-- Screen flash effect for all the players
-		for _,v in ipairs(player.GetHumans()) do
+		for _, v in ipairs(player.GetHumans()) do
 			v:ScreenFade(SCREENFADE.IN, colorGreen, 1, 0)
 		end
 	end

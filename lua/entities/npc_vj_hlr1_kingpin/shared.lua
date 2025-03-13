@@ -13,7 +13,7 @@ if CLIENT then
 		hook.Add("RenderScreenspaceEffects", "VJ_HLR_Kingpin_Shield"..index, function()
 			if IsValid(self) then
 				if self:GetNW2Bool("PsionicEffect") then
-					cam.Start3D(EyePos(),EyeAngles())
+					cam.Start3D(EyePos(), EyeAngles())
 						if util.IsValidModel(self:GetModel()) then
 							render.SetBlend(1)
 							render.MaterialOverride(mat)
@@ -24,7 +24,7 @@ if CLIENT then
 					cam.End3D()
 					for _, prop in ipairs(ents.FindByClass("prop_*")) do
 						if prop:GetNW2Bool("BeingControlledByKingPin") then
-							cam.Start3D(EyePos(),EyeAngles())
+							cam.Start3D(EyePos(), EyeAngles())
 								render.SetBlend(1)
 								render.MaterialOverride(mat_object)
 								prop:DrawModel()
@@ -35,7 +35,7 @@ if CLIENT then
 					end
 				end
 			else
-				hook.Remove("RenderScreenspaceEffects","VJ_HLR_Kingpin_Shield" .. index)
+				hook.Remove("RenderScreenspaceEffects", "VJ_HLR_Kingpin_Shield" .. index)
 			end
 		end)
 	end

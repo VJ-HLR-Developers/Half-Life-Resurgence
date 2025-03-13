@@ -37,5 +37,5 @@ local colorPurple = Color(138, 43, 226)
 --
 function EFFECT:Render()
 	render.SetMaterial(self.MainMat)
-	render.DrawBeam(self.StartPos, self.EndPos, math.Rand(18,24), math.Rand(0,1), math.Rand(0,1) + ((self.StartPos - self.EndPos):Length() / 128), colorPurple)
+	render.DrawBeam(self.StartPos, self.EndPos, math.Rand(18, 24), math.Rand(0, 1), math.Rand(0, 1) + ((self.StartPos - self.EndPos):Length() / 128), colorPurple)
 end

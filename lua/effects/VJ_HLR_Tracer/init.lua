@@ -74,7 +74,7 @@ function EFFECT:Think()
 			fx:SetEndSize(5)
 			fx:SetRoll(math.Rand(180, 360))
 			fx:SetRollDelta(math.Rand(-1, 1))
-			fx:SetColor(255,255,255)
+			fx:SetColor(255, 255, 255)
 		end
 		return false
 	end

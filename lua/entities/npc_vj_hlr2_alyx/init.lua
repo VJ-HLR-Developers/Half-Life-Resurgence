@@ -1073,7 +1073,7 @@ function ENT:OnAlert(ent)
 			self:PlaySoundSystem("Alert", "vj_hlr/src/npc/ep1/c17/al_turrets.wav")
 			return
 		else
-			for _,v in ipairs(ent.VJ_NPC_Class or {1}) do
+			for _, v in ipairs(ent.VJ_NPC_Class or {1}) do
 				/*if v == "CLASS_COMBINE" or ent:Classify() == CLASS_COMBINE then
 					self:PlaySoundSystem("Alert", "vj_hlr/src/npc/ep1/c17/al_evac_ontous01.wav")
 					return*/
@@ -1106,7 +1106,7 @@ end
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
 	-- Kills a unknown type (Not Zombie, Antlion or Combine) of creature SNPC
 	if wasLast && math.random(1, 2) == 1 && ent.IsVJBaseSNPC_Creature then
-		for _,v in ipairs(ent.VJ_NPC_Class or {1}) do
+		for _, v in ipairs(ent.VJ_NPC_Class or {1}) do
 			if v != "CLASS_COMBINE" && v != "CLASS_ZOMBIE" && v != "CLASS_ANTLION" then
 				self:PlaySoundSystem("KilledEnemy", sdKilledEnemy)
 				return

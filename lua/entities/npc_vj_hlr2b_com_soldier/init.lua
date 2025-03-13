@@ -92,16 +92,16 @@ function ENT:OnThink()
 				finalpos = tr1.HitPos +self:GetForward() *25
 			end
 			if anim != false then
-			-- VJ.DEBUG_TempEnt(tr1.StartPos,self:GetAngles(),Color(0,0,255))
-			-- VJ.DEBUG_TempEnt(finalpos,self:GetAngles(),Color(0,255,0))
+			-- VJ.DEBUG_TempEnt(tr1.StartPos, self:GetAngles(), Color(0, 0, 255))
+			-- VJ.DEBUG_TempEnt(finalpos, self:GetAngles(), Color(0, 255, 0))
 				self:SetGroundEntity(NULL)
 				self.IsClimbing = true
-				timer.Simple(1.21,function()
+				timer.Simple(1.21, function()
 					if IsValid(self) then
 						self:SetPos(finalpos)
 					end
 				end)
-				self:PlayAnim(anim,true,false,true,0,{},function(sched)
+				self:PlayAnim(anim, true, false, true, 0, {}, function(sched)
 					sched.RunCode_OnFinish = function()
 						self.IsClimbing = false
 					end
@@ -126,11 +126,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateSound(sdData, sdFile)
 	if VJ.HasValue(self.SoundTbl_Death, sdFile) then
-		VJ.EmitSound(self,"vj_hlr/src/npc/combine_soldier_beta/click_terminated.wav")
+		VJ.EmitSound(self, "vj_hlr/src/npc/combine_soldier_beta/click_terminated.wav")
 		return
 	end
-	VJ.EmitSound(self,"vj_hlr/src/npc/combine_soldier_beta/clik.wav")
-	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self,"vj_hlr/src/npc/combine_soldier_beta/click_off.wav") end end)
+	VJ.EmitSound(self, "vj_hlr/src/npc/combine_soldier_beta/clik.wav")
+	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self, "vj_hlr/src/npc/combine_soldier_beta/click_off.wav") end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnGrenadeAttackExecute(status, grenade, overrideEnt, landDir, landingPos)

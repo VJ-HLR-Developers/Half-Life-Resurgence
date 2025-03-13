@@ -411,12 +411,12 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		-- FIXME: this needs to be implemented better, right now this is a basic idea, often causes osprey to just explode midair, but the shit looks beautiful when everything goes right.
 		local pos = self:GetAttachment(self:LookupAttachment("engine_right")).Pos
 		local gibSkin = self:GetModel() == "models/vj_hlr/hl1/osprey_blkops.mdl" and 1 or 0
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib1.mdl", {CollisionDecal=false, Pos=pos + Vector(90,0,-100), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib2.mdl", {CollisionDecal=false, Pos=pos + Vector(90,0,0), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib3.mdl", {CollisionDecal=false, Pos=pos + Vector(95,0,90), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib9.mdl", {CollisionDecal=false, Pos=pos + Vector(95,0,93), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib10.mdl", {CollisionDecal=false, Pos=pos + Vector(95,0,95), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib11.mdl", {CollisionDecal=false, Pos=pos + Vector(95,0,96), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib1.mdl", {CollisionDecal=false, Pos=pos + Vector(90, 0, -100), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib2.mdl", {CollisionDecal=false, Pos=pos + Vector(90, 0, 0), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib3.mdl", {CollisionDecal=false, Pos=pos + Vector(95, 0, 90), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib9.mdl", {CollisionDecal=false, Pos=pos + Vector(95, 0, 93), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib10.mdl", {CollisionDecal=false, Pos=pos + Vector(95, 0, 95), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib11.mdl", {CollisionDecal=false, Pos=pos + Vector(95, 0, 96), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
 		
 		-- Make the gunners gib into pieces!
 		-- Also unparent them because Source engine spawns them at a random location...
@@ -490,7 +490,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				
 				util.BlastDamage(self, self, expPos2, 300, 100)
 				VJ.EmitSound(self, sdExplosions, 100, 100)
-				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
 			end
 		
 			self:NextThink(CurTime())
@@ -547,7 +547,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				end
 			end
 			
-			local expPos2 = self:GetPos() + Vector(0,0,math.Rand(150, 150))
+			local expPos2 = self:GetPos() + Vector(0, 0, math.Rand(150, 150))
 			local spr = ents.Create("env_sprite")
 			spr:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
 			spr:SetKeyValue("GlowProxySize", "2.0")

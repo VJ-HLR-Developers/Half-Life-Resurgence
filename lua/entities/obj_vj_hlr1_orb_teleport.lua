@@ -29,25 +29,26 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/wep/gauss/electro4.wav", "vj_hlr/gsrc/wep
 -- Custom
 local defVec = Vector(0, 0, 0)
 
-ENT.Track_Enemy = NULL
+ENT.Track_Ent = NULL
 ENT.Track_Position = defVec
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetNoDraw(true)
+	
 	local sprite = ents.Create("env_sprite")
-	sprite:SetKeyValue("model","vj_hl/sprites/exit1.vmt")
-	//sprite:SetKeyValue("rendercolor","255 128 0")
-	sprite:SetKeyValue("GlowProxySize","2.0")
-	sprite:SetKeyValue("HDRColorScale","1.0")
-	sprite:SetKeyValue("renderfx","14")
-	sprite:SetKeyValue("rendermode","3")
-	sprite:SetKeyValue("renderamt","255")
-	sprite:SetKeyValue("disablereceiveshadows","0")
-	sprite:SetKeyValue("mindxlevel","0")
-	sprite:SetKeyValue("maxdxlevel","0")
-	sprite:SetKeyValue("framerate","10.0")
-	sprite:SetKeyValue("spawnflags","0")
-	sprite:SetKeyValue("scale","1.5")
+	sprite:SetKeyValue("model", "vj_hl/sprites/exit1.vmt")
+	//sprite:SetKeyValue("rendercolor", "255 128 0")
+	sprite:SetKeyValue("GlowProxySize", "2.0")
+	sprite:SetKeyValue("HDRColorScale", "1.0")
+	sprite:SetKeyValue("renderfx", "14")
+	sprite:SetKeyValue("rendermode", "3")
+	sprite:SetKeyValue("renderamt", "255")
+	sprite:SetKeyValue("disablereceiveshadows", "0")
+	sprite:SetKeyValue("mindxlevel", "0")
+	sprite:SetKeyValue("maxdxlevel", "0")
+	sprite:SetKeyValue("framerate", "10.0")
+	sprite:SetKeyValue("spawnflags", "0")
+	sprite:SetKeyValue("scale", "1.5")
 	sprite:SetPos(self:GetPos())
 	sprite:Spawn()
 	sprite:SetParent(self)
@@ -55,14 +56,15 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
-	if IsValid(self.Track_Enemy) then -- Homing Behavior
-		local pos = self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter()
+	local trackedEnt = self.Track_Ent
+	if IsValid(trackedEnt) then -- Homing Behavior
+		local pos = trackedEnt:GetPos() + trackedEnt:OBBCenter()
 		if self:VisibleVec(pos) or self.Track_Position == defVec then
 			self.Track_Position = pos
 		end
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
-			phys:SetVelocity(VJ.CalculateTrajectory(self, self.Track_Enemy, "Line", self:GetPos(), self.Track_Position, 700))
+			phys:SetVelocity(VJ.CalculateTrajectory(self, trackedEnt, "Line", self:GetPos(), self.Track_Position, 700))
 		end
 	end
 end
@@ -76,7 +78,7 @@ function ENT:OnDealDamage(data, phys, hitEnts)
 		if !ent.VJ_ID_Boss && !ent.Dead && ent:GetClass() != "sent_vj_xen_crystal" then
 			local tr = util.TraceLine({
 				start = owner:GetPos(),
-				endpos = owner:GetPos() + owner:GetForward() * math.Rand(-10000, 10000) + owner:GetRight() * math.Rand(-10000, 10000) + owner:GetUp() * -3000, //math.Rand(-10000, 10000),
+				endpos = owner:GetPos() + owner:GetForward() * math.Rand(-10000, 10000) + owner:GetRight() * math.Rand(-10000, 10000) + owner:GetUp() * -3000,
 				filter = owner,
 			})
 			local pos = tr.HitPos + tr.HitNormal * ent:OBBMaxs()

@@ -260,7 +260,7 @@ end
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "PostSpawn" then
 		util.Decal("VJ_HLR1_Gargantua_Stomp", self:GetPos() + self:GetRight()*-20 + self:GetForward()*50, self:GetPos() + self:GetRight()*-20 + self:GetForward()*50 + self:GetUp()*-100, self)
-		projectile.Track_Enemy = enemy
+		projectile.Track_Ent = enemy
 		projectile:SetAngles(Angle(self:GetAngles().p, 0, 0))
 		timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
 	end
@@ -355,12 +355,12 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 				spr:SetKeyValue("scale", self.Garg_Type == 1 and "3" or "6")
 				spr:SetPos(myPos + self:GetUp()*150)
 				spr:Spawn()
-				spr:Fire("Kill", "",0.9)
+				spr:Fire("Kill", "", 0.9)
 				timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 			end
 			
-			util.BlastDamage(self,self,myPos,150,80)
-			util.ScreenShake(myPos,100,200,1,2500)
+			util.BlastDamage(self, self, myPos, 150, 80)
+			util.ScreenShake(myPos, 100, 200, 1, 2500)
 			
 			VJ.EmitSound(self, sdExplosions, 90, 100)
 			VJ.EmitSound(self, "vj_base/gib/splat.wav", 90, 100)

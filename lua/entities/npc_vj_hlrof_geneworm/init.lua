@@ -311,7 +311,7 @@ function ENT:RangeAttackProjVel(projectile)
 	local projPos = projectile:GetPos()
 	local aimPos = self:GetAimPosition(ene, projPos, 1, 2000)
 	local vel = VJ.CalculateTrajectory(self, ene, "Line", projPos, aimPos, 2000)
-	projectile.Track_Enemy = ene
+	projectile.Track_Ent = ene
 	projectile.Track_OrgPosition = aimPos
 	projectile.Track_TrackTime = CurTime() + (aimPos:Distance(projPos) / vel:Length()) -- Stops chasing the enemy after this time
 	return vel
@@ -366,7 +366,7 @@ function ENT:GW_EyeHealthCheck()
 			self:PlayAnim("pain_1", true, false)
 			self:PlaySoundSystem("Pain", "vj_hlr/gsrc/npc/geneworm/geneworm_final_pain1.wav")
 			self.SoundTbl_Breath = "vj_hlr/gsrc/npc/geneworm/geneworm_final_pain2.wav"
-			/*timer.Simple(VJ.AnimDuration(self, "pain_1"),function()
+			/*timer.Simple(VJ.AnimDuration(self, "pain_1"), function()
 				if IsValid(self) then
 					self:PlayAnim("pain_2", true, false)
 					self:PlaySoundSystem("Pain", "vj_hlr/gsrc/npc/geneworm/geneworm_final_pain2.wav")
@@ -432,7 +432,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 				self.NextPainSoundT = 0 -- Otherwise it won't play the sound because it played another pain sound right before this!
 				self:PlaySoundSystem("Pain", "vj_hlr/gsrc/npc/geneworm/geneworm_final_pain3.wav")
 				self:PlayAnim("pain_3", true, false)
-				timer.Simple(VJ.AnimDuration(self, "pain_3"),function()
+				timer.Simple(VJ.AnimDuration(self, "pain_3"), function()
 					if IsValid(self) then
 						self:GW_OrbOpenReset()
 					end
@@ -488,7 +488,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		self.GW_Fade = 2
 	elseif status == "Finish" then
 		-- Screen flash effect for all the players
-		for _,v in ipairs(player.GetHumans()) do
+		for _, v in ipairs(player.GetHumans()) do
 			v:ScreenFade(SCREENFADE.IN, colorPortal, 1, 0)
 		end
 	end

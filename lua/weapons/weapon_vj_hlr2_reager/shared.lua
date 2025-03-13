@@ -64,7 +64,7 @@ function SWEP:OnPrimaryAttack(status, statusData)
 		end
 		local randPos = targetPos + Vector(math.Rand(-10, 10), math.Rand(-10, 10), math.Rand(-10, 10))
 		util.ParticleTracerEx("electrical_arc_01", self:GetAttachment(1).Pos, randPos, false, self:EntIndex(), 1)
-		VJ.ApplyRadiusDamage(self.Owner, self.Owner, randPos, 20, math.random(2,5), DMG_SHOCK, true, true)
+		VJ.ApplyRadiusDamage(self.Owner, self.Owner, randPos, 20, math.random(2, 5), DMG_SHOCK, true, true)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

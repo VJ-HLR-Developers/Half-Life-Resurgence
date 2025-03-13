@@ -39,7 +39,7 @@ ENT.Weapon_IgnoreSpawnMenu = true
 ENT.Weapon_Strafe = false
 ENT.AnimTbl_WeaponAttackGesture = false
 //ENT.PoseParameterLooking_InvertPitch = true
-//ENT.PoseParameterLooking_Names = {pitch={"XR"},yaw={},roll={"ZR"}}
+//ENT.PoseParameterLooking_Names = {pitch={"XR"}, yaw={}, roll={"ZR"}}
 ENT.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
 ENT.AnimTbl_CallForHelp = ACT_SIGNAL1
 ENT.HasDeathAnimation = true
@@ -534,7 +534,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.BlastDamage(self, self, self:GetPos(), 100, 80)
 		util.ScreenShake(self:GetPos(), 100, 200, 1, 500)
 		VJ.EmitSound(self, gasTankExpSd, 90)
-		VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 		spr:SetKeyValue("GlowProxySize", "2.0")
@@ -550,8 +550,8 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		spr:SetKeyValue("scale", "4")
 		spr:SetPos(self:GetPos() + gasTankExpPos)
 		spr:Spawn()
-		spr:Fire("Kill", "",0.9)
-		timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
+		spr:Fire("Kill", "", 0.9)
+		timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 	end
 	
 	if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD then
@@ -572,19 +572,19 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 			util.Effect("bloodspray", effectData)
 			util.Effect("bloodspray", effectData)
 		end
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh1.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(0,0,40))})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(0,1,40))})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(1,0,40))})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh4.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(0,2,40))})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_b_bone.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(0,0,50))})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_b_gib.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(1,1,40))})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_guts.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(2,1,40))})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_hmeat.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(0,1,45))})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_lung.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(0,0,45))})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_skull.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(0,0,60))})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_legbone.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(0,1,15))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh1.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(0, 0, 40))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(0, 1, 40))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(1, 0, 40))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh4.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(0, 2, 40))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_b_bone.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(0, 0, 50))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_b_gib.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(1, 1, 40))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_guts.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(2, 1, 40))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_hmeat.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(0, 1, 45))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_lung.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(0, 0, 45))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_skull.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(0, 0, 60))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_legbone.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(0, 1, 15))})
 		if self.HECU_Type != 4 then -- Not Black Ops
-			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/gib_hgrunt.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(0,0,15))})
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/gib_hgrunt.mdl", {CollisionDecal="VJ_HLR1_Blood_Red", Pos=self:LocalToWorld(Vector(0, 0, 15))})
 		end
 		self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 		return true, {AllowSound = false}

@@ -96,9 +96,9 @@ end
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "PostSpawn" then
 		-- Only default Alien Grunt has a muzzle flash!
-		projectile.Track_Enemy = enemy
+		projectile.Track_Ent = enemy
 		if self.AGrunt_Type == 0 then
-			//ParticleEffect("vj_hl_muz7",self:GetAttachment(self:LookupAttachment("hornet")).Pos, self:GetForward():Angle(), self) -- Unimplemented sprite function, needs fixed
+			//ParticleEffect("vj_hl_muz7", self:GetAttachment(self:LookupAttachment("hornet")).Pos, self:GetForward():Angle(), self) -- Unimplemented sprite function, needs fixed
 			
 			local att = self:GetAttachment(self:LookupAttachment("hornet"))
 			local muzzleFlash = ents.Create("env_sprite")
@@ -114,7 +114,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 			muzzleFlash:SetPos(att.Pos + att.Ang:Forward() * 15)
 			muzzleFlash:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
 			muzzleFlash:Spawn()
-			muzzleFlash:Fire("Kill", "",0.08)
+			muzzleFlash:Fire("Kill", "", 0.08)
 			self:DeleteOnRemove(muzzleFlash)
 		end
 	end

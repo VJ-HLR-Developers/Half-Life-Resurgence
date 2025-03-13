@@ -25,7 +25,7 @@ ENT.CollisionDecal = "Impact.Concrete"
 ENT.OnCollideSoundPitch = VJ.SET(100, 100)
 
 local sdOnCollideEnt = {"vj_hlr/gsrc/wep/crossbow/xbow_hitbod1.wav", "vj_hlr/gsrc/wep/crossbow/xbow_hitbod2.wav"}
-local defAng = Angle(0 ,0, 0)
+local defAng = Angle(0 , 0, 0)
 
 -- Custom
 ENT.Needle_Heal = false -- Is this a healing needle?

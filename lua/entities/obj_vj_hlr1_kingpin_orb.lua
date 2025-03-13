@@ -30,7 +30,7 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/wep/gauss/electro4.wav", "vj_hlr/gsrc/wep
 -- Custom
 local defVec = Vector(0, 0, 0)
 
-ENT.Track_Enemy = NULL
+ENT.Track_Ent = NULL
 ENT.Track_Position = defVec
 ENT.Track_OrbSpeed = 200
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -38,18 +38,18 @@ function ENT:Init()
 	self:SetNoDraw(true)
 	
 	self.MainSprite = ents.Create("env_sprite")
-	self.MainSprite:SetKeyValue("model","vj_hl/sprites/nhth1.vmt")
-	self.MainSprite:SetKeyValue("GlowProxySize","2.0")
-	self.MainSprite:SetKeyValue("HDRColorScale","1.0")
-	self.MainSprite:SetKeyValue("renderfx","14")
-	self.MainSprite:SetKeyValue("rendermode","3")
-	self.MainSprite:SetKeyValue("renderamt","255")
-	self.MainSprite:SetKeyValue("disablereceiveshadows","0")
-	self.MainSprite:SetKeyValue("mindxlevel","0")
-	self.MainSprite:SetKeyValue("maxdxlevel","0")
-	self.MainSprite:SetKeyValue("framerate","10.0")
-	self.MainSprite:SetKeyValue("spawnflags","0")
-	self.MainSprite:SetKeyValue("scale","1")
+	self.MainSprite:SetKeyValue("model", "vj_hl/sprites/nhth1.vmt")
+	self.MainSprite:SetKeyValue("GlowProxySize", "2.0")
+	self.MainSprite:SetKeyValue("HDRColorScale", "1.0")
+	self.MainSprite:SetKeyValue("renderfx", "14")
+	self.MainSprite:SetKeyValue("rendermode", "3")
+	self.MainSprite:SetKeyValue("renderamt", "255")
+	self.MainSprite:SetKeyValue("disablereceiveshadows", "0")
+	self.MainSprite:SetKeyValue("mindxlevel", "0")
+	self.MainSprite:SetKeyValue("maxdxlevel", "0")
+	self.MainSprite:SetKeyValue("framerate", "10.0")
+	self.MainSprite:SetKeyValue("spawnflags", "0")
+	self.MainSprite:SetKeyValue("scale", "1")
 	self.MainSprite:SetPos(self:GetPos())
 	self.MainSprite:Spawn()
 	self.MainSprite:SetParent(self)
@@ -59,16 +59,16 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
 	if IsValid(self:GetOwner()) then
-		self.Track_Enemy = self:GetOwner():GetEnemy()
+		self.Track_Ent = self:GetOwner():GetEnemy()
 	end
-	if IsValid(self.Track_Enemy) then
-		local pos = (self.Track_Enemy:EyePos()) or (self.Track_Enemy:GetPos() + self.Track_Enemy:OBBCenter())
+	if IsValid(self.Track_Ent) then
+		local pos = (self.Track_Ent:EyePos()) or (self.Track_Ent:GetPos() + self.Track_Ent:OBBCenter())
 		if self:VisibleVec(pos) or self.Track_Position == defVec then
 			self.Track_Position = pos
 		end
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
-			phys:SetVelocity(VJ.CalculateTrajectory(self, self.Track_Enemy, "Line", self:GetPos(), self.Track_Position, self.Track_OrbSpeed))
+			phys:SetVelocity(VJ.CalculateTrajectory(self, self.Track_Ent, "Line", self:GetPos(), self.Track_Position, self.Track_OrbSpeed))
 		end
 	end
 	self.Track_OrbSpeed = math.Clamp(self.Track_OrbSpeed + 10, 200, 2000)

@@ -23,7 +23,7 @@ SWEP.Primary.Damage = 5
 SWEP.Primary.ClipSize = 17
 SWEP.Primary.TakeAmmo = 0
 SWEP.Primary.Ammo = "Pistol"
-SWEP.Primary.Sound = {"vj_hlr/gsrc/npc/ivan_alpha/pl_gun1.wav","vj_hlr/gsrc/npc/ivan_alpha/pl_gun2.wav"}
+SWEP.Primary.Sound = {"vj_hlr/gsrc/npc/ivan_alpha/pl_gun1.wav", "vj_hlr/gsrc/npc/ivan_alpha/pl_gun2.wav"}
 SWEP.Primary.DistantSound = {"vj_hlr/gsrc/npc/ivan_alpha/pl_gun_distant2.wav"}
 SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
@@ -52,21 +52,21 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:PrimaryAttackEffects(owner)
 	local muz = ents.Create("env_sprite")
-	muz:SetKeyValue("model","vj_hl/sprites/muzzleflash2.vmt")
-	muz:SetKeyValue("scale",""..math.Rand(0.3,0.5))
-	muz:SetKeyValue("GlowProxySize","2.0") -- Size of the glow to be rendered for visibility testing.
-	muz:SetKeyValue("HDRColorScale","1.0")
-	muz:SetKeyValue("renderfx","14")
-	muz:SetKeyValue("rendermode","3") -- Set the render mode to "3" (Glow)
-	muz:SetKeyValue("renderamt","255") -- Transparency
-	muz:SetKeyValue("disablereceiveshadows","0") -- Disable receiving shadows
-	muz:SetKeyValue("framerate","10.0") -- Rate at which the sprite should animate, if at all.
-	muz:SetKeyValue("spawnflags","0")
+	muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash2.vmt")
+	muz:SetKeyValue("scale", ""..math.Rand(0.3, 0.5))
+	muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
+	muz:SetKeyValue("HDRColorScale", "1.0")
+	muz:SetKeyValue("renderfx", "14")
+	muz:SetKeyValue("rendermode", "3") -- Set the render mode to "3" (Glow)
+	muz:SetKeyValue("renderamt", "255") -- Transparency
+	muz:SetKeyValue("disablereceiveshadows", "0") -- Disable receiving shadows
+	muz:SetKeyValue("framerate", "10.0") -- Rate at which the sprite should animate, if at all.
+	muz:SetKeyValue("spawnflags", "0")
 	muz:SetParent(self)
-	muz:Fire("SetParentAttachment",self.PrimaryEffects_MuzzleAttachment)
+	muz:Fire("SetParentAttachment", self.PrimaryEffects_MuzzleAttachment)
 	muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
 	muz:Spawn()
 	muz:Activate()
-	muz:Fire("Kill","",0.08)
+	muz:Fire("Kill", "", 0.08)
 	self.BaseClass.PrimaryAttackEffects(self, owner)
 end

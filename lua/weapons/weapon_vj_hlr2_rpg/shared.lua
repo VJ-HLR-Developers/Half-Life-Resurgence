@@ -105,7 +105,7 @@ if CLIENT then
 	function SWEP:PostDrawViewModel(vm, wep, ply)
 		if self:GetNWLaser() then
 			render.SetMaterial(SpriteMaterial)
-			render.DrawSprite(wep:GetOwner():GetEyeTrace().HitPos, math.random(4,6), math.random(4,6), Color(255,0,0,255))
+			render.DrawSprite(wep:GetOwner():GetEyeTrace().HitPos, math.random(4, 6), math.random(4, 6), Color(255, 0, 0, 255))
 		end
 	end
 
@@ -128,7 +128,7 @@ if CLIENT then
 			local size = (owner:IsPlayer() && 5) or 15
 			if useNWLaser then
 				render.SetMaterial(SpriteMaterial)
-				render.DrawSprite(pos, math.random(size - 1, size + 1), math.random(size - 1, size + 1), Color(255,0,0,255))
+				render.DrawSprite(pos, math.random(size - 1, size + 1), math.random(size - 1, size + 1), Color(255, 0, 0, 255))
 			end
 		end
 		return true

@@ -404,7 +404,7 @@ function ENT:OnAlert(ent)
 			self:PlaySoundSystem("Alert", {"vj_hlr/src/npc/ep1/npc/"..self.Human_SdFolder.."/cit_gunship.wav", "vo/npc/"..self.Human_SdFolder.."/gunship02.wav", "vo/coast/barn/"..self.Human_SdFolder.."/lite_gunship01.wav", "vo/coast/barn/"..self.Human_SdFolder.."/lite_gunship02.wav"})
 			return
 		else
-			for _,v in ipairs(ent.VJ_NPC_Class or {1}) do
+			for _, v in ipairs(ent.VJ_NPC_Class or {1}) do
 				if v == "CLASS_COMBINE" or ent:Classify() == CLASS_COMBINE then
 					self:PlaySoundSystem("Alert", {"vj_hlr/src/npc/ep1/npc/"..self.Human_SdFolder.."/cit_raidsoldiers.wav", "vj_hlr/src/npc/ep1/npc/"..self.Human_SdFolder.."/cit_itsaraid.wav", "vo/npc/"..self.Human_SdFolder.."/combine01.wav", "vo/npc/"..self.Human_SdFolder.."/combine02.wav", "vj_hlr/src/npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_soldier05.wav", "vj_hlr/src/npc/ep1/npc/"..self.Human_SdFolder.."/cit_alert_soldier06.wav"})
 					return

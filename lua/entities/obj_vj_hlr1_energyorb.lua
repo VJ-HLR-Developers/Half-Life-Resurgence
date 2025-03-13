@@ -26,26 +26,26 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/wep/gauss/electro4.wav", "vj_hlr/gsrc/wep
 -- Custom
 local defVec = Vector(0, 0, 0)
 
-ENT.Track_Enemy = NULL
+ENT.Track_Ent = NULL
 ENT.Track_Position = defVec
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetNoDraw(true)
 	
 	local sprite = ents.Create("env_sprite")
-	sprite:SetKeyValue("model","vj_hl/sprites/xspark4.vmt")
-	//sprite:SetKeyValue("rendercolor","255 128 0")
-	sprite:SetKeyValue("GlowProxySize","2.0")
-	sprite:SetKeyValue("HDRColorScale","1.0")
-	sprite:SetKeyValue("renderfx","14")
-	sprite:SetKeyValue("rendermode","3")
-	sprite:SetKeyValue("renderamt","255")
-	sprite:SetKeyValue("disablereceiveshadows","0")
-	sprite:SetKeyValue("mindxlevel","0")
-	sprite:SetKeyValue("maxdxlevel","0")
-	sprite:SetKeyValue("framerate","10.0")
-	sprite:SetKeyValue("spawnflags","0")
-	sprite:SetKeyValue("scale","1")
+	sprite:SetKeyValue("model", "vj_hl/sprites/xspark4.vmt")
+	//sprite:SetKeyValue("rendercolor", "255 128 0")
+	sprite:SetKeyValue("GlowProxySize", "2.0")
+	sprite:SetKeyValue("HDRColorScale", "1.0")
+	sprite:SetKeyValue("renderfx", "14")
+	sprite:SetKeyValue("rendermode", "3")
+	sprite:SetKeyValue("renderamt", "255")
+	sprite:SetKeyValue("disablereceiveshadows", "0")
+	sprite:SetKeyValue("mindxlevel", "0")
+	sprite:SetKeyValue("maxdxlevel", "0")
+	sprite:SetKeyValue("framerate", "10.0")
+	sprite:SetKeyValue("spawnflags", "0")
+	sprite:SetKeyValue("scale", "1")
 	sprite:SetPos(self:GetPos())
 	sprite:Spawn()
 	sprite:SetParent(self)
@@ -54,7 +54,7 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
-	local trackedEnt = self.Track_Enemy
+	local trackedEnt = self.Track_Ent
 	-- Homing Behavior
 	if IsValid(trackedEnt) then
 		self.DirectDamage = 25

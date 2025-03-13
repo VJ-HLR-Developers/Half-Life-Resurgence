@@ -73,8 +73,8 @@ function ENT:ChangeMode(mode)
 		self.Stuka_LandingType = 0
 		self.Stuka_LandingPos = nil
 		self.AnimTbl_IdleStand = {ACT_IDLE}
-		self:PlayAnim(ACT_LAND,true,false,false)
-		timer.Simple(self:DecideAnimationLength(ACT_LAND, false),function()
+		self:PlayAnim(ACT_LAND, true, false, false)
+		timer.Simple(self:DecideAnimationLength(ACT_LAND, false), function()
 			if IsValid(self) then
 				self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 				self.IdleAlwaysWander = false
@@ -90,8 +90,8 @@ function ENT:ChangeMode(mode)
 		self.Stuka_LandingType = 0
 		self.Stuka_LandingPos = nil
 		self.AnimTbl_IdleStand = {ACT_HOVER}
-		self:PlayAnim(lastMode == 2 && ACT_SPRINT or ACT_LEAP,true,false,false)
-		timer.Simple(self:DecideAnimationLength(lastMode == 2 && ACT_SPRINT or ACT_LEAP, false),function()
+		self:PlayAnim(lastMode == 2 && ACT_SPRINT or ACT_LEAP, true, false, false)
+		timer.Simple(self:DecideAnimationLength(lastMode == 2 && ACT_SPRINT or ACT_LEAP, false), function()
 			if IsValid(self) then
 				self:DoChangeMovementType(VJ_MOVETYPE_AERIAL)
 				self.IdleAlwaysWander = true
@@ -102,7 +102,7 @@ function ENT:ChangeMode(mode)
 				self:SetMaxYawSpeed(20)
 				self.TurningSpeed = 20
 				if lastMode == 2 then
-					self:SetPos(self:GetPos() +Vector(0,0,-35))
+					self:SetPos(self:GetPos() +Vector(0, 0, -35))
 				end
 			end
 		end)
@@ -110,10 +110,10 @@ function ENT:ChangeMode(mode)
 		self.Stuka_LandingType = 0
 		self.Stuka_LandingPos = nil
 		self.AnimTbl_IdleStand = {ACT_CROUCHIDLE}
-		self:PlayAnim(ACT_CROUCH,true,false,false)
+		self:PlayAnim(ACT_CROUCH, true, false, false)
 		self:SetMaxYawSpeed(0)
 		self.TurningSpeed = 0
-		timer.Simple(self:DecideAnimationLength(ACT_CROUCH, false),function()
+		timer.Simple(self:DecideAnimationLength(ACT_CROUCH, false), function()
 			if IsValid(self) then
 				self:DoChangeMovementType(VJ_MOVETYPE_STATIONARY)
 				self.IdleAlwaysWander = false
@@ -123,17 +123,17 @@ function ENT:ChangeMode(mode)
 				self.HasRangeAttack = false
 			end
 		end)
-		VJ.CreateSound(self,"vj_hlr/gsrc/npc/stukabat/stkb_deploy" .. math.random(1,2) .. ".wav")
+		VJ.CreateSound(self, "vj_hlr/gsrc/npc/stukabat/stkb_deploy" .. math.random(1, 2) .. ".wav")
 	end
 	self.Stuka_Mode = mode
 	-- self.Stuka_ModeChangeT = CurTime() + 4 -- Debug
-	self.Stuka_ModeChangeT = CurTime() + (IsValid(self.VJ_TheController) && 4 or math.Rand(15,35))
+	self.Stuka_ModeChangeT = CurTime() + (IsValid(self.VJ_TheController) && 4 or math.Rand(15, 35))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
 	-- print(key)
 	if key == "wing" then
-		VJ.EmitSound(self,"vj_hlr/gsrc/npc/stukabat/stkb_wings" .. math.random(1, 3) .. ".wav", 70)
+		VJ.EmitSound(self, "vj_hlr/gsrc/npc/stukabat/stkb_wings" .. math.random(1, 3) .. ".wav", 70)
 	elseif key == "body" then
 		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
 	elseif key == "attack" then
@@ -145,7 +145,7 @@ function ENT:OnInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:HandleModeChanging(mode,pos,cont)
+function ENT:HandleModeChanging(mode, pos, cont)
 	if mode == 1 && CurTime() > self.Stuka_ModeChangeT && (!IsValid(cont) or IsValid(cont) && cont:KeyDown(IN_JUMP)) then
 		if self.Stuka_LandingType == 0 && self.Stuka_LandingPos == nil then
 			if !self.Stuka_LandingPos then
@@ -158,9 +158,9 @@ function ENT:HandleModeChanging(mode,pos,cont)
 			end
 		else
 			local landType = self.Stuka_LandingType
-			-- VJ.DEBUG_TempEnt(self.Stuka_LandingPos, self:GetAngles(), Color(212,0,255), 5)
-			self:AA_MoveTo(self.Stuka_LandingPos,true,"Calm",{FaceDest=true,FaceDestTarget=false,IgnoreGround=true})
-			local tr = util.TraceLine({start = pos,endpos = pos +Vector(0,0,(landType == 1 && -35 or 75)),filter = self})
+			-- VJ.DEBUG_TempEnt(self.Stuka_LandingPos, self:GetAngles(), Color(212, 0, 255), 5)
+			self:AA_MoveTo(self.Stuka_LandingPos, true, "Calm", {FaceDest=true, FaceDestTarget=false, IgnoreGround=true})
+			local tr = util.TraceLine({start = pos, endpos = pos +Vector(0, 0, (landType == 1 && -35 or 75)), filter = self})
 			if tr.Hit /*&& tr.HitPos:Distance(pos) <= 35*/ then
 				if landType == 2 then
 					self:SetPos(tr.HitPos +tr.HitNormal *35)
@@ -168,7 +168,7 @@ function ENT:HandleModeChanging(mode,pos,cont)
 				self:ChangeMode(landType == 1 && 0 or 2)
 			end
 		end
-	elseif mode != 1 && CurTime() > self.Stuka_ModeChangeT && (!IsValid(cont) && math.random(1,30) == 1 or IsValid(cont) && cont:KeyDown(IN_JUMP)) then
+	elseif mode != 1 && CurTime() > self.Stuka_ModeChangeT && (!IsValid(cont) && math.random(1, 30) == 1 or IsValid(cont) && cont:KeyDown(IN_JUMP)) then
 		self:ChangeMode(1)
 	end
 end
@@ -211,18 +211,18 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetLandingPos(ceiling)
 	local ang = self:GetAngles() +AngleRand()
-	local filt = {self,self.VJ_TheController}
+	local filt = {self, self.VJ_TheController}
 	if ceiling then
 		ang.p = -70
-		local tr1 = util.TraceLine({start = self:GetPos(),endpos = self:GetPos() +ang:Forward() *32000,filter = filt})
+		local tr1 = util.TraceLine({start = self:GetPos(), endpos = self:GetPos() +ang:Forward() *32000, filter = filt})
 		return tr1.MatType && tr1.MatType != 88 && tr1.HitPos +tr1.Normal *5
 	end
 	ang.p = 35
 	local pos = self:GetPos() +(self:GetVelocity() *ang:Forward() *0.1) *ang:Forward()
 
-	local tr1 = util.TraceLine({start = pos,endpos = pos +ang:Forward() *32000,filter = filt})
+	local tr1 = util.TraceLine({start = pos, endpos = pos +ang:Forward() *32000, filter = filt})
 	local tr1Pos = tr1.HitPos -tr1.Normal *100
-	local tr2 = util.TraceLine({start = tr1Pos,endpos = tr1Pos +Vector(0,0,-120),filter = filt})
+	local tr2 = util.TraceLine({start = tr1Pos, endpos = tr1Pos +Vector(0, 0, -120), filter = filt})
 
 	return tr2.HitWorld && tr2.MatType && tr2.MatType != 88 && tr2.HitPos
 end
@@ -236,7 +236,7 @@ function ENT:AA_StopMoving()
 		self.AA_CurrentMovePos = nil
 		self.AA_CurrentMovePosDir = nil
 		self.AA_CurrentMoveDist = -1
-		self:SetLocalVelocity(Vector(0,0,0))
+		self:SetLocalVelocity(Vector(0, 0, 0))
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -291,7 +291,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			end
 			deathCorpse:Spawn()
 			deathCorpse:Activate()
-			deathCorpse.DeathAnim = VJ.PICK({"Death_fall_simple","Death_fall_violent"})
+			deathCorpse.DeathAnim = VJ.PICK({"Death_fall_simple", "Death_fall_violent"})
 			undo.ReplaceEntity(self, deathCorpse)
 			cleanup.ReplaceEntity(self, deathCorpse)
 			function deathCorpse:Think()
@@ -313,10 +313,10 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				self:SetSolid(SOLID_NONE)
 				self:ResetSequence(self.DeathAnim)
 
-				local tr = util.TraceLine({start=self:GetPos(),endpos=self:GetPos() +Vector(0,0,-15),filter=self})
-				self:SetPos(tr.Hit && tr.HitPos or self:GetPos() +Vector(0,0,-8)) -- The collision box is too big, so we move it down a bit
+				local tr = util.TraceLine({start=self:GetPos(), endpos=self:GetPos() +Vector(0, 0, -15), filter=self})
+				self:SetPos(tr.Hit && tr.HitPos or self:GetPos() +Vector(0, 0, -8)) -- The collision box is too big, so we move it down a bit
 
-				timer.Simple(VJ.AnimDuration(self, self.DeathAnim),function()
+				timer.Simple(VJ.AnimDuration(self, self.DeathAnim), function()
 					if IsValid(self) then
 						local corpse = ents.Create("prop_ragdoll")
 						corpse:SetModel(self:GetModel())
@@ -377,11 +377,11 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 	end
 	
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib1.mdl",{BloodType="Yellow",CollisionDecal="VJ_HLR1_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,15))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib2.mdl",{BloodType="Yellow",CollisionDecal="VJ_HLR1_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,15))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib7.mdl",{BloodType="Yellow",CollisionDecal="VJ_HLR1_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,15))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib9.mdl",{BloodType="Yellow",CollisionDecal="VJ_HLR1_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,15))})
-	self:CreateGibEntity("obj_vj_gib","models/vj_hlr/gibs/agib10.mdl",{BloodType="Yellow",CollisionDecal="VJ_HLR1_Blood_Yellow",Pos=self:LocalToWorld(Vector(0,0,15))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 15))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 15))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib7.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 15))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib9.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 15))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib10.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 15))})
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end

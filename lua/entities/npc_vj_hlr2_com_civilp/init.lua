@@ -260,7 +260,7 @@ function ENT:OnAlert(ent)
 		elseif ent:IsNPC() then
 			if ent.IsVJBaseSNPC_Creature then
 				if math.random(1, 2) == 1 then
-					for _,v in ipairs(ent.VJ_NPC_Class or {1}) do
+					for _, v in ipairs(ent.VJ_NPC_Class or {1}) do
 						if v == "CLASS_ZOMBIE" or ent:Classify() == CLASS_ZOMBIE then
 							self:PlaySoundSystem("Alert", sdCop_Alert_Zombies)
 							return -- Skip the regular creature sounds!

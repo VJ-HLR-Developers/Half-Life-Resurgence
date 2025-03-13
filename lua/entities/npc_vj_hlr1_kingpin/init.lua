@@ -49,7 +49,7 @@ ENT.AnimTbl_Flinch = "vjseq_flinch_small"
 
 ENT.SoundTbl_Breath = "vj_hlr/gsrc/npc/kingpin/kingpin_seeker_amb.wav"
 ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/kingpin/kingpin_move.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_moveslow.wav"}
-ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/kingpin/kingpin_idle1.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_idle2.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_idle3.wav",}
+ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/kingpin/kingpin_idle1.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_idle2.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_idle3.wav", }
 ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/kingpin/kingpin_alert1.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_alert2.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_alert3.wav"}
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/kingpin/kingpin_pain1.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_pain2.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_pain3.wav"}
@@ -65,7 +65,7 @@ ENT.KingPin_PsionicAttacking = false
 ENT.KingPin_NextPsionicAttackT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-	self:SetCollisionBounds(Vector(35, 35, 110),Vector(-35, -35, 0))
+	self:SetCollisionBounds(Vector(35, 35, 110), Vector(-35, -35, 0))
 	self:SetNW2Bool("PsionicEffect", false)
 	self:SetPhysicsDamageScale(0.01) -- By default take minimum physics damage
 	self.KingPin_NextScanT = CurTime() + math.Rand(1, 5)
@@ -202,7 +202,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "PostSpawn" then
-		projectile.Track_Enemy = enemy
+		projectile.Track_Ent = enemy
 		timer.Simple(20, function() if IsValid(projectile) then projectile:Remove() end end)
 	end
 end

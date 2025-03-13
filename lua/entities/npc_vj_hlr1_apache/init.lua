@@ -212,7 +212,7 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 		muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
 		muz:Spawn()
 		muz:Activate()
-		muz:Fire("Kill", "",0.08)
+		muz:Fire("Kill", "", 0.08)
 
 		local flash = ents.Create("light_dynamic")
 		flash:SetKeyValue("brightness", 8)
@@ -333,7 +333,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		
 		util.BlastDamage(self, self, expPos, 300, 100)
 		VJ.EmitSound(self, sdExplosions, 100, 100)
-		VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3,5).."_dist.wav", 100, 100, 100, 1)
+		VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3, 5).."_dist.wav", 100, 100, 100, 1)
 		
 		-- Spawn a animated model of the helicopter that explodes constantly and gets destroyed when it collides with something
 		-- Based on source code
@@ -386,7 +386,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				
 				util.BlastDamage(self, self, expPos2, 300, 100)
 				VJ.EmitSound(self, sdExplosions, 100, 100)
-				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
 			end
 		
 			self:NextThink(CurTime())

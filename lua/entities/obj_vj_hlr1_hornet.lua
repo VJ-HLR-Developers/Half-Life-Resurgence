@@ -40,7 +40,7 @@ local HORNET_TYPE_ORANGE = 1
 local HORNET_TYPE_ALPHA = 2
 
 -- Custom
-ENT.Track_Enemy = NULL
+ENT.Track_Ent = NULL
 ENT.Track_Position = defVec
 ENT.Hornet_Alpha = false
 ENT.Hornet_ChaseSpeed = 600
@@ -66,7 +66,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
 	local phys = self:GetPhysicsObject()
-	local trackedEnt = self.Track_Enemy
+	local trackedEnt = self.Track_Ent
 	-- Homing Behavior
 	if IsValid(trackedEnt) && trackedEnt:Alive() then
 		local pos = trackedEnt:GetPos() + trackedEnt:OBBCenter()

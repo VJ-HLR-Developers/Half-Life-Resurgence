@@ -10,7 +10,7 @@ function EFFECT:Init(data)
 	for _ = 0, 100 do
 		local color = Vector(97, 108, 165)
 		local pinkCore = false
-		if math.random(1 ,3) == 1 then
+		if math.random(1 , 3) == 1 then
 			color = Vector(178, 77, 121)
 			pinkCore = true
 		end
@@ -22,7 +22,7 @@ function EFFECT:Init(data)
 			local alpha = math.random(100, 130)
 			particle:SetVelocity(pos * 400)
 			particle:SetLifeTime(0)
-			particle:SetDieTime(math.Rand(20,30))
+			particle:SetDieTime(math.Rand(20, 30))
 			particle:SetStartAlpha(alpha)
 			particle:SetEndAlpha(alpha)
 			

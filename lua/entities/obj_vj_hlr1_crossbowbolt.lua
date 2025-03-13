@@ -33,10 +33,10 @@ function ENT:OnCollision(data, phys)
 	else
 		local spike = ents.Create("prop_dynamic")
 		spike:SetModel("models/vj_hlr/hl1/crossbow_bolt.mdl")
-		spike:SetPos(data.HitPos + data.HitNormal + self:GetForward()*-20)
+		spike:SetPos(data.HitPos + data.HitNormal + self:GetForward() * -20)
 		spike:SetAngles(self:GetAngles())
 		spike:Activate()
 		spike:Spawn()
-		timer.Simple(6,function() if IsValid(spike) then spike:Remove() end end)
+		timer.Simple(6, function() if IsValid(spike) then spike:Remove() end end)
 	end
 end

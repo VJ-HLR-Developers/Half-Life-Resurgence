@@ -16,7 +16,7 @@ ENT.PhysicsSolidMask = MASK_SHOT
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlof_shock", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 	
-	-- net.Receive("vj_hlr_svencoop_glow",function(len,pl)
+	-- net.Receive("vj_hlr_svencoop_glow", function(len, pl)
 		-- local Ent = net.ReadEntity()
 		-- local Target = net.ReadEntity()
 		-- local ENTInd = Target:EntIndex()
@@ -24,16 +24,16 @@ if CLIENT then
 		-- Target.VJ_HLR_NextEffectBlendT = 0
 		-- Target.VJ_HLR_EffectBlend = 1
 
-		-- hook.Add("RenderScreenspaceEffects","VJ_HLR_Effects" .. ENTInd,function()
+		-- hook.Add("RenderScreenspaceEffects", "VJ_HLR_Effects" .. ENTInd, function()
 			-- if !IsValid(Target) then
-				-- hook.Remove("RenderScreenspaceEffects","VJ_HLR_Effects" .. ENTInd)
+				-- hook.Remove("RenderScreenspaceEffects", "VJ_HLR_Effects" .. ENTInd)
 				-- return
 			-- end
 			-- local EffectTime = 5
 			-- local EffectDeathDelay = CurTime() +EffectTime
 			-- local EffectBlendAdd = 0.05
 			-- if !IsValid(Target) then return end
-			-- cam.Start3D(EyePos(),EyeAngles())
+			-- cam.Start3D(EyePos(), EyeAngles())
 				-- if util.IsValidModel(Target:GetModel()) then
 					-- render.SetBlend(Target.VJ_HLR_EffectBlend)
 					-- render.MaterialOverride(Material("vj_hl/renderfx/render_blue"))
@@ -42,7 +42,7 @@ if CLIENT then
 					-- render.SetBlend(1)
 				-- end
 			-- cam.End3D()
-			-- cam.Start3D(EyePos(),EyeAngles(),70)
+			-- cam.Start3D(EyePos(), EyeAngles(), 70)
 				-- if Target:IsPlayer() && IsValid(Target:GetViewModel()) then
 					-- if util.IsValidModel(Target:GetViewModel():GetModel()) then
 						-- render.SetBlend(Target.VJ_HLR_EffectBlend)
@@ -57,7 +57,7 @@ if CLIENT then
 				-- Target.VJ_HLR_NextEffectBlendT = CurTime() +0.05
 				-- if Target.VJ_HLR_EffectBlend > 0 then
 					-- if CurTime() >= EffectDeathDelay then
-						-- EffectBlendAdd = EffectBlendAdd +math.Clamp(((CurTime() -EffectDeathDelay) /100),0,0.05)
+						-- EffectBlendAdd = EffectBlendAdd +math.Clamp(((CurTime() -EffectDeathDelay) /100), 0, 0.05)
 					-- end
 					-- Target.VJ_HLR_EffectBlend = Target.VJ_HLR_EffectBlend -(EffectTime /(EffectTime ^2)) *EffectBlendAdd
 				-- end

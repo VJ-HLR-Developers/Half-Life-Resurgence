@@ -72,12 +72,12 @@ local expPos = Vector(0, 0, 150)
 --
 function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 	self.Bradley_DmgForce = dmginfo:GetDamageForce()
-	for i=0,1,0.5 do
+	for i=0, 1, 0.5 do
 		timer.Simple(i, function()
 			if IsValid(self) then
 				VJ.EmitSound(self, self.SoundTbl_Death, 100)
-				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris"..math.random(1,3)..".wav", 100)
-				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris"..math.random(1, 3)..".wav", 100)
+				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
 				util.BlastDamage(self, self, self:GetPos(), 200, 40)
 				util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
 				
@@ -96,8 +96,8 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 				spr:SetKeyValue("scale", "4")
 				spr:SetPos(self:GetPos() + expPos)
 				spr:Spawn()
-				spr:Fire("Kill", "",0.9)
-				timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
+				spr:Fire("Kill", "", 0.9)
+				timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 			end
 		end)
 	end
@@ -107,8 +107,8 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 			VJ.EmitSound(self, self.SoundTbl_Death, 100)
 			util.BlastDamage(self, self, self:GetPos(), 200, 40)
 			util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
-			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris"..math.random(1,3)..".wav", 100)
-			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3,5).."_dist.wav", 140, 100)
+			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris"..math.random(1, 3)..".wav", 100)
+			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
 			local spr = ents.Create("env_sprite")
 			spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 			spr:SetKeyValue("GlowProxySize", "2.0")
@@ -124,8 +124,8 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 			spr:SetKeyValue("scale", "4")
 			spr:SetPos(self:GetPos() + expPos)
 			spr:Spawn()
-			spr:Fire("Kill", "",0.9)
-			timer.Simple(0.9,function() if IsValid(spr) then spr:Remove() end end)
+			spr:Fire("Kill", "", 0.9)
+			timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 		end
 	end)
 	return true
@@ -195,7 +195,7 @@ function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpseEnt, status, statusData
 		spr:SetKeyValue("scale", "4")
 		spr:SetPos(self:GetPos() + expPos)
 		spr:Spawn()
-		spr:Fire("Kill", "",0.9)
+		spr:Fire("Kill", "", 0.9)
 		timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 		return true
 	end
