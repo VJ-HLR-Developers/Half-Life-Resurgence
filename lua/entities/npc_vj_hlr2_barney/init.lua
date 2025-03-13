@@ -77,9 +77,6 @@ ENT.SoundTbl_UnFollowPlayer = {
 ENT.SoundTbl_YieldToPlayer = {
 	"vo/k_lab/ba_whoops.wav",
 }
-ENT.SoundTbl_MedicBeforeHeal = {}
-ENT.SoundTbl_MedicOnHeal = {}
-ENT.SoundTbl_MedicReceiveHeal = {}
 ENT.SoundTbl_OnPlayerSight = {
 	"vo/npc/barney/ba_followme01.wav",
 	"vo/npc/barney/ba_followme02.wav",

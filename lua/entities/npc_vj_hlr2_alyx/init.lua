@@ -251,7 +251,6 @@ ENT.SoundTbl_MedicBeforeHeal = {
 	"vj_hlr/src/npc/ep2/alyx/al_throwmed03.wav",
 	"vj_hlr/src/npc/ep2/outland_07/barn/al_barn_sorry01.wav",
 }
-ENT.SoundTbl_MedicOnHeal = {}
 ENT.SoundTbl_MedicReceiveHeal = {
 	"vj_hlr/src/npc/ep1/c17/al_cit_heythanks.wav",
 	"vj_hlr/src/npc/ep1/citadel/al_advisor_findmap01.wav",

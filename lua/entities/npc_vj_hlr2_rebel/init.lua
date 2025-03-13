@@ -669,8 +669,6 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/src/npc/citizen_beta/heretakethis02.wav",
 		"vj_hlr/src/npc/citizen_beta/hereyoucouldusethis.wav",
 	}
-	self.SoundTbl_MedicOnHeal = {}
-	self.SoundTbl_MedicReceiveHeal = {}
 	self.SoundTbl_OnPlayerSight = {
 		"vo/npc/male01/abouttime01.wav",
 		"vo/npc/male01/abouttime02.wav",
@@ -1209,8 +1207,6 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/npc/female01/health04.wav",
 		"vo/npc/female01/health05.wav",
 	}
-	self.SoundTbl_MedicOnHeal = {}
-	self.SoundTbl_MedicReceiveHeal = {}
 	self.SoundTbl_OnPlayerSight = {
 		"vo/npc/female01/abouttime01.wav",
 		"vo/npc/female01/abouttime02.wav",
