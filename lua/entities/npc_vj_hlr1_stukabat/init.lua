@@ -74,7 +74,7 @@ function ENT:ChangeMode(mode)
 		self.Stuka_LandingPos = nil
 		self.AnimTbl_IdleStand = {ACT_IDLE}
 		self:PlayAnim(ACT_LAND, true, false, false)
-		timer.Simple(self:DecideAnimationLength(ACT_LAND, false), function()
+		timer.Simple(VJ.AnimDurationEx(self, ACT_LAND, false), function()
 			if IsValid(self) then
 				self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 				self.IdleAlwaysWander = false
@@ -91,7 +91,7 @@ function ENT:ChangeMode(mode)
 		self.Stuka_LandingPos = nil
 		self.AnimTbl_IdleStand = {ACT_HOVER}
 		self:PlayAnim(lastMode == 2 && ACT_SPRINT or ACT_LEAP, true, false, false)
-		timer.Simple(self:DecideAnimationLength(lastMode == 2 && ACT_SPRINT or ACT_LEAP, false), function()
+		timer.Simple(VJ.AnimDurationEx(self, lastMode == 2 && ACT_SPRINT or ACT_LEAP, false), function()
 			if IsValid(self) then
 				self:DoChangeMovementType(VJ_MOVETYPE_AERIAL)
 				self.IdleAlwaysWander = true
@@ -113,7 +113,7 @@ function ENT:ChangeMode(mode)
 		self:PlayAnim(ACT_CROUCH, true, false, false)
 		self:SetMaxYawSpeed(0)
 		self.TurningSpeed = 0
-		timer.Simple(self:DecideAnimationLength(ACT_CROUCH, false), function()
+		timer.Simple(VJ.AnimDurationEx(self, ACT_CROUCH, false), function()
 			if IsValid(self) then
 				self:DoChangeMovementType(VJ_MOVETYPE_STATIONARY)
 				self.IdleAlwaysWander = false
