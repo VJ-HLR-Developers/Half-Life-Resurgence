@@ -51,9 +51,10 @@ function ENT:OnInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomAttackCheck_MeleeAttack()
-	local ene = self:GetEnemy()
-	return (!ene.VJ_ID_Boss && ((VJ.GetMoveVelocity(ene):Length() > 2 && ene:IsOnGround()) or (ene:IsNPC() && ene:IsMoving()))) or self.VJ_IsBeingControlled
+function ENT:OnMeleeAttack(status, enemy)
+	if status == "PreInit" then
+		return (self.VJ_IsBeingControlled or enemy.VJ_ID_Boss) or !((enemy:IsNPC() && enemy:IsMoving()) or (enemy:IsOnGround() && VJ.GetMoveVelocity(enemy):Length() > 2))
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttackExecute(status, ent, isProp)

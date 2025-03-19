@@ -78,8 +78,10 @@ function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomAttackCheck_RangeAttack()
-	if self.Cannon_HasLOS == true && (CurTime() > self.Cannon_LockTime) then return true end
+function ENT:OnRangeAttack(status, enemy)
+	if status == "PreInit" then
+		return !(self.Cannon_HasLOS == true && CurTime() > self.Cannon_LockTime)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)

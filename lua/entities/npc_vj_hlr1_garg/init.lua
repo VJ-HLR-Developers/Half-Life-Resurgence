@@ -242,11 +242,10 @@ function ENT:OnMeleeAttack(status, enemy)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomAttackCheck_RangeAttack()
-	if self.VJ_IsBeingControlled then
-		return self.VJ_TheController:KeyDown(IN_DUCK) && self.VJ_TheController:KeyDown(IN_ATTACK2)
+function ENT:OnRangeAttack(status, enemy)
+	if status == "PreInit" && self.VJ_IsBeingControlled then
+		return !(self.VJ_TheController:KeyDown(IN_DUCK) && self.VJ_TheController:KeyDown(IN_ATTACK2))
 	end
-	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjPos(projectile)

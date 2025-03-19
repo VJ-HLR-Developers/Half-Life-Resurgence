@@ -268,9 +268,11 @@ function ENT:Turret_Activate()
 	timer.Simple(0.8, function() VJ.STOPSOUND(self.TurretSD_Alarm) end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomAttackCheck_RangeAttack()
-	-- Only fire if we have LOS and not in stand down mode!
-	return self.Turret_HasLOS && !self.Turret_StandDown
+function ENT:OnRangeAttack(status, enemy)
+	if status == "PreInit" then
+		-- Only fire if we have LOS and not in stand down mode!
+		return self.Turret_StandDown or !self.Turret_HasLOS
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local bulletSpread = Vector(0.08716, 0.08716, 0.08716) * 1.25 -- VECTOR_CONE_10DEGREES * WEAPON_PROFICIENCY_VERY_GOOD

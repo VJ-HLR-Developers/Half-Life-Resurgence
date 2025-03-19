@@ -172,10 +172,6 @@ function ENT:OnMeleeAttackExecute(status, ent, isProp)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-/*function ENT:CustomAttackCheck_MeleeAttack()
-	return IsValid(self.Barnacle_CurEnt)
-end*/
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
 	VJ.EmitSound(self, "vj_hlr/gsrc/npc/barnacle/bcl_bite3.wav")
 end
