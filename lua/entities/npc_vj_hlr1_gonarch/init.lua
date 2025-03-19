@@ -151,8 +151,8 @@ function ENT:RangeAttackProjVel(projectile)
 	return (self:GetEnemy():GetPos() - self:GetPos()) *0.45 + self:GetUp() *600
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_Miss()
-	if self.Gonarch_ShakeWorldOnMiss then
+function ENT:OnMeleeAttackExecute(status, ent, isProp)
+	if status == "Miss" && self.Gonarch_ShakeWorldOnMiss then
 		util.ScreenShake(self:GetPos(), 16, 100, 1, 1000)
 	end
 end

@@ -56,10 +56,12 @@ function ENT:CustomAttackCheck_MeleeAttack()
 	return (!ene.VJ_ID_Boss && ((VJ.GetMoveVelocity(ene):Length() > 2 && ene:IsOnGround()) or (ene:IsNPC() && ene:IsMoving()))) or self.VJ_IsBeingControlled
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt)
-	-- Increase its health when it deals damage (Up to 6x its max health)
-		-- If the enemy is less health than its melee attack, then use the enemy's health as the addition
-	self:SetHealth(math.Clamp(self:Health() + ((self.MeleeAttackDamage > hitEnt:Health() and hitEnt:Health()) or self.MeleeAttackDamage), self:Health(), self:GetMaxHealth()*6))
+function ENT:OnMeleeAttackExecute(status, ent, isProp)
+	if status == "PreDamage" then
+		-- Increase its health when it deals damage (Up to 6x its max health)
+			-- If the enemy is less health than its melee attack, then use the enemy's health as the addition
+		self:SetHealth(math.Clamp(self:Health() + ((self.MeleeAttackDamage > ent:Health() and ent:Health()) or self.MeleeAttackDamage), self:Health(), self:GetMaxHealth()*6))
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)

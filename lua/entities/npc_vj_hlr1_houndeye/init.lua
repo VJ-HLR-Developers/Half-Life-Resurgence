@@ -165,36 +165,38 @@ end
 local houndeyeClasses = {npc_vj_hlr1_houndeye = true, npc_vj_hlr1a_houndeye = true}
 local beamEffectTbl = {material = "vj_hl/sprites/shockwave", framerate = 20, flags = 0}
 --
-function ENT:CustomOnMeleeAttack_BeforeChecks()
-	local friNum = 0 -- How many allies exist around the Houndeye
-	local color = Color(188, 220, 255) -- The shock wave color
-	local dmg = 15 -- How much damage should the shock wave do?
-	local myPos = self:GetPos()
-	for _, v in ipairs(ents.FindInSphere(myPos, 400)) do
-		if v != self && houndeyeClasses[v:GetClass()] then
-			friNum = friNum + 1
+function ENT:OnMeleeAttackExecute(status, ent, isProp)
+	if status == "Init" then
+		local friNum = 0 -- How many allies exist around the Houndeye
+		local color = Color(188, 220, 255) -- The shock wave color
+		local dmg = 15 -- How much damage should the shock wave do?
+		local myPos = self:GetPos()
+		for _, v in ipairs(ents.FindInSphere(myPos, 400)) do
+			if v != self && houndeyeClasses[v:GetClass()] then
+				friNum = friNum + 1
+			end
 		end
+		-- More allies = more damage and different colors
+		if friNum == 1 then
+			color = Color(101, 133, 221)
+			dmg = 30
+		elseif friNum == 2 then
+			color = Color(67, 85, 255)
+			dmg = 45
+		elseif friNum >= 3 then
+			color = Color(62, 33, 211)
+			dmg = 60
+		end
+		
+		-- flags 0 = No fade!
+		effects.BeamRingPoint(myPos, 0.3, 2, 400, 16, 0, color, beamEffectTbl)
+		effects.BeamRingPoint(myPos, 0.3, 2, 200, 16, 0, color, beamEffectTbl)
+		
+		if self.HasSounds && self.HasMeleeAttackSounds then
+			VJ.EmitSound(self, blastSd, 100, math.random(80, 100))
+		end
+		VJ.ApplyRadiusDamage(self, self, myPos, 400, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
 	end
-	-- More allies = more damage and different colors
-	if friNum == 1 then
-		color = Color(101, 133, 221)
-		dmg = 30
-	elseif friNum == 2 then
-		color = Color(67, 85, 255)
-		dmg = 45
-	elseif friNum >= 3 then
-		color = Color(62, 33, 211)
-		dmg = 60
-	end
-	
-	-- flags 0 = No fade!
-	effects.BeamRingPoint(myPos, 0.3, 2, 400, 16, 0, color, beamEffectTbl)
-	effects.BeamRingPoint(myPos, 0.3, 2, 200, 16, 0, color, beamEffectTbl)
-	
-	if self.HasSounds && self.HasMeleeAttackSounds then
-		VJ.EmitSound(self, blastSd, 100, math.random(80, 100))
-	end
-	VJ.ApplyRadiusDamage(self, self, myPos, 400, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo, hitgroup, status)

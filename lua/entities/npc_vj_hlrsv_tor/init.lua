@@ -67,6 +67,7 @@ ENT.AlertSoundLevel = 85
 -- Custom
 ENT.Tor_NextSpawnT = 0
 ENT.Tor_Level = 0 -- 0 = Normal (Green) | 1 = Buffed (Blue)
+ENT.Tor_SkipRegMelee = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(25, 25, 90), Vector(-25, -25, 0))
@@ -133,18 +134,18 @@ function ENT:OnInput(key, activator, caller, data)
 		self:Tor_SpawnAlly()
 	elseif key == "melee_single" then
 		self.HasMeleeAttackMissSounds = true
-		self.DisableDefaultMeleeAttackCode = false
+		self.Tor_SkipRegMelee = false
 		self.MeleeAttackDamage = (self.Tor_Level == 0 and 20) or 40
 		self:ExecuteMeleeAttack()
 	elseif key == "melee" then
 		self.HasMeleeAttackMissSounds = false
-		self.DisableDefaultMeleeAttackCode = false
+		self.Tor_SkipRegMelee = false
 		self.MeleeAttackDamage = (self.Tor_Level == 0 and 3) or 5
 		self:ExecuteMeleeAttack()
 	elseif key == "slam" then
 		local startPos = self:GetPos() + self:GetForward()*20
 		self.HasMeleeAttackMissSounds = false
-		self.DisableDefaultMeleeAttackCode = true
+		self.Tor_SkipRegMelee = true
 		VJ.EmitSound(self, "vj_hlr/gsrc/npc/tor_sven/tor-staff-discharge.wav", 90)
 		effects.BeamRingPoint(startPos, 0.3, 2, 600, 36, 0, (self.Tor_Level == 0 and Color(0, 255, 0)) or Color(0, 0, 255), {framerate=20, flags=0})
 		util.ScreenShake(startPos, 10, 10, 1, 1000)
@@ -159,16 +160,18 @@ function ENT:OnInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
-	if self.Dead or self.VJ_IsBeingControlled then return end
-	
 	-- Spawn an ally
-	if IsValid(self:GetEnemy()) then
+	if !self.Dead && !self.VJ_IsBeingControlled && IsValid(self:GetEnemy()) then
 		self:Tor_StartSpawnAlly()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
 	self:PlayAnim(ACT_DEPLOY, true, false, true) -- Angry animation
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnMeleeAttackExecute(status, ent, isProp)
+	return self.Tor_SkipRegMelee
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)

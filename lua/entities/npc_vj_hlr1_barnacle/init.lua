@@ -160,13 +160,15 @@ function ENT:OnThinkActive()
 	self.Barnacle_PullingEnt = self:Barnacle_CalculateTongue()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnMeleeAttack_AfterChecks(hitEnt, isProp)
-	if hitEnt.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
-		self.MeleeAttackDamage = hitEnt:Health() + 10
-	elseif hitEnt:IsPlayer() then
-		self.MeleeAttackDamage = 80
-	else
-		self.MeleeAttackDamage = 100
+function ENT:OnMeleeAttackExecute(status, ent, isProp)
+	if status == "PreDamage" then
+		if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
+			self.MeleeAttackDamage = ent:Health() + 10
+		elseif ent:IsPlayer() then
+			self.MeleeAttackDamage = 80
+		else
+			self.MeleeAttackDamage = 100
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
