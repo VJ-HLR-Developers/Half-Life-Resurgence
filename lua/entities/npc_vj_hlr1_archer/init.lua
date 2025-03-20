@@ -119,7 +119,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gibs = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl"}
 --
-function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
-	corpseEnt:SetSkin(2)
-	VJ.HLR_ApplyCorpseSystem(self, corpseEnt, gibs)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
+	corpse:SetSkin(2)
+	VJ.HLR_ApplyCorpseSystem(self, corpse, gibs)
 end

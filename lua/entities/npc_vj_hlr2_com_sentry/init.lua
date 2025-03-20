@@ -337,15 +337,15 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	return true, {AllowSound = false}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	-- Exaggerate the damage force to make the turret fall!
-	local phys = corpseEnt:GetPhysicsObject()
+	local phys = corpse:GetPhysicsObject()
 	if IsValid(phys) then
 		local velLength = phys:GetVelocity():Length()
-		phys:SetVelocity(corpseEnt:GetVelocity() * ((velLength < 10 and 25) or ((velLength < 30 and 10) or ((velLength < 100 and 3) or 1))))
+		phys:SetVelocity(corpse:GetVelocity() * ((velLength < 10 and 25) or ((velLength < 30 and 10) or ((velLength < 100 and 3) or 1))))
 		-- Below 10: x25 | Below 30: x10 | Below 100: x3 | Above 300: No change!
 	end
-	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, corpseEnt, 2)
+	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, corpse, 2)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()

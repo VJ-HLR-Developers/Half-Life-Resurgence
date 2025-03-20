@@ -167,6 +167,6 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	return true, {AllowCorpse = true, AllowSound = false}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
-	corpseEnt:SetBodygroup(0, 1)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
+	corpse:SetBodygroup(0, 1)
 end

@@ -62,7 +62,7 @@ function ENT:Tank_GunnerSpawnPosition()
 	return self:GetPos() + self:GetRight()*16 + self:GetForward()*-8 + self:GetUp()*100
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:UpdateMoveParticles()
+function ENT:Tank_UpdateMoveParticles()
 	local effectData = EffectData()
 	effectData:SetScale(1)
 	effectData:SetEntity(self)
@@ -210,9 +210,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local metalCollideSD = {"vj_hlr/gsrc/fx/metal1.wav", "vj_hlr/gsrc/fx/metal2.wav", "vj_hlr/gsrc/fx/metal3.wav", "vj_hlr/gsrc/fx/metal4.wav", "vj_hlr/gsrc/fx/metal5.wav"}
 --
-function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpseEnt, status, statusData)
+function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
 	if status == "Override" then
-		self:CreateExtraDeathCorpse("prop_physics", "models/vj_hlr/hl1/apc_door.mdl", {Pos=corpseEnt:GetPos() + corpseEnt:GetUp()*30 + corpseEnt:GetForward()*-130, Vel=self.Bradley_DmgForce / 55}, function(extraent) extraent:SetSkin(corpseEnt:GetSkin()) extraent:SetCollisionGroup(0) end)
+		self:CreateExtraDeathCorpse("prop_physics", "models/vj_hlr/hl1/apc_door.mdl", {Pos=corpse:GetPos() + corpse:GetUp()*30 + corpse:GetForward()*-130, Vel=self.Bradley_DmgForce / 55}, function(extraent) extraent:SetSkin(corpse:GetSkin()) extraent:SetCollisionGroup(0) end)
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p1.mdl", {CollisionDecal=false, Pos=self:LocalToWorld(Vector(0, 0, 90)), CollisionSound=metalCollideSD})
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p2.mdl", {CollisionDecal=false, Pos=self:LocalToWorld(Vector(0, 0, 91)), CollisionSound=metalCollideSD})
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p3.mdl", {CollisionDecal=false, Pos=self:LocalToWorld(Vector(0, 0, 92)), CollisionSound=metalCollideSD})

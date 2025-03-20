@@ -184,11 +184,11 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpseEnt)
-	corpseEnt:DrawShadow(false)
-	corpseEnt:ResetSequence("Death")
-	corpseEnt:SetCycle(1)
-	corpseEnt:SetPoseParameter("tongue_height", 1)
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
+	corpse:DrawShadow(false)
+	corpse:ResetSequence("Death")
+	corpse:SetCycle(1)
+	corpse:SetPoseParameter("tongue_height", 1)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
