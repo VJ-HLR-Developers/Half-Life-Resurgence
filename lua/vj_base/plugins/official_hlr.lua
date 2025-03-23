@@ -3,9 +3,10 @@
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
-VJ.AddPlugin("Half-Life Resurgence", "NPC")
+local hlrVersion = "1.2.0"
+VJ.AddPlugin("Half-Life Resurgence", "NPC", hlrVersion)
 
-VJ.HLR_VERSION = "1.2.0"
+VJ.HLR_VERSION = hlrVersion
 VJ.HLR_INSTALLED_HD = file.Exists("lua/autorun/vj_hlr_hd_autorun.lua", "GAME")
 VJ.HLR_NPC_Boid_Leader = NULL
 VJ.HLR_NPC_AFlock_Leader = NULL
