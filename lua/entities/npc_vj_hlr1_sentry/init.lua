@@ -239,9 +239,9 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		local muz = ents.Create("env_sprite_oriented")
 		muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash3.vmt")
 		if self.Sentry_Type == 1 then
-			muz:SetKeyValue("scale", ""..math.Rand(0.8, 1))
+			muz:SetKeyValue("scale", "" .. math.Rand(0.8, 1))
 		else
-			muz:SetKeyValue("scale", ""..math.Rand(0.3, 0.5))
+			muz:SetKeyValue("scale", "" .. math.Rand(0.3, 0.5))
 		end
 		muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
 		muz:SetKeyValue("HDRColorScale", "1.0")
@@ -303,8 +303,8 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			local pos = self:GetAttachment(self:LookupAttachment("center")).Pos + vecUp20
 			spr:SetPos(pos)
 			util.BlastDamage(self, self, pos, 50, 30)
-			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris"..math.random(1, 3)..".wav", 80, 100)
-			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
+			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris" .. math.random(1, 3) .. ".wav", 80, 100)
+			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)
 			self.GibOnDeathFilter = false
 			self:GibOnDeath(DamageInfo(), hitgroup) -- dmginfo is corrupt by now, declare a new one
 		else

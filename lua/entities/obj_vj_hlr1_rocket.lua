@@ -142,8 +142,8 @@ function ENT:OnDestroy(data, phys)
 	if IsValid(self.StartGlow1) then self.StartGlow1:Remove() end
 	
 	self:SetNW2Bool("VJ_Dead", true)
-	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris"..math.random(1, 3)..".wav", 80, 100)
-	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100, 100, 1)
+	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris" .. math.random(1, 3) .. ".wav", 80, 100)
+	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100, 100, 1)
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 	spr:SetKeyValue("GlowProxySize", "2.0")

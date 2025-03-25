@@ -10,7 +10,7 @@ if CLIENT then
 	local mat_object = Material("vj_hl/renderfx/render_kingpin2")
 	function ENT:Initialize()
 		local index = self:EntIndex()
-		hook.Add("RenderScreenspaceEffects", "VJ_HLR_Kingpin_Shield"..index, function()
+		hook.Add("RenderScreenspaceEffects", "VJ_HLR_Kingpin_Shield" .. index, function()
 			if IsValid(self) then
 				if self:GetNW2Bool("PsionicEffect") then
 					cam.Start3D(EyePos(), EyeAngles())

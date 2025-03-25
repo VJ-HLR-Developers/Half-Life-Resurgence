@@ -64,7 +64,7 @@ function EFFECT:Think()
 					particle:SetColor(255, 231, 166)
 				end
 			end
-			local fx = Emitter:Add("vj_hl/rico"..math.random(1, 2), self.EndPos)
+			local fx = Emitter:Add("vj_hl/rico" .. math.random(1, 2), self.EndPos)
 			fx:SetVelocity(vecDef)
 			fx:SetAirResistance(160)
 			fx:SetDieTime(0.15)

@@ -86,7 +86,7 @@ function ENT:OnInput(key, activator, caller, data)
 	elseif key == "land" then
 		VJ.EmitSound(self, "vj_hlr/gsrc/npc/player/pl_jumpland2.wav", 70)
 	elseif key == "body" then
-		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

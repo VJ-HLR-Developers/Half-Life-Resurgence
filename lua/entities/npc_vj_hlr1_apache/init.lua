@@ -198,7 +198,7 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 
 		local muz = ents.Create("env_sprite")
 		muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash2.vmt")
-		muz:SetKeyValue("scale", ""..math.Rand(0.3, 0.5))
+		muz:SetKeyValue("scale", "" .. math.Rand(0.3, 0.5))
 		muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
 		muz:SetKeyValue("HDRColorScale", "1.0")
 		muz:SetKeyValue("renderfx", "14")
@@ -333,7 +333,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		
 		util.BlastDamage(self, self, expPos, 300, 100)
 		VJ.EmitSound(self, sdExplosions, 100, 100)
-		VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3, 5).."_dist.wav", 100, 100, 100, 1)
+		VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 100, 100, 100, 1)
 		
 		-- Spawn a animated model of the helicopter that explodes constantly and gets destroyed when it collides with something
 		-- Based on source code
@@ -386,7 +386,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				
 				util.BlastDamage(self, self, expPos2, 300, 100)
 				VJ.EmitSound(self, sdExplosions, 100, 100)
-				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
+				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)
 			end
 		
 			self:NextThink(CurTime())

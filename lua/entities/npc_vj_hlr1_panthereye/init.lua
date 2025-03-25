@@ -69,7 +69,7 @@ function ENT:OnInput(key, activator, caller, data)
 	elseif key == "attack" then
 		self:ExecuteMeleeAttack()
 	elseif key == "body" then
-		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

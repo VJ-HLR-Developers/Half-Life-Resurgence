@@ -63,9 +63,9 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				util.Effect("bloodspray", effectData)
 			end
 		elseif self.Nest_SpawnEnt == "npc_vj_hlrof_penguin" then
-			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3, 5)..".wav", 90)
-			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris"..math.random(1, 3)..".wav", 100)
-			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
+			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. ".wav", 90)
+			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris" .. math.random(1, 3) .. ".wav", 100)
+			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)
 			util.BlastDamage(self, self, myPos, 80, 35)
 			if self.HasGibOnDeathEffects then
 				local effectData = EffectData()

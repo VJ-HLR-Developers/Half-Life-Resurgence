@@ -326,7 +326,7 @@ end
 -- Resets everything, including the eye & stomach health, idle animation and NPC state
 function ENT:GW_OrbOpenReset()
 	if self.Dead then return end
-	timer.Remove("gw_closestomach"..self:EntIndex())
+	timer.Remove("gw_closestomach" .. self:EntIndex())
 	self:PlaySoundSystem("Pain", "vj_hlr/gsrc/npc/geneworm/geneworm_final_pain4.wav")
 	self.SoundTbl_Breath = nil
 	VJ.STOPSOUND(self.CurrentBreathSound)
@@ -376,7 +376,7 @@ function ENT:GW_EyeHealthCheck()
 			self.GW_BE_EyeL.VJ_NPC_Class = self.VJ_NPC_Class
 			self.GW_BE_EyeR.VJ_NPC_Class = self.VJ_NPC_Class
 			self.GW_BE_Orb.VJ_NPC_Class = self.VJ_NPC_Class
-			timer.Create("gw_closestomach"..self:EntIndex(), 20, 1, function()
+			timer.Create("gw_closestomach" .. self:EntIndex(), 20, 1, function()
 				if IsValid(self) && self.GW_OrbOpen == true then
 					self:GW_OrbOpenReset()
 					-- Update the class tables for all the bullseyes in case it changed (AGAIN)
@@ -426,7 +426,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		elseif hitgroup == 69 && self.GW_OrbOpen == true && self.GW_OrbHealth > 0 then
 			self.GW_OrbHealth = self.GW_OrbHealth - dmginfo:GetDamage()
 			if self.GW_OrbHealth <= 0 then
-				timer.Remove("gw_closestomach"..self:EntIndex())
+				timer.Remove("gw_closestomach" .. self:EntIndex())
 				self.SoundTbl_Breath = nil
 				VJ.STOPSOUND(self.CurrentBreathSound)
 				self.NextPainSoundT = 0 -- Otherwise it won't play the sound because it played another pain sound right before this!
@@ -445,7 +445,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GW_CleanUp()
-	timer.Remove("gw_closestomach"..self:EntIndex())
+	timer.Remove("gw_closestomach" .. self:EntIndex())
 	if IsValid(self.GW_EyeLightR) then self.GW_EyeLightR:Remove() end
 	if IsValid(self.GW_EyeLightL) then self.GW_EyeLightL:Remove() end
 	if IsValid(self.GW_BE_EyeR) then self.GW_BE_EyeR:Remove() end

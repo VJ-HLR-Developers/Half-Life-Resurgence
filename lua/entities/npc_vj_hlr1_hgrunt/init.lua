@@ -215,7 +215,7 @@ function ENT:OnInput(key, activator, caller, data)
 	-- 		wep:NPC_SecondaryFire()
 	-- 	end
 	elseif key == "body" then
-		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
 
 	-- OppF Engineer --
 	elseif key == "deagle_putout" then
@@ -534,7 +534,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.BlastDamage(self, self, self:GetPos(), 100, 80)
 		util.ScreenShake(self:GetPos(), 100, 200, 1, 500)
 		VJ.EmitSound(self, gasTankExpSd, 90)
-		VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 		spr:SetKeyValue("GlowProxySize", "2.0")

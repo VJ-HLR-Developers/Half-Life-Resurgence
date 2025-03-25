@@ -90,6 +90,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
 	if self.Bullsquid_BullSquidding == true then
-		PrintMessage(HUD_PRINTCENTER, "YOU HAVE BEEN BULLSQUIDDING FOR "..math.Round(CurTime() - self.Bullsquid_BullSquiddingT, 2).." SECONDS")
+		PrintMessage(HUD_PRINTCENTER, "YOU HAVE BEEN BULLSQUIDDING FOR " .. math.Round(CurTime() - self.Bullsquid_BullSquiddingT, 2) .. " SECONDS")
 	end
 end

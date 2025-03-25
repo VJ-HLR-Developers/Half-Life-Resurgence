@@ -419,7 +419,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib11.mdl", {CollisionDecal=false, Pos=pos + Vector(95, 0, 96), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
 		
 		-- Make the gunners gib into pieces!
-		-- Also unparent them because Source engine spawns them at a random location...
+		-- Also unparent them because Source engine spawns them at a random location ...
 		local gunner1 = self.Osprey_Gunners[1]
 		local gunner2 = self.Osprey_Gunners[2]
 		if IsValid(gunner1) then
@@ -490,7 +490,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				
 				util.BlastDamage(self, self, expPos2, 300, 100)
 				VJ.EmitSound(self, sdExplosions, 100, 100)
-				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode"..math.random(3, 5).."_dist.wav", 140, 100)
+				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)
 			end
 		
 			self:NextThink(CurTime())

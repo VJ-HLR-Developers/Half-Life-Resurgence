@@ -162,7 +162,7 @@ function ENT:Tentacle_CalculateLevel(eneDist)
 	-- 1 = Medium Level
 	-- 2 = High Level
 	-- 3 = Extreme Level
-	//print("dist: "..eneDist)
+	//print("dist: " .. eneDist)
 	if eneDist >= 570 then
 		if self.Tentacle_Level != 3 then
 			self:PlayAnim(ACT_SIGNAL3, true, false, false)

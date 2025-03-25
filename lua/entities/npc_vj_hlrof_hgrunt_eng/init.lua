@@ -51,7 +51,7 @@ function ENT:OnThinkActive()
 						turret.VJ_NPC_Class = self.VJ_NPC_Class
 						self.HECU_TurretEnt = turret
 						if IsValid(self:GetCreator()) then -- If it has a creator, then add it to that player's undo list
-							undo.Create(self:GetName().."'s Turret")
+							undo.Create(self:GetName() .. "'s Turret")
 								undo.AddEntity(turret)
 								undo.SetPlayer(self:GetCreator())
 							undo.Finish()

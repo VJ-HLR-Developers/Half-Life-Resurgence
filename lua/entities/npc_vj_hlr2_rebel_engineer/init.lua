@@ -39,7 +39,7 @@ function ENT:OnThinkActive()
 					turret:SetState(VJ_STATE_FREEZE, 1)
 					VJ.EmitSound(turret, "npc/roller/blade_cut.wav", 75, 100)
 					if IsValid(self:GetCreator()) then -- If it has a creator, then add it to that player's undo list
-						undo.Create(self:GetName().."'s Turret")
+						undo.Create(self:GetName() .. "'s Turret")
 							undo.AddEntity(turret)
 							undo.SetPlayer(self:GetCreator())
 						undo.Finish()

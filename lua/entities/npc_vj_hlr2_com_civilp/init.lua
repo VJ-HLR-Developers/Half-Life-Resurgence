@@ -247,8 +247,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateSound(sdData, sdFile)
 	if VJ.HasValue(self.SoundTbl_Pain, sdFile) then return end
-	VJ.EmitSound(self, "npc/metropolice/vo/on"..math.random(1, 2)..".wav")
-	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self, "npc/metropolice/vo/off"..math.random(1, 4)..".wav") end end)
+	VJ.EmitSound(self, "npc/metropolice/vo/on" .. math.random(1, 2) .. ".wav")
+	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self, "npc/metropolice/vo/off" .. math.random(1, 4) .. ".wav") end end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
@@ -318,7 +318,7 @@ function ENT:Metrocop_SpawnManhack()
 	//manhack:SetKeyValue("spawnflags", "256")
 	manhack:SetEnemy(self:GetEnemy())
 	if IsValid(self:GetCreator()) then -- If it has a creator, then add it to that player's undo list
-		undo.Create(self:GetName().."'s Manhack")
+		undo.Create(self:GetName() .. "'s Manhack")
 			undo.AddEntity(manhack)
 			undo.SetPlayer(self:GetCreator())
 		undo.Finish()

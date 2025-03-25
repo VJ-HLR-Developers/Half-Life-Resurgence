@@ -238,7 +238,7 @@ function ENT:OnInput(key, activator, caller, data)
 	elseif key == "holster" then
 		self:SetBodygroup(2, 0)
 	elseif key == "body" then
-		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
 	// keller
 	elseif key == "keller_surprise" then
 		self.SoundTbl_FootStep = sdStep

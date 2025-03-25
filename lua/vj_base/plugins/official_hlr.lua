@@ -391,7 +391,7 @@ function VJ.HLR1_Effect_Portal(pos, size, color, onSpawn)
 	-- Main gas sprite
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
-	spr:SetKeyValue("scale", ""..size)
+	spr:SetKeyValue("scale", "" .. size)
 	spr:SetKeyValue("rendercolor", color or "77 210 130")
 	spr:SetKeyValue("rendermode", "5") -- 5 = Additive render mode
 	spr:SetKeyValue("renderamt", "255")
@@ -404,7 +404,7 @@ function VJ.HLR1_Effect_Portal(pos, size, color, onSpawn)
 	-- Portal sprite
 	local sprPortal = ents.Create("env_sprite")
 	sprPortal:SetKeyValue("model", "vj_hl/sprites/XFlare1.vmt")
-	sprPortal:SetKeyValue("scale", ""..(size - 0.5)) -- Make this little bit smaller than the other one!
+	sprPortal:SetKeyValue("scale", "" .. (size - 0.5)) -- Make this little bit smaller than the other one!
 	sprPortal:SetKeyValue("rendercolor", color or "184 250 214")
 	sprPortal:SetKeyValue("rendermode", "5") -- 5 = Additive render mode
 	sprPortal:SetKeyValue("renderamt", "255")
@@ -437,7 +437,7 @@ function VJ.HLR1_Effect_Portal(pos, size, color, onSpawn)
 	local dynLight = ents.Create("light_dynamic")
 	dynLight:SetKeyValue("brightness", "2")
 	dynLight:SetKeyValue("distance", "200")
-	dynLight:SetKeyValue("_light", color and color.."150" or "77 210 130 150")
+	dynLight:SetKeyValue("_light", color and color .. "150" or "77 210 130 150")
 	dynLight:SetKeyValue("style", "1") -- 1 = Flicker A (mmnmmommommnonmmonqnmmo)
 	dynLight:SetPos(pos)
 	dynLight:SetParent(spr)
@@ -458,7 +458,7 @@ function VJ.HLR1_Effect_Explosion(pos, type, size, color)
 	type = type or 1
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model", type == 1 && "vj_hl/sprites/zerogxplode.vmt" or "vj_hl/sprites/fexplo1.vmt")
-	spr:SetKeyValue("scale", ""..(size or 1))
+	spr:SetKeyValue("scale", "" .. (size or 1))
 	spr:SetKeyValue("rendercolor", color or "255 255 255")
 	spr:SetKeyValue("rendermode", "5")
 	spr:SetKeyValue("renderamt", "255")
@@ -468,7 +468,7 @@ function VJ.HLR1_Effect_Explosion(pos, type, size, color)
 	spr:Spawn()
 	spr:Fire("Kill", "", 0.9)
 
-	sound.Play("vj_hlr/gsrc/wep/explosion/explode"..math.random(1, 3)..".wav", pos, 150)
+	sound.Play("vj_hlr/gsrc/wep/explosion/explode" .. math.random(1, 3) .. ".wav", pos, 150)
 	return spr
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

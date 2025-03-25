@@ -92,7 +92,7 @@ function SWEP:SecondaryAttack()
 	
 	local owner = self:GetOwner()
 	if IsValid(owner) && owner:IsPlayer() then
-		owner:PrintMessage(HUD_PRINTTALK, "Laser tracking has been "..(self:GetNWLaser() == true and "enabled" or "disabled"))
+		owner:PrintMessage(HUD_PRINTTALK, "Laser tracking has been " .. (self:GetNWLaser() == true and "enabled" or "disabled"))
 	end
 	if IsValid(self.RPG_LastShotEnt) then
 		self.RPG_LastShotEnt.Rocket_Follow = self:GetNWLaser()

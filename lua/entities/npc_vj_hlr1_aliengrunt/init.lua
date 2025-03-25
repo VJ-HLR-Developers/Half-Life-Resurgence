@@ -87,9 +87,9 @@ function ENT:OnInput(key, activator, caller, data)
 		self:ExecuteMeleeAttack()
 	elseif key == "event_rattack" then
 		self:ExecuteRangeAttack()
-		self:PlaySoundSystem("RangeAttack", "vj_hlr/gsrc/npc/".. (self.AGrunt_Type == 1 and "agrunt_alpha" or "agrunt") .."/ag_fire"..math.random(1, 3)..".wav", VJ.EmitSound)
+		self:PlaySoundSystem("RangeAttack", "vj_hlr/gsrc/npc/" ..  (self.AGrunt_Type == 1 and "agrunt_alpha" or "agrunt")  .. "/ag_fire" .. math.random(1, 3) .. ".wav", VJ.EmitSound)
 	elseif key == "body" then
-		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

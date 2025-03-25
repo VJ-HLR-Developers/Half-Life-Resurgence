@@ -40,7 +40,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 					effectData:SetOrigin(self:GetAttachment(attSensor).Pos)
 					effectData:SetScale(6)
 					util.Effect("VJ_HLR_Spark", effectData)
-					VJ.EmitSound(self, "ambient/energy/zap"..math.random(5, 9)..".wav", 70, 100)
+					VJ.EmitSound(self, "ambient/energy/zap" .. math.random(5, 9) .. ".wav", 70, 100)
 				end
 			end)
 		end

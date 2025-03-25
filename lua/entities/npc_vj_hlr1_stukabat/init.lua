@@ -135,9 +135,9 @@ function ENT:OnInput(key, activator, caller, data)
 	if key == "wing" then
 		VJ.EmitSound(self, "vj_hlr/gsrc/npc/stukabat/stkb_wings" .. math.random(1, 3) .. ".wav", 70)
 	elseif key == "body" then
-		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
 	elseif key == "attack" then
-		VJ.CreateSound(self, "vj_hlr/gsrc/npc/stukabat/stkb_fire"..math.random(1, 2)..".wav", 75, 100)
+		VJ.CreateSound(self, "vj_hlr/gsrc/npc/stukabat/stkb_fire" .. math.random(1, 2) .. ".wav", 75, 100)
 	elseif key == "melee" then
 		self:ExecuteMeleeAttack()
 	elseif key == "dropbomb" then
@@ -352,7 +352,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 						self:Remove()
 					end
 				end)
-				VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop"..math.random(3, 4)..".wav", 75, 100)
+				VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
 			end
 
 			self:Remove()

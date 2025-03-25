@@ -211,7 +211,7 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 		self:SetTurnTarget(enemy, -1)
 		//self.NextDoAnyAttackT = 1
 		-- Make it constantly delay the range attack timer by 1 second (Which will also successfully play the flame-end sound)
-		timer.Create("garg_flame_reset"..self:EntIndex(), 1, 0, function()
+		timer.Create("garg_flame_reset" .. self:EntIndex(), 1, 0, function()
 			self:Garg_ResetFlame()
 		end)
 	else
