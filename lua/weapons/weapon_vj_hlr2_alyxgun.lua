@@ -1,3 +1,5 @@
+AddCSLuaFile()
+
 SWEP.Base = "weapon_vj_base"
 SWEP.PrintName = "Alyx Gun"
 SWEP.Author = "DrVrej"

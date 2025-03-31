@@ -1,40 +1,38 @@
+AddCSLuaFile()
+
 SWEP.Base 						= "weapon_vj_base"
-SWEP.PrintName					= "M249 SAW"
+SWEP.PrintName					= "Colt Carbine"
 SWEP.Author 					= "DrVrej"
 SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= false
-SWEP.NPC_CustomSpread	 		= 2.5
-SWEP.NPC_ReloadSound			= {"vj_hlr/gsrc/wep/saw/saw_reload2.wav"}
-SWEP.NPC_CanBePickedUp			= false
+SWEP.NPC_NextPrimaryFire = 0.08
+SWEP.NPC_ReloadSound = "vj_hlr/gsrc/npc/hgrunt_alpha/gr_reload1.wav"
+SWEP.NPC_CanBePickedUp = false
+SWEP.NPC_HasSecondaryFire = true
+SWEP.NPC_SecondaryFireEnt = "obj_vj_hlr1_grenade_40mm"
+SWEP.NPC_SecondaryFireSound = {"vj_hlr/gsrc/npc/hgrunt_alpha/glauncher.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/glauncher2.wav"}
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true
-SWEP.WorldModel					= "models/vj_hlr/weapons/w_saw.mdl"
-SWEP.HoldType 					= "ar2"
+SWEP.MadeForNPCsOnly = true
+SWEP.WorldModel = "models/vj_hlr/weapons/w_coltcarbine.mdl"
+SWEP.HoldType = "smg"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(-10, 94, 2)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-6.5, 0, -2)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModel_CustomPositionAngle = Vector(176, 180, 180)
+SWEP.WorldModel_CustomPositionOrigin = Vector(0.5, 12.2, 1.9)
+SWEP.WorldModel_CustomPositionBone = "unnamed035"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 8
-SWEP.Primary.ClipSize			= 50
-SWEP.Primary.Ammo				= "SMG1"
-SWEP.Primary.Sound				= {"vj_hlr/gsrc/wep/saw/saw_fire1.wav", "vj_hlr/gsrc/wep/saw/saw_fire2.wav", "vj_hlr/gsrc/wep/saw/saw_fire3.wav"}
-SWEP.Primary.DistantSound		= {"vj_hlr/gsrc/wep/saw/saw_distant2.wav"}
+SWEP.Primary.Damage = 5
+SWEP.Primary.ClipSize = 50
+SWEP.Primary.Ammo = "SMG1"
+SWEP.Primary.Sound = {"vj_hlr/gsrc/npc/hgrunt_alpha/gr_mgun1.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_mgun2.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_mgun3.wav"}
+SWEP.Primary.DistantSound = "vj_hlr/gsrc/npc/hgrunt_alpha/gr_mgun_distant2.wav"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
 
 -- Custom
 local validModels = {
-	["models/vj_hlr/opfor/hgrunt.mdl"] = true,
-	["models/vj_hlr/hl1/hgrunt.mdl"] = true,
-	["models/vj_hlr/opfor/hgrunt_medic.mdl"] = true,
-	["models/vj_hlr/opfor/hgrunt_engineer.mdl"] = true,
-	["models/vj_hlr/opfor_hd/hgrunt.mdl"] = true,
-	["models/vj_hlr/opfor_hd/hgrunt_medic.mdl"] = true,
-	["models/vj_hlr/opfor_hd/hgrunt_engineer.mdl"] = true,
+	["models/vj_hlr/hla/hgrunt.mdl"] = true,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()

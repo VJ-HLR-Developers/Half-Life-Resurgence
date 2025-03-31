@@ -1,54 +1,65 @@
-SWEP.Base 						= "weapon_vj_base"
-SWEP.PrintName					= "SPAS-12"
-SWEP.Author 					= "DrVrej"
-SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Category					= "VJ Base"
+AddCSLuaFile()
+
+SWEP.Base = "weapon_vj_base"
+SWEP.PrintName = "Glock 17"
+SWEP.Author = "DrVrej"
+SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
+SWEP.Category = "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= false
-SWEP.NPC_CustomSpread	 		= 2.5
-SWEP.NPC_ReloadSound			= "vj_hlr/gsrc/wep/shotgun/shotgun_reload.wav"
-SWEP.NPC_ExtraFireSound			= "vj_hlr/gsrc/wep/shotgun/scock1.wav"
-SWEP.NPC_ExtraFireSoundTime		= 0.2
-SWEP.NPC_CanBePickedUp			= false
+SWEP.NPC_NextPrimaryFire = 0.8
+SWEP.NPC_ReloadSound = {"vj_hlr/gsrc/wep/glock/glock_reload.wav"}
+SWEP.NPC_CanBePickedUp = false
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
-SWEP.ReplacementWeapon = {"weapon_hl1_shotgun", "weapon_shotgun_hl1"}
-SWEP.WorldModel = "models/vj_hlr/weapons/w_shotgun.mdl"
-SWEP.HoldType = "shotgun"
+SWEP.ReplacementWeapon = {"weapon_hl1_glock", "weapon_glock_hl1"}
+SWEP.WorldModel = "models/vj_hlr/weapons/w_9mmhandgun.mdl"
+SWEP.HoldType = "pistol"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(0, 180, 90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(0, -15, 0)
+SWEP.WorldModel_CustomPositionAngle = Vector(0, 180, -90)
+SWEP.WorldModel_CustomPositionOrigin = Vector(0, -5.5, -1)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 5
-SWEP.Primary.NumberOfShots		= 5
-SWEP.Primary.ClipSize			= 8
-SWEP.Primary.Ammo				= "Buckshot"
-SWEP.Primary.Sound				= {"vj_hlr/gsrc/wep/shotgun/sbarrel1.wav"}
-SWEP.Primary.DistantSound		= {"vj_hlr/gsrc/wep/shotgun/sbarrel1_distant2.wav"}
-SWEP.PrimaryEffects_ShellType 	= "ShotgunShellEject"
+SWEP.Primary.Damage = 5
+SWEP.Primary.ClipSize = 17
+SWEP.Primary.Ammo = "Pistol"
+SWEP.Primary.Sound = {"vj_hlr/gsrc/wep/glock/glock_regular.wav"}
+SWEP.Primary.DistantSound = {"vj_hlr/gsrc/wep/glock/glock_distant2.wav"}
+SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
 
 -- Custom
 local validModels = {
-    ["models/vj_hlr/opfor/hgrunt.mdl"] = true,
-    ["models/vj_hlr/hl1/hgrunt.mdl"] = true,
-    ["models/vj_hlr/opfor/hgrunt_medic.mdl"] = true,
-    ["models/vj_hlr/opfor/hgrunt_engineer.mdl"] = true,
-    ["models/vj_hlr/hl1/rgrunt.mdl"] = true,
-    ["models/vj_hlr/hl1/rgrunt_black.mdl"] = true,
-    ["models/vj_hlr/opfor_hd/hgrunt.mdl"] = true,
-    ["models/vj_hlr/opfor_hd/hgrunt_medic.mdl"] = true,
-    ["models/vj_hlr/opfor_hd/hgrunt_engineer.mdl"] = true,
-    ["models/vj_hlr/cracklife/hgrunt.mdl"] = true,
+	["models/vj_hlr/hl1/barney.mdl"] = true,
+	["models/vj_hlr/hla/barney.mdl"] = true,
+	["models/vj_hlr/opfor/hgrunt.mdl"] = true,
+	["models/vj_hlr/hl1/hgrunt.mdl"] = true,
+	["models/vj_hlr/opfor/hgrunt_medic.mdl"] = true,
+	["models/vj_hlr/opfor/hgrunt_engineer.mdl"] = true,
+	["models/vj_hlr/opfor/hgrunt.mdl"] = true,
+	["models/vj_hlr/opfor_hd/hgrunt.mdl"] = true,
+	["models/vj_hlr/opfor_hd/hgrunt_medic.mdl"] = true,
+	["models/vj_hlr/opfor_hd/hgrunt_engineer.mdl"] = true,
+	["models/vj_hlr/cracklife/barney.mdl"] = true,
+	["models/vj_hlr/cracklife10/unbarney.mdl"] = true,
+	["models/vj_hlr/cracklife10/barney.mdl"] = true,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
 	timer.Simple(0.1, function()
 		if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
 			self.NPC_NextPrimaryFire = false
+			local model = self:GetOwner():GetModel()
+			if model == "models/vj_hlr/hl1/barney.mdl" or model == "models/vj_hlr/hla/barney.mdl" or model == "models/vj_hlr/cracklife/barney.mdl" then
+				self.Primary.Sound = "vj_hlr/gsrc/npc/barney/ba_attack2.wav"
+				self.WorldModel_CustomPositionAngle = Vector(0, 192, -90)
+				self.WorldModel_CustomPositionOrigin = Vector(-1.5, -7, -1)
+				if model == "models/vj_hlr/hla/barney.mdl" then
+					self.WorldModel_CustomPositionBone = "unnamed033"
+					self.Primary.TakeAmmo = 0 -- Alpha Security Guard can't reload, so give it unlimited ammo!
+				end
+			end
 		end
 	end)
 end

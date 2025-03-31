@@ -1,47 +1,45 @@
-SWEP.Base 						= "weapon_vj_base"
-SWEP.PrintName					= "20mm Cannon"
-SWEP.Author 					= "DrVrej"
-SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Category					= "VJ Base"
+AddCSLuaFile()
+
+SWEP.Base = "weapon_vj_base"
+SWEP.PrintName = "Suppressed Glock 17"
+SWEP.Author = "DrVrej"
+SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
+SWEP.Category = "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= false
-SWEP.NPC_CustomSpread	 		= 2
-SWEP.NPC_CanBePickedUp			= false
+SWEP.NPC_NextPrimaryFire = 0.8
+SWEP.NPC_ReloadSound = {"vj_hlr/gsrc/wep/glock/glock_reload.wav"}
+SWEP.NPC_CanBePickedUp = false
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true
-SWEP.WorldModel					= "models/vj_hlr/weapons/w_minigun.mdl"
-SWEP.HoldType 					= "ar2"
+SWEP.MadeForNPCsOnly = true
+SWEP.ReplacementWeapon = {"weapon_hl1_glock", "weapon_glock_hl1"}
+SWEP.WorldModel = "models/vj_hlr/weapons/w_glock_silenced.mdl"
+SWEP.HoldType = "pistol"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(100, 0, 100)
-SWEP.WorldModel_CustomPositionOrigin = Vector(15, 0.5, -1)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModel_CustomPositionAngle = Vector(0, 0, 0)
+SWEP.WorldModel_CustomPositionOrigin = Vector(0.3, 0.6, -2.35)
+SWEP.WorldModel_CustomPositionBone = "sides01"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 5
-SWEP.Primary.ClipSize = 200
+SWEP.Primary.ClipSize = 17
 SWEP.Primary.TakeAmmo = 0
-SWEP.Primary.Ammo = "AR2"
-SWEP.Primary.Sound = {"vj_hlr/gsrc/npc/hassault/hw_shoot1.wav", "vj_hlr/gsrc/npc/hassault/hw_shoot2.wav", "vj_hlr/gsrc/npc/hassault/hw_shoot3.wav"}
-SWEP.Primary.DistantSound = {"vj_hlr/gsrc/npc/hassault/hw_shoot_distant2.wav"}
+SWEP.Primary.Ammo = "Pistol"
+SWEP.Primary.Sound = {"vj_hlr/gsrc/wep/glock/glock_silenced1.wav", "vj_hlr/gsrc/wep/glock/glock_silenced2.wav"}
+SWEP.Primary.DistantSound = {"vj_hlr/gsrc/wep/glock/glock_silenced_distant2.wav"}
+SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
 
 -- Custom
 local validModels = {
-	["models/vj_hlr/hl1/hassault.mdl"] = true,
-	["models/vj_hlr/hl_hd/hassault.mdl"] = true,
-	["models/vj_hlr/hla/hassault.mdl"] = true,
+	["models/vj_hlr/hl1/hassassin.mdl"] = true,
+	["models/vj_hlr/cracklife/hassassin.mdl"] = true,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
 	timer.Simple(0.1, function()
 		if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
 			self.NPC_NextPrimaryFire = false
-			if self:GetOwner():GetModel() == "models/vj_hlr/hla/hassault.mdl" then
-				self.WorldModel_CustomPositionBone = "unnamed_bone_033"
-				self.WorldModel_CustomPositionAngle = Vector(104, 0, 100)
-				self.WorldModel_CustomPositionOrigin = Vector(27.5, 0, 3)
-			end
 		end
 	end)
 end
@@ -56,8 +54,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:PrimaryAttackEffects(owner)
 	local muz = ents.Create("env_sprite")
-	muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash3.vmt")
-	muz:SetKeyValue("scale", "" .. math.Rand(0.3, 0.5))
+	muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash2.vmt")
+	muz:SetKeyValue("scale", "" .. math.Rand(0.2, 0.25))
 	muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
 	muz:SetKeyValue("HDRColorScale", "1.0")
 	muz:SetKeyValue("renderfx", "14")

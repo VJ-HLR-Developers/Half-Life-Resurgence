@@ -1,43 +1,60 @@
+AddCSLuaFile()
+
 SWEP.Base 						= "weapon_vj_base"
-SWEP.PrintName					= "Ivan's Glock 17"
+SWEP.PrintName					= "MP5"
 SWEP.Author 					= "DrVrej"
 SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= 2.5
-SWEP.NPC_CustomSpread	 		= 2
-SWEP.NPC_ReloadSound			= {"vj_hlr/gsrc/wep/glock/glock_reload.wav"}
-SWEP.NPC_CanBePickedUp			= false
+SWEP.NPC_NextPrimaryFire = false
+SWEP.NPC_ReloadSound = {"vj_hlr/gsrc/wep/mp5/mp_reload.wav"}
+SWEP.NPC_CanBePickedUp = false
+SWEP.NPC_HasSecondaryFire = true
+SWEP.NPC_SecondaryFireEnt = "obj_vj_hlr1_grenade_40mm"
+SWEP.NPC_SecondaryFireSound = {"vj_hlr/gsrc/wep/mp5/glauncher.wav", "vj_hlr/gsrc/wep/mp5/glauncher2.wav"}
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true
-SWEP.ReplacementWeapon = {"weapon_hl1_glock", "weapon_glock_hl1"}
-SWEP.WorldModel					= "models/vj_hlr/hla/w_docgun.mdl"
-SWEP.HoldType 					= "pistol"
+SWEP.MadeForNPCsOnly = true
+SWEP.ReplacementWeapon = {"weapon_hl1_mp5", "weapon_mp5_hl1"}
+SWEP.WorldModel = "models/vj_hlr/weapons/w_9mmar.mdl"
+SWEP.HoldType = "smg"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(0, 0, 0)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-1, 3.3, -0.7)
-SWEP.WorldModel_CustomPositionBone = "unnamed037"
+SWEP.WorldModel_CustomPositionAngle = Vector(90, 180, 90)
+SWEP.WorldModel_CustomPositionOrigin = Vector(10, -2, -2)
+SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 5
-SWEP.Primary.ClipSize = 17
-SWEP.Primary.TakeAmmo = 0
-SWEP.Primary.Ammo = "Pistol"
-SWEP.Primary.Sound = {"vj_hlr/gsrc/npc/ivan_alpha/pl_gun1.wav", "vj_hlr/gsrc/npc/ivan_alpha/pl_gun2.wav"}
-SWEP.Primary.DistantSound = {"vj_hlr/gsrc/npc/ivan_alpha/pl_gun_distant2.wav"}
-SWEP.PrimaryEffects_ShellType = "ShellEject"
+SWEP.Primary.ClipSize = 50
+SWEP.Primary.Ammo = "SMG1"
+SWEP.Primary.Sound = {"vj_hlr/gsrc/wep/mp5/hks1.wav", "vj_hlr/gsrc/wep/mp5/hks2.wav", "vj_hlr/gsrc/wep/mp5/hks3.wav"}
+SWEP.Primary.DistantSound = {"vj_hlr/gsrc/wep/mp5/hks_distant_new.wav"}
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
 
 -- Custom
 local validModels = {
-	["models/vj_hlr/hla/doctor.mdl"] = true,
+    ["models/vj_hlr/opfor/hgrunt.mdl"] = true,
+    ["models/vj_hlr/hl1/hgrunt.mdl"] = true,
+    ["models/vj_hlr/opfor/hgrunt_medic.mdl"] = true,
+    ["models/vj_hlr/opfor/hgrunt_engineer.mdl"] = true,
+    ["models/vj_hlr/hl1/rgrunt.mdl"] = true,
+    ["models/vj_hlr/hl1/rgrunt_black.mdl"] = true,
+    ["models/vj_hlr/opfor/massn.mdl"] = true,
+    ["models/vj_hlr/hl_hd/hassault.mdl"] = true,
+    ["models/vj_hlr/opfor_hd/hgrunt.mdl"] = true,
+    ["models/vj_hlr/opfor_hd/hgrunt_medic.mdl"] = true,
+    ["models/vj_hlr/opfor_hd/hgrunt_engineer.mdl"] = true,
+    ["models/vj_hlr/cracklife/hgrunt.mdl"] = true,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
 	timer.Simple(0.1, function()
 		if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
 			self.NPC_NextPrimaryFire = false
+			if self:GetOwner():GetModel() == "models/vj_hlr/opfor/massn.mdl" then
+				self.WorldModel_CustomPositionAngle = Vector(100, 180, 90)
+				self.WorldModel_CustomPositionOrigin = Vector(5.6, -4, -2)
+			end
 		end
 	end)
 end
@@ -52,7 +69,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:PrimaryAttackEffects(owner)
 	local muz = ents.Create("env_sprite")
-	muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash2.vmt")
+	muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash1.vmt")
 	muz:SetKeyValue("scale", "" .. math.Rand(0.3, 0.5))
 	muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
 	muz:SetKeyValue("HDRColorScale", "1.0")
