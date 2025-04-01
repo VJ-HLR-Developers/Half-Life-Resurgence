@@ -718,7 +718,7 @@ VJ.AddClientConVar("vj_hlr2_combine_eyeglow", 0, "Combine Eye Glow Effects")
 
 if CLIENT then
 	hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_HLR", function()
-		spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HLR - AutoReplace", "HLR - AutoReplace", "", "", function(panel)
+		spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HLR - Auto Replace", "HLR - Auto Replace", "", "", function(panel)
 			if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
 				panel:Help("#vjbase.menu.general.admin.not")
 				panel:Help("#vjbase.menu.general.admin.only")

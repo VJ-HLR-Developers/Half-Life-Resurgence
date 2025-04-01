@@ -158,8 +158,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
 	if math.random(1, 2) == 1 && ent:IsPlayer() then
+		self.NextDoAnyAttackT = CurTime() + 5 -- Delay the next attack to allow the speech to finish
 		self.SoundTbl_Alert = "vj_hlr/gsrc/npc/nihilanth/nil_freeman.wav"
 	else
+		self.NextDoAnyAttackT = CurTime() + 3.2 -- Delay the next attack to allow the speech to finish
 		self.SoundTbl_Alert = "vj_hlr/gsrc/npc/nihilanth/nil_comes.wav"
 	end
 end
