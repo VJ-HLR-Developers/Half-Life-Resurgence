@@ -17,13 +17,4 @@ SWEP.NPC_ReloadSound = "vj_hlr/src/wep/oicw/ar2_reload.wav"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 8
 SWEP.Primary.ClipSize = 30
-SWEP.Primary.Sound = {
-	"vj_hlr/src/wep/oicw/ar2_fire1.wav",
-	"vj_hlr/src/wep/oicw/ar2_fire2.wav",
-	"vj_hlr/src/wep/oicw/ar2_fire3.wav",
-}
-SWEP.Primary.DistantSound = {
-	"vj_hlr/src/wep/oicw/ar2_echo.wav",
-	"vj_hlr/src/wep/oicw/ar2_echo2.wav",
-	"vj_hlr/src/wep/oicw/ar2_echo3.wav",
-}
+SWEP.Primary.Sound = "VJ.HLR_Weapon_OICW.Single"
