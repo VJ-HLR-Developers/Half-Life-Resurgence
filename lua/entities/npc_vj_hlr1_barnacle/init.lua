@@ -90,6 +90,8 @@ end
 end)*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local velInitial = Vector(0, 0, 2)
+local offset = 200
+local offsetPulling = 125
 --
 function ENT:Barnacle_CalculateTongue()
 	//print(self.Barnacle_LastHeight)
@@ -97,14 +99,15 @@ function ENT:Barnacle_CalculateTongue()
 	local myUpPos = self:GetUp()
 	local tr = util.TraceLine({
 		start = myPos,
-		endpos = myPos + myUpPos * -self.Barnacle_LastHeight,
+		endpos = myPos - myUpPos * self.Barnacle_LastHeight,
 		filter = self
 	})
+	//VJ.DEBUG_TempEnt(myPos + myUpPos * -self.Barnacle_LastHeight)
 	local trHitEnt = tr.Entity
 	local trHitPos = tr.HitPos
 	local height = myPos:Distance(trHitPos)
 	-- Increase the height by 10 every tick | minimum = 0, maximum = 1024
-	self.Barnacle_LastHeight = math.Clamp(height + 10, 0, 1024)
+	self.Barnacle_LastHeight = math.Clamp(height + 10, 0, 1024) -- BUG: This should be 1024 + offset, however it can't because of this issue: https://github.com/VJ-HLR-Developers/Half-Life-Resurgence/issues/97
 
 	if IsValid(trHitEnt) && (trHitEnt:IsNPC() or trHitEnt:IsPlayer()) && self:CheckRelationship(trHitEnt) == D_HT && trHitEnt.VJ_ID_Boss != true then
 		-- If the grabbed enemy is a new enemy then reset the enemy values
@@ -131,12 +134,12 @@ function ENT:Barnacle_CalculateTongue()
 				self.Barnacle_NextPullSoundT = CurTime() + 2.7950113378685 // Magic number is the sound duration of "bcl_alert2.wav"
 			end
 		end
-		self:SetPoseParameter("tongue_height", myPos:Distance(trHitPos + myUpPos * 125))
+		self:SetPoseParameter("tongue_height", myPos:Distance(trHitPos) - offsetPulling)
 		return true
 	else
 		self:Barnacle_ResetEnt()
 	end
-	self:SetPoseParameter("tongue_height", myPos:Distance(trHitPos + myUpPos * 193))
+	self:SetPoseParameter("tongue_height", myPos:Distance(trHitPos) - offset) -- -200 is to account for the pose parameter's offset
 	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

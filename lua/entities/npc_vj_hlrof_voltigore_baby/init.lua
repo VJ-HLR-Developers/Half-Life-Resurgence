@@ -7,7 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/opfor/baby_voltigore.mdl"
 ENT.StartHealth = 60
-ENT.HullType = HULL_MEDIUM
+ENT.HullType = HULL_SMALL_CENTERED
 ENT.ControllerParams = {
     ThirdP_Offset = Vector(25, 0, -15),
     FirstP_Bone = "Bone41",
@@ -53,7 +53,16 @@ ENT.FootstepSoundPitch = 130
 ENT.MainSoundPitch = VJ.SET(120, 125)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-	self:SetCollisionBounds(Vector(20, 20, 40), Vector(-20, -20, 0))
+	self:SetCollisionBounds(Vector(20, 20, 30), Vector(-20, -20, 0))
+	-- !!!HACK HACK!!! Baby voltigore doesn't have a "eyes" position thus its eye pos is offset ~100 units up breaking BodyTarget and EyePos calls!
+	-- This hack solves it by setting it to only 20 units up from its world position
+	timer.Simple(0.1, function()
+		if IsValid(self) then
+			local newEyeOffset = Vector(0, 0, 20)
+			self:SetViewOffset(newEyeOffset)
+			self:SetSaveValue("m_vDefaultEyeOffset", newEyeOffset)
+		end
+	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
