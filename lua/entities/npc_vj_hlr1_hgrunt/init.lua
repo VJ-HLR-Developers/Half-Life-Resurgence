@@ -509,7 +509,7 @@ function ENT:OnThink()
 	
 	-- For guarding
 	/*if self.HECU_CanUseGuardAnim then
-		if self.IsGuard == true && !self.HECU_Rappelling && !IsValid(self:GetEnemy()) then
+		if self.IsGuard && !self.HECU_Rappelling && !IsValid(self:GetEnemy()) then
 			if self.HECU_SwitchedIdle == false then
 				self.HECU_SwitchedIdle = true
 				self.AnimTbl_IdleStand = {ACT_GET_DOWN_STAND}
