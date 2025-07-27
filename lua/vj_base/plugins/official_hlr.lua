@@ -20,7 +20,7 @@ VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_hl/icons/hl1.png"})
 -- Earth
 VJ.AddNPC("Cockroach", "npc_vj_hlr1_cockroach", spawnCategory)
 VJ.AddNPC("Rat", "npc_vj_hlr1_rat", spawnCategory)
-	
+
 -- Black Mesa Personnel
 VJ.AddNPC("Security Guard", "npc_vj_hlr1_securityguard", spawnCategory)
 VJ.AddNPC("Scientist", "npc_vj_hlr1_scientist", spawnCategory)
@@ -36,13 +36,13 @@ VJ.AddNPC("Scientist", "npc_vj_hlr1_scientist", spawnCategory)
 	VJ.AddNPC("Alpha Scientist", "npc_vj_hlr1a_scientist", spawnCategory)
 	VJ.AddNPC("Ivan the Space Biker", "npc_vj_hlr1a_ivan", spawnCategory)
 	VJ.AddNPC("Probe Droid", "npc_vj_hlr1a_probedroid", spawnCategory)
-	
+
 -- Black Mesa Weaponry
 VJ.AddNPC("Black Mesa Ground Turret", "npc_vj_hlr1_gturret", spawnCategory)
 VJ.AddNPC("Black Mesa Ground Turret (Mini)", "npc_vj_hlr1_gturret_mini", spawnCategory)
 VJ.AddNPC("Black Mesa Ceiling Turret", "npc_vj_hlr1_cturret", spawnCategory, false, function(x) x.OnCeiling = true x.Offset = 0 end)
 VJ.AddNPC("Black Mesa Ceiling Turret (Mini)", "npc_vj_hlr1_cturret_mini", spawnCategory, false, function(x) x.OnCeiling = true x.Offset = 0 end)
-	
+
 -- HECU
 VJ.AddNPC("Human Grunt", "npc_vj_hlr1_hgrunt", spawnCategory)
 VJ.AddNPC("Human Sergeant", "npc_vj_hlr1_hgrunt_serg", spawnCategory)
@@ -118,6 +118,7 @@ VJ.AddNPC("Xen Ceiling Turret", "npc_vj_hlr1_xen_turretc", spawnCategory, false,
 	VJ.AddNPC("Alpha Bullsquid", "npc_vj_hlr1a_bullsquid", spawnCategory)
 	VJ.AddNPC("Alpha Houndeye", "npc_vj_hlr1a_houndeye", spawnCategory)
 	-- Dreamcast
+	VJ.AddNPC("Zombie (Dreamcast)", "npc_vj_hlrdc_zombie", spawnCategory)
 	VJ.AddNPC("Bullsquid (Dreamcast)", "npc_vj_hlrdc_bullsquid", spawnCategory)
 	-- Opposing Force
 	VJ.AddNPC("Zombie Security Guard", "npc_vj_hlrof_zombie_sec", spawnCategory)
@@ -397,7 +398,7 @@ util.PrecacheModel("models/vj_hlr/gibs/islavegib.mdl")
 function VJ.HLR1_Effect_Portal(pos, size, color, onSpawn)
 	-- Helpful page: https://developer.valvesoftware.com/wiki/Alien_Teleport_Effect_(HL1)
 	size = size or 1.5
-	
+
 	-- Main gas sprite
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
@@ -410,7 +411,7 @@ function VJ.HLR1_Effect_Portal(pos, size, color, onSpawn)
 	spr:SetPos(pos)
 	spr:Spawn()
 	spr:Fire("Kill", "", 1)
-	
+
 	-- Portal sprite
 	local sprPortal = ents.Create("env_sprite")
 	sprPortal:SetKeyValue("model", "vj_hl/sprites/XFlare1.vmt")
@@ -423,7 +424,7 @@ function VJ.HLR1_Effect_Portal(pos, size, color, onSpawn)
 	sprPortal:SetPos(pos)
 	sprPortal:Spawn()
 	sprPortal:Fire("Kill", "", 1)
-	
+
 	-- Beam effects
 	local beam = ents.Create("env_beam")
 	beam:SetName("hlr_beam_" .. beam:EntIndex())
@@ -442,7 +443,7 @@ function VJ.HLR1_Effect_Portal(pos, size, color, onSpawn)
 	beam:Spawn()
 	beam:Activate()
 	beam:Fire("TurnOn", "", 0)
-	
+
 	-- Dynamic light
 	local dynLight = ents.Create("light_dynamic")
 	dynLight:SetKeyValue("brightness", "2")
@@ -455,7 +456,7 @@ function VJ.HLR1_Effect_Portal(pos, size, color, onSpawn)
 	dynLight:Activate()
 	dynLight:Fire("TurnOn", "", 0)
 	//dynLight:Fire("Kill", "", 1)
-	
+
 	sound.Play("vj_hlr/gsrc/fx/beamstart2.wav", pos, 85)
 	timer.Simple(0.5, function()
 		sound.Play("vj_hlr/gsrc/fx/beamstart4.wav", pos, 85) -- Play the spawn sound
@@ -550,12 +551,12 @@ local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo)
 	if target.HLR_Corpse && !target.Dead && CurTime() > target.HLR_Corpse_StartT && target:GetColor().a > 50 then
 		local dmgForce = dmginfo:GetDamageForce()
-		
+
 		-- Blood hit effects & decals
 		if GetConVar("vj_hlr1_corpse_effects"):GetInt() == 1 then
 			local pos = dmginfo:GetDamagePosition()
 			if pos == defPos then pos = target:GetPos() + target:OBBCenter() end
-			
+
 			-- Blood particle
 			local part = VJ.PICK(target.HLR_Corpse_Particle)
 			if part then
@@ -567,7 +568,7 @@ hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo
 				particle:Fire("Start")
 				particle:Fire("Kill", "", 0.1)
 			end
-			
+
 			-- Blood decal
 			local decal = VJ.PICK(target.HLR_Corpse_Decal)
 			if decal then
@@ -575,12 +576,12 @@ hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo
 				util.Decal(decal, tr.HitPos + tr.HitNormal + Vector(math.random(-30, 30), math.random(-30, 30), 0), tr.HitPos - tr.HitNormal, target)
 			end
 		end
-		
+
 		-- Damage & Gibs
 		if GetConVar("vj_hlr1_corpse_gibbable"):GetInt() == 1 && !dmginfo:IsBulletDamage() && target.HLR_Corpse_Gibbable then
 			local noDamage = false
 			local dmgType = dmginfo:GetDamageType()
-			
+
 			-- DMG_CRUSH is usually when the ragdoll is slammed to a wall, we want it to only gib if it's hit hard enough!
 			if dmgType == DMG_CRUSH && dmginfo:GetDamage() < 500 then
 				noDamage = true
@@ -601,7 +602,7 @@ hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo
 				local centerPos = target:GetPos() + target:OBBCenter()
 				target.Dead = true
 				VJ.EmitSound(target, VJ.PICK(target.HLR_Corpse_ExpSound), 90, 100)
-				
+
 				-- Spawn gibs
 				local gibMaxs = target:OBBMaxs()
 				local gibMins = target:OBBMins()
@@ -628,10 +629,10 @@ hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo
 						end)
 					end
 				end
-				
+
 				local bloodIsYellow = target.HLR_Corpse_Type == "Yellow"
 				local bloodIsRed = target.HLR_Corpse_Type == "Red"
-				
+
 				-- Death effects & decals
 				if bloodIsYellow or bloodIsRed then
 					local maxDist = gibMaxs:Length()
@@ -655,7 +656,7 @@ hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo
 					local tr = util.TraceLine({start = dmgPos, endpos = dmgPos + dmgPos:GetNormal() * 10, filter = target})
 					VJ.DEBUG_TempEnt(tr.HitPos, Angle(0, 0, 0), Color(94, 255, 0))
 					util.Decal("VJ_HLR1_Blood_Red_Large", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, target)*/
-					
+
 					local effectData = EffectData()
 					effectData:SetOrigin(centerPos)
 					effectData:SetColor(bloodIsYellow and colorYellow or colorRed)
@@ -755,7 +756,7 @@ if CLIENT then
 			panel:CheckBox("Make All NPCs Allied Against Players", "vj_hlr_autoreplace_alliedagainstply")
 			panel:Help("WARNINGS: Certain maps may occasionally break or crash! Some parts of the campaign may require the player to remove invisible barriers or physgun important NPCs to their proper location to continue to the next level.")
 		end)
-		
+
 		spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HLR - Server", "HLR - Server", "", "", function(panel)
 			if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
 				panel:Help("#vjbase.menu.general.admin.not")
@@ -778,7 +779,7 @@ if CLIENT then
 			panel:ControlHelp("Ex: Custom skins for Rebels & Refugees")
 			panel:CheckBox("Merkava Spawns With a Gunner", "vj_hlr2_merkava_gunner")
 		end)
-		
+
 		spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HLR - Client", "HLR - Client", "", "", function(panel)
 			panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr2_csniper_laser_usebarrel 1\nvj_hlr1_sparkfx 1\nvj_hlr2_combine_eyeglow 0"})
 			panel:Help("GoldSrc Engine:")
