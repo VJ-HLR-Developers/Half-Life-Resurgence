@@ -328,11 +328,11 @@ local sdGibCollide = {"physics/metal/metal_box_impact_hard1.wav", "physics/metal
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	util.BlastDamage(self, self, self:WorldSpaceCenter() + self:GetUp()*12, 120, 15)
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hl2/Floor_turret_gib1.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 40)),  CollisionSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hl2/Floor_turret_gib2.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 20)),  CollisionSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hl2/Floor_turret_gib3.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 30)),  CollisionSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hl2/Floor_turret_gib4.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 35)),  CollisionSound=sdGibCollide})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hl2/Floor_turret_gib5.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 37)),  CollisionSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib", "models/combine_turrets/floor_turret_gib1.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 40)),  CollisionSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib", "models/combine_turrets/floor_turret_gib2.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 20)),  CollisionSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib", "models/combine_turrets/floor_turret_gib3.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 30)),  CollisionSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib", "models/combine_turrets/floor_turret_gib4.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 35)),  CollisionSound=sdGibCollide})
+	self:CreateGibEntity("obj_vj_gib", "models/combine_turrets/floor_turret_gib5.mdl",  {BloodType="", Pos=self:LocalToWorld(Vector(0, 0, 37)),  CollisionSound=sdGibCollide})
 	self:PlaySoundSystem("Gib", "vj_hlr/src/npc/turret/detonate.wav")
 	return true, {AllowSound = false}
 end

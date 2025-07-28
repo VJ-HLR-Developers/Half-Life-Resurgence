@@ -167,13 +167,15 @@ function ENT:OnCreateSound(sdData, sdFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
+	local curTime = CurTime()
+	
 	-- Random background radio sounds
-	if self.Combine_ChatterT < CurTime() then
+	if self.Combine_ChatterT < curTime then
 		if math.random(1, 2) == 1 then
 			VJ.STOPSOUND(self.Combine_ChatterSd)
 			self.Combine_ChatterSd = VJ.CreateSound(self, sdCombine_Chatter, 50, 90)
 		end
-		self.Combine_ChatterT = CurTime() + math.Rand(20, 40)
+		self.Combine_ChatterT = curTime + math.Rand(20, 40)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

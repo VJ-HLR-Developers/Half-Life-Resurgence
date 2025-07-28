@@ -5,7 +5,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_hlr/hl2/alyx_ep1.mdl", "models/vj_hlr/hl2/alyx_ep2.mdl"}
+ENT.Model = {"models/alyx.mdl", "models/alyx_ep2.mdl"} //{"models/vj_hlr/hl2/alyx_ep1.mdl", "models/vj_hlr/hl2/alyx_ep2.mdl"}
 ENT.StartHealth = 100
 ENT.HealthRegenParams = {
 	Enabled = true,
