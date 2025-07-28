@@ -1,4 +1,5 @@
 "Vertexlitgeneric"
 {
 	"$baseTexture" "models/hl_resurgence/hl1/zombie_dreamcast/DC_zombie_Chest"
+	"$nocull" 	   "1"
 }
