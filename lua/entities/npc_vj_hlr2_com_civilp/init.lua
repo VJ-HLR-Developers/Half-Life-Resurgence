@@ -41,7 +41,7 @@ ENT.SoundTbl_KilledEnemy = {"vj_hlr/src/npc/metropolice/innoculate10-107.wav", "
 ENT.SoundTbl_AllyDeath = {"vj_hlr/src/npc/metropolice/wehavenocontainment.wav", "vj_hlr/src/npc/metropolice/cpiscompromised2.wav", "vj_hlr/src/npc/metropolice/cpisoverrun.wav"}
 ENT.SoundTbl_Pain = {"npc/metropolice/vo/minorhitscontinuing.wav", "vj_hlr/src/npc/metropolice/officerunderfire.wav", "vj_hlr/src/npc/metropolice/officerintrouble.wav", "vj_hlr/src/npc/metropolice/need10-78at10-20.wav", "npc/metropolice/vo/officerunderfiretakingcover.wav", "npc/metropolice/vo/help.wav", "npc/metropolice/knockout2.wav", "npc/metropolice/pain1.wav", "npc/metropolice/pain2.wav", "npc/metropolice/pain3.wav", "npc/metropolice/pain4.wav"}
 ENT.SoundTbl_DamageByPlayer = {"npc/metropolice/vo/watchit.wav"}
-ENT.SoundTbl_Death = {"npc/metropolice/die1.wav", "npc/metropolice/die2.wav", "npc/metropolice/die3.wav", "npc/metropolice/die4.wav"}
+//ENT.SoundTbl_Death = {"npc/metropolice/die1.wav", "npc/metropolice/die2.wav", "npc/metropolice/die3.wav", "npc/metropolice/die4.wav"}
 
 -- Alert: Player or Freeman NPC
 local sdCop_Alert_Freeman = {"npc/metropolice/vo/noncitizen.wav", "npc/metropolice/vo/anticitizen.wav", "npc/metropolice/vo/matchonapblikeness.wav", "npc/metropolice/vo/holditrightthere.wav", "vj_hlr/src/npc/metropolice/freemanishp.wav", "vj_hlr/src/npc/metropolice/freemanontheloose.wav", "vj_hlr/src/npc/metropolice/matchoncivilviolator.wav", "vj_hlr/src/npc/metropolice/prosecuteanticitizen.wav", "npc/metropolice/vo/freeman.wav"}
@@ -339,6 +339,12 @@ end
 function ENT:OnAllyKilled(ent)
 	if math.random(1, 3) != 1  && self.VJ_ID_Police then
 		self:PlaySoundSystem("AllyDeath", sdCop_AllyDeath_Metrocop)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Init" then
+		EmitSentence("METROPOLICE_DIE" .. math.random(0, 8), self:GetPos(), self:EntIndex(), CHAN_AUTO, 1, self.DeathSoundLevel, 0, 100)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
