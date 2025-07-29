@@ -119,6 +119,7 @@ VJ.AddNPC("Xen Ceiling Turret", "npc_vj_hlr1_xen_turretc", spawnCategory, false,
 	VJ.AddNPC("Alpha Houndeye", "npc_vj_hlr1a_houndeye", spawnCategory)
 	-- Dreamcast
 	VJ.AddNPC("Zombie (Dreamcast)", "npc_vj_hlrdc_zombie", spawnCategory)
+	VJ.AddNPC("Alien Slave (Dreamcast)", "npc_vj_hlrdc_alienslave", spawnCategory)
 	VJ.AddNPC("Bullsquid (Dreamcast)", "npc_vj_hlrdc_bullsquid", spawnCategory)
 	-- Opposing Force
 	VJ.AddNPC("Zombie Security Guard", "npc_vj_hlrof_zombie_sec", spawnCategory)
