@@ -107,7 +107,7 @@ if CLIENT then
 	function SWEP:PostDrawViewModel(vm, wep, ply)
 		if self:GetNWLaser() then
 			render.SetMaterial(SpriteMaterial)
-			render.DrawSprite(wep:GetOwner():GetEyeTrace().HitPos, math.random(4, 6), math.random(4, 6), Color(255, 0, 0, 255))
+			render.DrawSprite(wep:GetOwner():GetEyeTrace().HitPos, math.random(8, 12), math.random(8, 12), Color(255, 0, 0, 255))
 		end
 	end
 

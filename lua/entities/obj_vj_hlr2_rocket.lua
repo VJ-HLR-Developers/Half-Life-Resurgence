@@ -32,7 +32,7 @@ ENT.SoundTbl_OnCollide = "ambient/explosions/explode_8.wav"
 
 -- Custom
 ENT.Rocket_Follow = true
-ENT.Speed = 1200
+ENT.Speed = 1800
 ENT.TurnSpeed = 40
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
@@ -62,13 +62,11 @@ function ENT:OnThink()
 			-- turnSpeed = 20
 		end
 	end
-	if IsValid(phys) then
-		local dir = (pos - self:GetPos()):GetNormalized()
-		local ang = dir:Angle()
-		self.TargetAngle = LerpAngle(FrameTime() * turnSpeed, self.TargetAngle or ang, ang)
 
-		phys:ApplyForceCenter(self:GetForward() * self.Speed)
-		phys:SetAngles(self.TargetAngle)
+	if IsValid(phys) then
+		local dir = (pos -self:GetPos()):GetNormalized()
+		self:SetAngles(LerpAngle(FrameTime() *self.TurnSpeed, self:GetAngles(), dir:Angle()))
+		phys:SetVelocity(self:GetForward() *self.Speed)
 	end
 
 	sound.EmitHint(SOUND_DANGER, self:GetPos() + self:GetAbsVelocity() * 2, 100, 0.2, self)
