@@ -46,9 +46,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnThink()
 	-- If the owner is an NPC then set the rocket to follow its enemy
-	if IsValid(self:GetOwner()) && self:GetOwner():IsNPC() then
-		//self:SetNWEnemy(IsValid(self:GetOwner():GetEnemy()) && self:GetOwner():GetEnemy() or NULL)
-		self:SetNWEnemy(self:GetOwner():GetEnemy())
+	local owner = self:GetOwner()
+	if IsValid(owner) && owner:IsNPC() then
+		//self:SetNWEnemy(IsValid(owner:GetEnemy()) && owner:GetEnemy() or NULL)
+		self:SetNWEnemy(owner:GetEnemy())
 		self:SetNWLaser(true)
 	end
 end
@@ -103,11 +104,12 @@ function SWEP:SecondaryAttack()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 if CLIENT then
+	local colorRed = Color(255, 0, 0, 255)
 	local SpriteMaterial = Material("sprites/redglow1")
 	function SWEP:PostDrawViewModel(vm, wep, ply)
 		if self:GetNWLaser() then
 			render.SetMaterial(SpriteMaterial)
-			render.DrawSprite(wep:GetOwner():GetEyeTrace().HitPos, math.random(8, 12), math.random(8, 12), Color(255, 0, 0, 255))
+			render.DrawSprite(wep:GetOwner():GetEyeTrace().HitPos, math.random(8, 12), math.random(8, 12), colorRed)
 		end
 	end
 
@@ -130,7 +132,7 @@ if CLIENT then
 			local size = (owner:IsPlayer() && 5) or 15
 			if useNWLaser then
 				render.SetMaterial(SpriteMaterial)
-				render.DrawSprite(pos, math.random(size - 1, size + 1), math.random(size - 1, size + 1), Color(255, 0, 0, 255))
+				render.DrawSprite(pos, math.random(size - 1, size + 1), math.random(size - 1, size + 1), colorRed)
 			end
 		end
 		return true

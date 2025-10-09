@@ -41,11 +41,12 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
+	local myPos = self:GetPos()
 	local owner = self:GetOwner()
 	local phys = self:GetPhysicsObject()
 	local ent = self.Target or owner:IsNPC() && owner:GetEnemy()
 	local pos;
-	local turnSpeed = self.TurnSpeed
+	//local turnSpeed = self.TurnSpeed
 	if owner:IsNPC() && IsValid(ent) && (owner.VJ_ForceRocketFollow or IsValid(owner:GetActiveWeapon())) then
 		pos = (ent:GetPos() + ent:OBBCenter()) + ent:GetVelocity() * 0.25
 	else
@@ -58,18 +59,18 @@ function ENT:OnThink()
 			})
 			pos = tr.HitPos
 		else
-			pos = self:GetPos() + (self:GetForward() * self.Speed + VectorRand(-10, 10))
-			-- turnSpeed = 20
+			pos = myPos + (self:GetForward() * self.Speed + VectorRand(-10, 10))
+			//turnSpeed = 20
 		end
 	end
 
 	if IsValid(phys) then
-		local dir = (pos -self:GetPos()):GetNormalized()
-		self:SetAngles(LerpAngle(FrameTime() *self.TurnSpeed, self:GetAngles(), dir:Angle()))
-		phys:SetVelocity(self:GetForward() *self.Speed)
+		local dir = (pos - myPos):GetNormalized()
+		self:SetAngles(LerpAngle(FrameTime() * self.TurnSpeed, self:GetAngles(), dir:Angle()))
+		phys:SetVelocity(self:GetForward() * self.Speed)
 	end
 
-	sound.EmitHint(SOUND_DANGER, self:GetPos() + self:GetAbsVelocity() * 2, 100, 0.2, self)
+	sound.EmitHint(SOUND_DANGER, myPos + self:GetAbsVelocity() * 2, 100, 0.2, self)
 	-- Source: CSoundEnt::InsertSound( SOUND_DANGER, tr.endpos, 100, 0.2, this, SOUNDENT_CHANNEL_REPEATED_DANGER );
 
 	self:NextThink(CurTime())
