@@ -74,6 +74,9 @@ local colorGreen = Color(0, 255, 0, 255)
 function ENT:OnDealDamage(data, phys, hitEnts)
 	if !hitEnts then return end
 	local owner = self:GetOwner()
+	if !IsValid(owner) then
+		owner = self
+	end
 	for _, ent in ipairs(hitEnts) do
 		if !ent.VJ_ID_Boss && !ent.Dead && ent:GetClass() != "sent_vj_xen_crystal" then
 			local tr = util.TraceLine({
