@@ -68,9 +68,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(20, 20 , 40), Vector(-20, -20, 0))
-	
+
 	self.Houndeye_NextSleepT = CurTime() + math.Rand(0, 15)
-	
+
 	if self.Houndeye_Type == 1 then
 		self.AnimTbl_Death = ACT_DIESIMPLE
 		self.NextMeleeAttackTime = 0.5
@@ -127,7 +127,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
 	if self.VJ_IsBeingControlled then return end
-	
+
 	-- Sleep system
 	if !self.Alerted && !IsValid(self:GetEnemy()) && !self:IsMoving() && CurTime() > self.Houndeye_NextSleepT && !self.Houndeye_Sleeping && !self:IsBusy() then
 		local sleepTime = math.Rand(15, 30) -- How long it should sleep
@@ -162,7 +162,7 @@ function ENT:OnResetEnemy()
 	self.Houndeye_NextSleepT = CurTime() + math.Rand(15, 45)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local houndeyeClasses = {npc_vj_hlr1_houndeye = true, npc_vj_hlr1a_houndeye = true}
+local houndeyeClasses = {npc_vj_hlr1_houndeye = true, npc_vj_hlr1a_houndeye = true, npc_vj_hlrdc_houndeye = true}
 local beamEffectTbl = {material = "vj_hl/sprites/shockwave", framerate = 20, flags = 0}
 --
 function ENT:OnMeleeAttackExecute(status, ent, isProp)
@@ -187,11 +187,11 @@ function ENT:OnMeleeAttackExecute(status, ent, isProp)
 			color = Color(62, 33, 211)
 			dmg = 60
 		end
-		
+
 		-- flags 0 = No fade!
 		effects.BeamRingPoint(myPos, 0.3, 2, 400, 16, 0, color, beamEffectTbl)
 		effects.BeamRingPoint(myPos, 0.3, 2, 200, 16, 0, color, beamEffectTbl)
-		
+
 		if self.HasSounds && self.HasMeleeAttackSounds then
 			VJ.EmitSound(self, blastSd, 100, math.random(80, 100))
 		end
@@ -239,7 +239,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
 	end
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 40))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 20))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 30))})

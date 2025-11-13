@@ -20,6 +20,8 @@ VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_hl/icons/hl1.png"})
 -- Earth
 VJ.AddNPC("Cockroach", "npc_vj_hlr1_cockroach", spawnCategory)
 VJ.AddNPC("Rat", "npc_vj_hlr1_rat", spawnCategory)
+	-- Dreamcast
+	VJ.AddNPC("Cockroach (Dreamcast)", "npc_vj_hlrdc_cockroach", spawnCategory)
 
 -- Black Mesa Personnel
 VJ.AddNPC("Security Guard", "npc_vj_hlr1_securityguard", spawnCategory)
@@ -118,9 +120,15 @@ VJ.AddNPC("Xen Ceiling Turret", "npc_vj_hlr1_xen_turretc", spawnCategory, false,
 	VJ.AddNPC("Alpha Bullsquid", "npc_vj_hlr1a_bullsquid", spawnCategory)
 	VJ.AddNPC("Alpha Houndeye", "npc_vj_hlr1a_houndeye", spawnCategory)
 	-- Dreamcast
+	VJ.AddNPC("Alien Grunt (Dreamcast)", "npc_vj_hlrdc_aliengrunt", spawnCategory)
+	VJ.AddNPC("Headcrab (Dreamcast)", "npc_vj_hlrdc_headcrab", spawnCategory)
 	VJ.AddNPC("Zombie (Dreamcast)", "npc_vj_hlrdc_zombie", spawnCategory)
 	VJ.AddNPC("Alien Slave (Dreamcast)", "npc_vj_hlrdc_alienslave", spawnCategory)
 	VJ.AddNPC("Bullsquid (Dreamcast)", "npc_vj_hlrdc_bullsquid", spawnCategory)
+    VJ.AddNPC("Gargantua (Dreamcast)", "npc_vj_hlrdc_garg", spawnCategory)
+    VJ.AddNPC("Houndeye (Dreamcast)", "npc_vj_hlrdc_houndeye", spawnCategory)
+	VJ.AddNPC("Barnacle (Dreamcast)", "npc_vj_hlrdc_barnacle", spawnCategory, false, function(x) x.OnCeiling = true x.Offset = 0 end)
+	VJ.AddNPC("Xen Tree (Dreamcast)", "npc_vj_hlrdc_xen_tree", spawnCategory)
 	-- Opposing Force
 	VJ.AddNPC("Zombie Security Guard", "npc_vj_hlrof_zombie_sec", spawnCategory)
 	VJ.AddNPC("Zombie Soldier", "npc_vj_hlrof_zombie_soldier", spawnCategory)
