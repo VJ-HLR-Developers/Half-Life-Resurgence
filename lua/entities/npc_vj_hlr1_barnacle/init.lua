@@ -113,6 +113,9 @@ function ENT:Barnacle_CalculateTongue()
 		if self.Barnacle_CurEnt != trHitEnt then
 			self:Barnacle_ResetEnt()
 			self.Barnacle_CurEntMoveType = trHitEnt:GetMoveType()
+			if trHitEnt:IsNextBot() then -- NextBots initially need to be repositioned upwards otherwise they will constantly snap to the ground
+				trHitEnt:SetPos(trHitEnt:GetUp() * 150)
+			end
 		end
 		self.Barnacle_CurEnt = trHitEnt
 		trHitEnt:AddEFlags(EFL_IS_BEING_LIFTED_BY_BARNACLE)
@@ -123,6 +126,9 @@ function ENT:Barnacle_CalculateTongue()
 		elseif trHitEnt:IsPlayer() then
 			trHitEnt:SetMoveType(MOVETYPE_NONE)
 			//trHitEnt:AddFlags(FL_ATCONTROLS)
+		elseif trHitEnt:IsNextBot() then
+			trHitEnt:SetVelocity(velInitial)
+			trHitEnt:SetMoveType(MOVETYPE_NONE)
 		end
 		trHitEnt:SetGroundEntity(NULL)
 		-- Make it pull the enemy up

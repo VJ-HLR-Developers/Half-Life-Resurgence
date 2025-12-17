@@ -3,7 +3,7 @@
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
-local hlrVersion = "1.2.0"
+local hlrVersion = "1.3.0"
 VJ.AddPlugin("Half-Life Resurgence", "NPC", hlrVersion)
 
 VJ.HLR_VERSION = hlrVersion
@@ -78,7 +78,7 @@ VJ.AddNPC("Headcrab", "npc_vj_hlr1_headcrab", spawnCategory)
 VJ.AddNPC("Headcrab (Baby)", "npc_vj_hlr1_headcrab_baby", spawnCategory)
 VJ.AddNPC("Zombie", "npc_vj_hlr1_zombie", spawnCategory)
 VJ.AddNPC("Flocking Floater", "npc_vj_hlr1_floater", spawnCategory)
-VJ.AddNPC("Stukabat", "npc_vj_hlr1_stukabat", spawnCategory)
+//VJ.AddNPC("Stukabat", "npc_vj_hlr1_stukabat", spawnCategory)
 VJ.AddNPC("Alien Controller", "npc_vj_hlr1_aliencontroller", spawnCategory)
 VJ.AddNPC("Alien Grunt", "npc_vj_hlr1_aliengrunt", spawnCategory)
 VJ.AddNPC("Alien Slave", "npc_vj_hlr1_alienslave", spawnCategory)
