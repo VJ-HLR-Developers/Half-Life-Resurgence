@@ -19,11 +19,14 @@ ENT.BloodParticle = {"vj_hlr_blood_red"}
 ENT.BloodDecal = {"VJ_HLR1_Blood_Red"}
 ENT.HasBloodPool = false
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
+
+-- Melee Attack
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
 ENT.MeleeAttackDamage = 10
 ENT.TimeUntilMeleeAttackDamage = false
 
+-- Grenade Attack
 ENT.HasGrenadeAttack = true
 ENT.GrenadeAttackEntity = "obj_vj_hlr1_grenade"
 ENT.AnimTbl_GrenadeAttack = ACT_SPECIAL_ATTACK2
@@ -32,28 +35,28 @@ ENT.GrenadeAttackThrowTime = false
 ENT.NextGrenadeAttackTime = VJ.SET(10, 12)
 ENT.GrenadeAttackChance = 3
 
-ENT.AnimTbl_Medic_GiveHealth = false
-ENT.Medic_SpawnPropOnHeal = false
-ENT.Medic_TimeUntilHeal = 4
+-- Weapon Attack
 ENT.Weapon_IgnoreSpawnMenu = true
 ENT.Weapon_Strafe = false
 ENT.AnimTbl_WeaponAttackGesture = false
-//ENT.PoseParameterLooking_InvertPitch = true
-//ENT.PoseParameterLooking_Names = {pitch={"XR"}, yaw={}, roll={"ZR"}}
-ENT.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
-ENT.AnimTbl_CallForHelp = ACT_SIGNAL1
-ENT.HasDeathAnimation = true
-ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE}
-//ENT.DeathAnimationTime = 0.8
-ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE
 ENT.AnimTbl_WeaponAttackSecondary = ACT_SPECIAL_ATTACK1
 ENT.Weapon_SecondaryFireTime = 0.7
 ENT.AnimTbl_WeaponReload = ACT_RELOAD_SMG1
-ENT.CanTurnWhileMoving = false
-ENT.DisableFootStepSoundTimer = true
 
+ENT.AnimTbl_Medic_GiveHealth = false
+ENT.Medic_SpawnPropOnHeal = false
+ENT.Medic_TimeUntilHeal = 4
+ENT.CanTurnWhileMoving = false
+ENT.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
+ENT.AnimTbl_CallForHelp = ACT_SIGNAL1
+ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
+ENT.HasDeathAnimation = true
+ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE}
+
+-- Sounds
+ENT.DisableFootStepSoundTimer = true
 
 ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/pl_step1.wav", "vj_hlr/gsrc/pl_step2.wav", "vj_hlr/gsrc/pl_step3.wav", "vj_hlr/gsrc/pl_step4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/hgrunt/gr_die1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_die2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_die3.wav"}
@@ -70,14 +73,11 @@ ENT.HECU_Type = 0
 	-- 6 = Alpha HGrunt
 	-- 7 = Human Sergeant
 	-- 8 = Soviet Grunt (Crack-Life Resurgence)
-ENT.HECU_WepBG = 2 -- The bodygroup that the weapons are in (Ourish e amen modelneroun)
-ENT.HECU_LastBodyGroup = 99
+ENT.HECU_WepBG = 2 -- The bodygroup that the weapons are in (Ourish e amen modelnere)
 ENT.HECU_UsingDefaultSounds = false -- Set automatically, if true then it's using the default HECU sounds
 ENT.HECU_CanHurtWalk = true -- Set to false to disable hurt-walking | Auto disabled for some of the HECU types!
 ENT.HECU_Rappelling = false
 ENT.HECU_DeployedByOsprey = false
-ENT.HECU_CanUseGuardAnim = true -- Set to false to disable the guard animation when it's set to guard
-ENT.HECU_SwitchedIdle = false
 ENT.HECU_NextMouthMove = 0
 ENT.HECU_NextMouthDistance = 0
 
@@ -155,7 +155,6 @@ function ENT:Init()
 		self.HECU_WepBG = 1
 		self.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD}
 		self.HECU_CanHurtWalk = false
-		self.HECU_CanUseGuardAnim = false
 	elseif myMDL == "models/vj_hlr/hl1/hassault.mdl" or myMDL == "models/vj_hlr/hl_hd/hassault.mdl" or myMDL == "models/vj_hlr/hla/hassault.mdl" then
 		self.HECU_Type = 7
 		self.HECU_WepBG = 1
@@ -166,7 +165,6 @@ function ENT:Init()
 			self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEVIOLENT}
 		end
 		self.HECU_CanHurtWalk = false
-		self.HECU_CanUseGuardAnim = false
 	elseif myMDL == "models/vj_hlr/cracklife/hgrunt.mdl" then
 		self.HECU_Type = 8
 		self.HECU_WepBG = 1
@@ -189,6 +187,12 @@ function ENT:Init()
 		self.Weapon_CanReload = false
 		timer.Simple(0.1, function() if IsValid(self) then self:PlayAnim("repel_jump", true, false, false) end end)
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnEntityCopyTableFinish(data)
+	data.HECU_UsingDefaultSounds = nil
+	data.HECU_LastBodyGroup = nil
+	self.BaseClass.OnEntityCopyTableFinish(self, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateSound(sdData, sdFile)
@@ -260,10 +264,10 @@ local sdAlertSoldier = {"vj_hlr/gsrc/npc/hgrunt/gr_alert2.wav", "vj_hlr/gsrc/npc
 --
 function ENT:OnAlert(ent)
 	if math.random(1, 3) == 1 && self.HECU_UsingDefaultSounds == true then
-		if ent.IsVJBaseSNPC_Creature == true then -- Alien sounds
+		if ent.IsVJBaseSNPC_Creature then -- Alien sounds
 			self:PlaySoundSystem("Alert", sdAlertAlien)
 			return
-		elseif ent.IsVJBaseSNPC_Human == true or ent:IsPlayer() then -- Soldier sounds
+		elseif ent.IsVJBaseSNPC_Human or ent:IsPlayer() then -- Soldier sounds
 			self:PlaySoundSystem("Alert", sdAlertSoldier)
 			return
 		end
@@ -297,7 +301,7 @@ function ENT:TranslateActivity(act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetAnimationTranslations(wepHoldType)
-	local bodyGroup = self.HGrunt_LastBodyGroup
+	local bodyGroup = self.HECU_LastBodyGroup
 	
 	self.AnimationTranslations[ACT_IDLE] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_repel") or ACT_IDLE
 	self.AnimationTranslations[ACT_IDLE_ANGRY] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_repel") or ACT_IDLE_ANGRY
@@ -397,8 +401,8 @@ function ENT:OnThink()
 
 	-- Handle weapon body group changing
 	local bodyGroup = self:GetBodygroup(self.HECU_WepBG)
-	if self.HGrunt_LastBodyGroup != bodyGroup then
-		self.HGrunt_LastBodyGroup = bodyGroup
+	if self.HECU_LastBodyGroup != bodyGroup then
+		self.HECU_LastBodyGroup = bodyGroup
 		if self.HECU_Type == 0 then -- 0 = HL1 Grunt
 			if bodyGroup == 0 then -- MP5
 				self:DoChangeWeapon("weapon_vj_hlr1_mp5")
@@ -506,19 +510,6 @@ function ENT:OnThink()
 		end
 	end
 	self:HECU_OnThink()
-	
-	-- For guarding
-	/*if self.HECU_CanUseGuardAnim then
-		if self.IsGuard && !self.HECU_Rappelling && !IsValid(self:GetEnemy()) then
-			if self.HECU_SwitchedIdle == false then
-				self.HECU_SwitchedIdle = true
-				self.AnimTbl_IdleStand = {ACT_GET_DOWN_STAND}
-			end
-		elseif self.HECU_SwitchedIdle == true then
-			self.HECU_SwitchedIdle = false
-			self.AnimTbl_IdleStand = {ACT_IDLE}
-		end
-	end*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gasTankExpPos = Vector(0, 0, 90)

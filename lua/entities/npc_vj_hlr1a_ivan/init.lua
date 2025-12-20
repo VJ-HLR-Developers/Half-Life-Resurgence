@@ -39,6 +39,7 @@ ENT.Weapon_Strafe = false
 ENT.Weapon_CanReload = false
 ENT.CanTurnWhileMoving = false
 
+-- Sounds
 ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/pl_step1.wav", "vj_hlr/gsrc/pl_step2.wav", "vj_hlr/gsrc/pl_step3.wav", "vj_hlr/gsrc/pl_step4.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/ivan_alpha/hoot5.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot6.wav"}
 ENT.SoundTbl_IdleDialogue = {"vj_hlr/gsrc/npc/ivan_alpha/hoot1.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot2.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot3.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot5.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot6.wav"}
@@ -61,6 +62,11 @@ ENT.Ivan_LastBodyGroup = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetSkin(math.random(0, 3))
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnEntityCopyTableFinish(data)
+	data.Ivan_LastBodyGroup = nil
+	self.BaseClass.OnEntityCopyTableFinish(self, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)

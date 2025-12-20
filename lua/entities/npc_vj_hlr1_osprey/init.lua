@@ -94,6 +94,7 @@ function ENT:Init()
 		gunner.VJ_ID_Healable = false
 		gunner.HasDeathAnimation = false
 		gunner.VJ_NPC_Class = self.VJ_NPC_Class
+		gunner.DoNotDuplicate = true -- Otherwise you will have double gunners
 		gunner:Spawn()
 		self:SetRelationshipMemory(gunner, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
 		gunner:SetRelationshipMemory(self, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
