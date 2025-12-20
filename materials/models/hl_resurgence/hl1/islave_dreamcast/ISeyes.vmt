@@ -2,7 +2,7 @@
 {
     "$basetexture" "models/hl_resurgence/hl1/islave_dreamcast/ISeyes"
 
-    $emissiveBlendEnabled 1
+    //$emissiveBlendEnabled 1
     $emissiveBlendTexture    "dev/null"
     $emissiveBlendBaseTexture    "models/hl_resurgence/hl1/islave_dreamcast/ISeyes_g"
     $emissiveBlendFlowTexture    "dev/null"
