@@ -37,7 +37,6 @@ function ENT:InitPhys()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-	self:SetModel("models/vj_hlr/weapons/spore.mdl")
 	ParticleEffectAttach("vj_hlr_spore_idle", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 	timer.Simple(3, function() if IsValid(self) then self:Destroy() end end)
 end
@@ -68,9 +67,8 @@ local defAng = Angle(0, 0, 0)
 --
 function ENT:OnDestroy()
 	ParticleEffect("vj_hlr_spore", self:GetPos(), defAng, nil)
-	self:EmitSound("vj_hlr/gsrc/wep/sporelauncher/splauncher_impact.wav", 100, 100)
 	//ParticleEffect("vj_hl_spore_splash1", self:GetPos(), defAng, nil)
 	//ParticleEffect("vj_hl_spore_splash2", self:GetPos(), defAng, nil)
-	
+	self:EmitSound("vj_hlr/gsrc/wep/sporelauncher/splauncher_impact.wav", 100, 100)
 	self:DealDamage()
 end

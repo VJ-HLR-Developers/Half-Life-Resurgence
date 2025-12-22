@@ -56,8 +56,9 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
+	-- Homing Behavior
 	local trackedEnt = self.Track_Ent
-	if IsValid(trackedEnt) then -- Homing Behavior
+	if IsValid(trackedEnt) then
 		local pos = trackedEnt:GetPos() + trackedEnt:OBBCenter()
 		if self:VisibleVec(pos) or self.Track_Position == defVec then
 			self.Track_Position = pos

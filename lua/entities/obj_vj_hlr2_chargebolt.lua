@@ -38,7 +38,7 @@ function ENT:OnCollision(data, phys)
 	if !IsValid(data.HitEntity) then
 		local bolt = ents.Create("prop_dynamic")
 		bolt:SetModel("models/crossbow_bolt.mdl")
-		bolt:SetPos(data.HitPos + data.HitNormal + self:GetForward()*-15)
+		bolt:SetPos(data.HitPos + data.HitNormal + self:GetForward() * -15)
 		bolt:SetAngles(self:GetAngles())
 		bolt:Activate()
 		bolt:Spawn()

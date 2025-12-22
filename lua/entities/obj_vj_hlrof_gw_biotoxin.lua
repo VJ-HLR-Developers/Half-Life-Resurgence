@@ -22,8 +22,6 @@ ENT.DoesDirectDamage = true
 ENT.DirectDamage = 20
 ENT.DirectDamageType = DMG_ACID
 ENT.RemoveDelay = 1.5
-ENT.SoundTbl_OnCollide = {}
-ENT.SoundTbl_Idle = {}
 
 -- Custom
 ENT.Track_Ent = NULL

@@ -22,9 +22,11 @@ ENT.CollisionDecal = "VJ_HLR1_Scorch"
 ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/wep/grenade/grenade_hit1.wav", "vj_hlr/gsrc/wep/grenade/grenade_hit2.wav", "vj_hlr/gsrc/wep/grenade/grenade_hit3.wav"}
 ENT.SoundTbl_OnRemove = {"vj_hlr/gsrc/wep/explosion/explode3.wav", "vj_hlr/gsrc/wep/explosion/explode4.wav", "vj_hlr/gsrc/wep/explosion/explode5.wav"}
 ENT.OnRemoveSoundLevel = 100
+
+local vj_hlr_hd = GetConVar("vj_hlr_hd")
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
-	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "obj_vj_hlr1_grenade" then
+	if vj_hlr_hd:GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "obj_vj_hlr1_grenade" then
 		self.Model = "models/vj_hlr/weapons/w_grenade_hd.mdl"
 	end
 end

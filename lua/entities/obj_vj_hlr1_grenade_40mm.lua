@@ -31,9 +31,11 @@ ENT.RadiusDamageForce = 90
 ENT.CollisionDecal = "VJ_HLR1_Scorch"
 ENT.SoundTbl_OnRemove = {"vj_hlr/gsrc/wep/explosion/explode3.wav", "vj_hlr/gsrc/wep/explosion/explode4.wav", "vj_hlr/gsrc/wep/explosion/explode5.wav"}
 ENT.OnRemoveSoundLevel = 100
+
+local vj_hlr_hd = GetConVar("vj_hlr_hd")
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
-	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "obj_vj_hlr1_grenade_40mm" then
+	if vj_hlr_hd:GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "obj_vj_hlr1_grenade_40mm" then
 		self.Model = "models/vj_hlr/weapons/grenade_hd.mdl"
 	end
 end
@@ -46,6 +48,8 @@ function ENT:InitPhys()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDestroy(data, phys)
+	local myPos = self:GetPos()
+	
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 	spr:SetKeyValue("GlowProxySize", "2.0")
@@ -59,23 +63,24 @@ function ENT:OnDestroy(data, phys)
 	spr:SetKeyValue("framerate", "15.0")
 	spr:SetKeyValue("spawnflags", "0")
 	spr:SetKeyValue("scale", "4")
-	spr:SetPos(self:GetPos() + Vector(0, 0, 90))
+	spr:SetPos(myPos + Vector(0, 0, 90))
 	spr:Spawn()
 	spr:Fire("Kill", "", 0.9)
 	//timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 	
 	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris" .. math.random(1, 3) .. ".wav", 80, 100)
 	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)
+	util.ScreenShake(myPos, 100, 200, 1, 2500)
+	
 	local light = ents.Create("light_dynamic")
 	light:SetKeyValue("brightness", "4")
 	light:SetKeyValue("distance", "300")
-	light:SetLocalPos(self:GetPos())
-	light:SetLocalAngles( self:GetAngles() )
+	light:SetLocalPos(myPos)
+	light:SetLocalAngles(self:GetAngles())
 	light:Fire("Color", "255 150 0")
 	light:SetParent(self)
 	light:Spawn()
 	light:Activate()
 	light:Fire("TurnOn", "", 0)
 	self:DeleteOnRemove(light)
-	util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
 end
