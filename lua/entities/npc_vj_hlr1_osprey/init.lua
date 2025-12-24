@@ -202,7 +202,7 @@ function ENT:OnThinkActive()
 		self:SetState(VJ_STATE_ONLY_ANIMATION)
 		self.LimitChaseDistance = false
 	elseif self.Osprey_DropStatus == 1 then
-		self:AA_MoveTo(self.Osprey_DropPos, true, "Alert", {FaceDest=true, FaceDestTarget=false, IgnoreGround=true})
+		self:AA_MoveTo(self.Osprey_DropPos, true, "Alert", {FaceDest=true, FaceDestTarget=false, IgnoreGround = true})
 		if self:GetPos():Distance(self.Osprey_DropPos) < 180 then
 			self.Osprey_DropStatus = 2
 		end
@@ -412,12 +412,12 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		-- FIXME: this needs to be implemented better, right now this is a basic idea, often causes osprey to just explode midair, but the shit looks beautiful when everything goes right.
 		local pos = self:GetAttachment(self:LookupAttachment("engine_right")).Pos
 		local gibSkin = self:GetModel() == "models/vj_hlr/hl1/osprey_blkops.mdl" and 1 or 0
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib1.mdl", {CollisionDecal=false, Pos=pos + Vector(90, 0, -100), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib2.mdl", {CollisionDecal=false, Pos=pos + Vector(90, 0, 0), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib3.mdl", {CollisionDecal=false, Pos=pos + Vector(95, 0, 90), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib9.mdl", {CollisionDecal=false, Pos=pos + Vector(95, 0, 93), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib10.mdl", {CollisionDecal=false, Pos=pos + Vector(95, 0, 95), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib11.mdl", {CollisionDecal=false, Pos=pos + Vector(95, 0, 96), CollisionSound=sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib1.mdl", {CollisionDecal = false, Pos = pos + Vector(90, 0, -100), CollisionSound = sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib2.mdl", {CollisionDecal = false, Pos = pos + Vector(90, 0, 0), CollisionSound = sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib3.mdl", {CollisionDecal = false, Pos = pos + Vector(95, 0, 90), CollisionSound = sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib9.mdl", {CollisionDecal = false, Pos = pos + Vector(95, 0, 93), CollisionSound = sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib10.mdl", {CollisionDecal = false, Pos = pos + Vector(95, 0, 95), CollisionSound = sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib11.mdl", {CollisionDecal = false, Pos = pos + Vector(95, 0, 96), CollisionSound = sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
 		
 		-- Make the gunners gib into pieces!
 		-- Also unparent them because Source engine spawns them at a random location ...

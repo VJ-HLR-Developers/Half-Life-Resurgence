@@ -69,12 +69,14 @@ ENT.Gonarch_BabyLimit = 20
 ENT.Gonarch_NextBirthT = 0
 ENT.Gonarch_NextDeadBirthT = 0
 ENT.Gonarch_ShakeWorldOnMiss = false
+
+local vj_hlr1_gonarch_babylimit = GetConVar("vj_hlr1_gonarch_babylimit")
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(100, 100, 200), Vector(-100, -100, 0))
 	self.Gonarch_NextBirthT = CurTime() + 3
 	self.Gonarch_NumBabies = 0
-	self.Gonarch_BabyLimit = GetConVar("vj_hlr1_gonarch_babylimit"):GetInt()
+	self.Gonarch_BabyLimit = vj_hlr1_gonarch_babylimit:GetInt()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -83,7 +85,7 @@ function ENT:OnInput(key, activator, caller, data)
 		util.ScreenShake(self:GetPos(), 10, 100, 0.4, 2000)
 		self:PlayFootstepSound()
 	elseif key == "spawn" then -- Create baby headcrabs
-		local spawnPos = self:GetPos() + self:GetUp()*20
+		local spawnPos = self:GetPos() + self:GetUp() * 20
 		for i = 1, 3 do
 			VJ.EmitSound(self, sdBirth, 80)
 			if self.Gonarch_NumBabies < self.Gonarch_BabyLimit then -- Default: 20 babies max
@@ -136,10 +138,12 @@ function ENT:Gonarch_BabyDeath()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
+	local curTime = CurTime()
+	
 	-- Create baby headcrabs
-	if !self.Dead && IsValid(self:GetEnemy()) && self.AttackAnimTime < CurTime() && CurTime() > self.Gonarch_NextBirthT && self.Gonarch_NumBabies < self.Gonarch_BabyLimit && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+	if !self.Dead && IsValid(self:GetEnemy()) && self.AttackAnimTime < curTime && curTime > self.Gonarch_NextBirthT && self.Gonarch_NumBabies < self.Gonarch_BabyLimit && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self:PlayAnim(ACT_SPECIAL_ATTACK1, true, false, true)
-		self.Gonarch_NextBirthT = CurTime() + 15
+		self.Gonarch_NextBirthT = curTime + 15
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -148,7 +152,7 @@ function ENT:RangeAttackProjPos(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjVel(projectile)
-	return (self:GetEnemy():GetPos() - self:GetPos()) *0.45 + self:GetUp() *600
+	return (self:GetEnemy():GetPos() - self:GetPos()) * 0.45 + self:GetUp() * 600
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttackExecute(status, ent, isProp)
@@ -180,16 +184,16 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("StriderBlood", effectData)
 	end
 	
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_shellgib.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 160)), Ang=self:LocalToWorldAngles(Angle(0, 0, 180))})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_sacgib.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(20, 0, 60)), Ang=self:LocalToWorldAngles(Angle(-89.999908447266, 179.99996948242, 180))})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_leggib.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(55, -70, 80)), Ang=Angle(3.1017229557037, -35.476417541504, 91.352874755859)})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_leggib.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(70, 55, 80)), Ang=Angle(3.6497807502747, 60.498592376709, 93.368896484375)})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_leggib.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(-70, -45, 80)), Ang=Angle(3.8801980018616, -128.15255737305, 91.630615234375)})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_leggib.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(-45, 70, 80)), Ang=self:LocalToWorldAngles(Angle(3.8801965713501, -45, 91.630599975586))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_shellgib.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 160)), Ang = self:LocalToWorldAngles(Angle(0, 0, 180))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_sacgib.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(20, 0, 60)), Ang = self:LocalToWorldAngles(Angle(-89.999908447266, 179.99996948242, 180))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_leggib.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(55, -70, 80)), Ang = Angle(3.1017229557037, -35.476417541504, 91.352874755859)})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_leggib.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(70, 55, 80)), Ang = Angle(3.6497807502747, 60.498592376709, 93.368896484375)})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_leggib.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(-70, -45, 80)), Ang = Angle(3.8801980018616, -128.15255737305, 91.630615234375)})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_leggib.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(-45, 70, 80)), Ang = self:LocalToWorldAngles(Angle(3.8801965713501, -45, 91.630599975586))})
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
-	VJ.HLR_ApplyCorpseSystem(self, corpse, nil, {Gibbable=false})
+	VJ.HLR_ApplyCorpseSystem(self, corpse, nil, {Gibbable = false})
 end

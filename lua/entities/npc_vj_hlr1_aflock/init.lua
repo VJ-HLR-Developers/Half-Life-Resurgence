@@ -46,7 +46,7 @@ function ENT:OnThink()
 	if IsValid(leader) then
 		if leader != self && leader.AA_CurrentMovePos then
 			self.DisableWandering = true
-			self:AA_MoveTo(leader, true, "Calm", {AddPos=self.Boid_FollowOffsetPos, IgnoreGround=true}) -- Medzavorin haladz e (Kharen deghme)
+			self:AA_MoveTo(leader, true, "Calm", {AddPos = self.Boid_FollowOffsetPos, IgnoreGround = true}) -- Medzavorin haladz e (Kharen deghme)
 		end
 	else
 		self.IsGuard = false

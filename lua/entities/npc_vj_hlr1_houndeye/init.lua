@@ -34,6 +34,7 @@ ENT.MeleeAttackDSPLimit = false
 ENT.DisableDefaultMeleeAttackDamageCode = true
 
 ENT.HasDeathAnimation = true
+ENT.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD, ACT_DIEBACKWARD}
 ENT.DisableFootStepSoundTimer = true
 
 ENT.CanFlinch = true
@@ -74,8 +75,6 @@ function ENT:Init()
 	if self.Houndeye_Type == 1 then
 		self.AnimTbl_Death = ACT_DIESIMPLE
 		self.NextMeleeAttackTime = 0.5
-	else
-		self.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD, ACT_DIEBACKWARD}
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -115,13 +114,15 @@ function ENT:TranslateActivity(act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
+	local curTime = CurTime()
+	
 	-- Blinking
-	if !self.Dead && CurTime() > self.Houndeye_BlinkingT && self.Houndeye_Sleeping == false then
+	if !self.Dead && curTime > self.Houndeye_BlinkingT && !self.Houndeye_Sleeping then
 		self:SetSkin(1)
 		timer.Simple(0.1, function() if IsValid(self) then self:SetSkin(2) end end)
 		timer.Simple(0.2, function() if IsValid(self) then self:SetSkin(1) end end)
 		timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(0) end end)
-		self.Houndeye_BlinkingT = CurTime() + math.Rand(2, 3.5)
+		self.Houndeye_BlinkingT = curTime + math.Rand(2, 3.5)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -134,9 +135,9 @@ function ENT:OnThinkActive()
 		self.Houndeye_Sleeping = true
 		self:PlayAnim(ACT_CROUCH, true, false, false)
 		self:SetState(VJ_STATE_ONLY_ANIMATION, sleepTime)
-		timer.Simple(7, function() if IsValid(self) && self.Houndeye_Sleeping == true then self:SetSkin(2) end end) -- Close eyes
+		timer.Simple(7, function() if IsValid(self) && self.Houndeye_Sleeping then self:SetSkin(2) end end) -- Close eyes
 		timer.Simple(sleepTime, function() -- Reset after sleepTime expires
-			if IsValid(self) && self.Houndeye_Sleeping == true then
+			if IsValid(self) && self.Houndeye_Sleeping then
 				self.Houndeye_Sleeping = false
 				self:PlayAnim(ACT_STAND, true, false, false)
 				self.Houndeye_NextSleepT = CurTime() + math.Rand(15, 45)
@@ -148,7 +149,7 @@ end
 local alertAnims = {"vjseq_madidle1", "vjseq_madidle2", "vjseq_madidle3"}
 --
 function ENT:OnAlert(ent)
-	if self.Houndeye_Sleeping == true then -- Wake up if sleeping and play a special alert animation
+	if self.Houndeye_Sleeping then -- Wake up if sleeping and play a special alert animation
 		if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end
 		self.Houndeye_Sleeping = false
 		self:PlayAnim(ACT_HOP, true, false, false)
@@ -209,7 +210,7 @@ end
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "PostDamage" && self.Houndeye_Type != 1 then
 		self.Houndeye_NextSleepT = CurTime() + math.Rand(15, 45)
-		if self.Houndeye_Sleeping == true then -- Wake up if sleeping and play a special alert animation
+		if self.Houndeye_Sleeping then -- Wake up if sleeping and play a special alert animation
 			if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end
 			self.Houndeye_Sleeping = false
 			self:PlayAnim(ACT_HOP, true, false, false)
@@ -240,16 +241,16 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 	end
 
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 40))})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 20))})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 30))})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib4.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 35))})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib5.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 50))})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib6.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 55))})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib7.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 40))})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib8.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 45))})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib9.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 25))})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib10.mdl", {BloodType="Yellow", CollisionDecal="VJ_HLR1_Blood_Yellow", Pos=self:LocalToWorld(Vector(0, 0, 15))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 40))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 20))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 30))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib4.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 35))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib5.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 50))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib6.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 55))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib7.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 41))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib8.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 45))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib9.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 25))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib10.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 15))})
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end

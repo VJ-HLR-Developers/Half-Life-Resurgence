@@ -60,7 +60,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("VJ_Blood1", effectData)
 	end
 	
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {BloodType="Red", CollisionDecal="VJ_HLR1_Blood_Red"})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {BloodType = "Red", CollisionDecal = "VJ_HLR1_Blood_Red"})
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end

@@ -156,14 +156,14 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	end
 	
 	local pos = attPos + vecZ12
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh1.mdl", {CollisionDecal=false,  Pos=pos + Vector(1, 0, 0),  CollisionSound=SdTbl_GibImpact})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {CollisionDecal=false,  Pos=pos + Vector(2, 0, 0),  CollisionSound=SdTbl_GibImpact})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {CollisionDecal=false,  Pos=pos + Vector(3, 0, 0),  CollisionSound=SdTbl_GibImpact})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh4.mdl", {CollisionDecal=false,  Pos=pos + Vector(4, 0, 0),  CollisionSound=SdTbl_GibImpact})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh1.mdl", {CollisionDecal=false,  Pos=pos + Vector(5, 0, 0),  CollisionSound=SdTbl_GibImpact})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {CollisionDecal=false,  Pos=pos + Vector(6, 0, 0),  CollisionSound=SdTbl_GibImpact})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {CollisionDecal=false,  Pos=pos + Vector(0, 1, 0),  CollisionSound=SdTbl_GibImpact})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh4.mdl", {CollisionDecal=false,  Pos=pos + Vector(0, 2, 0),  CollisionSound=SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh1.mdl", {CollisionDecal = false,  Pos = pos + Vector(1, 0, 0),  CollisionSound = SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {CollisionDecal = false,  Pos = pos + Vector(2, 0, 0),  CollisionSound = SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {CollisionDecal = false,  Pos = pos + Vector(3, 0, 0),  CollisionSound = SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh4.mdl", {CollisionDecal = false,  Pos = pos + Vector(4, 0, 0),  CollisionSound = SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh1.mdl", {CollisionDecal = false,  Pos = pos + Vector(5, 0, 0),  CollisionSound = SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {CollisionDecal = false,  Pos = pos + Vector(6, 0, 0),  CollisionSound = SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {CollisionDecal = false,  Pos = pos + Vector(0, 1, 0),  CollisionSound = SdTbl_GibImpact})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh4.mdl", {CollisionDecal = false,  Pos = pos + Vector(0, 2, 0),  CollisionSound = SdTbl_GibImpact})
 	return true, {AllowCorpse = true, AllowSound = false}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
