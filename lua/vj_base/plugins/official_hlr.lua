@@ -3,7 +3,7 @@
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
-local hlrVersion = "1.3.0"
+local hlrVersion = "1.3.1"
 VJ.AddPlugin("Half-Life Resurgence", "NPC", hlrVersion)
 
 VJ.HLR_VERSION = hlrVersion
