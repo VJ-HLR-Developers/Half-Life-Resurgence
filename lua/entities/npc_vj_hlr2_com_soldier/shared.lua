@@ -5,23 +5,22 @@ ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Category		= "Half-Life Resurgence"
 
-if CLIENT && GetConVar("vj_hlr2_combine_eyeglow"):GetInt() == 1 then
+if CLIENT && GetConVar("vj_hlr2_combine_eyeglow"):GetBool() then
     local mat = Material("sprites/light_glow02_add")
-    local vecOrigin = Vector(4.5, 5, 1.75)
     local size = 8
     local col = Color(123, 182, 255)
+	local render_SetMaterial = render.SetMaterial
+	local render_DrawSprite = render.DrawSprite
 	function ENT:Draw()
 		self:DrawModel()
         local bone = self:LookupBone("ValveBiped.Bip01_Head1")
         local pos, ang = self:GetBonePosition(bone)
-        local glowOrigin = pos + ang:Forward() * vecOrigin.x + ang:Right() * vecOrigin.y + ang:Up() * vecOrigin.z
-        render.SetMaterial(mat)
-        for i = 1, 2 do
-            if i == 2 then
-                glowOrigin = pos + ang:Forward() * vecOrigin.x + ang:Right() * vecOrigin.y + ang:Up() * -vecOrigin.z
-            end
-            render.DrawSprite(glowOrigin, size, size, col)
-            render.DrawSprite(glowOrigin, size, size, col)
-        end
+        local glowOrigin = pos + ang:Forward() * 4.5 + ang:Right() * 5 + ang:Up() * 1.75
+		render_SetMaterial(mat)
+		render_DrawSprite(glowOrigin, 8, 8, col)
+		render_DrawSprite(glowOrigin, 8, 8, col)
+		glowOrigin = pos + ang:Forward() * 4.5 + ang:Right() * 5 + ang:Up() * -1.75
+		render_DrawSprite(glowOrigin, 8, 8, col)
+		render_DrawSprite(glowOrigin, 8, 8, col)
     end
 end
