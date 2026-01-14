@@ -9,7 +9,6 @@ ENT.VJ_ID_Police = true
 
 if CLIENT && GetConVar("vj_hlr2_combine_eyeglow"):GetBool() then
     local mat = Material("sprites/light_glow02_add")
-    local vecOrigin = Vector(3.6, 6.75, 1.7)
     local col = Color(118, 236, 110)
 	local render_SetMaterial = render.SetMaterial
 	local render_DrawSprite = render.DrawSprite
