@@ -7,7 +7,6 @@ ENT.Category		= "Half-Life Resurgence"
 
 if CLIENT && GetConVar("vj_hlr2_combine_eyeglow"):GetBool() then
     local mat = Material("sprites/light_glow02_add")
-    local size = 8
     local col = Color(123, 182, 255)
 	local render_SetMaterial = render.SetMaterial
 	local render_DrawSprite = render.DrawSprite
