@@ -10,13 +10,14 @@ if CLIENT && GetConVar("vj_hlr2_combine_eyeglow"):GetBool() then
     local col = Color(255, 0, 0)
 	local render_SetMaterial = render.SetMaterial
 	local render_DrawSprite = render.DrawSprite
+	local size = 12
 	function ENT:Draw()
 		self:DrawModel()
         local bone = self:LookupBone("ValveBiped.Bip01_Head1")
         local pos, ang = self:GetBonePosition(bone)
         local glowOrigin = pos + ang:Forward() * 5 + ang:Right() * 4.5
         render_SetMaterial(mat)
-        render_DrawSprite(glowOrigin, 12, 12, col)
-        render_DrawSprite(glowOrigin, 12, 12, col)
+        render_DrawSprite(glowOrigin, size, size, col)
+        render_DrawSprite(glowOrigin, size, size, col)
     end
 end
