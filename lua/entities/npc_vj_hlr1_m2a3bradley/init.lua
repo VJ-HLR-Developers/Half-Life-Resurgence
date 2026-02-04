@@ -129,6 +129,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		rico:SetMagnitude(math.random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
 		util.Effect("VJ_HLR_Rico", rico)
 	end
+	self.BaseClass.OnDamaged(self, dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetNearDeathSparkPositions()
