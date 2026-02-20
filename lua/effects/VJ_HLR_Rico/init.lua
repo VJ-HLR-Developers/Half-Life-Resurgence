@@ -1,8 +1,8 @@
-/*--------------------------------------------------
+/*-----------------------------------------------
 	*** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
---------------------------------------------------*/
+-----------------------------------------------*/
 function EFFECT:Init(data) // You're welcome @DrVrej for not making the effect name Ricochet you illiterate boi
 	self.Pos = data:GetOrigin()
 	self.Size = data:GetScale()
