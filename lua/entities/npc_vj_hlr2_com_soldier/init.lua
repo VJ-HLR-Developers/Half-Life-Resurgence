@@ -8,17 +8,16 @@ include("shared.lua")
 ENT.Model = "models/combine_soldier.mdl"
 ENT.StartHealth = 60
 ENT.HullType = HULL_HUMAN
----------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_COMBINE"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
-ENT.MeleeAttackDamage = 10
-ENT.HasGrenadeAttack = true
-ENT.GrenadeAttackModel = "models/weapons/w_npcnade.mdl"
 ENT.HasOnPlayerSight = true
 ENT.OnPlayerSightDistance = 500
 ENT.OnPlayerSightDispositionLevel = 1
-
 ENT.CanFlinch = true
+
+ENT.MeleeAttackDamage = 10
+ENT.HasGrenadeAttack = true
+ENT.GrenadeAttackModel = "models/weapons/w_npcnade.mdl"
 
 ENT.SoundTbl_FootStep = {"npc/combine_soldier/gear1.wav", "npc/combine_soldier/gear2.wav", "npc/combine_soldier/gear3.wav", "npc/combine_soldier/gear4.wav", "npc/combine_soldier/gear5.wav", "npc/combine_soldier/gear6.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/src/npc/combine_soldier/weaponsready.wav", "vj_hlr/src/npc/combine_soldier/scanning.wav", "vj_hlr/src/npc/combine_soldier/reporting.wav", "vj_hlr/src/npc/combine_soldier/reportin.wav", "vj_hlr/src/npc/combine_soldier/reportallradials.wav", "vj_hlr/src/npc/combine_soldier/ovewatchorders.wav", "vj_hlr/src/npc/combine_soldier/negativemovement.wav", "vj_hlr/src/npc/combine_soldier/isholding.wav", "vj_hlr/src/npc/combine_soldier/confirm.wav", "vj_hlr/src/npc/combine_soldier/clear.wav", "vj_hlr/src/npc/combine_soldier/blocksecure.wav", "npc/combine_soldier/vo/block31mace.wav", "npc/combine_soldier/vo/block64jet.wav", "npc/combine_soldier/vo/cleaned.wav", "npc/combine_soldier/vo/motioncheckallradials.wav", "npc/combine_soldier/vo/isfinalteamunitbackup.wav", "npc/combine_soldier/vo/isfieldpromoted.wav", "npc/combine_soldier/vo/sector.wav", "npc/combine_soldier/vo/sectorissecurenovison.wav", "npc/combine_soldier/vo/teamdeployedandscanning.wav", "npc/combine_soldier/vo/isatcode.wav", "npc/combine_soldier/vo/isholdingatcode.wav", "npc/combine_soldier/vo/noviscon.wav", "npc/combine_soldier/vo/secure.wav", "npc/combine_soldier/vo/stayalert.wav", "npc/combine_soldier/vo/hasnegativemovement.wav", "npc/combine_soldier/vo/reportallpositionsclear.wav", "npc/combine_soldier/vo/reportallradialsfree.wav", "npc/combine_soldier/vo/reportingclear.wav", "npc/combine_soldier/vo/ovewatchorders3ccstimboost.wav", "npc/combine_soldier/vo/fullactive.wav", "npc/combine_soldier/vo/sightlineisclear.wav", "npc/combine_soldier/vo/stabilizationteamhassector.wav", "npc/combine_soldier/vo/stabilizationteamholding.wav", "npc/combine_soldier/vo/standingby].wav", "npc/combine_soldier/vo/stayalertreportsightlines.wav", "npc/combine_soldier/vo/bearing.wav", "npc/combine_soldier/vo/vamp.wav", "npc/combine_soldier/vo/leader.wav"}
@@ -52,7 +51,7 @@ local sdCombine_Alert_Citizens = {"vj_hlr/src/npc/combine_soldier/anticitizen.wa
 -- Killed Enemy: Player or Freeman NPC
 local sdCombine_KilledEnemy_Freeman = {"vj_hlr/src/npc/combine_soldier/wegothimnow.wav", "vj_hlr/src/npc/combine_soldier/wehavefreeman.wav"}
 
--- Radio sounds (background)
+-- Radio Chatter
 local sdCombine_Chatter = {
 	"npc/combine_soldier/vo/prison_soldier_activatecentral.wav",
 	"npc/combine_soldier/vo/prison_soldier_boomersinbound.wav",
@@ -78,7 +77,6 @@ local sdCombine_Radio_On = {
 	"vj_hlr/src/npc/combine_soldier/on1.wav",
 	"vj_hlr/src/npc/combine_soldier/on2.wav",
 }
-
 -- Radio Off
 local sdCombine_Radio_Off = {
 	"npc/combine_soldier/vo/off1.wav",

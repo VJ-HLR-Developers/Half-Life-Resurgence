@@ -7,24 +7,22 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.StartHealth = 50
 ENT.HullType = HULL_HUMAN
----------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.AlliedWithPlayerAllies = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
-ENT.HasMeleeAttack = true
-ENT.AnimTbl_MeleeAttack = "vjseq_MeleeAttack01"
-ENT.TimeUntilMeleeAttackDamage = 0.7
-ENT.MeleeAttackDamage = 10
-ENT.HasGrenadeAttack = true
-ENT.AnimTbl_GrenadeAttack = ACT_RANGE_ATTACK_THROW
-ENT.GrenadeAttackThrowTime = 0.87
-ENT.GrenadeAttackAttachment = "anim_attachment_RH"
 ENT.HasOnPlayerSight = true
 ENT.BecomeEnemyToPlayer = 2
 ENT.AnimTbl_Medic_GiveHealth = "heal"
 
-ENT.CanFlinch = true
-ENT.AnimTbl_Flinch = ACT_FLINCH_PHYSICS
+ENT.HasMeleeAttack = true
+ENT.AnimTbl_MeleeAttack = "vjseq_MeleeAttack01"
+ENT.TimeUntilMeleeAttackDamage = 0.7
+ENT.MeleeAttackDamage = 10
+
+ENT.HasGrenadeAttack = true
+ENT.AnimTbl_GrenadeAttack = ACT_RANGE_ATTACK_THROW
+ENT.GrenadeAttackThrowTime = 0.87
+ENT.GrenadeAttackAttachment = "anim_attachment_RH"
 
 ENT.SoundTbl_FootStep = {"npc/footsteps/hardboot_generic1.wav", "npc/footsteps/hardboot_generic2.wav", "npc/footsteps/hardboot_generic3.wav", "npc/footsteps/hardboot_generic4.wav", "npc/footsteps/hardboot_generic5.wav", "npc/footsteps/hardboot_generic6.wav", "npc/footsteps/hardboot_generic8.wav"}
 
