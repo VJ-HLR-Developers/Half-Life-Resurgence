@@ -967,6 +967,9 @@ local sdAlertHuman = {"vj_hlr/src/npc/ep1/c17/al_evac_ontous01.wav", "vj_hlr/src
 "vj_hlr/src/npc/ep1/npc/alyx/al_dark_attack01.wav", -- What? AAA
 "vj_hlr/src/npc/ep1/npc/alyx/al_dark_attack03.wav", -- Something is one me
 "vj_hlr/src/npc/ep1/npc/alyx/al_dark_attack02.wav", -- get it off get it off
+
+-- A little close, Dog
+"vj_hlr/src/npc/ep1/intro/al_alittleclose01.wav"
 ]]--
 
 ENT.MainSoundPitch = 100
