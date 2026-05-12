@@ -77,6 +77,7 @@ function ENT:Init()
 	self.Gonarch_NextBirthT = CurTime() + 3
 	self.Gonarch_NumBabies = 0
 	self.Gonarch_BabyLimit = vj_hlr1_gonarch_babylimit:GetInt()
+	self:SetStepHeight(50)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)

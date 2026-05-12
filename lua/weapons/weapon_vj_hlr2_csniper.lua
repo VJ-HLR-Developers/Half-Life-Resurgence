@@ -124,16 +124,18 @@ if CLIENT then
 	local matSprite = Material("particle/particle_glow_02")
 	local laserColor = Color(0, 161, 255, 255)
 	---------------------------------------------------------------------------------------------------------------------------------------------
-	function SWEP:PostDrawViewModel(vm, wep, ply)
-		local owner = wep:GetOwner()
+	function SWEP:PostDrawViewModel(vm, wep, ply, flags)
 		-- Player only
+		if self:GetZoomLevel() >= 3 then return end
+		local owner = self:GetOwner()
 		local attach = vm:GetAttachment(vm:LookupAttachment("laser"))
+		local tr = owner:GetEyeTrace()
 		render.SetMaterial(matLaser)
-		render.DrawBeam(attach.Pos, owner:GetEyeTrace().HitPos, 5, 0, 5, laserColor)
+		render.DrawBeam(attach.Pos, tr.HitPos, 5, 0, 5, laserColor)
 		render.SetMaterial(matSprite)
 		render.DrawSprite(attach.Pos, 3, 3, laserColor)
 		render.SetMaterial(matSprite)
-		render.DrawSprite(owner:GetEyeTrace().HitPos, math.random(4, 6), math.random(4, 6), laserColor)
+		render.DrawSprite(tr.HitPos, math.random(4, 6), math.random(4, 6), laserColor)
 	end
 	---------------------------------------------------------------------------------------------------------------------------------------------
 	function SWEP:OnDrawWorldModel()
