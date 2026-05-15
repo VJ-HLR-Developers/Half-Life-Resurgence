@@ -202,7 +202,7 @@ function ENT:PreInit()
 			self.Model = mdlMale
 		end
 	end
-	
+
 	-- Anti-armor and melee inventories
 	if !self.IsMedic && math.random(1, 3) == 1 then
 		self.WeaponInventory_AntiArmorList = invAntiArmor
@@ -222,7 +222,7 @@ function ENT:Init()
 			return self.BaseClass.TranslateActivity(self, act)
 		end
 	end
-	
+
 	-- Handle sounds depending on gender
 	if self.Human_Gender == HUMAN_GENDER_FEMALE then
 		self:HLR_ApplyFemaleSounds()
@@ -231,7 +231,7 @@ function ENT:Init()
 		self:HLR_ApplyMaleSounds()
 		self.Human_SdFolder = "male01"
 	end
-	
+
 	-- Set different clothing --
 	-- For Engineers (Always have custom skin!)
 	if self.Human_Type == HUMAN_TYPE_ENGINEER then
@@ -353,7 +353,7 @@ function ENT:OnMaintainRelationships(ent, calculatedDisp, entDist)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponChange(newWeapon, oldWeapon, invSwitch)
-	if invSwitch == true then -- Only if it's a inventory switch
+	if invSwitch then -- Only if it's a inventory switch
 		self:PlayAnim(ACT_PICKUP_RACK, true, false, true)
 	end
 	-- Only males have a taking out an anti-armor weapon sound
@@ -418,10 +418,10 @@ function ENT:OnAlert(ent)
 			end
 		end
 		-- General type (If none of the specific ones above were found)
-		if  ent.IsVJBaseSNPC_Creature == true then
+		if  ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then
 			self:PlaySoundSystem("Alert", {"vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_zombie03.wav", "vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_zombie05.wav"})
 			return
-		elseif ent.IsVJBaseSNPC_Human == true then
+		elseif ent.IsVJBaseSNPC_Human then
 			self:PlaySoundSystem("Alert", {"vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_raidsoldiers.wav", "vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_soldier04.wav", "vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_soldier07.wav"})
 			return
 		end
@@ -975,7 +975,7 @@ function ENT:HLR_ApplyMaleSounds()
 	vo/npc/male01/waitingsomebody.wav
 
 	vo/npc/male01/busy02.wav
-	
+
 	-- Supplies
 	vo/npc/male01/cit_dropper01.wav
 	vo/npc/male01/cit_dropper04.wav
@@ -991,7 +991,7 @@ function ENT:HLR_ApplyMaleSounds()
 	"vo/npc/male01/squad_greet02.wav",
 	vo/npc/male01/squad_reinforce_group01.wav	1 - 4
 	vo/npc/male01/squad_reinforce_single01.wav	1 - 4
-	
+
 	vo/canals/male01/gunboat_breakcamp.wav
 	vo/canals/male01/gunboat_eliright.wav
 	vo/canals/male01/gunboat_hurry.wav
@@ -1000,8 +1000,8 @@ function ENT:HLR_ApplyMaleSounds()
 	vo/canals/male01/gunboat_parkboat.wav
 	vo/canals/male01/gunboat_pullout.wav
 	vo/canals/male01/stn6_shellingus.wav
-	
-	
+
+
 	-- Complement the player
 	"vj_hlr/src/npc/ep1/npc/male01/cit_greatshot.wav",
 	"vj_hlr/src/npc/ep1/npc/male01/cit_notice_gravgunkill01.wav",
@@ -1438,9 +1438,9 @@ function ENT:HLR_ApplyFemaleSounds()
 	-- Supplies
 	vo/npc/female01/cit_dropper01.wav
 	vo/npc/female01/cit_dropper04.wav
-	
+
 	vo/npc/female01/moan01.wav		1 - 5
-	
+
 	vo/npc/female01/squad_approach01.wav
 	vo/npc/female01/squad_away01.wav
 	vo/npc/female01/squad_away03.wav
@@ -1450,7 +1450,7 @@ function ENT:HLR_ApplyFemaleSounds()
 	vo/npc/female01/squad_greet02.wav
 	vo/npc/female01/squad_reinforce_group01.wav		1 - 4
 	vo/npc/female01/squad_reinforce_single01.wav	1 - 4
-	
+
 	vo/canals/female01/gunboat_breakcamp.wav
 	vo/canals/female01/gunboat_eliright.wav
 	vo/canals/female01/gunboat_hurry.wav
@@ -1459,7 +1459,7 @@ function ENT:HLR_ApplyFemaleSounds()
 	vo/canals/female01/gunboat_parkboat.wav
 	vo/canals/female01/gunboat_pullout.wav
 	vo/canals/female01/stn6_shellingus.wav
-	
+
 	-- Complement the player
 	"vj_hlr/src/npc/ep1/npc/female01/cit_greatshot.wav",
 	"vj_hlr/src/npc/ep1/npc/female01/cit_notice_gravgunkill01.wav",
