@@ -2,33 +2,33 @@
 {
     "$basetexture" "models/hl_resurgence/hl1/islave_dreamcast/ISeyes"
 
-    $emissiveBlendEnabled 1
-    $emissiveBlendTexture    "vgui/white"
-    $emissiveBlendBaseTexture    "models/hl_resurgence/hl1/islave_dreamcast/ISeyes_g"
-    $emissiveBlendFlowTexture    "vgui/white"
-    $emissiveBlendTint "[1 1 1]"
-    $emissiveBlendStrength 0
-    $emissiveBlendScrollVector "[0 0]"
+    //$emissiveBlendEnabled 1
+    //$emissiveBlendTexture    "vgui/white"
+    //$emissiveBlendBaseTexture    "models/hl_resurgence/hl1/islave_dreamcast/ISeyes_g"
+    //$emissiveBlendFlowTexture    "vgui/white"
+    //$emissiveBlendTint "[1 1 1]"
+    //$emissiveBlendStrength 0
+    //$emissiveBlendScrollVector "[0 0]"
 
-    "Proxies"
-    {
-        "Sine"
-        {
-            "resultVar"    "$emissiveBlendStrength"
-            "sineperiod"    3
-            "sinemin"    0.6
-            "sinemax"    1
-        }
-        "EfxEmissive"
-        {
-            "index"         5
-            "color"         $emissiveBlendTint
-            "brightness"     0.3
-            "emissivetexture" $emissiveBlendBaseTexture
-        }
-        "IsNPC"
-        {
-            "resultvar" "$emissiveBlendEnabled"
-        }
-    }
+    //"Proxies"
+    //{
+        //"Sine"
+        //{
+            //"resultVar"    "$emissiveBlendStrength"
+            //"sineperiod"    3
+            //"sinemin"    0.6
+            //"sinemax"    1
+        //}
+        //"EfxEmissive"
+        //{
+            //"index"         5
+            //"color"         $emissiveBlendTint
+            //"brightness"     0.3
+            //"emissivetexture" $emissiveBlendBaseTexture
+        //}
+        //"IsNPC"
+        //{
+            //"resultvar" "$emissiveBlendEnabled"
+        //}
+    //}
 }
