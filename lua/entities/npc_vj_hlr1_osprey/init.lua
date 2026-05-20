@@ -67,18 +67,18 @@ local spawnPos = Vector(0, 0, 400)
 function ENT:Init()
 	self:SetNW2Int("Heli_SmokeLevel", 0)
 	//self.ConstantlyFaceEnemy_MinDistance = self.SightDistance -- Osprey does NOT face the enemy!
-	
+
 	self:SetCollisionBounds(Vector(300, 300, 250), Vector(-300, -300, 0))
 	self:SetPos(self:GetPos() + spawnPos)
-	
+
 	self.HeliSD_Rotor = VJ.CreateSound(self, "vj_hlr/gsrc/npc/apache/ap_rotor4.wav", 120)
 	self.HeliSD_Whine = VJ.CreateSound(self, "vj_hlr/gsrc/npc/apache/ap_whine1.wav", 70)
 	self.HeliSD_Distant = VJ.CreateSound(self, "vj_hlr/gsrc/npc/apache/ap_rotor1.wav", 160)
-	
+
 	if GetConVar("vj_hlr1_osprey_deploysoldiers"):GetInt() == 0 then self.Osprey_DropStatus = -1 end
 	self.Osprey_Gunners = {}
 	self.Osprey_DroppedSoldiers = {}
-	
+
 	-- Create & Spawn the 2 gunners
 	for i = 1, 2 do
 		local att = self:GetAttachment(i)
@@ -110,7 +110,7 @@ function ENT:Init()
 		self:DeleteOnRemove(gunner)
 		self.Osprey_Gunners[i] = gunner
 	end
-	
+
 	-- 1 red tail light (Flashing) + 1 green & 1 red solid lights
 	local tailLight = ents.Create("env_sprite")
 	tailLight:SetKeyValue("model", "vj_base/sprites/glow.vmt")
@@ -124,7 +124,7 @@ function ENT:Init()
 	tailLight:Spawn()
 	tailLight:Activate()
 	self:DeleteOnRemove(tailLight)
-	
+
 	local sideLight1 = ents.Create("env_sprite")
 	sideLight1:SetKeyValue("model", "vj_base/sprites/glow.vmt")
 	sideLight1:SetKeyValue("scale", "0.5")
@@ -136,7 +136,7 @@ function ENT:Init()
 	sideLight1:Spawn()
 	sideLight1:Activate()
 	self:DeleteOnRemove(sideLight1)
-	
+
 	local sideLight2 = ents.Create("env_sprite")
 	sideLight2:SetKeyValue("model", "vj_base/sprites/glow.vmt")
 	sideLight2:SetKeyValue("scale", "0.5")
@@ -154,17 +154,29 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("JUMP: Deploy soldiers, can redeploy after all die & cool down expires!")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:TranslateActivity(act)
+/*function ENT:TranslateActivity(act) -- This causes it to stutter while turning which can be very distracting
 	return ACT_IDLE -- We don't want it do anything else!
+end*/
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:GetMoveDirection(ignoreZ)
+    if self:GetVelocity():Length() <= 0 then return defPos end
+    local myPos = self:GetPos()
+    local dir = (((self:GetPos() + self:GetVelocity()) or myPos) - myPos)
+    if ignoreZ then dir.z = 0 end
+    return (self:GetAngles() - dir:Angle()):Forward()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local defAngle = Angle(0, 0, 0)
+local defVec = Vector(0, 0, 0)
+--
 function ENT:OnThink()
 	-- Flying tilt (X & Y)
-	local velNorm = self:GetVelocity():GetNormal()
-	local speed = FrameTime()*4
-	self:SetPoseParameter("tilt_x", Lerp(speed, self:GetPoseParameter("tilt_x"), velNorm.x))
-	self:SetPoseParameter("tilt_y", Lerp(speed, self:GetPoseParameter("tilt_y"), velNorm.y))
-	
+    local lerpingFactor = FrameTime() * 4
+    local moveDir = self:GetMoveDirection()
+    local velNorm = moveDir && moveDir:GetNormal() or defVec
+    self:SetPoseParameter("tilt_x", Lerp(lerpingFactor, self:GetPoseParameter("tilt_x"), velNorm.x))
+    self:SetPoseParameter("tilt_y", Lerp(lerpingFactor, self:GetPoseParameter("tilt_y"), -velNorm.y))
+
 	-- If the helicopter healed, then make sure to stop the smoke particles as well!
 	if self.Heli_SmokeStatus > 0 && self:Health() > (self:GetMaxHealth() * 0.25) then
 		self:SetNW2Int("Heli_SmokeLevel", 0)
@@ -240,7 +252,7 @@ function ENT:OnThinkActive()
 			soldier:Spawn()
 			soldier:SetLocalVelocity(Vector(0, 0, math.Rand(-196, -128)))
 			soldier:SetEnemy(ene)
-			
+
 			-- Create the rope
 			local ropeStart = soldier:GetPos() + ropePos1
 			local tr = util.TraceLine({
@@ -254,7 +266,7 @@ function ENT:OnThinkActive()
 			rope:SetEntity(soldier)
 			rope:SetAttachment(4)
 			util.Effect("VJ_HLR_Rope", rope)
-			
+
 			self.Osprey_DroppedSoldiers[i] = soldier
 		end
 	elseif self.Osprey_DropStatus == 3 && self.Osprey_DropSoldierStatus >= 4 then
@@ -276,12 +288,12 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		else
 			self.Immune_Bullet = true
 		end
-		
+
 		-- If hit by physgun, then don't take damage
 		if dmginfo:IsDamageType(DMG_PHYSGUN) then
 			dmginfo:SetDamage(0)
 		end
-		
+
 		if dmginfo:GetDamagePosition() != vec then
 			local rico = EffectData()
 			rico:SetOrigin(dmginfo:GetDamagePosition())
@@ -385,7 +397,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		timer.Simple(0.9, function() if IsValid(expSpr) then expSpr:Remove() end end)
 		util.BlastDamage(self, self, expPos, 300, 100)
 		VJ.EmitSound(self, sdExplosions, 100, 100)
-		
+
 		expPos = self:GetAttachment(self:LookupAttachment("engine_right")).Pos
 		local expSpr2 = ents.Create("env_sprite")
 		expSpr2:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
@@ -406,8 +418,8 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		timer.Simple(0.9, function() if IsValid(expSpr2) then expSpr2:Remove() end end)
 		util.BlastDamage(self, self, expPos, 300, 100)
 		VJ.EmitSound(self, sdExplosions, 100, 100)
-		
-		
+
+
 		-- Engine gibs (Right side)
 		-- FIXME: this needs to be implemented better, right now this is a basic idea, often causes osprey to just explode midair, but the shit looks beautiful when everything goes right.
 		local pos = self:GetAttachment(self:LookupAttachment("engine_right")).Pos
@@ -418,7 +430,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib9.mdl", {CollisionDecal = false, Pos = pos + Vector(95, 0, 93), CollisionSound = sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib10.mdl", {CollisionDecal = false, Pos = pos + Vector(95, 0, 95), CollisionSound = sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/osprey_enginegib11.mdl", {CollisionDecal = false, Pos = pos + Vector(95, 0, 96), CollisionSound = sdGibCollide}, function(gib) gib:SetSkin(gibSkin) end)
-		
+
 		-- Make the gunners gib into pieces!
 		-- Also unparent them because Source engine spawns them at a random location ...
 		local gunner1 = self.Osprey_Gunners[1]
@@ -439,12 +451,12 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			doDmg:SetDamageType(DMG_BLAST)
 			gunner2:TakeDamageInfo(doDmg)
 		end
-		
+
 		-- Spawn a animated model of the helicopter that explodes constantly and gets destroyed when it collides with something
 		-- Based on source code
 		local deathCorpse = ents.Create("prop_vj_animatable")
 		deathCorpse:SetModel("models/vj_hlr/hl1/osprey_dead.mdl")
-		deathCorpse:SetPos(self:GetPos() + Vector(0, 0, 100)) -- + vector fixes the positioning, because osprey_dead spawns a little below due to the way the model is. 
+		deathCorpse:SetPos(self:GetPos() + Vector(0, 0, 100)) -- + vector fixes the positioning, because osprey_dead spawns a little below due to the way the model is.
 		deathCorpse:SetAngles(self:GetAngles())
 		deathCorpse:SetSkin(self:GetModel() == "models/vj_hlr/hl1/osprey_blkops.mdl" and 1 or 0)
 		function deathCorpse:Initialize()
@@ -464,7 +476,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		deathCorpse.NextExpT = 0
 		deathCorpse:Spawn()
 		deathCorpse:Activate()
-		
+
 		-- Explode as it goes down
 		function deathCorpse:Think()
 			self:ResetSequence("idle_ground")
@@ -488,22 +500,22 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				spr:Spawn()
 				spr:Fire("Kill", "", 0.9)
 				timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
-				
+
 				util.BlastDamage(self, self, expPos2, 300, 100)
 				VJ.EmitSound(self, sdExplosions, 100, 100)
 				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)
 			end
-		
+
 			self:NextThink(CurTime())
 			return true
 		end
-		
+
 		-- Get destroyed when it collides with something
 		function deathCorpse:PhysicsCollide(data, phys)
 			if self.Dead then return end
 			if data.HitEntity.IsVJBaseCorpse_Gib then return end -- Do NOT explode if its an engine part
 			self.Dead = true
-			
+
 			-- Create gibs
 			local isBlackOps = self:GetModel() == "models/vj_hlr/hl1/osprey_dead.mdl"
 			local gibTbl = isBlackOps and heliExpGibs_Gray or heliExpGibs_Green
@@ -526,7 +538,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 					timer.Simple(GetConVar("vj_npc_gib_fadetime"):GetInt(), function() SafeRemoveEntity(gib) end)
 				end
 			end
-			
+
 			gibSkin = isBlackOps and 1 or 0
 			for _, v in ipairs(heliExpGibs_Main) do
 				local gib = ents.Create("obj_vj_gib")
@@ -547,7 +559,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 					timer.Simple(GetConVar("vj_npc_gib_fadetime"):GetInt(), function() SafeRemoveEntity(gib) end)
 				end
 			end
-			
+
 			local expPos2 = self:GetPos() + Vector(0, 0, math.Rand(150, 150))
 			local spr = ents.Create("env_sprite")
 			spr:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
@@ -569,10 +581,10 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			util.BlastDamage(self, self, expPos2, 600, 200)
 			VJ.EmitSound(self, "vj_hlr/gsrc/wep/mortar/mortarhit.wav", 100, 100)
 			VJ.EmitSound(self, "vj_hlr/gsrc/wep/mortar/mortarhit_dist.wav", 140, 100)
-			
+
 			-- flags 0 = No fade!
 			effects.BeamRingPoint(self:GetPos(), 0.4, 0, 1500, 32, 0, colorHeliExp, {material="vj_hl/sprites/shockwave", framerate=0, flags=0})
-			
+
 			self:Remove()
 		end
 	end
@@ -582,7 +594,7 @@ function ENT:CustomOnRemove()
 	VJ.STOPSOUND(self.HeliSD_Rotor)
 	VJ.STOPSOUND(self.HeliSD_Whine)
 	VJ.STOPSOUND(self.HeliSD_Distant)
-	
+
 	-- Remove soldiers if Osprey was removed (Not killed)
 	if !self.Dead then
 		for _, v in ipairs(self.Osprey_DroppedSoldiers) do

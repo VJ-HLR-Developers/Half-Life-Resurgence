@@ -63,7 +63,7 @@ ENT.DeathSoundLevel = 100
 	Rotor sound: EMIT_SOUND_DYN(ENT(pev), CHAN_STATIC, "apache/ap_rotor2.wav", 1.0, 0.3, 0, 110 );
 	Firing sound: tu_fire1.wav, EMIT_SOUND(ENT(pev), CHAN_WEAPON, "turret/tu_fire1.wav", 1, 0.3);
 	Death sound: EMIT_SOUND(ENT(pev), CHAN_STATIC, "weapons/mortarhit.wav", 1.0, 0.3);
-	
+
 	- Fires 2 rockets (1 on each side) at the same time, Delay: 10 seconds
 	- Chain gun: Continuous fire as long as front is visible
 */
@@ -77,14 +77,14 @@ local spawnPos = Vector(0, 0, 400)
 function ENT:Init()
 	self:SetNW2Int("Heli_SmokeLevel", 0)
 	self.ConstantlyFaceEnemy_MinDistance = self:GetMaxLookDistance()
-	
+
 	self:SetCollisionBounds(Vector(150, 150, 180), Vector(-150, -150, 0))
 	self:SetPos(self:GetPos() + spawnPos)
-	
+
 	self.HeliSD_Rotor = VJ.CreateSound(self, "vj_hlr/gsrc/npc/apache/ap_rotor2.wav", 120)
 	self.HeliSD_Whine = VJ.CreateSound(self, "vj_hlr/gsrc/npc/apache/ap_whine1.wav", 70)
 	self.HeliSD_Distant = VJ.CreateSound(self, "vj_hlr/gsrc/npc/apache/ap_rotor1.wav", 160)
-	
+
 	local tailLight = ents.Create("env_sprite")
 	tailLight:SetKeyValue("model", "vj_base/sprites/glow.vmt")
 	tailLight:SetKeyValue("scale", "0.3")
@@ -96,7 +96,7 @@ function ENT:Init()
 	tailLight:Spawn()
 	tailLight:Activate()
 	self:DeleteOnRemove(tailLight)
-	
+
 	local sideLight1 = ents.Create("env_sprite")
 	sideLight1:SetKeyValue("model", "vj_base/sprites/glow.vmt")
 	sideLight1:SetKeyValue("scale", "0.5")
@@ -109,7 +109,7 @@ function ENT:Init()
 	sideLight1:Spawn()
 	sideLight1:Activate()
 	self:DeleteOnRemove(sideLight1)
-	
+
 	local sideLight2 = ents.Create("env_sprite")
 	sideLight2:SetKeyValue("model", "vj_base/sprites/glow.vmt")
 	sideLight2:SetKeyValue("scale", "0.5")
@@ -125,7 +125,9 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
-	return ACT_FLY -- We don't want it do anything else! Ex: "ACT_IDLE" has slower rotating rotors, we don't want that!
+    if act == ACT_IDLE then
+        return ACT_FLY -- Due to the idle having slower moving rotors
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
@@ -142,13 +144,25 @@ function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:GetMoveDirection(ignoreZ)
+    if self:GetVelocity():Length() <= 0 then return defPos end
+    local myPos = self:GetPos()
+    local dir = (((self:GetPos() + self:GetVelocity()) or myPos) - myPos)
+    if ignoreZ then dir.z = 0 end
+    return (self:GetAngles() - dir:Angle()):Forward()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local defAngle = Angle(0, 0, 0)
+local defVec = Vector(0, 0, 0)
+--
 function ENT:OnThink()
 	-- Flying tilt (X & Y)
-	local velNorm = self:GetVelocity():GetNormal()
-	local speed = FrameTime()*4
-	self:SetPoseParameter("tilt_x", Lerp(speed, self:GetPoseParameter("tilt_x"), velNorm.x))
-	self:SetPoseParameter("tilt_y", Lerp(speed, self:GetPoseParameter("tilt_y"), velNorm.y))
-	
+    local lerpingFactor = FrameTime() * 4
+    local moveDir = self:GetMoveDirection()
+    local velNorm = moveDir && moveDir:GetNormal() or defVec
+    self:SetPoseParameter("tilt_x", Lerp(lerpingFactor, self:GetPoseParameter("tilt_x"), velNorm.x))
+    self:SetPoseParameter("tilt_y", Lerp(lerpingFactor, self:GetPoseParameter("tilt_y"), -velNorm.y))
+
 	-- If the helicopter healed, then make sure to stop the smoke particles as well!
 	if self.Heli_SmokeStatus > 0 && self:Health() > (self:GetMaxHealth() * 0.25) then
 		self:SetNW2Int("Heli_SmokeLevel", 0)
@@ -243,12 +257,12 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		else
 			self.Immune_Bullet = true
 		end
-		
+
 		-- If hit by physgun, then don't take damage
 		if dmginfo:IsDamageType(DMG_PHYSGUN) then
 			dmginfo:SetDamage(0)
 		end
-		
+
 		if dmginfo:GetDamagePosition() != vec then
 			local rico = EffectData()
 			rico:SetOrigin(dmginfo:GetDamagePosition())
@@ -330,11 +344,11 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		expSpr:Spawn()
 		expSpr:Fire("Kill", "", 0.9)
 		timer.Simple(0.9, function() if IsValid(expSpr) then expSpr:Remove() end end)
-		
+
 		util.BlastDamage(self, self, expPos, 300, 100)
 		VJ.EmitSound(self, sdExplosions, 100, 100)
 		VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 100, 100, 100, 1)
-		
+
 		-- Spawn a animated model of the helicopter that explodes constantly and gets destroyed when it collides with something
 		-- Based on source code
 		local deathCorpse = ents.Create("prop_vj_animatable")
@@ -359,7 +373,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		deathCorpse.NextExpT = 0
 		deathCorpse:Spawn()
 		deathCorpse:Activate()
-		
+
 		-- Explode as it goes down
 		function deathCorpse:Think()
 			self:ResetSequence("idle_move")
@@ -383,22 +397,22 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				spr:Spawn()
 				spr:Fire("Kill", "", 0.9)
 				timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
-				
+
 				util.BlastDamage(self, self, expPos2, 300, 100)
 				VJ.EmitSound(self, sdExplosions, 100, 100)
 				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)
 			end
-		
+
 			self:NextThink(CurTime())
 			return true
 		end
-		
+
 		-- Get destroyed when it collides with something
 		function deathCorpse:PhysicsCollide(data, phys)
 			if self.Dead then return end
 			local myPos = self:GetPos()
 			self.Dead = true
-			
+
 			-- Create gibs
 			local gibTbl = self:GetModel() == "models/vj_hlr/hl1/apache_blkops.mdl" and heliExpGibs_Gray or heliExpGibs_Green
 			for _ = 1, 50 do
@@ -419,7 +433,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 					timer.Simple(GetConVar("vj_npc_gib_fadetime"):GetInt(), function() SafeRemoveEntity(gib) end)
 				end
 			end
-			
+
 			local expPos2 = myPos + Vector(0, 0, math.Rand(150, 150))
 			local spr = ents.Create("env_sprite")
 			spr:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
