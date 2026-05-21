@@ -13,8 +13,6 @@ ENT.StartHealth = 800
 ENT.HullType = HULL_LARGE
 ENT.SightAngle = 360
 ENT.TurningSpeed = 2
-ENT.TurningUseAllAxis = false
-
 ENT.MovementType = VJ_MOVETYPE_AERIAL
 ENT.Aerial_FlyingSpeed_Alerted = 300
 ENT.Aerial_FlyingSpeed_Calm = ENT.Aerial_FlyingSpeed_Alerted
@@ -31,8 +29,8 @@ ENT.ControllerParams = {
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.CanTurnWhileMoving = false
 ENT.LimitChaseDistance = true
-ENT.LimitChaseDistance_Max = combatDistance
 ENT.LimitChaseDistance_Min = 0
+ENT.LimitChaseDistance_Max = combatDistance
 ENT.Bleeds = false
 ENT.Immune_Toxic = true
 ENT.Immune_Bullet = true
@@ -61,6 +59,8 @@ ENT.Osprey_DropSoldierStatus = 0 -- if this number reaches the max amount, then 
 ENT.Osprey_DropSoldierStatusDead = 0 -- Similar to the one above, but this one keeps track of how many of the 4 soldiers have died!
 ENT.Osprey_NextDropT = 0
 ENT.Heli_SmokeStatus = 0 -- 0 = No smoke | 1 = Left tail smoke | 2 = Left & Right tail smoke
+
+local defVec = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local spawnPos = Vector(0, 0, 400)
 --
@@ -158,21 +158,18 @@ end
 	return ACT_IDLE -- We don't want it do anything else!
 end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:GetMoveDirection(ignoreZ)
-    if self:GetVelocity():Length() <= 0 then return defPos end
+function ENT:Heli_GetMoveDirection()
+	local vel = self:GetVelocity()
+    if vel:Length() <= 0 then return defVec end
     local myPos = self:GetPos()
-    local dir = (((self:GetPos() + self:GetVelocity()) or myPos) - myPos)
-    if ignoreZ then dir.z = 0 end
+    local dir = (((myPos+ vel) or myPos) - myPos)
     return (self:GetAngles() - dir:Angle()):Forward()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local defAngle = Angle(0, 0, 0)
-local defVec = Vector(0, 0, 0)
---
 function ENT:OnThink()
 	-- Flying tilt (X & Y)
     local lerpingFactor = FrameTime() * 4
-    local moveDir = self:GetMoveDirection()
+    local moveDir = self:Heli_GetMoveDirection()
     local velNorm = moveDir && moveDir:GetNormal() or defVec
     self:SetPoseParameter("tilt_x", Lerp(lerpingFactor, self:GetPoseParameter("tilt_x"), velNorm.x))
     self:SetPoseParameter("tilt_y", Lerp(lerpingFactor, self:GetPoseParameter("tilt_y"), -velNorm.y))

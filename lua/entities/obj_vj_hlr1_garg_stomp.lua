@@ -69,14 +69,15 @@ function ENT:OnThink()
 		local myPos = self:GetPos()
 		local tr = util.TraceLine({
 			start = myPos,
-			endpos = myPos + self:GetUp()*-1000,
+			endpos = myPos + self:GetUp() * -1000,
 			filter = {self, owner}
 		})
 		self:SetPos(tr.HitPos + Vector(0, 0, 8))
 
 		local phys = self:GetPhysicsObject()
-		if IsValid(phys) && IsValid(owner:GetEnemy()) then
-			local res = VJ.CalculateTrajectory(self, NULL, "Line", myPos, owner:GetEnemy():GetPos() + owner:GetEnemy():OBBCenter(), 100) -- Do NOT predict!
+		local ene = owner:GetEnemy()
+		if IsValid(phys) && IsValid(ene) then
+			local res = VJ.CalculateTrajectory(self, NULL, "Line", myPos, ene:GetPos() + ene:OBBCenter(), 100) -- Do NOT predict!
 			res.z = 0
 			phys:SetVelocity(res)
 		end
@@ -85,7 +86,7 @@ function ENT:OnThink()
 	local phys = self:GetPhysicsObject()
 	local myVel = self:GetVelocity()
 	if IsValid(phys) && myVel:Length() < 400 then
-		phys:SetVelocity(myVel*(1 + math.Clamp(self.Stomp_SpeedMultiplier, 0, 0.1)))
+		phys:SetVelocity(myVel * (1 + math.Clamp(self.Stomp_SpeedMultiplier, 0, 0.1)))
 	end
 	self.Stomp_SpeedMultiplier = self.Stomp_SpeedMultiplier + 0.01
 end

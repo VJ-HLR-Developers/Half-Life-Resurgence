@@ -29,9 +29,10 @@ ENT.ControllerParams = {
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.PoseParameterLooking_InvertYaw = true
 ENT.ConstantlyFaceEnemy = true
+ENT.ConstantlyFaceEnemy_MinDistance = combatDistance
 ENT.LimitChaseDistance = true
-ENT.LimitChaseDistance_Max = combatDistance
 ENT.LimitChaseDistance_Min = 0
+ENT.LimitChaseDistance_Max = combatDistance - 200 -- Give it some room so it doesn't strafe too much at the edge of the combat distance
 ENT.Bleeds = false
 ENT.Immune_Toxic = true
 ENT.Immune_Bullet = true
@@ -71,6 +72,8 @@ ENT.DeathSoundLevel = 100
 ENT.Heli_HasLOS = false -- Does the Apache's chain gun have sight on the enemy?
 ENT.Heli_SmokeStatus = 0 -- 0 = No smoke | 1 = Tail smoke | 2 = Tail & Rotor smoke
 ENT.Heli_RangeAttach = "missile_left"
+
+local defVec = Vector(0, 0, 0)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local spawnPos = Vector(0, 0, 400)
 --
@@ -144,21 +147,18 @@ function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:GetMoveDirection(ignoreZ)
-    if self:GetVelocity():Length() <= 0 then return defPos end
+function ENT:Heli_GetMoveDirection()
+	local vel = self:GetVelocity()
+    if vel:Length() <= 0 then return defVec end
     local myPos = self:GetPos()
-    local dir = (((self:GetPos() + self:GetVelocity()) or myPos) - myPos)
-    if ignoreZ then dir.z = 0 end
+    local dir = (((myPos+ vel) or myPos) - myPos)
     return (self:GetAngles() - dir:Angle()):Forward()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local defAngle = Angle(0, 0, 0)
-local defVec = Vector(0, 0, 0)
---
 function ENT:OnThink()
 	-- Flying tilt (X & Y)
     local lerpingFactor = FrameTime() * 4
-    local moveDir = self:GetMoveDirection()
+    local moveDir = self:Heli_GetMoveDirection()
     local velNorm = moveDir && moveDir:GetNormal() or defVec
     self:SetPoseParameter("tilt_x", Lerp(lerpingFactor, self:GetPoseParameter("tilt_x"), velNorm.x))
     self:SetPoseParameter("tilt_y", Lerp(lerpingFactor, self:GetPoseParameter("tilt_y"), -velNorm.y))
