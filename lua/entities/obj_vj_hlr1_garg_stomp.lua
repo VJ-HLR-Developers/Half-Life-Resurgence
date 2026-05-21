@@ -55,15 +55,15 @@ function ENT:Init()
 	//sprite:Spawn()
 	//sprite:SetParent(self)
 	//self:DeleteOnRemove(sprite)
-	
+
 	//util.SpriteTrail(self, 0, Color(255, 0, 0), true, 20, 1, 2, 1 / (20 + 1) * 0.5, "vj_hl/sprites/xbeam3.vmt")
-	
+
 	ParticleEffectAttach("vj_hlr_garg_stomp", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
 	local owner = self:GetOwner()
-	if !self.Stomp_InitialRan && IsValid(owner) then 
+	if !self.Stomp_InitialRan && IsValid(owner) then
 		self.Stomp_InitialRan = true
 		self:SetAngles(Angle(owner:GetAngles().p, 0, 0))
 		local myPos = self:GetPos()
@@ -73,15 +73,15 @@ function ENT:OnThink()
 			filter = {self, owner}
 		})
 		self:SetPos(tr.HitPos + Vector(0, 0, 8))
-		
+
 		local phys = self:GetPhysicsObject()
-		if IsValid(phys) then
+		if IsValid(phys) && IsValid(owner:GetEnemy()) then
 			local res = VJ.CalculateTrajectory(self, NULL, "Line", myPos, owner:GetEnemy():GetPos() + owner:GetEnemy():OBBCenter(), 100) -- Do NOT predict!
 			res.z = 0
 			phys:SetVelocity(res)
 		end
 	end
-	
+
 	local phys = self:GetPhysicsObject()
 	local myVel = self:GetVelocity()
 	if IsValid(phys) && myVel:Length() < 400 then
