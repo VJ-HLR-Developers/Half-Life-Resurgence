@@ -78,20 +78,32 @@ function ENT:Tank_OnThink()
 		self.Bradley_DoorOpen = false
 		self:PlayAnim(ACT_SPECIAL_ATTACK2, true, false, false)
 	end
-	
+
 	-- Deploy soldiers
 	if self.Tank_Status == 1 && !self.Bradley_HasSpawnedSoldiers && !self.Bradley_DoorOpen && IsValid(self:GetEnemy()) && GetConVar("vj_hlr1_bradley_deploygrunts"):GetInt() == 1 && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self.Bradley_DoorOpen = true
 		self:PlayAnim(ACT_SPECIAL_ATTACK1, true, false, false)
 		self.Bradley_HasSpawnedSoldiers = true
+        self:SetState(VJ_STATE_FREEZE)
 		timer.Simple(0.5, function()
 			if IsValid(self) then
 				if self.Bradley_DoorOpen == false then -- Door was suddenly closed, so try again later
 					self.Bradley_HasSpawnedSoldiers = false
+                    self:SetState()
 				else
 					local ene = self:GetEnemy()
 					for i = 1, 6 do
-						local hGrunt = ents.Create("npc_vj_hlr1_hgrunt")
+                        local hGruntClass = (GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
+                        if math.random(1, 20) == 1 then -- 5% for robot grunts to spawn
+                            hGruntClass = "npc_vj_hlr1_rgrunt"
+                        elseif GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && math.random(1, 10) == 1 then -- 15% for medic grunts to spawn
+                            hGruntClass = "npc_vj_hlrof_hgrunt_med"
+                        elseif GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && math.random(1, 15) == 1 then -- 10% for engineer grunts to spawn
+                            hGruntClass = "npc_vj_hlrof_hgrunt_eng"
+                        else
+                            hGruntClass = (GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
+                        end
+						local hGrunt = ents.Create(hGruntClass)
 						local opSide = ((i % 2 == 0) and -25) or 25 -- Make every other grunt spawn to the opposite side
 						hGrunt:SetPos(self:GetPos() + self:GetForward()*(i <= 2 and -160 or (i <= 4 and -220 or -290)) + self:GetRight()*opSide + self:GetUp()*5)
 						hGrunt:SetAngles(Angle(0, self:GetAngles().y + 180, 0))
@@ -107,12 +119,13 @@ function ENT:Tank_OnThink()
 							end
 						end)
 						self.Bradley_Grunts[#self.Bradley_Grunts + 1] = hGrunt -- Register the grunt
+                        self:SetState()
 					end
 				end
 			end
 		end)
 	end
-	
+
 	-- Keep the skin of the gunner the same!
 	if IsValid(self.Gunner) then
 		self.Gunner:SetSkin(self:GetSkin())
@@ -159,7 +172,7 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)
 				util.BlastDamage(self, self, self:GetPos(), 200, 40)
 				util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
-				
+
 				local spr = ents.Create("env_sprite")
 				spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 				spr:SetKeyValue("GlowProxySize", "2.0")
@@ -180,7 +193,7 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 			end
 		end)
 	end
-	
+
 	timer.Simple(1.5, function()
 		if IsValid(self) then
 			VJ.EmitSound(self, self.SoundTbl_Death, 100)

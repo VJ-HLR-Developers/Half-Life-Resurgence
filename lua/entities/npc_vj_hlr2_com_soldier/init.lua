@@ -166,7 +166,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
 	local curTime = CurTime()
-	
+
 	-- Random background radio sounds
 	if self.Combine_ChatterT < curTime then
 		if math.random(1, 2) == 1 then
@@ -249,4 +249,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
 	VJ.STOPSOUND(self.Combine_ChatterSd)
+    -- Remove the turret if the NPC has spawned from non-player entities but not when killed
+    local turret = self.Combine_TurretEnt
+    if !self.Dead && IsValid(turret) then
+        turret:Remove()
+    end
 end

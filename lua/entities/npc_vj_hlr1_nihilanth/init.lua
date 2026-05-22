@@ -78,20 +78,20 @@ function ENT:Init()
 	local entsAll = ents.GetAll()
 	for x = 1, #entsAll do
 		if entsAll[x]:GetClass() == "npc_vj_hlr1_nihilanth" && entsAll[x] != self then
-			if IsValid(self:GetCreator()) then
-				self:GetCreator():PrintMessage(HUD_PRINTTALK, "WARNING: Only one Nihilanth is allowed in the map!")
-			end
+            for i, v in pairs(player.GetAll()) do
+                v:PrintMessage(HUD_PRINTTALK, "WARNING: Only one Nihilanth is allowed in the map!")
+            end
 			self:Remove()
 		end
 	end
-	
+
 	-- Set the gravity
 	self.Nih_OriginalGravity = GetConVar("sv_gravity"):GetFloat()
 	RunConsoleCommand("sv_gravity", 200)
-	
+
 	self:SetCollisionBounds(Vector(250, 250, 430), Vector(-250, -250, -530))
 	self:SetPos(self:GetPos() + self:GetUp() * 1000)
-	
+
 	-- Create the 3 Crystals
 	local myPos = self:GetPos()
 	local myForward = self:GetForward()
@@ -219,7 +219,7 @@ function ENT:Nih_NotifyCrystalChange(crystal)
 	elseif crystal == self.Nih_Crystal3 then
 		self.Nih_Crystal3 = NULL
 	end
-	
+
 	-- Check if all crystals are removed
 	if !self.Dead && self.Nih_CrystalsDestroyed == false && !IsValid(self.Nih_Crystal1) && !IsValid(self.Nih_Crystal2) && !IsValid(self.Nih_Crystal3) then
 		self.Nih_CrystalsDestroyed = true
@@ -245,7 +245,7 @@ function ENT:Nih_SpawnAlly()
 	if IsValid(self.Nih_Crystal3) then
 		self.Nih_Crystal3.VJ_NPC_Class = self.VJ_NPC_Class
 	end
-	
+
 	local myPos = self:GetPos()
 	local tr = util.TraceLine({
 		start = myPos,
@@ -289,7 +289,7 @@ end
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "PreDamage" then
 		if !self.Nih_CrystalsDestroyed then dmginfo:SetDamage(0) return end
-	
+
 		if !self.Nih_BrainOpen then
 			local num = #self.Nih_Charges
 			if num > 0 then
@@ -305,7 +305,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 				return
 			end
 		end
-		
+
 		-- Scale the damage if we aren't hitting inside the brain!
 		if hitgroup != HITGROUP_CHEST then
 			dmginfo:ScaleDamage(0.4)
@@ -338,7 +338,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "DeathAnim" then
 		util.ScreenShake(self:GetPos(), 16, 5, 16, 30000)
 		ParticleEffectAttach("vj_hlr_nihilanth_deathorbs", PATTACH_POINT_FOLLOW, self, self:LookupAttachment("0")) -- Bezdig ganach louyser
-		
+
 		-- Initial regular size green explosion
 		local spr1 = ents.Create("env_sprite")
 		spr1:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
@@ -413,7 +413,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				end
 			end)
 		end
-		
+
 		-- Create green beams and explosions
 		for t = 10, 16, 0.5 do
 			timer.Simple(t, function()
@@ -423,7 +423,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 					local myRight = self:GetRight()
 					local myUp = self:GetUp()
 					local attachPos = self:GetAttachment(self:LookupAttachment("0")).Pos
-					
+
 					-- Green beams
 					local beams = {
 						-- Tsakh --------------------------
@@ -446,7 +446,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 						VJ.ApplyRadiusDamage(self, self, tr.HitPos, 50, 100, dmgBeamType, false, true)
 						self:Nih_DoElecEffect_Green(tr.StartPos, tr.HitPos)
 					end
-					
+
 					-- Green explosion
 					local spr = ents.Create("env_sprite")
 					spr:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
@@ -468,7 +468,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				end
 			end)
 		end
-		
+
 		-- Large green explosion
 		timer.Simple(10, function()
 			if IsValid(self) then
@@ -491,13 +491,13 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				spr:Fire("Kill", "", 0.9)
 			end
 		end)
-		
+
 		-- Ending scene: White orbs + green explosions
 		timer.Simple(14, function()
 			if IsValid(self) then
 				ParticleEffect("vj_hlr_nihilanth_deathorbs_white", self:GetAttachment(self:LookupAttachment("0")).Pos, self:GetAngles())
 				VJ.EmitSound(self, "vj_hlr/gsrc/npc/x/nih_die2.wav", 120)
-				
+
 				timer.Simple(1, function()
 					if IsValid(self) then
 						local spr = ents.Create("env_sprite")
@@ -519,7 +519,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 						spr:Fire("Kill", "", 0.9)
 					end
 				end)
-				
+
 				timer.Simple(1.5, function()
 					if IsValid(self) then
 						local spr = ents.Create("env_sprite")
@@ -539,7 +539,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 						spr:SetPos(self:GetAttachment(self:LookupAttachment("1")).Pos + self:GetUp() * 100 + self:GetRight() * 300)
 						spr:Spawn()
 						spr:Fire("Kill", "", 0.9)
-						
+
 						spr = ents.Create("env_sprite")
 						spr:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
 						spr:SetKeyValue("rendercolor", "100 255 0")
@@ -571,12 +571,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
 	RunConsoleCommand("sv_gravity", self.Nih_OriginalGravity)
-	
+
 	-- Remove crystals
 	if IsValid(self.Nih_Crystal1) then self.Nih_Crystal1:Remove() end
 	if IsValid(self.Nih_Crystal2) then self.Nih_Crystal2:Remove() end
 	if IsValid(self.Nih_Crystal3) then self.Nih_Crystal3:Remove() end
-	
+
 	-- Remove allies if we were removed without being killed
 	if !self.Dead then
 		if IsValid(self.Nih_Ally1) then self.Nih_Ally1:Remove() end

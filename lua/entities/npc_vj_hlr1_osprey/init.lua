@@ -230,13 +230,17 @@ function ENT:OnThinkActive()
 		for i = 1, 4 do
 			local att = self:GetAttachment((i % 2 == 0) && 2 or 1)
 			local startPos = att.Pos + att.Ang:Forward()*100 + self:GetForward()*((i >= 3) && -30 or 60)
-			local soldierClass = "npc_vj_hlr1_hgrunt"
+			local soldierClass = (GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
 			local soldierClass_blkops = "npc_vj_hlrof_assassin_male"
-			if math.random(1, 20) == 1 then	-- 5% for robot grunts to spawn
+			if math.random(1, 20) == 1 then -- 5% for robot grunts to spawn
 				soldierClass = "npc_vj_hlr1_rgrunt"
 				soldierClass_blkops = "npc_vj_hlrof_assassin_rgrunt"
+            elseif GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && math.random(1, 10) == 1 then -- 15% for medic grunts to spawn
+				soldierClass = "npc_vj_hlrof_hgrunt_med"
+            elseif GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && math.random(1, 15) == 1 then -- 10% for engineer grunts to spawn
+				soldierClass = "npc_vj_hlrof_hgrunt_eng"
 			else
-				soldierClass = "npc_vj_hlr1_hgrunt"
+				soldierClass = (GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
 				soldierClass_blkops = "npc_vj_hlrof_assassin_male"
 			end
 			local soldier = ents.Create(self.Osprey_IsBlackOps and soldierClass_blkops or soldierClass)

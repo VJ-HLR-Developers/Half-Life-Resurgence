@@ -104,12 +104,12 @@ function ENT:HECU_OnInit()
 	self.SoundTbl_GrenadeSight = {"vj_hlr/gsrc/npc/hgrunt/gr_cover1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover7.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert5.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert6.wav"}
 	self.SoundTbl_DangerSight = {"vj_hlr/gsrc/npc/hgrunt/gr_cover1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover7.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert5.wav", "vj_hlr/gsrc/npc/hgrunt/gr_grenadealert6.wav"}
 	self.SoundTbl_AllyDeath = {"vj_hlr/gsrc/npc/hgrunt/gr_allydeath.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover7.wav"}
-	
+
 	if self.HECU_Type == 7 then
 		self:SetBodygroup(1, 0)
 	else
 		self:SetSkin(math.random(0, 1))
-	
+
 		local randHead = math.random(0, 3)
 		self:SetBodygroup(1, randHead)
 		if randHead == 1 then
@@ -117,7 +117,7 @@ function ENT:HECU_OnInit()
 		elseif randHead == 3 then
 			self:SetSkin(1) -- Sev
 		end
-		
+
 		if randHead == 2 then
 			self:SetBodygroup(2, 1)
 		else
@@ -128,7 +128,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(15, 15, 78), Vector(-15, -15, 0))
-	
+
 	local myMDL = self:GetModel()
 	if myMDL == "models/vj_hlr/hl1/hgrunt.mdl" then // Already the default
 		self.HECU_Type = 0
@@ -172,16 +172,19 @@ function ENT:Init()
 		self.HECU_Type = 9
 		self.HECU_WepBG = 2
 	end
-	
+
 	self.HECU_NextMouthMove = CurTime()
-	
+
 	self:HECU_OnInit()
-	
+
 	if self.HECU_Rappelling then
 		self:SetGroundEntity(NULL)
 		self:AddFlags(FL_FLY)
 		self:SetNavType(NAV_FLY)
 		self:SetState(VJ_STATE_ONLY_ANIMATION)
+        self.AnimTbl_DamageAllyResponse = false
+        self.AnimTbl_CallForHelp = false
+        self.AnimTbl_TakingCover = false
 		self.HasGrenadeAttack = false
 		self.Weapon_CanSecondaryFire = false
 		self.Weapon_CanReload = false
@@ -234,7 +237,7 @@ function ENT:OnInput(key, activator, caller, data)
 		self:SetBodygroup(1, 2)
 	elseif key == "deagle_pull" then
 		self:SetBodygroup(1, 0)
-	
+
 	-- OppF Medic --
 	elseif key == "putgun" then
 		self:SetBodygroup(3, 3)
@@ -244,11 +247,11 @@ function ENT:OnInput(key, activator, caller, data)
 		self:SetBodygroup(3, 3)
 	elseif key == "pullgun" then
 		self:SetBodygroup(3, self.HECUMedic_HealBG)
-	
+
 	-- Alpha HGrunt --
 	elseif key == "i_got_something_for_you" then -- Make them play a sound when firing a weapon secondary shot
 		self:PlaySoundSystem("Speech", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_loadtalk.wav")
-		
+
 	-- Alpha Sergeant --
 	elseif key == "holster_gun" && self.Serg_Type != 2 then
 		self:SetWeaponState(VJ.WEP_STATE_HOLSTERED)
@@ -302,10 +305,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetAnimationTranslations(wepHoldType)
 	local bodyGroup = self.HECU_LastBodyGroup
-	
+
 	self.AnimationTranslations[ACT_IDLE] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_repel") or ACT_IDLE
 	self.AnimationTranslations[ACT_IDLE_ANGRY] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_repel") or ACT_IDLE_ANGRY
-	
+
 	if self.HECU_Type == 0 or self.HECU_Type == 9 then-- 0 = HL1 Grunt
 		if bodyGroup == 0 then -- MP5
 			self.AnimationTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1
@@ -316,24 +319,24 @@ function ENT:SetAnimationTranslations(wepHoldType)
 		end
 	elseif self.HECU_Type == 1 then -- 1 = OppF Grunt
 		if bodyGroup == 0 then -- MP5
-			self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
-			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_SMG1_LOW
 		elseif bodyGroup == 1 then -- Shotgun
-			self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SHOTGUN
-			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SHOTGUN_LOW
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_shotty") or ACT_RANGE_ATTACK_SHOTGUN_LOW
 		elseif bodyGroup == 2 then -- SAW
-			self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_AR2
-			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_AR2_LOW
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_saw") or ACT_RANGE_ATTACK_AR2
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_saw") or ACT_RANGE_ATTACK_AR2_LOW
 		end
 	elseif self.HECU_Type == 2 then -- 2 = OppF Medic
 		if bodyGroup == 0 or bodyGroup == 1 then -- Desert Eagle or Glock 17
-			self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_PISTOL
-			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_PISTOL_LOW
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_PISTOL
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_PISTOL_LOW
 		end
 	elseif self.HECU_Type == 3 then -- 3 = OppF Engineer
 		if bodyGroup == 0 then -- Desert Eagle
-			self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_PISTOL
-			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_PISTOL_LOW
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_PISTOL
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_shoot_mp5") or ACT_RANGE_ATTACK_PISTOL_LOW
 		end
 	elseif self.HECU_Type == 4 then -- 4 = Black Ops Assassin
 		if bodyGroup == 0 then -- MP5
@@ -374,6 +377,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_StopRappelling()
 	self.HECU_Rappelling = false
+    self.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
+    self.AnimTbl_CallForHelp = ACT_SIGNAL1
+    self.AnimTbl_TakingCover = ACT_CROUCHIDLE
 	self.HasGrenadeAttack = true
 	self.Weapon_CanSecondaryFire = true
 	self.Weapon_CanReload = true
@@ -487,7 +493,7 @@ function ENT:OnThink()
 			end
 		end
 	end
-	
+
 	-- Rappelling System
 	if self.HECU_Rappelling && !self.Dead then
 		-- If it's on ground then stop rappelling!
@@ -512,6 +518,12 @@ function ENT:OnThink()
 	self:HECU_OnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnFlinch(dmginfo, hitgroup, status)
+    if status == "Init" then
+        return self.HECU_Rappelling -- Do not flinch when rappelling
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 local gasTankExpPos = Vector(0, 0, 90)
 local gasTankExpSd = {"vj_hlr/gsrc/wep/explosion/explode3.wav", "vj_hlr/gsrc/wep/explosion/explode4.wav", "vj_hlr/gsrc/wep/explosion/explode5.wav"}
 local sdHeadshot = {"vj_hlr/gsrc/fx/headshot1.wav", "vj_hlr/gsrc/fx/headshot2.wav", "vj_hlr/gsrc/fx/headshot3.wav"}
@@ -519,7 +531,7 @@ local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
-	
+
 	-- Handle gas tank for the hgrunt engineer
 	if self.HECU_GasTankHit then
 		util.BlastDamage(self, self, self:GetPos(), 100, 80)
@@ -544,7 +556,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		spr:Fire("Kill", "", 0.9)
 		timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 	end
-	
+
 	if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD then
 		self.HasDeathAnimation = false
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_skull.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 0, 60))})
@@ -590,7 +602,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			self:SetBodygroup(1, 4)
 			self.GibOnDeathFilter = false
 		end
-		
+
 		if self.HECU_Type == 5 then
 			local spr = ents.Create("env_sprite")
 			spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
@@ -610,7 +622,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			spr:Fire("Kill", "", 0.7)
 			timer.Simple(0.7, function() if IsValid(spr) then spr:Remove() end end)
 		end
-		
+
 		-- If we are still rappelling then play the rappel death animation!
 		if self.HECU_Rappelling then
 			self.AnimTbl_Death = "repel_die"
@@ -657,4 +669,9 @@ function ENT:CustomOnRemove()
 			owner.Osprey_DropSoldierStatusDead = owner.Osprey_DropSoldierStatusDead + 1
 		end
 	end
+    -- Remove the turret if the NPC has spawned from non-player entities but not when killed
+    local turret = self.HECU_TurretEnt
+    if !self.Dead && IsValid(turret) then
+        turret:Remove()
+    end
 end

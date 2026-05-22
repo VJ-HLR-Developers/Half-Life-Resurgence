@@ -24,6 +24,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
+    if self.HECU_Rappelling or self:IsBusy() then return end
 	if ((self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) or !self.VJ_IsBeingControlled) && IsValid(self:GetEnemy()) && self:Visible(self:GetEnemy()) && self.HECU_NextTurretCheckT < CurTime() && !IsValid(self.HECU_TurretEnt) then
 		-- Make sure not to place it if the front of the NPC is blocked!
 		local myCenterPos = self:GetPos() + self:OBBCenter()
