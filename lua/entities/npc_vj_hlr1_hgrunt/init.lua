@@ -267,7 +267,7 @@ local sdAlertSoldier = {"vj_hlr/gsrc/npc/hgrunt/gr_alert2.wav", "vj_hlr/gsrc/npc
 --
 function ENT:OnAlert(ent)
 	if math.random(1, 3) == 1 && self.HECU_UsingDefaultSounds == true then
-		if ent.IsVJBaseSNPC_Creature then -- Alien sounds
+		if ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Alien sounds
 			self:PlaySoundSystem("Alert", sdAlertAlien)
 			return
 		elseif ent.IsVJBaseSNPC_Human or ent:IsPlayer() then -- Soldier sounds

@@ -1087,10 +1087,10 @@ function ENT:OnAlert(ent)
 			end
 		end
 		-- General type (If none of the specific ones above were found)
-		if  ent.IsVJBaseSNPC_Creature == true then
+		if  ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then
 			self:PlaySoundSystem("Alert", sdAlertCreature)
 			return
-		elseif ent.IsVJBaseSNPC_Human == true or ent:Classify() == CLASS_COMBINE then
+		elseif ent.IsVJBaseSNPC_Human or ent:Classify() == CLASS_COMBINE then
 			self:PlaySoundSystem("Alert", sdAlertHuman)
 			return
 		end

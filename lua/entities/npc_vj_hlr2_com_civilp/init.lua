@@ -197,7 +197,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("SPACE: Deploy Manhack (if available)")
-	
+
 	function controlEnt:OnKeyPressed(key)
 		if key == KEY_SPACE && self.VJCE_NPC.Metrocop_HasManhack then
 			self.VJCE_NPC:Metrocop_DeployManhack()
@@ -258,7 +258,7 @@ function ENT:OnAlert(ent)
 		elseif ent.VJ_HLR_Freeman then
 			self:PlaySoundSystem("Alert", sdCop_Alert_Freeman) -- Same thing as above, minus in vehicle sounds
 		elseif ent:IsNPC() then
-			if ent.IsVJBaseSNPC_Creature then
+			if ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then
 				if math.random(1, 2) == 1 then
 					for _, v in ipairs(ent.VJ_NPC_Class or {1}) do
 						if v == "CLASS_ZOMBIE" or ent:Classify() == CLASS_ZOMBIE then
@@ -287,7 +287,7 @@ function ENT:Metrocop_DeployManhack()
 	self.Metrocop_HasManhack = false
 	self:PlayAnim("deploy", true, false, true)
 	self:PlaySoundSystem("Speech", sdCop_DeployManhack)
-	
+
 	-- Backup in case animation cuts out and event is never ran
 	timer.Simple(3, function()
 		if IsValid(self) && !IsValid(self.Metrocop_Manhack) then

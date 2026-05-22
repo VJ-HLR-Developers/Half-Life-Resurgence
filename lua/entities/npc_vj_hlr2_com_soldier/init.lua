@@ -182,7 +182,7 @@ function ENT:OnAlert(ent)
 		if ent:IsPlayer() or ent.VJ_HLR_Freeman then
 			self:PlaySoundSystem("Alert", sdCombine_Alert_Freeman)
 		elseif ent:IsNPC() then
-			if ent.IsVJBaseSNPC_Creature then
+			if ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then
 				for _, v in ipairs(ent.VJ_NPC_Class or {1}) do
 					if v == "CLASS_ZOMBIE" or ent:Classify() == CLASS_ZOMBIE then
 						self:PlaySoundSystem("Alert", sdCombine_Alert_Zombies)

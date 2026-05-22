@@ -115,7 +115,7 @@ ENT.MainSoundPitch = 100
 local SECURITY_TYPE_REGULAR = 0 -- Security Guard
 local SECURITY_TYPE_OTIS = 1 -- Otis Laurey
 local SECURITY_TYPE_ALPHA = 2 -- Alpha Security Guard
-	
+
 -- Custom
 ENT.Security_NextMouthMove = 0
 ENT.Security_NextMouthDistance = 0
@@ -125,7 +125,7 @@ function ENT:Init()
 	self:SetCollisionBounds(Vector(13, 13, 76), Vector(-13, -13, 0))
 	self:SetBodygroup(1, 0)
 	self:SetWeaponState(VJ.WEP_STATE_HOLSTERED)
-	
+
 	if self.Security_Type == SECURITY_TYPE_REGULAR then
 		self.SoundTbl_Idle = {"vj_hlr/gsrc/npc/barney/whatisthat.wav", "vj_hlr/gsrc/npc/barney/somethingstinky.wav", "vj_hlr/gsrc/npc/barney/somethingdied.wav", "vj_hlr/gsrc/npc/barney/guyresponsible.wav", "vj_hlr/gsrc/npc/barney/coldone.wav", "vj_hlr/gsrc/npc/barney/ba_gethev.wav", "vj_hlr/gsrc/npc/barney/badfeeling.wav", "vj_hlr/gsrc/npc/barney/bigmess.wav", "vj_hlr/gsrc/npc/barney/bigplace.wav"}
 		self.SoundTbl_IdleDialogue = {"vj_hlr/gsrc/npc/barney/youeverseen.wav", "vj_hlr/gsrc/npc/barney/workingonstuff.wav", "vj_hlr/gsrc/npc/barney/whatsgoingon.wav", "vj_hlr/gsrc/npc/barney/thinking.wav", "vj_hlr/gsrc/npc/barney/survive.wav", "vj_hlr/gsrc/npc/barney/stench.wav", "vj_hlr/gsrc/npc/barney/somethingmoves.wav", "vj_hlr/gsrc/npc/barney/of1a5_ba01.wav", "vj_hlr/gsrc/npc/barney/nodrill.wav", "vj_hlr/gsrc/npc/barney/missingleg.wav", "vj_hlr/gsrc/npc/barney/luckwillturn.wav", "vj_hlr/gsrc/npc/barney/gladof38.wav", "vj_hlr/gsrc/npc/barney/gettingcloser.wav", "vj_hlr/gsrc/npc/barney/crewdied.wav", "vj_hlr/gsrc/npc/barney/ba_idle0.wav", "vj_hlr/gsrc/npc/barney/badarea.wav", "vj_hlr/gsrc/npc/barney/beertopside.wav"}
@@ -151,7 +151,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("SPACE: Holster / Unholster gun")
-	
+
 	function controlEnt:OnKeyPressed(key)
 		local npc = self.VJCE_NPC
 		if key == KEY_SPACE && npc:GetActivity() != ACT_DISARM && npc:GetActivity() != ACT_ARM then
@@ -213,19 +213,19 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
 	if self.VJ_IsBeingControlled then return end
-	
+
 	if math.random(1, 2) == 1 then
 		if self.Security_Type == SECURITY_TYPE_REGULAR then
 			if ent:GetClass() == "npc_vj_hlr1_bullsquid" then
 				self:PlaySoundSystem("Alert", "vj_hlr/gsrc/npc/barney/c1a4_ba_octo1.wav")
-			elseif ent.IsVJBaseSNPC_Creature then
+			elseif ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then
 				self:PlaySoundSystem("Alert", "vj_hlr/gsrc/npc/barney/diebloodsucker.wav")
 			end
-		elseif self.Security_Type == SECURITY_TYPE_OTIS && ent.IsVJBaseSNPC_Creature then
+		elseif self.Security_Type == SECURITY_TYPE_OTIS && ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then
 			self:PlaySoundSystem("Alert", "vj_hlr/gsrc/npc/otis/aliens.wav")
 		end
 	end
-	
+
 	if self:GetWeaponState() == VJ.WEP_STATE_HOLSTERED then
 		self:Security_UnHolsterGun()
 	end
@@ -296,7 +296,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
 	end
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh1.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 0, 40))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 1, 40))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(1, 0, 40))})
