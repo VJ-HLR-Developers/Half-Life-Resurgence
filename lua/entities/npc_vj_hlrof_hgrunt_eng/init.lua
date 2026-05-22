@@ -60,6 +60,11 @@ function ENT:OnThinkActive()
 					end
 				end)
 				self:PlayAnim("open_floor_grate", true, false, false, 0, {OnFinish=function(interrupted2, anim2)
+                    if interrupted2 then -- If interrupted after deploying turret, put torch away!
+                        self:StopParticles()
+                        self:SetBodygroup(1, 0)
+                        return
+                    end
 					self:PlayAnim("store_torch", true, false)
 				end})
 			end})
