@@ -216,7 +216,8 @@ function ENT:OnAlert(ent)
 
 	if math.random(1, 2) == 1 then
 		if self.Security_Type == SECURITY_TYPE_REGULAR then
-			if ent:GetClass() == "npc_vj_hlr1_bullsquid" then
+			local entClass = ent:GetClass()
+			if entClass == "npc_vj_hlr1_bullsquid" or entClass == "npc_vj_hlrdc_bullsquid" or entClass == "npc_vj_hlr1a_bullsquid" or entClass == "npc_vj_hlr1_tentacle" then
 				self:PlaySoundSystem("Alert", "vj_hlr/gsrc/npc/barney/c1a4_ba_octo1.wav")
 			elseif ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then
 				self:PlaySoundSystem("Alert", "vj_hlr/gsrc/npc/barney/diebloodsucker.wav")
