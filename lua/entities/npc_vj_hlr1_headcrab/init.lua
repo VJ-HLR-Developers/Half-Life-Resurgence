@@ -11,9 +11,9 @@ ENT.SightAngle = 120
 ENT.HullType = HULL_TINY
 ENT.EntitiesToNoCollide = {"npc_vj_hlr1_gonarch"}
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(10, 0, 0),
-    FirstP_Bone = "Bip01 Neck",
-    FirstP_Offset = Vector(2, 0, 0),
+	ThirdP_Offset = Vector(10, 0, 0),
+	FirstP_Bone = "Bip01 Neck",
+	FirstP_Offset = Vector(2, 0, 0),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
@@ -111,7 +111,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
 	end
-	
+
 	if !self.HeadCrab_IsBaby then
 		self:CreateGibEntity("obj_vj_gib", gibs_regular_extra, {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 5))})
 	end

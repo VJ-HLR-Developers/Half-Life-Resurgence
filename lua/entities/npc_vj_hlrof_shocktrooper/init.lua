@@ -10,9 +10,9 @@ ENT.StartHealth = 150
 ENT.HullType = HULL_HUMAN
 ENT.CanTurnWhileMoving = false
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(15, 0, -15),
-    FirstP_Bone = "Bip01 Head",
-    FirstP_Offset = Vector(10, 0, 0),
+	ThirdP_Offset = Vector(15, 0, -15),
+	FirstP_Bone = "Bip01 Head",
+	FirstP_Offset = Vector(10, 0, 0),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
@@ -130,7 +130,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
 	end
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/strooper_gib1.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 42))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/strooper_gib2.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 20))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/strooper_gib3.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 31))})

@@ -8,9 +8,9 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hla/barney.mdl"
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(10, 0, -20),
-    FirstP_Bone = "unnamed038",
-    FirstP_Offset = Vector(1, 0, 5),
+	ThirdP_Offset = Vector(10, 0, -20),
+	FirstP_Bone = "unnamed038",
+	FirstP_Offset = Vector(1, 0, 5),
 }
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIEVIOLENT, "diecrump", ACT_DIESIMPLE}
 

@@ -12,9 +12,9 @@ ENT.HullType = HULL_LARGE
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CanTurnWhileStationary = true
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(15, 0, -50),
-    FirstP_Bone = "Head",
-    FirstP_Offset = Vector(7, 0, 0),
+	ThirdP_Offset = Vector(15, 0, -50),
+	FirstP_Bone = "Head",
+	FirstP_Offset = Vector(7, 0, 0),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
@@ -116,7 +116,7 @@ end
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "Init" then
 		self:PitWorm_DoLaserEffects()
-		
+
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model", "vj_hl/sprites/flare3.vmt")
 		spr:SetKeyValue("rendercolor", "124 252 0")
@@ -137,7 +137,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		spr:Fire("SetParentAttachment", "0")
 		self:DeleteOnRemove(spr)
 		timer.Simple(0.65, function() if IsValid(self) && IsValid(spr) then spr:Remove() end end)
-		
+
 		for i = 0.1, 0.5, 0.1 do
 			timer.Simple(i, function()
 				if IsValid(self) && IsValid(self:GetEnemy()) && self.AttackType == VJ.ATTACK_TYPE_RANGE then

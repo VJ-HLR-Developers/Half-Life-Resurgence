@@ -52,12 +52,12 @@ function SWEP:OnPrimaryAttack(status, statusData)
 		if CLIENT then return end
 		local ene = self.Owner:GetEnemy()
 		if !IsValid(ene) then return end
-		
+
 		-- Play the firing sound (hello vrej, do you really think this plays the firing sound? You have a note here so Im assuming you didn't...)
 		self.NextStopFireLoop = CurTime() + 0.2
 		self.FireLoop1:Play()
 		self.FireLoop2:Play()
-		
+
 		-- Create electrical particle and deal radius shock damage
 		local targetPos = ene:GetPos() + ene:OBBCenter()
 		if targetPos:Distance(self:GetAttachment(1).Pos) > 400 then

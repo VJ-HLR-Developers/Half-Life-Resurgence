@@ -156,7 +156,7 @@ local replacePreSpawn = {
 
 -- After Spawn
 local afterSpawned = {
-	
+
 }
 
 // lua_run PrintTable(Entity(1):GetEyeTrace().Entity:GetTable())

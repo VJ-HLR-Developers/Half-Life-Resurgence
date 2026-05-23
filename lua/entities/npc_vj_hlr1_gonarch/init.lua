@@ -11,9 +11,9 @@ ENT.HullType = HULL_LARGE
 ENT.VJ_ID_Boss = true
 ENT.EntitiesToNoCollide = {"npc_vj_hlr1_headcrab_baby", "npc_vj_hlr1_headcrab", "npc_vj_hlr1a_headcrab", "npc_vj_hlrdc_headcrab"}
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(-100, 0, -70),
-    FirstP_Bone = "Bip01 Neck",
-    FirstP_Offset = Vector(0, 0, -5),
+	ThirdP_Offset = Vector(-100, 0, -70),
+	FirstP_Bone = "Bip01 Neck",
+	FirstP_Offset = Vector(0, 0, -5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
@@ -140,7 +140,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
 	local curTime = CurTime()
-	
+
 	-- Create baby headcrabs
 	if !self.Dead && IsValid(self:GetEnemy()) && self.AttackAnimTime < curTime && curTime > self.Gonarch_NextBirthT && self.Gonarch_NumBabies < self.Gonarch_BabyLimit && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self:PlayAnim(ACT_SPECIAL_ATTACK1, true, false, true)
@@ -184,7 +184,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("StriderBlood", effectData)
 		util.Effect("StriderBlood", effectData)
 	end
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_shellgib.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 160)), Ang = self:LocalToWorldAngles(Angle(0, 0, 180))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_sacgib.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(20, 0, 60)), Ang = self:LocalToWorldAngles(Angle(-89.999908447266, 179.99996948242, 180))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/big_mom_leggib.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(55, -70, 80)), Ang = Angle(3.1017229557037, -35.476417541504, 91.352874755859)})

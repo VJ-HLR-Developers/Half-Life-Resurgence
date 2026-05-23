@@ -9,9 +9,9 @@ ENT.Model = "models/vj_hlr/hl1/hgrunt.mdl"
 ENT.StartHealth = 90
 ENT.HullType = HULL_HUMAN
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(0, 0, -15),
-    FirstP_Bone = "Bip01 Head",
-    FirstP_Offset = Vector(3, 0, 5),
+	ThirdP_Offset = Vector(0, 0, -15),
+	FirstP_Bone = "Bip01 Head",
+	FirstP_Offset = Vector(3, 0, 5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -182,9 +182,9 @@ function ENT:Init()
 		self:AddFlags(FL_FLY)
 		self:SetNavType(NAV_FLY)
 		self:SetState(VJ_STATE_ONLY_ANIMATION)
-        self.AnimTbl_DamageAllyResponse = false
-        self.AnimTbl_CallForHelp = false
-        self.AnimTbl_TakingCover = false
+		self.AnimTbl_DamageAllyResponse = false
+		self.AnimTbl_CallForHelp = false
+		self.AnimTbl_TakingCover = false
 		self.HasGrenadeAttack = false
 		self.Weapon_CanSecondaryFire = false
 		self.Weapon_CanReload = false
@@ -377,9 +377,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_StopRappelling()
 	self.HECU_Rappelling = false
-    self.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
-    self.AnimTbl_CallForHelp = ACT_SIGNAL1
-    self.AnimTbl_TakingCover = ACT_CROUCHIDLE
+	self.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
+	self.AnimTbl_CallForHelp = ACT_SIGNAL1
+	self.AnimTbl_TakingCover = ACT_CROUCHIDLE
 	self.HasGrenadeAttack = true
 	self.Weapon_CanSecondaryFire = true
 	self.Weapon_CanReload = true
@@ -519,9 +519,9 @@ function ENT:OnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo, hitgroup, status)
-    if status == "Init" then
-        return self.HECU_Rappelling -- Do not flinch when rappelling
-    end
+	if status == "Init" then
+		return self.HECU_Rappelling -- Do not flinch when rappelling
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gasTankExpPos = Vector(0, 0, 90)
@@ -669,9 +669,9 @@ function ENT:CustomOnRemove()
 			owner.Osprey_DropSoldierStatusDead = owner.Osprey_DropSoldierStatusDead + 1
 		end
 	end
-    -- Remove the turret if the NPC has spawned from non-player entities but not when killed
-    local turret = self.HECU_TurretEnt
-    if !self.Dead && IsValid(turret) then
-        turret:Remove()
-    end
+	-- Remove the turret if the NPC has spawned from non-player entities but not when killed
+	local turret = self.HECU_TurretEnt
+	if !self.Dead && IsValid(turret) then
+		turret:Remove()
+	end
 end

@@ -9,9 +9,9 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/decay/wheelchair_sci.mdl"
 ENT.StartHealth = 100
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(10, 0, -20),
-    FirstP_Bone = "Bip01 Head",
-    FirstP_Offset = Vector(3, 0, 3.3),
+	ThirdP_Offset = Vector(10, 0, -20),
+	FirstP_Bone = "Bip01 Head",
+	FirstP_Offset = Vector(3, 0, 3.3),
 	FirstP_ShrinkBone = false,
 }
 ENT.IsMedic = false

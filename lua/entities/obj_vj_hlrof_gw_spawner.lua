@@ -25,7 +25,7 @@ function ENT:Initialize()
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
-	
+
 	local StartGlow1 = ents.Create("env_sprite")
 	StartGlow1:SetKeyValue("model", "vj_hl/sprites/tele1.vmt")
 	//StartGlow1:SetKeyValue("rendercolor", "255 128 0")
@@ -44,7 +44,7 @@ function ENT:Initialize()
 	StartGlow1:Spawn()
 	StartGlow1:SetParent(self)
 	self:DeleteOnRemove(StartGlow1)
-	
+
 	timer.Simple(2.6, function()
 		if IsValid(self) then
 			local owner = self:GetOwner()

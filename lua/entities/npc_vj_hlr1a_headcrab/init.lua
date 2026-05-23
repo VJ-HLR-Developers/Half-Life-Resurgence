@@ -9,9 +9,9 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hla/headcrab.mdl"
 ENT.StartHealth = 20
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(10, 0, 0),
-    FirstP_Bone = "unnamed025",
-    FirstP_Offset = Vector(4, 0, 1),
+	ThirdP_Offset = Vector(10, 0, 0),
+	FirstP_Bone = "unnamed025",
+	FirstP_Offset = Vector(4, 0, 1),
 }
 ENT.LeapAttackDamage = 100
 ENT.SoundTbl_LeapAttackJump = "vj_hlr/gsrc/npc/headcrab_alpha/hc_attack1.wav"

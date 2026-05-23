@@ -8,9 +8,9 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl1/tank_body_destroyed.mdl"
 ENT.StartHealth = 500
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(-20, 0, 40),
-    FirstP_Bone = "static_prop",
-    FirstP_Offset = Vector(00, 0, 130),
+	ThirdP_Offset = Vector(-20, 0, 40),
+	FirstP_Bone = "static_prop",
+	FirstP_Offset = Vector(00, 0, 130),
 	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -80,7 +80,7 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)
 				util.BlastDamage(self, self, self:GetPos(), 200, 40)
 				util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
-				
+
 				local spr = ents.Create("env_sprite")
 				spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 				spr:SetKeyValue("GlowProxySize", "2.0")
@@ -101,7 +101,7 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 			end
 		end)
 	end
-	
+
 	timer.Simple(1.5, function()
 		if IsValid(self) then
 			VJ.EmitSound(self, self.SoundTbl_Death, 100)

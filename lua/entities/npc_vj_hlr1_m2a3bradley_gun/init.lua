@@ -64,7 +64,7 @@ local vecZ40 = Vector(0, 0, 40)
 function ENT:Tank_OnFireShell(status, statusData)
 	if status == "Init" then
 		if self.Bradley_DoingMissileAtk then return end -- Missile lets the base code execute!
-	
+
 		local ene = self:GetEnemy()
 		local pos = self:LocalToWorld(vecBullet)
 		self:FireBullets({
@@ -78,10 +78,10 @@ function ENT:Tank_OnFireShell(status, statusData)
 			Callback = function(attack, tr, dmginfo)
 				local hitPos = tr.HitPos
 				VJ.ApplyRadiusDamage(self, self, hitPos, 50, 30, DMG_BLAST, true, true, {Force=100})
-				
+
 				sound.Play("vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. ".wav", hitPos, 70, 100, 1)
 				sound.Play("vj_hlr/gsrc/wep/explosion/debris" .. math.random(1, 3) .. ".wav", hitPos, 70, 100, 1)
-		
+
 				local spr = ents.Create("env_sprite")
 				spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 				spr:SetKeyValue("GlowProxySize", "2.0")
@@ -99,7 +99,7 @@ function ENT:Tank_OnFireShell(status, statusData)
 				spr:Spawn()
 				spr:Fire("Kill", "", 0.9)
 				timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
-				
+
 				local expLight = ents.Create("light_dynamic")
 				expLight:SetKeyValue("brightness", "4")
 				expLight:SetKeyValue("distance", "300")

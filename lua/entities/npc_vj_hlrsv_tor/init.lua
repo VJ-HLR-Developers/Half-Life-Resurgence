@@ -11,9 +11,9 @@ ENT.SightAngle = 220
 ENT.HullType = HULL_HUMAN
 ENT.VJ_ID_Boss = true
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(15, 0, -15),
-    FirstP_Bone = "TorSkel Head",
-    FirstP_Offset = Vector(15, 0, 0),
+	ThirdP_Offset = Vector(15, 0, -15),
+	FirstP_Bone = "TorSkel Head",
+	FirstP_Offset = Vector(15, 0, 0),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
@@ -22,9 +22,9 @@ ENT.BloodParticle = {"vj_hlr_blood_yellow"}
 ENT.BloodDecal = {"VJ_HLR1_Blood_Yellow"}
 ENT.HasBloodPool = false
 
--- ACT_MELEE_ATTACK2, ACT_SPECIAL_ATTACK1    = Swing / stab
+-- ACT_MELEE_ATTACK2, ACT_SPECIAL_ATTACK1 = Swing / stab
 -- ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK_SWING = Cutting (dozen times)
--- ACT_RANGE_ATTACK2						 = Sonic attack (This must be inputted twice so it has a fair chance to the other attacks!)
+-- ACT_RANGE_ATTACK2 = Sonic attack (This must be inputted twice so it has a fair chance to the other attacks!)
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK2, ACT_SPECIAL_ATTACK1, ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK_SWING, ACT_MELEE_ATTACK2, ACT_SPECIAL_ATTACK1, ACT_RANGE_ATTACK2, ACT_RANGE_ATTACK2}
 ENT.TimeUntilMeleeAttackDamage = false
 ENT.MeleeAttackDistance = 45
@@ -75,7 +75,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("SPACE: Spawn an Alien Grunt")
-	
+
 	function controlEnt:OnKeyPressed(key)
 		if key == KEY_SPACE then
 			self.VJCE_NPC:Tor_StartSpawnAlly()
@@ -223,7 +223,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
 	end
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 40))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 20))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 30))})

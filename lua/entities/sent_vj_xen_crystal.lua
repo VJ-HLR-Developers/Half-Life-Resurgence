@@ -27,13 +27,13 @@ function ENT:Initialize()
 	if !IsValid(self.Assignee) then
 		self:SetPos(self:GetPos() + self:GetUp() * -40)
 	end
-	
+
 	self:SetModel("models/vj_hlr/hl1/crystal.mdl")
 	self:SetMoveType(MOVETYPE_FLY)
 	self:SetSolid(SOLID_BBOX)
 	self:SetMaxHealth(200)
 	self:SetHealth(200)
-	
+
 	local dynamicLight = ents.Create("light_dynamic")
 	dynamicLight:SetKeyValue("brightness", "4")
 	dynamicLight:SetKeyValue("distance", "150")
@@ -47,7 +47,7 @@ function ENT:Initialize()
 	dynamicLight:SetParent(self)
 	dynamicLight:Fire("TurnOn")
 	self:DeleteOnRemove(dynamicLight)
-	
+
 	self.IdleSd = CreateSound(self, "vj_hlr/gsrc/fx/alien_cycletone.wav")
 	self.IdleSd:SetSoundLevel(80)
 	self.IdleSd:Play()
@@ -97,7 +97,7 @@ function ENT:OnTakeDamage(dmginfo)
 		spr:SetPos(myPos + vecZ90)
 		spr:Spawn()
 		spr:Fire("Kill", "", 0.9)
-	
+
 		VJ.ApplyRadiusDamage(self, self, myPos, 100, 50, DMG_NERVEGAS, true, true)
 		self:EmitSound("vj_hlr/gsrc/fx/xtal_down1.wav", 100)
 		self:EmitSound(VJ.PICK(sdBreak), 70)
@@ -107,7 +107,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRemove()
 	VJ.STOPSOUND(self.IdleSd)
-	
+
 	local assignee = self.Assignee
 	if IsValid(assignee) then
 		assignee:Nih_NotifyCrystalChange(self)

@@ -28,7 +28,7 @@ ENT.RemoveDelay = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetNoDraw(true)
-	
+
 	local sprite = ents.Create("env_sprite")
 	sprite:SetKeyValue("model", "vj_hl/sprites/flare3.vmt")
 	sprite:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.

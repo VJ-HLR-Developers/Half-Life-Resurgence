@@ -16,9 +16,9 @@ ENT.Aquatic_SwimmingSpeed_Alerted = 500
 ENT.Aquatic_AnimTbl_Calm = ACT_WALK
 ENT.Aquatic_AnimTbl_Alerted = ACT_RUN
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(-25, 0, 0),
-    FirstP_Bone = "Bip01 Head",
-    FirstP_Offset = Vector(12, 0, 5),
+	ThirdP_Offset = Vector(-25, 0, 0),
+	FirstP_Bone = "Bip01 Head",
+	FirstP_Offset = Vector(12, 0, 5),
 	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -72,7 +72,7 @@ function ENT:OnThink()
 		timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(2) end end)
 		timer.Simple(0.4, function() if IsValid(self) then self:SetSkin(3) end end)
 		timer.Simple(0.5, function()
-			if IsValid(self) then 
+			if IsValid(self) then
 				if IsValid(self:GetEnemy()) then
 					self:SetSkin(0)
 				else
@@ -108,7 +108,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
 	end
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(1, 0, 20))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(2, 0, 20))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(3, 0, 20))})

@@ -85,7 +85,7 @@ end
 /*hook.Add("SetupMove", "VJ_Barnacle_SetupMove", function(ply, mv)
 	-- Make the player not be able to walk
 	if ply.Barnacle_Grabbed == true then
-    	mv:SetMaxClientSpeed(0)
+		mv:SetMaxClientSpeed(0)
 	end
 end)*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -215,7 +215,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
 	end
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh1.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 1, -20))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 2, -20))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 3, -20))})

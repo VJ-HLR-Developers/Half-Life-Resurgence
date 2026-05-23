@@ -10,8 +10,8 @@ ENT.StartHealth = 80
 ENT.SightAngle = 120
 ENT.HullType = HULL_WIDE_SHORT
 ENT.ControllerParams = {
-    FirstP_Bone = "Bip01 Head",
-    FirstP_Offset = Vector(0, 0, 0),
+	FirstP_Bone = "Bip01 Head",
+	FirstP_Offset = Vector(0, 0, 0),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
@@ -115,7 +115,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
 	local curTime = CurTime()
-	
+
 	-- Blinking
 	if !self.Dead && curTime > self.Houndeye_BlinkingT && !self.Houndeye_Sleeping then
 		self:SetSkin(1)

@@ -211,13 +211,13 @@ function ENT:SetAnimationTranslations(wepHoldType)
 	self.BaseClass.SetAnimationTranslations(self, wepHoldType)
 	if wepHoldType == "crossbow" or wepHoldType == "shotgun" then
 		self.AnimationTranslations[ACT_RELOAD] = ACT_RELOAD_SMG1
-		
+
 		self.AnimationTranslations[ACT_IDLE] = ACT_IDLE
 		self.AnimationTranslations[ACT_IDLE_ANGRY] = ACT_IDLE_ANGRY
-		
+
 		self.AnimationTranslations[ACT_WALK] = ACT_WALK_RIFLE
 		self.AnimationTranslations[ACT_WALK_AIM] = ACT_WALK_AIM_RIFLE
-		
+
 		self.AnimationTranslations[ACT_RUN] = ACT_RUN_RIFLE
 		self.AnimationTranslations[ACT_RUN_AIM] = ACT_RUN_AIM_RIFLE
 		self.Weapon_CanCrouchAttack = false -- It shouldn't crouch when using a shotgun or crossbow hold types!

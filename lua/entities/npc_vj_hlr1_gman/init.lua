@@ -9,8 +9,8 @@ ENT.Model = "models/vj_hlr/hl1/gman.mdl"
 ENT.StartHealth = 999999
 ENT.HullType = HULL_HUMAN
 ENT.ControllerParams = {
-    FirstP_Bone = "Bip01 Head",
-    FirstP_Offset = Vector(6, 0, 5),
+	FirstP_Bone = "Bip01 Head",
+	FirstP_Offset = Vector(6, 0, 5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}

@@ -87,7 +87,7 @@ function SWEP:OnPrimaryAttack(status, statusData)
 			self.AnimTbl_Draw = ACT_VM_DRAW_EMPTY
 		end
 		if CLIENT then return end
-	
+
 		-- Projectile
 		for i = 1, self.Bow_NumShots do
 			local projectile = ents.Create("obj_vj_hlr2_chargebolt")
@@ -104,7 +104,7 @@ function SWEP:OnPrimaryAttack(status, statusData)
 			projectile:Activate()
 			projectile:Spawn()
 			projectile.DirectDamage = projectile.DirectDamage / self.Bow_NumShots -- Decrease the damage per bolt depending on the number of bolts being fired
-	
+
 			local phys = projectile:GetPhysicsObject()
 			if phys:IsValid() then
 				if owner:IsPlayer() then

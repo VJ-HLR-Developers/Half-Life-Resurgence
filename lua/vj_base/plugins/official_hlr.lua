@@ -125,8 +125,8 @@ VJ.AddNPC("Xen Ceiling Turret", "npc_vj_hlr1_xen_turretc", spawnCategory, false,
 	VJ.AddNPC("Zombie (Dreamcast)", "npc_vj_hlrdc_zombie", spawnCategory)
 	VJ.AddNPC("Alien Slave (Dreamcast)", "npc_vj_hlrdc_alienslave", spawnCategory)
 	VJ.AddNPC("Bullsquid (Dreamcast)", "npc_vj_hlrdc_bullsquid", spawnCategory)
-    VJ.AddNPC("Gargantua (Dreamcast)", "npc_vj_hlrdc_garg", spawnCategory)
-    VJ.AddNPC("Houndeye (Dreamcast)", "npc_vj_hlrdc_houndeye", spawnCategory)
+	VJ.AddNPC("Gargantua (Dreamcast)", "npc_vj_hlrdc_garg", spawnCategory)
+	VJ.AddNPC("Houndeye (Dreamcast)", "npc_vj_hlrdc_houndeye", spawnCategory)
 	VJ.AddNPC("Barnacle (Dreamcast)", "npc_vj_hlrdc_barnacle", spawnCategory, false, function(x) x.OnCeiling = true x.Offset = 0 end)
 	VJ.AddNPC("Xen Tree (Dreamcast)", "npc_vj_hlrdc_xen_tree", spawnCategory)
 	-- Opposing Force

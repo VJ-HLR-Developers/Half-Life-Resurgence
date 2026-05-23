@@ -13,9 +13,9 @@ ENT.SightAngle = 360
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CanTurnWhileStationary = false
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(0, 0, -15),
-    FirstP_Bone = "Dummy03",
-    FirstP_Offset = Vector(0, 0, 4),
+	ThirdP_Offset = Vector(0, 0, -15),
+	FirstP_Bone = "Dummy03",
+	FirstP_Offset = Vector(0, 0, 4),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
@@ -65,11 +65,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("SPACE: Activate / Deactivate")
-	
+
 	self.Sentry_ControllerStatus = 0
 	self.HasPoseParameterLooking = false -- Initially, we are going to start as idle, we do NOT want the sentry turning!
 	self.NextAlertSoundT = CurTime() + 1 -- So it doesn't play the alert sound as soon as it enters the NPC!
-	
+
 	function controlEnt:OnKeyPressed(key)
 		if key == KEY_SPACE then
 			local npc = self.VJCE_NPC
@@ -84,7 +84,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 			end
 		end
 	end
-	
+
 	function controlEnt:OnStopControlling(keyPressed)
 		local npc = self.VJCE_NPC
 		if IsValid(npc) then
@@ -125,7 +125,7 @@ function ENT:OnThinkActive()
 	local eneValid = IsValid(self:GetEnemy())
 	-- Don't reset pose parameters while its transitioning from Alert to Idle
 	self.PoseParameterLooking_CanReset = (!self.Alerted && eneValid)
-	
+
 	if (self.Sentry_ControllerStatus == 1) or (!self.VJ_IsBeingControlled && (eneValid or self.Alerted)) then
 		self.Sentry_StandDown = false
 		if CurTime() > self.Sentry_NextAlarmT && self.Sentry_Type != 2 then
@@ -232,10 +232,10 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 			Damage = (self.Sentry_Type == 1 and 7) or 3,
 			AmmoType = "SMG1"
 		})
-		
+
 		VJ.EmitSound(self, "vj_hlr/gsrc/npc/turret/tu_fire1.wav", 90, math.random(100, 110))
 		VJ.EmitSound(self, "vj_hlr/gsrc/npc/turret/tu_fire1_distant.wav", 140, math.random(100, 110))
-		
+
 		local muz = ents.Create("env_sprite_oriented")
 		muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash3.vmt")
 		if self.Sentry_Type == 1 then
@@ -257,7 +257,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		muz:Spawn()
 		muz:Activate()
 		muz:Fire("Kill", "", 0.08)
-		
+
 		local muzzleLight = ents.Create("light_dynamic")
 		muzzleLight:SetKeyValue("brightness", "4")
 		muzzleLight:SetKeyValue("distance", "120")
@@ -353,7 +353,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p10_g.mdl", {CollisionDecal = false, Pos = attPos or self:LocalToWorld(Vector(0, 5, 20)), CollisionSound = gibsCollideSd})
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p11_g.mdl", {CollisionDecal = false, Pos = attPos or self:LocalToWorld(Vector(6, 0, 20)), CollisionSound = gibsCollideSd})
 	end
-	
+
 	-- General gibs for all turrets
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_cog1.mdl", {CollisionDecal = false, Pos = attPos or self:LocalToWorld(Vector(1, 0, upPos)), CollisionSound = gibsCollideSd})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_cog2.mdl", {CollisionDecal = false, Pos = attPos or self:LocalToWorld(Vector(0, 1, upPos)), CollisionSound = gibsCollideSd})
@@ -362,7 +362,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal = false, Pos = attPos or self:LocalToWorld(Vector(3, 0, upPos)), CollisionSound = gibsCollideSd})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal = false, Pos = attPos or self:LocalToWorld(Vector(0, 3, upPos)), CollisionSound = gibsCollideSd})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_spring.mdl", {CollisionDecal = false, Pos = attPos or self:LocalToWorld(Vector(4, 0, upPos)), CollisionSound = false}) -- Shad ge sharji, ere vor tsayn chi hane
-	
+
 	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris3.wav", 100, 100)
 	self:PlaySoundSystem("Gib", "vj_hlr/gsrc/npc/rgrunt/rb_gib.wav")
 	return true, {AllowSound = false}

@@ -9,9 +9,9 @@ ENT.Model = "models/vj_hlr/opfor/baby_voltigore.mdl"
 ENT.StartHealth = 60
 ENT.HullType = HULL_SMALL_CENTERED
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(25, 0, -15),
-    FirstP_Bone = "Bone41",
-    FirstP_Offset = Vector(3, 0, 2),
+	ThirdP_Offset = Vector(25, 0, -15),
+	FirstP_Bone = "Bone41",
+	FirstP_Offset = Vector(3, 0, 2),
 	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -94,7 +94,7 @@ function ENT:OnRangeAttack(status, enemy)
 			elec:SetScale(elecTime)
 			util.Effect("VJ_HLR_Electric_Charge_Purple", elec)
 		end
-		
+
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model", "vj_hl/sprites/flare3.vmt")
 		spr:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
@@ -110,7 +110,7 @@ function ENT:OnRangeAttack(status, enemy)
 		spr:Activate()
 		self:DeleteOnRemove(spr)
 		timer.Simple(elecTime, function() if IsValid(self) && IsValid(spr) then spr:Remove() end end)
-		
+
 		-- Chance of killing itself while attempting to range attack!
 		if math.random(1, 150) == 1 then
 			timer.Simple(1, function()
@@ -149,7 +149,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
 	end
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 30))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 20))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 1, 30))})

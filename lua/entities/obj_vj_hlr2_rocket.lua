@@ -83,7 +83,7 @@ function ENT:OnDestroy(data, phys)
 	VJ.EmitSound(self, "VJ.Explosion")
 	ParticleEffect("vj_explosion3", data.HitPos, defAngle)
 	util.ScreenShake(data.HitPos, 16, 200, 1, 3000)
-	
+
 	local effectData = EffectData()
 	effectData:SetOrigin(data.HitPos)
 	//effectData:SetScale(500)

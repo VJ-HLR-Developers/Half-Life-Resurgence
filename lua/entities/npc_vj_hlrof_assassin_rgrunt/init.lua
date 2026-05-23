@@ -8,9 +8,9 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/rgrunt_black.mdl"
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(0, 0, -15),
-    FirstP_Bone = "Bip01 Head",
-    FirstP_Offset = Vector(5, 0, 5),
+	ThirdP_Offset = Vector(0, 0, -15),
+	FirstP_Bone = "Bip01 Head",
+	FirstP_Offset = Vector(5, 0, 5),
 }
 ENT.VJ_NPC_Class = {"CLASS_BLACKOPS"}
 
@@ -71,7 +71,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(1, 1, 15)), CollisionSound = gibsCollideSd})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(1, 2, 15)), CollisionSound = gibsCollideSd})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_spring.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(2, 1, 15)), CollisionSound = false}) -- Shad ge sharji, ere vor tsayn chi hane
-	
+
 	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris3.wav", 100, 100)
 	self:PlaySoundSystem("Gib", "vj_hlr/gsrc/npc/rgrunt/rb_gib.wav")
 	return true, {AllowSound = false}

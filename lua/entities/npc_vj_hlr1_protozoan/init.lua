@@ -14,9 +14,9 @@ ENT.MovementType = VJ_MOVETYPE_AERIAL
 ENT.Aerial_FlyingSpeed_Calm = 100
 ENT.Aerial_FlyingSpeed_Alerted = 100
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(-5, 0, -15),
-    FirstP_Bone = "Bone03",
-    FirstP_Offset = Vector(0, 0, 0),
+	ThirdP_Offset = Vector(-5, 0, -15),
+	FirstP_Bone = "Bone03",
+	FirstP_Offset = Vector(0, 0, 0),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.IdleAlwaysWander = true

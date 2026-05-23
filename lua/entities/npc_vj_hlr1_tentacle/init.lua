@@ -13,9 +13,9 @@ ENT.SightAngle = 360
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.HullType = HULL_LARGE
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(0, 0, -15),
-    FirstP_Bone = "Dummy04",
-    FirstP_Offset = Vector(23, 0, 30),
+	ThirdP_Offset = Vector(0, 0, -15),
+	FirstP_Bone = "Dummy04",
+	FirstP_Offset = Vector(23, 0, 30),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
@@ -61,10 +61,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("SPACE: Cycle through height levels")
-	
+
 	self.CanTurnWhileStationary = true
 	controlEnt.LastTentacleLevel = self.Tentacle_Level
-	
+
 	function controlEnt:OnKeyPressed(key)
 		if key == KEY_SPACE then
 			local npc = self.VJCE_NPC
@@ -83,7 +83,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 			self.LastTentacleLevel = curLvl
 		end
 	end
-	
+
 	function controlEnt:OnStopControlling(keyPressed)
 		self.CanTurnWhileStationary = false
 	end
@@ -211,7 +211,7 @@ function ENT:OnThink()
 		else
 			self.CanTurnWhileStationary = false
 		end
-		
+
 		-- Take care of the level calculation
 		if self.CanTurnWhileStationary == true then
 			self:Tentacle_CalculateLevel((self:GetEnemyLastKnownPos() - self:GetPos()).z)
@@ -237,7 +237,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
 	end
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 40))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 20))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 30))})

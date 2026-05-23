@@ -10,9 +10,9 @@ ENT.Model = "models/vj_hlr/opfor/shockroach.mdl"
 ENT.StartHealth = 10
 ENT.EntitiesToNoCollide = false
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(15, 0, 0),
-    FirstP_Bone = "Bone07",
-    FirstP_Offset = Vector(0, 0, 0),
+	ThirdP_Offset = Vector(15, 0, 0),
+	FirstP_Bone = "Bone07",
+	FirstP_Offset = Vector(0, 0, 0),
 	//FirstP_ShrinkBone = false,
 }
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"}

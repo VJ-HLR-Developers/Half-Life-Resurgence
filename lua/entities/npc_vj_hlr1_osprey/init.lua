@@ -21,8 +21,8 @@ ENT.AA_MinWanderDist = 1000
 ENT.AA_MoveAccelerate = 8
 ENT.AA_MoveDecelerate = 4
 ENT.ControllerParams = {
-    FirstP_Bone = "Osprey",
-    FirstP_Offset = Vector(365, 0, -80),
+	FirstP_Bone = "Osprey",
+	FirstP_Offset = Vector(365, 0, -80),
 	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -75,13 +75,13 @@ function ENT:Init()
 	self.HeliSD_Whine = VJ.CreateSound(self, "vj_hlr/gsrc/npc/apache/ap_whine1.wav", 70)
 	self.HeliSD_Distant = VJ.CreateSound(self, "vj_hlr/gsrc/npc/apache/ap_rotor1.wav", 160)
 
-    local rotorwash = ents.Create("env_rotorwash_emitter")
-    rotorwash:SetPos(self:GetPos())
-    rotorwash:SetParent(self)
-    rotorwash.DoNotDuplicate = true
-    rotorwash:Spawn()
-    rotorwash:Activate()
-    self:DeleteOnRemove(rotorwash)
+	local rotorwash = ents.Create("env_rotorwash_emitter")
+	rotorwash:SetPos(self:GetPos())
+	rotorwash:SetParent(self)
+	rotorwash.DoNotDuplicate = true
+	rotorwash:Spawn()
+	rotorwash:Activate()
+	self:DeleteOnRemove(rotorwash)
 
 	if GetConVar("vj_hlr1_osprey_deploysoldiers"):GetInt() == 0 then self.Osprey_DropStatus = -1 end
 	self.Osprey_Gunners = {}
@@ -168,19 +168,19 @@ end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Heli_GetMoveDirection()
 	local vel = self:GetVelocity()
-    if vel:Length() <= 0 then return defVec end
-    local myPos = self:GetPos()
-    local dir = (((myPos+ vel) or myPos) - myPos)
-    return (self:GetAngles() - dir:Angle()):Forward()
+	if vel:Length() <= 0 then return defVec end
+	local myPos = self:GetPos()
+	local dir = (((myPos+ vel) or myPos) - myPos)
+	return (self:GetAngles() - dir:Angle()):Forward()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
 	-- Flying tilt (X & Y)
-    local lerpingFactor = FrameTime() * 4
-    local moveDir = self:Heli_GetMoveDirection()
-    local velNorm = moveDir && moveDir:GetNormal() or defVec
-    self:SetPoseParameter("tilt_x", Lerp(lerpingFactor, self:GetPoseParameter("tilt_x"), velNorm.x))
-    self:SetPoseParameter("tilt_y", Lerp(lerpingFactor, self:GetPoseParameter("tilt_y"), -velNorm.y))
+	local lerpingFactor = FrameTime() * 4
+	local moveDir = self:Heli_GetMoveDirection()
+	local velNorm = moveDir && moveDir:GetNormal() or defVec
+	self:SetPoseParameter("tilt_x", Lerp(lerpingFactor, self:GetPoseParameter("tilt_x"), velNorm.x))
+	self:SetPoseParameter("tilt_y", Lerp(lerpingFactor, self:GetPoseParameter("tilt_y"), -velNorm.y))
 
 	-- If the helicopter healed, then make sure to stop the smoke particles as well!
 	if self.Heli_SmokeStatus > 0 && self:Health() > (self:GetMaxHealth() * 0.25) then
@@ -243,9 +243,9 @@ function ENT:OnThinkActive()
 			if math.random(1, 20) == 1 then -- 5% for robot grunts to spawn
 				soldierClass = "npc_vj_hlr1_rgrunt"
 				soldierClass_blkops = "npc_vj_hlrof_assassin_rgrunt"
-            elseif GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && math.random(1, 10) == 1 then -- 15% for medic grunts to spawn
+			elseif GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && math.random(1, 10) == 1 then -- 15% for medic grunts to spawn
 				soldierClass = "npc_vj_hlrof_hgrunt_med"
-            elseif GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && math.random(1, 15) == 1 then -- 10% for engineer grunts to spawn
+			elseif GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && math.random(1, 15) == 1 then -- 10% for engineer grunts to spawn
 				soldierClass = "npc_vj_hlrof_hgrunt_eng"
 			else
 				soldierClass = (GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"

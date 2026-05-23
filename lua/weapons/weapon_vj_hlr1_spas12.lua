@@ -35,16 +35,16 @@ SWEP.PrimaryEffects_MuzzleFlash = false
 
 -- Custom
 local validModels = {
-    ["models/vj_hlr/opfor/hgrunt.mdl"] = true,
-    ["models/vj_hlr/hl1/hgrunt.mdl"] = true,
-    ["models/vj_hlr/opfor/hgrunt_medic.mdl"] = true,
-    ["models/vj_hlr/opfor/hgrunt_engineer.mdl"] = true,
-    ["models/vj_hlr/hl1/rgrunt.mdl"] = true,
-    ["models/vj_hlr/hl1/rgrunt_black.mdl"] = true,
-    ["models/vj_hlr/opfor_hd/hgrunt.mdl"] = true,
-    ["models/vj_hlr/opfor_hd/hgrunt_medic.mdl"] = true,
-    ["models/vj_hlr/opfor_hd/hgrunt_engineer.mdl"] = true,
-    ["models/vj_hlr/cracklife/hgrunt.mdl"] = true,
+	["models/vj_hlr/opfor/hgrunt.mdl"] = true,
+	["models/vj_hlr/hl1/hgrunt.mdl"] = true,
+	["models/vj_hlr/opfor/hgrunt_medic.mdl"] = true,
+	["models/vj_hlr/opfor/hgrunt_engineer.mdl"] = true,
+	["models/vj_hlr/hl1/rgrunt.mdl"] = true,
+	["models/vj_hlr/hl1/rgrunt_black.mdl"] = true,
+	["models/vj_hlr/opfor_hd/hgrunt.mdl"] = true,
+	["models/vj_hlr/opfor_hd/hgrunt_medic.mdl"] = true,
+	["models/vj_hlr/opfor_hd/hgrunt_engineer.mdl"] = true,
+	["models/vj_hlr/cracklife/hgrunt.mdl"] = true,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()

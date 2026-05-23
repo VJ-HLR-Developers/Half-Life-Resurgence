@@ -10,9 +10,9 @@ ENT.Model = "models/vj_hlr/hla/hassault.mdl"
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2, ACT_MELEE_ATTACK_SWING}
 ENT.HasGrenadeAttack = false
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(0, 0, -15),
-    FirstP_Bone = "unnamed_bone_020",
-    FirstP_Offset = Vector(3, 0, 5),
+	ThirdP_Offset = Vector(0, 0, -15),
+	FirstP_Bone = "unnamed_bone_020",
+	FirstP_Offset = Vector(3, 0, 5),
 }
 
 ENT.MainSoundPitch = VJ.SET(90, 100)
@@ -26,7 +26,7 @@ function ENT:HECU_OnInit()
 	self.SoundTbl_CallForHelp = "vj_hlr/gsrc/npc/hgrunt_alpha/gr_squadform.wav"
 	self.SoundTbl_WeaponReload = "vj_hlr/gsrc/npc/hgrunt_alpha/gr_cover2.wav"
 	self.SoundTbl_GrenadeAttack = "vj_hlr/gsrc/npc/hgrunt_alpha/gr_loadtalk.wav"
-	
+
 	-- Melee Alpha Human Grunt Sergeant
 	if self.Serg_Type == 2 then
 		self:SetBodygroup(1, 1)

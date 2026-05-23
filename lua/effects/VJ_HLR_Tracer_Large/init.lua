@@ -12,7 +12,7 @@ function EFFECT:Init(data)
 	local ent = data:GetEntity()
 	local att = data:GetAttachment()
 	local locPly = LocalPlayer()
-	
+
 	if (IsValid( ent ) && att > 0) then
 		if (ent.Owner == locPly && locPly:GetViewModel() != locPly) then ent = ent.Owner:GetViewModel() end
 		att = ent:GetAttachment(att)

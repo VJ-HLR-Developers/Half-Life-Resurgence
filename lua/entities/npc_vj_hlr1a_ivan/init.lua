@@ -14,9 +14,9 @@ ENT.HealthRegenParams = {
 }
 ENT.HullType = HULL_HUMAN
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(0, 0, -15),
-    FirstP_Bone = "unnamed021",
-    FirstP_Offset = Vector(8, 0, 7),
+	ThirdP_Offset = Vector(0, 0, -15),
+	FirstP_Bone = "unnamed021",
+	FirstP_Offset = Vector(8, 0, 7),
 	FirstP_ShrinkBone = true,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -116,7 +116,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
 	end
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh1.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 0, 40))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 1, 40))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(1, 0, 40))})

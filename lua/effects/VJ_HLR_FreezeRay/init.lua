@@ -12,7 +12,7 @@ function EFFECT:Init(data)
 	self.Ent = data:GetEntity()
 	self.Att = data:GetAttachment()
 	if IsValid(self.Ent) then self.StartPos = self.Ent:GetAttachment(self.Att).Pos end
-	
+
 	self.HitPos = self.EndPos - self.StartPos
 	self.DieTime = CurTime() + 0.15
 	self:SetRenderBoundsWS(self.StartPos, self.EndPos)

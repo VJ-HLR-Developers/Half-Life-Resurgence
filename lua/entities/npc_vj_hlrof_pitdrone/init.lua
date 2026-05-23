@@ -10,9 +10,9 @@ ENT.StartHealth = 80
 ENT.SightAngle = 230
 ENT.HullType = HULL_HUMAN
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(15, 0, 0),
-    FirstP_Bone = "Bip01 Head",
-    FirstP_Offset = Vector(7, 0, 0),
+	ThirdP_Offset = Vector(15, 0, 0),
+	FirstP_Bone = "Bip01 Head",
+	FirstP_Offset = Vector(7, 0, 0),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
@@ -61,7 +61,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("RELOAD: Reload all the spikes")
-	
+
 	function controlEnt:OnKeyBindPressed(key)
 		local npc = self.VJCE_NPC
 		if key == IN_RELOAD && npc:GetBodygroup(1) != 1 then
@@ -142,7 +142,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
 	end
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pitdrone_gib1.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 20))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pitdrone_gib2.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 1, 20))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/pitdrone_gib3.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(1, 0, 20))})

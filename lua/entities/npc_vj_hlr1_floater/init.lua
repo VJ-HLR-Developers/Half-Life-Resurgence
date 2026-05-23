@@ -15,9 +15,9 @@ ENT.Aerial_FlyingSpeed_Alerted = 180
 ENT.Aerial_AnimTbl_Calm = ACT_WALK
 ENT.Aerial_AnimTbl_Alerted = ACT_RUN
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(0, 0, -15),
-    FirstP_Bone = "Bone01",
-    FirstP_Offset = Vector(1, 0, 5),
+	ThirdP_Offset = Vector(0, 0, -15),
+	FirstP_Bone = "Bone01",
+	FirstP_Offset = Vector(1, 0, 5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.ConstantlyFaceEnemy = true
@@ -111,7 +111,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
 	end
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 15))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(1, 0, 15))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib7.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 1, 15))})

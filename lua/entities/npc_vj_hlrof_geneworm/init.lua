@@ -13,7 +13,7 @@ ENT.VJ_ID_Boss = true
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CanTurnWhileStationary = false
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(0, 0, -150),
+	ThirdP_Offset = Vector(0, 0, -150),
 	FirstP_Bone = "Bone96",
 	FirstP_Offset = Vector(0, 0, 0),
 	FirstP_ShrinkBone = true,
@@ -75,7 +75,7 @@ function ENT:Init()
 	self:SetRenderMode(RENDERMODE_TRANSALPHA)
 	self.GW_EyeHealth = {r = maxEyeHealth, l = maxEyeHealth}
 	self.GW_OrbHealth = maxOrbHealth
-	
+
 	-- Bulleyes for both eyes & the core
 	self.GW_BE_EyeR = ents.Create("obj_vj_bullseye")
 	self.GW_BE_EyeR:SetModel("models/hunter/plates/plate.mdl")
@@ -108,7 +108,7 @@ function ENT:Init()
 	self:SetRelationshipMemory(self.GW_BE_Orb, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
 	self.GW_BE_Orb:AddFlags(FL_NOTARGET)
 	self:DeleteOnRemove(self.GW_BE_Orb)
-	
+
 	-- Eye Lights
 	self.GW_EyeLightL = ents.Create("light_dynamic")
 	self.GW_EyeLightL:SetKeyValue("brightness", 1)
@@ -130,7 +130,7 @@ function ENT:Init()
 	self.GW_EyeLightR:Activate()
 	self.GW_EyeLightR:Fire("TurnOn")
 	self:DeleteOnRemove(self.GW_EyeLightR)
-	
+
 	-- Stomach Orb (core)
 	self.GW_OrbSprite = ents.Create("env_sprite")
 	self.GW_OrbSprite:SetKeyValue("model", "vj_hl/sprites/boss_glow.vmt")
@@ -151,7 +151,7 @@ function ENT:Init()
 	self.GW_OrbSprite:Fire("HideSprite")
 	self.GW_OrbSprite:Spawn()
 	self:DeleteOnRemove(self.GW_OrbSprite)
-	
+
 	-- The purple portal
 	self.GW_Portal = ents.Create("prop_vj_animatable")
 	self.GW_Portal:SetModel("models/vj_hlr/opfor/effects/geneportal.mdl")
@@ -162,7 +162,7 @@ function ENT:Init()
 	self.GW_Portal:Spawn()
 	self.GW_Portal:Activate()
 	self:DeleteOnRemove(self.GW_Portal)
-	
+
 	-- Portal ambient sounds
 	self.GW_Portal.MoveLP = CreateSound(self.GW_Portal, "vj_hlr/gsrc/fx/alien_zonerator.wav")
 	self.GW_Portal.MoveLP:SetSoundLevel(100)
@@ -452,7 +452,7 @@ function ENT:GW_CleanUp()
 	if IsValid(self.GW_BE_EyeL) then self.GW_BE_EyeL:Remove() end
 	if IsValid(self.GW_BE_Orb) then self.GW_BE_Orb:Remove() end
 	if IsValid(self.GW_OrbSprite) then self.GW_OrbSprite:Remove() end
-	
+
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local deathParticlePos = Vector(0, 0, -25)
@@ -472,7 +472,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			sprParticles:Fire("Start", "", 0)
 			sprParticles:Fire("Kill", "", 18)
 			self:DeleteOnRemove(sprParticles)
-			
+
 			-- Not Gene Worm effects
 			/*for i = 1, math.random(12, 20) do
 				timer.Simple(i * math.Rand(0.5, 1), function()

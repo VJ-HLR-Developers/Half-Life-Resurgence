@@ -8,7 +8,7 @@ function EFFECT:Init(data)
 	self.Size = data:GetScale()
 	local emitter = ParticleEmitter(self.Pos)
 	if emitter == nil then return end
-	
+
 	for _ = 1, 10 do
 		local fxSpark = emitter:Add("vj_hl/tracer_middle", self.Pos)
 		fxSpark:SetVelocity(VectorRand() * math.Rand(50, 50))

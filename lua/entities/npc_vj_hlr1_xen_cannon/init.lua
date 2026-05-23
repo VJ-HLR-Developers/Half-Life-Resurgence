@@ -14,9 +14,9 @@ ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CanTurnWhileStationary = false
 ENT.PoseParameterLooking_TurningSpeed = 5
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(0, 0, 0),
-    FirstP_Bone = "joint3",
-    FirstP_Offset = Vector(0, 0, 50),
+	ThirdP_Offset = Vector(0, 0, 0),
+	FirstP_Bone = "joint3",
+	FirstP_Offset = Vector(0, 0, 50),
 	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -96,14 +96,14 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		VJ.ApplyRadiusDamage(self, self, hitPos, 30, 40, DMG_ENERGYBEAM, true, false, {Force=90})
 		VJ.EmitSound(self, "vj_hlr/gsrc/npc/xencannon/fire.wav", 90, 100)
 		sound.Play("vj_hlr/gsrc/npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitPos, 60)
-		
+
 		local elec = EffectData()
 		elec:SetStart(startPos)
 		elec:SetOrigin(hitPos)
 		elec:SetEntity(self)
 		elec:SetAttachment(1)
 		util.Effect("VJ_HLR_XenCannon_Beam", elec)
-		
+
 		local sprMuzzleFlash = ents.Create("env_sprite")
 		sprMuzzleFlash:SetKeyValue("model", "vj_hl/sprites/flare3.vmt")
 		sprMuzzleFlash:SetKeyValue("rendercolor", "0 0 255")

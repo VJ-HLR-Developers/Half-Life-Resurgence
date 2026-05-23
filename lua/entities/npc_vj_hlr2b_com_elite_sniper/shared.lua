@@ -9,5 +9,5 @@ if CLIENT then
 	-- Do not draw eye glow for this combine unit, he's supposed to be camouflaged!
 	function ENT:Draw()
 		self:DrawModel()
-    end
+	end
 end

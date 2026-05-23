@@ -116,10 +116,10 @@ function ENT:SetAnimationTranslations(wepHoldType)
 	-- Most animations don't need translating as they are the same as the default activity name
 	self.AnimationTranslations[ACT_GESTURE_RANGE_ATTACK1] = ACT_GESTURE_RANGE_ATTACK_AR2
 	self.AnimationTranslations[ACT_COVER_LOW] = {ACT_COVER_LOW, "vjseq_crouch_leanwall_idle01"}
-	
+
 	self.AnimationTranslations[ACT_WALK_CROUCH] = ACT_WALK_CROUCH_RIFLE
 	self.AnimationTranslations[ACT_WALK_CROUCH_AIM] = ACT_WALK_CROUCH_AIM_RIFLE
-	
+
 	self.AnimationTranslations[ACT_RUN_CROUCH] = ACT_RUN_CROUCH_RIFLE
 	self.AnimationTranslations[ACT_RUN_CROUCH_AIM] = ACT_RUN_CROUCH_AIM_RIFLE
 end

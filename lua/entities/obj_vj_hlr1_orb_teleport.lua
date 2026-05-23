@@ -34,7 +34,7 @@ ENT.Track_Position = defVec
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetNoDraw(true)
-	
+
 	local sprite = ents.Create("env_sprite")
 	sprite:SetKeyValue("model", "vj_hl/sprites/exit1.vmt")
 	//sprite:SetKeyValue("rendercolor", "255 128 0")
@@ -86,11 +86,11 @@ function ENT:OnDealDamage(data, phys, hitEnts)
 				filter = owner,
 			})
 			local pos = tr.HitPos + tr.HitNormal * ent:OBBMaxs()
-			
+
 			if ent:IsPlayer() then
 				ent:ScreenFade(SCREENFADE.IN, colorGreen, 2, 1)
 			end
-			
+
 			VJ.HLR1_Effect_Portal(self:GetPos())
 			VJ.HLR1_Effect_Portal(pos, nil, nil, function()
 				-- onSpawn

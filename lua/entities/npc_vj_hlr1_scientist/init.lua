@@ -9,9 +9,9 @@ ENT.Model = "models/vj_hlr/hl1/scientist.mdl"
 ENT.StartHealth = 50
 ENT.HullType = HULL_HUMAN
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(10, 0, -30),
-    FirstP_Bone = "Bip02 Head",
-    FirstP_Offset = Vector(5, 0, 5),
+	ThirdP_Offset = Vector(10, 0, -30),
+	FirstP_Bone = "Bip02 Head",
+	FirstP_Offset = Vector(5, 0, 5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
@@ -145,7 +145,7 @@ local SCI_TYPE_CLEANSUIT = 1 -- Cleansuit Scientist
 local SCI_TYPE_ALPHA = 2 -- Alpha Scientist
 local SCI_TYPE_KELLER = 3 -- Dr. Keller
 local SCI_TYPE_ROSENBERG = 4 -- Dr. Rosenberg
-	
+
 -- Custom
 ENT.SCI_NextMouthMove = 0
 ENT.SCI_NextMouthDistance = 0
@@ -176,7 +176,7 @@ function ENT:Init() -- This function runs for: SCI_TYPE_REGULAR, SCI_TYPE_CLEANS
 		self.SoundTbl_Pain = {"vj_hlr/gsrc/npc/scientist/sci_pain1.wav", "vj_hlr/gsrc/npc/scientist/sci_pain2.wav", "vj_hlr/gsrc/npc/scientist/sci_pain3.wav", "vj_hlr/gsrc/npc/scientist/sci_pain4.wav", "vj_hlr/gsrc/npc/scientist/sci_pain5.wav", "vj_hlr/gsrc/npc/scientist/sci_pain6.wav", "vj_hlr/gsrc/npc/scientist/sci_pain7.wav", "vj_hlr/gsrc/npc/scientist/sci_pain8.wav", "vj_hlr/gsrc/npc/scientist/sci_pain9.wav", "vj_hlr/gsrc/npc/scientist/sci_pain10.wav", "vj_hlr/gsrc/npc/scientist/sci_fear9.wav", "vj_hlr/gsrc/npc/scientist/sci_fear10.wav", "vj_hlr/gsrc/npc/scientist/c1a2_sci_dangling.wav", "vj_hlr/gsrc/npc/scientist/iwounded.wav", "vj_hlr/gsrc/npc/scientist/iwounded2.wav", "vj_hlr/gsrc/npc/scientist/iwoundedbad.wav"}
 		self.SoundTbl_DamageByPlayer = {"vj_hlr/gsrc/npc/scientist/youinsane.wav", "vj_hlr/gsrc/npc/scientist/whatyoudoing.wav", "vj_hlr/gsrc/npc/scientist/please.wav", "vj_hlr/gsrc/npc/scientist/c3a2_sci_fool.wav", "vj_hlr/gsrc/npc/scientist/c1a3_sci_team.wav", "vj_hlr/gsrc/npc/scientist/c1a0_sci_stayback.wav", "vj_hlr/gsrc/npc/scientist/c1a2_sci_3zomb.wav", "vj_hlr/gsrc/npc/scientist/c1a2_sci_5zomb.wav"}
 		self.SoundTbl_Death = {"vj_hlr/gsrc/npc/scientist/scream5.wav", "vj_hlr/gsrc/npc/scientist/scream21.wav", "vj_hlr/gsrc/npc/scientist/sci_die1.wav", "vj_hlr/gsrc/npc/scientist/sci_die2.wav", "vj_hlr/gsrc/npc/scientist/sci_die3.wav", "vj_hlr/gsrc/npc/scientist/sci_die4.wav", "vj_hlr/gsrc/npc/scientist/sci_dragoff.wav"}
-		
+
 		local randBG = math.random(0, 4)
 		self:SetBodygroup(1, randBG)
 		if randBG == 2 && self.SCI_Type == SCI_TYPE_REGULAR then
@@ -193,10 +193,10 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	elseif self.SCI_Type == SCI_TYPE_KELLER then
 		ply:ChatPrint("JUMP: Stand up")
 	end
-	
+
 	self.SCI_ControllerAnim = 0
 	self.SCI_NextTieAnnoyanceT = 0
-	
+
 	function controlEnt:OnKeyBindPressed(key)
 		local npc = self.VJCE_NPC
 		-- Toggle behavior setting (Idle / Alert)
@@ -345,7 +345,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		effectData:SetColor(0)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
-		
+
 		if self.SCI_Type == SCI_TYPE_KELLER then
 			local spr = ents.Create("env_sprite")
 			spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
@@ -366,7 +366,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 			timer.Simple(0.7, function() if IsValid(spr) then spr:Remove() end end)
 		end
 	end
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh1.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 0, 40))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 1, 40))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(1, 0, 40))})

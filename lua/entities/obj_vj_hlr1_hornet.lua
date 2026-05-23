@@ -51,7 +51,7 @@ local colorOrange = Color(255, 128, 0)
 --
 function ENT:Init()
 	timer.Simple(5, function() if IsValid(self) then self:Remove() end end)
-	
+
 	if self.Hornet_Alpha then
 		self.SoundTbl_OnCollide = sdCollideAlpha
 		self.Hornet_Type = HORNET_TYPE_ALPHA
@@ -92,7 +92,7 @@ function ENT:OnCollision(data, phys)
 	lastVel = math.max(newVel:Length(), lastVel)
 	phys:SetVelocity(newVel * lastVel * 0.3)
 	self:SetAngles(self:GetVelocity():GetNormal():Angle())
-	
+
 	-- Remove if it's a living being
 	if data.HitEntity.VJ_ID_Living then
 		self.CollisionBehavior = VJ.PROJ_COLLISION_REMOVE

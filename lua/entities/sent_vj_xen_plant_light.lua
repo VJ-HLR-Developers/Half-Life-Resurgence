@@ -23,7 +23,7 @@ function ENT:Initialize()
 	self:SetMoveType(MOVETYPE_NONE)
 	self:SetSolid(SOLID_BBOX)
 	self:ResetSequence("Idle1")
-	
+
 	self.DynamicLight = ents.Create("light_dynamic")
 	self.DynamicLight:SetKeyValue("brightness", "6")
 	self.DynamicLight:SetKeyValue("distance", "150")
@@ -37,7 +37,7 @@ function ENT:Initialize()
 	self.DynamicLight:Fire("SetParentAttachment", "0", 0)
 	self.DynamicLight:Fire("TurnOn", "", 0)
 	self:DeleteOnRemove(self.DynamicLight)
-	
+
 	self.FlareSprite = ents.Create("env_sprite")
 	self.FlareSprite:SetKeyValue("model", "vj_hl/sprites/flare3.vmt")
 	self.FlareSprite:SetKeyValue("rendercolor", "255 128 0")
@@ -74,7 +74,7 @@ function ENT:Think()
 			return true
 		end
 	end
-	
+
 	if self.XenPlant_Retracted == true && self.XenPlant_NextDeployT < CurTime() then
 		self.XenPlant_Retracted = false
 		self:ResetSequence("Delpoy")

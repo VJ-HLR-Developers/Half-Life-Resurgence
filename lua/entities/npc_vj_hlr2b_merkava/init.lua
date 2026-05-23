@@ -8,9 +8,9 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl2b/merkava.mdl"
 ENT.StartHealth = 500
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(-40, 0, 20),
-    FirstP_Bone = "body",
-    FirstP_Offset = Vector(0, 0, 70),
+	ThirdP_Offset = Vector(-40, 0, 20),
+	FirstP_Bone = "body",
+	FirstP_Offset = Vector(0, 0, 70),
 	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------

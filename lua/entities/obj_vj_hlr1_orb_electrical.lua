@@ -32,7 +32,7 @@ ENT.Track_SpriteScale = 1.2
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetNoDraw(true)
-	
+
 	local sprite = ents.Create("env_sprite")
 	sprite:SetKeyValue("model", "vj_hl/sprites/nhth1.vmt")
 	//sprite:SetKeyValue("rendercolor", "255 128 0")

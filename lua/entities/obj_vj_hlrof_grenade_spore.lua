@@ -51,12 +51,12 @@ function ENT:OnCollision(data, phys)
 	//if curVelSpeed > 500 then -- Or else it will go flying!
 		//phys:SetVelocity(getVel + self:GetUp()*1000)
 	//end
-	
+
 	-- If the grenade is going faster than 100, then play the touch sound
 	if curVelSpeed > 100 then
 		self:PlaySound("OnCollide")
 	end
-	
+
 	local ent = data.HitEntity
 	if IsValid(ent) && (ent:IsNPC() or ent:IsPlayer()) then
 		self:OnDestroy()

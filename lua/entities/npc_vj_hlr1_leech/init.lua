@@ -17,9 +17,9 @@ ENT.Aquatic_AnimTbl_Calm = ACT_SWIM_IDLE
 ENT.Aquatic_AnimTbl_Alerted = ACT_SWIM
 ENT.IdleAlwaysWander = true
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(29, 0, 10),
-    FirstP_Bone = "Bone01",
-    FirstP_Offset = Vector(0, 0, 0),
+	ThirdP_Offset = Vector(29, 0, 10),
+	FirstP_Bone = "Bone01",
+	FirstP_Offset = Vector(0, 0, 0),
 	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------

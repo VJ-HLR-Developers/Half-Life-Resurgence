@@ -36,7 +36,7 @@ ENT.Track_OrbSpeed = 200
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetNoDraw(true)
-	
+
 	self.MainSprite = ents.Create("env_sprite")
 	self.MainSprite:SetKeyValue("model", "vj_hl/sprites/nhth1.vmt")
 	self.MainSprite:SetKeyValue("GlowProxySize", "2.0")

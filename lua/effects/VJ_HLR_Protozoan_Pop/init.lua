@@ -25,14 +25,14 @@ function EFFECT:Init(data)
 			particle:SetDieTime(math.Rand(20, 30))
 			particle:SetStartAlpha(alpha)
 			particle:SetEndAlpha(alpha)
-			
+
 			particle:SetStartSize(size)
 			particle:SetEndSize(0)
 			particle:SetRoll(math.Rand(0, 360))
 			particle:SetRollDelta(math.Rand(-2, 2))
 			particle:SetAirResistance(100)
 			particle:SetGravity(Vector(0, 0, -60))
-			
+
 			particle:SetColor(color.r, color.g, color.b)
 			particle:SetCollide(true)
 			particle:SetAngleVelocity(Angle(math.Rand(-160, 160), math.Rand(-160, 160), math.Rand(-160, 160)))

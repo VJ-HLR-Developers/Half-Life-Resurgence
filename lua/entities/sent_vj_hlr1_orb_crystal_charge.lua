@@ -29,7 +29,7 @@ function ENT:Initialize()
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
 	//ParticleEffectAttach("vj_hlr_nihilanth_chargeorb", PATTACH_ABSORIGIN_FOLLOW, self, 0)
-	
+
 	local StartGlow1 = ents.Create("env_sprite")
 	StartGlow1:SetKeyValue("model", "vj_hl/sprites/muzzleflash3.vmt")
 	//StartGlow1:SetKeyValue("rendercolor", "255 128 0")

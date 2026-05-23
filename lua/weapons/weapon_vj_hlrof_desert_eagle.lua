@@ -30,14 +30,14 @@ SWEP.PrimaryEffects_MuzzleFlash = false
 
 -- Custom
 local validModels = {
-    ["models/vj_hlr/opfor/otis.mdl"] = true,
-    ["models/vj_hlr/opfor/hgrunt.mdl"] = true,
-    ["models/vj_hlr/hl1/hgrunt.mdl"] = true,
-    ["models/vj_hlr/opfor/hgrunt_medic.mdl"] = true,
-    ["models/vj_hlr/opfor/hgrunt_engineer.mdl"] = true,
-    ["models/vj_hlr/opfor_hd/hgrunt.mdl"] = true,
-    ["models/vj_hlr/opfor_hd/hgrunt_medic.mdl"] = true,
-    ["models/vj_hlr/opfor_hd/hgrunt_engineer.mdl"] = true,
+	["models/vj_hlr/opfor/otis.mdl"] = true,
+	["models/vj_hlr/opfor/hgrunt.mdl"] = true,
+	["models/vj_hlr/hl1/hgrunt.mdl"] = true,
+	["models/vj_hlr/opfor/hgrunt_medic.mdl"] = true,
+	["models/vj_hlr/opfor/hgrunt_engineer.mdl"] = true,
+	["models/vj_hlr/opfor_hd/hgrunt.mdl"] = true,
+	["models/vj_hlr/opfor_hd/hgrunt_medic.mdl"] = true,
+	["models/vj_hlr/opfor_hd/hgrunt_engineer.mdl"] = true,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()

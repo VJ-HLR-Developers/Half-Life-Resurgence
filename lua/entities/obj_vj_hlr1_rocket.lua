@@ -77,7 +77,7 @@ function ENT:Init()
 	self:DeleteOnRemove(self.StartGlow1)
 	util.SpriteTrail(self, 0, colorTrail, true, 5, 20, 6, 1 / (5 + 20) * 0.5, "vj_hl/sprites/smoke.vmt")
 	self:SetNW2Bool("VJ_Dead", false)
-	
+
 	-- For helicopters
 	if self.Rocket_HelicopterMissile then
 		timer.Simple(0.5, function()
@@ -140,7 +140,7 @@ local vecZ80 = Vector(0, 0, 80)
 function ENT:OnDestroy(data, phys)
 	util.ScreenShake(data.HitPos, 16, 200, 1, 3000)
 	if IsValid(self.StartGlow1) then self.StartGlow1:Remove() end
-	
+
 	self:SetNW2Bool("VJ_Dead", true)
 	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris" .. math.random(1, 3) .. ".wav", 80, 100)
 	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100, 100, 1)
@@ -161,7 +161,7 @@ function ENT:OnDestroy(data, phys)
 	spr:Spawn()
 	spr:Fire("Kill", "", 0.9)
 	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
-	
+
 	local expLight = ents.Create("light_dynamic")
 	expLight:SetKeyValue("brightness", "4")
 	expLight:SetKeyValue("distance", "300")

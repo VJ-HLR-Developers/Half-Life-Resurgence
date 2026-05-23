@@ -11,9 +11,9 @@ ENT.SightAngle = 203
 ENT.HullType = HULL_HUMAN
 ENT.VJ_ID_Boss = true
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(-50, 0, -45),
-    FirstP_Bone = "Bip01 Head",
-    FirstP_Offset = Vector(7, 0, -12),
+	ThirdP_Offset = Vector(-50, 0, -45),
+	FirstP_Bone = "Bip01 Head",
+	FirstP_Offset = Vector(7, 0, -12),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
@@ -92,7 +92,7 @@ function ENT:Init()
 	elseif self.Garg_Type == 1 then -- Baby garg
 		self:SetCollisionBounds(Vector(32, 32, 105),  Vector(-32, -32, 0))
 	end
-	
+
 	local glow1 = ents.Create("env_sprite")
 	glow1:SetKeyValue("model", "vj_hl/sprites/gargeye1.vmt")
 	glow1:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
@@ -151,7 +151,7 @@ function ENT:OnThinkActive()
 	if self.Garg_CanFlame && self.Garg_NextFlameT < CurTime() && self.AttackType == VJ.ATTACK_TYPE_NONE then
 		self.DisableChasingEnemy = true
 		self:StopMoving()
-		
+
 		-- Startup animation and sound
 		if self.Garg_FlameLevel == 0 then
 			self:PlayAnim("shootflames1", "LetAttacks", false)
@@ -164,13 +164,13 @@ function ENT:OnThinkActive()
 			end)
 			return
 		end
-		
+
 		self.Garg_FlameLevel = 2
 		self.Garg_NextFlameT = CurTime() + 0.2
-		
+
 		local range = (self.Garg_Type == 1 and 280) or 460
 		VJ.ApplyRadiusDamage(self, self, self:GetPos() + self:OBBCenter() + self:GetForward()*15, range, 3, DMG_BURN, true, true, {UseConeDegree = 35}, function(ent) if !ent:IsOnFire() && (ent:IsPlayer() or ent:IsNPC()) then ent:Ignite(2) end end)
-		
+
 		-- COSMETICS: Sound, particle and decal
 		self.Garg_FlameSd = VJ.CreateSound(self, "vj_hlr/gsrc/npc/garg/gar_flamerun1.wav")
 		self:StopParticles()
@@ -275,7 +275,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		rico:SetScale(5) -- Size
 		rico:SetMagnitude(math.random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
 		util.Effect("VJ_HLR_Rico", rico)
-	
+
 	-- Handle bullet damage scaling
 	elseif status == "PreDamage" && dmginfo:IsBulletDamage() then
 		if self.Garg_Type == 1 then -- Make babies take half damage for bullets
@@ -338,7 +338,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 				effectData:SetColor(1)
 				util.Effect("bloodspray", effectData)
 				util.Effect("bloodspray", effectData)
-				
+
 				local spr = ents.Create("env_sprite")
 				spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 				spr:SetKeyValue("GlowProxySize", "2.0")
@@ -357,15 +357,15 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 				spr:Fire("Kill", "", 0.9)
 				timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 			end
-			
+
 			util.BlastDamage(self, self, myPos, 150, 80)
 			util.ScreenShake(myPos, 100, 200, 1, 2500)
-			
+
 			VJ.EmitSound(self, sdExplosions, 90, 100)
 			VJ.EmitSound(self, "vj_base/gib/splat.wav", 90, 100)
-			
+
 			util.Decal("VJ_HLR1_Scorch", myPos, myPos + self:GetUp()*-100, self)
-			 
+
 			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 1, 40))})
 			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(1, 0, 20))})
 			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 2, 30))})
@@ -384,7 +384,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib8.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(8, 0, 45))})
 			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib9.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 1, 25))})
 			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib10.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(1, 0, 15))})
-			
+
 			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p1.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(0, 0, 40)), CollisionSound = sdMetalCollision})
 			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p2.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(0, 0, 41)), CollisionSound = sdMetalCollision})
 			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p3.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(0, 0, 50)), CollisionSound = sdMetalCollision})

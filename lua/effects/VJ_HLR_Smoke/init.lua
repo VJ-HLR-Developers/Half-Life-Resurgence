@@ -8,7 +8,7 @@ function EFFECT:Init(data)
 	self.Size = data:GetScale()
 	local emitter = ParticleEmitter(self.Pos)
 	if emitter == nil then return end
-	
+
 	local fx = emitter:Add("vj_hl/sprites/steam1", self.Pos)
 	fx:SetVelocity(self:GetUp()*100 + Vector(0, 20, 20))
 	fx:SetDieTime(2)

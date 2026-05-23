@@ -13,8 +13,8 @@ ENT.SightAngle = 132.84
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CanTurnWhileStationary = false
 ENT.ControllerParams = {
-    FirstP_Bone = "barrel",
-    FirstP_Offset = Vector(0, 6, 6),
+	FirstP_Bone = "barrel",
+	FirstP_Offset = Vector(0, 6, 6),
 	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -64,7 +64,7 @@ ENT.Turret_IdleAngryAnim = ACT_IDLE -- Will be replaced on initialize
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(13, 13, 63), Vector(-13, -13, 0))
-	
+
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model", "sprites/glow1.vmt")
 	spr:SetKeyValue("scale", "0.4")
@@ -79,12 +79,12 @@ function ENT:Init()
 	spr:Fire("HideSprite")
 	self:DeleteOnRemove(spr)
 	self.Turret_Sprite = spr
-	
+
 	-- For resistance turrets
 	if self:GetModel() == "models/vj_hlr/hl2/floor_turret.mdl" then
 		self:SetSkin(math.random(1, 3))
 	end
-	
+
 	self.Turret_IdleAnim = self:GetSequenceActivity(self:LookupSequence("idle"))
 	self.Turret_IdleAngryAnim = self:GetSequenceActivity(self:LookupSequence("idlealert"))
 	self.TurretSD_Turning = CreateSound(self, "npc/turret_wall/turret_loop1.wav")
@@ -95,11 +95,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("SPACE: Activate / Deactivate")
-	
+
 	self.Turret_ControllerStatus = 0
 	self.HasPoseParameterLooking = false -- Initially, we are going to start as idle, we do NOT want the turret turning!
 	self.NextAlertSoundT = CurTime() + 1 -- So it doesn't play the alert sound as soon as it enters the NPC!
-	
+
 	function controlEnt:OnKeyPressed(key)
 		local npc = self.VJCE_NPC
 		if key == KEY_SPACE then
@@ -114,7 +114,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 			end
 		end
 	end
-	
+
 	function controlEnt:OnStopControlling(keyPressed)
 		local npc = self.VJCE_NPC
 		if IsValid(npc) then
@@ -160,9 +160,9 @@ function ENT:OnThinkActive()
 				self.Turret_Sprite:Fire("Color", "255 128 0") -- Orange
 				self.Turret_Sprite:Fire("ShowSprite")
 			end
-			
+
 			local doScan = false
-			
+
 			-- Make it scan around if the enemy is behind, which is unreachable for it!
 			if eneValid && !self.Turret_HasLOS && (math.abs(self.EnemyData.VisibleTime - CurTime()) >= 1) then
 				doScan = true
@@ -176,7 +176,7 @@ function ENT:OnThinkActive()
 				self.Turret_Status = TURRET_STATUS_TARGETING
 				self.HasPoseParameterLooking = true
 			end
-			
+
 			-- Look around randomly when the enemy is not found or hidden
 			if !eneValid or doScan == true then
 				self.Turret_Status = TURRET_STATUS_SEEKING
@@ -238,7 +238,7 @@ function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
 		self.Turret_HasLOS = false
 		return
 	end
-	
+
 	-- Compare the difference between the current position of the pose parameter and the position it's suppose to go to
 	if (math.abs(math.AngleDifference(self:GetPoseParameter("aim_yaw"), math.ApproachAngle(self:GetPoseParameter("aim_yaw"), yaw, self.PoseParameterLooking_TurningSpeed))) >= 10) or (math.abs(math.AngleDifference(self:GetPoseParameter("aim_pitch"), math.ApproachAngle(self:GetPoseParameter("aim_pitch"), pitch, self.PoseParameterLooking_TurningSpeed))) >= 10) then
 		self.Turret_HasLOS = false
@@ -280,7 +280,7 @@ local bulletSpread = Vector(0.08716, 0.08716, 0.08716) * 1.25 -- VECTOR_CONE_10D
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "Init" then
 		self:PlayAnim("vjseq_fire", false)
-		
+
 		-- Bullet
 		local startPos = self:GetAttachment(self:LookupAttachment("eyes")).Pos
 		local bullet = {}
@@ -294,9 +294,9 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		bullet.Damage = 2
 		bullet.AmmoType = "AR2"
 		self:FireBullets(bullet)
-		
+
 		VJ.EmitSound(self, sdFiring, 90, math.random(100, 110))
-		
+
 		-- Effects & Light
 		//ParticleEffect("vj_rifle_full_blue", startPos, self:GetAngles(), self)
 		local fireLight = ents.Create("light_dynamic")

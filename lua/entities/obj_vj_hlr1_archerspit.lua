@@ -35,7 +35,7 @@ function ENT:OnThink()
 		local myPos = self:GetPos()
 		effects.BubbleTrail(myPos, myPos + self:GetForward()*400, 6, -500, 100)
 	end
-	
+
 	-- Make it slow down when its out of the water and fall down
 	/*if self:WaterLevel() == 0 then
 		local phys = self:GetPhysicsObject()

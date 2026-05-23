@@ -33,7 +33,7 @@ function EFFECT:Init(data) // You're welcome @DrVrej for not making the effect n
 			particle:SetColor(255, 231, 166)
 		end
 	end
-	
+
 	local effect = self.EffectType or math.random(1, 2)
 	if effect == 1 then
 		local fx = Emitter:Add("vj_hl/rico2", self.Pos)

@@ -11,7 +11,7 @@ function EFFECT:Init(data)
 	self.Ent = data:GetEntity()
 	self.Att = data:GetAttachment()
 	self.CurPos = IsValid(self.Ent) and self.Ent:GetAttachment(self.Att).Pos or self.StartPos
-	
+
 	self.Dead = false
 	self.Wait = CurTime() + 0.5 -- Minimum wait time
 end

@@ -15,11 +15,11 @@ function EFFECT:Init(data)
 		self.StartPos = self.Ent:GetAttachment(self.Att).Pos
 		self.EndPos = self.Ent:GetAttachment(4).Pos
 	end
-	
+
 	self.HitPos = self.EndPos - self.StartPos
 	self.DieTime = CurTime() + data:GetScale()
 	self:SetRenderBoundsWS(self.StartPos, self.EndPos)
-	
+
 	util.Decal("VJ_HLR1_Scorch_Small", self.EndPos + data:GetNormal(), self.EndPos - data:GetNormal())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

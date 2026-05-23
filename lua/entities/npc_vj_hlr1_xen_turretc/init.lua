@@ -13,9 +13,9 @@ ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CanTurnWhileStationary = false
 ENT.HullType = HULL_SMALL_CENTERED
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(0, 0, -250),
-    FirstP_Bone = "joint2",
-    FirstP_Offset = Vector(0, 0, -60),
+	ThirdP_Offset = Vector(0, 0, -250),
+	FirstP_Bone = "joint2",
+	FirstP_Offset = Vector(0, 0, -60),
 	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ ENT.MainSoundPitch = 100
 function ENT:Init()
 	self:SetCollisionBounds(Vector(25, 25, 0), Vector(-25, -25, -162))
 	self:DrawShadow(false) -- Because the light somehow makes a shadow =/
-	
+
 	local spotLight = ents.Create("light_dynamic")
 	spotLight:SetPos(self:GetAttachment(1).Pos + Vector(0, 0, -5))
 	spotLight:SetKeyValue("_light", "135 24 194 120")
@@ -55,7 +55,7 @@ function ENT:Init()
 	spotLight:Activate()
 	spotLight:Fire("TurnOn", "", 0)
 	self:DeleteOnRemove(spotLight)
-	
+
 	-- Doesn't work in game
 	/*local spotLight = ents.Create("light_spot")
 	spotLight:SetPos(self:GetAttachment(1).Pos)
@@ -91,11 +91,11 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		elec:SetAttachment(1)
 		elec:SetScale(0.5)
 		util.Effect("VJ_HLR_Electric_Xen_Turretc", elec)
-		
+
 		VJ.ApplyRadiusDamage(self, self, hitPos, 10, 30, DMG_SHOCK, true, false, {Force=90})
 		VJ.EmitSound(self, "vj_hlr/gsrc/npc/xenceiling_turret/beamstart10.wav", 90, 100)
 		//sound.Play("vj_hlr/gsrc/npc/pitworm/pit_worm_attack_eyeblast_impact.wav", hitPos, 60)
-		
+
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model", "vj_hl/sprites/xflare1.vmt")
 		//spr:SetKeyValue("rendercolor", "0 0 255")
@@ -154,7 +154,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		//self:DeleteOnRemove(spr)
 		timer.Simple(1.4, function() SafeRemoveEntity(spr) end)
 	end
-	
+
 	local pos = attPos + vecZ12
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh1.mdl", {CollisionDecal = false,  Pos = pos + Vector(1, 0, 0),  CollisionSound = SdTbl_GibImpact})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {CollisionDecal = false,  Pos = pos + Vector(2, 0, 0),  CollisionSound = SdTbl_GibImpact})

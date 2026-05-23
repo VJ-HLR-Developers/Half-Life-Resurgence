@@ -15,12 +15,12 @@ ENT.PhysicsSolidMask = MASK_SHOT
 
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlof_shock", ENT.PrintName, VJ.KILLICON_PROJECTILE)
-	
+
 	-- net.Receive("vj_hlr_svencoop_glow", function(len, pl)
 		-- local Ent = net.ReadEntity()
 		-- local Target = net.ReadEntity()
 		-- local ENTInd = Target:EntIndex()
-		
+
 		-- Target.VJ_HLR_NextEffectBlendT = 0
 		-- Target.VJ_HLR_EffectBlend = 1
 
@@ -80,7 +80,7 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/wep/gauss/electro5.wav", "vj_hlr/gsrc/wep
 function ENT:Init()
 	self:SetNoDraw(true)
 	ParticleEffectAttach("vj_hlr_shockroach", PATTACH_ABSORIGIN_FOLLOW, self, 0)
-	
+
 	local lightDyn = ents.Create("light_dynamic")
 	lightDyn:SetKeyValue("brightness", "1")
 	lightDyn:SetKeyValue("distance", "200")

@@ -10,9 +10,9 @@ ENT.StartHealth = 1000
 ENT.SightAngle = 360
 ENT.HullType = HULL_LARGE
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(-15, 0, -45),
-    FirstP_Bone = "MDLDEC_Bone23",
-    FirstP_Offset = Vector(8, 0, 6),
+	ThirdP_Offset = Vector(-15, 0, -45),
+	FirstP_Bone = "MDLDEC_Bone23",
+	FirstP_Offset = Vector(8, 0, 6),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
@@ -145,7 +145,7 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 				end
 			end
 		end
-		
+
 		-- If greater then 1, then we found an object!
 		if #pTbl > 0 then
 			self:SetPhysicsDamageScale(0) -- Take no physics damage
@@ -231,7 +231,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
 	end
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(1, 0, 40))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(2, 0, 20))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(3, 0, 30))})

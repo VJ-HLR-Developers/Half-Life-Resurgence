@@ -35,7 +35,7 @@ function ENT:OnCollision(data, phys)
 	local getVel = phys:GetVelocity()
 	local curVelSpeed = getVel:Length()
 	phys:SetVelocity(getVel * 0.5)
-	
+
 	if curVelSpeed > 100 then -- If the grenade is going faster than 100, then play the touch sound
 		self:PlaySound("OnCollide")
 	end
@@ -47,7 +47,7 @@ local vezZ100 = Vector(0, 0, 100)
 --
 function ENT:OnDestroy()
 	local selfPos = self:GetPos()
-	
+
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 	spr:SetKeyValue("GlowProxySize", "2.0")
@@ -65,7 +65,7 @@ function ENT:OnDestroy()
 	spr:Spawn()
 	spr:Fire("Kill", "", 0.9)
 	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
-	
+
 	local expLight = ents.Create("light_dynamic")
 	expLight:SetKeyValue("brightness", "4")
 	expLight:SetKeyValue("distance", "300")
@@ -78,7 +78,7 @@ function ENT:OnDestroy()
 	expLight:Fire("TurnOn", "", 0)
 	self:DeleteOnRemove(expLight)
 	util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
-	
+
 	self:SetLocalPos(selfPos + vecZ4) -- Because the entity is too close to the ground
 	local tr = util.TraceLine({
 		start = self:GetPos(),
@@ -86,7 +86,7 @@ function ENT:OnDestroy()
 		filter = self
 	})
 	util.Decal(VJ.PICK(self.CollisionDecal), tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
-	
+
 	self:DealDamage()
 	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris" .. math.random(1, 3) .. ".wav", 80, 100)
 	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)

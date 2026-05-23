@@ -13,8 +13,8 @@ ENT.MovementType = VJ_MOVETYPE_AERIAL
 ENT.Aerial_FlyingSpeed_Calm = 50
 ENT.Aerial_FlyingSpeed_Alerted = 80
 ENT.ControllerParams = {
-    FirstP_Bone = "Bone02",
-    FirstP_Offset = Vector(5, 0, 7),
+	FirstP_Bone = "Bone02",
+	FirstP_Offset = Vector(5, 0, 7),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
@@ -86,7 +86,7 @@ function ENT:OnRangeAttack(status, enemy)
 		local myForward = self:GetForward()
 		local myRight = self:GetRight()
 		local myUp = self:GetUp()
-		
+
 		-- Tsakh --------------------------
 		local tsakhSpawn = myPos + myUp*45 + myRight*20
 		local tsakhLocations = {
@@ -131,14 +131,14 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 			filter = self
 		})
 		local hitPos = tr.HitPos
-		
+
 		local elec = EffectData()
 		elec:SetStart(startPos)
 		elec:SetOrigin(hitPos)
 		elec:SetEntity(self)
 		elec:SetAttachment(1)
 		util.Effect("VJ_HLR_Electric", elec)
-		
+
 		VJ.ApplyRadiusDamage(self, self, hitPos, 30, 10, DMG_SHOCK, true, false, {Force = 90})
 		return true
 	end
@@ -172,7 +172,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
 	end
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib6.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 0))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib7.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(1, 0, 0))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib8.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 1, 0))})

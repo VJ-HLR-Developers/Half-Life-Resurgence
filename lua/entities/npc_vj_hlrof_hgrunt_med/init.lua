@@ -8,9 +8,9 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/opfor/hgrunt_medic.mdl"
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(0, 0, -15),
-    FirstP_Bone = "Bip01 Head",
-    FirstP_Offset = Vector(5, 0, 1),
+	ThirdP_Offset = Vector(0, 0, -15),
+	FirstP_Bone = "Bip01 Head",
+	FirstP_Offset = Vector(5, 0, 1),
 }
 ENT.IsMedic = true
 
@@ -20,7 +20,7 @@ ENT.HECUMedic_HealBG = 0
 function ENT:HECU_OnInit()
 	-- Medic bodygroup starts from 2
 	self:SetBodygroup(2, math.random(0, 1))
-	
+
 	self:SetBodygroup(3, math.random(0, 1))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

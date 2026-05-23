@@ -8,9 +8,9 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/opfor/hgrunt.mdl"
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(0, 0, -15),
-    FirstP_Bone = "Bip01 Head",
-    FirstP_Offset = Vector(5, 0, 1),
+	ThirdP_Offset = Vector(0, 0, -15),
+	FirstP_Bone = "Bip01 Head",
+	FirstP_Offset = Vector(5, 0, 1),
 }
 ENT.HasOnPlayerSight = true
 ENT.BecomeEnemyToPlayer = 2
@@ -80,7 +80,7 @@ ENT.SoundTbl_IdleDialogue = {
 	"vj_hlr/gsrc/npc/hgrunt_opf/chicken.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/charge.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/bfeeling.wav"
-	
+
 }
 ENT.SoundTbl_IdleDialogueAnswer = {
 	"vj_hlr/gsrc/npc/hgrunt_opf/yes.wav",
@@ -215,7 +215,7 @@ ENT.SoundTbl_Death = {
 function ENT:HECU_OnInit()
 	if self.HECU_Type == 1 then
 		self:SetBodygroup(1, math.random(0, 9))
-		
+
 		local randWep = math.random(1, 4)
 		if randWep == 1 or randWep == 2 then
 			self:SetBodygroup(3, 0)
@@ -224,7 +224,7 @@ function ENT:HECU_OnInit()
 		elseif randWep == 4 then
 			self:SetBodygroup(3, 2)
 		end
-		
+
 		-- Marminen hamar
 		if self:GetBodygroup(3) == 0 then
 			self:SetBodygroup(2, 0) -- Barz zenk

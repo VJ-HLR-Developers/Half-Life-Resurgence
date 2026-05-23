@@ -73,7 +73,7 @@ end
 function SWEP:OnThink()
 	local owner = self:GetOwner()
 	owner:SetBodygroup(1, 0)
-	
+
 	-- Play shock roach idle sounds
 	if CurTime() > self.HLR_NextIdleSoundT then
 		if IsValid(owner:GetEnemy()) then

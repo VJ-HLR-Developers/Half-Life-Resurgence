@@ -9,9 +9,9 @@ ENT.Model = "models/vj_hlr/hl1/sqknest.mdl"
 ENT.StartHealth = 20
 ENT.HullType = HULL_TINY
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(0, 0, 0),
-    FirstP_Bone = "Bip01 nECK",
-    FirstP_Offset = Vector(3, 0, 1),
+	ThirdP_Offset = Vector(0, 0, 0),
+	FirstP_Bone = "Bip01 nECK",
+	FirstP_Offset = Vector(3, 0, 1),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_SNARK"}
@@ -78,7 +78,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				effectData:SetColor(0)
 				util.Effect("bloodspray", effectData)
 				util.Effect("bloodspray", effectData)
-				
+
 				local spr = ents.Create("env_sprite")
 				spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 				spr:SetKeyValue("GlowProxySize", "2.0")
@@ -98,7 +98,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 			end
 		end
-		
+
 		if math.random(1, 1000) == 1 then -- Secret =)
 			if self.Nest_SpawnEnt == "npc_vj_hlr1_snark" then
 				self.Nest_SpawnEnt = "npc_vj_hlrof_penguin"
@@ -106,7 +106,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				self.Nest_SpawnEnt = "npc_vj_hlr1_snark"
 			end
 		end
-		
+
 		-- Spawn random amount of children
 		for _ = 1, math.random(4, 8) do
 			local ent = ents.Create(self.Nest_SpawnEnt)

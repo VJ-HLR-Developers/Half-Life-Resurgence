@@ -8,9 +8,9 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/opfor/hgrunt_engineer.mdl"
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(0, 0, -15),
-    FirstP_Bone = "Bip01 Head",
-    FirstP_Offset = Vector(5, 0, 5),
+	ThirdP_Offset = Vector(0, 0, -15),
+	FirstP_Bone = "Bip01 Head",
+	FirstP_Offset = Vector(5, 0, 5),
 }
 
 -- Custom
@@ -24,7 +24,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
-    if self.HECU_Rappelling or self:IsBusy() then return end
+	if self.HECU_Rappelling or self:IsBusy() then return end
 	if ((self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) or !self.VJ_IsBeingControlled) && IsValid(self:GetEnemy()) && self:Visible(self:GetEnemy()) && self.HECU_NextTurretCheckT < CurTime() && !IsValid(self.HECU_TurretEnt) then
 		-- Make sure not to place it if the front of the NPC is blocked!
 		local myCenterPos = self:GetPos() + self:OBBCenter()
@@ -60,11 +60,11 @@ function ENT:OnThinkActive()
 					end
 				end)
 				self:PlayAnim("open_floor_grate", true, false, false, 0, {OnFinish=function(interrupted2, anim2)
-                    if interrupted2 then -- If interrupted after deploying turret, put torch away!
-                        self:StopParticles()
-                        self:SetBodygroup(1, 0)
-                        return
-                    end
+				if interrupted2 then -- If interrupted after deploying turret, put torch away!
+						self:StopParticles()
+						self:SetBodygroup(1, 0)
+						return
+					end
 					self:PlayAnim("store_torch", true, false)
 				end})
 			end})

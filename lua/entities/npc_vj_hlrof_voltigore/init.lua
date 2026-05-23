@@ -9,9 +9,9 @@ ENT.Model = "models/vj_hlr/opfor/voltigore.mdl"
 ENT.StartHealth = 320
 ENT.HullType = HULL_LARGE
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(0, 0, -15),
-    FirstP_Bone = "Bone41",
-    FirstP_Offset = Vector(10, 0, 0),
+	ThirdP_Offset = Vector(0, 0, -15),
+	FirstP_Bone = "Bone41",
+	FirstP_Offset = Vector(10, 0, 0),
 	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -96,7 +96,7 @@ function ENT:OnRangeAttack(status, enemy)
 			elec:SetScale(elecTime)
 			util.Effect("VJ_HLR_Electric_Charge_Purple", elec)
 		end
-		
+
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model", "vj_hl/sprites/flare3.vmt")
 		spr:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
@@ -147,10 +147,10 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
 	end
-	
+
 	VJ.ApplyRadiusDamage(self, self, myPos, 120, 50, DMG_SONIC, false, true)
 	util.ScreenShake(myPos, 5, 5, 1, 1000)
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/voltigore_gib1.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 30))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/voltigore_gib2.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 30))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/voltigore_gib3.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 30))})
@@ -170,7 +170,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib8.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 30))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib9.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 25))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib10.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 15))})
-	
+
 	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris" .. math.random(1, 3) .. ".wav", 90, 100) -- No far away sound for this!
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}

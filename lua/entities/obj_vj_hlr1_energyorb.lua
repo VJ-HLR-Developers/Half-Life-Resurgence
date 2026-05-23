@@ -31,7 +31,7 @@ ENT.Track_Position = defVec
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetNoDraw(true)
-	
+
 	local sprite = ents.Create("env_sprite")
 	sprite:SetKeyValue("model", "vj_hl/sprites/xspark4.vmt")
 	//sprite:SetKeyValue("rendercolor", "255 128 0")

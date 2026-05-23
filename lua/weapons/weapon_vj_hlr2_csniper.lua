@@ -116,7 +116,7 @@ if CLIENT then
 		pos = pos + aimPos.x * ang:Right()
 		pos = pos + aimPos.y * ang:Up()
 		pos = pos + aimPos.z * ang:Forward()
-		
+
 		return pos, ang
 	end
 

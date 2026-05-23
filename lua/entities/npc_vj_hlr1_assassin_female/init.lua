@@ -18,7 +18,7 @@ ENT.ControllerParams = {
 	//FirstP_Bone = "bip01 head",
 	//FirstP_Offset = Vector(6, 0, 2.5),
 	FirstP_Bone = "bone10",
-    FirstP_Offset = Vector(-1, 0, -1),
+	FirstP_Offset = Vector(-1, 0, -1),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -66,7 +66,7 @@ ENT.BOA_ForceJumpShoot = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetRenderMode(RENDERMODE_TRANSALPHA)
-	
+
 	if GetConVar("vj_hlr1_assassin_cloaks"):GetInt() == 0 then
 		self.BOA_CanCloak = false
 	end
@@ -107,7 +107,7 @@ end
 function ENT:OnThink()
 	if self.Dead then return end
 	local curTime = CurTime()
-	
+
 	-- Unlimited ammo + weapon body group change
 	local activeWep = self:GetActiveWeapon()
 	local bGroup = self:GetBodygroup(1)
@@ -118,7 +118,7 @@ function ENT:OnThink()
 	elseif bGroup == 0 then
 		self:DoChangeWeapon("weapon_vj_hlr1_glock17_sup")
 	end
-	
+
 	-- Cloaking system
 	if self.BOA_CanCloak then
 		local prevClockLvl = self:GetColor().a
@@ -137,7 +137,7 @@ function ENT:OnThink()
 			VJ.EmitSound(self, "vj_hlr/gsrc/fx/beamstart1.wav", 75, 100, 0.2, CHAN_BODY)
 		end
 	end
-	
+
 	-- If not on ground, make it play fly shooting anim if velocity's z is negative (falling)
 	if self:IsOnGround() then
 		if self.BOA_ForceJumpShoot then
@@ -151,13 +151,13 @@ function ENT:OnThink()
 		self.BOA_ForceJumpShoot = true
 		self.BOA_OffGround = true
 	end
-	
+
 	if self.BOA_OffGround == true && self:GetVelocity().z == 0 then -- Velocity is 0, so we have landed, play land anim
 		self.BOA_OffGround = false
 		self:PlayAnim(ACT_LAND, true, false, false)
 		//VJ.EmitSound(self, "vj_hlr/gsrc/npc/player/pl_jumpland2.wav", 80) -- Done through event now
 	end
-	
+
 	-- Jump while attacking
 	if IsValid(self:GetEnemy()) && curTime > self.BOA_NextJumpT && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND && !self:IsMoving() && self.EnemyData.Distance < 1400 && !self.VJ_IsBeingControlled then
 		self:ForceMoveJump(((self:GetPos() + self:GetRight()*(math.random(1, 2) == 1 and 100 or -100) + self:GetForward()*(math.random(1, 2) == 1 and 1 or -100)) - (self:GetPos() + self:OBBCenter())):GetNormal()*200 + self:GetUp()*600)

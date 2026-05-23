@@ -58,7 +58,7 @@ function SWEP:OnPrimaryAttack(status, statusData)
 	if status == "Init" then
 		if CLIENT then return end
 		if IsValid(self.RPG_LastShotEnt) then return true end -- Wait until the last shot has detonated
-		
+
 		-- Create the rocket entity
 		local owner = self:GetOwner()
 		local proj = ents.Create("obj_vj_hlr2_rocket")
@@ -92,7 +92,7 @@ function SWEP:SecondaryAttack()
 	-- Toggle whether to laser track or not (Only for players)
 	VJ.EmitSound(self, (self:GetNWLaser() and "buttons/button16.wav") or "buttons/button17.wav")
 	self:SetNWLaser(!self:GetNWLaser())
-	
+
 	local owner = self:GetOwner()
 	if IsValid(owner) && owner:IsPlayer() then
 		owner:PrintMessage(HUD_PRINTTALK, "Laser tracking has been " .. (self:GetNWLaser() == true and "enabled" or "disabled"))

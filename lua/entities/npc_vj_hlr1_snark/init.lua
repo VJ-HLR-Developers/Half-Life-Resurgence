@@ -11,9 +11,9 @@ ENT.SightAngle = 180
 ENT.HullType = HULL_TINY
 ENT.EntitiesToNoCollide = {"npc_vj_hlr1_snark"}
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(0, 0, 0),
-    FirstP_Bone = "Bip01 Head",
-    FirstP_Offset = Vector(1, 0, 0.5),
+	ThirdP_Offset = Vector(0, 0, 0),
+	FirstP_Bone = "Bip01 Head",
+	FirstP_Offset = Vector(1, 0, 0.5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_SNARK"}
@@ -50,7 +50,7 @@ ENT.MainSoundPitch = 100
 
 local SNARK_TYPE_REGULAR = 0 -- Regular Snark
 local SNARK_TYPE_PENGUIN = 1 -- Opposing Forces Penguin
-	
+
 -- Custom
 ENT.Snark_Exploded = false
 ENT.Snark_NextJumpWalkT = 0
@@ -84,7 +84,7 @@ function ENT:OnThinkActive()
 	if self.Dead then return end
 	local ene = self:GetEnemy()
 	local eneData = self.EnemyData
-	
+
 	-- Randomly jump while engaging an enemy
 	if IsValid(ene) && !self.VJ_IsBeingControlled && self:IsOnGround() && eneData.Visible && eneData.Distance > (self.LeapAttackMaxDistance + 10) && CurTime() > self.Snark_NextJumpWalkT then
 		self:PlayAnim(ACT_RUN, false, 0.7, true)
@@ -93,14 +93,14 @@ function ENT:OnThinkActive()
 		self:ForceMoveJump((ene:GetPos() - self:GetPos()):GetNormal() * 400 + self:GetUp() * 300)
 		self.Snark_NextJumpWalkT = CurTime() + math.Rand(0.35, 1.8)
 	end
-	
+
 	-- Change the sound pitch depending on its energy
 	if (self.Snark_EnergyTime - CurTime()) < 6 then
 		self.MainSoundPitchValue = self.MainSoundPitchValue + 1
 	else
 		self.MainSoundPitchValue = 100
 	end
-	
+
 	-- No more energy time, explode!
 	if !self.Snark_Exploded && CurTime() > self.Snark_EnergyTime then
 		self.Snark_Exploded = true
@@ -137,7 +137,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Finish" then
 		local myPos = self:GetPos()
 		VJ.EmitSound(self, "vj_hlr/gsrc/npc/squeek/sqk_blast1.wav", 90)
-		
+
 		if self.Snark_Type == SNARK_TYPE_REGULAR then
 			VJ.ApplyRadiusDamage(self, self, myPos, 50, 15, DMG_ACID, true, true)
 			if self.HasGibOnDeathEffects then
@@ -168,7 +168,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				effectData:SetColor(0)
 				util.Effect("bloodspray", effectData)
 				util.Effect("bloodspray", effectData)
-				
+
 				local spr = ents.Create("env_sprite")
 				spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 				spr:SetKeyValue("GlowProxySize", "2.0")

@@ -12,11 +12,11 @@ function EFFECT:Init(data)
 	self.Ent = data:GetEntity()
 	self.Att = data:GetAttachment()
 	if IsValid(self.Ent) then self.StartPos = self.Ent:GetAttachment(self.Att).Pos end
-	
+
 	self.HitPos = self.EndPos - self.StartPos
 	self.DieTime = CurTime() + 0.2
 	self:SetRenderBoundsWS(self.StartPos, self.EndPos)
-	
+
 	local hitPosNormal = self.HitPos:GetNormalized()
 	util.Decal("VJ_HLR1_Scorch_Small", self.EndPos + hitPosNormal, self.EndPos - hitPosNormal)
 	local effectdata = EffectData()

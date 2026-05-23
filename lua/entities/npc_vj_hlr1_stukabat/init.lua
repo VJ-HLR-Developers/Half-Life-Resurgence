@@ -15,9 +15,9 @@ ENT.Aerial_FlyingSpeed_Alerted = 150
 ENT.Aerial_AnimTbl_Calm = ACT_FLY
 ENT.Aerial_AnimTbl_Alerted = ACT_FLY
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(0, 0, -15),
-    FirstP_Bone = "MDLDEC_Bone50",
-    FirstP_Offset = Vector(1, 0, 5),
+	ThirdP_Offset = Vector(0, 0, -15),
+	FirstP_Bone = "MDLDEC_Bone50",
+	FirstP_Offset = Vector(1, 0, 5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
@@ -298,7 +298,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				if !self.Dead then
 					self:ResetSequence("fall_cycler")
 				end
-			
+
 				self:NextThink(CurTime())
 				return true
 			end
@@ -376,7 +376,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
 	end
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 15))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 15))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib7.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 15))})
