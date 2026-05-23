@@ -253,8 +253,8 @@ function ENT:OnThinkActive()
 	if self.VJ_IsBeingControlled or self.Dead or self:IsBusy("Activities") then return end
 	-- Unholster the weapon if we are alerted and have NOT unholstered the weapon
 	if self:GetNPCState() == NPC_STATE_ALERT or self:GetNPCState() == NPC_STATE_COMBAT then
-        local curAct = self:GetSequenceActivity(self:GetIdealSequence())
-        timer.Simple((self.Security_Type == SECURITY_TYPE_ALPHA and (curAct == ACT_ARM and 0.35 or curAct == "drawslow" and 0.90)) or 0.6, function() if IsValid(self) && self:GetBodygroup(1) != 1 then self:SetBodygroup(1, 1) end end) -- Temporary failsafe if it was interrupted before switching bodygroup
+		local curAct = self:GetSequenceActivity(self:GetIdealSequence())
+		timer.Simple((self.Security_Type == SECURITY_TYPE_ALPHA and (curAct == ACT_ARM and 0.35 or curAct == "drawslow" and 0.90)) or 0.6, function() if IsValid(self) && self:GetBodygroup(1) != 1 then self:SetBodygroup(1, 1) end end) -- Temporary failsafe if it was interrupted before switching bodygroup
 		if self:GetWeaponState() == VJ.WEP_STATE_HOLSTERED then
 			self:Security_UnHolsterGun()
 		end
