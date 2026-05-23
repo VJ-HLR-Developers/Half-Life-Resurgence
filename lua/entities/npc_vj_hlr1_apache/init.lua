@@ -91,6 +91,7 @@ function ENT:Init()
     local rotorwash = ents.Create("env_rotorwash_emitter")
     rotorwash:SetPos(self:GetPos())
     rotorwash:SetParent(self)
+    rotorwash.DoNotDuplicate = true
     rotorwash:Spawn()
     rotorwash:Activate()
     self:DeleteOnRemove(rotorwash)
