@@ -75,6 +75,13 @@ function ENT:Init()
 	self.HeliSD_Whine = VJ.CreateSound(self, "vj_hlr/gsrc/npc/apache/ap_whine1.wav", 70)
 	self.HeliSD_Distant = VJ.CreateSound(self, "vj_hlr/gsrc/npc/apache/ap_rotor1.wav", 160)
 
+    local rotorwash = ents.Create("env_rotorwash_emitter")
+    rotorwash:SetPos(self:GetPos())
+    rotorwash:SetParent(self)
+    rotorwash:Spawn()
+    rotorwash:Activate()
+    self:DeleteOnRemove(rotorwash)
+
 	if GetConVar("vj_hlr1_osprey_deploysoldiers"):GetInt() == 0 then self.Osprey_DropStatus = -1 end
 	self.Osprey_Gunners = {}
 	self.Osprey_DroppedSoldiers = {}
