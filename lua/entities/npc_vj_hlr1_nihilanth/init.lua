@@ -78,10 +78,14 @@ function ENT:Init()
 	local entsAll = ents.GetAll()
 	for x = 1, #entsAll do
 		if entsAll[x]:GetClass() == "npc_vj_hlr1_nihilanth" && entsAll[x] != self then
-            for i, v in pairs(player.GetAll()) do
-                v:PrintMessage(HUD_PRINTTALK, "WARNING: Only one Nihilanth is allowed in the map!")
-            end
-			self:Remove()
+			timer.Simple(0.1, function()
+				local creator = self:GetCreator()
+                if IsValid(creator) then
+                    creator:PrintMessage(HUD_PRINTTALK, "WARNING: Only one Nihilanth is allowed in the map!")
+                end
+				self:Remove()
+			end)
+			return
 		end
 	end
 
