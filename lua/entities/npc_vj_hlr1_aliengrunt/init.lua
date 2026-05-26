@@ -70,7 +70,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(25, 25, 85), Vector(-25, -25, 0))
-	
+
 	if self.AGrunt_Type == 1 then -- Alpha
 		self.AnimTbl_Death = ACT_DIESIMPLE
 	else -- Default
@@ -164,7 +164,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
 	end
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 40))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 20))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 30))})
@@ -198,7 +198,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			end
 		end
 	-- Chance of dropping an actual hornet gun that the player can pick up
-	elseif status == "Finish" && self.AGrunt_Type == 0 && math.random(1, 50) == 1 then
+	elseif status == "Finish" && self.AGrunt_Type == 0 && math.random(1, 50) == 1 && (IsMounted("hl1") or IsMounted("hl1mp")) then
 		self:SetBodygroup(1, 1)
 		local gun = ents.Create("weapon_hornetgun")
 		gun:SetPos(self:GetAttachment(self:LookupAttachment("hornet")).Pos)
