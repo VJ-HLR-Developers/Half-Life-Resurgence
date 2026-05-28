@@ -17,7 +17,7 @@ SWEP.HoldType 					= "ar2"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(-10, 94, 2)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-6.5, 0, -2)
+SWEP.WorldModel_CustomPositionOrigin = Vector(-6.5, 0, 0)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 8
