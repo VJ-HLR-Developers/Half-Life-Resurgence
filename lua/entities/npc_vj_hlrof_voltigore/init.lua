@@ -64,15 +64,12 @@ function ENT:OnInput(key, activator, caller, data)
 	if key == "step" then
 		self:PlayFootstepSound()
 		util.ScreenShake(self:GetPos(), 10, 100, 0.4, 300)
-	end
-	if key == "grunting_sounds" then
+	elseif key == "grunting_sounds" then
 		self:PlayFootstepSound(extraMoveSd)
 		util.ScreenShake(self:GetPos(), 10, 100, 0.4, 300)
-	end
-	if key == "single" or key == "both" then
+	elseif key == "single" or key == "both" then
 		self:ExecuteMeleeAttack()
-	end
-	if key == "purple_energy_ball" then
+	elseif key == "purple_energy_ball" then
 		self:ExecuteRangeAttack()
 	end
 end

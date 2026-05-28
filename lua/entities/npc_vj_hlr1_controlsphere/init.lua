@@ -27,8 +27,8 @@ ENT.HasMeleeAttack = false
 
 ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-ENT.RangeAttackMaxDistance = 1020
 ENT.RangeAttackMinDistance = 1
+ENT.RangeAttackMaxDistance = 1020
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = 3
 
@@ -124,7 +124,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "Init" then
-		local startPos = self:GetPos() + self:GetForward()*8
+		local startPos = self:GetPos() + self:GetForward() * 8
 		local tr = util.TraceLine({
 			start = startPos,
 			endpos = self:GetAimPosition(enemy, startPos, 0),
@@ -144,10 +144,10 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vec = Vector(0, 0, 0)
+local defVec = Vector(0, 0, 0)
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-	if status == "PreDamage" && dmginfo:GetDamagePosition() != vec then
+	if status == "PreDamage" && dmginfo:GetDamagePosition() != defVec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(4) -- Size

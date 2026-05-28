@@ -66,8 +66,7 @@ function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "melee_attack" then
 		self:ExecuteMeleeAttack()
-	end
-	if key == "death_gibs" then
+	elseif key == "death_gibs" then
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh1.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(1, 0, -30))})
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 2, -30))})
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(3, 0, -30))})
@@ -81,13 +80,6 @@ function ENT:OnInput(key, activator, caller, data)
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_legbone.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(-5, 0, -30))})
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-/*hook.Add("SetupMove", "VJ_Barnacle_SetupMove", function(ply, mv)
-	-- Make the player not be able to walk
-	if ply.Barnacle_Grabbed == true then
-		mv:SetMaxClientSpeed(0)
-	end
-end)*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local velInitial = Vector(0, 0, 2)
 local offset = 200

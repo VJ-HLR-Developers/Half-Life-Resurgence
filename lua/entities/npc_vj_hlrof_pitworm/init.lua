@@ -67,8 +67,7 @@ function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "melee" then
 		self:ExecuteMeleeAttack()
-	end
-	if key == "beam" then
+	elseif key == "beam" then
 		self:ExecuteRangeAttack()
 	end
 end

@@ -105,7 +105,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		spr:SetKeyValue("framerate", "20.0")
 		spr:SetKeyValue("spawnflags", "0")
 		spr:SetKeyValue("scale", "2")
-		spr:SetPos(self:GetPos() + self:GetUp()*60)
+		spr:SetPos(self:GetPos() + self:GetUp() * 60)
 		spr:Spawn()
 		spr:Fire("Kill", "", 0.7)
 		timer.Simple(0.7, function() if IsValid(spr) then spr:Remove() end end)
@@ -127,7 +127,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(1, 0, 15)), CollisionSound = gibsCollideSd})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(1, 1, 15)), CollisionSound = gibsCollideSd})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(1, 2, 15)), CollisionSound = gibsCollideSd})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_spring.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(2, 1, 15)), CollisionSound = false}) -- Shad ge sharji,  ere vor tsayn chi hane
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_spring.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(2, 1, 15)), CollisionSound = false}) -- Shad ge sharji, ere vor tsayn chi hane
 
 	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris3.wav", 100, 100)
 	self:PlaySoundSystem("Gib", "vj_hlr/gsrc/npc/rgrunt/rb_gib.wav")

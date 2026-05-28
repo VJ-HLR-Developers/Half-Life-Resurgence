@@ -158,7 +158,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "Init" then
-		local startPos = self:GetPos() + self:GetUp()*45 + self:GetForward()*40
+		local startPos = self:GetPos() + self:GetUp() * 45 + self:GetForward() * 40
 		local tr = util.TraceLine({
 			start = startPos,
 			endpos = self:GetAimPosition(enemy, startPos, 0),
@@ -184,7 +184,7 @@ end
 function ENT:SelectSchedule()
 	self.BaseClass.SelectSchedule(self)
 	-- Hide after being attacked
-	if !self.Dead && self.Vort_RunAway && !self:IsBusy() && !self.VJ_IsBeingControlled then
+	if !self.Dead && self.Vort_RunAway && !self.VJ_IsBeingControlled && !self:IsBusy() then
 		self.Vort_RunAway = false
 		self:SCHEDULE_COVER_ENEMY("TASK_RUN_PATH", function(x) x.RunCode_OnFail = function() self.NextDoAnyAttackT = 0 end end)
 		self.NextDoAnyAttackT = CurTime() + 5

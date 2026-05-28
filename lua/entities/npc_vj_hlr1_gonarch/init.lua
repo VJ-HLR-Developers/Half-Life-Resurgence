@@ -33,8 +33,8 @@ ENT.HasMeleeAttackKnockBack = true
 ENT.HasRangeAttack = true
 ENT.RangeAttackProjectiles = "obj_vj_hlr1_gonarchspit"
 ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
-ENT.RangeAttackMaxDistance = 2000
 ENT.RangeAttackMinDistance = 500
+ENT.RangeAttackMaxDistance = 2000
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = VJ.SET(0.1, 4)
 
@@ -74,10 +74,10 @@ local vj_hlr1_gonarch_babylimit = GetConVar("vj_hlr1_gonarch_babylimit")
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(100, 100, 200), Vector(-100, -100, 0))
+	self:SetStepHeight(50)
 	self.Gonarch_NextBirthT = CurTime() + 3
 	self.Gonarch_NumBabies = 0
 	self.Gonarch_BabyLimit = vj_hlr1_gonarch_babylimit:GetInt()
-	self:SetStepHeight(50)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -139,9 +139,8 @@ function ENT:Gonarch_BabyDeath()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
+	-- Create babies
 	local curTime = CurTime()
-
-	-- Create baby headcrabs
 	if !self.Dead && IsValid(self:GetEnemy()) && self.AttackAnimTime < curTime && curTime > self.Gonarch_NextBirthT && self.Gonarch_NumBabies < self.Gonarch_BabyLimit && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self:PlayAnim(ACT_SPECIAL_ATTACK1, true, false, true)
 		self.Gonarch_NextBirthT = curTime + 15

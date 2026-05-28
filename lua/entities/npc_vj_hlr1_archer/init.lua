@@ -36,8 +36,8 @@ ENT.MeleeAttackDamageDistance = 50
 
 ENT.HasRangeAttack = true
 ENT.RangeAttackProjectiles = "obj_vj_hlr1_archerspit"
-ENT.RangeAttackMaxDistance = 1500
 ENT.RangeAttackMinDistance = 100
+ENT.RangeAttackMaxDistance = 1500
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = VJ.SET(2.5, 3)
 
@@ -71,19 +71,19 @@ function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "bite" then
 		self:ExecuteMeleeAttack()
-	end
-	if key == "shoot" then
+	elseif key == "shoot" then
 		self:ExecuteRangeAttack()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
-	if !self.Dead && CurTime() > self.Archer_BlinkingT then
+	local curTime = CurTime()
+	if !self.Dead && curTime > self.Archer_BlinkingT then
 		timer.Simple(0.2, function() if IsValid(self) then self:SetSkin(1) end end)
 		timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(2) end end)
 		timer.Simple(0.4, function() if IsValid(self) then self:SetSkin(1) end end)
 		timer.Simple(0.5, function() if IsValid(self) then self:SetSkin(0) end end)
-		self.Archer_BlinkingT = CurTime() + math.Rand(3, 4.5)
+		self.Archer_BlinkingT = curTime + math.Rand(3, 4.5)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

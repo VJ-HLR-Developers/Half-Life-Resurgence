@@ -77,11 +77,9 @@ function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:PlayFootstepSound()
-	end
-	if key == "single" or key == "both" then
+	elseif key == "single" or key == "both" then
 		self:ExecuteMeleeAttack()
-	end
-	if key == "shooty" then
+	elseif key == "shooty" then
 		self:ExecuteRangeAttack()
 	end
 end

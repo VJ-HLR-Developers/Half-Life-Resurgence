@@ -117,11 +117,9 @@ function ENT:OnInput(key, activator, caller, data)
 	if key == "step" then
 		self:PlayFootstepSound()
 		util.ScreenShake(self:GetPos(), 10, 100, 0.4, self.Garg_Type == 1 and 300 or 1000)
-	end
-	if key == "melee" then
+	elseif key == "melee" then
 		self:ExecuteMeleeAttack()
-	end
-	if key == "laser" then
+	elseif key == "laser" then
 		self:ExecuteRangeAttack()
 	end
 end

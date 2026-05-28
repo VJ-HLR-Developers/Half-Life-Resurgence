@@ -34,8 +34,8 @@ ENT.HasMeleeAttack = false
 ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = "vjseq_attack"
 ENT.RangeAttackProjectiles = "obj_vj_hlr1_toxicspit"
-ENT.RangeAttackMaxDistance = 1500
 ENT.RangeAttackMinDistance = 1
+ENT.RangeAttackMaxDistance = 1500
 ENT.TimeUntilRangeAttackProjectileRelease = false
 ENT.NextRangeAttackTime = VJ.SET(2, 4)
 

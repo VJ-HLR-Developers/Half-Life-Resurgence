@@ -198,7 +198,7 @@ function ENT:OnMeleeAttackExecute(status, ent, isProp)
 		if self.HasSounds && self.HasMeleeAttackSounds then
 			VJ.EmitSound(self, blastSd, 100, math.random(80, 100))
 		end
-		VJ.ApplyRadiusDamage(self, self, myPos, 400, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck=true, Force=80})
+		VJ.ApplyRadiusDamage(self, self, myPos, 400, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck = true, Force = 80})
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
