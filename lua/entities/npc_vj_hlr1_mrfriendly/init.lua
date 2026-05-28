@@ -42,6 +42,7 @@ ENT.HasExtraMeleeAttackSounds = true
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 
+ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/aslave/vort_foot1.wav", "vj_hlr/gsrc/npc/aslave/vort_foot2.wav", "vj_hlr/gsrc/npc/aslave/vort_foot3.wav", "vj_hlr/gsrc/npc/aslave/vort_foot4.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/friendly/fr_groan1.wav", "vj_hlr/gsrc/npc/friendly/fr_groan2.wav"}
 ENT.SoundTbl_BeforeMeleeAttack = "vj_hlr/gsrc/npc/friendly/fr_attack.wav"
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
@@ -58,7 +59,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
-	if key == "step" then		-- not even used
+	if key == "step" then
 		self:PlayFootstepSound()
 	elseif key == "melee" then
 		self:ExecuteMeleeAttack()

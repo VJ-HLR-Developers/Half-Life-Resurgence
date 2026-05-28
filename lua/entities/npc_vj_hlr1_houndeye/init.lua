@@ -26,7 +26,7 @@ ENT.AnimTbl_MeleeAttack = ACT_RANGE_ATTACK1
 ENT.MeleeAttackDistance = 164
 ENT.MeleeAttackDamageDistance = 400
 ENT.MeleeAttackDamageAngleRadius = 180
-ENT.TimeUntilMeleeAttackDamage = 2.35
+ENT.TimeUntilMeleeAttackDamage = false
 ENT.NextMeleeAttackTime = 2
 ENT.MeleeAttackDamageType = DMG_SONIC
 ENT.MeleeAttackDSP = 34
@@ -82,6 +82,8 @@ function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "he_hunt" then -- step
 		self:PlayFootstepSound()
+	elseif key == "melee" then
+		self:ExecuteMeleeAttack()
 	elseif key == "woof" then
 		self:PlaySoundSystem("Speech", "vj_hlr/gsrc/npc/houndeye/he_pain3.wav")
 	elseif key == "woooof" then
