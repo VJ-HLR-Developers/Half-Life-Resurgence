@@ -409,6 +409,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 			//print("Left hit!", self.GW_EyeHealth.l)
 			if self.GW_EyeHealth.l <= 0 then
 				self:PlayAnim(ACT_SMALL_FLINCH, true, false)
+				timer.Simple(VJ.AnimDuration(self, ACT_SMALL_FLINCH), function() if IsValid(self) then self.PauseAttacks = false end end)
 				self:GW_EyeHealthCheck()
 			end
 			dmginfo:SetDamage(0)
@@ -419,6 +420,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 			//print("Right hit!", self.GW_EyeHealth.r)
 			if self.GW_EyeHealth.r <= 0 then
 				self:PlayAnim(ACT_BIG_FLINCH, true, false)
+				timer.Simple(VJ.AnimDuration(self, ACT_BIG_FLINCH), function() if IsValid(self) then self.PauseAttacks = false end end)
 				self:GW_EyeHealthCheck()
 			end
 			dmginfo:SetDamage(0)
@@ -452,7 +454,6 @@ function ENT:GW_CleanUp()
 	if IsValid(self.GW_BE_EyeL) then self.GW_BE_EyeL:Remove() end
 	if IsValid(self.GW_BE_Orb) then self.GW_BE_Orb:Remove() end
 	if IsValid(self.GW_OrbSprite) then self.GW_OrbSprite:Remove() end
-
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local deathParticlePos = Vector(0, 0, -25)

@@ -41,6 +41,10 @@ function SWEP:Init()
 	timer.Simple(0.1, function()
 		if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
 			self.NPC_NextPrimaryFire = false
+			if self:GetOwner():GetModel() == "models/vj_hlr/opfor/hassassin.mdl" then
+				self.WorldModel_CustomPositionAngle = Vector(-90, -5, 90)
+				self.WorldModel_CustomPositionBone = "Object05"
+			end
 		end
 	end)
 end
