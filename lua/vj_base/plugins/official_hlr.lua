@@ -67,6 +67,7 @@ VJ.AddNPC("V-22 Osprey", "npc_vj_hlr1_osprey", spawnCategory)
 
 -- Black Ops
 VJ.AddNPC("Black Ops Female Assassin", "npc_vj_hlr1_assassin_female", spawnCategory)
+VJ.AddNPC("Black Ops Female Assassin (OppF)", "npc_vj_hlrof_assassin_female", spawnCategory)
 VJ.AddNPC("Black Ops Male Assassin", "npc_vj_hlrof_assassin_male", spawnCategory)
 VJ.AddNPC("Black Ops Robot Assassin", "npc_vj_hlrof_assassin_rgrunt", spawnCategory)
 VJ.AddNPC("Black Ops AH-64 Apache", "npc_vj_hlrof_assassin_apache", spawnCategory)

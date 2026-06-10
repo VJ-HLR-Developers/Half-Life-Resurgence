@@ -33,6 +33,7 @@ SWEP.PrimaryEffects_MuzzleFlash = false
 -- Custom
 local validModels = {
 	["models/vj_hlr/hl1/hassassin.mdl"] = true,
+	["models/vj_hlr/opfor/hassassin.mdl"] = true,
 	["models/vj_hlr/cracklife/hassassin.mdl"] = true,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
