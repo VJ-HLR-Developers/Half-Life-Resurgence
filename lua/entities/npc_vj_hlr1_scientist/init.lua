@@ -329,6 +329,24 @@ function ENT:OnCreateSound(sdData, sdFile)
 	self.SCI_NextMouthMove = CurTime() + SoundDuration(sdFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Init" then
+		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED then
+			if self.SCI_Type == SCI_TYPE_KELLER && !self.HasDeathAnimation then return end
+			self.DeathAnimationDecreaseLengthAmount = -1
+			self.DeathCorpseEntityClass = "prop_vj_animatable"
+		end
+		self:SetBodygroup(2, 0)
+	elseif status == "DeathAnim" then
+		if self.SCI_Type == SCI_TYPE_ALPHA then return end
+		if hitgroup == HITGROUP_HEAD then
+			self.AnimTbl_Death = ACT_DIE_HEADSHOT
+		elseif hitgroup == HITGROUP_STOMACH && self.SCI_Type != SCI_TYPE_KELLER then
+			self.AnimTbl_Death = ACT_DIE_GUTSHOT
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 local sdMetalCollide = {"vj_hlr/gsrc/fx/metal1.wav", "vj_hlr/gsrc/fx/metal2.wav", "vj_hlr/gsrc/fx/metal3.wav", "vj_hlr/gsrc/fx/metal4.wav", "vj_hlr/gsrc/fx/metal5.wav"}
 --
@@ -397,19 +415,6 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	end
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" then
-		self:SetBodygroup(2, 0)
-	elseif status == "DeathAnim" then
-		if self.SCI_Type == SCI_TYPE_ALPHA then return end
-		if hitgroup == HITGROUP_HEAD then
-			self.AnimTbl_Death = ACT_DIE_HEADSHOT
-		elseif hitgroup == HITGROUP_STOMACH && self.SCI_Type != SCI_TYPE_KELLER then
-			self.AnimTbl_Death = ACT_DIE_GUTSHOT
-		end
-	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

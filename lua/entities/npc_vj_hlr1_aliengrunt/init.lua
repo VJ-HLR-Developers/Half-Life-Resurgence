@@ -148,6 +148,33 @@ function ENT:OnFlinch(dmginfo, hitgroup, status)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED then
+		self.DeathAnimationDecreaseLengthAmount = -1
+		self.DeathCorpseEntityClass = "prop_vj_animatable"
+	elseif status == "DeathAnim" then
+		if self.AGrunt_Type == 1 then -- Alpha
+			if hitgroup == HITGROUP_HEAD then
+				self.AnimTbl_Death = ACT_DIEFORWARD
+			end
+		else
+			if hitgroup == HITGROUP_HEAD then
+				self.AnimTbl_Death = ACT_DIE_HEADSHOT
+			elseif hitgroup == HITGROUP_STOMACH then
+				self.AnimTbl_Death = ACT_DIE_GUTSHOT
+			end
+		end
+	-- Chance of dropping an actual hornet gun that the player can pick up
+	elseif status == "Finish" && self.AGrunt_Type == 0 && math.random(1, 50) == 1 && (IsMounted("hl1") or IsMounted("hl1mp")) then
+		self:SetBodygroup(1, 1)
+		local gun = ents.Create("weapon_hornetgun")
+		gun:SetPos(self:GetAttachment(self:LookupAttachment("hornet")).Pos)
+		gun:SetAngles(self:GetAngles())
+		gun:Spawn()
+		gun:Activate()
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
@@ -182,30 +209,6 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agrunt_gib.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 65))})
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "DeathAnim" then
-		if self.AGrunt_Type == 1 then -- Alpha
-			if hitgroup == HITGROUP_HEAD then
-				self.AnimTbl_Death = ACT_DIEFORWARD
-			end
-		else
-			if hitgroup == HITGROUP_HEAD then
-				self.AnimTbl_Death = ACT_DIE_HEADSHOT
-			elseif hitgroup == HITGROUP_STOMACH then
-				self.AnimTbl_Death = ACT_DIE_GUTSHOT
-			end
-		end
-	-- Chance of dropping an actual hornet gun that the player can pick up
-	elseif status == "Finish" && self.AGrunt_Type == 0 && math.random(1, 50) == 1 && (IsMounted("hl1") or IsMounted("hl1mp")) then
-		self:SetBodygroup(1, 1)
-		local gun = ents.Create("weapon_hornetgun")
-		gun:SetPos(self:GetAttachment(self:LookupAttachment("hornet")).Pos)
-		gun:SetAngles(self:GetAngles())
-		gun:Spawn()
-		gun:Activate()
-	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local extraGibs = {"models/vj_hlr/gibs/agrunt_gib.mdl", "models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl"}

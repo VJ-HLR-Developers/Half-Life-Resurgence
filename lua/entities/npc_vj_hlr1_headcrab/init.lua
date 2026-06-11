@@ -92,6 +92,19 @@ function ENT:OnLeapAttack(status, enemy)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Init" then
+		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED then
+			self.DeathAnimationDecreaseLengthAmount = -1
+			self.DeathCorpseEntityClass = "prop_vj_animatable"
+		end
+		-- ALERT MY MOM THAT I HAVE DIED ;(
+		if IsValid(self.BabyH_MotherEnt) then
+			self.BabyH_MotherEnt:Gonarch_BabyDeath()
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibs_regular_extra = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib3.mdl"}
 --

@@ -93,6 +93,22 @@ function ENT:OnFlinch(dmginfo, hitgroup, status)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local animDeathHead = {ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT}
+local animDeathDef = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
+--
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED then
+		self.DeathAnimationDecreaseLengthAmount = -1
+		self.DeathCorpseEntityClass = "prop_vj_animatable"
+	elseif status == "DeathAnim" then
+		if hitgroup == HITGROUP_HEAD then
+			self.AnimTbl_Death = animDeathHead
+		else
+			self.AnimTbl_Death = animDeathDef
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
@@ -125,19 +141,6 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	end
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-local animDeathHead = {ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT}
-local animDeathDef = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
---
-function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "DeathAnim" then
-		if hitgroup == HITGROUP_HEAD then
-			self.AnimTbl_Death = animDeathHead
-		else
-			self.AnimTbl_Death = animDeathDef
-		end
-	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local extraGibs = {"models/vj_hlr/gibs/zombiegib.mdl"}

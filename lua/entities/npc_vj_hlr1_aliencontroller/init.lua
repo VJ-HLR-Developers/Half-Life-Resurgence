@@ -63,7 +63,7 @@ ENT.AlienC_FlyAnim_Down = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(20, 20, 70), Vector(-20, -20, -10))
-	
+
 	local zapSpr1 = ents.Create("env_sprite")
 	zapSpr1:SetKeyValue("model", "vj_hl/sprites/xspark4.vmt")
 	zapSpr1:SetKeyValue("scale", "1")
@@ -81,7 +81,7 @@ function ENT:Init()
 	zapSpr1:SetNoDraw(true)
 	self:DeleteOnRemove(zapSpr1)
 	self.ZapSpr1 = zapSpr1
-	
+
 	local zapSpr2 = ents.Create("env_sprite")
 	zapSpr2:SetKeyValue("model", "vj_hl/sprites/xspark4.vmt")
 	zapSpr2:SetKeyValue("scale", "1")
@@ -99,7 +99,7 @@ function ENT:Init()
 	zapSpr2:SetNoDraw(true)
 	self:DeleteOnRemove(zapSpr2)
 	self.ZapSpr2 = zapSpr2
-	
+
 	self.AlienC_FlyAnim_Forward  = self:GetSequenceActivity(self:LookupSequence("forward"))
 	self.AlienC_FlyAnim_Backward  = self:GetSequenceActivity(self:LookupSequence("backward"))
 	self.AlienC_FlyAnim_Right  = self:GetSequenceActivity(self:LookupSequence("right"))
@@ -194,7 +194,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 			projectile.Track_Ent = enemy
 			timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
 		end
-		
+
 		if self.AlienC_NumFired < 1 then
 			self.AlienC_NumFired = self.AlienC_NumFired + 1
 		end
@@ -210,7 +210,10 @@ function ENT:RangeAttackProjVel(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "DeathAnim" then
+	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED then
+		self.DeathAnimationDecreaseLengthAmount = -1
+		self.DeathCorpseEntityClass = "prop_vj_animatable"
+	elseif status == "DeathAnim" then
 		self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 	end
 end
@@ -231,7 +234,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
 	end
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 20))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(1, 0, 20))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 1, 20))})

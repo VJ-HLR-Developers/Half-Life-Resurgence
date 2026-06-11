@@ -121,9 +121,15 @@ function ENT:RangeAttackProjVel(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	-- Make it explode all the time if it was middle of range attacking!
-	if status == "Init" && self.AttackType == VJ.ATTACK_TYPE_RANGE then
-		self.GibOnDeathFilter = false
+	if status == "Init" then
+		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED then
+			self.DeathAnimationDecreaseLengthAmount = -1
+			self.DeathCorpseEntityClass = "prop_vj_animatable"
+		end
+		-- Make it explode all the time if it was middle of range attacking!
+		if self.AttackType == VJ.ATTACK_TYPE_RANGE then
+			self.GibOnDeathFilter = false
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

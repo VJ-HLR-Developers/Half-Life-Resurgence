@@ -190,6 +190,20 @@ function ENT:OnFireBullet(data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED then
+		self.DeathAnimationDecreaseLengthAmount = -1
+		self.DeathCorpseEntityClass = "prop_vj_animatable"
+	elseif status == "DeathAnim" then
+		self:DeathWeaponDrop(dmginfo, hitgroup)
+		self:SetBodygroup(1, 1)
+		local wep = self:GetActiveWeapon()
+		if IsValid(wep) then wep:Remove() end
+	elseif status == "Finish" then
+		self:SetBodygroup(1, 1)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
@@ -219,17 +233,6 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_legbone.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 0, 15))})
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "DeathAnim" then
-		self:DeathWeaponDrop(dmginfo, hitgroup)
-		self:SetBodygroup(1, 1)
-		local wep = self:GetActiveWeapon()
-		if IsValid(wep) then wep:Remove() end
-	elseif status == "Finish" then
-		self:SetBodygroup(1, 1)
-	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

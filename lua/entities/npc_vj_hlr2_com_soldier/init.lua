@@ -249,9 +249,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
 	VJ.STOPSOUND(self.Combine_ChatterSd)
-    -- Remove the turret if the NPC has spawned from non-player entities but not when killed
-    local turret = self.Combine_TurretEnt
-    if !self.Dead && IsValid(turret) then
-        turret:Remove()
-    end
+	-- Remove the turret if the NPC has spawned from non-player entities but not when killed
+	local turret = self.Combine_TurretEnt
+	if !self.Dead && IsValid(turret) then
+		turret:Remove()
+	end
 end

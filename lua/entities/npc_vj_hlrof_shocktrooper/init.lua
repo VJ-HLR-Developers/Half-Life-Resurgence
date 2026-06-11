@@ -113,6 +113,36 @@ function ENT:OnGrenadeAttackExecute(status, grenade, overrideEnt, landDir, landi
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED then
+		self.DeathAnimationDecreaseLengthAmount = -1
+		self.DeathCorpseEntityClass = "prop_vj_animatable"
+	elseif status == "DeathAnim" then
+		self:OnDeath(dmginfo, hitgroup, "Finish")
+		local activeWep = self:GetActiveWeapon()
+		if IsValid(activeWep) then activeWep:Remove() end
+	elseif status == "Finish" then
+		self:Shocktrooper_CreateRoach()
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Shocktrooper_CreateRoach()
+	self:SetBodygroup(1, 1)
+	self:SetSkin(2)
+	if !self.Shocktrooper_DroppedRoach then
+		if self.Shocktrooper_SpawnRoach then
+			local roachEnt = ents.Create("npc_vj_hlrof_shockroach")
+			roachEnt:SetPos(self:GetAttachment(self:LookupAttachment("shock_roach")).Pos)
+			roachEnt:SetAngles(self:GetAngles())
+			roachEnt.SRoach_Life = 15
+			roachEnt:Spawn()
+			roachEnt:Activate()
+			roachEnt.VJ_NPC_Class = self.VJ_NPC_Class
+		end
+		self.Shocktrooper_DroppedRoach = true
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
@@ -151,33 +181,6 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib10.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 15))})
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "DeathAnim" then
-		self:OnDeath(dmginfo, hitgroup, "Finish")
-		local activeWep = self:GetActiveWeapon()
-		if IsValid(activeWep) then activeWep:Remove() end
-	elseif status == "Finish" then
-		self:Shocktrooper_CreateRoach()
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Shocktrooper_CreateRoach()
-	self:SetBodygroup(1, 1)
-	self:SetSkin(2)
-	if !self.Shocktrooper_DroppedRoach then
-		if self.Shocktrooper_SpawnRoach then
-			local roachEnt = ents.Create("npc_vj_hlrof_shockroach")
-			roachEnt:SetPos(self:GetAttachment(self:LookupAttachment("shock_roach")).Pos)
-			roachEnt:SetAngles(self:GetAngles())
-			roachEnt.SRoach_Life = 15
-			roachEnt:Spawn()
-			roachEnt:Activate()
-			roachEnt.VJ_NPC_Class = self.VJ_NPC_Class
-		end
-		self.Shocktrooper_DroppedRoach = true
-	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local gibs = {"models/vj_hlr/gibs/strooper_gib1.mdl", "models/vj_hlr/gibs/strooper_gib2.mdl", "models/vj_hlr/gibs/strooper_gib3.mdl", "models/vj_hlr/gibs/strooper_gib4.mdl", "models/vj_hlr/gibs/strooper_gib5.mdl", "models/vj_hlr/gibs/strooper_gib6.mdl", "models/vj_hlr/gibs/strooper_gib7.mdl", "models/vj_hlr/gibs/strooper_gib8.mdl", "models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib6.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}

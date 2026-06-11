@@ -29,6 +29,9 @@ ENT.BloodDecal = {"VJ_HLR1_Blood_Yellow"}
 ENT.HasBloodPool = false
 ENT.HasMeleeAttack = false
 
+ENT.HasDeathAnimation = true
+ENT.AnimTbl_Death = ACT_GLIDE
+
 ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/boid/boid_idle1.wav", "vj_hlr/gsrc/npc/boid/boid_idle2.wav", "vj_hlr/gsrc/npc/boid/boid_idle3.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/boid/boid_alert1.wav", "vj_hlr/gsrc/npc/boid/boid_alert2.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/boid/boid_alert1.wav", "vj_hlr/gsrc/npc/boid/boid_alert2.wav"}
@@ -69,6 +72,15 @@ function ENT:OnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED then
+		self.DeathAnimationDecreaseLengthAmount = -1
+		self.DeathCorpseEntityClass = "prop_vj_animatable"
+	elseif status == "DeathAnim" then
+		self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
@@ -85,7 +97,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
 	end
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 5))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(1, 0, 5))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 1, 5))})

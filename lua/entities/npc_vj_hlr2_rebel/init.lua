@@ -447,11 +447,11 @@ function ENT:OnAllyKilled(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:CustomOnRemove()
-    -- Remove the turret if the NPC has spawned from non-player entities but not when killed
-    local turret = self.Human_TurretEnt
-    if !self.Dead && IsValid(turret) then
-        turret:Remove()
-    end
+	-- Remove the turret if the NPC has spawned from non-player entities but not when killed
+	local turret = self.Human_TurretEnt
+	if !self.Dead && IsValid(turret) then
+		turret:Remove()
+	end
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ SOUNDS ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

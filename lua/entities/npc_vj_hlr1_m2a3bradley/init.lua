@@ -84,25 +84,25 @@ function ENT:Tank_OnThink()
 		self.Bradley_DoorOpen = true
 		self:PlayAnim(ACT_SPECIAL_ATTACK1, true, false, false)
 		self.Bradley_HasSpawnedSoldiers = true
-        self:SetState(VJ_STATE_FREEZE)
+		self:SetState(VJ_STATE_FREEZE)
 		timer.Simple(0.5, function()
 			if IsValid(self) then
 				if self.Bradley_DoorOpen == false then -- Door was suddenly closed, so try again later
 					self.Bradley_HasSpawnedSoldiers = false
-                    self:SetState()
+					self:SetState()
 				else
 					local ene = self:GetEnemy()
 					for i = 1, 6 do
-                        local hGruntClass = (GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
-                        if math.random(1, 20) == 1 then -- 5% for robot grunts to spawn
-                            hGruntClass = "npc_vj_hlr1_rgrunt"
-                        elseif GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && math.random(1, 10) == 1 then -- 15% for medic grunts to spawn
-                            hGruntClass = "npc_vj_hlrof_hgrunt_med"
-                        elseif GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && math.random(1, 15) == 1 then -- 10% for engineer grunts to spawn
-                            hGruntClass = "npc_vj_hlrof_hgrunt_eng"
-                        else
-                            hGruntClass = (GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
-                        end
+						local hGruntClass = (GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
+						if math.random(1, 20) == 1 then -- 5% for robot grunts to spawn
+							hGruntClass = "npc_vj_hlr1_rgrunt"
+						elseif GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && math.random(1, 10) == 1 then -- 15% for medic grunts to spawn
+							hGruntClass = "npc_vj_hlrof_hgrunt_med"
+						elseif GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && math.random(1, 15) == 1 then -- 10% for engineer grunts to spawn
+							hGruntClass = "npc_vj_hlrof_hgrunt_eng"
+						else
+							hGruntClass = (GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
+						end
 						local hGrunt = ents.Create(hGruntClass)
 						local opSide = ((i % 2 == 0) and -25) or 25 -- Make every other grunt spawn to the opposite side
 						hGrunt:SetPos(self:GetPos() + self:GetForward()*(i <= 2 and -160 or (i <= 4 and -220 or -290)) + self:GetRight()*opSide + self:GetUp()*5)
@@ -119,7 +119,7 @@ function ENT:Tank_OnThink()
 							end
 						end)
 						self.Bradley_Grunts[#self.Bradley_Grunts + 1] = hGrunt -- Register the grunt
-                        self:SetState()
+						self:SetState()
 					end
 				end
 			end

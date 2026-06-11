@@ -524,79 +524,12 @@ function ENT:OnFlinch(dmginfo, hitgroup, status)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local gasTankExpPos = Vector(0, 0, 90)
-local gasTankExpSd = {"vj_hlr/gsrc/wep/explosion/explode3.wav", "vj_hlr/gsrc/wep/explosion/explode4.wav", "vj_hlr/gsrc/wep/explosion/explode5.wav"}
-local sdHeadshot = {"vj_hlr/gsrc/fx/headshot1.wav", "vj_hlr/gsrc/fx/headshot2.wav", "vj_hlr/gsrc/fx/headshot3.wav"}
-local colorRed = VJ.Color2Byte(Color(130, 19, 10))
---
-function ENT:HandleGibOnDeath(dmginfo, hitgroup)
-	self.HasDeathSounds = false
-
-	-- Handle gas tank for the hgrunt engineer
-	if self.HECU_GasTankHit then
-		util.BlastDamage(self, self, self:GetPos(), 100, 80)
-		util.ScreenShake(self:GetPos(), 100, 200, 1, 500)
-		VJ.EmitSound(self, gasTankExpSd, 90)
-		VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)
-		local spr = ents.Create("env_sprite")
-		spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
-		spr:SetKeyValue("GlowProxySize", "2.0")
-		spr:SetKeyValue("HDRColorScale", "1.0")
-		spr:SetKeyValue("renderfx", "14")
-		spr:SetKeyValue("rendermode", "5")
-		spr:SetKeyValue("renderamt", "255")
-		spr:SetKeyValue("disablereceiveshadows", "0")
-		spr:SetKeyValue("mindxlevel", "0")
-		spr:SetKeyValue("maxdxlevel", "0")
-		spr:SetKeyValue("framerate", "15.0")
-		spr:SetKeyValue("spawnflags", "0")
-		spr:SetKeyValue("scale", "4")
-		spr:SetPos(self:GetPos() + gasTankExpPos)
-		spr:Spawn()
-		spr:Fire("Kill", "", 0.9)
-		timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
-	end
-
-	if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD then
-		self.HasDeathAnimation = false
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_skull.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 0, 60))})
-		self:PlaySoundSystem("Gib", sdHeadshot)
-		return true, {AllowCorpse = true, AllowSound = false}
-	else
-		if self.HasGibOnDeathEffects then
-			local effectData = EffectData()
-			effectData:SetOrigin(self:GetPos() + self:OBBCenter())
-			effectData:SetColor(colorRed)
-			effectData:SetScale(120)
-			util.Effect("VJ_Blood1", effectData)
-			effectData:SetScale(8)
-			effectData:SetFlags(3)
-			effectData:SetColor(0)
-			util.Effect("bloodspray", effectData)
-			util.Effect("bloodspray", effectData)
-		end
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh1.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 0, 40))})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 1, 40))})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(1, 0, 40))})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh4.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 2, 40))})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_b_bone.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 0, 50))})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_b_gib.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(1, 1, 40))})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_guts.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(2, 1, 40))})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_hmeat.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 1, 45))})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_lung.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 0, 45))})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_skull.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 0, 60))})
-		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_legbone.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 1, 15))})
-		if self.HECU_Type != 4 then -- Not Black Ops
-			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/gib_hgrunt.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 0, 15))})
-		end
-		self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
-		return true, {AllowSound = false}
-	end
-	return false
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Init" then
+		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED then
+			self.DeathAnimationDecreaseLengthAmount = -1
+			self.DeathCorpseEntityClass = "prop_vj_animatable"
+		end
 		-- Regular Human Grunt head gib
 		if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then
 			self:SetBodygroup(1, 4)
@@ -654,6 +587,76 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			self:SetBodygroup(2, 3)
 		end
 	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local gasTankExpPos = Vector(0, 0, 90)
+local gasTankExpSd = {"vj_hlr/gsrc/wep/explosion/explode3.wav", "vj_hlr/gsrc/wep/explosion/explode4.wav", "vj_hlr/gsrc/wep/explosion/explode5.wav"}
+local sdHeadshot = {"vj_hlr/gsrc/fx/headshot1.wav", "vj_hlr/gsrc/fx/headshot2.wav", "vj_hlr/gsrc/fx/headshot3.wav"}
+local colorRed = VJ.Color2Byte(Color(130, 19, 10))
+--
+function ENT:HandleGibOnDeath(dmginfo, hitgroup)
+	self.HasDeathSounds = false
+
+	-- Handle gas tank for the hgrunt engineer
+	if self.HECU_GasTankHit then
+		util.BlastDamage(self, self, self:GetPos(), 100, 80)
+		util.ScreenShake(self:GetPos(), 100, 200, 1, 500)
+		VJ.EmitSound(self, gasTankExpSd, 90)
+		VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)
+		local spr = ents.Create("env_sprite")
+		spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
+		spr:SetKeyValue("GlowProxySize", "2.0")
+		spr:SetKeyValue("HDRColorScale", "1.0")
+		spr:SetKeyValue("renderfx", "14")
+		spr:SetKeyValue("rendermode", "5")
+		spr:SetKeyValue("renderamt", "255")
+		spr:SetKeyValue("disablereceiveshadows", "0")
+		spr:SetKeyValue("mindxlevel", "0")
+		spr:SetKeyValue("maxdxlevel", "0")
+		spr:SetKeyValue("framerate", "15.0")
+		spr:SetKeyValue("spawnflags", "0")
+		spr:SetKeyValue("scale", "4")
+		spr:SetPos(self:GetPos() + gasTankExpPos)
+		spr:Spawn()
+		spr:Fire("Kill", "", 0.9)
+		timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+	end
+
+	if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD then
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_skull.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 0, 60))})
+		self:PlaySoundSystem("Gib", sdHeadshot)
+		return true, {AllowAnim = true, AllowCorpse = true, AllowSound = false}
+	else
+		if self.HasGibOnDeathEffects then
+			local effectData = EffectData()
+			effectData:SetOrigin(self:GetPos() + self:OBBCenter())
+			effectData:SetColor(colorRed)
+			effectData:SetScale(120)
+			util.Effect("VJ_Blood1", effectData)
+			effectData:SetScale(8)
+			effectData:SetFlags(3)
+			effectData:SetColor(0)
+			util.Effect("bloodspray", effectData)
+			util.Effect("bloodspray", effectData)
+		end
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh1.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 0, 40))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh2.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 1, 40))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh3.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(1, 0, 40))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh4.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 2, 40))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_b_bone.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 0, 50))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_b_gib.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(1, 1, 40))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_guts.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(2, 1, 40))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_hmeat.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 1, 45))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_lung.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 0, 45))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_skull.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 0, 60))})
+		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_legbone.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 1, 15))})
+		if self.HECU_Type != 4 then -- Not Black Ops
+			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/gib_hgrunt.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", Pos = self:LocalToWorld(Vector(0, 0, 15))})
+		end
+		self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
+		return true, {AllowSound = false}
+	end
+	return false
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

@@ -16,6 +16,8 @@ ENT.ControllerParams = {
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_BIG_FLINCH
 
+ENT.AnimTbl_Death = "vjseq_crash"
+
 -- Custom
 ENT.Boid_WoundedAnim = nil
 ---------------------------------------------------------------------------------------------------------------------------------------------

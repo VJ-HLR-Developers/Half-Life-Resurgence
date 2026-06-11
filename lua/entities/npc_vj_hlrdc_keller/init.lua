@@ -76,7 +76,7 @@ local parentDeathFunc = ENT.OnDeath
 --
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	parentDeathFunc(self, dmginfo, hitgroup, status)
-	if status == "Finish" then
+	if status == "Finish" && self.DeathCorpseEntityClass != "prop_vj_animatable" then
 		if self:GetBodygroup(0) == 1 then
 			self.Keller_WheelChair = false
 		end
@@ -87,7 +87,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	VJ.HLR_ApplyCorpseSystem(self, corpse)
-	if self.Keller_WheelChair == true then
+	if self.Keller_WheelChair == true && self.DeathCorpseEntityClass != "prop_vj_animatable" then
 		self:CreateExtraDeathCorpse("prop_physics", "models/vj_hlr/decay/wheelchair.mdl")
 	end
 end

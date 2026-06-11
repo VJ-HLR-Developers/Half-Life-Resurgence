@@ -115,17 +115,15 @@ function ENT:MeleeAttackKnockbackVelocity(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "DeathAnim" then
+	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED then
+		self.DeathAnimationDecreaseLengthAmount = -1
+		self.DeathCorpseEntityClass = "prop_vj_animatable"
+	elseif status == "DeathAnim" then
 		if self.Bullsquid_Type != 0 then return end
 		if dmginfo:GetDamage() > 35 then
 			self.AnimTbl_Death = ACT_DIEBACKWARD
 		end
 	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
-	corpse:SetSkin(1)
-	VJ.HLR_ApplyCorpseSystem(self, corpse)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
@@ -157,4 +155,9 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib10.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 15))})
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
+	corpse:SetSkin(1)
+	VJ.HLR_ApplyCorpseSystem(self, corpse)
 end

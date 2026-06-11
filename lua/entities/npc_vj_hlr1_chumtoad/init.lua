@@ -73,9 +73,15 @@ function ENT:OnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	-- Don't play death animation if swimming
-	if status == "Init" && self.CT_MoveTypeSwim then
-		self.HasDeathAnimation = false
+	if status == "Init" then
+		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED then
+			self.DeathAnimationDecreaseLengthAmount = -1
+			self.DeathCorpseEntityClass = "prop_vj_animatable"
+		end
+		-- Don't play death animation if swimming
+		if self.CT_MoveTypeSwim then
+			self.HasDeathAnimation = false
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

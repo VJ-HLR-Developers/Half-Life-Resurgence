@@ -27,10 +27,3 @@ ENT.BabyH_MotherEnt = NULL
 function ENT:Init()
 	self:SetCollisionBounds(Vector(5, 5, 10), Vector(-5, -5, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo, hitgroup, status)
-	-- ALERT MY MOM THAT I HAVE DIED ;(
-	if status == "Init" && IsValid(self.BabyH_MotherEnt) then
-		self.BabyH_MotherEnt:Gonarch_BabyDeath()
-	end
-end

@@ -68,8 +68,8 @@ ENT.Nih_OriginalGravity = 600
 ENT.Nih_RangeAttach = -1
 
 /*
-vj_hl/sprites/flare6.vmt    		Right before nihilanth disappears on death he releases these bubbles
-vj_hl/sprites/nhth1.vmt     		Purple electric projectiles
+vj_hl/sprites/flare6.vmt		Right before nihilanth disappears on death he releases these bubbles
+vj_hl/sprites/nhth1.vmt		Purple electric projectiles
 vj_hl/sprites/muzzleflash3.vmt		Orb ring around his head that displays his health sorta
 */
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -80,9 +80,9 @@ function ENT:Init()
 		if entsAll[x]:GetClass() == "npc_vj_hlr1_nihilanth" && entsAll[x] != self then
 			timer.Simple(0.1, function()
 				local creator = self:GetCreator()
-                if IsValid(creator) then
-                    creator:PrintMessage(HUD_PRINTTALK, "WARNING: Only one Nihilanth is allowed in the map!")
-                end
+				if IsValid(creator) then
+					creator:PrintMessage(HUD_PRINTTALK, "WARNING: Only one Nihilanth is allowed in the map!")
+				end
 				self:Remove()
 			end)
 			return

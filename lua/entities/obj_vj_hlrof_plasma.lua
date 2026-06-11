@@ -95,10 +95,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 //function ENT:OnDealDamage(data, phys, hitEnts)
 //	local ply = player.GetAll()[1]
-//    net.Start("vj_hlr_svencoop_glow")
+//	net.Start("vj_hlr_svencoop_glow")
 //		net.WriteEntity(self)
 //		net.WriteEntity(hitEnts)
-//    net.Send(ply)
+//	net.Send(ply)
 //end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDestroy(data, phys)

@@ -105,12 +105,12 @@ function ENT:OnRangeAttack(status, enemy)
 		if self.CurrentSpeechSound then
 			self.CurrentSpeechSound:ChangePitch(90 + 90, 1.2)
 		end
-		
+
 		local myPos = self:GetPos()
 		local myForward = self:GetForward()
 		local myRight = self:GetRight()
 		local myUp = self:GetUp()
-		
+
 		-- Tsakh --------------------------
 		local tsakhSpawn = myPos + myUp*45 + myRight*20
 		local tsakhLocations = {
@@ -165,7 +165,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 			filter = self
 		})
 		local hitPos = tr.HitPos
-		
+
 		-- Fire 2 electric beams at the enemy
 		local elec = EffectData()
 		elec:SetStart(startPos)
@@ -175,7 +175,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		util.Effect("VJ_HLR_Electric", elec)
 		elec:SetAttachment(2)
 		util.Effect("VJ_HLR_Electric", elec)
-		
+
 		VJ.ApplyRadiusDamage(self, self, hitPos, 30, 20, DMG_SHOCK, true, false, {Force = 90})
 		return true
 	end
@@ -198,6 +198,15 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnDeath(dmginfo, hitgroup, status)
+	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED then
+		self.DeathAnimationDecreaseLengthAmount = -1
+		self.DeathCorpseEntityClass = "prop_vj_animatable"
+	elseif status == "DeathAnim" && hitgroup == HITGROUP_HEAD then
+		self.AnimTbl_Death = ACT_DIE_HEADSHOT
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
@@ -214,7 +223,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 		util.Effect("bloodspray", effectData)
 	end
-	
+
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 40))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 20))})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib3.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 30))})
@@ -228,12 +237,6 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/islavegib.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(1, 0, 40))})
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "DeathAnim" && hitgroup == HITGROUP_HEAD then
-		self.AnimTbl_Death = ACT_DIE_HEADSHOT
-	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local extraGibs = {"models/vj_hlr/gibs/islavegib.mdl"}

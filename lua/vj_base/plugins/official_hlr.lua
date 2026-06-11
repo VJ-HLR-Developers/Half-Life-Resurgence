@@ -549,6 +549,16 @@ function VJ.HLR_ApplyCorpseSystem(ent, corpse, gibTbl, extraOptions)
 		gibTbl = table.Copy(gibTbl) -- So Lua doesn't override the localized tables above
 		gibTbl = table.Add(gibTbl, extraOptions.ExtraGibs)
 	end
+	-- Make corpses static like in GoldSrc
+	if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && ent.DeathCorpseEntityClass == "prop_vj_animatable" then
+		local minBounds, maxBounds = ent:GetCollisionBounds()
+		corpse:ResetSequence(ent:GetSequence())
+		corpse:SetCycle(1)
+		corpse:SetMoveType(ent:GetMoveType())
+		corpse:SetCollisionBounds(Vector(minBounds.x, maxBounds.y, 5), Vector(-minBounds.x, -maxBounds.y, 0))
+		corpse:SetSurroundingBounds(Vector(minBounds.x * 100, maxBounds.y * 100, 5 * 100), Vector(-minBounds.x * 100, -maxBounds.y * 100, 0))
+		corpse:SetCollisionGroup(ent.DeathCorpseCollisionType)
+	end
 	corpse.HLR_Corpse_Gibs = gibTbl
 	corpse.HLR_Corpse_CollideSound = extraOptions.CollisionSound
 	corpse.HLR_Corpse_ExpSound = extraOptions.ExpSound or "vj_base/gib/splat.wav"
@@ -715,6 +725,7 @@ ent.HLR_Corpse = Is this an HLR corpse?
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 VJ.AddConVar("vj_hlr_hd", 0, FCVAR_ARCHIVE)
 -- GoldSrc
+VJ.AddConVar("vj_hlr1_corpse_static", 0, FCVAR_ARCHIVE)
 VJ.AddConVar("vj_hlr1_corpse_effects", 1, FCVAR_ARCHIVE)
 VJ.AddConVar("vj_hlr1_corpse_gibbable", 1, FCVAR_ARCHIVE)
 VJ.AddConVar("vj_hlr1_gonarch_babylimit", 20, FCVAR_ARCHIVE)
@@ -776,10 +787,11 @@ if CLIENT then
 				return
 			end
 			panel:Help("#vjbase.menu.general.admin.only")
-			panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_bradley_deploygrunts_oppf 0\nvj_hlr1_osprey_deploysoldiers 1\nvj_hlr1_osprey_deploysoldiers_oppf 0\nvj_hlr2_merkava_gunner 1\nvj_hlr1_assassin_cloaks 1\nvj_hlr1_corpse_effects 1\nvj_hlr1_corpse_gibbable 1\nvj_hlr2_custom_skins 1\nvj_hlr_hd 0"})
+			panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_bradley_deploygrunts_oppf 0\nvj_hlr1_osprey_deploysoldiers 1\nvj_hlr1_osprey_deploysoldiers_oppf 0\nvj_hlr2_merkava_gunner 1\nvj_hlr1_assassin_cloaks 1\nvj_hlr1_corpse_static 0\nvj_hlr1_corpse_effects 1\nvj_hlr1_corpse_gibbable 1\nvj_hlr2_custom_skins 1\nvj_hlr_hd 0"})
 			panel:CheckBox("Enable HD Models (if available)", "vj_hlr_hd")
 			panel:ControlHelp("Requires HD extension(s) to be installed!")
 			panel:Help("GoldSrc Engine:")
+			panel:CheckBox("Corpses Are Static Like GoldSrc", "vj_hlr1_corpse_static")
 			panel:CheckBox("Corpses Create Effects & Decals", "vj_hlr1_corpse_effects")
 			panel:CheckBox("Corpses Can Be Dismembered", "vj_hlr1_corpse_gibbable")
 			panel:CheckBox("M2A3 Bradley Deploys Human Grunts", "vj_hlr1_bradley_deploygrunts")
