@@ -552,7 +552,7 @@ function VJ.HLR_ApplyCorpseSystem(ent, corpse, gibTbl, extraOptions)
 	-- Make corpses static like in GoldSrc
 	if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && ent.DeathCorpseEntityClass == "prop_vj_animatable" then
 		local minBounds, maxBounds = ent:GetCollisionBounds()
-		corpse:ResetSequence(ent:GetSequence())
+		corpse:ResetSequence((ent.HECU_Rappelling && "diebackwards") or ent:GetSequence())
 		corpse:SetCycle(1)
 		corpse:SetMoveType(ent:GetMoveType())
 		corpse:SetCollisionBounds(Vector(minBounds.x, maxBounds.y, 5), Vector(-minBounds.x, -maxBounds.y, 0))
