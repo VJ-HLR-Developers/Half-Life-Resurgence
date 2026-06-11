@@ -25,17 +25,18 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
 	if self.HECU_Rappelling or self:IsBusy() then return end
-	if ((self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) or !self.VJ_IsBeingControlled) && IsValid(self:GetEnemy()) && self:Visible(self:GetEnemy()) && self.HECU_NextTurretCheckT < CurTime() && !IsValid(self.HECU_TurretEnt) then
+	local ene = self:GetEnemy()
+	if ((self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) or !self.VJ_IsBeingControlled) && IsValid(ene) && self:Visible(ene) && self.HECU_NextTurretCheckT < CurTime() && !IsValid(self.HECU_TurretEnt) then
 		-- Make sure not to place it if the front of the NPC is blocked!
 		local myCenterPos = self:GetPos() + self:OBBCenter()
 		local tr = util.TraceLine({
 			start = myCenterPos,
-			endpos = myCenterPos + self:GetForward()*80,
+			endpos = myCenterPos + self:GetForward() * 80,
 			filter = self
 		})
 		if !tr.Hit then
 			self.HECU_NextTurretCheckT = CurTime() + math.Rand(25, 35)
-			self:PlayAnim("pull_torch_wgun", true, false, false, 0, {OnFinish=function(interrupted, anim)
+			self:PlayAnim("pull_torch_wgun", true, false, false, 0, {OnFinish = function(interrupted, anim)
 				if interrupted then -- If interrupted, put torch away and try again very soon!
 					self.HECU_NextTurretCheckT = CurTime() + math.Rand(5, 10)
 					self:StopParticles()
@@ -45,7 +46,7 @@ function ENT:OnThinkActive()
 				timer.Simple(0.5, function()
 					if IsValid(self) && IsValid(self:GetEnemy()) && !IsValid(self.HECU_TurretEnt) then
 						local turret = ents.Create("npc_vj_hlr1_sentry")
-						turret:SetPos(self:GetPos() + self:GetForward()*50)
+						turret:SetPos(self:GetPos() + self:GetForward() * 50)
 						turret:SetAngles(self:GetAngles())
 						turret:Spawn()
 						turret:Activate()
@@ -59,14 +60,13 @@ function ENT:OnThinkActive()
 						end
 					end
 				end)
-				self:PlayAnim("open_floor_grate", true, false, false, 0, {OnFinish=function(interrupted2, anim2)
+				self:PlayAnim("open_floor_grate", true, false, false, 0, {OnFinish = function(interrupted2, anim2)
 					if interrupted2 then -- If interrupted after deploying turret, put torch away!
 						self:StopParticles()
 						self:SetBodygroup(1, 0)
 						return
 					end
 					self:PlayAnim("store_torch", true, false)
-					self.NextCallForHelpAnimationT = CurTime() + VJ.AnimDuration(self, "store_torch") -- Make sure we don't interrupt before putting torch away
 				end})
 			end})
 		end

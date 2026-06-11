@@ -409,7 +409,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 			//print("Left hit!", self.GW_EyeHealth.l)
 			if self.GW_EyeHealth.l <= 0 then
 				self:PlayAnim(ACT_SMALL_FLINCH, true, false)
-				timer.Simple(VJ.AnimDuration(self, ACT_SMALL_FLINCH), function() if IsValid(self) then self.PauseAttacks = false end end)
+				timer.Simple(VJ.AnimDuration(self, ACT_SMALL_FLINCH), function() if IsValid(self) then self.PauseAttacks = false end end) -- Fix not performing range attack sometimes after eye HP depletes @DarkbornEmperor
 				self:GW_EyeHealthCheck()
 			end
 			dmginfo:SetDamage(0)
@@ -420,7 +420,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 			//print("Right hit!", self.GW_EyeHealth.r)
 			if self.GW_EyeHealth.r <= 0 then
 				self:PlayAnim(ACT_BIG_FLINCH, true, false)
-				timer.Simple(VJ.AnimDuration(self, ACT_BIG_FLINCH), function() if IsValid(self) then self.PauseAttacks = false end end)
+				timer.Simple(VJ.AnimDuration(self, ACT_BIG_FLINCH), function() if IsValid(self) then self.PauseAttacks = false end end) -- Fix not performing range attack sometimes after eye HP depletes @DarkbornEmperor
 				self:GW_EyeHealthCheck()
 			end
 			dmginfo:SetDamage(0)

@@ -67,7 +67,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "Init" then
-		if self.PauseAttacks == false then
+		if !self.PauseAttacks then
 			self:PlayAnim(ACT_MELEE_ATTACK1, "LetAttacks", false)
 		end
 		if !dmginfo:IsDamageType(DMG_BLAST) then
