@@ -80,7 +80,6 @@ ENT.SoundTbl_IdleDialogue = {
 	"vj_hlr/gsrc/npc/hgrunt_opf/chicken.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/charge.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/bfeeling.wav"
-
 }
 ENT.SoundTbl_IdleDialogueAnswer = {
 	"vj_hlr/gsrc/npc/hgrunt_opf/yes.wav",
@@ -99,8 +98,6 @@ ENT.SoundTbl_ReceiveOrder = {
 	"vj_hlr/gsrc/npc/hgrunt_opf/yes.wav"
 }
 ENT.SoundTbl_FollowPlayer = {
-	"vj_hlr/gsrc/npc/hgrunt_opf/clear.wav",
-	"vj_hlr/gsrc/npc/hgrunt_opf/corporal_01.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/damage.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/gotit.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/notfail.wav",
@@ -126,6 +123,7 @@ ENT.SoundTbl_MedicReceiveHeal = {
 	"vj_hlr/gsrc/npc/hgrunt_opf/of2a5_fg04.wav"
 }
 ENT.SoundTbl_OnPlayerSight = {
+	"vj_hlr/gsrc/npc/hgrunt_opf/corporal_01.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/hellosir.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/shephard.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/sir_01.wav",
@@ -176,11 +174,13 @@ ENT.SoundTbl_GrenadeSight = {
 ENT.SoundTbl_DangerSight = {
 	"vj_hlr/gsrc/npc/hgrunt_opf/cover.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/down.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/hellout.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/incoming.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/retreat.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/takecover.wav"
 }
 ENT.SoundTbl_KilledEnemy = {
-	"vj_hlr/gsrc/npc/hgrunt_opf/killer.wav",
+	"vj_hlr/gsrc/npc/hgrunt_opf/corporal.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/oneshot.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/sniper.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/talking.wav"
@@ -196,7 +196,7 @@ ENT.SoundTbl_Pain = {
 	"vj_hlr/gsrc/npc/hgrunt_opf/medic.wav"
 }
 ENT.SoundTbl_DamageByPlayer = {
-	"vj_hlr/gsrc/npc/hgrunt_opf/athority.wav",
+	//"vj_hlr/gsrc/npc/hgrunt_opf/athority.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/checkfire.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/friendly.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/watchfire.wav",
@@ -232,6 +232,24 @@ function ENT:HECU_OnInit()
 			self:SetBodygroup(2, 3) -- bonebakshen
 		elseif self:GetBodygroup(3) == 2 then
 			self:SetBodygroup(2, 1) -- Medz reshesh
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local sdAlertAlien = {"vj_hlr/gsrc/npc/hgrunt_opf/alert.wav", "vj_hlr/gsrc/npc/hgrunt_opf/alien.wav"}
+--
+function ENT:OnAlert(ent)
+	if math.random(1, 3) == 1 then
+		if ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Alien sounds
+			self:PlaySoundSystem("Alert", sdAlertAlien)
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnKilledEnemy(ent, inflictor, wasLast)
+	if math.random(1, 3) == 1 then
+		if ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Alien kill
+			self:PlaySoundSystem("Alert", "vj_hlr/gsrc/npc/hgrunt_opf/killer.wav")
 		end
 	end
 end
