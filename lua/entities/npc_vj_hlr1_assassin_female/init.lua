@@ -236,5 +236,8 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
+	if self:GetSequenceActivity(self:GetIdealSequence()) == ACT_DIEFORWARD && self.DeathCorpseEntityClass != "prop_vj_animatable" then -- Set the NVG bodygroup if we played forward death to match the NVG's position
+		corpse:SetBodygroup(0,1)
+	end
 	VJ.HLR_ApplyCorpseSystem(self, corpse)
 end
