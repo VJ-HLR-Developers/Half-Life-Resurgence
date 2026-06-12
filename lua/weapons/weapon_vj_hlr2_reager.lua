@@ -120,6 +120,7 @@ end
 function SWEP:OwnerChanged()
 	VJ.STOPSOUND(self.FireLoop1)
 	VJ.STOPSOUND(self.FireLoop2)
+	self:SetDrawLaser(false)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnPrimaryAttack(status, statusData)

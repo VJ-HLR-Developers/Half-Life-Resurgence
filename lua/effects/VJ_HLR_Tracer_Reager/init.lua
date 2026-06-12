@@ -78,7 +78,7 @@ function EFFECT:Think()
 			self.NextEffectSoundT = CurTime() +0.15
 		end
 		local Emitter = ParticleEmitter(self.EndPos)
-		for _ = 1, math.random(5, 15) do
+		for _ = 1, math.random(4, 7) do
 			local particle = Emitter:Add("effects/spark", self.EndPos)
 			particle:SetVelocity(VectorRand()*math.Rand(100, 350))
 			particle:SetDieTime(math.Rand(0.1, 1))
@@ -119,13 +119,13 @@ end
 function EFFECT:Render()
 	if !self.DoDraw then return end
 	-- render.SetMaterial(self.WarpMat)
-	-- render.DrawBeam(self.StartPos,self.EndPos,math.Rand(8, 12),math.Rand(0, 1),math.Rand(0, 1) +((self.StartPos -self.EndPos):Length() /128),Color(255,255,255,255))
+	-- render.DrawBeam(self.StartPos,self.EndPos,math.Rand(8,12),math.Rand(0,1),math.Rand(0,1) +((self.StartPos -self.EndPos):Length() /128),Color(255,255,255,255))
 
 	render.SetMaterial(self.MainMat)
-	render.DrawBeam(self.StartPos,self.EndPos,math.Rand(18, 24),math.Rand(0, 1),math.Rand(0, 1) +((self.StartPos -self.EndPos):Length() /128),Color(112,238,255,200))
+	render.DrawBeam(self.StartPos,self.EndPos,math.Rand(18,24),math.Rand(0,1),math.Rand(0,1) +((self.StartPos -self.EndPos):Length() /128),Color(112,238,255,200))
 
 	render.SetMaterial(self.SecondaryMat)
-	render.DrawBeam(self.StartPos,self.EndPos,math.Rand(8, 12),math.Rand(0, 1),math.Rand(0, 1) +((self.StartPos -self.EndPos):Length() /128),Color(255,255,255,255))
+	render.DrawBeam(self.StartPos,self.EndPos,math.Rand(8,12),math.Rand(0,1),math.Rand(0,1) +((self.StartPos -self.EndPos):Length() /128),Color(255,255,255,255))
 
 	render.SetMaterial(self.ImpactMat)
 	render.DrawSprite(self.EndPos,math.Rand(24,36),math.Rand(24,36),Color(188,247,255))
