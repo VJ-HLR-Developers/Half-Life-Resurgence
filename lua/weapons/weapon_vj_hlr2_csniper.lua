@@ -126,7 +126,7 @@ if CLIENT then
 	---------------------------------------------------------------------------------------------------------------------------------------------
 	function SWEP:PostDrawViewModel(vm, wep, ply, flags)
 		-- Player only
-		if self:GetZoomLevel() >= 3 then return end
+		if self:GetZoomLevel() >= 3 or vm:GetSequenceName(vm:GetSequence()) != "idle01" then return end
 		local owner = self:GetOwner()
 		local attach = vm:GetAttachment(vm:LookupAttachment("laser"))
 		local tr = owner:GetEyeTrace()
