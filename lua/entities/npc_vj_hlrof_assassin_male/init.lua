@@ -21,7 +21,7 @@ function ENT:HECU_OnInit()
 	self.SoundTbl_IdleDialogueAnswer = {"vj_hlr/gsrc/npc/ops/of2a5_bo02.wav", "vj_hlr/gsrc/npc/ops/of6a2_bo02.wav"}
 	self.SoundTbl_Investigate = "vj_hlr/gsrc/npc/ops/of6a2_bo03.wav"
 
-	self:SetBodygroup(1 , math.random(0, 2))
+	self:SetBodygroup(1 , math.random(0, 3))
 	self:SetBodygroup(2, self.HECU_Rappelling and 0 or math.random(0, 1)) -- If we spawn as a rappelling soldier, then only spawn with MP5!
 	self.BOA_NextStrafeT = CurTime() + 4
 end
