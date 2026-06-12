@@ -178,6 +178,7 @@ function ENT:Init()
 	self:HECU_OnInit()
 
 	if self.HECU_Rappelling then
+		self:SetAngles(Angle(0, self:GetAngles().y, 0)) -- Reset the x and z angles when deployed by Osprey due to idle movement
 		self:SetGroundEntity(NULL)
 		self:AddFlags(FL_FLY)
 		self:SetNavType(NAV_FLY)
