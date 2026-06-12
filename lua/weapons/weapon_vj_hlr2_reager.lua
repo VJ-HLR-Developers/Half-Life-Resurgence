@@ -31,7 +31,7 @@ SWEP.ReloadSound = "vj_hlr/src/wep/reager/reager_reload.wav"
 
 SWEP.WorldModel_UseCustomPosition = true
 SWEP.WorldModel_CustomPositionAngle = Vector(-10, 0, 180)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-1, 15, 0.5)
+SWEP.WorldModel_CustomPositionOrigin = Vector(-1, 8, 0.5)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 if CLIENT then
     if EmissiveSys then
