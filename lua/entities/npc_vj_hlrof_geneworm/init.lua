@@ -20,8 +20,8 @@ ENT.ControllerParams = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
-ENT.BloodParticle = {"vj_hlr_blood_yellow_large"}
-ENT.BloodDecal = {"VJ_HLR1_Blood_Yellow"}
+ENT.BloodParticle = "vj_hlr_blood_yellow_large"
+ENT.BloodDecal = "VJ_HLR1_Blood_Yellow"
 ENT.HasBloodPool = false
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
 
@@ -261,7 +261,7 @@ function ENT:OnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MeleeAttackKnockbackVelocity(ent)
-	return self:GetForward()*math.random(400, 500) + self:GetUp()*(self.GW_MeleeNegKnockback and math.random(-100, -150) or math.random(1000, 1200))
+	return self:GetForward() * math.random(400, 500) + self:GetUp() * (self.GW_MeleeNegKnockback and math.random(-100, -150) or math.random(1000, 1200))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local meleeAngCos = math.cos(math.rad(40))

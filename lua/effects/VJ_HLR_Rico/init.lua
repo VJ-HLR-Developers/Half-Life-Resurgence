@@ -15,7 +15,7 @@ function EFFECT:Init(data) // You're welcome @DrVrej for not making the effect n
 	if GetConVar("vj_hlr1_sparkfx"):GetInt() == 1 then
 		for i = 1, math.random(5, 15) do
 			local particle = Emitter:Add("vj_hl/tracer_middle", self.Pos)
-			particle:SetVelocity(VectorRand() *math.Rand(100, 350))
+			particle:SetVelocity(VectorRand() * math.Rand(100, 350))
 			particle:SetDieTime(math.Rand(0.1, 1))
 			particle:SetStartAlpha(200)
 			particle:SetEndAlpha(0)
@@ -55,7 +55,7 @@ function EFFECT:Init(data) // You're welcome @DrVrej for not making the effect n
 		fx:SetStartAlpha(255)
 		fx:SetEndAlpha(0)
 		fx:SetStartSize(self.Size or 4)
-		fx:SetEndSize(self.Size && self.Size *2 or 8)
+		fx:SetEndSize(self.Size && self.Size * 2 or 8)
 		fx:SetColor(255, 255, 255)
 	end
 

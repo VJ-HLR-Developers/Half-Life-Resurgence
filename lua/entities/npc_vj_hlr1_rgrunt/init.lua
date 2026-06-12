@@ -33,19 +33,19 @@ function ENT:HECU_OnInit()
 	self:SetBodygroup(1, math.random(0, 1))
 	self.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/rgrunt/pl_metal1.wav", "vj_hlr/gsrc/npc/rgrunt/pl_metal2.wav", "vj_hlr/gsrc/npc/rgrunt/pl_metal3.wav", "vj_hlr/gsrc/npc/rgrunt/pl_metal4.wav"}
 	self.SoundTbl_Idle = {"vj_hlr/gsrc/npc/rgrunt/rb_idle1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_idle2.wav", "vj_hlr/gsrc/npc/rgrunt/rb_idle3.wav"}
-	self.SoundTbl_Breath = {"vj_hlr/gsrc/npc/rgrunt/rb_engine.wav"}
+	self.SoundTbl_Breath = "vj_hlr/gsrc/npc/rgrunt/rb_engine.wav"
 	self.SoundTbl_IdleDialogue = {"vj_hlr/gsrc/npc/rgrunt/rb_question1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_question2.wav", "vj_hlr/gsrc/npc/rgrunt/rb_question3.wav", "vj_hlr/gsrc/npc/rgrunt/rb_question4.wav", "vj_hlr/gsrc/npc/rgrunt/rb_question5.wav"}
 	self.SoundTbl_IdleDialogueAnswer = {"vj_hlr/gsrc/npc/rgrunt/rb_answer1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_answer2.wav", "vj_hlr/gsrc/npc/rgrunt/rb_answer3.wav", "vj_hlr/gsrc/npc/rgrunt/rb_answer4.wav", "vj_hlr/gsrc/npc/rgrunt/rb_answer5.wav"}
 	self.SoundTbl_CombatIdle = {"vj_hlr/gsrc/npc/rgrunt/rb_combat1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_combat2.wav", "vj_hlr/gsrc/npc/rgrunt/rb_combat3.wav", "vj_hlr/gsrc/npc/rgrunt/rb_combat4.wav", "vj_hlr/gsrc/npc/rgrunt/rb_taunt1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_taunt2.wav", "vj_hlr/gsrc/npc/rgrunt/rb_taunt3.wav"}
 	self.SoundTbl_Investigate = {"vj_hlr/gsrc/npc/rgrunt/rb_investigate.wav"}
 	self.SoundTbl_Alert = {"vj_hlr/gsrc/npc/rgrunt/rb_alert1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_alert2.wav", "vj_hlr/gsrc/npc/rgrunt/rb_alert3.wav", "vj_hlr/gsrc/npc/rgrunt/rb_alert4.wav", "vj_hlr/gsrc/npc/rgrunt/rb_alert5.wav"}
-	self.SoundTbl_CallForHelp = {"vj_hlr/gsrc/npc/rgrunt/rb_help.wav"}
+	self.SoundTbl_CallForHelp = "vj_hlr/gsrc/npc/rgrunt/rb_help.wav"
 	self.SoundTbl_WeaponReload = {"vj_hlr/gsrc/npc/rgrunt/rb_cover1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_cover2.wav"}
 	self.SoundTbl_GrenadeAttack = {"vj_hlr/gsrc/npc/rgrunt/rb_deploy1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_deploy2.wav"}
 	self.SoundTbl_GrenadeSight = {"vj_hlr/gsrc/npc/rgrunt/rb_gren1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_gren2.wav", "vj_hlr/gsrc/npc/rgrunt/rb_gren3.wav"}
 	self.SoundTbl_DangerSight = {"vj_hlr/gsrc/npc/rgrunt/rb_gren2.wav", "vj_hlr/gsrc/npc/rgrunt/rb_cover1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_cover2.wav"}
 	self.SoundTbl_KilledEnemy = {"vj_hlr/gsrc/npc/rgrunt/rb_killed1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_killed2.wav", "vj_hlr/gsrc/npc/rgrunt/rb_killed3.wav", "vj_hlr/gsrc/npc/rgrunt/rb_killed4.wav"}
-	self.SoundTbl_AllyDeath = {"vj_hlr/gsrc/npc/rgrunt/rb_allydeath1.wav"}
+	self.SoundTbl_AllyDeath = "vj_hlr/gsrc/npc/rgrunt/rb_allydeath1.wav"
 	self.SoundTbl_Pain = {"vj_hlr/gsrc/npc/rgrunt/spark1.wav", "vj_hlr/gsrc/npc/rgrunt/spark2.wav", "vj_hlr/gsrc/npc/rgrunt/spark3.wav", "vj_hlr/gsrc/npc/rgrunt/spark4.wav", "vj_hlr/gsrc/npc/rgrunt/spark5.wav", "vj_hlr/gsrc/npc/rgrunt/spark6.wav"}
 	self.SoundTbl_Death = {"vj_hlr/gsrc/npc/rgrunt/rb_die1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_die2.wav", "vj_hlr/gsrc/npc/rgrunt/rb_die3.wav"}
 end
@@ -138,5 +138,5 @@ local gibs = {"models/vj_hlr/gibs/metalgib_p1_g.mdl", "models/vj_hlr/gibs/metalg
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, corpse, 5)
-	VJ.HLR_ApplyCorpseSystem(self, corpse, gibs, {CollisionSound = gibsCollideSd, ExpSound = {"vj_hlr/gsrc/npc/rgrunt/rb_gib.wav"}})
+	VJ.HLR_ApplyCorpseSystem(self, corpse, gibs, {CollisionSound = gibsCollideSd, ExpSound = "vj_hlr/gsrc/npc/rgrunt/rb_gib.wav"})
 end

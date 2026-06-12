@@ -34,7 +34,7 @@ function EFFECT:Init(data)
 	fx:SetStartAlpha(255)
 	fx:SetEndAlpha(0)
 	fx:SetStartSize(self.Size or 4)
-	fx:SetEndSize(self.Size && self.Size *2 or 8)
+	fx:SetEndSize(self.Size && self.Size * 2 or 8)
 	fx:SetColor(255, 255, 255)
 	emitter:Finish()
 end

@@ -17,8 +17,8 @@ ENT.ControllerParams = {
 ENT.CanOpenDoors = false
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
-ENT.BloodParticle = {"vj_hlr_blood_red"}
-ENT.BloodDecal = {"VJ_HLR1_Blood_Red"}
+ENT.BloodParticle = "vj_hlr_blood_red"
+ENT.BloodDecal = "VJ_HLR1_Blood_Red"
 ENT.HasBloodPool = false
 
 -- Does it ever actually attack? Who knows!
@@ -72,7 +72,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	return true, {AllowSound = false}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local gibs = {"models/vj_hlr/gibs/flesh3.mdl"}
+local gibs = "models/vj_hlr/gibs/flesh3.mdl"
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	VJ.HLR_ApplyCorpseSystem(self, corpse, gibs)

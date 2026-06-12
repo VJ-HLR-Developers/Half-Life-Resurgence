@@ -8,7 +8,7 @@ SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire 		= false
 SWEP.NPC_CustomSpread	 		= 2.5
-SWEP.NPC_ReloadSound			= {"vj_hlr/gsrc/wep/saw/saw_reload2.wav"}
+SWEP.NPC_ReloadSound			= "vj_hlr/gsrc/wep/saw/saw_reload2.wav"
 SWEP.NPC_CanBePickedUp			= false
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true
@@ -24,7 +24,7 @@ SWEP.Primary.Damage				= 8
 SWEP.Primary.ClipSize			= 50
 SWEP.Primary.Ammo				= "SMG1"
 SWEP.Primary.Sound				= {"vj_hlr/gsrc/wep/saw/saw_fire1.wav", "vj_hlr/gsrc/wep/saw/saw_fire2.wav", "vj_hlr/gsrc/wep/saw/saw_fire3.wav"}
-SWEP.Primary.DistantSound		= {"vj_hlr/gsrc/wep/saw/saw_distant2.wav"}
+SWEP.Primary.DistantSound		= "vj_hlr/gsrc/wep/saw/saw_distant2.wav"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
 
@@ -36,7 +36,7 @@ local validModels = {
 	["models/vj_hlr/opfor/hgrunt_engineer.mdl"] = true,
 	["models/vj_hlr/opfor_hd/hgrunt.mdl"] = true,
 	["models/vj_hlr/opfor_hd/hgrunt_medic.mdl"] = true,
-	["models/vj_hlr/opfor_hd/hgrunt_engineer.mdl"] = true,
+	["models/vj_hlr/opfor_hd/hgrunt_engineer.mdl"] = true
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()

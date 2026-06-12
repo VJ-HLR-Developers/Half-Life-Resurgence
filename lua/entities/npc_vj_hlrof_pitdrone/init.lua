@@ -17,8 +17,8 @@ ENT.ControllerParams = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
-ENT.BloodParticle = {"vj_hlr_blood_yellow"}
-ENT.BloodDecal = {"VJ_HLR1_Blood_Yellow"}
+ENT.BloodParticle = "vj_hlr_blood_yellow"
+ENT.BloodDecal = "VJ_HLR1_Blood_Yellow"
 ENT.HasBloodPool = false
 
 ENT.MeleeAttackDamage = 15
@@ -50,7 +50,7 @@ ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/pitdrone/pit_drone_alert1.wav", "vj_hlr/g
 ENT.SoundTbl_MeleeAttack = {"vj_hlr/gsrc/npc/pitdrone/pit_drone_melee_attack1.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_melee_attack2.wav"}
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
 ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/gsrc/npc/pitdrone/pit_drone_attack_spike1.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_attack_spike2.wav"}
-ENT.SoundTbl_KilledEnemy = {"vj_hlr/gsrc/npc/pitdrone/pit_drone_eat.wav"}
+ENT.SoundTbl_KilledEnemy = "vj_hlr/gsrc/npc/pitdrone/pit_drone_eat.wav"
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/pitdrone/pit_drone_pain1.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_pain2.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_pain3.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_pain4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/pitdrone/pit_drone_die1.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_die2.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_die3.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -65,7 +65,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	function controlEnt:OnKeyBindPressed(key)
 		local npc = self.VJCE_NPC
 		if key == IN_RELOAD && npc:GetBodygroup(1) != 1 then
-			npc:PlayAnim(ACT_RELOAD, true, false, true, 0, {OnFinish=function(interrupted2, anim2)
+			npc:PlayAnim(ACT_RELOAD, true, false, true, 0, {OnFinish = function(interrupted2, anim2)
 				npc.HasRangeAttack = true
 				npc:SetBodygroup(1, 1)
 			end})
@@ -109,7 +109,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 						self.TakingCoverT = CurTime() + self:GetPathTimeToGoal()
 						timer.Simple(self:GetPathTimeToGoal(), function()
 							if IsValid(self) then
-								self:PlayAnim(ACT_RELOAD, true, false, true, 0, {OnFinish=function(interrupted2, anim2)
+								self:PlayAnim(ACT_RELOAD, true, false, true, 0, {OnFinish = function(interrupted2, anim2)
 									self.HasRangeAttack = true
 									self:SetBodygroup(1, 1)
 								end})

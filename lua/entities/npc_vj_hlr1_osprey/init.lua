@@ -206,7 +206,7 @@ function ENT:OnThinkActive()
 	local ene = self:GetEnemy()
 	if self.Osprey_DropStatus == 0 && IsValid(ene) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
 		self.Osprey_DropStatus = 1
-		local vecRand = VectorRand()*600
+		local vecRand = VectorRand() * 600
 		vecRand.z = math.abs(vecRand.z) -- Make sure negative Zs are cancelled out
 		local tr = util.TraceHull({
 			start = self:GetPos() + self:OBBCenter(),
@@ -219,7 +219,7 @@ function ENT:OnThinkActive()
 		self:SetState(VJ_STATE_ONLY_ANIMATION)
 		self.LimitChaseDistance = false
 	elseif self.Osprey_DropStatus == 1 then
-		self:AA_MoveTo(self.Osprey_DropPos, true, "Alert", {FaceDest=true, FaceDestTarget=false, IgnoreGround = true})
+		self:AA_MoveTo(self.Osprey_DropPos, true, "Alert", {FaceDest = true, FaceDestTarget = false, IgnoreGround = true})
 		if self:GetPos():Distance(self.Osprey_DropPos) < 180 then
 			self.Osprey_DropStatus = 2
 		end
@@ -237,7 +237,7 @@ function ENT:OnThinkActive()
 		self.Osprey_NextDropT = CurTime() + 30
 		for i = 1, 4 do
 			local att = self:GetAttachment((i % 2 == 0) && 2 or 1)
-			local startPos = att.Pos + att.Ang:Forward()*100 + self:GetForward()*((i >= 3) && -30 or 60)
+			local startPos = att.Pos + att.Ang:Forward() * 100 + self:GetForward() * ((i >= 3) && -30 or 60)
 			local soldierClass = (GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
 			local soldierClass_blkops = "npc_vj_hlrof_assassin_male"
 			if math.random(1, 20) == 1 then -- 5% for robot grunts to spawn
@@ -592,7 +592,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			VJ.EmitSound(self, "vj_hlr/gsrc/wep/mortar/mortarhit_dist.wav", 140, 100)
 
 			-- flags 0 = No fade!
-			effects.BeamRingPoint(self:GetPos(), 0.4, 0, 1500, 32, 0, colorHeliExp, {material="vj_hl/sprites/shockwave", framerate=0, flags=0})
+			effects.BeamRingPoint(self:GetPos(), 0.4, 0, 1500, 32, 0, colorHeliExp, {material = "vj_hl/sprites/shockwave", framerate = 0, flags = 0})
 
 			self:Remove()
 		end

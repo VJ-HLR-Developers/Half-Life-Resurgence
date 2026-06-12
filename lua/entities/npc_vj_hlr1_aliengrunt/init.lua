@@ -16,8 +16,8 @@ ENT.ControllerParams = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
-ENT.BloodParticle = {"vj_hlr_blood_yellow"}
-ENT.BloodDecal = {"VJ_HLR1_Blood_Yellow"}
+ENT.BloodParticle = "vj_hlr_blood_yellow"
+ENT.BloodDecal = "VJ_HLR1_Blood_Yellow"
 ENT.HasBloodPool = false
 
 ENT.MeleeAttackDamage = 20
@@ -75,7 +75,7 @@ function ENT:Init()
 		self.AnimTbl_Death = ACT_DIESIMPLE
 	else -- Default
 		self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
-		self.FlinchHitGroupMap = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}}, {HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}}, {HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}}, {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
+		self.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}, {HitGroup = HITGROUP_LEFTLEG, Animation = ACT_FLINCH_LEFTLEG}, {HitGroup = HITGROUP_RIGHTLEG, Animation = ACT_FLINCH_RIGHTLEG}}
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

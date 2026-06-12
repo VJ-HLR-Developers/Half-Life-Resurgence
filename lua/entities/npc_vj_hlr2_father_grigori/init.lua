@@ -52,7 +52,7 @@ ENT.SoundTbl_Idle = {
 	"vo/ravenholm/monk_rant19.wav",
 	"vo/ravenholm/monk_rant20.wav",
 	"vo/ravenholm/monk_rant21.wav",
-	"vo/ravenholm/monk_rant22.wav",
+	"vo/ravenholm/monk_rant22.wav"
 }
 ENT.SoundTbl_OnPlayerSight = {
 	"vo/ravenholm/grave_follow.wav",
@@ -61,7 +61,7 @@ ENT.SoundTbl_OnPlayerSight = {
 	"vo/ravenholm/monk_overhere.wav",
 	"vo/ravenholm/monk_stayclosebro.wav",
 	"vo/ravenholm/pyre_anotherlife.wav",
-	"vo/ravenholm/yard_greetings.wav",
+	"vo/ravenholm/yard_greetings.wav"
 }
 ENT.SoundTbl_Alert = {
 	"vo/ravenholm/aimforhead.wav",
@@ -76,7 +76,7 @@ ENT.SoundTbl_Alert = {
 	"vo/ravenholm/engage08.wav",
 	"vo/ravenholm/engage09.wav",
 	"vo/ravenholm/shotgun_hush.wav",
-	"vo/ravenholm/shotgun_theycome.wav",
+	"vo/ravenholm/shotgun_theycome.wav"
 }
 ENT.SoundTbl_BecomeEnemyToPlayer = {
 	"vo/ravenholm/engage01.wav",
@@ -87,7 +87,7 @@ ENT.SoundTbl_BecomeEnemyToPlayer = {
 	"vo/ravenholm/engage06.wav",
 	"vo/ravenholm/engage07.wav",
 	"vo/ravenholm/engage08.wav",
-	"vo/ravenholm/engage09.wav",
+	"vo/ravenholm/engage09.wav"
 }
 ENT.SoundTbl_CallForHelp = {
 	"vo/ravenholm/monk_coverme02.wav",
@@ -99,7 +99,7 @@ ENT.SoundTbl_CallForHelp = {
 	"vo/ravenholm/monk_helpme02.wav",
 	"vo/ravenholm/monk_helpme03.wav",
 	"vo/ravenholm/monk_helpme04.wav",
-	"vo/ravenholm/monk_helpme05.wav",
+	"vo/ravenholm/monk_helpme05.wav"
 }
 ENT.SoundTbl_AllyDeath = {
 	"vo/ravenholm/monk_mourn01.wav",
@@ -108,16 +108,16 @@ ENT.SoundTbl_AllyDeath = {
 	"vo/ravenholm/monk_mourn04.wav",
 	"vo/ravenholm/monk_mourn05.wav",
 	"vo/ravenholm/monk_mourn06.wav",
-	"vo/ravenholm/monk_mourn07.wav",
+	"vo/ravenholm/monk_mourn07.wav"
 }
-ENT.SoundTbl_MedicBeforeHeal  = {
+ENT.SoundTbl_MedicBeforeHeal  =
 	"vo/ravenholm/monk_givehealth01.wav"
-}
+
 ENT.SoundTbl_DangerSight = {
 	"vo/ravenholm/monk_danger01.wav",
 	"vo/ravenholm/monk_danger02.wav",
 	"vo/ravenholm/monk_danger03.wav",
-	"vo/ravenholm/monk_blocked02.wav",
+	"vo/ravenholm/monk_blocked02.wav"
 }
 ENT.SoundTbl_KilledEnemy = {
 	"vo/ravenholm/madlaugh01.wav",
@@ -134,7 +134,7 @@ ENT.SoundTbl_KilledEnemy = {
 	"vo/ravenholm/monk_kill08.wav",
 	"vo/ravenholm/monk_kill09.wav",
 	"vo/ravenholm/monk_kill10.wav",
-	"vo/ravenholm/monk_kill11.wav",
+	"vo/ravenholm/monk_kill11.wav"
 }
 ENT.SoundTbl_Pain = {
 	"vo/ravenholm/monk_pain01.wav",
@@ -147,7 +147,7 @@ ENT.SoundTbl_Pain = {
 	"vo/ravenholm/monk_pain08.wav",
 	"vo/ravenholm/monk_pain09.wav",
 	"vo/ravenholm/monk_pain10.wav",
-	"vo/ravenholm/monk_pain12.wav",
+	"vo/ravenholm/monk_pain12.wav"
 }
 ENT.SoundTbl_Death = {
 	"vo/ravenholm/monk_pain01.wav",
@@ -160,7 +160,7 @@ ENT.SoundTbl_Death = {
 	"vo/ravenholm/monk_pain08.wav",
 	"vo/ravenholm/monk_pain09.wav",
 	"vo/ravenholm/monk_pain10.wav",
-	"vo/ravenholm/monk_pain12.wav",
+	"vo/ravenholm/monk_pain12.wav"
 }
 
 ENT.MainSoundPitch = 100

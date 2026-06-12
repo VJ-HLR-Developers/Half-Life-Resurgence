@@ -37,7 +37,7 @@ SWEP.Primary.Delay = 1
 SWEP.Primary.Cone = 1
 SWEP.Primary.Sound = "vj_hlr/src/wep/sniper_comb/sniper_fire.wav"
 SWEP.Primary.DistantSound = "vj_hlr/src/wep/sniper_comb/sniper_fire_dist.wav"
-SWEP.PrimaryEffects_MuzzleParticles = {"vj_rifle_full_blue"}
+SWEP.PrimaryEffects_MuzzleParticles = "vj_rifle_full_blue"
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.PrimaryEffects_DynamicLightColor = Color(0, 31, 225)
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -144,10 +144,10 @@ if CLIENT then
 			local attach = self:GetAttachment(self:LookupAttachment("laser"))
 			local attachPos = attach.Pos
 			local attachAng = attach.Ang
-			local endPos = attachPos + attachAng:Forward()*10000 + attachAng:Up()*180 + attachAng:Right()*700
+			local endPos = attachPos + attachAng:Forward() * 10000 + attachAng:Up() * 180 + attachAng:Right() * 700
 			local strictPointer = (!owner:IsNPC() and 1) or GetConVar("vj_hlr2_csniper_laser_usebarrel"):GetInt()
 			if strictPointer == 1 or vec_def == self:GetNW2Vector("OwnerEnemyPos") then -- Face straight from the attachment
-				endPos = attachPos + attachAng:Forward()*10000 + attachAng:Up()*180 + attachAng:Right()*700
+				endPos = attachPos + attachAng:Forward() * 10000 + attachAng:Up() * 180 + attachAng:Right() * 700
 			else -- Face towards the enemy
 				endPos = self:GetNW2Vector("OwnerEnemyPos")
 			end

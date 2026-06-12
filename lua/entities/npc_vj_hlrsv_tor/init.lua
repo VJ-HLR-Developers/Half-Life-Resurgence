@@ -18,8 +18,8 @@ ENT.ControllerParams = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
-ENT.BloodParticle = {"vj_hlr_blood_yellow"}
-ENT.BloodDecal = {"VJ_HLR1_Blood_Yellow"}
+ENT.BloodParticle = "vj_hlr_blood_yellow"
+ENT.BloodDecal = "VJ_HLR1_Blood_Yellow"
 ENT.HasBloodPool = false
 
 -- ACT_MELEE_ATTACK2, ACT_SPECIAL_ATTACK1 = Swing / stab
@@ -49,7 +49,7 @@ ENT.HasExtraMeleeAttackSounds = true
 
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
-ENT.FlinchHitGroupMap = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}}, {HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}}, {HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}}, {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
+ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}, {HitGroup = HITGROUP_LEFTLEG, Animation = ACT_FLINCH_LEFTLEG}, {HitGroup = HITGROUP_RIGHTLEG, Animation = ACT_FLINCH_RIGHTLEG}}
 
 ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/aslave/vort_foot1.wav", "vj_hlr/gsrc/npc/aslave/vort_foot2.wav", "vj_hlr/gsrc/npc/aslave/vort_foot3.wav", "vj_hlr/gsrc/npc/aslave/vort_foot4.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/tor_sven/tor-idle.wav", "vj_hlr/gsrc/npc/tor_sven/tor-idle2.wav", "vj_hlr/gsrc/npc/tor_sven/tor-idle3.wav", "vj_hlr/gsrc/npc/tor_sven/tor-test1.wav"}
@@ -115,7 +115,7 @@ function ENT:Tor_StartSpawnAlly()
 		local myCenterPos = self:GetPos() + self:OBBCenter()
 		local tr = util.TraceLine({
 			start = myCenterPos,
-			endpos = myCenterPos + self:GetForward()*150,
+			endpos = myCenterPos + self:GetForward() * 150,
 			filter = self
 		})
 		if !tr.Hit then
@@ -147,10 +147,10 @@ function ENT:OnInput(key, activator, caller, data)
 		self.HasMeleeAttackMissSounds = false
 		self.Tor_SkipRegMelee = true
 		VJ.EmitSound(self, "vj_hlr/gsrc/npc/tor_sven/tor-staff-discharge.wav", 90)
-		effects.BeamRingPoint(startPos, 0.3, 2, 600, 36, 0, (self.Tor_Level == 0 and Color(0, 255, 0)) or Color(0, 0, 255), {framerate=20, flags=0})
+		effects.BeamRingPoint(startPos, 0.3, 2, 600, 36, 0, (self.Tor_Level == 0 and Color(0, 255, 0)) or Color(0, 0, 255), {framerate = 20, flags = 0})
 		util.ScreenShake(startPos, 10, 10, 1, 1000)
-		util.Decal("VJ_HLR1_Gargantua_Stomp", startPos, startPos + self:GetUp()*-100, self)
-		VJ.ApplyRadiusDamage(self, self, startPos, 500, (self.Tor_Level == 0 and 40) or 60, DMG_SONIC, true, true, {DisableVisibilityCheck=true, Force=20})
+		util.Decal("VJ_HLR1_Gargantua_Stomp", startPos, startPos + self:GetUp() * -100, self)
+		VJ.ApplyRadiusDamage(self, self, startPos, 500, (self.Tor_Level == 0 and 40) or 60, DMG_SONIC, true, true, {DisableVisibilityCheck = true, Force = 20})
 		//self:ExecuteMeleeAttack()
 	elseif key == "range" then
 		self:ExecuteRangeAttack()
@@ -199,9 +199,9 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 			if IsValid(self) && self.Dead != true then
 				self:SetSkin(1)
 				VJ.EmitSound(self, "vj_hlr/gsrc/npc/tor_sven/tor-summon.wav", 80)
-				effects.BeamRingPoint(self:GetPos() + self:GetForward()*20, 0.3, 2, 600, 60, 0, Color(0, 0, 255), {framerate=20, flags=0})
+				effects.BeamRingPoint(self:GetPos() + self:GetForward()*20, 0.3, 2, 600, 60, 0, Color(0, 0, 255), {framerate = 20, flags = 0})
 				util.ScreenShake(self:GetPos(), 10, 10, 1, 1000)
-				VJ.ApplyRadiusDamage(self, self, self:GetPos(), 500, 20, DMG_SONIC, true, true, {DisableVisibilityCheck=true, Force=80})
+				VJ.ApplyRadiusDamage(self, self, self:GetPos(), 500, 20, DMG_SONIC, true, true, {DisableVisibilityCheck=true, Force = 80})
 			end
 		end)
 	end

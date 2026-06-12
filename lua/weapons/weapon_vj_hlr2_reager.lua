@@ -17,7 +17,7 @@ SWEP.Primary.ClipSize = 200
 SWEP.Primary.Ammo = "CrossbowBolt"
 SWEP.Primary.Sound = {}
 SWEP.Primary.DisableBulletCode	= true
-SWEP.PrimaryEffects_MuzzleParticles = {"vj_rifle_full_blue"}
+SWEP.PrimaryEffects_MuzzleParticles = "vj_rifle_full_blue"
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.PrimaryEffects_DynamicLightColor = Color(0, 31, 225)
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -20,7 +20,7 @@ ENT.SoundTbl_Breath = "vj_hlr/gsrc/npc/tanks/abrams_idle_loop.wav"
 ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/hgrunt/gr_idle1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_idle2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_idle3.wav"}
 ENT.SoundTbl_CombatIdle = {"vj_hlr/gsrc/npc/hgrunt/gr_taunt1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_taunt2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_taunt3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_taunt4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_taunt5.wav", "vj_hlr/gsrc/npc/hgrunt/gr_combat1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_combat2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_combat3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_combat4.wav"}
 ENT.SoundTbl_ReceiveOrder = {"vj_hlr/gsrc/npc/hgrunt/gr_answer1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer5.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer7.wav"}
-ENT.SoundTbl_Investigate = {"vj_hlr/gsrc/npc/hgrunt/gr_investigate.wav"}
+ENT.SoundTbl_Investigate = "vj_hlr/gsrc/npc/hgrunt/gr_investigate.wav"
 ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/hgrunt/gr_alert1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert5.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert6.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert7.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert8.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert9.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert10.wav"}
 ENT.SoundTbl_CallForHelp = {"vj_hlr/gsrc/npc/hgrunt/gr_taunt6.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover7.wav"}
 ENT.SoundTbl_AllyDeath = {"vj_hlr/gsrc/npc/hgrunt/gr_allydeath.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover7.wav"}
@@ -56,15 +56,15 @@ end
 function ENT:GetNearDeathSparkPositions()
 	local randPos = math.random(1, 5)
 	if randPos == 1 then
-		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*15 + self:GetForward()*-16 + self:GetUp()*100)
+		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * 15 + self:GetForward() * -16 + self:GetUp() * 100)
 	elseif randPos == 2 then
-		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*42 + self:GetForward()*123 + self:GetUp()*50)
+		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * 42 + self:GetForward() * 123 + self:GetUp() * 50)
 	elseif randPos == 3 then
-		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*-42 + self:GetForward()*123 + self:GetUp()*50)
+		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * -42 + self:GetForward() * 123 + self:GetUp() * 50)
 	elseif randPos == 4 then
-		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*105 + self:GetForward()*-40 + self:GetUp()*50)
+		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * 105 + self:GetForward() * -40 + self:GetUp() * 50)
 	elseif randPos == 5 then
-		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*-105 + self:GetForward()*-40 + self:GetUp()*50)
+		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * -105 + self:GetForward() * -40 + self:GetUp() * 50)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -72,7 +72,7 @@ local expPos = Vector(0, 0, 150)
 --
 function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 	self.Bradley_DmgForce = dmginfo:GetDamageForce()
-	for i=0, 1, 0.5 do
+	for i = 0, 1, 0.5 do
 		timer.Simple(i, function()
 			if IsValid(self) then
 				VJ.EmitSound(self, self.SoundTbl_Death, 100)

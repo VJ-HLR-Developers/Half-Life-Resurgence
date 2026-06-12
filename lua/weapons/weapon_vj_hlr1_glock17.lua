@@ -7,7 +7,7 @@ SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category = "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 0.8
-SWEP.NPC_ReloadSound = {"vj_hlr/gsrc/wep/glock/glock_reload.wav"}
+SWEP.NPC_ReloadSound = "vj_hlr/gsrc/wep/glock/glock_reload.wav"
 SWEP.NPC_CanBePickedUp = false
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
@@ -23,8 +23,8 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 SWEP.Primary.Damage = 5
 SWEP.Primary.ClipSize = 17
 SWEP.Primary.Ammo = "Pistol"
-SWEP.Primary.Sound = {"vj_hlr/gsrc/wep/glock/glock_regular.wav"}
-SWEP.Primary.DistantSound = {"vj_hlr/gsrc/wep/glock/glock_distant2.wav"}
+SWEP.Primary.Sound = "vj_hlr/gsrc/wep/glock/glock_regular.wav"
+SWEP.Primary.DistantSound = "vj_hlr/gsrc/wep/glock/glock_distant2.wav"
 SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
@@ -43,7 +43,7 @@ local validModels = {
 	["models/vj_hlr/opfor_hd/hgrunt_engineer.mdl"] = true,
 	["models/vj_hlr/cracklife/barney.mdl"] = true,
 	["models/vj_hlr/cracklife10/unbarney.mdl"] = true,
-	["models/vj_hlr/cracklife10/barney.mdl"] = true,
+	["models/vj_hlr/cracklife10/barney.mdl"] = true
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()

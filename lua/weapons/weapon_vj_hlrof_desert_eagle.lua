@@ -7,7 +7,7 @@ SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category					= "VJ Base"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire 		= false
-SWEP.NPC_ReloadSound			= {"vj_hlr/gsrc/wep/deagle/desert_eagle_reload.wav"}
+SWEP.NPC_ReloadSound			= "vj_hlr/gsrc/wep/deagle/desert_eagle_reload.wav"
 SWEP.NPC_CanBePickedUp			= false
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly 			= true
@@ -22,8 +22,8 @@ SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
 SWEP.Primary.Damage				= 15
 SWEP.Primary.ClipSize			= 7
 SWEP.Primary.Ammo				= "357"
-SWEP.Primary.Sound				= {"vj_hlr/gsrc/wep/deagle/desert_eagle_fire.wav"}
-SWEP.Primary.DistantSound		= {"vj_hlr/gsrc/wep/deagle/desert_eagle_fire_distant_final.wav"}
+SWEP.Primary.Sound				= "vj_hlr/gsrc/wep/deagle/desert_eagle_fire.wav"
+SWEP.Primary.DistantSound		= "vj_hlr/gsrc/wep/deagle/desert_eagle_fire_distant_final.wav"
 SWEP.PrimaryEffects_ShellType 	= "ShellEject"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
@@ -37,7 +37,7 @@ local validModels = {
 	["models/vj_hlr/opfor/hgrunt_engineer.mdl"] = true,
 	["models/vj_hlr/opfor_hd/hgrunt.mdl"] = true,
 	["models/vj_hlr/opfor_hd/hgrunt_medic.mdl"] = true,
-	["models/vj_hlr/opfor_hd/hgrunt_engineer.mdl"] = true,
+	["models/vj_hlr/opfor_hd/hgrunt_engineer.mdl"] = true
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()

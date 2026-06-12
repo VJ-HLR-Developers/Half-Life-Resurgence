@@ -17,8 +17,8 @@ ENT.ControllerParams = {
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.AlliedWithPlayerAllies = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
-ENT.BloodParticle = {"vj_hlr_blood_red"}
-ENT.BloodDecal = {"VJ_HLR1_Blood_Red"}
+ENT.BloodParticle = "vj_hlr_blood_red"
+ENT.BloodDecal = "VJ_HLR1_Blood_Red"
 ENT.HasBloodPool = false
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE
 ENT.BecomeEnemyToPlayer = 2
@@ -287,9 +287,9 @@ end
 function ENT:OnMedicBehavior(status, statusData)
 	if status == "BeforeHeal" then
 		-- Healing animation (3)
-		self:PlayAnim(ACT_ARM, true, false, false, 0, {OnFinish=function(interrupted, anim)
+		self:PlayAnim(ACT_ARM, true, false, false, 0, {OnFinish = function(interrupted, anim)
 			if interrupted then return end
-			self:PlayAnim(ACT_MELEE_ATTACK1, true, false, false, 0, {OnFinish=function(interrupted2, anim2)
+			self:PlayAnim(ACT_MELEE_ATTACK1, true, false, false, 0, {OnFinish = function(interrupted2, anim2)
 				if interrupted2 then return end
 				self:PlayAnim(ACT_DISARM, true, false)
 			end})

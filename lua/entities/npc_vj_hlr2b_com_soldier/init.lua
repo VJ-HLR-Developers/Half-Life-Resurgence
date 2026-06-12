@@ -11,7 +11,7 @@ ENT.HullType = HULL_HUMAN
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_COMBINE"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
-ENT.BloodParticle = {"blood_impact_red_01_mist"}
+ENT.BloodParticle = "blood_impact_red_01_mist"
 ENT.MeleeAttackDamage = 10
 ENT.HasGrenadeAttack = true
 ENT.GrenadeAttackModel = "models/weapons/w_npcnade.mdl"
@@ -26,7 +26,7 @@ ENT.AnimTbl_Flinch = "vjges_flinch_gesture"
 ENT.SoundTbl_CombatIdle = {
 	"vj_hlr/src/npc/combine_soldier_beta/go_alert1.wav",
 	"vj_hlr/src/npc/combine_soldier_beta/go_alert2.wav",
-	"vj_hlr/src/npc/combine_soldier_beta/go_alert3.wav",
+	"vj_hlr/src/npc/combine_soldier_beta/go_alert3.wav"
 }
 ENT.SoundTbl_LostEnemy = {
 	"vj_hlr/src/npc/combine_soldier_beta/lost_long1.wav",
@@ -34,7 +34,7 @@ ENT.SoundTbl_LostEnemy = {
 	"vj_hlr/src/npc/combine_soldier_beta/lost_long3.wav",
 	"vj_hlr/src/npc/combine_soldier_beta/lost_short1.wav",
 	"vj_hlr/src/npc/combine_soldier_beta/lost_short2.wav",
-	"vj_hlr/src/npc/combine_soldier_beta/lost_short3.wav",
+	"vj_hlr/src/npc/combine_soldier_beta/lost_short3.wav"
 }
 ENT.SoundTbl_Alert = {
 	"vj_hlr/src/npc/combine_soldier_beta/announce1.wav",
@@ -42,37 +42,37 @@ ENT.SoundTbl_Alert = {
 	"vj_hlr/src/npc/combine_soldier_beta/announce3.wav",
 	"vj_hlr/src/npc/combine_soldier_beta/refind_enemy1.wav",
 	"vj_hlr/src/npc/combine_soldier_beta/refind_enemy2.wav",
-	"vj_hlr/src/npc/combine_soldier_beta/refind_enemy3.wav",
+	"vj_hlr/src/npc/combine_soldier_beta/refind_enemy3.wav"
 }
 ENT.SoundTbl_GrenadeAttack = {
 	"vj_hlr/src/npc/combine_soldier_beta/throw_grenade1.wav",
 	"vj_hlr/src/npc/combine_soldier_beta/throw_grenade2.wav",
-	"vj_hlr/src/npc/combine_soldier_beta/throw_grenade3.wav",
+	"vj_hlr/src/npc/combine_soldier_beta/throw_grenade3.wav"
 }
 ENT.SoundTbl_DangerSight = {
 	"vj_hlr/src/npc/combine_soldier_beta/spot_grenade1.wav",
 	"vj_hlr/src/npc/combine_soldier_beta/spot_grenade2.wav",
-	"vj_hlr/src/npc/combine_soldier_beta/spot_grenade3.wav",
+	"vj_hlr/src/npc/combine_soldier_beta/spot_grenade3.wav"
 }
 ENT.SoundTbl_KilledEnemy = {
 	"vj_hlr/src/npc/combine_soldier_beta/player_dead1.wav",
 	"vj_hlr/src/npc/combine_soldier_beta/player_dead2.wav",
-	"vj_hlr/src/npc/combine_soldier_beta/player_dead3.wav",
+	"vj_hlr/src/npc/combine_soldier_beta/player_dead3.wav"
 }
 ENT.SoundTbl_AllyDeath = {
 	"vj_hlr/src/npc/combine_soldier_beta/man_down1.wav",
 	"vj_hlr/src/npc/combine_soldier_beta/man_down2.wav",
-	"vj_hlr/src/npc/combine_soldier_beta/man_down3.wav",
+	"vj_hlr/src/npc/combine_soldier_beta/man_down3.wav"
 }
 ENT.SoundTbl_Pain = {
 	"vj_hlr/src/npc/combine_soldier_beta/assault1.wav",
 	"vj_hlr/src/npc/combine_soldier_beta/assault2.wav",
-	"vj_hlr/src/npc/combine_soldier_beta/assault3.wav",
+	"vj_hlr/src/npc/combine_soldier_beta/assault3.wav"
 }
 ENT.SoundTbl_Death = {
 	"vj_hlr/src/npc/combine_soldier_beta/die1.wav",
 	"vj_hlr/src/npc/combine_soldier_beta/die2.wav",
-	"vj_hlr/src/npc/combine_soldier_beta/die3.wav",
+	"vj_hlr/src/npc/combine_soldier_beta/die3.wav"
 }
 
 /* -- Vault over objects test

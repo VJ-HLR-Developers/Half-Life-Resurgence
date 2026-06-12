@@ -18,8 +18,8 @@ ENT.ControllerParams = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
-ENT.BloodParticle = {"vj_hlr_blood_yellow_large"}
-ENT.BloodDecal = {"VJ_HLR1_Blood_Yellow"}
+ENT.BloodParticle = "vj_hlr_blood_yellow_large"
+ENT.BloodDecal = "VJ_HLR1_Blood_Yellow"
 ENT.HasBloodPool = false
 
 ENT.HasMeleeAttack = true
@@ -167,7 +167,7 @@ function ENT:OnThinkActive()
 		self.Garg_NextFlameT = CurTime() + 0.2
 
 		local range = (self.Garg_Type == 1 and 280) or 460
-		VJ.ApplyRadiusDamage(self, self, self:GetPos() + self:OBBCenter() + self:GetForward()*15, range, 3, DMG_BURN, true, true, {UseConeDegree = 35}, function(ent) if !ent:IsOnFire() && (ent:IsPlayer() or ent:IsNPC()) then ent:Ignite(2) end end)
+		VJ.ApplyRadiusDamage(self, self, self:GetPos() + self:OBBCenter() + self:GetForward() * 15, range, 3, DMG_BURN, true, true, {UseConeDegree = 35}, function(ent) if !ent:IsOnFire() && (ent:IsPlayer() or ent:IsNPC()) then ent:Ignite(2) end end)
 
 		-- COSMETICS: Sound, particle and decal
 		self.Garg_FlameSd = VJ.CreateSound(self, "vj_hlr/gsrc/npc/garg/gar_flamerun1.wav")
@@ -181,8 +181,8 @@ function ENT:OnThinkActive()
 		end
 		local startPos1 = self:GetAttachment(2).Pos
 		local startPos2 = self:GetAttachment(3).Pos
-		local tr1 = util.TraceLine({start = startPos1, endpos = startPos1 + self:GetForward()*range, filter = self})
-		local tr2 = util.TraceLine({start = startPos2, endpos = startPos2 + self:GetForward()*range, filter = self})
+		local tr1 = util.TraceLine({start = startPos1, endpos = startPos1 + self:GetForward() * range, filter = self})
+		local tr2 = util.TraceLine({start = startPos2, endpos = startPos2 + self:GetForward() * range, filter = self})
 		local hitPos1 = tr1.HitPos
 		local hitPos2 = tr2.HitPos
 		sound.EmitHint(SOUND_DANGER, (hitPos1 + startPos1) / 2, 300, 1, self) -- Pos: Midpoint of start and hit pos, same as Vector((hitPos1.x + startPos1.x ) / 2, (hitPos1.y + startPos1.y ) / 2, (hitPos1.z + startPos1.z ) / 2)
@@ -256,7 +256,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "PostSpawn" then
-		util.Decal("VJ_HLR1_Gargantua_Stomp", self:GetPos() + self:GetRight()*-20 + self:GetForward()*50, self:GetPos() + self:GetRight()*-20 + self:GetForward()*50 + self:GetUp()*-100, self)
+		util.Decal("VJ_HLR1_Gargantua_Stomp", self:GetPos() + self:GetRight() * -20 + self:GetForward() * 50, self:GetPos() + self:GetRight() * -20 + self:GetForward() * 50 + self:GetUp() * -100, self)
 		projectile.Track_Ent = enemy
 		projectile:SetAngles(Angle(self:GetAngles().p, 0, 0))
 		timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
@@ -362,7 +362,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 			VJ.EmitSound(self, sdExplosions, 90, 100)
 			VJ.EmitSound(self, "vj_base/gib/splat.wav", 90, 100)
 
-			util.Decal("VJ_HLR1_Scorch", myPos, myPos + self:GetUp()*-100, self)
+			util.Decal("VJ_HLR1_Scorch", myPos, myPos + self:GetUp() * -100, self)
 
 			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib1.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 1, 40))})
 			self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib2.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(1, 0, 20))})

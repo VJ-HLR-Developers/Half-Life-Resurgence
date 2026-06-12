@@ -18,16 +18,16 @@ ENT.ControllerParams = {
 ENT.CanOpenDoors = false
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
-ENT.BloodParticle = {"vj_hlr_blood_yellow"}
-ENT.BloodDecal = {"VJ_HLR1_Blood_Yellow"}
+ENT.BloodParticle = "vj_hlr_blood_yellow"
+ENT.BloodDecal = "VJ_HLR1_Blood_Yellow"
 ENT.HasBloodPool = false
 ENT.HasMeleeAttack = false
 ENT.FootstepSoundTimerRun = 3
 ENT.FootstepSoundTimerWalk = 3
 ENT.HasImpactSounds = false
 
-ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/roach/rch_walk.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/roach/rch_die.wav"}
+ENT.SoundTbl_FootStep = "vj_hlr/gsrc/npc/roach/rch_walk.wav"
+ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/roach/rch_die.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(2, 2, 2), Vector(-2, -2, 0))

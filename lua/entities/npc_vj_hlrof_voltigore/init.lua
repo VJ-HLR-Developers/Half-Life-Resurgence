@@ -17,8 +17,8 @@ ENT.ControllerParams = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
-ENT.BloodParticle = {"vj_hlr_blood_yellow_large"}
-ENT.BloodDecal = {"VJ_HLR1_Blood_Yellow"}
+ENT.BloodParticle = "vj_hlr_blood_yellow_large"
+ENT.BloodDecal = "VJ_HLR1_Blood_Yellow"
 ENT.HasBloodPool = false
 
 ENT.MeleeAttackDamage = 30
@@ -49,7 +49,7 @@ ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/voltigore/voltigore_alert1.wav", "vj_hlr/
 ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/gsrc/npc/voltigore/voltigore_attack_melee1.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_attack_melee2.wav"}
 ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/gsrc/npc/zombie/claw_strike1.wav", "vj_hlr/gsrc/npc/zombie/claw_strike2.wav", "vj_hlr/gsrc/npc/zombie/claw_strike3.wav"}
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/gsrc/npc/voltigore/voltigore_attack_shock.wav"}
+ENT.SoundTbl_BeforeRangeAttack = "vj_hlr/gsrc/npc/voltigore/voltigore_attack_shock.wav"
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/voltigore/voltigore_pain1.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_pain2.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_pain3.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_pain4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/voltigore/voltigore_die1.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_die2.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_die3.wav"}
 

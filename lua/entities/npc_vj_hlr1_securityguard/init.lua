@@ -17,8 +17,8 @@ ENT.ControllerParams = {
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.AlliedWithPlayerAllies = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
-ENT.BloodParticle = {"vj_hlr_blood_red"}
-ENT.BloodDecal = {"VJ_HLR1_Blood_Red"}
+ENT.BloodParticle = "vj_hlr_blood_red"
+ENT.BloodDecal = "VJ_HLR1_Blood_Red"
 ENT.HasBloodPool = false
 ENT.HasMeleeAttack = false
 ENT.Weapon_IgnoreSpawnMenu = true
@@ -36,7 +36,7 @@ ENT.CanTurnWhileMoving = false
 
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
-ENT.FlinchHitGroupMap = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}}, {HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}}, {HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}}, {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
+ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}, {HitGroup = HITGROUP_LEFTLEG, Animation = ACT_FLINCH_LEFTLEG}, {HitGroup = HITGROUP_RIGHTLEG, Animation = ACT_FLINCH_RIGHTLEG}}
 
 ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/pl_step1.wav", "vj_hlr/gsrc/pl_step2.wav", "vj_hlr/gsrc/pl_step3.wav", "vj_hlr/gsrc/pl_step4.wav"}
 
@@ -141,7 +141,7 @@ function ENT:Init()
 		self.SoundTbl_Suppressing = {"vj_hlr/gsrc/npc/barney/c1a4_ba_octo2.wav", "vj_hlr/gsrc/npc/barney/c1a4_ba_octo4.wav", "vj_hlr/gsrc/npc/barney/c1a4_ba_octo3.wav", "vj_hlr/gsrc/npc/barney/ba_generic1.wav", "vj_hlr/gsrc/npc/barney/ba_bring.wav", "vj_hlr/gsrc/npc/barney/ba_attacking1.wav"}
 		self.SoundTbl_DangerSight = {"vj_hlr/gsrc/npc/barney/standback.wav", "vj_hlr/gsrc/npc/barney/ba_heeey.wav"}
 		self.SoundTbl_KilledEnemy = {"vj_hlr/gsrc/npc/barney/soundsbad.wav", "vj_hlr/gsrc/npc/barney/ba_seethat.wav", "vj_hlr/gsrc/npc/barney/ba_kill0.wav", "vj_hlr/gsrc/npc/barney/ba_gotone.wav", "vj_hlr/gsrc/npc/barney/ba_firepl.wav", "vj_hlr/gsrc/npc/barney/ba_buttugly.wav", "vj_hlr/gsrc/npc/barney/ba_another.wav", "vj_hlr/gsrc/npc/barney/ba_close.wav"}
-		self.SoundTbl_AllyDeath = {"vj_hlr/gsrc/npc/barney/die.wav"}
+		self.SoundTbl_AllyDeath = "vj_hlr/gsrc/npc/barney/die.wav"
 		self.SoundTbl_Pain = {"vj_hlr/gsrc/npc/barney/imhit.wav", "vj_hlr/gsrc/npc/barney/hitbad.wav", "vj_hlr/gsrc/npc/barney/c1a2_ba_4zomb.wav", "vj_hlr/gsrc/npc/barney/ba_pain1.wav", "vj_hlr/gsrc/npc/barney/ba_pain2.wav", "vj_hlr/gsrc/npc/barney/ba_pain3.wav"}
 		self.SoundTbl_DamageByPlayer = {"vj_hlr/gsrc/npc/barney/donthurtem.wav", "vj_hlr/gsrc/npc/barney/ba_whoathere.wav", "vj_hlr/gsrc/npc/barney/ba_whatyou.wav", "vj_hlr/gsrc/npc/barney/ba_watchit.wav", "vj_hlr/gsrc/npc/barney/ba_shot1.wav", "vj_hlr/gsrc/npc/barney/ba_shot2.wav", "vj_hlr/gsrc/npc/barney/ba_shot3.wav", "vj_hlr/gsrc/npc/barney/ba_shot4.wav", "vj_hlr/gsrc/npc/barney/ba_shot5.wav", "vj_hlr/gsrc/npc/barney/ba_shot6.wav", "vj_hlr/gsrc/npc/barney/ba_shot7.wav", "vj_hlr/gsrc/npc/barney/ba_stepoff.wav", "vj_hlr/gsrc/npc/barney/ba_pissme.wav", "vj_hlr/gsrc/npc/barney/ba_mad1.wav", "vj_hlr/gsrc/npc/barney/ba_mad0.wav", "vj_hlr/gsrc/npc/barney/ba_friends.wav", "vj_hlr/gsrc/npc/barney/ba_dotoyou.wav", "vj_hlr/gsrc/npc/barney/ba_dontmake.wav", "vj_hlr/gsrc/npc/barney/ba_crazy.wav"}
 		self.SoundTbl_Death = {"vj_hlr/gsrc/npc/barney/ba_ht06_02_alt.wav", "vj_hlr/gsrc/npc/barney/ba_ht06_02.wav", "vj_hlr/gsrc/npc/barney/ba_die1.wav", "vj_hlr/gsrc/npc/barney/ba_die2.wav", "vj_hlr/gsrc/npc/barney/ba_die3.wav"}
@@ -271,7 +271,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		self.Bleeds = true
 		if self.Security_Type == SECURITY_TYPE_OTIS then return end -- Only types that do have a helmet
 		if hitgroup == HITGROUP_GEAR && dmginfo:GetDamagePosition() != vec then
-			self.Bleeds = false			-- disable bleeding temporarily when shot at the helmet
+			self.Bleeds = false -- disable bleeding temporarily when shot at the helmet
 			local rico = EffectData()
 			rico:SetOrigin(dmginfo:GetDamagePosition())
 			rico:SetScale(4) -- Size

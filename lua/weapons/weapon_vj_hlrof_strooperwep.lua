@@ -22,8 +22,8 @@ SWEP.WorldModel_CustomPositionBone = "Bone58"
 SWEP.Primary.Damage				= 5
 SWEP.Primary.ClipSize			= 30
 SWEP.Primary.Ammo				= "SMG1"
-SWEP.Primary.Sound				= {"vj_hlr/gsrc/wep/shockroach/shock_fire.wav"}
-SWEP.Primary.DistantSound		= {"vj_hlr/gsrc/wep/shockroach/shock_fire_distant.wav"}
+SWEP.Primary.Sound				= "vj_hlr/gsrc/wep/shockroach/shock_fire.wav"
+SWEP.Primary.DistantSound		= "vj_hlr/gsrc/wep/shockroach/shock_fire_distant.wav"
 SWEP.Primary.DisableBulletCode	= true
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.PrimaryEffects_MuzzleFlash = false
@@ -33,7 +33,7 @@ SWEP.HasDryFireSound			= false
 -- Custom
 SWEP.HLR_NextIdleSoundT = 0
 local validModels = {
-	["models/vj_hlr/opfor/strooper.mdl"] = true,
+	["models/vj_hlr/opfor/strooper.mdl"] = true
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()

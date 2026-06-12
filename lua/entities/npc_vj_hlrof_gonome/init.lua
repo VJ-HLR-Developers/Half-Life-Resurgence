@@ -14,8 +14,8 @@ ENT.ControllerParams = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
-ENT.BloodParticle = {"vj_hlr_blood_yellow"}
-ENT.BloodDecal = {"VJ_HLR1_Blood_Yellow"}
+ENT.BloodParticle = "vj_hlr_blood_yellow"
+ENT.BloodDecal = "VJ_HLR1_Blood_Yellow"
 ENT.HasBloodPool = false
 ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"}
 
@@ -86,7 +86,7 @@ function ENT:RangeAttackProjVel(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MeleeAttackKnockbackVelocity(ent)
-	return self:GetForward()*math.random(-100, -200) + self:GetUp()*20
+	return self:GetForward() * math.random(-100, -200) + self:GetUp() * 20
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local sdClawMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}

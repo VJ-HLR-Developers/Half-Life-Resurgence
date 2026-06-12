@@ -13,7 +13,7 @@ ENT.MovementType = VJ_MOVETYPE_GROUND
 ENT.Aerial_FlyingSpeed_Calm = 325
 ENT.Aerial_FlyingSpeed_Alerted = 150
 ENT.Aerial_AnimTbl_Calm = ACT_FLY
-ENT.Aerial_AnimTbl_Alerted = ACT_FLY
+ENT.Aerial_AnimTbl_Alerted = ENT.Aerial_AnimTbl_Calm
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(0, 0, -15),
 	FirstP_Bone = "MDLDEC_Bone50",
@@ -25,8 +25,8 @@ ENT.IdleAlwaysWander = false
 ENT.CanOpenDoors = false
 
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
-ENT.BloodParticle = {"vj_hlr_blood_yellow"}
-ENT.BloodDecal = {"VJ_HLR1_Blood_Yellow"}
+ENT.BloodParticle = "vj_hlr_blood_yellow"
+ENT.BloodDecal = "VJ_HLR1_Blood_Yellow"
 ENT.HasBloodPool = false
 ENT.AnimTbl_Death = "vjseq_Die_on_ground"
 
@@ -210,19 +210,19 @@ function ENT:OnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetLandingPos(ceiling)
-	local ang = self:GetAngles() +AngleRand()
+	local ang = self:GetAngles() + AngleRand()
 	local filt = {self, self.VJ_TheController}
 	if ceiling then
 		ang.p = -70
-		local tr1 = util.TraceLine({start = self:GetPos(), endpos = self:GetPos() +ang:Forward() *32000, filter = filt})
-		return tr1.MatType && tr1.MatType != 88 && tr1.HitPos +tr1.Normal *5
+		local tr1 = util.TraceLine({start = self:GetPos(), endpos = self:GetPos() + ang:Forward() * 32000, filter = filt})
+		return tr1.MatType && tr1.MatType != 88 && tr1.HitPos + tr1.Normal * 5
 	end
 	ang.p = 35
-	local pos = self:GetPos() +(self:GetVelocity() *ang:Forward() *0.1) *ang:Forward()
+	local pos = self:GetPos() + (self:GetVelocity() * ang:Forward() * 0.1) * ang:Forward()
 
-	local tr1 = util.TraceLine({start = pos, endpos = pos +ang:Forward() *32000, filter = filt})
-	local tr1Pos = tr1.HitPos -tr1.Normal *100
-	local tr2 = util.TraceLine({start = tr1Pos, endpos = tr1Pos +Vector(0, 0, -120), filter = filt})
+	local tr1 = util.TraceLine({start = pos, endpos = pos +ang:Forward() * 32000, filter = filt})
+	local tr1Pos = tr1.HitPos - tr1.Normal *100
+	local tr2 = util.TraceLine({start = tr1Pos, endpos = tr1Pos + Vector(0, 0, -120), filter = filt})
 
 	return tr2.HitWorld && tr2.MatType && tr2.MatType != 88 && tr2.HitPos
 end
@@ -317,7 +317,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				self:SetSolid(SOLID_NONE)
 				self:ResetSequence(self.DeathAnim)
 
-				local tr = util.TraceLine({start=self:GetPos(), endpos=self:GetPos() +Vector(0, 0, -15), filter=self})
+				local tr = util.TraceLine({start = self:GetPos(), endpos = self:GetPos() + Vector(0, 0, -15), filter = self})
 				self:SetPos(tr.Hit && tr.HitPos or self:GetPos() +Vector(0, 0, -8)) -- The collision box is too big, so we move it down a bit
 
 				timer.Simple(VJ.AnimDuration(self, self.DeathAnim), function()
@@ -334,8 +334,8 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 						corpse.ChildEnts = {}
 						self.BloodColor = VJ.BLOOD_COLOR_YELLOW
 						self.HasBloodParticle = true
-						self.BloodParticle = {"vj_hlr_blood_yellow"}
-						self.BloodDecal = {"VJ_HLR1_Blood_Yellow"}
+						self.BloodParticle = "vj_hlr_blood_yellow"
+						self.BloodDecal = "VJ_HLR1_Blood_Yellow"
 
 						-- undo.ReplaceEntity(self, corpse)
 						-- cleanup.ReplaceEntity(self, corpse)

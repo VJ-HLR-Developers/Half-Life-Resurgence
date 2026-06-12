@@ -17,11 +17,11 @@ ENT.ControllerParams = {
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.DeathCorpseModel = "models/vj_hlr/hl1/apc_body_destroyed.mdl"
 
-ENT.SoundTbl_Breath = {"vj_hlr/gsrc/npc/tanks/bradley_idle.wav"}
+ENT.SoundTbl_Breath = "vj_hlr/gsrc/npc/tanks/bradley_idle.wav"
 ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/hgrunt/gr_idle1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_idle2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_idle3.wav"}
 ENT.SoundTbl_CombatIdle = {"vj_hlr/gsrc/npc/hgrunt/gr_taunt1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_taunt2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_taunt3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_taunt4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_taunt5.wav", "vj_hlr/gsrc/npc/hgrunt/gr_combat1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_combat2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_combat3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_combat4.wav"}
 ENT.SoundTbl_ReceiveOrder = {"vj_hlr/gsrc/npc/hgrunt/gr_answer1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer5.wav", "vj_hlr/gsrc/npc/hgrunt/gr_answer7.wav"}
-ENT.SoundTbl_Investigate = {"vj_hlr/gsrc/npc/hgrunt/gr_investigate.wav"}
+ENT.SoundTbl_Investigate = "vj_hlr/gsrc/npc/hgrunt/gr_investigate.wav"
 ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/hgrunt/gr_alert1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert5.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert6.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert7.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert8.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert9.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert10.wav"}
 ENT.SoundTbl_CallForHelp = {"vj_hlr/gsrc/npc/hgrunt/gr_taunt6.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover7.wav"}
 ENT.SoundTbl_AllyDeath = {"vj_hlr/gsrc/npc/hgrunt/gr_allydeath.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_cover7.wav"}
@@ -59,7 +59,7 @@ function ENT:TranslateActivity(act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_GunnerSpawnPosition()
-	return self:GetPos() + self:GetRight()*16 + self:GetForward()*-8 + self:GetUp()*100
+	return self:GetPos() + self:GetRight() * 16 + self:GetForward() * -8 + self:GetUp() * 100
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_UpdateMoveParticles()
@@ -105,7 +105,7 @@ function ENT:Tank_OnThink()
 						end
 						local hGrunt = ents.Create(hGruntClass)
 						local opSide = ((i % 2 == 0) and -25) or 25 -- Make every other grunt spawn to the opposite side
-						hGrunt:SetPos(self:GetPos() + self:GetForward()*(i <= 2 and -160 or (i <= 4 and -220 or -290)) + self:GetRight()*opSide + self:GetUp()*5)
+						hGrunt:SetPos(self:GetPos() + self:GetForward() * (i <= 2 and -160 or (i <= 4 and -220 or -290)) + self:GetRight() * opSide + self:GetUp() * 5)
 						hGrunt:SetAngles(Angle(0, self:GetAngles().y + 180, 0))
 						hGrunt.VJ_NPC_Class = self.VJ_NPC_Class
 						hGrunt:Spawn()
@@ -114,7 +114,7 @@ function ENT:Tank_OnThink()
 						timer.Simple(0.2, function()
 							if IsValid(hGrunt) then
 								hGrunt:SetState(VJ_STATE_NONE)
-								hGrunt:SetLastPosition(hGrunt:GetPos() + hGrunt:GetForward()*150 + hGrunt:GetRight()*opSide)
+								hGrunt:SetLastPosition(hGrunt:GetPos() + hGrunt:GetForward() * 150 + hGrunt:GetRight() * opSide)
 								hGrunt:SCHEDULE_GOTO_POSITION("TASK_RUN_PATH")
 							end
 						end)
@@ -148,15 +148,15 @@ end
 function ENT:GetNearDeathSparkPositions()
 	local randPos = math.random(1, 5)
 	if randPos == 1 then
-		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*15 + self:GetForward()*-16 + self:GetUp()*120)
+		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * 15 + self:GetForward() * -16 + self:GetUp() * 120)
 	elseif randPos == 2 then
-		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*42 + self:GetForward()*123 + self:GetUp()*50)
+		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * 42 + self:GetForward() * 123 + self:GetUp() * 50)
 	elseif randPos == 3 then
-		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*-42 + self:GetForward()*123 + self:GetUp()*50)
+		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * -42 + self:GetForward() * 123 + self:GetUp() * 50)
 	elseif randPos == 4 then
-		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*60 + self:GetForward()*-40 + self:GetUp()*81)
+		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * 60 + self:GetForward() * -40 + self:GetUp() * 81)
 	elseif randPos == 5 then
-		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*-60 + self:GetForward()*-40 + self:GetUp()*81)
+		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * -60 + self:GetForward() * -40 + self:GetUp() * 81)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

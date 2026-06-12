@@ -19,8 +19,8 @@ ENT.ControllerParams = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
-ENT.BloodParticle = {"vj_hlr_blood_yellow"}
-ENT.BloodDecal = {"VJ_HLR1_Blood_Yellow"}
+ENT.BloodParticle = "vj_hlr_blood_yellow"
+ENT.BloodDecal = "VJ_HLR1_Blood_Yellow"
 ENT.HasBloodPool = false
 ENT.ConstantlyFaceEnemy = true
 ENT.HasMeleeAttack = false
@@ -88,12 +88,12 @@ function ENT:OnRangeAttack(status, enemy)
 		local myUp = self:GetUp()
 
 		-- Tsakh --------------------------
-		local tsakhSpawn = myPos + myUp*45 + myRight*20
+		local tsakhSpawn = myPos + myUp * 45 + myRight * 20
 		local tsakhLocations = {
-			myPos + myRight*math.Rand(150, 500) + myUp*-200,
-			myPos + myRight*math.Rand(150, 500) + myUp*-200 + myForward*-math.Rand(150, 500),
-			myPos + myRight*math.Rand(150, 500) + myUp*-200 + myForward*math.Rand(150, 500),
-			myPos + myRight*math.Rand(1, 150) + myUp*200 + myForward*math.Rand(-100, 100),
+			myPos + myRight * math.Rand(150, 500) + myUp * -200,
+			myPos + myRight * math.Rand(150, 500) + myUp * -200 + myForward * -math.Rand(150, 500),
+			myPos + myRight * math.Rand(150, 500) + myUp * -200 + myForward * math.Rand(150, 500),
+			myPos + myRight * math.Rand(1, 150) + myUp*200 + myForward * math.Rand(-100, 100),
 		}
 		for i = 1, 4 do
 			local tr = util.TraceLine({
@@ -104,12 +104,12 @@ function ENT:OnRangeAttack(status, enemy)
 			if tr.Hit == true then self:CSphere_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal) end
 		end
 		-- Ach --------------------------
-		local achSpawn = myPos + myUp*45 + myRight*-20
+		local achSpawn = myPos + myUp * 45 + myRight * -20
 		local achLocations = {
-			myPos + myRight*-math.Rand(150, 500) + myUp*-200,
-			myPos + myRight*-math.Rand(150, 500) + myUp*-200 + myForward*-math.Rand(150, 500),
-			myPos + myRight*-math.Rand(150, 500) + myUp*-200 + myForward*math.Rand(150, 500),
-			myPos + myRight*-math.Rand(1, 150) + myUp*200 + myForward*math.Rand(-100, 100),
+			myPos + myRight * -math.Rand(150, 500) + myUp * -200,
+			myPos + myRight * -math.Rand(150, 500) + myUp * -200 + myForward * -math.Rand(150, 500),
+			myPos + myRight * -math.Rand(150, 500) + myUp * -200 + myForward * math.Rand(150, 500),
+			myPos + myRight * -math.Rand(1, 150) + myUp * 200 + myForward * math.Rand(-100, 100),
 		}
 		for i = 1, 4 do
 			local tr = util.TraceLine({

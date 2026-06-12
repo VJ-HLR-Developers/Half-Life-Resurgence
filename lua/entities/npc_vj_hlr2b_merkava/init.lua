@@ -62,14 +62,14 @@ end
 function ENT:GetNearDeathSparkPositions()
 	local randPos = math.random(1, 5)
 	if randPos == 1 then
-		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*15 + self:GetForward()*-16 + self:GetUp()*120)
+		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * 15 + self:GetForward() * -16 + self:GetUp() * 120)
 	elseif randPos == 2 then
-		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*42 + self:GetForward()*123 + self:GetUp()*50)
+		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * 42 + self:GetForward() * 123 + self:GetUp() * 50)
 	elseif randPos == 3 then
-		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*-42 + self:GetForward()*123 + self:GetUp()*50)
+		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * -42 + self:GetForward() * 123 + self:GetUp() * 50)
 	elseif randPos == 4 then
-		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*60 + self:GetForward()*-40 + self:GetUp()*81)
+		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * 60 + self:GetForward() * -40 + self:GetUp() * 81)
 	elseif randPos == 5 then
-		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight()*-60 + self:GetForward()*-40 + self:GetUp()*81)
+		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * -60 + self:GetForward() * -40 + self:GetUp() * 81)
 	end
 end

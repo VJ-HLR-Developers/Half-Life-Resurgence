@@ -11,7 +11,7 @@ ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.HasDeathCorpse = false
 
 -- Tank Base
-ENT.Tank_SoundTbl_Turning = {"vj_hlr/gsrc/npc/tanks/bradley_turret_rot.wav"}
+ENT.Tank_SoundTbl_Turning = "vj_hlr/gsrc/npc/tanks/bradley_turret_rot.wav"
 //ENT.Tank_ReloadShellSoundLevel = 75
 
 ENT.Tank_Shell_Entity = "obj_vj_hlr1_rocket"

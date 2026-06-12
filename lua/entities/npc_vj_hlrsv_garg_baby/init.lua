@@ -13,7 +13,7 @@ ENT.VJ_ID_Boss = false
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(15, 0, -15),
 }
-ENT.BloodParticle = {"vj_hlr_blood_yellow"}
+ENT.BloodParticle = "vj_hlr_blood_yellow"
 
 ENT.MeleeAttackDamage = 20
 ENT.MeleeAttackDamageType = DMG_SLASH

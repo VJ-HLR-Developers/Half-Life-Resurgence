@@ -46,26 +46,26 @@ local sdGiveAmmo_M = {
 	"vo/npc/male01/ammo02.wav",
 	"vo/npc/male01/ammo03.wav",
 	"vo/npc/male01/ammo04.wav",
-	"vo/npc/male01/ammo05.wav",
+	"vo/npc/male01/ammo05.wav"
 }
 local sdSuggestReloadPly_M = {
 	"vo/npc/male01/dontforgetreload01.wav",
 	"vo/npc/male01/reloadfm01.wav",
 	"vo/npc/male01/reloadfm02.wav",
-	"vo/npc/male01/youdbetterreload01.wav",
+	"vo/npc/male01/youdbetterreload01.wav"
 }
 local sdPainArm_M = {
 	"vo/npc/male01/myarm01.wav",
-	"vo/npc/male01/myarm02.wav",
+	"vo/npc/male01/myarm02.wav"
 }
 local sdPainLeg_M = {
 	"vo/npc/male01/myleg01.wav",
-	"vo/npc/male01/myleg02.wav",
+	"vo/npc/male01/myleg02.wav"
 }
 local sdPainGut_M = {
 	"vo/npc/male01/hitingut01.wav",
 	"vo/npc/male01/hitingut02.wav",
-	"vo/npc/male01/mygut02.wav",
+	"vo/npc/male01/mygut02.wav"
 }
 local sdAllyDeathPly_M = {
 	"vo/npc/male01/gordead_ans01.wav",
@@ -104,7 +104,7 @@ local sdAllyDeathPly_M = {
 	"vo/npc/male01/gordead_ques14.wav",
 	"vo/npc/male01/gordead_ques15.wav",
 	"vo/npc/male01/gordead_ques16.wav",
-	"vo/npc/male01/gordead_ques17.wav",
+	"vo/npc/male01/gordead_ques17.wav"
 }
 
 -- FEMALE
@@ -113,26 +113,26 @@ local sdGiveAmmo_F = {
 	"vo/npc/female01/ammo02.wav",
 	"vo/npc/female01/ammo03.wav",
 	"vo/npc/female01/ammo04.wav",
-	"vo/npc/female01/ammo05.wav",
+	"vo/npc/female01/ammo05.wav"
 }
 local sdSuggestReloadPly_F = {
 	"vo/npc/female01/dontforgetreload01.wav",
 	"vo/npc/female01/reloadfm01.wav",
 	"vo/npc/female01/reloadfm02.wav",
-	"vo/npc/female01/youdbetterreload01.wav",
+	"vo/npc/female01/youdbetterreload01.wav"
 }
 local sdPainArm_F = {
 	"vo/npc/female01/myarm01.wav",
-	"vo/npc/female01/myarm02.wav",
+	"vo/npc/female01/myarm02.wav"
 }
 local sdPainLeg_F = {
 	"vo/npc/female01/myleg01.wav",
-	"vo/npc/female01/myleg02.wav",
+	"vo/npc/female01/myleg02.wav"
 }
 local sdPainGut_F = {
 	"vo/npc/female01/hitingut01.wav",
 	"vo/npc/female01/hitingut02.wav",
-	"vo/npc/female01/mygut02.wav",
+	"vo/npc/female01/mygut02.wav"
 }
 local sdAllyDeathPly_F = {
 	"vo/npc/female01/gordead_ans01.wav",
@@ -171,7 +171,7 @@ local sdAllyDeathPly_F = {
 	"vo/npc/female01/gordead_ques14.wav",
 	"vo/npc/female01/gordead_ques15.wav",
 	"vo/npc/female01/gordead_ques16.wav",
-	"vo/npc/female01/gordead_ques17.wav",
+	"vo/npc/female01/gordead_ques17.wav"
 }
 
 -- Models
@@ -182,7 +182,7 @@ local mdlFemaleMedic = {"models/Humans/Group03m/female_01.mdl", "models/Humans/G
 
 -- Inventories
 local invAntiArmor = {"weapon_vj_rpg", "weapon_vj_hlr2_rpg"}
-local invMelee = {"weapon_vj_crowbar"}
+local invMelee = "weapon_vj_crowbar"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
 	if self.Human_Gender == HUMAN_GENDER_FEMALE or (self.Human_Gender == HUMAN_GENDER_INVALID && math.random(1, 3) == 1) then
@@ -335,7 +335,7 @@ function ENT:OnMaintainRelationships(ent, calculatedDisp, entDist)
 					if entDist > 100 then
 						self.Human_NextPlyReloadSd = 0
 					else
-						local _, animTime = self:PlayAnim("heal", true, false, false, 0, {OnFinish=function(interrupted, anim)
+						local _, animTime = self:PlayAnim("heal", true, false, false, 0, {OnFinish = function(interrupted, anim)
 							if !interrupted then
 								ent:GiveAmmo(20, ammoType)
 							end
@@ -462,7 +462,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/src/npc/ep2/outland_11a/silo/reb_tvwatching_03.wav",
 		"vj_hlr/src/npc/ep2/outland_11a/silo/reb_tvwatching_04.wav",
 		"vj_hlr/src/npc/ep2/outland_11a/silo/reb1_idles03.wav",
-		"vj_hlr/src/npc/ep2/outland_11a/silo/reb1_idles06.wav",
+		"vj_hlr/src/npc/ep2/outland_11a/silo/reb1_idles06.wav"
 	}
 	self.SoundTbl_IdleDialogue = {
 		"vo/npc/male01/doingsomething.wav",
@@ -528,7 +528,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/src/npc/ep1/npc/male01/cit_remarks23.wav",
 		"vj_hlr/src/npc/ep2/outland_11a/silo/reb_silo_reb_art1.wav",
 		"vj_hlr/src/npc/ep2/outland_11a/silo/reb1_idles01.wav",
-		"vj_hlr/src/npc/ep2/outland_11a/silo/reb1_idles02.wav",
+		"vj_hlr/src/npc/ep2/outland_11a/silo/reb1_idles02.wav"
 	}
 	self.SoundTbl_IdleDialogueAnswer = {
 		"vo/npc/male01/answer01.wav",
@@ -575,7 +575,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/npc/male01/vanswer13.wav",
 		"vo/trainyard/cit_window_hope.wav",
 		"vj_hlr/src/npc/ep2/outland_08/chopper/reb_chop_shipdown03.wav",
-		"vj_hlr/src/npc/citizen_beta/getawayfromme01.wav",
+		"vj_hlr/src/npc/citizen_beta/getawayfromme01.wav"
 	}
 	self.SoundTbl_CombatIdle = {
 		"vo/npc/male01/letsgo01.wav",
@@ -598,7 +598,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/src/npc/ep2/outland_12/reb1_prepare_battle_01.wav",
 		"vj_hlr/src/npc/ep2/outland_12/reb1_prepare_battle_02.wav",
 		"vj_hlr/src/npc/ep2/outland_12/reb1_prepare_battle_03.wav",
-		"vj_hlr/src/npc/ep2/outland_12/reb1_prepare_battle_08.wav",
+		"vj_hlr/src/npc/ep2/outland_12/reb1_prepare_battle_08.wav"
 	}
 	self.SoundTbl_ReceiveOrder = {
 		"vo/npc/male01/ok01.wav",
@@ -606,7 +606,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/npc/male01/squad_approach02.wav",
 		"vo/npc/male01/squad_approach03.wav",
 		"vo/npc/male01/squad_approach04.wav",
-		"vj_hlr/src/npc/ep2/outland_02/griggs_following02.wav",
+		"vj_hlr/src/npc/ep2/outland_02/griggs_following02.wav"
 	}
 	self.SoundTbl_FollowPlayer = {
 		"vo/npc/male01/leadon01.wav",
@@ -634,7 +634,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/src/npc/ep1/npc/male01/cit_evac_ok01.wav",
 		"vj_hlr/src/npc/ep1/npc/male01/cit_evac_ok02.wav",
 		"vj_hlr/src/npc/ep1/npc/male01/cit_evac_ok04.wav",
-		"vj_hlr/src/npc/ep1/npc/male01/cit_youbet.wav",
+		"vj_hlr/src/npc/ep1/npc/male01/cit_youbet.wav"
 	}
 	self.SoundTbl_UnFollowPlayer = {
 		"vo/npc/male01/holddownspot01.wav",
@@ -646,7 +646,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/canals/male01/gunboat_giveemhell.wav",
 		"vo/canals/matt_go_nag04.wav",
 		"vo/canals/matt_go_nag05.wav",
-		"vo/coast/odessa/male01/stairman_follow03.wav",
+		"vo/coast/odessa/male01/stairman_follow03.wav"
 	}
 	self.SoundTbl_YieldToPlayer = {
 		"vo/npc/male01/excuseme01.wav",
@@ -662,7 +662,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/npc/male01/sorrydoc04.wav",
 		"vo/npc/male01/sorryfm01.wav",
 		"vo/npc/male01/sorryfm02.wav",
-		"vo/npc/male01/whoops01.wav",
+		"vo/npc/male01/whoops01.wav"
 	}
 	self.SoundTbl_MedicBeforeHeal = {
 		"vo/npc/male01/health01.wav",
@@ -673,7 +673,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/src/npc/ep2/outland_08/chopper/reb_chop_nothankyou.wav",
 		"vj_hlr/src/npc/citizen_beta/heretakethis01.wav",
 		"vj_hlr/src/npc/citizen_beta/heretakethis02.wav",
-		"vj_hlr/src/npc/citizen_beta/hereyoucouldusethis.wav",
+		"vj_hlr/src/npc/citizen_beta/hereyoucouldusethis.wav"
 	}
 	self.SoundTbl_OnPlayerSight = {
 		"vo/npc/male01/abouttime01.wav",
@@ -697,7 +697,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/src/npc/ep1/npc/male01/cit_greet_alyx02.wav",
 		"vj_hlr/src/npc/ep1/npc/male01/cit_greet_alyx04.wav",
 		"vj_hlr/src/npc/citizen_beta/heya.wav",
-		"vj_hlr/src/npc/citizen_beta/whohellryou01.wav",
+		"vj_hlr/src/npc/citizen_beta/whohellryou01.wav"
 	}
 	self.SoundTbl_Investigate = {
 		"vo/npc/male01/startle01.wav",
@@ -705,7 +705,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/canals/boxcar_becareful.wav",
 		"vo/streetwar/sniper/male01/c17_09_help03.wav",
 		"vj_hlr/src/npc/ep1/npc/male01/cit_alert_antlions09.wav",
-		"vj_hlr/src/npc/citizen_beta/quiet02.wav",
+		"vj_hlr/src/npc/citizen_beta/quiet02.wav"
 	}
 	self.SoundTbl_LostEnemy = {}
 	self.SoundTbl_Alert = {
@@ -727,7 +727,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/src/npc/ep2/outland_02/griggs_coming01.wav",
 		"vj_hlr/src/npc/ep2/outland_12/reb1_lastwave08.wav",
 		"vj_hlr/src/npc/ep2/outland_12/reb1_lastwave09.wav",
-		"vj_hlr/src/npc/ep2/outland_12/reb1_lastwaveannounced02.wav",
+		"vj_hlr/src/npc/ep2/outland_12/reb1_lastwaveannounced02.wav"
 	}
 	self.SoundTbl_CallForHelp = {
 		"vo/npc/male01/help01.wav",
@@ -740,7 +740,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/src/npc/ep1/npc/male01/cit_evac_casualty08.wav",
 		"vj_hlr/src/npc/ep1/npc/male01/cit_evac_casualty11.wav",
 		"vj_hlr/src/npc/ep1/npc/male01/cit_getaboard01.wav",
-		"vj_hlr/src/npc/ep1/npc/male01/cit_getaboard03.wav",
+		"vj_hlr/src/npc/ep1/npc/male01/cit_getaboard03.wav"
 	}
 	self.SoundTbl_BecomeEnemyToPlayer = {
 		"vo/npc/male01/heretohelp01.wav",
@@ -749,7 +749,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/npc/male01/notthemanithought02.wav",
 		"vo/npc/male01/wetrustedyou01.wav",
 		"vo/npc/male01/wetrustedyou02.wav",
-		"vj_hlr/src/npc/ep1/npc/male01/cit_evac_casualty07.wav",
+		"vj_hlr/src/npc/ep1/npc/male01/cit_evac_casualty07.wav"
 	}
 	self.SoundTbl_Suppressing = {
 		"vj_hlr/src/npc/ep1/npc/male01/cit_alert_zombie06.wav",
@@ -767,7 +767,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/src/npc/ep2/outland_12/reb1_striderdown12.wav",
 		"vj_hlr/src/npc/citizen_beta/howdoyoulike02.wav",
 		"vj_hlr/src/npc/citizen_beta/howdoyoulikeit01.wav",
-		"vj_hlr/src/npc/citizen_beta/seehowyoulikeit.wav",
+		"vj_hlr/src/npc/citizen_beta/seehowyoulikeit.wav"
 	}
 	self.SoundTbl_WeaponReload = {
 		"vo/npc/male01/coverwhilereload01.wav",
@@ -775,7 +775,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/npc/male01/gottareload01.wav",
 		"vj_hlr/src/npc/ep2/male02/reb2_reload03.wav",
 		"vj_hlr/src/npc/ep2/male02/reb2_reload05.wav",
-		"vj_hlr/src/npc/ep2/male02/reb2_reload07.wav",
+		"vj_hlr/src/npc/ep2/male02/reb2_reload07.wav"
 	}
 	self.SoundTbl_GrenadeSight = {
 		"vo/npc/male01/getdown02.wav",
@@ -804,7 +804,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/src/npc/ep2/outland_12/reb1_sawmillexplo03.wav",
 		"vj_hlr/src/npc/citizen_beta/gethellout02.wav",
 		"vj_hlr/src/npc/citizen_beta/strider_run.wav",
-		"vj_hlr/src/npc/citizen_beta/strider_run02.wav",
+		"vj_hlr/src/npc/citizen_beta/strider_run02.wav"
 	}
 	self.SoundTbl_DangerSight = {
 		"vo/npc/male01/getdown02.wav",
@@ -823,7 +823,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/src/npc/ep1/npc/male01/cit_shock08.wav",
 		"vj_hlr/src/npc/ep1/npc/male01/cit_shock09.wav",
 		"vj_hlr/src/npc/ep1/npc/male01/cit_shock10.wav",
-		"vj_hlr/src/npc/ep1/npc/male01/cit_shock11.wav",
+		"vj_hlr/src/npc/ep1/npc/male01/cit_shock11.wav"
 	}
 	self.SoundTbl_KilledEnemy = {
 		"vo/npc/male01/gotone01.wav",
@@ -872,7 +872,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/src/npc/ep2/outland_12/reb1_striderdown07.wav",
 		"vj_hlr/src/npc/ep2/outland_12/reb1_striderdown08.wav",
 		"vj_hlr/src/npc/citizen_beta/likethemapples.wav",
-		"vj_hlr/src/npc/citizen_beta/myturn.wav",
+		"vj_hlr/src/npc/citizen_beta/myturn.wav"
 	}
 	self.SoundTbl_AllyDeath = {
 		"vo/npc/male01/goodgod.wav",
@@ -903,7 +903,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/src/npc/ep1/npc/male01/cit_evac_casualty10.wav",
 		"vj_hlr/src/npc/ep2/outland_12/reb1_buildingexplo03.wav",
 		"vj_hlr/src/npc/ep2/outland_12/reb1_buildingexplo06.wav",
-		"vj_hlr/src/npc/ep2/outland_12/reb1_lastwave01.wav",
+		"vj_hlr/src/npc/ep2/outland_12/reb1_lastwave01.wav"
 	}
 	self.SoundTbl_Pain = {
 		"vo/npc/male01/imhurt01.wav",
@@ -928,7 +928,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vj_hlr/src/npc/ep1/npc/male01/cit_pain10.wav",
 		"vj_hlr/src/npc/ep1/npc/male01/cit_pain11.wav",
 		"vj_hlr/src/npc/ep1/npc/male01/cit_pain12.wav",
-		"vj_hlr/src/npc/ep1/npc/male01/cit_pain13.wav",
+		"vj_hlr/src/npc/ep1/npc/male01/cit_pain13.wav"
 	}
 	self.SoundTbl_DamageByPlayer = {
 		"vo/npc/male01/onyourside.wav",
@@ -938,7 +938,7 @@ function ENT:HLR_ApplyMaleSounds()
 		"vo/trainyard/male01/cit_hit02.wav",
 		"vo/trainyard/male01/cit_hit03.wav",
 		"vo/trainyard/male01/cit_hit04.wav",
-		"vo/trainyard/male01/cit_hit05.wav",
+		"vo/trainyard/male01/cit_hit05.wav"
 	}
 	self.SoundTbl_Death = {
 		"vo/npc/male01/pain07.wav",
@@ -1026,9 +1026,9 @@ function ENT:HLR_ApplyMaleSounds()
 end
 
 function ENT:HLR_ApplyFemaleSounds()
-	self.SoundTbl_Idle = {
-		//"vo/npc/female01/vanswer14.wav",
-	}
+	/*self.SoundTbl_Idle =
+		"vo/npc/female01/vanswer14.wav"*/
+
 	self.SoundTbl_IdleDialogue = {
 		"vo/npc/female01/doingsomething.wav",
 		"vo/npc/female01/getgoingsoon.wav",
@@ -1088,7 +1088,7 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vj_hlr/src/npc/ep1/npc/female01/cit_remarks20.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_remarks21.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_remarks22.wav",
-		"vj_hlr/src/npc/ep1/npc/female01/cit_remarks23.wav",
+		"vj_hlr/src/npc/ep1/npc/female01/cit_remarks23.wav"
 	}
 	self.SoundTbl_IdleDialogueAnswer = {
 		"vo/npc/female01/answer01.wav",
@@ -1133,21 +1133,21 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/npc/female01/vanswer01.wav",
 		"vo/npc/female01/vanswer04.wav",
 		"vo/npc/female01/vanswer08.wav",
-		"vo/npc/female01/vanswer13.wav",
+		"vo/npc/female01/vanswer13.wav"
 	}
 	self.SoundTbl_CombatIdle = {
 		"vo/npc/female01/squad_affirm05.wav",
 		"vo/npc/female01/squad_affirm06.wav",
 		"vo/canals/female01/stn6_go_nag02.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_alert_zombie04.wav",
-		"vj_hlr/src/npc/ep1/npc/female01/cit_squad_flee02.wav",
+		"vj_hlr/src/npc/ep1/npc/female01/cit_squad_flee02.wav"
 	}
 	self.SoundTbl_ReceiveOrder = {
 		"vo/npc/female01/ok01.wav",
 		"vo/npc/female01/ok02.wav",
 		"vo/npc/female01/squad_approach02.wav",
 		"vo/npc/female01/squad_approach03.wav",
-		"vo/npc/female01/squad_approach04.wav",
+		"vo/npc/female01/squad_approach04.wav"
 	}
 	self.SoundTbl_FollowPlayer = {
 		"vo/npc/female01/leadon01.wav",
@@ -1177,7 +1177,7 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vj_hlr/src/npc/ep1/npc/female01/cit_evac_ok01.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_evac_ok02.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_evac_ok04.wav",
-		"vj_hlr/src/npc/ep1/npc/female01/cit_youbet.wav",
+		"vj_hlr/src/npc/ep1/npc/female01/cit_youbet.wav"
 	}
 	self.SoundTbl_UnFollowPlayer = {
 		"vo/npc/female01/holddownspot01.wav",
@@ -1188,7 +1188,7 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/canals/female01/gunboat_farewell.wav",
 		"vo/canals/female01/gunboat_giveemhell.wav",
 		"vo/canals/airboat_go_nag03.wav",
-		"vo/coast/odessa/female01/stairman_follow03.wav",
+		"vo/coast/odessa/female01/stairman_follow03.wav"
 	}
 	self.SoundTbl_YieldToPlayer = {
 		"vo/npc/female01/excuseme01.wav",
@@ -1204,14 +1204,14 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/npc/female01/sorrydoc04.wav",
 		"vo/npc/female01/sorryfm01.wav",
 		"vo/npc/female01/sorryfm02.wav",
-		"vo/npc/female01/whoops01.wav",
+		"vo/npc/female01/whoops01.wav"
 	}
 	self.SoundTbl_MedicBeforeHeal = {
 		"vo/npc/female01/health01.wav",
 		"vo/npc/female01/health02.wav",
 		"vo/npc/female01/health03.wav",
 		"vo/npc/female01/health04.wav",
-		"vo/npc/female01/health05.wav",
+		"vo/npc/female01/health05.wav"
 	}
 	self.SoundTbl_OnPlayerSight = {
 		"vo/npc/female01/abouttime01.wav",
@@ -1232,12 +1232,12 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/canals/female01/gunboat_owneyes.wav",
 		"vo/canals/gunboat_heyyourefm.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_greet_alyx02.wav",
-		"vj_hlr/src/npc/ep1/npc/female01/cit_greet_alyx04.wav",
+		"vj_hlr/src/npc/ep1/npc/female01/cit_greet_alyx04.wav"
 	}
 	self.SoundTbl_Investigate = {
 		"vo/npc/female01/startle01.wav",
 		"vo/npc/female01/startle02.wav",
-		"vj_hlr/src/npc/ep1/npc/female01/cit_alert_antlions09.wav",
+		"vj_hlr/src/npc/ep1/npc/female01/cit_alert_antlions09.wav"
 	}
 	self.SoundTbl_LostEnemy = {}
 	self.SoundTbl_Alert = {
@@ -1255,7 +1255,7 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vj_hlr/src/npc/ep1/npc/female01/cit_alert_antlions08.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_alert_head06.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_evac_enemies01.wav",
-		"vj_hlr/src/npc/ep1/npc/female01/cit_theyfoundus.wav",
+		"vj_hlr/src/npc/ep1/npc/female01/cit_theyfoundus.wav"
 	}
 	self.SoundTbl_CallForHelp = {
 		"vo/npc/female01/help01.wav",
@@ -1265,7 +1265,7 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vj_hlr/src/npc/ep1/npc/female01/cit_evac_casualty08.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_evac_casualty11.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_getaboard01.wav",
-		"vj_hlr/src/npc/ep1/npc/female01/cit_getaboard03.wav",
+		"vj_hlr/src/npc/ep1/npc/female01/cit_getaboard03.wav"
 	}
 	self.SoundTbl_BecomeEnemyToPlayer = {
 		"vo/npc/female01/heretohelp01.wav",
@@ -1275,16 +1275,16 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/npc/female01/wetrustedyou01.wav",
 		"vo/npc/female01/wetrustedyou02.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_evac_casualty07.wav",
-		"vj_hlr/src/npc/ep1/npc/female01/cit_evac_defendus01.wav",
+		"vj_hlr/src/npc/ep1/npc/female01/cit_evac_defendus01.wav"
 	}
 	self.SoundTbl_Suppressing = {
 		"vj_hlr/src/npc/ep1/npc/female01/cit_alert_zombie06.wav",
-		"vj_hlr/src/npc/ep1/npc/female01/cit_evac_enemies02.wav",
+		"vj_hlr/src/npc/ep1/npc/female01/cit_evac_enemies02.wav"
 	}
 	self.SoundTbl_WeaponReload = {
 		"vo/npc/female01/coverwhilereload01.wav",
 		"vo/npc/female01/coverwhilereload02.wav",
-		"vo/npc/female01/gottareload01.wav",
+		"vo/npc/female01/gottareload01.wav"
 	}
 	self.SoundTbl_GrenadeSight = {
 		"vo/npc/female01/getdown02.wav",
@@ -1302,7 +1302,7 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vj_hlr/src/npc/ep1/npc/female01/cit_shock02.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_shock03.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_shock04.wav",
-		"vj_hlr/src/npc/ep1/npc/female01/cit_shock05.wav",
+		"vj_hlr/src/npc/ep1/npc/female01/cit_shock05.wav"
 	}
 	self.SoundTbl_DangerSight = {
 		"vo/npc/female01/getdown02.wav",
@@ -1316,7 +1316,7 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vj_hlr/src/npc/ep1/npc/female01/cit_shock02.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_shock03.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_shock04.wav",
-		"vj_hlr/src/npc/ep1/npc/female01/cit_shock05.wav",
+		"vj_hlr/src/npc/ep1/npc/female01/cit_shock05.wav"
 	}
 	self.SoundTbl_KilledEnemy = {
 		"vo/npc/female01/gotone01.wav",
@@ -1348,7 +1348,7 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vj_hlr/src/npc/ep1/npc/female01/cit_kill14.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_kill15.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_kill16.wav",
-		"vj_hlr/src/npc/ep1/npc/female01/cit_kill17.wav",
+		"vj_hlr/src/npc/ep1/npc/female01/cit_kill17.wav"
 	}
 	self.SoundTbl_AllyDeath = {
 		"vo/npc/female01/goodgod.wav",
@@ -1377,7 +1377,7 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vj_hlr/src/npc/ep1/npc/female01/cit_evac_casualty03.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_evac_casualty05.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_evac_casualty09.wav",
-		"vj_hlr/src/npc/ep1/npc/female01/cit_evac_casualty10.wav",
+		"vj_hlr/src/npc/ep1/npc/female01/cit_evac_casualty10.wav"
 	}
 	self.SoundTbl_Pain = {
 		"vo/npc/female01/imhurt01.wav",
@@ -1398,7 +1398,7 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vj_hlr/src/npc/ep1/npc/female01/cit_pain07.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_pain08.wav",
 		"vj_hlr/src/npc/ep1/npc/female01/cit_pain09.wav",
-		"vj_hlr/src/npc/ep1/npc/female01/cit_pain10.wav",
+		"vj_hlr/src/npc/ep1/npc/female01/cit_pain10.wav"
 	}
 	self.SoundTbl_DamageByPlayer = {
 		"vo/npc/female01/onyourside.wav",
@@ -1408,13 +1408,13 @@ function ENT:HLR_ApplyFemaleSounds()
 		"vo/trainyard/female01/cit_hit02.wav",
 		"vo/trainyard/female01/cit_hit03.wav",
 		"vo/trainyard/female01/cit_hit04.wav",
-		"vo/trainyard/female01/cit_hit05.wav",
+		"vo/trainyard/female01/cit_hit05.wav"
 	}
 	self.SoundTbl_Death = {
 		"vo/npc/female01/pain06.wav",
 		"vo/npc/female01/pain07.wav",
 		"vo/npc/female01/pain08.wav",
-		"vo/npc/female01/pain09.wav",
+		"vo/npc/female01/pain09.wav"
 	}
 
 

@@ -30,8 +30,8 @@ ENT.BecomeEnemyToPlayer = 2
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = "vjges_flinch_head"
 ENT.FlinchHitGroupMap = {
-	{HitGroup = {HITGROUP_LEFTARM}, Animation = {"vjges_flinch_leftarm"}},
-	{HitGroup = {HITGROUP_RIGHTARM}, Animation = {"vjges_flinch_rightarm"}},
+	{HitGroup = HITGROUP_LEFTARM, Animation = "vjges_flinch_leftarm"},
+	{HitGroup = HITGROUP_RIGHTARM, Animation = "vjges_flinch_rightarm"},
 }
 
 ENT.SoundTbl_FootStep = {"npc/footsteps/hardboot_generic1.wav", "npc/footsteps/hardboot_generic2.wav", "npc/footsteps/hardboot_generic3.wav", "npc/footsteps/hardboot_generic4.wav", "npc/footsteps/hardboot_generic5.wav", "npc/footsteps/hardboot_generic6.wav", "npc/footsteps/hardboot_generic8.wav"}
@@ -55,7 +55,7 @@ ENT.SoundTbl_Idle = {
 	"vj_hlr/src/npc/ep2/outland_01/intro/al_transmit_huh.wav",
 	"vj_hlr/src/npc/ep2/outland_07/barn/al_barn_noplug01.wav",
 	"vj_hlr/src/npc/ep2/outland_08/chopper/al_chop_clearup01.wav",
-	"vj_hlr/src/npc/ep2/outland_10/olde-inne/al_ambush_handiwork03.wav", -- So many ways to die out here
+	"vj_hlr/src/npc/ep2/outland_10/olde-inne/al_ambush_handiwork03.wav" -- So many ways to die out here
 }
 ENT.SoundTbl_IdleDialogue = {
 	"vo/novaprospekt/al_drkleiner01_e.wav",
@@ -66,7 +66,7 @@ ENT.SoundTbl_IdleDialogue = {
 	"vj_hlr/src/npc/ep2/outland_08/chopper/al_chop_anytools02.wav",
 	"vj_hlr/src/npc/ep2/outland_10/olde-inne/al_ambush_howlong.wav",
 	"vj_hlr/src/npc/ep2/outland_11/dogfight/al_str_working.wav",
-	"vj_hlr/src/npc/ep2/outland_11a/silo/al_silo_howlongactive01.wav",
+	"vj_hlr/src/npc/ep2/outland_11a/silo/al_silo_howlongactive01.wav"
 }
 ENT.SoundTbl_IdleDialogueAnswer = {
 	"vo/eli_lab/al_blamingme.wav",
@@ -94,7 +94,7 @@ ENT.SoundTbl_IdleDialogueAnswer = {
 	"vj_hlr/src/npc/ep2/alyx/al_car_rolled05.wav",
 	"vj_hlr/src/npc/ep2/outland_08/chopper/al_chop_nokidding02.wav",
 	"vj_hlr/src/npc/ep2/outland_11/dogfight/al_str_wouldyoumind.wav",
-	"vj_hlr/src/npc/ep2/outland_11a/silo/al_silo_somethings.wav",
+	"vj_hlr/src/npc/ep2/outland_11a/silo/al_silo_somethings.wav"
 }
 ENT.SoundTbl_CombatIdle = {
 	"vo/citadel/al_comeon.wav",
@@ -128,7 +128,7 @@ ENT.SoundTbl_CombatIdle = {
 	"vj_hlr/src/npc/ep2/outland_06a/radio/al_rad_wecandothis.wav",
 	"vj_hlr/src/npc/ep2/outland_10/olde-inne/al_ambush_holdemoff.wav",
 	"vj_hlr/src/npc/ep2/outland_10/olde-inne/al_ambush_threeatatime02.wav",
-	"vj_hlr/src/npc/ep2/outland_10/olde-inne/al_ambush_weresurrounded.wav",
+	"vj_hlr/src/npc/ep2/outland_10/olde-inne/al_ambush_weresurrounded.wav"
 }
 ENT.SoundTbl_ReceiveOrder = {
 	"vo/eli_lab/al_dadwhatsup.wav",
@@ -143,7 +143,7 @@ ENT.SoundTbl_ReceiveOrder = {
 	"vj_hlr/src/npc/ep1/npc/alyx/al_comingtohelp02.wav",
 	"vj_hlr/src/npc/ep1/npc/alyx/al_comingtohelp03.wav",
 	"vj_hlr/src/npc/ep1/npc/alyx/al_comingtohelp04.wav",
-	"vj_hlr/src/npc/ep2/outland_01/intro/al_rbed_whatnow02.wav",
+	"vj_hlr/src/npc/ep2/outland_01/intro/al_rbed_whatnow02.wav"
 }
 ENT.SoundTbl_FollowPlayer = {
 	"vo/eli_lab/al_allright01.wav",
@@ -201,7 +201,7 @@ ENT.SoundTbl_FollowPlayer = {
 	"vj_hlr/src/npc/ep2/outland_11/dogfight/al_str_thanksagain01.wav",
 	"vj_hlr/src/npc/ep2/outland_11a/silo/al_silo_goodteam01.wav",
 	"vj_hlr/src/npc/ep2/outland_11a/silo/al_silo_goodteam02.wav",
-	"vj_hlr/src/npc/ep2/outland_11a/silo/al_silo_surething01.wav",
+	"vj_hlr/src/npc/ep2/outland_11a/silo/al_silo_surething01.wav"
 }
 ENT.SoundTbl_UnFollowPlayer = {
 	"vo/eli_lab/al_thyristor02.wav",
@@ -234,19 +234,19 @@ ENT.SoundTbl_UnFollowPlayer = {
 	"vj_hlr/src/npc/ep2/outland_06/bridge/al_bridge_bye01.wav",
 	"vj_hlr/src/npc/ep2/outland_06/bridge/al_bridge_openway03.wav",
 	"vj_hlr/src/npc/ep2/outland_11a/silo/al_silo_doyouneed01.wav",
-	"vj_hlr/src/npc/ep2/outland_11a/silo/al_silo_everythingok.wav",
+	"vj_hlr/src/npc/ep2/outland_11a/silo/al_silo_everythingok.wav"
 }
 ENT.SoundTbl_YieldToPlayer = {
 	"vo/npc/alyx/al_excuse01.wav",
 	"vo/npc/alyx/al_excuse02.wav",
 	"vo/npc/alyx/al_excuse03.wav",
-	"vj_hlr/src/npc/ep1/citadel/al_carefulgord.wav",
+	"vj_hlr/src/npc/ep1/citadel/al_carefulgord.wav"
 }
 ENT.SoundTbl_MedicBeforeHeal = {
 	"vj_hlr/src/npc/ep1/npc/alyx/al_healplayer01.wav",
 	"vj_hlr/src/npc/ep1/npc/alyx/al_healplayer02.wav",
 	"vj_hlr/src/npc/ep2/alyx/al_throwmed03.wav",
-	"vj_hlr/src/npc/ep2/outland_07/barn/al_barn_sorry01.wav",
+	"vj_hlr/src/npc/ep2/outland_07/barn/al_barn_sorry01.wav"
 }
 ENT.SoundTbl_MedicReceiveHeal = {
 	"vj_hlr/src/npc/ep1/c17/al_cit_heythanks.wav",
@@ -271,7 +271,7 @@ ENT.SoundTbl_MedicReceiveHeal = {
 	"vj_hlr/src/npc/ep2/outland_01/intro/al_rbed_didtrick02.wav",
 	"vj_hlr/src/npc/ep2/outland_07/barn/al_barn_sorry02.wav",
 	"vj_hlr/src/npc/ep2/outland_11/dogfight/al_str_thanksagain02.wav",
-	"vj_hlr/src/npc/ep2/outland_11a/silo/al_silo_thankreb.wav",
+	"vj_hlr/src/npc/ep2/outland_11a/silo/al_silo_thankreb.wav"
 }
 ENT.SoundTbl_OnPlayerSight = {
 	"vo/eli_lab/al_soquickly01.wav",
@@ -287,7 +287,7 @@ ENT.SoundTbl_OnPlayerSight = {
 	"vj_hlr/src/npc/ep1/c17/al_thereyouare.wav",
 	"vj_hlr/src/npc/ep1/npc/alyx/al_lead_catchup07.wav",
 	"vj_hlr/src/npc/ep1/npc/alyx/al_rejoin01.wav",
-	"vj_hlr/src/npc/ep1/npc/alyx/al_rejoin03.wav",
+	"vj_hlr/src/npc/ep1/npc/alyx/al_rejoin03.wav"
 }
 ENT.SoundTbl_Investigate = {
 	"vo/citadel/al_heylisten.wav",
@@ -312,7 +312,7 @@ ENT.SoundTbl_Investigate = {
 	"vj_hlr/src/npc/ep2/outland_01/intro/al_rbed_whatthat.wav",
 	"vj_hlr/src/npc/ep2/outland_06a/radio/al_rad_sh.wav",
 	"vj_hlr/src/npc/ep2/outland_07/barn/al_barn_pulsewhat.wav",
-	"vj_hlr/src/npc/ep2/outland_10/olde-inne/al_ambush_listen.wav",
+	"vj_hlr/src/npc/ep2/outland_10/olde-inne/al_ambush_listen.wav"
 }
 ENT.SoundTbl_LostEnemy = {
 	"vo/citadel/al_notagain02.wav",
@@ -343,7 +343,7 @@ ENT.SoundTbl_LostEnemy = {
 	"vj_hlr/src/npc/ep1/npc/alyx/al_light_lost10.wav",
 	"vj_hlr/src/npc/ep1/npc/alyx/al_light_lost11.wav",
 	"vj_hlr/src/npc/ep2/outland_01/intro/al_rbed_whatnow01.wav",
-	"vj_hlr/src/npc/ep2/outland_06a/radio/al_rad_theyreback03.wav",
+	"vj_hlr/src/npc/ep2/outland_06a/radio/al_rad_theyreback03.wav"
 }
 ENT.SoundTbl_Alert = {
 	"vo/novaprospekt/al_uhoh_np.wav",
@@ -385,7 +385,7 @@ ENT.SoundTbl_Alert = {
 	"vj_hlr/src/npc/ep1/npc/alyx/al_startcombat02.wav",
 	"vj_hlr/src/npc/ep2/outland_06a/radio/al_rad_another.wav",
 	"vj_hlr/src/npc/ep2/outland_06a/radio/al_rad_twomore.wav",
-	"vj_hlr/src/npc/ep2/outland_10/olde-inne/al_ambush_morecoming.wav",
+	"vj_hlr/src/npc/ep2/outland_10/olde-inne/al_ambush_morecoming.wav"
 }
 ENT.SoundTbl_CallForHelp = {
 	"vo/eli_lab/al_cmongord02.wav",
@@ -408,12 +408,12 @@ ENT.SoundTbl_CallForHelp = {
 	"vj_hlr/src/npc/ep1/npc/alyx/al_dark_worriedest05.wav",
 	"vj_hlr/src/npc/ep1/npc/alyx/al_swamped05.wav",
 	"vj_hlr/src/npc/ep2/outland_01/intro/al_rbed_help.wav",
-	"vj_hlr/src/npc/ep2/outland_12a/launch/al_launch_attackstart01.wav",
+	"vj_hlr/src/npc/ep2/outland_12a/launch/al_launch_attackstart01.wav"
 }
 ENT.SoundTbl_BecomeEnemyToPlayer = {
 	"vo/citadel/al_bitofit.wav",
 	"vj_hlr/src/npc/ep1/citadel/al_traitor.wav",
-	"vj_hlr/src/npc/ep1/citadel/al_traitor02.wav",
+	"vj_hlr/src/npc/ep1/citadel/al_traitor02.wav"
 }
 ENT.SoundTbl_Suppressing = {
 	"vo/novaprospekt/al_gotyounow01.wav",
@@ -429,7 +429,7 @@ ENT.SoundTbl_Suppressing = {
 	"vj_hlr/src/npc/ep1/npc/alyx/al_light_lost_quiet10.wav",
 	"vj_hlr/src/npc/ep1/npc/alyx/al_light_lost06.wav",
 	"vj_hlr/src/npc/ep1/npc/alyx/al_light_lost07.wav",
-	"vj_hlr/src/npc/ep2/alyx/al_combat_grim_09.wav",
+	"vj_hlr/src/npc/ep2/alyx/al_combat_grim_09.wav"
 }
 ENT.SoundTbl_WeaponReload = {
 	"vo/npc/alyx/coverme01.wav",
@@ -447,7 +447,7 @@ ENT.SoundTbl_WeaponReload = {
 	"vj_hlr/src/npc/ep1/npc/alyx/al_reloading_new04.wav",
 	"vj_hlr/src/npc/ep1/npc/alyx/al_reloading_new05.wav",
 	"vj_hlr/src/npc/ep1/npc/alyx/al_reloading_new06.wav",
-	"vj_hlr/src/npc/ep1/npc/alyx/al_reloading_new07.wav",
+	"vj_hlr/src/npc/ep1/npc/alyx/al_reloading_new07.wav"
 }
 ENT.SoundTbl_BeforeMeleeAttack = {
 	"vj_hlr/src/npc/ep1/npc/alyx/al_fight06.wav",
@@ -468,7 +468,7 @@ ENT.SoundTbl_BeforeMeleeAttack = {
 	"vj_hlr/src/npc/ep2/outland_07/barn/al_barn_adv_struggles05.wav",
 	"vj_hlr/src/npc/ep2/outland_07/barn/al_barn_struggle04.wav",
 	"vj_hlr/src/npc/ep2/outland_07/barn/al_barn_struggle07.wav",
-	"vj_hlr/src/npc/ep2/outland_07/barn/al_barn_struggle08.wav",
+	"vj_hlr/src/npc/ep2/outland_07/barn/al_barn_struggle08.wav"
 }
 ENT.SoundTbl_GrenadeAttack = {
 	"vj_hlr/src/npc/ep1/npc/alyx/al_combat_boom01.wav",
@@ -479,7 +479,7 @@ ENT.SoundTbl_GrenadeAttack = {
 	"vj_hlr/src/npc/ep1/npc/alyx/al_combat_boom06.wav",
 	"vj_hlr/src/npc/ep1/npc/alyx/al_combat_boom07.wav",
 	"vj_hlr/src/npc/ep2/outland_01/intro/al_rbed_standback.wav",
-	"vj_hlr/src/npc/ep2/outland_11/dogfight/al_str_getclear.wav",
+	"vj_hlr/src/npc/ep2/outland_11/dogfight/al_str_getclear.wav"
 }
 ENT.SoundTbl_GrenadeSight = {
 	"vo/npc/alyx/getback01.wav",
@@ -551,7 +551,7 @@ ENT.SoundTbl_GrenadeSight = {
 	"vj_hlr/src/npc/ep2/outland_07/barn/al_barn_putusdown01.wav",
 	"vj_hlr/src/npc/ep2/outland_11/dogfight/al_str_omg.wav",
 	"vj_hlr/src/npc/ep2/outland_11/dogfight/al_str_uhoh.wav",
-	"vj_hlr/src/npc/ep2/outland_12a/launch/al_launch_dadgetaway02.wav",
+	"vj_hlr/src/npc/ep2/outland_12a/launch/al_launch_dadgetaway02.wav"
 }
 ENT.SoundTbl_DangerSight = {
 	"vo/npc/alyx/getback01.wav",
@@ -604,7 +604,7 @@ ENT.SoundTbl_DangerSight = {
 	"vj_hlr/src/npc/ep2/outland_06a/radio/al_rad_crap.wav",
 	"vj_hlr/src/npc/ep2/outland_07/barn/al_barn_putusdown01.wav",
 	"vj_hlr/src/npc/ep2/outland_11/dogfight/al_str_uhoh.wav",
-	"vj_hlr/src/npc/ep2/outland_12a/launch/al_launch_dadgetaway02.wav",
+	"vj_hlr/src/npc/ep2/outland_12a/launch/al_launch_dadgetaway02.wav"
 }
 ENT.SoundTbl_KilledEnemy = {
 	"vo/npc/alyx/brutal02.wav",
@@ -688,7 +688,7 @@ ENT.SoundTbl_KilledEnemy = {
 	"vj_hlr/src/npc/ep2/outland_08/chopper/al_chop_nokidding01.wav",
 	"vj_hlr/src/npc/ep2/outland_11/dogfight/al_str_fine02.wav",
 	"vj_hlr/src/npc/ep2/outland_11/dogfight/al_str_gasp.wav",
-	"vj_hlr/src/npc/ep2/outland_11/dogfight/al_str_yeah01.wav",
+	"vj_hlr/src/npc/ep2/outland_11/dogfight/al_str_yeah01.wav"
 }
 ENT.SoundTbl_AllyDeath = {
 	"vo/npc/alyx/no01.wav",
@@ -725,7 +725,7 @@ ENT.SoundTbl_AllyDeath = {
 	"vj_hlr/src/npc/ep2/outland_12a/launch/al_launch_no01.wav",
 	"vj_hlr/src/npc/ep2/outland_12a/launch/al_launch_no02a.wav",
 	"vj_hlr/src/npc/ep2/outland_12a/launch/al_launch_noooo.wav",
-	"vj_hlr/src/npc/ep2/outland_12a/launch/al_launch_whatdoing.wav",
+	"vj_hlr/src/npc/ep2/outland_12a/launch/al_launch_whatdoing.wav"
 }
 ENT.SoundTbl_Pain = {
 	"vo/npc/alyx/gasp02.wav",
@@ -807,7 +807,7 @@ ENT.SoundTbl_Pain = {
 	"vj_hlr/src/npc/ep2/outland_12a/launch/al_launch_struggle12.wav",
 	"vj_hlr/src/npc/ep2/outland_12a/launch/al_launch_struggle21.wav",
 	"vj_hlr/src/npc/ep2/outland_12a/launch/al_launch_struggle22.wav",
-	"vj_hlr/src/npc/ep2/outland_12a/launch/al_launch_struggle25.wav",
+	"vj_hlr/src/npc/ep2/outland_12a/launch/al_launch_struggle25.wav"
 }
 ENT.SoundTbl_DamageByPlayer = {
 	"vo/npc/alyx/gordon_dist01.wav",
@@ -827,12 +827,12 @@ ENT.SoundTbl_DamageByPlayer = {
 	"vj_hlr/src/npc/ep1/npc/alyx/al_physimpact03.wav",
 	"vj_hlr/src/npc/ep2/alyx/al_car_crash02.wav",
 	"vj_hlr/src/npc/ep2/outland_11/dogfight/al_str_whatthehell.wav",
-	"vj_hlr/src/npc/ep2/outland_12a/launch/al_launch_dadimnot02.wav",
+	"vj_hlr/src/npc/ep2/outland_12a/launch/al_launch_dadimnot02.wav"
 }
 ENT.SoundTbl_Death = {
 	"vo/npc/alyx/uggh01.wav",
 	"vo/npc/alyx/uggh02.wav",
-	"vj_hlr/src/npc/ep1/npc/alyx/al_explo_agh.wav",
+	"vj_hlr/src/npc/ep1/npc/alyx/al_explo_agh.wav"
 }
 
 local sdFreemanReload = {"vj_hlr/src/npc/ep1/npc/alyx/al_playerreload01.wav", "vj_hlr/src/npc/ep1/npc/alyx/al_playerreload02.wav", "vj_hlr/src/npc/ep1/npc/alyx/al_playerreload03.wav", "vo/npc/alyx/youreload01.wav", "vo/npc/alyx/youreload02.wav"}

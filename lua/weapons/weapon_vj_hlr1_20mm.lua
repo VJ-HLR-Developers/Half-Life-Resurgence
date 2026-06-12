@@ -24,7 +24,7 @@ SWEP.Primary.ClipSize = 200
 SWEP.Primary.TakeAmmo = 0
 SWEP.Primary.Ammo = "AR2"
 SWEP.Primary.Sound = {"vj_hlr/gsrc/npc/hassault/hw_shoot1.wav", "vj_hlr/gsrc/npc/hassault/hw_shoot2.wav", "vj_hlr/gsrc/npc/hassault/hw_shoot3.wav"}
-SWEP.Primary.DistantSound = {"vj_hlr/gsrc/npc/hassault/hw_shoot_distant2.wav"}
+SWEP.Primary.DistantSound = "vj_hlr/gsrc/npc/hassault/hw_shoot_distant2.wav"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
 
@@ -32,7 +32,7 @@ SWEP.PrimaryEffects_MuzzleFlash = false
 local validModels = {
 	["models/vj_hlr/hl1/hassault.mdl"] = true,
 	["models/vj_hlr/hl_hd/hassault.mdl"] = true,
-	["models/vj_hlr/hla/hassault.mdl"] = true,
+	["models/vj_hlr/hla/hassault.mdl"] = true
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()

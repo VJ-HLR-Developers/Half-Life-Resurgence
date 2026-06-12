@@ -32,7 +32,7 @@ SWEP.PrimaryEffects_MuzzleFlash = false
 
 -- Custom
 local validModels = {
-	["models/vj_hlr/opfor/massn.mdl"] = true,
+	["models/vj_hlr/opfor/massn.mdl"] = true
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()

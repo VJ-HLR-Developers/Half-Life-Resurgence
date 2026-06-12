@@ -19,8 +19,8 @@ ENT.ControllerParams = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
-ENT.BloodParticle = {"vj_hlr_blood_yellow"}
-ENT.BloodDecal = {"VJ_HLR1_Blood_Yellow"}
+ENT.BloodParticle = "vj_hlr_blood_yellow"
+ENT.BloodDecal = "VJ_HLR1_Blood_Yellow"
 ENT.HasBloodPool = false
 ENT.ConstantlyFaceEnemy = true
 ENT.HasMeleeAttack = false
@@ -100,12 +100,12 @@ function ENT:Init()
 	self:DeleteOnRemove(zapSpr2)
 	self.ZapSpr2 = zapSpr2
 
-	self.AlienC_FlyAnim_Forward  = self:GetSequenceActivity(self:LookupSequence("forward"))
-	self.AlienC_FlyAnim_Backward  = self:GetSequenceActivity(self:LookupSequence("backward"))
-	self.AlienC_FlyAnim_Right  = self:GetSequenceActivity(self:LookupSequence("right"))
-	self.AlienC_FlyAnim_Left  = self:GetSequenceActivity(self:LookupSequence("left"))
-	self.AlienC_FlyAnim_Up  = self:GetSequenceActivity(self:LookupSequence("up"))
-	self.AlienC_FlyAnim_Down  = self:GetSequenceActivity(self:LookupSequence("down"))
+	self.AlienC_FlyAnim_Forward = self:GetSequenceActivity(self:LookupSequence("forward"))
+	self.AlienC_FlyAnim_Backward = self:GetSequenceActivity(self:LookupSequence("backward"))
+	self.AlienC_FlyAnim_Right = self:GetSequenceActivity(self:LookupSequence("right"))
+	self.AlienC_FlyAnim_Left = self:GetSequenceActivity(self:LookupSequence("left"))
+	self.AlienC_FlyAnim_Up = self:GetSequenceActivity(self:LookupSequence("up"))
+	self.AlienC_FlyAnim_Down = self:GetSequenceActivity(self:LookupSequence("down"))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)

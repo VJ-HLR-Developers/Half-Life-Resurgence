@@ -64,7 +64,7 @@ function SWEP:OnPrimaryAttack(status, statusData)
 		local proj = ents.Create("obj_vj_hlr2_rocket")
 		if owner:IsPlayer() then
 			local plyAng = owner:GetAimVector():Angle()
-			proj:SetPos(owner:GetShootPos() + plyAng:Forward()*-20 + plyAng:Up()*-9 + plyAng:Right()*10)
+			proj:SetPos(owner:GetShootPos() + plyAng:Forward() * -20 + plyAng:Up() * -9 + plyAng:Right() * 10)
 			proj:SetAngles(plyAng)
 		else
 			local spawnPos = self:GetBulletPos()

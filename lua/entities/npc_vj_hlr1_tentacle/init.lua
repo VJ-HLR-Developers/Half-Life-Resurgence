@@ -20,8 +20,8 @@ ENT.ControllerParams = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
-ENT.BloodParticle = {"vj_hlr_blood_yellow_large"}
-ENT.BloodDecal = {"VJ_HLR1_Blood_Yellow"}
+ENT.BloodParticle = "vj_hlr_blood_yellow_large"
+ENT.BloodDecal = "VJ_HLR1_Blood_Yellow"
 ENT.HasBloodPool = false
 
 ENT.HasMeleeAttack = true
@@ -42,7 +42,7 @@ ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/tentacle/te_alert1.wav", "vj_hlr/gsrc/npc
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/tentacle/te_roar1.wav", "vj_hlr/gsrc/npc/tentacle/te_roar2.wav"}
 ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/tentacle/te_death2.wav"
 
-local sdBeakStrikeDef ={"vj_hlr/gsrc/npc/tentacle/te_strike1.wav", "vj_hlr/gsrc/npc/tentacle/te_strike2.wav"}
+local sdBeakStrikeDef = {"vj_hlr/gsrc/npc/tentacle/te_strike1.wav", "vj_hlr/gsrc/npc/tentacle/te_strike2.wav"}
 local sdBeakStrikeDirt = {"vj_hlr/gsrc/npc/player/pl_dirt1.wav", "vj_hlr/gsrc/npc/player/pl_dirt2.wav", "vj_hlr/gsrc/npc/player/pl_dirt3.wav", "vj_hlr/gsrc/npc/player/pl_dirt4.wav"}
 local sdChangeLevel = {"vj_hlr/gsrc/npc/tentacle/te_swing1.wav", "vj_hlr/gsrc/npc/tentacle/te_swing2.wav"}
 
@@ -120,7 +120,7 @@ function ENT:OnAnimEvent(ev, evTime, evCycle, evType, evOptions)
 	if ev == 6 && !self.VJ_IsBeingControlled then
 		self:PlaySoundSystem("MeleeAttack", (self:IsDirt(self:GetPos()) && sdBeakStrikeDirt) or sdBeakStrikeDef, VJ.EmitSound)
 		local ene = self:GetEnemy()
-		if IsValid(ene) && (ene:GetPos():Distance(self:GetPos() + self:GetForward()*150)) < 200 then
+		if IsValid(ene) && (ene:GetPos():Distance(self:GetPos() + self:GetForward() * 150)) < 200 then
 			self.CanTurnWhileStationary = true
 			self:SetAngles(self:GetTurnAngle((ene:GetPos() - self:GetPos()):Angle()))
 		end

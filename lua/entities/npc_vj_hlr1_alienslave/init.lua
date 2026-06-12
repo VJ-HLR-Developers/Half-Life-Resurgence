@@ -16,8 +16,8 @@ ENT.ControllerParams = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
-ENT.BloodParticle = {"vj_hlr_blood_yellow"}
-ENT.BloodDecal = {"VJ_HLR1_Blood_Yellow"}
+ENT.BloodParticle = "vj_hlr_blood_yellow"
+ENT.BloodDecal = "VJ_HLR1_Blood_Yellow"
 ENT.HasBloodPool = false
 
 ENT.MeleeAttackDamage = 20
@@ -43,7 +43,7 @@ ENT.HasExtraMeleeAttackSounds = true
 
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
-ENT.FlinchHitGroupMap = {{HitGroup = {HITGROUP_LEFTARM}, Animation = {ACT_FLINCH_LEFTARM}}, {HitGroup = {HITGROUP_RIGHTARM}, Animation = {ACT_FLINCH_RIGHTARM}}, {HitGroup = {HITGROUP_LEFTLEG}, Animation = {ACT_FLINCH_LEFTLEG}}, {HitGroup = {HITGROUP_RIGHTLEG}, Animation = {ACT_FLINCH_RIGHTLEG}}}
+ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}, {HitGroup = HITGROUP_LEFTLEG, Animation = ACT_FLINCH_LEFTLEG}, {HitGroup = HITGROUP_RIGHTLEG, Animation = ACT_FLINCH_RIGHTLEG}}
 
 ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/aslave/vort_foot1.wav", "vj_hlr/gsrc/npc/aslave/vort_foot2.wav", "vj_hlr/gsrc/npc/aslave/vort_foot3.wav", "vj_hlr/gsrc/npc/aslave/vort_foot4.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/aslave/slv_idle1.wav", "vj_hlr/gsrc/npc/aslave/slv_idle2.wav", "vj_hlr/gsrc/npc/aslave/slv_idle3.wav", "vj_hlr/gsrc/npc/aslave/slv_idle4.wav", "vj_hlr/gsrc/npc/aslave/slv_idle5.wav", "vj_hlr/gsrc/npc/aslave/slv_idle6.wav", "vj_hlr/gsrc/npc/aslave/slv_idle7.wav", "vj_hlr/gsrc/npc/aslave/slv_idle8.wav", "vj_hlr/gsrc/npc/aslave/slv_idle9.wav", "vj_hlr/gsrc/npc/aslave/slv_idle10.wav"}
@@ -52,8 +52,8 @@ ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/gsrc/npc/aslave/slv_idle1.wav", "vj_h
 ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/aslave/slv_alert01.wav", "vj_hlr/gsrc/npc/aslave/slv_alert02.wav", "vj_hlr/gsrc/npc/aslave/slv_alert03.wav", "vj_hlr/gsrc/npc/aslave/slv_alert04.wav", "vj_hlr/gsrc/npc/aslave/slv_alert05.wav", "vj_hlr/gsrc/npc/aslave/slv_alert06.wav"}
 ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/gsrc/npc/zombie/claw_strike1.wav", "vj_hlr/gsrc/npc/zombie/claw_strike2.wav", "vj_hlr/gsrc/npc/zombie/claw_strike3.wav"}
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
-ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/gsrc/fx/zap4.wav"}
-ENT.SoundTbl_RangeAttack = {"vj_hlr/gsrc/npc/hassault/hw_shoot1.wav"}
+ENT.SoundTbl_BeforeRangeAttack = "vj_hlr/gsrc/fx/zap4.wav"
+ENT.SoundTbl_RangeAttack = "vj_hlr/gsrc/npc/hassault/hw_shoot1.wav"
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/aslave/slv_pain1.wav", "vj_hlr/gsrc/npc/aslave/slv_pain2.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/aslave/slv_die1.wav", "vj_hlr/gsrc/npc/aslave/slv_die2.wav"}
 

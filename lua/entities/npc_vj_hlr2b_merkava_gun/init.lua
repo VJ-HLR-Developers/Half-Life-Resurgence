@@ -66,7 +66,7 @@ function ENT:Tank_OnThinkActive()
 			ParticleEffect("vj_rifle_full", att.Pos, att.Ang, self)
 			local shellEffect = EffectData()
 			shellEffect:SetEntity(self)
-			shellEffect:SetOrigin(att.Pos + self:GetRight()*5 + self:GetForward()*-23)
+			shellEffect:SetOrigin(att.Pos + self:GetRight() * 5 + self:GetForward() * -23)
 			shellEffect:SetAngles((att.Pos):Angle())
 			util.Effect("RifleShellEject", shellEffect, true, true)
 		end

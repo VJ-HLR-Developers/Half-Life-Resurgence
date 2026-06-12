@@ -17,8 +17,8 @@ ENT.ControllerParams = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
-ENT.BloodParticle = {"vj_hlr_blood_yellow"}
-ENT.BloodDecal = {"VJ_HLR1_Blood_Yellow"}
+ENT.BloodParticle = "vj_hlr_blood_yellow"
+ENT.BloodDecal = "VJ_HLR1_Blood_Yellow"
 ENT.HasBloodPool = false
 
 ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
@@ -83,10 +83,10 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		//ParticleEffectAttach("vj_hlr_spit_friendly_impact", PATTACH_POINT_FOLLOW, self, 1)
 		local pos = self:GetAttachment(1).Pos
 		ParticleEffect("vj_hlr_spit_friendly_impact", pos, self:GetAngles(), self)
-		ParticleEffect("vj_hlr_spit_friendly_impact", pos + self:GetRight()*25, self:GetAngles(), self)
-		ParticleEffect("vj_hlr_spit_friendly_impact", pos + self:GetRight()*-25, self:GetAngles(), self)
-		ParticleEffect("vj_hlr_spit_friendly_impact", pos + self:GetForward()*30, self:GetAngles(), self)
-		ParticleEffect("vj_hlr_spit_friendly_impact", pos + self:GetForward()*60, self:GetAngles(), self)
+		ParticleEffect("vj_hlr_spit_friendly_impact", pos + self:GetRight() * 25, self:GetAngles(), self)
+		ParticleEffect("vj_hlr_spit_friendly_impact", pos + self:GetRight() * -25, self:GetAngles(), self)
+		ParticleEffect("vj_hlr_spit_friendly_impact", pos + self:GetForward() * 30, self:GetAngles(), self)
+		ParticleEffect("vj_hlr_spit_friendly_impact", pos + self:GetForward() * 60, self:GetAngles(), self)
 		timer.Simple(0.5, function()
 			if IsValid(self) then
 				self:StopParticles()

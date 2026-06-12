@@ -27,8 +27,8 @@ SWEP.Primary.Damage				= 5
 SWEP.Primary.NumberOfShots		= 5
 SWEP.Primary.ClipSize			= 8
 SWEP.Primary.Ammo				= "Buckshot"
-SWEP.Primary.Sound				= {"vj_hlr/gsrc/wep/shotgun/sbarrel1.wav"}
-SWEP.Primary.DistantSound		= {"vj_hlr/gsrc/wep/shotgun/sbarrel1_distant2.wav"}
+SWEP.Primary.Sound				= "vj_hlr/gsrc/wep/shotgun/sbarrel1.wav"
+SWEP.Primary.DistantSound		= "vj_hlr/gsrc/wep/shotgun/sbarrel1_distant2.wav"
 SWEP.PrimaryEffects_ShellType 	= "ShotgunShellEject"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
@@ -44,7 +44,7 @@ local validModels = {
 	["models/vj_hlr/opfor_hd/hgrunt.mdl"] = true,
 	["models/vj_hlr/opfor_hd/hgrunt_medic.mdl"] = true,
 	["models/vj_hlr/opfor_hd/hgrunt_engineer.mdl"] = true,
-	["models/vj_hlr/cracklife/hgrunt.mdl"] = true,
+	["models/vj_hlr/cracklife/hgrunt.mdl"] = true
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()

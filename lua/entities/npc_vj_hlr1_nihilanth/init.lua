@@ -19,8 +19,8 @@ ENT.ControllerParams = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
-ENT.BloodParticle = {"vj_hlr_blood_yellow_large"}
-ENT.BloodDecal = {"VJ_HLR1_Blood_Yellow"}
+ENT.BloodParticle = "vj_hlr_blood_yellow_large"
+ENT.BloodDecal = "VJ_HLR1_Blood_Yellow"
 ENT.HasBloodPool = false
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.HasMeleeAttack = false
@@ -37,7 +37,7 @@ ENT.DeathAnimationTime = 16
 ENT.IdleSoundsWhileAttacking = true
 ENT.HasSoundTrack = true
 
-ENT.SoundTbl_SoundTrack = {"vj_hlr/gsrc/npc/nihilanth/Prospero03.mp3"}
+ENT.SoundTbl_SoundTrack = "vj_hlr/gsrc/npc/nihilanth/Prospero03.mp3"
 ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/x/x_laugh1.wav", "vj_hlr/gsrc/npc/x/x_laugh2.wav"}
 ENT.SoundTbl_CombatIdle = {"vj_hlr/gsrc/npc/nihilanth/nil_man_notman.wav", "vj_hlr/gsrc/npc/nihilanth/nil_win.wav", "vj_hlr/gsrc/npc/nihilanth/nil_slaves.wav", "vj_hlr/gsrc/npc/nihilanth/nil_thelast.wav", "vj_hlr/gsrc/npc/nihilanth/nil_thetruth.wav", "vj_hlr/gsrc/npc/nihilanth/nil_thieves.wav", "vj_hlr/gsrc/npc/nihilanth/nil_last.wav", "vj_hlr/gsrc/npc/nihilanth/nil_die.wav", "vj_hlr/gsrc/npc/nihilanth/nil_alone.wav", "vj_hlr/gsrc/npc/nihilanth/nil_deceive.wav", "vj_hlr/gsrc/npc/nihilanth/nil_now_die.wav", "vj_hlr/gsrc/npc/x/x_laugh1.wav", "vj_hlr/gsrc/npc/x/x_laugh2.wav"}
 ENT.SoundTbl_Alert = "vj_hlr/gsrc/npc/nihilanth/nil_comes.wav"
@@ -257,7 +257,7 @@ function ENT:Nih_SpawnAlly()
 		filter = self,
 		mask = MASK_ALL,
 	})
-	local spawnPos = tr.HitPos + tr.HitNormal*30 -- 30 WU kichme tours hane
+	local spawnPos = tr.HitPos + tr.HitNormal * 30 -- 30 WU kichme tours hane
 	VJ.HLR1_Effect_Portal(spawnPos + vecZ20, nil, nil, function()
 		-- onSpawn
 		if IsValid(self) then

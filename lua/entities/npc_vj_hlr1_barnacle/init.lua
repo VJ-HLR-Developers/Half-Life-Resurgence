@@ -20,8 +20,8 @@ ENT.ControllerParams = {
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
-ENT.BloodParticle = {"vj_hlr_blood_red"}
-ENT.BloodDecal = {"VJ_HLR1_Blood_Red"}
+ENT.BloodParticle = "vj_hlr_blood_red"
+ENT.BloodDecal = "VJ_HLR1_Blood_Red"
 ENT.HasBloodPool = false
 
 ENT.HasMeleeAttack = true
