@@ -5,6 +5,7 @@ SWEP.PrintName = "Combine Reager"
 SWEP.Category = "Half-Life Resurgence"
 SWEP.Author = "DrVrej"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
+SWEP.Instructions = "The Reager is standard issue for Combine expeditionary forces, primarily used to dig through solid materials or remove debris. Within its primary chamber, a crystal is superheated to extreme temperatures and focused into a powerful beam of energy."
 SWEP.Spawnable = true
 SWEP.ViewModelFOV = 80
 SWEP.UseHands = true
