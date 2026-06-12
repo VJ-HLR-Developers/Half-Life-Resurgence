@@ -185,6 +185,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
+	corpse.PhysgunDisabled = true
 	corpse:DrawShadow(false)
 	corpse:ResetSequence("Death")
 	corpse:SetCycle(1)
