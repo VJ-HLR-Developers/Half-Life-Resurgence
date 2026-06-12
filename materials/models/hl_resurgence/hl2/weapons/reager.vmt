@@ -1,0 +1,37 @@
+"VertexLitGeneric"
+{
+	"$basetexture" 				"models/hl_resurgence/hl2/weapons/reager_c"
+	"$bumpmap"					"models/hl_resurgence/hl2/weapons/reager_n"
+	"$phongexponenttexture"		"vj_base/exponent"
+
+	"$nodecal"					"1"
+    "$nocull"                   "1"
+
+	"$selfillum"				"1"
+	"$selfillumtint"			"[1 1 1]"
+	"$selfillummask"			"models/hl_resurgence/hl2/weapons/reager_i"
+
+	"$phong"                    "1"
+	"$phongboost"               "1"
+	"$phongfresnelranges"       "[0.15 0.545 0.715]"
+	"$phongdisablehalflambert"  "1"
+	"$phongalbedotint"          "1"
+	"$phongalbedoboost"         "1"
+	"$phongwarptexture" 		"vj_hl/phongwarp_steel"
+
+	"$envmapfresnel"            "1"
+	"$envmap"                   "env_cubemap"
+	"$envmaptint" 				"[0.2 0.2 0.2]"
+	"$normalmapalphaenvmapmask" "1"
+
+	"$DEM_TintScale" 			"[1 1 1]"
+	"$DEM_Multiplier" 			"0.75"
+
+	"Proxies" 
+	{
+		"DynamicEnvMap"
+		{
+			resultVar	"$envmaptint"
+		}
+	}
+}
