@@ -53,6 +53,9 @@ ENT.DeathSoundLevel = 100
 */
 -- Custom
 ENT.Osprey_IsBlackOps = false
+ENT.Heli_IdleOffset = math.Rand(0,2 * math.pi)
+ENT.Heli_IdleOffsetX = math.Rand(0.9, 0.8)
+ENT.Heli_IdleOffsetZ = math.Rand(0.9, 0.8)
 ENT.Osprey_DropPos = nil
 ENT.Osprey_DropStatus = 0 -- -1 = Can NOT deploy | 0 = Not dropped off | 1 = Moving to drop zone | 2 = Dropping soldiers | 3 = Soldiers rappelling down | 4 = Soldiers fully on ground
 ENT.Osprey_DropSoldierStatus = 0 -- if this number reaches the max amount, then it means that all soldiers are on ground, Osprey can go back to normal!
@@ -175,6 +178,11 @@ function ENT:Heli_GetMoveDirection()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
+	-- Idle movement
+	local moveX = math.sin(CurTime() * self.Heli_IdleOffsetX * 2 + self.Heli_IdleOffset)
+	local moveZ = math.sin(CurTime() * self.Heli_IdleOffsetZ * 2 + self.Heli_IdleOffset)
+	self:SetAngles(self:GetAngles() + Angle(moveX * 0.15, 0, moveZ * 0.15))
+
 	-- Flying tilt (X & Y)
 	local lerpingFactor = FrameTime() * 4
 	local moveDir = self:Heli_GetMoveDirection()

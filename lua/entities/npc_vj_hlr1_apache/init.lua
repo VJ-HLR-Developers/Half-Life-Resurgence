@@ -70,6 +70,9 @@ ENT.DeathSoundLevel = 100
 */
 -- Custom
 ENT.Heli_HasLOS = false -- Does the Apache's chain gun have sight on the enemy?
+ENT.Heli_IdleOffset = math.Rand(0,2 * math.pi)
+ENT.Heli_IdleOffsetX = math.Rand(0.9, 0.8)
+ENT.Heli_IdleOffsetZ = math.Rand(0.9, 0.8)
 ENT.Heli_SmokeStatus = 0 -- 0 = No smoke | 1 = Tail smoke | 2 = Tail & Rotor smoke
 ENT.Heli_RangeAttach = "missile_left"
 
@@ -164,6 +167,11 @@ function ENT:Heli_GetMoveDirection()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
+	-- Idle movement
+	local moveX = math.sin(CurTime() * self.Heli_IdleOffsetX * 2 + self.Heli_IdleOffset)
+	local moveZ = math.sin(CurTime() * self.Heli_IdleOffsetZ * 2 + self.Heli_IdleOffset)
+	self:SetAngles(self:GetAngles() + Angle(moveX * 0.15, 0, moveZ * 0.15))
+
 	-- Flying tilt (X & Y)
 	local lerpingFactor = FrameTime() * 4
 	local moveDir = self:Heli_GetMoveDirection()
