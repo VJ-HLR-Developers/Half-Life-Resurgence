@@ -51,7 +51,7 @@ if CLIENT then
 			local remainingAmmo = self:Clip1() /self.Primary.ClipSize
 			local pulse = 0.75 +math.sin(CurTime() *(4 +(1 -remainingAmmo) ^2 *20)) *0.25
 			local col = Color(255, 247, 134, 180 *pulse)
-			for i = 1, 10 do
+			for i = 1,math.max(1,math.ceil(remainingAmmo *10)) do
 				local attID = vm:LookupAttachment("light" .. i)
 				if !attID or attID <= 0 then continue end
 				local att = vm:GetAttachment(attID)
