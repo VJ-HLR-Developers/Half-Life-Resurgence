@@ -29,6 +29,7 @@ SWEP.Primary.Ammo = "SMG1"
 SWEP.Primary.Sound = {"vj_hlr/gsrc/wep/mp5/hks1.wav", "vj_hlr/gsrc/wep/mp5/hks2.wav", "vj_hlr/gsrc/wep/mp5/hks3.wav"}
 SWEP.Primary.DistantSound = "vj_hlr/gsrc/wep/mp5/hks_distant_new.wav"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
+SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.PrimaryEffects_MuzzleFlash = false
 
 -- Custom

@@ -590,6 +590,12 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnDeathWeaponDrop(dmginfo, hitgroup, wepEnt)
+	if self.HECU_Type == 0 && wepEnt.IsVJBaseWeapon && wepEnt:GetClass() == "weapon_vj_hlr1_mp5" then -- Use the correct skin if MP5 is held by HL1 HGrunt
+		wepEnt:SetSkin(1)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 local gasTankExpPos = Vector(0, 0, 90)
 local gasTankExpSd = {"vj_hlr/gsrc/wep/explosion/explode3.wav", "vj_hlr/gsrc/wep/explosion/explode4.wav", "vj_hlr/gsrc/wep/explosion/explode5.wav"}
 local sdHeadshot = {"vj_hlr/gsrc/fx/headshot1.wav", "vj_hlr/gsrc/fx/headshot2.wav", "vj_hlr/gsrc/fx/headshot3.wav"}
