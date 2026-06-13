@@ -83,8 +83,8 @@ function ENT:Init()
 
 	self:SetCollisionBounds(Vector(150, 150, 180), Vector(-150, -150, 0))
 	self:SetPos(self:GetPos() + spawnPos)
-	
-	local offset = math.Rand(0, math.pi * 2)
+
+	local offset = math.Rand(0, math.pi * 0.25)
 	self.Heli_IdleMoveOffset = VJ.SET(1.7 + offset, 1.9 + offset)
 
 	self.HeliSD_Rotor = VJ.CreateSound(self, "vj_hlr/gsrc/npc/apache/ap_rotor2.wav", 120)
