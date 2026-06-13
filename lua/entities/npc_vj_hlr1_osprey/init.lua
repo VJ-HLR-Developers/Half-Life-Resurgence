@@ -281,7 +281,7 @@ function ENT:OnThinkActive()
 			rope:SetStart(ropeStart)
 			rope:SetOrigin(tr.HitPos)
 			rope:SetEntity(soldier)
-			rope:SetAttachment(4)
+			rope:SetAttachment(soldier:LookupAttachment("lhand"))
 			util.Effect("VJ_HLR_Rope", rope)
 
 			self.Osprey_DroppedSoldiers[i] = soldier
