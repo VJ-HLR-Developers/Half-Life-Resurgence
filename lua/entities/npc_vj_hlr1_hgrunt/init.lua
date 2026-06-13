@@ -591,7 +591,8 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeathWeaponDrop(dmginfo, hitgroup, wepEnt)
-	if self.HECU_Type == 0 && wepEnt.IsVJBaseWeapon && wepEnt:GetClass() == "weapon_vj_hlr1_mp5" then -- Use the correct skin if MP5 is held by HL1 HGrunt
+	-- Use the correct skin if MP5 is held by HL1 HGrunt
+	if self.HECU_Type == 0 && wepEnt.IsVJBaseWeapon && wepEnt:GetClass() == "weapon_vj_hlr1_mp5" then
 		wepEnt:SetSkin(1)
 	end
 end
