@@ -93,15 +93,15 @@ function ENT:Tank_OnThink()
 				else
 					local ene = self:GetEnemy()
 					for i = 1, 6 do
-						local hGruntClass = (GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
+						local hGruntClass = (GetConVar("vj_hlr1_bradley_deploygrunts_oppf"):GetInt() == 1 && "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
 						if math.random(1, 20) == 1 then -- 5% for robot grunts to spawn
 							hGruntClass = "npc_vj_hlr1_rgrunt"
-						elseif GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && math.random(1, 10) == 1 then -- 15% for medic grunts to spawn
+						elseif GetConVar("vj_hlr1_bradley_deploygrunts_oppf"):GetInt() == 1 && math.random(1, 10) == 1 then -- 15% for medic grunts to spawn
 							hGruntClass = "npc_vj_hlrof_hgrunt_med"
-						elseif GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && math.random(1, 15) == 1 then -- 10% for engineer grunts to spawn
+						elseif GetConVar("vj_hlr1_bradley_deploygrunts_oppf"):GetInt() == 1 && math.random(1, 15) == 1 then -- 10% for engineer grunts to spawn
 							hGruntClass = "npc_vj_hlrof_hgrunt_eng"
 						else
-							hGruntClass = (GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
+							hGruntClass = (GetConVar("vj_hlr1_bradley_deploygrunts_oppf"):GetInt() == 1 && "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
 						end
 						local hGrunt = ents.Create(hGruntClass)
 						local opSide = ((i % 2 == 0) and -25) or 25 -- Make every other grunt spawn to the opposite side
