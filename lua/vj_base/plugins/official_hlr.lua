@@ -551,7 +551,6 @@ function VJ.HLR_ApplyCorpseSystem(ent, corpse, gibTbl, extraOptions)
 	end
 	-- Make corpses static like in GoldSrc
 	if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && ent.DeathCorpseEntityClass == "prop_vj_animatable" then
-		corpse.PhysgunDisabled = true
 		corpse:ResetSequence((ent.HECU_Rappelling && "diebackwards") or ent:GetSequence())
 		corpse:SetCycle(1)
 		corpse:SetMoveType(ent:GetMoveType())

@@ -70,9 +70,6 @@ ENT.DeathSoundLevel = 100
 */
 -- Custom
 ENT.Heli_HasLOS = false -- Does the Apache's chain gun have sight on the enemy?
-ENT.Heli_IdleOffset = math.Rand(0,2 * math.pi)
-ENT.Heli_IdleOffsetX = math.Rand(0.9, 0.8)
-ENT.Heli_IdleOffsetZ = math.Rand(0.9, 0.8)
 ENT.Heli_SmokeStatus = 0 -- 0 = No smoke | 1 = Tail smoke | 2 = Tail & Rotor smoke
 ENT.Heli_RangeAttach = "missile_left"
 
@@ -86,6 +83,9 @@ function ENT:Init()
 
 	self:SetCollisionBounds(Vector(150, 150, 180), Vector(-150, -150, 0))
 	self:SetPos(self:GetPos() + spawnPos)
+	
+	local offset = math.Rand(0, math.pi * 2)
+	self.Heli_IdleMoveOffset = VJ.SET(1.7 + offset, 1.9 + offset)
 
 	self.HeliSD_Rotor = VJ.CreateSound(self, "vj_hlr/gsrc/npc/apache/ap_rotor2.wav", 120)
 	self.HeliSD_Whine = VJ.CreateSound(self, "vj_hlr/gsrc/npc/apache/ap_whine1.wav", 70)
@@ -168,9 +168,14 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
 	-- Idle movement
-	local moveX = math.sin(CurTime() * self.Heli_IdleOffsetX * 2 + self.Heli_IdleOffset)
-	local moveZ = math.sin(CurTime() * self.Heli_IdleOffsetZ * 2 + self.Heli_IdleOffset)
-	self:SetAngles(self:GetAngles() + Angle(moveX * 0.15, 0, moveZ * 0.15))
+	local idleMoveOffset = self.Heli_IdleMoveOffset
+	if idleMoveOffset then
+		local curTime = CurTime()
+		local ang = self:GetAngles()
+		ang.p = ang.p + math.sin(curTime * idleMoveOffset.a) * 0.15
+		ang.r = ang.r + math.sin(curTime * idleMoveOffset.b) * 0.15
+		self:SetAngles(ang)
+	end
 
 	-- Flying tilt (X & Y)
 	local lerpingFactor = FrameTime() * 4
