@@ -6,6 +6,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
+ENT.Model = "models/vj_hlr/bshift/rosenberg.mdl"
 ENT.StartHealth = 100
 
 ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/scientist/yawn.wav", "vj_hlr/gsrc/npc/scientist/sneeze.wav", "vj_hlr/gsrc/npc/scientist/sniffle.wav", "vj_hlr/gsrc/npc/scientist/cough.wav", "vj_hlr/gsrc/npc/scientist/c1a0_sci_stall.wav"}

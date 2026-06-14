@@ -6,6 +6,7 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
+ENT.Model = "models/vj_hlr/hla/hassault_melee.mdl"
 ENT.Weapon_Disabled = true
 ENT.Weapon_UnarmedBehavior = false
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2}
