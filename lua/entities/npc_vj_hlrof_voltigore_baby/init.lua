@@ -56,13 +56,14 @@ function ENT:Init()
 	self:SetCollisionBounds(Vector(20, 20, 30), Vector(-20, -20, 0))
 	-- !!!HACK HACK!!! Baby voltigore doesn't have a "eyes" position thus its eye pos is offset ~100 units up breaking BodyTarget and EyePos calls!
 	-- This hack solves it by setting it to only 20 units up from its world position
-	timer.Simple(0.1, function()
+	-- No longer needed due to eyes attachment
+	/*timer.Simple(0.1, function()
 		if IsValid(self) then
 			local newEyeOffset = Vector(0, 0, 20)
 			self:SetViewOffset(newEyeOffset)
 			self:SetSaveValue("m_vDefaultEyeOffset", newEyeOffset)
 		end
-	end)
+	end)*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
