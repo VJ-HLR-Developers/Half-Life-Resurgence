@@ -7,6 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/opfor/pit_worm_up.mdl"
 ENT.StartHealth = 2000
+ENT.SightAngle = 180
 ENT.VJ_ID_Boss = true
 ENT.HullType = HULL_LARGE
 ENT.MovementType = VJ_MOVETYPE_STATIONARY

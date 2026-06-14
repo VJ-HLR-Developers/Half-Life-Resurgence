@@ -7,7 +7,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/icky.mdl"
 ENT.StartHealth = 200
-ENT.SightAngle = 225
+ENT.SightAngle = 268.85
 ENT.HullType = HULL_LARGE
 ENT.TurningUseAllAxis = true
 ENT.MovementType = VJ_MOVETYPE_AQUATIC
