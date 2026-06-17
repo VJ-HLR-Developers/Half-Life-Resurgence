@@ -536,6 +536,20 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			self:SetBodygroup(1, 4)
 			self.GibOnDeathFilter = false
 		end
+		-- Unparent the gunners in Osprey if they died. Prevents Source from spawning them in a random location of the map
+		local owner = self:GetOwner()
+		if IsValid(owner) then
+			local gunner1 = owner.Osprey_Gunners[1]
+			local gunner2 = owner.Osprey_Gunners[2]
+			if IsValid(gunner1) then
+				gunner1:SetParent(NULL)
+				gunner1:SetPos(owner:GetAttachment(owner:LookupAttachment("gunner_left")).Pos)
+			end
+			if IsValid(gunner2) then
+				gunner2:SetParent(NULL)
+				gunner2:SetPos(owner:GetAttachment(owner:LookupAttachment("gunner_right")).Pos)
+			end
+		end
 
 		if self.HECU_Type == 5 then
 			local spr = ents.Create("env_sprite")
