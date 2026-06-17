@@ -156,7 +156,7 @@ function ENT:OnThinkActive()
 			if self.Turret_HasLOS && eneValid then
 				self.Turret_Sprite:Fire("Color", "255 0 0") -- Red
 				self.Turret_Sprite:Fire("ShowSprite")
-			elseif self.HasPoseParameterLooking == true then -- So when the alert animation is playing, it won't replace the activating light (green)
+			elseif self.HasPoseParameterLooking then -- So when the alert animation is playing, it won't replace the activating light (green)
 				self.Turret_Sprite:Fire("Color", "255 128 0") -- Orange
 				self.Turret_Sprite:Fire("ShowSprite")
 			end
@@ -178,7 +178,7 @@ function ENT:OnThinkActive()
 			end
 
 			-- Look around randomly when the enemy is not found or hidden
-			if !eneValid or doScan == true then
+			if !eneValid or doScan then
 				self.Turret_Status = TURRET_STATUS_SEEKING
 				-- Playing a beeping noise
 				if self.Turret_NextScanBeepT < CurTime() then

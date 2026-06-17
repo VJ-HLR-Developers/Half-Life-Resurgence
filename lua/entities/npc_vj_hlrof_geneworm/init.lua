@@ -354,7 +354,7 @@ function ENT:GW_EyeHealthCheck()
 	local l = self.GW_EyeHealth.l
 	if r <= 0 && l <= 0 then -- If both eyes have health below 1 then open stomach!
 		self:SetSkin(3)
-		if self.GW_OrbOpen == false then
+		if !self.GW_OrbOpen then
 			self.GW_EyeLightL:Fire("TurnOff")
 			self.GW_EyeLightR:Fire("TurnOff")
 			self.GW_BE_EyeL:AddFlags(FL_NOTARGET)
@@ -377,7 +377,7 @@ function ENT:GW_EyeHealthCheck()
 			self.GW_BE_EyeR.VJ_NPC_Class = self.VJ_NPC_Class
 			self.GW_BE_Orb.VJ_NPC_Class = self.VJ_NPC_Class
 			timer.Create("gw_closestomach" .. self:EntIndex(), 20, 1, function()
-				if IsValid(self) && self.GW_OrbOpen == true then
+				if IsValid(self) && self.GW_OrbOpen then
 					self:GW_OrbOpenReset()
 					-- Update the class tables for all the bullseyes in case it changed (AGAIN)
 					self.GW_BE_EyeL.VJ_NPC_Class = self.VJ_NPC_Class
@@ -425,7 +425,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 			end
 			dmginfo:SetDamage(0)
 		-- Stomach Orb
-		elseif hitgroup == 69 && self.GW_OrbOpen == true && self.GW_OrbHealth > 0 then
+		elseif hitgroup == 69 && self.GW_OrbOpen && self.GW_OrbHealth > 0 then
 			self.GW_OrbHealth = self.GW_OrbHealth - dmginfo:GetDamage()
 			if self.GW_OrbHealth <= 0 then
 				timer.Remove("gw_closestomach" .. self:EntIndex())

@@ -273,7 +273,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 							newEnt:SetLastPosition(val)
 							newEnt:SCHEDULE_GOTO_POSITION("TASK_WALK_PATH")
 						end
-					elseif key == "m_bShouldPatrol" && val == false then
+					elseif key == "m_bShouldPatrol" && !val then
 						newEnt.DisableWandering = true
 					//elseif key == "m_vecCommandGoal" && val != defPos then
 					//	timer.Simple(0.15, function()
@@ -295,7 +295,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				end
 				//print(ent:GetInternalVariable("m_bShouldPatrol"))
 				-- Handle Gordon precriminal game state
-				if gStatePrecriminal == true then -- Toggles friendly-AI for the intro of Half-Life 2
+				if gStatePrecriminal then -- Toggles friendly-AI for the intro of Half-Life 2
 					//newEnt.DisableWandering = true
 					newEnt.EnemyDetection = false
 					newEnt.AlliedWithPlayerAllies = true

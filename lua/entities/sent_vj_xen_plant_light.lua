@@ -62,7 +62,7 @@ end
 function ENT:Think()
 	for _, v in ipairs(ents.FindInSphere(self:GetPos(), 80)) do
 		if v.VJ_ID_Living && v:Alive() then
-			if self.XenPlant_Retracted == false then
+			if !self.XenPlant_Retracted then
 				self:ResetSequence("Retract")
 				self.FlareSprite:Fire("HideSprite", "", 0.1)
 				self.DynamicLight:Fire("TurnOff", "", 0)
@@ -75,18 +75,18 @@ function ENT:Think()
 		end
 	end
 
-	if self.XenPlant_Retracted == true && self.XenPlant_NextDeployT < CurTime() then
+	if self.XenPlant_Retracted && self.XenPlant_NextDeployT < CurTime() then
 		self.XenPlant_Retracted = false
 		self:ResetSequence("Delpoy")
 		timer.Simple(1, function()
-			if IsValid(self) && self.XenPlant_Retracted == false then
+			if IsValid(self) && !self.XenPlant_Retracted then
 				self.FlareSprite:Fire("ShowSprite", "", 0)
 				self.DynamicLight:Fire("TurnOn", "", 0)
 				self:SetSkin(0)
 			end
 		end)
 		timer.Simple(1.85, function()
-			if IsValid(self) && self.XenPlant_Retracted == false then
+			if IsValid(self) && !self.XenPlant_Retracted then
 				self:ResetSequence("Idle1")
 			end
 		end)

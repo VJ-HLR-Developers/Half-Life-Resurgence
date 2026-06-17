@@ -101,7 +101,7 @@ function ENT:OnRangeAttack(status, enemy)
 				endpos = tsakhLocations[i],
 				filter = self
 			})
-			if tr.Hit == true then self:CSphere_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal) end
+			if tr.Hit then self:CSphere_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal) end
 		end
 		-- Ach --------------------------
 		local achSpawn = myPos + myUp * 45 + myRight * -20
@@ -117,7 +117,7 @@ function ENT:OnRangeAttack(status, enemy)
 				endpos = achLocations[i],
 				filter = self
 			})
-			if tr.Hit == true then self:CSphere_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal) end
+			if tr.Hit then self:CSphere_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal) end
 		end
 	end
 end
@@ -157,6 +157,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
+local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
@@ -173,10 +174,10 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 	end
 
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib6.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 0))})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib7.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(1, 0, 0))})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib8.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 1, 0))})
-	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib9.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", Pos = self:LocalToWorld(Vector(0, 0, 1))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib6.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 0, 0))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib7.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(1, 0, 0))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib8.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 1, 0))})
+	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/agib9.mdl", {BloodType = "Yellow", CollisionDecal = "VJ_HLR1_Blood_Yellow", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 0, 1))})
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
@@ -184,5 +185,5 @@ end
 local gibs = {"models/vj_hlr/gibs/agib6.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
-	VJ.HLR_ApplyCorpseSystem(self, corpse, gibs)
+	VJ.HLR_ApplyCorpseSystem(self, corpse, gibs, {CollisionSound = gibsCollideSd})
 end

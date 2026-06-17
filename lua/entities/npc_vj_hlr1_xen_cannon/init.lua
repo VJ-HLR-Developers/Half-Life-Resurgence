@@ -80,7 +80,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttack(status, enemy)
 	if status == "PreInit" then
-		return !(self.Cannon_HasLOS == true && CurTime() > self.Cannon_LockTime)
+		return !(self.Cannon_HasLOS && CurTime() > self.Cannon_LockTime)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

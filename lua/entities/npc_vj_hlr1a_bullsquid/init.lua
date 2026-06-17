@@ -32,7 +32,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("SPACE: Transform into a BullSquidding! (Irreversible!)")
-	
+
 	function controlEnt:OnKeyPressed(key)
 		local npc = self.VJCE_NPC
 		if key == KEY_SPACE && !npc.Bullsquid_BullSquidding then
@@ -89,7 +89,7 @@ function ENT:Bullsquid_ActivateBullSquidding()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
-	if self.Bullsquid_BullSquidding == true then
+	if self.Bullsquid_BullSquidding then
 		PrintMessage(HUD_PRINTCENTER, "YOU HAVE BEEN BULLSQUIDDING FOR " .. math.Round(CurTime() - self.Bullsquid_BullSquiddingT, 2) .. " SECONDS")
 	end
 end

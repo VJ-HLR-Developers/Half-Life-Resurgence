@@ -87,7 +87,7 @@ function ENT:Tank_OnThink()
 		self:SetState(VJ_STATE_FREEZE)
 		timer.Simple(0.5, function()
 			if IsValid(self) then
-				if self.Bradley_DoorOpen == false then -- Door was suddenly closed, so try again later
+				if !self.Bradley_DoorOpen then -- Door was suddenly closed, so try again later
 					self.Bradley_HasSpawnedSoldiers = false
 					self:SetState()
 				else

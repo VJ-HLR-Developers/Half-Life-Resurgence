@@ -148,7 +148,7 @@ function ENT:OnThinkActive()
 			self:SetPoseParameter("aim_yaw", self.Sentry_CurrentYawParameter + 4)
 		end
 	else
-		if ((self.Sentry_ControllerStatus == 0) or (!self.VJ_IsBeingControlled && !self.Alerted)) && self.Sentry_StandDown == false then
+		if ((self.Sentry_ControllerStatus == 0) or (!self.VJ_IsBeingControlled && !self.Alerted)) && !self.Sentry_StandDown then
 			if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
 				self:AddFlags(FL_NOTARGET) -- Make it not targetable
 			end

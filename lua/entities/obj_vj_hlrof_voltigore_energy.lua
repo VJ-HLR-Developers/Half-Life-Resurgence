@@ -69,7 +69,7 @@ function ENT:Think() -- Override think because we need it to run while doing del
 					endpos = myPos + VectorRand(-150, 150),
 					filter = self
 				})
-				//if tr.Hit == true then
+				//if tr.Hit then
 					self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 1, randt)
 				//end
 			end
@@ -86,7 +86,7 @@ function ENT:Think() -- Override think because we need it to run while doing del
 					endpos = myPos + VectorRand(-150, 150),
 					filter = self
 				})
-				//if tr.Hit == true then
+				//if tr.Hit then
 					self:Vort_DoElecEffect(tr.StartPos, tr.HitPos, tr.HitNormal, 1, randt)
 				//end
 			end

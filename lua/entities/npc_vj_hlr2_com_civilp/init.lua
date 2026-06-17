@@ -276,7 +276,7 @@ function ENT:OnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponChange(newWeapon, oldWeapon, invSwitch)
-	//if invSwitch == true then -- Only if it's a inventory switch
+	//if invSwitch then -- Only if it's a inventory switch
 	-- Play the stunstick activation animation
 	if newWeapon:GetClass() == "weapon_vj_hlr2_stunstick" then
 		self:PlayAnim("activatebaton", true, false, true)

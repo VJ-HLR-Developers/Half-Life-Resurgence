@@ -186,10 +186,10 @@ end
 function ENT:OnRangeAttack(status, enemy)
 	if status == "Init" then
 		if math.random(1, 4) == 1 then
-			self.AnimTbl_RangeAttack = self.Nih_BrainOpen == true and ACT_RANGE_ATTACK2_LOW or ACT_RANGE_ATTACK2
+			self.AnimTbl_RangeAttack = self.Nih_BrainOpen and ACT_RANGE_ATTACK2_LOW or ACT_RANGE_ATTACK2
 			self.RangeAttackProjectiles = "obj_vj_hlr1_orb_teleport"
 		else
-			self.AnimTbl_RangeAttack = self.Nih_BrainOpen == true and ACT_RANGE_ATTACK1_LOW or ACT_RANGE_ATTACK1
+			self.AnimTbl_RangeAttack = self.Nih_BrainOpen and ACT_RANGE_ATTACK1_LOW or ACT_RANGE_ATTACK1
 			self.RangeAttackProjectiles = "obj_vj_hlr1_orb_electrical"
 		end
 	end
@@ -225,7 +225,7 @@ function ENT:Nih_NotifyCrystalChange(crystal)
 	end
 
 	-- Check if all crystals are removed
-	if !self.Dead && self.Nih_CrystalsDestroyed == false && !IsValid(self.Nih_Crystal1) && !IsValid(self.Nih_Crystal2) && !IsValid(self.Nih_Crystal3) then
+	if !self.Dead && !self.Nih_CrystalsDestroyed && !IsValid(self.Nih_Crystal1) && !IsValid(self.Nih_Crystal2) && !IsValid(self.Nih_Crystal3) then
 		self.Nih_CrystalsDestroyed = true
 		VJ.EmitSound(self, "vj_hlr/gsrc/npc/nihilanth/nil_done.wav", 120)
 	end

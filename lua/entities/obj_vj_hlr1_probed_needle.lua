@@ -45,7 +45,7 @@ function ENT:OnCollision(data, phys)
 	if IsValid(hitEnt) then
 		self.SoundTbl_OnCollide = sdOnCollideEnt
 		-- Only for healing
-		if self.Needle_Heal == false or !IsValid(self:GetOwner()) then return end
+		if !self.Needle_Heal or !IsValid(self:GetOwner()) then return end
 		if self:GetOwner():Disposition(hitEnt) then
 			self.SoundTbl_OnCollide = "items/smallmedkit1.wav"
 			hitEnt:RemoveAllDecals()

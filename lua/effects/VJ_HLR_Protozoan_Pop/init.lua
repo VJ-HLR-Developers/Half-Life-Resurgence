@@ -14,7 +14,7 @@ function EFFECT:Init(data)
 			color = Vector(178, 77, 121)
 			pinkCore = true
 		end
-		local size = (pinkCore == true and math.Rand(3, 4)) or math.Rand(3, 5)
+		local size = (pinkCore and math.Rand(3, 4)) or math.Rand(3, 5)
 		local pos = Vector(math.Rand(-1, 1), math.Rand(-1, 1), math.Rand(-1, 1))
 		local particle = emitter:Add("particles/balloon_bit", vOffset + pos * 8)
 

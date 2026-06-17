@@ -230,7 +230,7 @@ ENT.MainSoundPitch = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
 	if math.random(1, 2) == 1 && ent:IsNPC() then
-		if ent.IsVJBaseSNPC_Human == true then
+		if ent.IsVJBaseSNPC_Human then
 			self:PlaySoundSystem("Alert", sdAlertHuman)
 			return
 		elseif ent:Classify() == CLASS_COMBINE_GUNSHIP then

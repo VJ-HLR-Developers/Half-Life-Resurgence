@@ -32,7 +32,8 @@ SWEP.PrimaryEffects_MuzzleFlash = false
 local validModels = {
 	["models/vj_hlr/hl1/hassault.mdl"] = true,
 	["models/vj_hlr/hl_hd/hassault.mdl"] = true,
-	["models/vj_hlr/hla/hassault.mdl"] = true
+	["models/vj_hlr/hla/hassault.mdl"] = true,
+	["models/vj_hlr/hla/hassault_melee.mdl"] = true
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()

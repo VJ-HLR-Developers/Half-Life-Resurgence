@@ -160,7 +160,7 @@ if CLIENT then
 			render.DrawBeam(attachPos, tr.HitPos, 5, 0, 5, laserColor)
 			render.SetMaterial(matSprite)
 			render.DrawSprite(attachPos, 3, 3, laserColor)
-			if tr.Hit == true then
+			if tr.Hit then
 				render.SetMaterial(matSprite)
 				render.DrawSprite(tr.HitPos, math.random(4, 6), math.random(4, 6), laserColor)
 			end
