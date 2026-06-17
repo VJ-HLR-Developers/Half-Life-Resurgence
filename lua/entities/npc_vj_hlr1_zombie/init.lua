@@ -34,10 +34,10 @@ ENT.HasDeathAnimation = true
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_FLINCH_PHYSICS
 ENT.FlinchHitGroupMap = {
-	{HitGroup={HITGROUP_LEFTARM}, Animation={ACT_FLINCH_LEFTARM}},
-	{HitGroup={HITGROUP_LEFTLEG}, Animation={ACT_FLINCH_LEFTLEG}},
-	{HitGroup={HITGROUP_RIGHTARM}, Animation={ACT_FLINCH_RIGHTARM}},
-	{HitGroup={HITGROUP_RIGHTLEG}, Animation={ACT_FLINCH_RIGHTLEG}}
+	{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM},
+	{HitGroup = HITGROUP_LEFTLEG, Animation = ACT_FLINCH_LEFTLEG},
+	{HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM},
+	{HitGroup = HITGROUP_RIGHTLEG, Animation = ACT_FLINCH_RIGHTLEG}
 }
 
 ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/pl_step1.wav", "vj_hlr/gsrc/pl_step2.wav", "vj_hlr/gsrc/pl_step3.wav", "vj_hlr/gsrc/pl_step4.wav"}
