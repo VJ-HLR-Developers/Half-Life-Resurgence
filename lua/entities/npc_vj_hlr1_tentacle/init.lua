@@ -118,7 +118,7 @@ end
 function ENT:OnAnimEvent(ev, evTime, evCycle, evType, evOptions)
 	-- Take care of the regular hit sound (When playing idle animations)
 	if ev == 6 && !self.VJ_IsBeingControlled then
-		self:PlaySoundSystem("MeleeAttack", (self:IsDirt(self:GetPos()) && sdBeakStrikeDirt) or sdBeakStrikeDef, VJ.EmitSound)
+		self:PlaySoundSystem("MeleeAttack", (self:IsDirt(self:GetPos() + self:GetForward() * 300) && sdBeakStrikeDirt) or sdBeakStrikeDef, VJ.EmitSound)
 		local ene = self:GetEnemy()
 		if IsValid(ene) && (ene:GetPos():Distance(self:GetPos() + self:GetForward() * 150)) < 200 then
 			self.CanTurnWhileStationary = true
@@ -131,7 +131,7 @@ function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "attack" then
 		self:ExecuteMeleeAttack()
-		self:PlaySoundSystem("MeleeAttack", (self:IsDirt(self:GetPos()) && sdBeakStrikeDirt) or sdBeakStrikeDef, VJ.EmitSound)
+		self:PlaySoundSystem("MeleeAttack", (self:IsDirt(self:GetPos() + self:GetForward() * 300) && sdBeakStrikeDirt) or sdBeakStrikeDef, VJ.EmitSound)
 		local ene = self:GetEnemy()
 		if IsValid(ene) then self:SetAngles(self:GetTurnAngle((ene:GetPos() - self:GetPos()):Angle())) end
 	end
