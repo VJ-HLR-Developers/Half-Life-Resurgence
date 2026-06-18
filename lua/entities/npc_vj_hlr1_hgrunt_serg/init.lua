@@ -15,6 +15,7 @@ ENT.Weapon_CanReload = false
 ENT.Weapon_CanMoveFire = false
 ENT.CombatDamageResponse = false
 ENT.Weapon_RetreatDistance = 0
+ENT.HasBreathSound = false
 
 ENT.SoundTbl_Breath = "vj_hlr/gsrc/npc/hassault/hw_spin.wav"
 
@@ -23,6 +24,7 @@ ENT.BreathSoundLevel = 80
 ENT.MainSoundPitch = 80
 
 -- Custom
+ENT.Serg_SpinUpSound = false
 ENT.Serg_SpinUpT = 0
 ENT.Serg_Type = 0
 	-- 0 = Default
@@ -31,11 +33,15 @@ ENT.Serg_Type = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_OnThink()
 	-- For weapon spinning sound
-	if self.WeaponAttackState && self.WeaponAttackState >= VJ.WEP_ATTACK_STATE_FIRE then
-		self.HasBreathSound = true
-	else
-		VJ.STOPSOUND(self.CurrentBreathSound)
-		self.HasBreathSound = false
+	if !self.HECU_Rappelling then
+		if !self.Serg_SpinUpSound && self.WeaponAttackState && self.WeaponAttackState >= VJ.WEP_ATTACK_STATE_FIRE then
+			self.Serg_SpinUpSound = true
+			self.HasBreathSound = true
+		elseif self.Serg_SpinUpSound && !self.WeaponAttackState then
+			self.Serg_SpinUpSound = false
+			VJ.STOPSOUND(self.CurrentBreathSound)
+			self.HasBreathSound = false
+		end
 	end
 
 	-- Reset Alpha Sergeant's gun in case the melee animation gets cut off and draw event is never called!
@@ -46,7 +52,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponAttack()
 	-- Do the weapon spin up routine
-	if CurTime() > self.Serg_SpinUpT then
+	if !self.HECU_Rappelling && CurTime() > self.Serg_SpinUpT then
 		local setTime = CurTime() + 0.9
 		self.NextChaseTime = setTime -- Make sure it won't chase
 		self.NextWeaponAttackT = setTime -- Make it not shoot for the given time

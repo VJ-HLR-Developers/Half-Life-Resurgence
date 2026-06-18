@@ -253,7 +253,9 @@ function ENT:OnThinkActive()
 			local startPos = att.Pos + att.Ang:Forward() * 100 + self:GetForward() * ((i >= 3) && -30 or 60)
 			local soldierClass = (GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
 			local soldierClass_blkops = "npc_vj_hlrof_assassin_male"
-			if math.random(1, 20) == 1 then -- 5% for robot grunts to spawn
+			if math.random(1, 30) == 1 then -- 3.3% for human sergeants to spawn
+				soldierClass = "npc_vj_hlr1_hgrunt_serg"
+			elseif math.random(1, 20) == 1 then -- 5% for robot grunts to spawn
 				soldierClass = "npc_vj_hlr1_rgrunt"
 				soldierClass_blkops = "npc_vj_hlrof_assassin_rgrunt"
 			elseif GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && math.random(1, 10) == 1 then -- 15% for medic grunts to spawn

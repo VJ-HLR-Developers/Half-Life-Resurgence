@@ -162,7 +162,7 @@ function ENT:Init()
 		if myMDL == "models/vj_hlr/hla/hassault.mdl" or myMDL == "models/vj_hlr/hla/hassault_melee.mdl" then
 			self.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEVIOLENT, ACT_DIEFORWARD}
 		else
-			self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEVIOLENT}
+			self.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEBACKWARD, ACT_DIEVIOLENT}
 		end
 		self.HECU_CanHurtWalk = false
 	elseif myMDL == "models/vj_hlr/cracklife/hgrunt.mdl" then
@@ -186,10 +186,11 @@ function ENT:Init()
 		self.AnimTbl_DamageAllyResponse = false
 		self.AnimTbl_CallForHelp = false
 		self.AnimTbl_TakingCover = false
+		if self.HECU_Type == 7 then self.HasDeathAnimation = false end
 		self.HasGrenadeAttack = false
 		self.Weapon_CanSecondaryFire = false
 		self.Weapon_CanReload = false
-		timer.Simple(0.1, function() if IsValid(self) then self:PlayAnim("repel_jump", true, false, false) end end)
+		timer.Simple(0.1, function() if IsValid(self) then self:PlayAnim(self.HECU_Type == 7 && "barnacled1" or "repel_jump", true, false, false) end end)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -362,8 +363,8 @@ function ENT:SetAnimationTranslations(wepHoldType)
 		end
 	elseif self.HECU_Type == 7 then -- 7 = Human Sergeant
 		if bodyGroup == 0 then -- 20mm Cannon
-			self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_AR2
-			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_AR2
+			self.AnimationTranslations[ACT_RANGE_ATTACK1] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_repel") or ACT_RANGE_ATTACK_AR2
+			self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = self.HECU_Rappelling and VJ.SequenceToActivity(self, "repel_repel") or ACT_RANGE_ATTACK_AR2
 		end
 	elseif self.HECU_Type == 8 then -- 8 = Soviet Grunt (Crack-Life Resurgence)
 		if bodyGroup == 0 then -- MP5
@@ -381,6 +382,7 @@ function ENT:HECU_StopRappelling()
 	self.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
 	self.AnimTbl_CallForHelp = ACT_SIGNAL1
 	self.AnimTbl_TakingCover = ACT_CROUCHIDLE
+	if self.HECU_Type == 7 then self.HasDeathAnimation = true end
 	self.HasGrenadeAttack = true
 	self.Weapon_CanSecondaryFire = true
 	self.Weapon_CanReload = true
@@ -538,7 +540,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		end
 		-- Unparent the gunners in Osprey if they died. Prevents Source from spawning them in a random location of the map
 		local owner = self:GetOwner()
-		if IsValid(owner) then
+		if IsValid(owner) && !self.HECU_DeployedByOsprey then
 			local gunner1 = owner.Osprey_Gunners[1]
 			local gunner2 = owner.Osprey_Gunners[2]
 			if IsValid(gunner1) then
