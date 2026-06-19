@@ -37,7 +37,7 @@ function ENT:HECU_OnThink()
 		if !self.Serg_SpinUpSound && self.WeaponAttackState && self.WeaponAttackState >= VJ.WEP_ATTACK_STATE_FIRE then
 			self.Serg_SpinUpSound = true
 			self.HasBreathSound = true
-		elseif self.Serg_SpinUpSound && !self.WeaponAttackState then
+		elseif self.Serg_SpinUpSound && (!self.WeaponAttackState or self.WeaponAttackState <= VJ.WEP_ATTACK_STATE_FIRE) then
 			self.Serg_SpinUpSound = false
 			VJ.STOPSOUND(self.CurrentBreathSound)
 			self.HasBreathSound = false
