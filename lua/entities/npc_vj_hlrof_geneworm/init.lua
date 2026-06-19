@@ -271,8 +271,8 @@ function ENT:OnMeleeAttack(status, enemy)
 	if status == "Init" then
 		local myPos = self:GetPos()
 		local enePos = enemy:GetPos()
-		local posR = myPos + self:GetForward()*200 + self:GetRight()*300
-		local posL = myPos + self:GetForward()*200 + self:GetRight()*-300
+		local posR = myPos + self:GetForward() * 200 + self:GetRight() * 300
+		local posL = myPos + self:GetForward() * 200 + self:GetRight() * -300
 		if math.random(1, 2) == 1 then
 			self.AnimTbl_MeleeAttack = ACT_SPECIAL_ATTACK1
 			self.GW_MeleeNegKnockback = false
