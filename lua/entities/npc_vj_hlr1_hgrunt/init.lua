@@ -61,6 +61,7 @@ ENT.DisableFootStepSoundTimer = true
 ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/pl_step1.wav", "vj_hlr/gsrc/pl_step2.wav", "vj_hlr/gsrc/pl_step3.wav", "vj_hlr/gsrc/pl_step4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/hgrunt/gr_die1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_die2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_die3.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/hgrunt/gr_pain1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_pain2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_pain3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_pain4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_pain5.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 -- Custom
 ENT.HECU_Type = 0

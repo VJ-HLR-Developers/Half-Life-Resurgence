@@ -45,6 +45,7 @@ ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/gsrc/npc/x/x_attack1.wav", "vj_hlr/gsr
 ENT.SoundTbl_RangeAttack = "vj_hlr/gsrc/npc/x/x_shoot1.wav"
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/x/x_pain1.wav", "vj_hlr/gsrc/npc/x/x_pain2.wav", "vj_hlr/gsrc/npc/x/x_pain3.wav"}
 ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/x/x_die1.wav"
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 ENT.NextSoundTime_Idle = VJ.SET(14, 20)
 

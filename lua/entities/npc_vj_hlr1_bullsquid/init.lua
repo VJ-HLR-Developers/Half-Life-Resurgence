@@ -50,6 +50,7 @@ ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr
 ENT.SoundTbl_RangeAttack = {"vj_hlr/gsrc/npc/bullchicken/bc_attack2.wav", "vj_hlr/gsrc/npc/bullchicken/bc_attack3.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/bullchicken/bc_pain1.wav", "vj_hlr/gsrc/npc/bullchicken/bc_pain2.wav", "vj_hlr/gsrc/npc/bullchicken/bc_pain3.wav", "vj_hlr/gsrc/npc/bullchicken/bc_pain4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/bullchicken/bc_die1.wav", "vj_hlr/gsrc/npc/bullchicken/bc_die2.wav", "vj_hlr/gsrc/npc/bullchicken/bc_die3.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 -- Custom
 ENT.Bullsquid_Type = 0 -- 0 = Retail Half-Life 1 | Alpha Half-Life 1

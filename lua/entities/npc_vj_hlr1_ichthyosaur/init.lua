@@ -47,6 +47,7 @@ ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/gsrc/npc/ichy/ichy_attack1.wav", "vj_h
 ENT.SoundTbl_MeleeAttack = {"vj_hlr/gsrc/npc/ichy/ichy_bite1.wav", "vj_hlr/gsrc/npc/ichy/ichy_bite2.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/ichy/ichy_pain1.wav", "vj_hlr/gsrc/npc/ichy/ichy_pain2.wav", "vj_hlr/gsrc/npc/ichy/ichy_pain3.wav", "vj_hlr/gsrc/npc/ichy/ichy_pain5.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/ichy/ichy_die1.wav", "vj_hlr/gsrc/npc/ichy/ichy_die2.wav", "vj_hlr/gsrc/npc/ichy/ichy_die3.wav", "vj_hlr/gsrc/npc/ichy/ichy_die4.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 ENT.MainSoundPitch = 100
 

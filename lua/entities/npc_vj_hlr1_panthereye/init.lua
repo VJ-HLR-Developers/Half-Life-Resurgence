@@ -54,6 +54,7 @@ ENT.SoundTbl_LeapAttackDamage = {"vj_hlr/gsrc/npc/panther/pclaw_strike1.wav", "v
 ENT.SoundTbl_LeapAttackDamageMiss = {"vj_hlr/gsrc/npc/panther/pclaw_miss1.wav", "vj_hlr/gsrc/npc/panther/pclaw_miss2.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/panther/p_pain1.wav", "vj_hlr/gsrc/npc/panther/p_pain2.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/panther/p_die1.wav", "vj_hlr/gsrc/npc/panther/p_die2.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 ENT.MainSoundPitch = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------

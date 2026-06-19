@@ -48,6 +48,7 @@ ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/gsrc/npc/zombie/claw_strike1.wav", "vj_
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/zombie/zo_pain1.wav", "vj_hlr/gsrc/npc/zombie/zo_pain2.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/zombie/zo_pain1.wav", "vj_hlr/gsrc/npc/zombie/zo_pain2.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 ENT.MainSoundPitch = 100
 

@@ -37,6 +37,7 @@ ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/rat/rat_idle1.wav", "vj_hlr/gsrc/npc/rat/r
 ENT.SoundTbl_Alert = "vj_hlr/gsrc/npc/rat/rat_fear.wav"
 ENT.SoundTbl_Pain = "vj_hlr/gsrc/npc/rat/rat_fear.wav"
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/rat/rat_die1.wav", "vj_hlr/gsrc/npc/rat/rat_die2.wav", "vj_hlr/gsrc/npc/rat/rat_die3.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(10, 10, 10), Vector(-10, -10, 0))

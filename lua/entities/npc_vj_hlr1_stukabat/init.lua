@@ -49,6 +49,7 @@ ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/stukabat/stkb_deploy1.wav", "vj_hlr/gsrc/
 ENT.SoundTbl_BeforeRangeAttack = "vj_hlr/gsrc/npc/stukabat/stkb_fire1.wav"
 ENT.SoundTbl_Pain = "vj_hlr/gsrc/npc/stukabat/stkb_flying1.wav"
 ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/stukabat/stkb_die1.wav"
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 ENT.MainSoundPitch = 100
 

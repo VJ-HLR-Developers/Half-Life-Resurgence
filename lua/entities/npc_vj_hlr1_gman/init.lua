@@ -33,6 +33,7 @@ ENT.SoundTbl_IdleDialogue = {"vj_hlr/gsrc/npc/gman/gman_nasty.wav", "vj_hlr/gsrc
 ENT.SoundTbl_FollowPlayer = {"vj_hlr/gsrc/npc/gman/gman_potential.wav", "vj_hlr/gsrc/npc/gman/gman_wise.wav"}
 ENT.SoundTbl_UnFollowPlayer = {"vj_hlr/gsrc/npc/gman/gman_nowork.wav", "vj_hlr/gsrc/npc/gman/gman_noreg.wav"}
 ENT.SoundTbl_OnPlayerSight = "vj_hlr/gsrc/npc/gman/gman_suit.wav"
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 ENT.MainSoundPitch = 100
 

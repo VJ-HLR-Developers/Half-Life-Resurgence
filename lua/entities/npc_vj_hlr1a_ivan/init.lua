@@ -56,6 +56,7 @@ ENT.SoundTbl_KilledEnemy = {"vj_hlr/gsrc/npc/ivan_alpha/hoot5.wav", "vj_hlr/gsrc
 ENT.SoundTbl_AllyDeath = {"vj_hlr/gsrc/npc/ivan_alpha/hoot1.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot2.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot3.wav", "vj_hlr/gsrc/npc/ivan_alpha/hoot4.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/ivan_alpha/pl_pain2.wav", "vj_hlr/gsrc/npc/ivan_alpha/pl_pain4.wav", "vj_hlr/gsrc/npc/ivan_alpha/pl_pain5.wav", "vj_hlr/gsrc/npc/ivan_alpha/pl_pain6.wav", "vj_hlr/gsrc/npc/ivan_alpha/pl_pain7.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/ivan_alpha/pl_pain2.wav", "vj_hlr/gsrc/npc/ivan_alpha/pl_pain4.wav", "vj_hlr/gsrc/npc/ivan_alpha/pl_pain5.wav", "vj_hlr/gsrc/npc/ivan_alpha/pl_pain6.wav", "vj_hlr/gsrc/npc/ivan_alpha/pl_pain7.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 -- Custom
 ENT.Ivan_LastBodyGroup = 1

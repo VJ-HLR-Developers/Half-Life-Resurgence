@@ -52,6 +52,7 @@ ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr
 ENT.SoundTbl_BeforeRangeAttack = "vj_hlr/gsrc/npc/voltigore/voltigore_attack_shock.wav"
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/voltigore/voltigore_pain1.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_pain2.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_pain3.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_pain4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/voltigore/voltigore_die1.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_die2.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_die3.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 local extraMoveSd = {"vj_hlr/gsrc/npc/voltigore/voltigore_run_grunt1.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_run_grunt2.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------

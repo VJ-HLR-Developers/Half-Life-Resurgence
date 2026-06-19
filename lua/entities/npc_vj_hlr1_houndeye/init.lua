@@ -46,6 +46,7 @@ ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/houndeye/he_alert1.wav", "vj_hlr/gsrc/npc
 ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/gsrc/npc/houndeye/he_attack1.wav", "vj_hlr/gsrc/npc/houndeye/he_attack2.wav", "vj_hlr/gsrc/npc/houndeye/he_attack3.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/houndeye/he_pain1.wav", "vj_hlr/gsrc/npc/houndeye/he_pain2.wav", "vj_hlr/gsrc/npc/houndeye/he_pain3.wav", "vj_hlr/gsrc/npc/houndeye/he_pain4.wav", "vj_hlr/gsrc/npc/houndeye/he_pain5.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/houndeye/he_die1.wav", "vj_hlr/gsrc/npc/houndeye/he_die2.wav", "vj_hlr/gsrc/npc/houndeye/he_die3.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 local blastSd = {"vj_hlr/gsrc/npc/houndeye/he_blast1.wav", "vj_hlr/gsrc/npc/houndeye/he_blast2.wav", "vj_hlr/gsrc/npc/houndeye/he_blast3.wav"}
 local madSd = {"vj_hlr/gsrc/npc/houndeye/he_alert1.wav", "vj_hlr/gsrc/npc/houndeye/he_hunt4.wav"}

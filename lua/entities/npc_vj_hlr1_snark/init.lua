@@ -41,6 +41,7 @@ ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/squeek/sqk_hunt1.wav", "vj_hlr/gsrc/npc/s
 ENT.SoundTbl_MeleeAttack = "vj_hlr/gsrc/npc/squeek/sqk_deploy1.wav"
 ENT.SoundTbl_LeapAttackDamage = "vj_hlr/gsrc/npc/squeek/sqk_deploy1.wav"
 ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/squeek/sqk_die1.wav"
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 ENT.IdleSoundChance = 1
 

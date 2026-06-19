@@ -35,6 +35,7 @@ ENT.AnimTbl_Death = ACT_GLIDE
 ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/boid/boid_idle1.wav", "vj_hlr/gsrc/npc/boid/boid_idle2.wav", "vj_hlr/gsrc/npc/boid/boid_idle3.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/boid/boid_alert1.wav", "vj_hlr/gsrc/npc/boid/boid_alert2.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/boid/boid_alert1.wav", "vj_hlr/gsrc/npc/boid/boid_alert2.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 -- Custom
 ENT.Boid_Type = 0

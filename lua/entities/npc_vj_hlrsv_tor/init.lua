@@ -60,6 +60,7 @@ ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr
 ENT.SoundTbl_RangeAttack = "vj_hlr/gsrc/npc/tor_sven/tor-staff-discharge.wav"
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/tor_sven/tor-pain.wav", "vj_hlr/gsrc/npc/tor_sven/tor-pain2.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/tor_sven/tor-die.wav", "vj_hlr/gsrc/npc/tor_sven/tor-die2.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 ENT.IdleSoundLevel = 80
 ENT.AlertSoundLevel = 85

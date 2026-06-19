@@ -24,6 +24,7 @@ ENT.HasMeleeAttack = false
 
 ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/squeek/sqk_hunt1.wav", "vj_hlr/gsrc/npc/squeek/sqk_hunt2.wav", "vj_hlr/gsrc/npc/squeek/sqk_hunt3.wav"}
 ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/squeek/sqk_blast1.wav"
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 ENT.IdleSoundLevel = 65
 ENT.MainSoundPitch = 50

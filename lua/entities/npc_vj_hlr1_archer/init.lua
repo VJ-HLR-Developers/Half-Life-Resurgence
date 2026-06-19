@@ -59,6 +59,7 @@ ENT.SoundTbl_MeleeAttack = {"vj_hlr/gsrc/npc/archer/arch_bite1.wav", "vj_hlr/gsr
 ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/gsrc/npc/archer/arch_attack1.wav", "vj_hlr/gsrc/npc/archer/arch_attack2.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/archer/arch_pain1.wav", "vj_hlr/gsrc/npc/archer/arch_pain2.wav", "vj_hlr/gsrc/npc/archer/arch_pain3.wav", "vj_hlr/gsrc/npc/archer/arch_pain4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/archer/arch_die1.wav", "vj_hlr/gsrc/npc/archer/arch_die2.wav", "vj_hlr/gsrc/npc/archer/arch_die3.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 -- Custom
 ENT.Archer_BlinkingT = 0

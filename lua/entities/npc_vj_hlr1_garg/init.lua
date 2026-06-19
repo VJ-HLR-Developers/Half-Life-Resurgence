@@ -59,6 +59,7 @@ ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr
 ENT.SoundTbl_RangeAttack = "vj_hlr/gsrc/npc/garg/gar_stomp1.wav"
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/garg/gar_pain1.wav", "vj_hlr/gsrc/npc/garg/gar_pain2.wav", "vj_hlr/gsrc/npc/garg/gar_pain3.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/garg/gar_die1.wav", "vj_hlr/gsrc/npc/garg/gar_die2.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 local sdExplosions = {"vj_hlr/gsrc/wep/explosion/explode3.wav", "vj_hlr/gsrc/wep/explosion/explode4.wav", "vj_hlr/gsrc/wep/explosion/explode5.wav"}
 

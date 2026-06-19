@@ -54,6 +54,7 @@ ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/kingpin/kingpin_alert1.wav", "vj_hlr/gsrc
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/kingpin/kingpin_pain1.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_pain2.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_pain3.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/kingpin/kingpin_death1.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_death2.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 local scanSd = {"vj_hlr/gsrc/npc/kingpin/kingpin_seeker1.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_seeker2.wav", "vj_hlr/gsrc/npc/kingpin/kingpin_seeker3.wav"}
 

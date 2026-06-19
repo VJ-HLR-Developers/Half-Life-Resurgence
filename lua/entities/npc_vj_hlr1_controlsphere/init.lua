@@ -43,6 +43,7 @@ ENT.SoundTbl_BeforeRangeAttack = "vj_hlr/gsrc/fx/zap4.wav"
 ENT.SoundTbl_RangeAttack = "vj_hlr/gsrc/npc/hassault/hw_shoot1.wav"
 ENT.SoundTbl_Pain = "vj_hlr/gsrc/npc/sphere/sph_pain1.wav"
 ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/sphere/sph_pain1.wav"
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 ENT.MainSoundPitch = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------

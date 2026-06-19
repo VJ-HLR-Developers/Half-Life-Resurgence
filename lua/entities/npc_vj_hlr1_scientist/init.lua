@@ -44,6 +44,7 @@ local sdStep = {"vj_hlr/gsrc/pl_step1.wav", "vj_hlr/gsrc/pl_step2.wav", "vj_hlr/
 
 ENT.SoundTbl_FootStep = sdStep
 ENT.SoundTbl_MedicOnHeal = "vj_hlr/gsrc/smallmedkit2.wav"
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 /*
 -- Can't move, unfollow

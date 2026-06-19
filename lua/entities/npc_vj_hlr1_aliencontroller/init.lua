@@ -47,6 +47,7 @@ ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/controller/con_alert1.wav", "vj_hlr/gsrc/
 ENT.SoundTbl_RangeAttack = {"vj_hlr/gsrc/npc/controller/con_attack1.wav", "vj_hlr/gsrc/npc/controller/con_attack2.wav", "vj_hlr/gsrc/npc/controller/con_attack3.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/controller/con_pain1.wav", "vj_hlr/gsrc/npc/controller/con_pain2.wav", "vj_hlr/gsrc/npc/controller/con_pain3.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/controller/con_die1.wav", "vj_hlr/gsrc/npc/controller/con_die2.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 ENT.MainSoundPitch = 100
 

@@ -49,6 +49,7 @@ ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/gsrc/npc/floater/fl_attack1.wav", "vj_
 ENT.SoundTbl_RangeAttack = {"vj_hlr/gsrc/npc/bullchicken/bc_attack2.wav", "vj_hlr/gsrc/npc/bullchicken/bc_attack3.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/floater/fl_pain1.wav", "vj_hlr/gsrc/npc/floater/fl_pain2.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/floater/fl_pain1.wav", "vj_hlr/gsrc/npc/floater/fl_pain2.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 ENT.MainSoundPitch = 100
 

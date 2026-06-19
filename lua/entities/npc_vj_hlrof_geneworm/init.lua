@@ -48,6 +48,7 @@ ENT.HasExtraMeleeAttackSounds = true
 
 ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/geneworm/geneworm_idle1.wav", "vj_hlr/gsrc/npc/geneworm/geneworm_idle2.wav", "vj_hlr/gsrc/npc/geneworm/geneworm_idle3.wav", "vj_hlr/gsrc/npc/geneworm/geneworm_idle4.wav"}
 ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/geneworm/geneworm_death.wav"
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 ENT.BreathSoundLevel = 100
 ENT.IdleSoundLevel = 100

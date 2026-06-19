@@ -41,6 +41,7 @@ ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/tentacle/te_sing1.wav", "vj_hlr/gsrc/npc/t
 ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/tentacle/te_alert1.wav", "vj_hlr/gsrc/npc/tentacle/te_alert2.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/tentacle/te_roar1.wav", "vj_hlr/gsrc/npc/tentacle/te_roar2.wav"}
 ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/tentacle/te_death2.wav"
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 local sdBeakStrikeDef = {"vj_hlr/gsrc/npc/tentacle/te_strike1.wav", "vj_hlr/gsrc/npc/tentacle/te_strike2.wav"}
 local sdBeakStrikeDirt = {"vj_hlr/gsrc/npc/player/pl_dirt1.wav", "vj_hlr/gsrc/npc/player/pl_dirt2.wav", "vj_hlr/gsrc/npc/player/pl_dirt3.wav", "vj_hlr/gsrc/npc/player/pl_dirt4.wav"}

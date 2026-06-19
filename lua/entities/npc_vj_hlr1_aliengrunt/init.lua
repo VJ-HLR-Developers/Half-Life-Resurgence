@@ -53,6 +53,7 @@ ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/gsrc/npc/agrunt/ag_attack1.wav", "vj_h
 //ENT.SoundTbl_RangeAttack = {"vj_hlr/gsrc/npc/agrunt/ag_fire1.wav", "vj_hlr/gsrc/npc/agrunt/ag_fire2.wav", "vj_hlr/gsrc/npc/agrunt/ag_fire3.wav"} -- Done by events instead because we need it as EmitSound since it plays too many of them at the same time!
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/agrunt/ag_pain1.wav", "vj_hlr/gsrc/npc/agrunt/ag_pain2.wav", "vj_hlr/gsrc/npc/agrunt/ag_pain3.wav", "vj_hlr/gsrc/npc/agrunt/ag_pain4.wav", "vj_hlr/gsrc/npc/agrunt/ag_pain5.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/agrunt/ag_die1.wav", "vj_hlr/gsrc/npc/agrunt/ag_die2.wav", "vj_hlr/gsrc/npc/agrunt/ag_die3.wav", "vj_hlr/gsrc/npc/agrunt/ag_die4.wav", "vj_hlr/gsrc/npc/agrunt/ag_die5.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 ENT.MainSoundPitch = 100
 ENT.FootstepSoundPitch = 70

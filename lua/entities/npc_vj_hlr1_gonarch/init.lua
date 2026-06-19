@@ -52,6 +52,7 @@ ENT.SoundTbl_BeforeRangeAttack = {"vj_hlr/gsrc/npc/gonarch/gon_attack1.wav", "vj
 ENT.SoundTbl_RangeAttack = {"vj_hlr/gsrc/npc/gonarch/gon_sack1.wav", "vj_hlr/gsrc/npc/gonarch/gon_sack2.wav", "vj_hlr/gsrc/npc/gonarch/gon_sack3.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/gonarch/gon_pain2.wav", "vj_hlr/gsrc/npc/gonarch/gon_pain4.wav", "vj_hlr/gsrc/npc/gonarch/gon_pain5.wav"}
 ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/gonarch/gon_die1.wav"
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 local sdBirth = {"vj_hlr/gsrc/npc/gonarch/gon_birth1.wav", "vj_hlr/gsrc/npc/gonarch/gon_birth1.wav", "vj_hlr/gsrc/npc/gonarch/gon_birth1.wav"}
 local sdBabyDeath = {"vj_hlr/gsrc/npc/gonarch/gon_childdie1.wav", "vj_hlr/gsrc/npc/gonarch/gon_childdie2.wav", "vj_hlr/gsrc/npc/gonarch/gon_childdie3.wav"}

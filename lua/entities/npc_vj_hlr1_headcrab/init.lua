@@ -52,6 +52,7 @@ ENT.SoundTbl_LeapAttackJump = {"vj_hlr/gsrc/npc/headcrab/hc_attack1.wav", "vj_hl
 ENT.SoundTbl_LeapAttackDamage = "vj_hlr/gsrc/npc/headcrab/hc_headbite.wav"
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/headcrab/hc_pain1.wav", "vj_hlr/gsrc/npc/headcrab/hc_pain2.wav", "vj_hlr/gsrc/npc/headcrab/hc_pain3.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/headcrab/hc_die1.wav", "vj_hlr/gsrc/npc/headcrab/hc_die2.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 ENT.MainSoundPitch = 100
 

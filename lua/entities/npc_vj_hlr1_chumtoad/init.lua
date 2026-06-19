@@ -34,6 +34,7 @@ ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_BIG_FLINCH}
 ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/chumtoad/toad_hunt1.wav", "vj_hlr/gsrc/npc/chumtoad/toad_hunt2.wav", "vj_hlr/gsrc/npc/chumtoad/toad_hunt3.wav", "vj_hlr/gsrc/npc/chumtoad/toad_deploy1.wav"}
 ENT.SoundTbl_Alert = "vj_hlr/gsrc/npc/chumtoad/toad_idle1.wav"
 ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/chumtoad/toad_die1.wav"
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 ENT.MainSoundPitch = 100
 

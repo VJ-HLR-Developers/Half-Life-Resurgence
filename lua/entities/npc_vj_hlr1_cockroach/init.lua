@@ -28,6 +28,7 @@ ENT.HasImpactSounds = false
 
 ENT.SoundTbl_FootStep = "vj_hlr/gsrc/npc/roach/rch_walk.wav"
 ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/roach/rch_die.wav"
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(2, 2, 2), Vector(-2, -2, 0))

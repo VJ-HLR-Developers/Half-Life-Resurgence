@@ -47,6 +47,7 @@ ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 ENT.SoundTbl_Idle = "vj_hlr/gsrc/npc/barnacle/bcl_tongue1.wav"
 ENT.SoundTbl_MeleeAttack = {"vj_hlr/gsrc/npc/barnacle/bcl_chew1.wav", "vj_hlr/gsrc/npc/barnacle/bcl_chew2.wav", "vj_hlr/gsrc/npc/barnacle/bcl_chew3.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/barnacle/bcl_die1.wav", "vj_hlr/gsrc/npc/barnacle/bcl_die3.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 ENT.MainSoundPitch = 100
 
