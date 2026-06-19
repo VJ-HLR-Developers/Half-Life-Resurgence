@@ -540,14 +540,14 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		end
 		-- Unparent the gunners in Osprey if they died. Prevents Source from spawning them in a random location of the map
 		local owner = self:GetOwner()
-		if IsValid(owner) && !self.HECU_DeployedByOsprey then
+		if IsValid(owner) then
 			local gunner1 = owner.Osprey_Gunners[1]
 			local gunner2 = owner.Osprey_Gunners[2]
-			if IsValid(gunner1) then
+			if IsValid(gunner1) && gunner1.Dead then
 				gunner1:SetParent(NULL)
 				gunner1:SetPos(owner:GetAttachment(owner:LookupAttachment("gunner_left")).Pos)
 			end
-			if IsValid(gunner2) then
+			if IsValid(gunner2) && gunner2.Dead then
 				gunner2:SetParent(NULL)
 				gunner2:SetPos(owner:GetAttachment(owner:LookupAttachment("gunner_right")).Pos)
 			end
