@@ -30,8 +30,11 @@ function ENT:OnMedicBehavior(status, statusData)
 		self:PlayAnim("pull_needle", true, false, false, 0, {OnFinish = function(interrupted, anim)
 			if interrupted then return end
 			self:PlayAnim("give_shot", true, false, false, 0, {OnFinish = function(interrupted2, anim2)
+				if interrupted2 then return end
 				self:PlayAnim("store_needle", true, false)
 			end})
 		end})
+	elseif status == "OnReset" then
+		timer.Simple(1.5, function() if IsValid(self) then self:SetBodygroup(3, self.HECUMedic_HealBG) end end)
 	end
 end

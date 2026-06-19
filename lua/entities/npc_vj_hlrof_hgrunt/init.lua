@@ -118,6 +118,7 @@ ENT.SoundTbl_MedicBeforeHeal = {
 	"vj_hlr/gsrc/npc/hgrunt_opf/sting.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/of2a5_fg03.wav"
 }
+ENT.SoundTbl_MedicOnHeal = "vj_hlr/gsrc/smallmedkit2.wav"
 ENT.SoundTbl_MedicReceiveHeal = {
 	"vj_hlr/gsrc/npc/hgrunt_opf/thanks.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/of2a5_fg04.wav"

@@ -43,6 +43,7 @@ local sdTie = {"vj_hlr/gsrc/npc/scientist/weartie.wav", "vj_hlr/gsrc/npc/scienti
 local sdStep = {"vj_hlr/gsrc/pl_step1.wav", "vj_hlr/gsrc/pl_step2.wav", "vj_hlr/gsrc/pl_step3.wav", "vj_hlr/gsrc/pl_step4.wav"}
 
 ENT.SoundTbl_FootStep = sdStep
+ENT.SoundTbl_MedicOnHeal = "vj_hlr/gsrc/smallmedkit2.wav"
 
 /*
 -- Can't move, unfollow
