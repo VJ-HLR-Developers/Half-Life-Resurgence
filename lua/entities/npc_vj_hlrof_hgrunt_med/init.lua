@@ -14,7 +14,7 @@ ENT.ControllerParams = {
 }
 ENT.IsMedic = true
 
-ENT.MainSoundPitch = 110
+ENT.MainSoundPitch = 105
 
 -- Custom
 ENT.HECUMedic_HealBG = 0
