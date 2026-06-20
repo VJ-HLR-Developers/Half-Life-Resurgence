@@ -51,8 +51,9 @@ ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/friendly/fr_groan1.wav", "vj_hlr/gsrc/npc/
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/friendly/fr_groan1.wav", "vj_hlr/gsrc/npc/friendly/fr_groan2.wav"}
 ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
-ENT.PainSoundPitch = VJ.SET(150, 150)
-ENT.DeathSoundPitch = VJ.SET(150, 150)
+ENT.MainSoundPitch = 100
+ENT.PainSoundPitch = 150
+ENT.DeathSoundPitch = 150
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(35, 35, 60), Vector(-35, -35, 0))

@@ -51,7 +51,7 @@ ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bulle
 
 ENT.FootstepSoundLevel = 55
 ENT.FootstepSoundPitch = 130
-ENT.MainSoundPitch = VJ.SET(120, 125)
+ENT.MainSoundPitch = 120
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(20, 20, 30), Vector(-20, -20, 0))

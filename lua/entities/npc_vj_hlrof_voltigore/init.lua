@@ -54,6 +54,8 @@ ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/voltigore/voltigore_pain1.wav", "vj_hlr/gs
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/voltigore/voltigore_die1.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_die2.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_die3.wav"}
 ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
+ENT.MainSoundPitch = 100
+
 local extraMoveSd = {"vj_hlr/gsrc/npc/voltigore/voltigore_run_grunt1.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_run_grunt2.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()

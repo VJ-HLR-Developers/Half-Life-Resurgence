@@ -15,6 +15,8 @@ ENT.Tank_SoundTbl_Turning = "vj_hlr/gsrc/npc/tanks/abrams_turret_rot.wav"
 ENT.Tank_SoundTbl_ReloadShell = "vj_hlr/gsrc/npc/tanks/tank_reload.wav"
 ENT.Tank_SoundTbl_FireShell = "vj_hlr/gsrc/npc/tanks/shoot.wav"
 
+ENT.MainSoundPitch = 100
+
 ENT.Tank_Shell_SpawnPos = Vector(221.83, 1.24, 95.09)
 ENT.Tank_Shell_Entity = "obj_vj_hlr1_rocket"
 ENT.Tank_Shell_VelocitySpeed = 3000

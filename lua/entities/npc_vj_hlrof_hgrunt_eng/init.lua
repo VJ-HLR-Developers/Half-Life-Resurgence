@@ -13,6 +13,8 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(5, 0, 5),
 }
 
+ENT.MainSoundPitch = 90
+
 -- Custom
 ENT.HECU_TurretEnt = NULL
 ENT.HECU_TurretPlacing = false

@@ -39,7 +39,7 @@ ENT.AnimTbl_RangeAttack = ACT_RANGE_ATTACK1
 ENT.RangeAttackMaxDistance = 8000
 ENT.RangeAttackMinDistance = 500
 ENT.TimeUntilRangeAttackProjectileRelease = 2.1
-ENT.RangeAttackExtraTimers = {2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4, 4.1, 4.2, 4.3}
+ENT.RangeAttackExtraTimers = {2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4, 4.1, 4.2, 4.3, 4.4}
 ENT.NextRangeAttackTime = VJ.SET(2, 4)
 
 ENT.HasDeathAnimation = true
@@ -57,6 +57,8 @@ ENT.BeforeMeleeAttackSoundLevel = 100
 ENT.BeforeRangeAttackSoundLevel = 100
 ENT.PainSoundLevel = 100
 ENT.DeathSoundLevel = 100
+
+ENT.MainSoundPitch = 100
 
 -- Custom
 ENT.GW_Fade = 0 -- 0 = No fade | 1 = Fade in | 2 = Fade out
@@ -410,7 +412,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 			//print("Left hit!", self.GW_EyeHealth.l)
 			if self.GW_EyeHealth.l <= 0 then
 				self:PlayAnim(ACT_SMALL_FLINCH, true, false)
-				timer.Simple(VJ.AnimDuration(self, ACT_SMALL_FLINCH), function() if IsValid(self) then self.IsAbleToRangeAttack = true self.PauseAttacks = false end end) -- Fix not performing range attack sometimes after eye HP depletes @DarkbornEmperor
+				//timer.Simple(VJ.AnimDuration(self, ACT_SMALL_FLINCH), function() if IsValid(self) then self.IsAbleToRangeAttack = true self.PauseAttacks = false end end) -- Fix not performing range attack sometimes after eye HP depletes @DarkbornEmperor
 				self:GW_EyeHealthCheck()
 			end
 			dmginfo:SetDamage(0)
@@ -421,7 +423,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 			//print("Right hit!", self.GW_EyeHealth.r)
 			if self.GW_EyeHealth.r <= 0 then
 				self:PlayAnim(ACT_BIG_FLINCH, true, false)
-				timer.Simple(VJ.AnimDuration(self, ACT_BIG_FLINCH), function() if IsValid(self) then self.IsAbleToRangeAttack = true self.PauseAttacks = false end end) -- Fix not performing range attack sometimes after eye HP depletes @DarkbornEmperor
+				//timer.Simple(VJ.AnimDuration(self, ACT_BIG_FLINCH), function() if IsValid(self) then self.IsAbleToRangeAttack = true self.PauseAttacks = false end end) -- Fix not performing range attack sometimes after eye HP depletes @DarkbornEmperor
 				self:GW_EyeHealthCheck()
 			end
 			dmginfo:SetDamage(0)

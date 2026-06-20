@@ -54,6 +54,8 @@ ENT.SoundTbl_KilledEnemy = "vj_hlr/gsrc/npc/pitdrone/pit_drone_eat.wav"
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/pitdrone/pit_drone_pain1.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_pain2.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_pain3.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_pain4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/pitdrone/pit_drone_die1.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_die2.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_die3.wav"}
 ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
+
+ENT.MainSoundPitch = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetCollisionBounds(Vector(18, 18, 55), Vector(-18, -18, 0))
