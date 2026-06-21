@@ -57,24 +57,25 @@ local vecZ20 = Vector(0, 0, 40)
 local colorTrail = Color(224, 224, 255, 255)
 --
 function ENT:Init()
-	self.StartGlow1 = ents.Create("env_sprite")
-	self.StartGlow1:SetKeyValue("model", "vj_hl/sprites/animglow01.vmt")
-	self.StartGlow1:SetKeyValue("rendercolor", "224 224 255")
-	self.StartGlow1:SetKeyValue("GlowProxySize", "5.0")
-	self.StartGlow1:SetKeyValue("HDRColorScale", "1.0")
-	self.StartGlow1:SetKeyValue("renderfx", "14")
-	self.StartGlow1:SetKeyValue("rendermode", "3")
-	self.StartGlow1:SetKeyValue("renderamt", "255")
-	self.StartGlow1:SetKeyValue("disablereceiveshadows", "0")
-	self.StartGlow1:SetKeyValue("mindxlevel", "0")
-	self.StartGlow1:SetKeyValue("maxdxlevel", "0")
-	self.StartGlow1:SetKeyValue("framerate", "40.0")
-	self.StartGlow1:SetKeyValue("spawnflags", "0")
-	self.StartGlow1:SetKeyValue("scale", "0.5")
-	self.StartGlow1:SetPos(self:GetPos())
-	self.StartGlow1:Spawn()
-	self.StartGlow1:SetParent(self)
-	self:DeleteOnRemove(self.StartGlow1)
+	local glowSpr = ents.Create("env_sprite")
+	glowSpr:SetKeyValue("model", "vj_hl/sprites/animglow01.vmt")
+	glowSpr:SetKeyValue("rendercolor", "224 224 255")
+	glowSpr:SetKeyValue("GlowProxySize", "5.0")
+	glowSpr:SetKeyValue("HDRColorScale", "1.0")
+	glowSpr:SetKeyValue("renderfx", "14")
+	glowSpr:SetKeyValue("rendermode", "3")
+	glowSpr:SetKeyValue("renderamt", "255")
+	glowSpr:SetKeyValue("disablereceiveshadows", "0")
+	glowSpr:SetKeyValue("mindxlevel", "0")
+	glowSpr:SetKeyValue("maxdxlevel", "0")
+	glowSpr:SetKeyValue("framerate", "40.0")
+	glowSpr:SetKeyValue("spawnflags", "0")
+	glowSpr:SetKeyValue("scale", "0.5")
+	glowSpr:SetPos(self:GetPos())
+	glowSpr:Spawn()
+	glowSpr:SetParent(self)
+	self:DeleteOnRemove(glowSpr)
+	self.GlowSprite = glowSpr
 	util.SpriteTrail(self, 0, colorTrail, true, 5, 20, 6, 1 / (5 + 20) * 0.5, "vj_hl/sprites/smoke.vmt")
 	self:SetNW2Bool("VJ_Dead", false)
 
@@ -98,7 +99,7 @@ function ENT:Init()
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
 			-- 1. Go forward
-			phys:SetVelocity(self:GetForward()*200)
+			phys:SetVelocity(self:GetForward() * 200)
 			self:SetAngles(self:GetVelocity():GetNormal():Angle())
 			timer.Simple(0.5, function()
 				if IsValid(self) then
@@ -106,7 +107,7 @@ function ENT:Init()
 					-- 2. Go up
 					local tr = util.TraceLine({
 						start = myPos,
-						endpos = myPos + self:GetUp()*math.random(2000, 2800),
+						endpos = myPos + self:GetUp() * math.random(2000, 2800),
 						filter = self
 					})
 					local hitPos = tr.HitPos - vecZ20
@@ -139,7 +140,7 @@ local vecZ80 = Vector(0, 0, 80)
 --
 function ENT:OnDestroy(data, phys)
 	util.ScreenShake(data.HitPos, 16, 200, 1, 3000)
-	if IsValid(self.StartGlow1) then self.StartGlow1:Remove() end
+	if IsValid(self.GlowSprite) then self.GlowSprite:Remove() end
 
 	self:SetNW2Bool("VJ_Dead", true)
 	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris" .. math.random(1, 3) .. ".wav", 80, 100)

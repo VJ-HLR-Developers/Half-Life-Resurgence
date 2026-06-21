@@ -24,42 +24,45 @@ function ENT:Initialize()
 	self:SetSolid(SOLID_BBOX)
 	self:ResetSequence("Idle1")
 
-	self.DynamicLight = ents.Create("light_dynamic")
-	self.DynamicLight:SetKeyValue("brightness", "6")
-	self.DynamicLight:SetKeyValue("distance", "150")
-	self.DynamicLight:SetLocalPos(self:GetPos())
-	self.DynamicLight:SetLocalAngles(self:GetAngles())
-	self.DynamicLight:Fire("Color", "255 128 0")
-	self.DynamicLight:SetParent(self)
-	self.DynamicLight:Spawn()
-	self.DynamicLight:Activate()
-	self.DynamicLight:SetParent(self)
-	self.DynamicLight:Fire("SetParentAttachment", "0", 0)
-	self.DynamicLight:Fire("TurnOn", "", 0)
-	self:DeleteOnRemove(self.DynamicLight)
+	local dynLight = ents.Create("light_dynamic")
+	dynLight:SetKeyValue("brightness", "6")
+	dynLight:SetKeyValue("distance", "150")
+	dynLight:SetLocalPos(self:GetPos())
+	dynLight:SetLocalAngles(self:GetAngles())
+	dynLight:Fire("Color", "255 128 0")
+	dynLight:SetParent(self)
+	dynLight:Spawn()
+	dynLight:Activate()
+	dynLight:SetParent(self)
+	dynLight:Fire("SetParentAttachment", "0", 0)
+	dynLight:Fire("TurnOn", "", 0)
+	self:DeleteOnRemove(dynLight)
+	self.DynamicLight = dynLight
 
-	self.FlareSprite = ents.Create("env_sprite")
-	self.FlareSprite:SetKeyValue("model", "vj_hl/sprites/flare3.vmt")
-	self.FlareSprite:SetKeyValue("rendercolor", "255 128 0")
-	self.FlareSprite:SetKeyValue("GlowProxySize", "5.0")
-	self.FlareSprite:SetKeyValue("HDRColorScale", "1.0")
-	self.FlareSprite:SetKeyValue("renderfx", "14")
-	self.FlareSprite:SetKeyValue("rendermode", "3")
-	self.FlareSprite:SetKeyValue("renderamt", "255")
-	self.FlareSprite:SetKeyValue("disablereceiveshadows", "0")
-	self.FlareSprite:SetKeyValue("mindxlevel", "0")
-	self.FlareSprite:SetKeyValue("maxdxlevel", "0")
-	self.FlareSprite:SetKeyValue("framerate", "10.0")
-	self.FlareSprite:SetKeyValue("spawnflags", "0")
-	self.FlareSprite:SetKeyValue("scale", "0.5")
-	self.FlareSprite:SetPos(self:GetPos())
-	self.FlareSprite:Spawn()
-	self.FlareSprite:SetParent(self)
-	self.FlareSprite:Fire("SetParentAttachment", "0", 0)
-	self:DeleteOnRemove(self.FlareSprite)
+	local flareSpr = ents.Create("env_sprite")
+	flareSpr:SetKeyValue("model", "vj_hl/sprites/flare3.vmt")
+	flareSpr:SetKeyValue("rendercolor", "255 128 0")
+	flareSpr:SetKeyValue("GlowProxySize", "5.0")
+	flareSpr:SetKeyValue("HDRColorScale", "1.0")
+	flareSpr:SetKeyValue("renderfx", "14")
+	flareSpr:SetKeyValue("rendermode", "3")
+	flareSpr:SetKeyValue("renderamt", "255")
+	flareSpr:SetKeyValue("disablereceiveshadows", "0")
+	flareSpr:SetKeyValue("mindxlevel", "0")
+	flareSpr:SetKeyValue("maxdxlevel", "0")
+	flareSpr:SetKeyValue("framerate", "10.0")
+	flareSpr:SetKeyValue("spawnflags", "0")
+	flareSpr:SetKeyValue("scale", "0.5")
+	flareSpr:SetPos(self:GetPos())
+	flareSpr:Spawn()
+	flareSpr:SetParent(self)
+	flareSpr:Fire("SetParentAttachment", "0", 0)
+	self:DeleteOnRemove(flareSpr)
+	self.FlareSprite = flareSpr
 end
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Think()
+	local curTime = CurTime()
 	for _, v in ipairs(ents.FindInSphere(self:GetPos(), 80)) do
 		if v.VJ_ID_Living && v:Alive() then
 			if !self.XenPlant_Retracted then
@@ -69,13 +72,13 @@ function ENT:Think()
 				self:SetSkin(1)
 			end
 			self.XenPlant_Retracted = true
-			self.XenPlant_NextDeployT = CurTime() + math.Rand(3, 5)
-			self:NextThink(CurTime())
+			self.XenPlant_NextDeployT = curTime + math.Rand(3, 5)
+			self:NextThink(curTime)
 			return true
 		end
 	end
 
-	if self.XenPlant_Retracted && self.XenPlant_NextDeployT < CurTime() then
+	if self.XenPlant_Retracted && self.XenPlant_NextDeployT < curTime then
 		self.XenPlant_Retracted = false
 		self:ResetSequence("Delpoy")
 		timer.Simple(1, function()
@@ -91,6 +94,6 @@ function ENT:Think()
 			end
 		end)
 	end
-	self:NextThink(CurTime())
+	self:NextThink(curTime)
 	return true
 end

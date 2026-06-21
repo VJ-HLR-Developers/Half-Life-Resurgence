@@ -30,24 +30,23 @@ function ENT:Initialize()
 	self:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
 	//ParticleEffectAttach("vj_hlr_nihilanth_chargeorb", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 
-	local StartGlow1 = ents.Create("env_sprite")
-	StartGlow1:SetKeyValue("model", "vj_hl/sprites/muzzleflash3.vmt")
-	//StartGlow1:SetKeyValue("rendercolor", "255 128 0")
-	StartGlow1:SetKeyValue("GlowProxySize", "2.0")
-	StartGlow1:SetKeyValue("HDRColorScale", "1.0")
-	StartGlow1:SetKeyValue("renderfx", "14")
-	StartGlow1:SetKeyValue("rendermode", "3")
-	StartGlow1:SetKeyValue("renderamt", "255")
-	StartGlow1:SetKeyValue("disablereceiveshadows", "0")
-	StartGlow1:SetKeyValue("mindxlevel", "0")
-	StartGlow1:SetKeyValue("maxdxlevel", "0")
-	StartGlow1:SetKeyValue("framerate", "10.0")
-	StartGlow1:SetKeyValue("spawnflags", "0")
-	StartGlow1:SetKeyValue("scale", "3.5")
-	StartGlow1:SetPos(self:GetPos())
-	StartGlow1:Spawn()
-	StartGlow1:SetParent(self)
-	self:DeleteOnRemove(StartGlow1)
+	local glowSpr = ents.Create("env_sprite")
+	glowSpr:SetKeyValue("model", "vj_hl/sprites/muzzleflash3.vmt")
+	glowSpr:SetKeyValue("GlowProxySize", "2.0")
+	glowSpr:SetKeyValue("HDRColorScale", "1.0")
+	glowSpr:SetKeyValue("renderfx", "14")
+	glowSpr:SetKeyValue("rendermode", "3")
+	glowSpr:SetKeyValue("renderamt", "255")
+	glowSpr:SetKeyValue("disablereceiveshadows", "0")
+	glowSpr:SetKeyValue("mindxlevel", "0")
+	glowSpr:SetKeyValue("maxdxlevel", "0")
+	glowSpr:SetKeyValue("framerate", "10.0")
+	glowSpr:SetKeyValue("spawnflags", "0")
+	glowSpr:SetKeyValue("scale", "3.5")
+	glowSpr:SetPos(self:GetPos())
+	glowSpr:Spawn()
+	glowSpr:SetParent(self)
+	self:DeleteOnRemove(glowSpr)
 
 	local phys = self:GetPhysicsObject()
 	if IsValid(phys) then
@@ -57,15 +56,16 @@ function ENT:Initialize()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Think()
+	local curTime = CurTime()
 	local assignee = self.Assignee
-	if IsValid(assignee) && CurTime() > self.NextMoveT then
+	if IsValid(assignee) && curTime > self.NextMoveT then
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
 			phys:SetVelocity(VJ.CalculateTrajectory(self, assignee, "Line", self:GetPos(), assignee:GetPos() + assignee:GetUp() * math.Rand(200, 250) + assignee:GetRight() * math.Rand(-150, 150) + assignee:GetForward() * math.Rand(-150, 150), 500))
 			phys:AddAngleVelocity(self:GetPos() + Vector(50, 50, 50)) -- Rotate randomly
 		end
-		self.NextMoveT = CurTime() + math.Rand(1, 2)
+		self.NextMoveT = curTime + math.Rand(1, 2)
 	end
-	self:NextThink(CurTime())
+	self:NextThink(curTime)
 	return true
 end

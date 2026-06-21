@@ -20,10 +20,5 @@ function ENT:Initialize()
 	self:SetMoveType(MOVETYPE_NONE)
 	self:SetSolid(SOLID_BBOX)
 	self:SetSkin(math.random(0, 1))
-	local pickIdle = math.random(1, 2)
-	if pickIdle == 1 then
-		self:ResetSequence("spin")
-	elseif pickIdle == 2 then
-		self:ResetSequence("squash")
-	end
+	self:ResetSequence(math.random(1, 2) == 1 and "spin" or "squash")
 end

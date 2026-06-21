@@ -25,10 +25,22 @@ ENT.CollisionDecal = "Impact.Concrete"
 ENT.SoundTbl_OnCollide = "vj_hlr/gsrc/wep/crossbow/xbow_hit1.wav"
 local sdOnCollideEnt = {"vj_hlr/gsrc/wep/crossbow/xbow_hitbod1.wav", "vj_hlr/gsrc/wep/crossbow/xbow_hitbod2.wav"}
 local defAng = Angle(0, 0, 0)
+
+-- Custom
+ENT.NextBubbles = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	ParticleEffect("vj_hlr_spit_drone_spawn_old", self:GetPos(), defAng)
 	ParticleEffectAttach("vj_hlr_spit_drone", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnThink()
+	local curTime = CurTime()
+	if self:WaterLevel() == 3 && self.NextBubbles < curTime then
+		local myPos = self:GetPos()
+		effects.BubbleTrail(myPos - self:GetAbsVelocity() * 0.1, myPos, 2, -150, 20) -- height = -150 to prevent it from going out of water (bug with BubbleTrail)
+		self.NextBubbles = curTime + 0.02
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCollision(data, phys)

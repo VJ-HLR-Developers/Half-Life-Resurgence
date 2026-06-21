@@ -29,6 +29,7 @@ local defAng = Angle(0 , 0, 0)
 
 -- Custom
 ENT.Needle_Heal = false -- Is this a healing needle?
+ENT.NextBubbles = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	if self.Needle_Heal then
@@ -37,6 +38,15 @@ function ENT:Init()
 	else
 		ParticleEffect("vj_hlr_spit_drone_spawn_old", self:GetPos(), defAng)
 		ParticleEffectAttach("vj_hlr_spit_drone", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnThink()
+	local curTime = CurTime()
+	if self:WaterLevel() == 3 && self.NextBubbles < curTime then
+		local myPos = self:GetPos()
+		effects.BubbleTrail(myPos - self:GetAbsVelocity() * 0.1, myPos, 2, -150, 20) -- height = -150 to prevent it from going out of water (bug with BubbleTrail)
+		self.NextBubbles = curTime + 0.02
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

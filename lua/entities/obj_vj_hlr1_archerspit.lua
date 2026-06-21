@@ -24,6 +24,9 @@ ENT.DirectDamageType = DMG_ACID
 ENT.CollisionDecal = "VJ_HLR1_Spit_Acid"
 ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/bullchicken/bc_acid1.wav", "vj_hlr/gsrc/npc/bullchicken/bc_acid2.wav"}
 ENT.SoundTbl_OnCollide = "vj_hlr/gsrc/npc/bullchicken/bc_spithit3.wav"
+
+-- Custom
+ENT.NextBubbles = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetNoDraw(true)
@@ -31,9 +34,11 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
-	if self:WaterLevel() == 3 then
+	local curTime = CurTime()
+	if self:WaterLevel() == 3 && self.NextBubbles < curTime then
 		local myPos = self:GetPos()
-		effects.BubbleTrail(myPos, myPos + self:GetForward() * 400, 6, -500, 100)
+		effects.BubbleTrail(myPos - self:GetAbsVelocity() * 0.1, myPos, 2, -150, 20) -- height = -150 to prevent it from going out of water (bug with BubbleTrail)
+		self.NextBubbles = curTime + 0.02
 	end
 
 	-- Make it slow down when its out of the water and fall down
