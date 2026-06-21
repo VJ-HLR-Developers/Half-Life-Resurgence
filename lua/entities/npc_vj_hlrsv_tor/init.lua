@@ -65,8 +65,6 @@ ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bulle
 ENT.IdleSoundLevel = 80
 ENT.AlertSoundLevel = 85
 
-ENT.MainSoundPitch = 100
-
 -- Custom
 ENT.Tor_NextSpawnT = 0
 ENT.Tor_Level = 0 -- 0 = Normal (Green) | 1 = Buffed (Blue)

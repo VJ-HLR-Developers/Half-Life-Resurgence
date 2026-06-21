@@ -63,8 +63,6 @@ ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/hgrunt/gr_die1.wav", "vj_hlr/gsrc/npc/hgr
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/hgrunt/gr_pain1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_pain2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_pain3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_pain4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_pain5.wav"}
 ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
-ENT.MainSoundPitch = 100
-
 -- Custom
 ENT.HECU_Type = 0
 	-- 0 = HL1 Grunt

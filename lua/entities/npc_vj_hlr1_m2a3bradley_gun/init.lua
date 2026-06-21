@@ -14,8 +14,6 @@ ENT.HasDeathCorpse = false
 ENT.Tank_SoundTbl_Turning = "vj_hlr/gsrc/npc/tanks/bradley_turret_rot.wav"
 //ENT.Tank_ReloadShellSoundLevel = 75
 
-ENT.MainSoundPitch = 100
-
 ENT.Tank_Shell_Entity = "obj_vj_hlr1_rocket"
 ENT.Tank_Shell_VelocitySpeed = 3000
 

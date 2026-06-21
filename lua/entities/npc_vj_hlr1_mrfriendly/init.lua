@@ -51,7 +51,6 @@ ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/friendly/fr_groan1.wav", "vj_hlr/gsrc/npc/
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/friendly/fr_groan1.wav", "vj_hlr/gsrc/npc/friendly/fr_groan2.wav"}
 ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
-ENT.MainSoundPitch = 100
 ENT.PainSoundPitch = 150
 ENT.DeathSoundPitch = 150
 ---------------------------------------------------------------------------------------------------------------------------------------------

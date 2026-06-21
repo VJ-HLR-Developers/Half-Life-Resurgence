@@ -48,8 +48,6 @@ ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/xencannon/bustconcrete1.wav", "vj_hlr/gsr
 ENT.BreathSoundLevel = 70
 ENT.DeathSoundLevel = 90
 
-ENT.MainSoundPitch = 100
-
 -- Custom
 ENT.Cannon_HasLOS = false
 ENT.Cannon_LockTime = 0

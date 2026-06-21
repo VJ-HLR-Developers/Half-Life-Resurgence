@@ -58,8 +58,6 @@ ENT.BeforeRangeAttackSoundLevel = 100
 ENT.PainSoundLevel = 100
 ENT.DeathSoundLevel = 100
 
-ENT.MainSoundPitch = 100
-
 -- Custom
 ENT.GW_Fade = 0 -- 0 = No fade | 1 = Fade in | 2 = Fade out
 ENT.GW_EyeHealth = {}

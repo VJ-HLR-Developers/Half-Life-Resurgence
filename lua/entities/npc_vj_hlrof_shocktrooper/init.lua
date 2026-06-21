@@ -52,14 +52,11 @@ ENT.SoundTbl_IdleDialogueAnswer = {"vj_hlr/gsrc/npc/shocktrooper/st_answer1.wav"
 ENT.SoundTbl_CombatIdle = {"vj_hlr/gsrc/npc/shocktrooper/st_combat1.wav", "vj_hlr/gsrc/npc/shocktrooper/st_combat2.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/shocktrooper/st_alert1.wav", "vj_hlr/gsrc/npc/shocktrooper/st_alert2.wav", "vj_hlr/gsrc/npc/shocktrooper/st_alert3.wav", "vj_hlr/gsrc/npc/shocktrooper/st_alert4.wav"}
 ENT.SoundTbl_GrenadeAttack = "vj_hlr/gsrc/npc/shocktrooper/st_grenadethrow.wav"
-ENT.SoundTbl_GrenadeSight = "vj_hlr/gsrc/npc/shocktrooper/st_runfromgrenade.wav"
 ENT.SoundTbl_DangerSight = "vj_hlr/gsrc/npc/shocktrooper/st_runfromgrenade.wav"
 ENT.SoundTbl_KilledEnemy = "vj_hlr/gsrc/npc/shocktrooper/st_combat1.wav"
 ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
-//ENT.DangerSightSoundPitch = 105 -- Not sure if we need this? Guess we'll see
-
-ENT.MainSoundPitch = 100
+ENT.DangerSightSoundPitch = VJ.SET(105, 110)
 
 -- Custom
 ENT.Shocktrooper_BlinkingT = 0

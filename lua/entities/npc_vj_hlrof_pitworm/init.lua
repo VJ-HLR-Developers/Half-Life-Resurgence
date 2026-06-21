@@ -58,8 +58,6 @@ ENT.BeforeRangeAttackSoundLevel = 80
 ENT.PainSoundLevel = 80
 ENT.DeathSoundLevel = 90
 
-ENT.MainSoundPitch = 100
-
 -- Custom
 ENT.PitWorm_BlinkingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
