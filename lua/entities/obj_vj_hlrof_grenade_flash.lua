@@ -10,8 +10,6 @@ ENT.Base 			= "obj_vj_grenade"
 ENT.PrintName		= "Flash Grenade"
 ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
-ENT.Category = "VJ Test"
-ENT.Spawnable = true
 
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlrof_grenade_flash", ENT.PrintName, VJ.KILLICON_GRENADE)
@@ -56,7 +54,6 @@ function ENT:OnDealDamage(data, phys, hitEnts)
 			net.Start("VJ_HLR_FlashFX")
 				net.WriteEntity(ent)
 			net.Send(ent)
-			ent.VJ_FlashRing = CreateSound(ent, "vj_hlr/gsrc/wep/fgrenade/flashring.wav")
 		elseif ent:IsNPC() then
 			if ent.IsVJBaseSNPC then
 				if VJ.AnimExists(ent, ACT_COWER) then ent:PlayAnim(ACT_COWER, true, false, false) end
