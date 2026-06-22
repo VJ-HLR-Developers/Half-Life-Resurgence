@@ -699,17 +699,17 @@ end)
 
 if CLIENT then
 	-- For flash grenade
-    net.Receive("VJ_HLR_FlashFX", function()
-        local ply = net.ReadEntity()
+	net.Receive("VJ_HLR_FlashFX", function()
+		local ply = net.ReadEntity()
 		local colorWhite = Color(255, 255, 255, 255)
 
-        ply.VJ_HLR_FlashFXT = ply.VJ_HLR_FlashFXT or 0
-        ply.VJ_HLR_FlashFXSound = CreateSound(ply, "vj_hlr/gsrc/wep/fgrenade/flashring.wav")
+		ply.VJ_HLR_FlashFXT = ply.VJ_HLR_FlashFXT or 0
+		ply.VJ_HLR_FlashFXSound = CreateSound(ply, "vj_hlr/gsrc/wep/fgrenade/flashring.wav")
 
-        local curTime = CurTime()
-        local time = 6
-        ply.VJ_HLR_FlashFXT = curTime + time
-        ply.VJ_HLR_FlashFXSound:Play()
+		local curTime = CurTime()
+		local time = 6
+		ply.VJ_HLR_FlashFXT = curTime + time
+		ply.VJ_HLR_FlashFXSound:Play()
 
 		local color = Color(255, 255, 255, 255)
 		local durFade = 5
@@ -732,24 +732,24 @@ if CLIENT then
 			end
 		end)
 
-        local hookName = "VJ_HLR_FlashFX_" .. ply:EntIndex()
-        hook.Add("RenderScreenspaceEffects", hookName, function()
-            curTime = CurTime()
-            if !IsValid(ply) or (IsValid(ply) && (ply:Health() <= 0 or ply.VJ_HLR_FlashFXT < curTime)) then
-                hook.Remove("RenderScreenspaceEffects", hookName)
-                ply.VJ_HLR_FlashFXSound:ChangeVolume(0)
-                ply.VJ_HLR_FlashFXSound:Stop()
-                return
-            end
+		local hookName = "VJ_HLR_FlashFX_" .. ply:EntIndex()
+		hook.Add("RenderScreenspaceEffects", hookName, function()
+			curTime = CurTime()
+			if !IsValid(ply) or (IsValid(ply) && (ply:Health() <= 0 or ply.VJ_HLR_FlashFXT < curTime)) then
+				hook.Remove("RenderScreenspaceEffects", hookName)
+				ply.VJ_HLR_FlashFXSound:ChangeVolume(0)
+				ply.VJ_HLR_FlashFXSound:Stop()
+				return
+			end
 
-            local remaining = ply.VJ_HLR_FlashFXT - curTime
-            local div = (remaining / time)
+			local remaining = ply.VJ_HLR_FlashFXT - curTime
+			local div = (remaining / time)
 
-            ply.VJ_HLR_FlashFXSound:ChangeVolume(div)
-            DrawMotionBlur(0.1, div * 2, 0.01)
-            DrawBloom(1 -div, 2, 9, 9, 3, 1, 1, 0.5, 0.5)
-        end)
-    end)
+			ply.VJ_HLR_FlashFXSound:ChangeVolume(div)
+			DrawMotionBlur(0.1, div * 2, 0.01)
+			DrawBloom(1 -div, 2, 9, 9, 3, 1, 1, 0.5, 0.5)
+		end)
+	end)
 end
 
 -- Weapon hook that gives the player HL1 weapons on spawn
