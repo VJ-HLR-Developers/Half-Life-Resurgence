@@ -194,7 +194,7 @@ local greList = {"obj_vj_hlr1_grenade", "obj_vj_hlrof_grenade_flash"}
 --
 function ENT:OnGrenadeAttack(status, overrideEnt, landDir)
 	-- Choose a normal or flash grenade
-	if status == "Init" && (self.HECU_Type == 4 or self:GetClass() == "npc_vj_hlrof_assassin_rgrunt") then
+	if status == "Init" then
 		self.GrenadeAttackEntity = VJ.PICK(greList)
 	end
 end
