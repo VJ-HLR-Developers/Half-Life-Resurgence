@@ -54,17 +54,23 @@ function ENT:OnDealDamage(data, phys, hitEnts)
 			net.Start("VJ_HLR_FlashFX")
 				net.WriteEntity(ent)
 			net.Send(ent)
-		elseif ent:IsNPC() then
+		elseif ent:IsNPC() && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then
 			if ent.IsVJBaseSNPC then
-				if VJ.AnimExists(ent, ACT_COWER) then ent:PlayAnim(ACT_COWER, true, false, false) end
+				//if VJ.AnimExists(ent, ACT_COWER) && !ent:IsBusy() then ent:PlayAnim(ACT_COWER, true, 5, false) end -- Disabled for now due to potentially breaking some NPCs
 				ent:PlaySoundSystem("Pain")
-				ent.EnemyDetection = false
-				ent.CanReceiveOrders = false
+				ent.IdleSoundBlockTime = CurTime() + 5
+				if ent.EnemyDetection then
+					ent.EnemyDetection = false
+				elseif ent.CanReceiveOrders then
+					ent.CanReceiveOrders = false
+				end
+				if ent:GetState() == VJ_STATE_NONE then ent:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK) end
 				ent:ResetEnemy()
-				timer.Simple(5, function()
-					if IsValid(ent) && !ent.EnemyDetection && !ent.CanReceiveOrders then
+				timer.Create("VJ_HLR_Flash_Duration" .. ent:EntIndex(), 5, 1, function()
+					if IsValid(ent) && ent:GetState() == VJ_STATE_ONLY_ANIMATION_NOATTACK then
 						ent.EnemyDetection = true
 						ent.CanReceiveOrders = true
+						ent:SetState()
 					end
 				end)
 			end
