@@ -47,6 +47,7 @@ ENT.AnimTbl_Flinch = {ACT_SMALL_FLINCH, ACT_BIG_FLINCH}
 ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/pitworm/pit_worm_idle1.wav", "vj_hlr/gsrc/npc/pitworm/pit_worm_idle2.wav", "vj_hlr/gsrc/npc/pitworm/pit_worm_idle3.wav"}
 ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/pitworm/pit_worm_alert(scream).wav", "vj_hlr/gsrc/npc/pitworm/pit_worm_alert.wav"}
 ENT.SoundTbl_BeforeMeleeAttack = {"vj_hlr/gsrc/npc/pitworm/pit_worm_attack_swipe1.wav", "vj_hlr/gsrc/npc/pitworm/pit_worm_attack_swipe2.wav", "vj_hlr/gsrc/npc/pitworm/pit_worm_attack_swipe3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
 ENT.SoundTbl_BeforeRangeAttack = "vj_hlr/gsrc/npc/pitworm/pit_worm_attack_eyeblast.wav"
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/pitworm/pit_worm_flinch1.wav", "vj_hlr/gsrc/npc/pitworm/pit_worm_flinch2.wav", "vj_hlr/gsrc/npc/pitworm/pit_worm_angry1.wav", "vj_hlr/gsrc/npc/pitworm/pit_worm_angry2.wav", "vj_hlr/gsrc/npc/pitworm/pit_worm_angry3.wav"}
 ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/pitworm/pit_worm_death.wav"

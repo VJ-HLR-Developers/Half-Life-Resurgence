@@ -54,6 +54,7 @@ ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/shocktrooper/st_alert1.wav", "vj_hlr/gsrc
 ENT.SoundTbl_GrenadeAttack = "vj_hlr/gsrc/npc/shocktrooper/st_grenadethrow.wav"
 ENT.SoundTbl_DangerSight = "vj_hlr/gsrc/npc/shocktrooper/st_runfromgrenade.wav"
 ENT.SoundTbl_KilledEnemy = "vj_hlr/gsrc/npc/shocktrooper/st_combat1.wav"
+ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
 ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 ENT.DangerSightSoundPitch = VJ.SET(105, 110)
