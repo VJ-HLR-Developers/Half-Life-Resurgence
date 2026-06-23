@@ -32,7 +32,6 @@ ENT.MeleeAttackDamage = 15
 ENT.TimeUntilMeleeAttackDamage = false
 
 ENT.HasGrenadeAttack = true
-ENT.GrenadeAttackEntity = "obj_vj_hlr1_grenade"
 ENT.AnimTbl_GrenadeAttack = ACT_RANGE_ATTACK2
 ENT.GrenadeAttackAttachment = "grenadehand"
 ENT.GrenadeAttackThrowTime = 0.4
@@ -162,11 +161,11 @@ function ENT:OnThink()
 	-- Jump while attacking
 	if IsValid(self:GetEnemy()) && curTime > self.BOA_NextJumpT && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND && !self:IsMoving() && self.EnemyData.Distance < 1400 && !self.VJ_IsBeingControlled then
 		local myPos = self:GetPos()
-		self:ForceMoveJump(((myPos + self:GetRight()*(math.random(1, 2) == 1 and 100 or -100) + self:GetForward()*(math.random(1, 2) == 1 and 1 or -100)) - (myPos + self:OBBCenter())):GetNormal()*200 + self:GetUp()*600)
+		self:ForceMoveJump(((myPos + self:GetRight() * (math.random(1, 2) == 1 and 100 or -100) + self:GetForward()*(math.random(1, 2) == 1 and 1 or -100)) - (myPos + self:OBBCenter())):GetNormal() * 200 + self:GetUp() * 600)
 		-- Older jumping system
 		/*self:StopMoving()
 		self:SetGroundEntity(NULL)
-		self:SetLocalVelocity(((myPos + self:GetRight()*(math.random(1, 2) == 1 and 100 or -100)) - (myPos + self:OBBCenter())):GetNormal()*200 +self:GetUp()*600)
+		self:SetLocalVelocity(((myPos + self:GetRight() * (math.random(1, 2) == 1 and 100 or -100)) - (myPos + self:OBBCenter())):GetNormal() * 200 +self:GetUp() * 600)
 		self:PlayAnim(ACT_JUMP, true, false, true, 0, {}, function(sched)
 			self.BOA_OffGround = true
 			//sched.RunCode_OnFinish = function()
@@ -188,6 +187,15 @@ function ENT:OnFireBullet(data)
 		self.BOA_ShotsSinceRun = 0
 		self.BOA_NextJumpT = curTime + math.Rand(2, 4)
 		self.BOA_NextRunT = curTime + math.Rand(4, 6)
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local greList = {"obj_vj_hlr1_grenade", "obj_vj_hlrof_grenade_flash"}
+--
+function ENT:OnGrenadeAttack(status, overrideEnt, landDir)
+	-- Choose a normal or flash grenade
+	if status == "Init" && (self.HECU_Type == 4 or self:GetClass() == "npc_vj_hlrof_assassin_rgrunt") then
+		self.GrenadeAttackEntity = VJ.PICK(greList)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
