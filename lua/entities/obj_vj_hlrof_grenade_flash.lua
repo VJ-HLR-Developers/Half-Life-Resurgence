@@ -19,7 +19,6 @@ if !SERVER then return end
 
 ENT.Model = "models/vj_hlr/weapons/w_fgrenade.mdl"
 ENT.RadiusDamage = 0
-ENT.RadiusDamageRadius = 500
 ENT.CollisionDecal = "VJ_HLR1_Scorch"
 ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/wep/grenade/grenade_hit1.wav", "vj_hlr/gsrc/wep/grenade/grenade_hit2.wav", "vj_hlr/gsrc/wep/grenade/grenade_hit3.wav"}
 ENT.SoundTbl_OnRemove = {"vj_hlr/gsrc/wep/fgrenade/flashbang-1.wav", "vj_hlr/gsrc/wep/fgrenade/flashbang-2.wav"}
