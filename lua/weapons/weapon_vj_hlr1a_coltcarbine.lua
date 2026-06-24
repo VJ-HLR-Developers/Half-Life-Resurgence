@@ -29,6 +29,7 @@ SWEP.Primary.Sound = {"vj_hlr/gsrc/npc/hgrunt_alpha/gr_mgun1.wav", "vj_hlr/gsrc/
 SWEP.Primary.DistantSound = "vj_hlr/gsrc/npc/hgrunt_alpha/gr_mgun_distant2.wav"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
+SWEP.DryFireSound = "vj_hlr/gsrc/wep/dryfire1.wav"
 
 -- Custom
 local validModels = {

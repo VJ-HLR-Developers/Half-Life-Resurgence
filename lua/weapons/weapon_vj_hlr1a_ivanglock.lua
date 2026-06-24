@@ -30,6 +30,7 @@ SWEP.Primary.DistantSound = "vj_hlr/gsrc/npc/ivan_alpha/pl_gun_distant2.wav"
 SWEP.PrimaryEffects_ShellType = "ShellEject"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
+SWEP.DryFireSound = "vj_hlr/gsrc/wep/dryfire1.wav"
 
 -- Custom
 local validModels = {
