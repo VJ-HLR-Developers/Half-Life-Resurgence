@@ -527,15 +527,6 @@ function ENT:OnThink()
 	self:HECU_OnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local greList = {"obj_vj_hlr1_grenade", "obj_vj_hlrof_grenade_flash"}
---
-function ENT:OnGrenadeAttack(status, overrideEnt, landDir)
-	-- Have Black Ops choose a normal or flash grenade
-	if status == "Init" && (self.HECU_Type == 4 or self:GetClass() == "npc_vj_hlrof_assassin_rgrunt") then
-		self.GrenadeAttackEntity = VJ.PICK(greList)
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo, hitgroup, status)
 	if status == "Init" then
 		return self.HECU_Rappelling -- Do not flinch when rappelling

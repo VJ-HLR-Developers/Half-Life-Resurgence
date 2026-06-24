@@ -32,6 +32,7 @@ ENT.MeleeAttackDamage = 15
 ENT.TimeUntilMeleeAttackDamage = false
 
 ENT.HasGrenadeAttack = true
+ENT.GrenadeAttackEntity = "obj_vj_hlr1_grenade"
 ENT.AnimTbl_GrenadeAttack = ACT_RANGE_ATTACK2
 ENT.GrenadeAttackAttachment = "grenadehand"
 ENT.GrenadeAttackThrowTime = 0.4
@@ -188,15 +189,6 @@ function ENT:OnFireBullet(data)
 		self.BOA_ShotsSinceRun = 0
 		self.BOA_NextJumpT = curTime + math.Rand(2, 4)
 		self.BOA_NextRunT = curTime + math.Rand(4, 6)
-	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-local greList = {"obj_vj_hlr1_grenade", "obj_vj_hlrof_grenade_flash"}
---
-function ENT:OnGrenadeAttack(status, overrideEnt, landDir)
-	-- Choose a normal or flash grenade
-	if status == "Init" then
-		self.GrenadeAttackEntity = VJ.PICK(greList)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
