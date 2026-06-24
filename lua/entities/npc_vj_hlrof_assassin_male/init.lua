@@ -9,7 +9,6 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/opfor/massn.mdl"
 ENT.VJ_NPC_Class = {"CLASS_BLACKOPS"}
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2, ACT_MELEE_ATTACK_SWING}
-ENT.GrenadeAttackEntity = "obj_vj_hlrof_grenade_flash"
 ENT.HasPainSounds = false
 ENT.HasDeathSounds = false
 
