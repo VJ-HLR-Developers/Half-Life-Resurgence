@@ -113,7 +113,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			local ent = ents.Create(self.Nest_SpawnEnt)
 			ent:SetPos(myPos)
 			ent:SetAngles(self:GetAngles())
-			ent:SetVelocity(self:GetUp()*math.Rand(250, 350) + self:GetRight()*math.Rand(-100, 100) + self:GetForward()*math.Rand(-100, 100))
+			ent:SetVelocity(self:GetUp() * math.Rand(250, 350) + self:GetRight()*math.Rand(-100, 100) + self:GetForward() * math.Rand(-100, 100))
 			ent:Spawn()
 			ent:Activate()
 			ent.VJ_NPC_Class = self.VJ_NPC_Class

@@ -73,7 +73,6 @@ function ENT:ChangeMode(mode)
 	if mode == 0 then -- Ground
 		self.Stuka_LandingType = 0
 		self.Stuka_LandingPos = nil
-		self.AnimTbl_IdleStand = {ACT_IDLE}
 		self:PlayAnim(ACT_LAND, true, false, false)
 		timer.Simple(VJ.AnimDurationEx(self, ACT_LAND, false), function()
 			if IsValid(self) then
@@ -90,7 +89,6 @@ function ENT:ChangeMode(mode)
 	elseif mode == 1 then -- Air
 		self.Stuka_LandingType = 0
 		self.Stuka_LandingPos = nil
-		self.AnimTbl_IdleStand = {ACT_HOVER}
 		self:PlayAnim(lastMode == 2 && ACT_SPRINT or ACT_LEAP, true, false, false)
 		timer.Simple(VJ.AnimDurationEx(self, lastMode == 2 && ACT_SPRINT or ACT_LEAP, false), function()
 			if IsValid(self) then
@@ -103,14 +101,13 @@ function ENT:ChangeMode(mode)
 				self:SetMaxYawSpeed(20)
 				self.TurningSpeed = 20
 				if lastMode == 2 then
-					self:SetPos(self:GetPos() +Vector(0, 0, -35))
+					self:SetPos(self:GetPos() + Vector(0, 0, -35))
 				end
 			end
 		end)
 	elseif mode == 2 then -- Ceiling
 		self.Stuka_LandingType = 0
 		self.Stuka_LandingPos = nil
-		self.AnimTbl_IdleStand = {ACT_CROUCHIDLE}
 		self:PlayAnim(ACT_CROUCH, true, false, false)
 		self:SetMaxYawSpeed(0)
 		self.TurningSpeed = 0
@@ -146,6 +143,21 @@ function ENT:OnInput(key, activator, caller, data)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:TranslateActivity(act)
+	-- Idle animations
+	local mode = self.Stuka_Mode -- 0 = Ground, 1 = Air, 2 = Ceiling
+	if act == ACT_IDLE then
+		/*if mode == 0 then -- Not needed since ACT_IDLE is the default
+			return ACT_IDLE*/
+		if mode == 1 then
+			return ACT_HOVER
+		elseif mode == 2 then
+			return ACT_CROUCHIDLE
+		end
+	end
+	return self.BaseClass.TranslateActivity(self, act)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HandleModeChanging(mode, pos, cont)
 	if mode == 1 && CurTime() > self.Stuka_ModeChangeT && (!IsValid(cont) or IsValid(cont) && cont:KeyDown(IN_JUMP)) then
 		if self.Stuka_LandingType == 0 && self.Stuka_LandingPos == nil then
@@ -164,7 +176,7 @@ function ENT:HandleModeChanging(mode, pos, cont)
 			local tr = util.TraceLine({start = pos, endpos = pos +Vector(0, 0, (landType == 1 && -35 or 75)), filter = self})
 			if tr.Hit /*&& tr.HitPos:Distance(pos) <= 35*/ then
 				if landType == 2 then
-					self:SetPos(tr.HitPos +tr.HitNormal *35)
+					self:SetPos(tr.HitPos +tr.HitNormal * 35)
 				end
 				self:ChangeMode(landType == 1 && 0 or 2)
 			end
@@ -178,7 +190,7 @@ function ENT:OnThink()
 	local cont = self.VJ_TheController
 	local ene = self:GetEnemy()
 	local pos = self:GetPos()
-	local waypoint = pos + self:GetVelocity():Angle():Forward()*50
+	local waypoint = pos + self:GetVelocity():Angle():Forward() * 50
 	local mode = self.Stuka_Mode -- 0 = Ground, 1 = Air, 2 = Ceiling
 	if mode == 1 then
 		self.Stuka_FlyAnimation = pos.z <= waypoint.z && ACT_FLY or ACT_GLIDE

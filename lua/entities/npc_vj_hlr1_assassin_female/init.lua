@@ -149,7 +149,7 @@ function ENT:OnThink()
 	elseif !self.BOA_ForceJumpShoot && self:GetVelocity().z < 0 then
 		local flyAct = VJ.SequenceToActivity(self, "fly_attack")
 		self:SetIdealActivity(flyAct)
-		self.AnimTbl_WeaponAttack = {flyAct}
+		self.AnimTbl_WeaponAttack = flyAct
 		self.BOA_ForceJumpShoot = true
 		self.BOA_OffGround = true
 	end

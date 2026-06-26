@@ -215,7 +215,7 @@ function ENT:Sentry_Activate()
 	else
 		self.Sentry_SpunUp = true
 	end
-	VJ.EmitSound(self, {"vj_hlr/gsrc/npc/turret/tu_alert.wav"}, 75, 100)
+	VJ.EmitSound(self, "vj_hlr/gsrc/npc/turret/tu_alert.wav", 75, 100)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)

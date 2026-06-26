@@ -113,12 +113,12 @@ function ENT:OnRangeAttack(status, enemy)
 		local myUp = self:GetUp()
 
 		-- Tsakh --------------------------
-		local tsakhSpawn = myPos + myUp*45 + myRight*20
+		local tsakhSpawn = myPos + myUp * 45 + myRight * 20
 		local tsakhLocations = {
-			myPos + myRight*math.Rand(150, 500) + myUp*-200,
-			myPos + myRight*math.Rand(150, 500) + myUp*-200 + myForward*-math.Rand(150, 500),
-			myPos + myRight*math.Rand(150, 500) + myUp*-200 + myForward*math.Rand(150, 500),
-			myPos + myRight*math.Rand(1, 150) + myUp*200 + myForward*math.Rand(-100, 100),
+			myPos + myRight * math.Rand(150, 500) + myUp * -200,
+			myPos + myRight * math.Rand(150, 500) + myUp * -200 + myForward * -math.Rand(150, 500),
+			myPos + myRight * math.Rand(150, 500) + myUp * -200 + myForward * math.Rand(150, 500),
+			myPos + myRight * math.Rand(1, 150) + myUp * 200 + myForward * math.Rand(-100, 100),
 		}
 		for i = 1, 4 do
 			local randTime = math.Rand(0, 0.6)
@@ -134,12 +134,12 @@ function ENT:OnRangeAttack(status, enemy)
 			end)
 		end
 		-- Ach --------------------------
-		local achSpawn = myPos + myUp*45 + myRight*-20
+		local achSpawn = myPos + myUp * 45 + myRight * -20
 		local achLocations = {
-			myPos + myRight*-math.Rand(150, 500) + myUp*-200,
-			myPos + myRight*-math.Rand(150, 500) + myUp*-200 + myForward*-math.Rand(150, 500),
-			myPos + myRight*-math.Rand(150, 500) + myUp*-200 + myForward*math.Rand(150, 500),
-			myPos + myRight*-math.Rand(1, 150) + myUp*200 + myForward*math.Rand(-100, 100),
+			myPos + myRight * -math.Rand(150, 500) + myUp * -200,
+			myPos + myRight * -math.Rand(150, 500) + myUp * -200 + myForward * -math.Rand(150, 500),
+			myPos + myRight * -math.Rand(150, 500) + myUp * -200 + myForward * math.Rand(150, 500),
+			myPos + myRight * -math.Rand(1, 150) + myUp * 200 + myForward * math.Rand(-100, 100),
 		}
 		for i = 1, 4 do
 			local randTime = math.Rand(0, 0.6)
