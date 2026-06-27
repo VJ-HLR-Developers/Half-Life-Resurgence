@@ -67,6 +67,7 @@ function ENT:OnThinkActive()
 						return
 					end
 					self:PlayAnim("store_torch", true, false)
+					timer.Simple(3, function() if IsValid(self) then self:StopParticles() self:SetBodygroup(1, 0) end end) -- Failsafe timer if interrupted
 				end})
 			end})
 		end
