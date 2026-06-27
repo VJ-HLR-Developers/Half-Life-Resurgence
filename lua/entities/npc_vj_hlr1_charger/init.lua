@@ -209,7 +209,7 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 		self:PlayAnim(ACT_CROUCH, true, false, true, 0, {OnFinish = function(interrupted, anim)
 			if interrupted then return end
 		end})
-    end
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjPos(projectile)

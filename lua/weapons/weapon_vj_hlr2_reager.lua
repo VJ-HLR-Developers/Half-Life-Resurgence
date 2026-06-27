@@ -34,29 +34,29 @@ SWEP.WorldModel_CustomPositionAngle = Vector(-10, 0, 180)
 SWEP.WorldModel_CustomPositionOrigin = Vector(-1, 8, 0.5)
 ---------------------------------------------------------------------------------------------------------------------------------------------
 if CLIENT then
-    if EmissiveSys then
-        EmissiveSys:Add("models/hl_resurgence/hl2/weapons/reager",{
-            Brightness=1,
-            Mask="models/hl_resurgence/hl2/weapons/reager_i"
-        })
+	if EmissiveSys then
+		EmissiveSys:Add("models/hl_resurgence/hl2/weapons/reager", {
+			Brightness = 1,
+			Mask = "models/hl_resurgence/hl2/weapons/reager_i"
+		})
 	end
 
-	local glowVecOffset = Vector(0,0,0.1)
+	local glowVecOffset = Vector(0, 0, 0.1)
 	local glowMat = Material("sprites/light_glow02_add")
 	function SWEP:PostDrawViewModel(vm, wep, ply)
 		if !IsValid(vm) then return end
 
 		cam.Start3D(EyePos(), EyeAngles())
 			render.SetMaterial(glowMat)
-			local remainingAmmo = self:Clip1() /self.Primary.ClipSize
-			local pulse = 0.75 +math.sin(CurTime() *(4 +(1 -remainingAmmo) ^2 *20)) *0.25
-			local col = Color(255, 247, 134, 180 *pulse)
-			for i = 1,math.max(1,math.ceil(remainingAmmo *10)) do
+			local remainingAmmo = self:Clip1() / self.Primary.ClipSize
+			local pulse = 0.75 + math.sin(CurTime() * (4 + (1 -remainingAmmo) ^ 2 * 20)) * 0.25
+			local col = Color(255, 247, 134, 180 * pulse)
+			for i = 1, math.max(1, math.ceil(remainingAmmo * 10)) do
 				local attID = vm:LookupAttachment("light" .. i)
 				if !attID or attID <= 0 then continue end
 				local att = vm:GetAttachment(attID)
 				if !att then continue end
-				render.DrawSprite(att.Pos +glowVecOffset,5 *pulse,5 *pulse,col)
+				render.DrawSprite(att.Pos + glowVecOffset, 5 * pulse, 5 * pulse, col)
 			end
 		cam.End3D()
 	end
@@ -80,7 +80,7 @@ function SWEP:Init()
 	beam:SetOrigin(self:GetAttachment(1).Pos)
 	beam:SetEntity(self)
 	beam:SetAttachment(1)
-	util.Effect("VJ_HLR_Tracer_Reager",beam)
+	util.Effect("VJ_HLR_Tracer_Reager", beam)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnThink()
@@ -101,7 +101,7 @@ function SWEP:OnThink()
 	if !IsValid(self.Owner) then return end
 	local targetPos
 	if self.Owner:IsNPC() && IsValid(self.Owner:GetEnemy()) then
-		targetPos = self.Owner:GetEnemy():GetPos() +self.Owner:GetEnemy():OBBCenter()
+		targetPos = self.Owner:GetEnemy():GetPos() + self.Owner:GetEnemy():OBBCenter()
 	else
 		local tr = util.TraceLine({
 			start = self.Owner:GetShootPos(),
@@ -128,7 +128,7 @@ function SWEP:OnPrimaryAttack(status, statusData)
 	if status == "Init" then
 		if CLIENT then return end
 
-		self.NextStopFireLoop = CurTime() +0.1
+		self.NextStopFireLoop = CurTime() + 0.1
 		self.FireLoop1 = CreateSound(self, "vj_hlr/src/wep/reager/reager_fire_loop.wav")
 		self.FireLoop1:SetSoundLevel(80)
 		self.FireLoop2 = CreateSound(self, "ambient/levels/citadel/zapper_ambient_loop1.wav")
@@ -138,15 +138,15 @@ function SWEP:OnPrimaryAttack(status, statusData)
 		self:SetDrawLaser(true)
 		self.DidStopFireLoops = false
 
-		-- sound.Play("vj_hlr/src/wep/reager/reager_hit" .. math.random(1,3) .. ".wav",self:GetLaserHitPos(),75)
-		-- VJ.EmitSound(self,"vj_hlr/src/wep/reager/reager_fire_solo.wav",75)
-		VJ.ApplyRadiusDamage(self.Owner,self.Owner,self:GetLaserHitPos(),20,5,DMG_PLASMA,true,true)
+		-- sound.Play("vj_hlr/src/wep/reager/reager_hit" .. math.random(1, 3) .. ".wav", self:GetLaserHitPos(), 75)
+		-- VJ.EmitSound(self, "vj_hlr/src/wep/reager/reager_fire_solo.wav", 75)
+		VJ.ApplyRadiusDamage(self.Owner, self.Owner, self:GetLaserHitPos(), 20, 5, DMG_PLASMA, true, true)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnReload(s)
 	if s == "Start" then
-		timer.Simple(1.4,function()
+		timer.Simple(1.4, function()
 			if IsValid(self) then
 				self:EmitSound("vj_hlr/src/wep/reager/reager_reload_end.wav", 60, 100)
 			end
