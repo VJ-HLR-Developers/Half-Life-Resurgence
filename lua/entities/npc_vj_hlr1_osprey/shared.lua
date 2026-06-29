@@ -18,7 +18,7 @@ if CLIENT then
 			if lvl > 0 then
 				local emitter = ParticleEmitter(self:GetPos())
 				local smoke1 = emitter:Add("vj_hl/sprites/steam1", self:GetAttachment(self:LookupAttachment("engine_left")).Pos)
-				smoke1:SetVelocity(self:GetUp()*100 + VectorRand(-30, 30))
+				smoke1:SetVelocity(self:GetUp() * 100 + VectorRand(-30, 30))
 				smoke1:SetDieTime(2)
 				smoke1:SetStartSize(50)
 				smoke1:SetEndSize(50 + math.random(0, 9))
@@ -26,7 +26,7 @@ if CLIENT then
 				smoke1:SetEndAlpha(0)
 				if lvl == 2 then
 					local smoke2 = emitter:Add("vj_hl/sprites/steam1", self:GetAttachment(self:LookupAttachment("engine_right")).Pos)
-					smoke2:SetVelocity(self:GetUp()*100 + VectorRand(-30, 30))
+					smoke2:SetVelocity(self:GetUp() * 100 + VectorRand(-30, 30))
 					smoke2:SetDieTime(2)
 					smoke2:SetStartSize(50)
 					smoke2:SetEndSize(50 + math.random(0, 9))
