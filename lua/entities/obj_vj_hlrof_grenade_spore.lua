@@ -57,8 +57,9 @@ function ENT:OnCollision(data, phys)
 		self:PlaySound("OnCollide")
 	end
 
+	-- Don't bounce when hitting a living thing
 	local ent = data.HitEntity
-	if IsValid(ent) && (ent:IsNPC() or ent:IsPlayer()) then
+	if IsValid(ent) && ent.VJ_ID_Living then
 		self:OnDestroy()
 	end
 end
