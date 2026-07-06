@@ -59,6 +59,7 @@ ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_H
 ENT.DisableFootStepSoundTimer = true
 
 ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/pl_step1.wav", "vj_hlr/gsrc/pl_step2.wav", "vj_hlr/gsrc/pl_step3.wav", "vj_hlr/gsrc/pl_step4.wav"}
+ENT.SoundTbl_MeleeAttackExtra = {"vj_hlr/gsrc/wep/crowbar/cbar_hitbod1.wav", "vj_hlr/gsrc/wep/crowbar/cbar_hitbod2.wav", "vj_hlr/gsrc/wep/crowbar/cbar_hitbod3.wav"}
 ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr/gsrc/npc/zombie/claw_miss2.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/hgrunt/gr_die1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_die2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_die3.wav"}
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/hgrunt/gr_pain1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_pain2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_pain3.wav", "vj_hlr/gsrc/npc/hgrunt/gr_pain4.wav", "vj_hlr/gsrc/npc/hgrunt/gr_pain5.wav"}
