@@ -3,8 +3,8 @@
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-EFFECT.MainMat = Material("effects/bluelaser1")
-EFFECT.SecondaryMat = Material("effects/beam_nocolor")
+EFFECT.MainMat = Material("effects/blueblacklargebeam")
+EFFECT.SecondaryMat = Material("vj_base/sprites/trail")
 EFFECT.WarpMat = Material("effects/energy_swave_warp2")
 EFFECT.ImpactMat = Material("effects/energy_flare_03_nocolor")
 
@@ -122,11 +122,14 @@ function EFFECT:Render()
 	-- render.DrawBeam(self.StartPos,self.EndPos,math.Rand(8,12),math.Rand(0,1),math.Rand(0,1) +((self.StartPos -self.EndPos):Length() /128),Color(255,255,255,255))
 
 	render.SetMaterial(self.MainMat)
-	render.DrawBeam(self.StartPos,self.EndPos,math.Rand(18,24),math.Rand(0,1),math.Rand(0,1) +((self.StartPos -self.EndPos):Length() /128),Color(112,238,255,200))
+	render.DrawBeam(self.StartPos,self.EndPos,math.Rand(8,12),math.Rand(0,1),math.Rand(0,1) +((self.StartPos -self.EndPos):Length() /128),Color(112,238,255,200))
 
 	render.SetMaterial(self.SecondaryMat)
 	render.DrawBeam(self.StartPos,self.EndPos,math.Rand(8,12),math.Rand(0,1),math.Rand(0,1) +((self.StartPos -self.EndPos):Length() /128),Color(255,255,255,255))
 
+	-- render.SetMaterial(self.WarpMat)
+	-- render.DrawSprite(self.EndPos,math.Rand(16,24),math.Rand(24,36),Color(255,255,255))
+
 	render.SetMaterial(self.ImpactMat)
-	render.DrawSprite(self.EndPos,math.Rand(24,36),math.Rand(24,36),Color(188,247,255))
+	render.DrawSprite(self.EndPos,math.Rand(24,36),math.Rand(24,36),Color(118,191,255))
 end
