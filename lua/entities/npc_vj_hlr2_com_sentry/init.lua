@@ -139,7 +139,7 @@ function ENT:OnThink()
 	-- Turning sound
 	local parameter = self:GetPoseParameter("aim_yaw")
 	if parameter != self.Turret_CurrentParameter then
-		self.TurretSD_Turning:PlayEx(1, 100)
+		self.TurretSD_Turning:Play()
 	else
 		VJ.STOPSOUND(self.TurretSD_Turning)
 	end
@@ -264,13 +264,13 @@ function ENT:Turret_Activate()
 	end)
 	self:PlayAnim("deploy", true, false)
 	VJ.EmitSound(self, "npc/turret_floor/deploy.wav", 70, 100)
-	self.TurretSD_Alarm:PlayEx(1, 100)
+	self.TurretSD_Alarm:Play()
 	timer.Simple(0.8, function() VJ.STOPSOUND(self.TurretSD_Alarm) end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttack(status, enemy)
+	-- Only fire if we have LOS and not in stand down mode!
 	if status == "PreInit" then
-		-- Only fire if we have LOS and not in stand down mode!
 		return self.Turret_StandDown or !self.Turret_HasLOS
 	end
 end

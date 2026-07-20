@@ -102,12 +102,12 @@ function ENT:Init()
 	self.GW_BE_Orb:SetModel("models/hunter/plates/plate.mdl")
 	self.GW_BE_Orb:SetParent(self)
 	self.GW_BE_Orb:Fire("SetParentAttachment", "orb")
+	self.GW_BE_Orb:SetActive(false)
 	self.GW_BE_Orb:Spawn()
 	self.GW_BE_Orb:SetNoDraw(true)
 	self.GW_BE_Orb:DrawShadow(false)
 	self.GW_BE_Orb.VJ_NPC_Class = self.VJ_NPC_Class
 	self:SetRelationshipMemory(self.GW_BE_Orb, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
-	self.GW_BE_Orb:AddFlags(FL_NOTARGET)
 	self:DeleteOnRemove(self.GW_BE_Orb)
 
 	-- Eye Lights
@@ -224,11 +224,11 @@ function ENT:OnInput(key, activator, caller, data)
 	elseif key == "open_botheyes" then
 		self.GW_EyeLightL:Fire("TurnOn")
 		self.GW_EyeLightR:Fire("TurnOn")
-		self.GW_BE_EyeL:RemoveFlags(FL_NOTARGET)
-		self.GW_BE_EyeR:RemoveFlags(FL_NOTARGET)
+		self.GW_BE_EyeL:SetActive(true)
+		self.GW_BE_EyeR:SetActive(true)
 	elseif key == "spawn_portal" then
 		self.GW_OrbSprite:Fire("HideSprite")
-		self.GW_BE_Orb:AddFlags(FL_NOTARGET)
+		self.GW_BE_Orb:SetActive(false)
 		-- Shock trooper spawner
 		local at = self:GetAttachment(self:LookupAttachment("orb"))
 		local sprite = ents.Create("obj_vj_hlrof_gw_spawner")
@@ -338,11 +338,11 @@ function ENT:GW_OrbOpenReset()
 	self:PlayAnim("pain_4", true, false, false, 0, {}, function(sched)
 		sched.RunCode_OnFinish = function() -- Just a backup in case event fails
 			self.GW_OrbSprite:Fire("HideSprite")
-			self.GW_BE_Orb:AddFlags(FL_NOTARGET)
+			self.GW_BE_Orb:SetActive(false)
 			self.GW_EyeLightL:Fire("TurnOn")
 			self.GW_EyeLightR:Fire("TurnOn")
-			self.GW_BE_EyeL:RemoveFlags(FL_NOTARGET)
-			self.GW_BE_EyeR:RemoveFlags(FL_NOTARGET)
+			self.GW_BE_EyeL:SetActive(true)
+			self.GW_BE_EyeR:SetActive(true)
 		end
 	end)
 	self:SetState()
@@ -358,10 +358,10 @@ function ENT:GW_EyeHealthCheck()
 		if !self.GW_OrbOpen then
 			self.GW_EyeLightL:Fire("TurnOff")
 			self.GW_EyeLightR:Fire("TurnOff")
-			self.GW_BE_EyeL:AddFlags(FL_NOTARGET)
-			self.GW_BE_EyeR:AddFlags(FL_NOTARGET)
+			self.GW_BE_EyeL:SetActive(false)
+			self.GW_BE_EyeR:SetActive(false)
 			self.GW_OrbSprite:Fire("ShowSprite")
-			self.GW_BE_Orb:RemoveFlags(FL_NOTARGET)
+			self.GW_BE_Orb:SetActive(true)
 			self.GW_OrbOpen = true
 			self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
 			self:PlayAnim("pain_1", true, false)
@@ -389,12 +389,12 @@ function ENT:GW_EyeHealthCheck()
 		end
 	elseif r <= 0 then
 		self.GW_EyeLightR:Fire("TurnOff")
-		self.GW_BE_EyeR:AddFlags(FL_NOTARGET)
+		self.GW_BE_EyeR:SetActive(false)
 		self:PlaySoundSystem("Pain", "vj_hlr/gsrc/npc/geneworm/geneworm_shot_in_eye.wav")
 		self:SetSkin(2)
 	elseif l <= 0 then
 		self.GW_EyeLightL:Fire("TurnOff")
-		self.GW_BE_EyeL:AddFlags(FL_NOTARGET)
+		self.GW_BE_EyeL:SetActive(false)
 		self:PlaySoundSystem("Pain", "vj_hlr/gsrc/npc/geneworm/geneworm_shot_in_eye.wav")
 		self:SetSkin(1)
 	end

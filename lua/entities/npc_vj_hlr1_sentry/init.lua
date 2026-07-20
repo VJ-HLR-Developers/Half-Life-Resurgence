@@ -105,11 +105,11 @@ function ENT:OnThink()
 	if parameter != self.Sentry_CurrentYawParameter then
 		self.CurrentSentryTurnSound = CreateSound(self, "vj_hlr/gsrc/npc/turret/motor_loop_.wav")
 		self.CurrentSentryTurnSound:SetSoundLevel(70)
-		self.CurrentSentryTurnSound:PlayEx(1, 100)
+		self.CurrentSentryTurnSound:Play()
 		if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
 			self.CurrentSentryTurnSound2 = CreateSound(self, "vj_hlr/gsrc/npc/turret/tu_active2.wav")
 			self.CurrentSentryTurnSound2:SetSoundLevel(70)
-			self.CurrentSentryTurnSound2:PlayEx(1, 100)
+			self.CurrentSentryTurnSound2:Play()
 		end
 	else
 		VJ.STOPSOUND(self.CurrentSentryTurnSound)

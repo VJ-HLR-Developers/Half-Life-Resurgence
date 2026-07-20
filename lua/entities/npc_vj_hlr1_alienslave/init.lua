@@ -61,7 +61,7 @@ ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bulle
 ENT.FootstepSoundLevel = 60
 
 ENT.MainSoundPitch = 100
-ENT.RangeAttackPitch = VJ.SET(130, 160)
+ENT.RangeAttackSoundPitch = VJ.SET(130, 160)
 
 -- Custom
 ENT.Vort_RunAway = false

@@ -161,7 +161,7 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 				local anim, animDur = self:PlayAnim(ACT_MELEE_ATTACK1, false, 0, false)
 				VJ.EmitSound(self, sdChargeHit, 80)
 				local ent = tr.Entity
-				local isProp = IsValid(ent) && VJ.IsProp(ent) or false
+				local isProp = IsValid(ent) && ent.VJ_ID_Prop or false
 				if IsValid(ent) && (isProp or self:CheckRelationship(ent) == D_HT) then
 					if isProp then
 						local phys = ent:GetPhysicsObject()

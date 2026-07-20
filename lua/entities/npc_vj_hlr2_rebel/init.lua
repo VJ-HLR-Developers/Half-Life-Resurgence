@@ -369,7 +369,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
 	if math.random(1, 2) == 1 && ent:IsNPC() then
-		//print(ent:Classify())
 		if ent.VJ_ID_Headcrab then
 			self:PlaySoundSystem("Alert", {"vo/npc/" .. self.Human_SdFolder .. "/headcrabs01.wav", "vo/npc/" .. self.Human_SdFolder .. "/headcrabs02.wav", "vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_head01.wav", "vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_head02.wav", "vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_head05.wav", "vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_head07.wav", "vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_head08.wav", "vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_rollers02.wav", "vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_rollers03.wav"})
 			return
@@ -381,7 +380,7 @@ function ENT:OnAlert(ent)
 			if self.Human_Gender == HUMAN_GENDER_MALE then table.insert(tbl2, "vj_hlr/src/npc/ep2/outland_12/reb1_lastwave06.wav") table.insert(tbl2, "vj_hlr/src/npc/ep2/outland_12/reb1_lastwave07.wav") end
 			self:PlaySoundSystem("Alert", tbl2)
 			return
-		elseif ent.VJ_ID_Police or ent:Classify() == CLASS_METROPOLICE then
+		elseif ent.VJ_ID_Police then
 			self:PlaySoundSystem("Alert", {"vo/npc/" .. self.Human_SdFolder .. "/civilprotection01.wav", "vo/npc/" .. self.Human_SdFolder .. "/civilprotection02.wav", "vo/npc/" .. self.Human_SdFolder .. "/cps01.wav", "vo/npc/" .. self.Human_SdFolder .. "/cps02.wav"})
 			return
 		elseif ent:GetClass() == "npc_strider" or ent:GetClass() == "npc_vj_hlr2_com_strider" then

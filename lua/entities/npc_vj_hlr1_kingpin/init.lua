@@ -138,9 +138,9 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 		//print("SEARCH ----")
 		local pTbl = {} -- Table of props that it found
 		for _, v in ipairs(ents.FindInSphere(self:GetPos(), 600)) do
-			if VJ.IsProp(v) && self:Visible(v) && enemy:Visible(v) then
+			if v.VJ_ID_Prop && self:Visible(v) && enemy:Visible(v) then
 				local phys = v:GetPhysicsObject()
-				if IsValid(phys) && phys:GetMass() <= 2000 && v.BeingControlledByKingPin != true then
+				if IsValid(phys) && phys:GetMass() <= 2000 && !v.BeingControlledByKingPin then
 					//print("Prop -", v)
 					pTbl[#pTbl + 1] = v
 				end
