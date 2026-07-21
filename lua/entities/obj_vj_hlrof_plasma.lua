@@ -116,5 +116,4 @@ function ENT:OnDestroy(data, phys)
 	expLight:Activate()
 	expLight:Fire("TurnOn", "", 0)
 	expLight:Fire("Kill", "", 0.1)
-	//self:DeleteOnRemove(expLight)
 end

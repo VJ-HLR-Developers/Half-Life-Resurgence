@@ -5,13 +5,13 @@ include("shared.lua")
 	No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_hlr/hl1/tank_cannon_new.mdl"
+ENT.Model = "models/vj_hlr/hl1/abrams_gun.mdl"
 ENT.StartHealth = 0
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.HasDeathCorpse = false
 
 -- Tank Base
-ENT.Tank_SoundTbl_Turning = "vj_hlr/gsrc/npc/tanks/abrams_turret_rot.wav"
+ENT.Tank_SoundTbl_Turning = "vj_hlr/gsrc/npc/tanks/bradley_turret_rot.wav"
 ENT.Tank_SoundTbl_ReloadShell = "vj_hlr/gsrc/npc/tanks/tank_reload.wav"
 ENT.Tank_SoundTbl_FireShell = "vj_hlr/gsrc/npc/tanks/shoot.wav"
 
