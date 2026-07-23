@@ -32,22 +32,24 @@ function ENT:Tank_GunnerSpawnPosition()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_UpdateIdleParticles()
+	local spawnPos = self:GetPos() + self:GetForward() * -130 + self:GetUp() * 45
 	local effectData = EffectData()
 	effectData:SetScale(2)
 	effectData:SetEntity(self)
-	effectData:SetOrigin(self:GetPos() + self:GetForward() * -130 + self:GetRight() * 25  + self:GetUp() * 45)
+	effectData:SetOrigin(spawnPos + self:GetRight() * 25)
 	util.Effect("VJ_VehicleExhaust", effectData, true, true)
-	effectData:SetOrigin(self:GetPos() + self:GetForward() * -130 + self:GetRight() * -28 + self:GetUp() * 45)
+	effectData:SetOrigin(spawnPos + self:GetRight() * -28)
 	util.Effect("VJ_VehicleExhaust", effectData, true, true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_UpdateMoveParticles()
+	local spawnPos = self:GetPos() + self:GetForward() * -115
 	local effectData = EffectData()
 	effectData:SetScale(1)
 	effectData:SetEntity(self)
-	effectData:SetOrigin(self:GetPos() + self:GetForward() * -115 + self:GetRight() * 58)
+	effectData:SetOrigin(spawnPos + self:GetRight() * 58)
 	util.Effect("VJ_VehicleMove", effectData, true, true)
-	effectData:SetOrigin(self:GetPos() + self:GetForward() * -115 + self:GetRight() * -58)
+	effectData:SetOrigin(spawnPos + self:GetRight() * -58)
 	util.Effect("VJ_VehicleMove", effectData, true, true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
