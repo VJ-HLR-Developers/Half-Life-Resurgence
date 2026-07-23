@@ -6,7 +6,7 @@
 EFFECT.MainMat = Material("effects/blueblacklargebeam")
 EFFECT.SecondaryMat = Material("vj_base/sprites/trail")
 EFFECT.WarpMat = Material("effects/energy_swave_warp2")
-EFFECT.ImpactMat = Material("effects/energy_flare_03_nocolor")
+EFFECT.ImpactMat = Material("effects/energyball") // Material("effects/energy_flare_03_nocolor")
 
 local function getStartEnt(ent)
 	if !IsValid(ent) then return end
@@ -44,7 +44,7 @@ function EFFECT:Init(data)
 
 	self.HitPos = self.EndPos -self.StartPos
 	self.Normal = self.HitPos:GetNormalized()
-	self:SetRenderBoundsWS(self.StartPos,self.EndPos)
+	self:SetRenderBoundsWS(self.StartPos, self.EndPos)
 	self.NextEffectSoundT = 0
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -71,16 +71,16 @@ function EFFECT:Think()
 	if tr.Hit then
 		self.Normal = tr.HitNormal
 		-- if tr.HitWorld then
-		-- 	util.Decal("FadingScorch",tr.HitPos +tr.HitNormal,tr.HitPos -tr.HitNormal)
+		-- 	util.Decal("FadingScorch", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
 		-- end
 		if CurTime() > self.NextEffectSoundT then
-			sound.Play("vj_hlr/src/wep/reager/reager_hit" .. math.random(1,3) .. ".wav",tr.HitPos,50)
-			self.NextEffectSoundT = CurTime() +0.15
+			sound.Play("vj_hlr/src/wep/reager/reager_hit" .. math.random(1,3) .. ".wav", tr.HitPos, 50)
+			self.NextEffectSoundT = CurTime() + 0.15
 		end
 		local Emitter = ParticleEmitter(self.EndPos)
 		for _ = 1, math.random(4, 7) do
 			local particle = Emitter:Add("effects/spark", self.EndPos)
-			particle:SetVelocity(VectorRand()*math.Rand(100, 350))
+			particle:SetVelocity(VectorRand() * math.Rand(100, 350))
 			particle:SetDieTime(math.Rand(0.1, 1))
 			particle:SetStartAlpha(200)
 			particle:SetEndAlpha(0)
@@ -95,19 +95,19 @@ function EFFECT:Think()
 			particle:SetEndLength(0.1)
 			particle:SetVelocityScale(true)
 			particle:SetCollide(true)
-			particle:SetColor(185,242,255)
+			particle:SetColor(185, 242, 255)
 		end
-		for _ = 1,8 do
-			local particle = Emitter:Add("effects/spark",self.EndPos)
-			particle:SetVelocity(math.Rand(325,425) *(self.Normal *VectorRand()):GetNormalized())
+		for _ = 1, 8 do
+			local particle = Emitter:Add("effects/spark", self.EndPos)
+			particle:SetVelocity(math.Rand(325, 425) * (self.Normal * VectorRand()):GetNormalized())
 			particle:SetDieTime(0.1)
 			particle:SetStartAlpha(255)
 			particle:SetStartSize(4)
 			particle:SetEndSize(0)
 			particle:SetStartLength(10)
 			particle:SetEndLength(0)
-			particle:SetColor(185,242,255)
-			particle:SetGravity(Vector(0,0,0))
+			particle:SetColor(185, 242, 255)
+			particle:SetGravity(Vector(0, 0, 0))
 			particle:SetAirResistance(15)
 			particle:SetCollide(false)
 			particle:SetBounce(0)
@@ -119,17 +119,17 @@ end
 function EFFECT:Render()
 	if !self.DoDraw then return end
 	-- render.SetMaterial(self.WarpMat)
-	-- render.DrawBeam(self.StartPos,self.EndPos,math.Rand(8,12),math.Rand(0,1),math.Rand(0,1) +((self.StartPos -self.EndPos):Length() /128),Color(255,255,255,255))
+	-- render.DrawBeam(self.StartPos, self.EndPos, math.Rand(8, 12), math.Rand(0, 1), math.Rand(0, 1) + ((self.StartPos - self.EndPos):Length() / 128), Color(255, 255, 255, 255))
 
 	render.SetMaterial(self.MainMat)
-	render.DrawBeam(self.StartPos,self.EndPos,math.Rand(8,12),math.Rand(0,1),math.Rand(0,1) +((self.StartPos -self.EndPos):Length() /128),Color(112,238,255,200))
+	render.DrawBeam(self.StartPos, self.EndPos, math.Rand(8, 12), math.Rand(0, 1), math.Rand(0, 1) + ((self.StartPos - self.EndPos):Length() / 128), Color(112, 238, 255, 200))
 
 	render.SetMaterial(self.SecondaryMat)
-	render.DrawBeam(self.StartPos,self.EndPos,math.Rand(8,12),math.Rand(0,1),math.Rand(0,1) +((self.StartPos -self.EndPos):Length() /128),Color(255,255,255,255))
+	render.DrawBeam(self.StartPos, self.EndPos, math.Rand(8, 12), math.Rand(0, 1), math.Rand(0, 1) + ((self.StartPos - self.EndPos):Length() / 128), Color(255, 255, 255, 255))
 
 	-- render.SetMaterial(self.WarpMat)
-	-- render.DrawSprite(self.EndPos,math.Rand(16,24),math.Rand(24,36),Color(255,255,255))
+	-- render.DrawSprite(self.EndPos, math.Rand(16, 24), math.Rand(24, 36), Color(255, 255, 255))
 
 	render.SetMaterial(self.ImpactMat)
-	render.DrawSprite(self.EndPos,math.Rand(24,36),math.Rand(24,36),Color(118,191,255))
+	render.DrawSprite(self.EndPos, math.Rand(24, 36), math.Rand(24, 36), Color(118, 191, 255))
 end
