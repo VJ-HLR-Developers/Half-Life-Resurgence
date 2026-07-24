@@ -42,8 +42,8 @@ VJ.AddNPC("Scientist", "npc_vj_hlr1_scientist", spawnCategory)
 -- Black Mesa Weaponry
 VJ.AddNPC("Black Mesa Ground Turret", "npc_vj_hlr1_gturret", spawnCategory)
 VJ.AddNPC("Black Mesa Ground Turret (Mini)", "npc_vj_hlr1_gturret_mini", spawnCategory)
-VJ.AddNPC("Black Mesa Ceiling Turret", "npc_vj_hlr1_cturret", spawnCategory, false, function(x) x.OnCeiling = true x.Offset = 0 end)
-VJ.AddNPC("Black Mesa Ceiling Turret (Mini)", "npc_vj_hlr1_cturret_mini", spawnCategory, false, function(x) x.OnCeiling = true x.Offset = 0 end)
+VJ.AddNPC("Black Mesa Ceiling Turret", "npc_vj_hlr1_cturret", spawnCategory, {OnCeiling = true, Offset = 0})
+VJ.AddNPC("Black Mesa Ceiling Turret (Mini)", "npc_vj_hlr1_cturret_mini", spawnCategory, {OnCeiling = true, Offset = 0})
 
 -- HECU
 VJ.AddNPC("Human Grunt", "npc_vj_hlr1_hgrunt", spawnCategory)
@@ -102,7 +102,7 @@ VJ.AddNPC("Panther Eye", "npc_vj_hlr1_panthereye", spawnCategory)
 VJ.AddNPC("Control Sphere", "npc_vj_hlr1_controlsphere", spawnCategory)
 VJ.AddNPC("Mr. Friendly", "npc_vj_hlr1_mrfriendly", spawnCategory)
 VJ.AddNPC("Nihilanth", "npc_vj_hlr1_nihilanth", spawnCategory)
-VJ.AddNPC("Barnacle", "npc_vj_hlr1_barnacle", spawnCategory, false, function(x) x.OnCeiling = true x.Offset = 0 end)
+VJ.AddNPC("Barnacle", "npc_vj_hlr1_barnacle", spawnCategory, {OnCeiling = true, Offset = 0})
 VJ.AddNPC("Xen Tree", "npc_vj_hlr1_xen_tree", spawnCategory)
 VJ.AddNPC("Xen Hair", "sent_vj_xen_hair", spawnCategory)
 VJ.AddNPC("Xen Spore (Large)", "sent_vj_xen_spore_large", spawnCategory)
@@ -112,7 +112,7 @@ VJ.AddNPC("Xen Plant Light", "sent_vj_xen_plant_light", spawnCategory)
 VJ.AddNPC("Xen Gasbag", "sent_vj_xen_gasbag", spawnCategory)
 VJ.AddNPC("Xen Crystal", "sent_vj_xen_crystal", spawnCategory)
 VJ.AddNPC("Xen Sentry Cannon", "npc_vj_hlr1_xen_cannon", spawnCategory)
-VJ.AddNPC("Xen Ceiling Turret", "npc_vj_hlr1_xen_turretc", spawnCategory, false, function(x) x.OnCeiling = true x.Offset = 0 end)
+VJ.AddNPC("Xen Ceiling Turret", "npc_vj_hlr1_xen_turretc", spawnCategory, {OnCeiling = true, Offset = 0})
 	-- Spawners
 	VJ.AddNPC("Portal (Xen)", "sent_vj_hlr_alientp", spawnCategory)
 	VJ.AddNPC("Portal (Race X)", "sent_vj_hlr_alientp_x", spawnCategory)
@@ -130,7 +130,7 @@ VJ.AddNPC("Xen Ceiling Turret", "npc_vj_hlr1_xen_turretc", spawnCategory, false,
 	VJ.AddNPC("Bullsquid (Dreamcast)", "npc_vj_hlrdc_bullsquid", spawnCategory)
 	VJ.AddNPC("Gargantua (Dreamcast)", "npc_vj_hlrdc_garg", spawnCategory)
 	VJ.AddNPC("Houndeye (Dreamcast)", "npc_vj_hlrdc_houndeye", spawnCategory)
-	VJ.AddNPC("Barnacle (Dreamcast)", "npc_vj_hlrdc_barnacle", spawnCategory, false, function(x) x.OnCeiling = true x.Offset = 0 end)
+	VJ.AddNPC("Barnacle (Dreamcast)", "npc_vj_hlrdc_barnacle", spawnCategory, {OnCeiling = true, Offset = 0})
 	VJ.AddNPC("Xen Tree (Dreamcast)", "npc_vj_hlrdc_xen_tree", spawnCategory)
 	-- Opposing Force
 	VJ.AddNPC("Zombie Security Guard", "npc_vj_hlrof_zombie_sec", spawnCategory)
@@ -226,6 +226,8 @@ VJ.AddNPC("Combine Sentry Gun", "npc_vj_hlr2_com_sentry", spawnCategory)
 	VJ.AddNPC_HUMAN("Civil Protection Elite", "npc_vj_hlr2b_com_civilp_elite", {"weapon_vj_smg1"}, spawnCategory) -- Class name should be changed
 
 spawnCategory = "Half-Life Resurgence"
+VJ.AddCategoryInfo(spawnCategory, {Icon = "games/16/hl2.png"})
+
 -- NPC Weapons
 VJ.AddNPCWeapon("VJ_Combine_Sniper", "weapon_vj_hlr2_csniper", spawnCategory)
 VJ.AddNPCWeapon("VJ_Combine_Reager", "weapon_vj_hlr2_reager", spawnCategory)
@@ -240,11 +242,10 @@ VJ.AddNPCWeapon("VJ_RPG_Resistance", "weapon_vj_hlr2_rpg", spawnCategory)
 	VJ.AddNPCWeapon("VJ_SniperRifle", "weapon_vj_hlr2b_sniper", spawnCategory)
 
 -- Player Weapons
-VJ.AddCategoryInfo(spawnCategory, {Icon = "games/16/hl2.png"})
-VJ.AddWeapon("Combine Sniper", "weapon_vj_hlr2_csniper", false, spawnCategory)
-VJ.AddWeapon("Alyx Gun", "weapon_vj_hlr2_alyxgun", false, spawnCategory)
-VJ.AddWeapon("Charge Bow", "weapon_vj_hlr2_chargebow", false, spawnCategory)
-VJ.AddWeapon("Resistance RPG", "weapon_vj_hlr2_rpg", false, spawnCategory)
+VJ.AddWeapon("Combine Sniper", "weapon_vj_hlr2_csniper", spawnCategory)
+VJ.AddWeapon("Alyx Gun", "weapon_vj_hlr2_alyxgun", spawnCategory)
+VJ.AddWeapon("Charge Bow", "weapon_vj_hlr2_chargebow", spawnCategory)
+VJ.AddWeapon("Resistance RPG", "weapon_vj_hlr2_rpg", spawnCategory)
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Decals ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -257,7 +258,7 @@ game.AddDecal("VJ_HLR1_Blood_Yellow_Large", {"vj_hl/decals/hl_bigyblood01", "vj_
 -- Spits
 game.AddDecal("VJ_HLR1_Spit_Acid", {"vj_hl/decals/spit1_green", "vj_hl/decals/spit2_green"}) // {"vj_hl/decals/spit1", "vj_hl/decals/spit2"}
 game.AddDecal("VJ_HLR1_Spit_Red", {"vj_hl/decals/spit1_red", "vj_hl/decals/spit2_red"})
-game.AddDecal("VJ_HLR1_Spit_Gonarch", {"vj_hl/decals/mommablob"}) // {"vj_hl/decals/gonarch"}
+game.AddDecal("VJ_HLR1_Spit_Gonarch", {"vj_hl/decals/mommablob"})
 -- Scorchs
 game.AddDecal("VJ_HLR1_Scorch", {"vj_hl/decals/scorch1", "vj_hl/decals/scorch2", "vj_hl/decals/scorch3"})
 game.AddDecal("VJ_HLR1_Scorch_Small", {"vj_hl/decals/smscorch1", "vj_hl/decals/smscorch2", "vj_hl/decals/smscorch3"})
@@ -289,8 +290,11 @@ VJ.AddParticle("particles/vj_hlr_goldsrc_blood.pcf", {
 	"vj_hlr_blood_boob_yellow",
 })
 VJ.AddParticle("particles/vj_hlr_goldsrc.pcf", {
-	"vj_hlr_spit_red_spawn", -- For Gnome
-	"vj_hlr_spit_acid_spawn", -- For Bullsquid
+	-- Gnome
+	"vj_hlr_spit_red_spawn",
+	-- Bullsquid
+	"vj_hlr_spit_acid_spawn",
+	-- Human Grunt Engineer
 	"vj_hlr_torch",
 	-- Drone
 	"vj_hlr_spit_drone",
@@ -317,7 +321,7 @@ VJ.AddParticle("particles/vj_hlr_goldsrc.pcf", {
 	"vj_hlr_shockroach_aura",
 	"vj_hlr_shockroach_bright",
 	"vj_hlr_shockroach_trail",
-	-- Spore
+	-- Race X Spore
 	"vj_hlr_spore",
 	"vj_hlr_spore_b",
 	"vj_hlr_spore_c",
@@ -468,7 +472,7 @@ function VJ.HLR1_Effect_Portal(pos, size, color, onSpawn)
 
 	sound.Play("vj_hlr/gsrc/fx/beamstart2.wav", pos, 85)
 	timer.Simple(0.5, function()
-		sound.Play("vj_hlr/gsrc/fx/beamstart4.wav", pos, 85) -- Play the spawn sound
+		sound.Play("vj_hlr/gsrc/fx/beamstart4.wav", pos, 85) -- Spawn sound
 		if onSpawn then onSpawn() end
 	end)
 	return spr
@@ -487,7 +491,6 @@ function VJ.HLR1_Effect_Explosion(pos, type, size, color)
 	spr:SetPos(pos)
 	spr:Spawn()
 	spr:Fire("Kill", "", 0.9)
-
 	sound.Play("vj_hlr/gsrc/wep/explosion/explode" .. math.random(1, 3) .. ".wav", pos, 150)
 	return spr
 end
@@ -498,20 +501,20 @@ local excludedMats = {
 	[MAT_BLOODYFLESH] = true,
 	[MAT_FLESH] = true,
 }
+--
 function VJ.HLR1_Effect_Impact(tr)
-	if !excludedMats[tr.MatType] then
-		local effectData = EffectData()
-		effectData:SetEntity(tr.Entity)
-		effectData:SetStart(tr.StartPos)
-		effectData:SetOrigin(tr.HitPos)
-		effectData:SetNormal(tr.HitNormal)
-		effectData:SetHitBox(tr.HitBox)
-		effectData:SetSurfaceProp(tr.SurfaceProps)
-		effectData:SetFlags(1)
-		util.Effect("Impact_GMOD", effectData)
-		util.Decal("VJ_HLR1_Impact", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
-		return true
-	end
+	if excludedMats[tr.MatType] then return end
+	local effectData = EffectData()
+	effectData:SetEntity(tr.Entity)
+	effectData:SetStart(tr.StartPos)
+	effectData:SetOrigin(tr.HitPos)
+	effectData:SetNormal(tr.HitNormal)
+	effectData:SetHitBox(tr.HitBox)
+	effectData:SetSurfaceProp(tr.SurfaceProps)
+	effectData:SetFlags(1)
+	util.Effect("Impact_GMOD", effectData)
+	util.Decal("VJ_HLR1_Impact", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
+	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function VJ.HLR_Weapon_CheckModel(wep, models)
@@ -530,13 +533,13 @@ end
 local defGibs_Yellow = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib6.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 local defGibs_Red = {"models/vj_hlr/gibs/flesh1.mdl", "models/vj_hlr/gibs/flesh2.mdl", "models/vj_hlr/gibs/flesh3.mdl", "models/vj_hlr/gibs/flesh4.mdl", "models/vj_hlr/gibs/hgib_b_bone.mdl", "models/vj_hlr/gibs/hgib_b_gib.mdl", "models/vj_hlr/gibs/hgib_guts.mdl", "models/vj_hlr/gibs/hgib_hmeat.mdl", "models/vj_hlr/gibs/hgib_lung.mdl", "models/vj_hlr/gibs/hgib_skull.mdl", "models/vj_hlr/gibs/hgib_legbone.mdl"}
 --
-function VJ.HLR_ApplyCorpseSystem(ent, corpse, gibTbl, extraOptions)
-	extraOptions = extraOptions or {} -- CollisionSound, ExpSound, Gibbable, CanBleed, ExtraGibs
+function VJ.HLR_ApplyCorpseSystem(ent, corpse, gibTbl, extra)
+	extra = extra or {} -- CollisionSound, ExpSound, Gibbable, CanBleed, ExtraGibs
 	corpse.HLR_Corpse = true
 	corpse.HLR_Corpse_Type = ent.BloodColor
 	if ent.HasBloodParticle then corpse.HLR_Corpse_Particle = ent.BloodParticle end
 	corpse.HLR_Corpse_Decal = ent.HasBloodDecal and VJ.PICK(ent.BloodDecal) or ""
-	corpse.HLR_Corpse_Gibbable = extraOptions.Gibbable != false
+	corpse.HLR_Corpse_Gibbable = extra.Gibbable != false
 	if !gibTbl then
 		if corpse.HLR_Corpse_Type == "Yellow" then
 			gibTbl = defGibs_Yellow
@@ -544,9 +547,9 @@ function VJ.HLR_ApplyCorpseSystem(ent, corpse, gibTbl, extraOptions)
 			gibTbl = defGibs_Red
 		end
 	end
-	if extraOptions.ExtraGibs then
+	if extra.ExtraGibs then
 		gibTbl = table.Copy(gibTbl) -- So Lua doesn't override the localized tables above
-		gibTbl = table.Add(gibTbl, extraOptions.ExtraGibs)
+		gibTbl = table.Add(gibTbl, extra.ExtraGibs)
 	end
 	-- Make corpses static like in GoldSrc
 	if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && ent.DeathCorpseEntityClass == "prop_vj_animatable" then
@@ -559,14 +562,15 @@ function VJ.HLR_ApplyCorpseSystem(ent, corpse, gibTbl, extraOptions)
 		corpse:SetSurroundingBounds(Vector(minBounds.x * 100, maxBounds.y * 100, 5 * 100), Vector(-minBounds.x * 100, -maxBounds.y * 100, 0))
 	end
 	corpse.HLR_Corpse_Gibs = gibTbl
-	corpse.HLR_Corpse_CollideSound = extraOptions.CollisionSound
-	corpse.HLR_Corpse_ExpSound = extraOptions.ExpSound or "vj_base/gib/splat.wav"
+	corpse.HLR_Corpse_CollideSound = extra.CollisionSound
+	corpse.HLR_Corpse_ExpSound = extra.ExpSound or "vj_base/gib/splat.wav"
 	corpse.HLR_Corpse_StartT = CurTime() + 1
 end
 
 local defPos = Vector(0, 0, 0)
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
+--
 hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo)
 	if target.HLR_Corpse && !target.Dead && CurTime() > target.HLR_Corpse_StartT && target:GetColor().a > 50 then
 		local dmgForce = dmginfo:GetDamageForce()
