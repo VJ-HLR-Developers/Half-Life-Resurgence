@@ -84,7 +84,7 @@ ENT.HECU_DeployedByOsprey = false
 ENT.HECU_NextMouthMove = 0
 ENT.HECU_NextMouthDistance = 0
 
-local defPos = Vector(0, 0, 0)
+local defPos = Vector()
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
 	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "npc_vj_hlr1_hgrunt" then

@@ -73,7 +73,7 @@ ENT.Heli_HasLOS = false -- Does the Apache's chain gun have sight on the enemy?
 ENT.Heli_SmokeStatus = 0 -- 0 = No smoke | 1 = Tail smoke | 2 = Tail & Rotor smoke
 ENT.Heli_RangeAttach = "missile_left"
 
-local defVec = Vector(0, 0, 0)
+local defVec = Vector()
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local spawnPos = Vector(0, 0, 400)
 --
@@ -267,7 +267,7 @@ function ENT:DoImpactEffect(tr, damageType)
 	return VJ.HLR1_Effect_Impact(tr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vec = Vector(0, 0, 0)
+local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "Init" then

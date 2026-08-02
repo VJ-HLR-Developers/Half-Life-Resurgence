@@ -19,7 +19,7 @@ ENT.IdleAlwaysWander = true
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(29, 0, 10),
 	FirstP_Bone = "Bone01",
-	FirstP_Offset = Vector(0, 0, 0),
+	FirstP_Offset = Vector(),
 	FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------

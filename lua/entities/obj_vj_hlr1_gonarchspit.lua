@@ -28,7 +28,7 @@ ENT.CollisionDecal = "VJ_HLR1_Spit_Gonarch"
 ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/bullchicken/bc_acid1.wav", "vj_hlr/gsrc/npc/bullchicken/bc_acid2.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/npc/bullchicken/bc_spithit1.wav", "vj_hlr/gsrc/npc/bullchicken/bc_spithit2.wav"}
 
-local defAng = Angle(0, 0, 0)
+local defAng = Angle()
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetNoDraw(true)

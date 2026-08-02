@@ -9,7 +9,7 @@ ENT.Model = "models/vj_hlr/hl1/sqknest.mdl"
 ENT.StartHealth = 20
 ENT.HullType = HULL_TINY
 ENT.ControllerParams = {
-	ThirdP_Offset = Vector(0, 0, 0),
+	ThirdP_Offset = Vector(),
 	FirstP_Bone = "Bip01 nECK",
 	FirstP_Offset = Vector(3, 0, 1),
 }

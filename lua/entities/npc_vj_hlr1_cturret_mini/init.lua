@@ -11,7 +11,7 @@ ENT.StartHealth = 50
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(0, 0, -80),
 	FirstP_Bone = "Dummy02",
-	FirstP_Offset = Vector(0, 0, 0),
+	FirstP_Offset = Vector(),
 	FirstP_ShrinkBone = false,
 }
 ENT.VJ_NPC_Class = {"CLASS_AUTOMATIC_TURRET"}

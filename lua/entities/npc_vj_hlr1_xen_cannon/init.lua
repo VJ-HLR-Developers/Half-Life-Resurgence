@@ -14,7 +14,7 @@ ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CanTurnWhileStationary = false
 ENT.PoseParameterLooking_TurningSpeed = 5
 ENT.ControllerParams = {
-	ThirdP_Offset = Vector(0, 0, 0),
+	ThirdP_Offset = Vector(),
 	FirstP_Bone = "joint3",
 	FirstP_Offset = Vector(0, 0, 50),
 	FirstP_ShrinkBone = false,
@@ -128,7 +128,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vec = Vector(0, 0, 0)
+local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "PreDamage" && dmginfo:GetDamagePosition() != vec then

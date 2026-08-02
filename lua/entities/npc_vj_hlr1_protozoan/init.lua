@@ -16,7 +16,7 @@ ENT.Aerial_FlyingSpeed_Alerted = 100
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(-5, 0, -15),
 	FirstP_Bone = "Bone03",
-	FirstP_Offset = Vector(0, 0, 0),
+	FirstP_Offset = Vector(),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.IdleAlwaysWander = true

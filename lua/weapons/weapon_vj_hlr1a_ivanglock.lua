@@ -17,7 +17,7 @@ SWEP.WorldModel					= "models/vj_hlr/hla/w_docgun.mdl"
 SWEP.HoldType 					= "pistol"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(0, 0, 0)
+SWEP.WorldModel_CustomPositionAngle = Vector()
 SWEP.WorldModel_CustomPositionOrigin = Vector(-1, 3.3, -0.7)
 SWEP.WorldModel_CustomPositionBone = "unnamed037"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------

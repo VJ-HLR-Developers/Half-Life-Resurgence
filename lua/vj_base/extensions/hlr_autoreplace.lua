@@ -160,7 +160,7 @@ local afterSpawned = {
 }
 
 // lua_run PrintTable(Entity(1):GetEyeTrace().Entity:GetTable())
-local defPos = Vector(0, 0, 0)
+local defPos = Vector()
 
 local gStatePrecriminal = false
 local gStateAntlionFri = false

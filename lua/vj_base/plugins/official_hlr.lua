@@ -17,6 +17,9 @@ VJ.HLR_NPC_Floater_Leader = NULL
 local spawnCategory = "HL Resurgence: GoldSrc"
 VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_hl/icons/hl1.png"})
 
+-- Misc
+VJ.AddNPC("G-Man", "npc_vj_hlr1_gman", spawnCategory)
+
 -- Earth
 VJ.AddNPC("Cockroach", "npc_vj_hlr1_cockroach", spawnCategory)
 VJ.AddNPC("Rat", "npc_vj_hlr1_rat", spawnCategory)
@@ -24,135 +27,136 @@ VJ.AddNPC("Rat", "npc_vj_hlr1_rat", spawnCategory)
 	VJ.AddNPC("Cockroach (Dreamcast)", "npc_vj_hlrdc_cockroach", spawnCategory)
 
 -- Black Mesa Personnel
-VJ.AddNPC("Security Guard", "npc_vj_hlr1_securityguard", spawnCategory)
-VJ.AddNPC("Scientist", "npc_vj_hlr1_scientist", spawnCategory)
+local subCategory = "Black Mesa"
+VJ.AddNPC("Security Guard", "npc_vj_hlr1_securityguard", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Scientist", "npc_vj_hlr1_scientist", spawnCategory, {SubCategory = subCategory})
 	-- Blue Shift
-	VJ.AddNPC("Dr. Rosenberg", "npc_vj_hlrbs_rosenberg", spawnCategory)
+	VJ.AddNPC("Dr. Rosenberg", "npc_vj_hlrbs_rosenberg", spawnCategory, {SubCategory = subCategory})
 	-- Opposing Force
-	VJ.AddNPC("Cleansuit Scientist", "npc_vj_hlrof_cleansuitsci", spawnCategory)
-	VJ.AddNPC("Otis Laurey", "npc_vj_hlrof_otis", spawnCategory)
+	VJ.AddNPC("Cleansuit Scientist", "npc_vj_hlrof_cleansuitsci", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Otis Laurey", "npc_vj_hlrof_otis", spawnCategory, {SubCategory = subCategory})
 	-- Decay
-	VJ.AddNPC("Dr. Richard Keller", "npc_vj_hlrdc_keller", spawnCategory)
+	VJ.AddNPC("Dr. Richard Keller", "npc_vj_hlrdc_keller", spawnCategory, {SubCategory = subCategory})
 	-- Alpha
-	VJ.AddNPC("Alpha Security Guard", "npc_vj_hlr1a_securityguard", spawnCategory)
-	VJ.AddNPC("Alpha Scientist", "npc_vj_hlr1a_scientist", spawnCategory)
-	VJ.AddNPC("Ivan the Space Biker", "npc_vj_hlr1a_ivan", spawnCategory)
-	VJ.AddNPC("Probe Droid", "npc_vj_hlr1a_probedroid", spawnCategory)
+	VJ.AddNPC("Alpha Security Guard", "npc_vj_hlr1a_securityguard", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Alpha Scientist", "npc_vj_hlr1a_scientist", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Ivan the Space Biker", "npc_vj_hlr1a_ivan", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Probe Droid", "npc_vj_hlr1a_probedroid", spawnCategory, {SubCategory = subCategory})
 
 -- Black Mesa Weaponry
-VJ.AddNPC("Black Mesa Ground Turret", "npc_vj_hlr1_gturret", spawnCategory)
-VJ.AddNPC("Black Mesa Ground Turret (Mini)", "npc_vj_hlr1_gturret_mini", spawnCategory)
-VJ.AddNPC("Black Mesa Ceiling Turret", "npc_vj_hlr1_cturret", spawnCategory, {OnCeiling = true, Offset = 0})
-VJ.AddNPC("Black Mesa Ceiling Turret (Mini)", "npc_vj_hlr1_cturret_mini", spawnCategory, {OnCeiling = true, Offset = 0})
+VJ.AddNPC("Black Mesa Ground Turret", "npc_vj_hlr1_gturret", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Black Mesa Ground Turret (Mini)", "npc_vj_hlr1_gturret_mini", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Black Mesa Ceiling Turret", "npc_vj_hlr1_cturret", spawnCategory, {SubCategory = subCategory, OnCeiling = true, Offset = 0})
+VJ.AddNPC("Black Mesa Ceiling Turret (Mini)", "npc_vj_hlr1_cturret_mini", spawnCategory, {SubCategory = subCategory, OnCeiling = true, Offset = 0})
 
 -- HECU
-VJ.AddNPC("Human Grunt", "npc_vj_hlr1_hgrunt", spawnCategory)
-VJ.AddNPC("Human Sergeant", "npc_vj_hlr1_hgrunt_serg", spawnCategory)
-VJ.AddNPC("Robot Grunt", "npc_vj_hlr1_rgrunt", spawnCategory)
-VJ.AddNPC("HECU Sentry Gun", "npc_vj_hlr1_sentry", spawnCategory)
-VJ.AddNPC("M2A3 Bradley", "npc_vj_hlr1_m2a3bradley", spawnCategory)
-VJ.AddNPC("M1A1 Abrams", "npc_vj_hlr1_m1a1abrams", spawnCategory)
-VJ.AddNPC("AH-64 Apache", "npc_vj_hlr1_apache", spawnCategory)
-VJ.AddNPC("V-22 Osprey", "npc_vj_hlr1_osprey", spawnCategory)
+subCategory = "Hazardous Environment Combat Unit"
+VJ.AddNPC("Human Grunt", "npc_vj_hlr1_hgrunt", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
+VJ.AddNPC("Human Sergeant", "npc_vj_hlr1_hgrunt_serg", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
+VJ.AddNPC("Robot Grunt", "npc_vj_hlr1_rgrunt", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
+VJ.AddNPC("HECU Sentry Gun", "npc_vj_hlr1_sentry", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
+VJ.AddNPC("M2A3 Bradley", "npc_vj_hlr1_m2a3bradley", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
+VJ.AddNPC("M1A1 Abrams", "npc_vj_hlr1_m1a1abrams", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
+VJ.AddNPC("AH-64 Apache", "npc_vj_hlr1_apache", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
+VJ.AddNPC("V-22 Osprey", "npc_vj_hlr1_osprey", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
 	-- Opposing Force
-	VJ.AddNPC("Human Grunt (OppF)", "npc_vj_hlrof_hgrunt", spawnCategory)
-	VJ.AddNPC("Human Grunt Medic (OppF)", "npc_vj_hlrof_hgrunt_med", spawnCategory)
-	VJ.AddNPC("Human Grunt Engineer (OppF)", "npc_vj_hlrof_hgrunt_eng", spawnCategory)
+	VJ.AddNPC("Human Grunt (OppF)", "npc_vj_hlrof_hgrunt", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Human Grunt Medic (OppF)", "npc_vj_hlrof_hgrunt_med", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Human Grunt Engineer (OppF)", "npc_vj_hlrof_hgrunt_eng", spawnCategory, {SubCategory = subCategory})
 	-- Decay
-	VJ.AddNPC("HECU Sentry Gun (Decay)", "npc_vj_hlrdc_sentry", spawnCategory)
+	VJ.AddNPC("HECU Sentry Gun (Decay)", "npc_vj_hlrdc_sentry", spawnCategory, {SubCategory = subCategory})
 	-- Alpha
-	VJ.AddNPC("Alpha Human Grunt", "npc_vj_hlr1a_hgrunt", spawnCategory)
-	VJ.AddNPC("Alpha Human Sergeant", "npc_vj_hlr1a_hgrunt_serg", spawnCategory)
-	VJ.AddNPC("Alpha Human Sergeant (Melee)", "npc_vj_hlr1a_hgrunt_sergm", spawnCategory)
+	VJ.AddNPC("Alpha Human Grunt", "npc_vj_hlr1a_hgrunt", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Alpha Human Sergeant", "npc_vj_hlr1a_hgrunt_serg", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Alpha Human Sergeant (Melee)", "npc_vj_hlr1a_hgrunt_sergm", spawnCategory, {SubCategory = subCategory})
 
 -- Black Ops
-VJ.AddNPC("Black Ops Female Assassin", "npc_vj_hlr1_assassin_female", spawnCategory)
-VJ.AddNPC("Black Ops Female Assassin (OppF)", "npc_vj_hlrof_assassin_female", spawnCategory)
-VJ.AddNPC("Black Ops Male Assassin", "npc_vj_hlrof_assassin_male", spawnCategory)
-VJ.AddNPC("Black Ops Robot Assassin", "npc_vj_hlrof_assassin_rgrunt", spawnCategory)
-VJ.AddNPC("Black Ops AH-64 Apache", "npc_vj_hlrof_assassin_apache", spawnCategory)
-VJ.AddNPC("Black Ops V-22 Osprey", "npc_vj_hlrof_assassin_osprey", spawnCategory)
+subCategory = "Black Ops"
+VJ.AddNPC("Black Ops Female Assassin", "npc_vj_hlr1_assassin_female", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Black Ops Female Assassin (OppF)", "npc_vj_hlrof_assassin_female", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Black Ops Male Assassin", "npc_vj_hlrof_assassin_male", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Black Ops Robot Assassin", "npc_vj_hlrof_assassin_rgrunt", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Black Ops AH-64 Apache", "npc_vj_hlrof_assassin_apache", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Black Ops V-22 Osprey", "npc_vj_hlrof_assassin_osprey", spawnCategory, {SubCategory = subCategory})
 
 -- Xen
-VJ.AddNPC("Gonarch", "npc_vj_hlr1_gonarch", spawnCategory)
-VJ.AddNPC("Headcrab", "npc_vj_hlr1_headcrab", spawnCategory)
-VJ.AddNPC("Headcrab (Baby)", "npc_vj_hlr1_headcrab_baby", spawnCategory)
-VJ.AddNPC("Zombie", "npc_vj_hlr1_zombie", spawnCategory)
-VJ.AddNPC("Flocking Floater", "npc_vj_hlr1_floater", spawnCategory)
-//VJ.AddNPC("Stukabat", "npc_vj_hlr1_stukabat", spawnCategory)
-//VJ.AddNPC("Charger", "npc_vj_hlr1_charger", spawnCategory)
-VJ.AddNPC("Alien Controller", "npc_vj_hlr1_aliencontroller", spawnCategory)
-VJ.AddNPC("Alien Grunt", "npc_vj_hlr1_aliengrunt", spawnCategory)
-VJ.AddNPC("Alien Slave", "npc_vj_hlr1_alienslave", spawnCategory)
-VJ.AddNPC("Bullsquid", "npc_vj_hlr1_bullsquid", spawnCategory)
-VJ.AddNPC("Gargantua", "npc_vj_hlr1_garg", spawnCategory)
-VJ.AddNPC("Houndeye", "npc_vj_hlr1_houndeye", spawnCategory)
-VJ.AddNPC("Kingpin", "npc_vj_hlr1_kingpin", spawnCategory)
-VJ.AddNPC("Snark", "npc_vj_hlr1_snark", spawnCategory)
-VJ.AddNPC("Snark Nest", "npc_vj_hlr1_snarknest", spawnCategory)
-VJ.AddNPC("Ichthyosaur", "npc_vj_hlr1_ichthyosaur", spawnCategory)
-VJ.AddNPC("Archer", "npc_vj_hlr1_archer", spawnCategory)
-VJ.AddNPC("Leech", "npc_vj_hlr1_leech", spawnCategory)
-VJ.AddNPC("Chumtoad", "npc_vj_hlr1_chumtoad", spawnCategory)
-VJ.AddNPC("Boid", "npc_vj_hlr1_boid", spawnCategory)
-VJ.AddNPC("AFlock", "npc_vj_hlr1_aflock", spawnCategory)
-VJ.AddNPC("Protozoan", "npc_vj_hlr1_protozoan", spawnCategory)
-VJ.AddNPC("Tentacle", "npc_vj_hlr1_tentacle", spawnCategory)
-VJ.AddNPC("Panther Eye", "npc_vj_hlr1_panthereye", spawnCategory)
-VJ.AddNPC("Control Sphere", "npc_vj_hlr1_controlsphere", spawnCategory)
-VJ.AddNPC("Mr. Friendly", "npc_vj_hlr1_mrfriendly", spawnCategory)
-VJ.AddNPC("Nihilanth", "npc_vj_hlr1_nihilanth", spawnCategory)
-VJ.AddNPC("Barnacle", "npc_vj_hlr1_barnacle", spawnCategory, {OnCeiling = true, Offset = 0})
-VJ.AddNPC("Xen Tree", "npc_vj_hlr1_xen_tree", spawnCategory)
-VJ.AddNPC("Xen Hair", "sent_vj_xen_hair", spawnCategory)
-VJ.AddNPC("Xen Spore (Large)", "sent_vj_xen_spore_large", spawnCategory)
-VJ.AddNPC("Xen Spore (Medium)", "sent_vj_xen_spore_medium", spawnCategory)
-VJ.AddNPC("Xen Spore (Small)", "sent_vj_xen_spore_small", spawnCategory)
-VJ.AddNPC("Xen Plant Light", "sent_vj_xen_plant_light", spawnCategory)
-VJ.AddNPC("Xen Gasbag", "sent_vj_xen_gasbag", spawnCategory)
-VJ.AddNPC("Xen Crystal", "sent_vj_xen_crystal", spawnCategory)
-VJ.AddNPC("Xen Sentry Cannon", "npc_vj_hlr1_xen_cannon", spawnCategory)
-VJ.AddNPC("Xen Ceiling Turret", "npc_vj_hlr1_xen_turretc", spawnCategory, {OnCeiling = true, Offset = 0})
-	-- Spawners
-	VJ.AddNPC("Portal (Xen)", "sent_vj_hlr_alientp", spawnCategory)
-	VJ.AddNPC("Portal (Race X)", "sent_vj_hlr_alientp_x", spawnCategory)
+subCategory = "Xen"
+VJ.AddNPC("Portal (Xen)", "sent_vj_hlr_alientp", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Gonarch", "npc_vj_hlr1_gonarch", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Headcrab", "npc_vj_hlr1_headcrab", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Headcrab (Baby)", "npc_vj_hlr1_headcrab_baby", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie", "npc_vj_hlr1_zombie", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Flocking Floater", "npc_vj_hlr1_floater", spawnCategory, {SubCategory = subCategory})
+//VJ.AddNPC("Stukabat", "npc_vj_hlr1_stukabat", spawnCategory, {SubCategory = subCategory})
+//VJ.AddNPC("Charger", "npc_vj_hlr1_charger", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Alien Controller", "npc_vj_hlr1_aliencontroller", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Alien Grunt", "npc_vj_hlr1_aliengrunt", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Alien Slave", "npc_vj_hlr1_alienslave", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Bullsquid", "npc_vj_hlr1_bullsquid", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Gargantua", "npc_vj_hlr1_garg", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Houndeye", "npc_vj_hlr1_houndeye", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Kingpin", "npc_vj_hlr1_kingpin", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Snark", "npc_vj_hlr1_snark", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Snark Nest", "npc_vj_hlr1_snarknest", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Ichthyosaur", "npc_vj_hlr1_ichthyosaur", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Archer", "npc_vj_hlr1_archer", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Leech", "npc_vj_hlr1_leech", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Chumtoad", "npc_vj_hlr1_chumtoad", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Boid", "npc_vj_hlr1_boid", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("AFlock", "npc_vj_hlr1_aflock", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Protozoan", "npc_vj_hlr1_protozoan", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Tentacle", "npc_vj_hlr1_tentacle", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Panther Eye", "npc_vj_hlr1_panthereye", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Control Sphere", "npc_vj_hlr1_controlsphere", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Mr. Friendly", "npc_vj_hlr1_mrfriendly", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Nihilanth", "npc_vj_hlr1_nihilanth", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Barnacle", "npc_vj_hlr1_barnacle", spawnCategory, {SubCategory = subCategory, OnCeiling = true, Offset = 0})
+VJ.AddNPC("Xen Tree", "npc_vj_hlr1_xen_tree", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Xen Hair", "sent_vj_xen_hair", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Xen Spore (Large)", "sent_vj_xen_spore_large", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Xen Spore (Medium)", "sent_vj_xen_spore_medium", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Xen Spore (Small)", "sent_vj_xen_spore_small", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Xen Plant Light", "sent_vj_xen_plant_light", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Xen Gasbag", "sent_vj_xen_gasbag", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Xen Crystal", "sent_vj_xen_crystal", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Xen Sentry Cannon", "npc_vj_hlr1_xen_cannon", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Xen Ceiling Turret", "npc_vj_hlr1_xen_turretc", spawnCategory, {SubCategory = subCategory, OnCeiling = true, Offset = 0})
 	-- Alpha
-	VJ.AddNPC("Alpha Alien Grunt", "npc_vj_hlr1a_aliengrunt", spawnCategory)
-	VJ.AddNPC("Alpha Zombie", "npc_vj_hlr1a_zombie", spawnCategory)
-	VJ.AddNPC("Alpha Headcrab", "npc_vj_hlr1a_headcrab", spawnCategory)
-	VJ.AddNPC("Alpha Bullsquid", "npc_vj_hlr1a_bullsquid", spawnCategory)
-	VJ.AddNPC("Alpha Houndeye", "npc_vj_hlr1a_houndeye", spawnCategory)
+	VJ.AddNPC("Alpha Alien Grunt", "npc_vj_hlr1a_aliengrunt", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Alpha Zombie", "npc_vj_hlr1a_zombie", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Alpha Headcrab", "npc_vj_hlr1a_headcrab", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Alpha Bullsquid", "npc_vj_hlr1a_bullsquid", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Alpha Houndeye", "npc_vj_hlr1a_houndeye", spawnCategory, {SubCategory = subCategory})
 	-- Dreamcast
-	VJ.AddNPC("Alien Grunt (Dreamcast)", "npc_vj_hlrdc_aliengrunt", spawnCategory)
-	VJ.AddNPC("Headcrab (Dreamcast)", "npc_vj_hlrdc_headcrab", spawnCategory)
-	VJ.AddNPC("Zombie (Dreamcast)", "npc_vj_hlrdc_zombie", spawnCategory)
-	VJ.AddNPC("Alien Slave (Dreamcast)", "npc_vj_hlrdc_alienslave", spawnCategory)
-	VJ.AddNPC("Bullsquid (Dreamcast)", "npc_vj_hlrdc_bullsquid", spawnCategory)
-	VJ.AddNPC("Gargantua (Dreamcast)", "npc_vj_hlrdc_garg", spawnCategory)
-	VJ.AddNPC("Houndeye (Dreamcast)", "npc_vj_hlrdc_houndeye", spawnCategory)
-	VJ.AddNPC("Barnacle (Dreamcast)", "npc_vj_hlrdc_barnacle", spawnCategory, {OnCeiling = true, Offset = 0})
-	VJ.AddNPC("Xen Tree (Dreamcast)", "npc_vj_hlrdc_xen_tree", spawnCategory)
+	VJ.AddNPC("Alien Grunt (Dreamcast)", "npc_vj_hlrdc_aliengrunt", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Headcrab (Dreamcast)", "npc_vj_hlrdc_headcrab", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Zombie (Dreamcast)", "npc_vj_hlrdc_zombie", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Alien Slave (Dreamcast)", "npc_vj_hlrdc_alienslave", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Bullsquid (Dreamcast)", "npc_vj_hlrdc_bullsquid", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Gargantua (Dreamcast)", "npc_vj_hlrdc_garg", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Houndeye (Dreamcast)", "npc_vj_hlrdc_houndeye", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Barnacle (Dreamcast)", "npc_vj_hlrdc_barnacle", spawnCategory, {SubCategory = subCategory, OnCeiling = true, Offset = 0})
+	VJ.AddNPC("Xen Tree (Dreamcast)", "npc_vj_hlrdc_xen_tree", spawnCategory, {SubCategory = subCategory})
 	-- Opposing Force
-	VJ.AddNPC("Zombie Security Guard", "npc_vj_hlrof_zombie_sec", spawnCategory)
-	VJ.AddNPC("Zombie Soldier", "npc_vj_hlrof_zombie_soldier", spawnCategory)
-	VJ.AddNPC("Gonome", "npc_vj_hlrof_gonome", spawnCategory)
-	VJ.AddNPC("Penguin", "npc_vj_hlrof_penguin", spawnCategory)
-	VJ.AddNPC("Penguin Nest", "npc_vj_hlrof_penguinnest", spawnCategory)
+	VJ.AddNPC("Zombie Security Guard", "npc_vj_hlrof_zombie_sec", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Zombie Soldier", "npc_vj_hlrof_zombie_soldier", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Gonome", "npc_vj_hlrof_gonome", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Penguin", "npc_vj_hlrof_penguin", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Penguin Nest", "npc_vj_hlrof_penguinnest", spawnCategory, {SubCategory = subCategory})
 	-- Sven Co-Op
-	VJ.AddNPC("Gargantua (Baby)", "npc_vj_hlrsv_garg_baby", spawnCategory)
-	VJ.AddNPC("Tor", "npc_vj_hlrsv_tor", spawnCategory)
+	VJ.AddNPC("Gargantua (Baby)", "npc_vj_hlrsv_garg_baby", spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC("Tor", "npc_vj_hlrsv_tor", spawnCategory, {SubCategory = subCategory})
 
--- Race X (Opposing Force)
-VJ.AddNPC("Shock Trooper", "npc_vj_hlrof_shocktrooper", spawnCategory)
-VJ.AddNPC("Shock Roach", "npc_vj_hlrof_shockroach", spawnCategory)
-VJ.AddNPC("Pit Drone", "npc_vj_hlrof_pitdrone", spawnCategory)
-VJ.AddNPC("Pit Worm", "npc_vj_hlrof_pitworm", spawnCategory)
-VJ.AddNPC("Voltigore", "npc_vj_hlrof_voltigore", spawnCategory)
-VJ.AddNPC("Voltigore (Baby)", "npc_vj_hlrof_voltigore_baby", spawnCategory)
-VJ.AddNPC("Gene Worm", "npc_vj_hlrof_geneworm", spawnCategory)
-
--- Unknown
-VJ.AddNPC("G-Man", "npc_vj_hlr1_gman", spawnCategory)
+-- Race X
+subCategory = "Race X"
+VJ.AddNPC("Portal (Race X)", "sent_vj_hlr_alientp_x", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Shock Trooper", "npc_vj_hlrof_shocktrooper", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Shock Roach", "npc_vj_hlrof_shockroach", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Pit Drone", "npc_vj_hlrof_pitdrone", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Pit Worm", "npc_vj_hlrof_pitworm", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Voltigore", "npc_vj_hlrof_voltigore", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Voltigore (Baby)", "npc_vj_hlrof_voltigore_baby", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Gene Worm", "npc_vj_hlrof_geneworm", spawnCategory, {SubCategory = subCategory})
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------ Source Engine ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -160,10 +164,11 @@ VJ.AddNPC("G-Man", "npc_vj_hlr1_gman", spawnCategory)
 spawnCategory = "HL Resurgence: Source"
 VJ.AddCategoryInfo(spawnCategory, {Icon = "games/16/hl2.png"})
 
--- Earth + Resistance
-VJ.AddNPC("Citizen", "npc_vj_hlr2_citizen", spawnCategory)
-VJ.AddNPC_HUMAN("Refugee", "npc_vj_hlr2_refugee", {"weapon_vj_crowbar", "weapon_vj_hlr2_pipe", "weapon_vj_357", "weapon_vj_9mmpistol", "weapon_vj_glock17", "weapon_vj_smg1"}, spawnCategory)
-VJ.AddNPC_HUMAN("Rebel Engineer", "npc_vj_hlr2_rebel_engineer", {"weapon_vj_spas12", "weapon_vj_hlr2_chargebow"}, spawnCategory)
+-- Resistance
+subCategory = "Resistance"
+VJ.AddNPC("Citizen", "npc_vj_hlr2_citizen", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC_HUMAN("Refugee", "npc_vj_hlr2_refugee", {"weapon_vj_crowbar", "weapon_vj_hlr2_pipe", "weapon_vj_357", "weapon_vj_9mmpistol", "weapon_vj_glock17", "weapon_vj_smg1"}, spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC_HUMAN("Rebel Engineer", "npc_vj_hlr2_rebel_engineer", {"weapon_vj_spas12", "weapon_vj_hlr2_chargebow"}, spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC_HUMAN("Rebel", "npc_vj_hlr2_rebel", {
 	-- 5 = Very common, 4 = Common, 3 = Uncommon, 2 = Rare, 1 = Very rare
 	"weapon_vj_smg1",
@@ -199,31 +204,31 @@ VJ.AddNPC_HUMAN("Rebel", "npc_vj_hlr2_rebel", {
 	"weapon_vj_357",
 	"weapon_vj_glock17",
 	"weapon_vj_glock17",
-	//"weapon_vj_ssg08",
 	"weapon_vj_hlr2b_sniper",
 	"weapon_vj_rpg",
-	"weapon_vj_hlr2_rpg"}, spawnCategory)
-VJ.AddNPC_HUMAN("Alyx Vance", "npc_vj_hlr2_alyx", {"weapon_vj_hlr2_alyxgun"}, spawnCategory)
-VJ.AddNPC_HUMAN("Barney Calhoun", "npc_vj_hlr2_barney", {"weapon_vj_smg1", "weapon_vj_smg1", "weapon_vj_smg1", "weapon_vj_ar2", "weapon_vj_ar2", "weapon_vj_spas12"}, spawnCategory)
-VJ.AddNPC_HUMAN("Father Grigori", "npc_vj_hlr2_father_grigori", {"weapon_vj_hlr2_annabelle"}, spawnCategory)
-VJ.AddNPC("Resistance Sentry Gun", "npc_vj_hlr2_res_sentry", spawnCategory)
+	"weapon_vj_hlr2_rpg"}, spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC_HUMAN("Alyx Vance", "npc_vj_hlr2_alyx", {"weapon_vj_hlr2_alyxgun"}, spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC_HUMAN("Barney Calhoun", "npc_vj_hlr2_barney", {"weapon_vj_smg1", "weapon_vj_smg1", "weapon_vj_smg1", "weapon_vj_ar2", "weapon_vj_ar2", "weapon_vj_spas12"}, spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC_HUMAN("Father Grigori", "npc_vj_hlr2_father_grigori", {"weapon_vj_hlr2_annabelle"}, spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Resistance Sentry Gun", "npc_vj_hlr2_res_sentry", spawnCategory, {SubCategory = subCategory})
 -- Beta
-	VJ.AddNPC("Merkava", "npc_vj_hlr2b_merkava", spawnCategory)
+	VJ.AddNPC("Merkava", "npc_vj_hlr2b_merkava", spawnCategory, {SubCategory = subCategory})
 
 -- Combine
-VJ.AddNPC_HUMAN("Overwatch Soldier", "npc_vj_hlr2_com_soldier", {"weapon_vj_smg1", "weapon_vj_smg1", "weapon_vj_smg1", "weapon_vj_smg1", "weapon_vj_ar2"}, spawnCategory)
-VJ.AddNPC_HUMAN("Overwatch Shotgun Soldier", "npc_vj_hlr2_com_shotgunner", {"weapon_vj_spas12"}, spawnCategory)
-VJ.AddNPC_HUMAN("Overwatch Elite", "npc_vj_hlr2_com_elite", {"weapon_vj_ar2"}, spawnCategory)
-VJ.AddNPC_HUMAN("Overwatch Prison Guard", "npc_vj_hlr2_com_prospekt", {"weapon_vj_smg1", "weapon_vj_smg1", "weapon_vj_ar2", "weapon_vj_ar2"}, spawnCategory)
-VJ.AddNPC_HUMAN("Overwatch Prison Shotgun Guard", "npc_vj_hlr2_com_prospekt_sg", {"weapon_vj_spas12"}, spawnCategory)
-VJ.AddNPC_HUMAN("Overwatch Sniper", "npc_vj_hlr2_com_sniper", {"weapon_vj_hlr2_csniper"}, spawnCategory)
-VJ.AddNPC_HUMAN("Overwatch Engineer", "npc_vj_hlr2_com_engineer", {"weapon_vj_hlr2_reager"}, spawnCategory)
-VJ.AddNPC_HUMAN("Civil Protection", "npc_vj_hlr2_com_civilp", {"weapon_vj_9mmpistol", "weapon_vj_9mmpistol", "weapon_vj_smg1"}, spawnCategory)
-VJ.AddNPC("Combine Sentry Gun", "npc_vj_hlr2_com_sentry", spawnCategory)
+subCategory = "Combine"
+VJ.AddNPC_HUMAN("Overwatch Soldier", "npc_vj_hlr2_com_soldier", {"weapon_vj_smg1", "weapon_vj_smg1", "weapon_vj_smg1", "weapon_vj_smg1", "weapon_vj_ar2"}, spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC_HUMAN("Overwatch Shotgun Soldier", "npc_vj_hlr2_com_shotgunner", {"weapon_vj_spas12"}, spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC_HUMAN("Overwatch Elite", "npc_vj_hlr2_com_elite", {"weapon_vj_ar2"}, spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC_HUMAN("Overwatch Prison Guard", "npc_vj_hlr2_com_prospekt", {"weapon_vj_smg1", "weapon_vj_smg1", "weapon_vj_ar2", "weapon_vj_ar2"}, spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC_HUMAN("Overwatch Prison Shotgun Guard", "npc_vj_hlr2_com_prospekt_sg", {"weapon_vj_spas12"}, spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC_HUMAN("Overwatch Sniper", "npc_vj_hlr2_com_sniper", {"weapon_vj_hlr2_csniper"}, spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC_HUMAN("Overwatch Engineer", "npc_vj_hlr2_com_engineer", {"weapon_vj_hlr2_reager"}, spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC_HUMAN("Civil Protection", "npc_vj_hlr2_com_civilp", {"weapon_vj_9mmpistol", "weapon_vj_9mmpistol", "weapon_vj_smg1"}, spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Combine Sentry Gun", "npc_vj_hlr2_com_sentry", spawnCategory, {SubCategory = subCategory})
 	-- Beta
-	VJ.AddNPC_HUMAN("Overwatch Soldier (Beta)", "npc_vj_hlr2b_com_soldier", {"weapon_vj_hlr2b_oicw"}, spawnCategory)
-	VJ.AddNPC_HUMAN("Overwatch Sniper Elite (Beta)", "npc_vj_hlr2b_com_elite_sniper", {"weapon_vj_hlr2b_sniper"}, spawnCategory)
-	VJ.AddNPC_HUMAN("Civil Protection Elite", "npc_vj_hlr2b_com_civilp_elite", {"weapon_vj_smg1"}, spawnCategory) -- Class name should be changed
+	VJ.AddNPC_HUMAN("Overwatch Soldier (Beta)", "npc_vj_hlr2b_com_soldier", {"weapon_vj_hlr2b_oicw"}, spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC_HUMAN("Overwatch Sniper Elite (Beta)", "npc_vj_hlr2b_com_elite_sniper", {"weapon_vj_hlr2b_sniper"}, spawnCategory, {SubCategory = subCategory})
+	VJ.AddNPC_HUMAN("Civil Protection Elite", "npc_vj_hlr2b_com_civilp_elite", {"weapon_vj_smg1"}, spawnCategory, {SubCategory = subCategory})
 
 spawnCategory = "Half-Life Resurgence"
 VJ.AddCategoryInfo(spawnCategory, {Icon = "games/16/hl2.png"})
@@ -567,7 +572,7 @@ function VJ.HLR_ApplyCorpseSystem(ent, corpse, gibTbl, extra)
 	corpse.HLR_Corpse_StartT = CurTime() + 1
 end
 
-local defPos = Vector(0, 0, 0)
+local defPos = Vector()
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
@@ -674,10 +679,10 @@ hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo
 					util.Decal(splatDecal, tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, target)
 					/*local dmgPos = dmginfo:GetDamagePosition()
 					if pos == defPos then pos = target:GetPos() + target:OBBCenter() end
-					VJ.DEBUG_TempEnt(dmgPos, Angle(0, 0, 0), Color(0, 225, 255))
+					VJ.DEBUG_TempEnt(dmgPos, Angle(), Color(0, 225, 255))
 					VJ.DEBUG_TempEnt(dmgPos + dmgPos:GetNormal() * 10)
 					local tr = util.TraceLine({start = dmgPos, endpos = dmgPos + dmgPos:GetNormal() * 10, filter = target})
-					VJ.DEBUG_TempEnt(tr.HitPos, Angle(0, 0, 0), Color(94, 255, 0))
+					VJ.DEBUG_TempEnt(tr.HitPos, Angle(), Color(94, 255, 0))
 					util.Decal("VJ_HLR1_Blood_Red_Large", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, target)*/
 
 					local effectData = EffectData()

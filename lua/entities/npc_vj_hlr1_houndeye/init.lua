@@ -11,7 +11,7 @@ ENT.SightAngle = 120
 ENT.HullType = HULL_WIDE_SHORT
 ENT.ControllerParams = {
 	FirstP_Bone = "Bip01 Head",
-	FirstP_Offset = Vector(0, 0, 0),
+	FirstP_Offset = Vector(),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}

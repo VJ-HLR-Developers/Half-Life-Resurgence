@@ -34,5 +34,5 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDestroy(data, phys)
-	ParticleEffect("vj_hlr_spit_stukabat_impact", data.HitPos, Angle(0, 0, 0))
+	ParticleEffect("vj_hlr_spit_stukabat_impact", data.HitPos, Angle())
 end

@@ -28,7 +28,7 @@ function EFFECT:Init(data)
 		fxSpark:SetColor(255, 231, 166)
 	end
 	local fx = emitter:Add("vj_hl/rico1", self.Pos)
-	fx:SetVelocity(Vector(0, 0, 0))
+	fx:SetVelocity(Vector())
 	fx:SetAirResistance(160)
 	fx:SetDieTime(0.15)
 	fx:SetStartAlpha(255)

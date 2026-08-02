@@ -31,7 +31,7 @@ function EFFECT:Init(data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local metalMat = {[MAT_VENT] = true, [MAT_METAL] = true, [MAT_GRATE] = true, [MAT_GLASS] = true, [MAT_COMPUTER] = true}
-local vecDef = Vector(0, 0, 0)
+local vecDef = Vector()
 --
 function EFFECT:Think()
 	-- When it hits

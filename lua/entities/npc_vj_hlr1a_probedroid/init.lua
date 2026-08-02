@@ -146,7 +146,7 @@ function ENT:RangeAttackProjVel(projectile)
 	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projectile:GetPos(), 1, 1500)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vec = Vector(0, 0, 0)
+local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "Init" && dmginfo:GetDamagePosition() != vec then

@@ -124,7 +124,7 @@ function ENT:RangeAttackProjPos(projectile)
 	return self:GetAttachment(self:LookupAttachment("hornet")).Pos
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vec = Vector(0, 0, 0)
+local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "PreDamage" && hitgroup == HITGROUP_GEAR then

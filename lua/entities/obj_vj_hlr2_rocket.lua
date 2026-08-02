@@ -77,7 +77,7 @@ function ENT:OnThink()
 	return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local defAngle = Angle(0, 0, 0)
+local defAngle = Angle()
 --
 function ENT:OnDestroy(data, phys)
 	VJ.EmitSound(self, "VJ.Explosion")

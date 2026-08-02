@@ -15,7 +15,7 @@ SWEP.WorldModel					= "models/props_junk/watermelon01_chunk02c.mdl"
 SWEP.HoldType 					= "smg"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(0, 0, 0)
+SWEP.WorldModel_CustomPositionAngle = Vector()
 SWEP.WorldModel_CustomPositionOrigin = Vector(20, 3, -2.5)
 SWEP.WorldModel_CustomPositionBone = "Bone58"
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------

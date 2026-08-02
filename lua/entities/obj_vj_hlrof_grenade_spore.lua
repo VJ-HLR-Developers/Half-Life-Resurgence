@@ -64,7 +64,7 @@ function ENT:OnCollision(data, phys)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local defAng = Angle(0, 0, 0)
+local defAng = Angle()
 --
 function ENT:OnDestroy()
 	ParticleEffect("vj_hlr_spore", self:GetPos(), defAng, nil)

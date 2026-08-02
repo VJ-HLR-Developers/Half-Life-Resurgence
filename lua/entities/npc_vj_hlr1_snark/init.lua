@@ -11,7 +11,7 @@ ENT.SightAngle = 180
 ENT.HullType = HULL_TINY
 ENT.EntitiesToNoCollide = {"npc_vj_hlr1_snark"}
 ENT.ControllerParams = {
-	ThirdP_Offset = Vector(0, 0, 0),
+	ThirdP_Offset = Vector(),
 	FirstP_Bone = "Bip01 Head",
 	FirstP_Offset = Vector(1, 0, 0.5),
 }

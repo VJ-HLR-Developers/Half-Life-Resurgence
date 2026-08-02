@@ -249,7 +249,7 @@ function ENT:AA_StopMoving()
 		self.AA_CurrentMovePos = nil
 		self.AA_CurrentMovePosDir = nil
 		self.AA_CurrentMoveDist = -1
-		self:SetLocalVelocity(Vector(0, 0, 0))
+		self:SetLocalVelocity(Vector())
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

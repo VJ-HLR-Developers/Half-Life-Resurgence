@@ -24,7 +24,7 @@ ENT.DirectDamageType = DMG_SHOCK
 ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/wep/gauss/electro4.wav", "vj_hlr/gsrc/wep/gauss/electro5.wav", "vj_hlr/gsrc/wep/gauss/electro6.wav"}
 
 -- Custom
-local defVec = Vector(0, 0, 0)
+local defVec = Vector()
 
 ENT.Track_Ent = NULL
 ENT.Track_Position = defVec

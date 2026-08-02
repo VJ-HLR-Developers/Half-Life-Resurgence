@@ -50,7 +50,7 @@ SWEP.ReloadSound = "vj_hlr/src/wep/sniper_comb/sniper_reload.wav"
 SWEP.AnimTbl_PrimaryFire = ACT_VM_SECONDARYATTACK
 SWEP.AnimTbl_Reload = ACT_VM_DRAW
 
-local vec_def = Vector(0, 0, 0)
+local vec_def = Vector()
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:SetupDataTables()
 	self:NetworkVar("Bool", "Zoomed")
@@ -104,7 +104,7 @@ end
 if CLIENT then
 	-- Make the gun move to the center when aiming
 	local aimPos = Vector(-9, 0, -32)
-	local aimAng = Angle(0, 0, 0)
+	local aimAng = Angle()
 	---------------------------------------------------------------------------------------------------------------------------------------------
 	function SWEP:GetViewModelPosition(pos, ang)
 		if !self:GetZoomed() then return pos, ang end

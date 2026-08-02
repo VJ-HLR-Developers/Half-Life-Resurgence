@@ -11,7 +11,7 @@ ENT.SightAngle = 120
 ENT.HullType = HULL_TINY
 ENT.ControllerParams = {
 	FirstP_Bone = "bip01 head",
-	FirstP_Offset = Vector(0, 0, 0),
+	FirstP_Offset = Vector(),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.CanOpenDoors = false

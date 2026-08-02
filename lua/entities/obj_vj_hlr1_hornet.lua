@@ -33,7 +33,7 @@ ENT.IdleSoundPitch = VJ.SET(100, 100)
 local sdIdle = {"vj_hlr/gsrc/npc/hornet/ag_buzz1.wav", "vj_hlr/gsrc/npc/hornet/ag_buzz2.wav", "vj_hlr/gsrc/npc/hornet/ag_buzz3.wav"}
 local sdCollideAlpha = {"vj_hlr/gsrc/npc/hornet_alpha/ag_buzz1.wav", "vj_hlr/gsrc/npc/hornet_alpha/ag_buzz2.wav", "vj_hlr/gsrc/npc/hornet_alpha/ag_buzz3.wav"}
 
-local defVec = Vector(0, 0, 0)
+local defVec = Vector()
 
 local HORNET_TYPE_RED = 0
 local HORNET_TYPE_ORANGE = 1

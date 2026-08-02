@@ -174,7 +174,7 @@ function ENT:OnRangeAttack(status, enemy)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vec = Vector(0, 0, 0)
+local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "PreDamage" && dmginfo:GetDamagePosition() != vec then

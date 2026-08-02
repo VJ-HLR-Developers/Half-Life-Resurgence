@@ -60,7 +60,7 @@ ENT.Osprey_DropSoldierStatusDead = 0 -- Similar to the one above, but this one k
 ENT.Osprey_NextDropT = 0
 ENT.Heli_SmokeStatus = 0 -- 0 = No smoke | 1 = Left tail smoke | 2 = Left & Right tail smoke
 
-local defVec = Vector(0, 0, 0)
+local defVec = Vector()
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local spawnPos = Vector(0, 0, 400)
 --
@@ -301,7 +301,7 @@ function ENT:OnThinkActive()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vec = Vector(0, 0, 0)
+local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "Init" then

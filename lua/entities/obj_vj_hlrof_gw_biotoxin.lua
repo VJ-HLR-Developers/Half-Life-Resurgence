@@ -26,7 +26,7 @@ ENT.RemoveDelay = 1.5
 -- Custom
 ENT.Track_Ent = NULL
 ENT.Track_TrackTime = 0
-ENT.Track_OrgPosition = Vector(0, 0, 0)
+ENT.Track_OrgPosition = Vector()
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetNoDraw(true)

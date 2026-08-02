@@ -87,5 +87,5 @@ function ENT:OnDestroy(data, phys)
 	spr:Fire("Kill", "", 0.3)
 	timer.Simple(0.3, function() if IsValid(spr) then spr:Remove() end end)
 
-	//ParticleEffect("vj_hl_spit_bullsquid_impact", data.HitPos, Angle(0, 0, 0), nil)
+	//ParticleEffect("vj_hl_spit_bullsquid_impact", data.HitPos, Angle())
 end
