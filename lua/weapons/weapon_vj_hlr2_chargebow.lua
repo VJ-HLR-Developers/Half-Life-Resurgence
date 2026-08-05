@@ -11,8 +11,9 @@ SWEP.Slot = 3
 SWEP.SlotPos = 3
 SWEP.SwayScale = 1
 SWEP.UseHands = true
-
-SWEP.WorldModel_UseCustomPosition = true
+SWEP.WorldModelOffsetParams = {
+	Enabled = true
+}
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 3
 SWEP.NPC_TimeUntilFire = 0.4
@@ -42,23 +43,21 @@ function SWEP:PreDrawViewModel(vm, weapon, ply)
 	vm:SetBodygroup(1, 1) -- Because bodygroup texture is broken
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local posAngPly = Vector(0, -60, 180)
-local posOrgPly = Vector(0, -2, 1.5)
-local posAngNPC = Vector(-100, 30, 180)
-local posOrgNPC = Vector(-3, -3, -12)
+local posOrgPly = Vector(-1, 1.732, -1.5)
+local posAngPly = Angle(0, -60, -180)
+local posOrgNPC = Vector(12.008, -4.098, -1.002)
+local posAngNPC = Angle(58.525, 106.74, -70.575)
 --
-function SWEP:OnDrawWorldModel() -- This is client only!
+function SWEP:OnDrawWorldModel()
 	local owner = self:GetOwner()
-	if IsValid(owner) then
-		if owner:IsPlayer() then
-			self.WorldModel_CustomPositionAngle = posAngPly
-			self.WorldModel_CustomPositionOrigin = posOrgPly
-			self.WorldModel_CustomPositionBone = "ValveBiped.Bip01_L_Hand"
-		else
-			self.WorldModel_CustomPositionAngle = posAngNPC
-			self.WorldModel_CustomPositionOrigin = posOrgNPC
-			self.WorldModel_CustomPositionBone = "ValveBiped.Bip01_R_Hand"
-		end
+	if owner:IsPlayer() then
+		self.WorldModelOffsetParams.Pos = posOrgPly
+		self.WorldModelOffsetParams.Ang = posAngPly
+		self.WorldModelOffsetParams.Bone = "ValveBiped.Bip01_L_Hand"
+	else
+		self.WorldModelOffsetParams.Pos = posOrgNPC
+		self.WorldModelOffsetParams.Ang = posAngNPC
+		self.WorldModelOffsetParams.Bone = "ValveBiped.Bip01_R_Hand"
 	end
 	return true
 end

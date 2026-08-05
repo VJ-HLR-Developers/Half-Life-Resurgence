@@ -29,9 +29,11 @@ SWEP.PrimaryEffects_DynamicLightColor = Color(134, 217, 255)
 SWEP.HasReloadSound = true
 SWEP.ReloadSound = "vj_hlr/src/wep/reager/reager_reload.wav"
 
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(-10, 0, 180)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-1, 8, 0.5)
+SWEP.WorldModelOffsetParams = {
+	Enabled = true,
+	Pos = Vector(7.792, -1, -1.882),
+	Ang = Angle(10, 0, -180)
+}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 if CLIENT then
 	if EmissiveSys then
@@ -98,15 +100,16 @@ function SWEP:OnThink()
 		self.DidStopFireLoops = true
 	end
 
-	if !IsValid(self.Owner) then return end
+	local owner = self:GetOwner()
+	if !IsValid(owner) then return end
 	local targetPos
-	if self.Owner:IsNPC() && IsValid(self.Owner:GetEnemy()) then
-		targetPos = self.Owner:GetEnemy():GetPos() + self.Owner:GetEnemy():OBBCenter()
+	if owner:IsNPC() && IsValid(owner:GetEnemy()) then
+		targetPos = owner:GetEnemy():GetPos() + owner:GetEnemy():OBBCenter()
 	else
 		local tr = util.TraceLine({
-			start = self.Owner:GetShootPos(),
-			endpos = self.Owner:GetShootPos() + self.Owner:GetAimVector() * 400,
-			filter = self.Owner
+			start = owner:GetShootPos(),
+			endpos = owner:GetShootPos() + owner:GetAimVector() * 400,
+			filter = owner
 		})
 		targetPos = tr.HitPos
 	end
@@ -140,7 +143,8 @@ function SWEP:OnPrimaryAttack(status, statusData)
 
 		-- sound.Play("vj_hlr/src/wep/reager/reager_hit" .. math.random(1, 3) .. ".wav", self:GetLaserHitPos(), 75)
 		-- VJ.EmitSound(self, "vj_hlr/src/wep/reager/reager_fire_solo.wav", 75)
-		VJ.ApplyRadiusDamage(self.Owner, self.Owner, self:GetLaserHitPos(), 20, 5, DMG_PLASMA, true, true)
+		local owner = self:GetOwner()
+		VJ.ApplyRadiusDamage(owner, owner, self:GetLaserHitPos(), 20, 5, DMG_PLASMA, true, true)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
