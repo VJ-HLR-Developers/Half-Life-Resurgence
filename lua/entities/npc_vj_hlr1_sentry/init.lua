@@ -233,8 +233,8 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 			AmmoType = "SMG1"
 		})
 
-		VJ.EmitSound(self, "vj_hlr/gsrc/npc/turret/tu_fire1.wav", 90, math.random(100, 110))
-		VJ.EmitSound(self, "vj_hlr/gsrc/npc/turret/tu_fire1_distant.wav", 140, math.random(100, 110))
+		VJ.EmitSound(self, ((self.Sentry_Type == 0 or self.Sentry_Type == 2) && "vj_hlr/gsrc/wep/mp5/hks" .. math.random(1, 3) .. ".wav") or "vj_hlr/gsrc/npc/turret/tu_fire1.wav", 90, math.random(100, 110))
+		VJ.EmitSound(self, ((self.Sentry_Type == 0 or self.Sentry_Type == 2) && "vj_hlr/gsrc/wep/mp5/hks_distant_new.wav") or "vj_hlr/gsrc/npc/turret/tu_fire1_distant.wav", 140, math.random(100, 110))
 
 		local muz = ents.Create("env_sprite_oriented")
 		muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash3.vmt")
