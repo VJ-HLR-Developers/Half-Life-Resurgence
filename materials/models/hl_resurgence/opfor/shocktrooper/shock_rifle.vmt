@@ -3,9 +3,9 @@
 	"$baseTexture" "models/hl_resurgence/opfor/shocktrooper/shock_rifle"
 
 	$emissiveBlendEnabled 1
-    $emissiveBlendTexture    "dev/null"
+    $emissiveBlendTexture    "vgui/white"
     $emissiveBlendBaseTexture    "models/hl_resurgence/opfor/shocktrooper/shock_rifle_g"
-    $emissiveBlendFlowTexture    "dev/null"
+    $emissiveBlendFlowTexture    "vgui/white"
 	$emissiveBlendTint "[0 4 4]"
     $emissiveBlendStrength 0
     $emissiveBlendScrollVector "[0 0]"

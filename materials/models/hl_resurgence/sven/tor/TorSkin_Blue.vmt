@@ -3,9 +3,9 @@
 	"$baseTexture" "models\hl_resurgence\sven\tor\TorSkin_Blue"
 
 	$emissiveBlendEnabled 1
-    $emissiveBlendTexture    "dev/null"
+    $emissiveBlendTexture    "vgui/white"
     $emissiveBlendBaseTexture    "models\hl_resurgence\sven\tor\TorSkin_G"
-    $emissiveBlendFlowTexture    "dev/null"
+    $emissiveBlendFlowTexture    "vgui/white"
     $emissiveBlendTint "[1 1 1]"
     $emissiveBlendStrength 1
     $emissiveBlendScrollVector "[0 0]"
