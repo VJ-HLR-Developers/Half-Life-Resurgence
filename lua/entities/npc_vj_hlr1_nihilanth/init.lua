@@ -66,16 +66,16 @@ ENT.Nih_CrystalsDestroyed = false
 ENT.Nih_BrainOpen = false
 ENT.Nih_LerpAngleDeath = nil
 ENT.Nih_OriginalGravity = 600
-ENT.Nih_RangeAttach = -1
+ENT.Nih_RangeAttach = false
 
 /*
-vj_hl/sprites/flare6.vmt		Right before nihilanth disappears on death he releases these bubbles
-vj_hl/sprites/nhth1.vmt		Purple electric projectiles
+vj_hl/sprites/flare6.vmt			Right before nihilanth disappears on death he releases these bubbles
+vj_hl/sprites/nhth1.vmt				Purple electric projectiles
 vj_hl/sprites/muzzleflash3.vmt		Orb ring around his head that displays his health sorta
 */
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-	-- Allow only 1 Nihilanth at a time
+	-- Only 1 Nihilanth is allowed at a time
 	local entsAll = ents.GetAll()
 	for x = 1, #entsAll do
 		if entsAll[x]:GetClass() == "npc_vj_hlr1_nihilanth" && entsAll[x] != self then
@@ -90,7 +90,7 @@ function ENT:Init()
 		end
 	end
 
-	-- Set the gravity
+	-- Apply Xen gravity
 	self.Nih_OriginalGravity = GetConVar("sv_gravity"):GetFloat()
 	RunConsoleCommand("sv_gravity", 200)
 
@@ -132,7 +132,7 @@ function ENT:OnInput(key, activator, caller, data)
 	-- Regular attack
 	if key == "elec_orbs" then
 		self.Nih_TeleportingOrb = false
-		self.Nih_RangeAttach = -1
+		self.Nih_RangeAttach = false
 		self:ExecuteRangeAttack()
 		for i = 0.1, 0.6, 0.1 do
 			timer.Simple(i, function() if IsValid(self) then self.Nih_RangeAttach = "2" self:ExecuteRangeAttack() end end)
@@ -143,12 +143,12 @@ function ENT:OnInput(key, activator, caller, data)
 	-- We have been weakened, we should only fire 1 orb!
 	elseif key == "elec_orbs_open" then
 		self.Nih_TeleportingOrb = false
-		self.Nih_RangeAttach = -1
+		self.Nih_RangeAttach = false
 		self:ExecuteRangeAttack()
 	-- Teleport attack
 	elseif key == "tele_orb" then
 		self.Nih_TeleportingOrb = true
-		self.Nih_RangeAttach = -1
+		self.Nih_RangeAttach = false
 		self:ExecuteRangeAttack()
 	end
 end
@@ -175,7 +175,7 @@ local angY30 = Angle(0, 30, 0)
 --
 function ENT:OnThinkActive()
 	if self.Dead then -- Make it rotate around as it's dying
-		if self.Nih_LerpAngleDeath == nil then self.Nih_LerpAngleDeath = self:GetAngles() end
+		if !self.Nih_LerpAngleDeath then self.Nih_LerpAngleDeath = self:GetAngles() end
 		self.Nih_LerpAngleDeath = LerpAngle(0.25, self.Nih_LerpAngleDeath, self.Nih_LerpAngleDeath + angY30)
 		self:SetAngles(self.Nih_LerpAngleDeath)
 	elseif IsValid(self:GetEnemy()) && CurTime() > self.Nih_NextSpawn && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) && (!IsValid(self.Nih_Ally1) or !IsValid(self.Nih_Ally2) or !IsValid(self.Nih_Ally3) or !IsValid(self.Nih_Ally4) or !IsValid(self.Nih_Ally5)) then
@@ -204,7 +204,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjPos(projectile)
-	if self.Nih_RangeAttach != -1 then
+	if self.Nih_RangeAttach then
 		return self:GetAttachment(self:LookupAttachment(self.Nih_RangeAttach)).Pos
 	else
 		return self:GetPos() + self:GetUp() * -140 + self:GetForward() * 430

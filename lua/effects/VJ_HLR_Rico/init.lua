@@ -8,12 +8,11 @@ function EFFECT:Init(data) // You're welcome @DrVrej for not making the effect n
 	self.Size = data:GetScale()
 	self.EffectType = math.Round(data:GetMagnitude())
 	local Emitter = ParticleEmitter(self.Pos)
-	if Emitter == nil then return end
 
 	sound.Play("vj_hlr/gsrc/fx/ric" .. math.random(1, 5) .. ".wav", self.Pos, 80, 100)
 
 	if GetConVar("vj_hlr1_sparkfx"):GetInt() == 1 then
-		for i = 1, math.random(5, 15) do
+		for _ = 1, math.random(5, 15) do
 			local particle = Emitter:Add("vj_hl/tracer_middle", self.Pos)
 			particle:SetVelocity(VectorRand() * math.Rand(100, 350))
 			particle:SetDieTime(math.Rand(0.1, 1))

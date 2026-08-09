@@ -160,7 +160,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HandleModeChanging(mode, pos, cont)
 	if mode == 1 && CurTime() > self.Stuka_ModeChangeT && (!IsValid(cont) or IsValid(cont) && cont:KeyDown(IN_JUMP)) then
-		if self.Stuka_LandingType == 0 && self.Stuka_LandingPos == nil then
+		if self.Stuka_LandingType == 0 && !self.Stuka_LandingPos then
 			if !self.Stuka_LandingPos then
 				local ceiling = math.random(1, 10) == 1
 				pos = self:GetLandingPos(ceiling)
@@ -241,7 +241,7 @@ function ENT:GetLandingPos(ceiling)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:AA_StopMoving()
-	if IsValid(self.VJ_TheController) && self.Stuka_LandingPos != nil then return end
+	if IsValid(self.VJ_TheController) && self.Stuka_LandingPos then return end
 	if self:GetVelocity():Length() > 0 then
 		self.AA_CurrentMoveMaxSpeed = 0
 		self.AA_CurrentMoveTime = 0

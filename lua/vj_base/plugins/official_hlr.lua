@@ -641,7 +641,7 @@ hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo
 					gib:SetAngles(Angle(math.Rand(-180, 180), math.Rand(-180, 180), math.Rand(-180, 180)))
 					gib.BloodType = target.HLR_Corpse_Type
 					gib.CollisionDecal = target.HLR_Corpse_Decal
-					if target.HLR_Corpse_CollideSound != nil then
+					if target.HLR_Corpse_CollideSound then
 						gib.CollisionSound = target.HLR_Corpse_CollideSound
 					end
 					gib:Spawn()

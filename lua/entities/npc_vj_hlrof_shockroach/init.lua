@@ -30,7 +30,7 @@ ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/shockroach/shock_die.wav"
 ENT.SRoach_Life = nil
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
-	if self.SRoach_Life != nil then
+	if self.SRoach_Life then
 		timer.Simple(self.SRoach_Life, function()
 			if IsValid(self) && !self.Dead then
 				self:TakeDamage(self:Health() + 1, self, self)
