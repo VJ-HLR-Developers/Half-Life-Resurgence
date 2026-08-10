@@ -14,10 +14,12 @@ SWEP.MadeForNPCsOnly 			= true
 SWEP.WorldModel					= "models/vj_hlr/weapons/w_minigun.mdl"
 SWEP.HoldType 					= "ar2"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(100, 0, 100)
-SWEP.WorldModel_CustomPositionOrigin = Vector(15, 0.5, -1)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+	Enabled = true,
+	Bone = "Bip01 R Hand",
+	Pos = Vector(14.29, 3.59, 3.027),
+	Ang = Angle(-80, 180, -80)
+}
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 5
 SWEP.Primary.ClipSize = 200
@@ -41,10 +43,10 @@ function SWEP:Init()
 	timer.Simple(0.1, function()
 		if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
 			self.NPC_NextPrimaryFire = false
-			if self:GetOwner():GetModel() == "models/vj_hlr/hla/hassault.mdl" then
-				self.WorldModel_CustomPositionBone = "unnamed_bone_033"
-				self.WorldModel_CustomPositionAngle = Vector(104, 0, 100)
-				self.WorldModel_CustomPositionOrigin = Vector(27.5, 0, 3)
+			if self:GetOwner():GetModel() == "models/vj_hlr/hla/hassault.mdl" or self:GetOwner():GetModel() == "models/vj_hlr/hla/hassault_melee.mdl" then
+				self.WorldModelOffsetParams.Bone = "unnamed_bone_033"
+				self.WorldModelOffsetParams.Pos = Vector(26.783, 3, 4)
+				self.WorldModelOffsetParams.Ang = Angle(-67, -180, -85)
 			end
 		end
 	end)

@@ -18,10 +18,12 @@ SWEP.ReplacementWeapon = {"weapon_hl1_mp5", "weapon_mp5_hl1"}
 SWEP.WorldModel = "models/vj_hlr/weapons/w_9mmar.mdl"
 SWEP.HoldType = "smg"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(90, 180, 90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(10, -2, -2)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+	Enabled = true,
+	Bone = "Bip01 R Hand",
+	Pos = Vector(10, -2, 2),
+	Ang = Angle(90, 90, 0)
+}
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 5
 SWEP.Primary.ClipSize = 50
@@ -54,8 +56,8 @@ function SWEP:Init()
 		if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
 			self.NPC_NextPrimaryFire = false
 			if self:GetOwner():GetModel() == "models/vj_hlr/opfor/massn.mdl" then
-				self.WorldModel_CustomPositionAngle = Vector(100, 180, 90)
-				self.WorldModel_CustomPositionOrigin = Vector(5.6, -4, -2)
+				self.WorldModelOffsetParams.Pos = Vector(4.82, -2, 4.912)
+				self.WorldModelOffsetParams.Ang = Angle(80, 0, -90)
 			end
 		end
 	end)

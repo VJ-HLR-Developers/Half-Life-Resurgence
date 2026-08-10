@@ -17,10 +17,12 @@ SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_hlr/weapons/w_m40a1.mdl"
 SWEP.HoldType = "ar2"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(-80, 0, 92.5)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-10, 0.5, -0.2)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+	Enabled = true,
+	Bone = "Bip01 R Hand",
+	Pos = Vector(9.934, -0.236, 1.244),
+	Ang = Angle(80, 0, 92.5)
+}
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 30
 SWEP.Primary.ClipSize = 5
