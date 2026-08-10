@@ -46,7 +46,6 @@ function ENT:OnThink()
 	local phys = self:GetPhysicsObject()
 	local ent = self.Target or owner:IsNPC() && owner:GetEnemy()
 	local pos;
-	//local turnSpeed = self.TurnSpeed
 	if owner:IsNPC() && IsValid(ent) && (owner.VJ_ForceRocketFollow or IsValid(owner:GetActiveWeapon())) then
 		pos = (ent:GetPos() + ent:OBBCenter()) + ent:GetVelocity() * 0.25
 	else
@@ -60,7 +59,6 @@ function ENT:OnThink()
 			pos = tr.HitPos
 		else
 			pos = myPos + (self:GetForward() * self.Speed + VectorRand(-10, 10))
-			//turnSpeed = 20
 		end
 	end
 
@@ -86,10 +84,6 @@ function ENT:OnDestroy(data, phys)
 
 	local effectData = EffectData()
 	effectData:SetOrigin(data.HitPos)
-	//effectData:SetScale(500)
-	//util.Effect("HelicopterMegaBomb", effectData)
-	//util.Effect("ThumperDust", effectData)
-	//util.Effect("Explosion", effectData)
 	util.Effect("VJ_Small_Explosion1", effectData)
 
 	local expLight = ents.Create("light_dynamic")
@@ -98,10 +92,8 @@ function ENT:OnDestroy(data, phys)
 	expLight:SetLocalPos(data.HitPos)
 	expLight:SetLocalAngles(self:GetAngles())
 	expLight:Fire("Color", "255 150 0")
-	//expLight:SetParent(self)
 	expLight:Spawn()
 	expLight:Activate()
 	expLight:Fire("TurnOn", "", 0)
 	expLight:Fire("Kill", "", 0.1)
-	//self:DeleteOnRemove(expLight)
 end

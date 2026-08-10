@@ -29,20 +29,20 @@ ENT.RemoveDelay = 1
 function ENT:Init()
 	self:SetNoDraw(true)
 
-	local sprite = ents.Create("env_sprite")
-	sprite:SetKeyValue("model", "vj_hl/sprites/flare3.vmt")
-	sprite:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
-	sprite:SetKeyValue("renderfx", "14")
-	sprite:SetKeyValue("rendermode", "3") -- Set the render mode to "3" (Glow)
-	sprite:SetKeyValue("renderamt", "255") -- Transparency
-	sprite:SetKeyValue("disablereceiveshadows", "0") -- Disable receiving shadows
-	sprite:SetKeyValue("framerate", "10.0") -- Rate at which the sprite should animate, if at all.
-	sprite:SetKeyValue("spawnflags", "0")
-	sprite:SetPos(self:GetPos())
-	sprite:SetParent(self)
-	sprite:Spawn()
-	sprite:Activate()
-	self:DeleteOnRemove(sprite)
+	local spr = ents.Create("env_sprite")
+	spr:SetKeyValue("model", "vj_hl/sprites/flare3.vmt")
+	spr:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
+	spr:SetKeyValue("renderfx", "14")
+	spr:SetKeyValue("rendermode", "3") -- Set the render mode to "3" (Glow)
+	spr:SetKeyValue("renderamt", "255") -- Transparency
+	spr:SetKeyValue("disablereceiveshadows", "0") -- Disable receiving shadows
+	spr:SetKeyValue("framerate", "10.0") -- Rate at which the sprite should animate, if at all.
+	spr:SetKeyValue("spawnflags", "0")
+	spr:SetPos(self:GetPos())
+	spr:SetParent(self)
+	spr:Spawn()
+	spr:Activate()
+	self:DeleteOnRemove(spr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Vort_DoElecEffect(sp, hp, hn, a, t)

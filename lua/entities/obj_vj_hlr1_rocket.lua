@@ -13,22 +13,31 @@ ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 
 ENT.VJ_ID_Danger = true
 
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SetupDataTables()
+	self:NetworkVar("Bool", "Exploded")
+	//baseclass.Get("obj_vj_projectile_base").SetupDataTables(self)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlr1_rocket", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 
 	function ENT:Think()
-		if IsValid(self) && self:GetNW2Bool("VJ_Dead") != true then
-			self.Emitter = ParticleEmitter(self:GetPos())
-			self.SmokeEffect1 = self.Emitter:Add("particles/flamelet2", self:GetPos() + self:GetForward() * -7)
-			self.SmokeEffect1:SetVelocity(self:GetForward() * math.Rand(0, -50) + Vector(math.Rand(5, -5), math.Rand(5, -5), math.Rand(5, -5)) + self:GetVelocity())
-			self.SmokeEffect1:SetDieTime(0.2)
-			self.SmokeEffect1:SetStartAlpha(100)
-			self.SmokeEffect1:SetEndAlpha(0)
-			self.SmokeEffect1:SetStartSize(4)
-			self.SmokeEffect1:SetEndSize(1)
-			self.SmokeEffect1:SetRoll(math.Rand(-0.2, 0.2))
-			self.SmokeEffect1:SetAirResistance(200)
-			self.Emitter:Finish()
+		print(self:GetExploded())
+		if IsValid(self) && !self:GetExploded() then
+			local emitter = ParticleEmitter(self:GetPos())
+			local fireTrail = emitter:Add("particles/flamelet2", self:GetPos() + self:GetForward() * -7)
+			if fireTrail then
+				fireTrail:SetVelocity(self:GetForward() * math.Rand(0, -50) + Vector(math.Rand(5, -5), math.Rand(5, -5), math.Rand(5, -5)) + self:GetVelocity())
+				fireTrail:SetDieTime(0.2)
+				fireTrail:SetStartAlpha(100)
+				fireTrail:SetEndAlpha(0)
+				fireTrail:SetStartSize(4)
+				fireTrail:SetEndSize(1)
+				fireTrail:SetRoll(math.Rand(-0.2, 0.2))
+				fireTrail:SetAirResistance(200)
+			end
+			emitter:Finish()
 		end
 	end
 end
@@ -77,7 +86,6 @@ function ENT:Init()
 	self:DeleteOnRemove(glowSpr)
 	self.GlowSprite = glowSpr
 	util.SpriteTrail(self, 0, colorTrail, true, 5, 20, 6, 1 / (5 + 20) * 0.5, "vj_hl/sprites/smoke.vmt")
-	self:SetNW2Bool("VJ_Dead", false)
 
 	-- For helicopters
 	if self.Rocket_HelicopterMissile then
@@ -142,7 +150,7 @@ function ENT:OnDestroy(data, phys)
 	util.ScreenShake(data.HitPos, 16, 200, 1, 3000)
 	if IsValid(self.GlowSprite) then self.GlowSprite:Remove() end
 
-	self:SetNW2Bool("VJ_Dead", true)
+	self:SetExploded(true)
 	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris" .. math.random(1, 3) .. ".wav", 80, 100)
 	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100, 100, 1)
 	local spr = ents.Create("env_sprite")

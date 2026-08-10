@@ -29,8 +29,9 @@ ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/bullchicken/bc_acid1.wav", "vj_hlr/gsrc/np
 ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/npc/bullchicken/bc_spithit1.wav", "vj_hlr/gsrc/npc/bullchicken/bc_spithit2.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-	ParticleEffectAttach("vj_hlr_spit_stukabat", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 	self:SetNoDraw(true)
+	
+	ParticleEffectAttach("vj_hlr_spit_stukabat", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDestroy(data, phys)

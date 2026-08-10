@@ -46,14 +46,8 @@ function ENT:OnDamaged(dmginfo)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCollision(data, phys)
-	local getVel = phys:GetVelocity()
-	local curVelSpeed = getVel:Length()
-	//if curVelSpeed > 500 then -- Or else it will go flying!
-		//phys:SetVelocity(getVel + self:GetUp()*1000)
-	//end
-
 	-- If the grenade is going faster than 100, then play the touch sound
-	if curVelSpeed > 100 then
+	if phys:GetVelocity():Length() > 100 then
 		self:PlaySound("OnCollide")
 	end
 

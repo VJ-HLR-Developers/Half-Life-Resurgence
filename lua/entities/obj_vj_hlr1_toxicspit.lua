@@ -29,7 +29,7 @@ ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/bullchicken/bc_acid1.wav", "vj_hlr/gsrc/np
 ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/npc/bullchicken/bc_spithit1.wav", "vj_hlr/gsrc/npc/bullchicken/bc_spithit2.wav"}
 
 -- Custom
-ENT.Spit_AlphaStyle = false -- Should it act like HL Alpha toxic spit?
+ENT.Spit_Alpha = false -- Should it act like HL Alpha toxic spit?
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
 	if IsValid(self:GetOwner()) && self:GetOwner().Bullsquid_BullSquidding then
@@ -38,11 +38,9 @@ function ENT:PreInit()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-	-- ParticleEffectAttach("vj_hl_spit_bullsquid", PATTACH_ABSORIGIN_FOLLOW, self, 0)
-
 	self.Scale = math.Rand(0.5, 1.15)
 
-	if self.Spit_AlphaStyle then
+	if self.Spit_Alpha then
 		self:SetNoDraw(false)
 	else
 		self:SetNoDraw(true)
@@ -64,6 +62,7 @@ function ENT:Init()
 		sprIdle:Spawn()
 		sprIdle:SetParent(self)
 		self:DeleteOnRemove(sprIdle)
+		//ParticleEffectAttach("vj_hl_spit_bullsquid", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 	end
 	self:SetAngles(self:GetVelocity():GetNormal():Angle())
 end
@@ -81,11 +80,10 @@ function ENT:OnDestroy(data, phys)
 	spr:SetKeyValue("maxdxlevel", "0")
 	spr:SetKeyValue("framerate", "15.0")
 	spr:SetKeyValue("spawnflags", "0")
-	spr:SetKeyValue("scale", tostring(self.Scale *0.3))
+	spr:SetKeyValue("scale", tostring(self.Scale * 0.3))
 	spr:SetPos(data.HitPos)
 	spr:Spawn()
 	spr:Fire("Kill", "", 0.3)
 	timer.Simple(0.3, function() if IsValid(spr) then spr:Remove() end end)
-
 	//ParticleEffect("vj_hl_spit_bullsquid_impact", data.HitPos, Angle())
 end

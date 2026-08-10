@@ -41,15 +41,15 @@ function ENT:OnThink()
 		self.NextBubbles = curTime + 0.02
 	end
 
-	-- Make it slow down when its out of the water and fall down
-	/*if self:WaterLevel() == 0 then
-		local phys = self:GetPhysicsObject()
-		if IsValid(phys) then
-			phys:EnableGravity(true)
-			phys:EnableDrag(true)
-			phys:SetVelocity(phys:GetVelocity() * 0.3)
-		end
-	end*/
+	-- Slow down when its out of the water and fall down
+	//if self:WaterLevel() == 0 then
+	//	local phys = self:GetPhysicsObject()
+	//	if IsValid(phys) then
+	//		phys:EnableGravity(true)
+	//		phys:EnableDrag(true)
+	//		phys:SetVelocity(phys:GetVelocity() * 0.3)
+	//	end
+	//end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local defAng = Angle()

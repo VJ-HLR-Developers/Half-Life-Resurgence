@@ -7,7 +7,7 @@ AddCSLuaFile()
 
 ENT.Base 			= "sent_vj_hlr_alientp"
 ENT.Type 			= "anim"
-ENT.PrintName 		= "Portal (Race X)"
+ENT.PrintName 		= "Race X Portal"
 ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Category		= "VJ Base Spawners"

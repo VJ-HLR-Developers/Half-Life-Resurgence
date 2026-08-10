@@ -1,6 +1,6 @@
 ENT.Base 			= "npc_vj_creature_base"
 ENT.Type 			= "ai"
-ENT.PrintName 		= "Xen Tree (Dreamcast)"
+ENT.PrintName 		= "Dreamcast Xen Tree"
 ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
 ENT.Category		= "Half-Life Resurgence"
