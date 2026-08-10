@@ -732,6 +732,7 @@ ent.HLR_Corpse = Is this an HLR corpse?
 ------ Convars & Menu ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 VJ.AddConVar("vj_hlr_hd", 0, FCVAR_ARCHIVE)
+VJ.AddConVar("vj_hlr_dm_ffa", 0, FCVAR_ARCHIVE)
 -- GoldSrc
 VJ.AddConVar("vj_hlr1_corpse_static", 0, FCVAR_ARCHIVE)
 VJ.AddConVar("vj_hlr1_corpse_effects", 1, FCVAR_ARCHIVE)
@@ -795,9 +796,11 @@ if CLIENT then
 				return
 			end
 			panel:Help("#vjbase.menu.general.admin.only")
-			panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_bradley_deploygrunts_oppf 0\nvj_hlr1_osprey_deploysoldiers 1\nvj_hlr1_osprey_deploysoldiers_oppf 0\nvj_hlr2_merkava_gunner 1\nvj_hlr1_assassin_cloaks 1\nvj_hlr1_corpse_static 0\nvj_hlr1_corpse_effects 1\nvj_hlr1_corpse_gibbable 1\nvj_hlr2_custom_skins 1\nvj_hlr_hd 0"})
+			panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_bradley_deploygrunts_oppf 0\nvj_hlr1_osprey_deploysoldiers 1\nvj_hlr1_osprey_deploysoldiers_oppf 0\nvj_hlr2_merkava_gunner 1\nvj_hlr1_assassin_cloaks 1\nvj_hlr1_corpse_static 0\nvj_hlr1_corpse_effects 1\nvj_hlr1_corpse_gibbable 1\nvj_hlr2_custom_skins 1\nvj_hlr_hd 0\nvj_hlr_dm_ffa 0"})
 			panel:CheckBox("Enable HD Models (if available)", "vj_hlr_hd")
 			panel:ControlHelp("Requires HD extension(s) to be installed!")
+			panel:CheckBox("Enable FFA For DM Players", "vj_hlr_dm_ffa")
+			panel:ControlHelp("Requires Players extension to be installed!")
 			panel:Help("GoldSrc Engine:")
 			panel:CheckBox("Corpses Are Static Like GoldSrc", "vj_hlr1_corpse_static")
 			panel:CheckBox("Corpses Create Effects & Decals", "vj_hlr1_corpse_effects")

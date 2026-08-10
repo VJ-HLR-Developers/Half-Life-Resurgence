@@ -23,7 +23,7 @@ ENT.Model = "models/vj_hlr/hl1/crossbow_bolt.mdl"
 ENT.DoesDirectDamage = true
 ENT.DirectDamage = 50
 ENT.DirectDamageType = DMG_SLASH
-ENT.CollisionDecal = "Impact.Concrete"
+ENT.CollisionDecal = "VJ_HLR1_Impact"
 ENT.SoundTbl_OnCollide = "vj_hlr/gsrc/wep/crossbow/xbow_hit1.wav"
 local sdOnCollideEnt = {"vj_hlr/gsrc/wep/crossbow/xbow_hitbod1.wav", "vj_hlr/gsrc/wep/crossbow/xbow_hitbod2.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
