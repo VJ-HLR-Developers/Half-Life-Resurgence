@@ -269,15 +269,16 @@ local vec = Vector()
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "Init" then
 		-- Make a metal effect when the helmet is hit!
-		self.Bleeds = true
 		if self.Security_Type == SECURITY_TYPE_OTIS then return end -- Only types that do have a helmet
 		if hitgroup == HITGROUP_GEAR && dmginfo:GetDamagePosition() != vec then
-			self.Bleeds = false -- disable bleeding temporarily when shot at the helmet
+			self.HasBloodParticle = false -- Disable blood particles temporarily when shot at the helmet
 			local rico = EffectData()
 			rico:SetOrigin(dmginfo:GetDamagePosition())
 			rico:SetScale(4) -- Size
 			rico:SetMagnitude(math.random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
 			util.Effect("VJ_HLR_Rico", rico)
+		else
+			self.HasBloodParticle = true
 		end
 	end
 end

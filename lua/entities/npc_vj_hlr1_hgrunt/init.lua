@@ -528,6 +528,25 @@ function ENT:OnThink()
 	self:HECU_OnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vec = Vector()
+--
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+	if status == "Init" then
+		-- Make a metal effect when the helmet is hit!
+		if self.HECU_Type != 0 or self:GetBodygroup(1) != 0 then return end -- Only HL1 HGrunts that do have a helmet
+		if hitgroup == HITGROUP_GEAR && dmginfo:GetDamagePosition() != vec then
+			self.HasBloodParticle = false -- Disable blood particles temporarily when shot at the helmet
+			local rico = EffectData()
+			rico:SetOrigin(dmginfo:GetDamagePosition())
+			rico:SetScale(4) -- Size
+			rico:SetMagnitude(math.random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
+			util.Effect("VJ_HLR_Rico", rico)
+		else
+			self.HasBloodParticle = true
+		end
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo, hitgroup, status)
 	if status == "Init" then
 		return self.HECU_Rappelling -- Do not flinch when rappelling
