@@ -240,17 +240,13 @@ end
 local sdAlertAlien = {"vj_hlr/gsrc/npc/hgrunt_opf/alert.wav", "vj_hlr/gsrc/npc/hgrunt_opf/alien.wav"}
 --
 function ENT:OnAlert(ent)
-	if math.random(1, 3) == 1 then
-		if ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Alien sounds
-			self:PlaySoundSystem("Alert", sdAlertAlien)
-		end
+	if math.random(1, 3) == 1 && ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Alien alert sounds
+		self:PlaySoundSystem("Alert", sdAlertAlien)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
-	if math.random(1, 3) == 1 then
-		if ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Alien kill
-			self:PlaySoundSystem("Alert", "vj_hlr/gsrc/npc/hgrunt_opf/killer.wav")
-		end
+	if math.random(1, 3) == 1 && ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Alien kill sounds
+		self:PlaySoundSystem("Alert", "vj_hlr/gsrc/npc/hgrunt_opf/killer.wav")
 	end
 end

@@ -58,9 +58,9 @@ ENT.Bullsquid_BlinkingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	if self.Bullsquid_Type == 1 then
-		self:SetCollisionBounds(Vector(35, 35 , 60), Vector(-35, -35, 0))
+		self:SetCollisionBounds(Vector(35, 35, 60), Vector(-35, -35, 0))
 	else
-		self:SetCollisionBounds(Vector(30, 30 , 44), Vector(-30, -30, 0))
+		self:SetCollisionBounds(Vector(30, 30, 44), Vector(-30, -30, 0))
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
