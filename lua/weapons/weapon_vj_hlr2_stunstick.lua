@@ -9,7 +9,7 @@ SWEP.ReplacementWeapon = "weapon_stunstick"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 1
 SWEP.NPC_TimeUntilFire = 0.5
-SWEP.NPC_BeforeFireSound = {"weapons/stunstick/stunstick_swing1.wav", "weapons/stunstick/stunstick_swing2.wav"} -- Plays a sound before the firing code is ran, usually in the beginning of the animation
+SWEP.NPC_BeforeFireSound = {"weapons/stunstick/stunstick_swing1.wav", "weapons/stunstick/stunstick_swing2.wav"}
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel = "models/weapons/w_stunbaton.mdl"
 SWEP.HoldType = "melee"
@@ -17,7 +17,7 @@ SWEP.HoldType = "melee"
 SWEP.Primary.Damage = 30
 SWEP.IsMeleeWeapon = true
 SWEP.Primary.Sound = {"weapons/stunstick/spark1.wav", "weapons/stunstick/spark2.wav", "weapons/stunstick/spark3.wav"}
-SWEP.MeleeWeaponSound_Hit = {"weapons/stunstick/stunstick_fleshhit1.wav", "weapons/stunstick/stunstick_fleshhit2.wav"} -- Sound it plays when it hits something
+SWEP.MeleeWeaponSound_Hit = {"weapons/stunstick/stunstick_fleshhit1.wav", "weapons/stunstick/stunstick_fleshhit2.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnPrimaryAttack(status, statusData)
 	if status == "MeleeHit" then

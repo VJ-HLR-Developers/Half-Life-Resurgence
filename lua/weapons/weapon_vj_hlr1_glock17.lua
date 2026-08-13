@@ -15,10 +15,12 @@ SWEP.ReplacementWeapon = {"weapon_hl1_glock", "weapon_glock_hl1"}
 SWEP.WorldModel = "models/vj_hlr/weapons/w_9mmhandgun.mdl"
 SWEP.HoldType = "pistol"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(0, 180, -90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(0, -5.5, -1)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+	Enabled = true,
+	Bone = "Bip01 R Hand",
+	Pos = Vector(5.5, 1, 0),
+	Ang = Angle(0, 180, -90)
+}
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 5
 SWEP.Primary.ClipSize = 17
@@ -54,10 +56,12 @@ function SWEP:Init()
 			local model = self:GetOwner():GetModel()
 			if model == "models/vj_hlr/hl1/barney.mdl" or model == "models/vj_hlr/hla/barney.mdl" or model == "models/vj_hlr/cracklife/barney.mdl" then
 				self.Primary.Sound = "vj_hlr/gsrc/npc/barney/ba_attack2.wav"
-				self.WorldModel_CustomPositionAngle = Vector(0, 192, -90)
-				self.WorldModel_CustomPositionOrigin = Vector(-1.5, -7, -1)
+				self.WorldModelOffsetParams.Pos = Vector(6.639, 2.434, -1.5)
+				self.WorldModelOffsetParams.Ang = Angle(0, -168, -90)
 				if model == "models/vj_hlr/hla/barney.mdl" then
-					self.WorldModel_CustomPositionBone = "unnamed033"
+					self.WorldModelOffsetParams.Bone = "unnamed033"
+					self.WorldModelOffsetParams.Pos = Vector(6.639, 2, -1.5)
+					self.WorldModelOffsetParams.Ang = Angle(0, -180, -90)
 					self.Primary.TakeAmmo = 0 -- Alpha Security Guard can't reload, so give it unlimited ammo!
 				end
 			end
@@ -76,7 +80,7 @@ end
 function SWEP:PrimaryAttackEffects(owner)
 	local muz = ents.Create("env_sprite")
 	muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash2.vmt")
-	muz:SetKeyValue("scale", "" .. math.Rand(0.3, 0.5))
+	muz:SetKeyValue("scale", math.Rand(0.3, 0.5))
 	muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
 	muz:SetKeyValue("HDRColorScale", "1.0")
 	muz:SetKeyValue("renderfx", "14")

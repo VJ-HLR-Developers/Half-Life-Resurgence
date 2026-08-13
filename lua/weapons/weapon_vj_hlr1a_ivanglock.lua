@@ -16,10 +16,11 @@ SWEP.ReplacementWeapon = {"weapon_hl1_glock", "weapon_glock_hl1"}
 SWEP.WorldModel					= "models/vj_hlr/hla/w_docgun.mdl"
 SWEP.HoldType 					= "pistol"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector()
-SWEP.WorldModel_CustomPositionOrigin = Vector(-1, 3.3, -0.7)
-SWEP.WorldModel_CustomPositionBone = "unnamed037"
+SWEP.WorldModelOffsetParams = {
+	Enabled = true,
+	Bone = "unnamed037",
+	Pos = Vector(3.3, 1, -0.7)
+}
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 5
 SWEP.Primary.ClipSize = 17
@@ -56,7 +57,7 @@ end
 function SWEP:PrimaryAttackEffects(owner)
 	local muz = ents.Create("env_sprite")
 	muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash2.vmt")
-	muz:SetKeyValue("scale", "" .. math.Rand(0.3, 0.5))
+	muz:SetKeyValue("scale", math.Rand(0.3, 0.5))
 	muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
 	muz:SetKeyValue("HDRColorScale", "1.0")
 	muz:SetKeyValue("renderfx", "14")

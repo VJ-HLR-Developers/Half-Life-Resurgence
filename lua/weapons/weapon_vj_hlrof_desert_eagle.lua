@@ -14,10 +14,12 @@ SWEP.MadeForNPCsOnly 			= true
 SWEP.WorldModel					= "models/vj_hlr/weapons/w_desert_eagle.mdl"
 SWEP.HoldType 					= "pistol"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(80, 0, 0)
-SWEP.WorldModel_CustomPositionOrigin = Vector(0.5, -0.5, -35)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+	Enabled = true,
+	Bone = "Bip01 R Hand",
+	Pos = Vector(34.381, -0.5, -6.57),
+	Ang = Angle(-80, 0, 0)
+}
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 15
 SWEP.Primary.ClipSize			= 7
@@ -32,11 +34,8 @@ SWEP.DryFireSound = "vj_hlr/gsrc/wep/dryfire1.wav"
 -- Custom
 local validModels = {
 	["models/vj_hlr/opfor/otis.mdl"] = true,
-	["models/vj_hlr/opfor/hgrunt.mdl"] = true,
-	["models/vj_hlr/hl1/hgrunt.mdl"] = true,
 	["models/vj_hlr/opfor/hgrunt_medic.mdl"] = true,
 	["models/vj_hlr/opfor/hgrunt_engineer.mdl"] = true,
-	["models/vj_hlr/opfor_hd/hgrunt.mdl"] = true,
 	["models/vj_hlr/opfor_hd/hgrunt_medic.mdl"] = true,
 	["models/vj_hlr/opfor_hd/hgrunt_engineer.mdl"] = true
 }
@@ -46,8 +45,8 @@ function SWEP:Init()
 		if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
 			self.NPC_NextPrimaryFire = false
 			if self:GetOwner():GetModel() == "models/vj_hlr/opfor/otis.mdl" then
-				self.WorldModel_CustomPositionAngle = Vector(80, 0, 10)
-				self.WorldModel_CustomPositionOrigin = Vector(-0.7, -1.3, -32.5)
+				self.WorldModelOffsetParams.Pos = Vector(31.175, 6.333, -6.817)
+				self.WorldModelOffsetParams.Ang = Angle(-80, 0, 10)
 			end
 		end
 	end)
@@ -64,7 +63,7 @@ end
 function SWEP:PrimaryAttackEffects(owner)
 	local muz = ents.Create("env_sprite")
 	muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash2.vmt")
-	muz:SetKeyValue("scale", "" .. math.Rand(0.3, 0.5))
+	muz:SetKeyValue("scale", math.Rand(0.3, 0.5))
 	muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
 	muz:SetKeyValue("HDRColorScale", "1.0")
 	muz:SetKeyValue("renderfx", "14")

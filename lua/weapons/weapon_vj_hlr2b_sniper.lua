@@ -13,7 +13,6 @@ SWEP.NPC_TimeUntilFire = 0.5
 SWEP.NPC_CustomSpread = 0.3
 SWEP.NPC_FiringDistanceScale = 2.5
 SWEP.NPC_StandingOnly = true
-	-- ====== Reload Variables ====== --
 SWEP.NPC_ReloadSound = "vj_hlr/src/wep/sniper_rifle/reload1.wav"
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true

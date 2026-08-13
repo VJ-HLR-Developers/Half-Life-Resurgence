@@ -14,10 +14,10 @@ SWEP.MadeForNPCsOnly 			= true
 SWEP.WorldModel					= "models/props_junk/watermelon01_chunk02c.mdl"
 SWEP.HoldType 					= "smg"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector()
-SWEP.WorldModel_CustomPositionOrigin = Vector(20, 3, -2.5)
-SWEP.WorldModel_CustomPositionBone = "Bone58"
+SWEP.WorldModelOffsetParams = {
+	Enabled = true,
+	Bone = "Bone58"
+}
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 5
 SWEP.Primary.ClipSize			= 30
@@ -27,7 +27,6 @@ SWEP.Primary.DistantSound		= "vj_hlr/gsrc/wep/shockroach/shock_fire_distant.wav"
 SWEP.Primary.DisableBulletCode	= true
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.PrimaryEffects_MuzzleFlash = false
-
 SWEP.HasDryFireSound			= false
 
 -- Custom
@@ -66,7 +65,6 @@ function SWEP:OnPrimaryAttack(status, statusData)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnGetBulletPos()
-	-- Return a position to override the bullet spawn position
 	return self:GetOwner():GetAttachment(self:GetOwner():LookupAttachment("muzzle")).Pos
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

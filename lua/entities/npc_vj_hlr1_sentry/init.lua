@@ -239,9 +239,9 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		local muz = ents.Create("env_sprite_oriented")
 		muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash3.vmt")
 		if self.Sentry_Type == 1 then
-			muz:SetKeyValue("scale", "" .. math.Rand(0.8, 1))
+			muz:SetKeyValue("scale", math.Rand(0.8, 1))
 		else
-			muz:SetKeyValue("scale", "" .. math.Rand(0.3, 0.5))
+			muz:SetKeyValue("scale", math.Rand(0.3, 0.5))
 		end
 		muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
 		muz:SetKeyValue("HDRColorScale", "1.0")

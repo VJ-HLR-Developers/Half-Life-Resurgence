@@ -15,10 +15,12 @@ SWEP.MadeForNPCsOnly 			= true
 SWEP.WorldModel					= "models/vj_hlr/weapons/w_saw.mdl"
 SWEP.HoldType 					= "ar2"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(-10, 94, 2)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-6.5, 0, 0)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+	Enabled = true,
+	Bone = "Bip01 R Hand",
+	Pos = Vector(-9, -0.453, 1.349),
+	Ang = Angle(-0.694, 93.939, 11.976)
+}
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage				= 8
 SWEP.Primary.ClipSize			= 50
@@ -32,12 +34,7 @@ SWEP.DryFireSound = "vj_hlr/gsrc/wep/dryfire1.wav"
 -- Custom
 local validModels = {
 	["models/vj_hlr/opfor/hgrunt.mdl"] = true,
-	["models/vj_hlr/hl1/hgrunt.mdl"] = true,
-	["models/vj_hlr/opfor/hgrunt_medic.mdl"] = true,
-	["models/vj_hlr/opfor/hgrunt_engineer.mdl"] = true,
-	["models/vj_hlr/opfor_hd/hgrunt.mdl"] = true,
-	["models/vj_hlr/opfor_hd/hgrunt_medic.mdl"] = true,
-	["models/vj_hlr/opfor_hd/hgrunt_engineer.mdl"] = true
+	["models/vj_hlr/opfor_hd/hgrunt.mdl"] = true
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
@@ -52,14 +49,14 @@ function SWEP:DoImpactEffect(tr, damageType)
 	return VJ.HLR1_Effect_Impact(tr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function SWEP:OnDrawWorldModel()
-	return !IsValid(self:GetOwner())
-end
+//function SWEP:OnDrawWorldModel()
+//	return !IsValid(self:GetOwner())
+//end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:PrimaryAttackEffects(owner)
 	local muz = ents.Create("env_sprite")
 	muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash1.vmt")
-	muz:SetKeyValue("scale", "" .. math.Rand(0.3, 0.5))
+	muz:SetKeyValue("scale", math.Rand(0.3, 0.5))
 	muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
 	muz:SetKeyValue("HDRColorScale", "1.0")
 	muz:SetKeyValue("renderfx", "14")

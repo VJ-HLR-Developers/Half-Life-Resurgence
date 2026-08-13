@@ -17,10 +17,12 @@ SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_hlr/weapons/w_coltcarbine.mdl"
 SWEP.HoldType = "smg"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(176, 180, 180)
-SWEP.WorldModel_CustomPositionOrigin = Vector(0.5, 12.2, 1.9)
-SWEP.WorldModel_CustomPositionBone = "unnamed035"
+SWEP.WorldModelOffsetParams = {
+	Enabled = true,
+	Bone = "unnamed035",
+	Pos = Vector(12.303, -0.5, 1.044),
+	Ang = Angle(4, 0, 0)
+}
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 5
 SWEP.Primary.ClipSize = 50
@@ -55,7 +57,7 @@ end
 function SWEP:PrimaryAttackEffects(owner)
 	local muz = ents.Create("env_sprite")
 	muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash1.vmt")
-	muz:SetKeyValue("scale", "" .. math.Rand(0.3, 0.5))
+	muz:SetKeyValue("scale", math.Rand(0.3, 0.5))
 	muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
 	muz:SetKeyValue("HDRColorScale", "1.0")
 	muz:SetKeyValue("renderfx", "14")

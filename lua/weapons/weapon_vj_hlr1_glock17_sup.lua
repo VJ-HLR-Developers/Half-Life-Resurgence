@@ -15,10 +15,11 @@ SWEP.ReplacementWeapon = {"weapon_hl1_glock", "weapon_glock_hl1"}
 SWEP.WorldModel = "models/vj_hlr/weapons/w_glock_silenced.mdl"
 SWEP.HoldType = "pistol"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector()
-SWEP.WorldModel_CustomPositionOrigin = Vector(0.3, 0.6, -2.35)
-SWEP.WorldModel_CustomPositionBone = "sides01"
+SWEP.WorldModelOffsetParams = {
+	Enabled = true,
+	Bone = "sides01",
+	Pos = Vector(0.6, -0.3, -2.35)
+}
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 5
 SWEP.Primary.ClipSize = 17
@@ -43,8 +44,9 @@ function SWEP:Init()
 		if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
 			self.NPC_NextPrimaryFire = false
 			if self:GetOwner():GetModel() == "models/vj_hlr/opfor/hassassin.mdl" then
-				self.WorldModel_CustomPositionAngle = Vector(-90, -5, 90)
-				self.WorldModel_CustomPositionBone = "Object05"
+				self.WorldModelOffsetParams.Ang = Angle(80, -90, 0)
+				self.WorldModelOffsetParams.Pos = Vector(-0.3, 2.289, -0.803)
+				self.WorldModelOffsetParams.Bone = "Object05"
 			end
 		end
 	end)
@@ -61,7 +63,7 @@ end
 function SWEP:PrimaryAttackEffects(owner)
 	local muz = ents.Create("env_sprite")
 	muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash2.vmt")
-	muz:SetKeyValue("scale", "" .. math.Rand(0.2, 0.25))
+	muz:SetKeyValue("scale", math.Rand(0.2, 0.25))
 	muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
 	muz:SetKeyValue("HDRColorScale", "1.0")
 	muz:SetKeyValue("renderfx", "14")
