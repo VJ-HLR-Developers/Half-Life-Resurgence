@@ -12,7 +12,6 @@ SWEP.UseHands = true
 SWEP.ViewModel = "models/vj_hlr/hl2/weapons/c_combine_reager.mdl"
 SWEP.WorldModel = "models/vj_hlr/hl2/weapons/combine_reager.mdl"
 SWEP.HoldType = "ar2"
--- SWEP.MadeForNPCsOnly = true
 
 SWEP.NPC_NextPrimaryFire = 0.06
 SWEP.NPC_FiringDistanceScale = 0.15

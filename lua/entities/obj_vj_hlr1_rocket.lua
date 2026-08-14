@@ -23,7 +23,6 @@ if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlr1_rocket", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 
 	function ENT:Think()
-		print(self:GetExploded())
 		if IsValid(self) && !self:GetExploded() then
 			local emitter = ParticleEmitter(self:GetPos())
 			local fireTrail = emitter:Add("particles/flamelet2", self:GetPos() + self:GetForward() * -7)

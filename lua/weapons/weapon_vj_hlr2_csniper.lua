@@ -83,7 +83,7 @@ function SWEP:OnThink()
 	if IsValid(owner) then
 		if owner:IsNPC() then
 			if IsValid(owner:GetEnemy()) && self:Visible(owner:GetEnemy()) then -- Return the enemy center position
-				self:SetNW2Vector("OwnerEnemyPos", self.Owner:GetEnemy():GetPos() + self.Owner:GetEnemy():OBBCenter())
+				self:SetNW2Vector("OwnerEnemyPos", owner:GetEnemy():GetPos() + owner:GetEnemy():OBBCenter())
 			else -- Make the vector default position, used to determine whether or not to lock onto the enemy (the laser)
 				self:SetNW2Vector("OwnerEnemyPos", vec_def)
 			end
