@@ -27,7 +27,7 @@ ENT.ControllerParams = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
-ENT.CanTurnWhileMoving = false
+//ENT.CanTurnWhileMoving = false
 ENT.LimitChaseDistance = true
 ENT.LimitChaseDistance_Min = 0
 ENT.LimitChaseDistance_Max = combatDistance
