@@ -595,7 +595,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			spr:SetKeyValue("scale", "1.5")
 			spr:SetPos(self:GetPos() + self:GetUp() * 60)
 			spr:Spawn()
-			spr:Fire("Kill", "", 0.7)
+			spr:Fire("Kill", nil, 0.7)
 			timer.Simple(0.7, function() if IsValid(spr) then spr:Remove() end end)
 		end
 
@@ -669,7 +669,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		spr:SetKeyValue("scale", "4")
 		spr:SetPos(self:GetPos() + gasTankExpPos)
 		spr:Spawn()
-		spr:Fire("Kill", "", 0.9)
+		spr:Fire("Kill", nil, 0.9)
 		timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 	end
 

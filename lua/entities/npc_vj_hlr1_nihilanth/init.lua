@@ -361,7 +361,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		spr1:SetKeyValue("scale", "10")
 		spr1:SetPos(self:GetAttachment(self:LookupAttachment("0")).Pos)
 		spr1:Spawn()
-		spr1:Fire("Kill", "", 0.9)
+		spr1:Fire("Kill", nil, 0.9)
 
 		-- Create blue beams
 		for t = 0, 15.5, 0.5 do
@@ -469,7 +469,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 					spr:SetKeyValue("scale", "20")
 					spr:SetPos(attachPos + myForward * math.random(-200, 200) + myRight * math.random(-200, 200))
 					spr:Spawn()
-					spr:Fire("Kill", "", 0.9)
+					spr:Fire("Kill", nil, 0.9)
 				end
 			end)
 		end
@@ -493,7 +493,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				spr:SetKeyValue("scale", "20")
 				spr:SetPos(self:GetAttachment(self:LookupAttachment("0")).Pos)
 				spr:Spawn()
-				spr:Fire("Kill", "", 0.9)
+				spr:Fire("Kill", nil, 0.9)
 			end
 		end)
 
@@ -521,7 +521,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 						spr:SetKeyValue("scale", "20")
 						spr:SetPos(self:GetAttachment(self:LookupAttachment("1")).Pos)
 						spr:Spawn()
-						spr:Fire("Kill", "", 0.9)
+						spr:Fire("Kill", nil, 0.9)
 					end
 				end)
 
@@ -543,7 +543,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 						spr:SetKeyValue("scale", "20")
 						spr:SetPos(self:GetAttachment(self:LookupAttachment("1")).Pos + self:GetUp() * 100 + self:GetRight() * 300)
 						spr:Spawn()
-						spr:Fire("Kill", "", 0.9)
+						spr:Fire("Kill", nil, 0.9)
 
 						spr = ents.Create("env_sprite")
 						spr:SetKeyValue("model", "vj_hl/sprites/fexplo1.vmt")
@@ -561,7 +561,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 						spr:SetKeyValue("scale", "20")
 						spr:SetPos(self:GetAttachment(self:LookupAttachment("1")).Pos + self:GetUp() * 100 + self:GetRight() * -300)
 						spr:Spawn()
-						spr:Fire("Kill", "", 0.9)
+						spr:Fire("Kill", nil, 0.9)
 					end
 				end)
 			end

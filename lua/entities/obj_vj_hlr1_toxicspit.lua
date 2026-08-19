@@ -83,7 +83,7 @@ function ENT:OnDestroy(data, phys)
 	spr:SetKeyValue("scale", tostring(self.Scale * 0.3))
 	spr:SetPos(data.HitPos)
 	spr:Spawn()
-	spr:Fire("Kill", "", 0.3)
+	spr:Fire("Kill", nil, 0.3)
 	timer.Simple(0.3, function() if IsValid(spr) then spr:Remove() end end)
 	//ParticleEffect("vj_hl_spit_bullsquid_impact", data.HitPos, Angle())
 end

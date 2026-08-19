@@ -53,7 +53,7 @@ function ENT:Init()
 	spotLight:SetParent(self)
 	spotLight:Spawn()
 	spotLight:Activate()
-	spotLight:Fire("TurnOn", "", 0)
+	spotLight:Fire("TurnOn")
 	self:DeleteOnRemove(spotLight)
 
 	-- Doesn't work in game
@@ -70,7 +70,7 @@ function ENT:Init()
 	spotLight:SetParent(self)
 	spotLight:Spawn()
 	spotLight:Activate()
-	spotLight:Fire("TurnOn", "", 0)
+	spotLight:Fire("TurnOn")
 	self:DeleteOnRemove(spotLight)*/
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -157,7 +157,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		spr:SetKeyValue("scale", "3")
 		spr:SetPos(self:GetPos() + self:GetUp()*20)
 		spr:Spawn()
-		spr:Fire("Kill", "", 0.9)
+		spr:Fire("Kill", nil, 0.9)
 		timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 	end
 end

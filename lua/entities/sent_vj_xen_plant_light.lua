@@ -27,15 +27,14 @@ function ENT:Initialize()
 	local dynLight = ents.Create("light_dynamic")
 	dynLight:SetKeyValue("brightness", "6")
 	dynLight:SetKeyValue("distance", "150")
-	dynLight:SetLocalPos(self:GetPos())
-	dynLight:SetLocalAngles(self:GetAngles())
+	dynLight:SetPos(self:GetPos())
 	dynLight:Fire("Color", "255 128 0")
 	dynLight:SetParent(self)
 	dynLight:Spawn()
 	dynLight:Activate()
 	dynLight:SetParent(self)
-	dynLight:Fire("SetParentAttachment", "0", 0)
-	dynLight:Fire("TurnOn", "", 0)
+	dynLight:Fire("SetParentAttachment", "0")
+	dynLight:Fire("TurnOn")
 	self:DeleteOnRemove(dynLight)
 	self.DynamicLight = dynLight
 
@@ -56,7 +55,7 @@ function ENT:Initialize()
 	flareSpr:SetPos(self:GetPos())
 	flareSpr:Spawn()
 	flareSpr:SetParent(self)
-	flareSpr:Fire("SetParentAttachment", "0", 0)
+	flareSpr:Fire("SetParentAttachment", "0")
 	self:DeleteOnRemove(flareSpr)
 	self.FlareSprite = flareSpr
 end
@@ -67,8 +66,8 @@ function ENT:Think()
 		if v.VJ_ID_Living && v:Alive() then
 			if !self.XenPlant_Retracted then
 				self:ResetSequence("Retract")
-				self.FlareSprite:Fire("HideSprite", "", 0.1)
-				self.DynamicLight:Fire("TurnOff", "", 0)
+				self.FlareSprite:Fire("HideSprite", nil, 0.1)
+				self.DynamicLight:Fire("TurnOff")
 				self:SetSkin(1)
 			end
 			self.XenPlant_Retracted = true
@@ -83,8 +82,8 @@ function ENT:Think()
 		self:ResetSequence("Delpoy")
 		timer.Simple(1, function()
 			if IsValid(self) && !self.XenPlant_Retracted then
-				self.FlareSprite:Fire("ShowSprite", "", 0)
-				self.DynamicLight:Fire("TurnOn", "", 0)
+				self.FlareSprite:Fire("ShowSprite")
+				self.DynamicLight:Fire("TurnOn")
 				self:SetSkin(0)
 			end
 		end)

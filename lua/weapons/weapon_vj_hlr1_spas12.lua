@@ -83,6 +83,6 @@ function SWEP:PrimaryAttackEffects(owner)
 	muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
 	muz:Spawn()
 	muz:Activate()
-	muz:Fire("Kill", "", 0.08)
+	muz:Fire("Kill", nil, 0.08)
 	self.BaseClass.PrimaryAttackEffects(self, owner)
 end

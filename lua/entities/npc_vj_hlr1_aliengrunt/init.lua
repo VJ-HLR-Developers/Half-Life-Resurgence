@@ -114,7 +114,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 			muzzleFlash:SetPos(att.Pos + att.Ang:Forward() * 15)
 			muzzleFlash:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
 			muzzleFlash:Spawn()
-			muzzleFlash:Fire("Kill", "", 0.08)
+			muzzleFlash:Fire("Kill", nil, 0.08)
 			self:DeleteOnRemove(muzzleFlash)
 		end
 	end

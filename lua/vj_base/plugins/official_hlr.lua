@@ -429,7 +429,7 @@ function VJ.HLR1_Effect_Portal(pos, size, color, onSpawn)
 	spr:SetKeyValue("spawnflags", "2") -- 2 (SF_SPRITE_ONCE) = Makes it animate / display only once
 	spr:SetPos(pos)
 	spr:Spawn()
-	spr:Fire("Kill", "", 1)
+	spr:Fire("Kill", nil, 1)
 
 	-- Portal sprite
 	local sprPortal = ents.Create("env_sprite")
@@ -442,7 +442,7 @@ function VJ.HLR1_Effect_Portal(pos, size, color, onSpawn)
 	sprPortal:SetKeyValue("spawnflags", "2") -- 2 (SF_SPRITE_ONCE) = Makes it animate / display only once
 	sprPortal:SetPos(pos)
 	sprPortal:Spawn()
-	sprPortal:Fire("Kill", "", 1)
+	sprPortal:Fire("Kill", nil, 1)
 
 	-- Beam effects
 	local beam = ents.Create("env_beam")
@@ -461,7 +461,7 @@ function VJ.HLR1_Effect_Portal(pos, size, color, onSpawn)
 	beam:SetParent(spr)
 	beam:Spawn()
 	beam:Activate()
-	beam:Fire("TurnOn", "", 0)
+	beam:Fire("TurnOn")
 
 	-- Dynamic light
 	local dynLight = ents.Create("light_dynamic")
@@ -473,8 +473,7 @@ function VJ.HLR1_Effect_Portal(pos, size, color, onSpawn)
 	dynLight:SetParent(spr)
 	dynLight:Spawn()
 	dynLight:Activate()
-	dynLight:Fire("TurnOn", "", 0)
-	//dynLight:Fire("Kill", "", 1)
+	dynLight:Fire("TurnOn")
 
 	sound.Play("vj_hlr/gsrc/fx/beamstart2.wav", pos, 85)
 	timer.Simple(0.5, function()
@@ -496,7 +495,7 @@ function VJ.HLR1_Effect_Explosion(pos, type, size, color)
 	spr:SetKeyValue("spawnflags", "2") -- 2 (SF_SPRITE_ONCE) = Makes it animate / display only once
 	spr:SetPos(pos)
 	spr:Spawn()
-	spr:Fire("Kill", "", 0.9)
+	spr:Fire("Kill", nil, 0.9)
 	sound.Play("vj_hlr/gsrc/wep/explosion/explode" .. math.random(1, 3) .. ".wav", pos, 150)
 	return spr
 end
@@ -595,7 +594,7 @@ hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo
 				particle:Spawn()
 				particle:Activate()
 				particle:Fire("Start")
-				particle:Fire("Kill", "", 0.1)
+				particle:Fire("Kill", nil, 0.1)
 			end
 
 			-- Blood decal

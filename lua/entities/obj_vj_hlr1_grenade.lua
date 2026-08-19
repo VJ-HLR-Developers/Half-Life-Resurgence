@@ -46,7 +46,7 @@ local vecZ4 = Vector(0, 0, 4)
 local vezZ100 = Vector(0, 0, 100)
 --
 function ENT:OnDestroy()
-	local selfPos = self:GetPos()
+	local myPos = self:GetPos()
 
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
@@ -61,29 +61,26 @@ function ENT:OnDestroy()
 	spr:SetKeyValue("framerate", "15.0")
 	spr:SetKeyValue("spawnflags", "0")
 	spr:SetKeyValue("scale", "4")
-	spr:SetPos(selfPos + vezZ90)
+	spr:SetPos(myPos + vezZ90)
 	spr:Spawn()
-	spr:Fire("Kill", "", 0.9)
+	spr:Fire("Kill", nil, 0.9)
 	timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 
 	local expLight = ents.Create("light_dynamic")
 	expLight:SetKeyValue("brightness", "4")
 	expLight:SetKeyValue("distance", "300")
-	expLight:SetLocalPos(selfPos)
-	expLight:SetLocalAngles(self:GetAngles())
+	expLight:SetPos(myPos)
 	expLight:Fire("Color", "255 150 0")
-	//expLight:SetParent(self)
 	expLight:Spawn()
 	expLight:Activate()
-	expLight:Fire("TurnOn", "", 0)
-	expLight:Fire("Kill", "", 0.1)
-	//self:DeleteOnRemove(expLight)
-	util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
+	expLight:Fire("TurnOn")
+	expLight:Fire("Kill", nil, 0.15)
+	util.ScreenShake(myPos, 100, 200, 1, 2500)
 
-	self:SetLocalPos(selfPos + vecZ4) -- Because the entity is too close to the ground
+	self:SetLocalPos(myPos + vecZ4) -- Because the entity is too close to the ground
 	local tr = util.TraceLine({
-		start = self:GetPos(),
-		endpos = self:GetPos() - vezZ100,
+		start = myPos,
+		endpos = myPos - vezZ100,
 		filter = self
 	})
 	util.Decal(VJ.PICK(self.CollisionDecal), tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
