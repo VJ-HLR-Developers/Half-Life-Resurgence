@@ -66,7 +66,7 @@ function ENT:OnCollision(data, phys)
 		self.SoundTbl_OnCollide = "vj_hlr/gsrc/wep/crossbow/xbow_hit1.wav"
 		local spike = ents.Create("prop_dynamic")
 		spike:SetModel("models/vj_hlr/hla/pb_dart.mdl")
-		spike:SetPos(data.HitPos + data.HitNormal + self:GetForward()*-5)
+		spike:SetPos(data.HitPos + data.HitNormal + self:GetForward() * -5)
 		spike:SetAngles(self:GetAngles())
 		spike:Activate()
 		spike:Spawn()

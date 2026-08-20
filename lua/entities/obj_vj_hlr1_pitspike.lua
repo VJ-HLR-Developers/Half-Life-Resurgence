@@ -49,7 +49,7 @@ function ENT:OnCollision(data, phys)
 	else
 		local spike = ents.Create("prop_dynamic")
 		spike:SetModel("models/vj_hlr/opfor/pitdrone_spike.mdl")
-		spike:SetPos(data.HitPos + data.HitNormal + self:GetForward()*-5)
+		spike:SetPos(data.HitPos + data.HitNormal + self:GetForward() * -5)
 		spike:SetAngles(self:GetAngles())
 		spike:Activate()
 		spike:Spawn()

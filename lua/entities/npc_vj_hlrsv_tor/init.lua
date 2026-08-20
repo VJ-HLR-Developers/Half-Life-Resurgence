@@ -144,7 +144,7 @@ function ENT:OnInput(key, activator, caller, data)
 		self.MeleeAttackDamage = (self.Tor_Level == 0 and 3) or 5
 		self:ExecuteMeleeAttack()
 	elseif key == "slam" then
-		local startPos = self:GetPos() + self:GetForward()*20
+		local startPos = self:GetPos() + self:GetForward() * 20
 		self.HasMeleeAttackMissSounds = false
 		self.Tor_SkipRegMelee = true
 		VJ.EmitSound(self, "vj_hlr/gsrc/npc/tor_sven/tor-staff-discharge.wav", 90)
@@ -200,7 +200,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 			if IsValid(self) && self.Dead != true then
 				self:SetSkin(1)
 				VJ.EmitSound(self, "vj_hlr/gsrc/npc/tor_sven/tor-summon.wav", 80)
-				effects.BeamRingPoint(self:GetPos() + self:GetForward()*20, 0.3, 2, 600, 60, 0, Color(0, 0, 255), {framerate = 20, flags = 0})
+				effects.BeamRingPoint(self:GetPos() + self:GetForward() * 20, 0.3, 2, 600, 60, 0, Color(0, 0, 255), {framerate = 20, flags = 0})
 				util.ScreenShake(self:GetPos(), 10, 10, 1, 1000)
 				VJ.ApplyRadiusDamage(self, self, self:GetPos(), 500, 20, DMG_SONIC, true, true, {DisableVisibilityCheck=true, Force = 80})
 			end

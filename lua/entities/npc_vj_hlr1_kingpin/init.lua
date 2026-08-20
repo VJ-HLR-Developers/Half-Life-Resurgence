@@ -167,8 +167,8 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 					phys:Wake()
 					phys:EnableGravity(false)
 					phys:EnableDrag(false)
-					phys:ApplyForceCenter(v:GetUp()*2000)
-					phys:AddAngleVelocity(v:GetForward()*400 + v:GetRight()*300)
+					phys:ApplyForceCenter(v:GetUp() * 2000)
+					phys:AddAngleVelocity(v:GetForward() * 400 + v:GetRight() * 300)
 				end
 			end
 			-- Used to match sounds up

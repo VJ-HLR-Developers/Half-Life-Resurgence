@@ -65,7 +65,7 @@ local replaceTbl_Entities = {
 	["npc_turret_floor"] = "npc_vj_hlr2_com_sentry",
 	["npc_zombie"] = "npc_vj_hlr2_zombie",
 	["npc_zombine"] = "npc_vj_hlr2_zombine",
-	["prop_vehicle_apc"] = "npc_vj_hlr2_com_apc",
+	["prop_vehicle_apc"] = "npc_vj_hlr2_com_apc"
 }
 
 local replaceTbl_Weapons = {
@@ -85,9 +85,9 @@ local replaceTbl_Weapons = {
 
 local essentialTbl = { -- Will expand upon this later, I recommend we add support for custom HLR packs to add their own data to the auto-replace script (Example: Half-Life 2 HLR pack adding Kleiner or Breen to the auto-script)
 		-- Half-Life 2 --
-	npc_vj_hlr2_alyx=true,
-	npc_vj_hlr2_barney=true,
-	npc_vj_hlr2_father_grigori=true,
+	npc_vj_hlr2_alyx = true,
+	npc_vj_hlr2_barney = true,
+	npc_vj_hlr2_father_grigori = true
 }
 
 -- Before Create

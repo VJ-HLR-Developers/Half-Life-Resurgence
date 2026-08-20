@@ -234,7 +234,7 @@ function ENT:GetLandingPos(ceiling)
 	local pos = self:GetPos() + (self:GetVelocity() * ang:Forward() * 0.1) * ang:Forward()
 
 	local tr1 = util.TraceLine({start = pos, endpos = pos +ang:Forward() * 32000, filter = filt})
-	local tr1Pos = tr1.HitPos - tr1.Normal *100
+	local tr1Pos = tr1.HitPos - tr1.Normal * 100
 	local tr2 = util.TraceLine({start = tr1Pos, endpos = tr1Pos + Vector(0, 0, -120), filter = filt})
 
 	return tr2.HitWorld && tr2.MatType && tr2.MatType != 88 && tr2.HitPos

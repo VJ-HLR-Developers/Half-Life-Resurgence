@@ -89,7 +89,7 @@ function ENT:OnMeleeAttackExecute(status, ent, isProp)
 	if status == "PreDamage" then
 		-- Increase its health when it deals damage (Up to 2x its max health)
 			-- If the enemy is less health than its melee attack, then use the enemy's health as the addition
-		self:SetHealth(math.Clamp(self:Health() + ((self.MeleeAttackDamage > ent:Health() and ent:Health()) or self.MeleeAttackDamage), self:Health(), self:GetMaxHealth()*2))
+		self:SetHealth(math.Clamp(self:Health() + ((self.MeleeAttackDamage > ent:Health() and ent:Health()) or self.MeleeAttackDamage), self:Health(), self:GetMaxHealth() * 2))
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

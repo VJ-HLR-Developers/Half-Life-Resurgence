@@ -27,6 +27,7 @@ SWEP.Primary.DistantSound		= "vj_hlr/gsrc/wep/shockroach/shock_fire_distant.wav"
 SWEP.Primary.DisableBulletCode	= true
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.PrimaryEffects_MuzzleFlash = false
+SWEP.PrimaryEffects_DynamicLightColor = Color(128, 255, 255)
 SWEP.HasDryFireSound			= false
 
 -- Custom

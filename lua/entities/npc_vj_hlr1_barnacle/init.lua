@@ -183,7 +183,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Init" then
 		self:Barnacle_ResetEnt()
 	elseif status == "Finish" then
-		self:SetPos(self:GetPos() + self:GetUp()*-4)
+		self:SetPos(self:GetPos() + self:GetUp() * -4)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

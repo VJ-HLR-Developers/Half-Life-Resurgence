@@ -30,7 +30,7 @@ if CLIENT then
 				-- return
 			-- end
 			-- local EffectTime = 5
-			-- local EffectDeathDelay = CurTime() +EffectTime
+			-- local EffectDeathDelay = CurTime() + EffectTime
 			-- local EffectBlendAdd = 0.05
 			-- if !IsValid(Target) then return end
 			-- cam.Start3D(EyePos(), EyeAngles())
@@ -54,12 +54,12 @@ if CLIENT then
 				-- end
 			-- cam.End3D()
 			-- if CurTime() >= Target.VJ_HLR_NextEffectBlendT then
-				-- Target.VJ_HLR_NextEffectBlendT = CurTime() +0.05
+				-- Target.VJ_HLR_NextEffectBlendT = CurTime() + 0.05
 				-- if Target.VJ_HLR_EffectBlend > 0 then
 					-- if CurTime() >= EffectDeathDelay then
-						-- EffectBlendAdd = EffectBlendAdd +math.Clamp(((CurTime() -EffectDeathDelay) /100), 0, 0.05)
+						-- EffectBlendAdd = EffectBlendAdd + math.Clamp(((CurTime() - EffectDeathDelay) / 100), 0, 0.05)
 					-- end
-					-- Target.VJ_HLR_EffectBlend = Target.VJ_HLR_EffectBlend -(EffectTime /(EffectTime ^2)) *EffectBlendAdd
+					-- Target.VJ_HLR_EffectBlend = Target.VJ_HLR_EffectBlend -(EffectTime / (EffectTime ^ 2)) * EffectBlendAdd
 				-- end
 			-- end
 		-- end)

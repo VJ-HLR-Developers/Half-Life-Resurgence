@@ -84,8 +84,8 @@ function ENT:OnThink()
 	if self.CanClimb && !self.Dead && !self.IsClimbing && CurTime() > self.NextClimbT then
 		local anim = false
 		local finalpos = self:GetPos()
-		local tr1 = util.TraceLine({start = self:GetPos() + self:GetUp()*32, endpos = self:GetPos() + self:GetUp()*32 +self:GetForward() *200, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 32
-		local tru = util.TraceLine({start = self:GetPos(), endpos = self:GetPos() + self:GetUp()*100, filter = self})
+		local tr1 = util.TraceLine({start = self:GetPos() + self:GetUp() * 32, endpos = self:GetPos() + self:GetUp() * 32 +self:GetForward() * 200, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 32
+		local tru = util.TraceLine({start = self:GetPos(), endpos = self:GetPos() + self:GetUp() * 100, filter = self})
 		if !IsValid(tru.Entity) then
 			if IsValid(tr1.Entity) then
 				anim = "vjseq_Run_jumpup_32"

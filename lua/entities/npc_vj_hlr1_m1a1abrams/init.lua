@@ -192,7 +192,7 @@ function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(0, 4, 80)), CollisionSound = metalCollideSD})
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(0, 5, 80)), CollisionSound = metalCollideSD})
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(0, 6, 80)), CollisionSound = metalCollideSD})
-		util.BlastDamage(self, self, self:GetPos() + self:GetUp()*80, 200, 10)
+		util.BlastDamage(self, self, self:GetPos() + self:GetUp() * 80, 200, 10)
 	elseif status == "Soldier" then
 		statusData:SetSkin(math.random(0, 1))
 		statusData:SetBodygroup(2, 2)

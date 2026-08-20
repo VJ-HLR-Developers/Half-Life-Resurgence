@@ -59,7 +59,7 @@ end
 function ENT:Think() -- Override think because we need it to run while doing delayed remove!
 	local myPos = self:GetPos()
 	-- Tsakh --------------------------
-	local tsakhSpawn = myPos + self:GetUp()*45 + self:GetRight()*20
+	local tsakhSpawn = myPos + self:GetUp() * 45 + self:GetRight() * 20
 	for _ = 1, 4 do
 		local randt = math.Rand(0, 0.6)
 		timer.Simple(randt, function()
@@ -76,7 +76,7 @@ function ENT:Think() -- Override think because we need it to run while doing del
 		end)
 	end
 	-- Ach --------------------------
-	local achSpawn = myPos + self:GetUp()*45 + self:GetRight()*-20
+	local achSpawn = myPos + self:GetUp() * 45 + self:GetRight() * -20
 	for _ = 1, 4 do
 		local randt = math.Rand(0, 0.6)
 		timer.Simple(randt, function()

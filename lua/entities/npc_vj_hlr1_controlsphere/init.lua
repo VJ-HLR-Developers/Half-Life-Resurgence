@@ -94,7 +94,7 @@ function ENT:OnRangeAttack(status, enemy)
 			myPos + myRight * math.Rand(150, 500) + myUp * -200,
 			myPos + myRight * math.Rand(150, 500) + myUp * -200 + myForward * -math.Rand(150, 500),
 			myPos + myRight * math.Rand(150, 500) + myUp * -200 + myForward * math.Rand(150, 500),
-			myPos + myRight * math.Rand(1, 150) + myUp*200 + myForward * math.Rand(-100, 100),
+			myPos + myRight * math.Rand(1, 150) + myUp * 200 + myForward * math.Rand(-100, 100),
 		}
 		for i = 1, 4 do
 			local tr = util.TraceLine({

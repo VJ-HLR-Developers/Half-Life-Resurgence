@@ -32,7 +32,7 @@ function ENT:Combine_DeployTurret()
 		local myCenterPos = self:GetPos() + self:OBBCenter()
 		local tr = util.TraceLine({
 			start = myCenterPos,
-			endpos = myCenterPos + self:GetForward()*80,
+			endpos = myCenterPos + self:GetForward() * 80,
 			filter = self
 		})
 		-- Make sure not to place it if the front of the NPC is blocked!
@@ -43,7 +43,7 @@ function ENT:Combine_DeployTurret()
 			timer.Simple(0.9, function()
 				if IsValid(self) && !IsValid(self.Combine_TurretEnt) then
 					local turret = ents.Create("npc_vj_hlr2_com_sentry")
-					turret:SetPos(self:GetPos() + self:GetForward()*50)
+					turret:SetPos(self:GetPos() + self:GetForward() * 50)
 					turret:SetAngles(self:GetAngles())
 					turret:Spawn()
 					turret:Activate()

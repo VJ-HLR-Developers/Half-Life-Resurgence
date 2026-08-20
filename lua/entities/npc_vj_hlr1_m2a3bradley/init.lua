@@ -182,7 +182,7 @@ local expPos = Vector(0, 0, 150)
 --
 function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 	self.Bradley_DmgForce = dmginfo:GetDamageForce()
-	for i=0, 1, 0.5 do
+	for i = 0, 1, 0.5 do
 		timer.Simple(i, function()
 			if IsValid(self) then
 				VJ.EmitSound(self, self.SoundTbl_Death, 100)
@@ -244,7 +244,7 @@ local metalCollideSD = {"vj_hlr/gsrc/fx/metal1.wav", "vj_hlr/gsrc/fx/metal2.wav"
 --
 function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
 	if status == "Override" then
-		self:CreateExtraDeathCorpse("prop_physics", "models/vj_hlr/hl1/bradley_door.mdl", {Pos = corpse:GetPos() + corpse:GetUp()*30 + corpse:GetForward()*-130, Vel = self.Bradley_DmgForce / 55}, function(extraent) extraent:SetSkin(corpse:GetSkin()) extraent:SetCollisionGroup(0) end)
+		self:CreateExtraDeathCorpse("prop_physics", "models/vj_hlr/hl1/bradley_door.mdl", {Pos = corpse:GetPos() + corpse:GetUp() * 30 + corpse:GetForward() * -130, Vel = self.Bradley_DmgForce / 55}, function(extraent) extraent:SetSkin(corpse:GetSkin()) extraent:SetCollisionGroup(0) end)
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p1.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(0, 0, 90)), CollisionSound = metalCollideSD})
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p2.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(0, 0, 91)), CollisionSound = metalCollideSD})
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p3.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(0, 0, 92)), CollisionSound = metalCollideSD})

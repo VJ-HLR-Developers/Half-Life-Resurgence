@@ -22,7 +22,7 @@ function ENT:OnThinkActive()
 		local myCenterPos = self:GetPos() + self:OBBCenter()
 		local tr = util.TraceLine({
 			start = myCenterPos,
-			endpos = myCenterPos + self:GetForward()*80,
+			endpos = myCenterPos + self:GetForward() * 80,
 			filter = self
 		})
 		if !tr.Hit then
@@ -31,7 +31,7 @@ function ENT:OnThinkActive()
 			timer.Simple(0.45, function()
 				if IsValid(self) && !IsValid(self.Human_TurretEnt) then
 					local turret = ents.Create("npc_vj_hlr2_res_sentry")
-					turret:SetPos(self:GetPos() + self:GetForward()*50)
+					turret:SetPos(self:GetPos() + self:GetForward() * 50)
 					turret:SetAngles(self:GetAngles())
 					turret:Spawn()
 					turret:Activate()

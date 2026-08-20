@@ -297,7 +297,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		spr:SetKeyValue("scale", "1.5")
 		if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
 			self.DeathCorpseEntityClass = "prop_vj_animatable"
-			spr:SetPos(self:GetPos() + self:GetUp()*(self.Sentry_OrientationType == 1 and -30 or 20))
+			spr:SetPos(self:GetPos() + self:GetUp() * (self.Sentry_OrientationType == 1 and -30 or 20))
 		elseif self.Sentry_GroundType == 1 then -- Decay sentry gun
 			local pos = self:GetAttachment(self:LookupAttachment("center")).Pos + vecUp20
 			spr:SetPos(pos)
@@ -307,7 +307,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			self.GibOnDeathFilter = false
 			self:GibOnDeath(DamageInfo(), hitgroup) -- dmginfo is corrupt by now, declare a new one
 		else
-			spr:SetPos(self:GetPos() + self:GetUp()*60)
+			spr:SetPos(self:GetPos() + self:GetUp() * 60)
 		end
 		spr:Spawn()
 		spr:Fire("Kill", nil, 0.9)
