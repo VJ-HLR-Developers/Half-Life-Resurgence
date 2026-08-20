@@ -158,7 +158,7 @@ function ENT:Init()
 		self.HECU_WepBG = 1
 		self.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD}
 		self.HECU_CanHurtWalk = false
-	elseif myMDL == "models/vj_hlr/hl1/hassault.mdl" or myMDL == "models/vj_hlr/hl_hd/hassault.mdl" or myMDL == "models/vj_hlr/hla/hassault.mdl" or myMDL == "models/vj_hlr/hla/hassault_melee.mdl" then
+	elseif myMDL == "models/vj_hlr/hl1/hassault.mdl" or myMDL == "models/vj_hlr/hl_hd/hassault.mdl" or myMDL == "models/vj_hlr/hla/hassault.mdl" or myMDL == "models/vj_hlr/hla/hassault_melee.mdl" or myMDL == "models/vj_hlr/hl1/hassault_german.mdl" then
 		self.HECU_Type = 7
 		self.HECU_WepBG = 1
 		-- Alpha version has more death animations
@@ -579,7 +579,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			end
 		end
 
-		if self.HECU_Type == 5 then
+		if self.HECU_Type == 5 or (self:GetModel() == "models/vj_hlr/hl1/hassault_german.mdl") then
 			local spr = ents.Create("env_sprite")
 			spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 			spr:SetKeyValue("GlowProxySize", "2.0")
