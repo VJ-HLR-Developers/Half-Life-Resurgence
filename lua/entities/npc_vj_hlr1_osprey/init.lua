@@ -255,6 +255,8 @@ function ENT:OnThinkActive()
 			local soldierClass_blkops = "npc_vj_hlrof_assassin_male"
 			if math.random(1, 30) == 1 then -- 3.3% for human sergeants to spawn
 				soldierClass = "npc_vj_hlr1_hgrunt_serg"
+			/*elseif math.random(1, 50) == 1 then -- 2% for robot sergeants to spawn
+				soldierClass = "npc_vj_hlr1_rgrunt_serg"*/
 			elseif math.random(1, 20) == 1 then -- 5% for robot grunts to spawn
 				soldierClass = "npc_vj_hlr1_rgrunt"
 				soldierClass_blkops = "npc_vj_hlrof_assassin_rgrunt"

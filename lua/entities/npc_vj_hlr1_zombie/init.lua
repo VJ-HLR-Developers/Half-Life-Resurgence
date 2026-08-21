@@ -78,7 +78,11 @@ function ENT:OnInput(key, activator, caller, data)
 		self.MeleeAttackDamage = self:GetActivity() == ACT_MELEE_ATTACK1 and 10 or 25
 		self:ExecuteMeleeAttack()
 	elseif key == "body" then
-		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
+		if self:GetModel() == "models/vj_hlr/hla/zombie_german.mdl" then
+			VJ.EmitSound(self, "vj_hlr/gsrc/fx/metal" .. math.random(1, 5) .. ".wav", 75, 100)
+		else
+			VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

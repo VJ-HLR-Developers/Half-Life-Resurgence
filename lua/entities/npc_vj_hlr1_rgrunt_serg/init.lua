@@ -7,23 +7,23 @@ include("shared.lua")
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/hassault_german.mdl"
-ENT.StartHealth = 200
+ENT.StartHealth = 300
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.BloodColor = ""
 ENT.HasBloodParticle = false
 ENT.HasBloodDecal = false
 ENT.VJ_ID_Healable = false
--- Grenade Attack
-ENT.HasGrenadeAttack = false
 
---ENT.BreathSoundLevel = 50
+//ENT.BreathSoundLevel = 50
 ENT.MainSoundPitch = VJ.SET(80, 90)
+
+-- Custom
+ENT.Serg_Type = 3
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_OnInit()
 	self.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/rgrunt/pl_metal1.wav", "vj_hlr/gsrc/npc/rgrunt/pl_metal2.wav", "vj_hlr/gsrc/npc/rgrunt/pl_metal3.wav", "vj_hlr/gsrc/npc/rgrunt/pl_metal4.wav"}
 	self.SoundTbl_Idle = {"vj_hlr/gsrc/npc/rgrunt/rb_idle1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_idle2.wav", "vj_hlr/gsrc/npc/rgrunt/rb_idle3.wav"}
-	--self.SoundTbl_Breath = "vj_hlr/gsrc/npc/rgrunt/rb_engine.wav"
+	//self.SoundTbl_Breath = "vj_hlr/gsrc/npc/rgrunt/rb_engine.wav"
 	self.SoundTbl_IdleDialogue = {"vj_hlr/gsrc/npc/rgrunt/rb_question1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_question2.wav", "vj_hlr/gsrc/npc/rgrunt/rb_question3.wav", "vj_hlr/gsrc/npc/rgrunt/rb_question4.wav", "vj_hlr/gsrc/npc/rgrunt/rb_question5.wav"}
 	self.SoundTbl_IdleDialogueAnswer = {"vj_hlr/gsrc/npc/rgrunt/rb_answer1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_answer2.wav", "vj_hlr/gsrc/npc/rgrunt/rb_answer3.wav", "vj_hlr/gsrc/npc/rgrunt/rb_answer4.wav", "vj_hlr/gsrc/npc/rgrunt/rb_answer5.wav"}
 	self.SoundTbl_CombatIdle = {"vj_hlr/gsrc/npc/rgrunt/rb_combat1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_combat2.wav", "vj_hlr/gsrc/npc/rgrunt/rb_combat3.wav", "vj_hlr/gsrc/npc/rgrunt/rb_combat4.wav", "vj_hlr/gsrc/npc/rgrunt/rb_taunt1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_taunt2.wav", "vj_hlr/gsrc/npc/rgrunt/rb_taunt3.wav"}
@@ -48,10 +48,6 @@ function ENT:HECU_OnThink()
 			self:TakeDamage(1, self, self)
 		end
 	end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateSound(sdData, sdFile)
-	if VJ.HasValue(self.SoundTbl_Breath, sdFile) or VJ.HasValue(self.SoundTbl_Pain, sdFile) then return end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector()
@@ -116,6 +112,6 @@ end
 local gibs = {"models/vj_hlr/gibs/metalgib_p1_g.mdl", "models/vj_hlr/gibs/metalgib_p2_g.mdl", "models/vj_hlr/gibs/metalgib_p3_g.mdl", "models/vj_hlr/gibs/metalgib_p4.mdl", "models/vj_hlr/gibs/metalgib_p5.mdl", "models/vj_hlr/gibs/metalgib_p6.mdl", "models/vj_hlr/gibs/metalgib_p7.mdl", "models/vj_hlr/gibs/metalgib_p8.mdl", "models/vj_hlr/gibs/metalgib_p9.mdl", "models/vj_hlr/gibs/metalgib_p10_g.mdl", "models/vj_hlr/gibs/metalgib_p11_g.mdl", "models/vj_hlr/gibs/rgib_cog1.mdl", "models/vj_hlr/gibs/rgib_cog2.mdl", "models/vj_hlr/gibs/rgib_rib.mdl", "models/vj_hlr/gibs/rgib_screw.mdl", "models/vj_hlr/gibs/rgib_screw.mdl", "models/vj_hlr/gibs/rgib_screw.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
-	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, corpse, 5)
+	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, corpse, 2)
 	VJ.HLR_ApplyCorpseSystem(self, corpse, gibs, {CollisionSound = gibsCollideSd, ExpSound = "vj_hlr/gsrc/npc/rgrunt/rb_gib.wav"})
 end

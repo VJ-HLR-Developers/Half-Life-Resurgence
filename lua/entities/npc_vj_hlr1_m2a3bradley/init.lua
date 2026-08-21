@@ -97,6 +97,8 @@ function ENT:Tank_OnThink()
 						local hGruntClass = (GetConVar("vj_hlr1_bradley_deploygrunts_oppf"):GetInt() == 1 && "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
 						if math.random(1, 30) == 1 then -- 3.3% for human sergeants to spawn
 							hGruntClass = "npc_vj_hlr1_hgrunt_serg"
+						/*elseif math.random(1, 50) == 1 then -- 2% for robot sergeants to spawn
+							hGruntClass = "npc_vj_hlr1_rgrunt_serg"*/
 						elseif math.random(1, 20) == 1 then -- 5% for robot grunts to spawn
 							hGruntClass = "npc_vj_hlr1_rgrunt"
 						elseif GetConVar("vj_hlr1_bradley_deploygrunts_oppf"):GetInt() == 1 && math.random(1, 10) == 1 then -- 15% for medic grunts to spawn

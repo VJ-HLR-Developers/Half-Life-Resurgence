@@ -30,6 +30,7 @@ ENT.Serg_Type = 0
 	-- 0 = Default
 	-- 1 = Alpha
 	-- 2 = Alpha Melee
+	-- 3 = Robot
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_OnThink()
 	-- For weapon spinning sound

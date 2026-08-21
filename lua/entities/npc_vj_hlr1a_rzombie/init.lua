@@ -7,7 +7,6 @@ include("shared.lua")
 	without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hla/zombie_german.mdl"
-ENT.StartHealth = 50
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(10, 0, -20),
 	FirstP_Bone = "Bip01 Head",
@@ -15,7 +14,7 @@ ENT.ControllerParams = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = ""
-ENT.HasBloodParticle = false --Blood particles are disabled, but we still want to bleed when shot in the head
+ENT.HasBloodParticle = false -- Blood particles are disabled, but we still want to bleed when shot in the head
 ENT.HasBloodDecal = false
 ENT.VJ_ID_Healable = false
 ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/rgrunt/pl_metal1.wav", "vj_hlr/gsrc/npc/rgrunt/pl_metal2.wav", "vj_hlr/gsrc/npc/rgrunt/pl_metal3.wav", "vj_hlr/gsrc/npc/rgrunt/pl_metal4.wav"}
@@ -37,16 +36,14 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "PreDamage" then
 		if hitgroup == HITGROUP_HEAD then --We've been headshot! Spurt blood!
 			self:SpawnBloodParticles(dmginfo, hitgroup)
-		elseif dmginfo:GetDamagePosition() != vec && dmginfo:IsExplosionDamage() == false && hitgroup != HITGROUP_HEAD then
+		elseif dmginfo:GetDamagePosition() != vec && !dmginfo:IsExplosionDamage() && hitgroup != HITGROUP_HEAD then
 			-- Ricochet effect
 			local rico = EffectData()
 			rico:SetOrigin(dmginfo:GetDamagePosition())
 			rico:SetScale(4) -- Size
 			rico:SetMagnitude(math.random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
 			util.Effect("VJ_HLR_Rico", rico)
-			
 			dmginfo:SetDamage(dmginfo:GetDamage() * 0.5) -- Reduce incoming damage to half if it's not a headshot or explosive damage
-		
 		end
 	end
 end
@@ -136,6 +133,6 @@ end
 local gibs = {"models/vj_hlr/gibs/metalgib_p1.mdl", "models/vj_hlr/gibs/metalgib_p2.mdl", "models/vj_hlr/gibs/metalgib_p3.mdl", "models/vj_hlr/gibs/metalgib_p4.mdl", "models/vj_hlr/gibs/metalgib_p5.mdl", "models/vj_hlr/gibs/metalgib_p6.mdl", "models/vj_hlr/gibs/metalgib_p7.mdl", "models/vj_hlr/gibs/metalgib_p8.mdl", "models/vj_hlr/gibs/metalgib_p9.mdl", "models/vj_hlr/gibs/metalgib_p10.mdl", "models/vj_hlr/gibs/metalgib_p11.mdl", "models/vj_hlr/gibs/rgib_cog1.mdl", "models/vj_hlr/gibs/rgib_cog2.mdl", "models/vj_hlr/gibs/rgib_rib.mdl", "models/vj_hlr/gibs/rgib_screw.mdl", "models/vj_hlr/gibs/rgib_screw.mdl", "models/vj_hlr/gibs/rgib_screw.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
-	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, corpse, 5)
+	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, corpse, 1)
 	VJ.HLR_ApplyCorpseSystem(self, corpse, gibs, {CollisionSound = gibsCollideSd, ExpSound = "vj_hlr/gsrc/npc/rgrunt/rb_gib.wav"})
 end

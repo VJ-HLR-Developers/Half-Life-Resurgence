@@ -54,7 +54,7 @@ subCategory = "Hazardous Environment Combat Unit"
 VJ.AddNPC("Human Grunt", "npc_vj_hlr1_hgrunt", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
 VJ.AddNPC("Human Sergeant", "npc_vj_hlr1_hgrunt_serg", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
 VJ.AddNPC("Robot Grunt", "npc_vj_hlr1_rgrunt", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
-VJ.AddNPC("Robot Sergeant", "npc_vj_hlr1_rgrunt_serg", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
+//VJ.AddNPC("Robot Sergeant", "npc_vj_hlr1_rgrunt_serg", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
 VJ.AddNPC("Sentry Gun", "npc_vj_hlr1_sentry", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
 VJ.AddNPC("M2A3 Bradley", "npc_vj_hlr1_m2a3bradley", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
 VJ.AddNPC("M1A1 Abrams", "npc_vj_hlr1_m1a1abrams", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
@@ -125,7 +125,7 @@ VJ.AddNPC("Xen Ceiling Turret", "npc_vj_hlr1_xen_turretc", spawnCategory, {SubCa
 	-- Alpha
 	VJ.AddNPC("Alpha Alien Grunt", "npc_vj_hlr1a_aliengrunt", spawnCategory, {SubCategory = subCategory})
 	VJ.AddNPC("Alpha Zombie", "npc_vj_hlr1a_zombie", spawnCategory, {SubCategory = subCategory})
-	VJ.AddNPC("Alpha Robot Zombie", "npc_vj_hlr1a_rzombie", spawnCategory, {SubCategory = subCategory})
+	//VJ.AddNPC("Alpha Robot Zombie", "npc_vj_hlr1a_rzombie", spawnCategory, {SubCategory = subCategory})
 	VJ.AddNPC("Alpha Headcrab", "npc_vj_hlr1a_headcrab", spawnCategory, {SubCategory = subCategory})
 	VJ.AddNPC("Alpha Bullsquid", "npc_vj_hlr1a_bullsquid", spawnCategory, {SubCategory = subCategory})
 	VJ.AddNPC("Alpha Houndeye", "npc_vj_hlr1a_houndeye", spawnCategory, {SubCategory = subCategory})
