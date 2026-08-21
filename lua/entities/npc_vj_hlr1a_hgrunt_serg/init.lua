@@ -36,8 +36,10 @@ end
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "PreDamage" then
 		if dmginfo:GetDamage() > 30 then
+			self.FlinchChance = 6
 			self.AnimTbl_Flinch = ACT_BIG_FLINCH
 		else
+			self.FlinchChance = 14
 			self.AnimTbl_Flinch = ACT_SMALL_FLINCH
 		end
 	end
