@@ -38,7 +38,7 @@ ENT.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD, ACT_DIEBACKWARD}
 ENT.DisableFootStepSoundTimer = true
 
 ENT.CanFlinch = true
-ENT.AnimTbl_Flinch = "vjseq_flinch_small"
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 
 ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/houndeye/he_hunt1.wav", "vj_hlr/gsrc/npc/houndeye/he_hunt2.wav", "vj_hlr/gsrc/npc/houndeye/he_hunt3.wav", "vj_hlr/gsrc/npc/houndeye/he_hunt4.wav"}
 ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/houndeye/he_idle1.wav", "vj_hlr/gsrc/npc/houndeye/he_idle2.wav", "vj_hlr/gsrc/npc/houndeye/he_idle3.wav", "vj_hlr/gsrc/npc/houndeye/he_idle4.wav"}
