@@ -13,12 +13,10 @@ local function getStartEnt(ent)
 
 	local owner = ent:GetOwner()
 	local locPly = LocalPlayer()
-	if IsValid(owner) && owner:IsPlayer() then
-		if owner == locPly && !owner:ShouldDrawLocalPlayer() then
-			local vm = owner:GetViewModel()
-			if IsValid(vm) then
-				return vm
-			end
+	if IsValid(owner) && owner:IsPlayer() && owner == locPly && !owner:ShouldDrawLocalPlayer() then
+		local vm = owner:GetViewModel()
+		if IsValid(vm) then
+			return vm
 		end
 	end
 	return ent
@@ -30,13 +28,12 @@ function EFFECT:Init(data)
 	self.DoDraw = false
 	local ent = data:GetEntity()
 	local att = data:GetAttachment()
-	local locPly = LocalPlayer()
 	self.Ent = ent
 	self.Att = att
 	self.RenderEnt = getStartEnt(self.Ent)
 
 	if IsValid(self.RenderEnt) && self.Att > 0 then
-		local att = self.RenderEnt:GetAttachment(self.Att)
+		att = self.RenderEnt:GetAttachment(self.Att)
 		if att then
 			self.StartPos = att.Pos
 		end
@@ -74,7 +71,7 @@ function EFFECT:Think()
 		-- 	util.Decal("FadingScorch", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
 		-- end
 		if CurTime() > self.NextEffectSoundT then
-			sound.Play("vj_hlr/src/wep/reager/reager_hit" .. math.random(1,3) .. ".wav", tr.HitPos, 50)
+			sound.Play("vj_hlr/src/wep/reager/reager_hit" .. math.random(1, 3) .. ".wav", tr.HitPos, 50)
 			self.NextEffectSoundT = CurTime() + 0.15
 		end
 		local Emitter = ParticleEmitter(self.EndPos)

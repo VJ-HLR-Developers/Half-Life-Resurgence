@@ -143,7 +143,7 @@ ENT.MainSoundPitch = 100
 local ACT_FEAR_DISPLAY;
 
 local SCI_TYPE_REGULAR = 0 -- Regular Scientist
-local SCI_TYPE_CLEANSUIT = 1 -- Cleansuit Scientist
+//local SCI_TYPE_CLEANSUIT = 1 -- Cleansuit Scientist
 local SCI_TYPE_ALPHA = 2 -- Alpha Scientist
 local SCI_TYPE_KELLER = 3 -- Dr. Keller
 local SCI_TYPE_ROSENBERG = 4 -- Dr. Rosenberg
@@ -155,7 +155,7 @@ ENT.SCI_Type = SCI_TYPE_REGULAR
 ENT.SCI_NextTieAnnoyanceT = 0
 ENT.SCI_ControllerAnim = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Init() -- This function runs for: SCI_TYPE_REGULAR, SCI_TYPE_CLEANSUIT, SCI_TYPE_ROSENBERG
+function ENT:Init() -- This runs for: SCI_TYPE_REGULAR, SCI_TYPE_CLEANSUIT, SCI_TYPE_ROSENBERG
 	ACT_FEAR_DISPLAY = util.GetActivityIDByName("ACT_FEAR_DISPLAY")
 	if self.SCI_Type == SCI_TYPE_ROSENBERG then
 		return

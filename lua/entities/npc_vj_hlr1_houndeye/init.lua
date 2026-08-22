@@ -69,7 +69,7 @@ function ENT:PreInit()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-	self:SetCollisionBounds(Vector(20, 20 , 40), Vector(-20, -20, 0))
+	self:SetCollisionBounds(Vector(20, 20, 40), Vector(-20, -20, 0))
 
 	self.Houndeye_NextSleepT = CurTime() + math.Rand(0, 15)
 

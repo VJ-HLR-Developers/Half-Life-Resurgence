@@ -55,7 +55,7 @@ ENT.MainSoundPitch = 100
 ENT.Icky_BlinkingT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-	self:SetCollisionBounds(Vector(40, 40 , 60), Vector(-40, -40, 0))
+	self:SetCollisionBounds(Vector(40, 40, 60), Vector(-40, -40, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
