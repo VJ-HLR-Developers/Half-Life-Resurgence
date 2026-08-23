@@ -541,7 +541,7 @@ local defGibs_Yellow = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib
 local defGibs_Red = {"models/vj_hlr/gibs/flesh1.mdl", "models/vj_hlr/gibs/flesh2.mdl", "models/vj_hlr/gibs/flesh3.mdl", "models/vj_hlr/gibs/flesh4.mdl", "models/vj_hlr/gibs/hgib_b_bone.mdl", "models/vj_hlr/gibs/hgib_b_gib.mdl", "models/vj_hlr/gibs/hgib_guts.mdl", "models/vj_hlr/gibs/hgib_hmeat.mdl", "models/vj_hlr/gibs/hgib_lung.mdl", "models/vj_hlr/gibs/hgib_skull.mdl", "models/vj_hlr/gibs/hgib_legbone.mdl"}
 --
 function VJ.HLR_ApplyCorpseSystem(ent, corpse, gibTbl, extra)
-	extra = extra or {} -- CollisionSound, ExpSound, Gibbable, CanBleed, ExtraGibs
+	extra = extra or {} -- CollisionSound, ExpSound, Gibbable, CanBleed, ExtraGibs, SplatDecal
 	corpse.HLR_Corpse = true
 	corpse.HLR_Corpse_Type = ent.BloodColor
 	if ent.HasBloodParticle then corpse.HLR_Corpse_Particle = ent.BloodParticle end
@@ -571,6 +571,7 @@ function VJ.HLR_ApplyCorpseSystem(ent, corpse, gibTbl, extra)
 	corpse.HLR_Corpse_Gibs = gibTbl
 	corpse.HLR_Corpse_CollideSound = extra.CollisionSound
 	corpse.HLR_Corpse_ExpSound = extra.ExpSound or "vj_base/gib/splat.wav"
+	corpse.HLR_Corpse_SplatDecal = extra.SplatDecal or (corpse.HLR_Corpse_Type == "Red" && "VJ_HLR1_Blood_Red_Large") or (corpse.HLR_Corpse_Type == "Yellow" && "VJ_HLR1_Blood_Yellow_Large")
 	corpse.HLR_Corpse_StartT = CurTime() + 1
 end
 
@@ -661,12 +662,11 @@ hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo
 				end
 
 				local bloodIsYellow = target.HLR_Corpse_Type == "Yellow"
-				local bloodIsRed = target.HLR_Corpse_Type == "Red"
+				local splatDecal = VJ.PICK(target.HLR_Corpse_SplatDecal)
 
 				-- Death effects & decals
-				if bloodIsYellow or bloodIsRed then
+				if target.HLR_Corpse_SplatDecal then
 					local maxDist = gibMaxs:Length()
-					local splatDecal = bloodIsYellow and "VJ_HLR1_Blood_Yellow_Large" or "VJ_HLR1_Blood_Red_Large"
 					local tr = util.TraceLine({start = centerPos, endpos = centerPos - Vector(0, 0, maxDist), filter = target})
 					util.Decal(splatDecal, tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, target)
 					tr = util.TraceLine({start = centerPos, endpos = centerPos + Vector(0, 0, maxDist), filter = target})

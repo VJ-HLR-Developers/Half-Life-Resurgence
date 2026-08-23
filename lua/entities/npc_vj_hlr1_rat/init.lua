@@ -74,7 +74,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	return true, {AllowSound = false}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local gibs = "models/vj_hlr/gibs/flesh3.mdl"
+local gibs = {"models/vj_hlr/gibs/flesh3.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	VJ.HLR_ApplyCorpseSystem(self, corpse, gibs, {CollisionSound = gibsCollideSd})
