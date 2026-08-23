@@ -662,6 +662,7 @@ hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo
 				end
 
 				local bloodIsYellow = target.HLR_Corpse_Type == "Yellow"
+				local bloodIsRed = target.HLR_Corpse_Type == "Red"
 				local splatDecal = VJ.PICK(target.HLR_Corpse_SplatDecal)
 
 				-- Death effects & decals
@@ -686,17 +687,36 @@ hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo
 					local tr = util.TraceLine({start = dmgPos, endpos = dmgPos + dmgPos:GetNormal() * 10, filter = target})
 					VJ.DEBUG_TempEnt(tr.HitPos, Angle(), Color(94, 255, 0))
 					util.Decal("VJ_HLR1_Blood_Red_Large", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, target)*/
-
-					local effectData = EffectData()
-					effectData:SetOrigin(centerPos)
-					effectData:SetColor(bloodIsYellow and colorYellow or colorRed)
-					effectData:SetScale(120)
-					util.Effect("VJ_Blood1", effectData)
-					effectData:SetScale(8)
-					effectData:SetFlags(3)
-					effectData:SetColor(bloodIsYellow and 1 or 0)
-					util.Effect("bloodspray", effectData)
-					util.Effect("bloodspray", effectData)
+					if !bloodIsYellow && !bloodIsRed then
+						local spr = ents.Create("env_sprite")
+						spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
+						spr:SetKeyValue("GlowProxySize", "2.0")
+						spr:SetKeyValue("HDRColorScale", "1.0")
+						spr:SetKeyValue("renderfx", "14")
+						spr:SetKeyValue("rendermode", "5")
+						spr:SetKeyValue("renderamt", "255")
+						spr:SetKeyValue("disablereceiveshadows", "0")
+						spr:SetKeyValue("mindxlevel", "0")
+						spr:SetKeyValue("maxdxlevel", "0")
+						spr:SetKeyValue("framerate", "20.0")
+						spr:SetKeyValue("spawnflags", "0")
+						spr:SetKeyValue("scale", "2")
+						spr:SetPos(centerPos)
+						spr:Spawn()
+						spr:Fire("Kill", nil, 0.7)
+						timer.Simple(0.7, function() if IsValid(spr) then spr:Remove() end end)
+					else
+						local effectData = EffectData()
+						effectData:SetOrigin(centerPos)
+						effectData:SetColor(bloodIsYellow and colorYellow or colorRed)
+						effectData:SetScale(120)
+						util.Effect("VJ_Blood1", effectData)
+						effectData:SetScale(8)
+						effectData:SetFlags(3)
+						effectData:SetColor(bloodIsYellow and 1 or 0)
+						util.Effect("bloodspray", effectData)
+						util.Effect("bloodspray", effectData)
+					end
 				end
 				target:Remove()
 			end

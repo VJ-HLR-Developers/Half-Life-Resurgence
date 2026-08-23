@@ -376,7 +376,7 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 		corpse:ResetSequence("die")
 	end
 	if self.Sentry_Type == 0 then
-		VJ.HLR_ApplyCorpseSystem(self, corpse, gibs, {CollisionSound = gibsCollideSd, ExpSound = {"vj_hlr/gsrc/npc/rgrunt/rb_gib.wav"}})
+		VJ.HLR_ApplyCorpseSystem(self, corpse, gibs, {CollisionSound = gibsCollideSd, ExpSound = "vj_hlr/gsrc/npc/rgrunt/rb_gib.wav", SplatDecal = "VJ_HLR1_Scorch"})
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
