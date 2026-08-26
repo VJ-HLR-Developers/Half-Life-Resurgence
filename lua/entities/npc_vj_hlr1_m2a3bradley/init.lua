@@ -137,11 +137,11 @@ function ENT:Tank_OnThink()
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-/*local sdAlertAlien = {"vj_hlr/gsrc/npc/hgrunt/gr_alert9.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert10.wav"}
+local sdAlertAlien = {"vj_hlr/gsrc/npc/hgrunt/gr_alert9.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert10.wav"}
 local sdAlertSoldier = {"vj_hlr/gsrc/npc/hgrunt/gr_alert2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert5.wav"}
 --
 function ENT:OnAlert(ent)
-	if math.random(1, 3) == 1 && self.HECU_UsingDefaultSounds then
+	if math.random(1, 3) == 1 then
 		if ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Alien sounds
 			self:PlaySoundSystem("Alert", sdAlertAlien)
 			return
@@ -150,7 +150,7 @@ function ENT:OnAlert(ent)
 			return
 		end
 	end
-end*/
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector()
 --
