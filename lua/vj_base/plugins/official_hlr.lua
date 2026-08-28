@@ -51,15 +51,15 @@ VJ.AddNPC("Black Mesa Mini Ceiling Turret", "npc_vj_hlr1_cturret_mini", spawnCat
 
 -- HECU
 subCategory = "Hazardous Environment Combat Unit"
-VJ.AddNPC("Human Grunt", "npc_vj_hlr1_hgrunt", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
-VJ.AddNPC("Human Sergeant", "npc_vj_hlr1_hgrunt_serg", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
-VJ.AddNPC("Robot Grunt", "npc_vj_hlr1_rgrunt", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
-//VJ.AddNPC("Robot Sergeant", "npc_vj_hlr1_rgrunt_serg", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
-VJ.AddNPC("Sentry Gun", "npc_vj_hlr1_sentry", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
-VJ.AddNPC("M2A3 Bradley", "npc_vj_hlr1_m2a3bradley", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
-VJ.AddNPC("M1A1 Abrams", "npc_vj_hlr1_m1a1abrams", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
-VJ.AddNPC("AH-64 Apache", "npc_vj_hlr1_apache", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
-VJ.AddNPC("V-22 Osprey", "npc_vj_hlr1_osprey", spawnCategory, {SubCategory = subCategory}, {SubCategory = subCategory})
+VJ.AddNPC("Human Grunt", "npc_vj_hlr1_hgrunt", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Human Sergeant", "npc_vj_hlr1_hgrunt_serg", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Robot Grunt", "npc_vj_hlr1_rgrunt", spawnCategory, {SubCategory = subCategory})
+//VJ.AddNPC("Robot Sergeant", "npc_vj_hlr1_rgrunt_serg", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Sentry Gun", "npc_vj_hlr1_sentry", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("M2A3 Bradley", "npc_vj_hlr1_m2a3bradley", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("M1A1 Abrams", "npc_vj_hlr1_m1a1abrams", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("AH-64 Apache", "npc_vj_hlr1_apache", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("V-22 Osprey", "npc_vj_hlr1_osprey", spawnCategory, {SubCategory = subCategory})
 	-- Opposing Force
 	VJ.AddNPC("OppF Human Grunt", "npc_vj_hlrof_hgrunt", spawnCategory, {SubCategory = subCategory})
 	VJ.AddNPC("OppF Human Grunt Medic", "npc_vj_hlrof_hgrunt_med", spawnCategory, {SubCategory = subCategory})
