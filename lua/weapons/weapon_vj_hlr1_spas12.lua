@@ -4,7 +4,7 @@ SWEP.Base 						= "weapon_vj_base"
 SWEP.PrintName					= "SPAS-12"
 SWEP.Author 					= "DrVrej"
 SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Category					= "VJ Base"
+SWEP.Category					= "Half-Life Resurgence"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire 		= false
 SWEP.NPC_CustomSpread	 		= 2.5

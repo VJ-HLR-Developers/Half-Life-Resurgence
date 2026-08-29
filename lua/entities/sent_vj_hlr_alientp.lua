@@ -10,7 +10,7 @@ ENT.Type 			= "anim"
 ENT.PrintName 		= "Xen Portal"
 ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
-ENT.Category		= "VJ Base Spawners"
+ENT.Category		= "Half-Life Resurgence"
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 

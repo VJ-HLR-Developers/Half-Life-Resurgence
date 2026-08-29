@@ -10,7 +10,7 @@ ENT.Type 			= "ai"
 ENT.PrintName 		= "Xen Crystal"
 ENT.Author 			= "DrVrej"
 ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
-ENT.Category		= "VJ Base"
+ENT.Category		= "Half-Life Resurgence"
 
 function ENT:Draw() self:DrawModel() end
 function ENT:DrawTranslucent() self:Draw() end
