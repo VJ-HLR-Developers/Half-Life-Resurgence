@@ -629,6 +629,8 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		elseif self.HECU_Type == 2 then
 			self:SetBodygroup(2, 3)
 		end
+		-- Fix for if blood particles were disabled from taking damage to armor
+		self.HasBloodParticle = true
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

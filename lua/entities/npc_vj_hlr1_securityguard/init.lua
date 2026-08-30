@@ -293,6 +293,8 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
 	elseif status == "Finish" then
 		self:SetBodygroup(1, 2)
+		-- Fix for if blood particles were disabled from taking damage to armor
+		self.HasBloodParticle = true
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
