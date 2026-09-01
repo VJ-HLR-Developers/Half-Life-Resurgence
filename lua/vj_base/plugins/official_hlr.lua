@@ -603,7 +603,7 @@ hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo
 			-- Blood decal
 			local decal = VJ.PICK(target.HLR_Corpse_Decal)
 			if decal then
-				local tr = util.TraceLine({start = pos, endpos = pos + dmgForce:GetNormal() * math.Clamp(dmgForce:Length() * 10, 100, 150), filter = target})
+				local tr = util.TraceLine({start = pos, endpos = pos + dmgForce:GetNormalized() * math.Clamp(dmgForce:Length() * 10, 100, 150), filter = target})
 				util.Decal(decal, tr.HitPos + tr.HitNormal + Vector(math.random(-30, 30), math.random(-30, 30), 0), tr.HitPos - tr.HitNormal, target)
 			end
 		end
@@ -683,8 +683,8 @@ hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo
 					/*local dmgPos = dmginfo:GetDamagePosition()
 					if pos == defPos then pos = target:GetPos() + target:OBBCenter() end
 					VJ.DEBUG_TempEnt(dmgPos, Angle(), Color(0, 225, 255))
-					VJ.DEBUG_TempEnt(dmgPos + dmgPos:GetNormal() * 10)
-					local tr = util.TraceLine({start = dmgPos, endpos = dmgPos + dmgPos:GetNormal() * 10, filter = target})
+					VJ.DEBUG_TempEnt(dmgPos + dmgPos:GetNormalized() * 10)
+					local tr = util.TraceLine({start = dmgPos, endpos = dmgPos + dmgPos:GetNormalized() * 10, filter = target})
 					VJ.DEBUG_TempEnt(tr.HitPos, Angle(), Color(94, 255, 0))
 					util.Decal("VJ_HLR1_Blood_Red_Large", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, target)*/
 					if !bloodIsYellow && !bloodIsRed then

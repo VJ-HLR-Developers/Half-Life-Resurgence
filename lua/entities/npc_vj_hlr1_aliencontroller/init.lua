@@ -144,7 +144,7 @@ end
 function ENT:TranslateActivity(act)
 	if act == ACT_FLY then
 		if self.AA_CurrentMovePosDir then
-			local moveDir = self.AA_CurrentMovePosDir:GetNormal()
+			local moveDir = self.AA_CurrentMovePosDir:GetNormalized()
 			-- Up-down
 			local dotUp = moveDir:Dot(self:GetUp())
 			if dotUp > 0.60 then

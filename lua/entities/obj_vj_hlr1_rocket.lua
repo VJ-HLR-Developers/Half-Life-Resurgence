@@ -96,7 +96,7 @@ function ENT:Init()
 					local ene = self:GetOwner():GetEnemy()
 					if IsValid(phys) && IsValid(ene) then
 						phys:SetVelocity(VJ.CalculateTrajectory(owner, ene, "Line", self:GetPos(), 1, 2000))
-						self:SetAngles(self:GetVelocity():GetNormal():Angle())
+						self:SetAngles(self:GetVelocity():GetNormalized():Angle())
 					end
 				end
 			end
@@ -107,7 +107,7 @@ function ENT:Init()
 		if IsValid(phys) then
 			-- 1. Go forward
 			phys:SetVelocity(self:GetForward() * 200)
-			self:SetAngles(self:GetVelocity():GetNormal():Angle())
+			self:SetAngles(self:GetVelocity():GetNormalized():Angle())
 			timer.Simple(0.5, function()
 				if IsValid(self) then
 					local myPos = self:GetPos()
@@ -121,7 +121,7 @@ function ENT:Init()
 					phys = self:GetPhysicsObject()
 					if IsValid(phys) then
 						phys:SetVelocity(VJ.CalculateTrajectory(self, NULL, "Line", myPos, hitPos, 800))
-						self:SetAngles(self:GetVelocity():GetNormal():Angle())
+						self:SetAngles(self:GetVelocity():GetNormalized():Angle())
 						timer.Simple(myPos:Distance(hitPos) / self:GetVelocity():Length(), function()
 							if IsValid(self) then
 								local owner = self:GetOwner()
@@ -131,7 +131,7 @@ function ENT:Init()
 									local ene = owner:GetEnemy()
 									if IsValid(phys) && IsValid(ene) then
 										phys:SetVelocity(VJ.CalculateTrajectory(owner, ene, "Line", self:GetPos(), 1, 50000))
-										self:SetAngles(self:GetVelocity():GetNormal():Angle())
+										self:SetAngles(self:GetVelocity():GetNormalized():Angle())
 									end
 								end
 							end

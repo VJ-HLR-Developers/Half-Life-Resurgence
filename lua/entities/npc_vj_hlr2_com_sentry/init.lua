@@ -286,7 +286,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		local bullet = {}
 		bullet.Num = 1
 		bullet.Src = startPos
-		bullet.Dir = (self:GetAimPosition(enemy, startPos) - startPos):GetNormal()
+		bullet.Dir = (self:GetAimPosition(enemy, startPos) - startPos):GetNormalized()
 		bullet.Spread = bulletSpread
 		bullet.Tracer = 1
 		bullet.TracerName = "AR2Tracer"

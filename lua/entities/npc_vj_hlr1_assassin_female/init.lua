@@ -164,11 +164,11 @@ function ENT:OnThink()
 	-- Jump while attacking
 	if IsValid(self:GetEnemy()) && curTime > self.BOA_NextJumpT && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND && !self:IsMoving() && self.EnemyData.Distance < 1400 && !self.VJ_IsBeingControlled then
 		local myPos = self:GetPos()
-		self:ForceMoveJump(((myPos + self:GetRight() * (math.random(1, 2) == 1 and 100 or -100) + self:GetForward() * (math.random(1, 2) == 1 and 1 or -100)) - (myPos + self:OBBCenter())):GetNormal() * 200 + self:GetUp() * 600)
+		self:ForceMoveJump(((myPos + self:GetRight() * (math.random(1, 2) == 1 and 100 or -100) + self:GetForward() * (math.random(1, 2) == 1 and 1 or -100)) - (myPos + self:OBBCenter())):GetNormalized() * 200 + self:GetUp() * 600)
 		-- Older jumping system
 		/*self:StopMoving()
 		self:SetGroundEntity(NULL)
-		self:SetLocalVelocity(((myPos + self:GetRight() * (math.random(1, 2) == 1 and 100 or -100)) - (myPos + self:OBBCenter())):GetNormal() * 200 +self:GetUp() * 600)
+		self:SetLocalVelocity(((myPos + self:GetRight() * (math.random(1, 2) == 1 and 100 or -100)) - (myPos + self:OBBCenter())):GetNormalized() * 200 +self:GetUp() * 600)
 		self:PlayAnim(ACT_JUMP, true, false, true, 0, {}, function(sched)
 			self.BOA_OffGround = true
 			//sched.RunCode_OnFinish = function()

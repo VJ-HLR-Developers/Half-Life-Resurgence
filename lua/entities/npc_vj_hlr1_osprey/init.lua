@@ -191,7 +191,7 @@ function ENT:OnThink()
 	-- Flying tilt (X & Y)
 	local lerpingFactor = FrameTime() * 4
 	local moveDir = self:Heli_GetMoveDirection()
-	local velNorm = moveDir && moveDir:GetNormal() or defVec
+	local velNorm = moveDir && moveDir:GetNormalized() or defVec
 	self:SetPoseParameter("tilt_x", Lerp(lerpingFactor, self:GetPoseParameter("tilt_x"), velNorm.x))
 	self:SetPoseParameter("tilt_y", Lerp(lerpingFactor, self:GetPoseParameter("tilt_y"), -velNorm.y))
 

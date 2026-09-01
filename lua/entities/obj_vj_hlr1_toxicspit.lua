@@ -64,7 +64,7 @@ function ENT:Init()
 		self:DeleteOnRemove(sprIdle)
 		//ParticleEffectAttach("vj_hl_spit_bullsquid", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 	end
-	self:SetAngles(self:GetVelocity():GetNormal():Angle())
+	self:SetAngles(self:GetVelocity():GetNormalized():Angle())
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDestroy(data, phys)

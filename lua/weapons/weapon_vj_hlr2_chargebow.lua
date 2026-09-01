@@ -111,7 +111,7 @@ function SWEP:OnPrimaryAttack(status, statusData)
 				else
 					phys:SetVelocity(VJ.CalculateTrajectory(owner, owner:GetEnemy(), "Line", spawnPos + Vector(math.Rand(-15, 15), math.Rand(-15, 15), math.Rand(-15, 15)), 1, 3000))
 				end
-				projectile:SetAngles(projectile:GetVelocity():GetNormal():Angle())
+				projectile:SetAngles(projectile:GetVelocity():GetNormalized():Angle())
 			end
 		end
 	end

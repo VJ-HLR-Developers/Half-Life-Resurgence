@@ -91,7 +91,7 @@ function ENT:OnThinkActive()
 		self:PlayAnim(ACT_RUN, false, 0.7, true)
 		self:PlaySoundSystem("Alert")
 		self:SetGroundEntity(NULL)
-		self:ForceMoveJump((ene:GetPos() - self:GetPos()):GetNormal() * 400 + self:GetUp() * 300)
+		self:ForceMoveJump((ene:GetPos() - self:GetPos()):GetNormalized() * 400 + self:GetUp() * 300)
 		self.Snark_NextJumpWalkT = CurTime() + math.Rand(0.35, 1.8)
 	end
 
