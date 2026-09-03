@@ -13,7 +13,7 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(4, 0, 0),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.BloodColor = ""
+ENT.BloodColor = VJ.BLOOD_COLOR_NONE
 ENT.HasBloodParticle = false -- Blood particles are disabled, but we still want to bleed when shot in the head
 ENT.HasBloodDecal = false
 ENT.VJ_ID_Healable = false

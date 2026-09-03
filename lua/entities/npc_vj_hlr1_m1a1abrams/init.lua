@@ -39,6 +39,10 @@ ENT.Tank_DeathDecal = "VJ_HLR1_Scorch"
 -- Custom
 ENT.Bradley_DmgForce = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Tank_Init()
+	VJ.HLR_ApplyFactionOptions(self)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_GunnerSpawnPosition()
 	return self:GetPos() + self:GetUp()
 end

@@ -71,5 +71,4 @@ function ENT:Tank_OnThinkActive()
 			util.Effect("RifleShellEject", shellEffect, true, true)
 		end
 	end
-	return true
 end

@@ -45,6 +45,8 @@ ENT.Bradley_HasSpawnedSoldiers = false
 function ENT:Tank_Init()
 	self:SetSkin(math.random(0, 1))
 	self.Bradley_Grunts = {}
+	
+	VJ.HLR_ApplyFactionOptions(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
@@ -113,6 +115,7 @@ function ENT:Tank_OnThink()
 						hGrunt:SetPos(self:GetPos() + self:GetForward() * (i <= 2 and -160 or (i <= 4 and -220 or -290)) + self:GetRight() * opSide + self:GetUp() * 5)
 						hGrunt:SetAngles(Angle(0, self:GetAngles().y + 180, 0))
 						hGrunt.VJ_NPC_Class = self.VJ_NPC_Class
+						hGrunt.AlliedWithPlayerAllies = self.AlliedWithPlayerAllies
 						hGrunt:Spawn()
 						hGrunt:ForceSetEnemy(ene, true)
 						hGrunt:SetState(VJ_STATE_FREEZE)

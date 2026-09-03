@@ -28,6 +28,10 @@ local sdReloadBullet = "vj_hlr/gsrc/npc/tanks/25mm_reload.wav"
 local sdFireMissile = "vj_hlr/gsrc/npc/tanks/tow_firing.wav"
 local sdFireBullet = "vj_hlr/gsrc/npc/tanks/biggun2.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Tank_Init()
+	VJ.HLR_ApplyFactionOptions(self)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_OnPrepareShell()
 	if CurTime() > self.Bradley_NextMissileAtkT && math.random(1, 5) == 1 then
 		self.Bradley_DoingMissileAtk = true

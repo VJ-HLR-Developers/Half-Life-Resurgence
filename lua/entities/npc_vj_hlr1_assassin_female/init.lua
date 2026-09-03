@@ -73,6 +73,8 @@ function ENT:Init()
 	if GetConVar("vj_hlr1_assassin_cloaks"):GetInt() == 0 then
 		self.BOA_CanCloak = false
 	end
+	
+	VJ.HLR_ApplyFactionOptions(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)

@@ -136,6 +136,8 @@ function ENT:Init()
 	sideLight2:Spawn()
 	sideLight2:Activate()
 	self:DeleteOnRemove(sideLight2)
+	
+	VJ.HLR_ApplyFactionOptions(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)

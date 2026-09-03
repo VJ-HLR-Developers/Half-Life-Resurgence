@@ -14,8 +14,7 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(5, 0, 5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
-ENT.BloodColor = ""
+ENT.BloodColor = VJ.BLOOD_COLOR_NONE
 ENT.HasBloodParticle = false
 ENT.HasBloodDecal = false
 ENT.VJ_ID_Healable = false

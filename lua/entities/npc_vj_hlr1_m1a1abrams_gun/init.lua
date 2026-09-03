@@ -20,3 +20,7 @@ ENT.Tank_Shell_Entity = "obj_vj_hlr1_rocket"
 ENT.Tank_Shell_VelocitySpeed = 3000
 ENT.Tank_Shell_MuzzleFlashPos = Vector(267.83, 1.24, 91.09)
 ENT.Tank_Shell_ParticlePos = Vector(267.83, 1.24, 91.09)
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Tank_Init()
+	VJ.HLR_ApplyFactionOptions(self)
+end

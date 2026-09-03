@@ -9,7 +9,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl1/hassault_german.mdl"
 ENT.StartHealth = 300
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.BloodColor = ""
+ENT.BloodColor = VJ.BLOOD_COLOR_NONE
 ENT.HasBloodParticle = false
 ENT.HasBloodDecal = false
 ENT.VJ_ID_Healable = false

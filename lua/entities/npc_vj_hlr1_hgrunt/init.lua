@@ -195,6 +195,8 @@ function ENT:Init()
 		self.Weapon_CanReload = false
 		timer.Simple(0.1, function() if IsValid(self) then self:PlayAnim(self.HECU_Type == 7 && "barnacled1" or "repel_jump", true, false, false) end end)
 	end
+	
+	VJ.HLR_ApplyFactionOptions(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnEntityCopyTableFinish(data)

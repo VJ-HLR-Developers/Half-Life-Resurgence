@@ -537,6 +537,17 @@ function VJ.HLR_Weapon_CheckModel(wep, models)
 	return true -- Valid model
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function VJ.HLR_ApplyFactionOptions(ent)
+	-- Handle friendly faction options
+	if GetConVar("vj_hlr1_friendly_hecu"):GetBool() && ent.VJ_NPC_Class[1] == "CLASS_UNITED_STATES" && !ent.VJ_NPC_Class[2] then
+		ent.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_UNITED_STATES_FRIENDLY"}
+		ent.AlliedWithPlayerAllies = true
+	elseif GetConVar("vj_hlr1_friendly_bops"):GetBool() && ent.VJ_NPC_Class[1] == "CLASS_BLACKOPS" && !ent.VJ_NPC_Class[2] then
+		ent.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
+		ent.AlliedWithPlayerAllies = true
+	end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 local defGibs_Yellow = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib6.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 local defGibs_Red = {"models/vj_hlr/gibs/flesh1.mdl", "models/vj_hlr/gibs/flesh2.mdl", "models/vj_hlr/gibs/flesh3.mdl", "models/vj_hlr/gibs/flesh4.mdl", "models/vj_hlr/gibs/hgib_b_bone.mdl", "models/vj_hlr/gibs/hgib_b_gib.mdl", "models/vj_hlr/gibs/hgib_guts.mdl", "models/vj_hlr/gibs/hgib_hmeat.mdl", "models/vj_hlr/gibs/hgib_lung.mdl", "models/vj_hlr/gibs/hgib_skull.mdl", "models/vj_hlr/gibs/hgib_legbone.mdl"}
 --
@@ -755,7 +766,7 @@ ent.HLR_Corpse = Is this an HLR corpse?
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 VJ.AddConVar("vj_hlr_hd", 0, FCVAR_ARCHIVE)
 VJ.AddConVar("vj_hlr_dm_ffa", 0, FCVAR_ARCHIVE)
--- GoldSrc
+
 VJ.AddConVar("vj_hlr1_corpse_static", 0, FCVAR_ARCHIVE)
 VJ.AddConVar("vj_hlr1_corpse_effects", 1, FCVAR_ARCHIVE)
 VJ.AddConVar("vj_hlr1_corpse_gibbable", 1, FCVAR_ARCHIVE)
@@ -765,7 +776,9 @@ VJ.AddConVar("vj_hlr1_bradley_deploygrunts_oppf", 0, FCVAR_ARCHIVE)
 VJ.AddConVar("vj_hlr1_osprey_deploysoldiers", 1, FCVAR_ARCHIVE)
 VJ.AddConVar("vj_hlr1_osprey_deploysoldiers_oppf", 0, FCVAR_ARCHIVE)
 VJ.AddConVar("vj_hlr1_assassin_cloaks", 1, FCVAR_ARCHIVE)
--- Source
+VJ.AddConVar("vj_hlr1_friendly_hecu", 0, FCVAR_ARCHIVE)
+VJ.AddConVar("vj_hlr1_friendly_bops", 0, FCVAR_ARCHIVE)
+
 VJ.AddConVar("vj_hlr2_merkava_gunner", 1, FCVAR_ARCHIVE)
 VJ.AddConVar("vj_hlr2_custom_skins", 1, FCVAR_ARCHIVE)
 
@@ -818,11 +831,13 @@ if CLIENT then
 				return
 			end
 			panel:Help("#vjbase.menu.general.admin.only")
-			panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_bradley_deploygrunts_oppf 0\nvj_hlr1_osprey_deploysoldiers 1\nvj_hlr1_osprey_deploysoldiers_oppf 0\nvj_hlr2_merkava_gunner 1\nvj_hlr1_assassin_cloaks 1\nvj_hlr1_corpse_static 0\nvj_hlr1_corpse_effects 1\nvj_hlr1_corpse_gibbable 1\nvj_hlr2_custom_skins 1\nvj_hlr_hd 0\nvj_hlr_dm_ffa 0"})
+			panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_bradley_deploygrunts_oppf 0\nvj_hlr1_osprey_deploysoldiers 1\nvj_hlr1_osprey_deploysoldiers_oppf 0\nvj_hlr2_merkava_gunner 1\nvj_hlr1_assassin_cloaks 1\nvj_hlr1_corpse_static 0\nvj_hlr1_corpse_effects 1\nvj_hlr1_corpse_gibbable 1\nvj_hlr2_custom_skins 1\nvj_hlr_hd 0\nvj_hlr_dm_ffa 0\nvj_hlr1_friendly_hecu 0\nvj_hlr1_friendly_bops 0"})
 			panel:CheckBox("Enable HD Models (if available)", "vj_hlr_hd")
 			panel:ControlHelp("Requires HD extension(s) to be installed!")
 			panel:CheckBox("Enable FFA For DM Players", "vj_hlr_dm_ffa")
 			panel:ControlHelp("Requires Players extension to be installed!")
+			panel:CheckBox("Friendly HECU Faction", "vj_hlr1_friendly_hecu")
+			panel:CheckBox("Friendly Black Ops Faction", "vj_hlr1_friendly_bops")
 			panel:Help("GoldSrc Engine:")
 			panel:CheckBox("Corpses Are Static Like GoldSrc", "vj_hlr1_corpse_static")
 			panel:CheckBox("Corpses Create Effects & Decals", "vj_hlr1_corpse_effects")

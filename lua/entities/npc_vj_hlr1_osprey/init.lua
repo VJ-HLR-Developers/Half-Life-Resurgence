@@ -159,6 +159,8 @@ function ENT:Init()
 	sideLight2:Spawn()
 	sideLight2:Activate()
 	self:DeleteOnRemove(sideLight2)
+	
+	VJ.HLR_ApplyFactionOptions(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
@@ -275,6 +277,7 @@ function ENT:OnThinkActive()
 			soldier.HECU_DeployedByOsprey = true
 			soldier.HECU_Rappelling = true
 			soldier.VJ_NPC_Class = self.VJ_NPC_Class
+			soldier.AlliedWithPlayerAllies = self.AlliedWithPlayerAllies
 			soldier:Spawn()
 			soldier:SetLocalVelocity(Vector(0, 0, math.Rand(-196, -128)))
 			soldier:SetEnemy(ene)
