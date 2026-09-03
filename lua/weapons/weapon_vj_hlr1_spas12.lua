@@ -47,7 +47,8 @@ local validModels = {
 	["models/vj_hlr/opfor_hd/hgrunt.mdl"] = true,
 	["models/vj_hlr/opfor_hd/hgrunt_medic.mdl"] = true,
 	["models/vj_hlr/opfor_hd/hgrunt_engineer.mdl"] = true,
-	["models/vj_hlr/cracklife/hgrunt.mdl"] = true
+	["models/vj_hlr/cracklife/hgrunt.mdl"] = true,
+	["models/vj_parr/par1/cut/vts_urban_terrorist.mdl"] = true
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
@@ -55,11 +56,20 @@ function SWEP:Init()
 		if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
 			self.NPC_NextPrimaryFire = false
 		end
+		if self:GetOwner():GetModel() == "models/vj_parr/par1/cut/vts_urban_terrorist.mdl" then
+			self.Primary.Damage = 10
+			self.WorldModelOffsetParams.Pos = Vector(13, 3.5, 0.6)
+			self.WorldModelOffsetParams.Ang = Angle(0, 195, 90)
+		end
 	end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:DoImpactEffect(tr, damageType)
-	return VJ.HLR1_Effect_Impact(tr)
+	if self:GetOwner():GetModel() == "models/vj_parr/par1/cut/vts_urban_terrorist.mdl" then
+		return VJ.PARR1_Effect_Impact(tr)
+	else
+		return VJ.HLR1_Effect_Impact(tr)
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnDrawWorldModel()
