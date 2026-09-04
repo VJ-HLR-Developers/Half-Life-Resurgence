@@ -1,9 +1,9 @@
-ENT.Base 			= "npc_vj_creature_base"
-ENT.Type 			= "ai"
-ENT.PrintName 		= "AH-64 Apache"
-ENT.Author 			= "DrVrej"
-ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
-ENT.Category		= "Half-Life Resurgence"
+ENT.Base = "npc_vj_creature_base"
+ENT.Type = "ai"
+ENT.PrintName = "AH-64 Apache"
+ENT.Author = "DrVrej"
+ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
+ENT.Category = "Half-Life Resurgence"
 
 ENT.VJ_ID_Vehicle = true
 ENT.VJ_ID_Aircraft = true

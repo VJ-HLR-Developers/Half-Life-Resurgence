@@ -5,12 +5,12 @@
 -----------------------------------------------*/
 AddCSLuaFile()
 
-ENT.Base 			= "prop_vj_animatable"
-ENT.Type 			= "anim"
-ENT.PrintName 		= "Xen Spore Medium"
-ENT.Author 			= "DrVrej"
-ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
-ENT.Category		= "Half-Life Resurgence"
+ENT.Base = "prop_vj_animatable"
+ENT.Type = "anim"
+ENT.PrintName = "Xen Spore Medium"
+ENT.Author = "DrVrej"
+ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
+ENT.Category = "Half-Life Resurgence"
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end
 

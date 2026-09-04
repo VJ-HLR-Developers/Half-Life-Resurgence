@@ -5,11 +5,11 @@
 -----------------------------------------------*/
 AddCSLuaFile()
 
-ENT.Type 			= "anim"
-ENT.Base 			= "base_anim"
-ENT.PrintName		= "Gene Worm Spawner"
-ENT.Author 			= "DrVrej"
-ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
+ENT.Type = "anim"
+ENT.Base = "base_anim"
+ENT.PrintName = "Gene Worm Spawner"
+ENT.Author = "DrVrej"
+ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlrof_gw_spawner", ENT.PrintName, VJ.KILLICON_PROJECTILE)

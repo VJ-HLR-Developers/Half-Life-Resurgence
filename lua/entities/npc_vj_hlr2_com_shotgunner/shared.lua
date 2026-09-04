@@ -1,9 +1,9 @@
-ENT.Base 			= "npc_vj_human_base"
-ENT.Type 			= "ai"
-ENT.PrintName 		= "Overwatch Shotgun Soldier"
-ENT.Author 			= "DrVrej"
-ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
-ENT.Category		= "Half-Life Resurgence"
+ENT.Base = "npc_vj_human_base"
+ENT.Type = "ai"
+ENT.PrintName = "Overwatch Shotgun Soldier"
+ENT.Author = "DrVrej"
+ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
+ENT.Category = "Half-Life Resurgence"
 
 if CLIENT && GetConVar("vj_hlr2_combine_eyeglow"):GetBool() then
 	local mat = Material("sprites/light_glow02_add")

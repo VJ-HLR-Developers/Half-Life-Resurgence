@@ -5,11 +5,11 @@
 -----------------------------------------------*/
 AddCSLuaFile()
 
-ENT.Type 			= "anim"
-ENT.Base 			= "base_anim"
-ENT.PrintName		= "Crystal Charge Orb"
-ENT.Author 			= "DrVrej"
-ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
+ENT.Type = "anim"
+ENT.Base = "base_anim"
+ENT.PrintName = "Crystal Charge Orb"
+ENT.Author = "DrVrej"
+ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 
 if CLIENT then
 	VJ.AddKillIcon("sent_vj_hlr1_orb_crystal_charge", ENT.PrintName)

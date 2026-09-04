@@ -1,18 +1,18 @@
 AddCSLuaFile()
 
-SWEP.Base 						= "weapon_vj_base"
-SWEP.PrintName					= "Desert Eagle"
-SWEP.Author 					= "DrVrej"
-SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Category					= "Half-Life Resurgence"
+SWEP.Base = "weapon_vj_base"
+SWEP.PrintName = "Desert Eagle"
+SWEP.Author = "DrVrej"
+SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
+SWEP.Category = "Half-Life Resurgence"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= false
-SWEP.NPC_ReloadSound			= "vj_hlr/gsrc/wep/deagle/desert_eagle_reload.wav"
-SWEP.NPC_CanBePickedUp			= false
+SWEP.NPC_NextPrimaryFire = false
+SWEP.NPC_ReloadSound = "vj_hlr/gsrc/wep/deagle/desert_eagle_reload.wav"
+SWEP.NPC_CanBePickedUp = false
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true
-SWEP.WorldModel					= "models/vj_hlr/weapons/w_desert_eagle.mdl"
-SWEP.HoldType 					= "pistol"
+SWEP.MadeForNPCsOnly = true
+SWEP.WorldModel = "models/vj_hlr/weapons/w_desert_eagle.mdl"
+SWEP.HoldType = "pistol"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModelOffsetParams = {
 	Enabled = true,
@@ -21,11 +21,11 @@ SWEP.WorldModelOffsetParams = {
 	Ang = Angle(-80, 0, 0)
 }
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 15
-SWEP.Primary.ClipSize			= 7
-SWEP.Primary.Ammo				= "357"
-SWEP.Primary.Sound				= "vj_hlr/gsrc/wep/deagle/desert_eagle_fire.wav"
-SWEP.Primary.DistantSound		= "vj_hlr/gsrc/wep/deagle/desert_eagle_fire_distant_final.wav"
+SWEP.Primary.Damage = 15
+SWEP.Primary.ClipSize = 7
+SWEP.Primary.Ammo = "357"
+SWEP.Primary.Sound = "vj_hlr/gsrc/wep/deagle/desert_eagle_fire.wav"
+SWEP.Primary.DistantSound = "vj_hlr/gsrc/wep/deagle/desert_eagle_fire_distant_final.wav"
 SWEP.PrimaryEffects_ShellType 	= "ShellEject"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false

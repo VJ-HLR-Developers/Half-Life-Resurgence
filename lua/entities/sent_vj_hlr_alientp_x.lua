@@ -5,12 +5,12 @@
 -----------------------------------------------*/
 AddCSLuaFile()
 
-ENT.Base 			= "sent_vj_hlr_alientp"
-ENT.Type 			= "anim"
-ENT.PrintName 		= "Race X Portal"
-ENT.Author 			= "DrVrej"
-ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
-ENT.Category		= "Half-Life Resurgence"
+ENT.Base = "sent_vj_hlr_alientp"
+ENT.Type = "anim"
+ENT.PrintName = "Race X Portal"
+ENT.Author = "DrVrej"
+ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
+ENT.Category = "Half-Life Resurgence"
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 if !SERVER then return end

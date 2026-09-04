@@ -5,11 +5,11 @@
 -----------------------------------------------*/
 AddCSLuaFile()
 
-ENT.Type 			= "anim"
-ENT.Base 			= "obj_vj_projectile_base"
-ENT.PrintName		= "Stuka Bomb"
-ENT.Author 			= "DrVrej"
-ENT.Contact 		= "http://steamcommunity.com/groups/vrejgaming"
+ENT.Type = "anim"
+ENT.Base = "obj_vj_projectile_base"
+ENT.PrintName = "Stuka Bomb"
+ENT.Author = "DrVrej"
+ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlr1_stukabomb", ENT.PrintName, VJ.KILLICON_PROJECTILE)
@@ -30,7 +30,7 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/npc/bullchicken/bc_spithit1.wav", "vj_hlr
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
 	self:SetNoDraw(true)
-	
+
 	ParticleEffectAttach("vj_hlr_spit_stukabat", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -45,7 +45,7 @@ ENT.Bradley_HasSpawnedSoldiers = false
 function ENT:Tank_Init()
 	self:SetSkin(math.random(0, 1))
 	self.Bradley_Grunts = {}
-	
+
 	VJ.HLR_ApplyFactionOptions(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

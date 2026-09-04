@@ -1,12 +1,12 @@
 AddCSLuaFile()
 
-SWEP.Base 						= "weapon_vj_base"
-SWEP.PrintName					= "Colt Carbine"
-SWEP.Author 					= "DrVrej"
-SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Category					= "Half-Life Resurgence"
+SWEP.Base = "weapon_vj_base"
+SWEP.PrintName = "Colt Carbine"
+SWEP.Author = "DrVrej"
+SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
+SWEP.Category = "Half-Life Resurgence"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire = 0.08
+SWEP.NPC_NextPrimaryFire = false
 SWEP.NPC_ReloadSound = "vj_hlr/gsrc/npc/hgrunt_alpha/gr_reload1.wav"
 SWEP.NPC_CanBePickedUp = false
 SWEP.NPC_HasSecondaryFire = true

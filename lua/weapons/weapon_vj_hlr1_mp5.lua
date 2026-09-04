@@ -1,10 +1,10 @@
 AddCSLuaFile()
 
-SWEP.Base 						= "weapon_vj_base"
-SWEP.PrintName					= "MP5"
-SWEP.Author 					= "DrVrej"
-SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Category					= "Half-Life Resurgence"
+SWEP.Base = "weapon_vj_base"
+SWEP.PrintName = "MP5"
+SWEP.Author = "DrVrej"
+SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
+SWEP.Category = "Half-Life Resurgence"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = false
 SWEP.NPC_ReloadSound = "vj_hlr/gsrc/wep/mp5/mp_reload.wav"

@@ -1,18 +1,18 @@
 AddCSLuaFile()
 
-SWEP.Base 						= "weapon_vj_base"
-SWEP.PrintName					= "20mm Cannon"
-SWEP.Author 					= "DrVrej"
-SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Category					= "Half-Life Resurgence"
+SWEP.Base = "weapon_vj_base"
+SWEP.PrintName = "20mm Cannon"
+SWEP.Author = "DrVrej"
+SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
+SWEP.Category = "Half-Life Resurgence"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= false
-SWEP.NPC_CustomSpread	 		= 2
-SWEP.NPC_CanBePickedUp			= false
+SWEP.NPC_NextPrimaryFire = false
+SWEP.NPC_CustomSpread = 2
+SWEP.NPC_CanBePickedUp = false
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true
-SWEP.WorldModel					= "models/vj_hlr/weapons/w_minigun.mdl"
-SWEP.HoldType 					= "ar2"
+SWEP.MadeForNPCsOnly = true
+SWEP.WorldModel = "models/vj_hlr/weapons/w_minigun.mdl"
+SWEP.HoldType = "ar2"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModelOffsetParams = {
 	Enabled = true,

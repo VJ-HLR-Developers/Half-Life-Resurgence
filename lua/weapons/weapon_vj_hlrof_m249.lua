@@ -1,19 +1,19 @@
 AddCSLuaFile()
 
-SWEP.Base 						= "weapon_vj_base"
-SWEP.PrintName					= "M249 SAW"
-SWEP.Author 					= "DrVrej"
-SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Category					= "Half-Life Resurgence"
+SWEP.Base = "weapon_vj_base"
+SWEP.PrintName = "M249 SAW"
+SWEP.Author = "DrVrej"
+SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
+SWEP.Category = "Half-Life Resurgence"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= false
-SWEP.NPC_CustomSpread	 		= 2.5
-SWEP.NPC_ReloadSound			= "vj_hlr/gsrc/wep/saw/saw_reload2.wav"
-SWEP.NPC_CanBePickedUp			= false
+SWEP.NPC_NextPrimaryFire = false
+SWEP.NPC_CustomSpread = 2.5
+SWEP.NPC_ReloadSound = "vj_hlr/gsrc/wep/saw/saw_reload2.wav"
+SWEP.NPC_CanBePickedUp = false
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true
-SWEP.WorldModel					= "models/vj_hlr/weapons/w_saw.mdl"
-SWEP.HoldType 					= "ar2"
+SWEP.MadeForNPCsOnly = true
+SWEP.WorldModel = "models/vj_hlr/weapons/w_saw.mdl"
+SWEP.HoldType = "ar2"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModelOffsetParams = {
 	Enabled = true,
@@ -22,11 +22,11 @@ SWEP.WorldModelOffsetParams = {
 	Ang = Angle(-0.694, 93.939, 11.976)
 }
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 8
-SWEP.Primary.ClipSize			= 50
-SWEP.Primary.Ammo				= "SMG1"
-SWEP.Primary.Sound				= {"vj_hlr/gsrc/wep/saw/saw_fire1.wav", "vj_hlr/gsrc/wep/saw/saw_fire2.wav", "vj_hlr/gsrc/wep/saw/saw_fire3.wav"}
-SWEP.Primary.DistantSound		= "vj_hlr/gsrc/wep/saw/saw_distant2.wav"
+SWEP.Primary.Damage = 8
+SWEP.Primary.ClipSize = 50
+SWEP.Primary.Ammo = "SMG1"
+SWEP.Primary.Sound = {"vj_hlr/gsrc/wep/saw/saw_fire1.wav", "vj_hlr/gsrc/wep/saw/saw_fire2.wav", "vj_hlr/gsrc/wep/saw/saw_fire3.wav"}
+SWEP.Primary.DistantSound = "vj_hlr/gsrc/wep/saw/saw_distant2.wav"
 SWEP.Primary.TracerType = "VJ_HLR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
 SWEP.DryFireSound = "vj_hlr/gsrc/wep/dryfire1.wav"

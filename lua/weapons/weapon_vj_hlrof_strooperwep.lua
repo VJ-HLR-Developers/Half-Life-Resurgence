@@ -1,34 +1,34 @@
 AddCSLuaFile()
 
-SWEP.Base 						= "weapon_vj_base"
-SWEP.PrintName					= "Shock Weapon"
-SWEP.Author 					= "DrVrej"
-SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Category					= "Half-Life Resurgence"
+SWEP.Base = "weapon_vj_base"
+SWEP.PrintName = "Shock Weapon"
+SWEP.Author = "DrVrej"
+SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
+SWEP.Category = "Half-Life Resurgence"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= false
-SWEP.NPC_ReloadSound			= "vj_hlr/gsrc/wep/shockroach/shock_recharge.wav"
-SWEP.NPC_CanBePickedUp			= false
+SWEP.NPC_NextPrimaryFire = false
+SWEP.NPC_ReloadSound = "vj_hlr/gsrc/wep/shockroach/shock_recharge.wav"
+SWEP.NPC_CanBePickedUp = false
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true
-SWEP.WorldModel					= "models/props_junk/watermelon01_chunk02c.mdl"
-SWEP.HoldType 					= "smg"
+SWEP.MadeForNPCsOnly = true
+SWEP.WorldModel = "models/props_junk/watermelon01_chunk02c.mdl"
+SWEP.HoldType = "smg"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModelOffsetParams = {
 	Enabled = true,
 	Bone = "Bone58"
 }
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage				= 5
-SWEP.Primary.ClipSize			= 30
-SWEP.Primary.Ammo				= "SMG1"
-SWEP.Primary.Sound				= "vj_hlr/gsrc/wep/shockroach/shock_fire.wav"
-SWEP.Primary.DistantSound		= "vj_hlr/gsrc/wep/shockroach/shock_fire_distant.wav"
+SWEP.Primary.Damage = 5
+SWEP.Primary.ClipSize = 30
+SWEP.Primary.Ammo = "SMG1"
+SWEP.Primary.Sound = "vj_hlr/gsrc/wep/shockroach/shock_fire.wav"
+SWEP.Primary.DistantSound = "vj_hlr/gsrc/wep/shockroach/shock_fire_distant.wav"
 SWEP.Primary.DisableBulletCode	= true
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.PrimaryEffects_MuzzleFlash = false
 SWEP.PrimaryEffects_DynamicLightColor = Color(128, 255, 255)
-SWEP.HasDryFireSound			= false
+SWEP.HasDryFireSound = false
 
 -- Custom
 SWEP.HLR_NextIdleSoundT = 0

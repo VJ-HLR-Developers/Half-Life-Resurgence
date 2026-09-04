@@ -1,20 +1,20 @@
 AddCSLuaFile()
 
-SWEP.Base 						= "weapon_vj_base"
-SWEP.PrintName					= "Ivan's Glock 17"
-SWEP.Author 					= "DrVrej"
-SWEP.Contact					= "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Category					= "Half-Life Resurgence"
+SWEP.Base = "weapon_vj_base"
+SWEP.PrintName = "Ivan's Glock 17"
+SWEP.Author = "DrVrej"
+SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
+SWEP.Category = "Half-Life Resurgence"
 	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.NPC_NextPrimaryFire 		= 2.5
-SWEP.NPC_CustomSpread	 		= 2
-SWEP.NPC_ReloadSound			= "vj_hlr/gsrc/wep/glock/glock_reload.wav"
-SWEP.NPC_CanBePickedUp			= false
+SWEP.NPC_NextPrimaryFire = false
+SWEP.NPC_CustomSpread = 2
+SWEP.NPC_ReloadSound = "vj_hlr/gsrc/wep/glock/glock_reload.wav"
+SWEP.NPC_CanBePickedUp = false
 	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.MadeForNPCsOnly 			= true
+SWEP.MadeForNPCsOnly = true
 SWEP.ReplacementWeapon = {"weapon_hl1_glock", "weapon_glock_hl1"}
-SWEP.WorldModel					= "models/vj_hlr/hla/w_docgun.mdl"
-SWEP.HoldType 					= "pistol"
+SWEP.WorldModel = "models/vj_hlr/hla/w_docgun.mdl"
+SWEP.HoldType = "pistol"
 	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModelOffsetParams = {
 	Enabled = true,
