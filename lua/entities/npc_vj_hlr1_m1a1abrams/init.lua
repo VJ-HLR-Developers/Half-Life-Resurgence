@@ -29,6 +29,7 @@ ENT.SoundTbl_Death = {"vj_hlr/gsrc/wep/explosion/explode3.wav", "vj_hlr/gsrc/wep
 -- Tank Base
 ENT.Tank_SoundTbl_DrivingEngine = "vj_hlr/gsrc/npc/tanks/tankdrive.wav"
 ENT.Tank_SoundTbl_Track = "vj_hlr/gsrc/npc/tanks/tanktrack.wav"
+ENT.Tank_SoundTbl_RunOver = {"vj_hlr/gsrc/fx/bustflesh1.wav", "vj_hlr/gsrc/fx/bustflesh2.wav"}
 
 ENT.Tank_GunnerENT = "npc_vj_hlr1_m1a1abrams_gun"
 ENT.Tank_CollisionBoundSize = 110
@@ -95,11 +96,12 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 	for i = 0, 1, 0.5 do
 		timer.Simple(i, function()
 			if IsValid(self) then
+				local myPos = self:GetPos()
 				VJ.EmitSound(self, self.SoundTbl_Death, 100)
 				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris" .. math.random(1, 3) .. ".wav", 100)
 				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)
-				util.BlastDamage(self, self, self:GetPos(), 200, 40)
-				util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
+				util.BlastDamage(self, self, myPos, 200, 40)
+				util.ScreenShake(myPos, 100, 200, 1, 2500)
 
 				local spr = ents.Create("env_sprite")
 				spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
@@ -114,7 +116,7 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 				spr:SetKeyValue("framerate", "15.0")
 				spr:SetKeyValue("spawnflags", "0")
 				spr:SetKeyValue("scale", "4")
-				spr:SetPos(self:GetPos() + expPos)
+				spr:SetPos(myPos + expPos)
 				spr:Spawn()
 				spr:Fire("Kill", nil, 0.9)
 				timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
@@ -124,11 +126,13 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 
 	timer.Simple(1.5, function()
 		if IsValid(self) then
+			local myPos = self:GetPos()
 			VJ.EmitSound(self, self.SoundTbl_Death, 100)
-			util.BlastDamage(self, self, self:GetPos(), 200, 40)
-			util.ScreenShake(self:GetPos(), 100, 200, 1, 2500)
+			util.BlastDamage(self, self, myPos, 200, 40)
+			util.ScreenShake(myPos, 100, 200, 1, 2500)
 			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris" .. math.random(1, 3) .. ".wav", 100)
 			VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)
+
 			local spr = ents.Create("env_sprite")
 			spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 			spr:SetKeyValue("GlowProxySize", "2.0")
@@ -142,7 +146,7 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 			spr:SetKeyValue("framerate", "15.0")
 			spr:SetKeyValue("spawnflags", "0")
 			spr:SetKeyValue("scale", "4")
-			spr:SetPos(self:GetPos() + expPos)
+			spr:SetPos(myPos + expPos)
 			spr:Spawn()
 			spr:Fire("Kill", nil, 0.9)
 			timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
@@ -165,6 +169,8 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local metalCollideSD = {"vj_hlr/gsrc/fx/metal1.wav", "vj_hlr/gsrc/fx/metal2.wav", "vj_hlr/gsrc/fx/metal3.wav", "vj_hlr/gsrc/fx/metal4.wav", "vj_hlr/gsrc/fx/metal5.wav"}
+local vec500z = Vector(0, 0, 500)
+local colorGray = Color(90, 90, 90)
 --
 function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
 	if status == "Override" then
@@ -196,11 +202,32 @@ function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(0, 4, 80)), CollisionSound = metalCollideSD})
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(0, 5, 80)), CollisionSound = metalCollideSD})
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(0, 6, 80)), CollisionSound = metalCollideSD})
-		util.BlastDamage(self, self, self:GetPos() + self:GetUp() * 80, 200, 10)
-	elseif status == "Soldier" then
-		statusData:SetSkin(math.random(0, 1))
-		statusData:SetBodygroup(2, 2)
-	elseif status == "Effects" then
+
+		local myPos = self:GetPos()
+		local myUp = self:GetUp()
+		VJ.EmitSound(self, self.SoundTbl_Death, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris" .. math.random(1, 3) .. ".wav", 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)
+		util.BlastDamage(self, self, myPos + myUp * 80, 200, 10)
+		util.ScreenShake(myPos, 100, 200, 1, 2500)
+		local tr = util.TraceLine({
+			start = myPos + myUp * 4,
+			endpos = myPos - vec500z,
+			filter = self
+		})
+		util.Decal(VJ.PICK(self.Tank_DeathDecal), tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
+
+		if math.random(1, self.Tank_DeathDriverCorpseChance) == 1 then
+			local soldierMDL = VJ.PICK(self.Tank_DeathDriverCorpse)
+			if soldierMDL then
+				self:CreateExtraDeathCorpse("prop_ragdoll", soldierMDL, {Pos = myPos + myUp * 90 + self:GetRight() * -30, Vel = Vector(math.Rand(-600, 600), math.Rand(-600, 600), 500)}, function(ent)
+					ent:SetColor(colorGray)
+					ent:SetSkin(math.random(0, 1))
+					ent:SetBodygroup(2, 2)
+				end)
+			end
+		end
+
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 		spr:SetKeyValue("GlowProxySize", "2.0")
@@ -214,10 +241,30 @@ function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
 		spr:SetKeyValue("framerate", "15.0")
 		spr:SetKeyValue("spawnflags", "0")
 		spr:SetKeyValue("scale", "4")
-		spr:SetPos(self:GetPos() + expPos)
+		spr:SetPos(myPos + expPos)
 		spr:Spawn()
 		spr:Fire("Kill", nil, 0.9)
 		timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+
+		local fireSpr = ents.Create("env_sprite")
+		fireSpr:SetKeyValue("model", "vj_hl/sprites/xffloor.vmt")
+		fireSpr:SetKeyValue("GlowProxySize", "2.0")
+		fireSpr:SetKeyValue("HDRColorScale", "1.0")
+		fireSpr:SetKeyValue("renderfx", "14")
+		fireSpr:SetKeyValue("rendermode", "5")
+		fireSpr:SetKeyValue("renderamt", "255")
+		fireSpr:SetKeyValue("disablereceiveshadows", "0")
+		fireSpr:SetKeyValue("mindxlevel", "0")
+		fireSpr:SetKeyValue("maxdxlevel", "0")
+		fireSpr:SetKeyValue("framerate", "10.0")
+		fireSpr:SetKeyValue("spawnflags", "0")
+		fireSpr:SetKeyValue("scale", "4")
+		fireSpr:SetPos(myPos + expPos)
+		fireSpr:SetParent(corpse)
+		fireSpr:Spawn()
+		corpse:DeleteOnRemove(fireSpr)
+
+		corpse.TankSD_Fire = VJ.CreateSound(corpse, "vj_hlr/gsrc/fx/burning1.wav", 70)
 		return true
 	end
 end
