@@ -195,7 +195,7 @@ function ENT:Init()
 		self.Weapon_CanReload = false
 		timer.Simple(0.1, function() if IsValid(self) then self:PlayAnim(self.HECU_Type == 7 && "barnacled1" or "repel_jump", true, false, false) end end)
 	end
-	
+
 	VJ.HLR_ApplyFactionOptions(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -560,6 +560,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
 			self.DeathAnimationDecreaseLengthAmount = -1
 			self.DeathCorpseEntityClass = "prop_vj_animatable"
+			VJ.HLR_StaticCorpseCheck(self)
 		end
 		-- Regular Human Grunt head gib
 		if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then

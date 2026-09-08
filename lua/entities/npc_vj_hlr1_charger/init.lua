@@ -222,6 +222,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
+		VJ.HLR_StaticCorpseCheck(self)
 	elseif status == "DeathAnim" then
 		self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 	end

@@ -506,7 +506,7 @@ local excludedMats = {
 	[MAT_ANTLION] = true,
 	[MAT_ALIENFLESH] = true,
 	[MAT_BLOODYFLESH] = true,
-	[MAT_FLESH] = true,
+	[MAT_FLESH] = true
 }
 --
 function VJ.HLR1_Effect_Impact(tr)
@@ -548,6 +548,18 @@ function VJ.HLR_ApplyFactionOptions(ent)
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function VJ.HLR_StaticCorpseCheck(ent)
+	-- Failsafe if ai_disabled is set to 1, so make corpse a ragdoll or prop instead
+	local hookAICheck = "VJ_HLR_AICheck" .. ent:EntIndex()
+	hook.Add("Think", hookAICheck, function()
+		if !VJ_CVAR_AI_ENABLED then
+			ent.DeathAnimationDecreaseLengthAmount = 0
+			ent.DeathCorpseEntityClass = false
+			hook.Remove("Think", hookAICheck)
+		end
+	end)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 local defGibs_Yellow = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib6.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 local defGibs_Red = {"models/vj_hlr/gibs/flesh1.mdl", "models/vj_hlr/gibs/flesh2.mdl", "models/vj_hlr/gibs/flesh3.mdl", "models/vj_hlr/gibs/flesh4.mdl", "models/vj_hlr/gibs/hgib_b_bone.mdl", "models/vj_hlr/gibs/hgib_b_gib.mdl", "models/vj_hlr/gibs/hgib_guts.mdl", "models/vj_hlr/gibs/hgib_hmeat.mdl", "models/vj_hlr/gibs/hgib_lung.mdl", "models/vj_hlr/gibs/hgib_skull.mdl", "models/vj_hlr/gibs/hgib_legbone.mdl"}
 --
@@ -571,7 +583,7 @@ function VJ.HLR_ApplyCorpseSystem(ent, corpse, gibTbl, extra)
 	end
 	-- Make corpses static like in GoldSrc
 	if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && ent.DeathCorpseEntityClass == "prop_vj_animatable" then
-		corpse:ResetSequence((ent.HECU_Rappelling && "diebackwards") or ent:GetSequence())
+		corpse:ResetSequence(/*(ent.HECU_Rappelling && "diebackwards") or*/ ent:GetSequence())
 		corpse:SetCycle(1)
 		corpse:SetMoveType(ent:GetMoveType())
 		corpse:SetCollisionGroup(ent.DeathCorpseCollisionType)

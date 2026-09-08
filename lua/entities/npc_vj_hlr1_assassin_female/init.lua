@@ -73,7 +73,7 @@ function ENT:Init()
 	if GetConVar("vj_hlr1_assassin_cloaks"):GetInt() == 0 then
 		self.BOA_CanCloak = false
 	end
-	
+
 	VJ.HLR_ApplyFactionOptions(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -199,6 +199,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
+		VJ.HLR_StaticCorpseCheck(self)
 	elseif status == "DeathAnim" then
 		self:DeathWeaponDrop(dmginfo, hitgroup)
 		self:SetBodygroup(1, 1)

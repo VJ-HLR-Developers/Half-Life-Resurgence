@@ -1,4 +1,5 @@
 "VertexLitGeneric"
 {
 	"$basetexture" "models/hl_resurgence/hla/hgrunt/helmet_olive"
+	"$nocull" "1"
 }
