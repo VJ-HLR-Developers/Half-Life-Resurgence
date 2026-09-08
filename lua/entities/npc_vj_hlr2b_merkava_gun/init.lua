@@ -54,7 +54,7 @@ function ENT:Tank_OnThinkActive()
 		end
 		if self.Tank_FacingTarget then
 			local att = self:GetAttachment(1)
-			spotter:FireBullets({
+			self:FireBullets({
 				Attacker = spotter,
 				Damage = 7,
 				Force = 10,
