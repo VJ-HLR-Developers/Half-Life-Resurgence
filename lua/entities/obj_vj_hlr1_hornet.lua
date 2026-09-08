@@ -75,13 +75,13 @@ function ENT:OnThink()
 		end
 		if IsValid(phys) then
 			phys:SetVelocity(VJ.CalculateTrajectory(self, trackedEnt, "Line", self:GetPos(), self.Track_Position + VectorRand(-50, 50), self.Hornet_ChaseSpeed))
-			self:SetAngles(self:GetVelocity():GetNormalized():Angle())
+			self:SetAngles(self:GetVelocity():Angle())
 		end
 	-- Not tracking, go in straight line
 	else
 		if IsValid(phys) then
 			phys:SetVelocity(VJ.CalculateTrajectory(self, NULL, "Line", self:GetPos(), self.Track_Position + VectorRand(-80, 80), self.Hornet_ChaseSpeed / 2))
-			self:SetAngles(self:GetVelocity():GetNormalized():Angle())
+			self:SetAngles(self:GetVelocity():Angle())
 		end
 	end
 end
@@ -91,7 +91,7 @@ function ENT:OnCollision(data, phys)
 	local newVel = phys:GetVelocity():GetNormalized()
 	lastVel = math.max(newVel:Length(), lastVel)
 	phys:SetVelocity(newVel * lastVel * 0.3)
-	self:SetAngles(self:GetVelocity():GetNormalized():Angle())
+	self:SetAngles(self:GetVelocity():Angle())
 
 	-- Remove if it's a living being
 	if data.HitEntity.VJ_ID_Living then
