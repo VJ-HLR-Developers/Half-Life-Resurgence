@@ -545,6 +545,9 @@ function VJ.HLR_ApplyFactionOptions(ent)
 	elseif GetConVar("vj_hlr1_friendly_bops"):GetBool() && ent.VJ_NPC_Class[1] == "CLASS_BLACKOPS" && !ent.VJ_NPC_Class[2] then
 		ent.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 		ent.AlliedWithPlayerAllies = true
+	elseif GetConVar("vj_hlr1_friendly_bmturrets"):GetBool() && ent.VJ_NPC_Class[1] == "CLASS_AUTOMATIC_TURRET" && !ent.VJ_NPC_Class[2] then
+		ent.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
+		ent.AlliedWithPlayerAllies = true
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -790,6 +793,7 @@ VJ.AddConVar("vj_hlr1_osprey_deploysoldiers_oppf", 0, FCVAR_ARCHIVE)
 VJ.AddConVar("vj_hlr1_assassin_cloaks", 1, FCVAR_ARCHIVE)
 VJ.AddConVar("vj_hlr1_friendly_hecu", 0, FCVAR_ARCHIVE)
 VJ.AddConVar("vj_hlr1_friendly_bops", 0, FCVAR_ARCHIVE)
+VJ.AddConVar("vj_hlr1_friendly_bmturrets", 0, FCVAR_ARCHIVE)
 
 VJ.AddConVar("vj_hlr2_merkava_gunner", 1, FCVAR_ARCHIVE)
 VJ.AddConVar("vj_hlr2_custom_skins", 1, FCVAR_ARCHIVE)
@@ -843,13 +847,14 @@ if CLIENT then
 				return
 			end
 			panel:Help("#vjbase.menu.general.admin.only")
-			panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_bradley_deploygrunts_oppf 0\nvj_hlr1_osprey_deploysoldiers 1\nvj_hlr1_osprey_deploysoldiers_oppf 0\nvj_hlr2_merkava_gunner 1\nvj_hlr1_assassin_cloaks 1\nvj_hlr1_corpse_static 0\nvj_hlr1_corpse_effects 1\nvj_hlr1_corpse_gibbable 1\nvj_hlr2_custom_skins 1\nvj_hlr_hd 0\nvj_hlr_dm_ffa 0\nvj_hlr1_friendly_hecu 0\nvj_hlr1_friendly_bops 0"})
+			panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "vj_hlr1_gonarch_babylimit 20\nvj_hlr1_bradley_deploygrunts 1\nvj_hlr1_bradley_deploygrunts_oppf 0\nvj_hlr1_osprey_deploysoldiers 1\nvj_hlr1_osprey_deploysoldiers_oppf 0\nvj_hlr2_merkava_gunner 1\nvj_hlr1_assassin_cloaks 1\nvj_hlr1_corpse_static 0\nvj_hlr1_corpse_effects 1\nvj_hlr1_corpse_gibbable 1\nvj_hlr2_custom_skins 1\nvj_hlr_hd 0\nvj_hlr_dm_ffa 0\nvj_hlr1_friendly_hecu 0\nvj_hlr1_friendly_bops 0\nvj_hlr1_friendly_bmturrets 0"})
 			panel:CheckBox("Enable HD Models (if available)", "vj_hlr_hd")
 			panel:ControlHelp("Requires HD extension(s) to be installed!")
 			panel:CheckBox("Enable FFA For DM Players", "vj_hlr_dm_ffa")
 			panel:ControlHelp("Requires Players extension to be installed!")
 			panel:CheckBox("Friendly HECU Faction", "vj_hlr1_friendly_hecu")
 			panel:CheckBox("Friendly Black Ops Faction", "vj_hlr1_friendly_bops")
+			panel:CheckBox("Friendly BM Turrets Faction", "vj_hlr1_friendly_bmturrets")
 			panel:Help("GoldSrc Engine:")
 			panel:CheckBox("Corpses Are Static Like GoldSrc", "vj_hlr1_corpse_static")
 			panel:CheckBox("Corpses Create Effects & Decals", "vj_hlr1_corpse_effects")
