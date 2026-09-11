@@ -52,7 +52,7 @@ function ENT:Tank_OnThinkActive()
 		if ene == spotter then
 			spotter.VJ_NPC_Class = self:GetParent().VJ_NPC_Class -- Get from the parent (Chassis) because the gunner's relationship is based from it!
 		end
-		if self.Tank_FacingTarget then
+		if self.Tank_FacingTarget && ene:Visible(self) then
 			local att = self:GetAttachment(1)
 			self:FireBullets({
 				Attacker = spotter,
