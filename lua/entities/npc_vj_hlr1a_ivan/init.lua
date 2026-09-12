@@ -10,14 +10,14 @@ ENT.StartHealth = 100
 ENT.HealthRegenParams = {
 	Enabled = true,
 	Amount = 2,
-	Delay = VJ.SET(0.5, 0.5),
+	Delay = VJ.SET(0.5, 0.5)
 }
 ENT.HullType = HULL_HUMAN
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(0, 0, -15),
 	FirstP_Bone = "unnamed021",
 	FirstP_Offset = Vector(8, 0, 7),
-	FirstP_ShrinkBone = true,
+	FirstP_ShrinkBone = true
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}

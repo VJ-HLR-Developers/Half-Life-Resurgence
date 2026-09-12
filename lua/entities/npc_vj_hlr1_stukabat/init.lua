@@ -17,7 +17,7 @@ ENT.Aerial_AnimTbl_Alerted = ENT.Aerial_AnimTbl_Calm
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(0, 0, -15),
 	FirstP_Bone = "MDLDEC_Bone50",
-	FirstP_Offset = Vector(1, 0, 5),
+	FirstP_Offset = Vector(1, 0, 5)
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}

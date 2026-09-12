@@ -23,7 +23,7 @@ ENT.AA_MoveDecelerate = 4
 ENT.ControllerParams = {
 	FirstP_Bone = "Osprey",
 	FirstP_Offset = Vector(365, 0, -80),
-	FirstP_ShrinkBone = false,
+	FirstP_ShrinkBone = false
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
@@ -159,7 +159,7 @@ function ENT:Init()
 	sideLight2:Spawn()
 	sideLight2:Activate()
 	self:DeleteOnRemove(sideLight2)
-	
+
 	VJ.HLR_ApplyFactionOptions(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -10,9 +10,8 @@ ENT.Model = "models/vj_hlr/sven/babygarg.mdl"
 ENT.StartHealth = 500
 ENT.HullType = HULL_HUMAN
 ENT.VJ_ID_Boss = false
-ENT.ControllerParams = {
-	ThirdP_Offset = Vector(15, 0, -15),
-}
+ENT.ControllerParams.ThirdP_Offset = Vector(15, 0, -15)
+
 ENT.BloodParticle = "vj_hlr_blood_yellow"
 
 ENT.MeleeAttackDamage = 20

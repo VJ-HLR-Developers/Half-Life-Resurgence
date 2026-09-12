@@ -10,7 +10,7 @@ ENT.StartHealth = 160
 ENT.HullType = HULL_HUMAN
 ENT.ControllerParams = {
 	FirstP_Bone = "Bip01 Head",
-	FirstP_Offset = Vector(1, 0, 4),
+	FirstP_Offset = Vector(1, 0, 4)
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW

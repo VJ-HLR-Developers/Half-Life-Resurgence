@@ -15,7 +15,7 @@ ENT.CanTurnWhileStationary = false
 ENT.ControllerParams = {
 	FirstP_Bone = "barrel",
 	FirstP_Offset = Vector(0, 6, 6),
-	FirstP_ShrinkBone = false,
+	FirstP_ShrinkBone = false
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_COMBINE"}

@@ -18,7 +18,7 @@ ENT.AA_MinWanderDist = 300
 ENT.ControllerParams = {
 	FirstP_Bone = "bone01",
 	FirstP_Offset = Vector(10, 0, 0),
-	FirstP_ShrinkBone = false,
+	FirstP_ShrinkBone = false
 }
 ENT.IdleAlwaysWander = true
 ENT.CanOpenDoors = false

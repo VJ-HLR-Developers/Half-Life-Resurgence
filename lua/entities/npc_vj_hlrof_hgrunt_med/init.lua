@@ -10,7 +10,7 @@ ENT.Model = "models/vj_hlr/opfor/hgrunt_medic.mdl"
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(0, 0, -15),
 	FirstP_Bone = "Bip01 Head",
-	FirstP_Offset = Vector(5, 0, 1),
+	FirstP_Offset = Vector(5, 0, 1)
 }
 ENT.IsMedic = true
 

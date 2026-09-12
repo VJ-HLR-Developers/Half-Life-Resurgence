@@ -10,7 +10,7 @@ ENT.Model = "models/vj_hlr/hl1/aflock.mdl"
 ENT.ControllerParams = {
 	FirstP_Bone = "bone12",
 	FirstP_Offset = Vector(15, 0, 2),
-	FirstP_ShrinkBone = false,
+	FirstP_ShrinkBone = false
 }
 
 ENT.CanFlinch = true

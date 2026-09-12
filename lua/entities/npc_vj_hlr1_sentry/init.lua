@@ -15,7 +15,7 @@ ENT.CanTurnWhileStationary = false
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(0, 0, -15),
 	FirstP_Bone = "Dummy03",
-	FirstP_Offset = Vector(0, 0, 4),
+	FirstP_Offset = Vector(0, 0, 4)
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}

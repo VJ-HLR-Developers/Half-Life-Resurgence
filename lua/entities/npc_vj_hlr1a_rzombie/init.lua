@@ -10,7 +10,7 @@ ENT.Model = "models/vj_hlr/hla/zombie_german.mdl"
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(10, 0, -20),
 	FirstP_Bone = "Bip01 Head",
-	FirstP_Offset = Vector(4, 0, 0),
+	FirstP_Offset = Vector(4, 0, 0)
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_NONE
@@ -34,7 +34,7 @@ local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "PreDamage" then
-		if hitgroup == HITGROUP_HEAD then --We've been headshot! Spurt blood!
+		if hitgroup == HITGROUP_HEAD then -- We've been headshot! Spurt blood!
 			self:SpawnBloodParticles(dmginfo, hitgroup)
 		elseif dmginfo:GetDamagePosition() != vec && !dmginfo:IsExplosionDamage() && hitgroup != HITGROUP_HEAD then
 			-- Ricochet effect

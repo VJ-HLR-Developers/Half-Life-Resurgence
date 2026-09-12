@@ -15,7 +15,7 @@ ENT.HullType = HULL_SMALL_CENTERED
 ENT.ControllerParams = {
 	FirstP_Bone = "bone01",
 	FirstP_Offset = Vector(0, 0, -44),
-	FirstP_ShrinkBone = false,
+	FirstP_ShrinkBone = false
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}

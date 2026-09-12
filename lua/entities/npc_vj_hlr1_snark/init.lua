@@ -13,7 +13,7 @@ ENT.EntitiesToNoCollide = {"npc_vj_hlr1_snark"}
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(),
 	FirstP_Bone = "Bip01 Head",
-	FirstP_Offset = Vector(1, 0, 0.5),
+	FirstP_Offset = Vector(1, 0, 0.5)
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_SNARK"}

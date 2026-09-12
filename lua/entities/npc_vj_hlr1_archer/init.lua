@@ -18,7 +18,7 @@ ENT.Aquatic_AnimTbl_Alerted = ACT_RUN
 ENT.ControllerParams = {
 	FirstP_Bone = "bip01 neck",
 	FirstP_Offset = Vector(1, 0, 9),
-	FirstP_ShrinkBone = false,
+	FirstP_ShrinkBone = false
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}

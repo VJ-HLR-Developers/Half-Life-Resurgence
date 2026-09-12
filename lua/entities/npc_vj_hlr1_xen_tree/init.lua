@@ -16,7 +16,7 @@ ENT.ControllerParams = {
 	ThirdP_Offset = Vector(40, 0, -100),
 	FirstP_Bone = "",
 	FirstP_Offset = Vector(15, 0, 15),
-	FirstP_ShrinkBone = false,
+	FirstP_ShrinkBone = false
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW

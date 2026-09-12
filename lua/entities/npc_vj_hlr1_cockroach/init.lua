@@ -12,7 +12,7 @@ ENT.HullType = HULL_TINY
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(0, 0, 20),
 	FirstP_Bone = "Dummy01",
-	FirstP_Offset = Vector(0, 0, 4),
+	FirstP_Offset = Vector(0, 0, 4)
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.CanOpenDoors = false
@@ -36,7 +36,7 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnTouch(ent)
-	if ent.VJ_ID_Living then
+	if ent.VJ_ID_Living && !self.GodMode then
 		self:TakeDamage(self:Health() + 1, ent, ent)
 		-- Based on:   EMIT_SOUND_DYN(ENT(pev), CHAN_BODY, "roach/rch_smash.wav", 0.7, ATTN_NORM, 0, 80 + RANDOM_LONG(0, 39) );
 		VJ.EmitSound(self, "vj_hlr/gsrc/npc/roach/rch_smash.wav", 60, 80 + math.random(0, 39))

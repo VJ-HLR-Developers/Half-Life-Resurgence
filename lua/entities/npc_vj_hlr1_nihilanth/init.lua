@@ -15,7 +15,7 @@ ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(),
 	FirstP_Bone = "Bip01 head",
-	FirstP_Offset = Vector(80, 0, 0),
+	FirstP_Offset = Vector(80, 0, 0)
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW

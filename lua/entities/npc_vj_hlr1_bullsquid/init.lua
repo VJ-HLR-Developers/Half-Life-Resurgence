@@ -11,7 +11,7 @@ ENT.HullType = HULL_WIDE_SHORT
 ENT.ControllerParams = {
 	FirstP_Bone = "Bip01 Spine1",
 	FirstP_Offset = Vector(10, 0, 11.5),
-	FirstP_ShrinkBone = false,
+	FirstP_ShrinkBone = false
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}

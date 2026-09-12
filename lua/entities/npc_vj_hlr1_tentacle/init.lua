@@ -15,7 +15,7 @@ ENT.HullType = HULL_LARGE
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(0, 0, -15),
 	FirstP_Bone = "Dummy04",
-	FirstP_Offset = Vector(23, 0, 30),
+	FirstP_Offset = Vector(23, 0, 30)
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}

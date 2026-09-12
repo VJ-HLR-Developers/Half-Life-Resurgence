@@ -12,7 +12,7 @@ ENT.ControllerParams = {
 	ThirdP_Offset = Vector(0, 0, 10),
 	FirstP_Bone = "Dummy02",
 	FirstP_Offset = Vector(),
-	FirstP_ShrinkBone = false,
+	FirstP_ShrinkBone = false
 }
 ENT.VJ_NPC_Class = {"CLASS_AUTOMATIC_TURRET"}
 ENT.NextAnyAttackTime_Range = 0.03

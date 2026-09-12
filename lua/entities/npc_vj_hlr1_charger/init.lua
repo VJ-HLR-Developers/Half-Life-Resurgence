@@ -15,7 +15,7 @@ ENT.Aerial_AnimTbl_Calm = defAnim
 ENT.Aerial_AnimTbl_Alerted = defAnim
 ENT.ControllerParams = {
 	FirstP_Bone = "bip01 head",
-	FirstP_Offset = Vector(10, 0, -3),
+	FirstP_Offset = Vector(10, 0, -3)
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}

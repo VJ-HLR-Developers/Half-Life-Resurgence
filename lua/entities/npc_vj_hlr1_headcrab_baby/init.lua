@@ -12,7 +12,7 @@ ENT.StartHealth = 5
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(10, 0, 0),
 	FirstP_Bone = "Bip01 Neck",
-	FirstP_Offset = Vector(0, 0, 4),
+	FirstP_Offset = Vector(0, 0, 4)
 }
 ENT.LeapAttackMaxDistance = 180
 ENT.LeapAttackDamage = 5

@@ -13,7 +13,7 @@ ENT.VJ_ID_Boss = true
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(-50, 0, -45),
 	FirstP_Bone = "Bip01 Head",
-	FirstP_Offset = Vector(7, 0, -12),
+	FirstP_Offset = Vector(7, 0, -12)
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}

@@ -11,7 +11,7 @@ ENT.ControllerParams = {
 	ThirdP_Offset = Vector(-40, 0, 20),
 	FirstP_Bone = "body",
 	FirstP_Offset = Vector(0, 0, 70),
-	FirstP_ShrinkBone = false,
+	FirstP_ShrinkBone = false
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}

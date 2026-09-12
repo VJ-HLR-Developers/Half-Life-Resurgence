@@ -10,7 +10,7 @@ ENT.Model = "models/vj_hlr/decay/sentry.mdl"
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(10, 0, -20),
 	FirstP_Bone = "Dummy04",
-	FirstP_Offset = Vector(0, 0, 6),
+	FirstP_Offset = Vector(0, 0, 6)
 }
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE

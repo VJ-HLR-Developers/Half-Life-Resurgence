@@ -14,7 +14,7 @@ ENT.Aerial_FlyingSpeed_Alerted = 200
 ENT.ControllerParams = {
 	FirstP_Bone = "sphere01",
 	FirstP_Offset = Vector(15, 0, -3),
-	FirstP_ShrinkBone = false,
+	FirstP_ShrinkBone = false
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}

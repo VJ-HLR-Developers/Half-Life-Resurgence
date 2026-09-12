@@ -12,7 +12,7 @@ ENT.ControllerParams = {
 	ThirdP_Offset = Vector(10, 0, -20),
 	FirstP_Bone = "Bip01 Head",
 	FirstP_Offset = Vector(3, 0, 3.3),
-	FirstP_ShrinkBone = false,
+	FirstP_ShrinkBone = false
 }
 ENT.IsMedic = false
 ENT.AnimTbl_Death = ACT_DIESIMPLE

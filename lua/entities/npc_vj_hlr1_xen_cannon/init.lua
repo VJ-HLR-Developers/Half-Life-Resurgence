@@ -17,7 +17,7 @@ ENT.ControllerParams = {
 	ThirdP_Offset = Vector(),
 	FirstP_Bone = "joint3",
 	FirstP_Offset = Vector(0, 0, 50),
-	FirstP_ShrinkBone = false,
+	FirstP_ShrinkBone = false
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}

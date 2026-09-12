@@ -11,7 +11,7 @@ ENT.ControllerParams = {
 	ThirdP_Offset = Vector(10, 0, -30),
 	FirstP_Bone = "Bip01 Head",
 	FirstP_Offset = Vector(4, 0, 5),
-	FirstP_ShrinkBone = false,
+	FirstP_ShrinkBone = false
 }
 ENT.StartHealth = 100
 

@@ -15,7 +15,7 @@ ENT.Aquatic_SwimmingSpeed_Alerted = 80
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(15, 0, 10),
 	FirstP_Bone = "Bip01 neck",
-	FirstP_Offset = Vector(2, 0, 2),
+	FirstP_Offset = Vector(2, 0, 2)
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.CanOpenDoors = false

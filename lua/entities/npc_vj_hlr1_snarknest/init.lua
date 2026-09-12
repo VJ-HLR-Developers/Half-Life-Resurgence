@@ -11,7 +11,7 @@ ENT.HullType = HULL_TINY
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(),
 	FirstP_Bone = "Bip01 nECK",
-	FirstP_Offset = Vector(3, 0, 1),
+	FirstP_Offset = Vector(3, 0, 1)
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_SNARK"}

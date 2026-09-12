@@ -12,13 +12,13 @@ ENT.HullType = HULL_HUMAN
 ENT.JumpParams = {
 	MaxRise = 620,
 	MaxDrop = 620,
-	MaxDistance = 620,
+	MaxDistance = 620
 }
 ENT.ControllerParams = {
 	//FirstP_Bone = "bip01 head",
 	//FirstP_Offset = Vector(6, 0, 2.5),
 	FirstP_Bone = "bone10",
-	FirstP_Offset = Vector(-1, 0, -1),
+	FirstP_Offset = Vector(-1, 0, -1)
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_RED

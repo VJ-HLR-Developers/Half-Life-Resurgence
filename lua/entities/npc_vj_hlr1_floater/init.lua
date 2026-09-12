@@ -17,7 +17,7 @@ ENT.Aerial_AnimTbl_Alerted = ACT_RUN
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(0, 0, -15),
 	FirstP_Bone = "Bone01",
-	FirstP_Offset = Vector(1, 0, 5),
+	FirstP_Offset = Vector(1, 0, 5)
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.ConstantlyFaceEnemy = true

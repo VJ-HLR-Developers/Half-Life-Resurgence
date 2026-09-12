@@ -14,7 +14,7 @@ ENT.Aerial_FlyingSpeed_Calm = 50
 ENT.Aerial_FlyingSpeed_Alerted = 80
 ENT.ControllerParams = {
 	FirstP_Bone = "Bone02",
-	FirstP_Offset = Vector(5, 0, 7),
+	FirstP_Offset = Vector(5, 0, 7)
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_XEN"}

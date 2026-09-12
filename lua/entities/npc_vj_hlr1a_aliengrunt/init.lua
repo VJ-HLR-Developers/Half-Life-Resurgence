@@ -10,7 +10,7 @@ ENT.Model = "models/vj_hlr/hla/agrunt.mdl"
 ENT.ControllerParams = {
 	FirstP_Bone = "unnamed034",
 	FirstP_Offset = Vector(12, 0, 5),
-	FirstP_ShrinkBone = false,
+	FirstP_ShrinkBone = false
 }
 
 -- Custom

@@ -12,7 +12,7 @@ ENT.HasGrenadeAttack = false
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(0, 0, -15),
 	FirstP_Bone = "unnamed_bone_020",
-	FirstP_Offset = Vector(3, 0, 5),
+	FirstP_Offset = Vector(3, 0, 5)
 }
 
 ENT.MainSoundPitch = VJ.SET(90, 100)

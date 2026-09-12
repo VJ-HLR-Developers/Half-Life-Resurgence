@@ -13,7 +13,7 @@ ENT.EntitiesToNoCollide = {"npc_vj_hlr1_headcrab_baby", "npc_vj_hlr1_headcrab", 
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(-100, 0, -70),
 	FirstP_Bone = "Bip01 Neck",
-	FirstP_Offset = Vector(0, 0, -5),
+	FirstP_Offset = Vector(0, 0, -5)
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW

@@ -12,7 +12,7 @@ ENT.HullType = HULL_HUMAN
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(15, 0, 0),
 	FirstP_Bone = "Bip01 Head",
-	FirstP_Offset = Vector(7, 0, 0),
+	FirstP_Offset = Vector(7, 0, 0)
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"}

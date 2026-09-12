@@ -10,12 +10,12 @@ ENT.StartHealth = 999999
 ENT.HullType = HULL_HUMAN
 ENT.ControllerParams = {
 	FirstP_Bone = "Bip01 Head",
-	FirstP_Offset = Vector(6, 0, 5),
+	FirstP_Offset = Vector(6, 0, 5)
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE
-ENT.Passive_RunOnTouch = false -- Should it run away and make a alert sound when something collides with it?
+ENT.Passive_RunOnTouch = false
 ENT.DamageResponse = false
 ENT.EnemyDetection = false
 ENT.GodMode = true

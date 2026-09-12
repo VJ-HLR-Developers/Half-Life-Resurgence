@@ -11,7 +11,7 @@ ENT.ControllerParams = {
 	ThirdP_Offset = Vector(-20, 0, 40),
 	FirstP_Bone = "static_prop",
 	FirstP_Offset = Vector(00, 0, 130),
-	FirstP_ShrinkBone = false,
+	FirstP_ShrinkBone = false
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}

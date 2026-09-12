@@ -10,7 +10,7 @@ ENT.Model = "models/vj_hlr/hla/hgrunt.mdl"
 ENT.ControllerParams = {
 	ThirdP_Offset = Vector(0, 0, -15),
 	FirstP_Bone = "unnamed022",
-	FirstP_Offset = Vector(2, 0, 5),
+	FirstP_Offset = Vector(2, 0, 5)
 }
 ENT.HasGrenadeAttack = false
 ENT.Weapon_SecondaryFireTime = 1.2
