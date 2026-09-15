@@ -34,7 +34,6 @@ SWEP.Primary.DisableBulletCode = true
 	-- Reload Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.HasReloadSound = true
 SWEP.ReloadSound = "weapons/physcannon/physcannon_pickup.wav" // npc/assassin/ball_zap1.wav
-SWEP.Reload_TimeUntilAmmoIsSet = 1
 
 -- Custom
 SWEP.Bow_NumShots = 1

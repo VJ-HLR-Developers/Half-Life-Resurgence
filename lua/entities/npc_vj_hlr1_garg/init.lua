@@ -45,7 +45,7 @@ ENT.DeathAnimationTime = 3.7
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 
 ENT.CanFlinch = "DamageTypes"
-ENT.FlinchDamageTypes = {DMG_BLAST}
+ENT.FlinchDamageTypes = DMG_BLAST
 ENT.FlinchChance = 2
 ENT.AnimTbl_Flinch = ACT_BIG_FLINCH
 
