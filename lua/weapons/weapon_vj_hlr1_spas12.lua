@@ -56,11 +56,11 @@ function SWEP:Init()
 	timer.Simple(0.1, function()
 		if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
 			self.NPC_NextPrimaryFire = false
-		end
-		if self:GetOwner():GetModel() == "models/vj_parr/par1/cut/vts_urban_terrorist.mdl" then
-			self.Primary.Damage = 10
-			self.WorldModelOffsetParams.Pos = Vector(13, 3.5, 0.6)
-			self.WorldModelOffsetParams.Ang = Angle(0, 195, 90)
+			if self:GetOwner():GetModel() == "models/vj_parr/par1/cut/vts_urban_terrorist.mdl" then
+				self.Primary.Damage = 10
+				self.WorldModelOffsetParams.Pos = Vector(13, 3.5, 0.6)
+				self.WorldModelOffsetParams.Ang = Angle(0, 195, 90)
+			end
 		end
 	end)
 end
