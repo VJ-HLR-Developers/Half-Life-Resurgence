@@ -27,7 +27,7 @@ SWEP.WorldModelOffsetParams = {
 }
 	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 5
-SWEP.Primary.NumberOfShots		= 5
+SWEP.Primary.NumberOfShots = 6
 SWEP.Primary.ClipSize = 8
 SWEP.Primary.Ammo = "Buckshot"
 SWEP.Primary.Sound = "vj_hlr/gsrc/wep/shotgun/sbarrel1.wav"
