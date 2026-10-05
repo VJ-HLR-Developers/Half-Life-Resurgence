@@ -127,6 +127,14 @@ function ENT:HECU_OnInit()
 			self:SetBodygroup(2, 0)
 		end
 	end
+	-- Set the correct hitbox set if the HL1 HGrunt is wearing a helmet or not
+	if self.HECU_Type == 0 then
+		if self:GetBodygroup(1) == 0 then
+			self:SetHitboxSet("Helmet")
+		else
+			self:SetHitboxSet("Helmetless")
+		end
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
