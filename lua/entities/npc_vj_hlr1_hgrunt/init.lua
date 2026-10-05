@@ -563,7 +563,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			VJ.HLR_StaticCorpseCheck(self)
 		end
 		-- Regular Human Grunt head gib
-		if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD && dmginfo:GetDamageForce():Length() > 800 then
+		if self.HECU_Type == 0 && (hitgroup == HITGROUP_HEAD or hitgroup == HITGROUP_GEAR) && dmginfo:GetDamageForce():Length() > 800 then
 			self:SetBodygroup(1, 4)
 			self.GibOnDeathFilter = false
 		end
@@ -678,7 +678,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 	end
 
-	if self.HECU_Type == 0 && hitgroup == HITGROUP_HEAD then
+	if self.HECU_Type == 0 && (hitgroup == HITGROUP_HEAD or hitgroup == HITGROUP_GEAR) then
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_skull.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 0, 60))})
 		self:PlaySoundSystem("Gib", sdHeadshot)
 		return true, {AllowAnim = true, AllowCorpse = true, AllowSound = false}
