@@ -238,11 +238,9 @@ function ENT:Init()
 		for k, v in ipairs(self:GetMaterials()) do
 			-- Female Engineer
 			if v == "models/humans/female/group03/citizen_sheet" then
-				self.DeathCorpseSubMaterials = {k - 1}
 				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_engineer")
 			-- Male Engineer
 			elseif v == "models/humans/male/group03/citizen_sheet" then
-				self.DeathCorpseSubMaterials = {k - 1}
 				self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_engineer")
 			end
 		end
@@ -257,13 +255,11 @@ function ENT:Init()
 				//self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group01/citizen_sheet_color")
 			-- Female Refugee
 			if v == "models/humans/female/group02/citizen_sheet" then
-				self.DeathCorpseSubMaterials = {k - 1}
 				if rand_refugee == 2 then
 					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group02/citizen_sheet_jailbreak")
 				end
 			-- Female Rebel
 			elseif v == "models/humans/female/group03/citizen_sheet" then
-				self.DeathCorpseSubMaterials = {k - 1}
 				if rand_rebel == 2 then
 					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/female/group03/citizen_sheet_color")
 				elseif rand_rebel == 3 then
@@ -280,13 +276,11 @@ function ENT:Init()
 				//self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group01/citizen_sheet_color")
 			-- Male Refugee
 			elseif v == "models/humans/male/group02/citizen_sheet" then
-				self.DeathCorpseSubMaterials = {k - 1}
 				if rand_refugee == 2 then
 					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group02/citizen_sheet_jailbreak")
 				end
 			-- Male Rebel
 			elseif v == "models/humans/male/group03/citizen_sheet" then
-				self.DeathCorpseSubMaterials = {k - 1}
 				if rand_rebel == 2 then
 					self:SetSubMaterial(k - 1, "models/hl_resurgence/hl2/humans/male/group03/citizen_sheet_color")
 				elseif rand_rebel == 3 then
