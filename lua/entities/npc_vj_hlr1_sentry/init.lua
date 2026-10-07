@@ -223,7 +223,6 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "Init" then
 		local attPos = self:GetAttachment(self:LookupAttachment(self.Sentry_MuzzleAttach)).Pos
 		self:FireBullets({
-			Num = 1,
 			Src = attPos,
 			Dir = (enemy:GetPos() + enemy:OBBCenter()) - attPos,
 			Spread = Vector(math.random(-15, 15), math.random(-15, 15), math.random(-15, 15)),

@@ -283,17 +283,16 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 
 		-- Bullet
 		local startPos = self:GetAttachment(self:LookupAttachment("eyes")).Pos
-		local bullet = {}
-		bullet.Num = 1
-		bullet.Src = startPos
-		bullet.Dir = (self:GetAimPosition(enemy, startPos) - startPos):GetNormalized()
-		bullet.Spread = bulletSpread
-		bullet.Tracer = 1
-		bullet.TracerName = "AR2Tracer"
-		bullet.Force = 5
-		bullet.Damage = 2
-		bullet.AmmoType = "AR2"
-		self:FireBullets(bullet)
+		self:FireBullets({
+			Src = startPos,
+			Dir = (self:GetAimPosition(enemy, startPos) - startPos):GetNormalized(),
+			Spread = bulletSpread,
+			Tracer = 1,
+			TracerName = "AR2Tracer",
+			Force = 5,
+			Damage = 2,
+			AmmoType = "AR2"
+		})
 
 		VJ.EmitSound(self, sdFiring, 90, math.random(100, 110))
 
