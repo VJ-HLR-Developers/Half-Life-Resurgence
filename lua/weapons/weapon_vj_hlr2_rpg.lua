@@ -29,9 +29,8 @@ SWEP.Primary.DistantSound = "vj_base/weapons/rpg/rpg1_single_dist.wav"
 SWEP.Primary.DisableBulletCode = true
 SWEP.PrimaryEffects_SpawnShells = false
 	-- Reload Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.HasReloadSound = true
-SWEP.Reload_TimeUntilAmmoIsSet = 0.8
 SWEP.ReloadSound = "vj_base/weapons/reload_rpg.wav"
+SWEP.Reload_TimeUntilAmmoIsSet = 0.8
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:SetupDataTables()
 	self:NetworkVar("Bool", "NWLaser")

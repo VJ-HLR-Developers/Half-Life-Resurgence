@@ -25,7 +25,6 @@ SWEP.PrimaryEffects_MuzzleParticles = "vj_rifle_full_blue"
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.PrimaryEffects_DynamicLightColor = Color(134, 217, 255)
 
-SWEP.HasReloadSound = true
 SWEP.ReloadSound = "vj_hlr/src/wep/reager/reager_reload.wav"
 
 SWEP.WorldModelOffsetParams = {

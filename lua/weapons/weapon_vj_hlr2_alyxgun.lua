@@ -29,5 +29,4 @@ SWEP.Primary.Sound = "VJ.HLR_Weapon_AlyxGun.Single"
 SWEP.PrimaryEffects_ShellAttachment = "1"
 SWEP.PrimaryEffects_ShellType = "ShellEject"
 	-- Reload Settings ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.HasReloadSound = true
 SWEP.ReloadSound = "weapons/pistol/pistol_reload1.wav"
