@@ -23,10 +23,6 @@ ENT.Bradley_NextMissileAtkT = 0
 
 local vecMissile = Vector(28.65, 57.25, 19.28)
 local vecBullet = Vector(113.9, 2.62, 10.06)
-local sdReloadMissile = "vj_hlr/gsrc/npc/tanks/tow_reload.wav"
-local sdReloadBullet = "vj_hlr/gsrc/npc/tanks/25mm_reload.wav"
-local sdFireMissile = "vj_hlr/gsrc/npc/tanks/tow_firing.wav"
-local sdFireBullet = "vj_hlr/gsrc/npc/tanks/biggun2.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_Init()
 	VJ.HLR_ApplyFactionOptions(self)
@@ -41,8 +37,8 @@ function ENT:Tank_OnPrepareShell()
 		self.Tank_Shell_MuzzleFlashPos = vecMissile
 		self.Tank_Shell_ParticlePos = vecMissile
 		self.HasReloadShellSound = true
-		self.Tank_SoundTbl_ReloadShell = sdReloadMissile
-		self.Tank_SoundTbl_FireShell = sdFireMissile
+		self.Tank_SoundTbl_ReloadShell = "vj_hlr/gsrc/npc/tanks/tow_reload.wav"
+		self.Tank_SoundTbl_FireShell = "vj_hlr/gsrc/npc/tanks/tow_firing.wav"
 	else
 		-- If last attack was a missile attack then play the gun switch sound
 		if self.Bradley_DoingMissileAtk then
@@ -57,8 +53,8 @@ function ENT:Tank_OnPrepareShell()
 		self.Tank_Shell_SpawnPos = vecBullet
 		self.Tank_Shell_MuzzleFlashPos = vecBullet
 		self.Tank_Shell_ParticlePos = vecBullet
-		self.Tank_SoundTbl_ReloadShell = sdReloadBullet
-		self.Tank_SoundTbl_FireShell = sdFireBullet
+		self.Tank_SoundTbl_ReloadShell = "vj_hlr/gsrc/npc/tanks/25mm_reload.wav"
+		self.Tank_SoundTbl_FireShell = "vj_hlr/gsrc/npc/tanks/biggun2.wav"
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
