@@ -101,7 +101,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	self.NextAlertSoundT = CurTime() + 1 -- So it doesn't play the alert sound as soon as it enters the NPC!
 
 	function controlEnt:OnKeyPressed(key)
-		local npc = self.VJCE_NPC
+		local npc = self:GetNPC()
 		if key == KEY_SPACE then
 			if npc.Turret_ControllerStatus == 0 then
 				npc.Turret_ControllerStatus = 1
@@ -116,7 +116,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	end
 
 	function controlEnt:OnStopControlling(keyPressed)
-		local npc = self.VJCE_NPC
+		local npc = self:GetNPC()
 		if IsValid(npc) then
 			npc.HasPoseParameterLooking = true
 			npc.Turret_ControllerStatus = 0

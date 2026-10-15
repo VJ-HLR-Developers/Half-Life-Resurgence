@@ -200,15 +200,15 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	self.SCI_NextTieAnnoyanceT = 0
 
 	function controlEnt:OnKeyBindPressed(key)
-		local npc = self.VJCE_NPC
+		local npc = self:GetNPC()
 		-- Toggle behavior setting (Idle / Alert)
 		if key == IN_RELOAD then
 			if npc.SCI_ControllerAnim == 0 then
 				npc.SCI_ControllerAnim = 1
-				self.VJCE_Player:ChatPrint("I am scared!")
+				self:GetPlayer():ChatPrint("I am scared!")
 			else
 				npc.SCI_ControllerAnim = 0
-				self.VJCE_Player:ChatPrint("Calming down...")
+				self:GetPlayer():ChatPrint("Calming down...")
 			end
 		elseif key == IN_ATTACK && npc.SCI_Type == SCI_TYPE_REGULAR && CurTime() > npc.SCI_NextTieAnnoyanceT then
 			npc:PlayAnim(ACT_VM_IDLE_1, true, false)

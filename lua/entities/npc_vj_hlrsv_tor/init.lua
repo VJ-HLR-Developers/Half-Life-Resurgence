@@ -79,7 +79,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 
 	function controlEnt:OnKeyPressed(key)
 		if key == KEY_SPACE then
-			self.VJCE_NPC:Tor_StartSpawnAlly()
+			self:GetNPC():Tor_StartSpawnAlly()
 		end
 	end
 end

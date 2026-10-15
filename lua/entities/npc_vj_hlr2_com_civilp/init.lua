@@ -199,8 +199,8 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("SPACE: Deploy Manhack (if available)")
 
 	function controlEnt:OnKeyPressed(key)
-		if key == KEY_SPACE && self.VJCE_NPC.Metrocop_HasManhack then
-			self.VJCE_NPC:Metrocop_DeployManhack()
+		if key == KEY_SPACE && self:GetNPC().Metrocop_HasManhack then
+			self:GetNPC():Metrocop_DeployManhack()
 		end
 	end
 end

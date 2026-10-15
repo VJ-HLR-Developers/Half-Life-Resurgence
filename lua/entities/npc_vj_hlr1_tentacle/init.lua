@@ -69,7 +69,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 
 	function controlEnt:OnKeyPressed(key)
 		if key == KEY_SPACE then
-			local npc = self.VJCE_NPC
+			local npc = self:GetNPC()
 			local curLvl = npc.Tentacle_Level
 			//print("Cur: " .. curLvl)
 			//print("Last: " .. self.LastTentacleLevel)

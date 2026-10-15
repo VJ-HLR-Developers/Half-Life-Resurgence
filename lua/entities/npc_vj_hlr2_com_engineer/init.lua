@@ -20,7 +20,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("CROUCH (CTRL): Deploy Sentry Gun")
 
 	function controlEnt:OnKeyBindPressed(key)
-		local npc = self.VJCE_NPC
+		local npc = self:GetNPC()
 		if key == IN_DUCK then
 			npc:Combine_DeployTurret()
 		end

@@ -64,7 +64,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("RELOAD: Reload all the spikes")
 
 	function controlEnt:OnKeyBindPressed(key)
-		local npc = self.VJCE_NPC
+		local npc = self:GetNPC()
 		if key == IN_RELOAD && npc:GetBodygroup(1) != 1 then
 			npc:PlayAnim(ACT_RELOAD, true, false, true, 0, {OnFinish = function(interrupted2, anim2)
 				npc.HasRangeAttack = true

@@ -154,7 +154,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("SPACE: Holster / Unholster gun")
 
 	function controlEnt:OnKeyPressed(key)
-		local npc = self.VJCE_NPC
+		local npc = self:GetNPC()
 		if key == KEY_SPACE && npc:GetActivity() != ACT_DISARM && npc:GetActivity() != ACT_ARM then
 			if npc:GetWeaponState() == VJ.WEP_STATE_HOLSTERED then
 				npc:Security_UnHolsterGun()

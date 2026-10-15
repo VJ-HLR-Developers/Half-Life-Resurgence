@@ -34,13 +34,13 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("SPACE: Transform into a BullSquidding! (Irreversible!)")
 
 	function controlEnt:OnKeyPressed(key)
-		local npc = self.VJCE_NPC
+		local npc = self:GetNPC()
 		if key == KEY_SPACE && !npc.Bullsquid_BullSquidding then
 			npc:Bullsquid_ActivateBullSquidding()
 		end
 	end
 	function controlEnt:OnStopControlling(keyPressed)
-		local npc = self.VJCE_NPC
+		local npc = self:GetNPC()
 		-- Set the bullsquidding behavior again because exiting a controller will reset some variables
 		if IsValid(npc) && npc.Bullsquid_BullSquidding then
 			npc:Bullsquid_ActivateBullSquidding()

@@ -70,7 +70,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
 	function controlEnt:OnThink(key)
-		self.VJCE_Player:ChatPrint(math.max(0, self.VJCE_NPC.Snark_EnergyTime - CurTime()) .. " seconds left! Eat to gain more!")
+		self:GetPlayer():ChatPrint(math.max(0, self:GetNPC().Snark_EnergyTime - CurTime()) .. " seconds left! Eat to gain more!")
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

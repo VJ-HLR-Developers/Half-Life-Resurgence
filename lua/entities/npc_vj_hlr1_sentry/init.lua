@@ -73,7 +73,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 
 	function controlEnt:OnKeyPressed(key)
 		if key == KEY_SPACE then
-			local npc = self.VJCE_NPC
+			local npc = self:GetNPC()
 			if npc.Sentry_ControllerStatus == 0 then
 				npc.Sentry_ControllerStatus = 1
 				npc.HasPoseParameterLooking = true
@@ -87,7 +87,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 	end
 
 	function controlEnt:OnStopControlling(keyPressed)
-		local npc = self.VJCE_NPC
+		local npc = self:GetNPC()
 		if IsValid(npc) then
 			npc.HasPoseParameterLooking = true
 		end

@@ -12,8 +12,6 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Dummy04",
 	FirstP_Offset = Vector(0, 0, 6)
 }
-ENT.HasDeathAnimation = true
-ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathAnimationTime = 5
 
 -- Custom
