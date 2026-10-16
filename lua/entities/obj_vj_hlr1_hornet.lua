@@ -45,6 +45,7 @@ ENT.Track_Position = defVec
 ENT.Hornet_Alpha = false
 ENT.Hornet_ChaseSpeed = 600
 ENT.Hornet_Type = HORNET_TYPE_RED
+ENT.Hornet_NextThink = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = Color(179, 39, 14)
 local colorOrange = Color(255, 128, 0)
@@ -65,6 +66,8 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
+	local curTime = CurTime()
+	if curTime < self.Hornet_NextThink then return end
 	local phys = self:GetPhysicsObject()
 	local trackedEnt = self.Track_Ent
 	-- Homing Behavior
@@ -84,6 +87,7 @@ function ENT:OnThink()
 			self:SetAngles(self:GetVelocity():Angle())
 		end
 	end
+	self.Hornet_NextThink = curTime + 0.1
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCollision(data, phys)
