@@ -164,7 +164,7 @@ function ENT:OnThink()
 	end
 
 	-- Jump while attacking
-	if IsValid(self:GetEnemy()) && curTime > self.BOA_NextJumpT && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND && !self:IsMoving() && self.EnemyData.Distance < 1400 && !self.VJ_IsBeingControlled then
+	if IsValid(self:GetEnemy()) && curTime > self.BOA_NextJumpT && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND && !self:IsMoving() && self.EnemyData.Distance < 1400 && !self.VJ_Controlled then
 		local myPos = self:GetPos()
 		self:ForceMoveJump(((myPos + self:GetRight() * (math.random(1, 2) == 1 and 100 or -100) + self:GetForward() * (math.random(1, 2) == 1 and 1 or -100)) - (myPos + self:OBBCenter())):GetNormalized() * 200 + self:GetUp() * 600)
 		-- Older jumping system
@@ -184,7 +184,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFireBullet(data)
 	self.BOA_CloakLevel = 0
-	if self.VJ_IsBeingControlled then return end
+	if self.VJ_Controlled then return end
 	local curTime = CurTime()
 	self.BOA_ShotsSinceRun = self.BOA_ShotsSinceRun + 1
 	if self:GetNavType() != NAV_JUMP && curTime > self.BOA_NextRunT && self.BOA_ShotsSinceRun >= 4 then -- Yete amenan keche chors ankam zenke zargadz e, ere vor vaz e!

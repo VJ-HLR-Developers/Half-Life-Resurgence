@@ -262,7 +262,7 @@ function ENT:TranslateActivity(act)
 	if self:IsEFlagSet(EFL_IS_BEING_LIFTED_BY_BARNACLE) then
 		return ACT_BARNACLE_PULL
 	-- Scared animations
-	elseif self.SCI_Type != SCI_TYPE_ALPHA && ((!self.VJ_IsBeingControlled && (self:GetNPCState() == NPC_STATE_ALERT or self:GetNPCState() == NPC_STATE_COMBAT)) or (self.VJ_IsBeingControlled && self.SCI_ControllerAnim == 1)) then
+	elseif self.SCI_Type != SCI_TYPE_ALPHA && ((!self.VJ_Controlled && (self:GetNPCState() == NPC_STATE_ALERT or self:GetNPCState() == NPC_STATE_COMBAT)) or (self.VJ_Controlled && self.SCI_ControllerAnim == 1)) then
 		if act == ACT_IDLE then
 			return ACT_CROUCHIDLE
 		elseif act == ACT_WALK && self.SCI_Type != SCI_TYPE_KELLER then
@@ -302,7 +302,7 @@ function ENT:OnMedicBehavior(status, statusData)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-	if self.VJ_IsBeingControlled then return end
+	if self.VJ_Controlled then return end
 	if self.SCI_Type != SCI_TYPE_KELLER && self.SCI_Type != SCI_TYPE_ALPHA then
 		if self.SCI_Type != SCI_TYPE_ROSENBERG && math.random(1, 2) == 1 && ent.VJ_ID_Headcrab then
 			self:PlaySoundSystem("Alert", "vj_hlr/gsrc/npc/scientist/seeheadcrab.wav")

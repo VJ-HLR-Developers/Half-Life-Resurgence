@@ -72,7 +72,7 @@ function ENT:OnInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
-	if self.VJ_IsBeingControlled then return end
+	if self.VJ_Controlled then return end
 	local leader = VJ.HLR_NPC_Floater_Leader
 	if !IsValid(self:GetEnemy()) then
 		if IsValid(leader) then

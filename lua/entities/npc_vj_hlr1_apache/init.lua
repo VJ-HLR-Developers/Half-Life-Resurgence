@@ -217,7 +217,7 @@ local bulletSpread = Vector(0.03490, 0.03490, 0.03490)
 -- Firing Delay: Checked in Half-Life 1 (GoldSrc), there is NO delay as long as the gun is facing the enemy!
 function ENT:OnThinkAttack(isAttacking, enemy)
 	local eneData = self.EnemyData
-	if self.Heli_HasLOS && eneData.DistanceNearest <= combatDistance && eneData.Visible && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK))) then
+	if self.Heli_HasLOS && eneData.DistanceNearest <= combatDistance && eneData.Visible && ((!self.VJ_Controlled) or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_ATTACK))) then
 		local att = self:GetAttachment(1)
 		self:FireBullets({
 			Num = 1,

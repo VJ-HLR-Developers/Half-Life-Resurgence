@@ -43,7 +43,7 @@ function ENT:TranslateActivity(act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
-	if self.VJ_IsBeingControlled then return end
+	if self.VJ_Controlled then return end
 	local leader = VJ.HLR_NPC_AFlock_Leader
 	if IsValid(leader) then
 		if leader != self && leader.AA_CurrentMovePos then

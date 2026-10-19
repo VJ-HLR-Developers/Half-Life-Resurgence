@@ -26,7 +26,7 @@ end
 function ENT:OnThinkActive()
 	if self.HECU_Rappelling or self:IsBusy() then return end
 	local ene = self:GetEnemy()
-	if ((self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) or !self.VJ_IsBeingControlled) && IsValid(ene) && self:Visible(ene) && self.HECU_NextTurretCheckT < CurTime() && !IsValid(self.HECU_TurretEnt) then
+	if ((self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_DUCK)) or !self.VJ_Controlled) && IsValid(ene) && self:Visible(ene) && self.HECU_NextTurretCheckT < CurTime() && !IsValid(self.HECU_TurretEnt) then
 		-- Make sure not to place it if the front of the NPC is blocked!
 		local myCenterPos = self:GetPos() + self:OBBCenter()
 		local tr = util.TraceLine({

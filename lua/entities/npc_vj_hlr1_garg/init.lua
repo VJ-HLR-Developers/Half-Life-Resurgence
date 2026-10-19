@@ -197,10 +197,10 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 	local eneData = self.EnemyData
 	local eneVisible = eneData.Visible
 	local range = (self.Garg_Type == 1 and 250) or 400
-	if self.VJ_IsBeingControlled then
+	if self.VJ_Controlled then
 		range = 9999999
 		eneVisible = true -- Skip enemy visibility check when being controlled!
-		if !self.VJ_TheController:KeyDown(IN_ATTACK2) then -- Do flame attack only when player is holding down right click
+		if !self.VJ_Controller:GetPlayer():KeyDown(IN_ATTACK2) then -- Do flame attack only when player is holding down right click
 			self:Garg_ResetFlame()
 			return
 		end
@@ -242,8 +242,8 @@ function ENT:OnMeleeAttack(status, enemy)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttack(status, enemy)
-	if status == "PreInit" && self.VJ_IsBeingControlled then
-		return !(self.VJ_TheController:KeyDown(IN_DUCK) && self.VJ_TheController:KeyDown(IN_ATTACK2))
+	if status == "PreInit" && self.VJ_Controlled then
+		return !(self.VJ_Controller:GetPlayer():KeyDown(IN_DUCK) && self.VJ_Controller:GetPlayer():KeyDown(IN_ATTACK2))
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

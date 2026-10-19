@@ -69,7 +69,7 @@ end
 function ENT:OnThink()
 	if self.PauseSpawning && VJ_CVAR_AI_ENABLED && CurTime() > self.HLRSpawner_NextCheckT then
 		for _, v in ipairs(ents.FindInSphere(self:GetPos(), self.HLRSpawner_Distance)) do
-			if v:IsPlayer() && (v.VJ_IsControllingNPC or VJ_CVAR_IGNOREPLAYERS) then continue end
+			if v:IsPlayer() && (v.VJ_Controlling or VJ_CVAR_IGNOREPLAYERS) then continue end
 			if v.VJ_ID_Living && v:Alive() && !v:IsFlagSet(FL_NOTARGET) && self:Visible(v) && (!v.VJ_NPC_Class or !VJ.HasValue(v.VJ_NPC_Class, self.HLRSpawner_ClassType)) then
 				self:HLR_ActivateSpawner(v)
 				break

@@ -75,7 +75,7 @@ function ENT:OnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-	if self.VJ_IsBeingControlled or self.HeadCrab_IsBaby then return end
+	if self.VJ_Controlled or self.HeadCrab_IsBaby then return end
 	if math.random(1, 2) == 1 then
 		self:PlayAnim("angry", true, false, true)
 	end

@@ -162,7 +162,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
 	-- Spawn an ally
-	if !self.Dead && !self.VJ_IsBeingControlled && IsValid(self:GetEnemy()) then
+	if !self.Dead && !self.VJ_Controlled && IsValid(self:GetEnemy()) then
 		self:Tor_StartSpawnAlly()
 	end
 end

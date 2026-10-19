@@ -115,8 +115,7 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 	local curTime = CurTime()
 	local eneData = self.EnemyData
 	local dist = eneData.DistanceNearest
-	local controlled = self.VJ_IsBeingControlled
-	local ply = self.VJ_TheController
+	local controlled = self.VJ_Controlled
 	if self.Charger_Charging then
 		local myPos = self:GetPos()
 		local myCenterPos = myPos + self:OBBCenter()
@@ -198,7 +197,7 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 		end
 		return
 	end
-	if curTime > self.Charger_NextChargeT && (controlled && ply:KeyDown(IN_ATTACK2) or !controlled && eneData.Visible && dist > 500 && dist <= 2500 && !self.Charger_AttackingDoor && !self:IsBusy() && math.random(1, 50) == 1 && math.abs(self:GetPos().z - enemy:GetPos().z) <= 128) && !self.Charger_Charging then
+	if curTime > self.Charger_NextChargeT && (controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_ATTACK2) or !controlled && eneData.Visible && dist > 500 && dist <= 2500 && !self.Charger_AttackingDoor && !self:IsBusy() && math.random(1, 50) == 1 && math.abs(self:GetPos().z - enemy:GetPos().z) <= 128) && !self.Charger_Charging then
 		self.Charger_Charging = true
 		self.Charger_ChargeT = curTime + math.Rand(4, 6)
 		sound.EmitHint(SOUND_DANGER, enemy:GetPos(), 250, 1, self)

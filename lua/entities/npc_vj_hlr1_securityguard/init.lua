@@ -213,7 +213,7 @@ function ENT:OnCreateSound(sdData, sdFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-	if self.VJ_IsBeingControlled then return end
+	if self.VJ_Controlled then return end
 
 	if math.random(1, 2) == 1 then
 		if self.Security_Type == SECURITY_TYPE_REGULAR then
@@ -252,7 +252,7 @@ function ENT:Security_UnHolsterGun()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
-	if self.VJ_IsBeingControlled or self.Dead or self:IsBusy("Activities") then return end
+	if self.VJ_Controlled or self.Dead or self:IsBusy("Activities") then return end
 	-- Unholster the weapon if we are alerted and have NOT unholstered the weapon
 	if self:GetNPCState() == NPC_STATE_ALERT or self:GetNPCState() == NPC_STATE_COMBAT then
 		if self:GetWeaponState() == VJ.WEP_STATE_HOLSTERED then

@@ -127,7 +127,7 @@ function ENT:OnThinkActive()
 	-- Don't reset pose parameters while its transitioning from Alert to Idle
 	self.PoseParameterLooking_CanReset = (!self.Alerted && eneValid)
 
-	if (self.Sentry_ControllerStatus == 1) or (!self.VJ_IsBeingControlled && (eneValid or self.Alerted)) then
+	if (self.Sentry_ControllerStatus == 1) or (!self.VJ_Controlled && (eneValid or self.Alerted)) then
 		self.Sentry_StandDown = false
 		if CurTime() > self.Sentry_NextAlarmT && self.Sentry_Type != 2 then
 			local glow = ents.Create("env_sprite")
@@ -149,7 +149,7 @@ function ENT:OnThinkActive()
 			self:SetPoseParameter("aim_yaw", self.Sentry_CurrentYawParameter + 4)
 		end
 	else
-		if ((self.Sentry_ControllerStatus == 0) or (!self.VJ_IsBeingControlled && !self.Alerted)) && !self.Sentry_StandDown then
+		if ((self.Sentry_ControllerStatus == 0) or (!self.VJ_Controlled && !self.Alerted)) && !self.Sentry_StandDown then
 			if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
 				self:AddFlags(FL_NOTARGET) -- Make it not targetable
 			end
@@ -188,7 +188,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-	if self.VJ_IsBeingControlled then return end
+	if self.VJ_Controlled then return end
 	self:Sentry_Activate()
 	if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
 		self:RemoveFlags(FL_NOTARGET) -- Other NPCs should now target it!

@@ -150,7 +150,7 @@ function ENT:OnThinkActive()
 	local eneValid = IsValid(self:GetEnemy())
 	if self.Turret_Status != TURRET_STATUS_DEPLOYING then
 		-- Alerted behavior
-		if ((self.Turret_ControllerStatus == 1) or (!self.VJ_IsBeingControlled && (eneValid or (self.Alerted && !self.EnemyData.Reset)))) then
+		if ((self.Turret_ControllerStatus == 1) or (!self.VJ_Controlled && (eneValid or (self.Alerted && !self.EnemyData.Reset)))) then
 			self.Turret_StandDown = false
 			-- Handle the light sprite
 			if self.Turret_HasLOS && eneValid then
@@ -207,8 +207,8 @@ function ENT:OnThinkActive()
 		else -- Idle behavior
 			self.Turret_Status = TURRET_STATUS_IDLE
 			-- Play the retracting sequence and sound
-			if ((self.Turret_ControllerStatus == 0) or (!self.VJ_IsBeingControlled && !self.Alerted)) && !self.Turret_StandDown then
-				if self.VJ_IsBeingControlled then
+			if ((self.Turret_ControllerStatus == 0) or (!self.VJ_Controlled && !self.Alerted)) && !self.Turret_StandDown then
+				if self.VJ_Controlled then
 					self.Turret_Sprite:Fire("HideSprite")
 				else
 					self.Turret_Sprite:Fire("Color", "0 255 0") -- Green
@@ -248,7 +248,7 @@ function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-	if self.VJ_IsBeingControlled then return end
+	if self.VJ_Controlled then return end
 	self:Turret_Activate()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

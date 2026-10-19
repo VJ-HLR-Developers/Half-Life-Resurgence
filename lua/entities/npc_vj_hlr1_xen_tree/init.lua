@@ -54,7 +54,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttack(status, enemy)
 	if status == "PreInit" then
-		return (self.VJ_IsBeingControlled or enemy.VJ_ID_Boss) or !((enemy:IsNPC() && enemy:IsMoving()) or (enemy:IsOnGround() && VJ.GetMoveVelocity(enemy):Length() > 2))
+		return (self.VJ_Controlled or enemy.VJ_ID_Boss) or !((enemy:IsNPC() && enemy:IsMoving()) or (enemy:IsOnGround() && VJ.GetMoveVelocity(enemy):Length() > 2))
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

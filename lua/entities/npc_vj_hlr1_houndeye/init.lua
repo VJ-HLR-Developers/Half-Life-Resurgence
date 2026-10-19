@@ -104,7 +104,7 @@ function ENT:TranslateActivity(act)
 		if self.Houndeye_Sleeping then
 			return ACT_CROUCHIDLE
 		-- Barking
-		elseif IsValid(self:GetEnemy()) && !self.VJ_IsBeingControlled then
+		elseif IsValid(self:GetEnemy()) && !self.VJ_Controlled then
 			return ACT_IDLE_ANGRY
 		end
 		-- Default idle
@@ -130,7 +130,7 @@ function ENT:OnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
-	if self.VJ_IsBeingControlled then return end
+	if self.VJ_Controlled then return end
 
 	-- Sleep system
 	if !self.Alerted && !IsValid(self:GetEnemy()) && !self:IsMoving() && CurTime() > self.Houndeye_NextSleepT && !self.Houndeye_Sleeping && !self:IsBusy() then

@@ -133,7 +133,7 @@ function ENT:OnRangeAttack(status, enemy)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
-	if status == "PreSpawn" && self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP) then
+	if status == "PreSpawn" && self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP) then
 		projectile.Needle_Heal = true
 	end
 end

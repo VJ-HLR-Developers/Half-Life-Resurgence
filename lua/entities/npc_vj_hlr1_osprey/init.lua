@@ -219,13 +219,13 @@ function ENT:OnThinkActive()
 		end
 	end
 	local ene = self:GetEnemy()
-	if self.Osprey_DropStatus == 0 && IsValid(ene) && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+	if self.Osprey_DropStatus == 0 && IsValid(ene) && ((!self.VJ_Controlled) or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP))) then
 		self.Osprey_DropStatus = 1
 		local vecRand = VectorRand() * 600
 		vecRand.z = math.abs(vecRand.z) -- Make sure negative Zs are cancelled out
 		local tr = util.TraceHull({
 			start = self:GetPos() + self:OBBCenter(),
-			endpos = (self.VJ_IsBeingControlled and self:GetPos()) or (ene:GetPos() + ene:GetUp() * 600 + vecRand),
+			endpos = (self.VJ_Controlled and self:GetPos()) or (ene:GetPos() + ene:GetUp() * 600 + vecRand),
 			filter = {self, self.Osprey_Gunners[1], self.Osprey_Gunners[2]},
 			mins = self:OBBMins(),
 			maxs = self:OBBMaxs()

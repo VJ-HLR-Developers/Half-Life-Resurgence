@@ -102,7 +102,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		if bg == 0 or bg == 6 then
 			self:SetBodygroup(1, 0)
 			self.HasRangeAttack = false
-			if !self.VJ_IsBeingControlled then
+			if !self.VJ_Controlled then
 				-- Run from the enemy, then play the reload animation and set the body group
 				self:SCHEDULE_COVER_ENEMY("TASK_RUN_PATH")
 				timer.Simple(0.1, function()

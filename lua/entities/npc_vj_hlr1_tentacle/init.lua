@@ -118,7 +118,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAnimEvent(ev, evTime, evCycle, evType, evOptions)
 	-- Take care of the regular hit sound (When playing idle animations)
-	if ev == 6 && !self.VJ_IsBeingControlled then
+	if ev == 6 && !self.VJ_Controlled then
 		self:PlaySoundSystem("MeleeAttack", (self:IsDirt(self:GetPos() + self:GetForward() * 300) && sdBeakStrikeDirt) or sdBeakStrikeDef, VJ.EmitSound)
 		local ene = self:GetEnemy()
 		if IsValid(ene) && (ene:GetPos():Distance(self:GetPos() + self:GetForward() * 150)) < 200 then
@@ -215,7 +215,7 @@ function ENT:Tentacle_CalculateLevel(eneDist)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
-	if self.VJ_IsBeingControlled then return end
+	if self.VJ_Controlled then return end
 	local ene = self:GetEnemy()
 	if IsValid(ene) then
 		-- If enemy is (on ground & moving) OR (its an NPC that is moving)

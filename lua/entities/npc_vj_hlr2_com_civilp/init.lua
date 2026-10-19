@@ -327,7 +327,7 @@ function ENT:Metrocop_SpawnManhack()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
-	if self.VJ_IsBeingControlled then return end
+	if self.VJ_Controlled then return end
 	if self.Metrocop_HasManhack && IsValid(self:GetEnemy()) then
 		local eneData = self.EnemyData
 		if eneData.Distance <= 1000 && eneData.Distance > 300 then

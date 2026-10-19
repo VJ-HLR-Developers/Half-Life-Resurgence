@@ -17,7 +17,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
-	if ((self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_DUCK)) or !self.VJ_IsBeingControlled) && IsValid(self:GetEnemy()) && self:Visible(self:GetEnemy()) && self.Human_NextTurretCheckT < CurTime() && !IsValid(self.Human_TurretEnt) then
+	if ((self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_DUCK)) or !self.VJ_Controlled) && IsValid(self:GetEnemy()) && self:Visible(self:GetEnemy()) && self.Human_NextTurretCheckT < CurTime() && !IsValid(self.Human_TurretEnt) then
 		-- Make sure not to place it if the front of the NPC is blocked!
 		local myCenterPos = self:GetPos() + self:OBBCenter()
 		local tr = util.TraceLine({

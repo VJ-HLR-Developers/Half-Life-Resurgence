@@ -29,8 +29,8 @@ end
 local animStrafing = {ACT_STRAFE_RIGHT, ACT_STRAFE_LEFT}
 --
 function ENT:HECU_OnThink()
-	if self.VJ_IsBeingControlled then return end
-	if IsValid(self:GetEnemy()) && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND && !self.VJ_IsBeingControlled && CurTime() > self.BOA_NextStrafeT && !self:IsMoving() && self:GetPos():Distance(self:GetEnemy():GetPos()) < 1400 then
+	if self.VJ_Controlled then return end
+	if IsValid(self:GetEnemy()) && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND && !self.VJ_Controlled && CurTime() > self.BOA_NextStrafeT && !self:IsMoving() && self:GetPos():Distance(self:GetEnemy():GetPos()) < 1400 then
 		self:StopMoving()
 		self:PlayAnim(animStrafing, true, false, false)
 		self.BOA_NextRunT = CurTime() + 2
@@ -43,7 +43,7 @@ function ENT:HECU_OnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponAttack()
-	if self.VJ_IsBeingControlled then return end
+	if self.VJ_Controlled then return end
 	if CurTime() > self.BOA_NextRunT then
 		timer.Simple(0.8, function()
 			if IsValid(self) && !self:IsMoving() && !self.Dead then
