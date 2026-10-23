@@ -67,52 +67,50 @@ function ENT:Tank_OnFireShell(status, statusData)
 
 		local ene = self:GetEnemy()
 		local pos = self:LocalToWorld(vecBullet)
-		if IsValid(ene) then
-			self:FireBullets({
-				Damage = 1,
-				Force = 100,
-				HullSize = 10,
-				Dir = (ene:GetPos() + ene:OBBCenter()) -  pos,
-				Src = pos,
-				Spread = Vector(math.Rand(-50, 50), math.Rand(-50, 50), 0),
-				TracerName = "VJ_HLR_Tracer_Large",
-				Callback = function(attack, tr, dmginfo)
-					local hitPos = tr.HitPos
-					VJ.ApplyRadiusDamage(self, self, hitPos, 50, 30, DMG_BLAST, true, true, {Force = 100})
+		self:FireBullets({
+			Damage = 1,
+			Force = 100,
+			HullSize = 10,
+			Dir = (ene:GetPos() + ene:OBBCenter()) -  pos,
+			Src = pos,
+			Spread = Vector(math.Rand(-50, 50), math.Rand(-50, 50), 0),
+			TracerName = "VJ_HLR_Tracer_Large",
+			Callback = function(attack, tr, dmginfo)
+				local hitPos = tr.HitPos
+				VJ.ApplyRadiusDamage(self, self, hitPos, 50, 30, DMG_BLAST, true, true, {Force = 100})
 
-					sound.Play("vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. ".wav", hitPos, 70, 100, 1)
-					sound.Play("vj_hlr/gsrc/wep/explosion/debris" .. math.random(1, 3) .. ".wav", hitPos, 70, 100, 1)
+				sound.Play("vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. ".wav", hitPos, 70, 100, 1)
+				sound.Play("vj_hlr/gsrc/wep/explosion/debris" .. math.random(1, 3) .. ".wav", hitPos, 70, 100, 1)
 
-					local spr = ents.Create("env_sprite")
-					spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
-					spr:SetKeyValue("GlowProxySize", "2.0")
-					spr:SetKeyValue("HDRColorScale", "1.0")
-					spr:SetKeyValue("renderfx", "14")
-					spr:SetKeyValue("rendermode", "5")
-					spr:SetKeyValue("renderamt", "255")
-					spr:SetKeyValue("disablereceiveshadows", "0")
-					spr:SetKeyValue("mindxlevel", "0")
-					spr:SetKeyValue("maxdxlevel", "0")
-					spr:SetKeyValue("framerate", "15.0")
-					spr:SetKeyValue("spawnflags", "0")
-					spr:SetKeyValue("scale", "1.5")
-					spr:SetPos(hitPos + vecZ40)
-					spr:Spawn()
-					spr:Fire("Kill", nil, 0.9)
-					timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+				local spr = ents.Create("env_sprite")
+				spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
+				spr:SetKeyValue("GlowProxySize", "2.0")
+				spr:SetKeyValue("HDRColorScale", "1.0")
+				spr:SetKeyValue("renderfx", "14")
+				spr:SetKeyValue("rendermode", "5")
+				spr:SetKeyValue("renderamt", "255")
+				spr:SetKeyValue("disablereceiveshadows", "0")
+				spr:SetKeyValue("mindxlevel", "0")
+				spr:SetKeyValue("maxdxlevel", "0")
+				spr:SetKeyValue("framerate", "15.0")
+				spr:SetKeyValue("spawnflags", "0")
+				spr:SetKeyValue("scale", "1.5")
+				spr:SetPos(hitPos + vecZ40)
+				spr:Spawn()
+				spr:Fire("Kill", nil, 0.9)
+				timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 
-					local expLight = ents.Create("light_dynamic")
-					expLight:SetKeyValue("brightness", "4")
-					expLight:SetKeyValue("distance", "300")
-					expLight:SetPos(hitPos)
-					expLight:Fire("Color", "255 150 0")
-					expLight:Spawn()
-					expLight:Activate()
-					expLight:Fire("TurnOn")
-					expLight:Fire("Kill", nil, 0.1)
-				end
-			})
-		end
+				local expLight = ents.Create("light_dynamic")
+				expLight:SetKeyValue("brightness", "4")
+				expLight:SetKeyValue("distance", "300")
+				expLight:SetPos(hitPos)
+				expLight:Fire("Color", "255 150 0")
+				expLight:Spawn()
+				expLight:Activate()
+				expLight:Fire("TurnOn")
+				expLight:Fire("Kill", nil, 0.1)
+			end
+		})
 		return true
 	elseif status == "OnCreate" then
 		statusData.Rocket_AirMissile = true
