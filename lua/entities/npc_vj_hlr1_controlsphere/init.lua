@@ -148,7 +148,7 @@ end
 local defVec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-	if status == "PreDamage" && dmginfo:GetDamagePosition() != defVec then
+	if status == "Init" && dmginfo:GetDamagePosition() != defVec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(4) -- Size

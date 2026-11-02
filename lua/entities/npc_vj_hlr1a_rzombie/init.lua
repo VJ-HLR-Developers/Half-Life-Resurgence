@@ -33,10 +33,8 @@ end
 local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-	if status == "PreDamage" then
-		if hitgroup == HITGROUP_HEAD then -- We've been headshot! Spurt blood!
-			self:SpawnBloodParticles(dmginfo, hitgroup)
-		elseif dmginfo:GetDamagePosition() != vec && !dmginfo:IsExplosionDamage() && hitgroup != HITGROUP_HEAD then
+	if status == "Init" then
+		if dmginfo:GetDamagePosition() != vec && !dmginfo:IsExplosionDamage() && hitgroup != HITGROUP_HEAD then
 			-- Ricochet effect
 			local rico = EffectData()
 			rico:SetOrigin(dmginfo:GetDamagePosition())
@@ -44,6 +42,10 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 			rico:SetMagnitude(math.random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
 			util.Effect("VJ_HLR_Rico", rico)
 			dmginfo:SetDamage(dmginfo:GetDamage() * 0.5) -- Reduce incoming damage to half if it's not a headshot or explosive damage
+		end
+	elseif status == "Init" then
+		if hitgroup == HITGROUP_HEAD then -- We've been headshot! Spurt blood!
+			self:SpawnBloodParticles(dmginfo, hitgroup)
 		end
 	end
 end
