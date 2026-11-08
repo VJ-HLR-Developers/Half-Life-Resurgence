@@ -125,7 +125,7 @@ function ENT:ChangeMode(mode)
 	end
 	self.Stuka_Mode = mode
 	-- self.Stuka_ModeChangeT = CurTime() + 4 -- Debug
-	self.Stuka_ModeChangeT = CurTime() + (IsValid(self.VJ_Controller:GetPlayer()) && 4 or math.Rand(15, 35))
+	self.Stuka_ModeChangeT = CurTime() + (self.VJ_Controlled and 4 or math.Rand(15, 35))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -224,7 +224,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetLandingPos(ceiling)
 	local ang = self:GetAngles() + AngleRand()
-	local filt = {self, self.VJ_Controller:GetPlayer()}
+	local filt = {self, self.VJ_Controlled and self.VJ_Controller:GetPlayer() or nil}
 	if ceiling then
 		ang.p = -70
 		local tr1 = util.TraceLine({start = self:GetPos(), endpos = self:GetPos() + ang:Forward() * 32000, filter = filt})
@@ -241,7 +241,7 @@ function ENT:GetLandingPos(ceiling)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:AA_StopMoving()
-	if IsValid(self.VJ_Controller:GetPlayer()) && self.Stuka_LandingPos then return end
+	if self.VJ_Controlled && self.Stuka_LandingPos then return end
 	if self:GetVelocity():Length() > 0 then
 		self.AA_CurrentMoveMaxSpeed = 0
 		self.AA_CurrentMoveTime = 0
@@ -262,7 +262,7 @@ function ENT:RangeAttackProjVel(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-	if IsValid(self.VJ_Controller:GetPlayer()) then return end
+	if self.VJ_Controlled then return end
 	if self.Stuka_Mode != 1 then
 		self.Stuka_ModeChangeT = CurTime()
 		self:ChangeMode(1)
@@ -270,7 +270,7 @@ function ENT:OnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnBleed(dmginfo, hitgroup)
-	if IsValid(self.VJ_Controller:GetPlayer()) then return end
+	if self.VJ_Controlled then return end
 	if self.Stuka_Mode != 1 then
 		self.Stuka_ModeChangeT = CurTime()
 		self:ChangeMode(1)
