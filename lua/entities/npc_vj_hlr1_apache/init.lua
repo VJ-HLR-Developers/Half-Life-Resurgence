@@ -480,11 +480,12 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 					util.BlastDamage(self, self, expPos2, 600, 200)
 					VJ.EmitSound(self, "vj_hlr/gsrc/wep/mortar/mortarhit.wav", 100, 100)
 					VJ.EmitSound(self, "vj_hlr/gsrc/wep/mortar/mortarhit_dist.wav", 140, 100)
+
 					-- flags 0 = No fade!
 					effects.BeamRingPoint(myPos, 0.4, 0, 1500, 32, 0, colorHeliExp, {material = "vj_hl/sprites/shockwave", framerate = 0, flags = 0})
-					self:Remove()
 				end
 			end)
+			self:Remove()
 		end
 	end
 end

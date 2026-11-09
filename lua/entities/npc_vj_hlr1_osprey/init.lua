@@ -616,10 +616,9 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 
 					-- flags 0 = No fade!
 					effects.BeamRingPoint(self:GetPos(), 0.4, 0, 1500, 32, 0, colorHeliExp, {material = "vj_hl/sprites/shockwave", framerate = 0, flags = 0})
-
-					self:Remove()
 				end
 			end)
+			self:Remove()
 		end
 	end
 end
