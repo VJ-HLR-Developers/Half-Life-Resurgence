@@ -7,7 +7,6 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/bradley_gun.mdl"
 ENT.StartHealth = 0
-ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.HasDeathCorpse = false
 
 -- Tank Base

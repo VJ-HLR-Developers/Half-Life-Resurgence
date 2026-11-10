@@ -7,8 +7,6 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl2b/merkava_turret.mdl"
 ENT.StartHealth = 0
-ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
-ENT.AlliedWithPlayerAllies = true
 
 ENT.Tank_SoundTbl_Turning = "vehicles/tank_turret_loop1.wav"
 
