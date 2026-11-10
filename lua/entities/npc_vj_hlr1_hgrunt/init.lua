@@ -52,6 +52,7 @@ ENT.AnimTbl_CallForHelp = ACT_SIGNAL1
 ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
+ENT.DropDeathLoot = false
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE}
 
@@ -237,11 +238,7 @@ function ENT:OnInput(key, activator, caller, data)
 	-- 		wep:NPC_SecondaryFire()
 	-- 	end
 	elseif key == "body" then
-		if self.HECU_Type == 5 or self.Serg_Type == 3 then
-			VJ.EmitSound(self, "vj_hlr/gsrc/fx/metal" .. math.random(3, 4) .. ".wav", 75, 100)
-		else
-			VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
-		end
+		VJ.EmitSound(self, ((self.HECU_Type == 5 or self.Serg_Type == 3) && "vj_hlr/gsrc/fx/metal" .. math.random(3, 4) .. ".wav") or "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
 
 	-- OppF Engineer --
 	elseif key == "deagle_putout" then
