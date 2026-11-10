@@ -66,7 +66,6 @@ function ENT:OnDestroy(data, phys)
 	spr:SetPos(myPos + Vector(0, 0, 90))
 	spr:Spawn()
 	spr:Fire("Kill", nil, 0.9)
-	//timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 
 	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris" .. math.random(1, 3) .. ".wav", 80, 100)
 	VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)

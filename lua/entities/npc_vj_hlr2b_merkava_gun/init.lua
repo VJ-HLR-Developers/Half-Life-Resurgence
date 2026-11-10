@@ -15,7 +15,8 @@ ENT.Tank_SoundTbl_Turning = "vehicles/tank_turret_loop1.wav"
 ENT.Tank_Shell_SpawnPos = Vector(232.1, -0.36, 9.64)
 ENT.Tank_Shell_MuzzleFlashPos = Vector(232.1, -0.36, 9.64)
 ENT.Tank_Shell_ParticlePos = Vector(232.1, -0.36, 9.64)
-
+-- Custom
+ENT.Spotter_NextMGT = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_Init()
 	if GetConVar("vj_hlr2_merkava_gunner"):GetInt() == 0 then return end
@@ -52,7 +53,7 @@ function ENT:Tank_OnThinkActive()
 		if ene == spotter then
 			spotter.VJ_NPC_Class = self:GetParent().VJ_NPC_Class -- Get from the parent (Chassis) because the gunner's relationship is based from it!
 		end
-		if self.Tank_FacingTarget && ene:Visible(self) then
+		if self.Tank_FacingTarget && ene:Visible(self) && CurTime() > self.Spotter_NextMGT then
 			local att = self:GetAttachment(1)
 			self:FireBullets({
 				Attacker = spotter,
@@ -64,11 +65,26 @@ function ENT:Tank_OnThinkActive()
 			})
 			VJ.EmitSound(spotter, sdFiringGun, 100, 100, 1, CHAN_WEAPON)
 			ParticleEffect("vj_rifle_full", att.Pos, att.Ang, self)
+
 			local shellEffect = EffectData()
 			shellEffect:SetEntity(self)
 			shellEffect:SetOrigin(att.Pos + self:GetRight() * 5 + self:GetForward() * -23)
 			shellEffect:SetAngles((att.Pos):Angle())
 			util.Effect("RifleShellEject", shellEffect, true, true)
+
+			local muzLight = ents.Create("light_dynamic")
+			muzLight:SetKeyValue("brightness", "4")
+			muzLight:SetKeyValue("distance", "120")
+			muzLight:Fire("Color", "255 150 60")
+			muzLight:SetParent(self)
+			muzLight:Fire("SetParentAttachment", "muzzle")
+			muzLight:Spawn()
+			muzLight:Activate()
+			muzLight:Fire("TurnOn")
+			muzLight:Fire("Kill", nil, 0.07)
+			self:DeleteOnRemove(muzLight)
+
+			self.Spotter_NextMGT = CurTime() + 0.06
 		end
 	end
 end

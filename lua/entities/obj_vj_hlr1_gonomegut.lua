@@ -67,5 +67,4 @@ function ENT:OnDestroy(data, phys)
 	spr:SetPos(data.HitPos)
 	spr:Spawn()
 	spr:Fire("Kill", nil, 0.3)
-	timer.Simple(0.3, function() if IsValid(spr) then spr:Remove() end end)
 end

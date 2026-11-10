@@ -49,6 +49,7 @@ local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Finish" then
 		local myPos = self:GetPos()
+		local myUp = self:GetUp()
 		if self.Nest_SpawnEnt == "npc_vj_hlr1_snark" then
 			VJ.ApplyRadiusDamage(self, self, myPos, 50, 15, DMG_ACID, true, true)
 			if self.HasGibOnDeathEffects then
@@ -93,10 +94,19 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				spr:SetKeyValue("framerate", "15.0")
 				spr:SetKeyValue("spawnflags", "0")
 				spr:SetKeyValue("scale", "4")
-				spr:SetPos(myPos + self:GetUp() * 80)
+				spr:SetPos(myPos + myUp * 80)
 				spr:Spawn()
 				spr:Fire("Kill", nil, 0.9)
-				timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+
+				local expLight = ents.Create("light_dynamic")
+				expLight:SetKeyValue("brightness", "4")
+				expLight:SetKeyValue("distance", "300")
+				expLight:SetPos(myPos + myUp * 80)
+				expLight:Fire("Color", "255 150 0")
+				expLight:Spawn()
+				expLight:Activate()
+				expLight:Fire("TurnOn")
+				expLight:Fire("Kill", nil, 0.15)
 			end
 		end
 

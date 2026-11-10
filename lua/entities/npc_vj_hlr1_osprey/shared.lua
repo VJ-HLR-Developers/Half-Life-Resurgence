@@ -9,12 +9,12 @@ ENT.VJ_ID_Vehicle = true
 ENT.VJ_ID_Aircraft = true
 
 if CLIENT then
-	ENT.Apache_NextSmoke = 0
+	ENT.Heli_NextSmoke = 0
 	function ENT:Draw()
 		self:DrawModel()
-		if IsValid(self) && CurTime() > self.Apache_NextSmoke then
+		if IsValid(self) && CurTime() > self.Heli_NextSmoke then
 			local lvl = self:GetNW2Int("Heli_SmokeLevel")
-			self.Apache_NextSmoke = CurTime() + 0.1
+			self.Heli_NextSmoke = CurTime() + 0.1
 			if lvl > 0 then
 				local emitter = ParticleEmitter(self:GetPos())
 				local smoke1 = emitter:Add("vj_hl/sprites/steam1", self:GetAttachment(self:LookupAttachment("engine_left")).Pos)

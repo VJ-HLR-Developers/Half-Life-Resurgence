@@ -591,6 +591,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		end
 
 		if self.HECU_Type == 5 or (self:GetModel() == "models/vj_hlr/hl1/hassault_german.mdl") then
+			local myUpPos = self:GetPos() + self:GetUp() * 60
 			local spr = ents.Create("env_sprite")
 			spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 			spr:SetKeyValue("GlowProxySize", "2.0")
@@ -604,10 +605,19 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			spr:SetKeyValue("framerate", "20.0")
 			spr:SetKeyValue("spawnflags", "0")
 			spr:SetKeyValue("scale", "1.5")
-			spr:SetPos(self:GetPos() + self:GetUp() * 60)
+			spr:SetPos(myUpPos)
 			spr:Spawn()
 			spr:Fire("Kill", nil, 0.7)
-			timer.Simple(0.7, function() if IsValid(spr) then spr:Remove() end end)
+
+			local expLight = ents.Create("light_dynamic")
+			expLight:SetKeyValue("brightness", "4")
+			expLight:SetKeyValue("distance", "300")
+			expLight:SetPos(myUpPos)
+			expLight:Fire("Color", "255 150 0")
+			expLight:Spawn()
+			expLight:Activate()
+			expLight:Fire("TurnOn")
+			expLight:Fire("Kill", nil, 0.15)
 		end
 
 		-- If we are still rappelling then play the rappel death animation!
@@ -663,8 +673,9 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 
 	-- Handle gas tank for the hgrunt engineer
 	if self.HECU_GasTankHit then
-		util.BlastDamage(self, self, self:GetPos(), 100, 80)
-		util.ScreenShake(self:GetPos(), 100, 200, 1, 500)
+		local myPos = self:GetPos()
+		util.BlastDamage(self, self, myPos, 100, 80)
+		util.ScreenShake(myPos, 100, 200, 1, 500)
 		VJ.EmitSound(self, gasTankExpSd, 90)
 		VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)
 		local spr = ents.Create("env_sprite")
@@ -680,10 +691,19 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		spr:SetKeyValue("framerate", "15.0")
 		spr:SetKeyValue("spawnflags", "0")
 		spr:SetKeyValue("scale", "4")
-		spr:SetPos(self:GetPos() + gasTankExpPos)
+		spr:SetPos(myPos + gasTankExpPos)
 		spr:Spawn()
 		spr:Fire("Kill", nil, 0.9)
-		timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+
+		local expLight = ents.Create("light_dynamic")
+		expLight:SetKeyValue("brightness", "4")
+		expLight:SetKeyValue("distance", "300")
+		expLight:SetPos(myPos + gasTankExpPos)
+		expLight:Fire("Color", "255 150 0")
+		expLight:Spawn()
+		expLight:Activate()
+		expLight:Fire("TurnOn")
+		expLight:Fire("Kill", nil, 0.15)
 	end
 
 	if self.HECU_Type == 0 && (hitgroup == HITGROUP_HEAD or hitgroup == HITGROUP_GEAR) then

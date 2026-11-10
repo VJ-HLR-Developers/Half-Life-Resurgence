@@ -72,6 +72,7 @@ ENT.DeathSoundLevel = 100
 ENT.Heli_HasLOS = false -- Does the Apache's chain gun have sight on the enemy?
 ENT.Heli_SmokeStatus = 0 -- 0 = No smoke | 1 = Tail smoke | 2 = Tail & Rotor smoke
 ENT.Heli_RangeAttach = "missile_left"
+ENT.Heli_NextMGT = 0
 
 local defVec = Vector()
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -217,7 +218,7 @@ local bulletSpread = Vector(0.03490, 0.03490, 0.03490)
 -- Firing Delay: Checked in Half-Life 1 (GoldSrc), there is NO delay as long as the gun is facing the enemy!
 function ENT:OnThinkAttack(isAttacking, enemy)
 	local eneData = self.EnemyData
-	if self.Heli_HasLOS && eneData.DistanceNearest <= combatDistance && eneData.Visible && ((!self.VJ_Controlled) or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_ATTACK))) then
+	if self.Heli_HasLOS && self.Heli_NextMGT < CurTime() && eneData.DistanceNearest <= combatDistance && eneData.Visible && ((!self.VJ_Controlled) or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_ATTACK))) then
 		local att = self:GetAttachment(1)
 		self:FireBullets({
 			Num = 1,
@@ -251,16 +252,19 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 		muz:Activate()
 		muz:Fire("Kill", nil, 0.08)
 
-		local flash = ents.Create("light_dynamic")
-		flash:SetKeyValue("brightness", "8")
-		flash:SetKeyValue("distance", "300")
-		flash:SetPos(att.Pos)
-		flash:Fire("Color", "255 60 9 255")
-		flash:Spawn()
-		flash:Activate()
-		flash:Fire("TurnOn")
-		flash:Fire("Kill", nil, 0.07)
-		self:DeleteOnRemove(flash)
+		local muzLight = ents.Create("light_dynamic")
+		muzLight:SetKeyValue("brightness", "8")
+		muzLight:SetKeyValue("distance", "300")
+		muzLight:Fire("Color", "255 150 60") // 255 60 9 255
+		muzLight:SetParent(self)
+		muzLight:Fire("SetParentAttachment", "muzzle")
+		muzLight:Spawn()
+		muzLight:Activate()
+		muzLight:Fire("TurnOn")
+		muzLight:Fire("Kill", nil, 0.07)
+		self:DeleteOnRemove(muzLight)
+
+		self.Heli_NextMGT = CurTime() + 0.06
 	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -365,9 +369,19 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		expSpr:SetPos(expPos)
 		expSpr:Spawn()
 		expSpr:Fire("Kill", nil, 0.9)
-		timer.Simple(0.9, function() if IsValid(expSpr) then expSpr:Remove() end end)
+
+		local expLight = ents.Create("light_dynamic")
+		expLight:SetKeyValue("brightness", "4")
+		expLight:SetKeyValue("distance", "300")
+		expLight:SetPos(expPos)
+		expLight:Fire("Color", "255 150 0")
+		expLight:Spawn()
+		expLight:Activate()
+		expLight:Fire("TurnOn")
+		expLight:Fire("Kill", nil, 0.15)
 
 		util.BlastDamage(self, self, expPos, 300, 100)
+		util.ScreenShake(expPos, 100, 200, 1, 2500)
 		VJ.EmitSound(self, sdExplosions, 100, 100)
 		VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 100, 100, 100, 1)
 
@@ -418,9 +432,19 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				spr:SetPos(expPos2)
 				spr:Spawn()
 				spr:Fire("Kill", nil, 0.9)
-				timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+
+				local expLight = ents.Create("light_dynamic")
+				expLight:SetKeyValue("brightness", "4")
+				expLight:SetKeyValue("distance", "300")
+				expLight:SetPos(expPos2)
+				expLight:Fire("Color", "255 150 0")
+				expLight:Spawn()
+				expLight:Activate()
+				expLight:Fire("TurnOn")
+				expLight:Fire("Kill", nil, 0.15)
 
 				util.BlastDamage(self, self, expPos2, 300, 100)
+				util.ScreenShake(expPos2, 100, 200, 1, 2500)
 				VJ.EmitSound(self, sdExplosions, 100, 100)
 				VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)
 			end
@@ -476,8 +500,19 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 					spr:SetPos(expPos2)
 					spr:Spawn()
 					spr:Fire("Kill", nil, 1.19)
-					timer.Simple(1.19, function() if IsValid(spr) then spr:Remove() end end)
+
+					local expLight = ents.Create("light_dynamic")
+					expLight:SetKeyValue("brightness", "4")
+					expLight:SetKeyValue("distance", "300")
+					expLight:SetPos(expPos2)
+					expLight:Fire("Color", "255 150 0")
+					expLight:Spawn()
+					expLight:Activate()
+					expLight:Fire("TurnOn")
+					expLight:Fire("Kill", nil, 0.15)
+
 					util.BlastDamage(self, self, expPos2, 600, 200)
+					util.ScreenShake(expPos2, 100, 200, 1, 2500)
 					VJ.EmitSound(self, "vj_hlr/gsrc/wep/mortar/mortarhit.wav", 100, 100)
 					VJ.EmitSound(self, "vj_hlr/gsrc/wep/mortar/mortarhit_dist.wav", 140, 100)
 

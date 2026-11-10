@@ -368,6 +368,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		util.Effect("bloodspray", effectData)
 
 		if self.SCI_Type == SCI_TYPE_KELLER then
+			local myUpPos = self:GetPos() + self:GetUp() * 60
 			local spr = ents.Create("env_sprite")
 			spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 			spr:SetKeyValue("GlowProxySize", "2.0")
@@ -381,10 +382,19 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 			spr:SetKeyValue("framerate", "20.0")
 			spr:SetKeyValue("spawnflags", "0")
 			spr:SetKeyValue("scale", "2")
-			spr:SetPos(self:GetPos() + self:GetUp() * 60)
+			spr:SetPos(myUpPos)
 			spr:Spawn()
 			spr:Fire("Kill", nil, 0.7)
-			timer.Simple(0.7, function() if IsValid(spr) then spr:Remove() end end)
+
+			local expLight = ents.Create("light_dynamic")
+			expLight:SetKeyValue("brightness", "4")
+			expLight:SetKeyValue("distance", "300")
+			expLight:SetPos(myUpPos)
+			expLight:Fire("Color", "255 150 0")
+			expLight:Spawn()
+			expLight:Activate()
+			expLight:Fire("TurnOn")
+			expLight:Fire("Kill", nil, 0.15)
 		end
 	end
 

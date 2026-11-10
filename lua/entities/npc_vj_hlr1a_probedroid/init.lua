@@ -164,7 +164,8 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Init" && dmginfo:IsDamageType(DMG_BLAST) then
 		self.HasDeathAnimation = false
 	elseif status == "Finish" then
-		VJ.ApplyRadiusDamage(self, self, self:GetPos(), 75, 25, DMG_BLAST, false, true)
+		local myPos = self:GetPos()
+		VJ.ApplyRadiusDamage(self, self, myPos, 75, 25, DMG_BLAST, false, true)
 		VJ.EmitSound(self, "vj_hlr/gsrc/npc/prdroid_alpha/explode.wav", 90, 100)
 		local applyForce = self.HasDeathAnimation and false or true
 		local myAngs = self:GetAngles()
@@ -194,9 +195,18 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		spr:SetKeyValue("framerate", "15.0")
 		spr:SetKeyValue("spawnflags", "0")
 		spr:SetKeyValue("scale", "2")
-		spr:SetPos(self:GetPos())
+		spr:SetPos(myPos)
 		spr:Spawn()
 		spr:Fire("Kill", nil, 0.9)
-		timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+
+		local expLight = ents.Create("light_dynamic")
+		expLight:SetKeyValue("brightness", "4")
+		expLight:SetKeyValue("distance", "300")
+		expLight:SetPos(myPos)
+		expLight:Fire("Color", "255 150 0")
+		expLight:Spawn()
+		expLight:Activate()
+		expLight:Fire("TurnOn")
+		expLight:Fire("Kill", nil, 0.15)
 	end
 end

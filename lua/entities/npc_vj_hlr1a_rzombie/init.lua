@@ -55,6 +55,7 @@ local animDeathDef = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 --
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Init" then
+		local myUpPos = self:GetPos() + self:GetUp() * 60
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 		spr:SetKeyValue("GlowProxySize", "2.0")
@@ -68,10 +69,19 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		spr:SetKeyValue("framerate", "20.0")
 		spr:SetKeyValue("spawnflags", "0")
 		spr:SetKeyValue("scale", "1.5")
-		spr:SetPos(self:GetPos() + self:GetUp() * 60)
+		spr:SetPos(myUpPos)
 		spr:Spawn()
 		spr:Fire("Kill", nil, 0.7)
-		timer.Simple(0.7, function() if IsValid(spr) then spr:Remove() end end)
+
+		local expLight = ents.Create("light_dynamic")
+		expLight:SetKeyValue("brightness", "4")
+		expLight:SetKeyValue("distance", "300")
+		expLight:SetPos(myUpPos)
+		expLight:Fire("Color", "255 150 0")
+		expLight:Spawn()
+		expLight:Activate()
+		expLight:Fire("TurnOn")
+		expLight:Fire("Kill", nil, 0.15)
 		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
 			self.DeathAnimationDecreaseLengthAmount = -1
 			self.DeathCorpseEntityClass = "prop_vj_animatable"
@@ -91,6 +101,7 @@ local gibsCollideSd = {"vj_hlr/gsrc/fx/metal1.wav", "vj_hlr/gsrc/fx/metal2.wav",
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self.HasDeathSounds = false
 	if self.HasGibOnDeathEffects then
+		local myUpPos = self:GetPos() + self:GetUp() * 60
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 		spr:SetKeyValue("GlowProxySize", "2.0")
@@ -104,10 +115,19 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		spr:SetKeyValue("framerate", "20.0")
 		spr:SetKeyValue("spawnflags", "0")
 		spr:SetKeyValue("scale", "2")
-		spr:SetPos(self:GetPos() + self:GetUp() * 60)
+		spr:SetPos(myUpPos)
 		spr:Spawn()
 		spr:Fire("Kill", nil, 0.7)
-		timer.Simple(0.7, function() if IsValid(spr) then spr:Remove() end end)
+
+		local expLight = ents.Create("light_dynamic")
+		expLight:SetKeyValue("brightness", "4")
+		expLight:SetKeyValue("distance", "300")
+		expLight:SetPos(myUpPos)
+		expLight:Fire("Color", "255 150 0")
+		expLight:Spawn()
+		expLight:Activate()
+		expLight:Fire("TurnOn")
+		expLight:Fire("Kill", nil, 0.15)
 	end
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p1.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(0, 0, 40)), CollisionSound = gibsCollideSd})
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/metalgib_p2.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(0, 1, 40)), CollisionSound = gibsCollideSd})

@@ -730,7 +730,16 @@ hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo
 						spr:SetPos(centerPos)
 						spr:Spawn()
 						spr:Fire("Kill", nil, 0.7)
-						timer.Simple(0.7, function() if IsValid(spr) then spr:Remove() end end)
+
+						local expLight = ents.Create("light_dynamic")
+						expLight:SetKeyValue("brightness", "4")
+						expLight:SetKeyValue("distance", "300")
+						expLight:SetPos(centerPos)
+						expLight:Fire("Color", "255 150 0")
+						expLight:Spawn()
+						expLight:Activate()
+						expLight:Fire("TurnOn")
+						expLight:Fire("Kill", nil, 0.15)
 					else
 						local effectData = EffectData()
 						effectData:SetOrigin(centerPos)

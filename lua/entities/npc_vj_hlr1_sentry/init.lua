@@ -36,6 +36,9 @@ ENT.VJ_ID_Healable = false
 ENT.PoseParameterLooking_InvertPitch = true
 ENT.PoseParameterLooking_InvertYaw = true
 
+ENT.HasDeathAnimation = true
+ENT.AnimTbl_Death = ACT_DIESIMPLE
+
 ENT.SoundTbl_Alert = "vj_hlr/gsrc/npc/turret/tu_deploy.wav"
 ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav", "ambient/energy/spark2.wav", "ambient/energy/spark3.wav", "ambient/energy/spark4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/turret/tu_die.wav", "vj_hlr/gsrc/npc/turret/tu_die2.wav", "vj_hlr/gsrc/npc/turret/tu_die2.wav"}
@@ -258,17 +261,17 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		muz:Activate()
 		muz:Fire("Kill", nil, 0.08)
 
-		local muzzleLight = ents.Create("light_dynamic")
-		muzzleLight:SetKeyValue("brightness", "4")
-		muzzleLight:SetKeyValue("distance", "120")
-		muzzleLight:SetPos(attPos)
-		muzzleLight:Fire("Color", "255 150 60")
-		muzzleLight:SetParent(self)
-		muzzleLight:Spawn()
-		muzzleLight:Activate()
-		muzzleLight:Fire("TurnOn")
-		muzzleLight:Fire("Kill", nil, 0.07)
-		self:DeleteOnRemove(muzzleLight)
+		local muzLight = ents.Create("light_dynamic")
+		muzLight:SetKeyValue("brightness", "4")
+		muzLight:SetKeyValue("distance", "120")
+		muzLight:Fire("Color", "255 150 60")
+		muzLight:SetParent(self)
+		muzLight:Fire("SetParentAttachment", self.Sentry_MuzzleAttach)
+		muzLight:Spawn()
+		muzLight:Activate()
+		muzLight:Fire("TurnOn")
+		muzLight:Fire("Kill", nil, 0.07)
+		self:DeleteOnRemove(muzLight)
 		return true
 	end
 end
@@ -280,8 +283,14 @@ end
 local vecUp20 = Vector(0, 0, 20)
 --
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Finish" then
+	if status == "DeathAnim" then
+		if self.Sentry_Type == 0 then
+		-- Set a random Y angle for death animation like in HL1
+			self:SetAngles(Angle(0, math.random(0, 360), 0))
+		end
+	elseif status == "Finish" then
 		-- Explosion sprite
+		local myPos = self:GetPos()
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 		spr:SetKeyValue("GlowProxySize", "2.0")
@@ -295,6 +304,17 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		spr:SetKeyValue("framerate", "15.0")
 		spr:SetKeyValue("spawnflags", "0")
 		spr:SetKeyValue("scale", "1.5")
+		spr:SetPos(myPos)
+
+		local expLight = ents.Create("light_dynamic")
+		expLight:SetKeyValue("brightness", "4")
+		expLight:SetKeyValue("distance", "300")
+		expLight:SetPos(myPos)
+		expLight:Fire("Color", "255 150 0")
+		expLight:Spawn()
+		expLight:Activate()
+		expLight:Fire("TurnOn")
+		expLight:Fire("Kill", nil, 0.15)
 		if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
 			self.DeathCorpseEntityClass = "prop_vj_animatable"
 			spr:SetPos(self:GetPos() + self:GetUp() * (self.Sentry_OrientationType == 1 and -30 or 20))
@@ -374,6 +394,7 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	if self.Sentry_Type == 1 or self.Sentry_Type == 2 then
 		corpse:DrawShadow(false)
 		corpse:ResetSequence("die")
+		corpse:SetCycle(1)
 	end
 	if self.Sentry_Type == 0 then
 		VJ.HLR_ApplyCorpseSystem(self, corpse, gibs, {CollisionSound = gibsCollideSd, ExpSound = "vj_hlr/gsrc/npc/rgrunt/rb_gib.wav", SplatDecal = "VJ_HLR1_Scorch"})
