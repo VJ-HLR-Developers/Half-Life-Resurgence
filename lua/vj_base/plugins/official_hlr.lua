@@ -571,7 +571,7 @@ function VJ.HLR_ApplyCorpseSystem(ent, corpse, gibTbl, extra)
 	corpse.HLR_Corpse = true
 	corpse.HLR_Corpse_Type = ent.BloodColor
 	if ent.HasBloodParticle then corpse.HLR_Corpse_Particle = ent.BloodParticle end
-	corpse.HLR_Corpse_Decal = ent.HasBloodDecal and VJ.PICK(ent.BloodDecal) or ""
+	corpse.HLR_Corpse_Decal = ent.HasBloodDecal and VJ.PICK(ent.BloodDecal) or false
 	corpse.HLR_Corpse_Gibbable = extra.Gibbable != false
 	if !gibTbl then
 		if corpse.HLR_Corpse_Type == "Yellow" then
