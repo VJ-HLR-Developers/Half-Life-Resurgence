@@ -42,7 +42,7 @@ ENT.DeathCorpseModel = "models/vj_hlr/hl1/alien_cannon_bottom.mdl"
 ENT.GibOnDeathFilter = false
 
 ENT.SoundTbl_Breath = "vj_hlr/gsrc/npc/xencannon/alien_powernode.wav"
-ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav", "ambient/energy/spark2.wav", "ambient/energy/spark3.wav", "ambient/energy/spark4.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/fx/spark1.wav", "vj_hlr/gsrc/fx/spark2.wav", "vj_hlr/gsrc/fx/spark3.wav", "vj_hlr/gsrc/fx/spark4.wav", "vj_hlr/gsrc/fx/spark5.wav", "vj_hlr/gsrc/fx/spark6.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/xencannon/bustconcrete1.wav", "vj_hlr/gsrc/npc/xencannon/bustconcrete2.wav"}
 
 ENT.BreathSoundLevel = 70

@@ -47,6 +47,7 @@ function ENT:HECU_OnInit()
 	self.SoundTbl_AllyDeath = "vj_hlr/gsrc/npc/rgrunt/rb_allydeath1.wav"
 	self.SoundTbl_Pain = {"vj_hlr/gsrc/npc/rgrunt/spark1.wav", "vj_hlr/gsrc/npc/rgrunt/spark2.wav", "vj_hlr/gsrc/npc/rgrunt/spark3.wav", "vj_hlr/gsrc/npc/rgrunt/spark4.wav", "vj_hlr/gsrc/npc/rgrunt/spark5.wav", "vj_hlr/gsrc/npc/rgrunt/spark6.wav"}
 	self.SoundTbl_Death = {"vj_hlr/gsrc/npc/rgrunt/rb_die1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_die2.wav", "vj_hlr/gsrc/npc/rgrunt/rb_die3.wav"}
+	self.SoundTbl_Impact = {"vj_hlr/gsrc/fx/spark1.wav", "vj_hlr/gsrc/fx/spark2.wav", "vj_hlr/gsrc/fx/spark3.wav", "vj_hlr/gsrc/fx/spark4.wav", "vj_hlr/gsrc/fx/spark5.wav", "vj_hlr/gsrc/fx/spark6.wav"}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:HECU_OnThink()

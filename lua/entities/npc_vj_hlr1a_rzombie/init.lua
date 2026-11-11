@@ -19,6 +19,7 @@ ENT.HasBloodDecal = false
 ENT.VJ_ID_Healable = false
 ENT.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/rgrunt/pl_metal1.wav", "vj_hlr/gsrc/npc/rgrunt/pl_metal2.wav", "vj_hlr/gsrc/npc/rgrunt/pl_metal3.wav", "vj_hlr/gsrc/npc/rgrunt/pl_metal4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/rgrunt/rb_die1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_die2.wav", "vj_hlr/gsrc/npc/rgrunt/rb_die3.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/fx/spark1.wav", "vj_hlr/gsrc/fx/spark2.wav", "vj_hlr/gsrc/fx/spark3.wav", "vj_hlr/gsrc/fx/spark4.wav", "vj_hlr/gsrc/fx/spark5.wav", "vj_hlr/gsrc/fx/spark6.wav"}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
 	-- Take damage if in water

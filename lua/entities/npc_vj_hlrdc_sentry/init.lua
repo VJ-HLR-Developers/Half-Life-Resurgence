@@ -62,7 +62,17 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		spr:SetPos(pos)
 		spr:Spawn()
 		spr:Fire("Kill", nil, 0.9)
-		
+
+		local expLight = ents.Create("light_dynamic")
+		expLight:SetKeyValue("brightness", "4")
+		expLight:SetKeyValue("distance", "300")
+		expLight:SetPos(pos)
+		expLight:Fire("Color", "255 150 0")
+		expLight:Spawn()
+		expLight:Activate()
+		expLight:Fire("TurnOn")
+		expLight:Fire("Kill", nil, 0.15)
+
 		util.BlastDamage(self, self, pos, 50, 30)
 		VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris" .. math.random(1, 3) .. ".wav", 80, 100)
 		VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)

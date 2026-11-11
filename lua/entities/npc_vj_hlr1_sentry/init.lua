@@ -40,8 +40,8 @@ ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 
 ENT.SoundTbl_Alert = "vj_hlr/gsrc/npc/turret/tu_deploy.wav"
-ENT.SoundTbl_Impact = {"ambient/energy/spark1.wav", "ambient/energy/spark2.wav", "ambient/energy/spark3.wav", "ambient/energy/spark4.wav"}
-ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/turret/tu_die.wav", "vj_hlr/gsrc/npc/turret/tu_die2.wav", "vj_hlr/gsrc/npc/turret/tu_die2.wav"}
+ENT.SoundTbl_Impact = {"vj_hlr/gsrc/fx/spark1.wav", "vj_hlr/gsrc/fx/spark2.wav", "vj_hlr/gsrc/fx/spark3.wav", "vj_hlr/gsrc/fx/spark4.wav", "vj_hlr/gsrc/fx/spark5.wav", "vj_hlr/gsrc/fx/spark6.wav"}
+ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/turret/tu_die.wav", "vj_hlr/gsrc/npc/turret/tu_die2.wav", "vj_hlr/gsrc/npc/turret/tu_die3.wav"}
 
 ENT.MainSoundPitch = 100
 
@@ -294,6 +294,10 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Init" then
 		if self.Sentry_RegularType == SENTRY_REGULAR_TYPE_DECAY then return end -- Decay has its own death behavior
 		-- Explosion sprite
+		local myPos = self:GetPos()
+		local myUp = self:GetUp()
+		local myUpPos = myPos + myUp * (self.Sentry_OrientationType == SENTRY_ORIENTATION_CEILING and -30 or 30)
+		local myUpPos2 = myPos + myUp * 60
 		local spr = ents.Create("env_sprite")
 		spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 		spr:SetKeyValue("GlowProxySize", "2.0")
@@ -309,12 +313,26 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		spr:SetKeyValue("scale", "1.5")
 		if self.Sentry_Type == SENTRY_TYPE_BM_BIG or self.Sentry_Type == SENTRY_TYPE_BM_MINI then
 			self.DeathCorpseEntityClass = "prop_vj_animatable"
-			spr:SetPos(self:GetPos() + self:GetUp() * (self.Sentry_OrientationType == SENTRY_ORIENTATION_CEILING and -30 or 30))
+			spr:SetPos(myUpPos)
 		else
-			spr:SetPos(self:GetPos() + self:GetUp() * 60)
+			spr:SetPos(myUpPos2)
 		end
 		spr:Spawn()
 		spr:Fire("Kill", nil, 0.9)
+
+		local expLight = ents.Create("light_dynamic")
+		expLight:SetKeyValue("brightness", "4")
+		expLight:SetKeyValue("distance", "300")
+		if self.Sentry_Type == SENTRY_TYPE_BM_BIG or self.Sentry_Type == SENTRY_TYPE_BM_MINI then
+			expLight:SetPos(myUpPos)
+		else
+			expLight:SetPos(myUpPos2)
+		end
+		expLight:Fire("Color", "255 150 0")
+		expLight:Spawn()
+		expLight:Activate()
+		expLight:Fire("TurnOn")
+		expLight:Fire("Kill", nil, 0.15)
 	elseif status == "DeathAnim" then
 		-- Set a random Y angle for death animation like in HL1
 		if self.Sentry_Type == SENTRY_TYPE_REGULAR && self.Sentry_RegularType == SENTRY_REGULAR_TYPE_NORMAL then
