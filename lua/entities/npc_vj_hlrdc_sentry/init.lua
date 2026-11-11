@@ -15,10 +15,11 @@ ENT.ControllerParams = {
 ENT.DeathAnimationTime = 5
 
 -- Custom
-ENT.Sentry_GroundType = 1
+ENT.Sentry_RegularType = 1
 ENT.Sentry_MuzzleAttach = "muzzle"
 ENT.Sentry_AlarmAttach = "sensor"
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vecUp20 = Vector(0, 0, 20)
 local parentDeathFunc = ENT.OnDeath
 --
 function ENT:OnDeath(dmginfo, hitgroup, status)
@@ -42,5 +43,30 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				end
 			end)
 		end
+	elseif status == "Finish" then
+		-- Explosion sprite
+		local pos = self:GetAttachment(self:LookupAttachment("center")).Pos + vecUp20
+		local spr = ents.Create("env_sprite")
+		spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
+		spr:SetKeyValue("GlowProxySize", "2.0")
+		spr:SetKeyValue("HDRColorScale", "1.0")
+		spr:SetKeyValue("renderfx", "14")
+		spr:SetKeyValue("rendermode", "5")
+		spr:SetKeyValue("renderamt", "255")
+		spr:SetKeyValue("disablereceiveshadows", "0")
+		spr:SetKeyValue("mindxlevel", "0")
+		spr:SetKeyValue("maxdxlevel", "0")
+		spr:SetKeyValue("framerate", "15.0")
+		spr:SetKeyValue("spawnflags", "0")
+		spr:SetKeyValue("scale", "1.5")
+		spr:SetPos(pos)
+		spr:Spawn()
+		spr:Fire("Kill", nil, 0.9)
+		
+		util.BlastDamage(self, self, pos, 50, 30)
+		VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/debris" .. math.random(1, 3) .. ".wav", 80, 100)
+		VJ.EmitSound(self, "vj_hlr/gsrc/wep/explosion/explode" .. math.random(3, 5) .. "_dist.wav", 140, 100)
+		self.GibOnDeathFilter = false
+		self:GibOnDeath(DamageInfo(), hitgroup) -- dmginfo is corrupt by now, declare a new one
 	end
 end

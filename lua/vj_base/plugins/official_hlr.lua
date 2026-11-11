@@ -865,7 +865,7 @@ if CLIENT then
 			panel:CheckBox("Friendly Black Ops Faction", "vj_hlr1_friendly_bops")
 			panel:CheckBox("Friendly BM Turrets Faction", "vj_hlr1_friendly_bmturrets")
 			panel:Help("GoldSrc Engine:")
-			panel:CheckBox("Corpses Are Static Like GoldSrc", "vj_hlr1_corpse_static")
+			//panel:CheckBox("Corpses Are Static Like GoldSrc", "vj_hlr1_corpse_static")
 			panel:CheckBox("Corpses Create Effects & Decals", "vj_hlr1_corpse_effects")
 			panel:CheckBox("Corpses Can Be Dismembered", "vj_hlr1_corpse_gibbable")
 			panel:CheckBox("M2A3 Bradley Deploys Human Grunts", "vj_hlr1_bradley_deploygrunts")
