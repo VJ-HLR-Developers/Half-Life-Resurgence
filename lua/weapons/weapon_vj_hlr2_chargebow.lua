@@ -14,14 +14,14 @@ SWEP.UseHands = true
 SWEP.WorldModelOffsetParams = {
 	Enabled = true
 }
-	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+	-- NPC Settings 
 SWEP.NPC_NextPrimaryFire = 3
 SWEP.NPC_TimeUntilFire = 0.4
 SWEP.NPC_StandingOnly = true
 SWEP.NPC_FiringDistanceScale = 0.5
 SWEP.NPC_ReloadSound = "weapons/physcannon/physcannon_pickup.wav"
 SWEP.NPC_BulletSpawnAttachment = "muzzle"
-	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
+	-- Primary Fire 
 SWEP.Primary.ClipSize = 1
 SWEP.Primary.Delay = 1.25
 SWEP.Primary.Ammo = "XBowBolt"
@@ -31,16 +31,16 @@ SWEP.Primary.DistantSound = {}
 SWEP.PrimaryEffects_MuzzleFlash = false
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.Primary.DisableBulletCode = true
-	-- Reload Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+	-- Reload Settings 
 SWEP.ReloadSound = "weapons/physcannon/physcannon_pickup.wav" // npc/assassin/ball_zap1.wav
 
 -- Custom
 SWEP.Bow_NumShots = 1
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:PreDrawViewModel(vm, weapon, ply)
 	vm:SetBodygroup(1, 1) -- Because bodygroup texture is broken
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local posOrgPly = Vector(-1, 1.732, -1.5)
 local posAngPly = Angle(0, -60, -180)
 local posOrgNPC = Vector(12.008, -4.098, -1.002)
@@ -59,7 +59,7 @@ function SWEP:OnDrawWorldModel()
 	end
 	return true
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:OnReload(status)
 	if status == "Start" then
 		self.Bow_NumShots = 1
@@ -68,14 +68,14 @@ function SWEP:OnReload(status)
 		self.AnimTbl_Draw = ACT_VM_DRAW
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:SecondaryAttack()
 	self.Bow_NumShots = 3
 	self:PrimaryAttack()
 	self:SetNextSecondaryFire(CurTime() + self.Primary.Delay)
 	return true
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:OnPrimaryAttack(status, statusData)
 	if status == "Init" then
 		local owner = self:GetOwner()
@@ -105,7 +105,7 @@ function SWEP:OnPrimaryAttack(status, statusData)
 			local phys = projectile:GetPhysicsObject()
 			if phys:IsValid() then
 				if owner:IsPlayer() then
-					phys:SetVelocity(owner:GetAimVector() * 3000 + Vector(i == 2 && -75 or i == 3 && 75 or 0, 0, 0))
+					phys:SetVelocity(owner:GetAimVector() * 3000 + Vector(i == 2 and -75 or i == 3 and 75 or 0, 0, 0))
 				else
 					phys:SetVelocity(VJ.CalculateTrajectory(owner, owner:GetEnemy(), "Line", spawnPos + Vector(math.Rand(-15, 15), math.Rand(-15, 15), math.Rand(-15, 15)), 1, 3000))
 				end

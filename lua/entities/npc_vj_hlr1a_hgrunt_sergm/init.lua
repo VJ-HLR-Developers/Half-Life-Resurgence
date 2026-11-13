@@ -13,7 +13,7 @@ ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK2}
 
 -- Custom
 ENT.Serg_Type = 2
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	if act == ACT_IDLE then
 		return ACT_CROUCH

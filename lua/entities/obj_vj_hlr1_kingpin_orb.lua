@@ -16,7 +16,7 @@ ENT.VJ_ID_Danger = true
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlr1_kingpin_orb", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/vj_base/projectiles/spit_acid_large.mdl"
@@ -33,7 +33,7 @@ local defVec = Vector()
 ENT.Track_Ent = NULL
 ENT.Track_Position = defVec
 ENT.Track_OrbSpeed = 200
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetNoDraw(true)
 
@@ -57,7 +57,7 @@ function ENT:Init()
 	self:DeleteOnRemove(spr)
 	util.SpriteTrail(self, 0, Color(255, 127, 223, 180), true, 50, 0, 1.5, 1 / (6 + 0) * 0.5, "vj_hl/sprites/laserbeam.vmt")
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	if IsValid(self:GetOwner()) then
 		self.Track_Ent = self:GetOwner():GetEnemy()
@@ -74,7 +74,7 @@ function ENT:OnThink()
 	end
 	self.Track_OrbSpeed = math.Clamp(self.Track_OrbSpeed + 10, 200, 2000)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCollision(data, phys)
 	self.MainSprite:Remove()
 end

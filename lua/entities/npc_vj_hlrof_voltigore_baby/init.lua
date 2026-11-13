@@ -14,7 +14,7 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(3, 0, 2),
 	FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow"
@@ -53,7 +53,7 @@ ENT.FootstepSoundLevel = 55
 ENT.FootstepSoundPitch = 130
 
 ENT.MainSoundPitch = VJ.SET(120, 125)
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(20, 20, 30), Vector(-20, -20, 0))
 	-- !!!HACK HACK!!! Baby voltigore doesn't have a "eyes" position thus its eye pos is offset ~100 units up breaking BodyTarget and EyePos calls!
@@ -67,7 +67,7 @@ function ENT:Init()
 		end
 	end)*/
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
@@ -76,7 +76,7 @@ function ENT:OnInput(key, activator, caller, data)
 		self:ExecuteMeleeAttack()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local elecTime = 0.989990234375
 --
 function ENT:OnRangeAttack(status, enemy)
@@ -111,7 +111,7 @@ function ENT:OnRangeAttack(status, enemy)
 		spr:Spawn()
 		spr:Activate()
 		self:DeleteOnRemove(spr)
-		timer.Simple(elecTime, function() if IsValid(self) && IsValid(spr) then spr:Remove() end end)
+		timer.Simple(elecTime, function() if IsValid(self) and IsValid(spr) then spr:Remove() end end)
 
 		-- Chance of killing itself while attempting to range attack!
 		if math.random(1, 150) == 1 then
@@ -128,21 +128,21 @@ function ENT:OnRangeAttack(status, enemy)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "Init" then
 		return true
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+	if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		VJ.HLR_StaticCorpseCheck(self)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -174,7 +174,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	VJ.HLR_ApplyCorpseSystem(self, corpse, nil, {CollisionSound = gibsCollideSd})
 end

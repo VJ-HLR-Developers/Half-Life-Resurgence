@@ -7,7 +7,7 @@ ENT.Category = "Half-Life Resurgence"
 
 ENT.VJ_ID_Police = true
 
-if CLIENT && GetConVar("vj_hlr2_combine_eyeglow"):GetBool() then
+if CLIENT and GetConVar("vj_hlr2_combine_eyeglow"):GetBool() then
 	local mat = Material("sprites/light_glow02_add")
 	local col = Color(118, 236, 110)
 	local render_SetMaterial = render.SetMaterial

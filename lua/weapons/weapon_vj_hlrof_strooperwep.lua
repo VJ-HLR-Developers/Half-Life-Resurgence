@@ -5,20 +5,20 @@ SWEP.PrintName = "Shock Weapon"
 SWEP.Author = "DrVrej"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category = "Half-Life Resurgence"
-	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+	-- NPC Settings 
 SWEP.NPC_NextPrimaryFire = false
 SWEP.NPC_ReloadSound = "vj_hlr/gsrc/wep/shockroach/shock_recharge.wav"
 SWEP.NPC_CanBePickedUp = false
-	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+	-- Main Settings 
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/props_junk/watermelon01_chunk02c.mdl"
 SWEP.HoldType = "smg"
-	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
+	-- World Model 
 SWEP.WorldModelOffsetParams = {
 	Enabled = true,
 	Bone = "Bone58"
 }
-	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
+	-- Primary Fire 
 SWEP.Primary.Damage = 5
 SWEP.Primary.ClipSize = 30
 SWEP.Primary.Ammo = "SMG1"
@@ -35,16 +35,16 @@ SWEP.HLR_NextIdleSoundT = 0
 local validModels = {
 	["models/vj_hlr/opfor/strooper.mdl"] = true
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:Init()
 	self:SetDrawWorldModel(false)
 	timer.Simple(0.1, function()
-		if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
+		if IsValid(self) and IsValid(self:GetOwner()) and VJ.HLR_Weapon_CheckModel(self, validModels) then
 			self.NPC_NextPrimaryFire = false
 		end
 	end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:OnPrimaryAttack(status, statusData)
 	if status == "Init" then
 		if CLIENT then return end
@@ -64,11 +64,11 @@ function SWEP:OnPrimaryAttack(status, statusData)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:OnGetBulletPos()
 	return self:GetOwner():GetAttachment(self:GetOwner():LookupAttachment("muzzle")).Pos
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:OnThink()
 	local owner = self:GetOwner()
 	owner:SetBodygroup(1, 0)
@@ -83,7 +83,7 @@ function SWEP:OnThink()
 		self.HLR_NextIdleSoundT = CurTime() + math.Rand(5, 12)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:CustomOnRemove()
 	if IsValid(self:GetOwner()) then self:GetOwner():SetBodygroup(1, 1) end
 end

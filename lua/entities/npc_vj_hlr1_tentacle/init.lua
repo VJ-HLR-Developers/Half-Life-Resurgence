@@ -17,7 +17,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Dummy04",
 	FirstP_Offset = Vector(23, 0, 30)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow_large"
@@ -55,12 +55,12 @@ ENT.Tentacle_Level = 0
 	-- 1 = Medium Level
 	-- 2 = High Level
 	-- 3 = Extreme Level
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(20, 20, 160), Vector(-20, -20, 0))
 	self:SetSurroundingBounds(Vector(-300, -300, 0), Vector(300, 300, 750))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("SPACE: Cycle through height levels")
 
@@ -90,7 +90,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 		self.CanTurnWhileStationary = false
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	if act == ACT_IDLE then
 		-- Level 0 is just ACT_IDLE so skip it
@@ -104,7 +104,7 @@ function ENT:TranslateActivity(act)
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:IsDirt(pos)
 	local tr = util.TraceLine({
 		start = pos,
@@ -113,31 +113,31 @@ function ENT:IsDirt(pos)
 		mask = MASK_NPCWORLDSTATIC
 	})
 	local mat = tr.MatType
-	return tr.HitWorld && (mat == MAT_SAND || mat == MAT_DIRT || mat == MAT_FOLIAGE || mat == MAT_SLOSH || mat == MAT_GRASS || mat == MAT_SNOW)
+	return tr.HitWorld and (mat == MAT_SAND or mat == MAT_DIRT or mat == MAT_FOLIAGE or mat == MAT_SLOSH or mat == MAT_GRASS or mat == MAT_SNOW)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAnimEvent(ev, evTime, evCycle, evType, evOptions)
 	-- Take care of the regular hit sound (When playing idle animations)
-	if ev == 6 && !self.VJ_Controlled then
-		self:PlaySoundSystem("MeleeAttack", (self:IsDirt(self:GetPos() + self:GetForward() * 300) && sdBeakStrikeDirt) or sdBeakStrikeDef, VJ.EmitSound)
+	if ev == 6 and !self.VJ_Controlled then
+		self:PlaySoundSystem("MeleeAttack", (self:IsDirt(self:GetPos() + self:GetForward() * 300) and sdBeakStrikeDirt) or sdBeakStrikeDef, VJ.EmitSound)
 		local ene = self:GetEnemy()
-		if IsValid(ene) && (ene:GetPos():Distance(self:GetPos() + self:GetForward() * 150)) < 200 then
+		if IsValid(ene) and (ene:GetPos():Distance(self:GetPos() + self:GetForward() * 150)) < 200 then
 			self.CanTurnWhileStationary = true
 			self:SetAngles(self:GetTurnAngle((ene:GetPos() - self:GetPos()):Angle()))
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "attack" then
 		self:ExecuteMeleeAttack()
-		self:PlaySoundSystem("MeleeAttack", (self:IsDirt(self:GetPos() + self:GetForward() * 300) && sdBeakStrikeDirt) or sdBeakStrikeDef, VJ.EmitSound)
+		self:PlaySoundSystem("MeleeAttack", (self:IsDirt(self:GetPos() + self:GetForward() * 300) and sdBeakStrikeDirt) or sdBeakStrikeDef, VJ.EmitSound)
 		local ene = self:GetEnemy()
 		if IsValid(ene) then self:SetAngles(self:GetTurnAngle((ene:GetPos() - self:GetPos()):Angle())) end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vecN = Vector(-20, -20, 0)
 local vecLvl0 = Vector(20, 20, 160)
 local vecLvl1 = Vector(20, 20, 380)
@@ -165,7 +165,7 @@ function ENT:Tentacle_DoLevelChange(num)
 		self:SetCollisionBounds(vecLvl3, vecN)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 --
 -- 0 to 1 = ACT_SIGNAL1				1 to 2 = ACT_SIGNAL2			2 to 3 = ACT_SIGNAL3
 -- 1 to 0 = ACT_SIGNAL_ADVANCE		2 to 1 = ACT_SIGNAL_FORWARD		3 to 2 = ACT_SIGNAL_HALT
@@ -213,13 +213,13 @@ function ENT:Tentacle_CalculateLevel(eneDist)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	if self.VJ_Controlled then return end
 	local ene = self:GetEnemy()
 	if IsValid(ene) then
 		-- If enemy is (on ground & moving) OR (its an NPC that is moving)
-		if (ene:IsNPC() && ene:IsMoving()) or (VJ.GetMoveVelocity(ene):Length() > 50 && ene:IsOnGround()) then
+		if (ene:IsNPC() and ene:IsMoving()) or (VJ.GetMoveVelocity(ene):Length() > 50 and ene:IsOnGround()) then
 			self.CanTurnWhileStationary = true
 		else
 			self.CanTurnWhileStationary = false
@@ -233,7 +233,7 @@ function ENT:OnThink()
 		self.CanTurnWhileStationary = false
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --

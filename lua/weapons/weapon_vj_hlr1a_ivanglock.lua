@@ -5,23 +5,23 @@ SWEP.PrintName = "Ivan's Glock 17"
 SWEP.Author = "DrVrej"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category = "Half-Life Resurgence"
-	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+	-- NPC Settings 
 SWEP.NPC_NextPrimaryFire = false
 SWEP.NPC_CustomSpread = 2
 SWEP.NPC_ReloadSound = "vj_hlr/gsrc/wep/glock/glock_reload.wav"
 SWEP.NPC_CanBePickedUp = false
-	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+	-- Main Settings 
 SWEP.MadeForNPCsOnly = true
 SWEP.ReplacementWeapon = {"weapon_hl1_glock", "weapon_glock_hl1"}
 SWEP.WorldModel = "models/vj_hlr/hla/w_docgun.mdl"
 SWEP.HoldType = "pistol"
-	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
+	-- World Model 
 SWEP.WorldModelOffsetParams = {
 	Enabled = true,
 	Bone = "unnamed037",
 	Pos = Vector(3.3, 1, -0.7)
 }
-	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
+	-- Primary Fire 
 SWEP.Primary.Damage = 5
 SWEP.Primary.ClipSize = 17
 SWEP.Primary.TakeAmmo = 0
@@ -37,23 +37,23 @@ SWEP.DryFireSound = "vj_hlr/gsrc/wep/dryfire1.wav"
 local validModels = {
 	["models/vj_hlr/hla/doctor.mdl"] = true
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:Init()
 	timer.Simple(0.1, function()
-		if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
+		if IsValid(self) and IsValid(self:GetOwner()) and VJ.HLR_Weapon_CheckModel(self, validModels) then
 			self.NPC_NextPrimaryFire = false
 		end
 	end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:DoImpactEffect(tr, damageType)
 	return VJ.HLR1_Effect_Impact(tr)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:OnDrawWorldModel()
 	return !IsValid(self:GetOwner())
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:PrimaryAttackEffects(owner)
 	local muz = ents.Create("env_sprite")
 	muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash2.vmt")

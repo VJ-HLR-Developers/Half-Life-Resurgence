@@ -15,7 +15,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Bip01 Neck",
 	FirstP_Offset = Vector(0, 0, -5)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow_large"
 ENT.BloodDecal = "VJ_HLR1_Blood_Yellow"
@@ -72,7 +72,7 @@ ENT.Gonarch_NextDeadBirthT = 0
 ENT.Gonarch_ShakeWorldOnMiss = false
 
 local vj_hlr1_gonarch_babylimit = GetConVar("vj_hlr1_gonarch_babylimit")
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(100, 100, 200), Vector(-100, -100, 0))
 	self:SetStepHeight(50)
@@ -80,7 +80,7 @@ function ENT:Init()
 	self.Gonarch_NumBabies = 0
 	self.Gonarch_BabyLimit = vj_hlr1_gonarch_babylimit:GetInt()
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "Step" then
@@ -119,16 +119,16 @@ function ENT:OnInput(key, activator, caller, data)
 		self:ExecuteRangeAttack()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("JUMP: Spawn baby headcrabs")
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAlert(ent)
 	self.Gonarch_NextBirthT = CurTime() + math.random(3, 6)
 	self:PlayAnim(ACT_SIGNAL1, true, false, true) // {"vjseq_angry1", "vjseq_angry2"}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Gonarch_BabyDeath()
 	-- Play a sound when one of the babies dies!
 	self.Gonarch_NumBabies = self.Gonarch_NumBabies - 1
@@ -138,38 +138,38 @@ function ENT:Gonarch_BabyDeath()
 		self.Gonarch_NextDeadBirthT = CurTime() + 10
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThinkActive()
 	-- Create babies
 	local curTime = CurTime()
-	if !self.Dead && IsValid(self:GetEnemy()) && self.AttackAnimTime < curTime && curTime > self.Gonarch_NextBirthT && self.Gonarch_NumBabies < self.Gonarch_BabyLimit && ((!self.VJ_Controlled) or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP))) then
+	if !self.Dead and IsValid(self:GetEnemy()) and self.AttackAnimTime < curTime and curTime > self.Gonarch_NextBirthT and self.Gonarch_NumBabies < self.Gonarch_BabyLimit and ((!self.VJ_Controlled) or (self.VJ_Controlled and self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP))) then
 		self:PlayAnim(ACT_SPECIAL_ATTACK1, true, false, true)
 		self.Gonarch_NextBirthT = curTime + 15
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjPos(projectile)
 	return self:GetPos() + self:GetUp() * 180
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjVel(projectile)
 	return (self:GetEnemy():GetPos() - self:GetPos()) * 0.45 + self:GetUp() * 600
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnMeleeAttackExecute(status, ent, isProp)
-	if status == "Miss" && self.Gonarch_ShakeWorldOnMiss then
+	if status == "Miss" and self.Gonarch_ShakeWorldOnMiss then
 		util.ScreenShake(self:GetPos(), 16, 100, 1, 1000)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+	if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		VJ.HLR_StaticCorpseCheck(self)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -203,7 +203,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	VJ.HLR_ApplyCorpseSystem(self, corpse, nil, {Gibbable = false})
 end

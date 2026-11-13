@@ -15,7 +15,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Bip01 Head",
 	FirstP_Offset = Vector(7, 0, -12)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow_large"
@@ -75,9 +75,9 @@ ENT.Garg_CanFlame = false
 ENT.Garg_FlameLevel = 0 -- 0 = Not started | 1 = Preparing | 2 = Flame active
 ENT.Garg_NextFlameT = 0
 ENT.Garg_MeleeLargeKnockback = false
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:PreInit()
-	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD then
+	if GetConVar("vj_hlr_hd"):GetInt() == 1 and VJ.HLR_INSTALLED_HD then
 		if self:GetClass() == "npc_vj_hlr1_garg" then
 			self.Model = "models/vj_hlr/hl_hd/garg.mdl"
 		elseif self:GetClass() == "npc_vj_hlrsv_garg_baby" then
@@ -86,7 +86,7 @@ function ENT:PreInit()
 	end
 	self.TimersToRemove[#self.TimersToRemove + 1] = "garg_flame_reset"
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	if self.Garg_Type == 0 then -- Adult garg
 		self:SetCollisionBounds(Vector(70, 70, 210),  Vector(-70, -70, 0))
@@ -107,12 +107,12 @@ function ENT:Init()
 	glow1:Activate()
 	self:DeleteOnRemove(glow1)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
 	if self.Garg_Type == 1 then return end
 	ply:ChatPrint("Right Mouse + CTRL: Preform Stomp attack")
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
@@ -124,7 +124,7 @@ function ENT:OnInput(key, activator, caller, data)
 		self:ExecuteRangeAttack()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Garg_ResetFlame()
 	if self.Garg_CanFlame then
 		self:ResetTurnTarget()
@@ -138,16 +138,16 @@ function ENT:Garg_ResetFlame()
 	VJ.STOPSOUND(self.Garg_FlameSd)
 	self:StopParticles()
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
-	if act == ACT_IDLE && self.Garg_FlameLevel >= 1 then
+	if act == ACT_IDLE and self.Garg_FlameLevel >= 1 then
 		return ACT_RANGE_ATTACK1
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThinkActive()
-	if self.Garg_CanFlame && self.Garg_NextFlameT < CurTime() && self.AttackType == VJ.ATTACK_TYPE_NONE then
+	if self.Garg_CanFlame and self.Garg_NextFlameT < CurTime() and self.AttackType == VJ.ATTACK_TYPE_NONE then
 		self.DisableChasingEnemy = true
 		self:StopMoving()
 
@@ -157,7 +157,7 @@ function ENT:OnThinkActive()
 			self.Garg_FlameLevel = 1
 			self.Garg_NextFlameT = CurTime() + 0.8 -- Don't use anim duration because we want it to start playing the flame animation mid way
 			timer.Simple(0.5, function() -- Play flame start sound
-				if IsValid(self) && self.Garg_CanFlame then
+				if IsValid(self) and self.Garg_CanFlame then
 					VJ.EmitSound(self, "vj_hlr/gsrc/npc/garg/gar_flameon1.wav", 80)
 				end
 			end)
@@ -168,7 +168,7 @@ function ENT:OnThinkActive()
 		self.Garg_NextFlameT = CurTime() + 0.2
 
 		local range = (self.Garg_Type == 1 and 280) or 460
-		VJ.ApplyRadiusDamage(self, self, self:GetPos() + self:OBBCenter() + self:GetForward() * 15, range, 3, DMG_BURN, true, true, {UseConeDegree = 35}, function(ent) if !ent:IsOnFire() && ent.VJ_ID_Living then ent:Ignite(2) end end)
+		VJ.ApplyRadiusDamage(self, self, self:GetPos() + self:OBBCenter() + self:GetForward() * 15, range, 3, DMG_BURN, true, true, {UseConeDegree = 35}, function(ent) if !ent:IsOnFire() and ent.VJ_ID_Living then ent:Ignite(2) end end)
 
 		-- COSMETICS: Sound, particle and decal
 		self.Garg_FlameSd = VJ.CreateSound(self, "vj_hlr/gsrc/npc/garg/gar_flamerun1.wav")
@@ -192,7 +192,7 @@ function ENT:OnThinkActive()
 		util.Decal("VJ_HLR1_Scorch", hitPos2 + tr2.HitNormal, hitPos2 - tr2.HitNormal)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThinkAttack(isAttacking, enemy)
 	local eneData = self.EnemyData
 	local eneVisible = eneData.Visible
@@ -205,7 +205,7 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 			return
 		end
 	end
-	if eneVisible && self.AttackType == VJ.ATTACK_TYPE_NONE && eneData.DistanceNearest <= range && eneData.DistanceNearest > self.MeleeAttackDistance then
+	if eneVisible and self.AttackType == VJ.ATTACK_TYPE_NONE and eneData.DistanceNearest <= range and eneData.DistanceNearest > self.MeleeAttackDistance then
 		self.Garg_CanFlame = true
 		self:SetTurnTarget(enemy, -1)
 		//self.NextDoAnyAttackT = 1
@@ -217,11 +217,11 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 		self:Garg_ResetFlame()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:MeleeAttackKnockbackVelocity(ent)
 	return self:GetForward() * 500 + self:GetUp() * (self.Garg_MeleeLargeKnockback and 300 or 10)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnMeleeAttack(status, enemy)
 	if status == "Init" then
 		local randMelee = math.random(1, 3)
@@ -240,21 +240,21 @@ function ENT:OnMeleeAttack(status, enemy)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttack(status, enemy)
-	if status == "PreInit" && self.VJ_Controlled then
-		return !(self.VJ_Controller:GetPlayer():KeyDown(IN_DUCK) && self.VJ_Controller:GetPlayer():KeyDown(IN_ATTACK2))
+	if status == "PreInit" and self.VJ_Controlled then
+		return !(self.VJ_Controller:GetPlayer():KeyDown(IN_DUCK) and self.VJ_Controller:GetPlayer():KeyDown(IN_ATTACK2))
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjPos(projectile)
 	return self:GetPos() + self:GetUp() * 20 + self:GetForward() * 50 + self:GetRight() * -20
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjVel(projectile)
 	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projectile:GetPos(), 1, 200)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "PostSpawn" then
 		util.Decal("VJ_HLR1_Gargantua_Stomp", self:GetPos() + self:GetRight() * -20 + self:GetForward() * 50, self:GetPos() + self:GetRight() * -20 + self:GetForward() * 50 + self:GetUp() * -100, self)
@@ -263,12 +263,12 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	-- Make a metal ricochet effect
-	if status == "Init" && dmginfo:GetDamagePosition() != vec then
+	if status == "Init" and dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(5) -- Size
@@ -276,7 +276,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		util.Effect("VJ_HLR_Rico", rico)
 
 	-- Handle bullet damage scaling
-	elseif status == "PreDamage" && dmginfo:IsBulletDamage() then
+	elseif status == "PreDamage" and dmginfo:IsBulletDamage() then
 		if self.Garg_Type == 1 then -- Make babies take half damage for bullets
 			dmginfo:ScaleDamage(0.5)
 		elseif self.Garg_Type == 2 then -- Custom Gargantua
@@ -286,7 +286,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Init" then
 		-- Death sequence (With explosions)
@@ -330,7 +330,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local sdMetalCollision = {"vj_hlr/gsrc/fx/metal1.wav", "vj_hlr/gsrc/fx/metal2.wav", "vj_hlr/gsrc/fx/metal3.wav", "vj_hlr/gsrc/fx/metal4.wav", "vj_hlr/gsrc/fx/metal5.wav"}
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
@@ -423,7 +423,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	end)
 	return true, {AllowAnim = true, AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:CustomOnRemove()
 	VJ.STOPSOUND(self.Garg_FlameSd)
 end

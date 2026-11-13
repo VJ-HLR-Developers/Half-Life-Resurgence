@@ -14,7 +14,7 @@ ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlr1_grenade", ENT.PrintName, VJ.KILLICON_GRENADE)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/vj_hlr/weapons/w_grenade.mdl"
@@ -24,13 +24,13 @@ ENT.SoundTbl_OnRemove = {"vj_hlr/gsrc/wep/explosion/explode3.wav", "vj_hlr/gsrc/
 ENT.OnRemoveSoundLevel = 100
 
 local vj_hlr_hd = GetConVar("vj_hlr_hd")
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:PreInit()
-	if vj_hlr_hd:GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "obj_vj_hlr1_grenade" then
+	if vj_hlr_hd:GetInt() == 1 and VJ.HLR_INSTALLED_HD and self:GetClass() == "obj_vj_hlr1_grenade" then
 		self.Model = "models/vj_hlr/weapons/w_grenade_hd.mdl"
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCollision(data, phys)
 	local getVel = phys:GetVelocity()
 	local curVelSpeed = getVel:Length()
@@ -40,7 +40,7 @@ function ENT:OnCollision(data, phys)
 		self:PlaySound("OnCollide")
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vezZ90 = Vector(0, 0, 90)
 local vecZ4 = Vector(0, 0, 4)
 local vezZ100 = Vector(0, 0, 100)

@@ -58,9 +58,9 @@ ENT.SCI_Type = 3
 
 -- Custom
 ENT.Keller_WheelChair = true
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init() end -- Here to override the base class
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local baseThink = ENT.OnThink
 --
 function ENT:OnThink()
@@ -71,12 +71,12 @@ function ENT:OnThink()
 	end
 	baseThink(self)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local parentDeathFunc = ENT.OnDeath
 --
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	parentDeathFunc(self, dmginfo, hitgroup, status)
-	if status == "Finish" && self.DeathCorpseEntityClass != "prop_vj_animatable" then
+	if status == "Finish" and self.DeathCorpseEntityClass != "prop_vj_animatable" then
 		if self:GetBodygroup(0) == 1 then
 			self.Keller_WheelChair = false
 		end
@@ -84,12 +84,12 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		self:SetPos(self:GetPos() + self:GetUp() * 5)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	VJ.HLR_ApplyCorpseSystem(self, corpse, nil, {CollisionSound = gibsCollideSd})
-	if self.Keller_WheelChair && self.DeathCorpseEntityClass != "prop_vj_animatable" then
+	if self.Keller_WheelChair and self.DeathCorpseEntityClass != "prop_vj_animatable" then
 		self:CreateExtraDeathCorpse("prop_physics", "models/vj_hlr/decay/wheelchair.mdl")
 	end
 end

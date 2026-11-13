@@ -28,30 +28,30 @@ ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/shockroach/shock_die.wav"
 
 -- Custom --
 ENT.SRoach_Life = nil
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:PreInit()
 	if self.SRoach_Life then
 		timer.Simple(self.SRoach_Life, function()
-			if IsValid(self) && !self.Dead then
+			if IsValid(self) and !self.Dead then
 				self:TakeDamage(self:Health() + 1, self, self)
 			end
 		end)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	if key == "step" then
 		self:PlayFootstepSound()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAlert(ent)
 	if self.VJ_Controlled then return end
 	self:PlayAnim("angry", true, false, true) -- Shockroach always plays alert animation
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+	if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		VJ.HLR_StaticCorpseCheck(self)

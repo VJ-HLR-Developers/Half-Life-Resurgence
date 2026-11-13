@@ -22,13 +22,13 @@ ENT.Bradley_NextMissileAtkT = 0
 
 local vecMissile = Vector(28.65, 57.25, 19.28)
 local vecBullet = Vector(113.9, 2.62, 10.06)
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_Init()
 	VJ.HLR_ApplyFactionOptions(self)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_OnPrepareShell()
-	if CurTime() > self.Bradley_NextMissileAtkT && math.random(1, 5) == 1 then
+	if CurTime() > self.Bradley_NextMissileAtkT and math.random(1, 5) == 1 then
 		self.Bradley_DoingMissileAtk = true
 		self.Tank_Shell_NextFireTime = 3
 		self.Tank_Shell_TimeUntilFire = 1.5
@@ -56,10 +56,10 @@ function ENT:Tank_OnPrepareShell()
 		self.Tank_SoundTbl_FireShell = "vj_hlr/gsrc/npc/tanks/biggun2.wav"
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vecZ40 = Vector(0, 0, 40)
 --
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_OnFireShell(status, statusData)
 	if status == "Init" then
 		if self.Bradley_DoingMissileAtk then return end -- Missile lets the base code execute!
@@ -116,7 +116,7 @@ function ENT:Tank_OnFireShell(status, statusData)
 		return true -- Done in the projectile instead
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:DoImpactEffect(tr, damageType)
 	util.Decal("VJ_HLR1_Scorch_Small", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
 	return true

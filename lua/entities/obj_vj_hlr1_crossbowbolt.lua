@@ -16,7 +16,7 @@ ENT.PhysicsSolidMask = MASK_SHOT
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlr1_crossbowbolt", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/vj_hlr/hl1/crossbow_bolt.mdl"
@@ -26,7 +26,7 @@ ENT.DirectDamageType = DMG_SLASH
 ENT.CollisionDecal = "VJ_HLR1_Impact"
 ENT.SoundTbl_OnCollide = "vj_hlr/gsrc/wep/crossbow/xbow_hit1.wav"
 local sdOnCollideEnt = {"vj_hlr/gsrc/wep/crossbow/xbow_hitbod1.wav", "vj_hlr/gsrc/wep/crossbow/xbow_hitbod2.wav"}
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCollision(data, phys)
 	if IsValid(data.HitEntity) then
 		self.SoundTbl_OnCollide = sdOnCollideEnt

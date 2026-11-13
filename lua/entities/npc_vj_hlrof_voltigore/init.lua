@@ -14,7 +14,7 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(10, 0, 0),
 	FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow_large"
@@ -55,11 +55,11 @@ ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/voltigore/voltigore_die1.wav", "vj_hlr/gs
 ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 local extraMoveSd = {"vj_hlr/gsrc/npc/voltigore/voltigore_run_grunt1.wav", "vj_hlr/gsrc/npc/voltigore/voltigore_run_grunt2.wav"}
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(60, 60, 95), Vector(-60, -60, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
@@ -74,7 +74,7 @@ function ENT:OnInput(key, activator, caller, data)
 		self:ExecuteRangeAttack()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local elecTime = 0.989990234375
 --
 function ENT:OnRangeAttack(status, enemy)
@@ -109,21 +109,21 @@ function ENT:OnRangeAttack(status, enemy)
 		spr:Spawn()
 		spr:Activate()
 		self:DeleteOnRemove(spr)
-		timer.Simple(elecTime, function() if IsValid(self) && IsValid(spr) then spr:Remove() end end)
+		timer.Simple(elecTime, function() if IsValid(self) and IsValid(spr) then spr:Remove() end end)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjPos(projectile)
 	return self:GetAttachment(self:LookupAttachment("3")).Pos
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjVel(projectile)
 	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projectile:GetPos(), 1, 1500)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Init" then
-		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 			self.DeathAnimationDecreaseLengthAmount = -1
 			self.DeathCorpseEntityClass = "prop_vj_animatable"
 			VJ.HLR_StaticCorpseCheck(self)
@@ -134,7 +134,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -181,7 +181,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibs = {"models/vj_hlr/gibs/voltigore_gib1.mdl", "models/vj_hlr/gibs/voltigore_gib2.mdl", "models/vj_hlr/gibs/voltigore_gib3.mdl", "models/vj_hlr/gibs/voltigore_gib4.mdl", "models/vj_hlr/gibs/voltigore_gib5.mdl", "models/vj_hlr/gibs/voltigore_gib6.mdl", "models/vj_hlr/gibs/voltigore_gib7.mdl", "models/vj_hlr/gibs/voltigore_gib8.mdl", "models/vj_hlr/gibs/voltigore_gib9.mdl", "models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib6.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

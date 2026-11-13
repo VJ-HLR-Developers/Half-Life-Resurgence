@@ -16,7 +16,7 @@ ENT.VJ_ID_Danger = true
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlr1_orb_teleport", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/vj_base/projectiles/spit_acid_large.mdl"
@@ -31,7 +31,7 @@ local defVec = Vector()
 
 ENT.Track_Ent = NULL
 ENT.Track_Position = defVec
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetNoDraw(true)
 
@@ -54,7 +54,7 @@ function ENT:Init()
 	spr:SetParent(self)
 	self:DeleteOnRemove(spr)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	-- Homing Behavior
 	local trackedEnt = self.Track_Ent
@@ -69,7 +69,7 @@ function ENT:OnThink()
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorGreen = Color(0, 255, 0, 255)
 --
 function ENT:OnDealDamage(data, phys, hitEnts)
@@ -79,7 +79,7 @@ function ENT:OnDealDamage(data, phys, hitEnts)
 		owner = self
 	end
 	for _, ent in ipairs(hitEnts) do
-		if !ent.VJ_ID_Boss && !ent.Dead && ent:GetClass() != "sent_vj_xen_crystal" then
+		if !ent.VJ_ID_Boss and !ent.Dead and ent:GetClass() != "sent_vj_xen_crystal" then
 			local tr = util.TraceLine({
 				start = owner:GetPos(),
 				endpos = owner:GetPos() + owner:GetForward() * math.Rand(-10000, 10000) + owner:GetRight() * math.Rand(-10000, 10000) + owner:GetUp() * -3000,

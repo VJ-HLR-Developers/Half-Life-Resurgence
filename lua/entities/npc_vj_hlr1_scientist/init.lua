@@ -13,7 +13,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Bip02 Head",
 	FirstP_Offset = Vector(5, 0, 5)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.AlliedWithPlayerAllies = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -154,7 +154,7 @@ ENT.SCI_NextMouthDistance = 0
 ENT.SCI_Type = SCI_TYPE_REGULAR
 ENT.SCI_NextTieAnnoyanceT = 0
 ENT.SCI_ControllerAnim = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init() -- This runs for: SCI_TYPE_REGULAR, SCI_TYPE_CLEANSUIT, SCI_TYPE_ROSENBERG
 	ACT_FEAR_DISPLAY = util.GetActivityIDByName("ACT_FEAR_DISPLAY")
 	if self.SCI_Type == SCI_TYPE_ROSENBERG then
@@ -181,13 +181,13 @@ function ENT:Init() -- This runs for: SCI_TYPE_REGULAR, SCI_TYPE_CLEANSUIT, SCI_
 
 		local randBG = math.random(0, 4)
 		self:SetBodygroup(1, randBG)
-		if randBG == 2 && self.SCI_Type == SCI_TYPE_REGULAR then
+		if randBG == 2 and self.SCI_Type == SCI_TYPE_REGULAR then
 			self:SetSkin(1)
 		end
 		self.SCI_NextTieAnnoyanceT = CurTime() + math.Rand(2, 100)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("RELOAD: Toggle scared animations")
 	if self.SCI_Type == SCI_TYPE_REGULAR then
@@ -210,11 +210,11 @@ function ENT:Controller_Initialize(ply, controlEnt)
 				npc.SCI_ControllerAnim = 0
 				self:GetPlayer():ChatPrint("Calming down...")
 			end
-		elseif key == IN_ATTACK && npc.SCI_Type == SCI_TYPE_REGULAR && CurTime() > npc.SCI_NextTieAnnoyanceT then
+		elseif key == IN_ATTACK and npc.SCI_Type == SCI_TYPE_REGULAR and CurTime() > npc.SCI_NextTieAnnoyanceT then
 			npc:PlayAnim(ACT_VM_IDLE_1, true, false)
 			npc.SCI_NextTieAnnoyanceT = CurTime() + 4
 		-- Keller standing up from the wheelchair
-		elseif key == IN_JUMP && npc.SCI_Type == SCI_TYPE_KELLER && !npc:IsBusy() then
+		elseif key == IN_JUMP and npc.SCI_Type == SCI_TYPE_KELLER and !npc:IsBusy() then
 			npc:SetState(VJ_STATE_ONLY_ANIMATION_CONSTANT)
 			npc:PlayAnim(ACT_STAND, true, false, false, 0, {
 				-- Already done through event, but also here to make sure it's killed!
@@ -227,7 +227,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" or key == "wheelchair" then
@@ -256,16 +256,16 @@ function ENT:OnInput(key, activator, caller, data)
 		self:TakeDamageInfo(dmg)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	-- Barnacle animation
 	if self:IsEFlagSet(EFL_IS_BEING_LIFTED_BY_BARNACLE) then
 		return ACT_BARNACLE_PULL
 	-- Scared animations
-	elseif self.SCI_Type != SCI_TYPE_ALPHA && ((!self.VJ_Controlled && (self:GetNPCState() == NPC_STATE_ALERT or self:GetNPCState() == NPC_STATE_COMBAT)) or (self.VJ_Controlled && self.SCI_ControllerAnim == 1)) then
+	elseif self.SCI_Type != SCI_TYPE_ALPHA and ((!self.VJ_Controlled and (self:GetNPCState() == NPC_STATE_ALERT or self:GetNPCState() == NPC_STATE_COMBAT)) or (self.VJ_Controlled and self.SCI_ControllerAnim == 1)) then
 		if act == ACT_IDLE then
 			return ACT_CROUCHIDLE
-		elseif act == ACT_WALK && self.SCI_Type != SCI_TYPE_KELLER then
+		elseif act == ACT_WALK and self.SCI_Type != SCI_TYPE_KELLER then
 			return ACT_WALK_SCARED
 		elseif act == ACT_RUN then
 			return ACT_RUN_SCARED
@@ -273,11 +273,11 @@ function ENT:TranslateActivity(act)
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:SCHEDULE_IDLE_STAND()
 	if !self.BaseClass.SCHEDULE_IDLE_STAND(self) then return end
 	-- Tie annoyance
-	if self.SCI_Type == SCI_TYPE_REGULAR && CurTime() > self.SCI_NextTieAnnoyanceT && self:GetNPCState() <= NPC_STATE_IDLE then
+	if self.SCI_Type == SCI_TYPE_REGULAR and CurTime() > self.SCI_NextTieAnnoyanceT and self:GetNPCState() <= NPC_STATE_IDLE then
 		if math.random(1, 8) == 1 then
 			self:PlayAnim(ACT_VM_IDLE_1, true, false)
 		end
@@ -285,7 +285,7 @@ function ENT:SCHEDULE_IDLE_STAND()
 	end
 	return true
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnMedicBehavior(status, statusData)
 	if status == "BeforeHeal" then
 		-- Healing animation (3)
@@ -300,19 +300,19 @@ function ENT:OnMedicBehavior(status, statusData)
 		timer.Simple(1.5, function() if IsValid(self) then self:SetBodygroup(2, 0) end end)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAlert(ent)
 	if self.VJ_Controlled then return end
-	if self.SCI_Type != SCI_TYPE_KELLER && self.SCI_Type != SCI_TYPE_ALPHA then
-		if self.SCI_Type != SCI_TYPE_ROSENBERG && math.random(1, 2) == 1 && ent.VJ_ID_Headcrab then
+	if self.SCI_Type != SCI_TYPE_KELLER and self.SCI_Type != SCI_TYPE_ALPHA then
+		if self.SCI_Type != SCI_TYPE_ROSENBERG and math.random(1, 2) == 1 and ent.VJ_ID_Headcrab then
 			self:PlaySoundSystem("Alert", "vj_hlr/gsrc/npc/scientist/seeheadcrab.wav")
 		end
-		if math.random(1, 2) == 1 && ent:GetPos():Distance(self:GetPos()) >= 300 then
+		if math.random(1, 2) == 1 and ent:GetPos():Distance(self:GetPos()) >= 300 then
 			self:PlayAnim(ACT_FEAR_DISPLAY, true, false, true)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	-- Mouth animation when talking
 	if CurTime() < self.SCI_NextMouthMove then
@@ -326,14 +326,14 @@ function ENT:OnThink()
 		self:SetPoseParameter("m", 0)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateSound(sdData, sdFile)
 	self.SCI_NextMouthMove = CurTime() + SoundDuration(sdFile)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Init" then
-		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 			self.DeathAnimationDecreaseLengthAmount = -1
 			self.DeathCorpseEntityClass = "prop_vj_animatable"
 			VJ.HLR_StaticCorpseCheck(self)
@@ -343,12 +343,12 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		if self.SCI_Type == SCI_TYPE_ALPHA then return end
 		if hitgroup == HITGROUP_HEAD then
 			self.AnimTbl_Death = ACT_DIE_HEADSHOT
-		elseif hitgroup == HITGROUP_STOMACH && self.SCI_Type != SCI_TYPE_KELLER then
+		elseif hitgroup == HITGROUP_STOMACH and self.SCI_Type != SCI_TYPE_KELLER then
 			self.AnimTbl_Death = ACT_DIE_GUTSHOT
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 local sdMetalCollide = {"vj_hlr/gsrc/fx/metal1.wav", "vj_hlr/gsrc/fx/metal2.wav", "vj_hlr/gsrc/fx/metal3.wav", "vj_hlr/gsrc/fx/metal4.wav", "vj_hlr/gsrc/fx/metal5.wav"}
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
@@ -429,7 +429,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	VJ.HLR_ApplyCorpseSystem(self, corpse, nil, {CollisionSound = gibsCollideSd})
 end

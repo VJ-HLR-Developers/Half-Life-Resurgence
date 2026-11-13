@@ -14,7 +14,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Bip01 Head",
 	FirstP_Offset = Vector(7, 0, 5)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow"
@@ -53,11 +53,11 @@ ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bulle
 
 ENT.PainSoundPitch = 150
 ENT.DeathSoundPitch = 150
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(35, 35, 60), Vector(-35, -35, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
@@ -70,15 +70,15 @@ function ENT:OnInput(key, activator, caller, data)
 		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	-- Run like crazy when half health
-	if act == ACT_RUN && self:Health() < (self:GetMaxHealth() * 0.50) then
+	if act == ACT_RUN and self:Health() < (self:GetMaxHealth() * 0.50) then
 		return ACT_RUN_STIMULATED
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "Init" then
 		//ParticleEffectAttach("vj_hlr_spit_friendly_impact", PATTACH_POINT_FOLLOW, self, 1)
@@ -97,15 +97,15 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		return true
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+	if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		VJ.HLR_StaticCorpseCheck(self)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -145,7 +145,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibs = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

@@ -13,8 +13,8 @@ function EFFECT:Init(data)
 	local att = data:GetAttachment()
 	local locPly = LocalPlayer()
 
-	if (IsValid( ent ) && att > 0) then
-		if (ent.Owner == locPly && locPly:GetViewModel() != locPly) then ent = ent.Owner:GetViewModel() end
+	if (IsValid( ent ) and att > 0) then
+		if (ent.Owner == locPly and locPly:GetViewModel() != locPly) then ent = ent.Owner:GetViewModel() end
 		att = ent:GetAttachment(att)
 		if (att) then
 			self.StartPos = att.Pos
@@ -29,7 +29,7 @@ function EFFECT:Init(data)
 	-- Die when it reaches its target
 	self.DieTime = CurTime() + self.TracerTime
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local metalMat = {[MAT_VENT] = true, [MAT_METAL] = true, [MAT_GRATE] = true, [MAT_GLASS] = true, [MAT_COMPUTER] = true}
 local vecDef = Vector()
 --
@@ -40,7 +40,7 @@ function EFFECT:Think()
 			start = self.StartPos,
 			endpos = self.EndPos
 		})
-		if tr.Hit && metalMat[tr.MatType] then
+		if tr.Hit and metalMat[tr.MatType] then
 			sound.Play("vj_hlr/gsrc/fx/ric" .. math.random(1, 5) .. ".wav", self.EndPos, 80, 100)
 			local Emitter = ParticleEmitter(self.EndPos)
 			if GetConVar("vj_hlr1_sparkfx"):GetInt() == 1 then
@@ -80,7 +80,7 @@ function EFFECT:Think()
 	end
 	return true
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorBeam = Color(255, 255, 255, 25)
 --
 function EFFECT:Render()

@@ -22,7 +22,7 @@ function EFFECT:Init(data)
 
 	util.Decal("VJ_HLR1_Scorch_Small", self.EndPos + data:GetNormal(), self.EndPos - data:GetNormal())
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function EFFECT:Think()
 	if !IsValid(self.Ent) then return false end
 	//self.StartPos = self.Ent:GetAttachment(self.Ent:LookupAttachment(self.Att)).Pos
@@ -32,7 +32,7 @@ function EFFECT:Think()
 	end
 	return true
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorPurple = Color(138, 43, 226)
 --
 function EFFECT:Render()

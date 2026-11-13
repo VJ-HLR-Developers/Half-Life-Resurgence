@@ -14,13 +14,13 @@ ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 if CLIENT then
 	VJ.AddKillIcon("sent_vj_hlr1_orb_crystal_charge", ENT.PrintName)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 -- Custom
 ENT.Assignee = NULL
 ENT.NextMoveT = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Initialize()
 	self:SetModel("models/props_junk/watermelon01_chunk02c.mdl")
 	self:SetNoDraw(true)
@@ -54,11 +54,11 @@ function ENT:Initialize()
 		phys:EnableGravity(false)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Think()
 	local curTime = CurTime()
 	local assignee = self.Assignee
-	if IsValid(assignee) && curTime > self.NextMoveT then
+	if IsValid(assignee) and curTime > self.NextMoveT then
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
 			phys:SetVelocity(VJ.CalculateTrajectory(self, assignee, "Line", self:GetPos(), assignee:GetPos() + assignee:GetUp() * math.Rand(200, 250) + assignee:GetRight() * math.Rand(-150, 150) + assignee:GetForward() * math.Rand(-150, 150), 500))

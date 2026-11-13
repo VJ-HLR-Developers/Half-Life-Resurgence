@@ -8,7 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/hassault.mdl"
 ENT.StartHealth = 180
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.AnimTbl_MeleeAttack = {ACT_MELEE_ATTACK1, ACT_MELEE_ATTACK_SWING}
 ENT.GrenadeAttackThrowTime = 1
 ENT.Weapon_CanReload = false
@@ -31,14 +31,14 @@ ENT.Serg_Type = 0
 	-- 1 = Alpha
 	-- 2 = Alpha Melee
 	-- 3 = Robot
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:HECU_OnThink()
 	-- For weapon spinning sound
 	if !self.HECU_Rappelling then
-		if !self.Serg_SpinUpSound && self.WeaponAttackState && self.WeaponAttackState >= VJ.WEP_ATTACK_STATE_FIRE then
+		if !self.Serg_SpinUpSound and self.WeaponAttackState and self.WeaponAttackState >= VJ.WEP_ATTACK_STATE_FIRE then
 			self.Serg_SpinUpSound = true
 			self.HasBreathSound = true
-		elseif self.Serg_SpinUpSound && (!self.WeaponAttackState or self.WeaponAttackState <= VJ.WEP_ATTACK_STATE_FIRE) then
+		elseif self.Serg_SpinUpSound and (!self.WeaponAttackState or self.WeaponAttackState <= VJ.WEP_ATTACK_STATE_FIRE) then
 			self.Serg_SpinUpSound = false
 			VJ.STOPSOUND(self.CurrentBreathSound)
 			self.HasBreathSound = false
@@ -46,14 +46,14 @@ function ENT:HECU_OnThink()
 	end
 
 	-- Reset Alpha Sergeant's gun in case the melee animation gets cut off and draw event is never called!
-	if self:GetWeaponState() == VJ.WEP_STATE_HOLSTERED && self.AttackType != VJ.ATTACK_TYPE_MELEE then
+	if self:GetWeaponState() == VJ.WEP_STATE_HOLSTERED and self.AttackType != VJ.ATTACK_TYPE_MELEE then
 		self:SetBodygroup(1, 0)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnWeaponAttack()
 	-- Do the weapon spin up routine
-	if !self.HECU_Rappelling && CurTime() > self.Serg_SpinUpT then
+	if !self.HECU_Rappelling and CurTime() > self.Serg_SpinUpT then
 		local setTime = CurTime() + 0.9
 		self.NextChaseTime = setTime -- Make sure it won't chase
 		self.NextWeaponAttackT = setTime -- Make it not shoot for the given time

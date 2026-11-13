@@ -11,13 +11,13 @@ include("shared.lua")
 ENT.Human_Type = 1
 ENT.Human_TurretEnt = NULL
 ENT.Human_NextTurretCheckT = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("CTRL: Deploy Sentry Gun")
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThinkActive()
-	if ((self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_DUCK)) or !self.VJ_Controlled) && IsValid(self:GetEnemy()) && self:Visible(self:GetEnemy()) && self.Human_NextTurretCheckT < CurTime() && !IsValid(self.Human_TurretEnt) then
+	if ((self.VJ_Controlled and self.VJ_Controller:GetPlayer():KeyDown(IN_DUCK)) or !self.VJ_Controlled) and IsValid(self:GetEnemy()) and self:Visible(self:GetEnemy()) and self.Human_NextTurretCheckT < CurTime() and !IsValid(self.Human_TurretEnt) then
 		-- Make sure not to place it if the front of the NPC is blocked!
 		local myCenterPos = self:GetPos() + self:OBBCenter()
 		local tr = util.TraceLine({
@@ -29,7 +29,7 @@ function ENT:OnThinkActive()
 			self.Human_NextTurretCheckT = CurTime() + 30
 			self:PlayAnim("vjseq_pickup", true, false, false)
 			timer.Simple(0.45, function()
-				if IsValid(self) && !IsValid(self.Human_TurretEnt) then
+				if IsValid(self) and !IsValid(self.Human_TurretEnt) then
 					local turret = ents.Create("npc_vj_hlr2_res_sentry")
 					turret:SetPos(self:GetPos() + self:GetForward() * 50)
 					turret:SetAngles(self:GetAngles())

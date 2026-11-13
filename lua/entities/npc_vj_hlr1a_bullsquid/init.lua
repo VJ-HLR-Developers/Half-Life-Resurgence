@@ -16,38 +16,38 @@ ENT.SoundTbl_SoundTrack = "vj_hlr/gsrc/squidding.mp3"
 ENT.Bullsquid_Type = 1
 ENT.Bullsquid_BullSquidding = false
 ENT.Bullsquid_BullSquiddingT = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:PreInit()
 	-- BullSquidding!
 	if math.random(1, 100) == 1 then
 		self:Bullsquid_ActivateBullSquidding()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "PreSpawn" then
 		projectile.Spit_Alpha = true
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("SPACE: Transform into a BullSquidding! (Irreversible!)")
 
 	function controlEnt:OnKeyPressed(key)
 		local npc = self:GetNPC()
-		if key == KEY_SPACE && !npc.Bullsquid_BullSquidding then
+		if key == KEY_SPACE and !npc.Bullsquid_BullSquidding then
 			npc:Bullsquid_ActivateBullSquidding()
 		end
 	end
 	function controlEnt:OnStopControlling(keyPressed)
 		local npc = self:GetNPC()
 		-- Set the bullsquidding behavior again because exiting a controller will reset some variables
-		if IsValid(npc) && npc.Bullsquid_BullSquidding then
+		if IsValid(npc) and npc.Bullsquid_BullSquidding then
 			npc:Bullsquid_ActivateBullSquidding()
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	if self.Bullsquid_BullSquidding then
 		if act == ACT_IDLE then
@@ -58,7 +58,7 @@ function ENT:TranslateActivity(act)
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local baseAcceptInput = ENT.OnInput
 --
 function ENT:OnInput(key, activator, caller, data)
@@ -69,7 +69,7 @@ function ENT:OnInput(key, activator, caller, data)
 		baseAcceptInput(self, key, activator, caller, data)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Bullsquid_ActivateBullSquidding()
 	self:SetMaxLookDistance(30000)
 	self:SetFOV(360)
@@ -87,7 +87,7 @@ function ENT:Bullsquid_ActivateBullSquidding()
 	self.LimitChaseDistance = false
 	self.HasSoundTrack = true
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	if self.Bullsquid_BullSquidding then
 		PrintMessage(HUD_PRINTCENTER, "YOU HAVE BEEN BULLSQUIDDING FOR " .. math.Round(CurTime() - self.Bullsquid_BullSquiddingT, 2) .. " SECONDS")

@@ -5,22 +5,22 @@ SWEP.PrintName = "Desert Eagle"
 SWEP.Author = "DrVrej"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category = "Half-Life Resurgence"
-	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+	-- NPC Settings 
 SWEP.NPC_NextPrimaryFire = false
 SWEP.NPC_ReloadSound = "vj_hlr/gsrc/wep/deagle/desert_eagle_reload.wav"
 SWEP.NPC_CanBePickedUp = false
-	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+	-- Main Settings 
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_hlr/weapons/w_desert_eagle.mdl"
 SWEP.HoldType = "pistol"
-	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
+	-- World Model 
 SWEP.WorldModelOffsetParams = {
 	Enabled = true,
 	Bone = "Bip01 R Hand",
 	Pos = Vector(34.381, -0.5, -6.57),
 	Ang = Angle(-80, 0, 0)
 }
-	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
+	-- Primary Fire 
 SWEP.Primary.Damage = 15
 SWEP.Primary.ClipSize = 7
 SWEP.Primary.Ammo = "357"
@@ -39,10 +39,10 @@ local validModels = {
 	["models/vj_hlr/opfor_hd/hgrunt_medic.mdl"] = true,
 	["models/vj_hlr/opfor_hd/hgrunt_engineer.mdl"] = true
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:Init()
 	timer.Simple(0.1, function()
-		if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
+		if IsValid(self) and IsValid(self:GetOwner()) and VJ.HLR_Weapon_CheckModel(self, validModels) then
 			self.NPC_NextPrimaryFire = false
 			if self:GetOwner():GetModel() == "models/vj_hlr/opfor/otis.mdl" then
 				self.WorldModelOffsetParams.Pos = Vector(31.175, 6.333, -6.817)
@@ -51,15 +51,15 @@ function SWEP:Init()
 		end
 	end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:DoImpactEffect(tr, damageType)
 	return VJ.HLR1_Effect_Impact(tr)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:OnDrawWorldModel()
 	return !IsValid(self:GetOwner())
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:PrimaryAttackEffects(owner)
 	local muz = ents.Create("env_sprite")
 	muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash2.vmt")

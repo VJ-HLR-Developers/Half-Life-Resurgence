@@ -13,7 +13,7 @@ ENT.HealthRegenParams = {
 	Delay = VJ.SET(0.35, 0.35),
 }
 ENT.HullType = HULL_HUMAN
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.AlliedWithPlayerAllies = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -227,9 +227,9 @@ local sdAlertTurret = "vo/npc/barney/ba_turret.wav"
 ]]--
 
 ENT.MainSoundPitch = 100
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAlert(ent)
-	if math.random(1, 2) == 1 && ent:IsNPC() then
+	if math.random(1, 2) == 1 and ent:IsNPC() then
 		if ent.IsVJBaseSNPC_Human then
 			self:PlaySoundSystem("Alert", sdAlertHuman)
 			return

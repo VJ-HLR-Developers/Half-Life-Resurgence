@@ -13,7 +13,7 @@ local function getStartEnt(ent)
 
 	local owner = ent:GetOwner()
 	local locPly = LocalPlayer()
-	if IsValid(owner) && owner:IsPlayer() && owner == locPly && !owner:ShouldDrawLocalPlayer() then
+	if IsValid(owner) and owner:IsPlayer() and owner == locPly and !owner:ShouldDrawLocalPlayer() then
 		local vm = owner:GetViewModel()
 		if IsValid(vm) then
 			return vm
@@ -21,7 +21,7 @@ local function getStartEnt(ent)
 	end
 	return ent
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function EFFECT:Init(data)
 	self.StartPos = data:GetStart()
 	self.EndPos = data:GetOrigin()
@@ -32,7 +32,7 @@ function EFFECT:Init(data)
 	self.Att = att
 	self.RenderEnt = getStartEnt(self.Ent)
 
-	if IsValid(self.RenderEnt) && self.Att > 0 then
+	if IsValid(self.RenderEnt) and self.Att > 0 then
 		att = self.RenderEnt:GetAttachment(self.Att)
 		if att then
 			self.StartPos = att.Pos
@@ -44,12 +44,12 @@ function EFFECT:Init(data)
 	self:SetRenderBoundsWS(self.StartPos, self.EndPos)
 	self.NextEffectSoundT = 0
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function EFFECT:Think()
 	-- print(self.StartPos, self.EndPos)
 	if !IsValid(self.Ent) then return false end
 	self.RenderEnt = getStartEnt(self.Ent)
-	if IsValid(self.RenderEnt) && self.Att > 0 then
+	if IsValid(self.RenderEnt) and self.Att > 0 then
 		local att = self.RenderEnt:GetAttachment(self.Att)
 		if att then
 			self.StartPos = att.Pos
@@ -112,7 +112,7 @@ function EFFECT:Think()
 	end
 	return true
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function EFFECT:Render()
 	if !self.DoDraw then return end
 	-- render.SetMaterial(self.WarpMat)

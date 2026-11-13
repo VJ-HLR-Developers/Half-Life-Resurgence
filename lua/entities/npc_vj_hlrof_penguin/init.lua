@@ -12,12 +12,12 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Bone22",
 	FirstP_Offset = Vector(4, 0, 30)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_PENGUIN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = "vj_hlr_blood_red"
 ENT.BloodDecal = "VJ_HLR1_Blood_Red"
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Snark_CustomOnInitialize()
 	self:SetCollisionBounds(Vector(7, 7, 25), Vector(-7, -7, 0))
 	self.Snark_Type = 1

@@ -13,7 +13,7 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(0, 0, 40),
 	FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.DeathCorpseModel = "models/vj_hlr/hl1/bradley_chassis_destroyed.mdl"
 
@@ -42,29 +42,29 @@ ENT.Tank_DeathDecal = "VJ_HLR1_Scorch"
 ENT.Bradley_DmgForce = 0
 ENT.Bradley_DoorOpen = false
 ENT.Bradley_HasSpawnedSoldiers = false
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_Init()
 	self:SetSkin(math.random(0, 1))
 	self.Bradley_Grunts = {}
 
 	VJ.HLR_ApplyFactionOptions(self)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("JUMP: Deploy human grunt squad (1 time)")
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
-	if act == ACT_IDLE && self.Bradley_DoorOpen then
+	if act == ACT_IDLE and self.Bradley_DoorOpen then
 		return ACT_IDLE_RELAXED
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_GunnerSpawnPosition()
 	return self:GetPos() + self:GetRight() * 16 + self:GetForward() * -8 + self:GetUp() * 100
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_UpdateMoveParticles()
 	local spawnPos = self:GetPos() + self:GetForward() * -130
 	local effectData = EffectData()
@@ -75,16 +75,16 @@ function ENT:Tank_UpdateMoveParticles()
 	effectData:SetOrigin(spawnPos + self:GetRight() * -58)
 	util.Effect("VJ_VehicleMove", effectData, true, true)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_OnThink()
 	-- If moving then close the door
-	if self.Tank_Status == 0 && self.Bradley_DoorOpen then
+	if self.Tank_Status == 0 and self.Bradley_DoorOpen then
 		self.Bradley_DoorOpen = false
 		self:PlayAnim(ACT_SPECIAL_ATTACK2, true, false, false)
 	end
 
 	-- Deploy soldiers
-	if self.Tank_Status == 1 && !self.Bradley_HasSpawnedSoldiers && !self.Bradley_DoorOpen && IsValid(self:GetEnemy()) && GetConVar("vj_hlr1_bradley_deploygrunts"):GetInt() == 1 && ((!self.VJ_Controlled) or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP))) then
+	if self.Tank_Status == 1 and !self.Bradley_HasSpawnedSoldiers and !self.Bradley_DoorOpen and IsValid(self:GetEnemy()) and GetConVar("vj_hlr1_bradley_deploygrunts"):GetInt() == 1 and ((!self.VJ_Controlled) or (self.VJ_Controlled and self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP))) then
 		self.Bradley_DoorOpen = true
 		self:PlayAnim(ACT_SPECIAL_ATTACK1, true, false, false)
 		self.Bradley_HasSpawnedSoldiers = true
@@ -97,19 +97,19 @@ function ENT:Tank_OnThink()
 				else
 					local ene = self:GetEnemy()
 					for i = 1, 6 do
-						local hGruntClass = (GetConVar("vj_hlr1_bradley_deploygrunts_oppf"):GetInt() == 1 && "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
+						local hGruntClass = (GetConVar("vj_hlr1_bradley_deploygrunts_oppf"):GetInt() == 1 and "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
 						if math.random(1, 30) == 1 then -- 3.3% for human sergeants to spawn
 							hGruntClass = "npc_vj_hlr1_hgrunt_serg"
 						/*elseif math.random(1, 50) == 1 then -- 2% for robot sergeants to spawn
 							hGruntClass = "npc_vj_hlr1_rgrunt_serg"*/
 						elseif math.random(1, 20) == 1 then -- 5% for robot grunts to spawn
 							hGruntClass = "npc_vj_hlr1_rgrunt"
-						elseif GetConVar("vj_hlr1_bradley_deploygrunts_oppf"):GetInt() == 1 && math.random(1, 10) == 1 then -- 15% for medic grunts to spawn
+						elseif GetConVar("vj_hlr1_bradley_deploygrunts_oppf"):GetInt() == 1 and math.random(1, 10) == 1 then -- 15% for medic grunts to spawn
 							hGruntClass = "npc_vj_hlrof_hgrunt_med"
-						elseif GetConVar("vj_hlr1_bradley_deploygrunts_oppf"):GetInt() == 1 && math.random(1, 15) == 1 then -- 10% for engineer grunts to spawn
+						elseif GetConVar("vj_hlr1_bradley_deploygrunts_oppf"):GetInt() == 1 and math.random(1, 15) == 1 then -- 10% for engineer grunts to spawn
 							hGruntClass = "npc_vj_hlrof_hgrunt_eng"
 						else
-							hGruntClass = (GetConVar("vj_hlr1_bradley_deploygrunts_oppf"):GetInt() == 1 && "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
+							hGruntClass = (GetConVar("vj_hlr1_bradley_deploygrunts_oppf"):GetInt() == 1 and "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
 						end
 						local hGrunt = ents.Create(hGruntClass)
 						local opSide = ((i % 2 == 0) and -25) or 25 -- Make every other grunt spawn to the opposite side
@@ -140,13 +140,13 @@ function ENT:Tank_OnThink()
 		self.Gunner:SetSkin(self:GetSkin())
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local sdAlertAlien = {"vj_hlr/gsrc/npc/hgrunt/gr_alert9.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert10.wav"}
 local sdAlertSoldier = {"vj_hlr/gsrc/npc/hgrunt/gr_alert2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert5.wav"}
 --
 function ENT:OnAlert(ent)
 	if math.random(1, 3) == 1 then
-		if ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Alien sounds
+		if ent.IsVJBaseSNPC_Creature and !ent.VJ_ID_Vehicle and !ent.VJ_ID_Aircraft then -- Alien sounds
 			self:PlaySoundSystem("Alert", sdAlertAlien)
 			return
 		elseif ent.IsVJBaseSNPC_Human or ent:IsPlayer() then -- Soldier sounds
@@ -155,11 +155,11 @@ function ENT:OnAlert(ent)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-	if status == "Init" && dmginfo:GetDamagePosition() != vec then
+	if status == "Init" and dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(5) -- Size
@@ -168,7 +168,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 	end
 	self.BaseClass.OnDamaged(self, dmginfo, hitgroup, status)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:GetNearDeathSparkPositions()
 	local randPos = math.random(1, 5)
 	if randPos == 1 then
@@ -183,7 +183,7 @@ function ENT:GetNearDeathSparkPositions()
 		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * -60 + self:GetForward() * -40 + self:GetUp() * 81)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local expPos = Vector(0, 0, 150)
 --
 function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
@@ -266,7 +266,7 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 	end)
 	return true
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local metalCollideSD = {"vj_hlr/gsrc/fx/metal1.wav", "vj_hlr/gsrc/fx/metal2.wav", "vj_hlr/gsrc/fx/metal3.wav", "vj_hlr/gsrc/fx/metal4.wav", "vj_hlr/gsrc/fx/metal5.wav"}
 local vec500z = Vector(0, 0, 500)
 local colorGray = Color(90, 90, 90)
@@ -367,7 +367,7 @@ function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
 		return true
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:CustomOnRemove()
 	-- If the NPC was removed, then remove its children as well, but not when it's killed!
 	if !self.Dead then

@@ -54,15 +54,15 @@ function EFFECT:Init(data) // You're welcome @DrVrej for not making the effect n
 		fx:SetStartAlpha(255)
 		fx:SetEndAlpha(0)
 		fx:SetStartSize(self.Size or 4)
-		fx:SetEndSize(self.Size && self.Size * 2 or 8)
+		fx:SetEndSize(self.Size and self.Size * 2 or 8)
 		fx:SetColor(255, 255, 255)
 	end
 
 	Emitter:Finish()
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function EFFECT:Think()
 	return false
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function EFFECT:Render() end

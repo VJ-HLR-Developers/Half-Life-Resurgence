@@ -13,7 +13,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Bip01 Head",
 	FirstP_Offset = Vector()
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow"
@@ -61,13 +61,13 @@ ENT.Houndeye_Sleeping = false
 ENT.Houndeye_Type = 0
 	-- 0 = Original / Default
 	-- 1 = Alpha
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:PreInit()
-	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "npc_vj_hlr1_houndeye" then
+	if GetConVar("vj_hlr_hd"):GetInt() == 1 and VJ.HLR_INSTALLED_HD and self:GetClass() == "npc_vj_hlr1_houndeye" then
 		self.Model = "models/vj_hlr/hl_hd/houndeye.mdl"
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(20, 20, 40), Vector(-20, -20, 0))
 
@@ -78,7 +78,7 @@ function ENT:Init()
 		self.NextMeleeAttackTime = 0.5
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "he_hunt" then -- step
@@ -95,7 +95,7 @@ function ENT:OnInput(key, activator, caller, data)
 		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local defIdle = {ACT_IDLE, ACT_IDLE, ACT_IDLE, ACT_IDLE, ACT_IDLE_PACKAGE}
 --
 function ENT:TranslateActivity(act)
@@ -104,23 +104,23 @@ function ENT:TranslateActivity(act)
 		if self.Houndeye_Sleeping then
 			return ACT_CROUCHIDLE
 		-- Barking
-		elseif IsValid(self:GetEnemy()) && !self.VJ_Controlled then
+		elseif IsValid(self:GetEnemy()) and !self.VJ_Controlled then
 			return ACT_IDLE_ANGRY
 		end
 		-- Default idle
 		return self:ResolveAnimation(defIdle)
 	-- Limp Walking
-	elseif act == ACT_WALK && (self:GetMaxHealth() * 0.35) > self:Health() then
+	elseif act == ACT_WALK and (self:GetMaxHealth() * 0.35) > self:Health() then
 		return ACT_WALK_HURT
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	local curTime = CurTime()
 
 	-- Blinking
-	if !self.Dead && curTime > self.Houndeye_BlinkingT && !self.Houndeye_Sleeping then
+	if !self.Dead and curTime > self.Houndeye_BlinkingT and !self.Houndeye_Sleeping then
 		self:SetSkin(1)
 		timer.Simple(0.1, function() if IsValid(self) then self:SetSkin(2) end end)
 		timer.Simple(0.2, function() if IsValid(self) then self:SetSkin(1) end end)
@@ -128,19 +128,19 @@ function ENT:OnThink()
 		self.Houndeye_BlinkingT = curTime + math.Rand(2, 3.5)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThinkActive()
 	if self.VJ_Controlled then return end
 
 	-- Sleep system
-	if !self.Alerted && !IsValid(self:GetEnemy()) && !self:IsMoving() && CurTime() > self.Houndeye_NextSleepT && !self.Houndeye_Sleeping && !self:IsBusy() then
+	if !self.Alerted and !IsValid(self:GetEnemy()) and !self:IsMoving() and CurTime() > self.Houndeye_NextSleepT and !self.Houndeye_Sleeping and !self:IsBusy() then
 		local sleepTime = math.Rand(15, 30) -- How long it should sleep
 		self.Houndeye_Sleeping = true
 		self:PlayAnim(ACT_CROUCH, true, false, false)
 		self:SetState(VJ_STATE_ONLY_ANIMATION, sleepTime)
-		timer.Simple(7, function() if IsValid(self) && self.Houndeye_Sleeping then self:SetSkin(2) end end) -- Close eyes
+		timer.Simple(7, function() if IsValid(self) and self.Houndeye_Sleeping then self:SetSkin(2) end end) -- Close eyes
 		timer.Simple(sleepTime, function() -- Reset after sleepTime expires
-			if IsValid(self) && self.Houndeye_Sleeping then
+			if IsValid(self) and self.Houndeye_Sleeping then
 				self.Houndeye_Sleeping = false
 				self:PlayAnim(ACT_STAND, true, false, false)
 				self.Houndeye_NextSleepT = CurTime() + math.Rand(15, 45)
@@ -148,7 +148,7 @@ function ENT:OnThinkActive()
 		end)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local alertAnims = {"vjseq_madidle1", "vjseq_madidle2", "vjseq_madidle3"}
 --
 function ENT:OnAlert(ent)
@@ -161,11 +161,11 @@ function ENT:OnAlert(ent)
 		self:PlayAnim(alertAnims, true, false, true)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnResetEnemy()
 	self.Houndeye_NextSleepT = CurTime() + math.Rand(15, 45)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local houndeyeClasses = {npc_vj_hlr1_houndeye = true, npc_vj_hlr1a_houndeye = true, npc_vj_hlrdc_houndeye = true}
 local beamEffectTbl = {material = "vj_hl/sprites/shockwave", framerate = 20, flags = 0}
 --
@@ -176,7 +176,7 @@ function ENT:OnMeleeAttackExecute(status, ent, isProp)
 		local dmg = 15 -- How much damage should the shock wave do?
 		local myPos = self:GetPos()
 		for _, v in ipairs(ents.FindInSphere(myPos, 400)) do
-			if v != self && houndeyeClasses[v:GetClass()] then
+			if v != self and houndeyeClasses[v:GetClass()] then
 				friNum = friNum + 1
 			end
 		end
@@ -196,22 +196,22 @@ function ENT:OnMeleeAttackExecute(status, ent, isProp)
 		effects.BeamRingPoint(myPos, 0.3, 2, 400, 16, 0, color, beamEffectTbl)
 		effects.BeamRingPoint(myPos, 0.3, 2, 200, 16, 0, color, beamEffectTbl)
 
-		if self.HasSounds && self.HasMeleeAttackSounds then
+		if self.HasSounds and self.HasMeleeAttackSounds then
 			VJ.EmitSound(self, blastSd, 100, math.random(80, 100))
 		end
 		VJ.ApplyRadiusDamage(self, self, myPos, 400, dmg, self.MeleeAttackDamageType, true, true, {DisableVisibilityCheck = true, Force = 80})
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnFlinch(dmginfo, hitgroup, status)
 	if status == "Init" then
 		-- Houndeye shouldn't have its sonic attack interrupted by a flinch animation!
 		return self.AttackAnimTime > CurTime()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-	if status == "PostDamage" && self.Houndeye_Type != 1 then
+	if status == "PostDamage" and self.Houndeye_Type != 1 then
 		self.Houndeye_NextSleepT = CurTime() + math.Rand(15, 45)
 		if self.Houndeye_Sleeping then -- Wake up if sleeping and play a special alert animation
 			if self:GetState() == VJ_STATE_ONLY_ANIMATION then self:SetState() end
@@ -220,10 +220,10 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Init" then
-		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 			self.DeathAnimationDecreaseLengthAmount = -1
 			self.DeathCorpseEntityClass = "prop_vj_animatable"
 			VJ.HLR_StaticCorpseCheck(self)
@@ -231,7 +231,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		self:SetSkin(math.random(1, 2))
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -263,7 +263,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	VJ.HLR_ApplyCorpseSystem(self, corpse, nil, {CollisionSound = gibsCollideSd})
 end

@@ -11,20 +11,20 @@ ENT.CanFlinch = false
 
 -- Custom
 ENT.Houndeye_Type = 1
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	-- Overwrite it to do nothing
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	-- Overwrite it to do nothing
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThinkActive()
 	-- Overwrite it to do nothing
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAlert(ent)
 	-- Overwrite it to do nothing
 end

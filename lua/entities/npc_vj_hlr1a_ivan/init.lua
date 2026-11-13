@@ -19,7 +19,7 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(8, 0, 7),
 	FirstP_ShrinkBone = true
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.AlliedWithPlayerAllies = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -60,16 +60,16 @@ ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bulle
 
 -- Custom
 ENT.Ivan_LastBodyGroup = 1
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetSkin(math.random(0, 3))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnEntityCopyTableFinish(data)
 	data.Ivan_LastBodyGroup = nil
 	self.BaseClass.OnEntityCopyTableFinish(self, data)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
@@ -83,27 +83,27 @@ function ENT:OnInput(key, activator, caller, data)
 		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:SetAnimationTranslations(wepHoldType)
 	self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_PISTOL
 	self.AnimationTranslations[ACT_IDLE_ANGRY] = ACT_COMBAT_IDLE
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	local bodyGroup = self:GetBodygroup(0)
 	if self.Ivan_LastBodyGroup != bodyGroup then
 		self.Ivan_LastBodyGroup = bodyGroup
 		if bodyGroup == 0 then
 			self:DoChangeWeapon("weapon_vj_hlr1a_ivanglock")
-		elseif bodyGroup == 1 && IsValid(self:GetActiveWeapon()) then
+		elseif bodyGroup == 1 and IsValid(self:GetActiveWeapon()) then
 			self:GetActiveWeapon():Remove()
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Init" then
-		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 			self.DeathAnimationDecreaseLengthAmount = -1
 			self.DeathCorpseEntityClass = "prop_vj_animatable"
 			VJ.HLR_StaticCorpseCheck(self)
@@ -114,7 +114,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		if IsValid(self:GetActiveWeapon()) then self:GetActiveWeapon():Remove() end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -147,7 +147,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	VJ.HLR_ApplyCorpseSystem(self, corpse, nil, {CollisionSound = gibsCollideSd})
 end

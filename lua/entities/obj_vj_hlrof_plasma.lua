@@ -43,7 +43,7 @@ if CLIENT then
 				-- end
 			-- cam.End3D()
 			-- cam.Start3D(EyePos(), EyeAngles(), 70)
-				-- if Target:IsPlayer() && IsValid(Target:GetViewModel()) then
+				-- if Target:IsPlayer() and IsValid(Target:GetViewModel()) then
 					-- if util.IsValidModel(Target:GetViewModel():GetModel()) then
 						-- render.SetBlend(Target.VJ_HLR_EffectBlend)
 						-- render.MaterialOverride(Material("vj_hl/renderfx/render_blue"))
@@ -65,7 +65,7 @@ if CLIENT then
 		-- end)
 	-- end)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/weapons/w_missile_launch.mdl"
@@ -76,7 +76,7 @@ ENT.CollisionDecal = "VJ_HLR1_Scorch_Small"
 ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/wep/gauss/electro5.wav", "vj_hlr/gsrc/wep/gauss/electro6.wav"}
 
 //util.AddNetworkString("vj_hlr_svencoop_glow")
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetNoDraw(true)
 	ParticleEffectAttach("vj_hlr_shockroach", PATTACH_ABSORIGIN_FOLLOW, self, 0)
@@ -92,7 +92,7 @@ function ENT:Init()
 	lightDyn:Fire("TurnOn")
 	self:DeleteOnRemove(lightDyn)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 //function ENT:OnDealDamage(data, phys, hitEnts)
 //	local ply = player.GetAll()[1]
 //	net.Start("vj_hlr_svencoop_glow")
@@ -100,7 +100,7 @@ end
 //		net.WriteEntity(hitEnts)
 //	net.Send(ply)
 //end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDestroy(data, phys)
 	local effectData = EffectData()
 	effectData:SetOrigin(data.HitPos)

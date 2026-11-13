@@ -13,7 +13,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Bip01 nECK",
 	FirstP_Offset = Vector(3, 0, 1)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_SNARK"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow"
@@ -31,18 +31,18 @@ ENT.MainSoundPitch = 50
 
 -- Custom
 ENT.Nest_SpawnEnt = "npc_vj_hlr1_snark"
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(15, 15, 18), Vector(-15, -15, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	if act == ACT_RUN then
 		return ACT_WALK
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --

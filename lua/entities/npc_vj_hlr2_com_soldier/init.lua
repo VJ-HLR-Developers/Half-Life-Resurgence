@@ -153,17 +153,17 @@ npc/combine_soldier/vo/viscon.wav
 
 -- Custom
 ENT.Combine_ChatterT = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:PreInit()
 	self.Combine_ChatterT = CurTime() + math.Rand(1, 30)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateSound(sdData, sdFile)
 	if VJ.HasValue(self.SoundTbl_Pain, sdFile) or VJ.HasValue(sdCombine_Chatter, sdFile) then return end
 	VJ.EmitSound(self, sdCombine_Radio_On)
-	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self, sdCombine_Radio_Off) end end)
+	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) and sdData:IsPlaying() then VJ.EmitSound(self, sdCombine_Radio_Off) end end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThinkActive()
 	local curTime = CurTime()
 
@@ -176,13 +176,13 @@ function ENT:OnThinkActive()
 		self.Combine_ChatterT = curTime + math.Rand(20, 40)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAlert(ent)
 	if math.random(1, 2) == 1 then
 		if ent:IsPlayer() or ent.VJ_HLR_Freeman then
 			self:PlaySoundSystem("Alert", sdCombine_Alert_Freeman)
 		elseif ent:IsNPC() then
-			if ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then
+			if ent.IsVJBaseSNPC_Creature and !ent.VJ_ID_Vehicle and !ent.VJ_ID_Aircraft then
 				for _, v in ipairs(ent.VJ_NPC_Class or {1}) do
 					if v == "CLASS_ZOMBIE" or ent:Classify() == CLASS_ZOMBIE then
 						self:PlaySoundSystem("Alert", sdCombine_Alert_Zombies)
@@ -196,9 +196,9 @@ function ENT:OnAlert(ent)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnGrenadeAttackExecute(status, grenade, overrideEnt, landDir, landingPos)
-	if status == "PostSpawn" && !IsValid(overrideEnt) then
+	if status == "PostSpawn" and !IsValid(overrideEnt) then
 		-- Glow and trail are both based on the original: https://github.com/ValveSoftware/source-sdk-2013/blob/master/src/game/server/hl2/grenade_frag.cpp#L158
 		local redGlow = ents.Create("env_sprite")
 		redGlow:SetKeyValue("model", "sprites/redglow1.vmt")
@@ -234,11 +234,11 @@ function ENT:OnGrenadeAttackExecute(status, grenade, overrideEnt, landDir, landi
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	-- Absorb bullet damage, play metallic sound, and create sparks
-	if status == "PreDamage" && dmginfo:IsBulletDamage() then
-		if self.HasSounds && self.HasImpactSounds then
+	if status == "PreDamage" and dmginfo:IsBulletDamage() then
+		if self.HasSounds and self.HasImpactSounds then
 			VJ.EmitSound(self, "VJ.Impact.Armor")
 		end
 		if math.random(1, 3) == 1 then
@@ -254,18 +254,18 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
-	if wasLast && (ent:IsPlayer() or ent.VJ_HLR_Freeman) && math.random(1, 2) == 1 then
+	if wasLast and (ent:IsPlayer() or ent.VJ_HLR_Freeman) and math.random(1, 2) == 1 then
 		self:PlaySoundSystem("KilledEnemy", sdCombine_KilledEnemy_Freeman)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:CustomOnRemove()
 	VJ.STOPSOUND(self.Combine_ChatterSd)
 	-- Remove the turret if the NPC has spawned from non-player entities but not when killed
 	local turret = self.Combine_TurretEnt
-	if !self.Dead && IsValid(turret) then
+	if !self.Dead and IsValid(turret) then
 		turret:Remove()
 	end
 end

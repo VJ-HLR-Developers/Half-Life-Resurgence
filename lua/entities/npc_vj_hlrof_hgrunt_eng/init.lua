@@ -18,15 +18,15 @@ ENT.HECU_TurretEnt = NULL
 ENT.HECU_TurretPlacing = false
 ENT.HECU_NextTurretCheckT = 0
 ENT.HECU_GasTankHit = false -- Signals the code to preform an explosion
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("CTRL: Deploy Sentry Gun")
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThinkActive()
 	if self.HECU_Rappelling or self:IsBusy() then return end
 	local ene = self:GetEnemy()
-	if ((self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_DUCK)) or !self.VJ_Controlled) && IsValid(ene) && self:Visible(ene) && self.HECU_NextTurretCheckT < CurTime() && !IsValid(self.HECU_TurretEnt) then
+	if ((self.VJ_Controlled and self.VJ_Controller:GetPlayer():KeyDown(IN_DUCK)) or !self.VJ_Controlled) and IsValid(ene) and self:Visible(ene) and self.HECU_NextTurretCheckT < CurTime() and !IsValid(self.HECU_TurretEnt) then
 		-- Make sure not to place it if the front of the NPC is blocked!
 		local myCenterPos = self:GetPos() + self:OBBCenter()
 		local tr = util.TraceLine({
@@ -44,7 +44,7 @@ function ENT:OnThinkActive()
 					return
 				end
 				timer.Simple(0.5, function()
-					if IsValid(self) && IsValid(self:GetEnemy()) && !IsValid(self.HECU_TurretEnt) then
+					if IsValid(self) and IsValid(self:GetEnemy()) and !IsValid(self.HECU_TurretEnt) then
 						local turret = ents.Create("npc_vj_hlr1_sentry")
 						turret:SetPos(self:GetPos() + self:GetForward() * 50)
 						turret:SetAngles(self:GetAngles())
@@ -67,16 +67,16 @@ function ENT:OnThinkActive()
 						return
 					end
 					self:PlayAnim("store_torch", true, false)
-					timer.Simple(3, function() if IsValid(self) && !self.Dead then self:StopParticles() self:SetBodygroup(1, 0) end end) -- Failsafe timer if interrupted
+					timer.Simple(3, function() if IsValid(self) and !self.Dead then self:StopParticles() self:SetBodygroup(1, 0) end end) -- Failsafe timer if interrupted
 				end})
 			end})
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	-- Instant kill when hit in the gas tank!
-	if status == "PreDamage" && hitgroup == HITGROUP_GEAR then
+	if status == "PreDamage" and hitgroup == HITGROUP_GEAR then
 		self.HECU_GasTankHit = true -- Signals the code to preform an explosion
 		dmginfo:SetDamage(self:Health())
 		dmginfo:SetDamageType(DMG_BLAST)

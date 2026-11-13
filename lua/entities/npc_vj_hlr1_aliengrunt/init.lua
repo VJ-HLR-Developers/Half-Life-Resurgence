@@ -13,7 +13,7 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(12, 0, 5),
 	FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow"
@@ -62,13 +62,13 @@ ENT.FootstepSoundPitch = 70
 ENT.AGrunt_Type = 0
 	-- 0 = Original / Default
 	-- 1 = Alpha
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:PreInit()
-	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "npc_vj_hlr1_aliengrunt" then
+	if GetConVar("vj_hlr_hd"):GetInt() == 1 and VJ.HLR_INSTALLED_HD and self:GetClass() == "npc_vj_hlr1_aliengrunt" then
 		self.Model = "models/vj_hlr/hl_hd/agrunt.mdl"
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(25, 25, 85), Vector(-25, -25, 0))
 
@@ -79,7 +79,7 @@ function ENT:Init()
 		self.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}, {HitGroup = HITGROUP_LEFTLEG, Animation = ACT_FLINCH_LEFTLEG}, {HitGroup = HITGROUP_RIGHTLEG, Animation = ACT_FLINCH_RIGHTLEG}}
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "event_emit Step" then
@@ -93,7 +93,7 @@ function ENT:OnInput(key, activator, caller, data)
 		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "PostSpawn" then
 		-- Only default Alien Grunt has a muzzle flash!
@@ -119,15 +119,15 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjPos(projectile)
 	return self:GetAttachment(self:LookupAttachment("hornet")).Pos
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-	if status == "Init" && hitgroup == HITGROUP_GEAR then
+	if status == "Init" and hitgroup == HITGROUP_GEAR then
 		dmginfo:SetDamage(0)
 		if dmginfo:GetDamagePosition() != vec then
 			local rico = EffectData()
@@ -138,7 +138,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnFlinch(dmginfo, hitgroup, status)
 	if status == "Init" then
 		if dmginfo:GetDamage() > 30 then
@@ -150,9 +150,9 @@ function ENT:OnFlinch(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+	if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		VJ.HLR_StaticCorpseCheck(self)
@@ -169,7 +169,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			end
 		end
 	-- Chance of dropping an actual hornet gun that the player can pick up
-	elseif status == "Finish" && self.AGrunt_Type == 0 && math.random(1, 50) == 1 && (IsMounted("hl1") or IsMounted("hl1mp")) then
+	elseif status == "Finish" and self.AGrunt_Type == 0 and math.random(1, 50) == 1 and (IsMounted("hl1") or IsMounted("hl1mp")) then
 		self:SetBodygroup(1, 1)
 		local gun = ents.Create("weapon_hornetgun")
 		gun:SetPos(self:GetAttachment(self:LookupAttachment("hornet")).Pos)
@@ -178,7 +178,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		gun:Activate()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -215,7 +215,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local extraGibs = {"models/vj_hlr/gibs/agrunt_gib.mdl", "models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

@@ -16,7 +16,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "bip01 neck",
 	FirstP_Offset = Vector(10, 0, -3)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow"
@@ -61,7 +61,7 @@ ENT.AlienC_FlyAnim_Right = 0
 ENT.AlienC_FlyAnim_Left = 0
 ENT.AlienC_FlyAnim_Up = 0
 ENT.AlienC_FlyAnim_Down = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(20, 20, 70), Vector(-20, -20, -10))
 
@@ -108,7 +108,7 @@ function ENT:Init()
 	self.AlienC_FlyAnim_Up = self:GetSequenceActivity(self:LookupSequence("up"))
 	self.AlienC_FlyAnim_Down = self:GetSequenceActivity(self:LookupSequence("down"))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "rangeattack" or key == "rangeattack_close" then
@@ -120,7 +120,7 @@ function ENT:OnInput(key, activator, caller, data)
 		end
 		self.AlienC_HomingAttack = key == "rangeattack_close"
 		self:ExecuteRangeAttack()
-	elseif key == "sprite" && !self.AlienC_HomingAttack && self.AttackType == VJ.ATTACK_TYPE_RANGE then
+	elseif key == "sprite" and !self.AlienC_HomingAttack and self.AttackType == VJ.ATTACK_TYPE_RANGE then
 		if IsValid(self.ZapSpr1) then
 			self.ZapSpr1:SetNoDraw(false)
 		end
@@ -140,7 +140,7 @@ function ENT:OnInput(key, activator, caller, data)
 		end)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	if act == ACT_FLY then
 		if self.AA_CurrentMovePosDir then
@@ -171,14 +171,14 @@ function ENT:TranslateActivity(act)
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("Right Mouse + CTRL: Fire a homing orb")
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttack(status, enemy)
 	if status == "Init" then
-		if (math.random(1, 2) == 1 && self.EnemyData.DistanceNearest < 850) or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_DUCK)) then
+		if (math.random(1, 2) == 1 and self.EnemyData.DistanceNearest < 850) or (self.VJ_Controlled and self.VJ_Controller:GetPlayer():KeyDown(IN_DUCK)) then
 			self.AnimTbl_RangeAttack = ACT_RANGE_ATTACK2
 			self.AlienC_HomingAttack = true
 		else
@@ -188,7 +188,7 @@ function ENT:OnRangeAttack(status, enemy)
 		self.AlienC_NumFired = 0
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "PostSpawn" then
 		if self.AlienC_HomingAttack then
@@ -201,17 +201,17 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjPos(projectile)
 	return self:GetPos() + self:GetUp() * (self.AlienC_HomingAttack and 80 or 20)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjVel(projectile)
 	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projectile:GetPos(), 1, 700)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+	if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		VJ.HLR_StaticCorpseCheck(self)
@@ -219,7 +219,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -251,7 +251,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	VJ.HLR_ApplyCorpseSystem(self, corpse, nil, {CollisionSound = gibsCollideSd})
 end

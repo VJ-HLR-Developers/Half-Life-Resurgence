@@ -21,7 +21,7 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(12, 0, 5),
 	FirstP_ShrinkBone = false,
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow"
@@ -53,21 +53,21 @@ ENT.MainSoundPitch = 100
 
 -- Custom
 ENT.Icky_BlinkingT = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(40, 40, 60), Vector(-40, -40, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "mm_tasty" then
 		self:ExecuteMeleeAttack()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	-- Blinking system
-	if !self.Dead && CurTime() > self.Icky_BlinkingT then
+	if !self.Dead and CurTime() > self.Icky_BlinkingT then
 		self:SetSkin(4)
 		timer.Simple(0.2, function() if IsValid(self) then self:SetSkin(3) end end)
 		timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(2) end end)
@@ -84,7 +84,7 @@ function ENT:OnThink()
 		self.Icky_BlinkingT = CurTime() + math.Rand(2, 3.5)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnMeleeAttackExecute(status, ent, isProp)
 	if status == "PreDamage" then
 		-- Increase its health when it deals damage (Up to 2x its max health)
@@ -92,15 +92,15 @@ function ENT:OnMeleeAttackExecute(status, ent, isProp)
 		self:SetHealth(math.Clamp(self:Health() + ((self.MeleeAttackDamage > ent:Health() and ent:Health()) or self.MeleeAttackDamage), self:Health(), self:GetMaxHealth() * 2))
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+	if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		VJ.HLR_StaticCorpseCheck(self)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -140,7 +140,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibs = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

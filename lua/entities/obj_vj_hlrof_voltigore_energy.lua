@@ -14,7 +14,7 @@ ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlrof_voltigore_energy", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/vj_base/projectiles/spit_acid_large.mdl"
@@ -25,7 +25,7 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/wep/gauss/electro4.wav", "vj_hlr/gsrc/wep
 ENT.CollisionDecal = "VJ_HLR1_Scorch"
 ENT.RemoveDelay = 1
 
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetNoDraw(true)
 
@@ -44,7 +44,7 @@ function ENT:Init()
 	spr:Activate()
 	self:DeleteOnRemove(spr)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Vort_DoElecEffect(sp, hp, hn, a, t)
 	local elec = EffectData()
 	elec:SetStart(sp)
@@ -55,7 +55,7 @@ function ENT:Vort_DoElecEffect(sp, hp, hn, a, t)
 	elec:SetScale(0.15)
 	util.Effect("VJ_HLR_Electric_Purple", elec)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Think() -- Override think because we need it to run while doing delayed remove!
 	local myPos = self:GetPos()
 	-- Tsakh --------------------------

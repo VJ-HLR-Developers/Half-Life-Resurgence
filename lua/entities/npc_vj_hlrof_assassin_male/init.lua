@@ -15,7 +15,7 @@ ENT.HasDeathSounds = false
 -- Custom
 ENT.BOA_NextStrafeT = 0
 ENT.BOA_NextRunT = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:HECU_OnInit()
 	self.SoundTbl_IdleDialogue = {"vj_hlr/gsrc/npc/ops/of2a5_bo01.wav", "vj_hlr/gsrc/npc/ops/of2a5_bo03.wav", "vj_hlr/gsrc/npc/ops/of6a2_bo01.wav"}
 	self.SoundTbl_IdleDialogueAnswer = {"vj_hlr/gsrc/npc/ops/of2a5_bo02.wav", "vj_hlr/gsrc/npc/ops/of6a2_bo02.wav"}
@@ -25,12 +25,12 @@ function ENT:HECU_OnInit()
 	self:SetBodygroup(2, self.HECU_Rappelling and 0 or math.random(0, 1)) -- If we spawn as a rappelling soldier, then only spawn with MP5!
 	self.BOA_NextStrafeT = CurTime() + 4
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local animStrafing = {ACT_STRAFE_RIGHT, ACT_STRAFE_LEFT}
 --
 function ENT:HECU_OnThink()
 	if self.VJ_Controlled then return end
-	if IsValid(self:GetEnemy()) && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND && !self.VJ_Controlled && CurTime() > self.BOA_NextStrafeT && !self:IsMoving() && self:GetPos():Distance(self:GetEnemy():GetPos()) < 1400 then
+	if IsValid(self:GetEnemy()) and self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND and !self.VJ_Controlled and CurTime() > self.BOA_NextStrafeT and !self:IsMoving() and self:GetPos():Distance(self:GetEnemy():GetPos()) < 1400 then
 		self:StopMoving()
 		self:PlayAnim(animStrafing, true, false, false)
 		self.BOA_NextRunT = CurTime() + 2
@@ -41,12 +41,12 @@ function ENT:HECU_OnThink()
 		//end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnWeaponAttack()
 	if self.VJ_Controlled then return end
 	if CurTime() > self.BOA_NextRunT then
 		timer.Simple(0.8, function()
-			if IsValid(self) && !self:IsMoving() && !self.Dead then
+			if IsValid(self) and !self:IsMoving() and !self.Dead then
 				self:SCHEDULE_COVER_ENEMY("TASK_RUN_PATH")
 			end
 		end)

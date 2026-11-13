@@ -18,7 +18,7 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(15, 0, 15),
 	FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow"
 ENT.BloodDecal = "VJ_HLR1_Blood_Yellow"
@@ -39,25 +39,25 @@ ENT.SoundTbl_MeleeAttackMiss = {"vj_hlr/gsrc/npc/zombie/claw_miss1.wav", "vj_hlr
 ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
 
 ENT.MainSoundPitch = 100
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(25, 25, 190), Vector(-25, -25, 0))
 	self:AddFlags(FL_NOTARGET)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "melee" then
 		self:ExecuteMeleeAttack()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnMeleeAttack(status, enemy)
 	if status == "PreInit" then
-		return (self.VJ_Controlled or enemy.VJ_ID_Boss) or !((enemy:IsNPC() && enemy:IsMoving()) or (enemy:IsOnGround() && VJ.GetMoveVelocity(enemy):Length() > 2))
+		return (self.VJ_Controlled or enemy.VJ_ID_Boss) or !((enemy:IsNPC() and enemy:IsMoving()) or (enemy:IsOnGround() and VJ.GetMoveVelocity(enemy):Length() > 2))
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnMeleeAttackExecute(status, ent, isProp)
 	if status == "PreDamage" then
 		-- Increase its health when it deals damage (Up to 6x its max health)
@@ -65,7 +65,7 @@ function ENT:OnMeleeAttackExecute(status, ent, isProp)
 		self:SetHealth(math.Clamp(self:Health() + ((self.MeleeAttackDamage > ent:Health() and ent:Health()) or self.MeleeAttackDamage), self:Health(), self:GetMaxHealth() * 6))
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "Init" then
 		if !self.PauseAttacks then
@@ -76,7 +76,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --

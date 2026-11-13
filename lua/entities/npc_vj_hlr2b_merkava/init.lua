@@ -13,7 +13,7 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(0, 0, 70),
 	FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.AlliedWithPlayerAllies = true
 
@@ -22,15 +22,15 @@ ENT.Tank_CollisionBoundSize = 90
 ENT.Tank_CollisionBoundUp = 100
 ENT.Tank_DeathDriverCorpse = {"models/Humans/Group03m/male_01.mdl", "models/Humans/Group03m/male_02.mdl", "models/Humans/Group03m/male_03.mdl", "models/Humans/Group03m/male_04.mdl", "models/Humans/Group03m/male_05.mdl", "models/Humans/Group03m/male_06.mdl", "models/Humans/Group03m/male_07.mdl", "models/Humans/Group03m/male_08.mdl", "models/Humans/Group03m/male_09.mdl"}
 
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_Init()
 	self:SetSkin(math.random(0, 1))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_GunnerSpawnPosition()
 	return self:GetPos() + self:GetUp() * 69
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_UpdateIdleParticles()
 	local spawnPos = self:GetPos() + self:GetForward() * -130 + self:GetUp() * 45
 	local effectData = EffectData()
@@ -41,7 +41,7 @@ function ENT:Tank_UpdateIdleParticles()
 	effectData:SetOrigin(spawnPos + self:GetRight() * -28)
 	util.Effect("VJ_VehicleExhaust", effectData, true, true)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_UpdateMoveParticles()
 	local spawnPos = self:GetPos() + self:GetForward() * -115
 	local effectData = EffectData()
@@ -52,7 +52,7 @@ function ENT:Tank_UpdateMoveParticles()
 	effectData:SetOrigin(spawnPos + self:GetRight() * -58)
 	util.Effect("VJ_VehicleMove", effectData, true, true)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_OnThink()
 	-- Keep the skin of the gunner the same!
 	local gun = self.Gunner
@@ -60,7 +60,7 @@ function ENT:Tank_OnThink()
 		gun:SetSkin(self:GetSkin())
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:GetNearDeathSparkPositions()
 	local randPos = math.random(1, 5)
 	if randPos == 1 then

@@ -14,7 +14,7 @@ ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlr1_gonarchspit", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/vj_base/projectiles/spit_acid_medium.mdl"
@@ -29,7 +29,7 @@ ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/bullchicken/bc_acid1.wav", "vj_hlr/gsrc/np
 ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/npc/bullchicken/bc_spithit1.wav", "vj_hlr/gsrc/npc/bullchicken/bc_spithit2.wav"}
 
 local defAng = Angle()
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetNoDraw(true)
 	self:DrawShadow(false)
@@ -37,7 +37,7 @@ function ENT:Init()
 	ParticleEffect("vj_hlr_spit_gonarch_spawn", self:GetPos(), defAng)
 	ParticleEffectAttach("vj_hlr_spit_gonarch", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDestroy(data, phys)
 	ParticleEffect("vj_hlr_spit_gonarch_impact", data.HitPos, defAng)
 end

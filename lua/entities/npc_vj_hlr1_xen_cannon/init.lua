@@ -19,7 +19,7 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(0, 0, 50),
 	FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.HasMeleeAttack = false
 
@@ -51,20 +51,20 @@ ENT.DeathSoundLevel = 90
 -- Custom
 ENT.Cannon_HasLOS = false
 ENT.Cannon_LockTime = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(45, 45, 65), Vector(-45, -45, 0))
 	self.Cannon_LockTime = CurTime() + 0.3 -- Prevent spawn-killing
 	self:SetPhysicsDamageScale(0.001) -- Take minimum physics damage
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "shoot" then
 		self:ExecuteRangeAttack()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local threshold = 3
 --
 function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
@@ -77,13 +77,13 @@ function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
 		self.Cannon_HasLOS = true
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttack(status, enemy)
 	if status == "PreInit" then
-		return !(self.Cannon_HasLOS && CurTime() > self.Cannon_LockTime)
+		return !(self.Cannon_HasLOS and CurTime() > self.Cannon_LockTime)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "Init" then
 		local startPos = self:GetAttachment(1).Pos
@@ -127,11 +127,11 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		return true
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-	if status == "Init" && dmginfo:GetDamagePosition() != vec then
+	if status == "Init" and dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(4) -- Size
@@ -139,7 +139,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		util.Effect("VJ_HLR_Rico", rico)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Finish" then
 		local myUpPos = self:GetPos() + self:GetUp() * 20
@@ -171,11 +171,11 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		expLight:Fire("Kill", nil, 0.15)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_ABSORIGIN_FOLLOW, corpse, 0)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibCollideSd = {"vj_hlr/gsrc/fx/metal1.wav", "vj_hlr/gsrc/fx/metal2.wav", "vj_hlr/gsrc/fx/metal3.wav", "vj_hlr/gsrc/fx/metal4.wav", "vj_hlr/gsrc/fx/metal5.wav"}
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)

@@ -14,7 +14,7 @@ ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlrof_gw_biotoxin", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/vj_base/projectiles/spit_acid_large.mdl"
@@ -27,12 +27,12 @@ ENT.RemoveDelay = 1.5
 ENT.Track_Ent = NULL
 ENT.Track_TrackTime = 0
 ENT.Track_OrgPosition = Vector()
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetNoDraw(true)
 	ParticleEffectAttach("vj_hlr_geneworm_spit", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	if CurTime() > self.Track_TrackTime then return end
 	local ene = self.Track_Ent

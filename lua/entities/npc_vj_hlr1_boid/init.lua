@@ -42,7 +42,7 @@ ENT.Boid_Type = 0
 	-- 0 = Original / Default
 	-- 1 = AFlock
 ENT.Boid_FollowOffsetPos = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(18, 18, 10), Vector(-18, -18, 0))
 	self.Boid_FollowOffsetPos = Vector(math.random(-50, 50), math.random(-120, 120), math.random(-150, 150))
@@ -50,19 +50,19 @@ function ENT:Init()
 		VJ.HLR_NPC_Boid_Leader = self
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	if act == ACT_IDLE then
 		return ACT_FLY
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	if self.VJ_Controlled then return end
 	local leader = VJ.HLR_NPC_Boid_Leader
 	if IsValid(leader) then
-		if leader != self && leader.AA_CurrentMovePos then
+		if leader != self and leader.AA_CurrentMovePos then
 			self.DisableWandering = true
 			self:AA_MoveTo(leader, true, "Calm", {AddPos = self.Boid_FollowOffsetPos, IgnoreGround = true}) -- Medzavorin haladz e (Kharen deghme)
 		end
@@ -72,9 +72,9 @@ function ENT:OnThink()
 		VJ.HLR_NPC_Boid_Leader = self
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+	if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		VJ.HLR_StaticCorpseCheck(self)
@@ -82,7 +82,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -107,7 +107,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibs = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

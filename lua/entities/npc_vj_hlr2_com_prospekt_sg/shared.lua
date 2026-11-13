@@ -5,7 +5,7 @@ ENT.Author = "DrVrej"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 ENT.Category = "Half-Life Resurgence"
 
-if CLIENT && GetConVar("vj_hlr2_combine_eyeglow"):GetBool() then
+if CLIENT and GetConVar("vj_hlr2_combine_eyeglow"):GetBool() then
 	local mat = Material("sprites/light_glow02_add")
 	local col = Color(255, 0, 0)
 	local render_SetMaterial = render.SetMaterial

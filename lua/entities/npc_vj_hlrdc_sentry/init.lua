@@ -18,7 +18,7 @@ ENT.DeathAnimationTime = 5
 ENT.Sentry_RegularType = 1
 ENT.Sentry_MuzzleAttach = "muzzle"
 ENT.Sentry_AlarmAttach = "sensor"
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vecUp20 = Vector(0, 0, 20)
 local parentDeathFunc = ENT.OnDeath
 --

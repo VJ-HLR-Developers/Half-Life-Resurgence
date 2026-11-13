@@ -17,7 +17,7 @@ ENT.VJ_ID_Danger = true
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlr1_grenade_40mm", ENT.PrintName, VJ.KILLICON_TYPE_ALIAS, "grenade_ar2")
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/vj_hlr/weapons/grenade.mdl"
@@ -33,20 +33,20 @@ ENT.SoundTbl_OnRemove = {"vj_hlr/gsrc/wep/explosion/explode3.wav", "vj_hlr/gsrc/
 ENT.OnRemoveSoundLevel = 100
 
 local vj_hlr_hd = GetConVar("vj_hlr_hd")
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:PreInit()
-	if vj_hlr_hd:GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "obj_vj_hlr1_grenade_40mm" then
+	if vj_hlr_hd:GetInt() == 1 and VJ.HLR_INSTALLED_HD and self:GetClass() == "obj_vj_hlr1_grenade_40mm" then
 		self.Model = "models/vj_hlr/weapons/grenade_hd.mdl"
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:InitPhys()
 	local phys = self:GetPhysicsObject()
 	if IsValid(phys) then
 		phys:AddAngleVelocity(Vector(0, math.random(300, 400), 0))
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDestroy(data, phys)
 	local myPos = self:GetPos()
 

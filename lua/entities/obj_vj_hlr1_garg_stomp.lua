@@ -16,7 +16,7 @@ ENT.VJ_ID_Danger = true
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlr1_garg_stomp", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/vj_base/projectiles/spit_acid_large.mdl"
@@ -33,7 +33,7 @@ ENT.StartupSoundPitch = VJ.SET(100, 100)
 -- Custom
 ENT.Stomp_InitialRan = false
 ENT.Stomp_SpeedMultiplier = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetNoDraw(true)
 
@@ -60,10 +60,10 @@ function ENT:Init()
 
 	ParticleEffectAttach("vj_hlr_garg_stomp", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	local owner = self:GetOwner()
-	if !self.Stomp_InitialRan && IsValid(owner) then
+	if !self.Stomp_InitialRan and IsValid(owner) then
 		self.Stomp_InitialRan = true
 		self:SetAngles(Angle(owner:GetAngles().p, 0, 0))
 		local myPos = self:GetPos()
@@ -76,7 +76,7 @@ function ENT:OnThink()
 
 		local phys = self:GetPhysicsObject()
 		local ene = owner:GetEnemy()
-		if IsValid(phys) && IsValid(ene) then
+		if IsValid(phys) and IsValid(ene) then
 			local res = VJ.CalculateTrajectory(self, NULL, "Line", myPos, ene:GetPos() + ene:OBBCenter(), 100) -- Do NOT predict!
 			res.z = 0
 			phys:SetVelocity(res)
@@ -85,7 +85,7 @@ function ENT:OnThink()
 
 	local phys = self:GetPhysicsObject()
 	local myVel = self:GetVelocity()
-	if IsValid(phys) && myVel:Length() < 400 then
+	if IsValid(phys) and myVel:Length() < 400 then
 		phys:SetVelocity(myVel * (1 + math.Clamp(self.Stomp_SpeedMultiplier, 0, 0.1)))
 	end
 	self.Stomp_SpeedMultiplier = self.Stomp_SpeedMultiplier + 0.01

@@ -14,7 +14,7 @@ ENT.Category = "Half-Life Resurgence"
 
 function ENT:Draw() self:DrawModel() end
 function ENT:DrawTranslucent() self:Draw() end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 if (!SERVER) then return end
 
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
@@ -22,7 +22,7 @@ ENT.Assignee = NULL -- Is another entity the owner of this crystal?
 
 local sdHit = {"vj_hlr/gsrc/fx/glass1.wav", "vj_hlr/gsrc/fx/glass2.wav", "vj_hlr/gsrc/fx/glass3"}
 local sdBreak = {"vj_hlr/gsrc/fx/bustglass1.wav", "vj_hlr/gsrc/fx/bustglass2.wav"}
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Initialize()
 	if !IsValid(self.Assignee) then
 		self:SetPos(self:GetPos() + self:GetUp() * -40)
@@ -53,7 +53,7 @@ function ENT:Initialize()
 
 	for i = 0, 0.8, 0.2 do -- Create 5 energy charges
 		timer.Simple(i, function()
-			if IsValid(self) && IsValid(self.Assignee) then
+			if IsValid(self) and IsValid(self.Assignee) then
 				local charge = ents.Create("sent_vj_hlr1_orb_crystal_charge")
 				charge:SetAngles(self.Assignee:GetAngles())
 				charge:SetPos(self:GetPos() + self:GetUp() * 50)
@@ -67,12 +67,12 @@ function ENT:Initialize()
 		end)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Think()
 	self:NextThink(CurTime())
 	return true
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vecZ90 = Vector(0, 0, 90)
 --
 function ENT:OnTakeDamage(dmginfo)
@@ -103,7 +103,7 @@ function ENT:OnTakeDamage(dmginfo)
 		self:Remove()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRemove()
 	VJ.STOPSOUND(self.IdleSd)
 

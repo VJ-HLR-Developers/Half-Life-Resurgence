@@ -17,7 +17,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Head",
 	FirstP_Offset = Vector(7, 0, 0)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow_large"
@@ -61,11 +61,11 @@ ENT.DeathSoundLevel = 90
 
 -- Custom
 ENT.PitWorm_BlinkingT = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(100, 100, 390), Vector(-100, -100, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "melee" then
@@ -75,10 +75,10 @@ function ENT:OnInput(key, activator, caller, data)
 	end
 end
 // ACT_SPECIAL_ATTACK1, ACT_SPECIAL_ATTACK2
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	-- Handle blinking
-	if !self.Dead && CurTime() > self.PitWorm_BlinkingT then
+	if !self.Dead and CurTime() > self.PitWorm_BlinkingT then
 		self:SetSkin(1)
 		timer.Simple(0.1, function() if IsValid(self) then self:SetSkin(2) end end)
 		timer.Simple(0.2, function() if IsValid(self) then self:SetSkin(3) end end)
@@ -88,17 +88,17 @@ function ENT:OnThink()
 		self.PitWorm_BlinkingT = CurTime() + math.Rand(2, 3.5)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAlert(ent)
 	self:PlayAnim(ACT_ARM, true, false, true)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttack(status, enemy)
 	if status == "PostInit" then
 		self.PitWorm_BlinkingT = CurTime() + 2
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:PitWorm_DoLaserEffects()
 	local startPos = self:GetPos() + self:GetUp() * 250 + self:GetForward() * 230
 	local tr = util.TraceLine({
@@ -114,7 +114,7 @@ function ENT:PitWorm_DoLaserEffects()
 	util.Effect("VJ_HLR_PitWorm_Beam", beam)
 	return tr.HitPos
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "Init" then
 		self:PitWorm_DoLaserEffects()
@@ -138,11 +138,11 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		spr:SetParent(self)
 		spr:Fire("SetParentAttachment", "0")
 		self:DeleteOnRemove(spr)
-		timer.Simple(0.65, function() if IsValid(self) && IsValid(spr) then spr:Remove() end end)
+		timer.Simple(0.65, function() if IsValid(self) and IsValid(spr) then spr:Remove() end end)
 
 		for i = 0.1, 0.5, 0.1 do
 			timer.Simple(i, function()
-				if IsValid(self) && IsValid(self:GetEnemy()) && self.AttackType == VJ.ATTACK_TYPE_RANGE then
+				if IsValid(self) and IsValid(self:GetEnemy()) and self.AttackType == VJ.ATTACK_TYPE_RANGE then
 					local hitpos = self:PitWorm_DoLaserEffects()
 					sound.EmitHint(SOUND_DANGER, hitpos, 100, 1, self)
 					VJ.ApplyRadiusDamage(self, self, hitpos, 30, 10, DMG_SHOCK, true, false, {Force = 90})

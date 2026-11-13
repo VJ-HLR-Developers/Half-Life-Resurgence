@@ -14,7 +14,7 @@ ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlr1_toxicspit", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/vj_hlr/hla/spit.mdl"
@@ -30,13 +30,13 @@ ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/npc/bullchicken/bc_spithit1.wav", "vj_hlr
 
 -- Custom
 ENT.Spit_Alpha = false -- Should it act like HL Alpha toxic spit?
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:PreInit()
-	if IsValid(self:GetOwner()) && self:GetOwner().Bullsquid_BullSquidding then
+	if IsValid(self:GetOwner()) and self:GetOwner().Bullsquid_BullSquidding then
 		self.ProjectileType = VJ.PROJ_TYPE_LINEAR
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self.Scale = math.Rand(0.5, 1.15)
 
@@ -66,7 +66,7 @@ function ENT:Init()
 	end
 	self:SetAngles(self:GetVelocity():Angle())
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDestroy(data, phys)
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model", "vj_hl/sprites/bigspit_impact.vmt")

@@ -18,7 +18,7 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(0, 0, -60),
 	FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.HasMeleeAttack = false
 
@@ -38,7 +38,7 @@ ENT.SoundTbl_Death = {"vj_hlr/gsrc/fx/bustflesh1.wav", "vj_hlr/gsrc/fx/bustflesh
 local SdTbl_GibImpact = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh4.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 
 ENT.MainSoundPitch = 100
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(25, 25, 0), Vector(-25, -25, -162))
 	self:DrawShadow(false) -- Because the light somehow makes a shadow =/
@@ -73,7 +73,7 @@ function ENT:Init()
 	spotLight:Fire("TurnOn")
 	self:DeleteOnRemove(spotLight)*/
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "Init" then
 		local startPos = self:GetAttachment(1).Pos
@@ -119,14 +119,14 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		return true
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	-- Take damage only if the bottom part is hit or it's a blast damage!
-	if status == "PreDamage" && hitgroup == 3 && !dmginfo:IsDamageType(DMG_BLAST) then
+	if status == "PreDamage" and hitgroup == 3 and !dmginfo:IsDamageType(DMG_BLAST) then
 		dmginfo:SetDamage(0)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vecZ20 = Vector(0, 0, 20)
 local vecZ12 = Vector(0, 0, 12)
 --
@@ -166,7 +166,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/flesh4.mdl", {CollisionDecal = false,  Pos = pos + Vector(0, 2, 0),  CollisionSound = SdTbl_GibImpact})
 	return true, {AllowCorpse = true, AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	corpse:SetBodygroup(0, 1)
 end

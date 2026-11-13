@@ -14,7 +14,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Bip01 Head",
 	FirstP_Offset = Vector(10, 0, 0)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow"
@@ -64,13 +64,13 @@ ENT.DangerSightSoundPitch = VJ.SET(105, 110)
 ENT.Shocktrooper_BlinkingT = 0
 ENT.Shocktrooper_SpawnRoach = true
 ENT.Shocktrooper_DroppedRoach = false
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(20, 20, 90), Vector(-20, -20, 0))
 	self:SetBodygroup(1, 0)
 	self:Give("weapon_vj_hlrof_strooperwep")
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
@@ -86,10 +86,10 @@ function ENT:OnInput(key, activator, caller, data)
 		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	-- Injured movement when health is low
-	if (act == ACT_WALK or act == ACT_RUN) && self:Health() <= (self:GetMaxHealth() / 2.2) then
+	if (act == ACT_WALK or act == ACT_RUN) and self:Health() <= (self:GetMaxHealth() / 2.2) then
 		if act == ACT_WALK then
 			return ACT_WALK_HURT
 		elseif act == ACT_RUN then
@@ -98,9 +98,9 @@ function ENT:TranslateActivity(act)
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
-	if !self.Dead && CurTime() > self.Shocktrooper_BlinkingT then
+	if !self.Dead and CurTime() > self.Shocktrooper_BlinkingT then
 		timer.Simple(0.2, function() if IsValid(self) then self:SetSkin(1) end end)
 		timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(2) end end)
 		timer.Simple(0.4, function() if IsValid(self) then self:SetSkin(3) end end)
@@ -108,16 +108,16 @@ function ENT:OnThink()
 		self.Shocktrooper_BlinkingT = CurTime() + math.Rand(3, 4.5)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnGrenadeAttackExecute(status, grenade, overrideEnt, landDir, landingPos)
 	-- Make Shock Trooper's grenade more arched than the usual grenade throws
-	if status == "PostSpawn" && !IsValid(overrideEnt) then
+	if status == "PostSpawn" and !IsValid(overrideEnt) then
 		return (landingPos - grenade:GetPos()) + (self:GetUp() * math.random(450, 500) + self:GetForward() * math.Rand(-100, -250) + self:GetRight() * math.Rand(-20, 20))
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+	if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		VJ.HLR_StaticCorpseCheck(self)
@@ -129,7 +129,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		self:Shocktrooper_CreateRoach()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Shocktrooper_CreateRoach()
 	self:SetBodygroup(1, 1)
 	self:SetSkin(2)
@@ -146,7 +146,7 @@ function ENT:Shocktrooper_CreateRoach()
 		self.Shocktrooper_DroppedRoach = true
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -187,7 +187,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibs = {"models/vj_hlr/gibs/strooper_gib1.mdl", "models/vj_hlr/gibs/strooper_gib2.mdl", "models/vj_hlr/gibs/strooper_gib3.mdl", "models/vj_hlr/gibs/strooper_gib4.mdl", "models/vj_hlr/gibs/strooper_gib5.mdl", "models/vj_hlr/gibs/strooper_gib6.mdl", "models/vj_hlr/gibs/strooper_gib7.mdl", "models/vj_hlr/gibs/strooper_gib8.mdl", "models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib6.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

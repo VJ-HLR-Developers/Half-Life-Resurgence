@@ -13,7 +13,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Bip01 Head",
 	FirstP_Offset = Vector(5, 0, 5)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.BloodColor = VJ.BLOOD_COLOR_NONE
 ENT.HasBloodParticle = false
 ENT.HasBloodDecal = false
@@ -21,13 +21,13 @@ ENT.VJ_ID_Healable = false
 
 ENT.BreathSoundLevel = 50
 ENT.MainSoundPitch = VJ.SET(130, 140)
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:PreInit()
-	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "npc_vj_hlr1_rgrunt" then
+	if GetConVar("vj_hlr_hd"):GetInt() == 1 and VJ.HLR_INSTALLED_HD and self:GetClass() == "npc_vj_hlr1_rgrunt" then
 		self.Model = "models/vj_hlr/hl_hd/rgrunt.mdl"
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:HECU_OnInit()
 	self:SetBodygroup(1, math.random(0, 1))
 	self.SoundTbl_FootStep = {"vj_hlr/gsrc/npc/rgrunt/pl_metal1.wav", "vj_hlr/gsrc/npc/rgrunt/pl_metal2.wav", "vj_hlr/gsrc/npc/rgrunt/pl_metal3.wav", "vj_hlr/gsrc/npc/rgrunt/pl_metal4.wav"}
@@ -49,7 +49,7 @@ function ENT:HECU_OnInit()
 	self.SoundTbl_Death = {"vj_hlr/gsrc/npc/rgrunt/rb_die1.wav", "vj_hlr/gsrc/npc/rgrunt/rb_die2.wav", "vj_hlr/gsrc/npc/rgrunt/rb_die3.wav"}
 	self.SoundTbl_Impact = {"vj_hlr/gsrc/fx/spark1.wav", "vj_hlr/gsrc/fx/spark2.wav", "vj_hlr/gsrc/fx/spark3.wav", "vj_hlr/gsrc/fx/spark4.wav", "vj_hlr/gsrc/fx/spark5.wav", "vj_hlr/gsrc/fx/spark6.wav"}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:HECU_OnThink()
 	if self.HECU_NextMouthMove > CurTime() then
 		local changeTo = self:GetSkin() + 1
@@ -69,16 +69,16 @@ function ENT:HECU_OnThink()
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateSound(sdData, sdFile)
 	if VJ.HasValue(self.SoundTbl_Breath, sdFile) or VJ.HasValue(self.SoundTbl_Pain, sdFile) then return end
 	self.HECU_NextMouthMove = CurTime() + SoundDuration(sdFile)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-	if status == "Init" && dmginfo:GetDamagePosition() != vec then
+	if status == "Init" and dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(4) -- Size
@@ -86,7 +86,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		util.Effect("VJ_HLR_Rico", rico)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibsCollideSd = {"vj_hlr/gsrc/fx/metal1.wav", "vj_hlr/gsrc/fx/metal2.wav", "vj_hlr/gsrc/fx/metal3.wav", "vj_hlr/gsrc/fx/metal4.wav", "vj_hlr/gsrc/fx/metal5.wav"}
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
@@ -143,7 +143,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_hlr/gsrc/npc/rgrunt/rb_gib.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibs = {"models/vj_hlr/gibs/metalgib_p1_g.mdl", "models/vj_hlr/gibs/metalgib_p2_g.mdl", "models/vj_hlr/gibs/metalgib_p3_g.mdl", "models/vj_hlr/gibs/metalgib_p4_g.mdl", "models/vj_hlr/gibs/metalgib_p5_g.mdl", "models/vj_hlr/gibs/metalgib_p6_g.mdl", "models/vj_hlr/gibs/metalgib_p7_g.mdl", "models/vj_hlr/gibs/metalgib_p8_g.mdl", "models/vj_hlr/gibs/metalgib_p9_g.mdl", "models/vj_hlr/gibs/metalgib_p10_g.mdl", "models/vj_hlr/gibs/metalgib_p11_g.mdl", "models/vj_hlr/gibs/rgib_cog1.mdl", "models/vj_hlr/gibs/rgib_cog2.mdl", "models/vj_hlr/gibs/rgib_rib.mdl", "models/vj_hlr/gibs/rgib_screw.mdl", "models/vj_hlr/gibs/rgib_screw.mdl", "models/vj_hlr/gibs/rgib_screw.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

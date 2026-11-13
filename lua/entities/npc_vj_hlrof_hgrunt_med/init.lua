@@ -16,14 +16,14 @@ ENT.IsMedic = true
 
 -- Custom
 ENT.HECUMedic_HealBG = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:HECU_OnInit()
 	-- Medic bodygroup starts from 2
 	self:SetBodygroup(2, math.random(0, 1))
 
 	self:SetBodygroup(3, math.random(0, 1))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnMedicBehavior(status, statusData)
 	if status == "BeforeHeal" then
 		self.HECUMedic_HealBG = self:GetBodygroup(3)

@@ -14,7 +14,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "MDLDEC_Bone23",
 	FirstP_Offset = Vector(8, 0, 6)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow"
@@ -64,14 +64,14 @@ ENT.MainSoundPitch = 100
 ENT.KingPin_NextScanT = 0
 ENT.KingPin_PsionicAttacking = false
 ENT.KingPin_NextPsionicAttackT = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(35, 35, 110), Vector(-35, -35, 0))
 	self:SetNW2Bool("PsionicEffect", false)
 	self:SetPhysicsDamageScale(0.01) -- By default take minimum physics damage
 	self.KingPin_NextScanT = CurTime() + math.Rand(1, 5)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
@@ -88,21 +88,21 @@ function ENT:OnInput(key, activator, caller, data)
 		//VJ.EmitSound(self, "vj_hlr/gsrc/npc/kingpin/port_suckout1.wav", 80, 140)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("RMouse + CTRL: Preform Psionic Attack")
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
-	if act == ACT_IDLE && self.KingPin_PsionicAttacking then
+	if act == ACT_IDLE and self.KingPin_PsionicAttacking then
 		return ACT_RANGE_ATTACK2
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThinkActive()
 	-- Ability to see through walls
-	if !IsValid(self:GetEnemy()) && CurTime() > self.KingPin_NextScanT then
+	if !IsValid(self:GetEnemy()) and CurTime() > self.KingPin_NextScanT then
 		VJ.EmitSound(self, scanSd, 85)
 		timer.Simple(0.5, function()
 			if IsValid(self) then
@@ -117,7 +117,7 @@ function ENT:OnThinkActive()
 		self.KingPin_NextScanT = CurTime() + self.NextProcessTime + 5
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:KingPin_ResetPsionicAttack()
 	self.AttackType = VJ.ATTACK_TYPE_NONE
 	self.GodMode = false
@@ -126,21 +126,21 @@ function ENT:KingPin_ResetPsionicAttack()
 	self:SetState()
 	self:SetNW2Bool("PsionicEffect", false)
 	timer.Simple(1, function() -- Wait little bit before resetting the physics damage scale to make sure no flying objects hit it!
-		if IsValid(self) && !self.GodMode then
+		if IsValid(self) and !self.GodMode then
 			self:SetPhysicsDamageScale(0.01) -- Reset physics damage back to default
 		end
 	end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThinkAttack(isAttacking, enemy)
 	local eneData = self.EnemyData
-	if !self.KingPin_PsionicAttacking && CurTime() > self.KingPin_NextPsionicAttackT && ((!self.VJ_Controlled && eneData.Visible && eneData.Distance <= 1000) or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_ATTACK2) && self.VJ_Controller:GetPlayer():KeyDown(IN_DUCK))) && !self:IsBusy() then
+	if !self.KingPin_PsionicAttacking and CurTime() > self.KingPin_NextPsionicAttackT and ((!self.VJ_Controlled and eneData.Visible and eneData.Distance <= 1000) or (self.VJ_Controlled and self.VJ_Controller:GetPlayer():KeyDown(IN_ATTACK2) and self.VJ_Controller:GetPlayer():KeyDown(IN_DUCK))) and !self:IsBusy() then
 		//print("SEARCH ----")
 		local pTbl = {} -- Table of props that it found
 		for _, v in ipairs(ents.FindInSphere(self:GetPos(), 600)) do
-			if v.VJ_ID_Prop && self:Visible(v) && enemy:Visible(v) then
+			if v.VJ_ID_Prop and self:Visible(v) and enemy:Visible(v) then
 				local phys = v:GetPhysicsObject()
-				if IsValid(phys) && phys:GetMass() <= 2000 && !v.BeingControlledByKingPin then
+				if IsValid(phys) and phys:GetMass() <= 2000 and !v.BeingControlledByKingPin then
 					//print("Prop -", v)
 					pTbl[#pTbl + 1] = v
 				end
@@ -188,7 +188,7 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 							v:SetNW2Bool("BeingControlledByKingPin", false)
 							phys:EnableGravity(true)
 							phys:EnableDrag(true)
-							if selfValid && IsValid(self:GetEnemy()) then -- Only throw props at the enemy if Kingpin has NOT been removed
+							if selfValid and IsValid(self:GetEnemy()) then -- Only throw props at the enemy if Kingpin has NOT been removed
 								phys:SetVelocity(VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", v:GetPos(), 1, 2000))
 								self:PlayAnim(ACT_RANGE_ATTACK2_LOW, "LetAttacks", false, false)
 							end
@@ -200,30 +200,30 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "PostSpawn" then
 		projectile.Track_Ent = enemy
 		timer.Simple(20, function() if IsValid(projectile) then projectile:Remove() end end)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjPos(projectile)
 	return self:GetPos() + self:GetUp() * 65 + self:GetForward() * 65
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjVel(projectile)
 	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projectile:GetPos(), 1, 200)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+	if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		VJ.HLR_StaticCorpseCheck(self)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -263,7 +263,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibs = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

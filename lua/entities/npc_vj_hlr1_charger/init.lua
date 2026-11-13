@@ -17,7 +17,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "bip01 head",
 	FirstP_Offset = Vector(10, 0, -3)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow"
@@ -64,11 +64,11 @@ local sdWallHit = {"vj_hlr/gsrc/wep/explosion/debris1.wav", "vj_hlr/gsrc/wep/exp
 ENT.Charger_Charging = false
 ENT.Charger_ChargeT = 0
 ENT.Charger_NextChargeT = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(10, 10, 45), Vector(-10, -10, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "mattack" then
@@ -77,14 +77,14 @@ function ENT:OnInput(key, activator, caller, data)
 		self:ExecuteRangeAttack()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
-	if self.Charger_Charging && (act == ACT_IDLE or act == ACT_WALK or act == ACT_RUN) then
+	if self.Charger_Charging and (act == ACT_IDLE or act == ACT_WALK or act == ACT_RUN) then
 		return ACT_RUN
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:ResetCharge()
 	local curTime = CurTime()
 	self:SetMaxYawSpeed(self.TurningSpeed)
@@ -103,14 +103,14 @@ function ENT:ResetCharge()
 	self:ResetTurnTarget()
 	self:PlayAnim(ACT_MELEE_ATTACK1, true, false, false)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	local curTime = CurTime()
-	if self.Charger_Charging && !IsValid(self:GetEnemy()) && curTime < self.Charger_ChargeT then
+	if self.Charger_Charging and !IsValid(self:GetEnemy()) and curTime < self.Charger_ChargeT then
 		self:ResetCharge()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThinkAttack(isAttacking, enemy)
 	local curTime = CurTime()
 	local eneData = self.EnemyData
@@ -158,8 +158,8 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 				local anim, animDur = self:PlayAnim(ACT_MELEE_ATTACK1, false, 0, false)
 				VJ.EmitSound(self, sdChargeHit, 80)
 				local ent = tr.Entity
-				local isProp = IsValid(ent) && ent.VJ_ID_Prop or false
-				if IsValid(ent) && (isProp or self:CheckRelationship(ent) == D_HT) then
+				local isProp = IsValid(ent) and ent.VJ_ID_Prop or false
+				if IsValid(ent) and (isProp or self:CheckRelationship(ent) == D_HT) then
 					if isProp then
 						local phys = ent:GetPhysicsObject()
 						if IsValid(phys) then
@@ -167,7 +167,7 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 						end
 					else
 						local vel = myForward * 150 + myUp * 100
-						if ent:GetMoveType() != MOVETYPE_PUSH && ent.MovementType != VJ_MOVETYPE_STATIONARY && (!ent.VJ_ID_Boss or ent.IsVJBaseSNPC_Tank) then
+						if ent:GetMoveType() != MOVETYPE_PUSH and ent.MovementType != VJ_MOVETYPE_STATIONARY and (!ent.VJ_ID_Boss or ent.IsVJBaseSNPC_Tank) then
 							local isNextBot = ent:IsNextBot()
 							if !isNextBot then
 								ent:SetGroundEntity(NULL)
@@ -197,7 +197,7 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 		end
 		return
 	end
-	if curTime > self.Charger_NextChargeT && (controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_ATTACK2) or !controlled && eneData.Visible && dist > 500 && dist <= 2500 && !self.Charger_AttackingDoor && !self:IsBusy() && math.random(1, 50) == 1 && math.abs(self:GetPos().z - enemy:GetPos().z) <= 128) && !self.Charger_Charging then
+	if curTime > self.Charger_NextChargeT and (controlled and self.VJ_Controller:GetPlayer():KeyDown(IN_ATTACK2) or !controlled and eneData.Visible and dist > 500 and dist <= 2500 and !self.Charger_AttackingDoor and !self:IsBusy() and math.random(1, 50) == 1 and math.abs(self:GetPos().z - enemy:GetPos().z) <= 128) and !self.Charger_Charging then
 		self.Charger_Charging = true
 		self.Charger_ChargeT = curTime + math.Rand(4, 6)
 		sound.EmitHint(SOUND_DANGER, enemy:GetPos(), 250, 1, self)
@@ -208,17 +208,17 @@ function ENT:OnThinkAttack(isAttacking, enemy)
 		end})
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjPos(projectile)
 	return self:GetPos() + self:GetUp() * 20 + self:GetForward() * 20
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjVel(projectile)
 	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Curve", projectile:GetPos(), 1, 10)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+	if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		VJ.HLR_StaticCorpseCheck(self)
@@ -226,7 +226,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -253,7 +253,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibs = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

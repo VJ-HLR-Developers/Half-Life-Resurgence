@@ -17,7 +17,7 @@ ENT.PhysicsSolidMask = MASK_SHOT
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlr1_hornet", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/vj_hlr/hl1/hornet.mdl"
@@ -46,7 +46,7 @@ ENT.Hornet_Alpha = false
 ENT.Hornet_ChaseSpeed = 600
 ENT.Hornet_Type = HORNET_TYPE_RED
 ENT.Hornet_NextThink = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorRed = Color(179, 39, 14)
 local colorOrange = Color(255, 128, 0)
 --
@@ -64,14 +64,14 @@ function ENT:Init()
 		util.SpriteTrail(self, 0, (self.Hornet_Type == HORNET_TYPE_RED and colorRed) or colorOrange, true, 6, 0, 1.5, 1 / (6 * 0.5), "vj_hl/sprites/laserbeam.vmt")
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	local curTime = CurTime()
 	if curTime < self.Hornet_NextThink then return end
 	local phys = self:GetPhysicsObject()
 	local trackedEnt = self.Track_Ent
 	-- Homing Behavior
-	if IsValid(trackedEnt) && trackedEnt:Alive() then
+	if IsValid(trackedEnt) and trackedEnt:Alive() then
 		local pos = trackedEnt:GetPos() + trackedEnt:OBBCenter()
 		if self:VisibleVec(pos) or self.Track_Position == defVec then
 			self.Track_Position = pos
@@ -89,7 +89,7 @@ function ENT:OnThink()
 	end
 	self.Hornet_NextThink = curTime + 0.1
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCollision(data, phys)
 	local lastVel = math.max(data.OurOldVelocity:Length(), data.Speed) -- Get the last velocity and speed
 	local newVel = phys:GetVelocity():GetNormalized()

@@ -15,7 +15,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Bip01 Head",
 	FirstP_Offset = Vector(1, 0, 0.5)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_SNARK"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow"
@@ -56,38 +56,38 @@ local SNARK_TYPE_PENGUIN = 1 -- Opposing Forces Penguin
 ENT.Snark_Exploded = false
 ENT.Snark_NextJumpWalkT = 0
 ENT.Snark_Type = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Snark_CustomOnInitialize()
 	self:SetCollisionBounds(Vector(5, 5, 10), Vector(-5, -5, 0))
 	self.Snark_Type = SNARK_TYPE_REGULAR
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:Snark_CustomOnInitialize()
 	self.Snark_EnergyTime = CurTime() + math.Rand(18, 22)
 	self.IdleSoundBlockTime = 0
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
 	function controlEnt:OnThink(key)
 		self:GetPlayer():ChatPrint(math.max(0, self:GetNPC().Snark_EnergyTime - CurTime()) .. " seconds left! Eat to gain more!")
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	if act != ACT_JUMP then -- Only let ACT_JUMP, otherwise make all animations ACT_RUN
 		return ACT_RUN
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThinkActive()
 	if self.Dead then return end
 	local ene = self:GetEnemy()
 	local eneData = self.EnemyData
 
 	-- Randomly jump while engaging an enemy
-	if IsValid(ene) && !self.VJ_Controlled && self:IsOnGround() && eneData.Visible && eneData.Distance > (self.LeapAttackMaxDistance + 10) && CurTime() > self.Snark_NextJumpWalkT then
+	if IsValid(ene) and !self.VJ_Controlled and self:IsOnGround() and eneData.Visible and eneData.Distance > (self.LeapAttackMaxDistance + 10) and CurTime() > self.Snark_NextJumpWalkT then
 		self:PlayAnim(ACT_RUN, false, 0.7, true)
 		self:PlaySoundSystem("Alert")
 		self:SetGroundEntity(NULL)
@@ -103,7 +103,7 @@ function ENT:OnThinkActive()
 	end
 
 	-- No more energy time, explode!
-	if !self.Snark_Exploded && CurTime() > self.Snark_EnergyTime then
+	if !self.Snark_Exploded and CurTime() > self.Snark_EnergyTime then
 		self.Snark_Exploded = true
 		self:SetState(VJ_STATE_FREEZE)
 		self:PlaySoundSystem("Death")
@@ -117,20 +117,20 @@ function ENT:OnThinkActive()
 		end)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnLeapAttack(status, enemy)
 	if status == "Jump" then
 		return VJ.CalculateTrajectory(self, enemy, "Curve", self:GetPos() + self:OBBCenter(), enemy:GetPos() + enemy:OBBCenter(), 10) + self:GetForward() * 150 + self:GetUp() * 20
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnLeapAttackExecute(status, ent)
 	if status == "PreDamage" then
 		self.Snark_EnergyTime = self.Snark_EnergyTime + 0.5
 		self.MainSoundPitchValue = math.Clamp(self.MainSoundPitchValue - 5, 100, 255)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --

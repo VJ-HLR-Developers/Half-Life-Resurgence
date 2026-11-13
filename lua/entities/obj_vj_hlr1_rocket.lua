@@ -13,17 +13,17 @@ ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 
 ENT.VJ_ID_Danger = true
 
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:SetupDataTables()
 	self:NetworkVar("Bool", "Exploded")
 	//baseclass.Get("obj_vj_projectile_base").SetupDataTables(self)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlr1_rocket", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 
 	function ENT:Think()
-		if IsValid(self) && !self:GetExploded() then
+		if IsValid(self) and !self:GetExploded() then
 			local emitter = ParticleEmitter(self:GetPos())
 			local fireTrail = emitter:Add("particles/flamelet2", self:GetPos() + self:GetForward() * -7)
 			if fireTrail then
@@ -41,7 +41,7 @@ if CLIENT then
 	end
 end
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/vj_hlr/hl1/rpgrocket.mdl"
@@ -60,7 +60,7 @@ ENT.OnCollideSoundLevel = 100
 -- Custom
 ENT.Rocket_AirMissile = false
 ENT.Rocket_HelicopterMissile = false
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vecZ20 = Vector(0, 0, 40)
 local colorTrail = Color(224, 224, 255, 255)
 --
@@ -94,7 +94,7 @@ function ENT:Init()
 				if IsValid(owner) then
 					local phys = self:GetPhysicsObject()
 					local ene = owner:GetEnemy()
-					if IsValid(phys) && IsValid(ene) then
+					if IsValid(phys) and IsValid(ene) then
 						phys:SetVelocity(VJ.CalculateTrajectory(owner, ene, "Line", self:GetPos(), 1, 2000))
 						self:SetAngles(self:GetVelocity():Angle())
 					end
@@ -129,7 +129,7 @@ function ENT:Init()
 									-- 3. Go to the enemy (Final move)
 									phys = self:GetPhysicsObject()
 									local ene = owner:GetEnemy()
-									if IsValid(phys) && IsValid(ene) then
+									if IsValid(phys) and IsValid(ene) then
 										phys:SetVelocity(VJ.CalculateTrajectory(owner, ene, "Line", self:GetPos(), 1, 50000))
 										self:SetAngles(self:GetVelocity():Angle())
 									end
@@ -142,7 +142,7 @@ function ENT:Init()
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vecZ80 = Vector(0, 0, 80)
 --
 function ENT:OnDestroy(data, phys)

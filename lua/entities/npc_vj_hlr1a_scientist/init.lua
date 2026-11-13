@@ -19,7 +19,7 @@ ENT.SoundTbl_Pain = "vj_hlr/gsrc/npc/barney_alpha/ba_pain1.wav"
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/barney_alpha/ba_die1.wav", "vj_hlr/gsrc/npc/barney_alpha/ba_die2.wav", "vj_hlr/gsrc/npc/barney_alpha/ba_die3.wav"}
 
 ENT.SCI_Type = 2
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetBodygroup(0, math.random(0, 4))
 end

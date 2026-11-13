@@ -136,7 +136,7 @@ local replacePreSpawn = {
 			newEnt.Human_Gender = 0
 		end
 		-- If it's a regular citizen but has a weapon, then make sure to set it to be aggressive!
-		if newEnt:GetClass() == "npc_vj_hlr2_citizen" && IsValid(ent:GetActiveWeapon()) then
+		if newEnt:GetClass() == "npc_vj_hlr2_citizen" and IsValid(ent:GetActiveWeapon()) then
 			newEnt.Behavior = VJ_BEHAVIOR_AGGRESSIVE
 		end
 	end,
@@ -190,7 +190,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 	local rEnt = VJ.PICK(replaceTbl_Entities[class])
 	if rEnt then
 		-- Make sure the game is loaded
-		if game && game.GetGlobalState then
+		if game and game.GetGlobalState then
 			gStatePrecriminal = game.GetGlobalState("gordon_precriminal") == 1
 		end
 		-- Check if it's HL1 & HL2 and stop if it's not supposed to continue
@@ -204,7 +204,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 		end
 		timer.Simple(0.01, function()
 			if IsValid(ent) then
-				local worldName = ent.GetName && ent:GetName() or nil
+				local worldName = ent.GetName and ent:GetName() or nil
 				//if worldName == "rocketman" then return end -- Makes Odessa work a little bit
 				//local spawnAnim = ent:GetSequenceName(ent:GetSequence())
 				-- Spawn the correct entity (Ex: different combine or rebels/citizens)
@@ -231,23 +231,23 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				if replacePreSpawn[class] then
 					replacePreSpawn[class](ent, newEnt)
 				end
-				newEnt:SetPos(ent:GetPos() + Vector(0, 0, (class == "monster_barnacle" && -1) or 4))
+				newEnt:SetPos(ent:GetPos() + Vector(0, 0, (class == "monster_barnacle" and -1) or 4))
 				newEnt:SetAngles(ent:GetAngles())
 				if IsValid(ent:GetParent()) then newEnt:SetParent(ent:GetParent()) end
-				if worldName && worldName != "" then newEnt:SetName(worldName) end
+				if worldName and worldName != "" then newEnt:SetName(worldName) end
 				newEnt:Spawn()
 				newEnt:Activate()
 				-- Set the target entity
-				local entTarget = ent.GetTarget && ent:GetTarget()
+				local entTarget = ent.GetTarget and ent:GetTarget()
 				if IsValid(entTarget) then
 					newEnt:SetTarget(entTarget)
 				end
 				-- Handle naming
-				if worldName && worldName != "" then -- Scripted NPC
+				if worldName and worldName != "" then -- Scripted NPC
 					newEnt.DisableWandering = true
 				end
 				-- Handle weapon
-				local wep = ent.GetActiveWeapon && ent:GetActiveWeapon() or false -- In case GetActiveWeapon is not in the ent's metatable
+				local wep = ent.GetActiveWeapon and ent:GetActiveWeapon() or false -- In case GetActiveWeapon is not in the ent's metatable
 				//print(worldName, wep)
 				if IsValid(wep) then
 					local foundWep = wep.IsVJBaseWeapon and wep:GetClass() or VJ.PICK(replaceTbl_Weapons[wep:GetClass()])
@@ -256,7 +256,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 					end
 				end
 				-- Handle enemy
-				local ene = ent.GetEnemy && ent:GetEnemy() or false -- In case GetEnemy is not in the ent's metatable
+				local ene = ent.GetEnemy and ent:GetEnemy() or false -- In case GetEnemy is not in the ent's metatable
 				if IsValid(ene) then
 					newEnt:SetEnemy(ene)
 				end
@@ -273,9 +273,9 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 							newEnt:SetLastPosition(val)
 							newEnt:SCHEDULE_GOTO_POSITION("TASK_WALK_PATH")
 						end
-					elseif key == "m_bShouldPatrol" && !val then
+					elseif key == "m_bShouldPatrol" and !val then
 						newEnt.DisableWandering = true
-					//elseif key == "m_vecCommandGoal" && val != defPos then
+					//elseif key == "m_vecCommandGoal" and val != defPos then
 					//	timer.Simple(0.15, function()
 					//		if IsValid(newEnt) then
 					//			newEnt:SetLastPosition(val)
@@ -310,7 +310,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 					afterSpawned[rEnt](ent, newEnt)
 				end
 				-- Handle Essential NPCs
-				if GetConVar("vj_hlr_autoreplace_essential"):GetInt() == 1 && essentialTbl[newClass] then
+				if GetConVar("vj_hlr_autoreplace_essential"):GetInt() == 1 and essentialTbl[newClass] then
 					newEnt.GodMode = true
 				end
 				-- FUN OPTION: Make them all allied together against players
@@ -321,7 +321,7 @@ hook.Add("OnEntityCreated", "VJ_HLR_AutoReplace_EntCreate", function(ent)
 				-- velocity
 				local vel = ent:GetVelocity()
 				timer.Simple(0.01, function()
-					if IsValid(newEnt) && vel:Length() > 0 then
+					if IsValid(newEnt) and vel:Length() > 0 then
 						newEnt:SetGroundEntity(NULL)
 						newEnt:SetVelocity(vel)
 					end
@@ -337,17 +337,17 @@ HLR_NextStateThink = 0
 hook.Add("Think", "VJ_HLR_AutoReplace_Think", function()
 	-- Make sure the game is loaded
 	if HLR_NextStateThink < CurTime() then
-		if game && game.GetGlobalState then
+		if game and game.GetGlobalState then
 			gStatePrecriminal = game.GetGlobalState("gordon_precriminal") == 1
 			gStateAntlionFri = game.GetGlobalState("antlion_allied") == 1
 		end
 		for _, v in ipairs(ents.GetAll()) do
 			if v:IsNPC() then
-				if !gStatePrecriminal && v.VJ_AutoScript_Reset then
+				if !gStatePrecriminal and v.VJ_AutoScript_Reset then
 					v.VJ_NPC_Class = v.VJ_AutoScript_OldClass
 					v.VJ_AutoScript_Reset = false
 				end
-				if gStateAntlionFri && v.VJ_HLR_Antlion then
+				if gStateAntlionFri and v.VJ_HLR_Antlion then
 					table.insert(v.VJ_NPC_Class, "CLASS_PLAYER_ALLY")
 					v.AlliedWithPlayerAllies = true
 				end

@@ -12,11 +12,11 @@ ENT.Author = "Cpt. Hazama"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 
 ENT.PhysicsSolidMask = MASK_SHOT
----------------------------------------------------------------------------------------------------------------------------------------------
+
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlr2_chargebolt", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/crossbow_bolt.mdl"
@@ -28,12 +28,12 @@ ENT.SoundTbl_Idle = "ambient/energy/electric_loop.wav"
 ENT.SoundTbl_OnCollide = {"ambient/energy/weld1.wav", "ambient/energy/weld2.wav"}
 
 ENT.IdleSoundLevel = 60
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:InitPhys()
 	self:SetMaterial("models/hl_resurgence/hl2/weapons/w_chargebow_arrow")
 	self:PhysicsInitSphere(1, "metal_bouncy")
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCollision(data, phys)
 	if !IsValid(data.HitEntity) then
 		local bolt = ents.Create("prop_dynamic")
@@ -50,7 +50,7 @@ function ENT:OnCollision(data, phys)
 	effectSpark:SetOrigin(data.HitPos)
 	util.Effect("StunstickImpact", effectSpark)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDealDamage(data, phys, hitEnts)
 	if !hitEnts then return end
 	for _, ent in ipairs(hitEnts) do

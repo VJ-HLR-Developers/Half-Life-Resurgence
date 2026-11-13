@@ -14,7 +14,7 @@ ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlr1_energyorb", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/vj_base/projectiles/spit_acid_large.mdl"
@@ -28,7 +28,7 @@ local defVec = Vector()
 
 ENT.Track_Ent = NULL
 ENT.Track_Position = defVec
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetNoDraw(true)
 
@@ -52,7 +52,7 @@ function ENT:Init()
 	self:DeleteOnRemove(spr)
 	self.GlowSprite = spr
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	local trackedEnt = self.Track_Ent
 	-- Homing Behavior

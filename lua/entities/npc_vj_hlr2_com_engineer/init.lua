@@ -11,11 +11,11 @@ include("shared.lua")
 ENT.Combine_TurretEnt = NULL
 ENT.Combine_TurretPlacing = false
 ENT.Combine_NextTurretCheckT = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetMaterial("models/hl_resurgence/hl2/engineer/combinesoldiersheet")
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("CROUCH (CTRL): Deploy Sentry Gun")
 
@@ -26,9 +26,9 @@ function ENT:Controller_Initialize(ply, controlEnt)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Combine_DeployTurret()
-	if self.Combine_NextTurretCheckT < CurTime() && !self.Combine_TurretPlacing && !IsValid(self.Combine_TurretEnt) then
+	if self.Combine_NextTurretCheckT < CurTime() and !self.Combine_TurretPlacing and !IsValid(self.Combine_TurretEnt) then
 		local myCenterPos = self:GetPos() + self:OBBCenter()
 		local tr = util.TraceLine({
 			start = myCenterPos,
@@ -41,7 +41,7 @@ function ENT:Combine_DeployTurret()
 			self.Combine_TurretPlacing = true
 			self:PlayAnim("vjseq_Turret_Drop", true, false, false)
 			timer.Simple(0.9, function()
-				if IsValid(self) && !IsValid(self.Combine_TurretEnt) then
+				if IsValid(self) and !IsValid(self.Combine_TurretEnt) then
 					local turret = ents.Create("npc_vj_hlr2_com_sentry")
 					turret:SetPos(self:GetPos() + self:GetForward() * 50)
 					turret:SetAngles(self:GetAngles())
@@ -63,9 +63,9 @@ function ENT:Combine_DeployTurret()
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThinkActive()
-	if !self.VJ_Controlled && IsValid(self:GetEnemy()) && self.EnemyData.Visible then
+	if !self.VJ_Controlled and IsValid(self:GetEnemy()) and self.EnemyData.Visible then
 		self:Combine_DeployTurret()
 	end
 end

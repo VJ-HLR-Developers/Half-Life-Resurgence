@@ -14,7 +14,7 @@ ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlr1_archerspit", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/vj_hlr/opfor/pitdrone_spike.mdl"
@@ -27,15 +27,15 @@ ENT.SoundTbl_OnCollide = "vj_hlr/gsrc/npc/bullchicken/bc_spithit3.wav"
 
 -- Custom
 ENT.NextBubbles = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetNoDraw(true)
 	ParticleEffectAttach("vj_hlr_spore_idle_small", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	local curTime = CurTime()
-	if self:WaterLevel() == 3 && self.NextBubbles < curTime then
+	if self:WaterLevel() == 3 and self.NextBubbles < curTime then
 		local myPos = self:GetPos()
 		effects.BubbleTrail(myPos - self:GetAbsVelocity() * 0.1, myPos, 2, -150, 20) -- height = -150 to prevent it from going out of water (bug with BubbleTrail)
 		self.NextBubbles = curTime + 0.02
@@ -51,7 +51,7 @@ function ENT:OnThink()
 	//	end
 	//end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local defAng = Angle()
 --
 function ENT:OnDestroy(data, phys)

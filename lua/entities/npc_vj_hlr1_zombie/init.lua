@@ -13,7 +13,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Bip01 Head",
 	FirstP_Offset = Vector(5, 0, 5)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow"
 ENT.BloodDecal = "VJ_HLR1_Blood_Yellow"
@@ -58,7 +58,7 @@ ENT.Zombie_Type = 0
 	-- 1 = Default Zombie Scientist
 	-- 2 = Default Zombie Security Guard
 	-- 3 = Default Zombie Soldier
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	local myMDL = self:GetModel()
 	if myMDL == "models/vj_hlr/hl1/zombie.mdl" or myMDL == "models/vj_hlr/hl1/zombie_dreamcast.mdl" then
@@ -69,7 +69,7 @@ function ENT:Init()
 		self.Zombie_Type = 3
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
@@ -78,17 +78,17 @@ function ENT:OnInput(key, activator, caller, data)
 		self.MeleeAttackDamage = self:GetActivity() == ACT_MELEE_ATTACK1 and 10 or 25
 		self:ExecuteMeleeAttack()
 	elseif key == "body" then
-		VJ.EmitSound(self, (self:GetModel() == "models/vj_hlr/hla/zombie_german.mdl" && "vj_hlr/gsrc/fx/metal" .. math.random(3, 4) .. ".wav") or "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
+		VJ.EmitSound(self, (self:GetModel() == "models/vj_hlr/hla/zombie_german.mdl" and "vj_hlr/gsrc/fx/metal" .. math.random(3, 4) .. ".wav") or "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	if act == ACT_RUN then
 		return ACT_WALK
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnFlinch(dmginfo, hitgroup, status)
 	if status == "Init" then
 		if dmginfo:GetDamage() > 30 then
@@ -100,12 +100,12 @@ function ENT:OnFlinch(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local animDeathHead = {ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT}
 local animDeathDef = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 --
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+	if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		VJ.HLR_StaticCorpseCheck(self)
@@ -117,7 +117,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -154,7 +154,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local extraGibs = {"models/vj_hlr/gibs/zombiegib.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

@@ -15,19 +15,19 @@ function EFFECT:Init(data)
 	self.Dead = false
 	self.Wait = CurTime() + 0.5 -- Minimum wait time
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function EFFECT:Think()
 	local ent = self.Ent
 	if self.Dead or !IsValid(ent) then return false end
 	self.CurPos = ent:GetAttachment(self.Att).Pos
 	self:SetRenderBoundsWS(self.StartPos, self.CurPos)
-	if CurTime() > self.Wait && (ent:GetVelocity():Length() <= 0 && ent:GetSequenceName(ent:GetSequence()) != "repel_die") then -- Do NOT remove the rope if the NPC is playing a death anim!
+	if CurTime() > self.Wait and (ent:GetVelocity():Length() <= 0 and ent:GetSequenceName(ent:GetSequence()) != "repel_die") then -- Do NOT remove the rope if the NPC is playing a death anim!
 		self.Dead = true
 		return false
 	end
 	return true
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local rColor = Color(255, 255, 255)
 --
 function EFFECT:Render()

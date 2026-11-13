@@ -14,7 +14,7 @@ ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlr1_gonomegut", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/vj_base/projectiles/spit_acid_medium.mdl"
@@ -25,7 +25,7 @@ ENT.DirectDamageType = DMG_ACID
 ENT.CollisionDecal = "VJ_HLR1_Spit_Red"
 ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/bullchicken/bc_acid1.wav", "vj_hlr/gsrc/npc/bullchicken/bc_acid2.wav"}
 ENT.SoundTbl_OnCollide = {"vj_hlr/gsrc/npc/bullchicken/bc_spithit1.wav", "vj_hlr/gsrc/npc/bullchicken/bc_spithit2.wav"}
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetNoDraw(true)
 	self.Scale = math.Rand(0.5, 1.15)
@@ -49,7 +49,7 @@ function ENT:Init()
 	spr:SetParent(self)
 	self:DeleteOnRemove(spr)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDestroy(data, phys)
 	local spr = ents.Create("env_sprite")
 	spr:SetKeyValue("model", "vj_hl/sprites/bigspit_red_impact.vmt")

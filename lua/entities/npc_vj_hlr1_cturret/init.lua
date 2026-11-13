@@ -23,7 +23,7 @@ ENT.Sentry_MuzzleAttach = "gun"
 ENT.Sentry_AlarmAttach = "frame"
 ENT.Sentry_Type = 1
 ENT.Sentry_OrientationType = 1
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local baseInit = ENT.Init
 --
 function ENT:Init()

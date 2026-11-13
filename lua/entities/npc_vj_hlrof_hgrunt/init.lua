@@ -212,7 +212,7 @@ ENT.SoundTbl_Death = {
 	"vj_hlr/gsrc/npc/hgrunt_opf/death5.wav",
 	"vj_hlr/gsrc/npc/hgrunt_opf/death6.wav"
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:HECU_OnInit()
 	if self.HECU_Type == 1 then
 		self:SetBodygroup(1, math.random(0, 12))
@@ -236,17 +236,17 @@ function ENT:HECU_OnInit()
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local sdAlertAlien = {"vj_hlr/gsrc/npc/hgrunt_opf/alert.wav", "vj_hlr/gsrc/npc/hgrunt_opf/alien.wav"}
 --
 function ENT:OnAlert(ent)
-	if math.random(1, 3) == 1 && ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Alien alert sounds
+	if math.random(1, 3) == 1 and ent.IsVJBaseSNPC_Creature and !ent.VJ_ID_Vehicle and !ent.VJ_ID_Aircraft then -- Alien alert sounds
 		self:PlaySoundSystem("Alert", sdAlertAlien)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
-	if math.random(1, 3) == 1 && ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Alien kill sounds
+	if math.random(1, 3) == 1 and ent.IsVJBaseSNPC_Creature and !ent.VJ_ID_Vehicle and !ent.VJ_ID_Aircraft then -- Alien kill sounds
 		self:PlaySoundSystem("Alert", "vj_hlr/gsrc/npc/hgrunt_opf/killer.wav")
 	end
 end

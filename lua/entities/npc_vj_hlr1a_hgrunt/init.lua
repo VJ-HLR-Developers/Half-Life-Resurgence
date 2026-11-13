@@ -19,7 +19,7 @@ ENT.CanTurnWhileMoving = true
 
 -- Custom
 ENT.AHGR_NextStrafeT = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:HECU_OnInit()
 	local randSkin = math.random(0, 3)
 	if randSkin == 1 then
@@ -37,7 +37,7 @@ function ENT:HECU_OnInit()
 	self.SoundTbl_GrenadeAttack = "vj_hlr/gsrc/npc/hgrunt_alpha/gr_loadtalk.wav"
 	self.AHGR_NextStrafeT = CurTime() + 4
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local strafeAnims = {ACT_STRAFE_RIGHT, ACT_STRAFE_LEFT}
 --
 function ENT:OnWeaponStrafe()

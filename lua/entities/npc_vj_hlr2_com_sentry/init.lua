@@ -17,7 +17,7 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(0, 6, 6),
 	FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_COMBINE"}
 ENT.AlertTimeout = VJ.SET(0, 0)
 ENT.HasMeleeAttack = false
@@ -61,7 +61,7 @@ ENT.Turret_IdleAngryAnim = ACT_IDLE -- Will be replaced on initialize
 -- Pose Parameters:
 	-- aim_yaw -60 / 60
 	-- aim_pitch -15 / 15
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(13, 13, 63), Vector(-13, -13, 0))
 
@@ -92,7 +92,7 @@ function ENT:Init()
 	self.TurretSD_Alarm = CreateSound(self, "npc/turret_floor/alarm.wav")
 	self.TurretSD_Alarm:SetSoundLevel(75)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("SPACE: Activate / Deactivate")
 
@@ -123,7 +123,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	if act == ACT_IDLE then
 		if !self.Turret_StandDown then
@@ -134,7 +134,7 @@ function ENT:TranslateActivity(act)
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	-- Turning sound
 	local parameter = self:GetPoseParameter("aim_yaw")
@@ -145,15 +145,15 @@ function ENT:OnThink()
 	end
 	self.Turret_CurrentParameter = parameter
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThinkActive()
 	local eneValid = IsValid(self:GetEnemy())
 	if self.Turret_Status != TURRET_STATUS_DEPLOYING then
 		-- Alerted behavior
-		if ((self.Turret_ControllerStatus == 1) or (!self.VJ_Controlled && (eneValid or (self.Alerted && !self.EnemyData.Reset)))) then
+		if ((self.Turret_ControllerStatus == 1) or (!self.VJ_Controlled and (eneValid or (self.Alerted and !self.EnemyData.Reset)))) then
 			self.Turret_StandDown = false
 			-- Handle the light sprite
-			if self.Turret_HasLOS && eneValid then
+			if self.Turret_HasLOS and eneValid then
 				self.Turret_Sprite:Fire("Color", "255 0 0") -- Red
 				self.Turret_Sprite:Fire("ShowSprite")
 			elseif self.HasPoseParameterLooking then -- So when the alert animation is playing, it won't replace the activating light (green)
@@ -164,7 +164,7 @@ function ENT:OnThinkActive()
 			local doScan = false
 
 			-- Make it scan around if the enemy is behind, which is unreachable for it!
-			if eneValid && !self.Turret_HasLOS && (math.abs(self.EnemyData.VisibleTime - CurTime()) >= 1) then
+			if eneValid and !self.Turret_HasLOS and (math.abs(self.EnemyData.VisibleTime - CurTime()) >= 1) then
 				doScan = true
 				self.HasPoseParameterLooking = false
 			else
@@ -207,7 +207,7 @@ function ENT:OnThinkActive()
 		else -- Idle behavior
 			self.Turret_Status = TURRET_STATUS_IDLE
 			-- Play the retracting sequence and sound
-			if ((self.Turret_ControllerStatus == 0) or (!self.VJ_Controlled && !self.Alerted)) && !self.Turret_StandDown then
+			if ((self.Turret_ControllerStatus == 0) or (!self.VJ_Controlled and !self.Alerted)) and !self.Turret_StandDown then
 				if self.VJ_Controlled then
 					self.Turret_Sprite:Fire("HideSprite")
 				else
@@ -219,19 +219,19 @@ function ENT:OnThinkActive()
 				self:PlayAnim("retract", true, 1)
 				VJ.EmitSound(self, "npc/turret_floor/retract.wav", 70, 100)
 			end
-			if self.Turret_StandDown && self:GetPoseParameter("aim_yaw") == 0 then -- Hide the green light once it fully rests
+			if self.Turret_StandDown and self:GetPoseParameter("aim_yaw") == 0 then -- Hide the green light once it fully rests
 				self.Turret_Sprite:Fire("HideSprite")
 			end
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:UpdatePoseParamTracking(resetPoses)
 	-- Alerted with no active enemy, so don't reset its pose parameters (Ex: Transitioning from Alert to Idle)
 	if self:GetNPCState() == NPC_STATE_ALERT then return end
 	return self.BaseClass.UpdatePoseParamTracking(self, resetPoses)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
 	-- Otherwise "self.Turret_HasLOS" will true all the time when it's deploying, retracting, etc. (Basically whenever its not supposed to aim)
 	if !self.HasPoseParameterLooking or self:GetNPCState() != NPC_STATE_COMBAT then
@@ -246,12 +246,12 @@ function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
 		self.Turret_HasLOS = true
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAlert(ent)
 	if self.VJ_Controlled then return end
 	self:Turret_Activate()
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Turret_Activate()
 	self.Turret_Sprite:Fire("Color", "0 255 0") -- Green
 	self.Turret_Sprite:Fire("ShowSprite")
@@ -267,14 +267,14 @@ function ENT:Turret_Activate()
 	self.TurretSD_Alarm:Play()
 	timer.Simple(0.8, function() VJ.STOPSOUND(self.TurretSD_Alarm) end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttack(status, enemy)
 	-- Only fire if we have LOS and not in stand down mode!
 	if status == "PreInit" then
 		return self.Turret_StandDown or !self.Turret_HasLOS
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local bulletSpread = Vector(0.08716, 0.08716, 0.08716) * 1.25 -- VECTOR_CONE_10DEGREES * WEAPON_PROFICIENCY_VERY_GOOD
 --
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
@@ -312,7 +312,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		return true
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local defAng = Angle()
 --
 function ENT:OnDeath(dmginfo, hitgroup, status)
@@ -320,7 +320,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		ParticleEffect("explosion_turret_break", self:WorldSpaceCenter() + self:GetUp() * 12, defAng, NULL)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local sdGibCollide = {"physics/metal/metal_box_impact_hard1.wav", "physics/metal/metal_box_impact_hard2.wav", "physics/metal/metal_box_impact_hard3.wav"}
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
@@ -334,7 +334,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "NPC_FloorTurret.Destruct")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	-- Exaggerate the damage force to make the turret fall!
 	local phys = corpse:GetPhysicsObject()
@@ -345,7 +345,7 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	end
 	ParticleEffectAttach("smoke_exhaust_01a", PATTACH_POINT_FOLLOW, corpse, 2)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:CustomOnRemove()
 	VJ.STOPSOUND(self.TurretSD_Turning)
 	VJ.STOPSOUND(self.TurretSD_Alarm)

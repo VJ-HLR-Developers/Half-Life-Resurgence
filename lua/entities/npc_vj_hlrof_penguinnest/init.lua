@@ -12,14 +12,14 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(8.5, 2.3, 48),
 	FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_PENGUIN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = "vj_hlr_blood_red"
 ENT.BloodDecal = "VJ_HLR1_Blood_Red"
 
 ENT.Nest_SpawnEnt = "npc_vj_hlrof_penguin"
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(15, 15, 60), Vector(-15, -15, 0))
 end

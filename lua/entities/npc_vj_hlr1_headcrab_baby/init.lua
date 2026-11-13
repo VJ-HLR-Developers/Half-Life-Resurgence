@@ -23,7 +23,7 @@ ENT.MainSoundPitch = 120
 -- Custom
 ENT.HeadCrab_IsBaby = true
 ENT.BabyH_MotherEnt = NULL
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(5, 5, 10), Vector(-5, -5, 0))
 end

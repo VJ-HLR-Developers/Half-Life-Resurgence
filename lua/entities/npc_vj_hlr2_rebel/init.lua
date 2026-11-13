@@ -183,11 +183,11 @@ local mdlFemaleMedic = {"models/Humans/Group03m/female_01.mdl", "models/Humans/G
 -- Inventories
 local invAntiArmor = {"weapon_vj_rpg", "weapon_vj_hlr2_rpg"}
 local invMelee = "weapon_vj_crowbar"
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:PreInit()
-	if self.Human_Gender == HUMAN_GENDER_FEMALE or (self.Human_Gender == HUMAN_GENDER_INVALID && math.random(1, 3) == 1) then
+	if self.Human_Gender == HUMAN_GENDER_FEMALE or (self.Human_Gender == HUMAN_GENDER_INVALID and math.random(1, 3) == 1) then
 		self.Human_Gender = HUMAN_GENDER_FEMALE
-		if math.random(1, 5) == 1 && self.Human_Type != HUMAN_TYPE_ENGINEER && !self.Human_Driver  then -- Medic variant
+		if math.random(1, 5) == 1 and self.Human_Type != HUMAN_TYPE_ENGINEER and !self.Human_Driver  then -- Medic variant
 			self.Model = mdlFemaleMedic
 			self.IsMedic = true
 		else
@@ -195,7 +195,7 @@ function ENT:PreInit()
 		end
 	else
 		self.Human_Gender = HUMAN_GENDER_MALE
-		if math.random(1, 5) == 1 && self.Human_Type != HUMAN_TYPE_ENGINEER && !self.Human_Driver then -- Medic variant
+		if math.random(1, 5) == 1 and self.Human_Type != HUMAN_TYPE_ENGINEER and !self.Human_Driver then -- Medic variant
 			self.Model = mdlMaleMedic
 			self.IsMedic = true
 		else
@@ -204,14 +204,14 @@ function ENT:PreInit()
 	end
 
 	-- Anti-armor and melee inventories
-	if !self.IsMedic && math.random(1, 3) == 1 then
+	if !self.IsMedic and math.random(1, 3) == 1 then
 		self.WeaponInventory_AntiArmorList = invAntiArmor
 	end
 	if math.random(1, 3) == 1 or self.Human_Type == HUMAN_TYPE_ENGINEER then
 		self.WeaponInventory_MeleeList = invMelee
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	-- Handle animations when it's spawned as a tank spotter
 	if self.Human_Driver then
@@ -298,9 +298,9 @@ function ENT:Init()
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 /*function ENT:OnThinkActive()
-	if IsValid(self:GetEnemy()) && self:GetEnemy():Classify() == CLASS_COMBINE_GUNSHIP then -- to do
+	if IsValid(self:GetEnemy()) and self:GetEnemy():Classify() == CLASS_COMBINE_GUNSHIP then -- to do
 		"vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_gunship01.wav",
 		"vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_gunship02.wav",
 		"vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_gunship03.wav",
@@ -311,21 +311,21 @@ end
 		"vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_gunship08.wav",
 	end
 end*/
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnPlayerSight(ent)
 	self.Human_NextPlyReloadSd = CurTime() + math.Rand(5, 40)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnMaintainRelationships(ent, calculatedDisp, entDist)
 	-- Tell the player to reload their weapon OR give them ammo
-	if calculatedDisp == D_LI && ent:IsPlayer() && CurTime() > self.Human_NextPlyReloadSd && !IsValid(self:GetEnemy()) && entDist <= 200 then
+	if calculatedDisp == D_LI and ent:IsPlayer() and CurTime() > self.Human_NextPlyReloadSd and !IsValid(self:GetEnemy()) and entDist <= 200 then
 		self.Human_NextPlyReloadSd = CurTime() + math.Rand(10, 60)
 		local wep = ent:GetActiveWeapon()
-		if IsValid(wep) && math.random(1, 3) == 1 then
+		if IsValid(wep) and math.random(1, 3) == 1 then
 			local ammoType = wep:GetPrimaryAmmoType()
 			if wep:GetPrimaryAmmoType() > -1 then
 				-- Give ammo to player
-				if !self.IsMedic && ent:GetAmmoCount(ammoType) <= 255 && IsValid(self:GetActiveWeapon()) && !self:IsBusy() then
+				if !self.IsMedic and ent:GetAmmoCount(ammoType) <= 255 and IsValid(self:GetActiveWeapon()) and !self:IsBusy() then
 					if entDist > 100 then
 						self.Human_NextPlyReloadSd = 0
 					else
@@ -338,31 +338,31 @@ function ENT:OnMaintainRelationships(ent, calculatedDisp, entDist)
 						self:PlaySoundSystem("Speech", (self.Human_Gender == HUMAN_GENDER_FEMALE and sdGiveAmmo_F) or sdGiveAmmo_M)
 					end
 				-- Reload Freeman!
-				elseif wep:Clip1() < wep:GetMaxClip1() && ent:GetAmmoCount(ammoType) > 0 then
+				elseif wep:Clip1() < wep:GetMaxClip1() and ent:GetAmmoCount(ammoType) > 0 then
 					self:PlaySoundSystem("Speech", (self.Human_Gender == HUMAN_GENDER_FEMALE and sdSuggestReloadPly_F) or sdSuggestReloadPly_M)
 				end
 			end
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnWeaponChange(newWeapon, oldWeapon, invSwitch)
 	if invSwitch then -- Only if it's a inventory switch
 		self:PlayAnim(ACT_PICKUP_RACK, true, false, true)
 	end
 	-- Only males have a taking out an anti-armor weapon sound
-	if self.Human_Gender == HUMAN_GENDER_MALE && self.WeaponInventoryStatus == VJ.WEP_INVENTORY_ANTI_ARMOR && math.random(1, 2) == 1 then self:PlaySoundSystem("Speech", "vo/npc/male01/evenodds.wav") end
+	if self.Human_Gender == HUMAN_GENDER_MALE and self.WeaponInventoryStatus == VJ.WEP_INVENTORY_ANTI_ARMOR and math.random(1, 2) == 1 then self:PlaySoundSystem("Speech", "vo/npc/male01/evenodds.wav") end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
 	-- NOTE: Only males have cheering animation!
-	if wasLast && self.Human_Gender == HUMAN_GENDER_MALE && !self:IsBusy() && math.random(1, 3) == 1 then
+	if wasLast and self.Human_Gender == HUMAN_GENDER_MALE and !self:IsBusy() and math.random(1, 3) == 1 then
 		self:PlayAnim("vjseq_cheer1", "LetAttacks", false, false, 0)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAlert(ent)
-	if math.random(1, 2) == 1 && ent:IsNPC() then
+	if math.random(1, 2) == 1 and ent:IsNPC() then
 		if ent.VJ_ID_Headcrab then
 			self:PlaySoundSystem("Alert", {"vo/npc/" .. self.Human_SdFolder .. "/headcrabs01.wav", "vo/npc/" .. self.Human_SdFolder .. "/headcrabs02.wav", "vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_head01.wav", "vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_head02.wav", "vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_head05.wav", "vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_head07.wav", "vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_head08.wav", "vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_rollers02.wav", "vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_rollers03.wav"})
 			return
@@ -382,7 +382,7 @@ function ENT:OnAlert(ent)
 			if self.Human_Gender == HUMAN_GENDER_MALE then table.insert(tbl2, "vj_hlr/src/npc/citizen_beta/strider.wav") table.insert(tbl2, "vj_hlr/src/npc/citizen_beta/strider02.wav") end
 			self:PlaySoundSystem("Alert", tbl2)
 			return
-		elseif self.Human_Gender == HUMAN_GENDER_MALE && (ent:Classify() == CLASS_MACHINE or ent.VJ_ID_Turret or ent:GetClass() == "npc_turret_floor") then
+		elseif self.Human_Gender == HUMAN_GENDER_MALE and (ent:Classify() == CLASS_MACHINE or ent.VJ_ID_Turret or ent:GetClass() == "npc_turret_floor") then
 			self:PlaySoundSystem("Alert", {"vj_hlr/src/npc/citizen_beta/turret.wav", "vj_hlr/src/npc/citizen_beta/turrets.wav"})
 			return
 		elseif ent:Classify() == CLASS_SCANNER then
@@ -411,7 +411,7 @@ function ENT:OnAlert(ent)
 			end
 		end
 		-- General type (If none of the specific ones above were found)
-		if  ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then
+		if  ent.IsVJBaseSNPC_Creature and !ent.VJ_ID_Vehicle and !ent.VJ_ID_Aircraft then
 			self:PlaySoundSystem("Alert", {"vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_zombie03.wav", "vj_hlr/src/npc/ep1/npc/" .. self.Human_SdFolder .. "/cit_alert_zombie05.wav"})
 			return
 		elseif ent.IsVJBaseSNPC_Human then
@@ -420,9 +420,9 @@ function ENT:OnAlert(ent)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-	if status == "PostDamage" && self:Health() > 0 && math.random(1, 2) == 1 then
+	if status == "PostDamage" and self:Health() > 0 and math.random(1, 2) == 1 then
 		if hitgroup == HITGROUP_LEFTARM or hitgroup == HITGROUP_RIGHTARM then
 			self:PlaySoundSystem("Pain", (self.Human_Gender == HUMAN_GENDER_FEMALE and sdPainArm_F) or sdPainArm_M)
 		elseif hitgroup == HITGROUP_LEFTLEG or hitgroup == HITGROUP_RIGHTLEG then
@@ -432,23 +432,23 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAllyKilled(ent)
 	if ent:IsPlayer() or ent.VJ_HLR_Freeman then
 		self:PlaySoundSystem("AllyDeath", (self.Human_Gender == HUMAN_GENDER_FEMALE and sdAllyDeathPly_F) or sdAllyDeathPly_M)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:CustomOnRemove()
 	-- Remove the turret if the NPC has spawned from non-player entities but not when killed
 	local turret = self.Human_TurretEnt
-	if !self.Dead && IsValid(turret) then
+	if !self.Dead and IsValid(turret) then
 		turret:Remove()
 	end
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------- SOUNDS ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+------ SOUNDS --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 function ENT:HLR_ApplyMaleSounds()
 	self.SoundTbl_Idle = {
 		"vo/npc/male01/vanswer14.wav",

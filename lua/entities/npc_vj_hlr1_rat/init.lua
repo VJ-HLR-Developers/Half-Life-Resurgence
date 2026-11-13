@@ -13,7 +13,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "bip01 head",
 	FirstP_Offset = Vector()
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.CanOpenDoors = false
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -38,25 +38,25 @@ ENT.SoundTbl_Alert = "vj_hlr/gsrc/npc/rat/rat_fear.wav"
 ENT.SoundTbl_Pain = "vj_hlr/gsrc/npc/rat/rat_fear.wav"
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/rat/rat_die1.wav", "vj_hlr/gsrc/npc/rat/rat_die2.wav", "vj_hlr/gsrc/npc/rat/rat_die3.wav"}
 ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(10, 10, 10), Vector(-10, -10, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	if key == "attack" then
 		self:ExecuteMeleeAttack()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation && self.HasDeathAnimation then
+	if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation and self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		VJ.HLR_StaticCorpseCheck(self)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -74,7 +74,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibs = {"models/vj_hlr/gibs/flesh3.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

@@ -14,7 +14,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Bip01 Head",
 	FirstP_Offset = Vector(7, 0, 0)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_RACE_X"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow"
@@ -54,18 +54,18 @@ ENT.SoundTbl_KilledEnemy = "vj_hlr/gsrc/npc/pitdrone/pit_drone_eat.wav"
 ENT.SoundTbl_Pain = {"vj_hlr/gsrc/npc/pitdrone/pit_drone_pain1.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_pain2.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_pain3.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_pain4.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/pitdrone/pit_drone_die1.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_die2.wav", "vj_hlr/gsrc/npc/pitdrone/pit_drone_die3.wav"}
 ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(18, 18, 55), Vector(-18, -18, 0))
 	self:SetBodygroup(1, 1)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("RELOAD: Reload all the spikes")
 
 	function controlEnt:OnKeyBindPressed(key)
 		local npc = self:GetNPC()
-		if key == IN_RELOAD && npc:GetBodygroup(1) != 1 then
+		if key == IN_RELOAD and npc:GetBodygroup(1) != 1 then
 			npc:PlayAnim(ACT_RELOAD, true, false, true, 0, {OnFinish = function(interrupted2, anim2)
 				npc.HasRangeAttack = true
 				npc:SetBodygroup(1, 1)
@@ -73,7 +73,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
@@ -84,17 +84,17 @@ function ENT:OnInput(key, activator, caller, data)
 		self:ExecuteRangeAttack()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjPos(projectile)
 	return self:GetPos() + self:GetUp() * 40
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjVel(projectile)
 	local projPos = projectile:GetPos()
 	ParticleEffect("vj_hlr_spit_drone_spawn", projPos + projectile:GetForward() * 30, self:GetForward():Angle(), projectile)
 	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projPos, 1, 2000)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "PostSpawn" then
 		-- Behavior: If spikes are empty, go hide and reload
@@ -124,15 +124,15 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+	if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		VJ.HLR_StaticCorpseCheck(self)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -169,7 +169,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibs = {"models/vj_hlr/gibs/pitdrone_gib1.mdl", "models/vj_hlr/gibs/pitdrone_gib2.mdl", "models/vj_hlr/gibs/pitdrone_gib3.mdl", "models/vj_hlr/gibs/pitdrone_gib4.mdl", "models/vj_hlr/gibs/pitdrone_gib5.mdl", "models/vj_hlr/gibs/pitdrone_gib6.mdl", "models/vj_hlr/gibs/pitdrone_gib7.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib6.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

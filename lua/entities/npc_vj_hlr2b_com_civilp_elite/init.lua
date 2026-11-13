@@ -10,10 +10,10 @@ ENT.Model = "models/vj_hlr/hl2b/elitepolice.mdl"
 ENT.StartHealth = 60
 
 ENT.MainSoundPitch = 80
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-	if status == "PreDamage" && dmginfo:IsBulletDamage() then
-		if self.HasSounds && self.HasImpactSounds then VJ.EmitSound(self, "VJ.Impact.Armor") end
+	if status == "PreDamage" and dmginfo:IsBulletDamage() then
+		if self.HasSounds and self.HasImpactSounds then VJ.EmitSound(self, "VJ.Impact.Armor") end
 		if math.random(1, 3) == 1 then
 			dmginfo:ScaleDamage(0.50)
 			local spark = ents.Create("env_spark")

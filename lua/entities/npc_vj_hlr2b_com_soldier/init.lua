@@ -8,7 +8,7 @@ include("shared.lua")
 ENT.Model = "models/vj_hlr/hl2b/combine_soldier.mdl"
 ENT.StartHealth = 60
 ENT.HullType = HULL_HUMAN
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_COMBINE"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = "blood_impact_red_01_mist"
@@ -79,9 +79,9 @@ ENT.SoundTbl_Death = {
 ENT.CanClimb = true
 ENT.IsClimbing = false
 ENT.NextClimbT = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
-	if self.CanClimb && !self.Dead && !self.IsClimbing && CurTime() > self.NextClimbT then
+	if self.CanClimb and !self.Dead and !self.IsClimbing and CurTime() > self.NextClimbT then
 		local anim = false
 		local finalpos = self:GetPos()
 		local tr1 = util.TraceLine({start = self:GetPos() + self:GetUp() * 32, endpos = self:GetPos() + self:GetUp() * 32 +self:GetForward() * 200, filter = function(ent) if (ent:GetClass() == "prop_physics") then return true end end}) -- 32
@@ -111,7 +111,7 @@ function ENT:OnThink()
 		end
 	end
 end*/
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:SetAnimationTranslations(wepHoldType)
 	-- Most animations don't need translating as they are the same as the default activity name
 	self.AnimationTranslations[ACT_GESTURE_RANGE_ATTACK1] = ACT_GESTURE_RANGE_ATTACK_AR2
@@ -123,18 +123,18 @@ function ENT:SetAnimationTranslations(wepHoldType)
 	self.AnimationTranslations[ACT_RUN_CROUCH] = ACT_RUN_CROUCH_RIFLE
 	self.AnimationTranslations[ACT_RUN_CROUCH_AIM] = ACT_RUN_CROUCH_AIM_RIFLE
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateSound(sdData, sdFile)
 	if VJ.HasValue(self.SoundTbl_Death, sdFile) then
 		VJ.EmitSound(self, "vj_hlr/src/npc/combine_soldier_beta/click_terminated.wav")
 		return
 	end
 	VJ.EmitSound(self, "vj_hlr/src/npc/combine_soldier_beta/clik.wav")
-	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self, "vj_hlr/src/npc/combine_soldier_beta/click_off.wav") end end)
+	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) and sdData:IsPlaying() then VJ.EmitSound(self, "vj_hlr/src/npc/combine_soldier_beta/click_off.wav") end end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnGrenadeAttackExecute(status, grenade, overrideEnt, landDir, landingPos)
-	if status == "PostSpawn" && !IsValid(overrideEnt) then
+	if status == "PostSpawn" and !IsValid(overrideEnt) then
 		-- Glow and trail are both based on the original: https://github.com/ValveSoftware/source-sdk-2013/blob/master/src/game/server/hl2/grenade_frag.cpp#L158
 		local redGlow = ents.Create("env_sprite")
 		redGlow:SetKeyValue("model", "sprites/redglow1.vmt")
@@ -170,11 +170,11 @@ function ENT:OnGrenadeAttackExecute(status, grenade, overrideEnt, landDir, landi
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	-- Absorb bullet damage, play metallic sound, and create sparks
-	if status == "PreDamage" && dmginfo:IsBulletDamage() then
-		if self.HasSounds && self.HasImpactSounds then
+	if status == "PreDamage" and dmginfo:IsBulletDamage() then
+		if self.HasSounds and self.HasImpactSounds then
 			VJ.EmitSound(self, "VJ.Impact.Armor")
 		end
 		if math.random(1, 3) == 1 then

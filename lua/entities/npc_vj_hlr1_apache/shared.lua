@@ -12,7 +12,7 @@ if CLIENT then
 	ENT.Heli_NextSmoke = 0
 	function ENT:Draw()
 		self:DrawModel()
-		if IsValid(self) && CurTime() > self.Heli_NextSmoke then
+		if IsValid(self) and CurTime() > self.Heli_NextSmoke then
 			local lvl = self:GetNW2Int("Heli_SmokeLevel")
 			self.Heli_NextSmoke = CurTime() + 0.1
 			if lvl > 0 then

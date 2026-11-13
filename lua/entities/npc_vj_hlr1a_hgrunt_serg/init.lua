@@ -18,7 +18,7 @@ ENT.ControllerParams = {
 ENT.MainSoundPitch = VJ.SET(90, 100)
 
 ENT.Serg_Type = 1
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:HECU_OnInit()
 	self.SoundTbl_Idle = {"vj_hlr/gsrc/npc/hgrunt_alpha/gr_idle1.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_idle2.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_idle3.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio1.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio2.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio3.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio4.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio5.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio6.wav"}
 	self.SoundTbl_CombatIdle = {"vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio1.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio2.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio3.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio4.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio5.wav", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_radio6.wav"}
@@ -32,7 +32,7 @@ function ENT:HECU_OnInit()
 		self:SetBodygroup(1, 1)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "PreDamage" then
 		if dmginfo:GetDamage() > 30 then

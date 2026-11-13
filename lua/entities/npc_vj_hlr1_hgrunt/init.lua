@@ -13,7 +13,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Bip01 Head",
 	FirstP_Offset = Vector(3, 0, 5)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = "vj_hlr_blood_red"
 ENT.BloodDecal = "VJ_HLR1_Blood_Red"
@@ -86,13 +86,13 @@ ENT.HECU_NextMouthMove = 0
 ENT.HECU_NextMouthDistance = 0
 
 local defPos = Vector()
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:PreInit()
-	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "npc_vj_hlr1_hgrunt" then
+	if GetConVar("vj_hlr_hd"):GetInt() == 1 and VJ.HLR_INSTALLED_HD and self:GetClass() == "npc_vj_hlr1_hgrunt" then
 		self.Model = "models/vj_hlr/hl_hd/hgrunt.mdl"
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:HECU_OnInit()
 	self.HECU_UsingDefaultSounds = true
 	self.SoundTbl_Idle = {"vj_hlr/gsrc/npc/hgrunt/gr_alert1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_idle1.wav", "vj_hlr/gsrc/npc/hgrunt/gr_idle2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_idle3.wav"}
@@ -137,7 +137,7 @@ function ENT:HECU_OnInit()
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(15, 15, 78), Vector(-15, -15, 0))
 
@@ -202,23 +202,23 @@ function ENT:Init()
 		self.HasGrenadeAttack = false
 		self.Weapon_CanSecondaryFire = false
 		self.Weapon_CanReload = false
-		timer.Simple(0.1, function() if IsValid(self) then self:PlayAnim(self.HECU_Type == 7 && "barnacled1" or "repel_jump", true, false, false) end end)
+		timer.Simple(0.1, function() if IsValid(self) then self:PlayAnim(self.HECU_Type == 7 and "barnacled1" or "repel_jump", true, false, false) end end)
 	end
 
 	VJ.HLR_ApplyFactionOptions(self)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnEntityCopyTableFinish(data)
 	data.HECU_UsingDefaultSounds = nil
 	data.HECU_LastBodyGroup = nil
 	self.BaseClass.OnEntityCopyTableFinish(self, data)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateSound(sdData, sdFile)
 	if VJ.HasValue(self.SoundTbl_Breath, sdFile) then return end
 	self.HECU_NextMouthMove = CurTime() + SoundDuration(sdFile)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
@@ -238,7 +238,7 @@ function ENT:OnInput(key, activator, caller, data)
 	-- 		wep:NPC_SecondaryFire()
 	-- 	end
 	elseif key == "body" then
-		VJ.EmitSound(self, ((self.HECU_Type == 5 or self.Serg_Type == 3) && "vj_hlr/gsrc/fx/metal" .. math.random(3, 4) .. ".wav") or "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
+		VJ.EmitSound(self, ((self.HECU_Type == 5 or self.Serg_Type == 3) and "vj_hlr/gsrc/fx/metal" .. math.random(3, 4) .. ".wav") or "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
 
 	-- OppF Engineer --
 	elseif key == "deagle_putout" then
@@ -269,21 +269,21 @@ function ENT:OnInput(key, activator, caller, data)
 		self:PlaySoundSystem("Speech", "vj_hlr/gsrc/npc/hgrunt_alpha/gr_loadtalk.wav")
 
 	-- Alpha Sergeant --
-	elseif key == "holster_gun" && self.Serg_Type != 2 then
+	elseif key == "holster_gun" and self.Serg_Type != 2 then
 		self:SetWeaponState(VJ.WEP_STATE_HOLSTERED)
 		self:SetBodygroup(1, 1)
-	elseif key == "draw_gun" && self.Serg_Type != 2 then
+	elseif key == "draw_gun" and self.Serg_Type != 2 then
 		self:SetWeaponState()
 		self:SetBodygroup(1, 0)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local sdAlertAlien = {"vj_hlr/gsrc/npc/hgrunt/gr_alert9.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert10.wav"}
 local sdAlertSoldier = {"vj_hlr/gsrc/npc/hgrunt/gr_alert2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert5.wav"}
 --
 function ENT:OnAlert(ent)
-	if math.random(1, 3) == 1 && self.HECU_UsingDefaultSounds then
-		if ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Alien sounds
+	if math.random(1, 3) == 1 and self.HECU_UsingDefaultSounds then
+		if ent.IsVJBaseSNPC_Creature and !ent.VJ_ID_Vehicle and !ent.VJ_ID_Aircraft then -- Alien sounds
 			self:PlaySoundSystem("Alert", sdAlertAlien)
 			return
 		elseif ent.IsVJBaseSNPC_Human or ent:IsPlayer() then -- Soldier sounds
@@ -292,7 +292,7 @@ function ENT:OnAlert(ent)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	-- Hurt Walking
 	if self.HECU_CanHurtWalk then
@@ -318,7 +318,7 @@ function ENT:TranslateActivity(act)
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:SetAnimationTranslations(wepHoldType)
 	local bodyGroup = self.HECU_LastBodyGroup
 
@@ -390,7 +390,7 @@ function ENT:SetAnimationTranslations(wepHoldType)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:HECU_StopRappelling()
 	self.HECU_Rappelling = false
 	self.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
@@ -405,10 +405,10 @@ function ENT:HECU_StopRappelling()
 	self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
 	self:SetAnimationTranslations()
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 -- Used for custom HECU soldiers
 function ENT:HECU_OnThink() end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	-- Mouth movement
 	if CurTime() < self.HECU_NextMouthMove then
@@ -469,12 +469,12 @@ function ENT:OnThink()
 		elseif self.HECU_Type == 5 then -- 5 = Robot Grunt
 			if bodyGroup == 0 then -- MP5
 				self:DoChangeWeapon("weapon_vj_hlr1_mp5")
-				if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "npc_vj_hlr1_rgrunt" then
+				if GetConVar("vj_hlr_hd"):GetInt() == 1 and VJ.HLR_INSTALLED_HD and self:GetClass() == "npc_vj_hlr1_rgrunt" then
 					self:DoChangeWeapon("weapon_vj_hlr1_m4_hd")
 				end
 			elseif bodyGroup == 1 then -- Shotgun
 				self:DoChangeWeapon("weapon_vj_hlr1_spas12")
-				if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "npc_vj_hlr1_rgrunt" then
+				if GetConVar("vj_hlr_hd"):GetInt() == 1 and VJ.HLR_INSTALLED_HD and self:GetClass() == "npc_vj_hlr1_rgrunt" then
 					self:DoChangeWeapon("weapon_vj_hlr1_spas12_hd")
 				end
 			elseif IsValid(self:GetActiveWeapon()) then
@@ -512,7 +512,7 @@ function ENT:OnThink()
 	end
 
 	-- Rappelling System
-	if self.HECU_Rappelling && !self.Dead then
+	if self.HECU_Rappelling and !self.Dead then
 		-- If it's on ground then stop rappelling!
 		if self:IsOnGround() then
 			self:HECU_StopRappelling()
@@ -525,7 +525,7 @@ function ENT:OnThink()
 				end
 			end
 		-- If it was deployed by an Osprey and the Osprey no longer exists, then stop rappelling!
-		elseif self.HECU_DeployedByOsprey && !IsValid(self:GetOwner()) then
+		elseif self.HECU_DeployedByOsprey and !IsValid(self:GetOwner()) then
 			self:HECU_StopRappelling()
 		-- I am still rappelling...
 		else
@@ -534,14 +534,14 @@ function ENT:OnThink()
 	end
 	self:HECU_OnThink()
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "Init" then
 		-- Make a metal effect when the helmet is hit!
 		if self.HECU_Type != 0 or self:GetBodygroup(1) != 0 then return end -- Only HL1 HGrunts that do have a helmet
-		if hitgroup == HITGROUP_GEAR && dmginfo:GetDamagePosition() != vec then
+		if hitgroup == HITGROUP_GEAR and dmginfo:GetDamagePosition() != vec then
 			self.HasBloodParticle = false -- Disable blood particles temporarily when shot at the helmet
 			local rico = EffectData()
 			rico:SetOrigin(dmginfo:GetDamagePosition())
@@ -553,22 +553,22 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnFlinch(dmginfo, hitgroup, status)
 	if status == "Init" then
 		return self.HECU_Rappelling -- Do not flinch when rappelling
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Init" then
-		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 			self.DeathAnimationDecreaseLengthAmount = -1
 			self.DeathCorpseEntityClass = "prop_vj_animatable"
 			VJ.HLR_StaticCorpseCheck(self)
 		end
 		-- Regular Human Grunt head gib
-		if self.HECU_Type == 0 && (hitgroup == HITGROUP_HEAD or hitgroup == HITGROUP_GEAR) && dmginfo:GetDamageForce():Length() > 800 then
+		if self.HECU_Type == 0 and (hitgroup == HITGROUP_HEAD or hitgroup == HITGROUP_GEAR) and dmginfo:GetDamageForce():Length() > 800 then
 			self:SetBodygroup(1, 4)
 			self.GibOnDeathFilter = false
 		end
@@ -577,11 +577,11 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		if IsValid(owner) then
 			local gunner1 = owner.Osprey_Gunners[1]
 			local gunner2 = owner.Osprey_Gunners[2]
-			if IsValid(gunner1) && gunner1.Dead then
+			if IsValid(gunner1) and gunner1.Dead then
 				gunner1:SetParent(NULL)
 				gunner1:SetPos(owner:GetAttachment(owner:LookupAttachment("gunner_left")).Pos)
 			end
-			if IsValid(gunner2) && gunner2.Dead then
+			if IsValid(gunner2) and gunner2.Dead then
 				gunner2:SetParent(NULL)
 				gunner2:SetPos(owner:GetAttachment(owner:LookupAttachment("gunner_right")).Pos)
 			end
@@ -622,7 +622,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 			self.AnimTbl_Death = "repel_die"
 		else
 			-- Make the alpha sergeant fly back when its a heavy damage
-			if self.HECU_Type == 7 && dmginfo:GetDamage() > 30 && (self:GetModel() == "models/vj_hlr/hla/hassault.mdl" or self:GetModel() == "models/vj_hlr/hla/hassault_melee.mdl") then
+			if self.HECU_Type == 7 and dmginfo:GetDamage() > 30 and (self:GetModel() == "models/vj_hlr/hla/hassault.mdl" or self:GetModel() == "models/vj_hlr/hla/hassault_melee.mdl") then
 				self.AnimTbl_Death = ACT_DIEBACKWARD
 			end
 		end
@@ -652,14 +652,14 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		self.HasBloodParticle = true
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeathWeaponDrop(dmginfo, hitgroup, wepEnt)
 	-- Use the correct skin if MP5 is held by HL1 HGrunt or RGrunt
-	if (self.HECU_Type == 0 or self.HECU_Type == 5) && wepEnt.IsVJBaseWeapon && wepEnt:GetClass() == "weapon_vj_hlr1_mp5" then
+	if (self.HECU_Type == 0 or self.HECU_Type == 5) and wepEnt.IsVJBaseWeapon and wepEnt:GetClass() == "weapon_vj_hlr1_mp5" then
 		wepEnt:SetSkin(1)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gasTankExpPos = Vector(0, 0, 90)
 local gasTankExpSd = {"vj_hlr/gsrc/wep/explosion/explode3.wav", "vj_hlr/gsrc/wep/explosion/explode4.wav", "vj_hlr/gsrc/wep/explosion/explode5.wav"}
 local sdHeadshot = {"vj_hlr/gsrc/fx/headshot1.wav", "vj_hlr/gsrc/fx/headshot2.wav", "vj_hlr/gsrc/fx/headshot3.wav"}
@@ -704,7 +704,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 		expLight:Fire("Kill", nil, 0.15)
 	end
 
-	if self.HECU_Type == 0 && (hitgroup == HITGROUP_HEAD or hitgroup == HITGROUP_GEAR) then
+	if self.HECU_Type == 0 and (hitgroup == HITGROUP_HEAD or hitgroup == HITGROUP_GEAR) then
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_skull.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 0, 60))})
 		self:PlaySoundSystem("Gib", sdHeadshot)
 		return true, {AllowAnim = true, AllowCorpse = true, AllowSound = false}
@@ -740,11 +740,11 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	end
 	return false
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	VJ.HLR_ApplyCorpseSystem(self, corpse, nil, {CollisionSound = gibsCollideSd, ExtraGibs = self.HECU_Type != 4 and {"models/vj_hlr/gibs/gib_hgrunt.mdl"} or nil})
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:CustomOnRemove()
 	-- Make sure to let the Osprey know I have died ='(
 	if self.HECU_DeployedByOsprey then
@@ -756,7 +756,7 @@ function ENT:CustomOnRemove()
 	end
 	-- Remove the turret if the NPC has spawned from non-player entities but not when killed
 	local turret = self.HECU_TurretEnt
-	if !self.Dead && IsValid(turret) then
+	if !self.Dead and IsValid(turret) then
 		turret:Remove()
 	end
 end

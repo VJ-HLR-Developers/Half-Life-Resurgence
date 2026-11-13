@@ -206,7 +206,7 @@ ENT.MainSoundPitch = 100
 "vo/ravenholm/yard_suspect.wav"
 "vo/ravenholm/yard_traps.wav"
 ]]--
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:SetAnimationTranslations(wepHoldType)
 	self.BaseClass.SetAnimationTranslations(self, wepHoldType)
 	if wepHoldType == "crossbow" or wepHoldType == "shotgun" then

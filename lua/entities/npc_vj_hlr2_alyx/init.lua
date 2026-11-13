@@ -13,7 +13,7 @@ ENT.HealthRegenParams = {
 	Delay = VJ.SET(0.1, 0.1),
 }
 ENT.HullType = HULL_HUMAN
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.AlliedWithPlayerAllies = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -976,7 +976,7 @@ ENT.MainSoundPitch = 100
 
 -- Custom
 ENT.Human_NextPlyReloadSd = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:SetAnimationTranslations(wepHoldType)
 	self.BaseClass.SetAnimationTranslations(self, wepHoldType)
 	if wepHoldType == "pistol" or wepHoldType == "revolver" then
@@ -993,21 +993,21 @@ function ENT:SetAnimationTranslations(wepHoldType)
 		self.AnimationTranslations[ACT_IDLE_ANGRY] = ACT_IDLE -- Alyx does NOT have a melee weapon angry animation!
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnPlayerSight(ent)
 	self.Human_NextPlyReloadSd = CurTime() + math.Rand(5, 20)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnMaintainRelationships(ent, calculatedDisp, entDist)
 	-- Tell the player to reload their weapon or give the player ammo
-	if calculatedDisp == D_LI && ent:IsPlayer() && CurTime() > self.Human_NextPlyReloadSd && !IsValid(self:GetEnemy()) && entDist <= 200 then
+	if calculatedDisp == D_LI and ent:IsPlayer() and CurTime() > self.Human_NextPlyReloadSd and !IsValid(self:GetEnemy()) and entDist <= 200 then
 		self.Human_NextPlyReloadSd = CurTime() + math.Rand(10, 60)
 		local wep = ent:GetActiveWeapon()
-		if IsValid(wep) && math.random(1, 3) == 1 then
+		if IsValid(wep) and math.random(1, 3) == 1 then
 			local ammoType = wep:GetPrimaryAmmoType()
 			if wep:GetPrimaryAmmoType() > -1 then
 				-- Give ammo to player
-				if ent:GetAmmoCount(ammoType) <= 255 && IsValid(self:GetActiveWeapon()) && !self:IsBusy() then
+				if ent:GetAmmoCount(ammoType) <= 255 and IsValid(self:GetActiveWeapon()) and !self:IsBusy() then
 					if entDist > 100 then
 						self.Human_NextPlyReloadSd = 0
 					else
@@ -1020,16 +1020,16 @@ function ENT:OnMaintainRelationships(ent, calculatedDisp, entDist)
 						self:PlaySoundSystem("Speech", "vj_hlr/src/npc/ep1/npc/alyx/al_takeammo.wav")
 					end
 				-- Reload Freeman
-				elseif wep:Clip1() < wep:GetMaxClip1() && ent:GetAmmoCount(ammoType) > 0 then
+				elseif wep:Clip1() < wep:GetMaxClip1() and ent:GetAmmoCount(ammoType) > 0 then
 					self:PlaySoundSystem("Speech", sdFreemanReload)
 				end
 			end
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAlert(ent)
-	if math.random(1, 2) == 1 && ent:IsNPC() then
+	if math.random(1, 2) == 1 and ent:IsNPC() then
 		if ent:GetClass() == "npc_breen" then
 			self:PlaySoundSystem("Alert", "vj_hlr/src/npc/ep1/citadel/al_advisor_breen01.wav")
 			return
@@ -1087,7 +1087,7 @@ function ENT:OnAlert(ent)
 			end
 		end
 		-- General type (If none of the specific ones above were found)
-		if  ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then
+		if  ent.IsVJBaseSNPC_Creature and !ent.VJ_ID_Vehicle and !ent.VJ_ID_Aircraft then
 			self:PlaySoundSystem("Alert", sdAlertCreature)
 			return
 		elseif ent.IsVJBaseSNPC_Human or ent:Classify() == CLASS_COMBINE then
@@ -1096,25 +1096,25 @@ function ENT:OnAlert(ent)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCallForHelp(ally, isFirst)
 	if ally:GetClass() == "npc_vj_hlr2_barney" then
 		self:PlaySoundSystem("CallForHelp", "vj_hlr/src/npc/ep1/c17/al_barneyoverhere.wav")
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
 	-- Kills a unknown type (Not Zombie, Antlion or Combine) of creature SNPC
-	if wasLast && math.random(1, 2) == 1 && ent.IsVJBaseSNPC_Creature then
+	if wasLast and math.random(1, 2) == 1 and ent.IsVJBaseSNPC_Creature then
 		for _, v in ipairs(ent.VJ_NPC_Class or {1}) do
-			if v != "CLASS_COMBINE" && v != "CLASS_ZOMBIE" && v != "CLASS_ANTLION" then
+			if v != "CLASS_COMBINE" and v != "CLASS_ZOMBIE" and v != "CLASS_ANTLION" then
 				self:PlaySoundSystem("KilledEnemy", sdKilledEnemy)
 				return
 			end
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAllyKilled(ent)
 	if ent:IsPlayer() or ent.VJ_HLR_Freeman then
 		self:PlaySoundSystem("AllyDeath", sdAllyDeath)

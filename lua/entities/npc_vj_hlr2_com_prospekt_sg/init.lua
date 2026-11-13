@@ -8,7 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/combine_soldier_prisonguard.mdl"
 ENT.StartHealth = 75
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetSkin(1)
 end

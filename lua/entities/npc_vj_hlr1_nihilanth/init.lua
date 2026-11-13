@@ -17,7 +17,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Bip01 head",
 	FirstP_Offset = Vector(80, 0, 0)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow_large"
 ENT.BloodDecal = "VJ_HLR1_Blood_Yellow"
@@ -73,12 +73,12 @@ vj_hl/sprites/flare6.vmt			Right before nihilanth disappears on death he release
 vj_hl/sprites/nhth1.vmt				Purple electric projectiles
 vj_hl/sprites/muzzleflash3.vmt		Orb ring around his head that displays his health sorta
 */
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	-- Only 1 Nihilanth is allowed at a time
 	local entsAll = ents.GetAll()
 	for x = 1, #entsAll do
-		if entsAll[x]:GetClass() == "npc_vj_hlr1_nihilanth" && entsAll[x] != self then
+		if entsAll[x]:GetClass() == "npc_vj_hlr1_nihilanth" and entsAll[x] != self then
 			timer.Simple(0.1, function()
 				local creator = self:GetCreator()
 				if IsValid(creator) then
@@ -126,7 +126,7 @@ function ENT:Init()
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	-- Regular attack
@@ -152,17 +152,17 @@ function ENT:OnInput(key, activator, caller, data)
 		self:ExecuteRangeAttack()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	-- Run like crazy when half health
-	if act == ACT_IDLE && self.Nih_BrainOpen then
+	if act == ACT_IDLE and self.Nih_BrainOpen then
 		return ACT_IDLE_HURT
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAlert(ent)
-	if math.random(1, 2) == 1 && ent:IsPlayer() then
+	if math.random(1, 2) == 1 and ent:IsPlayer() then
 		self.NextDoAnyAttackT = CurTime() + 5 -- Delay the next attack to allow the speech to finish
 		self.SoundTbl_Alert = "vj_hlr/gsrc/npc/nihilanth/nil_freeman.wav"
 	else
@@ -170,7 +170,7 @@ function ENT:OnAlert(ent)
 		self.SoundTbl_Alert = "vj_hlr/gsrc/npc/nihilanth/nil_comes.wav"
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local angY30 = Angle(0, 30, 0)
 --
 function ENT:OnThinkActive()
@@ -178,12 +178,12 @@ function ENT:OnThinkActive()
 		if !self.Nih_LerpAngleDeath then self.Nih_LerpAngleDeath = self:GetAngles() end
 		self.Nih_LerpAngleDeath = LerpAngle(0.25, self.Nih_LerpAngleDeath, self.Nih_LerpAngleDeath + angY30)
 		self:SetAngles(self.Nih_LerpAngleDeath)
-	elseif IsValid(self:GetEnemy()) && CurTime() > self.Nih_NextSpawn && ((!self.VJ_Controlled) or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP))) && (!IsValid(self.Nih_Ally1) or !IsValid(self.Nih_Ally2) or !IsValid(self.Nih_Ally3) or !IsValid(self.Nih_Ally4) or !IsValid(self.Nih_Ally5)) then
+	elseif IsValid(self:GetEnemy()) and CurTime() > self.Nih_NextSpawn and ((!self.VJ_Controlled) or (self.VJ_Controlled and self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP))) and (!IsValid(self.Nih_Ally1) or !IsValid(self.Nih_Ally2) or !IsValid(self.Nih_Ally3) or !IsValid(self.Nih_Ally4) or !IsValid(self.Nih_Ally5)) then
 		self:Nih_SpawnAlly()
 		self.Nih_NextSpawn = CurTime() + 15
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttack(status, enemy)
 	if status == "Init" then
 		if math.random(1, 4) == 1 then
@@ -195,14 +195,14 @@ function ENT:OnRangeAttack(status, enemy)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
-	if status == "PostSpawn" && self.Nih_TeleportingOrb then
+	if status == "PostSpawn" and self.Nih_TeleportingOrb then
 		projectile.Track_Ent = enemy
 		timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjPos(projectile)
 	if self.Nih_RangeAttach then
 		return self:GetAttachment(self:LookupAttachment(self.Nih_RangeAttach)).Pos
@@ -210,11 +210,11 @@ function ENT:RangeAttackProjPos(projectile)
 		return self:GetPos() + self:GetUp() * -140 + self:GetForward() * 430
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjVel(projectile)
 	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projectile:GetPos(), 1, 700)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Nih_NotifyCrystalChange(crystal)
 	-- Check which one is getting removed
 	if crystal == self.Nih_Crystal1 then
@@ -226,12 +226,12 @@ function ENT:Nih_NotifyCrystalChange(crystal)
 	end
 
 	-- Check if all crystals are removed
-	if !self.Dead && !self.Nih_CrystalsDestroyed && !IsValid(self.Nih_Crystal1) && !IsValid(self.Nih_Crystal2) && !IsValid(self.Nih_Crystal3) then
+	if !self.Dead and !self.Nih_CrystalsDestroyed and !IsValid(self.Nih_Crystal1) and !IsValid(self.Nih_Crystal2) and !IsValid(self.Nih_Crystal3) then
 		self.Nih_CrystalsDestroyed = true
 		VJ.EmitSound(self, "vj_hlr/gsrc/npc/nihilanth/nil_done.wav", 120)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local regTroops = {"npc_vj_hlr1_aliengrunt", "npc_vj_hlr1_alienslave", "npc_vj_hlr1_aliencontroller"}
 local aquaticTroops = {"npc_vj_hlr1_ichthyosaur", "npc_vj_hlr1_archer"}
 local vecZ20 = Vector(0, 0, 20)
@@ -290,7 +290,7 @@ function ENT:Nih_SpawnAlly()
 		end
 	end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "PreDamage" then
 		if !self.Nih_CrystalsDestroyed then dmginfo:SetDamage(0) return end
@@ -317,7 +317,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Nih_DoElecEffect_Blue(startPos, hitPos, attachment)
 	local elec = EffectData()
 	elec:SetStart(startPos)
@@ -326,7 +326,7 @@ function ENT:Nih_DoElecEffect_Blue(startPos, hitPos, attachment)
 	elec:SetAttachment(attachment)
 	util.Effect("VJ_HLR_Electric_Nihilanth_Blue", elec)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Nih_DoElecEffect_Green(startPos, hitPos)
 	local elec = EffectData()
 	elec:SetStart(startPos)
@@ -335,7 +335,7 @@ function ENT:Nih_DoElecEffect_Green(startPos, hitPos)
 	elec:SetAttachment(self:LookupAttachment("0"))
 	util.Effect("VJ_HLR_Electric_Nihilanth_Green", elec)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local dmgBeamType = bit.bor(DMG_SHOCK, DMG_ENERGYBEAM, DMG_ALWAYSGIB)
 local colorGreen = Color(0, 255, 0, 255)
 --
@@ -573,7 +573,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:CustomOnRemove()
 	RunConsoleCommand("sv_gravity", self.Nih_OriginalGravity)
 

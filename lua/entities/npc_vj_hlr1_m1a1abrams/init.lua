@@ -13,7 +13,7 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(00, 0, 130),
 	FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 
 ENT.SoundTbl_Breath = "vj_hlr/gsrc/npc/tanks/abrams_idle_loop.wav"
@@ -39,15 +39,15 @@ ENT.Tank_DeathDecal = "VJ_HLR1_Scorch"
 
 -- Custom
 ENT.Bradley_DmgForce = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_Init()
 	VJ.HLR_ApplyFactionOptions(self)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_GunnerSpawnPosition()
 	return self:GetPos() + self:GetUp()
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_UpdateMoveParticles()
 	local spawnPos = self:GetPos() + self:GetForward() * -180
 	local effectData = EffectData()
@@ -58,13 +58,13 @@ function ENT:Tank_UpdateMoveParticles()
 	effectData:SetOrigin(spawnPos + self:GetRight() * -80)
 	util.Effect("VJ_VehicleMove", effectData, true, true)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local sdAlertAlien = {"vj_hlr/gsrc/npc/hgrunt/gr_alert9.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert10.wav"}
 local sdAlertSoldier = {"vj_hlr/gsrc/npc/hgrunt/gr_alert2.wav", "vj_hlr/gsrc/npc/hgrunt/gr_alert5.wav"}
 --
 function ENT:OnAlert(ent)
 	if math.random(1, 3) == 1 then
-		if ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Alien sounds
+		if ent.IsVJBaseSNPC_Creature and !ent.VJ_ID_Vehicle and !ent.VJ_ID_Aircraft then -- Alien sounds
 			self:PlaySoundSystem("Alert", sdAlertAlien)
 			return
 		elseif ent.IsVJBaseSNPC_Human or ent:IsPlayer() then -- Soldier sounds
@@ -73,7 +73,7 @@ function ENT:OnAlert(ent)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:GetNearDeathSparkPositions()
 	local randPos = math.random(1, 5)
 	if randPos == 1 then
@@ -88,7 +88,7 @@ function ENT:GetNearDeathSparkPositions()
 		self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * -105 + self:GetForward() * -40 + self:GetUp() * 50)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local expPos = Vector(0, 0, 150)
 --
 function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
@@ -172,11 +172,11 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
 	end)
 	return true
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-	if status == "Init" && dmginfo:GetDamagePosition() != vec then
+	if status == "Init" and dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(5) -- Size
@@ -185,7 +185,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 	end
 	self.BaseClass.OnDamaged(self, dmginfo, hitgroup, status)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local metalCollideSD = {"vj_hlr/gsrc/fx/metal1.wav", "vj_hlr/gsrc/fx/metal2.wav", "vj_hlr/gsrc/fx/metal3.wav", "vj_hlr/gsrc/fx/metal4.wav", "vj_hlr/gsrc/fx/metal5.wav"}
 local vec500z = Vector(0, 0, 500)
 local colorGray = Color(90, 90, 90)

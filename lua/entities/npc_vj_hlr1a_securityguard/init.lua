@@ -21,19 +21,19 @@ ENT.SoundTbl_Pain = "vj_hlr/gsrc/npc/barney_alpha/ba_pain1.wav"
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/barney_alpha/ba_die1.wav", "vj_hlr/gsrc/npc/barney_alpha/ba_die2.wav", "vj_hlr/gsrc/npc/barney_alpha/ba_die3.wav"}
 
 ENT.Security_Type = 2
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local baseInit = ENT.Init
 --
 function ENT:Init()
 	baseInit(self)
 	self:Give("weapon_vj_hlr1_glock17")
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	-- We have no barnacle or guarding animations, so just override it to do nothing
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Security_UnHolsterGun()
 	self:StopMoving()
 	self:SetWeaponState()

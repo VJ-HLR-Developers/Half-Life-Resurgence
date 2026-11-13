@@ -27,7 +27,7 @@ function EFFECT:Init(data)
 	effectdata:SetRadius(3)
 	util.Effect("Sparks", effectdata)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function EFFECT:Think()
 	if !IsValid(self.Ent) then return false end
 	self.StartPos = self.Ent:GetAttachment(self.Att).Pos
@@ -36,7 +36,7 @@ function EFFECT:Think()
 	end
 	return true
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local defColor = Color(255, 255, 255)
 function EFFECT:Render()
 	render.SetMaterial(self.MainMat)

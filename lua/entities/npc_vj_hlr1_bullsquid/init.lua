@@ -13,7 +13,7 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(10, 0, 11.5),
 	FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow"
@@ -59,7 +59,7 @@ ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bulle
 -- Custom
 ENT.Bullsquid_Type = 0 -- 0 = Retail Half-Life 1 | Alpha Half-Life 1
 ENT.Bullsquid_BlinkingT = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	if self.Bullsquid_Type == 1 then
 		self:SetCollisionBounds(Vector(35, 35, 60), Vector(-35, -35, 0))
@@ -67,7 +67,7 @@ function ENT:Init()
 		self:SetCollisionBounds(Vector(30, 30, 44), Vector(-30, -30, 0))
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
@@ -84,16 +84,16 @@ function ENT:OnInput(key, activator, caller, data)
 		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	if self.Bullsquid_Type == 1 then return end
-	if !self.Dead && CurTime() > self.Bullsquid_BlinkingT then
+	if !self.Dead and CurTime() > self.Bullsquid_BlinkingT then
 		self:SetSkin(1)
 		timer.Simple(0.3, function() if IsValid(self) then self:SetSkin(0) end end)
 		self.Bullsquid_BlinkingT = CurTime() + math.Rand(2, 3.5)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAlert(ent)
 	if self.Bullsquid_Type == 1 then return end -- Alpha doesn't have alert animations!
 	if math.random(1, 3) == 1 then
@@ -104,7 +104,7 @@ function ENT:OnAlert(ent)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjVel(projectile)
 	local projPos = projectile:GetPos()
 	ParticleEffect("vj_hlr_spit_acid_spawn", self:GetPos() + self:OBBCenter() + self:GetForward() * 35, self:GetForward():Angle(), projectile)
@@ -114,11 +114,11 @@ function ENT:RangeAttackProjVel(projectile)
 		return VJ.CalculateTrajectory(self, self:GetEnemy(), "Curve", projPos, 1, 10)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:MeleeAttackKnockbackVelocity(ent)
 	return self:GetForward() * 55 + self:GetUp() * 255
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnFlinch(dmginfo, hitgroup, status)
 	if self.Bullsquid_Type == 1 then return end -- Alpha doesn't have big flinch animations
 	if status == "Init" then
@@ -131,9 +131,9 @@ function ENT:OnFlinch(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+	if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		VJ.HLR_StaticCorpseCheck(self)
@@ -144,7 +144,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -176,7 +176,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	corpse:SetSkin(1)
 	VJ.HLR_ApplyCorpseSystem(self, corpse, nil, {CollisionSound = gibsCollideSd})

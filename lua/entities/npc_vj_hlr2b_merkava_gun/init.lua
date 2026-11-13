@@ -15,7 +15,7 @@ ENT.Tank_Shell_MuzzleFlashPos = Vector(232.1, -0.36, 9.64)
 ENT.Tank_Shell_ParticlePos = Vector(232.1, -0.36, 9.64)
 -- Custom
 ENT.Spotter_NextMGT = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_Init()
 	if GetConVar("vj_hlr2_merkava_gunner"):GetInt() == 0 then return end
 	local att = self:GetAttachment(3)
@@ -39,19 +39,19 @@ function ENT:Tank_Init()
 	self:DeleteOnRemove(spotter)
 	self.Spotter = spotter
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local bulletSpread = Vector(0.03490, 0.03490, 0.03490)
 local sdFiringGun = {"vj_hlr/src/wep/hmg1/hmg1_7.wav", "vj_hlr/src/wep/hmg1/hmg1_8.wav", "vj_hlr/src/wep/hmg1/hmg1_9.wav"}
 --
 function ENT:Tank_OnThinkActive()
 	local ene = self:GetEnemy()
 	local spotter = self.Spotter
-	if IsValid(ene) && IsValid(spotter) then
+	if IsValid(ene) and IsValid(spotter) then
 		-- If our enemy is the spotter, then the class changed!
 		if ene == spotter then
 			spotter.VJ_NPC_Class = self:GetParent().VJ_NPC_Class -- Get from the parent (Chassis) because the gunner's relationship is based from it!
 		end
-		if self.Tank_FacingTarget && ene:Visible(self) && CurTime() > self.Spotter_NextMGT then
+		if self.Tank_FacingTarget and ene:Visible(self) and CurTime() > self.Spotter_NextMGT then
 			local att = self:GetAttachment(1)
 			self:FireBullets({
 				Attacker = spotter,

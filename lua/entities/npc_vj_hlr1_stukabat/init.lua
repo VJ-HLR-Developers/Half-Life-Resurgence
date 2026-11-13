@@ -19,7 +19,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "MDLDEC_Bone50",
 	FirstP_Offset = Vector(1, 0, 5)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.IdleAlwaysWander = false
 ENT.CanOpenDoors = false
@@ -60,13 +60,13 @@ ENT.Stuka_LandingPos = nil
 ENT.Stuka_FlyAnimation = ACT_FLY
 ENT.Stuka_ModeChangeT = 0
 ENT.Stuka_AerialAnimationType = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(23, 23, 40), Vector(-23, -23, 0))
 
 	self.Stuka_ModeChangeT = CurTime() + math.Rand(3, 6)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:ChangeMode(mode)
 	if self.Dead or self:Health() <= 0 or self:IsBusy() or CurTime() < self.Stuka_ModeChangeT then return end
 	local lastMode = self.Stuka_Mode
@@ -89,8 +89,8 @@ function ENT:ChangeMode(mode)
 	elseif mode == 1 then -- Air
 		self.Stuka_LandingType = 0
 		self.Stuka_LandingPos = nil
-		self:PlayAnim(lastMode == 2 && ACT_SPRINT or ACT_LEAP, true, false, false)
-		timer.Simple(VJ.AnimDurationEx(self, lastMode == 2 && ACT_SPRINT or ACT_LEAP, false), function()
+		self:PlayAnim(lastMode == 2 and ACT_SPRINT or ACT_LEAP, true, false, false)
+		timer.Simple(VJ.AnimDurationEx(self, lastMode == 2 and ACT_SPRINT or ACT_LEAP, false), function()
 			if IsValid(self) then
 				self:DoChangeMovementType(VJ_MOVETYPE_AERIAL)
 				self.IdleAlwaysWander = true
@@ -127,7 +127,7 @@ function ENT:ChangeMode(mode)
 	-- self.Stuka_ModeChangeT = CurTime() + 4 -- Debug
 	self.Stuka_ModeChangeT = CurTime() + (self.VJ_Controlled and 4 or math.Rand(15, 35))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	-- print(key)
 	if key == "wing" then
@@ -142,7 +142,7 @@ function ENT:OnInput(key, activator, caller, data)
 		self:ExecuteRangeAttack()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	-- Idle animations
 	local mode = self.Stuka_Mode -- 0 = Ground, 1 = Air, 2 = Ceiling
@@ -157,35 +157,35 @@ function ENT:TranslateActivity(act)
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:HandleModeChanging(mode, pos, cont)
-	if mode == 1 && CurTime() > self.Stuka_ModeChangeT && (!IsValid(cont) or IsValid(cont) && cont:KeyDown(IN_JUMP)) then
-		if self.Stuka_LandingType == 0 && !self.Stuka_LandingPos then
+	if mode == 1 and CurTime() > self.Stuka_ModeChangeT and (!IsValid(cont) or IsValid(cont) and cont:KeyDown(IN_JUMP)) then
+		if self.Stuka_LandingType == 0 and !self.Stuka_LandingPos then
 			if !self.Stuka_LandingPos then
 				local ceiling = math.random(1, 10) == 1
 				pos = self:GetLandingPos(ceiling)
 				if pos then
 					self.Stuka_LandingPos = pos
-					self.Stuka_LandingType = ceiling && 2 or 1
+					self.Stuka_LandingType = ceiling and 2 or 1
 				end
 			end
 		else
 			local landType = self.Stuka_LandingType
 			-- VJ.DEBUG_TempEnt(self.Stuka_LandingPos, self:GetAngles(), Color(212, 0, 255), 5)
 			self:AA_MoveTo(self.Stuka_LandingPos, true, "Calm", {FaceDest=true, FaceDestTarget=false, IgnoreGround = true})
-			local tr = util.TraceLine({start = pos, endpos = pos +Vector(0, 0, landType == 1 && -35 or 75), filter = self})
-			if tr.Hit /*&& tr.HitPos:Distance(pos) <= 35*/ then
+			local tr = util.TraceLine({start = pos, endpos = pos +Vector(0, 0, landType == 1 and -35 or 75), filter = self})
+			if tr.Hit /*and tr.HitPos:Distance(pos) <= 35*/ then
 				if landType == 2 then
 					self:SetPos(tr.HitPos +tr.HitNormal * 35)
 				end
-				self:ChangeMode(landType == 1 && 0 or 2)
+				self:ChangeMode(landType == 1 and 0 or 2)
 			end
 		end
-	elseif mode != 1 && CurTime() > self.Stuka_ModeChangeT && (!IsValid(cont) && math.random(1, 30) == 1 or IsValid(cont) && cont:KeyDown(IN_JUMP)) then
+	elseif mode != 1 and CurTime() > self.Stuka_ModeChangeT and (!IsValid(cont) and math.random(1, 30) == 1 or IsValid(cont) and cont:KeyDown(IN_JUMP)) then
 		self:ChangeMode(1)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	local cont = self.VJ_Controlled and self.VJ_Controller:GetPlayer()
 	local ene = self:GetEnemy()
@@ -193,10 +193,10 @@ function ENT:OnThink()
 	local waypoint = pos + self:GetVelocity():Angle():Forward() * 50
 	local mode = self.Stuka_Mode -- 0 = Ground, 1 = Air, 2 = Ceiling
 	if mode == 1 then
-		self.Stuka_FlyAnimation = pos.z <= waypoint.z && ACT_FLY or ACT_GLIDE
+		self.Stuka_FlyAnimation = pos.z <= waypoint.z and ACT_FLY or ACT_GLIDE
 	end
 	if IsValid(ene) then
-		if self.EnemyData.Distance <= self.RangeAttackMaxDistance && self.Stuka_AerialAnimationType != 1 then
+		if self.EnemyData.Distance <= self.RangeAttackMaxDistance and self.Stuka_AerialAnimationType != 1 then
 			self.Stuka_AerialAnimationType = 1
 			self.Aerial_AnimTbl_Calm = ACT_HOVER
 		else
@@ -210,7 +210,7 @@ function ENT:OnThink()
 		end
 		if IsValid(cont) then
 			self:HandleModeChanging(mode, pos, cont)
-		elseif mode != 1 && !IsValid(cont) then
+		elseif mode != 1 and !IsValid(cont) then
 			self:ChangeMode(1)
 		end
 	else
@@ -221,14 +221,14 @@ function ENT:OnThink()
 		self:HandleModeChanging(mode, pos, cont)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:GetLandingPos(ceiling)
 	local ang = self:GetAngles() + AngleRand()
 	local filt = {self, self.VJ_Controlled and self.VJ_Controller:GetPlayer() or nil}
 	if ceiling then
 		ang.p = -70
 		local tr1 = util.TraceLine({start = self:GetPos(), endpos = self:GetPos() + ang:Forward() * 32000, filter = filt})
-		return tr1.MatType && tr1.MatType != 88 && tr1.HitPos + tr1.Normal * 5
+		return tr1.MatType and tr1.MatType != 88 and tr1.HitPos + tr1.Normal * 5
 	end
 	ang.p = 35
 	local pos = self:GetPos() + (self:GetVelocity() * ang:Forward() * 0.1) * ang:Forward()
@@ -237,11 +237,11 @@ function ENT:GetLandingPos(ceiling)
 	local tr1Pos = tr1.HitPos - tr1.Normal * 100
 	local tr2 = util.TraceLine({start = tr1Pos, endpos = tr1Pos + Vector(0, 0, -120), filter = filt})
 
-	return tr2.HitWorld && tr2.MatType && tr2.MatType != 88 && tr2.HitPos
+	return tr2.HitWorld and tr2.MatType and tr2.MatType != 88 and tr2.HitPos
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:AA_StopMoving()
-	if self.VJ_Controlled && self.Stuka_LandingPos then return end
+	if self.VJ_Controlled and self.Stuka_LandingPos then return end
 	if self:GetVelocity():Length() > 0 then
 		self.AA_CurrentMoveMaxSpeed = 0
 		self.AA_CurrentMoveTime = 0
@@ -252,15 +252,15 @@ function ENT:AA_StopMoving()
 		self:SetLocalVelocity(Vector())
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjPos(projectile)
 	return self:GetPos() + self:GetUp() * 20 + self:GetForward() * 20
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjVel(projectile)
 	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Curve", projectile:GetPos(), 1, 10)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAlert(ent)
 	if self.VJ_Controlled then return end
 	if self.Stuka_Mode != 1 then
@@ -268,7 +268,7 @@ function ENT:OnAlert(ent)
 		self:ChangeMode(1)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnBleed(dmginfo, hitgroup)
 	if self.VJ_Controlled then return end
 	if self.Stuka_Mode != 1 then
@@ -276,10 +276,10 @@ function ENT:OnBleed(dmginfo, hitgroup)
 		self:ChangeMode(1)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Init" then
-		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 			self.DeathAnimationDecreaseLengthAmount = -1
 			self.DeathCorpseEntityClass = "prop_vj_animatable"
 			VJ.HLR_StaticCorpseCheck(self)
@@ -332,7 +332,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				self:ResetSequence(self.DeathAnim)
 
 				local tr = util.TraceLine({start = self:GetPos(), endpos = self:GetPos() + Vector(0, 0, -15), filter = self})
-				self:SetPos(tr.Hit && tr.HitPos or self:GetPos() +Vector(0, 0, -8)) -- The collision box is too big, so we move it down a bit
+				self:SetPos(tr.Hit and tr.HitPos or self:GetPos() +Vector(0, 0, -8)) -- The collision box is too big, so we move it down a bit
 
 				timer.Simple(VJ.AnimDuration(self, self.DeathAnim), function()
 					if IsValid(self) then
@@ -377,7 +377,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -404,7 +404,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibs = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

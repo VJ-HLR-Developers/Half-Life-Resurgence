@@ -8,7 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_hlr/hl1/bullsquid_dreamcast.mdl"
 ENT.StartHealth = 90
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local baseAcceptInput = ENT.OnInput
 --
 function ENT:OnInput(key, activator, caller, data)

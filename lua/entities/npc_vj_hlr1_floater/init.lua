@@ -19,7 +19,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Bone01",
 	FirstP_Offset = Vector(1, 0, 5)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.ConstantlyFaceEnemy = true
 ENT.IdleAlwaysWander = true
 ENT.CanOpenDoors = false
@@ -55,7 +55,7 @@ ENT.MainSoundPitch = 100
 
 -- Custom
 ENT.Floater_FollowOffsetPos = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(10, 10, 50), Vector(-10, -10, 0))
 	self.Floater_FollowOffsetPos = Vector(math.random(-50, 50), math.random(-120, 120), math.random(-150, 150))
@@ -63,20 +63,20 @@ function ENT:Init()
 		VJ.HLR_NPC_Floater_Leader = self
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "shoot" then
 		self:ExecuteRangeAttack()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	if self.VJ_Controlled then return end
 	local leader = VJ.HLR_NPC_Floater_Leader
 	if !IsValid(self:GetEnemy()) then
 		if IsValid(leader) then
-			if leader != self && leader.AA_CurrentMovePos then
+			if leader != self and leader.AA_CurrentMovePos then
 				self.DisableWandering = true
 				self:AA_MoveTo(leader, true, "Calm", {AddPos = self.Floater_FollowOffsetPos, IgnoreGround = true}) -- Medzavorin haladz e (Kharen deghme)
 			end
@@ -87,15 +87,15 @@ function ENT:OnThink()
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjPos(projectile)
 	return self:GetPos() + self:GetUp() * 20 + self:GetForward() * 20
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjVel(projectile)
 	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Curve", projectile:GetPos(), 1, 10)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -122,7 +122,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibs = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

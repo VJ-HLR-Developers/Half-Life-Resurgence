@@ -20,7 +20,7 @@ ENT.AnimTbl_Death = "vjseq_crash"
 
 -- Custom
 ENT.Boid_WoundedAnim = nil
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self.Boid_Type = 1
 	self:SetCollisionBounds(Vector(18, 18, 10), Vector(-18, -18, 0))
@@ -30,7 +30,7 @@ function ENT:Init()
 		VJ.HLR_NPC_AFlock_Leader = self
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	if act == ACT_IDLE or act == ACT_FLY then
 		if self:Health() <= (self:GetMaxHealth() / 2.2) then
@@ -41,12 +41,12 @@ function ENT:TranslateActivity(act)
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	if self.VJ_Controlled then return end
 	local leader = VJ.HLR_NPC_AFlock_Leader
 	if IsValid(leader) then
-		if leader != self && leader.AA_CurrentMovePos then
+		if leader != self and leader.AA_CurrentMovePos then
 			self.DisableWandering = true
 			self:AA_MoveTo(leader, true, "Calm", {AddPos = self.Boid_FollowOffsetPos, IgnoreGround = true}) -- Medzavorin haladz e (Kharen deghme)
 		end

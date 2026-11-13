@@ -20,7 +20,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "bone10",
 	FirstP_Offset = Vector(-1, 0, -1)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = "vj_hlr_blood_red"
 ENT.BloodDecal = "VJ_HLR1_Blood_Red"
@@ -66,7 +66,7 @@ ENT.BOA_NextRunT = 0
 ENT.BOA_ShotsSinceRun = 0
 ENT.BOA_OffGround = false
 ENT.BOA_ForceJumpShoot = false
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetRenderMode(RENDERMODE_TRANSALPHA)
 
@@ -76,7 +76,7 @@ function ENT:Init()
 
 	VJ.HLR_ApplyFactionOptions(self)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
@@ -94,21 +94,21 @@ function ENT:OnInput(key, activator, caller, data)
 		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:IsBusy(checkType)
 	-- Override base function to not see jumping as a busy activity when it should jump-fire
-	if (!checkType or checkType == "Activities") && self:GetNavType() == NAV_JUMP && self.BOA_ForceJumpShoot then
+	if (!checkType or checkType == "Activities") and self:GetNavType() == NAV_JUMP and self.BOA_ForceJumpShoot then
 		self.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE -- Make the gun actually shoot
 		return false
 	end
 	return self.BaseClass.IsBusy(self)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAlert(ent)
 	-- Stay under 1.4 to make sure that it will do jump behavior rather then run behavior most of the time | 1.2 = Always jump behavior
 	self.BOA_NextJumpT = CurTime() + math.Rand(0.8, 1.4)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	if self.Dead then return end
 	local curTime = CurTime()
@@ -138,7 +138,7 @@ function ENT:OnThink()
 			self:RemoveFlags(FL_NOTARGET)
 		end
 		-- Make it play a sound effect when it first starts cloaking, as seen here: https://github.com/ValveSoftware/halflife/blob/master/dlls/hassassin.cpp#L728
-		if prevClockLvl == 255 && cloakLvl < 255 then
+		if prevClockLvl == 255 and cloakLvl < 255 then
 			VJ.EmitSound(self, "vj_hlr/gsrc/fx/beamstart1.wav", 75, 100, 0.2, CHAN_BODY)
 		end
 	end
@@ -149,7 +149,7 @@ function ENT:OnThink()
 			self.AnimTbl_WeaponAttack = ACT_RANGE_ATTACK1
 			self.BOA_ForceJumpShoot = false
 		end
-	elseif !self.BOA_ForceJumpShoot && self:GetVelocity().z < 0 then
+	elseif !self.BOA_ForceJumpShoot and self:GetVelocity().z < 0 then
 		local flyAct = VJ.SequenceToActivity(self, "fly_attack")
 		self:SetIdealActivity(flyAct)
 		self.AnimTbl_WeaponAttack = flyAct
@@ -157,14 +157,14 @@ function ENT:OnThink()
 		self.BOA_OffGround = true
 	end
 
-	if self.BOA_OffGround && self:GetVelocity().z == 0 then -- Velocity is 0, so we have landed, play land anim
+	if self.BOA_OffGround and self:GetVelocity().z == 0 then -- Velocity is 0, so we have landed, play land anim
 		self.BOA_OffGround = false
 		self:PlayAnim(ACT_LAND, true, false, false)
 		//VJ.EmitSound(self, "vj_hlr/gsrc/npc/player/pl_jumpland2.wav", 80) -- Done through event now
 	end
 
 	-- Jump while attacking
-	if IsValid(self:GetEnemy()) && curTime > self.BOA_NextJumpT && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND && !self:IsMoving() && self.EnemyData.Distance < 1400 && !self.VJ_Controlled then
+	if IsValid(self:GetEnemy()) and curTime > self.BOA_NextJumpT and self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND and !self:IsMoving() and self.EnemyData.Distance < 1400 and !self.VJ_Controlled then
 		local myPos = self:GetPos()
 		self:ForceMoveJump(((myPos + self:GetRight() * (math.random(1, 2) == 1 and 100 or -100) + self:GetForward() * (math.random(1, 2) == 1 and 1 or -100)) - (myPos + self:OBBCenter())):GetNormalized() * 200 + self:GetUp() * 600)
 		-- Older jumping system
@@ -181,22 +181,22 @@ function ENT:OnThink()
 		self.BOA_NextJumpT = curTime + math.Rand(7, 11)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnFireBullet(data)
 	self.BOA_CloakLevel = 0
 	if self.VJ_Controlled then return end
 	local curTime = CurTime()
 	self.BOA_ShotsSinceRun = self.BOA_ShotsSinceRun + 1
-	if self:GetNavType() != NAV_JUMP && curTime > self.BOA_NextRunT && self.BOA_ShotsSinceRun >= 4 then -- Yete amenan keche chors ankam zenke zargadz e, ere vor vaz e!
+	if self:GetNavType() != NAV_JUMP and curTime > self.BOA_NextRunT and self.BOA_ShotsSinceRun >= 4 then -- Yete amenan keche chors ankam zenke zargadz e, ere vor vaz e!
 		self:SCHEDULE_COVER_ENEMY("TASK_RUN_PATH")
 		self.BOA_ShotsSinceRun = 0
 		self.BOA_NextJumpT = curTime + math.Rand(2, 4)
 		self.BOA_NextRunT = curTime + math.Rand(4, 6)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+	if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		VJ.HLR_StaticCorpseCheck(self)
@@ -209,7 +209,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		self:SetBodygroup(1, 1)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -241,10 +241,10 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	-- Set the NVG bodygroup if we played forward death to match the NVG's position
-	if self:GetSequenceActivity(self:GetIdealSequence()) == ACT_DIEFORWARD && self.DeathCorpseEntityClass != "prop_vj_animatable" then
+	if self:GetSequenceActivity(self:GetIdealSequence()) == ACT_DIEFORWARD and self.DeathCorpseEntityClass != "prop_vj_animatable" then
 		corpse:SetBodygroup(0, 1)
 	end
 	VJ.HLR_ApplyCorpseSystem(self, corpse, nil, {CollisionSound = gibsCollideSd})

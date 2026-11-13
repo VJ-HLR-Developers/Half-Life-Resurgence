@@ -8,7 +8,7 @@ include("shared.lua")
 ENT.Model = "models/police.mdl"
 ENT.StartHealth = 50
 ENT.HullType = HULL_HUMAN
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_COMBINE"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.AnimTbl_MeleeAttack = "pushplayer" // ACT_MELEE_ATTACK_SWING
@@ -186,25 +186,25 @@ ENT.Metrocop_CanHaveManhack = true
 ENT.Metrocop_AlwaysSpawnManhack = false -- Always spawn with a manhack, used for auto replace
 ENT.Metrocop_HasManhack = false
 ENT.Metrocop_Manhack = NULL
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	-- Handle manhack inventory
-	if self.Metrocop_CanHaveManhack && ((math.random(1, 4) == 1) or self.Metrocop_ForceSpawnManhack) then
+	if self.Metrocop_CanHaveManhack and ((math.random(1, 4) == 1) or self.Metrocop_ForceSpawnManhack) then
 		self.Metrocop_HasManhack = true
 		self:SetBodygroup(1, 1)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("SPACE: Deploy Manhack (if available)")
 
 	function controlEnt:OnKeyPressed(key)
-		if key == KEY_SPACE && self:GetNPC().Metrocop_HasManhack then
+		if key == KEY_SPACE and self:GetNPC().Metrocop_HasManhack then
 			self:GetNPC():Metrocop_DeployManhack()
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 /*function ENT:OnInput(key, activator, caller, data)
 	-- Campaign compatibility test
 	if key == "SetPoliceGoal" then
@@ -218,12 +218,12 @@ end
 		end
 	end
 end*/
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local getEventName = util.GetAnimEventNameByID
 --
 function ENT:OnAnimEvent(ev, evTime, evCycle, evType, evOptions)
 	local eventName = getEventName(ev)
-	if eventName == "AE_METROPOLICE_BATON_ON" && IsValid(self:GetActiveWeapon()) then
+	if eventName == "AE_METROPOLICE_BATON_ON" and IsValid(self:GetActiveWeapon()) then
 		VJ.EmitSound(self, "Weapon_StunStick.Activate")
 		local effectData = EffectData()
 		effectData:SetOrigin(self:GetActiveWeapon():GetAttachment(1).Pos)
@@ -244,13 +244,13 @@ function ENT:OnAnimEvent(ev, evTime, evCycle, evType, evOptions)
 		self:Metrocop_SpawnManhack()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateSound(sdData, sdFile)
 	if VJ.HasValue(self.SoundTbl_Pain, sdFile) then return end
 	VJ.EmitSound(self, "npc/metropolice/vo/on" .. math.random(1, 2) .. ".wav")
-	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self, "npc/metropolice/vo/off" .. math.random(1, 4) .. ".wav") end end)
+	timer.Simple(SoundDuration(sdFile), function() if IsValid(self) and sdData:IsPlaying() then VJ.EmitSound(self, "npc/metropolice/vo/off" .. math.random(1, 4) .. ".wav") end end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAlert(ent)
 	if math.random(1, 2) == 1 then
 		if ent:IsPlayer() then
@@ -258,7 +258,7 @@ function ENT:OnAlert(ent)
 		elseif ent.VJ_HLR_Freeman then
 			self:PlaySoundSystem("Alert", sdCop_Alert_Freeman) -- Same thing as above, minus in vehicle sounds
 		elseif ent:IsNPC() then
-			if ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then
+			if ent.IsVJBaseSNPC_Creature and !ent.VJ_ID_Vehicle and !ent.VJ_ID_Aircraft then
 				if math.random(1, 2) == 1 then
 					for _, v in ipairs(ent.VJ_NPC_Class or {1}) do
 						if v == "CLASS_ZOMBIE" or ent:Classify() == CLASS_ZOMBIE then
@@ -274,7 +274,7 @@ function ENT:OnAlert(ent)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnWeaponChange(newWeapon, oldWeapon, invSwitch)
 	//if invSwitch then -- Only if it's a inventory switch
 	-- Play the stunstick activation animation
@@ -282,7 +282,7 @@ function ENT:OnWeaponChange(newWeapon, oldWeapon, invSwitch)
 		self:PlayAnim("activatebaton", true, false, true)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Metrocop_DeployManhack()
 	self.Metrocop_HasManhack = false
 	self:PlayAnim("deploy", true, false, true)
@@ -290,12 +290,12 @@ function ENT:Metrocop_DeployManhack()
 
 	-- Backup in case animation cuts out and event is never ran
 	timer.Simple(3, function()
-		if IsValid(self) && !IsValid(self.Metrocop_Manhack) then
+		if IsValid(self) and !IsValid(self.Metrocop_Manhack) then
 			self:Metrocop_SpawnManhack()
 		end
 	end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vecZ250 = Vector(0, 0, 250)
 --
 function ENT:Metrocop_SpawnManhack()
@@ -325,32 +325,32 @@ function ENT:Metrocop_SpawnManhack()
 	end
 	self.Metrocop_Manhack = manhack
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThinkActive()
 	if self.VJ_Controlled then return end
-	if self.Metrocop_HasManhack && IsValid(self:GetEnemy()) then
+	if self.Metrocop_HasManhack and IsValid(self:GetEnemy()) then
 		local eneData = self.EnemyData
-		if eneData.Distance <= 1000 && eneData.Distance > 300 then
+		if eneData.Distance <= 1000 and eneData.Distance > 300 then
 			self:Metrocop_DeployManhack()
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAllyKilled(ent)
-	if math.random(1, 3) != 1  && self.VJ_ID_Police then
+	if math.random(1, 3) != 1  and self.VJ_ID_Police then
 		self:PlaySoundSystem("AllyDeath", sdCop_AllyDeath_Metrocop)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Init" then
 		EmitSentence("METROPOLICE_DIE" .. math.random(0, 8), self:GetPos(), self:EntIndex(), CHAN_AUTO, 1, self.DeathSoundLevel, 0, 100)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:CustomOnRemove()
 	-- Remove manhack if we were removed without being killed
-	if !self.Dead && IsValid(self.Metrocop_Manhack) then
+	if !self.Dead and IsValid(self.Metrocop_Manhack) then
 		self.Metrocop_Manhack:Remove()
 	end
 end

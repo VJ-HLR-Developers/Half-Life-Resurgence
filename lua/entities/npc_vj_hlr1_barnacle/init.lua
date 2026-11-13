@@ -17,7 +17,7 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(0, 0, -44),
 	FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = "vj_hlr_blood_red"
@@ -57,12 +57,12 @@ ENT.Barnacle_CurEnt = NULL
 ENT.Barnacle_CurEntMoveType = MOVETYPE_WALK
 ENT.Barnacle_PullingEnt = false
 ENT.Barnacle_NextPullSoundT = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(18, 18, 0), Vector(-18, -18, -50))
 	//VJ.GetPoseParameters(self) -- tongue_height 0 / 1024
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
 function ENT:OnInput(key, activator, caller, data)
@@ -83,7 +83,7 @@ function ENT:OnInput(key, activator, caller, data)
 		self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/hgib_legbone.mdl", {CollisionDecal = "VJ_HLR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(-5, 0, -30))})
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local velInitial = Vector(0, 0, 2)
 local offset = 200
 local offsetPulling = 125
@@ -103,7 +103,7 @@ function ENT:Barnacle_CalculateTongue()
 	local height = myPos:Distance(trHitPos)
 	-- Increase the height by 10 every tick | minimum = 0, maximum = 1024
 	self.Barnacle_LastHeight = math.Clamp(height + 10, 0, 1024 + offset)
-	if IsValid(trHitEnt) && trHitEnt.VJ_ID_Living && self:CheckRelationship(trHitEnt) == D_HT && !trHitEnt.VJ_ID_Boss then
+	if IsValid(trHitEnt) and trHitEnt.VJ_ID_Living and self:CheckRelationship(trHitEnt) == D_HT and !trHitEnt.VJ_ID_Boss then
 		-- If the grabbed enemy is a new enemy then reset the enemy values
 		if self.Barnacle_CurEnt != trHitEnt then
 			self:Barnacle_ResetEnt()
@@ -142,7 +142,7 @@ function ENT:Barnacle_CalculateTongue()
 	self:SetPoseParameter("tongue_height", myPos:Distance(trHitPos) - offset) -- -200 is to account for the pose parameter's offset
 	return false
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Barnacle_ResetEnt()
 	if !IsValid(self.Barnacle_CurEnt) then return end
 	self.Barnacle_CurEnt:RemoveEFlags(EFL_IS_BEING_LIFTED_BY_BARNACLE)
@@ -150,19 +150,19 @@ function ENT:Barnacle_ResetEnt()
 	self.Barnacle_CurEnt:SetMoveType(self.Barnacle_CurEntMoveType) -- Reset the enemy's move type
 	self.Barnacle_CurEnt = NULL
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	if act == ACT_IDLE then
 		return (self.Barnacle_PullingEnt and ACT_BARNACLE_PULL) or ACT_IDLE
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThinkActive()
 	if self.Dead then return end
 	self.Barnacle_PullingEnt = self:Barnacle_CalculateTongue()
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnMeleeAttackExecute(status, ent, isProp)
 	if status == "PreDamage" then
 		if ent.IsVJBaseSNPC_Human then -- Make human NPCs die instantly
@@ -174,11 +174,11 @@ function ENT:OnMeleeAttackExecute(status, ent, isProp)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
 	VJ.EmitSound(self, "vj_hlr/gsrc/npc/barnacle/bcl_bite3.wav")
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Init" then
 		self:Barnacle_ResetEnt()
@@ -186,14 +186,14 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		self:SetPos(self:GetPos() + self:GetUp() * -4)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	corpse:DrawShadow(false)
 	corpse:ResetSequence("Death")
 	corpse:SetCycle(1)
 	corpse:SetPoseParameter("tongue_height", 1)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
@@ -226,7 +226,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:CustomOnRemove()
 	self:Barnacle_ResetEnt()
 end

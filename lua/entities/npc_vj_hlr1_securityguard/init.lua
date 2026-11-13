@@ -13,7 +13,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Bip01 Head",
 	FirstP_Offset = Vector(4, 0, 0)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.AlliedWithPlayerAllies = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -121,7 +121,7 @@ local SECURITY_TYPE_ALPHA = 2 -- Alpha Security Guard
 ENT.Security_NextMouthMove = 0
 ENT.Security_NextMouthDistance = 0
 ENT.Security_Type = SECURITY_TYPE_REGULAR
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(13, 13, 76), Vector(-13, -13, 0))
 	self:SetBodygroup(1, 0)
@@ -149,13 +149,13 @@ function ENT:Init()
 		self:Give("weapon_vj_hlr1_glock17")
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("SPACE: Holster / Unholster gun")
 
 	function controlEnt:OnKeyPressed(key)
 		local npc = self:GetNPC()
-		if key == KEY_SPACE && npc:GetActivity() != ACT_DISARM && npc:GetActivity() != ACT_ARM then
+		if key == KEY_SPACE and npc:GetActivity() != ACT_DISARM and npc:GetActivity() != ACT_ARM then
 			if npc:GetWeaponState() == VJ.WEP_STATE_HOLSTERED then
 				npc:Security_UnHolsterGun()
 			elseif npc:GetWeaponState() == VJ.WEP_STATE_READY then
@@ -164,7 +164,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
@@ -178,7 +178,7 @@ function ENT:OnInput(key, activator, caller, data)
 		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local guardAnims = {ACT_GET_DOWN_STAND, ACT_GET_UP_STAND}
 --
 function ENT:TranslateActivity(act) -- Not ran for SECURITY_TYPE_ALPHA
@@ -186,12 +186,12 @@ function ENT:TranslateActivity(act) -- Not ran for SECURITY_TYPE_ALPHA
 	if self:IsEFlagSet(EFL_IS_BEING_LIFTED_BY_BARNACLE) then
 		return ACT_BARNACLE_PULL
 	-- Guarding
-	elseif act == ACT_IDLE && self.IsGuard && self:GetWeaponState() == VJ.WEP_STATE_HOLSTERED && self:GetNPCState() <= NPC_STATE_IDLE then
+	elseif act == ACT_IDLE and self.IsGuard and self:GetWeaponState() == VJ.WEP_STATE_HOLSTERED and self:GetNPCState() <= NPC_STATE_IDLE then
 		return self:ResolveAnimation(guardAnims)
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	if self.Security_Type != SECURITY_TYPE_ALPHA then -- If it's regular or Otis...
 		-- Mouth movement
@@ -207,11 +207,11 @@ function ENT:OnThink()
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateSound(sdData, sdFile)
 	self.Security_NextMouthMove = CurTime() + SoundDuration(sdFile)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAlert(ent)
 	if self.VJ_Controlled then return end
 
@@ -220,10 +220,10 @@ function ENT:OnAlert(ent)
 			local entClass = ent:GetClass()
 			if entClass == "npc_vj_hlr1_bullsquid" or entClass == "npc_vj_hlrdc_bullsquid" or entClass == "npc_vj_hlr1a_bullsquid" or entClass == "npc_vj_hlr1_tentacle" then
 				self:PlaySoundSystem("Alert", "vj_hlr/gsrc/npc/barney/c1a4_ba_octo1.wav")
-			elseif ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then
+			elseif ent.IsVJBaseSNPC_Creature and !ent.VJ_ID_Vehicle and !ent.VJ_ID_Aircraft then
 				self:PlaySoundSystem("Alert", "vj_hlr/gsrc/npc/barney/diebloodsucker.wav")
 			end
-		elseif self.Security_Type == SECURITY_TYPE_OTIS && ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then
+		elseif self.Security_Type == SECURITY_TYPE_OTIS and ent.IsVJBaseSNPC_Creature and !ent.VJ_ID_Vehicle and !ent.VJ_ID_Aircraft then
 			self:PlaySoundSystem("Alert", "vj_hlr/gsrc/npc/otis/aliens.wav")
 		end
 	end
@@ -232,25 +232,25 @@ function ENT:OnAlert(ent)
 		self:Security_UnHolsterGun()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Security_HolsterGun()
 	if self:GetBodygroup(1) != 0 then self:PlayAnim(ACT_DISARM, true, false, true) end
 	self:SetWeaponState(VJ.WEP_STATE_HOLSTERED)
 	timer.Simple(self.Security_Type == SECURITY_TYPE_ALPHA and 1 or 1.5, function()
 		-- Set the holster bodygroup if we have NOT been interrupted
-		if IsValid(self) && self:GetWeaponState() == VJ.WEP_STATE_HOLSTERED then
+		if IsValid(self) and self:GetWeaponState() == VJ.WEP_STATE_HOLSTERED then
 			self:SetBodygroup(1, 0)
 		end
 	end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Security_UnHolsterGun()
 	self:StopMoving()
 	self:PlayAnim(ACT_ARM, true, false, true)
 	self:SetWeaponState()
 	timer.Simple(0.55, function() if IsValid(self) then self:SetBodygroup(1, 1) end end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThinkActive()
 	if self.VJ_Controlled or self.Dead or self:IsBusy("Activities") then return end
 	-- Unholster the weapon if we are alerted and have NOT unholstered the weapon
@@ -259,18 +259,18 @@ function ENT:OnThinkActive()
 			self:Security_UnHolsterGun()
 		end
 	-- Holster the weapon if we are idling and its been a bit since we saw an enemy
-	elseif self:GetWeaponState() == VJ.WEP_STATE_READY && (CurTime() - self.EnemyData.TimeSet) > 5 then
+	elseif self:GetWeaponState() == VJ.WEP_STATE_READY and (CurTime() - self.EnemyData.TimeSet) > 5 then
 		self:Security_HolsterGun()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "Init" then
 		-- Make a metal effect when the helmet is hit!
 		if self.Security_Type == SECURITY_TYPE_OTIS then return end -- Only types that do have a helmet
-		if hitgroup == HITGROUP_GEAR && dmginfo:GetDamagePosition() != vec then
+		if hitgroup == HITGROUP_GEAR and dmginfo:GetDamagePosition() != vec then
 			self.HasBloodParticle = false -- Disable blood particles temporarily when shot at the helmet
 			local rico = EffectData()
 			rico:SetOrigin(dmginfo:GetDamagePosition())
@@ -282,9 +282,9 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+	if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		VJ.HLR_StaticCorpseCheck(self)
@@ -298,7 +298,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		self.HasBloodParticle = true
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -331,7 +331,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	VJ.HLR_ApplyCorpseSystem(self, corpse, nil, {CollisionSound = gibsCollideSd})
 end

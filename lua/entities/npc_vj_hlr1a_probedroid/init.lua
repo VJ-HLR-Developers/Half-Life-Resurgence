@@ -16,7 +16,7 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(15, 0, -3),
 	FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.AlliedWithPlayerAllies = true
 ENT.ConstantlyFaceEnemy = true
@@ -62,18 +62,18 @@ ENT.SoundTbl_RangeAttack = "vj_hlr/gsrc/npc/prdroid_alpha/shoot.wav"
 ENT.SoundTbl_Death = "vj_hlr/gsrc/npc/prdroid_alpha/die.wav"
 
 ENT.MainSoundPitch = 100
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local spawnPos = Vector(0, 0, 80)
 --
 function ENT:Init()
 	self:SetCollisionBounds(Vector(35, 35, 15), Vector(-35, -35, -50))
 	self:SetPos(self:GetPos() + spawnPos)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("Hold-SPACE: Fires healing needle while range attacking")
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "melee" then
@@ -82,14 +82,14 @@ function ENT:OnInput(key, activator, caller, data)
 		self:ExecuteRangeAttack()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	if act == ACT_FLY then
 		return ACT_IDLE
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnMedicBehavior(status, statusData)
 	if status == "BeforeHeal" then
 		VJ.EmitSound(self, "vj_hlr/gsrc/npc/prdroid_alpha/readytoattack.wav", 90, 100) -- Preparing sound same as range attack
@@ -115,7 +115,7 @@ function ENT:OnMedicBehavior(status, statusData)
 		return false
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 --  ACT_RANGE_ATTACK2 -- Rapid firing (3-shot burst) range attack animation | !!! UNUSED !!!
 --
 function ENT:OnRangeAttack(status, enemy)
@@ -131,25 +131,25 @@ function ENT:OnRangeAttack(status, enemy)
 		self.AttackAnimTime = CurTime() + self.AttackAnimDuration
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
-	if status == "PreSpawn" && self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP) then
+	if status == "PreSpawn" and self.VJ_Controlled and self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP) then
 		projectile.Needle_Heal = true
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjPos(projectile)
 	return self:GetAttachment(self:LookupAttachment("0")).Pos
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjVel(projectile)
 	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projectile:GetPos(), 1, 1500)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-	if status == "Init" && dmginfo:GetDamagePosition() != vec then
+	if status == "Init" and dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(5) -- Size
@@ -157,11 +157,11 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		util.Effect("VJ_HLR_Rico", rico)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local collideSds = {"vj_hlr/gsrc/fx/metal1.wav", "vj_hlr/gsrc/fx/metal2.wav", "vj_hlr/gsrc/fx/metal3.wav", "vj_hlr/gsrc/fx/metal4.wav", "vj_hlr/gsrc/fx/metal5.wav"}
 --
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && dmginfo:IsDamageType(DMG_BLAST) then
+	if status == "Init" and dmginfo:IsDamageType(DMG_BLAST) then
 		self.HasDeathAnimation = false
 	elseif status == "Finish" then
 		local myPos = self:GetPos()

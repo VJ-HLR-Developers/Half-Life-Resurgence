@@ -22,7 +22,7 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(),
 	FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow"
@@ -43,11 +43,11 @@ ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/leech/leech_alert1.wav", "vj_hlr/gsrc/npc/
 //ENT.SoundTbl_Alert = {"vj_hlr/gsrc/npc/leech/leech_alert1.wav", "vj_hlr/gsrc/npc/leech/leech_alert2.wav"}
 ENT.SoundTbl_MeleeAttack = {"vj_hlr/gsrc/npc/leech/leech_bite1.wav", "vj_hlr/gsrc/npc/leech/leech_bite2.wav", "vj_hlr/gsrc/npc/leech/leech_bite3.wav"}
 ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(4, 4, 3), Vector(-4, -4, -2))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
 	if act == ACT_IDLE then
 		if self:WaterLevel() == 0 then
@@ -62,9 +62,9 @@ function ENT:TranslateActivity(act)
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+	if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		VJ.HLR_StaticCorpseCheck(self)

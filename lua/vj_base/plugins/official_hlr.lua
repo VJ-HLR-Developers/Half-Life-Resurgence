@@ -11,9 +11,9 @@ VJ.HLR_INSTALLED_HD = file.Exists("lua/autorun/vj_hlr_hd_autorun.lua", "GAME")
 VJ.HLR_NPC_Boid_Leader = NULL
 VJ.HLR_NPC_AFlock_Leader = NULL
 VJ.HLR_NPC_Floater_Leader = NULL
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------- GoldSrc Engine ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+------ GoldSrc Engine --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 local spawnCategory = "HL Resurgence: GoldSrc"
 VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_hl/icons/hl1.png"})
 
@@ -160,9 +160,9 @@ VJ.AddNPC("Voltigore", "npc_vj_hlrof_voltigore", spawnCategory, {SubCategory = s
 VJ.AddNPC("Voltigore (Baby)", "npc_vj_hlrof_voltigore_baby", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Gene Worm", "npc_vj_hlrof_geneworm", spawnCategory, {SubCategory = subCategory})
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------- Source Engine ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+------ Source Engine --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 spawnCategory = "HL Resurgence: Source"
 VJ.AddCategoryInfo(spawnCategory, {Icon = "games/16/hl2.png"})
 
@@ -255,9 +255,9 @@ VJ.AddWeapon("Charge Bow", "weapon_vj_hlr2_chargebow", spawnCategory)
 VJ.AddWeapon("Resistance RPG", "weapon_vj_hlr2_rpg", spawnCategory)
 VJ.AddWeapon("Combine Reager", "weapon_vj_hlr2_reager", spawnCategory)
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------- Decals ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+------ Decals --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- Blood
 game.AddDecal("VJ_HLR1_Blood_Red", {"vj_hl/decals/hl_blood01", "vj_hl/decals/hl_blood02", "vj_hl/decals/hl_blood03", "vj_hl/decals/hl_blood04", "vj_hl/decals/hl_blood05", "vj_hl/decals/hl_blood06", "vj_hl/decals/hl_blood07", "vj_hl/decals/hl_blood08"})
 game.AddDecal("VJ_HLR1_Blood_Red_Large", {"vj_hl/decals/hl_bigblood01", "vj_hl/decals/hl_bigblood02"})
@@ -286,9 +286,9 @@ list.Add("PaintMaterials", "VJ_HLR1_Scorch")
 list.Add("PaintMaterials", "VJ_HLR1_Scorch_Small")
 list.Add("PaintMaterials", "VJ_HLR1_Gargantua_Stomp")
 list.Add("PaintMaterials", "VJ_HLR1_Impact")
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------- Particles ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+------ Particles --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 VJ.AddParticle("particles/vj_hlr_goldsrc_blood.pcf", {
 	"vj_hlr_blood_red",
 	"vj_hlr_blood_red_large",
@@ -354,9 +354,9 @@ VJ.AddParticle("particles/vj_hlr_goldsrc.pcf", {
 	"vj_hlr_geneworm_sprites",
 	"vj_hlr_geneworm_sprites_death",
 })
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------- Sounds ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+------ Sounds --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- Alyx Gun
 sound.Add({
 	name = "VJ.HLR_Weapon_AlyxGun.Single",
@@ -386,9 +386,9 @@ sound.Add({
 	pitch = {90, 110},
 	sound = "^vj_hlr/src/wep/oicw/npc_ar2_fire1.wav"
 })
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------- Precaches ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+------ Precaches --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 util.PrecacheModel("models/vj_hlr/gibs/agib1.mdl")
 util.PrecacheModel("models/vj_hlr/gibs/agib2.mdl")
 util.PrecacheModel("models/vj_hlr/gibs/agib3.mdl")
@@ -413,9 +413,9 @@ util.PrecacheModel("models/vj_hlr/gibs/hgib_legbone.mdl")
 util.PrecacheModel("models/vj_hlr/gibs/gib_hgrunt.mdl")
 util.PrecacheModel("models/vj_hlr/gibs/zombiegib.mdl")
 util.PrecacheModel("models/vj_hlr/gibs/islavegib.mdl")
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------- Functions & Hooks ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+------ Functions & Hooks --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 function VJ.HLR1_Effect_Portal(pos, size, color, onSpawn)
 	-- Helpful page: https://developer.valvesoftware.com/wiki/Alien_Teleport_Effect_(HL1)
 	size = size or 1.5
@@ -484,11 +484,11 @@ function VJ.HLR1_Effect_Portal(pos, size, color, onSpawn)
 	end)
 	return spr
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function VJ.HLR1_Effect_Explosion(pos, type, size, color)
 	type = type or 1
 	local spr = ents.Create("env_sprite")
-	spr:SetKeyValue("model", type == 1 && "vj_hl/sprites/zerogxplode.vmt" or "vj_hl/sprites/fexplo1.vmt")
+	spr:SetKeyValue("model", type == 1 and "vj_hl/sprites/zerogxplode.vmt" or "vj_hl/sprites/fexplo1.vmt")
 	spr:SetKeyValue("scale", "" .. (size or 1))
 	spr:SetKeyValue("rendercolor", color or "255 255 255")
 	spr:SetKeyValue("rendermode", "5")
@@ -501,7 +501,7 @@ function VJ.HLR1_Effect_Explosion(pos, type, size, color)
 	sound.Play("vj_hlr/gsrc/wep/explosion/explode" .. math.random(1, 3) .. ".wav", pos, 150)
 	return spr
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local excludedMats = {
 	[MAT_ANTLION] = true,
 	[MAT_ALIENFLESH] = true,
@@ -523,7 +523,7 @@ function VJ.HLR1_Effect_Impact(tr)
 	util.Decal("VJ_HLR1_Impact", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
 	return true
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function VJ.HLR_Weapon_CheckModel(wep, models)
 	local owner = wep:GetOwner()
 	if !models[owner:GetModel()] then
@@ -536,21 +536,21 @@ function VJ.HLR_Weapon_CheckModel(wep, models)
 	end
 	return true -- Valid model
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function VJ.HLR_ApplyFactionOptions(ent)
 	-- Handle friendly faction options
-	if GetConVar("vj_hlr1_friendly_hecu"):GetBool() && ent.VJ_NPC_Class[1] == "CLASS_UNITED_STATES" && !ent.VJ_NPC_Class[2] then
+	if GetConVar("vj_hlr1_friendly_hecu"):GetBool() and ent.VJ_NPC_Class[1] == "CLASS_UNITED_STATES" and !ent.VJ_NPC_Class[2] then
 		ent.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_UNITED_STATES_FRIENDLY"}
 		ent.AlliedWithPlayerAllies = true
-	elseif GetConVar("vj_hlr1_friendly_bops"):GetBool() && ent.VJ_NPC_Class[1] == "CLASS_BLACKOPS" && !ent.VJ_NPC_Class[2] then
+	elseif GetConVar("vj_hlr1_friendly_bops"):GetBool() and ent.VJ_NPC_Class[1] == "CLASS_BLACKOPS" and !ent.VJ_NPC_Class[2] then
 		ent.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 		ent.AlliedWithPlayerAllies = true
-	elseif GetConVar("vj_hlr1_friendly_bmturrets"):GetBool() && ent.VJ_NPC_Class[1] == "CLASS_AUTOMATIC_TURRET" && !ent.VJ_NPC_Class[2] then
+	elseif GetConVar("vj_hlr1_friendly_bmturrets"):GetBool() and ent.VJ_NPC_Class[1] == "CLASS_AUTOMATIC_TURRET" and !ent.VJ_NPC_Class[2] then
 		ent.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 		ent.AlliedWithPlayerAllies = true
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function VJ.HLR_StaticCorpseCheck(ent)
 	-- Failsafe if ai_disabled is set to 1, so make corpse a ragdoll or prop instead
 	local hookAICheck = "VJ_HLR_AICheck" .. ent:EntIndex()
@@ -562,7 +562,7 @@ function VJ.HLR_StaticCorpseCheck(ent)
 		end
 	end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local defGibs_Yellow = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib6.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 local defGibs_Red = {"models/vj_hlr/gibs/flesh1.mdl", "models/vj_hlr/gibs/flesh2.mdl", "models/vj_hlr/gibs/flesh3.mdl", "models/vj_hlr/gibs/flesh4.mdl", "models/vj_hlr/gibs/hgib_b_bone.mdl", "models/vj_hlr/gibs/hgib_b_gib.mdl", "models/vj_hlr/gibs/hgib_guts.mdl", "models/vj_hlr/gibs/hgib_hmeat.mdl", "models/vj_hlr/gibs/hgib_lung.mdl", "models/vj_hlr/gibs/hgib_skull.mdl", "models/vj_hlr/gibs/hgib_legbone.mdl"}
 --
@@ -585,8 +585,8 @@ function VJ.HLR_ApplyCorpseSystem(ent, corpse, gibTbl, extra)
 		gibTbl = table.Add(gibTbl, extra.ExtraGibs)
 	end
 	-- Make corpses static like in GoldSrc
-	if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && ent.DeathCorpseEntityClass == "prop_vj_animatable" then
-		corpse:ResetSequence((ent.HECU_Rappelling && "diebackwards") or ent:GetSequence())
+	if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and ent.DeathCorpseEntityClass == "prop_vj_animatable" then
+		corpse:ResetSequence((ent.HECU_Rappelling and "diebackwards") or ent:GetSequence())
 		corpse:SetCycle(1)
 		corpse:SetMoveType(ent:GetMoveType())
 		corpse:SetCollisionGroup(ent.DeathCorpseCollisionType)
@@ -597,7 +597,7 @@ function VJ.HLR_ApplyCorpseSystem(ent, corpse, gibTbl, extra)
 	corpse.HLR_Corpse_Gibs = gibTbl
 	corpse.HLR_Corpse_CollideSound = extra.CollisionSound
 	corpse.HLR_Corpse_ExpSound = extra.ExpSound or "vj_base/gib/splat.wav"
-	corpse.HLR_Corpse_SplatDecal = extra.SplatDecal or (corpse.HLR_Corpse_Type == "Red" && "VJ_HLR1_Blood_Red_Large") or (corpse.HLR_Corpse_Type == "Yellow" && "VJ_HLR1_Blood_Yellow_Large")
+	corpse.HLR_Corpse_SplatDecal = extra.SplatDecal or (corpse.HLR_Corpse_Type == "Red" and "VJ_HLR1_Blood_Red_Large") or (corpse.HLR_Corpse_Type == "Yellow" and "VJ_HLR1_Blood_Yellow_Large")
 	corpse.HLR_Corpse_StartT = CurTime() + 1
 end
 
@@ -606,7 +606,7 @@ local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
 hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo)
-	if target.HLR_Corpse && !target.Dead && CurTime() > target.HLR_Corpse_StartT && target:GetColor().a > 50 then
+	if target.HLR_Corpse and !target.Dead and CurTime() > target.HLR_Corpse_StartT and target:GetColor().a > 50 then
 		local dmgForce = dmginfo:GetDamageForce()
 
 		-- Blood hit effects & decals
@@ -635,17 +635,17 @@ hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo
 		end
 
 		-- Damage & Gibs
-		if GetConVar("vj_hlr1_corpse_gibbable"):GetInt() == 1 && !dmginfo:IsBulletDamage() && target.HLR_Corpse_Gibbable then
+		if GetConVar("vj_hlr1_corpse_gibbable"):GetInt() == 1 and !dmginfo:IsBulletDamage() and target.HLR_Corpse_Gibbable then
 			local noDamage = false
 			local dmgType = dmginfo:GetDamageType()
 
 			-- DMG_CRUSH is usually when the ragdoll is slammed to a wall, we want it to only gib if it's hit hard enough!
-			if dmgType == DMG_CRUSH && dmginfo:GetDamage() < 500 then
+			if dmgType == DMG_CRUSH and dmginfo:GetDamage() < 500 then
 				noDamage = true
 			end
 			-- If it's a child corpse piece, then we want to make sure it doesn't cause damage
 			for _, v in ipairs(target.ChildEnts) do
-				if IsValid(v) && v == dmginfo:GetAttacker() then
+				if IsValid(v) and v == dmginfo:GetAttacker() then
 					noDamage = true
 					break
 				end
@@ -713,7 +713,7 @@ hook.Add("EntityTakeDamage", "VJ_HLR_EntityTakeDamage", function(target, dmginfo
 					local tr = util.TraceLine({start = dmgPos, endpos = dmgPos + dmgPos:GetNormalized() * 10, filter = target})
 					VJ.DEBUG_TempEnt(tr.HitPos, Angle(), Color(94, 255, 0))
 					util.Decal("VJ_HLR1_Blood_Red_Large", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, target)*/
-					if !bloodIsYellow && !bloodIsRed then
+					if !bloodIsYellow and !bloodIsRed then
 						local spr = ents.Create("env_sprite")
 						spr:SetKeyValue("model", "vj_hl/sprites/zerogxplode.vmt")
 						spr:SetKeyValue("GlowProxySize", "2.0")
@@ -778,16 +778,16 @@ end)
 		-- ply:Give("weapon_hl1_tripmine")
 	-- end
 -- end)
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------- Entity Tags ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+------ Entity Tags --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 --[[
 ent.HLR_Corpse = Is this an HLR corpse?
 	--> ent.HLR_Corpse_Type, ent.HLR_Corpse_Particle, ent.HLR_Corpse_Decal
 ]]--
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------- Convars & Menu ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+------ Convars & Menu --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 VJ.AddConVar("vj_hlr_hd", 0, FCVAR_ARCHIVE)
 VJ.AddConVar("vj_hlr_dm_ffa", 0, FCVAR_ARCHIVE)
 
@@ -822,7 +822,7 @@ VJ.AddClientConVar("vj_hlr2_combine_eyeglow", 0, "Combine Eye Glow Effects")
 if CLIENT then
 	hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_HLR", function()
 		spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HLR - Auto Replace", "HLR - Auto Replace", "", "", function(panel)
-			if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
+			if !game.SinglePlayer() and !LocalPlayer():IsAdmin() then
 				panel:Help("#vjbase.menu.general.admin.not")
 				panel:Help("#vjbase.menu.general.admin.only")
 				return
@@ -850,7 +850,7 @@ if CLIENT then
 		end)
 
 		spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "HLR - Server", "HLR - Server", "", "", function(panel)
-			if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
+			if !game.SinglePlayer() and !LocalPlayer():IsAdmin() then
 				panel:Help("#vjbase.menu.general.admin.not")
 				panel:Help("#vjbase.menu.general.admin.only")
 				return
@@ -893,9 +893,9 @@ if CLIENT then
 		end)
 	end)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------- Auto Replacement Script ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+------ Auto Replacement Script --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if SERVER then
 	-- If enabled during startup, then just run it!
 	if GetConVar("vj_hlr_autoreplace"):GetInt() == 1 then

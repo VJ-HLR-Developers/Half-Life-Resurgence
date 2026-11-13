@@ -12,7 +12,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Bip01 Head",
 	FirstP_Offset = Vector(6, 0, 5)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY"}
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE
 ENT.Passive_RunOnTouch = false
@@ -40,25 +40,25 @@ ENT.MainSoundPitch = 100
 -- Custom
 ENT.GMAN_NextMouthMove = 0
 ENT.GMAN_NextMouthDistance = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:AddFlags(FL_NOTARGET)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
 		self:PlayFootstepSound()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnIdleDialogue(ent, status, statusData)
 	-- Only talk to players!
-	if status == "CheckEnt" && !ent:IsPlayer() then
+	if status == "CheckEnt" and !ent:IsPlayer() then
 		return true
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	if CurTime() < self.GMAN_NextMouthMove then
 		if self.GMAN_NextMouthDistance == 0 then
@@ -71,15 +71,15 @@ function ENT:OnThink()
 		self:SetPoseParameter("m", 0)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateSound(sdData, sdFile)
 	self.GMAN_NextMouthMove = CurTime() + SoundDuration(sdFile)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-	if status == "Init" && dmginfo:GetDamagePosition() != vec then
+	if status == "Init" and dmginfo:GetDamagePosition() != vec then
 		local rico = EffectData()
 		rico:SetOrigin(dmginfo:GetDamagePosition())
 		rico:SetScale(5) -- Size

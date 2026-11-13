@@ -14,10 +14,10 @@ ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlrof_gw_spawner", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Initialize()
 	sound.Play("vj_hlr/gsrc/fx/beamstart4.wav", self:GetPos(), 85)
 	self:SetModel("models/props_junk/watermelon01_chunk02c.mdl")
@@ -63,7 +63,7 @@ function ENT:Initialize()
 		end
 	end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Think()
 	self:NextThink(CurTime())
 	return true

@@ -5,7 +5,7 @@ SWEP.PrintName = "SPAS-12"
 SWEP.Author = "DrVrej"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category = "Half-Life Resurgence"
-	-- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+	-- NPC Settings 
 SWEP.NPC_NextPrimaryFire = false
 SWEP.NPC_CustomSpread = 2.5
 SWEP.NPC_ReloadSound = "vj_hlr/gsrc/wep/shotgun/shotgun_reload.wav"
@@ -13,19 +13,19 @@ SWEP.NPC_ExtraFireSound = "vj_hlr/gsrc/wep/shotgun/scock1.wav"
 SWEP.NPC_ExtraFireSoundTime = 0.2
 SWEP.NPC_FiringDistanceScale = 0.5
 SWEP.NPC_CanBePickedUp = false
-	-- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+	-- Main Settings 
 SWEP.MadeForNPCsOnly = true
 SWEP.ReplacementWeapon = {"weapon_hl1_shotgun", "weapon_shotgun_hl1"}
 SWEP.WorldModel = "models/vj_hlr/weapons/w_shotgun.mdl"
 SWEP.HoldType = "shotgun"
-	-- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
+	-- World Model 
 SWEP.WorldModelOffsetParams = {
 	Enabled = true,
 	Bone = "Bip01 R Hand",
 	Pos = Vector(13, -1.8, 0.6),
 	Ang = Angle(0, 180, 90)
 }
-	-- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
+	-- Primary Fire 
 SWEP.Primary.Damage = 5
 SWEP.Primary.NumberOfShots = 6
 SWEP.Primary.ClipSize = 8
@@ -51,10 +51,10 @@ local validModels = {
 	["models/vj_hlr/cracklife/hgrunt.mdl"] = true,
 	["models/vj_parr/par1/cut/vts_urban_terrorist.mdl"] = true
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:Init()
 	timer.Simple(0.1, function()
-		if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
+		if IsValid(self) and IsValid(self:GetOwner()) and VJ.HLR_Weapon_CheckModel(self, validModels) then
 			self.NPC_NextPrimaryFire = false
 			if self:GetOwner():GetModel() == "models/vj_parr/par1/cut/vts_urban_terrorist.mdl" then
 				self.Primary.Damage = 10
@@ -64,7 +64,7 @@ function SWEP:Init()
 		end
 	end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:DoImpactEffect(tr, damageType)
 	if self:GetOwner():GetModel() == "models/vj_parr/par1/cut/vts_urban_terrorist.mdl" then
 		return VJ.PARR1_Effect_Impact(tr)
@@ -72,11 +72,11 @@ function SWEP:DoImpactEffect(tr, damageType)
 		return VJ.HLR1_Effect_Impact(tr)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:OnDrawWorldModel()
 	return !IsValid(self:GetOwner())
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:PrimaryAttackEffects(owner)
 	local muz = ents.Create("env_sprite")
 	muz:SetKeyValue("model", "vj_hl/sprites/muzzleflash2.vmt")

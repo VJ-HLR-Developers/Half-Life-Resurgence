@@ -27,7 +27,7 @@ function EFFECT:Init(data)
 	effectData:SetRadius(3)
 	util.Effect("Sparks", effectData)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function EFFECT:Think()
 	if !IsValid(self.Ent) then return false end
 	self.StartPos = self.Ent:GetAttachment(self.Att).Pos
@@ -36,7 +36,7 @@ function EFFECT:Think()
 	end
 	return true
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function EFFECT:Render()
 	render.SetMaterial(matBeam)
 	render.DrawBeam(self.StartPos, self.EndPos, 200, math.Rand(0, 1), (self.StartPos - self.EndPos):Length() / 20000, Color(255, 255, 255, 255))

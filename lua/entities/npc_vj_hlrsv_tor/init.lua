@@ -15,7 +15,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "TorSkel Head",
 	FirstP_Offset = Vector(15, 0, 0)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow"
@@ -69,11 +69,11 @@ ENT.AlertSoundLevel = 85
 ENT.Tor_NextSpawnT = 0
 ENT.Tor_Level = 0 -- 0 = Normal (Green) | 1 = Buffed (Blue)
 ENT.Tor_SkipRegMelee = false
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(25, 25, 90), Vector(-25, -25, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("SPACE: Spawn an Alien Grunt")
 
@@ -83,7 +83,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vecZ20 = Vector(0, 0, 20)
 --
 function ENT:Tor_SpawnAlly()
@@ -109,9 +109,9 @@ function ENT:Tor_SpawnAlly()
 	end)
 	self:DeleteOnRemove(effectTeleport)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tor_StartSpawnAlly()
-	if !self:IsBusy("Activities") && CurTime() > self.Tor_NextSpawnT && (!IsValid(self.Tor_Ally1) or !IsValid(self.Tor_Ally2) or !IsValid(self.Tor_Ally3)) then
+	if !self:IsBusy("Activities") and CurTime() > self.Tor_NextSpawnT and (!IsValid(self.Tor_Ally1) or !IsValid(self.Tor_Ally2) or !IsValid(self.Tor_Ally3)) then
 		-- Make sure not to place it if the front of the NPC is blocked!
 		local myCenterPos = self:GetPos() + self:OBBCenter()
 		local tr = util.TraceLine({
@@ -126,7 +126,7 @@ function ENT:Tor_StartSpawnAlly()
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
@@ -159,22 +159,22 @@ function ENT:OnInput(key, activator, caller, data)
 		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThinkActive()
 	-- Spawn an ally
-	if !self.Dead && !self.VJ_Controlled && IsValid(self:GetEnemy()) then
+	if !self.Dead and !self.VJ_Controlled and IsValid(self:GetEnemy()) then
 		self:Tor_StartSpawnAlly()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAlert(ent)
 	self:PlayAnim(ACT_DEPLOY, true, false, true) -- Angry animation
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnMeleeAttackExecute(status, ent, isProp)
 	return self.Tor_SkipRegMelee
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "PreSpawn" then
 		projectile.Track_Ent = enemy
@@ -183,21 +183,21 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		timer.Simple(10, function() if IsValid(projectile) then projectile:Remove() end end)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjPos(projectile)
 	return self:GetAttachment(self:LookupAttachment("0")).Pos
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjVel(projectile)
 	return VJ.CalculateTrajectory(self, self:GetEnemy(), "Line", projectile:GetPos(), 1, 700)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-	if status == "PostDamage" && self.Tor_Level == 0 && (self:Health() < (self:GetMaxHealth() * 0.5)) then
+	if status == "PostDamage" and self.Tor_Level == 0 and (self:Health() < (self:GetMaxHealth() * 0.5)) then
 		self.Tor_Level = 1
 		self:PlayAnim(ACT_VICTORY_DANCE, true, false)
 		timer.Simple(1.2, function()
-			if IsValid(self) && self.Dead != true then
+			if IsValid(self) and self.Dead != true then
 				self:SetSkin(1)
 				VJ.EmitSound(self, "vj_hlr/gsrc/npc/tor_sven/tor-summon.wav", 80)
 				effects.BeamRingPoint(self:GetPos() + self:GetForward() * 20, 0.3, 2, 600, 60, 0, Color(0, 0, 255), {framerate = 20, flags = 0})
@@ -207,17 +207,17 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		end)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+	if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		VJ.HLR_StaticCorpseCheck(self)
-	elseif status == "DeathAnim" && hitgroup == HITGROUP_HEAD then
+	elseif status == "DeathAnim" and hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = ACT_DIEBACKWARD
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -260,7 +260,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibs = {"models/vj_hlr/gibs/agib1.mdl", "models/vj_hlr/gibs/agib2.mdl", "models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib4.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib6.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl", "models/vj_hlr/gibs/islavegib.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
@@ -271,7 +271,7 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 	end)
 	VJ.HLR_ApplyCorpseSystem(self, corpse, nil, {CollisionSound = gibsCollideSd, ExtraGibs = gibs})
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:CustomOnRemove()
 	-- If the NPC was removed, then remove its children as well, but not when it's killed!
 	if !self.Dead then

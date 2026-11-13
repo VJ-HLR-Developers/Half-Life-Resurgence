@@ -11,7 +11,7 @@ ENT.PrintName = "Xen Portal"
 ENT.Author = "DrVrej"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 ENT.Category = "Half-Life Resurgence"
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.SingleSpawner = true
@@ -27,7 +27,7 @@ ENT.HLRSpawner_NextCheckT = 0
 
 local xenEnts = {"npc_vj_hlr1_alienslave", "npc_vj_hlr1_aliengrunt", "npc_vj_hlr1_bullsquid", "npc_vj_hlr1_houndeye", "npc_vj_hlr1_panthereye"}
 local racexEnts = {"npc_vj_hlrof_shocktrooper", "npc_vj_hlrof_pitdrone", "npc_vj_hlrof_voltigore", "npc_vj_hlrof_voltigore_baby"}
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vecZ45 = Vector(0, 0, 45)
 local vecNZ20 = Vector(0, 0, -20)
 --
@@ -35,7 +35,7 @@ function ENT:Init()
 	timer.Simple(0.02, function()
 		if IsValid(self) then
 			self:SetPos(self:GetPos() + vecZ45)
-			if IsValid(self:GetCreator()) && self:GetCreator():IsPlayer() then
+			if IsValid(self:GetCreator()) and self:GetCreator():IsPlayer() then
 				self:GetCreator():ChatPrint("Portal entity created with activation distance " .. tostring(self.HLRSpawner_Distance) .. " WU.")
 			end
 		end
@@ -50,7 +50,7 @@ function ENT:Init()
 		SpawnPosition = vecNZ20 -- Make the NPC spawn little bit down otherwise it tends to get stuck in ceilings
 	}}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:HLR_ActivateSpawner(eneEnt)
 	local myPos = self:GetPos()
 	self.PauseSpawning = false
@@ -65,12 +65,12 @@ function ENT:HLR_ActivateSpawner(eneEnt)
 		end
 	end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
-	if self.PauseSpawning && VJ_CVAR_AI_ENABLED && CurTime() > self.HLRSpawner_NextCheckT then
+	if self.PauseSpawning and VJ_CVAR_AI_ENABLED and CurTime() > self.HLRSpawner_NextCheckT then
 		for _, v in ipairs(ents.FindInSphere(self:GetPos(), self.HLRSpawner_Distance)) do
-			if v:IsPlayer() && (v.VJ_Controlling or VJ_CVAR_IGNOREPLAYERS) then continue end
-			if v.VJ_ID_Living && v:Alive() && !v:IsFlagSet(FL_NOTARGET) && self:Visible(v) && (!v.VJ_NPC_Class or !VJ.HasValue(v.VJ_NPC_Class, self.HLRSpawner_ClassType)) then
+			if v:IsPlayer() and (v.VJ_Controlling or VJ_CVAR_IGNOREPLAYERS) then continue end
+			if v.VJ_ID_Living and v:Alive() and !v:IsFlagSet(FL_NOTARGET) and self:Visible(v) and (!v.VJ_NPC_Class or !VJ.HasValue(v.VJ_NPC_Class, self.HLRSpawner_ClassType)) then
 				self:HLR_ActivateSpawner(v)
 				break
 			end

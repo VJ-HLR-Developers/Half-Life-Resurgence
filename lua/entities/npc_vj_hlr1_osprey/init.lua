@@ -25,7 +25,7 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(365, 0, -80),
 	FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 //ENT.CanTurnWhileMoving = false
 ENT.LimitChaseDistance = true
@@ -61,7 +61,7 @@ ENT.Osprey_NextDropT = 0
 ENT.Heli_SmokeStatus = 0 -- 0 = No smoke | 1 = Left tail smoke | 2 = Left & Right tail smoke
 
 local defVec = Vector()
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local spawnPos = Vector(0, 0, 400)
 --
 function ENT:Init()
@@ -114,7 +114,7 @@ function ENT:Init()
 		gunner:Fire("SetParentAttachment", i == 1 and "gunner_left" or "gunner_right", 0)
 		gunner:SetState(VJ_STATE_ONLY_ANIMATION)
 		timer.Simple(0.2, function()
-			if IsValid(self) && IsValid(gunner) && IsValid(gunner:GetActiveWeapon()) then
+			if IsValid(self) and IsValid(gunner) and IsValid(gunner:GetActiveWeapon()) then
 				gunner:GetActiveWeapon().NPC_FiringCone = -1
 			end
 		end)
@@ -162,15 +162,15 @@ function ENT:Init()
 
 	VJ.HLR_ApplyFactionOptions(self)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
 	ply:ChatPrint("JUMP: Deploy soldiers, can redeploy after all die & cool down expires!")
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 /*function ENT:TranslateActivity(act) -- This causes it to stutter while turning which can be very distracting
 	return ACT_IDLE -- We don't want it do anything else!
 end*/
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Heli_GetMoveDirection()
 	local vel = self:GetVelocity()
 	if vel:Length() <= 0 then return defVec end
@@ -178,7 +178,7 @@ function ENT:Heli_GetMoveDirection()
 	local dir = (((myPos+ vel) or myPos) - myPos)
 	return (self:GetAngles() - dir:Angle()):Forward()
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	-- Idle movement
 	local idleMoveOffset = self.Heli_IdleMoveOffset
@@ -193,17 +193,17 @@ function ENT:OnThink()
 	-- Flying tilt (X & Y)
 	local lerpingFactor = FrameTime() * 4
 	local moveDir = self:Heli_GetMoveDirection()
-	local velNorm = moveDir && moveDir:GetNormalized() or defVec
+	local velNorm = moveDir and moveDir:GetNormalized() or defVec
 	self:SetPoseParameter("tilt_x", Lerp(lerpingFactor, self:GetPoseParameter("tilt_x"), velNorm.x))
 	self:SetPoseParameter("tilt_y", Lerp(lerpingFactor, self:GetPoseParameter("tilt_y"), -velNorm.y))
 
 	-- If the helicopter healed, then make sure to stop the smoke particles as well!
-	if self.Heli_SmokeStatus > 0 && self:Health() > (self:GetMaxHealth() * 0.25) then
+	if self.Heli_SmokeStatus > 0 and self:Health() > (self:GetMaxHealth() * 0.25) then
 		self:SetNW2Int("Heli_SmokeLevel", 0)
 		self.Heli_SmokeStatus = 0
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local ropePos1 = Vector(0, 0, 112)
 local ropePos2 = Vector(0, 0, -4096)
 --
@@ -211,7 +211,7 @@ function ENT:OnThinkActive()
 	if self.Osprey_DropStatus == -1 then return end
 	-- All have landed and died
 	if self.Osprey_DropStatus == 4 then
-		if self.Osprey_DropSoldierStatusDead >= 4 && CurTime() > self.Osprey_NextDropT then
+		if self.Osprey_DropSoldierStatusDead >= 4 and CurTime() > self.Osprey_NextDropT then
 			self.Osprey_DropStatus = 0
 			self.Osprey_DropSoldierStatusDead = 0
 		else
@@ -219,7 +219,7 @@ function ENT:OnThinkActive()
 		end
 	end
 	local ene = self:GetEnemy()
-	if self.Osprey_DropStatus == 0 && IsValid(ene) && ((!self.VJ_Controlled) or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP))) then
+	if self.Osprey_DropStatus == 0 and IsValid(ene) and ((!self.VJ_Controlled) or (self.VJ_Controlled and self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP))) then
 		self.Osprey_DropStatus = 1
 		local vecRand = VectorRand() * 600
 		vecRand.z = math.abs(vecRand.z) -- Make sure negative Zs are cancelled out
@@ -251,9 +251,9 @@ function ENT:OnThinkActive()
 		self.Osprey_DropSoldierStatus = 0 -- Start at 0
 		self.Osprey_NextDropT = CurTime() + 30
 		for i = 1, 4 do
-			local att = self:GetAttachment((i % 2 == 0) && 2 or 1)
-			local startPos = att.Pos + att.Ang:Forward() * 100 + self:GetForward() * ((i >= 3) && -30 or 60)
-			local soldierClass = (GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
+			local att = self:GetAttachment((i % 2 == 0) and 2 or 1)
+			local startPos = att.Pos + att.Ang:Forward() * 100 + self:GetForward() * ((i >= 3) and -30 or 60)
+			local soldierClass = (GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 and "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
 			local soldierClass_blkops = "npc_vj_hlrof_assassin_male"
 			if math.random(1, 30) == 1 then -- 3.3% for human sergeants to spawn
 				soldierClass = "npc_vj_hlr1_hgrunt_serg"
@@ -262,12 +262,12 @@ function ENT:OnThinkActive()
 			elseif math.random(1, 20) == 1 then -- 5% for robot grunts to spawn
 				soldierClass = "npc_vj_hlr1_rgrunt"
 				soldierClass_blkops = "npc_vj_hlrof_assassin_rgrunt"
-			elseif GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && math.random(1, 10) == 1 then -- 15% for medic grunts to spawn
+			elseif GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 and math.random(1, 10) == 1 then -- 15% for medic grunts to spawn
 				soldierClass = "npc_vj_hlrof_hgrunt_med"
-			elseif GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && math.random(1, 15) == 1 then -- 10% for engineer grunts to spawn
+			elseif GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 and math.random(1, 15) == 1 then -- 10% for engineer grunts to spawn
 				soldierClass = "npc_vj_hlrof_hgrunt_eng"
 			else
-				soldierClass = (GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 && "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
+				soldierClass = (GetConVar("vj_hlr1_osprey_deploysoldiers_oppf"):GetInt() == 1 and "npc_vj_hlrof_hgrunt") or "npc_vj_hlr1_hgrunt"
 				soldierClass_blkops = "npc_vj_hlrof_assassin_male"
 			end
 			local soldier = ents.Create(self.Osprey_IsBlackOps and soldierClass_blkops or soldierClass)
@@ -298,20 +298,20 @@ function ENT:OnThinkActive()
 
 			self.Osprey_DroppedSoldiers[i] = soldier
 		end
-	elseif self.Osprey_DropStatus == 3 && self.Osprey_DropSoldierStatus >= 4 then
+	elseif self.Osprey_DropStatus == 3 and self.Osprey_DropSoldierStatus >= 4 then
 		-- Reset Osprey to normal
 		self.Osprey_DropStatus = 4
 		self:SetState()
 		self.LimitChaseDistance = true
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "Init" then
 		-- If hit in the engine area, then get damage by bullets
-		if dmginfo:IsBulletDamage() && (hitgroup == 2 or hitgroup == 3) then
+		if dmginfo:IsBulletDamage() and (hitgroup == 2 or hitgroup == 3) then
 			dmginfo:ScaleDamage(0.05)
 			self.Immune_Bullet = false -- To counter the dmginfo:IsBulletDamage() function
 		else
@@ -348,7 +348,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorHeliExp = Color(255, 255, 192, 128)
 local colorYellowOsprey = Color(255, 223, 137)
 local sdGibCollide = {"vj_hlr/gsrc/fx/metal1.wav", "vj_hlr/gsrc/fx/metal2.wav", "vj_hlr/gsrc/fx/metal3.wav", "vj_hlr/gsrc/fx/metal4.wav", "vj_hlr/gsrc/fx/metal5.wav"}
@@ -456,15 +456,15 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		expSpr2:Spawn()
 		expSpr2:Fire("Kill", nil, 0.9)
 
-		local expLight = ents.Create("light_dynamic")
-		expLight:SetKeyValue("brightness", "4")
-		expLight:SetKeyValue("distance", "300")
-		expLight:SetPos(expPos)
-		expLight:Fire("Color", "255 150 0")
-		expLight:Spawn()
-		expLight:Activate()
-		expLight:Fire("TurnOn")
-		expLight:Fire("Kill", nil, 0.15)
+		local expLight2 = ents.Create("light_dynamic")
+		expLight2:SetKeyValue("brightness", "4")
+		expLight2:SetKeyValue("distance", "300")
+		expLight2:SetPos(expPos)
+		expLight2:Fire("Color", "255 150 0")
+		expLight2:Spawn()
+		expLight2:Activate()
+		expLight2:Fire("TurnOn")
+		expLight2:Fire("Kill", nil, 0.15)
 
 		util.BlastDamage(self, self, expPos, 300, 100)
 		util.ScreenShake(expPos, 100, 200, 1, 2500)
@@ -551,15 +551,15 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 				spr:Spawn()
 				spr:Fire("Kill", nil, 0.9)
 
-				local expLight = ents.Create("light_dynamic")
-				expLight:SetKeyValue("brightness", "4")
-				expLight:SetKeyValue("distance", "300")
-				expLight:SetPos(expPos2)
-				expLight:Fire("Color", "255 150 0")
-				expLight:Spawn()
-				expLight:Activate()
-				expLight:Fire("TurnOn")
-				expLight:Fire("Kill", nil, 0.15)
+				local expLight3 = ents.Create("light_dynamic")
+				expLight3:SetKeyValue("brightness", "4")
+				expLight3:SetKeyValue("distance", "300")
+				expLight3:SetPos(expPos2)
+				expLight3:Fire("Color", "255 150 0")
+				expLight3:Spawn()
+				expLight3:Activate()
+				expLight3:Fire("TurnOn")
+				expLight3:Fire("Kill", nil, 0.15)
 
 				util.BlastDamage(self, self, expPos2, 300, 100)
 				util.ScreenShake(expPos2, 100, 200, 1, 2500)
@@ -642,15 +642,15 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 					spr:Spawn()
 					spr:Fire("Kill", nil, 1.19)
 
-					local expLight = ents.Create("light_dynamic")
-					expLight:SetKeyValue("brightness", "4")
-					expLight:SetKeyValue("distance", "300")
-					expLight:SetPos(expPos2)
-					expLight:Fire("Color", "255 150 0")
-					expLight:Spawn()
-					expLight:Activate()
-					expLight:Fire("TurnOn")
-					expLight:Fire("Kill", nil, 0.15)
+					local expLight3 = ents.Create("light_dynamic")
+					expLight3:SetKeyValue("brightness", "4")
+					expLight3:SetKeyValue("distance", "300")
+					expLight3:SetPos(expPos2)
+					expLight3:Fire("Color", "255 150 0")
+					expLight3:Spawn()
+					expLight3:Activate()
+					expLight3:Fire("TurnOn")
+					expLight3:Fire("Kill", nil, 0.15)
 
 					util.BlastDamage(self, self, expPos2, 600, 200)
 					util.ScreenShake(expPos2, 100, 200, 1, 2500)
@@ -665,7 +665,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:CustomOnRemove()
 	VJ.STOPSOUND(self.HeliSD_Rotor)
 	VJ.STOPSOUND(self.HeliSD_Whine)

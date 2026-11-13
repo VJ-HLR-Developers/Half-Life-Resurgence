@@ -15,9 +15,9 @@ ENT.DropDeathLoot = false
 
 local mdlMale = {"models/Humans/Group01/male_01.mdl", "models/Humans/Group01/male_02.mdl", "models/Humans/Group01/male_03.mdl", "models/Humans/Group01/male_04.mdl", "models/Humans/Group01/male_05.mdl", "models/Humans/Group01/male_06.mdl", "models/Humans/Group01/male_07.mdl", "models/Humans/Group01/male_08.mdl", "models/Humans/Group01/male_09.mdl"}
 local mdlFemale = {"models/Humans/Group01/female_01.mdl", "models/Humans/Group01/female_02.mdl", "models/Humans/Group01/female_03.mdl", "models/Humans/Group01/female_04.mdl", "models/Humans/Group01/female_06.mdl", "models/Humans/Group01/female_07.mdl"}
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:PreInit()
-	if self.Human_Gender == 1 or (self.Human_Gender == -1 && math.random(1, 2) == 1) then
+	if self.Human_Gender == 1 or (self.Human_Gender == -1 and math.random(1, 2) == 1) then
 		self.Human_Gender = 1
 		self.Model = mdlFemale
 	else

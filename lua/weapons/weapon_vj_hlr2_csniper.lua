@@ -11,9 +11,9 @@ SWEP.WorldModel = "models/vj_hlr/hl2/weapons/w_combinesniper.mdl"
 SWEP.UseHands = true
 SWEP.ViewModelFOV = 70
 SWEP.Spawnable = true
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------- General NPC Variables ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+------ General NPC Variables --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = 1.75
 SWEP.NPC_TimeUntilFire = 0.5
 SWEP.NPC_CustomSpread = 0.5
@@ -21,9 +21,9 @@ SWEP.NPC_StandingOnly = true
 SWEP.NPC_FiringDistanceScale = 2.5
 SWEP.NPC_ReloadSound = "vj_hlr/src/wep/sniper_comb/sniper_reload.wav"
 SWEP.NPC_ExtraFireSound = "vj_hlr/src/wep/sniper_comb/sniper_reload.wav"
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------- Primary Fire Variables ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+------ Primary Fire Variables --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 SWEP.Primary.Damage = 95
 SWEP.Primary.Force = 1.6
 SWEP.Primary.ClipSize = 5
@@ -36,34 +36,34 @@ SWEP.Primary.DistantSound = "vj_hlr/src/wep/sniper_comb/sniper_fire_dist.wav"
 SWEP.PrimaryEffects_MuzzleParticles = "vj_rifle_full_blue"
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.PrimaryEffects_DynamicLightColor = Color(0, 31, 225)
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
------- Dry Fire Variables ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+------ Dry Fire Variables --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 SWEP.DryFireSound = "vj_hlr/src/wep/sniper_comb/sniper_empty.wav"
 SWEP.DryFireSoundPitch = VJ.SET(100, 100)
--- Player Stuff ---------------------------------------------------------------------------------------------------------------------------------------------
+-- Player Stuff 
 SWEP.ReloadSound = "vj_hlr/src/wep/sniper_comb/sniper_reload.wav"
 SWEP.AnimTbl_PrimaryFire = ACT_VM_SECONDARYATTACK
 SWEP.AnimTbl_Reload = ACT_VM_DRAW
 
 local vec_def = Vector()
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:SetupDataTables()
 	self:NetworkVar("Bool", "Zoomed")
 	self:NetworkVar("Float", "ZoomLevel")
 	baseclass.Get("weapon_vj_base").SetupDataTables(self)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:Zoom()
 	local calcLevel = self:GetZoomLevel() + 1 -- Calculate the new level
 	local newLevel = (calcLevel > 3 and 0) or calcLevel -- The new level
 	self:SetZoomLevel(newLevel)
-	self:GetOwner():SetFOV((newLevel == 1) && 40 or (newLevel == 2) && 25 or (newLevel == 3) && 10 or 40, 0.5) -- Set the new FOV
+	self:GetOwner():SetFOV((newLevel == 1) and 40 or (newLevel == 2) and 25 or (newLevel == 3) and 10 or 40, 0.5) -- Set the new FOV
 	self:EmitSound("buttons/combine_button7.wav", 65, 100)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:OnPrimaryAttack(status, statusData)
-	if status == "PostFire" && self:GetOwner():IsPlayer() then
+	if status == "PostFire" and self:GetOwner():IsPlayer() then
 		timer.Simple(0.5, function()
 			if IsValid(self) then
 				self:EmitSound("vj_hlr/src/wep/sniper_comb/sniper_reload.wav", 70, 100)
@@ -71,18 +71,18 @@ function SWEP:OnPrimaryAttack(status, statusData)
 		end)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:SecondaryAttack()
 	self:Zoom()
 	self:SetNextSecondaryFire(CurTime() + 0.2)
 	return true
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:OnThink()
 	local owner = self:GetOwner()
 	if IsValid(owner) then
 		if owner:IsNPC() then
-			if IsValid(owner:GetEnemy()) && self:Visible(owner:GetEnemy()) then -- Return the enemy center position
+			if IsValid(owner:GetEnemy()) and self:Visible(owner:GetEnemy()) then -- Return the enemy center position
 				self:SetNW2Vector("OwnerEnemyPos", owner:GetEnemy():GetPos() + owner:GetEnemy():OBBCenter())
 			else -- Make the vector default position, used to determine whether or not to lock onto the enemy (the laser)
 				self:SetNW2Vector("OwnerEnemyPos", vec_def)
@@ -96,12 +96,12 @@ function SWEP:OnThink()
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 if CLIENT then
 	-- Make the gun move to the center when aiming
 	local aimPos = Vector(-9, 0, -32)
 	local aimAng = Angle()
-	---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	function SWEP:GetViewModelPosition(pos, ang)
 		if !self:GetZoomed() then return pos, ang end
 
@@ -119,7 +119,7 @@ if CLIENT then
 	local matLaser = Material("sprites/rollermine_shock")
 	local matSprite = Material("particle/particle_glow_02")
 	local laserColor = Color(0, 161, 255, 255)
-	---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	function SWEP:PostDrawViewModel(vm, wep, ply, flags)
 		-- Player only
 		if self:GetZoomLevel() >= 3 or vm:GetSequenceName(vm:GetSequence()) != "idle01" then return end
@@ -133,7 +133,7 @@ if CLIENT then
 		render.SetMaterial(matSprite)
 		render.DrawSprite(tr.HitPos, math.random(4, 6), math.random(4, 6), laserColor)
 	end
-	---------------------------------------------------------------------------------------------------------------------------------------------
+	
 	function SWEP:OnDrawWorldModel()
 		local owner = self:GetOwner()
 		if IsValid(owner) then

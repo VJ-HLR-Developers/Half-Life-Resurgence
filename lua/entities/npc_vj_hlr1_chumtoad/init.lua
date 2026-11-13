@@ -17,7 +17,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Bip01 neck",
 	FirstP_Offset = Vector(2, 0, 2)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.CanOpenDoors = false
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
@@ -41,18 +41,18 @@ ENT.MainSoundPitch = 100
 -- Custom
 ENT.CT_BlinkingT = 0
 ENT.CT_MoveTypeSwim = false
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(9, 9, 15), Vector(-9, -9, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
-	if act == ACT_IDLE && self.CT_MoveTypeSwim then
+	if act == ACT_IDLE and self.CT_MoveTypeSwim then
 		return ACT_SWIM
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	if self:WaterLevel() < 2 then
 		if self.CT_MoveTypeSwim then
@@ -64,7 +64,7 @@ function ENT:OnThink()
 		self.CT_MoveTypeSwim = true
 	end
 
-	if !self.Dead && CurTime() > self.CT_BlinkingT then
+	if !self.Dead and CurTime() > self.CT_BlinkingT then
 		self:SetSkin(1)
 		timer.Simple(0.15, function() if IsValid(self) then self:SetSkin(2) end end)
 		timer.Simple(0.25, function() if IsValid(self) then self:SetSkin(1) end end)
@@ -72,10 +72,10 @@ function ENT:OnThink()
 		self.CT_BlinkingT = CurTime() + math.Rand(2, 3.5)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Init" then
-		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+		if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 			self.DeathAnimationDecreaseLengthAmount = -1
 			self.DeathCorpseEntityClass = "prop_vj_animatable"
 			VJ.HLR_StaticCorpseCheck(self)
@@ -86,7 +86,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -114,7 +114,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_hlr/gsrc/npc/chumtoad/toad_blast1.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibs = {"models/vj_hlr/gibs/agib3.mdl", "models/vj_hlr/gibs/agib5.mdl", "models/vj_hlr/gibs/agib7.mdl", "models/vj_hlr/gibs/agib8.mdl", "models/vj_hlr/gibs/agib9.mdl", "models/vj_hlr/gibs/agib10.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

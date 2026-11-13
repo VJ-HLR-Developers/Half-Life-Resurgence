@@ -14,7 +14,7 @@ ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlr1_pitspike", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/vj_hlr/opfor/pitdrone_spike.mdl"
@@ -28,21 +28,21 @@ local defAng = Angle()
 
 -- Custom
 ENT.NextBubbles = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	ParticleEffect("vj_hlr_spit_drone_spawn_old", self:GetPos(), defAng)
 	ParticleEffectAttach("vj_hlr_spit_drone", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	local curTime = CurTime()
-	if self:WaterLevel() == 3 && self.NextBubbles < curTime then
+	if self:WaterLevel() == 3 and self.NextBubbles < curTime then
 		local myPos = self:GetPos()
 		effects.BubbleTrail(myPos - self:GetAbsVelocity() * 0.1, myPos, 2, -150, 20) -- height = -150 to prevent it from going out of water (bug with BubbleTrail)
 		self.NextBubbles = curTime + 0.02
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCollision(data, phys)
 	if IsValid(data.HitEntity) then
 		self.SoundTbl_OnCollide = sdOnCollideEnt
@@ -56,7 +56,7 @@ function ENT:OnCollision(data, phys)
 		timer.Simple(6, function() if IsValid(spike) then spike:Remove() end end)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDestroy(data, phys)
 	ParticleEffect("vj_hlr_spit_drone_impact", self:GetPos(), defAng)
 end

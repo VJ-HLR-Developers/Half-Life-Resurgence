@@ -13,7 +13,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "bip01 head",
 	FirstP_Offset = Vector(5, 0, 0)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_XEN"}
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow"
@@ -65,17 +65,17 @@ ENT.RangeAttackSoundPitch = VJ.SET(130, 160)
 
 -- Custom
 ENT.Vort_RunAway = false
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:PreInit()
-	if GetConVar("vj_hlr_hd"):GetInt() == 1 && VJ.HLR_INSTALLED_HD && self:GetClass() == "npc_vj_hlr1_alienslave" then
+	if GetConVar("vj_hlr_hd"):GetInt() == 1 and VJ.HLR_INSTALLED_HD and self:GetClass() == "npc_vj_hlr1_alienslave" then
 		self.Model = "models/vj_hlr/hl_hd/islave.mdl"
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(20, 20, 65), Vector(-20, -20, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "step" then
@@ -88,7 +88,7 @@ function ENT:OnInput(key, activator, caller, data)
 		VJ.EmitSound(self, "vj_hlr/gsrc/fx/bodydrop" .. math.random(3, 4) .. ".wav", 75, 100)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Vort_DoElecEffect(startPos, hitPos, hitNormal, attachment, timeDecrease)
 	local elec = EffectData()
 	elec:SetStart(startPos)
@@ -99,7 +99,7 @@ function ENT:Vort_DoElecEffect(startPos, hitPos, hitNormal, attachment, timeDecr
 	elec:SetScale(2.2 - timeDecrease)
 	util.Effect("VJ_HLR_Electric_Charge", elec)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttack(status, enemy)
 	if status == "PostInit" then
 		-- Slowly fade the pitch to be higher like the original game
@@ -156,7 +156,7 @@ function ENT:OnRangeAttack(status, enemy)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
 	if status == "Init" then
 		local startPos = self:GetPos() + self:GetUp() * 45 + self:GetForward() * 40
@@ -181,34 +181,34 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
 		return true
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:SelectSchedule()
 	self.BaseClass.SelectSchedule(self)
 	-- Hide after being attacked
-	if !self.Dead && self.Vort_RunAway && !self.VJ_Controlled && !self:IsBusy() then
+	if !self.Dead and self.Vort_RunAway and !self.VJ_Controlled and !self:IsBusy() then
 		self.Vort_RunAway = false
 		self:SCHEDULE_COVER_ENEMY("TASK_RUN_PATH", function(x) x.RunCode_OnFail = function() self.NextDoAnyAttackT = 0 end end)
 		self.NextDoAnyAttackT = CurTime() + 5
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "PostDamage" then
 		if (self.NextDoAnyAttackT + 2) > CurTime() then return end
 		self.Vort_RunAway = true
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
-	if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+	if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
 		self.DeathAnimationDecreaseLengthAmount = -1
 		self.DeathCorpseEntityClass = "prop_vj_animatable"
 		VJ.HLR_StaticCorpseCheck(self)
-	elseif status == "DeathAnim" && hitgroup == HITGROUP_HEAD then
+	elseif status == "DeathAnim" and hitgroup == HITGROUP_HEAD then
 		self.AnimTbl_Death = ACT_DIE_HEADSHOT
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorYellow = VJ.Color2Byte(Color(255, 221, 35))
 local gibsCollideSd = {"vj_hlr/gsrc/fx/flesh1.wav", "vj_hlr/gsrc/fx/flesh2.wav", "vj_hlr/gsrc/fx/flesh3.wav", "vj_hlr/gsrc/fx/flesh5.wav", "vj_hlr/gsrc/fx/flesh6.wav", "vj_hlr/gsrc/fx/flesh7.wav"}
 --
@@ -241,7 +241,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 	self:PlaySoundSystem("Gib", "vj_base/gib/splat.wav")
 	return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local extraGibs = {"models/vj_hlr/gibs/islavegib.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

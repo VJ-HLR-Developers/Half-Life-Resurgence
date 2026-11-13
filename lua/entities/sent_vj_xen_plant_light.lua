@@ -11,12 +11,12 @@ ENT.PrintName = "Xen Plant Light"
 ENT.Author = "DrVrej"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 ENT.Category = "Half-Life Resurgence"
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.XenPlant_Retracted = false
 ENT.XenPlant_NextDeployT = 0
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 function ENT:Initialize()
 	self:SetModel("models/vj_hlr/hl1/light.mdl")
 	self:SetCollisionBounds(Vector(8, 8, 22), Vector(-8, -8, 0))
@@ -59,11 +59,11 @@ function ENT:Initialize()
 	self:DeleteOnRemove(flareSpr)
 	self.FlareSprite = flareSpr
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 function ENT:Think()
 	local curTime = CurTime()
 	for _, v in ipairs(ents.FindInSphere(self:GetPos(), 80)) do
-		if v.VJ_ID_Living && v:Alive() then
+		if v.VJ_ID_Living and v:Alive() then
 			if !self.XenPlant_Retracted then
 				self:ResetSequence("Retract")
 				self.FlareSprite:Fire("HideSprite", nil, 0.1)
@@ -77,18 +77,18 @@ function ENT:Think()
 		end
 	end
 
-	if self.XenPlant_Retracted && self.XenPlant_NextDeployT < curTime then
+	if self.XenPlant_Retracted and self.XenPlant_NextDeployT < curTime then
 		self.XenPlant_Retracted = false
 		self:ResetSequence("Delpoy")
 		timer.Simple(1, function()
-			if IsValid(self) && !self.XenPlant_Retracted then
+			if IsValid(self) and !self.XenPlant_Retracted then
 				self.FlareSprite:Fire("ShowSprite")
 				self.DynamicLight:Fire("TurnOn")
 				self:SetSkin(0)
 			end
 		end)
 		timer.Simple(1.85, function()
-			if IsValid(self) && !self.XenPlant_Retracted then
+			if IsValid(self) and !self.XenPlant_Retracted then
 				self:ResetSequence("Idle1")
 			end
 		end)

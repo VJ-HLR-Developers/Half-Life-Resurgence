@@ -14,7 +14,7 @@ ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 if CLIENT then
 	VJ.AddKillIcon("obj_vj_hlr1_probed_needle", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/vj_hlr/hla/pb_dart.mdl"
@@ -30,7 +30,7 @@ local defAng = Angle()
 -- Custom
 ENT.Needle_Heal = false -- Is this a healing needle?
 ENT.NextBubbles = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	if self.Needle_Heal then
 		self.CollisionFilter = false
@@ -40,16 +40,16 @@ function ENT:Init()
 		ParticleEffectAttach("vj_hlr_spit_drone", PATTACH_ABSORIGIN_FOLLOW, self, 0)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	local curTime = CurTime()
-	if self:WaterLevel() == 3 && self.NextBubbles < curTime then
+	if self:WaterLevel() == 3 and self.NextBubbles < curTime then
 		local myPos = self:GetPos()
 		effects.BubbleTrail(myPos - self:GetAbsVelocity() * 0.1, myPos, 2, -150, 20) -- height = -150 to prevent it from going out of water (bug with BubbleTrail)
 		self.NextBubbles = curTime + 0.02
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCollision(data, phys)
 	local hitEnt = data.HitEntity
 	if IsValid(hitEnt) then
@@ -73,7 +73,7 @@ function ENT:OnCollision(data, phys)
 		timer.Simple(6, function() if IsValid(spike) then spike:Remove() end end)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDealDamage(data, phys, hitEnts)
 	-- Only for attacks
 	if !hitEnts or self.Needle_Heal then return end
@@ -81,7 +81,7 @@ function ENT:OnDealDamage(data, phys, hitEnts)
 		VJ.ApplySpeedEffect(ent, 0.2, 5)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDestroy(data, phys)
 	if self.Needle_Heal then return end
 	ParticleEffect("vj_hlr_spit_drone_impact", self:GetPos(), defAng)

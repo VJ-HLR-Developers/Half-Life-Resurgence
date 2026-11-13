@@ -18,7 +18,7 @@ ENT.ControllerParams = {
 	FirstP_Offset = Vector(),
 	FirstP_ShrinkBone = true
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
 ENT.BloodParticle = "vj_hlr_blood_yellow_large"
 ENT.BloodDecal = "VJ_HLR1_Blood_Yellow"
@@ -69,7 +69,7 @@ local maxEyeHealth = 100
 local maxOrbHealth = 100
 local vecPortalSpawn = Vector(0, 0, 100)
 local colorPortal = Color(153, 6, 159, 255)
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:AddFlags(FL_NOTARGET) -- They are going to target the bullseye only, so don't let other NPCs see the actual gene worm!
 	self:SetCollisionBounds(Vector(400, 400, 350), Vector(-400, -400, -240))
@@ -187,7 +187,7 @@ function ENT:Init()
 		self.GW_Portal.MoveLP:Play()
 		self.GW_Portal.IdleLP:Stop()
 		timer.Simple(12, function()
-			if IsValid(self) && IsValid(self.GW_Portal) && self.GW_Portal:GetSequenceName(self.GW_Portal:GetSequence()) == "open" then
+			if IsValid(self) and IsValid(self.GW_Portal) and self.GW_Portal:GetSequenceName(self.GW_Portal:GetSequence()) == "open" then
 				self.GW_Portal:ResetSequence("idle")
 				self.GW_Portal.MoveLP:Stop()
 				self.GW_Portal.IdleLP:Play()
@@ -207,14 +207,14 @@ function ENT:Init()
 		self.GW_Portal.IdleLP:Play()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
-	if act == ACT_IDLE && self.GW_OrbOpen then
+	if act == ACT_IDLE and self.GW_OrbOpen then
 		return ACT_IDLE_STIMULATED
 	end
 	return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
 	//print(key)
 	if key == "melee" or key == "shakeworld" then
@@ -246,25 +246,25 @@ function ENT:OnInput(key, activator, caller, data)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
 	local a = self:GetColor().a
 	-- Fade in animation (On Spawn)
-	if self.GW_Fade == 1 && a < 255 then
-		self:SetColor(Color(255, 255, 255, a >= 180 && a + 25 or a + 2))
+	if self.GW_Fade == 1 and a < 255 then
+		self:SetColor(Color(255, 255, 255, a >= 180 and a + 25 or a + 2))
 		if self:GetColor().a >= 255 then
 			self.GW_Fade = 0
 		end
 	-- Fade out animation (On Death)
-	elseif self.GW_Fade == 2 && a > 0 then
+	elseif self.GW_Fade == 2 and a > 0 then
 		self:SetColor(Color(255, 255, 255, math.Clamp(a - 2, 0, 255)))
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:MeleeAttackKnockbackVelocity(ent)
 	return self:GetForward() * math.random(400, 500) + self:GetUp() * (self.GW_MeleeNegKnockback and math.random(-100, -150) or math.random(1000, 1200))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local meleeAngCos = math.cos(math.rad(40))
 local sdMeleeReg = {"vj_hlr/gsrc/npc/geneworm/geneworm_attack_mounted_gun.wav", "vj_hlr/gsrc/npc/geneworm/geneworm_attack_mounted_rocket.wav"}
 --
@@ -296,17 +296,17 @@ function ENT:OnMeleeAttack(status, enemy)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttack(status, enemy)
 	if status == "Init" then
 		self:PlaySoundSystem("BeforeMeleeAttack", "vj_hlr/gsrc/npc/geneworm/geneworm_beam_attack.wav", VJ.EmitSound)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjPos(projectile)
 	return self:GetAttachment(self:LookupAttachment("mouth")).Pos
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjVel(projectile)
 	local ene = self:GetEnemy()
 	local projPos = projectile:GetPos()
@@ -323,7 +323,7 @@ end
 	pain_3 = When orb is destroyed -- Play this then pain_4
 	pain_4 = Spawns shocktrooper -- Can be triggered if it runs out of time or orb is destroyed
 */
----------------------------------------------------------------------------------------------------------------------------------------------
+
 -- Resets everything, including the eye & stomach health, idle animation and NPC state
 function ENT:GW_OrbOpenReset()
 	if self.Dead then return end
@@ -347,13 +347,13 @@ function ENT:GW_OrbOpenReset()
 	end)
 	self:SetState()
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 -- Checks to the health of each eye and sets the skin
 	-- If both are broken, then it will open its stomach
 function ENT:GW_EyeHealthCheck()
 	local r = self.GW_EyeHealth.r
 	local l = self.GW_EyeHealth.l
-	if r <= 0 && l <= 0 then -- If both eyes have health below 1 then open stomach!
+	if r <= 0 and l <= 0 then -- If both eyes have health below 1 then open stomach!
 		self:SetSkin(3)
 		if !self.GW_OrbOpen then
 			self.GW_EyeLightL:Fire("TurnOff")
@@ -378,7 +378,7 @@ function ENT:GW_EyeHealthCheck()
 			self.GW_BE_EyeR.VJ_NPC_Class = self.VJ_NPC_Class
 			self.GW_BE_Orb.VJ_NPC_Class = self.VJ_NPC_Class
 			timer.Create("gw_closestomach" .. self:EntIndex(), 20, 1, function()
-				if IsValid(self) && self.GW_OrbOpen then
+				if IsValid(self) and self.GW_OrbOpen then
 					self:GW_OrbOpenReset()
 					-- Update the class tables for all the bullseyes in case it changed (AGAIN)
 					self.GW_BE_EyeL.VJ_NPC_Class = self.VJ_NPC_Class
@@ -399,12 +399,12 @@ function ENT:GW_EyeHealthCheck()
 		self:SetSkin(1)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDamaged(dmginfo, hitgroup, status)
 	if status == "PreDamage" then
 		if self.GW_Fade == 1 or self:GetSequenceName(self:GetSequence()) == "pain_4" then dmginfo:SetDamage(0) end -- If it's fading in, then don't take damage!
 		-- Left eye
-		if hitgroup == 14 && self.GW_EyeHealth.l > 0 then
+		if hitgroup == 14 and self.GW_EyeHealth.l > 0 then
 			self:SpawnBloodParticles(dmginfo, hitgroup)
 			self.GW_EyeHealth.l = self.GW_EyeHealth.l - dmginfo:GetDamage()
 			//print("Left hit!", self.GW_EyeHealth.l)
@@ -415,7 +415,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 			end
 			dmginfo:SetDamage(0)
 		-- Right eye
-		elseif hitgroup == 15 && self.GW_EyeHealth.r > 0 then
+		elseif hitgroup == 15 and self.GW_EyeHealth.r > 0 then
 			self:SpawnBloodParticles(dmginfo, hitgroup)
 			self.GW_EyeHealth.r = self.GW_EyeHealth.r - dmginfo:GetDamage()
 			//print("Right hit!", self.GW_EyeHealth.r)
@@ -426,7 +426,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 			end
 			dmginfo:SetDamage(0)
 		-- Stomach Orb
-		elseif hitgroup == 69 && self.GW_OrbOpen && self.GW_OrbHealth > 0 then
+		elseif hitgroup == 69 and self.GW_OrbOpen and self.GW_OrbHealth > 0 then
 			self.GW_OrbHealth = self.GW_OrbHealth - dmginfo:GetDamage()
 			if self.GW_OrbHealth <= 0 then
 				timer.Remove("gw_closestomach" .. self:EntIndex())
@@ -446,7 +446,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:GW_CleanUp()
 	timer.Remove("gw_closestomach" .. self:EntIndex())
 	if IsValid(self.GW_EyeLightR) then self.GW_EyeLightR:Remove() end
@@ -456,7 +456,7 @@ function ENT:GW_CleanUp()
 	if IsValid(self.GW_BE_Orb) then self.GW_BE_Orb:Remove() end
 	if IsValid(self.GW_OrbSprite) then self.GW_OrbSprite:Remove() end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local deathParticlePos = Vector(0, 0, -25)
 --
 function ENT:OnDeath(dmginfo, hitgroup, status)
@@ -495,7 +495,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 		end
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:CustomOnRemove()
 	self:GW_CleanUp()
 	if IsValid(self.GW_Portal) then

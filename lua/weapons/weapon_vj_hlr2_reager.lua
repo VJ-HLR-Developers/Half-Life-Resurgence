@@ -32,7 +32,7 @@ SWEP.WorldModelOffsetParams = {
 	Pos = Vector(7.792, -1, -1.882),
 	Ang = Angle(10, 0, -180)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 if CLIENT then
 	if EmissiveSys then
 		EmissiveSys:Add("models/hl_resurgence/hl2/weapons/reager", {
@@ -61,7 +61,7 @@ if CLIENT then
 		cam.End3D()
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:SetupDataTables()
 	self:NetworkVar("Bool", "DrawLaser")
 	self:NetworkVar("Vector", "LaserHitPos")
@@ -70,7 +70,7 @@ function SWEP:SetupDataTables()
 
 	baseclass.Get("weapon_vj_base").SetupDataTables(self)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:Init()
 	self.NextStopFireLoop = CurTime()
 	self.DidStopFireLoops = true
@@ -82,13 +82,13 @@ function SWEP:Init()
 	beam:SetAttachment(1)
 	util.Effect("VJ_HLR_Tracer_Reager", beam)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:OnThink()
 	if CLIENT then return end
 	local curTime = CurTime()
 
 	self:SetDrawLaser(curTime < self.NextStopFireLoop)
-	if !self.DidStopFireLoops && curTime > self.NextStopFireLoop then
+	if !self.DidStopFireLoops and curTime > self.NextStopFireLoop then
 		if self.FireLoop1:IsPlaying() then
 			self.FireLoop1:Stop()
 			VJ.EmitSound(self, "vj_hlr/src/wep/reager/reager_fire_end.wav", 75, 100)
@@ -101,7 +101,7 @@ function SWEP:OnThink()
 	local owner = self:GetOwner()
 	if !IsValid(owner) then return end
 	local targetPos
-	if owner:IsNPC() && IsValid(owner:GetEnemy()) then
+	if owner:IsNPC() and IsValid(owner:GetEnemy()) then
 		targetPos = owner:GetEnemy():GetPos() + owner:GetEnemy():OBBCenter()
 	else
 		local tr = util.TraceLine({
@@ -118,13 +118,13 @@ function SWEP:OnThink()
 	local randPos = targetPos + Vector(math.Rand(-2, 2), math.Rand(-2, 2), math.Rand(-2, 2))
 	self:SetLaserHitPos(randPos)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:OwnerChanged()
 	VJ.STOPSOUND(self.FireLoop1)
 	VJ.STOPSOUND(self.FireLoop2)
 	self:SetDrawLaser(false)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:OnPrimaryAttack(status, statusData)
 	if status == "Init" then
 		if CLIENT then return end
@@ -145,7 +145,7 @@ function SWEP:OnPrimaryAttack(status, statusData)
 		VJ.ApplyRadiusDamage(owner, owner, self:GetLaserHitPos(), 20, 5, DMG_PLASMA, true, true)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:OnReload(s)
 	if s == "Start" then
 		timer.Simple(1.4, function()
@@ -155,7 +155,7 @@ function SWEP:OnReload(s)
 		end)
 	end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:CustomOnRemove()
 	VJ.STOPSOUND(self.FireLoop1)
 	VJ.STOPSOUND(self.FireLoop2)

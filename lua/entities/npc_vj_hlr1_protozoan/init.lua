@@ -18,7 +18,7 @@ ENT.ControllerParams = {
 	FirstP_Bone = "Bone03",
 	FirstP_Offset = Vector()
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.IdleAlwaysWander = true
 ENT.CanOpenDoors = false
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE
@@ -27,11 +27,11 @@ ENT.HasMeleeAttack = false
 ENT.SoundTbl_Idle = {"vj_hlr/gsrc/npc/protozoan/chirp03.wav", "vj_hlr/gsrc/npc/protozoan/chirp04.wav", "vj_hlr/gsrc/npc/protozoan/chirp05.wav", "vj_hlr/gsrc/npc/protozoan/chirp06.wav", "vj_hlr/gsrc/npc/protozoan/chirp07.wav"}
 ENT.SoundTbl_Death = {"vj_hlr/gsrc/npc/protozoan/chirp03.wav", "vj_hlr/gsrc/npc/protozoan/chirp04.wav", "vj_hlr/gsrc/npc/protozoan/chirp05.wav", "vj_hlr/gsrc/npc/protozoan/chirp06.wav", "vj_hlr/gsrc/npc/protozoan/chirp07.wav"}
 ENT.SoundTbl_Impact = {"vj_hlr/gsrc/wep/bullet_hit1.wav", "vj_hlr/gsrc/wep/bullet_hit2.wav"}
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
 	self:SetCollisionBounds(Vector(28, 28, 65), Vector(-28, -28, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
 	if status == "Finish" then
 		//ParticleEffect("vj_hlr_blood_boob_yellow", self:GetPos() + self:OBBCenter(), self:GetAngles())
