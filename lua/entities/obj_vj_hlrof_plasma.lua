@@ -115,5 +115,5 @@ function ENT:OnDestroy(data, phys)
 	//expLight:Spawn()
 	//expLight:Activate()
 	//expLight:Fire("TurnOn")
-	//expLight:Fire("Kill", nil, 0.1)
+	//expLight:Fire("Kill", nil, 0.15)
 end

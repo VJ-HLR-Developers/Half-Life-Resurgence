@@ -105,7 +105,7 @@ function ENT:Tank_OnFireShell(status, statusData)
 				expLight:Spawn()
 				expLight:Activate()
 				expLight:Fire("TurnOn")
-				expLight:Fire("Kill", nil, 0.1)
+				expLight:Fire("Kill", nil, 0.15)
 			end
 		})
 		return true
